@@ -8,6 +8,10 @@ namespace ATIS.Views.Main
     public class DatabaseViewModel : ViewModelBase
     {
         public override string Name => "Database";
-    
+
+        public DatabaseViewModel()
+        {
+            
+        }
     }
 }

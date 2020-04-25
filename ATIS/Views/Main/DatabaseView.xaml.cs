@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ATIS.Views.Database;
 
 namespace ATIS.Views.Main
 {
@@ -20,6 +21,7 @@ namespace ATIS.Views.Main
     {
         public DatabaseView()
         {
+
             InitializeComponent();
         }
     }

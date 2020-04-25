@@ -21,20 +21,50 @@
 
     <Grid>
         <TabControl>
-            <TabItem Header="Fishes" />
-            <TabControl>
-                <TabItem Header="FiSpecies">
-                    <TabItem Content="{Binding Tbl03RegnumsView}" Header="Regnum" />
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Fishes" Foreground="Blue" />
+                    </StackPanel>
+                </TabItem.Header>
+                <TabControl>
 
-                </TabItem>
-            </TabControl>
+                </TabControl>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Phylum" Foreground="Red" />
+                    </StackPanel>
+                </TabItem.Header>
+                <TabControl Margin="1" SelectedIndex="1">
+                    <TabItem>
+                        <TabItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Subphylum" Foreground="Green" />
+                            </StackPanel>
+                        </TabItem.Header>
+                        <TabItem Content="{Binding Tbl03RegnumsView}" Header="Subphylum" />
+                    </TabItem>
+                    <TabItem>
+                        <TabItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Phylum" Foreground="Green" />
+                            </StackPanel>
+                        </TabItem.Header>
+                        <TabItem Content="{Binding Tbl06PhylumsView}" Header="Phylum" />
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Regnum" Foreground="Green" />
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem Content="{Binding Tbl03RegnumsView}" Header="Regnum" />
+            </TabItem>
         </TabControl>
-        <Label
-            x:Name="LbVersion"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Content="Database" />
-        <ContentControl Content="{Binding ElementName=Tbl, Path=SelectedItem}" />
 
     </Grid>
 </UserControl>
