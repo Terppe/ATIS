@@ -5,8 +5,9 @@ using ATIS.Helper;
 
 namespace ATIS.Views.Main
 {
-    public class HomeViewModel : ViewModelBase
+    public class DatabaseViewModel : ViewModelBase
     {
-        public override string Name => "Home";
+        public override string Name => "Database";
+    
     }
 }

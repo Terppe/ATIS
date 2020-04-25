@@ -5,9 +5,60 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ATIS"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:database="clr-namespace:ATIS.Views.Database"
+    xmlns:main="clr-namespace:ATIS.Views.Main"
     Title="MainWindow"
     Width="800"
     Height="450"
     mc:Ignorable="d">
-    <Grid />
+
+    <!--  ############# Connect Views and ViewModels with DataTemplate     -->
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type main:HomeViewModel}">
+            <main:HomeView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type main:DatabaseViewModel}">
+            <main:DatabaseView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type database:Tbl03RegnumsViewModel}">
+            <database:Tbl03RegnumsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type database:Tbl06PhylumsViewModel}">
+            <database:Tbl06PhylumsView />
+        </DataTemplate>
+    </Window.Resources>
+
+    <!--  ############# Basic of Display  -->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+
+        <!--  later change with UWP Element  -->
+        <Expander>
+
+            <ListBox
+                x:Name="ListBoxMenu"
+                Margin="5"
+                ItemsSource="{Binding Settings}"
+                SelectedIndex="0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Padding="10" Text="{Binding Name}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Expander>
+
+        <Border
+            Grid.Column="1"
+            Margin="5"
+            BorderBrush="#FF7F9DB9"
+            BorderThickness="1">
+            <ContentControl Content="{Binding ElementName=ListBoxMenu, Path=SelectedItem}" />
+        </Border>
+
+    </Grid>
 </Window>
