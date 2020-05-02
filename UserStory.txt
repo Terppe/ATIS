@@ -43,7 +43,7 @@ Akzeptanzkriterien:
 	Jetzt mit Aufruf des Bereiches und selektierung über TabControl
 	Database ==> TreeView-Button ==> Regnum, Phylum, Division... Genus, Species ==> tabcontrol
 Status:
-•	Noch nicht implementiert
+•	Noch nicht entgültig implementiert
 •	
 •	
 
