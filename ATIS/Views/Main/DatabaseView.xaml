@@ -9,114 +9,23 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
+<UserControl.Resources>
+    <DataTemplate DataType="{x:Type database:Tbl06PhylumsViewModel}">
+        <database:Tbl06PhylumsView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type database:Tbl03RegnumsViewModel}">
+        <database:Tbl03RegnumsView />
+    </DataTemplate>
 
-    <UserControl.Resources>
-        <DataTemplate DataType="{x:Type database:Tbl06PhylumsViewModel}">
-            <database:Tbl06PhylumsView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type database:Tbl03RegnumsViewModel}">
-            <database:Tbl03RegnumsView />
-        </DataTemplate>
-    </UserControl.Resources>
+</UserControl.Resources>
 
     <Grid>
         <TabControl>
-            <TabItem>
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Foreground="Blue" Text="Fishes" />
-                    </StackPanel>
-                </TabItem.Header>
-                <TabControl>
-                    <TabItem Content="{Binding Tbl66GenussesView}" Header="FiSpecies" />
-                    <TabItem Content="{Binding Tbl66GenussesView}" Header="Genus" />
-                    <TabItem Content="{Binding Tbl68SpeciesgroupsView}" Header="Speciesgroup" />
-                </TabControl>
+            <TabItem Header="Regnums">
+                <database:Tbl03RegnumsViewModel />
             </TabItem>
-            <TabItem>
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Foreground="Blue" Text="Tribusses" />
-                    </StackPanel>
-                </TabItem.Header>
-                <TabControl>
-                    <TabItem Content="{Binding Tbl63InfratribussesView}" Header="Infratribus" />
-                    <TabItem Content="{Binding Tbl60SubtribussesView}" Header="Subtribus" />
-                    <TabItem Content="{Binding Tbl57TribussesView}" Header="Tribus" />
-                    <TabItem Content="{Binding Tbl54SupertribussesView}" Header="Supertribus" />
-                </TabControl>
-            </TabItem>
-            <TabItem>
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Foreground="Blue" Text="Families" />
-                    </StackPanel>
-                </TabItem.Header>
-                <TabControl>
-                    <TabItem Content="{Binding Tbl51InfrafamiliesView}" Header="Infrafamily" />
-                    <TabItem Content="{Binding Tbl48SubfamiliesView}" Header="Subfamily" />
-                    <TabItem Content="{Binding Tbl45FamiliesView}" Header="Family" />
-                    <TabItem Content="{Binding Tbl42SuperfamiliesView}" Header="Superfamily" />
-                </TabControl>
-            </TabItem>
-            <TabItem>
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Foreground="Blue" Text="Ordos" />
-                    </StackPanel>
-                </TabItem.Header>
-                <TabControl>
-                    <TabItem Content="{Binding Tbl39InfraordosView}" Header="Infraordo" />
-                    <TabItem Content="{Binding Tbl36SubordosView}" Header="Subordo" />
-                    <TabItem Content="{Binding Tbl33OrdosView}" Header="Ordo" />
-                    <TabItem Content="{Binding Tbl30LegiosView}" Header="Legio" />
-                </TabControl>
-            </TabItem>
-            <TabItem>
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Foreground="Blue" Text="Classes" />
-                    </StackPanel>
-                </TabItem.Header>
-                <TabControl>
-                    <TabItem Content="{Binding Tbl27InfraclassesView}" Header="Infraclass" />
-                    <TabItem Content="{Binding Tbl24SubclassesView}" Header="Subclass" />
-                    <TabItem Content="{Binding Tbl21ClassesView}" Header="Class" />
-                    <TabItem Content="{Binding Tbl18SuperclassesView}" Header="Superclass" />
-                </TabControl>
-            </TabItem>
-            <TabItem>
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Foreground="Red" Text="Phylum" />
-                    </StackPanel>
-                </TabItem.Header>
-                <TabControl Margin="1" SelectedIndex="1">
-                    <TabItem>
-                        <TabItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Foreground="Green" Text="Subphylum" />
-                            </StackPanel>
-                        </TabItem.Header>
-                        <TabItem Content="{Binding Tbl03RegnumsView}" Header="Subphylum" />
-                    </TabItem>
-                    <TabItem>
-                        <TabItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Foreground="Green" Text="Phylum" />
-                            </StackPanel>
-                        </TabItem.Header>
-                        <TabItem Content="{Binding Tbl06PhylumsView}" Header="Phylum" />
-                    </TabItem>
-                </TabControl>
-            </TabItem>
-            <TabItem>
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Foreground="Green" Text="Regnum" />
-                    </StackPanel>
-                </TabItem.Header>
-                <TabItem Content="{Binding Tbl03RegnumsView}" Header="Regnum" />
+            <TabItem Header="Phylums">
+                <database:Tbl06PhylumsViewModel />
             </TabItem>
         </TabControl>
 

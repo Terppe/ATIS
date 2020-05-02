@@ -21,6 +21,7 @@ namespace ATIS.Views.Main
     {
         public DatabaseView()
         {
+            DataContext = new DatabaseViewModel();
 
             InitializeComponent();
         }

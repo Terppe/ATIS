@@ -20,6 +20,8 @@ namespace ATIS.Views.Main
     {
         public HomeView()
         {
+            DataContext = new HomeViewModel();
+
             InitializeComponent();
         }
     }

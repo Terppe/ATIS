@@ -21,9 +21,6 @@
         <DataTemplate DataType="{x:Type main:DatabaseViewModel}">
             <main:DatabaseView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type database:Tbl03RegnumsViewModel}">
-            <database:Tbl03RegnumsView />
-        </DataTemplate>
         <DataTemplate DataType="{x:Type database:Tbl06PhylumsViewModel}">
             <database:Tbl06PhylumsView />
         </DataTemplate>
