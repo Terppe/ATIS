@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace ATIS.Ui.Core.Models
 {
     public class Tbl03Regnum
     {
+        [Key]
         public int RegnumId { get; set; }
         public string RegnumName { get; set; }
         public string Subregnum { get; set; }

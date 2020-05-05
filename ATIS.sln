@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{550803CD-252
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{886DFE60-3EA3-4BEF-A7C1-C9204C197EED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATIS.UiTests", "ATIS.UiTests\ATIS.UiTests.csproj", "{01D4BB7C-8E35-4DD2-B4F3-9DFE7204848A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,10 @@ Global
 		{CD7B8EFF-9187-4E7D-A9AD-7E55962E11AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD7B8EFF-9187-4E7D-A9AD-7E55962E11AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD7B8EFF-9187-4E7D-A9AD-7E55962E11AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01D4BB7C-8E35-4DD2-B4F3-9DFE7204848A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01D4BB7C-8E35-4DD2-B4F3-9DFE7204848A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01D4BB7C-8E35-4DD2-B4F3-9DFE7204848A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01D4BB7C-8E35-4DD2-B4F3-9DFE7204848A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
