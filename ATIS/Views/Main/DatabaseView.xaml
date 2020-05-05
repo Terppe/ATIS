@@ -1,20 +1,19 @@
 ﻿<UserControl
-    x:Class="ATIS.Views.Main.DatabaseView"
+    x:Class="ATIS.Ui.Views.Main.DatabaseView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:database="clr-namespace:ATIS.Views.Database"
-    xmlns:local="clr-namespace:ATIS.Views.Main"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:database1="clr-namespace:ATIS.Ui.Views.Database"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
 <UserControl.Resources>
-    <DataTemplate DataType="{x:Type database:Tbl06PhylumsViewModel}">
-        <database:Tbl06PhylumsView />
+    <DataTemplate DataType="{x:Type database1:Tbl06PhylumsViewModel}">
+        <database1:Tbl06PhylumsView />
     </DataTemplate>
-    <DataTemplate DataType="{x:Type database:Tbl03RegnumsViewModel}">
-        <database:Tbl03RegnumsView />
+    <DataTemplate DataType="{x:Type database1:Tbl03RegnumsViewModel}">
+        <database1:Tbl03RegnumsView />
     </DataTemplate>
 
 </UserControl.Resources>
@@ -22,10 +21,10 @@
     <Grid>
         <TabControl>
             <TabItem Header="Regnums">
-                <database:Tbl03RegnumsViewModel />
+                <database1:Tbl03RegnumsViewModel />
             </TabItem>
             <TabItem Header="Phylums">
-                <database:Tbl06PhylumsViewModel />
+                <database1:Tbl06PhylumsViewModel />
             </TabItem>
         </TabControl>
 

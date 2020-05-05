@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Text;
 
-namespace ATIS.Helper
+namespace ATIS.Ui.Helper
 {
     /// <summary>
     /// This is the abstract base class for any object that provides property change notifications.

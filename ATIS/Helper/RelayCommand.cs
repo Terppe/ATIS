@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using System.Windows.Input;
 
-namespace ATIS.Helper
+namespace ATIS.Ui.Helper
 {
     /// <summary>
     /// A command whose sole purpose is to 

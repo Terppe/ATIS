@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
-using ATIS.Helper;
-using ATIS.Views.Database;
+﻿using System.Collections.ObjectModel;
+using ATIS.Ui.Helper;
+using ATIS.Ui.Views.Database;
 
-namespace ATIS.Views.Main
+namespace ATIS.Ui.Views.Main
 {
     public class MainWindowViewModel : ViewModelBase
     {

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ATIS.Helper;
+﻿using ATIS.Ui.Helper;
 
-namespace ATIS.Views.Main
+namespace ATIS.Ui.Views.Main
 {
     public class HomeViewModel : ViewModelBase
     {

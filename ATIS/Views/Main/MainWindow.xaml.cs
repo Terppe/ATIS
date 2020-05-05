@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace ATIS.Views.Main
+namespace ATIS.Ui.Views.Main
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
