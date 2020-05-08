@@ -5,8 +5,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ATIS"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:main1="clr-namespace:ATIS.Ui.Views.Main"
-    xmlns:database1="clr-namespace:ATIS.Ui.Views.Database"
+    xmlns:main="clr-namespace:ATIS.Ui.Views.Main"
+    xmlns:database="clr-namespace:ATIS.Ui.Views.Database"
+    xmlns:d06Phylum="clr-namespace:ATIS.Ui.Views.Database.D06Phylum"
     Title="MainWindow"
     Width="800"
     Height="450"
@@ -15,14 +16,14 @@
     <!--  ############# Connect Views and ViewModels with DataTemplate     -->
 
     <Window.Resources>
-        <DataTemplate DataType="{x:Type main1:HomeViewModel}">
-            <main1:HomeView />
+        <DataTemplate DataType="{x:Type main:HomeViewModel}">
+            <main:HomeView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type main1:DatabaseViewModel}">
-            <main1:DatabaseView />
+        <DataTemplate DataType="{x:Type main:DatabaseViewModel}">
+            <main:DatabaseView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type database1:Tbl06PhylumsViewModel}">
-            <database1:Tbl06PhylumsView />
+        <DataTemplate DataType="{x:Type d06Phylum:PhylumsViewModel}">
+            <d06Phylum:PhylumsView />
         </DataTemplate>
     </Window.Resources>
 

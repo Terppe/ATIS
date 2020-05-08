@@ -5,15 +5,17 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:database="clr-namespace:ATIS.Ui.Views.Database"
+    xmlns:d03Regnum="clr-namespace:ATIS.Ui.Views.Database.D03Regnum"
+    xmlns:d06Phylum="clr-namespace:ATIS.Ui.Views.Database.D06Phylum"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
 <UserControl.Resources>
-    <DataTemplate DataType="{x:Type database:Tbl06PhylumsViewModel}">
-        <database:Tbl06PhylumsView />
+    <DataTemplate DataType="{x:Type d06Phylum:PhylumsViewModel}">
+        <d06Phylum:PhylumsView />
     </DataTemplate>
-    <DataTemplate DataType="{x:Type database:Tbl03RegnumsViewModel}">
-        <database:Tbl03RegnumsView />
+    <DataTemplate DataType="{x:Type d03Regnum:RegnumsViewModel}">
+        <d03Regnum:RegnumsView />
     </DataTemplate>
 
 </UserControl.Resources>
@@ -21,10 +23,10 @@
     <Grid>
         <TabControl>
             <TabItem Header="Regnums">
-                <database:Tbl03RegnumsViewModel />
+                <d03Regnum:RegnumsViewModel />
             </TabItem>
             <TabItem Header="Phylums">
-                <database:Tbl06PhylumsViewModel />
+                <d06Phylum:PhylumsViewModel />
             </TabItem>
         </TabControl>
 
