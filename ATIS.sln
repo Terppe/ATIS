@@ -10,11 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		UserStory.txt = UserStory.txt
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{550803CD-2523-4D3C-A04D-D42BA1649B3A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{886DFE60-3EA3-4BEF-A7C1-C9204C197EED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATIS.UiTests", "ATIS.UiTests\ATIS.UiTests.csproj", "{01D4BB7C-8E35-4DD2-B4F3-9DFE7204848A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ATIS.UiTests", "ATIS.UiTests\ATIS.UiTests.csproj", "{01D4BB7C-8E35-4DD2-B4F3-9DFE7204848A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +31,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{CD7B8EFF-9187-4E7D-A9AD-7E55962E11AE} = {550803CD-2523-4D3C-A04D-D42BA1649B3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C3343203-9894-4754-96D7-CC0FF0254643}
