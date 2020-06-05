@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Database;
+using ATIS.Ui.Views.Database.D03Regnum;
 using ATIS.Ui.Views.Database.D06Phylum;
 
 namespace ATIS.Ui.Views.Main
@@ -19,6 +20,8 @@ namespace ATIS.Ui.Views.Main
 
             Settings.Add(new HomeViewModel());
             Settings.Add(new DatabaseViewModel());
+            Settings.Add(new RegnumsViewModel());
+            Settings.Add(new RegnumsViewModel1());
             Settings.Add(new PhylumsViewModel());
 
 

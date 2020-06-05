@@ -8,7 +8,6 @@ using ATIS.DAL.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using Microsoft.EntityFrameworkCore;
-using Tbl03Regnum = ATIS.Ui.Core.Models.Tbl03Regnum;
 
 namespace ATIS.Ui.Views.Database.D03Regnum
 {

@@ -3,7 +3,6 @@ using System.Reflection;
 using ATIS.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Tbl03Regnum = ATIS.Ui.Core.Models.Tbl03Regnum;
 
 namespace ATIS.Ui.Core
 {
@@ -43,8 +42,8 @@ namespace ATIS.Ui.Core
 
         //connectionstring place extern later
 
-
         public DbSet<Tbl03Regnum> Tbl03Regnums { get; set; }
+
         public DbSet<Tbl06Phylum> Tbl06Phylums { get; set; }
         public DbSet<Tbl09Division> Tbl09Divisions { get; set; }
         public DbSet<Tbl12Subphylum> Tbl12Subphylums { get; set; }

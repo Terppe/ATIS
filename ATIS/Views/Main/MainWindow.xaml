@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:main="clr-namespace:ATIS.Ui.Views.Main"
     xmlns:d06Phylum="clr-namespace:ATIS.Ui.Views.Database.D06Phylum"
+    xmlns:d03Regnum="clr-namespace:ATIS.Ui.Views.Database.D03Regnum"
     Title="ATIS"
     Width="1500"
     Height="850"
@@ -21,6 +22,12 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type main:DatabaseViewModel}">
             <main:DatabaseView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d03Regnum:RegnumsViewModel}">
+            <d03Regnum:RegnumsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d03Regnum:RegnumsViewModel1}">
+            <d03Regnum:RegnumsView1 />
         </DataTemplate>
         <DataTemplate DataType="{x:Type d06Phylum:PhylumsViewModel}">
             <d06Phylum:PhylumsView />

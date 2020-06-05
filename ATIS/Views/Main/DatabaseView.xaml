@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:database="clr-namespace:ATIS.Ui.Views.Database"
     xmlns:d03Regnum="clr-namespace:ATIS.Ui.Views.Database.D03Regnum"
     xmlns:d06Phylum="clr-namespace:ATIS.Ui.Views.Database.D06Phylum"
     d:DesignHeight="450"
@@ -24,6 +23,9 @@
         <TabControl>
             <TabItem Header="Regnums">
                 <d03Regnum:RegnumsViewModel />
+            </TabItem>
+            <TabItem Header="Regnums 1">
+                <d03Regnum:RegnumsViewModel1 />
             </TabItem>
             <TabItem Header="Phylums">
                 <d06Phylum:PhylumsViewModel />

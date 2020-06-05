@@ -41,4 +41,10 @@
     <ProjectReference Include="..\ATIS.SearchTextBox\SearchTextBox.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>bin\Debug\netcoreapp3.1\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
