@@ -1,8 +1,9 @@
 ﻿using System.IO;
 using System.Reflection;
-using ATIS.Ui.Core.Models;
+using ATIS.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Tbl03Regnum = ATIS.Ui.Core.Models.Tbl03Regnum;
 
 namespace ATIS.Ui.Core
 {
@@ -44,6 +45,15 @@ namespace ATIS.Ui.Core
 
 
         public DbSet<Tbl03Regnum> Tbl03Regnums { get; set; }
+        public DbSet<Tbl06Phylum> Tbl06Phylums { get; set; }
+        public DbSet<Tbl09Division> Tbl09Divisions { get; set; }
+        public DbSet<Tbl12Subphylum> Tbl12Subphylums { get; set; }
+        public DbSet<Tbl15Subdivision> Tbl15Subdivisions { get; set; }
+        public DbSet<Tbl90Reference> Tbl90References { get; set; }
+        public DbSet<Tbl90RefAuthor> Tbl90RefAuthors { get; set; }
+        public DbSet<Tbl90RefExpert> Tbl90RefExperts { get; set; }
+        public DbSet<Tbl90RefSource> Tbl90RefSources { get; set; }
+        public DbSet<Tbl93Comment> Tbl93Comments { get; set; }
 
     }
 

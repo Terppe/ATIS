@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--  Styles  -->
+    <Style x:Key="AtisFlatButton" TargetType="{x:Type Button}">
+
+        <Setter Property="Margin" Value="2" />
+        <Setter Property="Width" Value="50" />
+        <Setter Property="Height" Value="24" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="FontFamily" Value="Verdana" />
+        <Setter Property="FontSize" Value="11px" />
+        <Setter Property="FontWeight" Value="ExtraLight" />
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Offset="0.2" Color="#FFFFD190" />
+                    <GradientStop Offset="0.85" Color="Orange" />
+                    <GradientStop Offset="1" Color="#FFFFD190" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
