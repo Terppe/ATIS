@@ -38,6 +38,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ATIS.DAL\ATIS.DAL.csproj" />
+    <ProjectReference Include="..\ATIS.SearchTextBox\SearchTextBox.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:main="clr-namespace:ATIS.Ui.Views.Main"
     xmlns:d06Phylum="clr-namespace:ATIS.Ui.Views.Database.D06Phylum"
-    Title="MainWindow"
+    Title="ATIS"
     Width="1500"
     Height="850"
     WindowStartupLocation="CenterScreen"
