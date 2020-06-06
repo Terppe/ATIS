@@ -157,83 +157,109 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 ret = false;
             }
 
-            ReferenceExpertsCollection = new ObservableCollection<Tbl90Reference>(_db.Tbl90References.Where(
-                x => x.RegnumId == _selectedRegnum.RegnumId && x.RefSourceId == null && x.RefAuthorId == null));
-            if (ReferenceExpertsCollection.Count > 0)
+            //Delete all Expert, Source, Authors
+            ReferencesCollection = new ObservableCollection<Tbl90Reference>(_db.Tbl90References.Where(a => a.RegnumId == _selectedRegnum.RegnumId));
+            if (ReferencesCollection.Count > 0)
             {
-                if (MessageBox.Show("DeleteQuestion1", "DeleteQuestion" + " " + "ReferenceExpert",
-                        MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
+                if (MessageBox.Show("Wollen Sie die Datensätze löschen ?", "Reference Author, Reference Source, Reference Expert" + " " + "ConnectedDataset",
+                        MessageBoxButton.YesNo, MessageBoxImage.Question) !=
+                    MessageBoxResult.Yes)
                     return;
 
-                foreach (var t in ReferenceExpertsCollection)
+                foreach (var t in ReferencesCollection)
                 {
                     _db.Tbl90References.Remove(t);
                 }
-
                 _db.SaveChanges();
 
-                MessageBox.Show("DeleteSuccess", "ReferenceExpert",
+                MessageBox.Show("DeleteSuccess", "Reference",
                     MessageBoxButton.OK, MessageBoxImage.Information);
 
-                ReferenceExpertsCollection = new ObservableCollection<Tbl90Reference>(_db.Tbl90References.Where(
-                    x => x.RegnumId == _selectedRegnum.RegnumId && x.RefSourceId == null && x.RefAuthorId == null));
+                ReferencesCollection = new ObservableCollection<Tbl90Reference>(_db.Tbl90References.Where(x => x.RegnumId == _selectedRegnum.RegnumId));
 
-                RaisePropertyChanged("ReferenceExpertsCollection");
+                RaisePropertyChanged("ReferencesCollection");
 
                 ret = true;
             }
 
-            ReferenceAuthorsCollection = new ObservableCollection<Tbl90Reference>(_db.Tbl90References.Where(
-                x => x.RegnumId == _selectedRegnum.RegnumId && x.RefSourceId == null && x.RefExpertId == null));
-            if (ReferenceAuthorsCollection.Count > 0)
-            {
-                if (MessageBox.Show("DeleteQuestion1", "DeleteQuestion" + " " + "ReferenceAuthor",
-                        MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
-                    return;
+            // alternate seperate T
+            //ReferenceExpertsCollection = new ObservableCollection<Tbl90Reference>(_db.Tbl90References.Where(
+            //    x => x.RegnumId == _selectedRegnum.RegnumId && x.RefSourceId == null && x.RefAuthorId == null));
+            //if (ReferenceExpertsCollection.Count > 0)
+            //{
+            //    if (MessageBox.Show("DeleteQuestion1", "DeleteQuestion" + " " + "ReferenceExpert",
+            //            MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
+            //        return;
 
-                foreach (var t in ReferenceAuthorsCollection)
-                {
-                    _db.Tbl90References.Remove(t);
-                }
+            //    foreach (var t in ReferenceExpertsCollection)
+            //    {
+            //        _db.Tbl90References.Remove(t);
+            //    }
 
-                _db.SaveChanges();
+            //    _db.SaveChanges();
 
-                MessageBox.Show("DeleteSuccess", "ReferenceAuthor",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+            //    MessageBox.Show("DeleteSuccess", "ReferenceExpert",
+            //        MessageBoxButton.OK, MessageBoxImage.Information);
 
-                ReferenceAuthorsCollection = new ObservableCollection<Tbl90Reference>(_db.Tbl90References.Where(
-                    x => x.RegnumId == _selectedRegnum.RegnumId && x.RefSourceId == null && x.RefExpertId == null));
+            //    ReferenceExpertsCollection = new ObservableCollection<Tbl90Reference>(_db.Tbl90References.Where(
+            //        x => x.RegnumId == _selectedRegnum.RegnumId && x.RefSourceId == null && x.RefAuthorId == null));
 
-                RaisePropertyChanged("ReferenceAuthorsCollection");
+            //    RaisePropertyChanged("ReferenceExpertsCollection");
 
-                ret = true;
-            }
+            //    ret = true;
+            //}
 
-            ReferenceSourcesCollection = new ObservableCollection<Tbl90Reference>(_db.Tbl90References.Where(
-                x => x.RegnumId == _selectedRegnum.RegnumId && x.RefAuthorId == null && x.RefExpertId == null));
-            if (ReferenceSourcesCollection.Count > 0)
-            {
-                if (MessageBox.Show("DeleteQuestion1", "DeleteQuestion" + " " + "ReferenceSource",
-                        MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
-                    return;
+            //ReferenceAuthorsCollection = new ObservableCollection<Tbl90Reference>(_db.Tbl90References.Where(
+            //    x => x.RegnumId == _selectedRegnum.RegnumId && x.RefSourceId == null && x.RefExpertId == null));
+            //if (ReferenceAuthorsCollection.Count > 0)
+            //{
+            //    if (MessageBox.Show("DeleteQuestion1", "DeleteQuestion" + " " + "ReferenceAuthor",
+            //            MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
+            //        return;
 
-                foreach (var t in ReferenceSourcesCollection)
-                {
-                    _db.Tbl90References.Remove(t);
-                }
+            //    foreach (var t in ReferenceAuthorsCollection)
+            //    {
+            //        _db.Tbl90References.Remove(t);
+            //    }
 
-                _db.SaveChanges();
+            //    _db.SaveChanges();
 
-                MessageBox.Show("DeleteSuccess", "ReferenceSource",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+            //    MessageBox.Show("DeleteSuccess", "ReferenceAuthor",
+            //        MessageBoxButton.OK, MessageBoxImage.Information);
 
-                ReferenceSourcesCollection = new ObservableCollection<Tbl90Reference>(_db.Tbl90References.Where(
-                    x => x.RegnumId == _selectedRegnum.RegnumId && x.RefAuthorId == null && x.RefExpertId == null));
+            //    ReferenceAuthorsCollection = new ObservableCollection<Tbl90Reference>(_db.Tbl90References.Where(
+            //        x => x.RegnumId == _selectedRegnum.RegnumId && x.RefSourceId == null && x.RefExpertId == null));
 
-                RaisePropertyChanged("ReferenceSourcesCollection");
+            //    RaisePropertyChanged("ReferenceAuthorsCollection");
 
-                ret = true;
-            }
+            //    ret = true;
+            //}
+
+            //ReferenceSourcesCollection = new ObservableCollection<Tbl90Reference>(_db.Tbl90References.Where(
+            //    x => x.RegnumId == _selectedRegnum.RegnumId && x.RefAuthorId == null && x.RefExpertId == null));
+            //if (ReferenceSourcesCollection.Count > 0)
+            //{
+            //    if (MessageBox.Show("DeleteQuestion1", "DeleteQuestion" + " " + "ReferenceSource",
+            //            MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
+            //        return;
+
+            //    foreach (var t in ReferenceSourcesCollection)
+            //    {
+            //        _db.Tbl90References.Remove(t);
+            //    }
+
+            //    _db.SaveChanges();
+
+            //    MessageBox.Show("DeleteSuccess", "ReferenceSource",
+            //        MessageBoxButton.OK, MessageBoxImage.Information);
+
+            //    ReferenceSourcesCollection = new ObservableCollection<Tbl90Reference>(_db.Tbl90References.Where(
+            //        x => x.RegnumId == _selectedRegnum.RegnumId && x.RefAuthorId == null && x.RefExpertId == null));
+
+            //    RaisePropertyChanged("ReferenceSourcesCollection");
+
+            //    ret = true;
+            //}
 
             CommentsCollection = new ObservableCollection<Tbl93Comment>(_db.Tbl93Comments.Where(x => x.RegnumId == _selectedRegnum.RegnumId));
             if (CommentsCollection.Count > 0)
@@ -292,6 +318,8 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             }
             ExecuteGetRegnumsByNameOrId(searchName);
         }
+
+
         private void ExecuteSaveRegnum(string searchName)
         {
             if (_selectedRegnum == null && RegnumsCollection.Count > 0) //No dataset selected and table emty
@@ -1517,6 +1545,13 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         public ObservableCollection<Tbl90RefExpert> ExpertsCollection { get; set; }
 
         #endregion "Public Properties "
+
+        #region Public Properties Tbl90Reference
+
+        public ObservableCollection<Tbl90Reference> ReferencesCollection { get; set; }
+
+
+        #endregion
 
         #region "Public Properties Tbl90ReferenceAuthor"
 
