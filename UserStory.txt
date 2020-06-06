@@ -42,6 +42,7 @@ Akzeptanzkriterien:
 	da doch sehr aufwändig, da in verschiedenen Ebenen der Button-Down-Event auszulösen ist.
 	Jetzt mit Aufruf des Bereiches und selektierung über TabControl
 	Database ==> TreeView-Button ==> Regnum, Phylum, Division... Genus, Species ==> tabcontrol
+	Später durch Moderne Oberfläche mit Hamburger Menü ähnlich MaterialDesign von Butcher wie Fluent. Ähnlich UWP ersetzen
 Status:
 •	Noch nicht entgültig implementiert
 •	
@@ -53,6 +54,7 @@ Titel: Datenbank- Anbindung
 Story: Datenbank ATIS34 soll mit ConnectionString eingebunden werden 
 Akzeptanzkriterien:
 	* Versuch mit Dapper Verbindung hergestellt
+	* AtisDbContext 
 	* Version mit Generic versuchen
 Status:
 •	Bei MainWindow.cs connectionString und Verbindung zur Datenbank hergestellt

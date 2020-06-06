@@ -34,9 +34,9 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         #region "Public Commands Basic Tbl03Regnum"
         //-------------------------------------------------------------------------
-        private RelayCommand _clearRegnumCommand;
+        //private RelayCommand _clearRegnumCommand;
 
-        public ICommand ClearRegnumCommand => _clearRegnumCommand ??= new RelayCommand(delegate { ClearRegnum(null); });
+        //public ICommand ClearRegnumCommand => _clearRegnumCommand ??= new RelayCommand(delegate { ClearRegnum(null); });
 
         private RelayCommand _getRegnumsByNameOrIdCommand;
 
@@ -73,17 +73,13 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 RegnumsList?.Clear();
                 if (SearchRegnumName == "*") // show whole table
                 {
-                    SearchRegnumName = "";
                     RegnumsList = new ObservableCollection<Tbl03Regnum>(_context.Tbl03Regnums.ToList());
-
-                    SearchRegnumName = "*";
                 }
                 else
                 {
                     RegnumsList = int.TryParse(SearchRegnumName, out var id)
                         ? new ObservableCollection<Tbl03Regnum>(_context.Tbl03Regnums
-                            .Where(e => e.RegnumId == id)
-                            .OrderBy(a => a.RegnumName + a.Subregnum))
+                            .Where(e => e.RegnumId == id))
                         : new ObservableCollection<Tbl03Regnum>(_context.Tbl03Regnums
                             .Where(e => e.RegnumName.StartsWith(SearchRegnumName))
                             .OrderBy(a => a.RegnumName + a.Subregnum)

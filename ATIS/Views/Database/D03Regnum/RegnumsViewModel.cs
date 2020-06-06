@@ -84,7 +84,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         }
         private void ExecuteAddRegnum(object o)
         {
-            if (_selectedRegnum == null)
+            if (_selectedRegnum == null && RegnumsCollection.Count > 0) //No dataset selected and table emty
             {
                 MessageBox.Show("Select Regnum",
                     "Required select",
@@ -294,7 +294,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         }
         private void ExecuteSaveRegnum(string searchName)
         {
-            if (_selectedRegnum == null)
+            if (_selectedRegnum == null && RegnumsCollection.Count > 0) //No dataset selected and table emty
             {
                 MessageBox.Show("NewDataset",
                     "RequiredInput",
@@ -306,7 +306,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             {
                 if (regnum != null) //update
                 {
-                    regnum.RegnumName = SelectedRegnum.RegnumName;
+                    regnum.RegnumName = _selectedRegnum.RegnumName;
                     regnum.Subregnum = _selectedRegnum.Subregnum;
                     regnum.Valid = _selectedRegnum.Valid;
                     regnum.ValidYear = _selectedRegnum.ValidYear;
