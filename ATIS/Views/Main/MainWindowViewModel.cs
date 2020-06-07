@@ -23,6 +23,7 @@ namespace ATIS.Ui.Views.Main
             Settings.Add(new RegnumsViewModel());
             Settings.Add(new RegnumsViewModel1());
             Settings.Add(new PhylumsViewModel());
+            Settings.Add(new PhylumsViewModel1());
 
 
         }

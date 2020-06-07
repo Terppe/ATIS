@@ -42,6 +42,16 @@ namespace ATIS.Ui.Core.Repositories_UOW
             _entities.AddRange(entities);
         }
 
+        public void Update(T entity)
+        {
+            _entities.Update(entity);
+        }
+
+        public void UpdateRange(IEnumerable<T> entities)
+        {
+            _entities.UpdateRange(entities);
+        }
+
         public void Remove(T entity)
         {
             _entities.Remove(entity);

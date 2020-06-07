@@ -13,10 +13,16 @@
     <DataTemplate DataType="{x:Type d06Phylum:PhylumsViewModel}">
         <d06Phylum:PhylumsView />
     </DataTemplate>
+    <DataTemplate DataType="{x:Type d06Phylum:PhylumsViewModel1}">
+        <d06Phylum:PhylumsView1 />
+    </DataTemplate>
     <DataTemplate DataType="{x:Type d03Regnum:RegnumsViewModel}">
         <d03Regnum:RegnumsView />
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type d03Regnum:RegnumsViewModel1}">
+        <d03Regnum:RegnumsView1 />
+    </DataTemplate>
 </UserControl.Resources>
 
     <Grid>
@@ -29,6 +35,9 @@
             </TabItem>
             <TabItem Header="Phylums">
                 <d06Phylum:PhylumsViewModel />
+            </TabItem>
+            <TabItem Header="Phylums 1">
+                <d06Phylum:PhylumsViewModel1 />
             </TabItem>
         </TabControl>
 

@@ -16,6 +16,10 @@ namespace ATIS.Ui.Core.Interfaces_UOW
 
         void AddRange(IEnumerable<T> entities);
 
+        void Update(T entity);
+
+        void UpdateRange(IEnumerable<T> entities);
+
         void Remove(T entity);
 
         void RemoveRange(IEnumerable<T> entities);
