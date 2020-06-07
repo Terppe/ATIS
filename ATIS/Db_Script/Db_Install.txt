@@ -1,4 +1,6 @@
 ﻿
 Zuerst Ordner DB_FS_ATIS35 in Laufwerk D: erzeugen
-ATIS35_Db_Tabellen_Script.sql starten
-Tbl03Regnum erste Tabelle mit Daten füllen
+
+https://www.telerik.com/support/kb/aspnet-ajax/details/import-and-export-sql-database-to-.sql-script-via-sql-management-studio
+
+ATIS35_Db_Tabellen_Data_Script.sql starten

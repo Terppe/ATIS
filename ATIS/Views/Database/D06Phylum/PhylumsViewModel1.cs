@@ -22,13 +22,9 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         private UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly AtisDbContext _context = new AtisDbContext();
 
-        //private readonly IGenericRepository<Tbl06Phylum> _repPhylumRepository = null;
-        //private readonly IGenericRepository<Tbl03Regnum> _repRegnumRepository = null;
 
         public PhylumsViewModel1()
         {
-            //_repPhylumRepository = new GenericRepository<Tbl06Phylum>();
-            //_repRegnumRepository = new GenericRepository<Tbl03Regnum>();
             RegnumsCollection = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums.GetAll());
         }
 
@@ -62,13 +58,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             if (PhylumsCollection == null)
                 PhylumsCollection = new ObservableCollection<Tbl06Phylum>();
 
-            //if (SelectedPhylum == null && PhylumsCollection.Count > 0) //No dataset selected and table emty
-            //{
-            //    MessageBox.Show("Select Phylum",
-            //        "Required select",
-            //        MessageBoxButton.OK, MessageBoxImage.Information);
-            //    return;
-            //}
 
             RegnumsCollection = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums.GetAll());
 
@@ -111,7 +100,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void ExecuteDeletePhylum(object o)
         {
-            if (SelectedPhylum == null && PhylumsCollection.Count > 0) //No dataset selected and table emty
+            if (SelectedPhylum == null) //No dataset selected 
             {
                 MessageBox.Show("Select Phylum",
                     "Required select",
@@ -136,7 +125,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void ExecuteSavePhylum(object o)
         {
-            if (SelectedPhylum == null && PhylumsCollection.Count > 0) //No dataset selected and table emty
+            if (SelectedPhylum == null) //No dataset selected
             {
                 MessageBox.Show("Select Phylum",
                 "Required select",

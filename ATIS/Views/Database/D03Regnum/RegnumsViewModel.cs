@@ -84,7 +84,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         }
         private void ExecuteAddRegnum(object o)
         {
-            if (_selectedRegnum == null && RegnumsCollection.Count > 0) //No dataset selected and table emty
+            if (_selectedRegnum == null) //No dataset selected 
             {
                 MessageBox.Show("Select Regnum",
                     "Required select",
@@ -321,7 +321,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteSaveRegnum(string searchName)
         {
-            if (_selectedRegnum == null && RegnumsCollection.Count > 0) //No dataset selected and table emty
+            if (_selectedRegnum == null) //No dataset selected
             {
                 MessageBox.Show("NewDataset",
                     "RequiredInput",
