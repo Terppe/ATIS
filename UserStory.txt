@@ -55,7 +55,7 @@ Story: Datenbank ATIS35 soll mit ConnectionString eingebunden werden
 Akzeptanzkriterien:
 	* Versuch mit Dapper Verbindung hergestellt
 	* AtisDbContext 
-	* Version mit Generic versuchen
+	* Version mit Generic und UOW versuchen
 Status:
 •	Bei MainWindow.cs connectionString und Verbindung zur Datenbank hergestellt
 •	"MyDbConnection": "server=.\\SQLEXPRESS;database=ATIS35;trusted_connection=true;" in appsettings.json eingefügt
@@ -73,6 +73,17 @@ Status:
 •	
 •	
 
+***************************************
+
+Titel: SearchTextBox Biliothek eingefügt
+Story:  
+Akzeptanzkriterien:
+	* 
+Status:
+•	 implementiert aber noch nicht fertig
+•	
+•	
+
 
 ***************************************
 Titel: Ersatz für Property settings
@@ -87,7 +98,7 @@ Status:
 
 ***************************************
 
-Titel: Display
+Titel: Display mit hamburger menü Fluent Moderne Oberfläche
 Story: Wie UWP mit Windows-Community-Toolkit und Windows-UI-Bibliothek usw
 Akzeptanzkriterien:
 	* Windows-Community-Toolkit Version 6.0 lässt sich nicht bei CORE 3.1 installieren
