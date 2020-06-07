@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace ATIS.Ui.Core.Interfaces
+namespace ATIS.Ui.Core.Interfaces_UOW
 {
     public interface IUnitOfWork : IDisposable
     {

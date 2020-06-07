@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using ATIS.DAL.Models;
 using ATIS.Ui.Core.Interfaces;
+using ATIS.Ui.Core.Interfaces_UOW;
 
-namespace ATIS.Ui.Core.Repositories
+namespace ATIS.Ui.Core.Repositories_UOW
 {
     public class Tbl03RegnumRepository : Repository<Tbl03Regnum>, ITbl03RegnumRepository
     {

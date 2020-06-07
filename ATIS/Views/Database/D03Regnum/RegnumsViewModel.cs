@@ -319,7 +319,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             ExecuteGetRegnumsByNameOrId(searchName);
         }
 
-
         private void ExecuteSaveRegnum(string searchName)
         {
             if (_selectedRegnum == null && RegnumsCollection.Count > 0) //No dataset selected and table emty

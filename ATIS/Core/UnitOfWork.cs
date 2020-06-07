@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using ATIS.Ui.Core.Interfaces;
+using ATIS.Ui.Core.Interfaces_UOW;
 using ATIS.Ui.Core.Repositories;
+using ATIS.Ui.Core.Repositories_UOW;
 
 namespace ATIS.Ui.Core
 {
