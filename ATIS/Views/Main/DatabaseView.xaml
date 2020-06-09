@@ -3,27 +3,30 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d03Regnum="clr-namespace:ATIS.Ui.Views.Database.D03Regnum"
     xmlns:d06Phylum="clr-namespace:ATIS.Ui.Views.Database.D06Phylum"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-<UserControl.Resources>
-    <DataTemplate DataType="{x:Type d06Phylum:PhylumsViewModel}">
-        <d06Phylum:PhylumsView />
-    </DataTemplate>
-    <DataTemplate DataType="{x:Type d06Phylum:PhylumsViewModel1}">
-        <d06Phylum:PhylumsView1 />
-    </DataTemplate>
-    <DataTemplate DataType="{x:Type d03Regnum:RegnumsViewModel}">
-        <d03Regnum:RegnumsView />
-    </DataTemplate>
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type d06Phylum:PhylumsViewModel}">
+            <d06Phylum:PhylumsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d06Phylum:PhylumsViewModel1}">
+            <d06Phylum:PhylumsView1 />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d06Phylum:PhylumsViewModel2}">
+            <d06Phylum:PhylumsView2 />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d03Regnum:RegnumsViewModel}">
+            <d03Regnum:RegnumsView />
+        </DataTemplate>
 
-    <DataTemplate DataType="{x:Type d03Regnum:RegnumsViewModel1}">
-        <d03Regnum:RegnumsView1 />
-    </DataTemplate>
-</UserControl.Resources>
+        <DataTemplate DataType="{x:Type d03Regnum:RegnumsViewModel1}">
+            <d03Regnum:RegnumsView1 />
+        </DataTemplate>
+    </UserControl.Resources>
 
     <Grid>
         <TabControl>
@@ -38,6 +41,9 @@
             </TabItem>
             <TabItem Header="Phylums 1">
                 <d06Phylum:PhylumsViewModel1 />
+            </TabItem>
+            <TabItem Header="Phylums 2">
+                <d06Phylum:PhylumsViewModel2 />
             </TabItem>
         </TabControl>
 

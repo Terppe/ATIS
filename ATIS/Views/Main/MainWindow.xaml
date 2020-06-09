@@ -35,6 +35,9 @@
         <DataTemplate DataType="{x:Type d06Phylum:PhylumsViewModel1}">
             <d06Phylum:PhylumsView1 />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type d06Phylum:PhylumsViewModel2}">
+            <d06Phylum:PhylumsView2 />
+        </DataTemplate>
     </Window.Resources>
 
     <!--  ############# Basic of Display  -->
