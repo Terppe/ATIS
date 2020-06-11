@@ -64,9 +64,21 @@ Status:
 
 ***************************************
 
+Titel: TextBox Style ändern
+Story: Bei MaterialDesign gibt es eine TextBox die das Label anzeigt und bei Füllen der textbox das label ganz klein über dem Eingabefeld anzeigt. 
+		Spart Platz und finde ich toll.
+Akzeptanzkriterien: Bei Core 3.1 nicht mehr vorhanden. Muss anders gelöst werden
+	* 
+Status:
+•	Noch nicht implementiert
+•	
+•	
+
+***************************************
+
 Titel: Versionscontrolle mit AssemblyInfo
 Story:  Version 1.0.*
-Akzeptanzkriterien:
+Akzeptanzkriterien: Bei Core 3.1 nicht mehr vorhanden. Muss anders gelöst werden
 	* 
 Status:
 •	Noch nicht implementiert
