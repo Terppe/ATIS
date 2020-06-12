@@ -8,6 +8,8 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <!--<XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />-->
+
                 <!--  extern DLL  -->
                 <!--<ResourceDictionary Source="pack://application:,,,/Te.Atis.Culture;component/Cultures/StringsRes.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Te.Atis.Culture;component/Cultures/StringsRes.de-DE.xaml" />
