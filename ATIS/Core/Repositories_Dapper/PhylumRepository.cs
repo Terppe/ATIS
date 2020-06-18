@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ATIS.DAL.Models;
+using ATIS.Dal.Models;
 using ATIS.Ui.Helper;
 using Dapper;
 

@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   >
+
+  <!--  Textbox  -->
+
+  <!--<Style TargetType="{x:Type TextBox}">
+    <Setter Property="FontSize" Value="{DynamicResource FontSizeTextBox}" />
+    <Setter Property="FontFamily" Value="{DynamicResource FontFamilyTextBox}" />
+    <Setter Property="FontWeight" Value="{DynamicResource FontWeightTextBox}" />
+    <Setter Property="FontStyle" Value="{DynamicResource FontStyleTextBox}" />
+
+    <Setter Property="Foreground" Value="{DynamicResource DataText}" />
+    <Setter Property="Background" Value="{DynamicResource TextBoxBackground}" />
+    <Setter Property="Margin" Value="{DynamicResource MarginDefault}" />
+    <Setter Property="Padding" Value="{DynamicResource PaddingDefault}" />
+    <Setter Property="Height" Value="{DynamicResource TextBoxDefaultHeight}" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="TextAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+  </Style>-->
+
+
+</ResourceDictionary>

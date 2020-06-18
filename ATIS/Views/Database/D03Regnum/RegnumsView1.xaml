@@ -5,8 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="clr-namespace:ATIS.DAL.Models;assembly=ATIS.DAL"
     xmlns:searchTextBox="clr-namespace:SearchTextBox;assembly=SearchTextBox"
+    xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"
     d:DesignHeight="1300"
     d:DesignWidth="1300"
     mc:Ignorable="d">

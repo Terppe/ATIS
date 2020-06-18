@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+   
+  <!--  https://www.codeproject.com/Articles/35346/Using-a-Resource-Dictionary-in-WPF  -->
+  <ResourceDictionary.MergedDictionaries>
+    <!-- Basic markup -->
+    <ResourceDictionary Source="ColorSchemaDictionary.xaml" />
+    <ResourceDictionary Source="SizeSchemaDictionary.xaml" />
+    <ResourceDictionary Source="FontDictionary.xaml" />
+    <ResourceDictionary Source="WindowDictionary.xaml" />
+    <ResourceDictionary Source="ButtonDictionary.xaml" />
+    <ResourceDictionary Source="TextBlockDictionary.xaml" />
+    <ResourceDictionary Source="TextBoxDictionary.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

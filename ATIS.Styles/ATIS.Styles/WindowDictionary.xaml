@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!--  Window style  -->
+
+  <Style x:Key="WindowDefault" TargetType="Window">
+    <Setter Property="Background" Value="{DynamicResource WindowBackground}" />
+    <Setter Property="FontFamily" Value="{DynamicResource FontFamilyDefault}"/>
+    <Setter Property="FontWeight" Value="{DynamicResource FontWeightDefault}"/>
+    <Setter Property="FontStyle" Value="{DynamicResource FontStyleDefault}"/>
+  </Style>
+</ResourceDictionary>

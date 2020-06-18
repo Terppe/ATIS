@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using ATIS.DAL.Models;
+using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

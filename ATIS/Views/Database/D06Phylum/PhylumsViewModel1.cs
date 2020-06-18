@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
-using ATIS.DAL.Models;
+using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Core.Interfaces;
 using ATIS.Ui.Core.Repositories;

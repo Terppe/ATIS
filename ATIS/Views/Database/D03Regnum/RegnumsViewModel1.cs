@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using ATIS.DAL.Models;
+using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Reflection;
-using ATIS.DAL.Models;
+using ATIS.Dal.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 

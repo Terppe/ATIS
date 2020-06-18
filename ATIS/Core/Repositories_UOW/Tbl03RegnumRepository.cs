@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using ATIS.DAL.Models;
+using ATIS.Dal.Models;
 using ATIS.Ui.Core.Interfaces;
 using ATIS.Ui.Core.Interfaces_UOW;
 

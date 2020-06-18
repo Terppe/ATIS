@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ATIS.DAL.Models;
+using ATIS.Dal.Models;
 
 namespace ATIS.Ui.Core.Interfaces_UOW
 {

@@ -1,14 +1,12 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace ATIS.DAL.Models
+namespace ATIS.Dal.Models
 {
-    public class Tbl06Phylum
+    public class Tbl09Division
     {
         [Key]
-        public int PhylumId { get; set; }
-        public string PhylumName { get; set; }
+        public int DivisionId { get; set; }
+        public string DivisionName { get; set; }
         public int RegnumId { get; set; }
         public int CountId { get; set; }
         public bool? Valid { get; set; }
@@ -22,11 +20,11 @@ namespace ATIS.DAL.Models
         public string FraName { get; set; }
         public string PorName { get; set; }
         public string Writer { get; set; }
-        public DateTime WriterDate { get; set; }
+        public System.DateTime WriterDate { get; set; }
         public string Updater { get; set; }
-        public DateTime UpdaterDate { get; set; }
+        public System.DateTime UpdaterDate { get; set; }
         public string Memo { get; set; }
-    //    public byte[] RowVersion { get; set; }
+      //  public byte[] RowVersion { get; set; }
 
     }
 }

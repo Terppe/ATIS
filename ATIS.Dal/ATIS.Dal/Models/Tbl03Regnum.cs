@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace ATIS.DAL.Models
+namespace ATIS.Dal.Models
 {
-    public class Tbl15Subdivision
+    public class Tbl03Regnum  
     {
         [Key]
-        public int SubdivisionId { get; set; }
-        public string SubdivisionName { get; set; }
-        public int DivisionId { get; set; }
+        public int RegnumId { get; set; }
+        public string RegnumName { get; set; }
+        public string Subregnum { get; set; }
         public int CountId { get; set; }
         public bool? Valid { get; set; }
         public string ValidYear { get; set; }
@@ -27,7 +24,9 @@ namespace ATIS.DAL.Models
         public string Updater { get; set; }
         public System.DateTime UpdaterDate { get; set; }
         public string Memo { get; set; }
-    //    public byte[] RowVersion { get; set; }
+     //   public byte[] RowVersion { get; set; }
+
+  //      public  EntityState EntityState { get; set; }
 
     }
 }

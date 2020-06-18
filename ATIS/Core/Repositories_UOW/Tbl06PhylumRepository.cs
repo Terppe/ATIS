@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ATIS.DAL.Models;
+using ATIS.Dal.Models;
 using ATIS.Ui.Core.Interfaces;
 using ATIS.Ui.Core.Interfaces_UOW;
 using Microsoft.EntityFrameworkCore;

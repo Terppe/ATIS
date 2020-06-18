@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ATIS.DAL.Models
+namespace ATIS.Dal.Models
 {
     public interface IEntity
     {

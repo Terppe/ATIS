@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ATIS.DAL.Models
+namespace ATIS.Dal.Models
 {
     public class Tbl90RefExpert
     {
