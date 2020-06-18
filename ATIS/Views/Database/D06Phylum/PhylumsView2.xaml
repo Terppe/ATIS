@@ -1,12 +1,14 @@
-﻿<UserControl x:Class="ATIS.Ui.Views.Database.D06Phylum.PhylumsView2"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ATIS.Ui.Views.Database.D06Phylum"
-             xmlns:searchTextBox="clr-namespace:SearchTextBox;assembly=SearchTextBox"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<UserControl
+    x:Class="ATIS.Ui.Views.Database.D06Phylum.PhylumsView2"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ATIS.Ui.Views.Database.D06Phylum"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:searchTextBox="clr-namespace:SearchTextBox;assembly=SearchTextBox"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
 
     <UserControl.Resources>
         <CollectionViewSource x:Key="RegnumsColl" Source="{Binding RegnumsCollection}" />
@@ -25,13 +27,13 @@
         <StackPanel>
             <StackPanel
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top"
+                VerticalAlignment="Bottom"
                 FocusManager.FocusedElement="{Binding ElementName=TbSearchPhylum}"
                 Orientation="Horizontal">
                 <searchTextBox:SearchTextBox
                     x:Name="TbSearchPhylum"
                     Width="120"
-                    Margin="4"
+                    Margin="10,8,0,0"
                     AllowEmptySearches="True"
                     Command="{Binding GetPhylumsByNameOrIdCommand}"
                     FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
@@ -47,22 +49,22 @@
                 <Button
                     Command="{Binding AddPhylumCommand}"
                     Content="Add"
-                    Style="{StaticResource AtisFlatButton}"
+                    Style="{StaticResource ButtonDefault}"
                     ToolTip="Add" />
                 <Button
                     Command="{Binding CopyPhylumCommand}"
                     Content="Copy"
-                    Style="{StaticResource AtisFlatButton}"
+                    Style="{StaticResource ButtonDefault}"
                     ToolTip="Copy" />
                 <Button
                     Command="{Binding SavePhylumCommand}"
                     Content="Save"
-                    Style="{StaticResource AtisFlatButton}"
+                    Style="{StaticResource ButtonDefault}"
                     ToolTip="Save" />
                 <Button
                     Command="{Binding DeletePhylumCommand}"
                     Content="Delete"
-                    Style="{StaticResource AtisFlatButton}"
+                    Style="{StaticResource ButtonDefault}"
                     ToolTip="Delete" />
             </StackPanel>
         </StackPanel>

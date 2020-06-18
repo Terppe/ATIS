@@ -10,7 +10,7 @@
     Title="ATIS"
     Width="1500"
     Height="850"
-    WindowStartupLocation="CenterScreen"
+    WindowStartupLocation="CenterScreen"   Style="{StaticResource WindowDefault}"
     WindowState="Normal"
     mc:Ignorable="d">
 
