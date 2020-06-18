@@ -5,8 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:searchTextBox="clr-namespace:SearchTextBox;assembly=SearchTextBox"
     xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"
+    xmlns:searchTextBox="clr-namespace:SearchTextBox;assembly=SearchTextBox"
     d:DesignHeight="1300"
     d:DesignWidth="1300"
     mc:Ignorable="d">
@@ -36,7 +36,7 @@
                 Margin="1"
                 Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
                 SelectedIndex="{Binding MainTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                <TabItem FontWeight="DemiBold" Header="Regnums">
+                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderRegnums}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="25" />
@@ -170,7 +170,7 @@
                 <!--  Part 4  TK1  aktuell  -->
 
 
-                <TabItem FontWeight="DemiBold" Header="Phylums">
+                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderPhylums}">
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                         <StackPanel>
                             <GroupBox>
@@ -231,7 +231,7 @@
                 <!--  Part 4   TK2  aktuell  -->
 
 
-                <TabItem FontWeight="DemiBold" Header="Divisions">
+                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderDivisions}">
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                         <StackPanel>
                             <GroupBox>
@@ -300,9 +300,9 @@
                 <!--  Part 7  -->
 
 
-                <TabItem FontWeight="DemiBold" Header="References">
+                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderReferences}">
                     <TabControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedMainSubRefTabIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                        <TabItem Header="RefExperts">
+                        <TabItem Header="{DynamicResource Shared-TabStripHeaderRefExperts}">
                             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                                 <StackPanel>
                                     <GroupBox>
@@ -356,7 +356,7 @@
                                 </StackPanel>
                             </ScrollViewer>
                         </TabItem>
-                        <TabItem Header="RefSources">
+                        <TabItem Header="{DynamicResource Shared-TabStripHeaderRefSources}">
                             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                                 <StackPanel>
                                     <GroupBox>
@@ -410,7 +410,7 @@
                                 </StackPanel>
                             </ScrollViewer>
                         </TabItem>
-                        <TabItem Header="RefAuthors">
+                        <TabItem Header="{DynamicResource Shared-TabStripHeaderRefAuthors}">
                             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                                 <StackPanel>
                                     <GroupBox>
@@ -466,7 +466,7 @@
                         </TabItem>
                     </TabControl>
                 </TabItem>
-                <TabItem FontWeight="DemiBold" Header="Comments">
+                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderComments}">
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                         <StackPanel>
                             <GroupBox>

@@ -11,10 +11,10 @@
                 <!--<XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />-->
 
                 <!--  extern DLL  -->
-                <!--<ResourceDictionary Source="pack://application:,,,/Te.Atis.Culture;component/Cultures/StringsRes.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Te.Atis.Culture;component/Cultures/StringsRes.de-DE.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Te.Atis.Culture;component/Cultures/StringsRes.fr-FR.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Te.Atis.Culture;component/Cultures/StringsRes.pt-PT.xaml" />-->
+                <ResourceDictionary Source="pack://application:,,,/ATIS.Culture;component/Cultures/StringsRes.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ATIS.Culture;component/Cultures/StringsRes.de-DE.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ATIS.Culture;component/Cultures/StringsRes.fr-FR.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ATIS.Culture;component/Cultures/StringsRes.pt-PT.xaml" />
 
                 <ResourceDictionary Source="pack://application:,,,/ATIS.Styles;component/StylesDictionary.xaml" />
 
