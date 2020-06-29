@@ -12,6 +12,9 @@ namespace ATIS.Ui.Views.Main
             DataContext = new HomeViewModel();
 
             InitializeComponent();
+
+            LbVersion.Content = ".NET Core Version: " + System.Environment.Version;
+
         }
     }
 }

@@ -9,10 +9,14 @@
     mc:Ignorable="d">
     <Grid>
         <Label
-            x:Name="LbVersion"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Content="Aquaristic Taxonomic Information System" />
+
+        <Label
+            x:Name="LbVersion"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" />
 
     </Grid>
 </UserControl>
