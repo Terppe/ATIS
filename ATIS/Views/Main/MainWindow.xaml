@@ -7,10 +7,12 @@
     xmlns:d06Phylum="clr-namespace:ATIS.Ui.Views.Database.D06Phylum"
     xmlns:main="clr-namespace:ATIS.Ui.Views.Main"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:xamlHost="clr-namespace:Microsoft.Toolkit.Wpf.UI.XamlHost;assembly=Microsoft.Toolkit.Wpf.UI.XamlHost"
     Title="ATIS"
     Width="1500"
     Height="850"
-    WindowStartupLocation="CenterScreen"   Style="{StaticResource WindowDefault}"
+    Style="{StaticResource WindowDefault}"
+    WindowStartupLocation="CenterScreen"
     WindowState="Normal"
     mc:Ignorable="d">
 
@@ -40,36 +42,30 @@
         </DataTemplate>
     </Window.Resources>
 
+
     <!--  ############# Basic of Display  -->
+
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="320" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-        <!--  later change with UWP Element  -->
-        <Expander>
+        <ContentControl
+            x:Name="Main"
+            Grid.Row="0"   
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Margin="320,0,0,0" />
 
-            <ListBox
-                x:Name="ListBoxMenu"
-                Margin="5"
-                ItemsSource="{Binding Settings}"
-                SelectedIndex="0">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Padding="10" Text="{Binding Name}" />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </Expander>
-
-        <Border
-            Grid.Column="1"
-            Margin="5"
-            BorderBrush="#FF7F9DB9"
-            BorderThickness="1">
-            <ContentControl Content="{Binding ElementName=ListBoxMenu, Path=SelectedItem}" />
-        </Border>
-
+        <xamlHost:WindowsXamlHost
+            x:Name="Host"  
+            Grid.Row="0"
+            Grid.Column="0"
+            ChildChanged="Host_ChildChanged"
+            InitialTypeName="Windows.UI.Xaml.Controls.NavigationView" />
     </Grid>
 </Window>
