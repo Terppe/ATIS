@@ -10,6 +10,8 @@ namespace ATIS.Ui.Views.Main
     {
         public SettingView()
         {
+            DataContext = new SettingViewModel();
+
             InitializeComponent();
         }
 

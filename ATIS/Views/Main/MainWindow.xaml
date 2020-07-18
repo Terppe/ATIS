@@ -12,8 +12,10 @@
     Width="1500"
     Height="850"
     Style="{StaticResource WindowDefault}"
+    d:DesignHeight="800"
+    d:DesignWidth="1400"
     WindowStartupLocation="CenterScreen"
-    WindowState="Normal"
+    WindowState="Maximized"
     mc:Ignorable="d">
 
     <!--  ############# Connect Views and ViewModels with DataTemplate  -->
@@ -28,17 +30,11 @@
         <DataTemplate DataType="{x:Type d03Regnum:RegnumsViewModel}">
             <d03Regnum:RegnumsView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type d03Regnum:RegnumsViewModel1}">
-            <d03Regnum:RegnumsView1 />
+        <DataTemplate DataType="{x:Type main:SettingViewModel}">
+            <main:SettingView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type d06Phylum:PhylumsViewModel}">
             <d06Phylum:PhylumsView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type d06Phylum:PhylumsViewModel1}">
-            <d06Phylum:PhylumsView1 />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type d06Phylum:PhylumsViewModel2}">
-            <d06Phylum:PhylumsView2 />
         </DataTemplate>
     </Window.Resources>
 

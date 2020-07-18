@@ -36,12 +36,18 @@ namespace ATIS.Ui.Views.Main
                 if (host.Child is NavigationView navView)
                 {
                     navView.RequestedTheme = (ElementTheme)Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT.ElementTheme.Light;
-                    navView.IsBackButtonVisible = NavigationViewBackButtonVisible.Auto;
+                    navView.IsBackEnabled = false;
+                    navView.IsBackButtonVisible = NavigationViewBackButtonVisible.Collapsed;
                     navView.AutoSuggestBox = new AutoSuggestBox();
+                    navView.AutoSuggestBox.QueryIcon = new SymbolIcon(Symbol.Find);
                     navView.PaneDisplayMode = NavigationViewPaneDisplayMode.Left;
+                    //navView.CompactPaneLength = 280;
+                    //              navView.CompactModeThresholdWidth = 1;
+
+                    //              navView.ExpandedModeThresholdWidth = 100000;
                     navView.PaneTitle = "ATIS";
                     //    navigationView.PaneFooter =  
-                    //navView.IsPaneOpen = true;
+                    navView.IsPaneOpen = true;
                     //      navView.PaneCustomContent.Visibility = Windows.UI.Xaml.Visibility.Visible;
 
                     navView.MenuItems.Add(new NavigationViewItemSeparator());
@@ -56,6 +62,26 @@ namespace ATIS.Ui.Views.Main
                         }
                     };
 
+                    var searchAdvancedItem = new NavigationViewItem()
+                    {
+                        Content = "Search Advanced",
+                        Icon = new FontIcon()
+                        {
+                            FontFamily = _segoeFontFamily,
+                            Glyph = "\uE80F"
+                        }
+                    };
+
+                    var imageItem = new NavigationViewItem()
+                    {
+                        Content = "Image/Video",
+                        Icon = new FontIcon()
+                        {
+                            FontFamily = _segoeFontFamily,
+                            Glyph = "\uE719"
+                        }
+                    };
+
                     var databaseItem = new NavigationViewItem()
                     {
                         Content = "Database",
@@ -66,16 +92,16 @@ namespace ATIS.Ui.Views.Main
                         }
                     };
 
-                    var databaseSepItem = new NavigationViewItemSeparator();
-                    var databaseHeaderItem = new NavigationViewItemHeader()
-                    {
-                        Content = "Database"
-                    };
+                    //var databaseSepItem = new NavigationViewItemSeparator();
+                    //var databaseHeaderItem = new NavigationViewItemHeader()
+                    //{
+                    //    Content = "Database"
+                    //};
 
 
-                    var regnumItem = new NavigationViewItem()
+                    var infoItem = new NavigationViewItem()
                     {
-                        Content = "Regnums",
+                        Content = "Info Area",
                         Icon = new FontIcon()
                         {
                             FontFamily = _segoeFontFamily,
@@ -83,9 +109,39 @@ namespace ATIS.Ui.Views.Main
                         }
                     };
 
-                    var phylumItem = new NavigationViewItem()
+                    var userItem = new NavigationViewItem()
                     {
-                        Content = "Phylums",
+                        Content = "User Area",
+                        Icon = new FontIcon()
+                        {
+                            FontFamily = _segoeFontFamily,
+                            Glyph = "\uE8C7"
+                        }
+                    };
+
+                    var adminItem = new NavigationViewItem()
+                    {
+                        Content = "Admin Area",
+                        Icon = new FontIcon()
+                        {
+                            FontFamily = _segoeFontFamily,
+                            Glyph = "\uE8C7"
+                        }
+                    };
+
+                    var feedbackItem = new NavigationViewItem()
+                    {
+                        Content = "Feedback",
+                        Icon = new FontIcon()
+                        {
+                            FontFamily = _segoeFontFamily,
+                            Glyph = "\uE8C7"
+                        }
+                    };
+
+                    var aboutItem = new NavigationViewItem()
+                    {
+                        Content = "About",
                         Icon = new FontIcon()
                         {
                             FontFamily = _segoeFontFamily,
@@ -94,14 +150,20 @@ namespace ATIS.Ui.Views.Main
                     };
 
                     navView.MenuItems.Add(homeItem);
+                    navView.MenuItems.Add(searchAdvancedItem);
+                    navView.MenuItems.Add(imageItem);
                     navView.MenuItems.Add(databaseItem);
-                    navView.MenuItems.Add(databaseSepItem);
-                    navView.MenuItems.Add(databaseHeaderItem);
-                    navView.MenuItems.Add(regnumItem);
-                    navView.MenuItems.Add(phylumItem);
+                    //navView.MenuItems.Add(databaseSepItem);
+                    //navView.MenuItems.Add(databaseHeaderItem);
+                    navView.MenuItems.Add(infoItem);
+                    navView.MenuItems.Add(userItem);
+                    navView.MenuItems.Add(adminItem);
+                    navView.MenuItems.Add(feedbackItem);
+                    navView.MenuItems.Add(aboutItem);
 
                     navView.ItemInvoked += navigationView_ItemInvoked;
                 }
+
             }
             catch (Exception exception)
             {
@@ -123,19 +185,35 @@ namespace ATIS.Ui.Views.Main
                 case "Home":
                     Main.Content = new HomeView();
                     break;
+                case "Search Advanced":
+                    Main.Content = new HomeView();
+                    break;
+                case "Image/Video":
+                    Main.Content = new HomeView();
+                    break;
                 case "Database":
                     Main.Content = new DatabaseView();
                     break;
-                case "Regnums":
-                    Main.Content = new RegnumsView();
+                case "Info Area":
+                    Main.Content = new HomeView();
                     break;
-                case "Phylums":
-                    Main.Content = new PhylumsView();
+                case "User Area":
+                    Main.Content = new HomeView();
+                    break;
+                case "Admin Area":
+                    Main.Content = new HomeView();
+                    break;
+                case "Feedback":
+                    Main.Content = new HomeView();
+                    break;
+                case "About":
+                    Main.Content = new HomeView();
                     break;
                 default:
                     Main.Content = new HomeView();
                     break;
             }
+
         }
     }
 }
