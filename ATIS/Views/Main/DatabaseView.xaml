@@ -13,37 +13,131 @@
         <DataTemplate DataType="{x:Type d06Phylum:PhylumsViewModel}">
             <d06Phylum:PhylumsView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type d06Phylum:PhylumsViewModel1}">
-            <d06Phylum:PhylumsView1 />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type d06Phylum:PhylumsViewModel2}">
-            <d06Phylum:PhylumsView2 />
-        </DataTemplate>
         <DataTemplate DataType="{x:Type d03Regnum:RegnumsViewModel}">
             <d03Regnum:RegnumsView />
-        </DataTemplate>
-
-        <DataTemplate DataType="{x:Type d03Regnum:RegnumsViewModel1}">
-            <d03Regnum:RegnumsView1 />
         </DataTemplate>
     </UserControl.Resources>
 
     <Grid>
         <TabControl>
-            <TabItem Header="Regnums">
-                <d03Regnum:RegnumsViewModel />
+            <TabItem Header="{DynamicResource Database-MenuFiSpecies}">
+                <TabControl>
+                    <TabItem Content="{Binding Tbl66GenussesView}" Header="{DynamicResource Database-MenuGenus}" />
+                    <TabItem Content="{Binding Tbl68SpeciesgroupsView}" Header="{DynamicResource Database-MenuSpeciesgroup}" />
+                    <TabItem Header="{DynamicResource Database-MenuTribus}">
+                        <TabControl>
+                            <TabItem Content="{Binding Tbl63InfratribussesView}" Header="{DynamicResource Database-MenuInfratribus}" />
+                            <TabItem Content="{Binding Tbl60SubtribussesView}" Header="{DynamicResource Database-MenuSubtribus}" />
+                            <TabItem Content="{Binding Tbl57TribussesView}" Header="{DynamicResource Database-MenuTribus}" />
+                            <TabItem Content="{Binding Tbl54SupertribussesView}" Header="{DynamicResource Database-MenuSupertribus}" />
+                        </TabControl>
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Database-MenuFamily}">
+                        <TabControl>
+                            <TabItem Content="{Binding Tbl51InfrafamiliesView}" Header="{DynamicResource Database-MenuInfrafamily}" />
+                            <TabItem Content="{Binding Tbl48SubfamiliesView}" Header="{DynamicResource Database-MenuSubfamily}" />
+                            <TabItem Content="{Binding Tbl45FamiliesView}" Header="{DynamicResource Database-MenuFamily}" />
+                            <TabItem Content="{Binding Tbl42SuperfamiliesView}" Header="{DynamicResource Database-MenuSuperfamily}" />
+                        </TabControl>
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Database-MenuOrdo}">
+                        <TabControl>
+                            <TabItem Content="{Binding Tbl39InfraordosView}" Header="{DynamicResource Database-MenuInfraordo}" />
+                            <TabItem Content="{Binding Tbl36SubordosView}" Header="{DynamicResource Database-MenuSubordo}" />
+                            <TabItem Content="{Binding Tbl33OrdosView}" Header="{DynamicResource Database-MenuOrdo}" />
+                            <TabItem Content="{Binding Tbl30LegiosView}" Header="{DynamicResource Database-MenuLegio}" />
+                        </TabControl>
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Database-MenuClass}">
+                        <TabControl>
+                            <TabItem Content="{Binding Tbl27InfraclassesView}" Header="{DynamicResource Database-MenuInfraclass}" />
+                            <TabItem Content="{Binding Tbl24SubclassesView}" Header="{DynamicResource Database-MenuSubclass}" />
+                            <TabItem Content="{Binding Tbl21ClassesView}" Header="{DynamicResource Database-MenuClass}" />
+                            <TabItem Content="{Binding Tbl18SuperclassesView}" Header="{DynamicResource Database-MenuSuperclass}" />
+                        </TabControl>
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Database-MenuPhylum}">
+                        <TabControl>
+                            <TabItem Content="{Binding Tbl12SubphylumsView}" Header="{DynamicResource Database-MenuSubphylum}" />
+                            <TabItem Header="{DynamicResource Database-MenuPhylum}">
+                                <d06Phylum:PhylumsViewModel />
+                            </TabItem>
+                        </TabControl>
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Database-MenuRegnum}">
+                        <d03Regnum:RegnumsViewModel />
+                    </TabItem>
+                </TabControl>
             </TabItem>
-            <TabItem Header="Regnums 1">
-                <d03Regnum:RegnumsViewModel1 />
+            <TabItem Header="{DynamicResource Database-MenuPlants}">
+                <TabControl>
+                    <TabItem Content="{Binding Tbl72PlSpeciessesView}" Header="{DynamicResource Database-MenuPlSpecies}" />
+                    <TabItem Content="{Binding Tbl66GenussesView}" Header="{DynamicResource Database-MenuGenus}" />
+                    <TabItem Content="{Binding Tbl68SpeciesgroupsView}" Header="{DynamicResource Database-MenuSpeciesgroup}" />
+                    <TabItem Header="{DynamicResource Database-MenuTribus}">
+                        <TabControl>
+                            <TabItem Content="{Binding Tbl63InfratribussesView}" Header="{DynamicResource Database-MenuInfratribus}" />
+                            <TabItem Content="{Binding Tbl60SubtribussesView}" Header="{DynamicResource Database-MenuSubtribus}" />
+                            <TabItem Content="{Binding Tbl57TribussesView}" Header="{DynamicResource Database-MenuTribus}" />
+                            <TabItem Content="{Binding Tbl54SupertribussesView}" Header="{DynamicResource Database-MenuSupertribus}" />
+                        </TabControl>
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Database-MenuFamily}">
+                        <TabControl>
+                            <TabItem Content="{Binding Tbl51InfrafamiliesView}" Header="{DynamicResource Database-MenuInfrafamily}" />
+                            <TabItem Content="{Binding Tbl48SubfamiliesView}" Header="{DynamicResource Database-MenuSubfamily}" />
+                            <TabItem Content="{Binding Tbl45FamiliesView}" Header="{DynamicResource Database-MenuFamily}" />
+                            <TabItem Content="{Binding Tbl42SuperfamiliesView}" Header="{DynamicResource Database-MenuSuperfamily}" />
+                        </TabControl>
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Database-MenuOrdo}">
+                        <TabControl>
+                            <TabItem Content="{Binding Tbl39InfraordosView}" Header="{DynamicResource Database-MenuInfraordo}" />
+                            <TabItem Content="{Binding Tbl36SubordosView}" Header="{DynamicResource Database-MenuSubordo}" />
+                            <TabItem Content="{Binding Tbl33OrdosView}" Header="{DynamicResource Database-MenuOrdo}" />
+                            <TabItem Content="{Binding Tbl30LegiosView}" Header="{DynamicResource Database-MenuLegio}" />
+                        </TabControl>
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Database-MenuClass}">
+                        <TabControl>
+                            <TabItem Content="{Binding Tbl27InfraclassesView}" Header="{DynamicResource Database-MenuInfraclass}" />
+                            <TabItem Content="{Binding Tbl24SubclassesView}" Header="{DynamicResource Database-MenuSubclass}" />
+                            <TabItem Content="{Binding Tbl21ClassesView}" Header="{DynamicResource Database-MenuClass}" />
+                            <TabItem Content="{Binding Tbl18SuperclassesView}" Header="{DynamicResource Database-MenuSuperclass}" />
+                        </TabControl>
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Database-MenuDivision}">
+                        <TabControl>
+                            <TabItem Content="{Binding Tbl15SubdivisionsView}" Header="{DynamicResource Database-MenuSubdivision}" />
+                            <TabItem Content="{Binding Tbl09DivisionsView}" Header="{DynamicResource Database-MenuDivision}" />
+                        </TabControl>
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Database-MenuRegnum}">
+                        <d03Regnum:RegnumsViewModel />
+                    </TabItem>
+                </TabControl>
             </TabItem>
-            <TabItem Header="Phylums">
-                <d06Phylum:PhylumsViewModel />
-            </TabItem>
-            <TabItem Header="Phylums 1">
-                <d06Phylum:PhylumsViewModel1 />
-            </TabItem>
-            <TabItem Header="Phylums 2">
-                <d06Phylum:PhylumsViewModel2 />
+            <TabItem Header="{DynamicResource Database-MenuDiseases}" />
+            <TabItem Header="{DynamicResource Database-MenuFoods}" />
+            <TabItem Header="{DynamicResource Database-MenuMiscellaneous}" />
+            <TabItem Header="{DynamicResource Database-MenuAddons}">
+                <TabControl>
+                    <TabItem Content="{Binding Tbl78NamesView}" Header="{DynamicResource Database-MenuName}" />
+                    <TabItem Content="{Binding Tbl81ImagesView}" Header="{DynamicResource Database-MenuImage}" />
+                    <TabItem Content="{Binding Tbl84SynonymsView}" Header="{DynamicResource Database-MenuSynonym}" />
+                    <TabItem Content="{Binding Tbl87GeographicsView}" Header="{DynamicResource Database-MenuGeographic}" />
+                    <TabItem Header="{DynamicResource Database-MenuReference}">
+                        <TabControl>
+                            <TabItem Content="{Binding Tbl90ReferencesView}" Header="{DynamicResource Database-MenuReference}" />
+                            <TabItem Content="{Binding Tbl90RefExpertsView}" Header="{DynamicResource Database-MenuRefExpert}" />
+                            <TabItem Content="{Binding Tbl90RefSourcesView}" Header="{DynamicResource Database-MenuRefSource}" />
+                            <TabItem Content="{Binding Tbl90RefAuthorsView}" Header="{DynamicResource Database-MenuRefAuthor}" />
+                        </TabControl>
+                    </TabItem>
+                    <TabItem Content="{Binding Tbl93CommentsView}" Header="{DynamicResource Database-MenuComment}" />
+                    <TabItem Content="{Binding TblCountriesView}" Header="{DynamicResource Database-MenuCountry}" />
+                    <TabItem Content="{Binding TblUserProfilesView}" Header="{DynamicResource Database-MenuUserProfile}" />
+                </TabControl>
             </TabItem>
         </TabControl>
 
