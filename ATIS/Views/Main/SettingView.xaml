@@ -15,29 +15,33 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <StackPanel>
-            <Label FontSize="30" FontWeight="Bold">WPF Window</Label>
-        </StackPanel>
+        <TabControl>
+            <TabItem Header="Design">
+                <StackPanel Grid.Row="1" Margin="10">
+                    <Label FontSize="25" FontWeight="Bold">Theme Settings</Label>
+                    <RadioButton
+                        x:Name="RdDark"
+                        Margin="10"
+                        Checked="RadioButtonChecked"
+                        FontSize="25"
+                        Tag="Dark">
+                        Dark
+                    </RadioButton>
+                    <RadioButton
+                        x:Name="RdLight"
+                        Margin="10"
+                        Checked="RadioButtonChecked"
+                        FontSize="25"
+                        Tag="light">
+                        Light
+                    </RadioButton>
+                </StackPanel>
 
-        <StackPanel Grid.Row="1" Margin="10">
-            <Label FontSize="25" FontWeight="Bold">Theme Settings</Label>
-            <RadioButton
-                x:Name="RdDark"
-                Margin="10"
-                Checked="RadioButtonChecked"
-                FontSize="25"
-                Tag="Dark">
-                Dark
-            </RadioButton>
-            <RadioButton
-                x:Name="RdLight"
-                Margin="10"
-                Checked="RadioButtonChecked"
-                FontSize="25"
-                Tag="light">
-                Light
-            </RadioButton>
-        </StackPanel>
+            </TabItem>
+            <TabItem Header="Icon Pack" />
+            <TabItem Header="Language" />
 
+
+        </TabControl>
     </Grid>
 </UserControl>
