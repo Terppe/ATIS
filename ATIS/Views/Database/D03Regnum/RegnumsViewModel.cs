@@ -151,7 +151,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
                 //    RaisePropertyChanged("ReferencesCollection");
 
-                InfoMessageBox("DeleteSuccess", "Reference");
+                _allMessageBoxes.InfoMessageBox("DeleteSuccess", "Reference");
             }
 
             CommentsCollection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.RegnumId == SelectedRegnum.RegnumId));
@@ -167,7 +167,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
                 //     RaisePropertyChanged("CommentsCollection");
 
-                InfoMessageBox("Delete successful", "Comment");
+                _allMessageBoxes.InfoMessageBox("Delete successful", "Comment");
             }
 
             if (false) return;
@@ -184,16 +184,16 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
                         //        RaisePropertyChanged("RegnumsCollection");
 
-                        InfoMessageBox("Delete successful", SelectedRegnum.RegnumName + " " + SelectedRegnum.Subregnum);
+                        _allMessageBoxes.InfoMessageBox("Delete successful", SelectedRegnum.RegnumName + " " + SelectedRegnum.Subregnum);
                     }
                     else
                     {
-                        InfoMessageBox("Not To Delete", "DeleteCan" + " " + SelectedRegnum.RegnumName + " " + SelectedRegnum.Subregnum + " " + "DeleteCan1");
+                        _allMessageBoxes.InfoMessageBox("Not To Delete", "DeleteCan" + " " + SelectedRegnum.RegnumName + " " + SelectedRegnum.Subregnum + " " + "DeleteCan1");
                     }
                 }
                 catch (Exception e)
                 {
-                    InfoMessageBox(e.Message, "Error");
+                    _allMessageBoxes.InfoMessageBox(e.Message, "Error");
                     //         Log.Error(e);
                 }
             }
@@ -204,7 +204,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         }
         private void ExecuteSaveRegnum(string searchName)
         {
-            if (NoDatasetSelectedMessageBox(SelectedRegnum)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
 
             try
             {
@@ -270,23 +270,23 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        WarningMessageBox(e.InnerException.ToString(), "FailedToSave");
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), "FailedToSave");
                     //     Log.Error(e);
                     return;
                 }
                 catch (Exception e)
                 {
-                    InfoMessageBox(e.Message, "Error");
+                    _allMessageBoxes.InfoMessageBox(e.Message, "Error");
                     //         Log.Error(e);
                     return;
                 }
-                InfoMessageBox("SaveSuccess", SelectedRegnum.RegnumId == 0
+                _allMessageBoxes.InfoMessageBox("SaveSuccess", SelectedRegnum.RegnumId == 0
                     ? "DatasetNew"
                     : SelectedRegnum.RegnumName + " " + SelectedRegnum.Subregnum);
             }
             catch (Exception e)
             {
-                WarningMessageBox(e.Message, "Error");
+                _allMessageBoxes.WarningMessageBox(e.Message, "Error");
                 //         Log.Error(e);
             }
             ExecuteGetRegnumsByNameOrId(searchName);
@@ -706,73 +706,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         #endregion "Public Commands Connected Tables by DoubleClick"
 
-        #region [MessageBoxes]
-
-        private static bool NoDatasetSelectedMessageBox(Tbl03Regnum selectedRegnum)
-        {
-            if (selectedRegnum == null)
-            {
-                MessageBox.Show("NewDataset",
-                    "RequiredInput",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            return false;
-        }
-        private static bool NoDatasetSelectedMessageBox(Tbl90Reference selectedReferenceExpert)
-        {
-            if (selectedReferenceExpert == null)
-            {
-                MessageBox.Show("NewDataset",
-                    "RequiredInput",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            return false;
-        }
-
-        private static bool NoDatasetSelectedMessageBox(Tbl93Comment selectedComment)
-        {
-            if (selectedComment == null)
-            {
-                MessageBox.Show("NewDataset",
-                    "RequiredInput",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            return false;
-        }
-
-        private static bool DoNotDeleteDatasetMessageBox(int collectionCount, string caption)
-        {
-            if (collectionCount > 0)
-            {
-                MessageBox.Show("Not to Delete",
-                    caption + " " + "ConnectedDataset",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            return false;
-        }
-
-
-        private static bool DeleteDatasetMessageBox(string caption)
-        {
-            return MessageBox.Show("Wollen Sie Datensätze löschen ?",
-                       caption + " " + "ConnectedDataset",
-                       MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes;
-        }
-
-        private static void InfoMessageBox(string message, string caption)
-        {
-            MessageBox.Show(message, caption,
-                MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
-        private static void WarningMessageBox(string message, string caption)
-        {
-            MessageBox.Show(message, caption,
-                MessageBoxButton.OK, MessageBoxImage.Warning);
-        }
-
-
-        #endregion
 
         #region [ Properties ]
 
