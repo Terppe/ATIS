@@ -7,6 +7,5 @@ namespace ATIS.Ui.Views.Main
 {
     public class SettingViewModel : ViewModelBase
     {
-        public override string Name => "Setting";
     }
 }

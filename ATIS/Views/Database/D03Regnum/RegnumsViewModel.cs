@@ -972,7 +972,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         #endregion
 
-        public override string Name { get; }
     }
 
 }

@@ -531,6 +531,5 @@ namespace ATIS.Ui.Views.Database.DatabaseHelper
 
         #endregion
 
-        public override string Name { get; }
     }
 }

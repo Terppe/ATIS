@@ -10,13 +10,6 @@ namespace ATIS.Ui.Helper
     /// </summary>
     public abstract class ViewModelBase : INotifyPropertyChanged
     {
-        #region TreeViewName
-        /// <summary>
-        /// Show Name in MainWindow-TrieView-Button
-        /// </summary>
-        public abstract string Name { get; }
-
-        #endregion
 
         #region Constructor
 

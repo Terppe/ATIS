@@ -26,6 +26,5 @@ namespace ATIS.Ui.Views.Main
 
         }
 
-        public override string Name { get; }
     }
 }

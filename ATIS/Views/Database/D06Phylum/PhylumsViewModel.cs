@@ -17,7 +17,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         /*
          *  Version mit Generic Repository
          */
-        public override string Name => "Phylum";
 
         private readonly IGenericRepository<Tbl06Phylum> _repPhylumRepository = null;
         private readonly IGenericRepository<Tbl03Regnum> _repRegnumRepository = null;
