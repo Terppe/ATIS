@@ -87,7 +87,6 @@
                                 IsReadOnly="False"
                                 IsSynchronizedWithCurrentItem="true"
                                 ItemsSource="{Binding RegnumsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                Loaded="DataGridRegnums_Loaded"
                                 SelectedItem="{Binding SelectedRegnum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 VerticalScrollBarVisibility="Visible">
 
@@ -293,7 +292,6 @@
                                                                 HorizontalScrollBarVisibility="Visible"
                                                                 ItemsSource="{Binding ReferenceExpertsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                                                 SelectedItem="{Binding SelectedReferenceExpert, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                                SelectionChanged="DataGrid_SelectionChanged"
                                                                 VerticalScrollBarVisibility="Visible">
                                                                 <DataGrid.Columns>
                                                                     <DataGridTextColumn

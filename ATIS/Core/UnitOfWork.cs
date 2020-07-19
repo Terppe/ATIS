@@ -17,11 +17,25 @@ namespace ATIS.Ui.Core
             _context = context;
             Tbl03Regnums = new Tbl03RegnumRepository(_context);
             Tbl06Phylums = new Tbl06PhylumRepository(_context);
+            Tbl09Divisions = new Tbl09DivisionRepository(_context);
+
+            Tbl90References = new Tbl90ReferenceRepository(_context);
+            Tbl90RefExperts = new Tbl90RefExpertRepository(_context);
+            Tbl90RefSources = new Tbl90RefSourceRepository(_context);
+            Tbl90RefAuthors = new Tbl90RefAuthorRepository(_context);
+            Tbl93Comments = new Tbl93CommentRepository(_context);
         }
 
 
-        public ITbl03RegnumRepository Tbl03Regnums { get; private set; }
-        public ITbl06PhylumRepository Tbl06Phylums { get; private set; }
+        public ITbl03RegnumRepository Tbl03Regnums { get; }
+        public ITbl06PhylumRepository Tbl06Phylums { get; }
+        public ITbl09DivisionRepository Tbl09Divisions { get; }
+
+        public ITbl90ReferenceRepository Tbl90References { get; }
+        public ITbl90RefExpertRepository Tbl90RefExperts { get; }
+        public ITbl90RefSourceRepository Tbl90RefSources { get; }
+        public ITbl90RefAuthorRepository Tbl90RefAuthors { get; }
+        public ITbl93CommentRepository Tbl93Comments { get; }
 
         public int Complete()
         {
