@@ -1269,27 +1269,27 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         #region "Public Commands Connected Tables by DoubleClick"
 
-        private RelayCommand _openRegnumsCrudCommand;
-        public ICommand OpenRegnumsCrudCommand => _openRegnumsCrudCommand ??= new RelayCommand(delegate { OpenRegnumsCrud(RegnumsCollection); });
+        //private RelayCommand _openRegnumsCrudCommand;
+        //public ICommand OpenRegnumsCrudCommand => _openRegnumsCrudCommand ??= new RelayCommand(delegate { OpenRegnumsCrud(RegnumsCollection); });
 
-        private void OpenRegnumsCrud(object regnumsCollection)
-        {
-            RegnumsCollection = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums
-                .Find(e => e.RegnumId == SelectedRegnum.RegnumId)
-                .OrderBy(a => a.RegnumName));
+        //private void OpenRegnumsCrud(object regnumsCollection)
+        //{
+        //    RegnumsCollection = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums
+        //        .Find(e => e.RegnumId == SelectedRegnum.RegnumId)
+        //        .OrderBy(a => a.RegnumName));
 
-            ////var test1View = new Test1() { DataContext = typeof(Test1WindowViewModel) };
-            //  var test1View = new Test1();
-            //test1View.Show();
+        //    ////var test1View = new Test1() { DataContext = typeof(Test1WindowViewModel) };
+        //    //  var test1View = new Test1();
+        //    //test1View.Show();
 
-            var view = new Test1Window() { DataContext = typeof(RegnumsViewModel) };
-            //      view.DataContext = new RegnumsViewModel();
-            view.Title = "Test1View";
-            view.Width = 820;
-            view.Height = 620;
-            view.Show();
+        //    var view = new Test1Window() { DataContext = typeof(RegnumsViewModel) };
+        //    //      view.DataContext = new RegnumsViewModel();
+        //    view.Title = "Test1View";
+        //    view.Width = 820;
+        //    view.Height = 620;
+        //    view.Show();
 
-        }
+        //}
 
 
         #endregion "Public Commands Connected Tables by DoubleClick"

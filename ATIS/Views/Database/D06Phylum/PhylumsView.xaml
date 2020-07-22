@@ -5,115 +5,1215 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:searchTextBox="clr-namespace:SearchTextBox;assembly=SearchTextBox"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    d:DesignHeight="1000"
+    d:DesignWidth="1400"
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <CollectionViewSource x:Key="RegnumsColl" Source="{Binding RegnumsCollection}" />
         <CollectionViewSource x:Key="PhylumsColl" Source="{Binding PhylumsCollection}" />
-        <CollectionViewSource x:Key="DivisionsColl" Source="{Binding DivisionsCollection}" />
+        <CollectionViewSource x:Key="PhylumsAllColl" Source="{Binding PhylumsAllCollection}" />
+
+        <CollectionViewSource x:Key="RegnumsColl" Source="{Binding RegnumsCollection}" />
+        <CollectionViewSource x:Key="RegnumsAllColl" Source="{Binding RegnumsAllCollection}" />
+        <CollectionViewSource x:Key="SubphylumsColl" Source="{Binding SubphylumsCollection}" />
+        <CollectionViewSource x:Key="SubphylumsAllColl" Source="{Binding SubphylumsAllCollection}" />
+
         <CollectionViewSource x:Key="ExpertsColl" Source="{Binding ExpertsCollection}" />
         <CollectionViewSource x:Key="SourcesColl" Source="{Binding SourcesCollection}" />
         <CollectionViewSource x:Key="AuthorsColl" Source="{Binding AuthorsCollection}" />
     </UserControl.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="35" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackPanel>
-            <StackPanel
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                FocusManager.FocusedElement="{Binding ElementName=TbSearchPhylum}"
-                Orientation="Horizontal">
-                <searchTextBox:SearchTextBox
-                    x:Name="TbSearchPhylum"
-                    Width="120"
-                    Margin="4"
-                    AllowEmptySearches="True"
-                    Command="{Binding GetPhylumsByNameOrIdCommand}"
-                    FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
-                    SearchMode="Instant"
-                    Text="{Binding SearchPhylumName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    ToolTip="SearchNameOrId" />
-            </StackPanel>
-            <StackPanel
-                Margin="-25"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Top"
-                Orientation="Horizontal">
-                <Button
-                    Command="{Binding AddPhylumCommand}"
-                    Content="Add"
-                    Style="{StaticResource AtisFlatButton}"
-                    ToolTip="Add" />
-                <Button
-                    Command="{Binding CopyPhylumCommand}"
-                    Content="Copy"
-                    Style="{StaticResource AtisFlatButton}"
-                    ToolTip="Copy" />
-                <Button
-                    Command="{Binding SavePhylumCommand}"
-                    Content="Save"
-                    Style="{StaticResource AtisFlatButton}"
-                    ToolTip="Save" />
-                <Button
-                    Command="{Binding DeletePhylumCommand}"
-                    Content="Delete"
-                    Style="{StaticResource AtisFlatButton}"
-                    ToolTip="Delete" />
-            </StackPanel>
-        </StackPanel>
-        <GroupBox Grid.Row="1" Header="Phylums">
-            <DataGrid
-                Margin="5,0,0,0"
-                AutoGenerateColumns="False"
-                ColumnWidth="*"
-                HorizontalScrollBarVisibility="Visible"
-                ItemsSource="{Binding PhylumsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                SelectedItem="{Binding SelectedPhylum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn
-                        Width="Auto"
-                        Binding="{Binding PhylumId}"
-                        Header="Phylum ID" />
-                    <DataGridTextColumn
-                        Width="Auto"
-                        Binding="{Binding PhylumName}"
-                        Header="Phylum Name" />
-                    <DataGridTextColumn
-                        Width="Auto"
-                        Binding="{Binding RegnumId}"
-                        Header="Regnum ID" />
-                    <DataGridComboBoxColumn
-                        Width="350"
-                        DisplayMemberPath="RegnumName"
-                        Header="Regnum Name"
-                        ItemsSource="{Binding Source={StaticResource RegnumsColl}}"
-                        SelectedValueBinding="{Binding RegnumId}"
-                        SelectedValuePath="RegnumId" />
-                    <DataGridCheckBoxColumn
-                        Width="50"
-                        Binding="{Binding Valid}"
-                        Header="Valid" />
-                    <DataGridTextColumn
-                        Width="Auto"
-                        Binding="{Binding ValidYear}"
-                        Header="Valid Year" />
-                    <DataGridTextColumn
-                        Width="350"
-                        Binding="{Binding Info}"
-                        Header="Info" />
-                    <DataGridTextColumn
-                        Width="350"
-                        Binding="{Binding Memo}"
-                        Header="Memo" />
-                </DataGrid.Columns>
+    <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
 
-            </DataGrid>
-        </GroupBox>
-    </Grid>
+            <StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="2*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0">
+                        <StackPanel
+                            VerticalAlignment="Center"
+                            FocusManager.FocusedElement="{Binding ElementName=TbSearchPhylum}"
+                            Orientation="Horizontal">
+                            <searchTextBox:SearchTextBox
+                                x:Name="TbSearchPhylum"
+                                Width="200"
+                                Height="30"
+                                Margin="20,2,30,2"
+                                AllowEmptySearches="True"
+                                BorderBrush="LightBlue"
+                                BorderThickness="1"
+                                Command="{Binding GetPhylumsByNameOrIdCommand}"
+                                FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
+                                SearchMode="Instant"
+                                Text="{Binding SearchPhylumName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                            <Button
+                                Command="{Binding AddPhylumCommand}"
+                                Content="Add"
+                                Style="{StaticResource ButtonDefault}"
+                                ToolTip="Add" />
+                            <Button
+                                Command="{Binding CopyPhylumCommand}"
+                                Content="Copy"
+                                Style="{StaticResource ButtonDefault}"
+                                ToolTip="Copy" />
+                            <Button
+                                Command="{Binding SavePhylumCommand}"
+                                Content="Save"
+                                Style="{StaticResource ButtonDefault}"
+                                ToolTip="Save" />
+                            <Button
+                                Command="{Binding DeletePhylumCommand}"
+                                Content="Delete"
+                                Style="{StaticResource ButtonDefault}"
+                                ToolTip="Delete" />
+                        </StackPanel>
+                        <GroupBox Padding="3" Header="Phylums">
+                            <DataGrid
+                                Width="Auto"
+                                Height="400"
+                                MaxHeight="600"
+                                AlternatingRowBackground="BlanchedAlmond"
+                                AutoGenerateColumns="False"
+                                BorderBrush="Gray"
+                                BorderThickness="2"
+                                ColumnWidth="*"
+                                EnableColumnVirtualization="True"
+                                EnableRowVirtualization="True"
+                                GridLinesVisibility="All"
+                                HorizontalScrollBarVisibility="Visible"
+                                IsReadOnly="False"
+                                IsSynchronizedWithCurrentItem="true"
+                                ItemsSource="{Binding PhylumsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                ScrollViewer.IsDeferredScrollingEnabled="True"
+                                SelectedItem="{Binding SelectedPhylum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                VerticalScrollBarVisibility="Visible"
+                                VirtualizingStackPanel.IsVirtualizing="True"
+                                VirtualizingStackPanel.VirtualizationMode="Recycling">
+
+                                <DataGrid.InputBindings>
+                                    <KeyBinding Command="{Binding SavePhylumCommand}" Gesture="Ctrl+Shift+S" />
+                                </DataGrid.InputBindings>
+                                <DataGrid.Columns>
+
+                                    <DataGridTextColumn
+                                        Width="Auto"
+                                        Binding="{Binding PhylumId}"
+                                        Header="Phylum ID" />
+                                    <DataGridTextColumn
+                                        Width="Auto"
+                                        Binding="{Binding PhylumName}"
+                                        Header="Phylum Name" />
+                                    <DataGridComboBoxColumn
+                                        Width="100"
+                                        DisplayMemberPath="RegnumName"
+                                        Header="Regnum Name"
+                                        ItemsSource="{Binding Source={StaticResource RegnumsAllColl}}"
+                                        SelectedValueBinding="{Binding RegnumId}"
+                                        SelectedValuePath="RegnumId" />
+                                    <DataGridCheckBoxColumn
+                                        Width="50"
+                                        Binding="{Binding Valid}"
+                                        Header="Valid" />
+                                    <DataGridTextColumn
+                                        Width="Auto"
+                                        Binding="{Binding ValidYear}"
+                                        Header="Valid Year" />
+                                    <DataGridTemplateColumn Width="300" Header="Synonym">
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <TextBox
+                                                    MaxWidth="290"
+                                                    MaxHeight="100"
+                                                    Text="{Binding Path=Synonym, Mode=TwoWay}"
+                                                    TextAlignment="Left"
+                                                    TextWrapping="Wrap"
+                                                    VerticalScrollBarVisibility="Visible" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    MaxWidth="290"
+                                                    MaxHeight="100"
+                                                    Text="{Binding Path=Synonym, Mode=OneWay}"
+                                                    TextAlignment="Left"
+                                                    TextWrapping="Wrap" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn
+                                        Width="Auto"
+                                        Binding="{Binding Author}"
+                                        Header="Author Name" />
+                                    <DataGridTextColumn
+                                        Width="100"
+                                        Binding="{Binding AuthorYear}"
+                                        Header="Author Year" />
+                                    <DataGridTemplateColumn Width="200" Header="Info">
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <TextBox
+                                                    MaxWidth="190"
+                                                    MaxHeight="100"
+                                                    Text="{Binding Path=Info, Mode=TwoWay}"
+                                                    TextAlignment="Left"
+                                                    TextWrapping="Wrap"
+                                                    VerticalScrollBarVisibility="Visible" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    MaxWidth="190"
+                                                    MaxHeight="100"
+                                                    Text="{Binding Path=Info, Mode=OneWay}"
+                                                    TextAlignment="Left"
+                                                    TextWrapping="Wrap" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn
+                                        Width="Auto"
+                                        Binding="{Binding EngName}"
+                                        Header="EngName" />
+                                    <DataGridTextColumn
+                                        Width="Auto"
+                                        Binding="{Binding GerName}"
+                                        Header="GerName" />
+                                    <DataGridTextColumn
+                                        Width="Auto"
+                                        Binding="{Binding FraName}"
+                                        Header="FraName" />
+                                    <DataGridTextColumn
+                                        Width="Auto"
+                                        Binding="{Binding PorName}"
+                                        Header="PorName" />
+                                    <DataGridTemplateColumn Width="300" Header="Memo">
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <TextBox
+                                                    MaxWidth="290"
+                                                    MaxHeight="100"
+                                                    Text="{Binding Path=Memo, Mode=TwoWay}"
+                                                    TextAlignment="Left"
+                                                    TextWrapping="Wrap"
+                                                    VerticalScrollBarVisibility="Visible" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    MaxWidth="290"
+                                                    MaxHeight="100"
+                                                    Text="{Binding Path=Memo, Mode=OneWay}"
+                                                    TextAlignment="Left"
+                                                    TextWrapping="Wrap" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </GroupBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2">
+                        <StackPanel>
+                            <StackPanel>
+                                <TabControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding TabIndexDetail, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                    <TabItem FontWeight="DemiBold" Header="Regnum">
+                                        <StackPanel>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <GroupBox
+                                                    Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    Padding="3"
+                                                    Header="Regnum">
+                                                    <DataGrid
+                                                        Width="Auto"
+                                                        Height="Auto"
+                                                        MaxHeight="600"
+                                                        AlternatingRowBackground="BlanchedAlmond"
+                                                        AutoGenerateColumns="False"
+                                                        BorderBrush="Gray"
+                                                        BorderThickness="2"
+                                                        ColumnWidth="*"
+                                                        EnableColumnVirtualization="True"
+                                                        EnableRowVirtualization="True"
+                                                        GridLinesVisibility="All"
+                                                        HorizontalScrollBarVisibility="Visible"
+                                                        IsReadOnly="True"
+                                                        IsSynchronizedWithCurrentItem="true"
+                                                        ItemsSource="{Binding RegnumsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        RowBackground="LightYellow"
+                                                        ScrollViewer.IsDeferredScrollingEnabled="True"
+                                                        SelectedItem="{Binding SelectedRegnum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        VerticalScrollBarVisibility="Visible"
+                                                        VirtualizingPanel.IsVirtualizing="True"
+                                                        VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+                                                        VirtualizingPanel.VirtualizationMode="Recycling">
+                                                        <DataGrid.Columns>
+                                                            <DataGridTextColumn
+                                                                Width="100"
+                                                                Binding="{Binding RegnumId}"
+                                                                Header="Regnum ID" />
+                                                            <DataGridTextColumn
+                                                                Width="100"
+                                                                Binding="{Binding RegnumName}"
+                                                                Header="Regnum Name" />
+                                                            <DataGridTextColumn
+                                                                Width="100"
+                                                                Binding="{Binding Subregnum}"
+                                                                Header="Subregnum" />
+                                                            <DataGridCheckBoxColumn
+                                                                Width="100"
+                                                                Binding="{Binding Valid}"
+                                                                Header="Valid" />
+                                                            <DataGridTextColumn
+                                                                Width="100"
+                                                                Binding="{Binding ValidYear}"
+                                                                Header="Valid Year" />
+                                                            <DataGridTemplateColumn Width="300" Header="Synonym">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                            MaxWidth="290"
+                                                                            MaxHeight="100"
+                                                                            Text="{Binding Path=Synonym, Mode=OneWay}"
+                                                                            TextAlignment="Left"
+                                                                            TextWrapping="Wrap" />
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                            <DataGridTextColumn
+                                                                Width="100"
+                                                                Binding="{Binding Author}"
+                                                                Header="Author Name" />
+                                                            <DataGridTextColumn
+                                                                Width="100"
+                                                                Binding="{Binding AuthorYear}"
+                                                                Header="Author Year" />
+                                                            <DataGridTemplateColumn Width="200" Header="Info">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                            MaxWidth="190"
+                                                                            MaxHeight="100"
+                                                                            Text="{Binding Path=Info, Mode=OneWay}"
+                                                                            TextAlignment="Left"
+                                                                            TextWrapping="Wrap" />
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding EngName}"
+                                                                Header="EngName" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding GerName}"
+                                                                Header="GerName" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding FraName}"
+                                                                Header="FraName" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding PorName}"
+                                                                Header="PorName" />
+                                                            <DataGridTemplateColumn Width="300" Header="Memo">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                            MaxWidth="290"
+                                                                            MaxHeight="100"
+                                                                            Text="{Binding Path=Memo, Mode=OneWay}"
+                                                                            TextAlignment="Left"
+                                                                            TextWrapping="Wrap" />
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+
+                                                        </DataGrid.Columns>
+                                                    </DataGrid>
+                                                </GroupBox>
+                                            </Grid>
+                                        </StackPanel>
+                                    </TabItem>
+                                    <TabItem FontWeight="DemiBold" Header="Expert-Source-Author-Comment">
+                                        <GroupBox Padding="3" Header="References">
+                                            <StackPanel>
+                                                <StackPanel>
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto" />
+                                                            <RowDefinition Height="*" />
+                                                        </Grid.RowDefinitions>
+                                                        <StackPanel
+                                                            Grid.Row="0"
+                                                            Grid.Column="0"
+                                                            VerticalAlignment="Top"
+                                                            Orientation="Horizontal">
+                                                            <searchTextBox:SearchTextBox
+                                                                x:Name="TbSearchExpert"
+                                                                Width="150"
+                                                                Height="30"
+                                                                Margin="10,5,30,2"
+                                                                AllowEmptySearches="True"
+                                                                BorderBrush="LightBlue"
+                                                                BorderThickness="1"
+                                                                Command="{Binding GetExpertsByNameOrIdCommand}"
+                                                                SearchMode="Instant"
+                                                                Text="{Binding SearchExpertName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                                ToolTip="SearchInfoOrId" />
+                                                        </StackPanel>
+                                                        <StackPanel
+                                                            Grid.Row="0"
+                                                            Grid.Column="0"
+                                                            Margin="180,0,0,0"
+                                                            HorizontalAlignment="Left"
+                                                            VerticalAlignment="Top"
+                                                            Orientation="Horizontal">
+                                                            <Button
+                                                                Command="{Binding AddExpertCommand}"
+                                                                Content="Add"
+                                                                Style="{StaticResource ButtonDefault}"
+                                                                ToolTip="Add" />
+                                                            <Button
+                                                                Command="{Binding CopyExpertCommand}"
+                                                                Content="Copy"
+                                                                Style="{StaticResource ButtonDefault}"
+                                                                ToolTip="Copy" />
+                                                            <Button
+                                                                Command="{Binding SaveExpertCommand}"
+                                                                Content="Save"
+                                                                Style="{StaticResource ButtonDefault}"
+                                                                ToolTip="Save" />
+                                                            <Button
+                                                                Command="{Binding DeleteExpertCommand}"
+                                                                Content="Delete"
+                                                                Style="{StaticResource ButtonDefault}"
+                                                                ToolTip="Delete" />
+                                                        </StackPanel>
+                                                        <GroupBox
+                                                            Grid.Row="1"
+                                                            Grid.Column="0"
+                                                            Padding="3"
+                                                            Header="Experts">
+                                                            <DataGrid
+                                                                Width="Auto"
+                                                                Height="Auto"
+                                                                MaxHeight="300"
+                                                                AlternatingRowBackground="BlanchedAlmond"
+                                                                AutoGenerateColumns="False"
+                                                                BorderBrush="DarkSlateGray"
+                                                                BorderThickness="2"
+                                                                ColumnWidth="*"
+                                                                GridLinesVisibility="All"
+                                                                HorizontalScrollBarVisibility="Visible"
+                                                                ItemsSource="{Binding ReferenceExpertsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                SelectedItem="{Binding SelectedReferenceExpert, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                VerticalScrollBarVisibility="Visible">
+                                                                <DataGrid.Columns>
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding ReferenceId}"
+                                                                        Header="Reference ID" />
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding RefExpertId}"
+                                                                        Header="Ref Expert ID" />
+                                                                    <DataGridComboBoxColumn
+                                                                        Width="350"
+                                                                        DisplayMemberPath="RefExpertName"
+                                                                        Header="Reference Expert Name"
+                                                                        ItemsSource="{Binding Source={StaticResource ExpertsColl}}"
+                                                                        SelectedValueBinding="{Binding RefExpertId}"
+                                                                        SelectedValuePath="RefExpertId" />
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding PhylumId}"
+                                                                        Header="Phylum ID" />
+                                                                    <DataGridCheckBoxColumn
+                                                                        Width="50"
+                                                                        Binding="{Binding Valid}"
+                                                                        Header="Valid" />
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding ValidYear}"
+                                                                        Header="Valid Year" />
+                                                                    <DataGridTemplateColumn Width="200" Header="Info">
+                                                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBox
+                                                                                    MaxWidth="190"
+                                                                                    MaxHeight="100"
+                                                                                    Text="{Binding Path=Info, Mode=TwoWay}"
+                                                                                    TextAlignment="Left"
+                                                                                    TextWrapping="Wrap"
+                                                                                    VerticalScrollBarVisibility="Visible" />
+                                                                            </DataTemplate>
+                                                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                                                        <DataGridTemplateColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBlock
+                                                                                    MaxWidth="190"
+                                                                                    MaxHeight="100"
+                                                                                    Text="{Binding Path=Info, Mode=OneWay}"
+                                                                                    TextAlignment="Left"
+                                                                                    TextWrapping="Wrap" />
+                                                                            </DataTemplate>
+                                                                        </DataGridTemplateColumn.CellTemplate>
+                                                                    </DataGridTemplateColumn>
+                                                                    <DataGridTemplateColumn Width="300" Header="Memo">
+                                                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBox
+                                                                                    MaxWidth="290"
+                                                                                    MaxHeight="100"
+                                                                                    Text="{Binding Path=Memo, Mode=TwoWay}"
+                                                                                    TextAlignment="Left"
+                                                                                    TextWrapping="Wrap"
+                                                                                    VerticalScrollBarVisibility="Visible" />
+                                                                            </DataTemplate>
+                                                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                                                        <DataGridTemplateColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBlock
+                                                                                    MaxWidth="290"
+                                                                                    MaxHeight="100"
+                                                                                    Text="{Binding Path=Memo, Mode=OneWay}"
+                                                                                    TextAlignment="Left"
+                                                                                    TextWrapping="Wrap" />
+                                                                            </DataTemplate>
+                                                                        </DataGridTemplateColumn.CellTemplate>
+                                                                    </DataGridTemplateColumn>
+                                                                </DataGrid.Columns>
+                                                            </DataGrid>
+                                                        </GroupBox>
+                                                    </Grid>
+                                                </StackPanel>
+                                                <StackPanel>
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto" />
+                                                            <RowDefinition Height="*" />
+                                                        </Grid.RowDefinitions>
+                                                        <StackPanel
+                                                            Grid.Row="0"
+                                                            Grid.Column="0"
+                                                            VerticalAlignment="Top"
+                                                            Orientation="Horizontal">
+                                                            <searchTextBox:SearchTextBox
+                                                                x:Name="TbSearchSource"
+                                                                Width="150"
+                                                                Height="30"
+                                                                Margin="10,5,30,2"
+                                                                AllowEmptySearches="True"
+                                                                BorderBrush="LightBlue"
+                                                                BorderThickness="1"
+                                                                Command="{Binding GetSourcesByNameOrIdCommand}"
+                                                                SearchMode="Instant"
+                                                                Text="{Binding SearchSourceName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                                ToolTip="SearchInfoOrId" />
+                                                        </StackPanel>
+                                                        <StackPanel
+                                                            Grid.Row="0"
+                                                            Grid.Column="0"
+                                                            Margin="180,0,0,0"
+                                                            HorizontalAlignment="Left"
+                                                            VerticalAlignment="Center"
+                                                            Orientation="Horizontal">
+                                                            <Button
+                                                                Command="{Binding AddSourceCommand}"
+                                                                Content="Add"
+                                                                Style="{StaticResource ButtonDefault}"
+                                                                ToolTip="Add" />
+                                                            <Button
+                                                                Command="{Binding CopySourceCommand}"
+                                                                Content="Copy"
+                                                                Style="{StaticResource ButtonDefault}"
+                                                                ToolTip="Copy" />
+                                                            <Button
+                                                                Command="{Binding SaveSourceCommand}"
+                                                                Content="Save"
+                                                                Style="{StaticResource ButtonDefault}"
+                                                                ToolTip="Save" />
+                                                            <Button
+                                                                Command="{Binding DeleteSourceCommand}"
+                                                                Content="Delete"
+                                                                Style="{StaticResource ButtonDefault}"
+                                                                ToolTip="Delete" />
+                                                        </StackPanel>
+                                                        <GroupBox
+                                                            Grid.Row="1"
+                                                            Grid.Column="0"
+                                                            Padding="3"
+                                                            Header="Sources">
+                                                            <DataGrid
+                                                                Width="Auto"
+                                                                Height="Auto"
+                                                                MaxHeight="300"
+                                                                AlternatingRowBackground="BlanchedAlmond"
+                                                                AutoGenerateColumns="False"
+                                                                BorderBrush="DarkSlateGray"
+                                                                BorderThickness="2"
+                                                                ColumnWidth="*"
+                                                                HorizontalScrollBarVisibility="Visible"
+                                                                ItemsSource="{Binding ReferenceSourcesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                SelectedItem="{Binding SelectedReferenceSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                VerticalScrollBarVisibility="Visible">
+                                                                <DataGrid.Columns>
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding ReferenceId}"
+                                                                        Header="Reference ID" />
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding RefSourceId}"
+                                                                        Header="Ref Source ID" />
+                                                                    <DataGridComboBoxColumn
+                                                                        Width="350"
+                                                                        DisplayMemberPath="RefSourceName"
+                                                                        Header="Reference Source Name"
+                                                                        ItemsSource="{Binding Source={StaticResource SourcesColl}}"
+                                                                        SelectedValueBinding="{Binding RefSourceId}"
+                                                                        SelectedValuePath="RefSourceId" />
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding PhylumId}"
+                                                                        Header="Phylum ID" />
+                                                                    <DataGridCheckBoxColumn
+                                                                        Width="50"
+                                                                        Binding="{Binding Valid}"
+                                                                        Header="Valid" />
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding ValidYear}"
+                                                                        Header="Valid Year" />
+                                                                    <DataGridTemplateColumn Width="200" Header="Info">
+                                                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBox
+                                                                                    MaxWidth="190"
+                                                                                    MaxHeight="100"
+                                                                                    Text="{Binding Path=Info, Mode=TwoWay}"
+                                                                                    TextAlignment="Left"
+                                                                                    TextWrapping="Wrap"
+                                                                                    VerticalScrollBarVisibility="Visible" />
+                                                                            </DataTemplate>
+                                                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                                                        <DataGridTemplateColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBlock
+                                                                                    MaxWidth="190"
+                                                                                    MaxHeight="100"
+                                                                                    Text="{Binding Path=Info, Mode=OneWay}"
+                                                                                    TextAlignment="Left"
+                                                                                    TextWrapping="Wrap" />
+                                                                            </DataTemplate>
+                                                                        </DataGridTemplateColumn.CellTemplate>
+                                                                    </DataGridTemplateColumn>
+                                                                    <DataGridTemplateColumn Width="300" Header="Memo">
+                                                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBox
+                                                                                    MaxWidth="290"
+                                                                                    MaxHeight="100"
+                                                                                    Text="{Binding Path=Memo, Mode=TwoWay}"
+                                                                                    TextAlignment="Left"
+                                                                                    TextWrapping="Wrap"
+                                                                                    VerticalScrollBarVisibility="Visible" />
+                                                                            </DataTemplate>
+                                                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                                                        <DataGridTemplateColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBlock
+                                                                                    MaxWidth="290"
+                                                                                    MaxHeight="100"
+                                                                                    Text="{Binding Path=Memo, Mode=OneWay}"
+                                                                                    TextAlignment="Left"
+                                                                                    TextWrapping="Wrap" />
+                                                                            </DataTemplate>
+                                                                        </DataGridTemplateColumn.CellTemplate>
+                                                                    </DataGridTemplateColumn>
+                                                                </DataGrid.Columns>
+                                                            </DataGrid>
+                                                        </GroupBox>
+                                                    </Grid>
+                                                    <Grid />
+                                                </StackPanel>
+                                                <StackPanel>
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto" />
+                                                            <RowDefinition Height="*" />
+                                                        </Grid.RowDefinitions>
+                                                        <StackPanel
+                                                            Grid.Row="0"
+                                                            Grid.Column="0"
+                                                            VerticalAlignment="Top"
+                                                            Orientation="Horizontal" />
+                                                        <StackPanel
+                                                            Grid.Row="0"
+                                                            Grid.Column="0"
+                                                            VerticalAlignment="Top"
+                                                            Orientation="Horizontal">
+                                                            <searchTextBox:SearchTextBox
+                                                                x:Name="TbSearchAuthor"
+                                                                Width="150"
+                                                                Height="30"
+                                                                Margin="10,5,30,2"
+                                                                AllowEmptySearches="True"
+                                                                BorderBrush="LightBlue"
+                                                                BorderThickness="1"
+                                                                Command="{Binding GetAuthorsByNameOrIdCommand}"
+                                                                SearchMode="Instant"
+                                                                Text="{Binding SearchAuthorName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                                ToolTip="SearchInfoOrId" />
+                                                        </StackPanel>
+
+                                                        <StackPanel
+                                                            Grid.Row="0"
+                                                            Grid.Column="0"
+                                                            Margin="180,0,0,0"
+                                                            HorizontalAlignment="Left"
+                                                            VerticalAlignment="Top"
+                                                            Orientation="Horizontal">
+                                                            <Button
+                                                                Command="{Binding AddAuthorCommand}"
+                                                                Content="Add"
+                                                                Style="{StaticResource ButtonDefault}"
+                                                                ToolTip="Add" />
+                                                            <Button
+                                                                Command="{Binding CopyAuthorCommand}"
+                                                                Content="Copy"
+                                                                Style="{StaticResource ButtonDefault}"
+                                                                ToolTip="Copy" />
+                                                            <Button
+                                                                Command="{Binding SaveAuthorCommand}"
+                                                                Content="Save"
+                                                                Style="{StaticResource ButtonDefault}"
+                                                                ToolTip="Save" />
+                                                            <Button
+                                                                Command="{Binding DeleteAuthorCommand}"
+                                                                Content="Delete"
+                                                                Style="{StaticResource ButtonDefault}"
+                                                                ToolTip="Delete" />
+                                                        </StackPanel>
+                                                        <GroupBox
+                                                            Grid.Row="1"
+                                                            Grid.Column="0"
+                                                            Padding="3"
+                                                            Header="Authors">
+                                                            <DataGrid
+                                                                Width="Auto"
+                                                                Height="Auto"
+                                                                MaxHeight="300"
+                                                                AlternatingRowBackground="BlanchedAlmond"
+                                                                AutoGenerateColumns="False"
+                                                                BorderBrush="DarkSlateGray"
+                                                                BorderThickness="2"
+                                                                ColumnWidth="*"
+                                                                HorizontalScrollBarVisibility="Visible"
+                                                                ItemsSource="{Binding ReferenceAuthorsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                SelectedItem="{Binding SelectedReferenceAuthor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                VerticalScrollBarVisibility="Visible">
+                                                                <DataGrid.Columns>
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding ReferenceId}"
+                                                                        Header="Reference ID" />
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding RefAuthorId}"
+                                                                        Header="Ref Author ID" />
+                                                                    <DataGridComboBoxColumn
+                                                                        Width="500"
+                                                                        DisplayMemberPath="RefAuthorName"
+                                                                        Header="Reference Author Name"
+                                                                        ItemsSource="{Binding Source={StaticResource AuthorsColl}}"
+                                                                        SelectedValueBinding="{Binding RefAuthorId}"
+                                                                        SelectedValuePath="RefAuthorId" />
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding PhylumId}"
+                                                                        Header="Phylum ID" />
+                                                                    <DataGridCheckBoxColumn
+                                                                        Width="50"
+                                                                        Binding="{Binding Valid}"
+                                                                        Header="Valid" />
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding ValidYear}"
+                                                                        Header="Valid Year" />
+                                                                    <DataGridTemplateColumn Width="200" Header="Info">
+                                                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBox
+                                                                                    MaxWidth="190"
+                                                                                    MaxHeight="100"
+                                                                                    Text="{Binding Path=Info, Mode=TwoWay}"
+                                                                                    TextAlignment="Left"
+                                                                                    TextWrapping="Wrap"
+                                                                                    VerticalScrollBarVisibility="Visible" />
+                                                                            </DataTemplate>
+                                                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                                                        <DataGridTemplateColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBlock
+                                                                                    MaxWidth="190"
+                                                                                    MaxHeight="100"
+                                                                                    Text="{Binding Path=Info, Mode=OneWay}"
+                                                                                    TextAlignment="Left"
+                                                                                    TextWrapping="Wrap" />
+                                                                            </DataTemplate>
+                                                                        </DataGridTemplateColumn.CellTemplate>
+                                                                    </DataGridTemplateColumn>
+                                                                    <DataGridTemplateColumn Width="300" Header="Memo">
+                                                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBox
+                                                                                    MaxWidth="290"
+                                                                                    MaxHeight="100"
+                                                                                    Text="{Binding Path=Memo, Mode=TwoWay}"
+                                                                                    TextAlignment="Left"
+                                                                                    TextWrapping="Wrap"
+                                                                                    VerticalScrollBarVisibility="Visible" />
+                                                                            </DataTemplate>
+                                                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                                                        <DataGridTemplateColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBlock
+                                                                                    MaxWidth="290"
+                                                                                    MaxHeight="100"
+                                                                                    Text="{Binding Path=Memo, Mode=OneWay}"
+                                                                                    TextAlignment="Left"
+                                                                                    TextWrapping="Wrap" />
+                                                                            </DataTemplate>
+                                                                        </DataGridTemplateColumn.CellTemplate>
+                                                                    </DataGridTemplateColumn>
+                                                                </DataGrid.Columns>
+
+                                                            </DataGrid>
+                                                        </GroupBox>
+                                                    </Grid>
+                                                    <Grid />
+                                                </StackPanel>
+                                                <StackPanel>
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto" />
+                                                            <RowDefinition Height="*" />
+                                                        </Grid.RowDefinitions>
+                                                        <StackPanel
+                                                            Grid.Row="0"
+                                                            Grid.Column="0"
+                                                            VerticalAlignment="Top"
+                                                            Orientation="Horizontal">
+                                                            <searchTextBox:SearchTextBox
+                                                                x:Name="TbSearchComment"
+                                                                Width="150"
+                                                                Height="30"
+                                                                Margin="10,5,30,2"
+                                                                AllowEmptySearches="True"
+                                                                BorderBrush="LightBlue"
+                                                                BorderThickness="1"
+                                                                Command="{Binding GetCommentsByNameOrIdCommand}"
+                                                                SearchMode="Instant"
+                                                                Text="{Binding SearchCommentName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                                ToolTip="SearchInfoOrId" />
+                                                        </StackPanel>
+
+                                                        <StackPanel
+                                                            Grid.Row="0"
+                                                            Grid.Column="0"
+                                                            Margin="180,0,0,0"
+                                                            HorizontalAlignment="Left"
+                                                            Orientation="Horizontal">
+                                                            <Button
+                                                                Command="{Binding AddCommentCommand}"
+                                                                Content="Add"
+                                                                Style="{StaticResource ButtonDefault}"
+                                                                ToolTip="Add" />
+                                                            <Button
+                                                                Command="{Binding CopyCommentCommand}"
+                                                                Content="Copy"
+                                                                Style="{StaticResource ButtonDefault}"
+                                                                ToolTip="Copy" />
+                                                            <Button
+                                                                Command="{Binding SaveCommentCommand}"
+                                                                Content="Save"
+                                                                Style="{StaticResource ButtonDefault}"
+                                                                ToolTip="Save" />
+                                                            <Button
+                                                                Command="{Binding DeleteCommentCommand}"
+                                                                Content="Delete"
+                                                                Style="{StaticResource ButtonDefault}"
+                                                                ToolTip="Delete" />
+                                                        </StackPanel>
+                                                        <GroupBox
+                                                            Grid.Row="1"
+                                                            Grid.Column="0"
+                                                            Padding="3"
+                                                            Header="Comments">
+                                                            <DataGrid
+                                                                Width="Auto"
+                                                                Height="Auto"
+                                                                MaxHeight="300"
+                                                                AlternatingRowBackground="BlanchedAlmond"
+                                                                AutoGenerateColumns="False"
+                                                                BorderBrush="DarkSlateGray"
+                                                                BorderThickness="2"
+                                                                ColumnWidth="*"
+                                                                HorizontalScrollBarVisibility="Visible"
+                                                                ItemsSource="{Binding CommentsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                SelectedItem="{Binding SelectedComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                VerticalScrollBarVisibility="Visible">
+                                                                <DataGrid.Columns>
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding CommentId}"
+                                                                        Header="Comment ID" />
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding PhylumId}"
+                                                                        Header="Phylum ID" />
+                                                                    <DataGridCheckBoxColumn
+                                                                        Width="50"
+                                                                        Binding="{Binding Valid}"
+                                                                        Header="Valid" />
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding ValidYear}"
+                                                                        Header="Valid Year" />
+                                                                    <DataGridTemplateColumn Width="200" Header="Info">
+                                                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBox
+                                                                                    MaxWidth="190"
+                                                                                    MaxHeight="100"
+                                                                                    Text="{Binding Path=Info, Mode=TwoWay}"
+                                                                                    TextAlignment="Left"
+                                                                                    TextWrapping="Wrap"
+                                                                                    VerticalScrollBarVisibility="Visible" />
+                                                                            </DataTemplate>
+                                                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                                                        <DataGridTemplateColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBlock
+                                                                                    MaxWidth="190"
+                                                                                    MaxHeight="100"
+                                                                                    Text="{Binding Path=Info, Mode=OneWay}"
+                                                                                    TextAlignment="Left"
+                                                                                    TextWrapping="Wrap" />
+                                                                            </DataTemplate>
+                                                                        </DataGridTemplateColumn.CellTemplate>
+                                                                    </DataGridTemplateColumn>
+                                                                    <DataGridTemplateColumn Width="300" Header="Memo">
+                                                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBox
+                                                                                    MaxWidth="290"
+                                                                                    MaxHeight="100"
+                                                                                    Text="{Binding Path=Memo, Mode=TwoWay}"
+                                                                                    TextAlignment="Left"
+                                                                                    TextWrapping="Wrap"
+                                                                                    VerticalScrollBarVisibility="Visible" />
+                                                                            </DataTemplate>
+                                                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                                                        <DataGridTemplateColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBlock
+                                                                                    MaxWidth="290"
+                                                                                    MaxHeight="100"
+                                                                                    Text="{Binding Path=Memo, Mode=OneWay}"
+                                                                                    TextAlignment="Left"
+                                                                                    TextWrapping="Wrap" />
+                                                                            </DataTemplate>
+                                                                        </DataGridTemplateColumn.CellTemplate>
+                                                                    </DataGridTemplateColumn>
+                                                                </DataGrid.Columns>
+                                                            </DataGrid>
+                                                        </GroupBox>
+                                                    </Grid>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </GroupBox>
+                                    </TabItem>
+                                    <TabItem FontWeight="DemiBold" Header="Subphylums">
+                                        <StackPanel>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <GroupBox
+                                                    Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    Padding="3"
+                                                    Header="Subphylums">
+                                                    <DataGrid
+                                                        Width="Auto"
+                                                        Height="Auto"
+                                                        MaxHeight="600"
+                                                        AlternatingRowBackground="BlanchedAlmond"
+                                                        AutoGenerateColumns="False"
+                                                        BorderBrush="Gray"
+                                                        BorderThickness="2"
+                                                        ColumnWidth="*"
+                                                        EnableColumnVirtualization="True"
+                                                        EnableRowVirtualization="True"
+                                                        GridLinesVisibility="All"
+                                                        HorizontalScrollBarVisibility="Visible"
+                                                        IsReadOnly="True"
+                                                        IsSynchronizedWithCurrentItem="true"
+                                                        ItemsSource="{Binding SubphylumsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        RowBackground="LightYellow"
+                                                        ScrollViewer.IsDeferredScrollingEnabled="True"
+                                                        SelectedItem="{Binding SelectedSubphylum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        VerticalScrollBarVisibility="Visible"
+                                                        VirtualizingPanel.IsVirtualizing="True"
+                                                        VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+                                                        VirtualizingPanel.VirtualizationMode="Recycling">
+                                                        <DataGrid.Columns>
+                                                            <DataGridTextColumn
+                                                                Width="100"
+                                                                Binding="{Binding SubphylumId}"
+                                                                Header="Subphylum ID" />
+                                                            <DataGridTextColumn
+                                                                Width="100"
+                                                                Binding="{Binding SubphylumName}"
+                                                                Header="Subphylum Name" />
+                                                            <DataGridTextColumn
+                                                                Width="100"
+                                                                Binding="{Binding PhylumId}"
+                                                                Header="Phylum ID" />
+                                                            <DataGridComboBoxColumn
+                                                                Width="100"
+                                                                DisplayMemberPath="PhylumName"
+                                                                Header="Phylum Name"
+                                                                ItemsSource="{Binding Source={StaticResource PhylumsAllColl}}"
+                                                                SelectedValueBinding="{Binding PhylumId}"
+                                                                SelectedValuePath="PhylumId" />
+                                                            <DataGridCheckBoxColumn
+                                                                Width="100"
+                                                                Binding="{Binding Valid}"
+                                                                Header="Valid" />
+                                                            <DataGridTextColumn
+                                                                Width="100"
+                                                                Binding="{Binding ValidYear}"
+                                                                Header="Valid Year" />
+                                                            <DataGridTemplateColumn Width="300" Header="Synonym">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                            MaxWidth="290"
+                                                                            MaxHeight="100"
+                                                                            Text="{Binding Path=Synonym, Mode=OneWay}"
+                                                                            TextAlignment="Left"
+                                                                            TextWrapping="Wrap" />
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                            <DataGridTextColumn
+                                                                Width="100"
+                                                                Binding="{Binding Author}"
+                                                                Header="Author Name" />
+                                                            <DataGridTextColumn
+                                                                Width="100"
+                                                                Binding="{Binding AuthorYear}"
+                                                                Header="Author Year" />
+                                                            <DataGridTemplateColumn Width="200" Header="Info">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                            MaxWidth="190"
+                                                                            MaxHeight="100"
+                                                                            Text="{Binding Path=Info, Mode=OneWay}"
+                                                                            TextAlignment="Left"
+                                                                            TextWrapping="Wrap" />
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding EngName}"
+                                                                Header="EngName" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding GerName}"
+                                                                Header="GerName" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding FraName}"
+                                                                Header="FraName" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding PorName}"
+                                                                Header="PorName" />
+                                                            <DataGridTemplateColumn Width="300" Header="Memo">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                            MaxWidth="290"
+                                                                            MaxHeight="100"
+                                                                            Text="{Binding Path=Memo, Mode=OneWay}"
+                                                                            TextAlignment="Left"
+                                                                            TextWrapping="Wrap" />
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                        </DataGrid.Columns>
+
+                                                    </DataGrid>
+                                                </GroupBox>
+                                            </Grid>
+                                        </StackPanel>
+                                    </TabItem>
+                                    <TabItem FontWeight="DemiBold" Header="Superclasses">
+                                        <StackPanel>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <GroupBox
+                                                    Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    Padding="3"
+                                                    Header="Superclasses">
+                                                    <DataGrid
+                                                        Width="Auto"
+                                                        Height="Auto"
+                                                        MaxHeight="600"
+                                                        AlternatingRowBackground="BlanchedAlmond"
+                                                        AutoGenerateColumns="False"
+                                                        BorderBrush="Gray"
+                                                        BorderThickness="2"
+                                                        ColumnWidth="*"
+                                                        EnableColumnVirtualization="True"
+                                                        EnableRowVirtualization="True"
+                                                        GridLinesVisibility="All"
+                                                        HorizontalScrollBarVisibility="Visible"
+                                                        IsReadOnly="True"
+                                                        IsSynchronizedWithCurrentItem="true"
+                                                        ItemsSource="{Binding SuperclassesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        RowBackground="LightYellow"
+                                                        ScrollViewer.IsDeferredScrollingEnabled="True"
+                                                        SelectedItem="{Binding SelectedSuperclass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        VerticalScrollBarVisibility="Visible"
+                                                        VirtualizingPanel.IsVirtualizing="True"
+                                                        VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+                                                        VirtualizingPanel.VirtualizationMode="Recycling">
+                                                        <DataGrid.Columns>
+                                                            <DataGridTextColumn
+                                                                Width="100"
+                                                                Binding="{Binding SuperclassId}"
+                                                                Header="Superclass ID" />
+                                                            <DataGridTextColumn
+                                                                Width="100"
+                                                                Binding="{Binding SuperclassName}"
+                                                                Header="Superclass Name" />
+                                                            <DataGridTextColumn
+                                                                Width="100"
+                                                                Binding="{Binding SubphylumId}"
+                                                                Header="Subphylum ID" />
+                                                            <DataGridComboBoxColumn
+                                                                Width="100" 
+                                                                DisplayMemberPath="SubphylumName"
+                                                                Header="Subphylum Name"
+                                                                ItemsSource="{Binding Source={StaticResource SubphylumsAllColl}}"
+                                                                SelectedValueBinding="{Binding SubphylumId}"
+                                                                SelectedValuePath="SubphylumId" />
+                                                            <DataGridCheckBoxColumn
+                                                                Width="100"
+                                                                Binding="{Binding Valid}"
+                                                                Header="Valid" />
+                                                            <DataGridTextColumn
+                                                                Width="100"
+                                                                Binding="{Binding ValidYear}"
+                                                                Header="Valid Year" />
+                                                            <DataGridTemplateColumn Width="300" Header="Synonym">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                            MaxWidth="290"
+                                                                            MaxHeight="100"
+                                                                            Text="{Binding Path=Synonym, Mode=OneWay}"
+                                                                            TextAlignment="Left"
+                                                                            TextWrapping="Wrap" />
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                            <DataGridTextColumn
+                                                                Width="100"
+                                                                Binding="{Binding Author}"
+                                                                Header="Author Name" />
+                                                            <DataGridTextColumn
+                                                                Width="100"
+                                                                Binding="{Binding AuthorYear}"
+                                                                Header="Author Year" />
+                                                            <DataGridTemplateColumn Width="200" Header="Info">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                            MaxWidth="190"
+                                                                            MaxHeight="100"
+                                                                            Text="{Binding Path=Info, Mode=OneWay}"
+                                                                            TextAlignment="Left"
+                                                                            TextWrapping="Wrap" />
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding EngName}"
+                                                                Header="EngName" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding GerName}"
+                                                                Header="GerName" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding FraName}"
+                                                                Header="FraName" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding PorName}"
+                                                                Header="PorName" />
+                                                            <DataGridTemplateColumn Width="300" Header="Memo">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                            MaxWidth="290"
+                                                                            MaxHeight="100"
+                                                                            Text="{Binding Path=Memo, Mode=OneWay}"
+                                                                            TextAlignment="Left"
+                                                                            TextWrapping="Wrap" />
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                        </DataGrid.Columns>
+
+                                                    </DataGrid>
+                                                </GroupBox>
+                                            </Grid>
+                                        </StackPanel>
+                                    </TabItem>
+                                </TabControl>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </UserControl>
