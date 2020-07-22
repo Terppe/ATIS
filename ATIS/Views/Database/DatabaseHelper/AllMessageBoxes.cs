@@ -10,40 +10,40 @@ namespace ATIS.Ui.Views.Database.DatabaseHelper
     {
         #region [MessageBoxes]
 
-        public bool NoDatasetSelectedInfoMessageBox(Tbl03Regnum selectedRegnum)
-        {
-            if (selectedRegnum == null)
-            {
-                MessageBox.Show("Select Dataset",
-                    "Required",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return true;
-            }
-            return false;
-        }
-        public bool NoDatasetSelectedInfoMessageBox(Tbl90Reference selectedReferenceExpert)
-        {
-            if (selectedReferenceExpert == null)
-            {
-                MessageBox.Show("Select Dataset",
-                    "Required",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return true;
-            }
-            return false;
-        }
+        //public bool NoDatasetSelectedInfoMessageBox(Tbl03Regnum SelectedRegnum)
+        //{
+        //    if (SelectedRegnum == null)
+        //    {
+        //        MessageBox.Show("Select Dataset",
+        //            "Required",
+        //            MessageBoxButton.OK, MessageBoxImage.Information);
+        //        return true;
+        //    }
+        //    return false;
+        //}
+        //public bool NoDatasetSelectedInfoMessageBox(Tbl90Reference selectedReferenceExpert)
+        //{
+        //    if (selectedReferenceExpert == null)
+        //    {
+        //        MessageBox.Show("Select Dataset",
+        //            "Required",
+        //            MessageBoxButton.OK, MessageBoxImage.Information);
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
-        public bool NoDatasetSelectedInfoMessageBox(Tbl93Comment selectedComment)
-        {
-            if (selectedComment == null)
-            {
-                MessageBox.Show("Select Dataset",
-                    "Required",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return true;
-            }
-            return false;
-        }
+        //public bool NoDatasetSelectedInfoMessageBox(Tbl93Comment selectedComment)
+        //{
+        //    if (selectedComment == null)
+        //    {
+        //        MessageBox.Show("Select Dataset",
+        //            "Required",
+        //            MessageBoxButton.OK, MessageBoxImage.Information);
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
         public bool DoNotDeleteDatasetInfoMessageBox(int collectionCount, string caption)
         {

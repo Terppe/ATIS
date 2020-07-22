@@ -18,9 +18,12 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly AtisDbContext _context = new AtisDbContext();
-        private readonly CrudReferences _crudRef = new CrudReferences();
-        private readonly CrudComments _crudCom = new CrudComments();
         private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
+        private readonly GenericMessageBoxes<Tbl03Regnum> _genRegnumMessageBoxes = new GenericMessageBoxes<Tbl03Regnum>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genExpertMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
 
         #region [ Constructor ]
 
@@ -31,6 +34,10 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void LoadCollections()
         {
+            RegnumsAllCollection = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums.GetAll());
+            PhylumsAllCollection = new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums.GetAll());
+            DivisionsAllCollection = new ObservableCollection<Tbl09Division>(_uow.Tbl09Divisions.GetAll());
+
             RegnumsCollection = new ObservableCollection<Tbl03Regnum>();
             PhylumsCollection = new ObservableCollection<Tbl06Phylum>();
             DivisionsCollection = new ObservableCollection<Tbl09Division>();
@@ -42,11 +49,12 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             ReferenceAuthorsCollection = new ObservableCollection<Tbl90Reference>();
             ExpertsCollection = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.GetAll());
             SourcesCollection = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.GetAll());
-            //          AuthorsCollection = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.GetAll());
+            AuthorsCollection = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.GetAll());
 
-
-            AuthorsCollection = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsToCombobox()); //change to Name,Bookname, page1
+            //   AuthorsCollection = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsToCombobox()); //change to Name,Bookname, page1
             CommentsCollection = new ObservableCollection<Tbl93Comment>();
+            TabIndexDetail = 1;
+
         }
 
         #endregion
@@ -73,7 +81,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteGetRegnumsByNameOrId(string searchName)
         {
-            TabIndexDetail = 0;
+            TabIndexDetail = 1;
 
             PhylumsCollection.Clear();
             DivisionsCollection.Clear();
@@ -90,17 +98,12 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         }
         private void ExecuteAddRegnum(object o)
         {
-            //if (RegnumsCollection == null)
-            //    RegnumsCollection = new ObservableCollection<Tbl03Regnum>();
-
             RegnumsCollection.Insert(0, new Tbl03Regnum { RegnumName = "NewDataset" });
             RaisePropertyChanged("RegnumsCollection");
         }
         private void ExecuteCopyRegnum(object o)
         {
-            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
-
-            //   if (NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
+            if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
 
             var regnum = _uow.Tbl03Regnums.GetById(SelectedRegnum.RegnumId);
 
@@ -126,7 +129,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         }
         private void ExecuteDeleteRegnum(string searchName)
         {
-            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
+            if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
 
             //check if in Tbl06Phylums or Tbl09Divisions connected datasets no delete, Expert, Sources, authors and Comment delete and than return
 
@@ -149,8 +152,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 }
                 _uow.Complete();
 
-                //    RaisePropertyChanged("ReferencesCollection");
-
                 _allMessageBoxes.InfoMessageBox("DeleteSuccess", "Reference");
             }
 
@@ -164,8 +165,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                     _uow.Tbl93Comments.Remove(t);
                 }
                 _uow.Complete();
-
-                //     RaisePropertyChanged("CommentsCollection");
 
                 _allMessageBoxes.InfoMessageBox("Delete successful", "Comment");
             }
@@ -182,7 +181,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                         _uow.Tbl03Regnums.Remove(regnum);
                         _uow.Complete();
 
-                        //        RaisePropertyChanged("RegnumsCollection");
 
                         _allMessageBoxes.InfoMessageBox("Delete successful", SelectedRegnum.RegnumName + " " + SelectedRegnum.Subregnum);
                     }
@@ -200,11 +198,10 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             ExecuteGetRegnumsByNameOrId(searchName);
 
             RaisePropertyChanged("RegnumsCollection");
-
         }
         private void ExecuteSaveRegnum(string searchName)
         {
-            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
+            if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
 
             try
             {
@@ -301,7 +298,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             }
         }
 
-        public ObservableCollection<Tbl03Regnum> SearchNameReturnRegnumsCollection(string searchName)
+        private ObservableCollection<Tbl03Regnum> SearchNameReturnRegnumsCollection(string searchName)
         {
             var collection = new ObservableCollection<Tbl03Regnum>();
 
@@ -458,32 +455,179 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteGetExpertsByNameOrId(string searchName)
         {
-            ReferenceExpertsCollection.Clear();
+            //ReferenceExpertsCollection.Clear();
+            //ReferenceExpertsCollection = _crudRef.GetExperts(searchName);
+            ReferenceExpertsCollection = SearchNameReturnExpertsCollection(searchName);
 
-            ReferenceExpertsCollection = _crudRef.GetExperts(searchName);
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
         private void ExecuteAddExpert(object o)
         {
-            ReferenceExpertsCollection = _crudRef.AddExpert(SelectedRegnum, ReferenceExpertsCollection);
+            //       ReferenceExpertsCollection = _crudRef.AddExpert(SelectedRegnum, ReferenceExpertsCollection);
+            if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
+
+            ReferenceExpertsCollection.Insert(0, new Tbl90Reference() { RegnumId = SelectedRegnum.RegnumId, Info = "NewDataset" });
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
         private void ExecuteCopyExpert(object o)
         {
-            ReferenceExpertsCollection = _crudRef.CopyExpert(SelectedReferenceExpert, ReferenceExpertsCollection);
+            //      ReferenceExpertsCollection = _crudRef.CopyExpert(SelectedReferenceExpert, ReferenceExpertsCollection);
+            if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceExpert)) return;
+
+            if (SelectedReferenceExpert != null)
+            {
+                var reference = _uow.Tbl90References.GetById(SelectedReferenceExpert.ReferenceId);
+
+                ReferenceExpertsCollection.Insert(0, new Tbl90Reference()
+                {
+                    RegnumId = reference.RegnumId,
+                    RefExpertId = reference.RefExpertId,
+                    Valid = reference.Valid,
+                    ValidYear = reference.ValidYear,
+                    Info = "NewDataset",
+                    Memo = reference.Memo
+                });
+            }
+
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
         private void ExecuteDeleteExpert(object o)
         {
-            ReferenceExpertsCollection = _crudRef.DeleteExpert(SelectedRegnum, SelectedReferenceExpert, ReferenceExpertsCollection);
+            //      ReferenceExpertsCollection = _crudRef.DeleteExpert(SelectedRegnum, SelectedReferenceExpert, ReferenceExpertsCollection);
+            if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceExpert)) return;
+
+            try
+            {
+                var reference = _uow.Tbl90References.GetById(SelectedReferenceExpert.ReferenceId);
+                if (reference != null)
+                {
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox("DeleteQuestion" + " " + SelectedReferenceExpert.Info)) return;
+
+                    _uow.Tbl90References.Remove(reference);
+                    _uow.Complete();
+
+                    _allMessageBoxes.InfoMessageBox("DeleteSuccess", SelectedReferenceExpert.Info);
+                }
+                else
+                {
+                    _allMessageBoxes.InfoMessageBox("Not To Delete", "DeleteCan" + " " + SelectedReferenceExpert.Info + " " + "DeleteCan1");
+                }
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                //         Log.Error(e);
+            }
+
+            ReferenceExpertsCollection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+                .Find(x => x.RegnumId == SelectedRegnum.RegnumId && x.RefAuthorId == null && x.RefSourceId == null));
 
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
         private void ExecuteSaveExpert(object o)
         {
-            ReferenceExpertsCollection = _crudRef.SaveExpert(SelectedRegnum, SelectedReferenceExpert, ReferenceExpertsCollection);
+            //  ReferenceExpertsCollection = _crudRef.SaveExpert(SelectedRegnum, SelectedReferenceExpert, ReferenceExpertsCollection);
+            if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
+
+            SelectedReferenceExpert.RegnumId = SelectedRegnum.RegnumId;
+
+            try
+            {
+                var reference = _uow.Tbl90References.GetById(SelectedReferenceExpert.ReferenceId);
+                if (SelectedReferenceExpert.ReferenceId != 0)
+                {
+                    if (reference != null) //update
+                    {
+                        reference.RefExpertId = SelectedReferenceExpert.RefExpertId;
+                        reference.RegnumId = SelectedReferenceExpert.RegnumId;
+                        reference.Valid = SelectedReferenceExpert.Valid;
+                        reference.ValidYear = SelectedReferenceExpert.ValidYear;
+                        reference.Info = SelectedReferenceExpert.Info;
+                        reference.Updater = Environment.UserName;
+                        reference.UpdaterDate = DateTime.Now;
+                        reference.Memo = SelectedReferenceExpert.Memo;
+                    }
+                }
+                else
+                {
+                    reference = new Tbl90Reference //add new
+                    {
+                        RefExpertId = SelectedReferenceExpert.RefExpertId,
+                        RegnumId = SelectedReferenceExpert.RegnumId,
+                        CountId = RandomHelper.Randomnumber(),
+                        Valid = SelectedReferenceExpert.Valid,
+                        ValidYear = SelectedReferenceExpert.ValidYear,
+                        Info = SelectedReferenceExpert.Info,
+                        Memo = SelectedReferenceExpert.Memo,
+                        Writer = Environment.UserName,
+                        WriterDate = DateTime.Now,
+                        Updater = Environment.UserName,
+                        UpdaterDate = DateTime.Now,
+                    };
+                }
+
+                try
+                {
+                    if (SelectedReferenceExpert.ReferenceId != 0) //update
+                    {
+                        if (reference != null) _uow.Tbl90References.Update(reference);
+                    }
+                    else                                //add
+                    if (reference != null) _uow.Tbl90References.Add(reference);
+
+                    _uow.Complete();
+
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), "FailedToSave");
+                    //     Log.Error(e);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                    //         Log.Error(e);
+                    return;
+                }
+                _allMessageBoxes.InfoMessageBox("SaveSuccess", SelectedReferenceExpert.RefExpertId == 0
+                    ? "DatasetNew"
+                    : SelectedReferenceExpert.Info);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, "Error");
+                //         Log.Error(e);
+            }
+
+            ReferenceExpertsCollection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+                .Find(x => x.RegnumId == SelectedRegnum.RegnumId && x.RefAuthorId == null && x.RefSourceId == null));
 
             RaisePropertyChanged("ReferenceExpertsCollection");
+        }
+        private ObservableCollection<Tbl90Reference> SearchNameReturnExpertsCollection(string searchName)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>();
+
+            switch (searchName)
+            {
+                case "":
+                    return collection;
+                case "*":
+                    collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.GetAll());
+                    break;
+                default:
+                    collection = int.TryParse(searchName, out var id)
+                        ? new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+                            .Find(e => e.ReferenceId == id && e.RefAuthorId == null && e.RefSourceId == null))
+                        : new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+                            .Find(e => e.Info.StartsWith(searchName))
+                        );
+                    break;
+            }
+
+            return collection;
         }
 
         #endregion
@@ -509,30 +653,178 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteGetSourcesByNameOrId(string searchName)
         {
-            ReferenceSourcesCollection.Clear();
-
-            ReferenceSourcesCollection = _crudRef.GetSources(searchName);
+            //ReferenceSourcesCollection.Clear();
+            //ReferenceSourcesCollection = _crudRef.GetSources(searchName);
+            ReferenceSourcesCollection = SearchNameReturnSourcesCollection(searchName);
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
         private void ExecuteAddSource(object o)
         {
-            ReferenceSourcesCollection = _crudRef.AddSource(SelectedRegnum, ReferenceSourcesCollection);
+            //       ReferenceSourcesCollection = _crudRef.AddSource(SelectedRegnum, ReferenceSourcesCollection);
+            if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
+
+            ReferenceSourcesCollection.Insert(0, new Tbl90Reference() { RegnumId = SelectedRegnum.RegnumId, Info = "NewDataset" });
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
         private void ExecuteCopySource(object o)
         {
-            ReferenceSourcesCollection = _crudRef.CopySource(SelectedReferenceSource, ReferenceSourcesCollection);
+            //  ReferenceSourcesCollection = _crudRef.CopySource(SelectedReferenceSource, ReferenceSourcesCollection);
+            if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceSource)) return;
+
+            if (SelectedReferenceSource != null)
+            {
+                var reference = _uow.Tbl90References.GetById(SelectedReferenceSource.ReferenceId);
+
+                ReferenceSourcesCollection.Insert(0, new Tbl90Reference()
+                {
+                    RegnumId = reference.RegnumId,
+                    RefSourceId = reference.RefSourceId,
+                    Valid = reference.Valid,
+                    ValidYear = reference.ValidYear,
+                    Info = "NewDataset",
+                    Memo = reference.Memo
+                });
+            }
+
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
-        private void ExecuteDeleteSource(string searchName)
+        private void ExecuteDeleteSource(object o)
         {
-            ReferenceSourcesCollection = _crudRef.DeleteSource(SelectedRegnum, SelectedReferenceSource, ReferenceSourcesCollection);
+            //   ReferenceSourcesCollection = _crudRef.DeleteSource(SelectedRegnum, SelectedReferenceSource, ReferenceSourcesCollection);
+            if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceSource)) return;
+
+            try
+            {
+                var reference = _uow.Tbl90References.GetById(SelectedReferenceSource.ReferenceId);
+                if (reference != null)
+                {
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox("DeleteQuestion" + " " + SelectedReferenceSource.Info)) return;
+
+                    _uow.Tbl90References.Remove(reference);
+                    _uow.Complete();
+
+                    _allMessageBoxes.InfoMessageBox("DeleteSuccess", SelectedReferenceSource.Info);
+                }
+                else
+                {
+                    _allMessageBoxes.InfoMessageBox("Not To Delete", "DeleteCan" + " " + SelectedReferenceSource.Info + " " + "DeleteCan1");
+                }
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                //         Log.Error(e);
+            }
+
+            ReferenceSourcesCollection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+                .Find(x => x.RegnumId == SelectedRegnum.RegnumId && x.RefAuthorId == null && x.RefExpertId == null));
+
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
-        private void ExecuteSaveSource(string searchName)
+        private void ExecuteSaveSource(object o)
         {
-            ReferenceSourcesCollection = _crudRef.SaveSource(SelectedRegnum, SelectedReferenceSource, ReferenceSourcesCollection);
+            //      ReferenceSourcesCollection = _crudRef.SaveSource(SelectedRegnum, SelectedReferenceSource, ReferenceSourcesCollection);
+            if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
+
+            SelectedReferenceSource.RegnumId = SelectedRegnum.RegnumId;
+
+            try
+            {
+                var reference = _uow.Tbl90References.GetById(SelectedReferenceSource.ReferenceId);
+                if (SelectedReferenceSource.ReferenceId != 0)
+                {
+                    if (reference != null) //update
+                    {
+                        reference.RefSourceId = SelectedReferenceSource.RefSourceId;
+                        reference.RegnumId = SelectedReferenceSource.RegnumId;
+                        reference.Valid = SelectedReferenceSource.Valid;
+                        reference.ValidYear = SelectedReferenceSource.ValidYear;
+                        reference.Info = SelectedReferenceSource.Info;
+                        reference.Updater = Environment.UserName;
+                        reference.UpdaterDate = DateTime.Now;
+                        reference.Memo = SelectedReferenceSource.Memo;
+                    }
+                }
+                else
+                {
+                    reference = new Tbl90Reference //add new
+                    {
+                        RefSourceId = SelectedReferenceSource.RefSourceId,
+                        RegnumId = SelectedReferenceSource.RegnumId,
+                        CountId = RandomHelper.Randomnumber(),
+                        Valid = SelectedReferenceSource.Valid,
+                        ValidYear = SelectedReferenceSource.ValidYear,
+                        Info = SelectedReferenceSource.Info,
+                        Memo = SelectedReferenceSource.Memo,
+                        Writer = Environment.UserName,
+                        WriterDate = DateTime.Now,
+                        Updater = Environment.UserName,
+                        UpdaterDate = DateTime.Now,
+                    };
+                }
+
+                try
+                {
+                    if (SelectedReferenceSource.ReferenceId != 0) //update
+                    {
+                        if (reference != null) _uow.Tbl90References.Update(reference);
+                    }
+                    else                                //add
+                    if (reference != null) _uow.Tbl90References.Add(reference);
+
+                    _uow.Complete();
+
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), "FailedToSave");
+                    //     Log.Error(e);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                    //         Log.Error(e);
+                    return;
+                }
+                _allMessageBoxes.InfoMessageBox("SaveSuccess", SelectedReferenceSource.RefSourceId == 0
+                    ? "DatasetNew"
+                    : SelectedReferenceSource.Info);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, "Error");
+                //         Log.Error(e);
+            }
+
+            ReferenceSourcesCollection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+                .Find(x => x.RegnumId == SelectedRegnum.RegnumId && x.RefAuthorId == null && x.RefExpertId == null));
+
             RaisePropertyChanged("ReferenceSourcesCollection");
+        }
+        private ObservableCollection<Tbl90Reference> SearchNameReturnSourcesCollection(string searchName)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>();
+
+            switch (searchName)
+            {
+                case "":
+                    return collection;
+                case "*":
+                    collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.GetAll());
+                    break;
+                default:
+                    collection = int.TryParse(searchName, out var id)
+                        ? new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+                            .Find(e => e.ReferenceId == id && e.RefAuthorId == null && e.RefExpertId == null))
+                        : new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+                            .Find(e => e.Info.StartsWith(searchName))
+                        );
+                    break;
+            }
+
+            return collection;
         }
 
         #endregion
@@ -560,30 +852,179 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteGetAuthorsByNameOrId(string searchName)
         {
-            ReferenceAuthorsCollection.Clear();
+            //ReferenceAuthorsCollection.Clear();
+            //ReferenceAuthorsCollection = _crudRef.GetAuthors(searchName);
+            ReferenceAuthorsCollection = SearchNameReturnAuthorsCollection(searchName);
 
-            ReferenceAuthorsCollection = _crudRef.GetAuthors(searchName);
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
         private void ExecuteAddAuthor(object o)
         {
-            ReferenceAuthorsCollection = _crudRef.AddAuthor(SelectedRegnum, ReferenceAuthorsCollection);
+            //        ReferenceAuthorsCollection = _crudRef.AddAuthor(SelectedRegnum, ReferenceAuthorsCollection);
+            if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
+
+            ReferenceAuthorsCollection.Insert(0, new Tbl90Reference() { RegnumId = SelectedRegnum.RegnumId, Info = "NewDataset" });
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
         private void ExecuteCopyAuthor(object o)
         {
-            ReferenceAuthorsCollection = _crudRef.CopyAuthor(SelectedReferenceAuthor, ReferenceAuthorsCollection);
+            //      ReferenceAuthorsCollection = _crudRef.CopyAuthor(SelectedReferenceAuthor, ReferenceAuthorsCollection);
+            if (_genAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceAuthor)) return;
+
+            if (SelectedReferenceAuthor != null)
+            {
+                var reference = _uow.Tbl90References.GetById(SelectedReferenceAuthor.ReferenceId);
+
+                ReferenceAuthorsCollection.Insert(0, new Tbl90Reference()
+                {
+                    RegnumId = reference.RegnumId,
+                    RefAuthorId = reference.RefAuthorId,
+                    Valid = reference.Valid,
+                    ValidYear = reference.ValidYear,
+                    Info = "NewDataset",
+                    Memo = reference.Memo
+                });
+            }
+
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
-        private void ExecuteDeleteAuthor(string searchName)
+        private void ExecuteDeleteAuthor(object o)
         {
-            ReferenceAuthorsCollection = _crudRef.DeleteAuthor(SelectedRegnum, SelectedReferenceAuthor, ReferenceAuthorsCollection);
+            //    ReferenceAuthorsCollection = _crudRef.DeleteAuthor(SelectedRegnum, SelectedReferenceAuthor, ReferenceAuthorsCollection);
+            if (_genAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceAuthor)) return;
+
+            try
+            {
+                var reference = _uow.Tbl90References.GetById(SelectedReferenceAuthor.ReferenceId);
+                if (reference != null)
+                {
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox("DeleteQuestion" + " " + SelectedReferenceAuthor.Info)) return;
+
+                    _uow.Tbl90References.Remove(reference);
+                    _uow.Complete();
+
+                    _allMessageBoxes.InfoMessageBox("DeleteSuccess", SelectedReferenceAuthor.Info);
+                }
+                else
+                {
+                    _allMessageBoxes.InfoMessageBox("Not To Delete", "DeleteCan" + " " + SelectedReferenceAuthor.Info + " " + "DeleteCan1");
+                }
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                //         Log.Error(e);
+            }
+
+            ReferenceAuthorsCollection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+                .Find(x => x.RegnumId == SelectedRegnum.RegnumId && x.RefSourceId == null && x.RefExpertId == null));
+
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
-        private void ExecuteSaveAuthor(string searchName)
+        private void ExecuteSaveAuthor(object o)
         {
-            ReferenceAuthorsCollection = _crudRef.SaveAuthor(SelectedRegnum, SelectedReferenceAuthor, ReferenceAuthorsCollection);
+            //     ReferenceAuthorsCollection = _crudRef.SaveAuthor(SelectedRegnum, SelectedReferenceAuthor, ReferenceAuthorsCollection);
+            if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
+
+            SelectedReferenceAuthor.RegnumId = SelectedRegnum.RegnumId;
+
+            try
+            {
+                var reference = _uow.Tbl90References.GetById(SelectedReferenceAuthor.ReferenceId);
+                if (SelectedReferenceAuthor.ReferenceId != 0)
+                {
+                    if (reference != null) //update
+                    {
+                        reference.RefAuthorId = SelectedReferenceAuthor.RefAuthorId;
+                        reference.RegnumId = SelectedReferenceAuthor.RegnumId;
+                        reference.Valid = SelectedReferenceAuthor.Valid;
+                        reference.ValidYear = SelectedReferenceAuthor.ValidYear;
+                        reference.Info = SelectedReferenceAuthor.Info;
+                        reference.Updater = Environment.UserName;
+                        reference.UpdaterDate = DateTime.Now;
+                        reference.Memo = SelectedReferenceAuthor.Memo;
+                    }
+                }
+                else
+                {
+                    reference = new Tbl90Reference //add new
+                    {
+                        RefAuthorId = SelectedReferenceAuthor.RefAuthorId,
+                        RegnumId = SelectedReferenceAuthor.RegnumId,
+                        CountId = RandomHelper.Randomnumber(),
+                        Valid = SelectedReferenceAuthor.Valid,
+                        ValidYear = SelectedReferenceAuthor.ValidYear,
+                        Info = SelectedReferenceAuthor.Info,
+                        Memo = SelectedReferenceAuthor.Memo,
+                        Writer = Environment.UserName,
+                        WriterDate = DateTime.Now,
+                        Updater = Environment.UserName,
+                        UpdaterDate = DateTime.Now,
+                    };
+                }
+
+                try
+                {
+                    if (SelectedReferenceAuthor.ReferenceId != 0) //update
+                    {
+                        if (reference != null) _uow.Tbl90References.Update(reference);
+                    }
+                    else                                //add
+                    if (reference != null) _uow.Tbl90References.Add(reference);
+
+                    _uow.Complete();
+
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), "FailedToSave");
+                    //     Log.Error(e);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                    //         Log.Error(e);
+                    return;
+                }
+                _allMessageBoxes.InfoMessageBox("SaveSuccess", SelectedReferenceAuthor.RefSourceId == 0
+                    ? "DatasetNew"
+                    : SelectedReferenceAuthor.Info);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, "Error");
+                //         Log.Error(e);
+            }
+
+            ReferenceAuthorsCollection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+                .Find(x => x.RegnumId == SelectedRegnum.RegnumId && x.RefSourceId == null && x.RefExpertId == null));
+
             RaisePropertyChanged("ReferenceAuthorsCollection");
+        }
+        private ObservableCollection<Tbl90Reference> SearchNameReturnAuthorsCollection(string searchName)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>();
+
+            switch (searchName)
+            {
+                case "":
+                    return collection;
+                case "*":
+                    collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.GetAll());
+                    break;
+                default:
+                    collection = int.TryParse(searchName, out var id)
+                        ? new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+                            .Find(e => e.ReferenceId == id && e.RefSourceId == null && e.RefExpertId == null))
+                        : new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+                            .Find(e => e.Info.StartsWith(searchName))
+                        );
+                    break;
+            }
+
+            return collection;
         }
 
         #endregion
@@ -609,31 +1050,175 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteGetCommentsByNameOrId(string searchName)
         {
-            CommentsCollection.Clear();
-
-            CommentsCollection = _crudCom.GetComments(searchName);
-
+            //CommentsCollection.Clear();
+            //CommentsCollection = _crudCom.GetComments(searchName);
+            CommentsCollection = SearchNameReturnCommentsCollection(searchName);
             RaisePropertyChanged("CommentsCollection");
         }
         private void ExecuteAddComment(object o)
         {
-            CommentsCollection = _crudCom.AddComment(SelectedRegnum, CommentsCollection);
+            //      CommentsCollection = _genRegnumComments.AddComment(SelectedRegnum, CommentsCollection);
+            //   CommentsCollection = _crudCom.AddComment(SelectedRegnum, CommentsCollection);
+            if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
+
+            CommentsCollection.Insert(0, new Tbl93Comment() { RegnumId = SelectedRegnum.RegnumId, Info = "NewDataset" });
             RaisePropertyChanged("CommentsCollection");
         }
         private void ExecuteCopyComment(object o)
         {
-            CommentsCollection = _crudCom.CopyComment(SelectedComment, CommentsCollection);
+            // CommentsCollection = _crudCom.CopyComment(SelectedComment, CommentsCollection);
+            if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedComment)) return;
+
+            if (SelectedComment != null)
+            {
+                var comment = _uow.Tbl93Comments.GetById(SelectedComment.CommentId);
+
+                CommentsCollection.Insert(0, new Tbl93Comment()
+                {
+                    RegnumId = comment.RegnumId,
+                    Valid = comment.Valid,
+                    ValidYear = comment.ValidYear,
+                    Info = "NewDataset",
+                    Memo = comment.Memo
+                });
+            }
+
             RaisePropertyChanged("CommentsCollection");
         }
-        private void ExecuteDeleteComment(string searchName)
+        private void ExecuteDeleteComment(object o)
         {
-            CommentsCollection = _crudCom.DeleteComment(SelectedRegnum, SelectedComment, CommentsCollection);
+            //  CommentsCollection = _crudCom.DeleteComment(SelectedRegnum, SelectedComment, CommentsCollection);
+            if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedComment)) return;
+
+            try
+            {
+                var comment = _uow.Tbl93Comments.GetById(SelectedComment.CommentId);
+                if (comment != null)
+                {
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox("DeleteQuestion" + " " + SelectedComment.Info)) return;
+
+                    _uow.Tbl93Comments.Remove(comment);
+                    _uow.Complete();
+
+                    _allMessageBoxes.InfoMessageBox("DeleteSuccess", SelectedComment.Info);
+                }
+                else
+                {
+                    _allMessageBoxes.InfoMessageBox("Not To Delete", "DeleteCan" + " " + SelectedComment.Info + " " + "DeleteCan1");
+                }
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                //         Log.Error(e);
+            }
+            CommentsCollection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
+                .Find(x => x.RegnumId == SelectedRegnum.RegnumId));
+
             RaisePropertyChanged("CommentsCollection");
         }
-        private void ExecuteSaveComment(string searchName)
+        private void ExecuteSaveComment(object o)
         {
-            CommentsCollection = _crudCom.SaveComment(SelectedRegnum, SelectedComment, CommentsCollection);
+            //   CommentsCollection = _crudCom.SaveComment(SelectedRegnum, SelectedComment, CommentsCollection);
+            if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedComment)) return;
+
+            SelectedComment.RegnumId = SelectedRegnum.RegnumId;
+
+            try
+            {
+                var comment = _uow.Tbl93Comments.GetById(SelectedComment.CommentId);
+                if (SelectedComment.CommentId != 0)
+                {
+                    if (comment != null) //update
+                    {
+                        comment.RegnumId = SelectedComment.RegnumId;
+                        comment.Valid = SelectedComment.Valid;
+                        comment.ValidYear = SelectedComment.ValidYear;
+                        comment.Info = SelectedComment.Info;
+                        comment.Updater = Environment.UserName;
+                        comment.UpdaterDate = DateTime.Now;
+                        comment.Memo = SelectedComment.Memo;
+                    }
+                }
+                else
+                {
+                    comment = new Tbl93Comment() //add new
+                    {
+                        RegnumId = SelectedComment.RegnumId,
+                        CountId = RandomHelper.Randomnumber(),
+                        Valid = SelectedComment.Valid,
+                        ValidYear = SelectedComment.ValidYear,
+                        Info = SelectedComment.Info,
+                        Memo = SelectedComment.Memo,
+                        Writer = Environment.UserName,
+                        WriterDate = DateTime.Now,
+                        Updater = Environment.UserName,
+                        UpdaterDate = DateTime.Now,
+                    };
+                }
+
+                try
+                {
+                    if (SelectedComment.CommentId != 0) //update
+                    {
+                        if (comment != null) _uow.Tbl93Comments.Update(comment);
+                    }
+                    else                                //add
+                    if (comment != null) _uow.Tbl93Comments.Add(comment);
+
+                    _uow.Complete();
+
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), "FailedToSave");
+                    //     Log.Error(e);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                    //         Log.Error(e);
+                    return;
+                }
+                _allMessageBoxes.InfoMessageBox("SaveSuccess", SelectedComment.CommentId == 0
+                    ? "DatasetNew"
+                    : SelectedComment.Info);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, "Error");
+                //         Log.Error(e);
+            }
+
+            CommentsCollection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
+                .Find(x => x.RegnumId == SelectedRegnum.RegnumId));
+
             RaisePropertyChanged("CommentsCollection");
+        }
+        private ObservableCollection<Tbl93Comment> SearchNameReturnCommentsCollection(string searchName)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>();
+
+            switch (searchName)
+            {
+                case "":
+                    return collection;
+                case "*":
+                    collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.GetAll());
+                    break;
+                default:
+                    collection = int.TryParse(searchName, out var id)
+                        ? new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
+                            .Find(e => e.CommentId == id))
+                        : new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
+                            .Find(e => e.Info.StartsWith(searchName))
+                        );
+                    break;
+            }
+
+            return collection;
         }
 
         #endregion
@@ -654,7 +1239,10 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 _tabIndexMain = value;
                 RaisePropertyChanged("TabIndexMain");
                 if (_tabIndexMain == 0)
+                {
                     TabIndexDetail = 0;
+
+                }
             }
         }
         public int TabIndexDetail
@@ -681,37 +1269,38 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         #region "Public Commands Connected Tables by DoubleClick"
 
-        //private RelayCommand _openRegnumsCrudCommand;
-        //public ICommand OpenRegnumsCrudCommand => _openRegnumsCrudCommand ??= new RelayCommand(delegate { OpenRegnumsCrud(RegnumsCollection); });
+        private RelayCommand _openRegnumsCrudCommand;
+        public ICommand OpenRegnumsCrudCommand => _openRegnumsCrudCommand ??= new RelayCommand(delegate { OpenRegnumsCrud(RegnumsCollection); });
 
-        //private void OpenRegnumsCrud(object regnumsCollection)
-        //{
-        //    RegnumsCollection = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums
-        //        .Find(e => e.RegnumId == SelectedRegnum.RegnumId)
-        //        .OrderBy(a => a.RegnumName));
+        private void OpenRegnumsCrud(object regnumsCollection)
+        {
+            RegnumsCollection = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums
+                .Find(e => e.RegnumId == SelectedRegnum.RegnumId)
+                .OrderBy(a => a.RegnumName));
 
-        //    ////var test1View = new Test1() { DataContext = typeof(Test1WindowViewModel) };
-        //    //  var test1View = new Test1();
-        //    //test1View.Show();
+            ////var test1View = new Test1() { DataContext = typeof(Test1WindowViewModel) };
+            //  var test1View = new Test1();
+            //test1View.Show();
 
-        //    var view = new Test1Window() { DataContext = typeof(RegnumsViewModel) };
-        //    //      view.DataContext = new RegnumsViewModel();
-        //    view.Title = "Test1View";
-        //    view.Width = 820;
-        //    view.Height = 620;
-        //    view.Show();
+            var view = new Test1Window() { DataContext = typeof(RegnumsViewModel) };
+            //      view.DataContext = new RegnumsViewModel();
+            view.Title = "Test1View";
+            view.Width = 820;
+            view.Height = 620;
+            view.Show();
 
-        //}
+        }
 
 
         #endregion "Public Commands Connected Tables by DoubleClick"
-
 
         #region [ Properties ]
 
         #region Public Properties Tbl03Regnum
 
         public string SearchRegnumName { get; set; }
+        public ObservableCollection<Tbl03Regnum> RegnumsCollection { get; set; }
+        public ObservableCollection<Tbl03Regnum> RegnumsAllCollection { get; set; }
 
         Tbl03Regnum _selectedRegnum;
         public Tbl03Regnum SelectedRegnum
@@ -721,9 +1310,31 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             {
                 _selectedRegnum = value;
                 RaisePropertyChanged("SelectedRegnum");
-                if (_selectedRegnum != null) GetPhylums(_selectedRegnum.RegnumId);
+                if (_selectedRegnum != null)
+                {
+                    switch (_selectedRegnum.RegnumName)
+                    {
+                        case "Animalia":
+                            TabIndexDetail = 1;
+                            GetPhylums(_selectedRegnum.RegnumId);
+                            DivisionsCollection.Clear();
+                            break;
+                        case "Plantae":
+                            TabIndexDetail = 2;
+                            GetDivisions(_selectedRegnum.RegnumId);
+                            PhylumsCollection.Clear();
+                            break;
+                        default:
+                            {
+                                TabIndexDetail = 1;
+                                GetPhylums(_selectedRegnum.RegnumId);  //change evtl. Archaea, Protozoa
+                                DivisionsCollection.Clear();
+                                break;
+                            }
+                    }
+                }
+
                 SubphylumsCollection.Clear();
-                if (_selectedRegnum != null) GetDivisions(_selectedRegnum.RegnumId);
                 SubdivisionsCollection.Clear();
                 if (_selectedRegnum != null) GetReferenceExperts(_selectedRegnum.RegnumId);
                 if (_selectedRegnum != null) GetReferenceSources(_selectedRegnum.RegnumId);
@@ -732,13 +1343,13 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 //  ReferenceSourcesCollection.Clear();
             }
         }
-        public ObservableCollection<Tbl03Regnum> RegnumsCollection { get; set; }
 
         #endregion Public Properties Regnum
 
         #region Public Properties Tbl06Phylum
 
         public ObservableCollection<Tbl06Phylum> PhylumsCollection { get; set; }
+        public ObservableCollection<Tbl06Phylum> PhylumsAllCollection { get; set; }
 
         Tbl06Phylum _selectedPhylum = null;
         public Tbl06Phylum SelectedPhylum
@@ -760,6 +1371,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         #region Public Properties Tbl09Division
 
         public ObservableCollection<Tbl09Division> DivisionsCollection { get; set; }
+        public ObservableCollection<Tbl09Division> DivisionsAllCollection { get; set; }
 
         Tbl09Division _selectedDivision = null;
         public Tbl09Division SelectedDivision
@@ -835,8 +1447,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         public ObservableCollection<Tbl90Reference> ReferenceExpertsCollection { get; set; }
 
-        #endregion "Public Properties"   
-
+        #endregion "Public Properties"
 
         #region "Public Properties Tbl90ReferenceSource"
         public string SearchSourceName { get; set; }

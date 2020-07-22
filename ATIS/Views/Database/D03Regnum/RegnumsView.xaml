@@ -10,9 +10,9 @@
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <CollectionViewSource x:Key="RegnumsColl" Source="{Binding RegnumsCollection}" />
-        <CollectionViewSource x:Key="PhylumsColl" Source="{Binding PhylumsCollection}" />
-        <CollectionViewSource x:Key="DivisionsColl" Source="{Binding DivisionsCollection}" />
+        <CollectionViewSource x:Key="RegnumsAllColl" Source="{Binding RegnumsAllCollection}" />
+        <CollectionViewSource x:Key="PhylumsAllColl" Source="{Binding PhylumsAllCollection}" />
+        <CollectionViewSource x:Key="DivisionsAllColl" Source="{Binding DivisionsAllCollection}" />
         <CollectionViewSource x:Key="ExpertsColl" Source="{Binding ExpertsCollection}" />
         <CollectionViewSource x:Key="SourcesColl" Source="{Binding SourcesCollection}" />
         <CollectionViewSource x:Key="AuthorsColl" Source="{Binding AuthorsCollection}" />
@@ -72,23 +72,26 @@
                         </StackPanel>
                         <GroupBox Padding="3" Header="Regnums">
                             <DataGrid
-                                x:Name="DataGridRegnums"
                                 Width="Auto"
-                                Height="200"
-                                MaxHeight="400"
+                                Height="400"
+                                MaxHeight="600"
                                 AlternatingRowBackground="BlanchedAlmond"
                                 AutoGenerateColumns="False"
-                                BorderBrush="DarkSlateGray"
+                                BorderBrush="Gray"
                                 BorderThickness="2"
-                                CanUserAddRows="True"
                                 ColumnWidth="*"
+                                EnableColumnVirtualization="True"
+                                EnableRowVirtualization="True"
                                 GridLinesVisibility="All"
                                 HorizontalScrollBarVisibility="Visible"
                                 IsReadOnly="False"
                                 IsSynchronizedWithCurrentItem="true"
                                 ItemsSource="{Binding RegnumsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                ScrollViewer.IsDeferredScrollingEnabled="True"
                                 SelectedItem="{Binding SelectedRegnum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                VerticalScrollBarVisibility="Visible">
+                                VerticalScrollBarVisibility="Visible"
+                                VirtualizingStackPanel.IsVirtualizing="True"
+                                VirtualizingStackPanel.VirtualizationMode="Recycling">
 
                                 <DataGrid.InputBindings>
                                     <KeyBinding Command="{Binding SaveRegnumCommand}" Gesture="Ctrl+Shift+S" />
@@ -185,10 +188,7 @@
                                         Width="Auto"
                                         Binding="{Binding PorName}"
                                         Header="PorName" />
-                                    <DataGridTemplateColumn
-                                        x:Name="ColumnMemo"
-                                        Width="300"
-                                        Header="Memo">
+                                    <DataGridTemplateColumn Width="300" Header="Memo">
                                         <DataGridTemplateColumn.CellEditingTemplate>
                                             <DataTemplate>
                                                 <TextBox
@@ -285,11 +285,13 @@
                                                                 MaxHeight="300"
                                                                 AlternatingRowBackground="BlanchedAlmond"
                                                                 AutoGenerateColumns="False"
-                                                                BorderBrush="DarkSlateGray"
+                                                                BorderBrush="Gray"
                                                                 BorderThickness="2"
                                                                 ColumnWidth="*"
                                                                 GridLinesVisibility="All"
                                                                 HorizontalScrollBarVisibility="Visible"
+                                                                IsReadOnly="False"
+                                                                IsSynchronizedWithCurrentItem="true"
                                                                 ItemsSource="{Binding ReferenceExpertsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                                                 SelectedItem="{Binding SelectedReferenceExpert, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                 VerticalScrollBarVisibility="Visible">
@@ -435,10 +437,13 @@
                                                                 MaxHeight="300"
                                                                 AlternatingRowBackground="BlanchedAlmond"
                                                                 AutoGenerateColumns="False"
-                                                                BorderBrush="DarkSlateGray"
+                                                                BorderBrush="Gray"
                                                                 BorderThickness="2"
                                                                 ColumnWidth="*"
+                                                                GridLinesVisibility="All"
                                                                 HorizontalScrollBarVisibility="Visible"
+                                                                IsReadOnly="False"
+                                                                IsSynchronizedWithCurrentItem="true"
                                                                 ItemsSource="{Binding ReferenceSourcesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                                                 SelectedItem="{Binding SelectedReferenceSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                 VerticalScrollBarVisibility="Visible">
@@ -837,14 +842,23 @@
                                                         MaxHeight="600"
                                                         AlternatingRowBackground="BlanchedAlmond"
                                                         AutoGenerateColumns="False"
-                                                        BorderBrush="DarkSlateGray"
+                                                        BorderBrush="Gray"
                                                         BorderThickness="2"
                                                         ColumnWidth="*"
+                                                        EnableColumnVirtualization="True"
+                                                        EnableRowVirtualization="True"
+                                                        GridLinesVisibility="All"
                                                         HorizontalScrollBarVisibility="Visible"
                                                         IsReadOnly="True"
+                                                        IsSynchronizedWithCurrentItem="true"
                                                         ItemsSource="{Binding PhylumsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        RowBackground="LightYellow"
+                                                        ScrollViewer.IsDeferredScrollingEnabled="True"
                                                         SelectedItem="{Binding SelectedPhylum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                        VerticalScrollBarVisibility="Visible">
+                                                        VerticalScrollBarVisibility="Visible"
+                                                        VirtualizingPanel.IsVirtualizing="True"
+                                                        VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+                                                        VirtualizingPanel.VirtualizationMode="Recycling">
                                                         <DataGrid.Columns>
                                                             <DataGridTextColumn
                                                                 Width="100"
@@ -858,7 +872,7 @@
                                                                 Width="100"
                                                                 DisplayMemberPath="RegnumName"
                                                                 Header="Regnum Name"
-                                                                ItemsSource="{Binding Source={StaticResource RegnumsColl}}"
+                                                                ItemsSource="{Binding Source={StaticResource RegnumsAllColl}}"
                                                                 SelectedValueBinding="{Binding RegnumId}"
                                                                 SelectedValuePath="RegnumId" />
                                                             <DataGridCheckBoxColumn
@@ -882,13 +896,54 @@
                                                                 </DataGridTemplateColumn.CellTemplate>
                                                             </DataGridTemplateColumn>
                                                             <DataGridTextColumn
-                                                                Width="100"
+                                                                Width="Auto"
                                                                 Binding="{Binding Author}"
                                                                 Header="Author Name" />
                                                             <DataGridTextColumn
                                                                 Width="100"
                                                                 Binding="{Binding AuthorYear}"
                                                                 Header="Author Year" />
+                                                            <DataGridTemplateColumn Width="200" Header="Info">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                            MaxWidth="190"
+                                                                            MaxHeight="100"
+                                                                            Text="{Binding Path=Info, Mode=OneWay}"
+                                                                            TextAlignment="Left"
+                                                                            TextWrapping="Wrap" />
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding EngName}"
+                                                                Header="EngName" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding GerName}"
+                                                                Header="GerName" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding FraName}"
+                                                                Header="FraName" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding PorName}"
+                                                                Header="PorName" />
+                                                            <DataGridTemplateColumn Width="300" Header="Memo">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                            MaxWidth="290"
+                                                                            MaxHeight="100"
+                                                                            Text="{Binding Path=Memo, Mode=OneWay}"
+                                                                            TextAlignment="Left"
+                                                                            TextWrapping="Wrap" />
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+
                                                         </DataGrid.Columns>
                                                     </DataGrid>
                                                 </GroupBox>
@@ -912,14 +967,23 @@
                                                         MaxHeight="600"
                                                         AlternatingRowBackground="BlanchedAlmond"
                                                         AutoGenerateColumns="False"
-                                                        BorderBrush="DarkSlateGray"
+                                                        BorderBrush="Gray"
                                                         BorderThickness="2"
                                                         ColumnWidth="*"
+                                                        EnableColumnVirtualization="True"
+                                                        EnableRowVirtualization="True"
+                                                        GridLinesVisibility="All"
                                                         HorizontalScrollBarVisibility="Visible"
                                                         IsReadOnly="True"
+                                                        IsSynchronizedWithCurrentItem="true"
                                                         ItemsSource="{Binding DivisionsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        RowBackground="LightYellow"
+                                                        ScrollViewer.IsDeferredScrollingEnabled="True"
                                                         SelectedItem="{Binding SelectedDivision, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                        VerticalScrollBarVisibility="Visible">
+                                                        VerticalScrollBarVisibility="Visible"
+                                                        VirtualizingPanel.IsVirtualizing="True"
+                                                        VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+                                                        VirtualizingPanel.VirtualizationMode="Recycling">
                                                         <DataGrid.Columns>
                                                             <DataGridTextColumn
                                                                 Width="100"
@@ -937,7 +1001,7 @@
                                                                 Width="100"
                                                                 DisplayMemberPath="RegnumName"
                                                                 Header="Regnum Name"
-                                                                ItemsSource="{Binding Source={StaticResource RegnumsColl}}"
+                                                                ItemsSource="{Binding Source={StaticResource RegnumsAllColl}}"
                                                                 SelectedValueBinding="{Binding RegnumId}"
                                                                 SelectedValuePath="RegnumId" />
                                                             <DataGridCheckBoxColumn
@@ -961,13 +1025,54 @@
                                                                 </DataGridTemplateColumn.CellTemplate>
                                                             </DataGridTemplateColumn>
                                                             <DataGridTextColumn
-                                                                Width="100"
+                                                                Width="Auto"
                                                                 Binding="{Binding Author}"
                                                                 Header="Author Name" />
                                                             <DataGridTextColumn
                                                                 Width="100"
                                                                 Binding="{Binding AuthorYear}"
                                                                 Header="Author Year" />
+                                                            <DataGridTemplateColumn Width="200" Header="Info">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                            MaxWidth="190"
+                                                                            MaxHeight="100"
+                                                                            Text="{Binding Path=Info, Mode=OneWay}"
+                                                                            TextAlignment="Left"
+                                                                            TextWrapping="Wrap" />
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding EngName}"
+                                                                Header="EngName" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding GerName}"
+                                                                Header="GerName" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding FraName}"
+                                                                Header="FraName" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding PorName}"
+                                                                Header="PorName" />
+                                                            <DataGridTemplateColumn Width="300" Header="Memo">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                            MaxWidth="290"
+                                                                            MaxHeight="100"
+                                                                            Text="{Binding Path=Memo, Mode=OneWay}"
+                                                                            TextAlignment="Left"
+                                                                            TextWrapping="Wrap" />
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+
                                                         </DataGrid.Columns>
                                                     </DataGrid>
                                                 </GroupBox>
@@ -991,14 +1096,23 @@
                                                         MaxHeight="600"
                                                         AlternatingRowBackground="BlanchedAlmond"
                                                         AutoGenerateColumns="False"
-                                                        BorderBrush="DarkSlateGray"
+                                                        BorderBrush="Gray"
                                                         BorderThickness="2"
                                                         ColumnWidth="*"
+                                                        EnableColumnVirtualization="True"
+                                                        EnableRowVirtualization="True"
+                                                        GridLinesVisibility="All"
                                                         HorizontalScrollBarVisibility="Visible"
                                                         IsReadOnly="True"
+                                                        IsSynchronizedWithCurrentItem="true"
                                                         ItemsSource="{Binding SubphylumsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        RowBackground="LightYellow"
+                                                        ScrollViewer.IsDeferredScrollingEnabled="True"
                                                         SelectedItem="{Binding SelectedSubphylum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                        VerticalScrollBarVisibility="Visible">
+                                                        VerticalScrollBarVisibility="Visible"
+                                                        VirtualizingPanel.IsVirtualizing="True"
+                                                        VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+                                                        VirtualizingPanel.VirtualizationMode="Recycling">
                                                         <DataGrid.Columns>
                                                             <DataGridTextColumn
                                                                 Width="100"
@@ -1016,7 +1130,7 @@
                                                                 Width="100"
                                                                 DisplayMemberPath="PhylumName"
                                                                 Header="Phylum Name"
-                                                                ItemsSource="{Binding Source={StaticResource PhylumsColl}}"
+                                                                ItemsSource="{Binding Source={StaticResource PhylumsAllColl}}"
                                                                 SelectedValueBinding="{Binding PhylumId}"
                                                                 SelectedValuePath="PhylumId" />
                                                             <DataGridCheckBoxColumn
@@ -1040,13 +1154,54 @@
                                                                 </DataGridTemplateColumn.CellTemplate>
                                                             </DataGridTemplateColumn>
                                                             <DataGridTextColumn
-                                                                Width="100"
+                                                                Width="Auto"
                                                                 Binding="{Binding Author}"
                                                                 Header="Author Name" />
                                                             <DataGridTextColumn
                                                                 Width="100"
                                                                 Binding="{Binding AuthorYear}"
                                                                 Header="Author Year" />
+                                                            <DataGridTemplateColumn Width="200" Header="Info">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                            MaxWidth="190"
+                                                                            MaxHeight="100"
+                                                                            Text="{Binding Path=Info, Mode=OneWay}"
+                                                                            TextAlignment="Left"
+                                                                            TextWrapping="Wrap" />
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding EngName}"
+                                                                Header="EngName" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding GerName}"
+                                                                Header="GerName" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding FraName}"
+                                                                Header="FraName" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding PorName}"
+                                                                Header="PorName" />
+                                                            <DataGridTemplateColumn Width="300" Header="Memo">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                            MaxWidth="290"
+                                                                            MaxHeight="100"
+                                                                            Text="{Binding Path=Memo, Mode=OneWay}"
+                                                                            TextAlignment="Left"
+                                                                            TextWrapping="Wrap" />
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+
                                                         </DataGrid.Columns>
 
                                                     </DataGrid>
@@ -1071,14 +1226,23 @@
                                                         MaxHeight="600"
                                                         AlternatingRowBackground="BlanchedAlmond"
                                                         AutoGenerateColumns="False"
-                                                        BorderBrush="DarkSlateGray"
+                                                        BorderBrush="Gray"
                                                         BorderThickness="2"
                                                         ColumnWidth="*"
+                                                        EnableColumnVirtualization="True"
+                                                        EnableRowVirtualization="True"
+                                                        GridLinesVisibility="All"
                                                         HorizontalScrollBarVisibility="Visible"
                                                         IsReadOnly="True"
+                                                        IsSynchronizedWithCurrentItem="true"
                                                         ItemsSource="{Binding SubdivisionsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        RowBackground="LightYellow"
+                                                        ScrollViewer.IsDeferredScrollingEnabled="True"
                                                         SelectedItem="{Binding SelectedSubdivision, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                        VerticalScrollBarVisibility="Visible">
+                                                        VerticalScrollBarVisibility="Visible"
+                                                        VirtualizingPanel.IsVirtualizing="True"
+                                                        VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+                                                        VirtualizingPanel.VirtualizationMode="Recycling">
                                                         <DataGrid.Columns>
                                                             <DataGridTextColumn
                                                                 Width="100"
@@ -1096,7 +1260,7 @@
                                                                 Width="100"
                                                                 DisplayMemberPath="DivisionName"
                                                                 Header="Division Name"
-                                                                ItemsSource="{Binding Source={StaticResource DivisionsColl}}"
+                                                                ItemsSource="{Binding Source={StaticResource DivisionsAllColl}}"
                                                                 SelectedValueBinding="{Binding DivisionId}"
                                                                 SelectedValuePath="DivisionId" />
                                                             <DataGridCheckBoxColumn
@@ -1120,13 +1284,54 @@
                                                                 </DataGridTemplateColumn.CellTemplate>
                                                             </DataGridTemplateColumn>
                                                             <DataGridTextColumn
-                                                                Width="100"
+                                                                Width="Auto"
                                                                 Binding="{Binding Author}"
                                                                 Header="Author Name" />
                                                             <DataGridTextColumn
                                                                 Width="100"
                                                                 Binding="{Binding AuthorYear}"
                                                                 Header="Author Year" />
+                                                            <DataGridTemplateColumn Width="200" Header="Info">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                            MaxWidth="190"
+                                                                            MaxHeight="100"
+                                                                            Text="{Binding Path=Info, Mode=OneWay}"
+                                                                            TextAlignment="Left"
+                                                                            TextWrapping="Wrap" />
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding EngName}"
+                                                                Header="EngName" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding GerName}"
+                                                                Header="GerName" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding FraName}"
+                                                                Header="FraName" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding PorName}"
+                                                                Header="PorName" />
+                                                            <DataGridTemplateColumn Width="300" Header="Memo">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                            MaxWidth="290"
+                                                                            MaxHeight="100"
+                                                                            Text="{Binding Path=Memo, Mode=OneWay}"
+                                                                            TextAlignment="Left"
+                                                                            TextWrapping="Wrap" />
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+
                                                         </DataGrid.Columns>
 
                                                     </DataGrid>
