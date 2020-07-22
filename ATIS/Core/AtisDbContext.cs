@@ -48,6 +48,8 @@ namespace ATIS.Ui.Core
         public DbSet<Tbl09Division> Tbl09Divisions { get; set; }
         public DbSet<Tbl12Subphylum> Tbl12Subphylums { get; set; }
         public DbSet<Tbl15Subdivision> Tbl15Subdivisions { get; set; }
+        public DbSet<Tbl18Superclass> Tbl18Superclasses { get; set; }
+
         public DbSet<Tbl90Reference> Tbl90References { get; set; }
         public DbSet<Tbl90RefAuthor> Tbl90RefAuthors { get; set; }
         public DbSet<Tbl90RefExpert> Tbl90RefExperts { get; set; }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ATIS.Ui.Core.Interfaces;
-using ATIS.Ui.Core.Interfaces_UOW;
-using ATIS.Ui.Core.Repositories;
+﻿using ATIS.Ui.Core.Interfaces_UOW;
 using ATIS.Ui.Core.Repositories_UOW;
 
 namespace ATIS.Ui.Core
@@ -18,6 +13,9 @@ namespace ATIS.Ui.Core
             Tbl03Regnums = new Tbl03RegnumRepository(_context);
             Tbl06Phylums = new Tbl06PhylumRepository(_context);
             Tbl09Divisions = new Tbl09DivisionRepository(_context);
+            Tbl12Subphylums = new Tbl12SubphylumRepository(_context);
+            Tbl15Subdivisions = new Tbl15SubdivisionRepository(_context);
+            Tbl18Superclasses = new Tbl18SuperclassRepository(_context);
 
             Tbl90References = new Tbl90ReferenceRepository(_context);
             Tbl90RefExperts = new Tbl90RefExpertRepository(_context);
@@ -30,6 +28,9 @@ namespace ATIS.Ui.Core
         public ITbl03RegnumRepository Tbl03Regnums { get; }
         public ITbl06PhylumRepository Tbl06Phylums { get; }
         public ITbl09DivisionRepository Tbl09Divisions { get; }
+        public ITbl12SubphylumRepository Tbl12Subphylums { get; }
+        public ITbl15SubdivisionRepository Tbl15Subdivisions { get; }
+        public ITbl18SuperclassRepository Tbl18Superclasses { get; }
 
         public ITbl90ReferenceRepository Tbl90References { get; }
         public ITbl90RefExpertRepository Tbl90RefExperts { get; }
