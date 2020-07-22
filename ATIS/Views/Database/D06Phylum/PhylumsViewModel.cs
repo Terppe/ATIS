@@ -1,31 +1,25 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using ATIS.Dal.Models;
-using ATIS.Ui.Core.Interfaces;
-using ATIS.Ui.Core.Repositories;
+using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 
 namespace ATIS.Ui.Views.Database.D06Phylum
 {
     public class PhylumsViewModel : ViewModelBase
     {
+        // Version with Generic Unit Of Work and AtisDbContext for general use
 
-        /*
-         *  Version mit Generic Repository
-         */
+        private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
+        private readonly AtisDbContext _context = new AtisDbContext();
 
-        private readonly IGenericRepository<Tbl06Phylum> _repPhylumRepository = null;
-        private readonly IGenericRepository<Tbl03Regnum> _repRegnumRepository = null;
 
         public PhylumsViewModel()
         {
-            _repPhylumRepository = new GenericRepository<Tbl06Phylum>();
-            _repRegnumRepository = new GenericRepository<Tbl03Regnum>();
-            RegnumsCollection = new ObservableCollection<Tbl03Regnum>(_repRegnumRepository.SelectAll());
+            RegnumsCollection = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums.GetAll());
         }
 
         private RelayCommand _getPhylumsByNameOrIdCommand;
@@ -47,6 +41,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         public ICommand SavePhylumCommand => _savePhylumCommand ??= new RelayCommand(delegate { ExecuteSavePhylum(null); });
 
+
         public void ExecuteGetPhylumsByNameOrId(string searchName)
         {
             PhylumsCollection = SearchNameReturnPhylumsCollection(SearchPhylumName);
@@ -58,15 +53,8 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             if (PhylumsCollection == null)
                 PhylumsCollection = new ObservableCollection<Tbl06Phylum>();
 
-            if (SelectedPhylum == null) //No dataset selected 
-            {
-                MessageBox.Show("Select Phylum",
-                    "Required select",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
 
-            RegnumsCollection = new ObservableCollection<Tbl03Regnum>(_repRegnumRepository.SelectAll());
+            RegnumsCollection = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums.GetAll());
 
 
             PhylumsCollection.Insert(0, new Tbl06Phylum { PhylumName = "DatasetNew" });
@@ -74,7 +62,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void ExecuteCopyPhylum(object o)
         {
-            if (_repPhylumRepository != null)
+            if (_uow != null)
             {
                 if (SelectedPhylum == null)
                 {
@@ -84,7 +72,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                     return;
                 }
 
-                var phylum = _repPhylumRepository.SelectById(SelectedPhylum.PhylumId);
+                var phylum = _uow.Tbl06Phylums.GetById(SelectedPhylum.PhylumId);
 
                 PhylumsCollection.Insert(0, new Tbl06Phylum()
                 {
@@ -107,7 +95,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void ExecuteDeletePhylum(object o)
         {
-            if (SelectedPhylum == null) //No dataset selected
+            if (SelectedPhylum == null) //No dataset selected 
             {
                 MessageBox.Show("Select Phylum",
                     "Required select",
@@ -123,24 +111,26 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             }
             else
             {
-                if (SelectedPhylum != null) _repPhylumRepository.Delete(SelectedPhylum.PhylumId);
+                if (SelectedPhylum != null) _uow.Dispose();
 
-                _repPhylumRepository.Save();
+                _uow.Complete();
                 UpdateCollection();
             }
         }
 
         private void ExecuteSavePhylum(object o)
         {
-            if (SelectedPhylum == null  ) //No dataset selected
+            if (SelectedPhylum == null) //No dataset selected
             {
-                    MessageBox.Show("Select Phylum",
-                    "Required select",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Select Phylum",
+                "Required select",
+                MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
-            var phylum = _repPhylumRepository.SelectById(SelectedPhylum.PhylumId);
+            if (SelectedPhylum != null)
+            {
+                var phylum = _uow.Tbl06Phylums.GetById(SelectedPhylum.PhylumId);
                 if (phylum != null) //update
                 {
                     phylum.PhylumName = SelectedPhylum.PhylumName;
@@ -159,45 +149,46 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                     phylum.UpdaterDate = DateTime.Now;
                     phylum.Memo = SelectedPhylum.Memo;
                 }
-            else
-                phylum = new Tbl06Phylum //add new
+                else
+                    phylum = new Tbl06Phylum //add new
+                    {
+                        PhylumName = SelectedPhylum.PhylumName,
+                        RegnumId = SelectedPhylum.RegnumId,
+                        CountId = RandomHelper.Randomnumber(),
+                        Valid = SelectedPhylum.Valid,
+                        ValidYear = SelectedPhylum.ValidYear,
+                        Synonym = SelectedPhylum.Synonym,
+                        Author = SelectedPhylum.Author,
+                        AuthorYear = SelectedPhylum.AuthorYear,
+                        Info = SelectedPhylum.Info,
+                        EngName = SelectedPhylum.EngName,
+                        GerName = SelectedPhylum.GerName,
+                        FraName = SelectedPhylum.FraName,
+                        PorName = SelectedPhylum.PorName,
+                        Writer = Environment.UserName,
+                        WriterDate = DateTime.Now,
+                        Updater = Environment.UserName,
+                        UpdaterDate = DateTime.Now,
+                        Memo = SelectedPhylum.Memo,
+                    };
+                if (SelectedPhylum.PhylumId != 0)  //update
                 {
-                    PhylumName = SelectedPhylum.PhylumName,
-                    RegnumId = SelectedPhylum.RegnumId,
-                    CountId = RandomHelper.Randomnumber(),
-                    Valid = SelectedPhylum.Valid,
-                    ValidYear = SelectedPhylum.ValidYear,
-                    Synonym = SelectedPhylum.Synonym,
-                    Author = SelectedPhylum.Author,
-                    AuthorYear = SelectedPhylum.AuthorYear,
-                    Info = SelectedPhylum.Info,
-                    EngName = SelectedPhylum.EngName,
-                    GerName = SelectedPhylum.GerName,
-                    FraName = SelectedPhylum.FraName,
-                    PorName = SelectedPhylum.PorName,
-                    Writer = Environment.UserName,
-                    WriterDate = DateTime.Now,
-                    Updater = Environment.UserName,
-                    UpdaterDate = DateTime.Now,
-                    Memo = SelectedPhylum.Memo,
-                };
-            if (SelectedPhylum.PhylumId != 0)  //update
-            {
-                _repPhylumRepository.Update(phylum);
-            }
-            else
-            {
-                _repPhylumRepository.Insert(phylum);
+                    _uow.Tbl06Phylums.Update(phylum);
+                }
+                else
+                {
+                    _uow.Tbl06Phylums.Add(phylum);  //add
+                }
             }
 
-            _repPhylumRepository.Save();
+            _uow.Complete();
             UpdateCollection();
         }
 
         private void UpdateCollection()
         {
             PhylumsCollection.Clear();
-            foreach (Tbl06Phylum phylum in _repPhylumRepository.SelectAll())
+            foreach (Tbl06Phylum phylum in _uow.Tbl06Phylums.GetAll())
             {
                 PhylumsCollection.Add(phylum);
             }
@@ -212,15 +203,14 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 case "":
                     return phylumsCollection;
                 case "*":
-                    if (_repPhylumRepository != null)
-                        phylumsCollection = new ObservableCollection<Tbl06Phylum>(_repPhylumRepository.SelectAll());
+                    if (_uow.Tbl06Phylums != null)
+                        phylumsCollection = new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums.GetAll());
                     break;
                 default:
-                    if (_repPhylumRepository != null)
+                    if (_uow.Tbl06Phylums != null)
                         phylumsCollection = int.TryParse(searchName, out var id)
-                            ? new ObservableCollection<Tbl06Phylum>(_repPhylumRepository.SelectAll()
-                                .Where(e => e.PhylumId == id))
-                            : new ObservableCollection<Tbl06Phylum>(_repPhylumRepository.SelectAll()
+                            ? new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums.Find(e => e.PhylumId == id))
+                            : new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums.GetAll()
                                 .Where(e => searchName != null && e.PhylumName.StartsWith(searchName))
                                 .OrderBy(a => a.PhylumName)
                             );
