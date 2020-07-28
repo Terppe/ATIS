@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"
     xmlns:searchTextBox="clr-namespace:SearchTextBox;assembly=SearchTextBox"
     d:DesignHeight="1000"
     d:DesignWidth="1400"
@@ -13,6 +14,7 @@
         <CollectionViewSource x:Key="RegnumsAllColl" Source="{Binding RegnumsAllCollection}" />
         <CollectionViewSource x:Key="PhylumsAllColl" Source="{Binding PhylumsAllCollection}" />
         <CollectionViewSource x:Key="DivisionsAllColl" Source="{Binding DivisionsAllCollection}" />
+
         <CollectionViewSource x:Key="ExpertsColl" Source="{Binding ExpertsCollection}" />
         <CollectionViewSource x:Key="SourcesColl" Source="{Binding SourcesCollection}" />
         <CollectionViewSource x:Key="AuthorsColl" Source="{Binding AuthorsCollection}" />
@@ -53,24 +55,24 @@
                                 Command="{Binding AddRegnumCommand}"
                                 Content="Add"
                                 Style="{StaticResource ButtonDefault}"
-                                ToolTip="Add" />
+                                ToolTip="{DynamicResource Shared-ButtonAdd}" />
                             <Button
                                 Command="{Binding CopyRegnumCommand}"
                                 Content="Copy"
                                 Style="{StaticResource ButtonDefault}"
-                                ToolTip="Copy" />
+                                ToolTip="{DynamicResource Shared-ButtonCopy}" />
                             <Button
                                 Command="{Binding SaveRegnumCommand}"
                                 Content="Save"
                                 Style="{StaticResource ButtonDefault}"
-                                ToolTip="Save" />
+                                ToolTip="{DynamicResource Shared-ButtonSave}" />
                             <Button
                                 Command="{Binding DeleteRegnumCommand}"
                                 Content="Delete"
                                 Style="{StaticResource ButtonDefault}"
-                                ToolTip="Delete" />
+                                ToolTip="{DynamicResource Shared-ButtonDelete}" />
                         </StackPanel>
-                        <GroupBox Padding="3" Header="Regnums">
+                        <GroupBox Padding="3" Header="{DynamicResource Shared-TabStripHeaderRegnums}">
                             <DataGrid
                                 Width="Auto"
                                 Height="400"
@@ -101,24 +103,24 @@
                                     <DataGridTextColumn
                                         Width="Auto"
                                         Binding="{Binding RegnumId}"
-                                        Header="Regnum ID" />
+                                        Header="{DynamicResource Tbl03Regnum-RegnumId}" />
                                     <DataGridTextColumn
                                         Width="Auto"
                                         Binding="{Binding RegnumName}"
-                                        Header="Regnum Name" />
+                                        Header="{DynamicResource Tbl03Regnum-RegnumName}" />
                                     <DataGridTextColumn
                                         Width="Auto"
                                         Binding="{Binding Subregnum}"
-                                        Header="Subregnum" />
+                                        Header="{DynamicResource Tbl03Regnum-Subregnum}" />
                                     <DataGridCheckBoxColumn
                                         Width="50"
                                         Binding="{Binding Valid}"
-                                        Header="Valid" />
+                                        Header="{DynamicResource Shared-Valid}" />
                                     <DataGridTextColumn
                                         Width="Auto"
                                         Binding="{Binding ValidYear}"
-                                        Header="Valid Year" />
-                                    <DataGridTemplateColumn Width="300" Header="Synonym">
+                                        Header="{DynamicResource Shared-ValidYear}" />
+                                    <DataGridTemplateColumn Width="300" Header="{DynamicResource Shared-Synonym}">
                                         <DataGridTemplateColumn.CellEditingTemplate>
                                             <DataTemplate>
                                                 <TextBox
@@ -144,12 +146,12 @@
                                     <DataGridTextColumn
                                         Width="Auto"
                                         Binding="{Binding Author}"
-                                        Header="Author Name" />
+                                        Header="{DynamicResource Shared-Author}" />
                                     <DataGridTextColumn
                                         Width="100"
                                         Binding="{Binding AuthorYear}"
-                                        Header="Author Year" />
-                                    <DataGridTemplateColumn Width="200" Header="Info">
+                                        Header="{DynamicResource Shared-AuthorYear}" />
+                                    <DataGridTemplateColumn Width="200" Header="{DynamicResource Shared-Info}">
                                         <DataGridTemplateColumn.CellEditingTemplate>
                                             <DataTemplate>
                                                 <TextBox
@@ -175,20 +177,20 @@
                                     <DataGridTextColumn
                                         Width="Auto"
                                         Binding="{Binding EngName}"
-                                        Header="EngName" />
+                                        Header="{DynamicResource Shared-EngName}" />
                                     <DataGridTextColumn
                                         Width="Auto"
                                         Binding="{Binding GerName}"
-                                        Header="GerName" />
+                                        Header="{DynamicResource Shared-GerName}" />
                                     <DataGridTextColumn
                                         Width="Auto"
                                         Binding="{Binding FraName}"
-                                        Header="FraName" />
+                                        Header="{DynamicResource Shared-FraName}" />
                                     <DataGridTextColumn
                                         Width="Auto"
                                         Binding="{Binding PorName}"
-                                        Header="PorName" />
-                                    <DataGridTemplateColumn Width="300" Header="Memo">
+                                        Header="{DynamicResource Shared-SpaName}" />
+                                    <DataGridTemplateColumn Width="300" Header="{DynamicResource Shared-Memo}">
                                         <DataGridTemplateColumn.CellEditingTemplate>
                                             <DataTemplate>
                                                 <TextBox
@@ -219,8 +221,8 @@
                         <StackPanel>
                             <StackPanel>
                                 <TabControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding TabIndexDetail, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                    <TabItem FontWeight="DemiBold" Header="Expert-Source-Author-Comment">
-                                        <GroupBox Padding="3" Header="References">
+                                    <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderExpert-Source-Author-Comment}">
+                                        <GroupBox Padding="3" Header="{DynamicResource Tbl90Reference-Reference}">
                                             <StackPanel>
                                                 <StackPanel>
                                                     <Grid>
@@ -244,7 +246,7 @@
                                                                 Command="{Binding GetExpertsByNameOrIdCommand}"
                                                                 SearchMode="Instant"
                                                                 Text="{Binding SearchExpertName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                                                ToolTip="SearchInfoOrId" />
+                                                                ToolTip="{DynamicResource Shared-SearchInfoOrId}" />
                                                         </StackPanel>
                                                         <StackPanel
                                                             Grid.Row="0"
@@ -257,28 +259,28 @@
                                                                 Command="{Binding AddExpertCommand}"
                                                                 Content="Add"
                                                                 Style="{StaticResource ButtonDefault}"
-                                                                ToolTip="Add" />
+                                                                ToolTip="{DynamicResource Shared-ButtonAdd}" />
                                                             <Button
                                                                 Command="{Binding CopyExpertCommand}"
                                                                 Content="Copy"
                                                                 Style="{StaticResource ButtonDefault}"
-                                                                ToolTip="Copy" />
+                                                                ToolTip="{DynamicResource Shared-ButtonCopy}" />
                                                             <Button
                                                                 Command="{Binding SaveExpertCommand}"
                                                                 Content="Save"
                                                                 Style="{StaticResource ButtonDefault}"
-                                                                ToolTip="Save" />
+                                                                ToolTip="{DynamicResource Shared-ButtonSave}" />
                                                             <Button
                                                                 Command="{Binding DeleteExpertCommand}"
                                                                 Content="Delete"
                                                                 Style="{StaticResource ButtonDefault}"
-                                                                ToolTip="Delete" />
+                                                                ToolTip="{DynamicResource Shared-ButtonDelete}" />
                                                         </StackPanel>
                                                         <GroupBox
                                                             Grid.Row="1"
                                                             Grid.Column="0"
                                                             Padding="3"
-                                                            Header="Experts">
+                                                            Header="{DynamicResource Tbl90RefExpert-Expert}">
                                                             <DataGrid
                                                                 Width="Auto"
                                                                 Height="Auto"
@@ -299,31 +301,31 @@
                                                                     <DataGridTextColumn
                                                                         Width="Auto"
                                                                         Binding="{Binding ReferenceId}"
-                                                                        Header="Reference ID" />
+                                                                        Header="{DynamicResource Tbl90Reference-ReferenceId}" />
                                                                     <DataGridTextColumn
                                                                         Width="Auto"
                                                                         Binding="{Binding RefExpertId}"
-                                                                        Header="Ref Expert ID" />
+                                                                        Header="{DynamicResource Tbl90RefExpert-ExpertId}" />
                                                                     <DataGridComboBoxColumn
-                                                                        Width="350"
+                                                                        Width="Auto"
                                                                         DisplayMemberPath="RefExpertName"
-                                                                        Header="Reference Expert Name"
+                                                                        Header="{DynamicResource Tbl90Reference-RefExpertName}"
                                                                         ItemsSource="{Binding Source={StaticResource ExpertsColl}}"
                                                                         SelectedValueBinding="{Binding RefExpertId}"
                                                                         SelectedValuePath="RefExpertId" />
                                                                     <DataGridTextColumn
                                                                         Width="Auto"
                                                                         Binding="{Binding RegnumId}"
-                                                                        Header="Regnum ID" />
+                                                                        Header="{DynamicResource Tbl03Regnum-RegnumId}" />
                                                                     <DataGridCheckBoxColumn
                                                                         Width="50"
                                                                         Binding="{Binding Valid}"
-                                                                        Header="Valid" />
+                                                                        Header="{DynamicResource Shared-Valid}" />
                                                                     <DataGridTextColumn
                                                                         Width="Auto"
                                                                         Binding="{Binding ValidYear}"
-                                                                        Header="Valid Year" />
-                                                                    <DataGridTemplateColumn Width="200" Header="Info">
+                                                                        Header="{DynamicResource Shared-ValidYear}" />
+                                                                    <DataGridTemplateColumn Width="200" Header="{DynamicResource Shared-Info}">
                                                                         <DataGridTemplateColumn.CellEditingTemplate>
                                                                             <DataTemplate>
                                                                                 <TextBox
@@ -346,7 +348,7 @@
                                                                             </DataTemplate>
                                                                         </DataGridTemplateColumn.CellTemplate>
                                                                     </DataGridTemplateColumn>
-                                                                    <DataGridTemplateColumn Width="300" Header="Memo">
+                                                                    <DataGridTemplateColumn Width="300" Header="{DynamicResource Shared-Memo}">
                                                                         <DataGridTemplateColumn.CellEditingTemplate>
                                                                             <DataTemplate>
                                                                                 <TextBox
@@ -396,7 +398,7 @@
                                                                 Command="{Binding GetSourcesByNameOrIdCommand}"
                                                                 SearchMode="Instant"
                                                                 Text="{Binding SearchSourceName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                                                ToolTip="SearchInfoOrId" />
+                                                                ToolTip="{DynamicResource Shared-SearchInfoOrId}" />
                                                         </StackPanel>
                                                         <StackPanel
                                                             Grid.Row="0"
@@ -409,28 +411,28 @@
                                                                 Command="{Binding AddSourceCommand}"
                                                                 Content="Add"
                                                                 Style="{StaticResource ButtonDefault}"
-                                                                ToolTip="Add" />
+                                                                ToolTip="{DynamicResource Shared-ButtonAdd}" />
                                                             <Button
                                                                 Command="{Binding CopySourceCommand}"
                                                                 Content="Copy"
                                                                 Style="{StaticResource ButtonDefault}"
-                                                                ToolTip="Copy" />
+                                                                ToolTip="{DynamicResource Shared-ButtonCopy}" />
                                                             <Button
                                                                 Command="{Binding SaveSourceCommand}"
                                                                 Content="Save"
                                                                 Style="{StaticResource ButtonDefault}"
-                                                                ToolTip="Save" />
+                                                                ToolTip="{DynamicResource Shared-ButtonSave}" />
                                                             <Button
                                                                 Command="{Binding DeleteSourceCommand}"
                                                                 Content="Delete"
                                                                 Style="{StaticResource ButtonDefault}"
-                                                                ToolTip="Delete" />
+                                                                ToolTip="{DynamicResource Shared-ButtonDelete}" />
                                                         </StackPanel>
                                                         <GroupBox
                                                             Grid.Row="1"
                                                             Grid.Column="0"
                                                             Padding="3"
-                                                            Header="Sources">
+                                                            Header="{DynamicResource Shared-ReferenceSource}">
                                                             <DataGrid
                                                                 Width="Auto"
                                                                 Height="Auto"
@@ -451,31 +453,31 @@
                                                                     <DataGridTextColumn
                                                                         Width="Auto"
                                                                         Binding="{Binding ReferenceId}"
-                                                                        Header="Reference ID" />
+                                                                        Header="{DynamicResource Tbl90Reference-ReferenceId}" />
                                                                     <DataGridTextColumn
                                                                         Width="Auto"
                                                                         Binding="{Binding RefSourceId}"
-                                                                        Header="Ref Source ID" />
+                                                                        Header="{DynamicResource Tbl90RefSource-SourceId}" />
                                                                     <DataGridComboBoxColumn
-                                                                        Width="350"
+                                                                        Width="Auto"
                                                                         DisplayMemberPath="RefSourceName"
-                                                                        Header="Reference Source Name"
+                                                                        Header="{DynamicResource Tbl90Reference-RefSourceName}"
                                                                         ItemsSource="{Binding Source={StaticResource SourcesColl}}"
                                                                         SelectedValueBinding="{Binding RefSourceId}"
                                                                         SelectedValuePath="RefSourceId" />
                                                                     <DataGridTextColumn
                                                                         Width="Auto"
                                                                         Binding="{Binding RegnumId}"
-                                                                        Header="Regnum ID" />
+                                                                        Header="{DynamicResource Tbl03Regnum-RegnumId}" />
                                                                     <DataGridCheckBoxColumn
                                                                         Width="50"
                                                                         Binding="{Binding Valid}"
-                                                                        Header="Valid" />
+                                                                        Header="{DynamicResource Shared-Valid}" />
                                                                     <DataGridTextColumn
                                                                         Width="Auto"
                                                                         Binding="{Binding ValidYear}"
-                                                                        Header="Valid Year" />
-                                                                    <DataGridTemplateColumn Width="200" Header="Info">
+                                                                        Header="{DynamicResource Shared-ValidYear}" />
+                                                                    <DataGridTemplateColumn Width="200" Header="{DynamicResource Shared-Info}">
                                                                         <DataGridTemplateColumn.CellEditingTemplate>
                                                                             <DataTemplate>
                                                                                 <TextBox
@@ -498,7 +500,7 @@
                                                                             </DataTemplate>
                                                                         </DataGridTemplateColumn.CellTemplate>
                                                                     </DataGridTemplateColumn>
-                                                                    <DataGridTemplateColumn Width="300" Header="Memo">
+                                                                    <DataGridTemplateColumn Width="300" Header="{DynamicResource Shared-Memo}">
                                                                         <DataGridTemplateColumn.CellEditingTemplate>
                                                                             <DataTemplate>
                                                                                 <TextBox
@@ -554,7 +556,7 @@
                                                                 Command="{Binding GetAuthorsByNameOrIdCommand}"
                                                                 SearchMode="Instant"
                                                                 Text="{Binding SearchAuthorName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                                                ToolTip="SearchInfoOrId" />
+                                                                ToolTip="{DynamicResource Shared-SearchInfoOrId}" />
                                                         </StackPanel>
 
                                                         <StackPanel
@@ -568,28 +570,28 @@
                                                                 Command="{Binding AddAuthorCommand}"
                                                                 Content="Add"
                                                                 Style="{StaticResource ButtonDefault}"
-                                                                ToolTip="Add" />
+                                                                ToolTip="{DynamicResource Shared-ButtonAdd}" />
                                                             <Button
                                                                 Command="{Binding CopyAuthorCommand}"
                                                                 Content="Copy"
                                                                 Style="{StaticResource ButtonDefault}"
-                                                                ToolTip="Copy" />
+                                                                ToolTip="{DynamicResource Shared-ButtonCopy}" />
                                                             <Button
                                                                 Command="{Binding SaveAuthorCommand}"
                                                                 Content="Save"
                                                                 Style="{StaticResource ButtonDefault}"
-                                                                ToolTip="Save" />
+                                                                ToolTip="{DynamicResource Shared-ButtonSave}" />
                                                             <Button
                                                                 Command="{Binding DeleteAuthorCommand}"
                                                                 Content="Delete"
                                                                 Style="{StaticResource ButtonDefault}"
-                                                                ToolTip="Delete" />
+                                                                ToolTip="{DynamicResource Shared-ButtonDelete}" />
                                                         </StackPanel>
                                                         <GroupBox
                                                             Grid.Row="1"
                                                             Grid.Column="0"
                                                             Padding="3"
-                                                            Header="Authors">
+                                                            Header="{DynamicResource Shared-ReferenceAuthor}">
                                                             <DataGrid
                                                                 Width="Auto"
                                                                 Height="Auto"
@@ -607,31 +609,60 @@
                                                                     <DataGridTextColumn
                                                                         Width="Auto"
                                                                         Binding="{Binding ReferenceId}"
-                                                                        Header="Reference ID" />
+                                                                        Header="{DynamicResource Tbl90Reference-ReferenceId}" />
                                                                     <DataGridTextColumn
                                                                         Width="Auto"
                                                                         Binding="{Binding RefAuthorId}"
-                                                                        Header="Ref Author ID" />
-                                                                    <DataGridComboBoxColumn
+                                                                        Header="{DynamicResource Tbl90RefAuthor-AuthorId}" />
+                                                                    <!--<DataGridComboBoxColumn
                                                                         Width="500"
                                                                         DisplayMemberPath="RefAuthorName"
                                                                         Header="Reference Author Name"
                                                                         ItemsSource="{Binding Source={StaticResource AuthorsColl}}"
-                                                                        SelectedValueBinding="{Binding RefAuthorId}"
-                                                                        SelectedValuePath="RefAuthorId" />
+                                                                        SelectedValueBinding="{Binding RefAuthorId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                                        SelectedValuePath="RefAuthorId" />-->
+
+
+                                                                    <DataGridTemplateColumn Width="500" Header="{DynamicResource Tbl90Reference-RefAuthorName}">
+                                                                        <DataGridTemplateColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <ComboBox
+                                                                                    Width="Auto"
+                                                                                    Margin="5,0,0,0"
+                                                                                    IsSynchronizedWithCurrentItem="False"
+                                                                                    ItemsSource="{Binding Source={StaticResource AuthorsColl}}"
+                                                                                    SelectedValue="{Binding (models:Tbl90RefAuthor.RefAuthorId), UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                                                    SelectedValuePath="RefAuthorId"
+                                                                                    VirtualizingStackPanel.IsVirtualizing="True">
+                                                                                    <ComboBox.ItemTemplate>
+                                                                                        <DataTemplate>
+                                                                                            <StackPanel Orientation="Horizontal">
+                                                                                                <TextBlock Text="{Binding (models:Tbl90RefAuthor.RefAuthorName)}" />
+                                                                                                <TextBlock Text=" -- " />
+                                                                                                <TextBlock Text="{Binding (models:Tbl90RefAuthor.BookName)}" />
+                                                                                                <TextBlock Text=" -- " />
+                                                                                                <TextBlock Text="{Binding (models:Tbl90RefAuthor.Page1)}" />
+                                                                                            </StackPanel>
+                                                                                        </DataTemplate>
+                                                                                    </ComboBox.ItemTemplate>
+                                                                                </ComboBox>
+                                                                            </DataTemplate>
+                                                                        </DataGridTemplateColumn.CellTemplate>
+                                                                    </DataGridTemplateColumn>
+
                                                                     <DataGridTextColumn
                                                                         Width="Auto"
                                                                         Binding="{Binding RegnumId}"
-                                                                        Header="Regnum ID" />
+                                                                        Header="{DynamicResource Tbl03Regnum-RegnumId}" />
                                                                     <DataGridCheckBoxColumn
                                                                         Width="50"
                                                                         Binding="{Binding Valid}"
-                                                                        Header="Valid" />
+                                                                        Header="{DynamicResource Shared-Valid}" />
                                                                     <DataGridTextColumn
                                                                         Width="Auto"
                                                                         Binding="{Binding ValidYear}"
-                                                                        Header="Valid Year" />
-                                                                    <DataGridTemplateColumn Width="200" Header="Info">
+                                                                        Header="{DynamicResource Shared-ValidYear}" />
+                                                                    <DataGridTemplateColumn Width="200" Header="{DynamicResource Shared-Info}">
                                                                         <DataGridTemplateColumn.CellEditingTemplate>
                                                                             <DataTemplate>
                                                                                 <TextBox
@@ -654,7 +685,7 @@
                                                                             </DataTemplate>
                                                                         </DataGridTemplateColumn.CellTemplate>
                                                                     </DataGridTemplateColumn>
-                                                                    <DataGridTemplateColumn Width="300" Header="Memo">
+                                                                    <DataGridTemplateColumn Width="300" Header="{DynamicResource Shared-Memo}">
                                                                         <DataGridTemplateColumn.CellEditingTemplate>
                                                                             <DataTemplate>
                                                                                 <TextBox
@@ -678,7 +709,6 @@
                                                                         </DataGridTemplateColumn.CellTemplate>
                                                                     </DataGridTemplateColumn>
                                                                 </DataGrid.Columns>
-
                                                             </DataGrid>
                                                         </GroupBox>
                                                     </Grid>
@@ -706,7 +736,7 @@
                                                                 Command="{Binding GetCommentsByNameOrIdCommand}"
                                                                 SearchMode="Instant"
                                                                 Text="{Binding SearchCommentName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                                                ToolTip="SearchInfoOrId" />
+                                                                ToolTip="{DynamicResource Shared-SearchInfoOrId}" />
                                                         </StackPanel>
 
                                                         <StackPanel
@@ -719,28 +749,28 @@
                                                                 Command="{Binding AddCommentCommand}"
                                                                 Content="Add"
                                                                 Style="{StaticResource ButtonDefault}"
-                                                                ToolTip="Add" />
+                                                                ToolTip="{DynamicResource Shared-ButtonAdd}" />
                                                             <Button
                                                                 Command="{Binding CopyCommentCommand}"
                                                                 Content="Copy"
                                                                 Style="{StaticResource ButtonDefault}"
-                                                                ToolTip="Copy" />
+                                                                ToolTip="{DynamicResource Shared-ButtonCopy}" />
                                                             <Button
                                                                 Command="{Binding SaveCommentCommand}"
                                                                 Content="Save"
                                                                 Style="{StaticResource ButtonDefault}"
-                                                                ToolTip="Save" />
+                                                                ToolTip="{DynamicResource Shared-ButtonSave}" />
                                                             <Button
                                                                 Command="{Binding DeleteCommentCommand}"
                                                                 Content="Delete"
                                                                 Style="{StaticResource ButtonDefault}"
-                                                                ToolTip="Delete" />
+                                                                ToolTip="{DynamicResource Shared-ButtonDelete}" />
                                                         </StackPanel>
                                                         <GroupBox
                                                             Grid.Row="1"
                                                             Grid.Column="0"
                                                             Padding="3"
-                                                            Header="Comments">
+                                                            Header="{DynamicResource Tbl93Comment-Comment}">
                                                             <DataGrid
                                                                 Width="Auto"
                                                                 Height="Auto"
@@ -758,20 +788,20 @@
                                                                     <DataGridTextColumn
                                                                         Width="Auto"
                                                                         Binding="{Binding CommentId}"
-                                                                        Header="Comment ID" />
+                                                                        Header="{DynamicResource Tbl93Comment-CommentId}" />
                                                                     <DataGridTextColumn
                                                                         Width="Auto"
                                                                         Binding="{Binding RegnumId}"
-                                                                        Header="Regnum ID" />
+                                                                        Header="{DynamicResource Tbl03Regnum-RegnumId}" />
                                                                     <DataGridCheckBoxColumn
                                                                         Width="50"
                                                                         Binding="{Binding Valid}"
-                                                                        Header="Valid" />
+                                                                        Header="{DynamicResource Shared-Valid}" />
                                                                     <DataGridTextColumn
                                                                         Width="Auto"
                                                                         Binding="{Binding ValidYear}"
-                                                                        Header="Valid Year" />
-                                                                    <DataGridTemplateColumn Width="200" Header="Info">
+                                                                        Header="{DynamicResource Shared-ValidYear}" />
+                                                                    <DataGridTemplateColumn Width="200" Header="{DynamicResource Shared-Info}">
                                                                         <DataGridTemplateColumn.CellEditingTemplate>
                                                                             <DataTemplate>
                                                                                 <TextBox
@@ -794,7 +824,7 @@
                                                                             </DataTemplate>
                                                                         </DataGridTemplateColumn.CellTemplate>
                                                                     </DataGridTemplateColumn>
-                                                                    <DataGridTemplateColumn Width="300" Header="Memo">
+                                                                    <DataGridTemplateColumn Width="300" Header="{DynamicResource Shared-Memo}">
                                                                         <DataGridTemplateColumn.CellEditingTemplate>
                                                                             <DataTemplate>
                                                                                 <TextBox
@@ -825,7 +855,7 @@
                                             </StackPanel>
                                         </GroupBox>
                                     </TabItem>
-                                    <TabItem FontWeight="DemiBold" Header="Phylum">
+                                    <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderPhylums}">
                                         <StackPanel>
                                             <Grid>
                                                 <Grid.RowDefinitions>
@@ -835,7 +865,7 @@
                                                     Grid.Row="0"
                                                     Grid.Column="0"
                                                     Padding="3"
-                                                    Header="Phylums">
+                                                    Header="{DynamicResource Shared-TabStripHeaderPhylums}">
                                                     <DataGrid
                                                         Width="Auto"
                                                         Height="Auto"
@@ -845,7 +875,7 @@
                                                         BorderBrush="Gray"
                                                         BorderThickness="2"
                                                         ColumnWidth="*"
-                                                        EnableColumnVirtualization="True"
+                                                        EnableColumnVirtualization="False"
                                                         EnableRowVirtualization="True"
                                                         GridLinesVisibility="All"
                                                         HorizontalScrollBarVisibility="Visible"
@@ -863,27 +893,27 @@
                                                             <DataGridTextColumn
                                                                 Width="100"
                                                                 Binding="{Binding PhylumId}"
-                                                                Header="Phylum ID" />
+                                                                Header="{DynamicResource Tbl06Phylum-PhylumId}" />
                                                             <DataGridTextColumn
                                                                 Width="100"
                                                                 Binding="{Binding PhylumName}"
-                                                                Header="Phylum Name" />
+                                                                Header="{DynamicResource Tbl06Phylum-PhylumName}" />
                                                             <DataGridComboBoxColumn
                                                                 Width="100"
                                                                 DisplayMemberPath="RegnumName"
-                                                                Header="Regnum Name"
+                                                                Header="{DynamicResource Tbl03Regnum-RegnumName}"
                                                                 ItemsSource="{Binding Source={StaticResource RegnumsAllColl}}"
                                                                 SelectedValueBinding="{Binding RegnumId}"
                                                                 SelectedValuePath="RegnumId" />
                                                             <DataGridCheckBoxColumn
                                                                 Width="100"
                                                                 Binding="{Binding Valid}"
-                                                                Header="Valid" />
+                                                                Header="{DynamicResource Shared-Valid}" />
                                                             <DataGridTextColumn
                                                                 Width="100"
                                                                 Binding="{Binding ValidYear}"
-                                                                Header="Valid Year" />
-                                                            <DataGridTemplateColumn Width="300" Header="Synonym">
+                                                                Header="{DynamicResource Shared-ValidYear}" />
+                                                            <DataGridTemplateColumn Width="300" Header="{DynamicResource Shared-Synonym}">
                                                                 <DataGridTemplateColumn.CellTemplate>
                                                                     <DataTemplate>
                                                                         <TextBlock
@@ -898,12 +928,12 @@
                                                             <DataGridTextColumn
                                                                 Width="Auto"
                                                                 Binding="{Binding Author}"
-                                                                Header="Author Name" />
+                                                                Header="{DynamicResource Shared-Author}" />
                                                             <DataGridTextColumn
                                                                 Width="100"
                                                                 Binding="{Binding AuthorYear}"
-                                                                Header="Author Year" />
-                                                            <DataGridTemplateColumn Width="200" Header="Info">
+                                                                Header="{DynamicResource Shared-AuthorYear}" />
+                                                            <DataGridTemplateColumn Width="200" Header="{DynamicResource Shared-Info}">
                                                                 <DataGridTemplateColumn.CellTemplate>
                                                                     <DataTemplate>
                                                                         <TextBlock
@@ -918,20 +948,20 @@
                                                             <DataGridTextColumn
                                                                 Width="Auto"
                                                                 Binding="{Binding EngName}"
-                                                                Header="EngName" />
+                                                                Header="{DynamicResource Shared-EngName}" />
                                                             <DataGridTextColumn
                                                                 Width="Auto"
                                                                 Binding="{Binding GerName}"
-                                                                Header="GerName" />
+                                                                Header="{DynamicResource Shared-GerName}" />
                                                             <DataGridTextColumn
                                                                 Width="Auto"
                                                                 Binding="{Binding FraName}"
-                                                                Header="FraName" />
+                                                                Header="{DynamicResource Shared-FraName}" />
                                                             <DataGridTextColumn
                                                                 Width="Auto"
                                                                 Binding="{Binding PorName}"
-                                                                Header="PorName" />
-                                                            <DataGridTemplateColumn Width="300" Header="Memo">
+                                                                Header="{DynamicResource Shared-SpaName}" />
+                                                            <DataGridTemplateColumn Width="300" Header="{DynamicResource Shared-Memo}">
                                                                 <DataGridTemplateColumn.CellTemplate>
                                                                     <DataTemplate>
                                                                         <TextBlock
@@ -950,7 +980,7 @@
                                             </Grid>
                                         </StackPanel>
                                     </TabItem>
-                                    <TabItem FontWeight="DemiBold" Header="Division">
+                                    <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderDivisions}">
                                         <StackPanel>
                                             <Grid>
                                                 <Grid.RowDefinitions>
@@ -960,7 +990,7 @@
                                                     Grid.Row="0"
                                                     Grid.Column="0"
                                                     Padding="3"
-                                                    Header="Divisions">
+                                                    Header="{DynamicResource Tbl09Division-Division}">
                                                     <DataGrid
                                                         Width="Auto"
                                                         Height="Auto"
@@ -970,7 +1000,7 @@
                                                         BorderBrush="Gray"
                                                         BorderThickness="2"
                                                         ColumnWidth="*"
-                                                        EnableColumnVirtualization="True"
+                                                        EnableColumnVirtualization="False"
                                                         EnableRowVirtualization="True"
                                                         GridLinesVisibility="All"
                                                         HorizontalScrollBarVisibility="Visible"
@@ -988,31 +1018,31 @@
                                                             <DataGridTextColumn
                                                                 Width="100"
                                                                 Binding="{Binding DivisionId}"
-                                                                Header="Division ID" />
+                                                                Header="{DynamicResource Tbl09Division-DivisionId}" />
                                                             <DataGridTextColumn
                                                                 Width="100"
                                                                 Binding="{Binding DivisionName}"
-                                                                Header="Division Name" />
+                                                                Header="{DynamicResource Tbl09Division-DivisionName}" />
                                                             <DataGridTextColumn
                                                                 Width="100"
                                                                 Binding="{Binding RegnumId}"
-                                                                Header="RegnumID" />
+                                                                Header="{DynamicResource Tbl03Regnum-RegnumId}" />
                                                             <DataGridComboBoxColumn
                                                                 Width="100"
                                                                 DisplayMemberPath="RegnumName"
-                                                                Header="Regnum Name"
+                                                                Header="{DynamicResource Tbl03Regnum-RegnumName}"
                                                                 ItemsSource="{Binding Source={StaticResource RegnumsAllColl}}"
                                                                 SelectedValueBinding="{Binding RegnumId}"
                                                                 SelectedValuePath="RegnumId" />
                                                             <DataGridCheckBoxColumn
                                                                 Width="100"
                                                                 Binding="{Binding Valid}"
-                                                                Header="Valid" />
+                                                                Header="{DynamicResource Shared-Valid}" />
                                                             <DataGridTextColumn
                                                                 Width="100"
                                                                 Binding="{Binding ValidYear}"
-                                                                Header="Valid Year" />
-                                                            <DataGridTemplateColumn Width="300" Header="Synonym">
+                                                                Header="{DynamicResource Shared-ValidYear}" />
+                                                            <DataGridTemplateColumn Width="300" Header="{DynamicResource Shared-Synonym}">
                                                                 <DataGridTemplateColumn.CellTemplate>
                                                                     <DataTemplate>
                                                                         <TextBlock
@@ -1027,12 +1057,12 @@
                                                             <DataGridTextColumn
                                                                 Width="Auto"
                                                                 Binding="{Binding Author}"
-                                                                Header="Author Name" />
+                                                                Header="{DynamicResource Shared-Author}" />
                                                             <DataGridTextColumn
                                                                 Width="100"
                                                                 Binding="{Binding AuthorYear}"
-                                                                Header="Author Year" />
-                                                            <DataGridTemplateColumn Width="200" Header="Info">
+                                                                Header="{DynamicResource Shared-AuthorYear}" />
+                                                            <DataGridTemplateColumn Width="200" Header="{DynamicResource Shared-Info}">
                                                                 <DataGridTemplateColumn.CellTemplate>
                                                                     <DataTemplate>
                                                                         <TextBlock
@@ -1047,20 +1077,20 @@
                                                             <DataGridTextColumn
                                                                 Width="Auto"
                                                                 Binding="{Binding EngName}"
-                                                                Header="EngName" />
+                                                                Header="{DynamicResource Shared-EngName}" />
                                                             <DataGridTextColumn
                                                                 Width="Auto"
                                                                 Binding="{Binding GerName}"
-                                                                Header="GerName" />
+                                                                Header="{DynamicResource Shared-GerName}" />
                                                             <DataGridTextColumn
                                                                 Width="Auto"
                                                                 Binding="{Binding FraName}"
-                                                                Header="FraName" />
+                                                                Header="{DynamicResource Shared-FraName}" />
                                                             <DataGridTextColumn
                                                                 Width="Auto"
                                                                 Binding="{Binding PorName}"
-                                                                Header="PorName" />
-                                                            <DataGridTemplateColumn Width="300" Header="Memo">
+                                                                Header="{DynamicResource Shared-SpaName}" />
+                                                            <DataGridTemplateColumn Width="300" Header="{DynamicResource Shared-Memo}">
                                                                 <DataGridTemplateColumn.CellTemplate>
                                                                     <DataTemplate>
                                                                         <TextBlock
@@ -1079,7 +1109,7 @@
                                             </Grid>
                                         </StackPanel>
                                     </TabItem>
-                                    <TabItem FontWeight="DemiBold" Header="Subphylums">
+                                    <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderSubphylums}">
                                         <StackPanel>
                                             <Grid>
                                                 <Grid.RowDefinitions>
@@ -1089,7 +1119,7 @@
                                                     Grid.Row="0"
                                                     Grid.Column="0"
                                                     Padding="3"
-                                                    Header="Subphylums">
+                                                    Header="{DynamicResource Tbl12Subphylum-Subphylum}">
                                                     <DataGrid
                                                         Width="Auto"
                                                         Height="Auto"
@@ -1099,7 +1129,7 @@
                                                         BorderBrush="Gray"
                                                         BorderThickness="2"
                                                         ColumnWidth="*"
-                                                        EnableColumnVirtualization="True"
+                                                        EnableColumnVirtualization="False"
                                                         EnableRowVirtualization="True"
                                                         GridLinesVisibility="All"
                                                         HorizontalScrollBarVisibility="Visible"
@@ -1117,31 +1147,31 @@
                                                             <DataGridTextColumn
                                                                 Width="100"
                                                                 Binding="{Binding SubphylumId}"
-                                                                Header="Subphylum ID" />
+                                                                Header="{DynamicResource Tbl12Subphylum-SubphylumId}" />
                                                             <DataGridTextColumn
                                                                 Width="100"
                                                                 Binding="{Binding SubphylumName}"
-                                                                Header="Subphylum Name" />
+                                                                Header="{DynamicResource Tbl12Subphylum-SubphylumName}" />
                                                             <DataGridTextColumn
                                                                 Width="100"
                                                                 Binding="{Binding PhylumId}"
-                                                                Header="Phylum ID" />
+                                                                Header="{DynamicResource Tbl06Phylum-PhylumId}" />
                                                             <DataGridComboBoxColumn
                                                                 Width="100"
                                                                 DisplayMemberPath="PhylumName"
-                                                                Header="Phylum Name"
+                                                                Header="{DynamicResource Tbl06Phylum-PhylumName}"
                                                                 ItemsSource="{Binding Source={StaticResource PhylumsAllColl}}"
                                                                 SelectedValueBinding="{Binding PhylumId}"
                                                                 SelectedValuePath="PhylumId" />
                                                             <DataGridCheckBoxColumn
                                                                 Width="100"
                                                                 Binding="{Binding Valid}"
-                                                                Header="Valid" />
+                                                                Header="{DynamicResource Shared-Valid}" />
                                                             <DataGridTextColumn
                                                                 Width="100"
                                                                 Binding="{Binding ValidYear}"
-                                                                Header="Valid Year" />
-                                                            <DataGridTemplateColumn Width="300" Header="Synonym">
+                                                                Header="{DynamicResource Shared-ValidYear}" />
+                                                            <DataGridTemplateColumn Width="300" Header="{DynamicResource Shared-Synonym}">
                                                                 <DataGridTemplateColumn.CellTemplate>
                                                                     <DataTemplate>
                                                                         <TextBlock
@@ -1156,12 +1186,12 @@
                                                             <DataGridTextColumn
                                                                 Width="Auto"
                                                                 Binding="{Binding Author}"
-                                                                Header="Author Name" />
+                                                                Header="{DynamicResource Shared-Author}" />
                                                             <DataGridTextColumn
                                                                 Width="100"
                                                                 Binding="{Binding AuthorYear}"
-                                                                Header="Author Year" />
-                                                            <DataGridTemplateColumn Width="200" Header="Info">
+                                                                Header="{DynamicResource Shared-AuthorYear}" />
+                                                            <DataGridTemplateColumn Width="200" Header="{DynamicResource Shared-Info}">
                                                                 <DataGridTemplateColumn.CellTemplate>
                                                                     <DataTemplate>
                                                                         <TextBlock
@@ -1176,20 +1206,20 @@
                                                             <DataGridTextColumn
                                                                 Width="Auto"
                                                                 Binding="{Binding EngName}"
-                                                                Header="EngName" />
+                                                                Header="{DynamicResource Shared-EngName}" />
                                                             <DataGridTextColumn
                                                                 Width="Auto"
                                                                 Binding="{Binding GerName}"
-                                                                Header="GerName" />
+                                                                Header="{DynamicResource Shared-GerName}" />
                                                             <DataGridTextColumn
                                                                 Width="Auto"
                                                                 Binding="{Binding FraName}"
-                                                                Header="FraName" />
+                                                                Header="{DynamicResource Shared-FraName}" />
                                                             <DataGridTextColumn
                                                                 Width="Auto"
                                                                 Binding="{Binding PorName}"
-                                                                Header="PorName" />
-                                                            <DataGridTemplateColumn Width="300" Header="Memo">
+                                                                Header="{DynamicResource Shared-SpaName}" />
+                                                            <DataGridTemplateColumn Width="300" Header="{DynamicResource Shared-Memo}">
                                                                 <DataGridTemplateColumn.CellTemplate>
                                                                     <DataTemplate>
                                                                         <TextBlock
@@ -1201,15 +1231,13 @@
                                                                     </DataTemplate>
                                                                 </DataGridTemplateColumn.CellTemplate>
                                                             </DataGridTemplateColumn>
-
                                                         </DataGrid.Columns>
-
                                                     </DataGrid>
                                                 </GroupBox>
                                             </Grid>
                                         </StackPanel>
                                     </TabItem>
-                                    <TabItem FontWeight="DemiBold" Header="Subdivisions">
+                                    <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderSubdivisions}">
                                         <StackPanel>
                                             <Grid>
                                                 <Grid.RowDefinitions>
@@ -1219,7 +1247,7 @@
                                                     Grid.Row="0"
                                                     Grid.Column="0"
                                                     Padding="3"
-                                                    Header="Subdivisions">
+                                                    Header="{DynamicResource Tbl15Subdivision-Subdivision}">
                                                     <DataGrid
                                                         Width="Auto"
                                                         Height="Auto"
@@ -1229,7 +1257,7 @@
                                                         BorderBrush="Gray"
                                                         BorderThickness="2"
                                                         ColumnWidth="*"
-                                                        EnableColumnVirtualization="True"
+                                                        EnableColumnVirtualization="False"
                                                         EnableRowVirtualization="True"
                                                         GridLinesVisibility="All"
                                                         HorizontalScrollBarVisibility="Visible"
@@ -1247,31 +1275,31 @@
                                                             <DataGridTextColumn
                                                                 Width="100"
                                                                 Binding="{Binding SubdivisionId}"
-                                                                Header="Subdivision ID" />
+                                                                Header="{DynamicResource Tbl15Subdivision-SubdivisionId}" />
                                                             <DataGridTextColumn
                                                                 Width="100"
                                                                 Binding="{Binding SubdivisionName}"
-                                                                Header="Subdivision Name" />
+                                                                Header="{DynamicResource Tbl15Subdivision-SubdivisionName}" />
                                                             <DataGridTextColumn
                                                                 Width="100"
                                                                 Binding="{Binding DivisionId}"
-                                                                Header="Division ID" />
+                                                                Header="{DynamicResource Tbl09Division-DivisionId}" />
                                                             <DataGridComboBoxColumn
                                                                 Width="100"
                                                                 DisplayMemberPath="DivisionName"
-                                                                Header="Division Name"
+                                                                Header="{DynamicResource Tbl09Division-DivisionName}"
                                                                 ItemsSource="{Binding Source={StaticResource DivisionsAllColl}}"
                                                                 SelectedValueBinding="{Binding DivisionId}"
                                                                 SelectedValuePath="DivisionId" />
                                                             <DataGridCheckBoxColumn
                                                                 Width="100"
                                                                 Binding="{Binding Valid}"
-                                                                Header="Valid" />
+                                                                Header="{DynamicResource Shared-Valid}" />
                                                             <DataGridTextColumn
                                                                 Width="100"
                                                                 Binding="{Binding ValidYear}"
-                                                                Header="Valid Year" />
-                                                            <DataGridTemplateColumn Width="300" Header="Synonym">
+                                                                Header="{DynamicResource Shared-ValidYear}" />
+                                                            <DataGridTemplateColumn Width="300" Header="{DynamicResource Shared-Synonym}">
                                                                 <DataGridTemplateColumn.CellTemplate>
                                                                     <DataTemplate>
                                                                         <TextBlock
@@ -1286,12 +1314,12 @@
                                                             <DataGridTextColumn
                                                                 Width="Auto"
                                                                 Binding="{Binding Author}"
-                                                                Header="Author Name" />
+                                                                Header="{DynamicResource Shared-Author}" />
                                                             <DataGridTextColumn
                                                                 Width="100"
                                                                 Binding="{Binding AuthorYear}"
-                                                                Header="Author Year" />
-                                                            <DataGridTemplateColumn Width="200" Header="Info">
+                                                                Header="{DynamicResource Shared-AuthorYear}" />
+                                                            <DataGridTemplateColumn Width="200" Header="{DynamicResource Shared-Info}">
                                                                 <DataGridTemplateColumn.CellTemplate>
                                                                     <DataTemplate>
                                                                         <TextBlock
@@ -1306,20 +1334,20 @@
                                                             <DataGridTextColumn
                                                                 Width="Auto"
                                                                 Binding="{Binding EngName}"
-                                                                Header="EngName" />
+                                                                Header="{DynamicResource Shared-EngName}" />
                                                             <DataGridTextColumn
                                                                 Width="Auto"
                                                                 Binding="{Binding GerName}"
-                                                                Header="GerName" />
+                                                                Header="{DynamicResource Shared-GerName}" />
                                                             <DataGridTextColumn
                                                                 Width="Auto"
                                                                 Binding="{Binding FraName}"
-                                                                Header="FraName" />
+                                                                Header="{DynamicResource Shared-FraName}" />
                                                             <DataGridTextColumn
                                                                 Width="Auto"
                                                                 Binding="{Binding PorName}"
-                                                                Header="PorName" />
-                                                            <DataGridTemplateColumn Width="300" Header="Memo">
+                                                                Header="{DynamicResource Shared-SpaName}" />
+                                                            <DataGridTemplateColumn Width="300" Header="{DynamicResource Shared-Memo}">
                                                                 <DataGridTemplateColumn.CellTemplate>
                                                                     <DataTemplate>
                                                                         <TextBlock
@@ -1331,9 +1359,7 @@
                                                                     </DataTemplate>
                                                                 </DataGridTemplateColumn.CellTemplate>
                                                             </DataGridTemplateColumn>
-
                                                         </DataGrid.Columns>
-
                                                     </DataGrid>
                                                 </GroupBox>
                                             </Grid>

@@ -82,6 +82,7 @@
     <system:String x:Key="Shared-TabStripHeaderRefAuthors">Quellen Autoren</system:String>
     <system:String x:Key="Shared-TabStripHeaderRefExperts">Quellen Experten</system:String>
     <system:String x:Key="Shared-TabStripHeaderRefSources">Quellen Datenbanken</system:String>
+    <system:String x:Key="Shared-TabStripHeaderExpert-Source-Author-Comment">Quellen Experten-Datenbanken-Autoren-Kommentare</system:String>
     <system:String x:Key="Shared-TabStripHeaderAuthors">Autoren</system:String>
     <system:String x:Key="Shared-TabStripHeaderExperts">Experten</system:String>
     <system:String x:Key="Shared-TabStripHeaderSources">Datenbanken</system:String>

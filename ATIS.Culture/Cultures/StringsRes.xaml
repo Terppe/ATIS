@@ -82,6 +82,7 @@
     <system:String x:Key="Shared-TabStripHeaderRefAuthors">References Authors</system:String>
     <system:String x:Key="Shared-TabStripHeaderRefExperts">References Experts</system:String>
     <system:String x:Key="Shared-TabStripHeaderRefSources">References Sources</system:String>
+    <system:String x:Key="Shared-TabStripHeaderExpert-Source-Author-Comment">References Experts-Sources-Authors-Comments</system:String>
     <system:String x:Key="Shared-TabStripHeaderAuthors">Authors</system:String>
     <system:String x:Key="Shared-TabStripHeaderExperts">Experts</system:String>
     <system:String x:Key="Shared-TabStripHeaderSources">Sources</system:String>
