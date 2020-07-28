@@ -47,9 +47,8 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             ReferenceAuthorsCollection = new ObservableCollection<Tbl90Reference>();
             ExpertsCollection = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.GetAll());
             SourcesCollection = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.GetAll());
-            AuthorsCollection = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.GetAll());
+            AuthorsCollection = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsToCombobox());
 
-            //   AuthorsCollection = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsToCombobox()); //change to Name,Bookname, page1
             CommentsCollection = new ObservableCollection<Tbl93Comment>();
 
             TabIndexDetail = 2;

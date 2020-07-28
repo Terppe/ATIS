@@ -67,29 +67,11 @@ namespace ATIS.Ui.Core.Repositories_UOW
 
         public IEnumerable<Tbl90RefAuthor> ListTbl90RefAuthorsToCombobox()    //change to select new
         {
-            var authorsCollection = new ObservableCollection<Tbl90RefAuthor>();
-
-            var query = from author in _atisDbContext.Tbl90RefAuthors
-            select author;
-
-                        //select new
-                        //{
-                        //    author.RefAuthorName,
-                        //    author.ArticelTitle,
-                        //    author.BookName,
-                        //    author.Page1
-                        //};
-       //     authorsCollection.Clear();
-
-            foreach (var row in query)
-            {
-                if (row != null) authorsCollection.Add(row);
-            }
-            return authorsCollection;
+            return _atisDbContext.Tbl90RefAuthors.OrderBy(x => x.RefAuthorName).ToList();
         }
 
 
-    //public IList<Tbl90RefAuthor> ListTbl90RefAuthorsByRefAuthorNameAndArticelTitleAndBookNameAndPage1AndPublisherAndPublicationPlace(
+        //public IList<Tbl90RefAuthor> ListTbl90RefAuthorsByRefAuthorNameAndArticelTitleAndBookNameAndPage1AndPublisherAndPublicationPlace(
         //    string refAuthorName, string articelTitle, string bookName, string page1, string publisher, string publicationPlace)
         //{
         //    return _tbl90RefAuthorsRepository.ListWhereOrderByInclude(
