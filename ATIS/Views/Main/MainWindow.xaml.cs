@@ -4,6 +4,7 @@ using System.Windows;
 using Windows.UI.Xaml.Controls;
 using ATIS.Ui.Views.Database.D03Regnum;
 using ATIS.Ui.Views.Database.D06Phylum;
+using MahApps.Metro.Controls;
 using ElementTheme = Windows.UI.Xaml.ElementTheme;
 using Media = Windows.UI.Xaml.Media;
 
@@ -12,7 +13,7 @@ namespace ATIS.Ui.Views.Main
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         //private readonly Media.FontFamily _segoeFontFamily;
 
@@ -24,6 +25,21 @@ namespace ATIS.Ui.Views.Main
             //_segoeFontFamily = new Media.FontFamily("Segoe MDL2 Assets");
         }
 
+        private void HamburgerMenuControl_OnItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs e)
+        {
+            HamburgerMenuControl.Content = e.InvokedItem;
+        }
+
+        //private void HamburgerMenuControl_OnItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs e)
+        //{
+        //    this.HamburgerMenuControl.Content = e.InvokedItem;
+
+        //    if (!e.IsItemOptions && this.HamburgerMenuControl.IsPaneOpen)
+        //    {
+        //        // close the menu if a item was selected
+        //        // this.HamburgerMenuControl.IsPaneOpen = false;
+        //    }
+        //}
 
 
 
