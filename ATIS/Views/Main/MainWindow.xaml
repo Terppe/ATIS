@@ -57,11 +57,11 @@
             Grid.ColumnSpan="2"
             Margin="320,0,0,0" />
 
-        <xamlHost:WindowsXamlHost
+        <!--<xamlHost:WindowsXamlHost
             x:Name="Host"  
             Grid.Row="0"
             Grid.Column="0"
             ChildChanged="Host_ChildChanged"
-            InitialTypeName="Windows.UI.Xaml.Controls.NavigationView" />
+            InitialTypeName="Windows.UI.Xaml.Controls.NavigationView" />-->
     </Grid>
 </Window>

@@ -14,206 +14,206 @@ namespace ATIS.Ui.Views.Main
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly Media.FontFamily _segoeFontFamily;
+        //private readonly Media.FontFamily _segoeFontFamily;
 
         public MainWindow()
         {
             DataContext = new MainWindowViewModel();
 
             InitializeComponent();
-            _segoeFontFamily = new Media.FontFamily("Segoe MDL2 Assets");
+            //_segoeFontFamily = new Media.FontFamily("Segoe MDL2 Assets");
         }
 
 
 
 
-        private void Host_ChildChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                WindowsXamlHost host = (WindowsXamlHost)sender;
+        //private void Host_ChildChanged(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        WindowsXamlHost host = (WindowsXamlHost)sender;
 
-                if (host.Child is NavigationView navView)
-                {
-                    navView.RequestedTheme = (ElementTheme)Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT.ElementTheme.Light;
-                    navView.IsBackEnabled = false;
-                    navView.IsBackButtonVisible = NavigationViewBackButtonVisible.Collapsed;
-                    navView.AutoSuggestBox = new AutoSuggestBox();
-                    navView.AutoSuggestBox.QueryIcon = new SymbolIcon(Symbol.Find);
-                    navView.PaneDisplayMode = NavigationViewPaneDisplayMode.Left;
-                    //navView.CompactPaneLength = 280;
-                    //              navView.CompactModeThresholdWidth = 1;
+        //        if (host.Child is NavigationView navView)
+        //        {
+        //            navView.RequestedTheme = (ElementTheme)Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT.ElementTheme.Light;
+        //            navView.IsBackEnabled = false;
+        //            navView.IsBackButtonVisible = NavigationViewBackButtonVisible.Collapsed;
+        //            navView.AutoSuggestBox = new AutoSuggestBox();
+        //            navView.AutoSuggestBox.QueryIcon = new SymbolIcon(Symbol.Find);
+        //            navView.PaneDisplayMode = NavigationViewPaneDisplayMode.Left;
+        //            //navView.CompactPaneLength = 280;
+        //            //              navView.CompactModeThresholdWidth = 1;
 
-                    //              navView.ExpandedModeThresholdWidth = 100000;
-                    navView.PaneTitle = "ATIS";
-                    //    navigationView.PaneFooter =  
-                    navView.IsPaneOpen = true;
-                    //      navView.PaneCustomContent.Visibility = Windows.UI.Xaml.Visibility.Visible;
+        //            //              navView.ExpandedModeThresholdWidth = 100000;
+        //            navView.PaneTitle = "ATIS";
+        //            //    navigationView.PaneFooter =  
+        //            navView.IsPaneOpen = true;
+        //            //      navView.PaneCustomContent.Visibility = Windows.UI.Xaml.Visibility.Visible;
 
-                    navView.MenuItems.Add(new NavigationViewItemSeparator());
+        //            navView.MenuItems.Add(new NavigationViewItemSeparator());
 
-                    var homeItem = new NavigationViewItem()
-                    {
-                        Content = "Home",
-                        Icon = new FontIcon()
-                        {
-                            FontFamily = _segoeFontFamily,
-                            Glyph = "\uE80F"
-                        }
-                    };
+        //            var homeItem = new NavigationViewItem()
+        //            {
+        //                Content = "Home",
+        //                Icon = new FontIcon()
+        //                {
+        //                    FontFamily = _segoeFontFamily,
+        //                    Glyph = "\uE80F"
+        //                }
+        //            };
 
-                    var searchAdvancedItem = new NavigationViewItem()
-                    {
-                        Content = "Search Advanced",
-                        Icon = new FontIcon()
-                        {
-                            FontFamily = _segoeFontFamily,
-                            Glyph = "\uE80F"
-                        }
-                    };
+        //            var searchAdvancedItem = new NavigationViewItem()
+        //            {
+        //                Content = "Search Advanced",
+        //                Icon = new FontIcon()
+        //                {
+        //                    FontFamily = _segoeFontFamily,
+        //                    Glyph = "\uE80F"
+        //                }
+        //            };
 
-                    var imageItem = new NavigationViewItem()
-                    {
-                        Content = "Image/Video",
-                        Icon = new FontIcon()
-                        {
-                            FontFamily = _segoeFontFamily,
-                            Glyph = "\uE719"
-                        }
-                    };
+        //            var imageItem = new NavigationViewItem()
+        //            {
+        //                Content = "Image/Video",
+        //                Icon = new FontIcon()
+        //                {
+        //                    FontFamily = _segoeFontFamily,
+        //                    Glyph = "\uE719"
+        //                }
+        //            };
 
-                    var databaseItem = new NavigationViewItem()
-                    {
-                        Content = "Database",
-                        Icon = new FontIcon()
-                        {
-                            FontFamily = _segoeFontFamily,
-                            Glyph = "\uE719"
-                        }
-                    };
+        //            var databaseItem = new NavigationViewItem()
+        //            {
+        //                Content = "Database",
+        //                Icon = new FontIcon()
+        //                {
+        //                    FontFamily = _segoeFontFamily,
+        //                    Glyph = "\uE719"
+        //                }
+        //            };
 
-                    //var databaseSepItem = new NavigationViewItemSeparator();
-                    //var databaseHeaderItem = new NavigationViewItemHeader()
-                    //{
-                    //    Content = "Database"
-                    //};
+        //            //var databaseSepItem = new NavigationViewItemSeparator();
+        //            //var databaseHeaderItem = new NavigationViewItemHeader()
+        //            //{
+        //            //    Content = "Database"
+        //            //};
 
 
-                    var infoItem = new NavigationViewItem()
-                    {
-                        Content = "Info Area",
-                        Icon = new FontIcon()
-                        {
-                            FontFamily = _segoeFontFamily,
-                            Glyph = "\uE8C7"
-                        }
-                    };
+        //            var infoItem = new NavigationViewItem()
+        //            {
+        //                Content = "Info Area",
+        //                Icon = new FontIcon()
+        //                {
+        //                    FontFamily = _segoeFontFamily,
+        //                    Glyph = "\uE8C7"
+        //                }
+        //            };
 
-                    var userItem = new NavigationViewItem()
-                    {
-                        Content = "User Area",
-                        Icon = new FontIcon()
-                        {
-                            FontFamily = _segoeFontFamily,
-                            Glyph = "\uE8C7"
-                        }
-                    };
+        //            var userItem = new NavigationViewItem()
+        //            {
+        //                Content = "User Area",
+        //                Icon = new FontIcon()
+        //                {
+        //                    FontFamily = _segoeFontFamily,
+        //                    Glyph = "\uE8C7"
+        //                }
+        //            };
 
-                    var adminItem = new NavigationViewItem()
-                    {
-                        Content = "Admin Area",
-                        Icon = new FontIcon()
-                        {
-                            FontFamily = _segoeFontFamily,
-                            Glyph = "\uE8C7"
-                        }
-                    };
+        //            var adminItem = new NavigationViewItem()
+        //            {
+        //                Content = "Admin Area",
+        //                Icon = new FontIcon()
+        //                {
+        //                    FontFamily = _segoeFontFamily,
+        //                    Glyph = "\uE8C7"
+        //                }
+        //            };
 
-                    var feedbackItem = new NavigationViewItem()
-                    {
-                        Content = "Feedback",
-                        Icon = new FontIcon()
-                        {
-                            FontFamily = _segoeFontFamily,
-                            Glyph = "\uE8C7"
-                        }
-                    };
+        //            var feedbackItem = new NavigationViewItem()
+        //            {
+        //                Content = "Feedback",
+        //                Icon = new FontIcon()
+        //                {
+        //                    FontFamily = _segoeFontFamily,
+        //                    Glyph = "\uE8C7"
+        //                }
+        //            };
 
-                    var aboutItem = new NavigationViewItem()
-                    {
-                        Content = "About",
-                        Icon = new FontIcon()
-                        {
-                            FontFamily = _segoeFontFamily,
-                            Glyph = "\uE8C7"
-                        }
-                    };
+        //            var aboutItem = new NavigationViewItem()
+        //            {
+        //                Content = "About",
+        //                Icon = new FontIcon()
+        //                {
+        //                    FontFamily = _segoeFontFamily,
+        //                    Glyph = "\uE8C7"
+        //                }
+        //            };
 
-                    navView.MenuItems.Add(homeItem);
-                    navView.MenuItems.Add(searchAdvancedItem);
-                    navView.MenuItems.Add(imageItem);
-                    navView.MenuItems.Add(databaseItem);
-                    //navView.MenuItems.Add(databaseSepItem);
-                    //navView.MenuItems.Add(databaseHeaderItem);
-                    navView.MenuItems.Add(infoItem);
-                    navView.MenuItems.Add(userItem);
-                    navView.MenuItems.Add(adminItem);
-                    navView.MenuItems.Add(feedbackItem);
-                    navView.MenuItems.Add(aboutItem);
+        //            navView.MenuItems.Add(homeItem);
+        //            navView.MenuItems.Add(searchAdvancedItem);
+        //            navView.MenuItems.Add(imageItem);
+        //            navView.MenuItems.Add(databaseItem);
+        //            //navView.MenuItems.Add(databaseSepItem);
+        //            //navView.MenuItems.Add(databaseHeaderItem);
+        //            navView.MenuItems.Add(infoItem);
+        //            navView.MenuItems.Add(userItem);
+        //            navView.MenuItems.Add(adminItem);
+        //            navView.MenuItems.Add(feedbackItem);
+        //            navView.MenuItems.Add(aboutItem);
 
-                    navView.ItemInvoked += navigationView_ItemInvoked;
-                }
+        //            navView.ItemInvoked += navigationView_ItemInvoked;
+        //        }
 
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-                throw;
-            }
-        }
+        //    }
+        //    catch (Exception exception)
+        //    {
+        //        Console.WriteLine(exception);
+        //        throw;
+        //    }
+        //}
 
-        private void navigationView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
-        {
-            var item = args.InvokedItemContainer as NavigationViewItem;
-            if (item == null)
-                return;
-            switch (item.Content)
-            {
-                case "Einstellungen":
-                    Main.Content = new SettingView();
-                    break;
-                case "Home":
-                    Main.Content = new HomeView();
-                    break;
-                case "Search Advanced":
-                    Main.Content = new HomeView();
-                    break;
-                case "Image/Video":
-                    Main.Content = new HomeView();
-                    break;
-                case "Database":
-                    Main.Content = new DatabaseView();
-                    break;
-                case "Info Area":
-                    Main.Content = new HomeView();
-                    break;
-                case "User Area":
-                    Main.Content = new HomeView();
-                    break;
-                case "Admin Area":
-                    Main.Content = new HomeView();
-                    break;
-                case "Feedback":
-                    Main.Content = new HomeView();
-                    break;
-                case "About":
-                    Main.Content = new HomeView();
-                    break;
-                default:
-                    Main.Content = new HomeView();
-                    break;
-            }
+        //private void navigationView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+        //{
+        //    var item = args.InvokedItemContainer as NavigationViewItem;
+        //    if (item == null)
+        //        return;
+        //    switch (item.Content)
+        //    {
+        //        case "Einstellungen":
+        //            Main.Content = new SettingView();
+        //            break;
+        //        case "Home":
+        //            Main.Content = new HomeView();
+        //            break;
+        //        case "Search Advanced":
+        //            Main.Content = new HomeView();
+        //            break;
+        //        case "Image/Video":
+        //            Main.Content = new HomeView();
+        //            break;
+        //        case "Database":
+        //            Main.Content = new DatabaseView();
+        //            break;
+        //        case "Info Area":
+        //            Main.Content = new HomeView();
+        //            break;
+        //        case "User Area":
+        //            Main.Content = new HomeView();
+        //            break;
+        //        case "Admin Area":
+        //            Main.Content = new HomeView();
+        //            break;
+        //        case "Feedback":
+        //            Main.Content = new HomeView();
+        //            break;
+        //        case "About":
+        //            Main.Content = new HomeView();
+        //            break;
+        //        default:
+        //            Main.Content = new HomeView();
+        //            break;
+        //    }
 
-        }
+        //}
     }
 }

@@ -5,7 +5,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <Platforms>AnyCPU;x64</Platforms>
-    <StartupObject>ATIS.Ui.Program</StartupObject>
+    <StartupObject></StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -47,7 +47,6 @@
     <ProjectReference Include="..\ATIS.Dal\ATIS.Dal\ATIS.Dal.csproj" />
     <ProjectReference Include="..\ATIS.SearchTextBox\SearchTextBox.csproj" />
     <ProjectReference Include="..\ATIS.Styles\ATIS.Styles\ATIS.Styles.csproj" />
-    <ProjectReference Include="..\UWPApp\UWPApp.csproj" />
   </ItemGroup>
 
   <ItemGroup>

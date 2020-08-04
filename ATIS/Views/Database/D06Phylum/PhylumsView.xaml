@@ -592,7 +592,7 @@
                                                                     <DataGridTextColumn
                                                                         Width="Auto"
                                                                         Binding="{Binding PhylumId}"
-                                                                        Header="DynamicResource Tbl06Phylum-PhylumId}" />
+                                                                        Header="{DynamicResource Tbl06Phylum-PhylumId}" />
                                                                     <DataGridCheckBoxColumn
                                                                         Width="50"
                                                                         Binding="{Binding Valid}"
@@ -776,7 +776,7 @@
                                                                     <DataGridTextColumn
                                                                         Width="Auto"
                                                                         Binding="{Binding PhylumId}"
-                                                                        Header="DynamicResource Tbl06Phylum-PhylumId}" />
+                                                                        Header="{DynamicResource Tbl06Phylum-PhylumId}" />
                                                                     <DataGridCheckBoxColumn
                                                                         Width="50"
                                                                         Binding="{Binding Valid}"
