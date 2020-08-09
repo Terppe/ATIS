@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:d03Regnum="clr-namespace:ATIS.Ui.Views.Database.D03Regnum"
     xmlns:d06Phylum="clr-namespace:ATIS.Ui.Views.Database.D06Phylum"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -19,13 +20,27 @@
     </UserControl.Resources>
 
     <Grid>
-        <TabControl>
-            <TabItem Header="{DynamicResource Database-MenuFiSpecies}">
-                <TabControl>
+        <TabControl
+            Height="Auto"
+            mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+            mah:HeaderedControlHelper.HeaderFontSize="18"
+            mah:TabControlHelper.Underlined="TabPanel"
+            Style="{DynamicResource MahApps.Styles.TabControl.AnimatedSingleRow}">
+            <TabItem Header="{DynamicResource Database-MenuFishes}">
+                <TabControl
+                    Height="Auto"
+                    mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+                    mah:HeaderedControlHelper.HeaderFontSize="17"
+                    mah:TabControlHelper.Underlined="TabItems">
+                    <TabItem Content="{Binding Tbl69FiSpeciessesView}" Header="{DynamicResource Database-MenuFiSpecies}" />
                     <TabItem Content="{Binding Tbl66GenussesView}" Header="{DynamicResource Database-MenuGenus}" />
                     <TabItem Content="{Binding Tbl68SpeciesgroupsView}" Header="{DynamicResource Database-MenuSpeciesgroup}" />
                     <TabItem Header="{DynamicResource Database-MenuTribus}">
-                        <TabControl>
+                        <TabControl
+                            Height="Auto"
+                            mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+                            mah:HeaderedControlHelper.HeaderFontSize="16"
+                            mah:TabControlHelper.Underlined="TabItems">
                             <TabItem Content="{Binding Tbl63InfratribussesView}" Header="{DynamicResource Database-MenuInfratribus}" />
                             <TabItem Content="{Binding Tbl60SubtribussesView}" Header="{DynamicResource Database-MenuSubtribus}" />
                             <TabItem Content="{Binding Tbl57TribussesView}" Header="{DynamicResource Database-MenuTribus}" />
@@ -33,7 +48,11 @@
                         </TabControl>
                     </TabItem>
                     <TabItem Header="{DynamicResource Database-MenuFamily}">
-                        <TabControl>
+                        <TabControl
+                            Height="Auto"
+                            mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+                            mah:HeaderedControlHelper.HeaderFontSize="16"
+                            mah:TabControlHelper.Underlined="TabItems">
                             <TabItem Content="{Binding Tbl51InfrafamiliesView}" Header="{DynamicResource Database-MenuInfrafamily}" />
                             <TabItem Content="{Binding Tbl48SubfamiliesView}" Header="{DynamicResource Database-MenuSubfamily}" />
                             <TabItem Content="{Binding Tbl45FamiliesView}" Header="{DynamicResource Database-MenuFamily}" />
@@ -41,7 +60,11 @@
                         </TabControl>
                     </TabItem>
                     <TabItem Header="{DynamicResource Database-MenuOrdo}">
-                        <TabControl>
+                        <TabControl
+                            Height="Auto"
+                            mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+                            mah:HeaderedControlHelper.HeaderFontSize="16"
+                            mah:TabControlHelper.Underlined="TabItems">
                             <TabItem Content="{Binding Tbl39InfraordosView}" Header="{DynamicResource Database-MenuInfraordo}" />
                             <TabItem Content="{Binding Tbl36SubordosView}" Header="{DynamicResource Database-MenuSubordo}" />
                             <TabItem Content="{Binding Tbl33OrdosView}" Header="{DynamicResource Database-MenuOrdo}" />
@@ -49,7 +72,11 @@
                         </TabControl>
                     </TabItem>
                     <TabItem Header="{DynamicResource Database-MenuClass}">
-                        <TabControl>
+                        <TabControl
+                            Height="Auto"
+                            mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+                            mah:HeaderedControlHelper.HeaderFontSize="16"
+                            mah:TabControlHelper.Underlined="TabItems">
                             <TabItem Content="{Binding Tbl27InfraclassesView}" Header="{DynamicResource Database-MenuInfraclass}" />
                             <TabItem Content="{Binding Tbl24SubclassesView}" Header="{DynamicResource Database-MenuSubclass}" />
                             <TabItem Content="{Binding Tbl21ClassesView}" Header="{DynamicResource Database-MenuClass}" />
@@ -57,7 +84,11 @@
                         </TabControl>
                     </TabItem>
                     <TabItem Header="{DynamicResource Database-MenuPhylum}">
-                        <TabControl>
+                        <TabControl
+                            Height="Auto"
+                            mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+                            mah:HeaderedControlHelper.HeaderFontSize="16"
+                            mah:TabControlHelper.Underlined="TabPanel">
                             <TabItem Content="{Binding Tbl12SubphylumsView}" Header="{DynamicResource Database-MenuSubphylum}" />
                             <TabItem Header="{DynamicResource Database-MenuPhylum}">
                                 <d06Phylum:PhylumsViewModel />
@@ -70,12 +101,20 @@
                 </TabControl>
             </TabItem>
             <TabItem Header="{DynamicResource Database-MenuPlants}">
-                <TabControl>
+                <TabControl
+                    Height="Auto"
+                    mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+                    mah:HeaderedControlHelper.HeaderFontSize="17"
+                    mah:TabControlHelper.Underlined="TabPanel">
                     <TabItem Content="{Binding Tbl72PlSpeciessesView}" Header="{DynamicResource Database-MenuPlSpecies}" />
                     <TabItem Content="{Binding Tbl66GenussesView}" Header="{DynamicResource Database-MenuGenus}" />
                     <TabItem Content="{Binding Tbl68SpeciesgroupsView}" Header="{DynamicResource Database-MenuSpeciesgroup}" />
                     <TabItem Header="{DynamicResource Database-MenuTribus}">
-                        <TabControl>
+                        <TabControl
+                            Height="Auto"
+                            mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+                            mah:HeaderedControlHelper.HeaderFontSize="16"
+                            mah:TabControlHelper.Underlined="TabPanel">
                             <TabItem Content="{Binding Tbl63InfratribussesView}" Header="{DynamicResource Database-MenuInfratribus}" />
                             <TabItem Content="{Binding Tbl60SubtribussesView}" Header="{DynamicResource Database-MenuSubtribus}" />
                             <TabItem Content="{Binding Tbl57TribussesView}" Header="{DynamicResource Database-MenuTribus}" />
@@ -83,7 +122,11 @@
                         </TabControl>
                     </TabItem>
                     <TabItem Header="{DynamicResource Database-MenuFamily}">
-                        <TabControl>
+                        <TabControl
+                            Height="Auto"
+                            mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+                            mah:HeaderedControlHelper.HeaderFontSize="16"
+                            mah:TabControlHelper.Underlined="TabPanel">
                             <TabItem Content="{Binding Tbl51InfrafamiliesView}" Header="{DynamicResource Database-MenuInfrafamily}" />
                             <TabItem Content="{Binding Tbl48SubfamiliesView}" Header="{DynamicResource Database-MenuSubfamily}" />
                             <TabItem Content="{Binding Tbl45FamiliesView}" Header="{DynamicResource Database-MenuFamily}" />
@@ -91,7 +134,11 @@
                         </TabControl>
                     </TabItem>
                     <TabItem Header="{DynamicResource Database-MenuOrdo}">
-                        <TabControl>
+                        <TabControl
+                            Height="Auto"
+                            mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+                            mah:HeaderedControlHelper.HeaderFontSize="16"
+                            mah:TabControlHelper.Underlined="TabPanel">
                             <TabItem Content="{Binding Tbl39InfraordosView}" Header="{DynamicResource Database-MenuInfraordo}" />
                             <TabItem Content="{Binding Tbl36SubordosView}" Header="{DynamicResource Database-MenuSubordo}" />
                             <TabItem Content="{Binding Tbl33OrdosView}" Header="{DynamicResource Database-MenuOrdo}" />
@@ -99,7 +146,11 @@
                         </TabControl>
                     </TabItem>
                     <TabItem Header="{DynamicResource Database-MenuClass}">
-                        <TabControl>
+                        <TabControl
+                            Height="Auto"
+                            mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+                            mah:HeaderedControlHelper.HeaderFontSize="16"
+                            mah:TabControlHelper.Underlined="TabPanel">
                             <TabItem Content="{Binding Tbl27InfraclassesView}" Header="{DynamicResource Database-MenuInfraclass}" />
                             <TabItem Content="{Binding Tbl24SubclassesView}" Header="{DynamicResource Database-MenuSubclass}" />
                             <TabItem Content="{Binding Tbl21ClassesView}" Header="{DynamicResource Database-MenuClass}" />
@@ -107,7 +158,11 @@
                         </TabControl>
                     </TabItem>
                     <TabItem Header="{DynamicResource Database-MenuDivision}">
-                        <TabControl>
+                        <TabControl
+                            Height="Auto"
+                            mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+                            mah:HeaderedControlHelper.HeaderFontSize="16"
+                            mah:TabControlHelper.Underlined="TabPanel">
                             <TabItem Content="{Binding Tbl15SubdivisionsView}" Header="{DynamicResource Database-MenuSubdivision}" />
                             <TabItem Content="{Binding Tbl09DivisionsView}" Header="{DynamicResource Database-MenuDivision}" />
                         </TabControl>
@@ -121,13 +176,21 @@
             <TabItem Header="{DynamicResource Database-MenuFoods}" />
             <TabItem Header="{DynamicResource Database-MenuMiscellaneous}" />
             <TabItem Header="{DynamicResource Database-MenuAddons}">
-                <TabControl>
+                <TabControl
+                    Height="Auto"
+                    mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+                    mah:HeaderedControlHelper.HeaderFontSize="17"
+                    mah:TabControlHelper.Underlined="TabPanel">
                     <TabItem Content="{Binding Tbl78NamesView}" Header="{DynamicResource Database-MenuName}" />
                     <TabItem Content="{Binding Tbl81ImagesView}" Header="{DynamicResource Database-MenuImage}" />
                     <TabItem Content="{Binding Tbl84SynonymsView}" Header="{DynamicResource Database-MenuSynonym}" />
                     <TabItem Content="{Binding Tbl87GeographicsView}" Header="{DynamicResource Database-MenuGeographic}" />
                     <TabItem Header="{DynamicResource Database-MenuReference}">
-                        <TabControl>
+                        <TabControl
+                            Height="Auto"
+                            mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+                            mah:HeaderedControlHelper.HeaderFontSize="16"
+                            mah:TabControlHelper.Underlined="TabPanel">
                             <TabItem Content="{Binding Tbl90ReferencesView}" Header="{DynamicResource Database-MenuReference}" />
                             <TabItem Content="{Binding Tbl90RefExpertsView}" Header="{DynamicResource Database-MenuRefExpert}" />
                             <TabItem Content="{Binding Tbl90RefSourcesView}" Header="{DynamicResource Database-MenuRefSource}" />
@@ -140,6 +203,5 @@
                 </TabControl>
             </TabItem>
         </TabControl>
-
     </Grid>
 </UserControl>
