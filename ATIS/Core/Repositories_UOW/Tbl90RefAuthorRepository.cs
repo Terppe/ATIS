@@ -1,14 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
-using System.Windows.Documents;
-using System.Windows.Media.Converters;
 using ATIS.Dal.Models;
 using ATIS.Ui.Core.Interfaces_UOW;
-using Dapper;
-using Microsoft.EntityFrameworkCore;
 
 namespace ATIS.Ui.Core.Repositories_UOW
 {
@@ -65,9 +59,16 @@ namespace ATIS.Ui.Core.Repositories_UOW
 
 
 
-        public IEnumerable<Tbl90RefAuthor> ListTbl90RefAuthorsToCombobox()    //change to select new
+        public IEnumerable<Tbl90RefAuthor> ListTbl90RefAuthorsOrderBy()
         {
-            return _atisDbContext.Tbl90RefAuthors.OrderBy(x => x.RefAuthorName).ToList();
+            return _atisDbContext.Tbl90RefAuthors
+                .OrderBy(x => x.RefAuthorName)
+                .ThenBy(y => y.ArticelTitle)
+                .ThenBy(y => y.BookName)
+                .ThenBy(y => y.Page1)
+                .ThenBy(y => y.Publisher)
+                .ThenBy(y => y.PublicationPlace)
+                .ToList();
         }
 
 

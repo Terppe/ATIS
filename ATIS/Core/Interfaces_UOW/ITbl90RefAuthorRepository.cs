@@ -8,9 +8,6 @@ namespace ATIS.Ui.Core.Interfaces_UOW
 {
     public interface ITbl90RefAuthorRepository : IRepository<Tbl90RefAuthor>
     {
-
-        IEnumerable<Tbl90RefAuthor> ListTbl90RefAuthorsToCombobox();
-
- 
+        IEnumerable<Tbl90RefAuthor> ListTbl90RefAuthorsOrderBy();
     }
 }

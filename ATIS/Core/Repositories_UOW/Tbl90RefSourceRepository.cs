@@ -1,4 +1,6 @@
-﻿using ATIS.Dal.Models;
+﻿using System.Collections.Generic;
+using System.Linq;
+using ATIS.Dal.Models;
 using ATIS.Ui.Core.Interfaces_UOW;
 
 namespace ATIS.Ui.Core.Repositories_UOW
@@ -10,6 +12,12 @@ namespace ATIS.Ui.Core.Repositories_UOW
         public Tbl90RefSourceRepository(AtisDbContext context) : base(context)
         {
             _atisDbContext = context;
+
+        }
+
+        public IEnumerable<Tbl90RefSource> ListTbl90RefSourcesOrderBy()
+        {
+            return _atisDbContext.Tbl90RefSources.OrderBy(x => x.RefSourceName).ToList();
 
         }
     }

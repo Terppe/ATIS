@@ -12,27 +12,27 @@ namespace ATIS.Ui.Core.Repositories_UOW
     public class Tbl03RegnumRepository : Repository<Tbl03Regnum>, ITbl03RegnumRepository
     {
 
-        private readonly AtisDbContext _context;
+        private readonly AtisDbContext _atisDbContext;
 
         public Tbl03RegnumRepository(AtisDbContext context) : base(context)
         {
-            _context = context;
+            _atisDbContext = context;
         }
 
 
         public IEnumerable<Tbl03Regnum> GetBestRegnums(int countRegnum)
         {
-            if (countRegnum > _context.Tbl03Regnums.ToList().Count)
+            if (countRegnum > _atisDbContext.Tbl03Regnums.ToList().Count)
             {
                 throw new IndexOutOfRangeException();
             }
 
-            return _context.Tbl03Regnums.OrderByDescending(x => x.RegnumName).Take(countRegnum).ToList();
+            return _atisDbContext.Tbl03Regnums.OrderByDescending(x => x.RegnumName).Take(countRegnum).ToList();
         }
 
         public IEnumerable<Tbl03Regnum> ListTbl03RegnumsByFilterTextAboutAllFields(string filterText)
         {
-            return _context.Tbl03Regnums
+            return _atisDbContext.Tbl03Regnums
                 .Where(
                 e => e.RegnumName.StartsWith(filterText) &&
                      e.RegnumName.Contains("#") == false ||
@@ -41,7 +41,9 @@ namespace ATIS.Ui.Core.Repositories_UOW
                      e.GerName.Contains(filterText) ||
                      e.FraName.Contains(filterText) ||
                      e.PorName.Contains(filterText))
-                .OrderBy(r => r.RegnumName + r.Subregnum).ToList();
+                .OrderBy(r => r.RegnumName)
+                .ThenBy(y => y.Subregnum)
+                .ToList();
             //   p => p.Tbl06Phylums, k => k.Tbl09Divisions, r => r.Tbl90References, s => s.Tbl93Comments);
         }
 
@@ -62,17 +64,19 @@ namespace ATIS.Ui.Core.Repositories_UOW
             if (searchname.ToString() == "*")
             {
                 //            using var context = new AtisDbContext();
-                regnumsList = new ObservableCollection<Tbl03Regnum>(_context.Tbl03Regnums.ToList());
+                regnumsList = new ObservableCollection<Tbl03Regnum>(_atisDbContext.Tbl03Regnums.ToList());
             }
             else
             {
                 //            using var context = new AtisDbContext();
                 regnumsList = int.TryParse(searchname.ToString(), out var id)
-                    ? new ObservableCollection<Tbl03Regnum>(_context.Tbl03Regnums
+                    ? new ObservableCollection<Tbl03Regnum>(_atisDbContext.Tbl03Regnums
                         .Where(e => e.RegnumId == id))
-                    : new ObservableCollection<Tbl03Regnum>(_context.Tbl03Regnums
+                    : new ObservableCollection<Tbl03Regnum>(_atisDbContext.Tbl03Regnums
                         .Where(e => e.RegnumName.StartsWith(searchname.ToString()))
-                        .OrderBy(a => a.RegnumName + a.Subregnum)
+                        .OrderBy(a => a.RegnumName)
+                        .ThenBy(y => y.Subregnum)
+
                     );
             }
 
@@ -82,6 +86,14 @@ namespace ATIS.Ui.Core.Repositories_UOW
                     MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
             }
             return regnumsList;
+        }
+
+        public IEnumerable<Tbl03Regnum> ListTbl03RegnumsOrderBy()
+        {
+            return _atisDbContext.Tbl03Regnums
+                .OrderBy(x => x.RegnumName)
+                .ThenBy(y => y.Subregnum)
+                .ToList();
         }
     }
 }

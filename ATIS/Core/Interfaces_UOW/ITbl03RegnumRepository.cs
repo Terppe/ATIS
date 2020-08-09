@@ -9,5 +9,7 @@ namespace ATIS.Ui.Core.Interfaces_UOW
 
         IEnumerable<Tbl03Regnum> ListTbl03RegnumsByFilterTextAboutAllFields(string filterText);
         IEnumerable<Tbl03Regnum> ListRegnumsBySearchName(object searchName);
+        IEnumerable<Tbl03Regnum> ListTbl03RegnumsOrderBy();
+
     }
 }
