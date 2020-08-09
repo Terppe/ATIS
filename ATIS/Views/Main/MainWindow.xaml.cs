@@ -15,31 +15,24 @@ namespace ATIS.Ui.Views.Main
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        //private readonly Media.FontFamily _segoeFontFamily;
 
         public MainWindow()
         {
             DataContext = new MainWindowViewModel();
 
             InitializeComponent();
-            //_segoeFontFamily = new Media.FontFamily("Segoe MDL2 Assets");
         }
 
         private void HamburgerMenuControl_OnItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs e)
         {
             HamburgerMenuControl.Content = e.InvokedItem;
+
+            if (!e.IsItemOptions && HamburgerMenuControl.IsPaneOpen)
+            {
+                // close the menu if a item was selected
+                 this.HamburgerMenuControl.IsPaneOpen = false;
+            }
         }
-
-        //private void HamburgerMenuControl_OnItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs e)
-        //{
-        //    this.HamburgerMenuControl.Content = e.InvokedItem;
-
-        //    if (!e.IsItemOptions && this.HamburgerMenuControl.IsPaneOpen)
-        //    {
-        //        // close the menu if a item was selected
-        //        // this.HamburgerMenuControl.IsPaneOpen = false;
-        //    }
-        //}
 
 
 
