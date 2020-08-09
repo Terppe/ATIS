@@ -34,9 +34,9 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void LoadCollections()
         {
-            RegnumsAllCollection = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums.GetAll());
-            PhylumsAllCollection = new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums.GetAll());
-            SubphylumsAllCollection = new ObservableCollection<Tbl12Subphylum>(_uow.Tbl12Subphylums.GetAll());
+            RegnumsAllCollection = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums.ListTbl03RegnumsOrderBy());
+            //PhylumsAllCollection = new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums.GetAll());
+            //SubphylumsAllCollection = new ObservableCollection<Tbl12Subphylum>(_uow.Tbl12Subphylums.GetAll());
 
             RegnumsCollection = new ObservableCollection<Tbl03Regnum>();
             SubphylumsCollection = new ObservableCollection<Tbl12Subphylum>();
@@ -45,9 +45,9 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             ReferenceExpertsCollection = new ObservableCollection<Tbl90Reference>();
             ReferenceSourcesCollection = new ObservableCollection<Tbl90Reference>();
             ReferenceAuthorsCollection = new ObservableCollection<Tbl90Reference>();
-            ExpertsCollection = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.GetAll());
-            SourcesCollection = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.GetAll());
-            AuthorsCollection = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsToCombobox());
+            ExpertsCollection = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+            SourcesCollection = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+            AuthorsCollection = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
 
             CommentsCollection = new ObservableCollection<Tbl93Comment>();
 
@@ -1263,7 +1263,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         #endregion "Public Commands Connected Tables by DoubleClick"
 
-
         #region [ Properties ]
 
         #region Public Properties Tbl03Regnum
@@ -1291,7 +1290,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         public string SearchPhylumName { get; set; }
 
         public ObservableCollection<Tbl06Phylum> PhylumsCollection { get; set; }
-        public ObservableCollection<Tbl06Phylum> PhylumsAllCollection { get; set; }
 
         Tbl06Phylum _selectedPhylum = null;
         public Tbl06Phylum SelectedPhylum
@@ -1322,7 +1320,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         #region Public Properties Tbl12Subphylum
         public ObservableCollection<Tbl12Subphylum> SubphylumsCollection { get; set; }
-        public ObservableCollection<Tbl12Subphylum> SubphylumsAllCollection { get; set; }
 
         Tbl12Subphylum _selectedSubphylum = null;
         public Tbl12Subphylum SelectedSubphylum

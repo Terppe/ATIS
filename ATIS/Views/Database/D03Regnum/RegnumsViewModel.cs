@@ -34,9 +34,9 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void LoadCollections()
         {
-            RegnumsAllCollection = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums.GetAll());
-            PhylumsAllCollection = new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums.GetAll());
-            DivisionsAllCollection = new ObservableCollection<Tbl09Division>(_uow.Tbl09Divisions.GetAll());
+            //RegnumsAllCollection = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums.GetAll());
+            //PhylumsAllCollection = new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums.GetAll());
+            //DivisionsAllCollection = new ObservableCollection<Tbl09Division>(_uow.Tbl09Divisions.GetAll());
 
             RegnumsCollection = new ObservableCollection<Tbl03Regnum>();
             PhylumsCollection = new ObservableCollection<Tbl06Phylum>();
@@ -47,9 +47,9 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             ReferenceExpertsCollection = new ObservableCollection<Tbl90Reference>();
             ReferenceSourcesCollection = new ObservableCollection<Tbl90Reference>();
             ReferenceAuthorsCollection = new ObservableCollection<Tbl90Reference>();
-            ExpertsCollection = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.GetAll());
-            SourcesCollection = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.GetAll());
-            AuthorsCollection = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsToCombobox());
+            ExpertsCollection = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+            SourcesCollection = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+            AuthorsCollection = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
 
             CommentsCollection = new ObservableCollection<Tbl93Comment>();
             TabIndexDetail = 1;
@@ -1299,7 +1299,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         public string SearchRegnumName { get; set; }
         public ObservableCollection<Tbl03Regnum> RegnumsCollection { get; set; }
-        public ObservableCollection<Tbl03Regnum> RegnumsAllCollection { get; set; }
 
         Tbl03Regnum _selectedRegnum;
         public Tbl03Regnum SelectedRegnum
@@ -1348,7 +1347,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         #region Public Properties Tbl06Phylum
 
         public ObservableCollection<Tbl06Phylum> PhylumsCollection { get; set; }
-        public ObservableCollection<Tbl06Phylum> PhylumsAllCollection { get; set; }
 
         Tbl06Phylum _selectedPhylum = null;
         public Tbl06Phylum SelectedPhylum
@@ -1370,7 +1368,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         #region Public Properties Tbl09Division
 
         public ObservableCollection<Tbl09Division> DivisionsCollection { get; set; }
-        public ObservableCollection<Tbl09Division> DivisionsAllCollection { get; set; }
 
         Tbl09Division _selectedDivision = null;
         public Tbl09Division SelectedDivision

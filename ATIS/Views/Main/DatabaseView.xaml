@@ -31,7 +31,8 @@
                     Height="Auto"
                     mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
                     mah:HeaderedControlHelper.HeaderFontSize="17"
-                    mah:TabControlHelper.Underlined="TabItems">
+                    mah:TabControlHelper.Underlined="TabItems"
+                    SelectedIndex="0">
                     <TabItem Content="{Binding Tbl69FiSpeciessesView}" Header="{DynamicResource Database-MenuFiSpecies}" />
                     <TabItem Content="{Binding Tbl66GenussesView}" Header="{DynamicResource Database-MenuGenus}" />
                     <TabItem Content="{Binding Tbl68SpeciesgroupsView}" Header="{DynamicResource Database-MenuSpeciesgroup}" />
@@ -40,7 +41,8 @@
                             Height="Auto"
                             mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
                             mah:HeaderedControlHelper.HeaderFontSize="16"
-                            mah:TabControlHelper.Underlined="TabItems">
+                            mah:TabControlHelper.Underlined="TabItems"
+                            SelectedIndex="2">
                             <TabItem Content="{Binding Tbl63InfratribussesView}" Header="{DynamicResource Database-MenuInfratribus}" />
                             <TabItem Content="{Binding Tbl60SubtribussesView}" Header="{DynamicResource Database-MenuSubtribus}" />
                             <TabItem Content="{Binding Tbl57TribussesView}" Header="{DynamicResource Database-MenuTribus}" />
@@ -52,7 +54,8 @@
                             Height="Auto"
                             mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
                             mah:HeaderedControlHelper.HeaderFontSize="16"
-                            mah:TabControlHelper.Underlined="TabItems">
+                            mah:TabControlHelper.Underlined="TabItems"
+                            SelectedIndex="2">
                             <TabItem Content="{Binding Tbl51InfrafamiliesView}" Header="{DynamicResource Database-MenuInfrafamily}" />
                             <TabItem Content="{Binding Tbl48SubfamiliesView}" Header="{DynamicResource Database-MenuSubfamily}" />
                             <TabItem Content="{Binding Tbl45FamiliesView}" Header="{DynamicResource Database-MenuFamily}" />
@@ -64,7 +67,8 @@
                             Height="Auto"
                             mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
                             mah:HeaderedControlHelper.HeaderFontSize="16"
-                            mah:TabControlHelper.Underlined="TabItems">
+                            mah:TabControlHelper.Underlined="TabItems"
+                            SelectedIndex="2">
                             <TabItem Content="{Binding Tbl39InfraordosView}" Header="{DynamicResource Database-MenuInfraordo}" />
                             <TabItem Content="{Binding Tbl36SubordosView}" Header="{DynamicResource Database-MenuSubordo}" />
                             <TabItem Content="{Binding Tbl33OrdosView}" Header="{DynamicResource Database-MenuOrdo}" />
@@ -76,7 +80,8 @@
                             Height="Auto"
                             mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
                             mah:HeaderedControlHelper.HeaderFontSize="16"
-                            mah:TabControlHelper.Underlined="TabItems">
+                            mah:TabControlHelper.Underlined="TabItems"
+                            SelectedIndex="2">
                             <TabItem Content="{Binding Tbl27InfraclassesView}" Header="{DynamicResource Database-MenuInfraclass}" />
                             <TabItem Content="{Binding Tbl24SubclassesView}" Header="{DynamicResource Database-MenuSubclass}" />
                             <TabItem Content="{Binding Tbl21ClassesView}" Header="{DynamicResource Database-MenuClass}" />
@@ -88,7 +93,8 @@
                             Height="Auto"
                             mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
                             mah:HeaderedControlHelper.HeaderFontSize="16"
-                            mah:TabControlHelper.Underlined="TabPanel">
+                            mah:TabControlHelper.Underlined="TabPanel"
+                            SelectedIndex="1">
                             <TabItem Content="{Binding Tbl12SubphylumsView}" Header="{DynamicResource Database-MenuSubphylum}" />
                             <TabItem Header="{DynamicResource Database-MenuPhylum}">
                                 <d06Phylum:PhylumsViewModel />
@@ -105,7 +111,8 @@
                     Height="Auto"
                     mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
                     mah:HeaderedControlHelper.HeaderFontSize="17"
-                    mah:TabControlHelper.Underlined="TabPanel">
+                    mah:TabControlHelper.Underlined="TabPanel"
+                    SelectedIndex="0">
                     <TabItem Content="{Binding Tbl72PlSpeciessesView}" Header="{DynamicResource Database-MenuPlSpecies}" />
                     <TabItem Content="{Binding Tbl66GenussesView}" Header="{DynamicResource Database-MenuGenus}" />
                     <TabItem Content="{Binding Tbl68SpeciesgroupsView}" Header="{DynamicResource Database-MenuSpeciesgroup}" />
@@ -114,7 +121,8 @@
                             Height="Auto"
                             mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
                             mah:HeaderedControlHelper.HeaderFontSize="16"
-                            mah:TabControlHelper.Underlined="TabPanel">
+                            mah:TabControlHelper.Underlined="TabPanel"
+                            SelectedIndex="2">
                             <TabItem Content="{Binding Tbl63InfratribussesView}" Header="{DynamicResource Database-MenuInfratribus}" />
                             <TabItem Content="{Binding Tbl60SubtribussesView}" Header="{DynamicResource Database-MenuSubtribus}" />
                             <TabItem Content="{Binding Tbl57TribussesView}" Header="{DynamicResource Database-MenuTribus}" />
@@ -126,7 +134,8 @@
                             Height="Auto"
                             mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
                             mah:HeaderedControlHelper.HeaderFontSize="16"
-                            mah:TabControlHelper.Underlined="TabPanel">
+                            mah:TabControlHelper.Underlined="TabPanel"
+                            SelectedIndex="2">
                             <TabItem Content="{Binding Tbl51InfrafamiliesView}" Header="{DynamicResource Database-MenuInfrafamily}" />
                             <TabItem Content="{Binding Tbl48SubfamiliesView}" Header="{DynamicResource Database-MenuSubfamily}" />
                             <TabItem Content="{Binding Tbl45FamiliesView}" Header="{DynamicResource Database-MenuFamily}" />
@@ -138,7 +147,8 @@
                             Height="Auto"
                             mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
                             mah:HeaderedControlHelper.HeaderFontSize="16"
-                            mah:TabControlHelper.Underlined="TabPanel">
+                            mah:TabControlHelper.Underlined="TabPanel"
+                            SelectedIndex="2">
                             <TabItem Content="{Binding Tbl39InfraordosView}" Header="{DynamicResource Database-MenuInfraordo}" />
                             <TabItem Content="{Binding Tbl36SubordosView}" Header="{DynamicResource Database-MenuSubordo}" />
                             <TabItem Content="{Binding Tbl33OrdosView}" Header="{DynamicResource Database-MenuOrdo}" />
@@ -150,7 +160,8 @@
                             Height="Auto"
                             mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
                             mah:HeaderedControlHelper.HeaderFontSize="16"
-                            mah:TabControlHelper.Underlined="TabPanel">
+                            mah:TabControlHelper.Underlined="TabPanel"
+                            SelectedIndex="2">
                             <TabItem Content="{Binding Tbl27InfraclassesView}" Header="{DynamicResource Database-MenuInfraclass}" />
                             <TabItem Content="{Binding Tbl24SubclassesView}" Header="{DynamicResource Database-MenuSubclass}" />
                             <TabItem Content="{Binding Tbl21ClassesView}" Header="{DynamicResource Database-MenuClass}" />
@@ -162,7 +173,8 @@
                             Height="Auto"
                             mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
                             mah:HeaderedControlHelper.HeaderFontSize="16"
-                            mah:TabControlHelper.Underlined="TabPanel">
+                            mah:TabControlHelper.Underlined="TabPanel"
+                            SelectedIndex="1">
                             <TabItem Content="{Binding Tbl15SubdivisionsView}" Header="{DynamicResource Database-MenuSubdivision}" />
                             <TabItem Content="{Binding Tbl09DivisionsView}" Header="{DynamicResource Database-MenuDivision}" />
                         </TabControl>

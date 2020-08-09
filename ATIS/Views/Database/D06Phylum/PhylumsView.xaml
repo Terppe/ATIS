@@ -127,7 +127,7 @@
                                                                 <DataTemplate>
                                                                     <StackPanel Orientation="Horizontal">
                                                                         <TextBlock Text="{Binding (models:Tbl03Regnum.RegnumName)}" />
-                                                                        <TextBlock Text=" -- " />
+                                                                        <TextBlock Text=" " />
                                                                         <TextBlock Text="{Binding (models:Tbl03Regnum.Subregnum)}" />
                                                                     </StackPanel>
                                                                 </DataTemplate>
