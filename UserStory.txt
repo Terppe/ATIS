@@ -42,7 +42,7 @@ Akzeptanzkriterien:
 	da doch sehr aufwändig, da in verschiedenen Ebenen der Button-Down-Event auszulösen ist.
 	Jetzt mit Aufruf des Bereiches und selektierung über TabControl
 	Database ==> TreeView-Button ==> Regnum, Phylum, Division... Genus, Species ==> tabcontrol
-	Später durch Moderne Oberfläche mit Hamburger Menü ähnlich MaterialDesign von Butcher wie Fluent. Ähnlich UWP ersetzen
+	Mit MahApps verwirklicht. Aber keine Unter-TreeViews
 Status:
 •	Noch nicht entgültig implementiert
 •	
@@ -59,7 +59,7 @@ Akzeptanzkriterien:
 Status:
 •	Bei MainWindow.cs connectionString und Verbindung zur Datenbank hergestellt
 •	"MyDbConnection": "server=.\\SQLEXPRESS;database=ATIS35;trusted_connection=true;" in appsettings.json eingefügt
-•	erfolgreich erledigt
+•	erfolgreich mit UnitOfWork erledigt
 
 
 ***************************************
@@ -90,7 +90,7 @@ Status:
 Titel: SearchTextBox Biliothek eingefügt
 Story:  
 Akzeptanzkriterien:
-	* 
+	* Versuchen über MahApps zu lösen
 Status:
 •	 implementiert aber noch nicht fertig
 •	
@@ -114,8 +114,9 @@ Titel: Display mit hamburger menü Fluent Moderne Oberfläche
 Story: Wie UWP mit Windows-Community-Toolkit und Windows-UI-Bibliothek usw
 Akzeptanzkriterien:
 	* Windows-Community-Toolkit Version 6.0 lässt sich nicht bei CORE 3.1 installieren
+	* Mit MahApps vorerst gelöst. Evtl. mit Compact navigation Menu von Meshack Musundi ohne MahApps
 Status:
-•	Noch nicht implementiert
+•	Noch nicht komplett implementiert
 •	
 •	
 
@@ -127,7 +128,7 @@ Story:
 Akzeptanzkriterien:
 	* Als separate DLL ?
 Status:
-•	Noch nicht implementiert
+•	Erfolgreich implementiert
 •	
 •	
 
@@ -188,4 +189,9 @@ Mit Anmelderechten Administrator, Zoologe, Developer kann auf Datenbank zugegrif
 Akzeptanzkriterien:
 	* Die Anwendung wird innerhalb von 2 Sekunden auf dem Rechner gestartet
 	* Die Anwendung läuft auf einem Rechner mit Windows 10.
+Status:
+•	Noch nicht implementiert
+•	
+•	
 
+**************************************
