@@ -1051,7 +1051,6 @@
 
                             <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderSubphylums}">
                                 <StackPanel>
-
                                     <GroupBox Width="Auto" Header="{DynamicResource Shared-TabStripHeaderSubphylums}">
                                         <ScrollViewer HorizontalScrollBarVisibility="Auto">
                                             <Grid x:Name="LayoutGridSubphylum" MinWidth="300">
@@ -1289,7 +1288,6 @@
                                     </GroupBox>
                                 </StackPanel>
                             </TabItem>
-
                         </TabControl>
                     </StackPanel>
                 </Grid>
