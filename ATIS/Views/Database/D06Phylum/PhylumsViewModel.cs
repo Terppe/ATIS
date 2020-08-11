@@ -305,9 +305,9 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                     collection = int.TryParse(searchName, out var id)
                         ? new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums
                             .Find(e => e.PhylumId == id))
-                        : new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums
-                            .Find(e => e.PhylumName.StartsWith(searchName))
-                            .OrderBy(a => a.PhylumName)
+                        : new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums.ListTbl06PhylumsOnlyAnimaliaOrderBy(searchName)
+                        //.Find(e => e.PhylumName.StartsWith(searchName))
+                        //.OrderBy(a => a.PhylumName)
                         );
                     break;
             }
