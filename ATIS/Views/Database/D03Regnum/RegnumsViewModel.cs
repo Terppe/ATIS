@@ -316,7 +316,8 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                             .Find(e => e.RegnumId == id))
                         : new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums
                             .Find(e => e.RegnumName.StartsWith(searchName))
-                            .OrderBy(a => a.RegnumName + a.Subregnum)
+                            .OrderBy(a => a.RegnumName)
+                            .ThenBy(a => a.Subregnum)
                         );
                     break;
             }

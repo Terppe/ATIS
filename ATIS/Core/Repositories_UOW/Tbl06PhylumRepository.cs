@@ -32,12 +32,33 @@ namespace ATIS.Ui.Core.Repositories_UOW
 
         public IEnumerable<Tbl06Phylum> ListTbl06PhylumsOnlyAnimaliaOrderBy(string search)
         {
+            var plantaeId = 0;
+            var archaeaId = 0;
+            var protozoaId = 0;
+
+            //var animalia = _atisDbContext.Tbl03Regnums.FirstOrDefault(e => e.RegnumName == "Animalia");
+            //if (animalia != null)
+            //    var animaliaId = animalia.RegnumId;
+
+            var plantae = _atisDbContext.Tbl03Regnums.FirstOrDefault(e => e.RegnumName == "Plantae");
+            if (plantae != null)
+                plantaeId = plantae.RegnumId;
+
+            var archaea = _atisDbContext.Tbl03Regnums.FirstOrDefault(e => e.RegnumName == "Archaea");
+            if (archaea != null)
+                archaeaId = archaea.RegnumId;
+
+            var protozoa = _atisDbContext.Tbl03Regnums.FirstOrDefault(e => e.RegnumName == "Protozoa");
+            if (protozoa != null)
+                protozoaId = protozoa.RegnumId;
+
+
             return _atisDbContext.Tbl06Phylums
                 .Where(
                     e => e.PhylumName.StartsWith(search) &&
-                         e.RegnumId.Equals(113) == false &&     //Plantae
-                         e.RegnumId.Equals(114) == false &&     //Archaea
-                         e.RegnumId.Equals(115) == false        //Protozoa
+                         e.RegnumId.Equals(plantaeId) == false &&     //Plantae
+                         e.RegnumId.Equals(archaeaId) == false &&     //Archaea
+                         e.RegnumId.Equals(protozoaId) == false       //Protozoa
                 )
                 .OrderBy(r => r.PhylumName)
                 .ToList();
