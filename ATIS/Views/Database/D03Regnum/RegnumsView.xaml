@@ -3,8 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:d03Regnum="clr-namespace:ATIS.Ui.Views.Database.D03Regnum"
-    xmlns:d06Phylum="clr-namespace:ATIS.Ui.Views.Database.D06Phylum"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"
@@ -12,8 +10,6 @@
     d:DesignHeight="1100"
     d:DesignWidth="1500"
     mc:Ignorable="d">
-
-    <!--  d:DataContext="{d:DesignInstance d03Regnum:RegnumsViewModel}"  -->
 
     <UserControl.Resources>
         <CollectionViewSource x:Key="RegnumsAllColl" Source="{Binding RegnumsAllCollection}" />
@@ -24,12 +20,90 @@
         <CollectionViewSource x:Key="SourcesColl" Source="{Binding SourcesCollection}" />
         <CollectionViewSource x:Key="AuthorsColl" Source="{Binding AuthorsCollection}" />
 
-        <DataTemplate x:Key="CompanyDisplayTemplate" DataType="DataGrid">
-            <TextBlock Text="{Binding (models:Tbl03Regnum.RegnumName)}" />
+        <Thickness x:Key="ControlMargin">0 5 0 0</Thickness>
+
+        <!--<DataTemplate x:Key="ValidColumnTemplate">
+            <CheckBox
+                Width="Auto"
+                HorizontalAlignment="Center"
+                IsChecked="{Binding Valid}"
+                IsThreeState="True" />
         </DataTemplate>
-        <DataTemplate x:Key="CompanyEditingTemplate" DataType="DataGrid">
-            <ComboBox ItemsSource="{Binding Source={StaticResource RegnumsAllColl}}" SelectedItem="{Binding (models:Tbl03Regnum.RegnumName)}" />
+        <DataTemplate x:Key="ValidYearColumnTemplate">
+            <TextBlock Width="Auto" Text="{Binding ValidYear}" />
         </DataTemplate>
+        <DataTemplate x:Key="AuthorColumnTemplate">
+            <TextBlock Width="Auto" Text="{Binding Author}" />
+        </DataTemplate>
+        <DataTemplate x:Key="AuthorYearColumnTemplate">
+            <TextBlock Width="Auto" Text="{Binding AuthorYear}" />
+        </DataTemplate>-->
+        <!--<DataTemplate x:Key="EngNameColumnTemplate">
+            <TextBlock Width="Auto" Text="{Binding EngName}" />
+        </DataTemplate>
+        <DataTemplate x:Key="GerNameColumnTemplate">
+            <TextBlock Width="Auto" Text="{Binding GerName}" />
+        </DataTemplate>
+        <DataTemplate x:Key="FraNameColumnTemplate">
+            <TextBlock Width="Auto" Text="{Binding FraName}" />
+        </DataTemplate>
+        <DataTemplate x:Key="SpaNameColumnTemplate">
+            <TextBlock Width="Auto" Text="{Binding SpaName}" />
+        </DataTemplate>-->
+
+        <!--<DataTemplate x:Key="SynonymColumnTemplate">
+            <TextBlock
+                MaxWidth="290"
+                MaxHeight="100"
+                Text="{Binding Path=Synonym, Mode=OneWay}"
+                TextAlignment="Left"
+                TextWrapping="Wrap" />
+        </DataTemplate>
+        <DataTemplate x:Key="SynonymEditColumnTemplate">
+            <TextBox
+                MaxWidth="290"
+                MaxHeight="100"
+                Text="{Binding Path=Synonym, Mode=TwoWay}"
+                TextAlignment="Left"
+                TextWrapping="Wrap"
+                VerticalScrollBarVisibility="Visible" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="InfoColumnTemplate">
+            <TextBlock
+                MaxWidth="290"
+                MaxHeight="100"
+                Text="{Binding Path=Info, Mode=OneWay}"
+                TextAlignment="Left"
+                TextWrapping="Wrap" />
+        </DataTemplate>
+        <DataTemplate x:Key="InfoEditColumnTemplate">
+            <TextBox
+                MaxWidth="290"
+                MaxHeight="100"
+                Text="{Binding Path=Info, Mode=TwoWay}"
+                TextAlignment="Left"
+                TextWrapping="Wrap"
+                VerticalScrollBarVisibility="Visible" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="MemoColumnTemplate">
+            <TextBlock
+                MaxWidth="490"
+                MaxHeight="100"
+                Text="{Binding Path=Memo, Mode=OneWay}"
+                TextAlignment="Left"
+                TextWrapping="Wrap" />
+        </DataTemplate>
+        <DataTemplate x:Key="MemoEditColumnTemplate">
+            <TextBox
+                MaxWidth="490"
+                MaxHeight="100"
+                Text="{Binding Path=Memo, Mode=TwoWay}"
+                TextAlignment="Left"
+                TextWrapping="Wrap"
+                VerticalScrollBarVisibility="Visible" />
+        </DataTemplate>-->
 
     </UserControl.Resources>
 
@@ -65,7 +139,7 @@
                                 SearchMode="Instant"
                                 Text="{Binding SearchRegnumName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
-                            <!--<TextBox
+                            <!--<TextBox  fehlt x nach eingabe zum löschen
                                 x:Name="TbSearchRegnum"
                                 Width="200"
                                 Height="30"
@@ -104,6 +178,14 @@
                                 Style="{StaticResource ButtonDefault}"
                                 ToolTip="{DynamicResource Shared-ButtonAdd}" />
                             <Button
+                                Width="100"
+                                Margin="{StaticResource ControlMargin}"
+                                Command="{Binding AddRegnumCommand}"
+                                Content="{DynamicResource Shared-ButtonAdd}"
+                                Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                ToolTip="{DynamicResource Shared-ButtonAdd}" />
+
+                            <Button
                                 Command="{Binding CopyRegnumCommand}"
                                 Content="Copy"
                                 Style="{StaticResource ButtonDefault}"
@@ -137,6 +219,7 @@
                                         IsSynchronizedWithCurrentItem="true"
                                         ItemsSource="{Binding RegnumsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                         SelectedItem="{Binding SelectedRegnum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
                                         <DataGrid.InputBindings>
                                             <KeyBinding Command="{Binding SaveRegnumCommand}" Gesture="Ctrl+Shift+S" />
                                         </DataGrid.InputBindings>
@@ -153,107 +236,29 @@
                                                 Width="Auto"
                                                 Binding="{Binding Subregnum}"
                                                 Header="{DynamicResource Tbl03Regnum-Subregnum}" />
-                                            <DataGridCheckBoxColumn
-                                                Width="80"
-                                                Binding="{Binding Valid}"
-                                                Header="{DynamicResource Shared-Valid}" />
-                                            <DataGridTextColumn
-                                                Width="Auto"
-                                                Binding="{Binding ValidYear}"
-                                                Header="{DynamicResource Shared-ValidYear}" />
-                                            <DataGridTemplateColumn Width="300" Header="{DynamicResource Shared-Synonym}">
-                                                <DataGridTemplateColumn.CellEditingTemplate>
-                                                    <DataTemplate>
-                                                        <TextBox
-                                                            MaxWidth="290"
-                                                            MaxHeight="100"
-                                                            Text="{Binding Path=Synonym, Mode=TwoWay}"
-                                                            TextAlignment="Left"
-                                                            TextWrapping="Wrap"
-                                                            VerticalScrollBarVisibility="Visible" />
-                                                    </DataTemplate>
-                                                </DataGridTemplateColumn.CellEditingTemplate>
-                                                <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock
-                                                            MaxWidth="290"
-                                                            MaxHeight="100"
-                                                            Text="{Binding Path=Synonym, Mode=OneWay}"
-                                                            TextAlignment="Left"
-                                                            TextWrapping="Wrap" />
-                                                    </DataTemplate>
-                                                </DataGridTemplateColumn.CellTemplate>
-                                            </DataGridTemplateColumn>
-                                            <DataGridTextColumn
-                                                Width="Auto"
-                                                Binding="{Binding Author}"
-                                                Header="{DynamicResource Shared-Author}" />
-                                            <DataGridTextColumn
-                                                Width="Auto"
-                                                Binding="{Binding AuthorYear}"
-                                                Header="{DynamicResource Shared-AuthorYear}" />
-                                            <DataGridTemplateColumn Width="200" Header="{DynamicResource Shared-Info}">
-                                                <DataGridTemplateColumn.CellEditingTemplate>
-                                                    <DataTemplate>
-                                                        <TextBox
-                                                            MaxWidth="190"
-                                                            MaxHeight="100"
-                                                            Text="{Binding Path=Info, Mode=TwoWay}"
-                                                            TextAlignment="Left"
-                                                            TextWrapping="Wrap"
-                                                            VerticalScrollBarVisibility="Visible" />
-                                                    </DataTemplate>
-                                                </DataGridTemplateColumn.CellEditingTemplate>
-                                                <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock
-                                                            MaxWidth="190"
-                                                            MaxHeight="100"
-                                                            Text="{Binding Path=Info, Mode=OneWay}"
-                                                            TextAlignment="Left"
-                                                            TextWrapping="Wrap" />
-                                                    </DataTemplate>
-                                                </DataGridTemplateColumn.CellTemplate>
-                                            </DataGridTemplateColumn>
-                                            <DataGridTextColumn
-                                                Width="Auto"
-                                                Binding="{Binding EngName}"
-                                                Header="{DynamicResource Shared-EngName}" />
-                                            <DataGridTextColumn
-                                                Width="Auto"
-                                                Binding="{Binding GerName}"
-                                                Header="{DynamicResource Shared-GerName}" />
-                                            <DataGridTextColumn
-                                                Width="Auto"
-                                                Binding="{Binding FraName}"
-                                                Header="{DynamicResource Shared-FraName}" />
-                                            <DataGridTextColumn
-                                                Width="Auto"
-                                                Binding="{Binding PorName}"
-                                                Header="{DynamicResource Shared-SpaName}" />
-                                            <DataGridTemplateColumn Width="500" Header="{DynamicResource Shared-Memo}">
-                                                <DataGridTemplateColumn.CellEditingTemplate>
-                                                    <DataTemplate>
-                                                        <TextBox
-                                                            MaxWidth="490"
-                                                            MaxHeight="100"
-                                                            Text="{Binding Path=Memo, Mode=TwoWay}"
-                                                            TextAlignment="Left"
-                                                            TextWrapping="Wrap"
-                                                            VerticalScrollBarVisibility="Visible" />
-                                                    </DataTemplate>
-                                                </DataGridTemplateColumn.CellEditingTemplate>
-                                                <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock
-                                                            MaxWidth="490"
-                                                            MaxHeight="100"
-                                                            Text="{Binding Path=Memo, Mode=OneWay}"
-                                                            TextAlignment="Left"
-                                                            TextWrapping="Wrap" />
-                                                    </DataTemplate>
-                                                </DataGridTemplateColumn.CellTemplate>
-                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
+                                            <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                            <DataGridTemplateColumn
+                                                Width="300"
+                                                CellEditingTemplate="{StaticResource SynonymEditColumnTemplate}"
+                                                CellTemplate="{StaticResource SynonymColumnTemplate}"
+                                                Header="{DynamicResource Shared-Synonym}" />
+                                            <DataGridTemplateColumn CellTemplate="{StaticResource AuthorColumnTemplate}" Header="{DynamicResource Shared-Author}" />
+                                            <DataGridTemplateColumn CellTemplate="{StaticResource AuthorYearColumnTemplate}" Header="{DynamicResource Shared-AuthorYear}" />
+                                            <DataGridTemplateColumn
+                                                Width="300"
+                                                CellEditingTemplate="{StaticResource Info300EditColumnTemplate}"
+                                                CellTemplate="{StaticResource Info300ColumnTemplate}"
+                                                Header="{DynamicResource Shared-Info}" />
+                                            <DataGridTemplateColumn CellTemplate="{StaticResource EngNameColumnTemplate}" Header="{DynamicResource Shared-EngName}" />
+                                            <DataGridTemplateColumn CellTemplate="{StaticResource GerNameColumnTemplate}" Header="{DynamicResource Shared-GerName}" />
+                                            <DataGridTemplateColumn CellTemplate="{StaticResource FraNameColumnTemplate}" Header="{DynamicResource Shared-FraName}" />
+                                            <DataGridTemplateColumn CellTemplate="{StaticResource SpaNameColumnTemplate}" Header="{DynamicResource Shared-SpaName}" />
+                                            <DataGridTemplateColumn
+                                                Width="500"
+                                                CellEditingTemplate="{StaticResource Memo500EditColumnTemplate}"
+                                                CellTemplate="{StaticResource Memo500ColumnTemplate}"
+                                                Header="{DynamicResource Shared-Memo}" />
                                         </DataGrid.Columns>
                                     </DataGrid>
                                 </Grid>
@@ -381,60 +386,18 @@
                                                                     Width="Auto"
                                                                     Binding="{Binding RegnumId}"
                                                                     Header="{DynamicResource Tbl03Regnum-RegnumId}" />
-                                                                <DataGridCheckBoxColumn
-                                                                    Width="Auto"
-                                                                    Binding="{Binding Valid}"
-                                                                    Header="{DynamicResource Shared-Valid}" />
-                                                                <DataGridTextColumn
-                                                                    Width="Auto"
-                                                                    Binding="{Binding ValidYear}"
-                                                                    Header="{DynamicResource Shared-ValidYear}" />
-                                                                <DataGridTemplateColumn Width="500" Header="{DynamicResource Shared-Info}">
-                                                                    <DataGridTemplateColumn.CellEditingTemplate>
-                                                                        <DataTemplate>
-                                                                            <TextBox
-                                                                                MaxWidth="490"
-                                                                                MaxHeight="100"
-                                                                                Text="{Binding Path=Info, Mode=TwoWay}"
-                                                                                TextAlignment="Left"
-                                                                                TextWrapping="Wrap"
-                                                                                VerticalScrollBarVisibility="Visible" />
-                                                                        </DataTemplate>
-                                                                    </DataGridTemplateColumn.CellEditingTemplate>
-                                                                    <DataGridTemplateColumn.CellTemplate>
-                                                                        <DataTemplate>
-                                                                            <TextBlock
-                                                                                MaxWidth="490"
-                                                                                MaxHeight="100"
-                                                                                Text="{Binding Path=Info, Mode=OneWay}"
-                                                                                TextAlignment="Left"
-                                                                                TextWrapping="Wrap" />
-                                                                        </DataTemplate>
-                                                                    </DataGridTemplateColumn.CellTemplate>
-                                                                </DataGridTemplateColumn>
-                                                                <DataGridTemplateColumn Width="600" Header="{DynamicResource Shared-Memo}">
-                                                                    <DataGridTemplateColumn.CellEditingTemplate>
-                                                                        <DataTemplate>
-                                                                            <TextBox
-                                                                                MaxWidth="590"
-                                                                                MaxHeight="100"
-                                                                                Text="{Binding Path=Memo, Mode=TwoWay}"
-                                                                                TextAlignment="Left"
-                                                                                TextWrapping="Wrap"
-                                                                                VerticalScrollBarVisibility="Visible" />
-                                                                        </DataTemplate>
-                                                                    </DataGridTemplateColumn.CellEditingTemplate>
-                                                                    <DataGridTemplateColumn.CellTemplate>
-                                                                        <DataTemplate>
-                                                                            <TextBlock
-                                                                                MaxWidth="590"
-                                                                                MaxHeight="100"
-                                                                                Text="{Binding Path=Memo, Mode=OneWay}"
-                                                                                TextAlignment="Left"
-                                                                                TextWrapping="Wrap" />
-                                                                        </DataTemplate>
-                                                                    </DataGridTemplateColumn.CellTemplate>
-                                                                </DataGridTemplateColumn>
+                                                                <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
+                                                                <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                                                <DataGridTemplateColumn
+                                                                    Width="500"
+                                                                    CellEditingTemplate="{StaticResource Info500EditColumnTemplate}"
+                                                                    CellTemplate="{StaticResource Info500ColumnTemplate}"
+                                                                    Header="{DynamicResource Shared-Info}" />
+                                                                <DataGridTemplateColumn
+                                                                    Width="500"
+                                                                    CellEditingTemplate="{StaticResource Memo500EditColumnTemplate}"
+                                                                    CellTemplate="{StaticResource Memo500ColumnTemplate}"
+                                                                    Header="{DynamicResource Shared-Memo}" />
                                                             </DataGrid.Columns>
                                                         </DataGrid>
                                                     </Grid>
@@ -444,9 +407,6 @@
                                     </StackPanel>
                                     <StackPanel>
                                         <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="*" />
@@ -498,7 +458,7 @@
                                                     ToolTip="{DynamicResource Shared-ButtonDelete}" />
                                             </StackPanel>
                                             <GroupBox
-                                                Grid.Row="0"
+                                                Grid.Row="1"
                                                 Grid.Column="0"
                                                 Width="Auto"
                                                 Header="{DynamicResource Shared-ReferenceSource}">
@@ -556,60 +516,18 @@
                                                                     Width="Auto"
                                                                     Binding="{Binding RegnumId}"
                                                                     Header="{DynamicResource Tbl03Regnum-RegnumId}" />
-                                                                <DataGridCheckBoxColumn
-                                                                    Width="50"
-                                                                    Binding="{Binding Valid}"
-                                                                    Header="{DynamicResource Shared-Valid}" />
-                                                                <DataGridTextColumn
-                                                                    Width="Auto"
-                                                                    Binding="{Binding ValidYear}"
-                                                                    Header="{DynamicResource Shared-ValidYear}" />
-                                                                <DataGridTemplateColumn Width="500" Header="{DynamicResource Shared-Info}">
-                                                                    <DataGridTemplateColumn.CellEditingTemplate>
-                                                                        <DataTemplate>
-                                                                            <TextBox
-                                                                                MaxWidth="490"
-                                                                                MaxHeight="100"
-                                                                                Text="{Binding Path=Info, Mode=TwoWay}"
-                                                                                TextAlignment="Left"
-                                                                                TextWrapping="Wrap"
-                                                                                VerticalScrollBarVisibility="Visible" />
-                                                                        </DataTemplate>
-                                                                    </DataGridTemplateColumn.CellEditingTemplate>
-                                                                    <DataGridTemplateColumn.CellTemplate>
-                                                                        <DataTemplate>
-                                                                            <TextBlock
-                                                                                MaxWidth="490"
-                                                                                MaxHeight="100"
-                                                                                Text="{Binding Path=Info, Mode=OneWay}"
-                                                                                TextAlignment="Left"
-                                                                                TextWrapping="Wrap" />
-                                                                        </DataTemplate>
-                                                                    </DataGridTemplateColumn.CellTemplate>
-                                                                </DataGridTemplateColumn>
-                                                                <DataGridTemplateColumn Width="600" Header="{DynamicResource Shared-Memo}">
-                                                                    <DataGridTemplateColumn.CellEditingTemplate>
-                                                                        <DataTemplate>
-                                                                            <TextBox
-                                                                                MaxWidth="590"
-                                                                                MaxHeight="100"
-                                                                                Text="{Binding Path=Memo, Mode=TwoWay}"
-                                                                                TextAlignment="Left"
-                                                                                TextWrapping="Wrap"
-                                                                                VerticalScrollBarVisibility="Visible" />
-                                                                        </DataTemplate>
-                                                                    </DataGridTemplateColumn.CellEditingTemplate>
-                                                                    <DataGridTemplateColumn.CellTemplate>
-                                                                        <DataTemplate>
-                                                                            <TextBlock
-                                                                                MaxWidth="590"
-                                                                                MaxHeight="100"
-                                                                                Text="{Binding Path=Memo, Mode=OneWay}"
-                                                                                TextAlignment="Left"
-                                                                                TextWrapping="Wrap" />
-                                                                        </DataTemplate>
-                                                                    </DataGridTemplateColumn.CellTemplate>
-                                                                </DataGridTemplateColumn>
+                                                                <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
+                                                                <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                                                <DataGridTemplateColumn
+                                                                    Width="500"
+                                                                    CellEditingTemplate="{StaticResource Info500EditColumnTemplate}"
+                                                                    CellTemplate="{StaticResource Info500ColumnTemplate}"
+                                                                    Header="{DynamicResource Shared-Info}" />
+                                                                <DataGridTemplateColumn
+                                                                    Width="500"
+                                                                    CellEditingTemplate="{StaticResource Memo500EditColumnTemplate}"
+                                                                    CellTemplate="{StaticResource Memo500ColumnTemplate}"
+                                                                    Header="{DynamicResource Shared-Memo}" />
                                                             </DataGrid.Columns>
                                                         </DataGrid>
                                                     </Grid>
@@ -623,11 +541,6 @@
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
-                                            <StackPanel
-                                                Grid.Row="0"
-                                                Grid.Column="0"
-                                                VerticalAlignment="Top"
-                                                Orientation="Horizontal" />
                                             <StackPanel
                                                 Grid.Row="0"
                                                 Grid.Column="0"
@@ -646,7 +559,6 @@
                                                     Text="{Binding SearchAuthorName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                     ToolTip="{DynamicResource Shared-SearchInfoOrId}" />
                                             </StackPanel>
-
                                             <StackPanel
                                                 Grid.Row="0"
                                                 Grid.Column="0"
@@ -738,60 +650,18 @@
                                                                     Width="Auto"
                                                                     Binding="{Binding RegnumId}"
                                                                     Header="{DynamicResource Tbl03Regnum-RegnumId}" />
-                                                                <DataGridCheckBoxColumn
-                                                                    Width="50"
-                                                                    Binding="{Binding Valid}"
-                                                                    Header="{DynamicResource Shared-Valid}" />
-                                                                <DataGridTextColumn
-                                                                    Width="Auto"
-                                                                    Binding="{Binding ValidYear}"
-                                                                    Header="{DynamicResource Shared-ValidYear}" />
-                                                                <DataGridTemplateColumn Width="500" Header="{DynamicResource Shared-Info}">
-                                                                    <DataGridTemplateColumn.CellEditingTemplate>
-                                                                        <DataTemplate>
-                                                                            <TextBox
-                                                                                MaxWidth="490"
-                                                                                MaxHeight="100"
-                                                                                Text="{Binding Path=Info, Mode=TwoWay}"
-                                                                                TextAlignment="Left"
-                                                                                TextWrapping="Wrap"
-                                                                                VerticalScrollBarVisibility="Visible" />
-                                                                        </DataTemplate>
-                                                                    </DataGridTemplateColumn.CellEditingTemplate>
-                                                                    <DataGridTemplateColumn.CellTemplate>
-                                                                        <DataTemplate>
-                                                                            <TextBlock
-                                                                                MaxWidth="490"
-                                                                                MaxHeight="100"
-                                                                                Text="{Binding Path=Info, Mode=OneWay}"
-                                                                                TextAlignment="Left"
-                                                                                TextWrapping="Wrap" />
-                                                                        </DataTemplate>
-                                                                    </DataGridTemplateColumn.CellTemplate>
-                                                                </DataGridTemplateColumn>
-                                                                <DataGridTemplateColumn Width="600" Header="{DynamicResource Shared-Memo}">
-                                                                    <DataGridTemplateColumn.CellEditingTemplate>
-                                                                        <DataTemplate>
-                                                                            <TextBox
-                                                                                MaxWidth="590"
-                                                                                MaxHeight="100"
-                                                                                Text="{Binding Path=Memo, Mode=TwoWay}"
-                                                                                TextAlignment="Left"
-                                                                                TextWrapping="Wrap"
-                                                                                VerticalScrollBarVisibility="Visible" />
-                                                                        </DataTemplate>
-                                                                    </DataGridTemplateColumn.CellEditingTemplate>
-                                                                    <DataGridTemplateColumn.CellTemplate>
-                                                                        <DataTemplate>
-                                                                            <TextBlock
-                                                                                MaxWidth="590"
-                                                                                MaxHeight="100"
-                                                                                Text="{Binding Path=Memo, Mode=OneWay}"
-                                                                                TextAlignment="Left"
-                                                                                TextWrapping="Wrap" />
-                                                                        </DataTemplate>
-                                                                    </DataGridTemplateColumn.CellTemplate>
-                                                                </DataGridTemplateColumn>
+                                                                <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
+                                                                <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                                                <DataGridTemplateColumn
+                                                                    Width="500"
+                                                                    CellEditingTemplate="{StaticResource Info500EditColumnTemplate}"
+                                                                    CellTemplate="{StaticResource Info500ColumnTemplate}"
+                                                                    Header="{DynamicResource Shared-Info}" />
+                                                                <DataGridTemplateColumn
+                                                                    Width="500"
+                                                                    CellEditingTemplate="{StaticResource Memo500EditColumnTemplate}"
+                                                                    CellTemplate="{StaticResource Memo500ColumnTemplate}"
+                                                                    Header="{DynamicResource Shared-Memo}" />
                                                             </DataGrid.Columns>
                                                         </DataGrid>
                                                     </Grid>
@@ -883,37 +753,18 @@
                                                                     Width="Auto"
                                                                     Binding="{Binding RegnumId}"
                                                                     Header="{DynamicResource Tbl03Regnum-RegnumId}" />
-                                                                <DataGridCheckBoxColumn
-                                                                    Width="Auto"
-                                                                    Binding="{Binding Valid}"
-                                                                    Header="{DynamicResource Shared-Valid}" />
-                                                                <DataGridTextColumn
-                                                                    Width="Auto"
-                                                                    Binding="{Binding ValidYear}"
-                                                                    Header="{DynamicResource Shared-ValidYear}" />
-                                                                <DataGridTemplateColumn Width="500" Header="{DynamicResource Shared-Info}">
-                                                                    <DataGridTemplateColumn.CellEditingTemplate>
-                                                                        <DataTemplate>
-                                                                            <TextBox
-                                                                                MaxWidth="490"
-                                                                                MaxHeight="100"
-                                                                                Text="{Binding Path=Info, Mode=TwoWay}"
-                                                                                TextAlignment="Left"
-                                                                                TextWrapping="Wrap"
-                                                                                VerticalScrollBarVisibility="Visible" />
-                                                                        </DataTemplate>
-                                                                    </DataGridTemplateColumn.CellEditingTemplate>
-                                                                    <DataGridTemplateColumn.CellTemplate>
-                                                                        <DataTemplate>
-                                                                            <TextBlock
-                                                                                MaxWidth="490"
-                                                                                MaxHeight="100"
-                                                                                Text="{Binding Path=Info, Mode=OneWay}"
-                                                                                TextAlignment="Left"
-                                                                                TextWrapping="Wrap" />
-                                                                        </DataTemplate>
-                                                                    </DataGridTemplateColumn.CellTemplate>
-                                                                </DataGridTemplateColumn>
+                                                                <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
+                                                                <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                                                <DataGridTemplateColumn
+                                                                    Width="500"
+                                                                    CellEditingTemplate="{StaticResource Info500EditColumnTemplate}"
+                                                                    CellTemplate="{StaticResource Info500ColumnTemplate}"
+                                                                    Header="{DynamicResource Shared-Info}" />
+                                                                <DataGridTemplateColumn
+                                                                    Width="900"
+                                                                    CellEditingTemplate="{StaticResource Memo900EditColumnTemplate}"
+                                                                    CellTemplate="{StaticResource Memo900ColumnTemplate}"
+                                                                    Header="{DynamicResource Shared-Memo}" />
                                                                 <DataGridTemplateColumn Width="900" Header="{DynamicResource Shared-Memo}">
                                                                     <DataGridTemplateColumn.CellEditingTemplate>
                                                                         <DataTemplate>
@@ -992,74 +843,27 @@
                                                             ItemsSource="{Binding Source={StaticResource RegnumsAllColl}}"
                                                             SelectedValueBinding="{Binding RegnumId}"
                                                             SelectedValuePath="RegnumId" />
-                                                        <DataGridCheckBoxColumn
-                                                            Width="80"
-                                                            Binding="{Binding Valid}"
-                                                            Header="{DynamicResource Shared-Valid}" />
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding ValidYear}"
-                                                            Header="{DynamicResource Shared-ValidYear}" />
-                                                        <DataGridTemplateColumn Width="300" Header="{DynamicResource Shared-Synonym}">
-                                                            <DataGridTemplateColumn.CellTemplate>
-                                                                <DataTemplate>
-                                                                    <TextBlock
-                                                                        MaxWidth="290"
-                                                                        MaxHeight="100"
-                                                                        Text="{Binding Path=Synonym, Mode=OneWay}"
-                                                                        TextAlignment="Left"
-                                                                        TextWrapping="Wrap" />
-                                                                </DataTemplate>
-                                                            </DataGridTemplateColumn.CellTemplate>
-                                                        </DataGridTemplateColumn>
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding Author}"
-                                                            Header="{DynamicResource Shared-Author}" />
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding AuthorYear}"
-                                                            Header="{DynamicResource Shared-AuthorYear}" />
-                                                        <DataGridTemplateColumn Width="500" Header="{DynamicResource Shared-Info}">
-                                                            <DataGridTemplateColumn.CellTemplate>
-                                                                <DataTemplate>
-                                                                    <TextBlock
-                                                                        MaxWidth="490"
-                                                                        MaxHeight="100"
-                                                                        Text="{Binding Path=Info, Mode=OneWay}"
-                                                                        TextAlignment="Left"
-                                                                        TextWrapping="Wrap" />
-                                                                </DataTemplate>
-                                                            </DataGridTemplateColumn.CellTemplate>
-                                                        </DataGridTemplateColumn>
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding EngName}"
-                                                            Header="{DynamicResource Shared-EngName}" />
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding GerName}"
-                                                            Header="{DynamicResource Shared-GerName}" />
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding FraName}"
-                                                            Header="{DynamicResource Shared-FraName}" />
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding PorName}"
-                                                            Header="{DynamicResource Shared-SpaName}" />
-                                                        <DataGridTemplateColumn Width="600" Header="{DynamicResource Shared-Memo}">
-                                                            <DataGridTemplateColumn.CellTemplate>
-                                                                <DataTemplate>
-                                                                    <TextBlock
-                                                                        MaxWidth="590"
-                                                                        MaxHeight="100"
-                                                                        Text="{Binding Path=Memo, Mode=OneWay}"
-                                                                        TextAlignment="Left"
-                                                                        TextWrapping="Wrap" />
-                                                                </DataTemplate>
-                                                            </DataGridTemplateColumn.CellTemplate>
-                                                        </DataGridTemplateColumn>
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                                        <DataGridTemplateColumn
+                                                            Width="300"
+                                                            CellEditingTemplate="{StaticResource SynonymEditColumnTemplate}"
+                                                            CellTemplate="{StaticResource SynonymColumnTemplate}"
+                                                            Header="{DynamicResource Shared-Synonym}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource AuthorColumnTemplate}" Header="{DynamicResource Shared-Author}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource AuthorYearColumnTemplate}" Header="{DynamicResource Shared-AuthorYear}" />
+                                                        <DataGridTemplateColumn
+                                                            Width="300"
+                                                            CellTemplate="{StaticResource Info300ColumnTemplate}"
+                                                            Header="{DynamicResource Shared-Info}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource EngNameColumnTemplate}" Header="{DynamicResource Shared-EngName}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource GerNameColumnTemplate}" Header="{DynamicResource Shared-GerName}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource FraNameColumnTemplate}" Header="{DynamicResource Shared-FraName}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource SpaNameColumnTemplate}" Header="{DynamicResource Shared-SpaName}" />
+                                                        <DataGridTemplateColumn
+                                                            Width="500"
+                                                            CellTemplate="{StaticResource Memo500ColumnTemplate}"
+                                                            Header="{DynamicResource Shared-Memo}" />
                                                     </DataGrid.Columns>
                                                 </DataGrid>
                                             </Grid>
@@ -1108,74 +912,26 @@
                                                             ItemsSource="{Binding Source={StaticResource RegnumsAllColl}}"
                                                             SelectedValueBinding="{Binding RegnumId}"
                                                             SelectedValuePath="RegnumId" />
-                                                        <DataGridCheckBoxColumn
-                                                            Width="100"
-                                                            Binding="{Binding Valid}"
-                                                            Header="{DynamicResource Shared-Valid}" />
-                                                        <DataGridTextColumn
-                                                            Width="100"
-                                                            Binding="{Binding ValidYear}"
-                                                            Header="{DynamicResource Shared-ValidYear}" />
-                                                        <DataGridTemplateColumn Width="300" Header="{DynamicResource Shared-Synonym}">
-                                                            <DataGridTemplateColumn.CellTemplate>
-                                                                <DataTemplate>
-                                                                    <TextBlock
-                                                                        MaxWidth="290"
-                                                                        MaxHeight="100"
-                                                                        Text="{Binding Path=Synonym, Mode=OneWay}"
-                                                                        TextAlignment="Left"
-                                                                        TextWrapping="Wrap" />
-                                                                </DataTemplate>
-                                                            </DataGridTemplateColumn.CellTemplate>
-                                                        </DataGridTemplateColumn>
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding Author}"
-                                                            Header="{DynamicResource Shared-Author}" />
-                                                        <DataGridTextColumn
-                                                            Width="100"
-                                                            Binding="{Binding AuthorYear}"
-                                                            Header="{DynamicResource Shared-AuthorYear}" />
-                                                        <DataGridTemplateColumn Width="500" Header="{DynamicResource Shared-Info}">
-                                                            <DataGridTemplateColumn.CellTemplate>
-                                                                <DataTemplate>
-                                                                    <TextBlock
-                                                                        MaxWidth="490"
-                                                                        MaxHeight="100"
-                                                                        Text="{Binding Path=Info, Mode=OneWay}"
-                                                                        TextAlignment="Left"
-                                                                        TextWrapping="Wrap" />
-                                                                </DataTemplate>
-                                                            </DataGridTemplateColumn.CellTemplate>
-                                                        </DataGridTemplateColumn>
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding EngName}"
-                                                            Header="{DynamicResource Shared-EngName}" />
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding GerName}"
-                                                            Header="{DynamicResource Shared-GerName}" />
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding FraName}"
-                                                            Header="{DynamicResource Shared-FraName}" />
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding PorName}"
-                                                            Header="{DynamicResource Shared-SpaName}" />
-                                                        <DataGridTemplateColumn Width="300" Header="{DynamicResource Shared-Memo}">
-                                                            <DataGridTemplateColumn.CellTemplate>
-                                                                <DataTemplate>
-                                                                    <TextBlock
-                                                                        MaxWidth="290"
-                                                                        MaxHeight="100"
-                                                                        Text="{Binding Path=Memo, Mode=OneWay}"
-                                                                        TextAlignment="Left"
-                                                                        TextWrapping="Wrap" />
-                                                                </DataTemplate>
-                                                            </DataGridTemplateColumn.CellTemplate>
-                                                        </DataGridTemplateColumn>
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                                        <DataGridTemplateColumn
+                                                            Width="300"
+                                                            CellTemplate="{StaticResource SynonymColumnTemplate}"
+                                                            Header="{DynamicResource Shared-Synonym}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource AuthorColumnTemplate}" Header="{DynamicResource Shared-Author}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource AuthorYearColumnTemplate}" Header="{DynamicResource Shared-AuthorYear}" />
+                                                        <DataGridTemplateColumn
+                                                            Width="300"
+                                                            CellTemplate="{StaticResource Info300ColumnTemplate}"
+                                                            Header="{DynamicResource Shared-Info}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource EngNameColumnTemplate}" Header="{DynamicResource Shared-EngName}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource GerNameColumnTemplate}" Header="{DynamicResource Shared-GerName}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource FraNameColumnTemplate}" Header="{DynamicResource Shared-FraName}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource SpaNameColumnTemplate}" Header="{DynamicResource Shared-SpaName}" />
+                                                        <DataGridTemplateColumn
+                                                            Width="500"
+                                                            CellTemplate="{StaticResource Memo500ColumnTemplate}"
+                                                            Header="{DynamicResource Shared-Memo}" />
                                                     </DataGrid.Columns>
                                                 </DataGrid>
                                             </Grid>
@@ -1225,74 +981,26 @@
                                                             ItemsSource="{Binding Source={StaticResource PhylumsAllColl}}"
                                                             SelectedValueBinding="{Binding (models:Tbl06Phylum.PhylumId)}"
                                                             SelectedValuePath="PhylumId" />
-                                                        <DataGridCheckBoxColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding Valid}"
-                                                            Header="{DynamicResource Shared-Valid}" />
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding ValidYear}"
-                                                            Header="{DynamicResource Shared-ValidYear}" />
-                                                        <DataGridTemplateColumn Width="300" Header="{DynamicResource Shared-Synonym}">
-                                                            <DataGridTemplateColumn.CellTemplate>
-                                                                <DataTemplate>
-                                                                    <TextBlock
-                                                                        MaxWidth="290"
-                                                                        MaxHeight="100"
-                                                                        Text="{Binding Path=Synonym, Mode=OneWay}"
-                                                                        TextAlignment="Left"
-                                                                        TextWrapping="Wrap" />
-                                                                </DataTemplate>
-                                                            </DataGridTemplateColumn.CellTemplate>
-                                                        </DataGridTemplateColumn>
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding Author}"
-                                                            Header="{DynamicResource Shared-Author}" />
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding AuthorYear}"
-                                                            Header="{DynamicResource Shared-AuthorYear}" />
-                                                        <DataGridTemplateColumn Width="500" Header="{DynamicResource Shared-Info}">
-                                                            <DataGridTemplateColumn.CellTemplate>
-                                                                <DataTemplate>
-                                                                    <TextBlock
-                                                                        MaxWidth="490"
-                                                                        MaxHeight="100"
-                                                                        Text="{Binding Path=Info, Mode=OneWay}"
-                                                                        TextAlignment="Left"
-                                                                        TextWrapping="Wrap" />
-                                                                </DataTemplate>
-                                                            </DataGridTemplateColumn.CellTemplate>
-                                                        </DataGridTemplateColumn>
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding EngName}"
-                                                            Header="{DynamicResource Shared-EngName}" />
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding GerName}"
-                                                            Header="{DynamicResource Shared-GerName}" />
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding FraName}"
-                                                            Header="{DynamicResource Shared-FraName}" />
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding PorName}"
-                                                            Header="{DynamicResource Shared-SpaName}" />
-                                                        <DataGridTemplateColumn Width="600" Header="{DynamicResource Shared-Memo}">
-                                                            <DataGridTemplateColumn.CellTemplate>
-                                                                <DataTemplate>
-                                                                    <TextBlock
-                                                                        MaxWidth="590"
-                                                                        MaxHeight="100"
-                                                                        Text="{Binding Path=Memo, Mode=OneWay}"
-                                                                        TextAlignment="Left"
-                                                                        TextWrapping="Wrap" />
-                                                                </DataTemplate>
-                                                            </DataGridTemplateColumn.CellTemplate>
-                                                        </DataGridTemplateColumn>
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                                        <DataGridTemplateColumn
+                                                            Width="300"
+                                                            CellTemplate="{StaticResource SynonymColumnTemplate}"
+                                                            Header="{DynamicResource Shared-Synonym}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource AuthorColumnTemplate}" Header="{DynamicResource Shared-Author}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource AuthorYearColumnTemplate}" Header="{DynamicResource Shared-AuthorYear}" />
+                                                        <DataGridTemplateColumn
+                                                            Width="300"
+                                                            CellTemplate="{StaticResource Info300ColumnTemplate}"
+                                                            Header="{DynamicResource Shared-Info}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource EngNameColumnTemplate}" Header="{DynamicResource Shared-EngName}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource GerNameColumnTemplate}" Header="{DynamicResource Shared-GerName}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource FraNameColumnTemplate}" Header="{DynamicResource Shared-FraName}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource SpaNameColumnTemplate}" Header="{DynamicResource Shared-SpaName}" />
+                                                        <DataGridTemplateColumn
+                                                            Width="500"
+                                                            CellTemplate="{StaticResource Memo500ColumnTemplate}"
+                                                            Header="{DynamicResource Shared-Memo}" />
                                                     </DataGrid.Columns>
                                                 </DataGrid>
                                             </Grid>
@@ -1345,74 +1053,26 @@
                                                             ItemsSource="{Binding Source={StaticResource DivisionsAllColl}}"
                                                             SelectedValueBinding="{Binding (models:Tbl09Division.DivisionId)}"
                                                             SelectedValuePath="DivisionId" />
-                                                        <DataGridCheckBoxColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding Valid}"
-                                                            Header="{DynamicResource Shared-Valid}" />
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding ValidYear}"
-                                                            Header="{DynamicResource Shared-ValidYear}" />
-                                                        <DataGridTemplateColumn Width="300" Header="{DynamicResource Shared-Synonym}">
-                                                            <DataGridTemplateColumn.CellTemplate>
-                                                                <DataTemplate>
-                                                                    <TextBlock
-                                                                        MaxWidth="290"
-                                                                        MaxHeight="100"
-                                                                        Text="{Binding Path=Synonym, Mode=OneWay}"
-                                                                        TextAlignment="Left"
-                                                                        TextWrapping="Wrap" />
-                                                                </DataTemplate>
-                                                            </DataGridTemplateColumn.CellTemplate>
-                                                        </DataGridTemplateColumn>
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding Author}"
-                                                            Header="{DynamicResource Shared-Author}" />
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding AuthorYear}"
-                                                            Header="{DynamicResource Shared-AuthorYear}" />
-                                                        <DataGridTemplateColumn Width="200" Header="{DynamicResource Shared-Info}">
-                                                            <DataGridTemplateColumn.CellTemplate>
-                                                                <DataTemplate>
-                                                                    <TextBlock
-                                                                        MaxWidth="190"
-                                                                        MaxHeight="100"
-                                                                        Text="{Binding Path=Info, Mode=OneWay}"
-                                                                        TextAlignment="Left"
-                                                                        TextWrapping="Wrap" />
-                                                                </DataTemplate>
-                                                            </DataGridTemplateColumn.CellTemplate>
-                                                        </DataGridTemplateColumn>
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding EngName}"
-                                                            Header="{DynamicResource Shared-EngName}" />
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding GerName}"
-                                                            Header="{DynamicResource Shared-GerName}" />
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding FraName}"
-                                                            Header="{DynamicResource Shared-FraName}" />
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding PorName}"
-                                                            Header="{DynamicResource Shared-SpaName}" />
-                                                        <DataGridTemplateColumn Width="600" Header="{DynamicResource Shared-Memo}">
-                                                            <DataGridTemplateColumn.CellTemplate>
-                                                                <DataTemplate>
-                                                                    <TextBlock
-                                                                        MaxWidth="590"
-                                                                        MaxHeight="100"
-                                                                        Text="{Binding Path=Memo, Mode=OneWay}"
-                                                                        TextAlignment="Left"
-                                                                        TextWrapping="Wrap" />
-                                                                </DataTemplate>
-                                                            </DataGridTemplateColumn.CellTemplate>
-                                                        </DataGridTemplateColumn>
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                                        <DataGridTemplateColumn
+                                                            Width="300"
+                                                            CellTemplate="{StaticResource SynonymColumnTemplate}"
+                                                            Header="{DynamicResource Shared-Synonym}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource AuthorColumnTemplate}" Header="{DynamicResource Shared-Author}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource AuthorYearColumnTemplate}" Header="{DynamicResource Shared-AuthorYear}" />
+                                                        <DataGridTemplateColumn
+                                                            Width="300"
+                                                            CellTemplate="{StaticResource Info300ColumnTemplate}"
+                                                            Header="{DynamicResource Shared-Info}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource EngNameColumnTemplate}" Header="{DynamicResource Shared-EngName}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource GerNameColumnTemplate}" Header="{DynamicResource Shared-GerName}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource FraNameColumnTemplate}" Header="{DynamicResource Shared-FraName}" />
+                                                        <DataGridTemplateColumn CellTemplate="{StaticResource SpaNameColumnTemplate}" Header="{DynamicResource Shared-SpaName}" />
+                                                        <DataGridTemplateColumn
+                                                            Width="500"
+                                                            CellTemplate="{StaticResource Memo500ColumnTemplate}"
+                                                            Header="{DynamicResource Shared-Memo}" />
                                                     </DataGrid.Columns>
                                                 </DataGrid>
                                             </Grid>

@@ -21,4 +21,156 @@
         </Setter>
     </Style>
 
+    <Style x:Key="ItemButton" TargetType="Button">
+        <Setter Property="Background" Value="Black" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="ButtonBorder" Background="{TemplateBinding Background}">
+                        <ContentPresenter />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style
+        x:Key="SelectableItemButton"
+        BasedOn="{StaticResource ItemButton}"
+        TargetType="Button">
+        <Setter Property="Background" Value="Gold" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                <Setter Property="Background" Value="White" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--  DataTemplates for datagrid  -->
+
+    <DataTemplate x:Key="ValidColumnTemplate">
+        <CheckBox
+            Width="Auto"
+            HorizontalAlignment="Center"
+            IsChecked="{Binding Valid}"
+            IsThreeState="True" />
+    </DataTemplate>
+    <DataTemplate x:Key="ValidYearColumnTemplate">
+        <TextBlock
+            Width="Auto"
+            HorizontalAlignment="Center"
+            Text="{Binding ValidYear}" />
+    </DataTemplate>
+    <DataTemplate x:Key="AuthorColumnTemplate">
+        <TextBlock Width="Auto" Text="{Binding Author}" />
+    </DataTemplate>
+    <DataTemplate x:Key="AuthorYearColumnTemplate">
+        <TextBlock
+            Width="Auto"
+            HorizontalAlignment="Center"
+            Text="{Binding AuthorYear}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="EngNameColumnTemplate">
+        <TextBlock Width="Auto" Text="{Binding EngName}" />
+    </DataTemplate>
+    <DataTemplate x:Key="GerNameColumnTemplate">
+        <TextBlock Width="Auto" Text="{Binding GerName}" />
+    </DataTemplate>
+    <DataTemplate x:Key="FraNameColumnTemplate">
+        <TextBlock Width="Auto" Text="{Binding FraName}" />
+    </DataTemplate>
+    <DataTemplate x:Key="SpaNameColumnTemplate">
+        <TextBlock Width="Auto" Text="{Binding SpaName}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="SynonymColumnTemplate">
+        <TextBlock
+            MaxWidth="290"
+            MaxHeight="100"
+            Text="{Binding Path=Synonym, Mode=OneWay}"
+            TextAlignment="Left"
+            TextWrapping="Wrap" />
+    </DataTemplate>
+    <DataTemplate x:Key="SynonymEditColumnTemplate">
+        <TextBox
+            MaxWidth="290"
+            MaxHeight="100"
+            Text="{Binding Path=Synonym, Mode=TwoWay}"
+            TextAlignment="Left"
+            TextWrapping="Wrap"
+            VerticalScrollBarVisibility="Visible" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="Info300ColumnTemplate">
+        <TextBlock
+            MaxWidth="290"
+            MaxHeight="100"
+            Text="{Binding Path=Info, Mode=OneWay}"
+            TextAlignment="Left"
+            TextWrapping="Wrap" />
+    </DataTemplate>
+    <DataTemplate x:Key="Info300EditColumnTemplate">
+        <TextBox
+            MaxWidth="290"
+            MaxHeight="100"
+            Text="{Binding Path=Info, Mode=TwoWay}"
+            TextAlignment="Left"
+            TextWrapping="Wrap"
+            VerticalScrollBarVisibility="Visible" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="Info500ColumnTemplate">
+        <TextBlock
+            MaxWidth="490"
+            MaxHeight="100"
+            Text="{Binding Path=Info, Mode=OneWay}"
+            TextAlignment="Left"
+            TextWrapping="Wrap" />
+    </DataTemplate>
+    <DataTemplate x:Key="Info500EditColumnTemplate">
+        <TextBox
+            MaxWidth="490"
+            MaxHeight="100"
+            Text="{Binding Path=Info, Mode=TwoWay}"
+            TextAlignment="Left"
+            TextWrapping="Wrap"
+            VerticalScrollBarVisibility="Visible" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="Memo500ColumnTemplate">
+        <TextBlock
+            MaxWidth="490"
+            MaxHeight="100"
+            Text="{Binding Path=Memo, Mode=OneWay}"
+            TextAlignment="Left"
+            TextWrapping="Wrap" />
+    </DataTemplate>
+    <DataTemplate x:Key="Memo500EditColumnTemplate">
+        <TextBox
+            MaxWidth="490"
+            MaxHeight="100"
+            Text="{Binding Path=Memo, Mode=TwoWay}"
+            TextAlignment="Left"
+            TextWrapping="Wrap"
+            VerticalScrollBarVisibility="Visible" />
+    </DataTemplate>
+    <DataTemplate x:Key="Memo900ColumnTemplate">
+        <TextBlock
+            MaxWidth="890"
+            MaxHeight="100"
+            Text="{Binding Path=Memo, Mode=OneWay}"
+            TextAlignment="Left"
+            TextWrapping="Wrap" />
+    </DataTemplate>
+    <DataTemplate x:Key="Memo900EditColumnTemplate">
+        <TextBox
+            MaxWidth="890"
+            MaxHeight="100"
+            Text="{Binding Path=Memo, Mode=TwoWay}"
+            TextAlignment="Left"
+            TextWrapping="Wrap"
+            VerticalScrollBarVisibility="Visible" />
+    </DataTemplate>
+
 </ResourceDictionary>
