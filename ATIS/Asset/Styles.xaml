@@ -4,46 +4,13 @@
     <Style x:Key="AtisFlatButton" TargetType="{x:Type Button}">
 
         <Setter Property="Margin" Value="2" />
-        <Setter Property="Width" Value="50" />
+        <Setter Property="Width" Value="100" />
         <Setter Property="Height" Value="24" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="FontFamily" Value="Verdana" />
         <Setter Property="FontSize" Value="11px" />
         <Setter Property="FontWeight" Value="ExtraLight" />
-        <Setter Property="Background">
-            <Setter.Value>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                    <GradientStop Offset="0.2" Color="#FFFFD190" />
-                    <GradientStop Offset="0.85" Color="Orange" />
-                    <GradientStop Offset="1" Color="#FFFFD190" />
-                </LinearGradientBrush>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="ItemButton" TargetType="Button">
-        <Setter Property="Background" Value="Black" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Name="ButtonBorder" Background="{TemplateBinding Background}">
-                        <ContentPresenter />
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style
-        x:Key="SelectableItemButton"
-        BasedOn="{StaticResource ItemButton}"
-        TargetType="Button">
-        <Setter Property="Background" Value="Gold" />
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                <Setter Property="Background" Value="White" />
-            </DataTrigger>
-        </Style.Triggers>
+        <Setter Property="Background" Value="{DynamicResource NormalBrush}" />
     </Style>
 
     <!--  DataTemplates for datagrid  -->
@@ -155,22 +122,30 @@
             TextWrapping="Wrap"
             VerticalScrollBarVisibility="Visible" />
     </DataTemplate>
-    <DataTemplate x:Key="Memo900ColumnTemplate">
-        <TextBlock
-            MaxWidth="890"
-            MaxHeight="100"
-            Text="{Binding Path=Memo, Mode=OneWay}"
-            TextAlignment="Left"
-            TextWrapping="Wrap" />
-    </DataTemplate>
-    <DataTemplate x:Key="Memo900EditColumnTemplate">
-        <TextBox
-            MaxWidth="890"
-            MaxHeight="100"
-            Text="{Binding Path=Memo, Mode=TwoWay}"
-            TextAlignment="Left"
-            TextWrapping="Wrap"
-            VerticalScrollBarVisibility="Visible" />
-    </DataTemplate>
 
+    <DataTemplate x:Key="DataGridMemoDetail">
+        <Border
+            Padding="10"
+            Background="{DynamicResource TextBoxBackground}"
+            BorderThickness="1">
+            <StackPanel
+                Margin="250,0,0,0"
+                HorizontalAlignment="Left"
+                Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{DynamicResource Shared-Memo}" />
+                    <TextBox
+                        MinWidth="600"
+                        MinHeight="50"
+                        MaxWidth="1000"
+                        MaxHeight="250"
+                        AcceptsReturn="True"
+                        Text="{Binding Path=Memo, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                        TextAlignment="Left"
+                        TextWrapping="Wrap"
+                        VerticalScrollBarVisibility="Visible" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </DataTemplate>
 </ResourceDictionary>
