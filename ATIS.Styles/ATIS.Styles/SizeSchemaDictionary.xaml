@@ -40,10 +40,10 @@
 
     <CornerRadius
         x:Key="CornersDefault"
-        BottomLeft="5"
-        BottomRight="5"
-        TopLeft="5"
-        TopRight="5" />
+        BottomLeft="1"
+        BottomRight="1"
+        TopLeft="1"
+        TopRight="1" />
 
     <!--  Button dimensions  -->
     <system:Double x:Key="ButtonDefaultWidth">100</system:Double>
