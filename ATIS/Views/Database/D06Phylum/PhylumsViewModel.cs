@@ -19,7 +19,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly AtisDbContext _context = new AtisDbContext();
         private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
-        private GenericMessageBoxes<Tbl06Phylum> _genPhylumMessageBoxes = new GenericMessageBoxes<Tbl06Phylum>();
+        private readonly GenericMessageBoxes<Tbl06Phylum> _genPhylumMessageBoxes = new GenericMessageBoxes<Tbl06Phylum>();
         private readonly GenericMessageBoxes<Tbl90Reference> _genExpertMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
@@ -92,7 +92,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         }
         private void ExecuteAddPhylum(object o)
         {
-            PhylumsCollection.Insert(0, new Tbl06Phylum() { PhylumName = "NewDataset" });
+            PhylumsCollection.Insert(0, new Tbl06Phylum() { PhylumName = CultRes.StringsRes.DatasetNew });
             RaisePropertyChanged("PhylumsCollection");
         }
         private void ExecuteCopyPhylum(object o)
@@ -103,7 +103,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
             PhylumsCollection.Insert(0, new Tbl06Phylum()
             {
-                PhylumName = "NewDataset",
+                PhylumName = CultRes.StringsRes.DatasetNew,
                 RegnumId = phylum.RegnumId,
                 Valid = phylum.Valid,
                 ValidYear = phylum.ValidYear,
@@ -136,7 +136,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             ReferencesCollection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.PhylumId == SelectedPhylum.PhylumId));
             if (ReferencesCollection.Count > 0)
             {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox("Reference Author, Reference Source, Reference Expert")) return;
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
                 foreach (var t in ReferencesCollection)
                 {
@@ -144,13 +144,13 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 }
                 _uow.Complete();
 
-                _allMessageBoxes.InfoMessageBox("DeleteSuccess", "Reference");
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
             }
 
             CommentsCollection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.PhylumId == SelectedPhylum.PhylumId));
             if (CommentsCollection.Count > 0)
             {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox("Comment")) return;
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
 
                 foreach (var t in CommentsCollection)
                 {
@@ -158,7 +158,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 }
                 _uow.Complete();
 
-                _allMessageBoxes.InfoMessageBox("Delete successful", "Comment");
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
             }
 
             if (false) return;
@@ -168,21 +168,21 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                     var phylum = _uow.Tbl06Phylums.GetById(SelectedPhylum.PhylumId);
                     if (phylum != null)
                     {
-                        if (_allMessageBoxes.DeleteDatasetQuestionMessageBox("DeleteQuestion" + " " + SelectedPhylum.PhylumName)) return;
+                        if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + SelectedPhylum.PhylumName)) return;
 
                         _uow.Tbl06Phylums.Remove(phylum);
                         _uow.Complete();
 
-                        _allMessageBoxes.InfoMessageBox("Delete successful", SelectedPhylum.PhylumName);
+                        _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, SelectedPhylum.PhylumName);
                     }
                     else
                     {
-                        _allMessageBoxes.InfoMessageBox("Not To Delete", "DeleteCan" + " " + SelectedPhylum.PhylumName + " " + "DeleteCan1");
+                        _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedPhylum.PhylumName + " " + CultRes.StringsRes.DeleteCan1);
                     }
                 }
                 catch (Exception e)
                 {
-                    _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
                     //         Log.Error(e);
                 }
             }
@@ -259,23 +259,23 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), "FailedToSave");
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     //     Log.Error(e);
                     return;
                 }
                 catch (Exception e)
                 {
-                    _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
                     //         Log.Error(e);
                     return;
                 }
-                _allMessageBoxes.InfoMessageBox("SaveSuccess", SelectedPhylum.PhylumId == 0
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, SelectedPhylum.PhylumId == 0
                     ? "DatasetNew"
                     : SelectedPhylum.PhylumName);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.WarningMessageBox(e.Message, "Error");
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
                 //         Log.Error(e);
             }
             ExecuteGetPhylumsByNameOrId(searchName);
@@ -440,8 +440,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void ExecuteGetExpertsByNameOrId(string searchName)
         {
-            //ReferenceExpertsCollection.Clear();
-            //ReferenceExpertsCollection = _crudRef.GetExperts(searchName);
             ReferenceExpertsCollection = SearchNameReturnExpertsCollection(searchName);
 
             RaisePropertyChanged("ReferenceExpertsCollection");
@@ -450,7 +448,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         {
             if (_genPhylumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedPhylum)) return;
 
-            ReferenceExpertsCollection.Insert(0, new Tbl90Reference() { PhylumId = SelectedPhylum.PhylumId, Info = "NewDataset" });
+            ReferenceExpertsCollection.Insert(0, new Tbl90Reference() { PhylumId = SelectedPhylum.PhylumId, Info = CultRes.StringsRes.DatasetNew });
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
         private void ExecuteCopyExpert(object o)
@@ -467,7 +465,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                     RefExpertId = reference.RefExpertId,
                     Valid = reference.Valid,
                     ValidYear = reference.ValidYear,
-                    Info = "NewDataset",
+                    Info = CultRes.StringsRes.DatasetNew,
                     Memo = reference.Memo
                 });
             }
@@ -483,21 +481,21 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 var reference = _uow.Tbl90References.GetById(SelectedReferenceExpert.ReferenceId);
                 if (reference != null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox("DeleteQuestion" + " " + SelectedReferenceExpert.Info)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + SelectedReferenceExpert.Info)) return;
 
                     _uow.Tbl90References.Remove(reference);
                     _uow.Complete();
 
-                    _allMessageBoxes.InfoMessageBox("DeleteSuccess", SelectedReferenceExpert.Info);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, SelectedReferenceExpert.Info);
                 }
                 else
                 {
-                    _allMessageBoxes.InfoMessageBox("Not To Delete", "DeleteCan" + " " + SelectedReferenceExpert.Info + " " + "DeleteCan1");
+                    _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedReferenceExpert.Info + " " + CultRes.StringsRes.DeleteCan1);
                 }
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
                 //         Log.Error(e);
             }
 
@@ -562,23 +560,23 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), "FailedToSave");
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     //     Log.Error(e);
                     return;
                 }
                 catch (Exception e)
                 {
-                    _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
                     //         Log.Error(e);
                     return;
                 }
-                _allMessageBoxes.InfoMessageBox("SaveSuccess", SelectedReferenceExpert.RefExpertId == 0
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, SelectedReferenceExpert.RefExpertId == 0
                     ? "DatasetNew"
                     : SelectedReferenceExpert.Info);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.WarningMessageBox(e.Message, "Error");
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
                 //         Log.Error(e);
             }
 
@@ -642,7 +640,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         {
             if (_genPhylumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedPhylum)) return;
 
-            ReferenceSourcesCollection.Insert(0, new Tbl90Reference() { PhylumId = SelectedPhylum.PhylumId, Info = "NewDataset" });
+            ReferenceSourcesCollection.Insert(0, new Tbl90Reference() { PhylumId = SelectedPhylum.PhylumId, Info = CultRes.StringsRes.DatasetNew });
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
         private void ExecuteCopySource(object o)
@@ -659,7 +657,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                     RefSourceId = reference.RefSourceId,
                     Valid = reference.Valid,
                     ValidYear = reference.ValidYear,
-                    Info = "NewDataset",
+                    Info = CultRes.StringsRes.DatasetNew,
                     Memo = reference.Memo
                 });
             }
@@ -675,21 +673,21 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 var reference = _uow.Tbl90References.GetById(SelectedReferenceSource.ReferenceId);
                 if (reference != null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox("DeleteQuestion" + " " + SelectedReferenceSource.Info)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + SelectedReferenceSource.Info)) return;
 
                     _uow.Tbl90References.Remove(reference);
                     _uow.Complete();
 
-                    _allMessageBoxes.InfoMessageBox("DeleteSuccess", SelectedReferenceSource.Info);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, SelectedReferenceSource.Info);
                 }
                 else
                 {
-                    _allMessageBoxes.InfoMessageBox("Not To Delete", "DeleteCan" + " " + SelectedReferenceSource.Info + " " + "DeleteCan1");
+                    _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedReferenceSource.Info + " " + CultRes.StringsRes.DeleteCan1);
                 }
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
                 //         Log.Error(e);
             }
 
@@ -754,23 +752,23 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), "FailedToSave");
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     //     Log.Error(e);
                     return;
                 }
                 catch (Exception e)
                 {
-                    _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
                     //         Log.Error(e);
                     return;
                 }
-                _allMessageBoxes.InfoMessageBox("SaveSuccess", SelectedReferenceSource.RefSourceId == 0
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, SelectedReferenceSource.RefSourceId == 0
                     ? "DatasetNew"
                     : SelectedReferenceSource.Info);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.WarningMessageBox(e.Message, "Error");
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
                 //         Log.Error(e);
             }
 
@@ -836,7 +834,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         {
             if (_genPhylumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedPhylum)) return;
 
-            ReferenceAuthorsCollection.Insert(0, new Tbl90Reference() { PhylumId = SelectedPhylum.PhylumId, Info = "NewDataset" });
+            ReferenceAuthorsCollection.Insert(0, new Tbl90Reference() { PhylumId = SelectedPhylum.PhylumId, Info = CultRes.StringsRes.DatasetNew });
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
         private void ExecuteCopyAuthor(object o)
@@ -853,7 +851,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                     RefAuthorId = reference.RefAuthorId,
                     Valid = reference.Valid,
                     ValidYear = reference.ValidYear,
-                    Info = "NewDataset",
+                    Info = CultRes.StringsRes.DatasetNew,
                     Memo = reference.Memo
                 });
             }
@@ -869,21 +867,21 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 var reference = _uow.Tbl90References.GetById(SelectedReferenceAuthor.ReferenceId);
                 if (reference != null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox("DeleteQuestion" + " " + SelectedReferenceAuthor.Info)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + SelectedReferenceAuthor.Info)) return;
 
                     _uow.Tbl90References.Remove(reference);
                     _uow.Complete();
 
-                    _allMessageBoxes.InfoMessageBox("DeleteSuccess", SelectedReferenceAuthor.Info);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, SelectedReferenceAuthor.Info);
                 }
                 else
                 {
-                    _allMessageBoxes.InfoMessageBox("Not To Delete", "DeleteCan" + " " + SelectedReferenceAuthor.Info + " " + "DeleteCan1");
+                    _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedReferenceAuthor.Info + " " + CultRes.StringsRes.DeleteCan1);
                 }
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
                 //         Log.Error(e);
             }
 
@@ -948,23 +946,23 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), "FailedToSave");
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     //     Log.Error(e);
                     return;
                 }
                 catch (Exception e)
                 {
-                    _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
                     //         Log.Error(e);
                     return;
                 }
-                _allMessageBoxes.InfoMessageBox("SaveSuccess", SelectedReferenceAuthor.RefSourceId == 0
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, SelectedReferenceAuthor.RefSourceId == 0
                     ? "DatasetNew"
                     : SelectedReferenceAuthor.Info);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.WarningMessageBox(e.Message, "Error");
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
                 //         Log.Error(e);
             }
 
@@ -1027,7 +1025,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         {
             if (_genPhylumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedPhylum)) return;
 
-            CommentsCollection.Insert(0, new Tbl93Comment() { PhylumId = SelectedPhylum.PhylumId, Info = "NewDataset" });
+            CommentsCollection.Insert(0, new Tbl93Comment() { PhylumId = SelectedPhylum.PhylumId, Info = CultRes.StringsRes.DatasetNew });
             RaisePropertyChanged("CommentsCollection");
         }
         private void ExecuteCopyComment(object o)
@@ -1043,7 +1041,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                     PhylumId = comment.PhylumId,
                     Valid = comment.Valid,
                     ValidYear = comment.ValidYear,
-                    Info = "NewDataset",
+                    Info = CultRes.StringsRes.DatasetNew,
                     Memo = comment.Memo
                 });
             }
@@ -1052,7 +1050,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         }
         private void ExecuteDeleteComment(object o)
         {
-            //  CommentsCollection = _crudCom.DeleteComment(SelectedRegnum, SelectedComment, CommentsCollection);
             if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedComment)) return;
 
             try
@@ -1060,21 +1057,21 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 var comment = _uow.Tbl93Comments.GetById(SelectedComment.CommentId);
                 if (comment != null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox("DeleteQuestion" + " " + SelectedComment.Info)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + SelectedComment.Info)) return;
 
                     _uow.Tbl93Comments.Remove(comment);
                     _uow.Complete();
 
-                    _allMessageBoxes.InfoMessageBox("DeleteSuccess", SelectedComment.Info);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, SelectedComment.Info);
                 }
                 else
                 {
-                    _allMessageBoxes.InfoMessageBox("Not To Delete", "DeleteCan" + " " + SelectedComment.Info + " " + "DeleteCan1");
+                    _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedComment.Info + " " + CultRes.StringsRes.DeleteCan1);
                 }
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
                 //         Log.Error(e);
             }
             CommentsCollection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
@@ -1136,23 +1133,23 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), "FailedToSave");
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     //     Log.Error(e);
                     return;
                 }
                 catch (Exception e)
                 {
-                    _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
                     //         Log.Error(e);
                     return;
                 }
-                _allMessageBoxes.InfoMessageBox("SaveSuccess", SelectedComment.CommentId == 0
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, SelectedComment.CommentId == 0
                     ? "DatasetNew"
                     : SelectedComment.Info);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.WarningMessageBox(e.Message, "Error");
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
                 //         Log.Error(e);
             }
 

@@ -99,7 +99,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         }
         private void ExecuteAddRegnum(object o)
         {
-            RegnumsCollection.Insert(0, new Tbl03Regnum { RegnumName = "NewDataset" });
+            RegnumsCollection.Insert(0, new Tbl03Regnum { RegnumName = CultRes.StringsRes.DatasetNew });
             RaisePropertyChanged("RegnumsCollection");
         }
         private void ExecuteCopyRegnum(object o)
@@ -110,7 +110,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
             RegnumsCollection.Insert(0, new Tbl03Regnum
             {
-                RegnumName = "NewDataset",
+                RegnumName = CultRes.StringsRes.DatasetNew,
                 Subregnum = regnum.Subregnum,
                 Valid = regnum.Valid,
                 ValidYear = regnum.ValidYear,
@@ -135,17 +135,17 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             //check if in Tbl06Phylums or Tbl09Divisions connected datasets no delete, Expert, Sources, authors and Comment delete and than return
 
             PhylumsCollection = new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums.Find(x => x.RegnumId == SelectedRegnum.RegnumId));
-            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(PhylumsCollection.Count, "Phylum")) return;
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(PhylumsCollection.Count, CultRes.StringsRes.Phylum)) return;
 
             DivisionsCollection = new ObservableCollection<Tbl09Division>(_uow.Tbl09Divisions.Find(x => x.RegnumId == SelectedRegnum.RegnumId));
-            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(DivisionsCollection.Count, "Division")) return;
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(DivisionsCollection.Count, CultRes.StringsRes.Division)) return;
 
             //Delete all References Expert, Source, Authors  ----------------------------------------------------
 
             ReferencesCollection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.RegnumId == SelectedRegnum.RegnumId));
             if (ReferencesCollection.Count > 0)
             {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox("Reference Author, Reference Source, Reference Expert")) return;
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
                 foreach (var t in ReferencesCollection)
                 {
@@ -153,13 +153,13 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 }
                 _uow.Complete();
 
-                _allMessageBoxes.InfoMessageBox("DeleteSuccess", "Reference");
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
             }
 
             CommentsCollection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.RegnumId == SelectedRegnum.RegnumId));
             if (CommentsCollection.Count > 0)
             {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox("Comment")) return;
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
 
                 foreach (var t in CommentsCollection)
                 {
@@ -167,7 +167,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 }
                 _uow.Complete();
 
-                _allMessageBoxes.InfoMessageBox("Delete successful", "Comment");
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
             }
 
             if (false) return;
@@ -177,22 +177,22 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                     var regnum = _uow.Tbl03Regnums.GetById(SelectedRegnum.RegnumId);
                     if (regnum != null)
                     {
-                        if (_allMessageBoxes.DeleteDatasetQuestionMessageBox("DeleteQuestion" + " " + SelectedRegnum.RegnumName + " " + SelectedRegnum.Subregnum)) return;
+                        if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion1 + " " + SelectedRegnum.RegnumName + " " + SelectedRegnum.Subregnum)) return;
 
                         _uow.Tbl03Regnums.Remove(regnum);
                         _uow.Complete();
 
 
-                        _allMessageBoxes.InfoMessageBox("Delete successful", SelectedRegnum.RegnumName + " " + SelectedRegnum.Subregnum);
+                        _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, SelectedRegnum.RegnumName + " " + SelectedRegnum.Subregnum);
                     }
                     else
                     {
-                        _allMessageBoxes.InfoMessageBox("Not To Delete", "DeleteCan" + " " + SelectedRegnum.RegnumName + " " + SelectedRegnum.Subregnum + " " + "DeleteCan1");
+                        _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedRegnum.RegnumName + " " + SelectedRegnum.Subregnum + " " + CultRes.StringsRes.DeleteCan1);
                     }
                 }
                 catch (Exception e)
                 {
-                    _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
                     //         Log.Error(e);
                 }
             }
@@ -268,23 +268,23 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), "FailedToSave");
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     //     Log.Error(e);
                     return;
                 }
                 catch (Exception e)
                 {
-                    _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
                     //         Log.Error(e);
                     return;
                 }
                 _allMessageBoxes.InfoMessageBox("SaveSuccess", SelectedRegnum.RegnumId == 0
-                    ? "DatasetNew"
+                    ? CultRes.StringsRes.DatasetNew
                     : SelectedRegnum.RegnumName + " " + SelectedRegnum.Subregnum);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.WarningMessageBox(e.Message, "Error");
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
                 //         Log.Error(e);
             }
             ExecuteGetRegnumsByNameOrId(searchName);
@@ -457,23 +457,19 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteGetExpertsByNameOrId(string searchName)
         {
-            //ReferenceExpertsCollection.Clear();
-            //ReferenceExpertsCollection = _crudRef.GetExperts(searchName);
             ReferenceExpertsCollection = SearchNameReturnExpertsCollection(searchName);
 
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
         private void ExecuteAddExpert(object o)
         {
-            //       ReferenceExpertsCollection = _crudRef.AddExpert(SelectedRegnum, ReferenceExpertsCollection);
             if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
 
-            ReferenceExpertsCollection.Insert(0, new Tbl90Reference() { RegnumId = SelectedRegnum.RegnumId, Info = "NewDataset" });
+            ReferenceExpertsCollection.Insert(0, new Tbl90Reference() { RegnumId = SelectedRegnum.RegnumId, Info = CultRes.StringsRes.DatasetNew });
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
         private void ExecuteCopyExpert(object o)
         {
-            //      ReferenceExpertsCollection = _crudRef.CopyExpert(SelectedReferenceExpert, ReferenceExpertsCollection);
             if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceExpert)) return;
 
             if (SelectedReferenceExpert != null)
@@ -486,7 +482,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                     RefExpertId = reference.RefExpertId,
                     Valid = reference.Valid,
                     ValidYear = reference.ValidYear,
-                    Info = "NewDataset",
+                    Info = CultRes.StringsRes.DatasetNew,
                     Memo = reference.Memo
                 });
             }
@@ -495,7 +491,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         }
         private void ExecuteDeleteExpert(object o)
         {
-            //      ReferenceExpertsCollection = _crudRef.DeleteExpert(SelectedRegnum, SelectedReferenceExpert, ReferenceExpertsCollection);
             if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceExpert)) return;
 
             try
@@ -503,21 +498,21 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 var reference = _uow.Tbl90References.GetById(SelectedReferenceExpert.ReferenceId);
                 if (reference != null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox("DeleteQuestion" + " " + SelectedReferenceExpert.Info)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + SelectedReferenceExpert.Info)) return;
 
                     _uow.Tbl90References.Remove(reference);
                     _uow.Complete();
 
-                    _allMessageBoxes.InfoMessageBox("DeleteSuccess", SelectedReferenceExpert.Info);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, SelectedReferenceExpert.Info);
                 }
                 else
                 {
-                    _allMessageBoxes.InfoMessageBox("Not To Delete", "DeleteCan" + " " + SelectedReferenceExpert.Info + " " + "DeleteCan1");
+                    _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedReferenceExpert.Info + " " + CultRes.StringsRes.DeleteCan1);
                 }
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
                 //         Log.Error(e);
             }
 
@@ -528,7 +523,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         }
         private void ExecuteSaveExpert(object o)
         {
-            //  ReferenceExpertsCollection = _crudRef.SaveExpert(SelectedRegnum, SelectedReferenceExpert, ReferenceExpertsCollection);
             if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
 
             SelectedReferenceExpert.RegnumId = SelectedRegnum.RegnumId;
@@ -583,23 +577,23 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), "FailedToSave");
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     //     Log.Error(e);
                     return;
                 }
                 catch (Exception e)
                 {
-                    _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
                     //         Log.Error(e);
                     return;
                 }
                 _allMessageBoxes.InfoMessageBox("SaveSuccess", SelectedReferenceExpert.RefExpertId == 0
-                    ? "DatasetNew"
+                    ? CultRes.StringsRes.DatasetNew
                     : SelectedReferenceExpert.Info);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.WarningMessageBox(e.Message, "Error");
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
                 //         Log.Error(e);
             }
 
@@ -655,22 +649,18 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteGetSourcesByNameOrId(string searchName)
         {
-            //ReferenceSourcesCollection.Clear();
-            //ReferenceSourcesCollection = _crudRef.GetSources(searchName);
             ReferenceSourcesCollection = SearchNameReturnSourcesCollection(searchName);
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
         private void ExecuteAddSource(object o)
         {
-            //       ReferenceSourcesCollection = _crudRef.AddSource(SelectedRegnum, ReferenceSourcesCollection);
             if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
 
-            ReferenceSourcesCollection.Insert(0, new Tbl90Reference() { RegnumId = SelectedRegnum.RegnumId, Info = "NewDataset" });
+            ReferenceSourcesCollection.Insert(0, new Tbl90Reference() { RegnumId = SelectedRegnum.RegnumId, Info = CultRes.StringsRes.DatasetNew });
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
         private void ExecuteCopySource(object o)
         {
-            //  ReferenceSourcesCollection = _crudRef.CopySource(SelectedReferenceSource, ReferenceSourcesCollection);
             if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceSource)) return;
 
             if (SelectedReferenceSource != null)
@@ -683,7 +673,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                     RefSourceId = reference.RefSourceId,
                     Valid = reference.Valid,
                     ValidYear = reference.ValidYear,
-                    Info = "NewDataset",
+                    Info = CultRes.StringsRes.DatasetNew,
                     Memo = reference.Memo
                 });
             }
@@ -692,7 +682,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         }
         private void ExecuteDeleteSource(object o)
         {
-            //   ReferenceSourcesCollection = _crudRef.DeleteSource(SelectedRegnum, SelectedReferenceSource, ReferenceSourcesCollection);
             if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceSource)) return;
 
             try
@@ -700,21 +689,21 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 var reference = _uow.Tbl90References.GetById(SelectedReferenceSource.ReferenceId);
                 if (reference != null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox("DeleteQuestion" + " " + SelectedReferenceSource.Info)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + SelectedReferenceSource.Info)) return;
 
                     _uow.Tbl90References.Remove(reference);
                     _uow.Complete();
 
-                    _allMessageBoxes.InfoMessageBox("DeleteSuccess", SelectedReferenceSource.Info);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, SelectedReferenceSource.Info);
                 }
                 else
                 {
-                    _allMessageBoxes.InfoMessageBox("Not To Delete", "DeleteCan" + " " + SelectedReferenceSource.Info + " " + "DeleteCan1");
+                    _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedReferenceSource.Info + " " + CultRes.StringsRes.DeleteCan1);
                 }
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
                 //         Log.Error(e);
             }
 
@@ -725,7 +714,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         }
         private void ExecuteSaveSource(object o)
         {
-            //      ReferenceSourcesCollection = _crudRef.SaveSource(SelectedRegnum, SelectedReferenceSource, ReferenceSourcesCollection);
             if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
 
             SelectedReferenceSource.RegnumId = SelectedRegnum.RegnumId;
@@ -780,23 +768,23 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), "FailedToSave");
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     //     Log.Error(e);
                     return;
                 }
                 catch (Exception e)
                 {
-                    _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
                     //         Log.Error(e);
                     return;
                 }
-                _allMessageBoxes.InfoMessageBox("SaveSuccess", SelectedReferenceSource.RefSourceId == 0
-                    ? "DatasetNew"
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, SelectedReferenceSource.RefSourceId == 0
+                    ? CultRes.StringsRes.DatasetNew
                     : SelectedReferenceSource.Info);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.WarningMessageBox(e.Message, "Error");
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
                 //         Log.Error(e);
             }
 
@@ -854,23 +842,19 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteGetAuthorsByNameOrId(string searchName)
         {
-            //ReferenceAuthorsCollection.Clear();
-            //ReferenceAuthorsCollection = _crudRef.GetAuthors(searchName);
             ReferenceAuthorsCollection = SearchNameReturnAuthorsCollection(searchName);
 
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
         private void ExecuteAddAuthor(object o)
         {
-            //        ReferenceAuthorsCollection = _crudRef.AddAuthor(SelectedRegnum, ReferenceAuthorsCollection);
             if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
 
-            ReferenceAuthorsCollection.Insert(0, new Tbl90Reference() { RegnumId = SelectedRegnum.RegnumId, Info = "NewDataset" });
+            ReferenceAuthorsCollection.Insert(0, new Tbl90Reference() { RegnumId = SelectedRegnum.RegnumId, Info = CultRes.StringsRes.DatasetNew });
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
         private void ExecuteCopyAuthor(object o)
         {
-            //      ReferenceAuthorsCollection = _crudRef.CopyAuthor(SelectedReferenceAuthor, ReferenceAuthorsCollection);
             if (_genAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceAuthor)) return;
 
             if (SelectedReferenceAuthor != null)
@@ -883,7 +867,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                     RefAuthorId = reference.RefAuthorId,
                     Valid = reference.Valid,
                     ValidYear = reference.ValidYear,
-                    Info = "NewDataset",
+                    Info = CultRes.StringsRes.DatasetNew,
                     Memo = reference.Memo
                 });
             }
@@ -892,7 +876,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         }
         private void ExecuteDeleteAuthor(object o)
         {
-            //    ReferenceAuthorsCollection = _crudRef.DeleteAuthor(SelectedRegnum, SelectedReferenceAuthor, ReferenceAuthorsCollection);
             if (_genAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceAuthor)) return;
 
             try
@@ -900,21 +883,21 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 var reference = _uow.Tbl90References.GetById(SelectedReferenceAuthor.ReferenceId);
                 if (reference != null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox("DeleteQuestion" + " " + SelectedReferenceAuthor.Info)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + SelectedReferenceAuthor.Info)) return;
 
                     _uow.Tbl90References.Remove(reference);
                     _uow.Complete();
 
-                    _allMessageBoxes.InfoMessageBox("DeleteSuccess", SelectedReferenceAuthor.Info);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, SelectedReferenceAuthor.Info);
                 }
                 else
                 {
-                    _allMessageBoxes.InfoMessageBox("Not To Delete", "DeleteCan" + " " + SelectedReferenceAuthor.Info + " " + "DeleteCan1");
+                    _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedReferenceAuthor.Info + " " + CultRes.StringsRes.DeleteCan1);
                 }
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
                 //         Log.Error(e);
             }
 
@@ -925,7 +908,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         }
         private void ExecuteSaveAuthor(object o)
         {
-            //     ReferenceAuthorsCollection = _crudRef.SaveAuthor(SelectedRegnum, SelectedReferenceAuthor, ReferenceAuthorsCollection);
             if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
 
             SelectedReferenceAuthor.RegnumId = SelectedRegnum.RegnumId;
@@ -980,23 +962,23 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), "FailedToSave");
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     //     Log.Error(e);
                     return;
                 }
                 catch (Exception e)
                 {
-                    _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
                     //         Log.Error(e);
                     return;
                 }
-                _allMessageBoxes.InfoMessageBox("SaveSuccess", SelectedReferenceAuthor.RefSourceId == 0
-                    ? "DatasetNew"
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, SelectedReferenceAuthor.RefSourceId == 0
+                    ? CultRes.StringsRes.DatasetNew
                     : SelectedReferenceAuthor.Info);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.WarningMessageBox(e.Message, "Error");
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
                 //         Log.Error(e);
             }
 
@@ -1052,23 +1034,18 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteGetCommentsByNameOrId(string searchName)
         {
-            //CommentsCollection.Clear();
-            //CommentsCollection = _crudCom.GetComments(searchName);
             CommentsCollection = SearchNameReturnCommentsCollection(searchName);
             RaisePropertyChanged("CommentsCollection");
         }
         private void ExecuteAddComment(object o)
         {
-            //      CommentsCollection = _genRegnumComments.AddComment(SelectedRegnum, CommentsCollection);
-            //   CommentsCollection = _crudCom.AddComment(SelectedRegnum, CommentsCollection);
             if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
 
-            CommentsCollection.Insert(0, new Tbl93Comment() { RegnumId = SelectedRegnum.RegnumId, Info = "NewDataset" });
+            CommentsCollection.Insert(0, new Tbl93Comment() { RegnumId = SelectedRegnum.RegnumId, Info = CultRes.StringsRes.DatasetNew });
             RaisePropertyChanged("CommentsCollection");
         }
         private void ExecuteCopyComment(object o)
         {
-            // CommentsCollection = _crudCom.CopyComment(SelectedComment, CommentsCollection);
             if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedComment)) return;
 
             if (SelectedComment != null)
@@ -1080,7 +1057,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                     RegnumId = comment.RegnumId,
                     Valid = comment.Valid,
                     ValidYear = comment.ValidYear,
-                    Info = "NewDataset",
+                    Info = CultRes.StringsRes.DatasetNew,
                     Memo = comment.Memo
                 });
             }
@@ -1089,7 +1066,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         }
         private void ExecuteDeleteComment(object o)
         {
-            //  CommentsCollection = _crudCom.DeleteComment(SelectedRegnum, SelectedComment, CommentsCollection);
             if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedComment)) return;
 
             try
@@ -1097,21 +1073,21 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 var comment = _uow.Tbl93Comments.GetById(SelectedComment.CommentId);
                 if (comment != null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox("DeleteQuestion" + " " + SelectedComment.Info)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + SelectedComment.Info)) return;
 
                     _uow.Tbl93Comments.Remove(comment);
                     _uow.Complete();
 
-                    _allMessageBoxes.InfoMessageBox("DeleteSuccess", SelectedComment.Info);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, SelectedComment.Info);
                 }
                 else
                 {
-                    _allMessageBoxes.InfoMessageBox("Not To Delete", "DeleteCan" + " " + SelectedComment.Info + " " + "DeleteCan1");
+                    _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedComment.Info + " " + CultRes.StringsRes.DeleteCan1);
                 }
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
                 //         Log.Error(e);
             }
             CommentsCollection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
@@ -1121,7 +1097,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         }
         private void ExecuteSaveComment(object o)
         {
-            //   CommentsCollection = _crudCom.SaveComment(SelectedRegnum, SelectedComment, CommentsCollection);
             if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedComment)) return;
 
             SelectedComment.RegnumId = SelectedRegnum.RegnumId;
@@ -1174,23 +1149,23 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), "FailedToSave");
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     //     Log.Error(e);
                     return;
                 }
                 catch (Exception e)
                 {
-                    _allMessageBoxes.InfoMessageBox(e.Message, "Error");
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
                     //         Log.Error(e);
                     return;
                 }
-                _allMessageBoxes.InfoMessageBox("SaveSuccess", SelectedComment.CommentId == 0
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, SelectedComment.CommentId == 0
                     ? "DatasetNew"
                     : SelectedComment.Info);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.WarningMessageBox(e.Message, "Error");
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
                 //         Log.Error(e);
             }
 
