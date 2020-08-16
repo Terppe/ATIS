@@ -22,88 +22,6 @@
 
         <Thickness x:Key="ControlMargin">0 5 0 0</Thickness>
 
-        <!--<DataTemplate x:Key="ValidColumnTemplate">
-            <CheckBox
-                Width="Auto"
-                HorizontalAlignment="Center"
-                IsChecked="{Binding Valid}"
-                IsThreeState="True" />
-        </DataTemplate>
-        <DataTemplate x:Key="ValidYearColumnTemplate">
-            <TextBlock Width="Auto" Text="{Binding ValidYear}" />
-        </DataTemplate>
-        <DataTemplate x:Key="AuthorColumnTemplate">
-            <TextBlock Width="Auto" Text="{Binding Author}" />
-        </DataTemplate>
-        <DataTemplate x:Key="AuthorYearColumnTemplate">
-            <TextBlock Width="Auto" Text="{Binding AuthorYear}" />
-        </DataTemplate>-->
-        <!--<DataTemplate x:Key="EngNameColumnTemplate">
-            <TextBlock Width="Auto" Text="{Binding EngName}" />
-        </DataTemplate>
-        <DataTemplate x:Key="GerNameColumnTemplate">
-            <TextBlock Width="Auto" Text="{Binding GerName}" />
-        </DataTemplate>
-        <DataTemplate x:Key="FraNameColumnTemplate">
-            <TextBlock Width="Auto" Text="{Binding FraName}" />
-        </DataTemplate>
-        <DataTemplate x:Key="SpaNameColumnTemplate">
-            <TextBlock Width="Auto" Text="{Binding SpaName}" />
-        </DataTemplate>-->
-
-        <!--<DataTemplate x:Key="SynonymColumnTemplate">
-            <TextBlock
-                MaxWidth="290"
-                MaxHeight="100"
-                Text="{Binding Path=Synonym, Mode=OneWay}"
-                TextAlignment="Left"
-                TextWrapping="Wrap" />
-        </DataTemplate>
-        <DataTemplate x:Key="SynonymEditColumnTemplate">
-            <TextBox
-                MaxWidth="290"
-                MaxHeight="100"
-                Text="{Binding Path=Synonym, Mode=TwoWay}"
-                TextAlignment="Left"
-                TextWrapping="Wrap"
-                VerticalScrollBarVisibility="Visible" />
-        </DataTemplate>
-
-        <DataTemplate x:Key="InfoColumnTemplate">
-            <TextBlock
-                MaxWidth="290"
-                MaxHeight="100"
-                Text="{Binding Path=Info, Mode=OneWay}"
-                TextAlignment="Left"
-                TextWrapping="Wrap" />
-        </DataTemplate>
-        <DataTemplate x:Key="InfoEditColumnTemplate">
-            <TextBox
-                MaxWidth="290"
-                MaxHeight="100"
-                Text="{Binding Path=Info, Mode=TwoWay}"
-                TextAlignment="Left"
-                TextWrapping="Wrap"
-                VerticalScrollBarVisibility="Visible" />
-        </DataTemplate>
-
-        <DataTemplate x:Key="MemoColumnTemplate">
-            <TextBlock
-                MaxWidth="490"
-                MaxHeight="100"
-                Text="{Binding Path=Memo, Mode=OneWay}"
-                TextAlignment="Left"
-                TextWrapping="Wrap" />
-        </DataTemplate>
-        <DataTemplate x:Key="MemoEditColumnTemplate">
-            <TextBox
-                MaxWidth="490"
-                MaxHeight="100"
-                Text="{Binding Path=Memo, Mode=TwoWay}"
-                TextAlignment="Left"
-                TextWrapping="Wrap"
-                VerticalScrollBarVisibility="Visible" />
-        </DataTemplate>-->
 
     </UserControl.Resources>
 
@@ -171,35 +89,22 @@
                                 IsEnabled="True"
                                 Style="{DynamicResource MahApps.Styles.TextBox.Search}"
                                 Text="{Binding SearchRegnumName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />-->
-
                             <Button
-                                Command="{Binding AddRegnumCommand}"
-                                Content="Add"
-                                Style="{StaticResource ButtonDefault}"
-                                ToolTip="{DynamicResource Shared-ButtonAdd}" />
-                            <Button
-                                Width="100"
-                                Margin="{StaticResource ControlMargin}"
                                 Command="{Binding AddRegnumCommand}"
                                 Content="{DynamicResource Shared-ButtonAdd}"
-                                Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                ToolTip="{DynamicResource Shared-ButtonAdd}" />
-
+                                Style="{StaticResource ButtonDefault}" />
                             <Button
                                 Command="{Binding CopyRegnumCommand}"
-                                Content="Copy"
-                                Style="{StaticResource ButtonDefault}"
-                                ToolTip="{DynamicResource Shared-ButtonCopy}" />
+                                Content="{DynamicResource Shared-ButtonCopy}"
+                                Style="{StaticResource ButtonDefault}" />
                             <Button
                                 Command="{Binding SaveRegnumCommand}"
-                                Content="Save"
-                                Style="{StaticResource ButtonDefault}"
-                                ToolTip="{DynamicResource Shared-ButtonSave}" />
+                                Content="{DynamicResource Shared-ButtonSave}"
+                                Style="{StaticResource ButtonDefault}" />
                             <Button
                                 Command="{Binding DeleteRegnumCommand}"
-                                Content="Delete"
-                                Style="{StaticResource ButtonDefault}"
-                                ToolTip="{DynamicResource Shared-ButtonDelete}" />
+                                Content="{DynamicResource Shared-ButtonDelete}"
+                                Style="{StaticResource ButtonDefault}" />
                         </StackPanel>
                         <GroupBox Width="Auto" Header="{DynamicResource Shared-TabStripHeaderRegnums}">
                             <ScrollViewer HorizontalScrollBarVisibility="Auto">
@@ -218,6 +123,7 @@
                                         IsReadOnly="False"
                                         IsSynchronizedWithCurrentItem="true"
                                         ItemsSource="{Binding RegnumsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                        RowDetailsTemplate="{StaticResource DataGridMemoDetail}"
                                         SelectedItem="{Binding SelectedRegnum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                                         <DataGrid.InputBindings>
@@ -254,11 +160,6 @@
                                             <DataGridTemplateColumn CellTemplate="{StaticResource GerNameColumnTemplate}" Header="{DynamicResource Shared-GerName}" />
                                             <DataGridTemplateColumn CellTemplate="{StaticResource FraNameColumnTemplate}" Header="{DynamicResource Shared-FraName}" />
                                             <DataGridTemplateColumn CellTemplate="{StaticResource SpaNameColumnTemplate}" Header="{DynamicResource Shared-SpaName}" />
-                                            <DataGridTemplateColumn
-                                                Width="500"
-                                                CellEditingTemplate="{StaticResource Memo500EditColumnTemplate}"
-                                                CellTemplate="{StaticResource Memo500ColumnTemplate}"
-                                                Header="{DynamicResource Shared-Memo}" />
                                         </DataGrid.Columns>
                                     </DataGrid>
                                 </Grid>
@@ -308,24 +209,20 @@
                                                 Orientation="Horizontal">
                                                 <Button
                                                     Command="{Binding AddExpertCommand}"
-                                                    Content="Add"
-                                                    Style="{StaticResource ButtonDefault}"
-                                                    ToolTip="{DynamicResource Shared-ButtonAdd}" />
+                                                    Content="{DynamicResource Shared-ButtonAdd}"
+                                                    Style="{StaticResource ButtonDefault}" />
                                                 <Button
                                                     Command="{Binding CopyExpertCommand}"
-                                                    Content="Copy"
-                                                    Style="{StaticResource ButtonDefault}"
-                                                    ToolTip="{DynamicResource Shared-ButtonCopy}" />
+                                                    Content="{DynamicResource Shared-ButtonCopy}"
+                                                    Style="{StaticResource ButtonDefault}" />
                                                 <Button
                                                     Command="{Binding SaveExpertCommand}"
-                                                    Content="Save"
-                                                    Style="{StaticResource ButtonDefault}"
-                                                    ToolTip="{DynamicResource Shared-ButtonSave}" />
+                                                    Content="{DynamicResource Shared-ButtonSave}"
+                                                    Style="{StaticResource ButtonDefault}" />
                                                 <Button
                                                     Command="{Binding DeleteExpertCommand}"
-                                                    Content="Delete"
-                                                    Style="{StaticResource ButtonDefault}"
-                                                    ToolTip="{DynamicResource Shared-ButtonDelete}" />
+                                                    Content="{DynamicResource Shared-ButtonDelete}"
+                                                    Style="{StaticResource ButtonDefault}" />
                                             </StackPanel>
                                             <GroupBox
                                                 Grid.Row="1"
@@ -349,6 +246,7 @@
                                                             IsReadOnly="False"
                                                             IsSynchronizedWithCurrentItem="true"
                                                             ItemsSource="{Binding ReferenceExpertsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                            RowDetailsTemplate="{StaticResource DataGridMemoDetail}"
                                                             SelectedItem="{Binding SelectedReferenceExpert, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                             VerticalScrollBarVisibility="Visible">
                                                             <DataGrid.Columns>
@@ -393,11 +291,6 @@
                                                                     CellEditingTemplate="{StaticResource Info500EditColumnTemplate}"
                                                                     CellTemplate="{StaticResource Info500ColumnTemplate}"
                                                                     Header="{DynamicResource Shared-Info}" />
-                                                                <DataGridTemplateColumn
-                                                                    Width="500"
-                                                                    CellEditingTemplate="{StaticResource Memo500EditColumnTemplate}"
-                                                                    CellTemplate="{StaticResource Memo500ColumnTemplate}"
-                                                                    Header="{DynamicResource Shared-Memo}" />
                                                             </DataGrid.Columns>
                                                         </DataGrid>
                                                     </Grid>
@@ -438,24 +331,20 @@
                                                 Orientation="Horizontal">
                                                 <Button
                                                     Command="{Binding AddSourceCommand}"
-                                                    Content="Add"
-                                                    Style="{StaticResource ButtonDefault}"
-                                                    ToolTip="{DynamicResource Shared-ButtonAdd}" />
+                                                    Content="{DynamicResource Shared-ButtonAdd}"
+                                                    Style="{StaticResource ButtonDefault}" />
                                                 <Button
                                                     Command="{Binding CopySourceCommand}"
-                                                    Content="Copy"
-                                                    Style="{StaticResource ButtonDefault}"
-                                                    ToolTip="{DynamicResource Shared-ButtonCopy}" />
+                                                    Content="{DynamicResource Shared-ButtonCopy}"
+                                                    Style="{StaticResource ButtonDefault}" />
                                                 <Button
                                                     Command="{Binding SaveSourceCommand}"
-                                                    Content="Save"
-                                                    Style="{StaticResource ButtonDefault}"
-                                                    ToolTip="{DynamicResource Shared-ButtonSave}" />
+                                                    Content="{DynamicResource Shared-ButtonSave}"
+                                                    Style="{StaticResource ButtonDefault}" />
                                                 <Button
                                                     Command="{Binding DeleteSourceCommand}"
-                                                    Content="Delete"
-                                                    Style="{StaticResource ButtonDefault}"
-                                                    ToolTip="{DynamicResource Shared-ButtonDelete}" />
+                                                    Content="{DynamicResource Shared-ButtonDelete}"
+                                                    Style="{StaticResource ButtonDefault}" />
                                             </StackPanel>
                                             <GroupBox
                                                 Grid.Row="1"
@@ -479,6 +368,7 @@
                                                             IsReadOnly="False"
                                                             IsSynchronizedWithCurrentItem="true"
                                                             ItemsSource="{Binding ReferenceSourcesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                            RowDetailsTemplate="{StaticResource DataGridMemoDetail}"
                                                             SelectedItem="{Binding SelectedReferenceSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                             VerticalScrollBarVisibility="Visible">
                                                             <DataGrid.Columns>
@@ -523,11 +413,6 @@
                                                                     CellEditingTemplate="{StaticResource Info500EditColumnTemplate}"
                                                                     CellTemplate="{StaticResource Info500ColumnTemplate}"
                                                                     Header="{DynamicResource Shared-Info}" />
-                                                                <DataGridTemplateColumn
-                                                                    Width="500"
-                                                                    CellEditingTemplate="{StaticResource Memo500EditColumnTemplate}"
-                                                                    CellTemplate="{StaticResource Memo500ColumnTemplate}"
-                                                                    Header="{DynamicResource Shared-Memo}" />
                                                             </DataGrid.Columns>
                                                         </DataGrid>
                                                     </Grid>
@@ -568,24 +453,20 @@
                                                 Orientation="Horizontal">
                                                 <Button
                                                     Command="{Binding AddAuthorCommand}"
-                                                    Content="Add"
-                                                    Style="{StaticResource ButtonDefault}"
-                                                    ToolTip="{DynamicResource Shared-ButtonAdd}" />
+                                                    Content="{DynamicResource Shared-ButtonAdd}"
+                                                    Style="{StaticResource ButtonDefault}" />
                                                 <Button
                                                     Command="{Binding CopyAuthorCommand}"
-                                                    Content="Copy"
-                                                    Style="{StaticResource ButtonDefault}"
-                                                    ToolTip="{DynamicResource Shared-ButtonCopy}" />
+                                                    Content="{DynamicResource Shared-ButtonCopy}"
+                                                    Style="{StaticResource ButtonDefault}" />
                                                 <Button
                                                     Command="{Binding SaveAuthorCommand}"
-                                                    Content="Save"
-                                                    Style="{StaticResource ButtonDefault}"
-                                                    ToolTip="{DynamicResource Shared-ButtonSave}" />
+                                                    Content="{DynamicResource Shared-ButtonSave}"
+                                                    Style="{StaticResource ButtonDefault}" />
                                                 <Button
                                                     Command="{Binding DeleteAuthorCommand}"
-                                                    Content="Delete"
-                                                    Style="{StaticResource ButtonDefault}"
-                                                    ToolTip="{DynamicResource Shared-ButtonDelete}" />
+                                                    Content="{DynamicResource Shared-ButtonDelete}"
+                                                    Style="{StaticResource ButtonDefault}" />
                                             </StackPanel>
                                             <GroupBox
                                                 Grid.Row="1"
@@ -609,6 +490,7 @@
                                                             IsReadOnly="False"
                                                             IsSynchronizedWithCurrentItem="true"
                                                             ItemsSource="{Binding ReferenceAuthorsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                            RowDetailsTemplate="{StaticResource DataGridMemoDetail}"
                                                             SelectedItem="{Binding SelectedReferenceAuthor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                             VerticalScrollBarVisibility="Visible">
                                                             <DataGrid.Columns>
@@ -657,11 +539,6 @@
                                                                     CellEditingTemplate="{StaticResource Info500EditColumnTemplate}"
                                                                     CellTemplate="{StaticResource Info500ColumnTemplate}"
                                                                     Header="{DynamicResource Shared-Info}" />
-                                                                <DataGridTemplateColumn
-                                                                    Width="500"
-                                                                    CellEditingTemplate="{StaticResource Memo500EditColumnTemplate}"
-                                                                    CellTemplate="{StaticResource Memo500ColumnTemplate}"
-                                                                    Header="{DynamicResource Shared-Memo}" />
                                                             </DataGrid.Columns>
                                                         </DataGrid>
                                                     </Grid>
@@ -701,24 +578,20 @@
                                                 Orientation="Horizontal">
                                                 <Button
                                                     Command="{Binding AddCommentCommand}"
-                                                    Content="Add"
-                                                    Style="{StaticResource ButtonDefault}"
-                                                    ToolTip="{DynamicResource Shared-ButtonAdd}" />
+                                                    Content="{DynamicResource Shared-ButtonAdd}"
+                                                    Style="{StaticResource ButtonDefault}" />
                                                 <Button
                                                     Command="{Binding CopyCommentCommand}"
-                                                    Content="Copy"
-                                                    Style="{StaticResource ButtonDefault}"
-                                                    ToolTip="{DynamicResource Shared-ButtonCopy}" />
+                                                    Content="{DynamicResource Shared-ButtonCopy}"
+                                                    Style="{StaticResource ButtonDefault}" />
                                                 <Button
                                                     Command="{Binding SaveCommentCommand}"
-                                                    Content="Save"
-                                                    Style="{StaticResource ButtonDefault}"
-                                                    ToolTip="{DynamicResource Shared-ButtonSave}" />
+                                                    Content="{DynamicResource Shared-ButtonSave}"
+                                                    Style="{StaticResource ButtonDefault}" />
                                                 <Button
                                                     Command="{Binding DeleteCommentCommand}"
-                                                    Content="Delete"
-                                                    Style="{StaticResource ButtonDefault}"
-                                                    ToolTip="{DynamicResource Shared-ButtonDelete}" />
+                                                    Content="{DynamicResource Shared-ButtonDelete}"
+                                                    Style="{StaticResource ButtonDefault}" />
                                             </StackPanel>
                                             <GroupBox
                                                 Grid.Row="1"
@@ -742,6 +615,7 @@
                                                             IsReadOnly="False"
                                                             IsSynchronizedWithCurrentItem="true"
                                                             ItemsSource="{Binding CommentsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                            RowDetailsTemplate="{StaticResource DataGridMemoDetail}"
                                                             SelectedItem="{Binding SelectedComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                             VerticalScrollBarVisibility="Visible">
                                                             <DataGrid.Columns>
@@ -760,34 +634,6 @@
                                                                     CellEditingTemplate="{StaticResource Info500EditColumnTemplate}"
                                                                     CellTemplate="{StaticResource Info500ColumnTemplate}"
                                                                     Header="{DynamicResource Shared-Info}" />
-                                                                <DataGridTemplateColumn
-                                                                    Width="900"
-                                                                    CellEditingTemplate="{StaticResource Memo900EditColumnTemplate}"
-                                                                    CellTemplate="{StaticResource Memo900ColumnTemplate}"
-                                                                    Header="{DynamicResource Shared-Memo}" />
-                                                                <DataGridTemplateColumn Width="900" Header="{DynamicResource Shared-Memo}">
-                                                                    <DataGridTemplateColumn.CellEditingTemplate>
-                                                                        <DataTemplate>
-                                                                            <TextBox
-                                                                                MaxWidth="890"
-                                                                                MaxHeight="100"
-                                                                                Text="{Binding Path=Memo, Mode=TwoWay}"
-                                                                                TextAlignment="Left"
-                                                                                TextWrapping="Wrap"
-                                                                                VerticalScrollBarVisibility="Visible" />
-                                                                        </DataTemplate>
-                                                                    </DataGridTemplateColumn.CellEditingTemplate>
-                                                                    <DataGridTemplateColumn.CellTemplate>
-                                                                        <DataTemplate>
-                                                                            <TextBlock
-                                                                                MaxWidth="890"
-                                                                                MaxHeight="100"
-                                                                                Text="{Binding Path=Memo, Mode=OneWay}"
-                                                                                TextAlignment="Left"
-                                                                                TextWrapping="Wrap" />
-                                                                        </DataTemplate>
-                                                                    </DataGridTemplateColumn.CellTemplate>
-                                                                </DataGridTemplateColumn>
                                                             </DataGrid.Columns>
                                                         </DataGrid>
                                                     </Grid>
