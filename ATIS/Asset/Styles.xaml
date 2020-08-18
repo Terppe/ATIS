@@ -128,28 +128,30 @@
     </DataTemplate>
 
     <DataTemplate x:Key="DataGridMemoDetail">
-        <Border
-            Padding="10"
-            Background="{DynamicResource TextBoxBackground}"
-            BorderThickness="1">
-            <StackPanel
-                Margin="250,0,0,0"
-                HorizontalAlignment="Left"
-                Orientation="Vertical">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{DynamicResource Shared-Memo}" />
-                    <TextBox
-                        MinWidth="600"
-                        MinHeight="50"
-                        MaxWidth="1000"
-                        MaxHeight="250"
-                        AcceptsReturn="True"
-                        Text="{Binding Path=Memo, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                        TextAlignment="Left"
-                        TextWrapping="Wrap"
-                        VerticalScrollBarVisibility="Visible" />
+        <Expander>
+            <Border
+                Padding="10"
+                Background="{DynamicResource TextBoxBackground}"
+                BorderThickness="1">
+                <StackPanel
+                    Margin="250,0,0,0"
+                    HorizontalAlignment="Left"
+                    Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{DynamicResource Shared-Memo}" />
+                        <TextBox
+                            MinWidth="600"
+                            MinHeight="50"
+                            MaxWidth="1000"
+                            MaxHeight="250"
+                            AcceptsReturn="True"
+                            Text="{Binding Path=Memo, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                            TextAlignment="Left"
+                            TextWrapping="Wrap"
+                            VerticalScrollBarVisibility="Visible" />
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
-        </Border>
+            </Border>
+        </Expander>
     </DataTemplate>
 </ResourceDictionary>
