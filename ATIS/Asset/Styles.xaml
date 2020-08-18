@@ -63,6 +63,7 @@
         <TextBox
             MaxWidth="290"
             MaxHeight="100"
+            AcceptsReturn="True"
             Text="{Binding Path=Synonym, Mode=TwoWay}"
             TextAlignment="Left"
             TextWrapping="Wrap"
@@ -81,6 +82,7 @@
         <TextBox
             MaxWidth="290"
             MaxHeight="100"
+            AcceptsReturn="True"
             Text="{Binding Path=Info, Mode=TwoWay}"
             TextAlignment="Left"
             TextWrapping="Wrap"
@@ -99,6 +101,7 @@
         <TextBox
             MaxWidth="490"
             MaxHeight="100"
+            AcceptsReturn="True"
             Text="{Binding Path=Info, Mode=TwoWay}"
             TextAlignment="Left"
             TextWrapping="Wrap"
@@ -117,6 +120,7 @@
         <TextBox
             MaxWidth="490"
             MaxHeight="100"
+            AcceptsReturn="True"
             Text="{Binding Path=Memo, Mode=TwoWay}"
             TextAlignment="Left"
             TextWrapping="Wrap"

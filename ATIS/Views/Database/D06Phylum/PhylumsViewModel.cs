@@ -8,6 +8,7 @@ using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Database.D03Regnum;
 using ATIS.Ui.Views.Database.DatabaseHelper;
+using ATIS.Ui.Views.Database.SearchMethods;
 using Microsoft.EntityFrameworkCore;
 
 namespace ATIS.Ui.Views.Database.D06Phylum
@@ -24,6 +25,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
+        private BasicDatabase _ext = new BasicDatabase();
 
         #region [ Constructor ]
 
@@ -78,16 +80,16 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         {
             TabIndexDetail = 2;
 
-            RegnumsCollection.Clear();
-            SubphylumsCollection.Clear();
-            SuperclassesCollection.Clear();
-            ReferencesCollection.Clear();
-            ReferenceExpertsCollection.Clear();
-            ReferenceSourcesCollection.Clear();
-            ReferenceAuthorsCollection.Clear();
-            CommentsCollection.Clear();
+            //RegnumsCollection.Clear();
+            //SubphylumsCollection.Clear();
+            //SuperclassesCollection.Clear();
+            //ReferencesCollection.Clear();
+            //ReferenceExpertsCollection.Clear();
+            //ReferenceSourcesCollection.Clear();
+            //ReferenceAuthorsCollection.Clear();
+            //CommentsCollection.Clear();
 
-            PhylumsCollection = SearchNameReturnPhylumsCollection(searchName);
+            PhylumsCollection = _ext.SearchNameReturnPhylumsCollection(searchName);
             RaisePropertyChanged("PhylumsCollection");
         }
         private void ExecuteAddPhylum(object o)
@@ -290,30 +292,30 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             }
         }
 
-        private ObservableCollection<Tbl06Phylum> SearchNameReturnPhylumsCollection(string searchName)
-        {
-            var collection = new ObservableCollection<Tbl06Phylum>();
+        //private ObservableCollection<Tbl06Phylum> SearchNameReturnPhylumsCollection(string searchName)
+        //{
+        //    var collection = new ObservableCollection<Tbl06Phylum>();
 
-            switch (searchName)
-            {
-                case "":
-                    return collection;
-                case "*":
-                    collection = new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums.GetAll());
-                    break;
-                default:
-                    collection = int.TryParse(searchName, out var id)
-                        ? new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums
-                            .Find(e => e.PhylumId == id))
-                        : new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums.ListTbl06PhylumsOnlyAnimaliaOrderBy(searchName)
-                        //.Find(e => e.PhylumName.StartsWith(searchName))
-                        //.OrderBy(a => a.PhylumName)
-                        );
-                    break;
-            }
+        //    switch (searchName)
+        //    {
+        //        case "":
+        //            return collection;
+        //        case "*":
+        //            collection = new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums.GetAll());
+        //            break;
+        //        default:
+        //            collection = int.TryParse(searchName, out var id)
+        //                ? new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums
+        //                    .Find(e => e.PhylumId == id))
+        //                : new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums.ListTbl06PhylumsOnlyAnimaliaOrderBy(searchName)
+        //                    //.Find(e => e.PhylumName.StartsWith(searchName))
+        //                    //.OrderBy(a => a.PhylumName)
+        //                );
+        //            break;
+        //    }
 
-            return collection;
-        }
+        //    return collection;
+        //}
 
         private void GetRegnums(int regnumId)
         {
@@ -440,8 +442,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void ExecuteGetExpertsByNameOrId(string searchName)
         {
-            ReferenceExpertsCollection = SearchNameReturnExpertsCollection(searchName);
-
+            ReferenceExpertsCollection = _ext.SearchNameReturnReferenceCollection(searchName, "expert");
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
         private void ExecuteAddExpert(object o)
@@ -585,29 +586,29 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
-        private ObservableCollection<Tbl90Reference> SearchNameReturnExpertsCollection(string searchName)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>();
+        //private ObservableCollection<Tbl90Reference> SearchNameReturnExpertsCollection(string searchName)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>();
 
-            switch (searchName)
-            {
-                case "":
-                    return collection;
-                case "*":
-                    collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.GetAll());
-                    break;
-                default:
-                    collection = int.TryParse(searchName, out var id)
-                        ? new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                            .Find(e => e.ReferenceId == id && e.RefAuthorId == null && e.RefSourceId == null))
-                        : new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                            .Find(e => e.Info.StartsWith(searchName))
-                        );
-                    break;
-            }
+        //    switch (searchName)
+        //    {
+        //        case "":
+        //            return collection;
+        //        case "*":
+        //            collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.GetAll());
+        //            break;
+        //        default:
+        //            collection = int.TryParse(searchName, out var id)
+        //                ? new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+        //                    .Find(e => e.ReferenceId == id && e.RefAuthorId == null && e.RefSourceId == null))
+        //                : new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+        //                    .Find(e => e.Info.StartsWith(searchName))
+        //                );
+        //            break;
+        //    }
 
-            return collection;
-        }
+        //    return collection;
+        //}
 
         #endregion
 
@@ -633,7 +634,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void ExecuteGetSourcesByNameOrId(string searchName)
         {
-            ReferenceSourcesCollection = SearchNameReturnSourcesCollection(searchName);
+            ReferenceSourcesCollection = _ext.SearchNameReturnReferenceCollection(searchName, "source");
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
         private void ExecuteAddSource(object o)
@@ -777,29 +778,29 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
-        private ObservableCollection<Tbl90Reference> SearchNameReturnSourcesCollection(string searchName)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>();
+        //private ObservableCollection<Tbl90Reference> SearchNameReturnSourcesCollection(string searchName)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>();
 
-            switch (searchName)
-            {
-                case "":
-                    return collection;
-                case "*":
-                    collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.GetAll());
-                    break;
-                default:
-                    collection = int.TryParse(searchName, out var id)
-                        ? new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                            .Find(e => e.ReferenceId == id && e.RefAuthorId == null && e.RefExpertId == null))
-                        : new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                            .Find(e => e.Info.StartsWith(searchName))
-                        );
-                    break;
-            }
+        //    switch (searchName)
+        //    {
+        //        case "":
+        //            return collection;
+        //        case "*":
+        //            collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.GetAll());
+        //            break;
+        //        default:
+        //            collection = int.TryParse(searchName, out var id)
+        //                ? new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+        //                    .Find(e => e.ReferenceId == id && e.RefAuthorId == null && e.RefExpertId == null))
+        //                : new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+        //                    .Find(e => e.Info.StartsWith(searchName))
+        //                );
+        //            break;
+        //    }
 
-            return collection;
-        }
+        //    return collection;
+        //}
 
         #endregion
 
@@ -826,8 +827,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void ExecuteGetAuthorsByNameOrId(string searchName)
         {
-            ReferenceAuthorsCollection = SearchNameReturnAuthorsCollection(searchName);
-
+            ReferenceSourcesCollection = _ext.SearchNameReturnReferenceCollection(searchName, "author");
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
         private void ExecuteAddAuthor(object o)
@@ -971,29 +971,29 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
-        private ObservableCollection<Tbl90Reference> SearchNameReturnAuthorsCollection(string searchName)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>();
+        //private ObservableCollection<Tbl90Reference> SearchNameReturnAuthorsCollection(string searchName)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>();
 
-            switch (searchName)
-            {
-                case "":
-                    return collection;
-                case "*":
-                    collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.GetAll());
-                    break;
-                default:
-                    collection = int.TryParse(searchName, out var id)
-                        ? new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                            .Find(e => e.ReferenceId == id && e.RefSourceId == null && e.RefExpertId == null))
-                        : new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                            .Find(e => e.Info.StartsWith(searchName))
-                        );
-                    break;
-            }
+        //    switch (searchName)
+        //    {
+        //        case "":
+        //            return collection;
+        //        case "*":
+        //            collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.GetAll());
+        //            break;
+        //        default:
+        //            collection = int.TryParse(searchName, out var id)
+        //                ? new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+        //                    .Find(e => e.ReferenceId == id && e.RefSourceId == null && e.RefExpertId == null))
+        //                : new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+        //                    .Find(e => e.Info.StartsWith(searchName))
+        //                );
+        //            break;
+        //    }
 
-            return collection;
-        }
+        //    return collection;
+        //}
 
         #endregion
 
@@ -1018,7 +1018,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void ExecuteGetCommentsByNameOrId(string searchName)
         {
-            CommentsCollection = SearchNameReturnCommentsCollection(searchName);
+            CommentsCollection = _ext.SearchNameReturnCommentsCollection(searchName);
             RaisePropertyChanged("CommentsCollection");
         }
         private void ExecuteAddComment(object o)
@@ -1158,29 +1158,29 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
             RaisePropertyChanged("CommentsCollection");
         }
-        private ObservableCollection<Tbl93Comment> SearchNameReturnCommentsCollection(string searchName)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>();
+        //private ObservableCollection<Tbl93Comment> SearchNameReturnCommentsCollection(string searchName)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>();
 
-            switch (searchName)
-            {
-                case "":
-                    return collection;
-                case "*":
-                    collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.GetAll());
-                    break;
-                default:
-                    collection = int.TryParse(searchName, out var id)
-                        ? new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
-                            .Find(e => e.CommentId == id))
-                        : new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
-                            .Find(e => e.Info.StartsWith(searchName))
-                        );
-                    break;
-            }
+        //    switch (searchName)
+        //    {
+        //        case "":
+        //            return collection;
+        //        case "*":
+        //            collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.GetAll());
+        //            break;
+        //        default:
+        //            collection = int.TryParse(searchName, out var id)
+        //                ? new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
+        //                    .Find(e => e.CommentId == id))
+        //                : new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
+        //                    .Find(e => e.Info.StartsWith(searchName))
+        //                );
+        //            break;
+        //    }
 
-            return collection;
-        }
+        //    return collection;
+        //}
 
         #endregion
 
