@@ -89,7 +89,8 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             //ReferenceAuthorsCollection.Clear();
             //CommentsCollection.Clear();
 
-            PhylumsCollection = _ext.SearchNameReturnPhylumsCollection(searchName);
+            //   PhylumsCollection = _ext.SearchNameReturnPhylumsCollection(searchName);
+            PhylumsCollection = _ext.SearchNameAndIdReturnCollection<Tbl06Phylum>(searchName, "phylum");
             RaisePropertyChanged("PhylumsCollection");
         }
         private void ExecuteAddPhylum(object o)
@@ -332,7 +333,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             if (query.Count != 0)
                 TabIndexDetail = 0;
         }
-
         private void GetSubphylums(int phylumId)
         {
             //   var _phylumId = int.Parse(phylumId.ToString());
@@ -365,7 +365,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             if (query.Count != 0)
                 TabIndexDetail = 3;
         }
-
         private void GetReferenceExperts(int? phylumId)
         {
             var query = (from reference in _context.Tbl90References
@@ -442,7 +441,8 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void ExecuteGetExpertsByNameOrId(string searchName)
         {
-            ReferenceExpertsCollection = _ext.SearchNameReturnReferenceCollection(searchName, "expert");
+            //    ReferenceExpertsCollection = _ext.SearchNameReturnReferenceCollection(searchName, "expert");
+            ReferenceExpertsCollection = _ext.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "expert");
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
         private void ExecuteAddExpert(object o)
@@ -634,7 +634,8 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void ExecuteGetSourcesByNameOrId(string searchName)
         {
-            ReferenceSourcesCollection = _ext.SearchNameReturnReferenceCollection(searchName, "source");
+            //      ReferenceSourcesCollection = _ext.SearchNameReturnReferenceCollection(searchName, "source");
+            ReferenceSourcesCollection = _ext.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "source");
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
         private void ExecuteAddSource(object o)
@@ -827,7 +828,8 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void ExecuteGetAuthorsByNameOrId(string searchName)
         {
-            ReferenceSourcesCollection = _ext.SearchNameReturnReferenceCollection(searchName, "author");
+            //      ReferenceSourcesCollection = _ext.SearchNameReturnReferenceCollection(searchName, "author");
+            ReferenceAuthorsCollection = _ext.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "author");
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
         private void ExecuteAddAuthor(object o)
@@ -1018,7 +1020,8 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void ExecuteGetCommentsByNameOrId(string searchName)
         {
-            CommentsCollection = _ext.SearchNameReturnCommentsCollection(searchName);
+            //     CommentsCollection = _ext.SearchNameReturnCommentsCollection(searchName);
+            CommentsCollection = _ext.SearchNameAndIdReturnCollection<Tbl93Comment>(searchName, "comment");
             RaisePropertyChanged("CommentsCollection");
         }
         private void ExecuteAddComment(object o)
