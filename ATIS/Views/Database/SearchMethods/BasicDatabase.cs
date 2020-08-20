@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 
 namespace ATIS.Ui.Views.Database.SearchMethods
 {
     public class BasicDatabase
     {
-        private readonly AtisDbContext _context = new AtisDbContext();
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
 
-        internal ObservableCollection<T> SearchNameAndIdReturnCollection<T>(string searchName, string name)
+        public ObservableCollection<T> SearchNameAndIdReturnCollection<T>(string searchName, string name)
         {
             var collection = new ObservableCollection<T>();
 

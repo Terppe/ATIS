@@ -19,13 +19,15 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly AtisDbContext _context = new AtisDbContext();
+
         private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
         private readonly GenericMessageBoxes<Tbl03Regnum> _genRegnumMessageBoxes = new GenericMessageBoxes<Tbl03Regnum>();
         private readonly GenericMessageBoxes<Tbl90Reference> _genExpertMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
-        private BasicDatabase _ext = new BasicDatabase();
+        private BasicDatabase _extDatabase = new BasicDatabase();
+        private BasicCopy _extCopy = new BasicCopy();
 
         #region [ Constructor ]
 
@@ -96,7 +98,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             //ReferenceAuthorsCollection.Clear();
             //CommentsCollection.Clear();
 
-            RegnumsCollection = _ext.SearchNameAndIdReturnCollection<Tbl03Regnum>(searchName, "regnum");
+            RegnumsCollection = _extDatabase.SearchNameAndIdReturnCollection<Tbl03Regnum>(searchName, "regnum");
             RaisePropertyChanged("RegnumsCollection");
         }
         private void ExecuteAddRegnum(object o)
@@ -108,26 +110,9 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         {
             if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
 
-            var regnum = _uow.Tbl03Regnums.GetById(SelectedRegnum.RegnumId);
-
-            RegnumsCollection.Insert(0, new Tbl03Regnum
-            {
-                RegnumName = CultRes.StringsRes.DatasetNew,
-                Subregnum = regnum.Subregnum,
-                Valid = regnum.Valid,
-                ValidYear = regnum.ValidYear,
-                Synonym = regnum.Synonym,
-                Author = regnum.Author,
-                AuthorYear = regnum.AuthorYear,
-                Info = regnum.Info,
-                EngName = regnum.EngName,
-                GerName = regnum.GerName,
-                FraName = regnum.FraName,
-                PorName = regnum.PorName,
-                Memo = regnum.Memo
-            });
-
+            RegnumsCollection = _extCopy.CopyRegnum(SelectedRegnum);
             RaisePropertyChanged("RegnumsCollection");
+
             // evtl verbundene tabellen-Datensätze auch kopieren Expert, Source, Author und Comment
         }
         private void ExecuteDeleteRegnum(string searchName)
@@ -292,40 +277,15 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             ExecuteGetRegnumsByNameOrId(searchName);
         }
 
-        private void UpdateCollection()
-        {
-            RegnumsCollection.Clear();
-            foreach (var regnum in _uow.Tbl03Regnums.GetAll())
-            {
-                RegnumsCollection.Add(regnum);
-            }
-        }
-
-        //private ObservableCollection<Tbl03Regnum> SearchNameReturnRegnumsCollection(string searchName)
+        //private void UpdateCollection()
         //{
-        //    var collection = new ObservableCollection<Tbl03Regnum>();
-
-        //    switch (searchName)
+        //    RegnumsCollection.Clear();
+        //    foreach (var regnum in _uow.Tbl03Regnums.GetAll())
         //    {
-        //        case "":
-        //            return collection;
-        //        case "*":
-        //            collection = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums.GetAll());
-        //            break;
-        //        default:
-        //            collection = int.TryParse(searchName, out var id)
-        //                ? new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums
-        //                    .Find(e => e.RegnumId == id))
-        //                : new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums
-        //                    .Find(e => e.RegnumName.StartsWith(searchName))
-        //                    .OrderBy(a => a.RegnumName)
-        //                    .ThenBy(a => a.Subregnum)
-        //                );
-        //            break;
+        //        RegnumsCollection.Add(regnum);
         //    }
-
-        //    return collection;
         //}
+
         private void GetPhylums(int regnumId)
         {
             var query = (from phylum in _context.Tbl06Phylums
@@ -333,7 +293,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                          select phylum).ToList();
 
             PhylumsCollection.Clear();
-            foreach (Tbl06Phylum phylum in query)
+            foreach (var phylum in query)
             {
                 if (phylum != null) PhylumsCollection.Add(phylum);
             }
@@ -459,8 +419,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteGetExpertsByNameOrId(string searchName)
         {
-            //     ReferenceExpertsCollection = _ext.SearchNameReturnReferenceCollection(searchName, "expert");
-            ReferenceExpertsCollection = _ext.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "expert");
+            ReferenceExpertsCollection = _extDatabase.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "expert");
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
         private void ExecuteAddExpert(object o)
@@ -474,21 +433,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         {
             if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceExpert)) return;
 
-            if (SelectedReferenceExpert != null)
-            {
-                var reference = _uow.Tbl90References.GetById(SelectedReferenceExpert.ReferenceId);
-
-                ReferenceExpertsCollection.Insert(0, new Tbl90Reference()
-                {
-                    RegnumId = reference.RegnumId,
-                    RefExpertId = reference.RefExpertId,
-                    Valid = reference.Valid,
-                    ValidYear = reference.ValidYear,
-                    Info = CultRes.StringsRes.DatasetNew,
-                    Memo = reference.Memo
-                });
-            }
-
+            ReferenceExpertsCollection = _extCopy.CopyReferenceRegnum(SelectedReferenceExpert, "Expert");
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
         private void ExecuteDeleteExpert(object o)
@@ -604,29 +549,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
-        //private ObservableCollection<Tbl90Reference> SearchNameReturnExpertsCollection(string searchName)
-        //{
-        //    var collection = new ObservableCollection<Tbl90Reference>();
-
-        //    switch (searchName)
-        //    {
-        //        case "":
-        //            return collection;
-        //        case "*":
-        //            collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.GetAll());
-        //            break;
-        //        default:
-        //            collection = int.TryParse(searchName, out var id)
-        //                ? new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-        //                    .Find(e => e.ReferenceId == id && e.RefAuthorId == null && e.RefSourceId == null))
-        //                : new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-        //                    .Find(e => e.Info.StartsWith(searchName))
-        //                );
-        //            break;
-        //    }
-
-        //    return collection;
-        //}
 
         #endregion
 
@@ -651,8 +573,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteGetSourcesByNameOrId(string searchName)
         {
-            //   ReferenceSourcesCollection = _ext.SearchNameReturnReferenceCollection(searchName, "source");
-            ReferenceSourcesCollection = _ext.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "source");
+            ReferenceSourcesCollection = _extDatabase.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "source");
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
         private void ExecuteAddSource(object o)
@@ -666,21 +587,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         {
             if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceSource)) return;
 
-            if (SelectedReferenceSource != null)
-            {
-                var reference = _uow.Tbl90References.GetById(SelectedReferenceSource.ReferenceId);
-
-                ReferenceSourcesCollection.Insert(0, new Tbl90Reference()
-                {
-                    RegnumId = reference.RegnumId,
-                    RefSourceId = reference.RefSourceId,
-                    Valid = reference.Valid,
-                    ValidYear = reference.ValidYear,
-                    Info = CultRes.StringsRes.DatasetNew,
-                    Memo = reference.Memo
-                });
-            }
-
+            ReferenceSourcesCollection = _extCopy.CopyReferenceRegnum(SelectedReferenceExpert, "Source");
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
         private void ExecuteDeleteSource(object o)
@@ -796,29 +703,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
-        //private ObservableCollection<Tbl90Reference> SearchNameReturnSourcesCollection(string searchName)
-        //{
-        //    var collection = new ObservableCollection<Tbl90Reference>();
-
-        //    switch (searchName)
-        //    {
-        //        case "":
-        //            return collection;
-        //        case "*":
-        //            collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.GetAll());
-        //            break;
-        //        default:
-        //            collection = int.TryParse(searchName, out var id)
-        //                ? new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-        //                    .Find(e => e.ReferenceId == id && e.RefAuthorId == null && e.RefExpertId == null))
-        //                : new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-        //                    .Find(e => e.Info.StartsWith(searchName))
-        //                );
-        //            break;
-        //    }
-
-        //    return collection;
-        //}
 
         #endregion
 
@@ -845,8 +729,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteGetAuthorsByNameOrId(string searchName)
         {
-            //  ReferenceSourcesCollection = _ext.SearchNameReturnReferenceCollection(searchName, "author");
-            ReferenceAuthorsCollection = _ext.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "author");
+            ReferenceAuthorsCollection = _extDatabase.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "author");
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
         private void ExecuteAddAuthor(object o)
@@ -860,21 +743,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         {
             if (_genAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceAuthor)) return;
 
-            if (SelectedReferenceAuthor != null)
-            {
-                var reference = _uow.Tbl90References.GetById(SelectedReferenceAuthor.ReferenceId);
-
-                ReferenceAuthorsCollection.Insert(0, new Tbl90Reference()
-                {
-                    RegnumId = reference.RegnumId,
-                    RefAuthorId = reference.RefAuthorId,
-                    Valid = reference.Valid,
-                    ValidYear = reference.ValidYear,
-                    Info = CultRes.StringsRes.DatasetNew,
-                    Memo = reference.Memo
-                });
-            }
-
+            ReferenceAuthorsCollection = _extCopy.CopyReferenceRegnum(SelectedReferenceAuthor, "Author");
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
         private void ExecuteDeleteAuthor(object o)
@@ -990,29 +859,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
-        //private ObservableCollection<Tbl90Reference> SearchNameReturnAuthorsCollection(string searchName)
-        //{
-        //    var collection = new ObservableCollection<Tbl90Reference>();
-
-        //    switch (searchName)
-        //    {
-        //        case "":
-        //            return collection;
-        //        case "*":
-        //            collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.GetAll());
-        //            break;
-        //        default:
-        //            collection = int.TryParse(searchName, out var id)
-        //                ? new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-        //                    .Find(e => e.ReferenceId == id && e.RefSourceId == null && e.RefExpertId == null))
-        //                : new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-        //                    .Find(e => e.Info.StartsWith(searchName))
-        //                );
-        //            break;
-        //    }
-
-        //    return collection;
-        //}
 
         #endregion
 
@@ -1037,8 +883,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteGetCommentsByNameOrId(string searchName)
         {
-            //      CommentsCollection = _ext.SearchNameReturnCommentsCollection(searchName);
-            CommentsCollection = _ext.SearchNameAndIdReturnCollection<Tbl93Comment>(searchName, "comment");
+            CommentsCollection = _extDatabase.SearchNameAndIdReturnCollection<Tbl93Comment>(searchName, "comment");
             RaisePropertyChanged("CommentsCollection");
         }
         private void ExecuteAddComment(object o)
@@ -1052,20 +897,8 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         {
             if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedComment)) return;
 
-            if (SelectedComment != null)
-            {
-                var comment = _uow.Tbl93Comments.GetById(SelectedComment.CommentId);
 
-                CommentsCollection.Insert(0, new Tbl93Comment()
-                {
-                    RegnumId = comment.RegnumId,
-                    Valid = comment.Valid,
-                    ValidYear = comment.ValidYear,
-                    Info = CultRes.StringsRes.DatasetNew,
-                    Memo = comment.Memo
-                });
-            }
-
+            CommentsCollection = _extCopy.CopyComment(SelectedComment, "Regnum");
             RaisePropertyChanged("CommentsCollection");
         }
         private void ExecuteDeleteComment(object o)
@@ -1178,29 +1011,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
             RaisePropertyChanged("CommentsCollection");
         }
-        //private ObservableCollection<Tbl93Comment> SearchNameReturnCommentsCollection(string searchName)
-        //{
-        //    var collection = new ObservableCollection<Tbl93Comment>();
-
-        //    switch (searchName)
-        //    {
-        //        case "":
-        //            return collection;
-        //        case "*":
-        //            collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.GetAll());
-        //            break;
-        //        default:
-        //            collection = int.TryParse(searchName, out var id)
-        //                ? new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
-        //                    .Find(e => e.CommentId == id))
-        //                : new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
-        //                    .Find(e => e.Info.StartsWith(searchName))
-        //                );
-        //            break;
-        //    }
-
-        //    return collection;
-        //}
 
         #endregion
 

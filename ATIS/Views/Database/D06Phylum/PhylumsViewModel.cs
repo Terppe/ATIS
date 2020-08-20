@@ -25,7 +25,8 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
-        private BasicDatabase _ext = new BasicDatabase();
+        private BasicDatabase _extDatabase = new BasicDatabase();
+        private BasicCopy _extCopy = new BasicCopy();
 
         #region [ Constructor ]
 
@@ -89,8 +90,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             //ReferenceAuthorsCollection.Clear();
             //CommentsCollection.Clear();
 
-            //   PhylumsCollection = _ext.SearchNameReturnPhylumsCollection(searchName);
-            PhylumsCollection = _ext.SearchNameAndIdReturnCollection<Tbl06Phylum>(searchName, "phylum");
+            PhylumsCollection = _extDatabase.SearchNameAndIdReturnCollection<Tbl06Phylum>(searchName, "phylum");
             RaisePropertyChanged("PhylumsCollection");
         }
         private void ExecuteAddPhylum(object o)
@@ -102,25 +102,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         {
             if (_genPhylumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedPhylum)) return;
 
-            var phylum = _uow.Tbl06Phylums.GetById(SelectedPhylum.PhylumId);
-
-            PhylumsCollection.Insert(0, new Tbl06Phylum()
-            {
-                PhylumName = CultRes.StringsRes.DatasetNew,
-                RegnumId = phylum.RegnumId,
-                Valid = phylum.Valid,
-                ValidYear = phylum.ValidYear,
-                Synonym = phylum.Synonym,
-                Author = phylum.Author,
-                AuthorYear = phylum.AuthorYear,
-                Info = phylum.Info,
-                EngName = phylum.EngName,
-                GerName = phylum.GerName,
-                FraName = phylum.FraName,
-                PorName = phylum.PorName,
-                Memo = phylum.Memo
-            });
-
+            PhylumsCollection = _extCopy.CopyPhylum(SelectedPhylum);
             RaisePropertyChanged("PhylumsCollection");
             // evtl verbundene tabellen-Datensätze auch kopieren Expert, Source, Author und Comment
         }
@@ -284,39 +266,15 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             ExecuteGetPhylumsByNameOrId(searchName);
         }
 
-        private void UpdateCollection()
-        {
-            PhylumsCollection.Clear();
-            foreach (var phylum in _uow.Tbl06Phylums.GetAll())
-            {
-                PhylumsCollection.Add(phylum);
-            }
-        }
-
-        //private ObservableCollection<Tbl06Phylum> SearchNameReturnPhylumsCollection(string searchName)
+        //private void UpdateCollection()
         //{
-        //    var collection = new ObservableCollection<Tbl06Phylum>();
-
-        //    switch (searchName)
+        //    PhylumsCollection.Clear();
+        //    foreach (var phylum in _uow.Tbl06Phylums.GetAll())
         //    {
-        //        case "":
-        //            return collection;
-        //        case "*":
-        //            collection = new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums.GetAll());
-        //            break;
-        //        default:
-        //            collection = int.TryParse(searchName, out var id)
-        //                ? new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums
-        //                    .Find(e => e.PhylumId == id))
-        //                : new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums.ListTbl06PhylumsOnlyAnimaliaOrderBy(searchName)
-        //                    //.Find(e => e.PhylumName.StartsWith(searchName))
-        //                    //.OrderBy(a => a.PhylumName)
-        //                );
-        //            break;
+        //        PhylumsCollection.Add(phylum);
         //    }
-
-        //    return collection;
         //}
+
 
         private void GetRegnums(int regnumId)
         {
@@ -441,8 +399,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void ExecuteGetExpertsByNameOrId(string searchName)
         {
-            //    ReferenceExpertsCollection = _ext.SearchNameReturnReferenceCollection(searchName, "expert");
-            ReferenceExpertsCollection = _ext.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "expert");
+            ReferenceExpertsCollection = _extDatabase.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "expert");
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
         private void ExecuteAddExpert(object o)
@@ -456,21 +413,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         {
             if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceExpert)) return;
 
-            if (SelectedReferenceExpert != null)
-            {
-                var reference = _uow.Tbl90References.GetById(SelectedReferenceExpert.ReferenceId);
-
-                ReferenceExpertsCollection.Insert(0, new Tbl90Reference()
-                {
-                    PhylumId = reference.PhylumId,
-                    RefExpertId = reference.RefExpertId,
-                    Valid = reference.Valid,
-                    ValidYear = reference.ValidYear,
-                    Info = CultRes.StringsRes.DatasetNew,
-                    Memo = reference.Memo
-                });
-            }
-
+            ReferenceExpertsCollection = _extCopy.CopyReferencePhylum(SelectedReferenceExpert, "Expert");
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
         private void ExecuteDeleteExpert(object o)
@@ -586,29 +529,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
-        //private ObservableCollection<Tbl90Reference> SearchNameReturnExpertsCollection(string searchName)
-        //{
-        //    var collection = new ObservableCollection<Tbl90Reference>();
-
-        //    switch (searchName)
-        //    {
-        //        case "":
-        //            return collection;
-        //        case "*":
-        //            collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.GetAll());
-        //            break;
-        //        default:
-        //            collection = int.TryParse(searchName, out var id)
-        //                ? new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-        //                    .Find(e => e.ReferenceId == id && e.RefAuthorId == null && e.RefSourceId == null))
-        //                : new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-        //                    .Find(e => e.Info.StartsWith(searchName))
-        //                );
-        //            break;
-        //    }
-
-        //    return collection;
-        //}
 
         #endregion
 
@@ -634,8 +554,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void ExecuteGetSourcesByNameOrId(string searchName)
         {
-            //      ReferenceSourcesCollection = _ext.SearchNameReturnReferenceCollection(searchName, "source");
-            ReferenceSourcesCollection = _ext.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "source");
+            ReferenceSourcesCollection = _extDatabase.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "source");
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
         private void ExecuteAddSource(object o)
@@ -649,21 +568,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         {
             if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceSource)) return;
 
-            if (SelectedReferenceSource != null)
-            {
-                var reference = _uow.Tbl90References.GetById(SelectedReferenceSource.ReferenceId);
-
-                ReferenceSourcesCollection.Insert(0, new Tbl90Reference()
-                {
-                    PhylumId = reference.PhylumId,
-                    RefSourceId = reference.RefSourceId,
-                    Valid = reference.Valid,
-                    ValidYear = reference.ValidYear,
-                    Info = CultRes.StringsRes.DatasetNew,
-                    Memo = reference.Memo
-                });
-            }
-
+            ReferenceSourcesCollection = _extCopy.CopyReferencePhylum(SelectedReferenceSource, "Source");
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
         private void ExecuteDeleteSource(object o)
@@ -779,29 +684,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
-        //private ObservableCollection<Tbl90Reference> SearchNameReturnSourcesCollection(string searchName)
-        //{
-        //    var collection = new ObservableCollection<Tbl90Reference>();
-
-        //    switch (searchName)
-        //    {
-        //        case "":
-        //            return collection;
-        //        case "*":
-        //            collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.GetAll());
-        //            break;
-        //        default:
-        //            collection = int.TryParse(searchName, out var id)
-        //                ? new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-        //                    .Find(e => e.ReferenceId == id && e.RefAuthorId == null && e.RefExpertId == null))
-        //                : new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-        //                    .Find(e => e.Info.StartsWith(searchName))
-        //                );
-        //            break;
-        //    }
-
-        //    return collection;
-        //}
 
         #endregion
 
@@ -828,8 +710,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void ExecuteGetAuthorsByNameOrId(string searchName)
         {
-            //      ReferenceSourcesCollection = _ext.SearchNameReturnReferenceCollection(searchName, "author");
-            ReferenceAuthorsCollection = _ext.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "author");
+            ReferenceAuthorsCollection = _extDatabase.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "author");
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
         private void ExecuteAddAuthor(object o)
@@ -843,21 +724,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         {
             if (_genAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceAuthor)) return;
 
-            if (SelectedReferenceAuthor != null)
-            {
-                var reference = _uow.Tbl90References.GetById(SelectedReferenceAuthor.ReferenceId);
-
-                ReferenceAuthorsCollection.Insert(0, new Tbl90Reference()
-                {
-                    PhylumId = reference.PhylumId,
-                    RefAuthorId = reference.RefAuthorId,
-                    Valid = reference.Valid,
-                    ValidYear = reference.ValidYear,
-                    Info = CultRes.StringsRes.DatasetNew,
-                    Memo = reference.Memo
-                });
-            }
-
+            ReferenceAuthorsCollection = _extCopy.CopyReferencePhylum(SelectedReferenceAuthor, "Author");
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
         private void ExecuteDeleteAuthor(object o)
@@ -973,29 +840,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
-        //private ObservableCollection<Tbl90Reference> SearchNameReturnAuthorsCollection(string searchName)
-        //{
-        //    var collection = new ObservableCollection<Tbl90Reference>();
-
-        //    switch (searchName)
-        //    {
-        //        case "":
-        //            return collection;
-        //        case "*":
-        //            collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.GetAll());
-        //            break;
-        //        default:
-        //            collection = int.TryParse(searchName, out var id)
-        //                ? new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-        //                    .Find(e => e.ReferenceId == id && e.RefSourceId == null && e.RefExpertId == null))
-        //                : new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-        //                    .Find(e => e.Info.StartsWith(searchName))
-        //                );
-        //            break;
-        //    }
-
-        //    return collection;
-        //}
 
         #endregion
 
@@ -1020,8 +864,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void ExecuteGetCommentsByNameOrId(string searchName)
         {
-            //     CommentsCollection = _ext.SearchNameReturnCommentsCollection(searchName);
-            CommentsCollection = _ext.SearchNameAndIdReturnCollection<Tbl93Comment>(searchName, "comment");
+            CommentsCollection = _extDatabase.SearchNameAndIdReturnCollection<Tbl93Comment>(searchName, "comment");
             RaisePropertyChanged("CommentsCollection");
         }
         private void ExecuteAddComment(object o)
@@ -1035,20 +878,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         {
             if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedComment)) return;
 
-            if (SelectedComment != null)
-            {
-                var comment = _uow.Tbl93Comments.GetById(SelectedComment.CommentId);
-
-                CommentsCollection.Insert(0, new Tbl93Comment()
-                {
-                    PhylumId = comment.PhylumId,
-                    Valid = comment.Valid,
-                    ValidYear = comment.ValidYear,
-                    Info = CultRes.StringsRes.DatasetNew,
-                    Memo = comment.Memo
-                });
-            }
-
+            CommentsCollection = _extCopy.CopyComment(SelectedComment, "Phylum");
             RaisePropertyChanged("CommentsCollection");
         }
         private void ExecuteDeleteComment(object o)
@@ -1161,29 +991,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
             RaisePropertyChanged("CommentsCollection");
         }
-        //private ObservableCollection<Tbl93Comment> SearchNameReturnCommentsCollection(string searchName)
-        //{
-        //    var collection = new ObservableCollection<Tbl93Comment>();
-
-        //    switch (searchName)
-        //    {
-        //        case "":
-        //            return collection;
-        //        case "*":
-        //            collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.GetAll());
-        //            break;
-        //        default:
-        //            collection = int.TryParse(searchName, out var id)
-        //                ? new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
-        //                    .Find(e => e.CommentId == id))
-        //                : new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
-        //                    .Find(e => e.Info.StartsWith(searchName))
-        //                );
-        //            break;
-        //    }
-
-        //    return collection;
-        //}
 
         #endregion
 
