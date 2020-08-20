@@ -19,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="2.0.35" />
     <PackageReference Include="MahApps.Metro" Version="2.2.0" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.4.0" />
     <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.1.4" />
@@ -32,8 +31,6 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.5" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.5" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.5" />
-    <PackageReference Include="Microsoft.Toolkit.Wpf.UI.Controls" Version="6.1.0" />
-    <PackageReference Include="Microsoft.Toolkit.Wpf.UI.XamlHost" Version="6.1.0" />
 
   </ItemGroup>
 

@@ -1,12 +1,4 @@
-﻿using Microsoft.Toolkit.Wpf.UI.XamlHost;
-using System;
-using System.Windows;
-using Windows.UI.Xaml.Controls;
-using ATIS.Ui.Views.Database.D03Regnum;
-using ATIS.Ui.Views.Database.D06Phylum;
-using MahApps.Metro.Controls;
-using ElementTheme = Windows.UI.Xaml.ElementTheme;
-using Media = Windows.UI.Xaml.Media;
+﻿using MahApps.Metro.Controls;
 
 namespace ATIS.Ui.Views.Main
 {
