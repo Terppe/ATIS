@@ -2,10 +2,11 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using ATIS.Ui.Core;
+using ATIS.Ui.Helper;
 
 namespace ATIS.Ui.Views.Database.SearchMethods
 {
-    public class BasicDatabase
+    public class BasicGet : ViewModelBase
     {
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
 

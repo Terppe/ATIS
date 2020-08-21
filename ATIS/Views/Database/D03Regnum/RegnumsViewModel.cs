@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
+using ATIS.Ui.Views.Database.CrudHelper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
 using ATIS.Ui.Views.Database.SearchMethods;
-using ATIS.Ui.Views.Main;
 using Microsoft.EntityFrameworkCore;
 
 namespace ATIS.Ui.Views.Database.D03Regnum
@@ -26,8 +25,8 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
-        private BasicDatabase _extDatabase = new BasicDatabase();
-        private BasicCopy _extCopy = new BasicCopy();
+        private readonly BasicGet _extGet = new BasicGet();
+        private readonly BasicCopy _extCopy = new BasicCopy();
 
         #region [ Constructor ]
 
@@ -98,7 +97,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             //ReferenceAuthorsCollection.Clear();
             //CommentsCollection.Clear();
 
-            RegnumsCollection = _extDatabase.SearchNameAndIdReturnCollection<Tbl03Regnum>(searchName, "regnum");
+            RegnumsCollection = _extGet.SearchNameAndIdReturnCollection<Tbl03Regnum>(searchName, "regnum");
             RaisePropertyChanged("RegnumsCollection");
         }
         private void ExecuteAddRegnum(object o)
@@ -419,7 +418,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteGetExpertsByNameOrId(string searchName)
         {
-            ReferenceExpertsCollection = _extDatabase.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "expert");
+            ReferenceExpertsCollection = _extGet.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "expert");
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
         private void ExecuteAddExpert(object o)
@@ -573,7 +572,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteGetSourcesByNameOrId(string searchName)
         {
-            ReferenceSourcesCollection = _extDatabase.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "source");
+            ReferenceSourcesCollection = _extGet.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "source");
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
         private void ExecuteAddSource(object o)
@@ -729,7 +728,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteGetAuthorsByNameOrId(string searchName)
         {
-            ReferenceAuthorsCollection = _extDatabase.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "author");
+            ReferenceAuthorsCollection = _extGet.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "author");
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
         private void ExecuteAddAuthor(object o)
@@ -883,7 +882,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteGetCommentsByNameOrId(string searchName)
         {
-            CommentsCollection = _extDatabase.SearchNameAndIdReturnCollection<Tbl93Comment>(searchName, "comment");
+            CommentsCollection = _extGet.SearchNameAndIdReturnCollection<Tbl93Comment>(searchName, "comment");
             RaisePropertyChanged("CommentsCollection");
         }
         private void ExecuteAddComment(object o)
