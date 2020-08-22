@@ -7,7 +7,6 @@ using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Database.CrudHelper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
-using ATIS.Ui.Views.Database.SearchMethods;
 using Microsoft.EntityFrameworkCore;
 
 namespace ATIS.Ui.Views.Database.D03Regnum
@@ -27,6 +26,8 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
         private readonly BasicGet _extGet = new BasicGet();
         private readonly BasicCopy _extCopy = new BasicCopy();
+        private readonly BasicDelete _extDelete = new BasicDelete();
+        private readonly BasicSave _extSave = new BasicSave();
 
         #region [ Constructor ]
 
@@ -118,74 +119,59 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         {
             if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
 
-            //check if in Tbl06Phylums or Tbl09Divisions connected datasets no delete, Expert, Sources, authors and Comment delete and than return
-
-            PhylumsCollection = new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums.Find(x => x.RegnumId == SelectedRegnum.RegnumId));
+            //check if in Tbl06Phylums or Tbl09Divisions connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
+            PhylumsCollection = _extDelete.SearchForConnectedDatasetsWithRegnumIdInTablePhylum(SelectedRegnum);
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(PhylumsCollection.Count, CultRes.StringsRes.Phylum)) return;
 
-            DivisionsCollection = new ObservableCollection<Tbl09Division>(_uow.Tbl09Divisions.Find(x => x.RegnumId == SelectedRegnum.RegnumId));
+            DivisionsCollection = _extDelete.SearchForConnectedDatasetsWithRegnumIdInTableDivision(SelectedRegnum);
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(DivisionsCollection.Count, CultRes.StringsRes.Division)) return;
 
-            //Delete all References Expert, Source, Authors  ----------------------------------------------------
-
-            ReferencesCollection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.RegnumId == SelectedRegnum.RegnumId));
+            //Delete all References Experts, Sources, Authors  ----------------------------------------------------
+            ReferencesCollection = _extDelete.DeleteDatasetsWithRegnumIdInTableReference(SelectedRegnum);
             if (ReferencesCollection.Count > 0)
             {
                 if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
-                foreach (var t in ReferencesCollection)
-                {
-                    _uow.Tbl90References.Remove(t);
-                }
-                _uow.Complete();
+                _extDelete.DeleteReferences(ReferencesCollection);
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
             }
 
-            CommentsCollection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.RegnumId == SelectedRegnum.RegnumId));
+            //Delete all Comments  ----------------------------------------------------
+            CommentsCollection = _extDelete.DeleteDatasetsWithRegnumIdInTableComment(SelectedRegnum);
             if (CommentsCollection.Count > 0)
             {
                 if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
 
-                foreach (var t in CommentsCollection)
-                {
-                    _uow.Tbl93Comments.Remove(t);
-                }
-                _uow.Complete();
+                _extDelete.DeleteComments(CommentsCollection);
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
             }
 
-            if (false) return;
+            try
             {
-                try
+                var regnum = _uow.Tbl03Regnums.GetById(SelectedRegnum.RegnumId);
+                if (regnum != null)
                 {
-                    var regnum = _uow.Tbl03Regnums.GetById(SelectedRegnum.RegnumId);
-                    if (regnum != null)
-                    {
-                        if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion1 + " " + SelectedRegnum.RegnumName + " " + SelectedRegnum.Subregnum)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion1 + " " + SelectedRegnum.RegnumName + " " + SelectedRegnum.Subregnum)) return;
 
-                        _uow.Tbl03Regnums.Remove(regnum);
-                        _uow.Complete();
+                    _extDelete.DeleteRegnum(regnum);
 
-
-                        _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, SelectedRegnum.RegnumName + " " + SelectedRegnum.Subregnum);
-                    }
-                    else
-                    {
-                        _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedRegnum.RegnumName + " " + SelectedRegnum.Subregnum + " " + CultRes.StringsRes.DeleteCan1);
-                    }
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, SelectedRegnum.RegnumName + " " + SelectedRegnum.Subregnum);
                 }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedRegnum.RegnumName + " " + SelectedRegnum.Subregnum + " " + CultRes.StringsRes.DeleteCan1);
             }
-            ExecuteGetRegnumsByNameOrId(searchName);
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                //         Log.Error(e);
+            }
 
+            ExecuteGetRegnumsByNameOrId(searchName);
             RaisePropertyChanged("RegnumsCollection");
         }
+
+
         private void ExecuteSaveRegnum(string searchName)
         {
             if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
@@ -446,15 +432,11 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + SelectedReferenceExpert.Info)) return;
 
-                    _uow.Tbl90References.Remove(reference);
-                    _uow.Complete();
+                    _extDelete.DeleteReference(reference);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, SelectedReferenceExpert.Info);
                 }
-                else
-                {
-                    _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedReferenceExpert.Info + " " + CultRes.StringsRes.DeleteCan1);
-                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedReferenceExpert.Info + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -462,9 +444,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 //         Log.Error(e);
             }
 
-            ReferenceExpertsCollection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                .Find(x => x.RegnumId == SelectedRegnum.RegnumId && x.RefAuthorId == null && x.RefSourceId == null));
-
+            ReferenceExpertsCollection = _extDelete.SearchForDatasetWithRegnumIdAndRefAuthorIdAndRefSourceIdInTableReference(SelectedRegnum);
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
         private void ExecuteSaveExpert(object o)
@@ -600,15 +580,11 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + SelectedReferenceSource.Info)) return;
 
-                    _uow.Tbl90References.Remove(reference);
-                    _uow.Complete();
+                    _extDelete.DeleteReference(reference);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, SelectedReferenceSource.Info);
                 }
-                else
-                {
-                    _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedReferenceSource.Info + " " + CultRes.StringsRes.DeleteCan1);
-                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedReferenceSource.Info + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -616,9 +592,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 //         Log.Error(e);
             }
 
-            ReferenceSourcesCollection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                .Find(x => x.RegnumId == SelectedRegnum.RegnumId && x.RefAuthorId == null && x.RefExpertId == null));
-
+            ReferenceSourcesCollection = _extDelete.SearchForDatasetWithRegnumIdAndRefAuthorIdAndRefExpertIdInTableReference(SelectedRegnum);
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
         private void ExecuteSaveSource(object o)
@@ -756,15 +730,11 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + SelectedReferenceAuthor.Info)) return;
 
-                    _uow.Tbl90References.Remove(reference);
-                    _uow.Complete();
+                    _extDelete.DeleteReference(reference);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, SelectedReferenceAuthor.Info);
                 }
-                else
-                {
-                    _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedReferenceAuthor.Info + " " + CultRes.StringsRes.DeleteCan1);
-                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedReferenceAuthor.Info + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -772,9 +742,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 //         Log.Error(e);
             }
 
-            ReferenceAuthorsCollection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                .Find(x => x.RegnumId == SelectedRegnum.RegnumId && x.RefSourceId == null && x.RefExpertId == null));
-
+            ReferenceAuthorsCollection = _extDelete.SearchForDatasetWithRegnumIdAndRefSourceIdAndRefExpertIdInTableReference(SelectedRegnum);
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
         private void ExecuteSaveAuthor(object o)
@@ -911,24 +879,19 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + SelectedComment.Info)) return;
 
-                    _uow.Tbl93Comments.Remove(comment);
-                    _uow.Complete();
+                    _extDelete.DeleteComment(comment);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, SelectedComment.Info);
                 }
-                else
-                {
-                    _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedComment.Info + " " + CultRes.StringsRes.DeleteCan1);
-                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedComment.Info + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
                 //         Log.Error(e);
             }
-            CommentsCollection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
-                .Find(x => x.RegnumId == SelectedRegnum.RegnumId));
 
+            CommentsCollection = _extDelete.SearchForDatasetWithRegnumIdInTableComment(SelectedRegnum);
             RaisePropertyChanged("CommentsCollection");
         }
         private void ExecuteSaveComment(object o)

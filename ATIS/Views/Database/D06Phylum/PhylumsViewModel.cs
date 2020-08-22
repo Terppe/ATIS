@@ -7,7 +7,6 @@ using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Database.CrudHelper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
-using ATIS.Ui.Views.Database.SearchMethods;
 using Microsoft.EntityFrameworkCore;
 
 namespace ATIS.Ui.Views.Database.D06Phylum
@@ -24,8 +23,10 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
-        private BasicGet _extGet = new BasicGet();
-        private BasicCopy _extCopy = new BasicCopy();
+        private readonly BasicGet _extGet = new BasicGet();
+        private readonly BasicCopy _extCopy = new BasicCopy();
+        private readonly BasicDelete _extDelete = new BasicDelete();
+        private readonly BasicSave _extSave = new BasicSave();
 
         #region [ Constructor ]
 
@@ -109,71 +110,53 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         {
             if (_genPhylumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedPhylum)) return;
 
-            //check if in Tbl12Subphylums connected datasets no delete, Expert, Sources, authors and Comment delete and than return
-
-            SubphylumsCollection = new ObservableCollection<Tbl12Subphylum>(_uow.Tbl12Subphylums.Find(x => x.PhylumId == SelectedPhylum.PhylumId));
+            //check if in Tbl12Subphylums connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
+            SubphylumsCollection = _extDelete.SearchForConnectedDatasetsWithPhylumIdInTableSubphylum(SelectedPhylum);
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(SubphylumsCollection.Count, "Subphylum")) return;
 
-
-            //Delete all References Expert, Source, Authors  ----------------------------------------------------
-
-            ReferencesCollection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.PhylumId == SelectedPhylum.PhylumId));
+            //Delete all References Experts, Sources, Authors  ----------------------------------------------------
+            ReferencesCollection = _extDelete.DeleteDatasetsWithPhylumIdInTableReference(SelectedPhylum);
             if (ReferencesCollection.Count > 0)
             {
                 if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
-                foreach (var t in ReferencesCollection)
-                {
-                    _uow.Tbl90References.Remove(t);
-                }
-                _uow.Complete();
+                _extDelete.DeleteReferences(ReferencesCollection);
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
             }
 
-            CommentsCollection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.PhylumId == SelectedPhylum.PhylumId));
+            //Delete all Comments  ----------------------------------------------------
+            CommentsCollection = _extDelete.DeleteDatasetsWithPhylumIdInTableComment(SelectedPhylum);
             if (CommentsCollection.Count > 0)
             {
                 if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
 
-                foreach (var t in CommentsCollection)
-                {
-                    _uow.Tbl93Comments.Remove(t);
-                }
-                _uow.Complete();
+                _extDelete.DeleteComments(CommentsCollection);
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
             }
 
-            if (false) return;
+            try
             {
-                try
+                var phylum = _uow.Tbl06Phylums.GetById(SelectedPhylum.PhylumId);
+                if (phylum != null)
                 {
-                    var phylum = _uow.Tbl06Phylums.GetById(SelectedPhylum.PhylumId);
-                    if (phylum != null)
-                    {
-                        if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + SelectedPhylum.PhylumName)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + SelectedPhylum.PhylumName)) return;
 
-                        _uow.Tbl06Phylums.Remove(phylum);
-                        _uow.Complete();
+                    _extDelete.DeletePhylum(phylum);
 
-                        _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, SelectedPhylum.PhylumName);
-                    }
-                    else
-                    {
-                        _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedPhylum.PhylumName + " " + CultRes.StringsRes.DeleteCan1);
-                    }
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, SelectedPhylum.PhylumName);
                 }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedPhylum.PhylumName + " " + CultRes.StringsRes.DeleteCan1);
             }
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                //         Log.Error(e);
+            }
+
             ExecuteGetPhylumsByNameOrId(searchName);
-
             RaisePropertyChanged("PhylumsCollection");
-
         }
         private void ExecuteSavePhylum(string searchName)
         {
@@ -426,15 +409,11 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + SelectedReferenceExpert.Info)) return;
 
-                    _uow.Tbl90References.Remove(reference);
-                    _uow.Complete();
+                    _extDelete.DeleteReference(reference);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, SelectedReferenceExpert.Info);
                 }
-                else
-                {
-                    _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedReferenceExpert.Info + " " + CultRes.StringsRes.DeleteCan1);
-                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedReferenceExpert.Info + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -442,9 +421,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 //         Log.Error(e);
             }
 
-            ReferenceExpertsCollection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                .Find(x => x.PhylumId == SelectedPhylum.PhylumId && x.RefAuthorId == null && x.RefSourceId == null));
-
+            ReferenceExpertsCollection = _extDelete.SearchForDatasetWithPhylumIdAndRefAuthorIdAndRefSourceIdInTableReference(SelectedPhylum);
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
         private void ExecuteSaveExpert(object o)
@@ -581,15 +558,11 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + SelectedReferenceSource.Info)) return;
 
-                    _uow.Tbl90References.Remove(reference);
-                    _uow.Complete();
+                    _extDelete.DeleteReference(reference);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, SelectedReferenceSource.Info);
                 }
-                else
-                {
-                    _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedReferenceSource.Info + " " + CultRes.StringsRes.DeleteCan1);
-                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedReferenceSource.Info + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -597,9 +570,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 //         Log.Error(e);
             }
 
-            ReferenceSourcesCollection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                .Find(x => x.PhylumId == SelectedPhylum.PhylumId && x.RefAuthorId == null && x.RefExpertId == null));
-
+            ReferenceSourcesCollection = _extDelete.SearchForDatasetWithPhylumIdAndRefAuthorIdAndRefExpertIdInTableReference(SelectedPhylum);
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
         private void ExecuteSaveSource(object o)
@@ -737,15 +708,11 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + SelectedReferenceAuthor.Info)) return;
 
-                    _uow.Tbl90References.Remove(reference);
-                    _uow.Complete();
+                    _extDelete.DeleteReference(reference);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, SelectedReferenceAuthor.Info);
                 }
-                else
-                {
-                    _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedReferenceAuthor.Info + " " + CultRes.StringsRes.DeleteCan1);
-                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedReferenceAuthor.Info + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -753,9 +720,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 //         Log.Error(e);
             }
 
-            ReferenceAuthorsCollection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                .Find(x => x.PhylumId == SelectedPhylum.PhylumId && x.RefSourceId == null && x.RefExpertId == null));
-
+            ReferenceAuthorsCollection = _extDelete.SearchForDatasetWithPhylumIdAndRefSourceIdAndRefExpertIdInTableReference(SelectedPhylum);
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
         private void ExecuteSaveAuthor(object o)
@@ -891,24 +856,19 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + SelectedComment.Info)) return;
 
-                    _uow.Tbl93Comments.Remove(comment);
-                    _uow.Complete();
+                    _extDelete.DeleteComment(comment);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, SelectedComment.Info);
                 }
-                else
-                {
-                    _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedComment.Info + " " + CultRes.StringsRes.DeleteCan1);
-                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + SelectedComment.Info + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
                 //         Log.Error(e);
             }
-            CommentsCollection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
-                .Find(x => x.PhylumId == SelectedPhylum.PhylumId));
 
+            CommentsCollection = _extDelete.SearchForDatasetWithPhylumIdInTableComment(SelectedPhylum);
             RaisePropertyChanged("CommentsCollection");
         }
         private void ExecuteSaveComment(object o)
