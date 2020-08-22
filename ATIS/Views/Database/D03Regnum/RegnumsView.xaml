@@ -167,766 +167,768 @@
                         </GroupBox>
                     </StackPanel>
                     <StackPanel Grid.Row="2">
-                        <TabControl
-                            Height="Auto"
-                            mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
-                            mah:HeaderedControlHelper.HeaderFontSize="18"
-                            mah:TabControlHelper.Underlined="TabPanel"
-                            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-                            SelectedIndex="{Binding TabIndexDetail, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                            <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderExpert-Source-Author-Comment}">
-                                <StackPanel>
+                        <Expander>
+                            <TabControl
+                                Height="Auto"
+                                mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+                                mah:HeaderedControlHelper.HeaderFontSize="18"
+                                mah:TabControlHelper.Underlined="TabPanel"
+                                Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                                SelectedIndex="{Binding TabIndexDetail, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderExpert-Source-Author-Comment}">
                                     <StackPanel>
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="*" />
-                                            </Grid.RowDefinitions>
-                                            <StackPanel
-                                                Grid.Row="0"
-                                                Grid.Column="0"
-                                                VerticalAlignment="Top"
-                                                Orientation="Horizontal">
-                                                <searchTextBox:SearchTextBox
-                                                    x:Name="TbSearchExpert"
-                                                    Width="150"
-                                                    Height="30"
-                                                    Margin="10,5,30,2"
-                                                    AllowEmptySearches="True"
-                                                    BorderBrush="LightBlue"
-                                                    BorderThickness="1"
-                                                    Command="{Binding GetExpertsByNameOrIdCommand}"
-                                                    SearchMode="Instant"
-                                                    Text="{Binding SearchExpertName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                                    ToolTip="{DynamicResource Shared-SearchInfoOrId}" />
-                                            </StackPanel>
-                                            <StackPanel
-                                                Grid.Row="0"
-                                                Grid.Column="0"
-                                                Margin="180,0,0,0"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Top"
-                                                Orientation="Horizontal">
-                                                <Button
-                                                    Command="{Binding AddExpertCommand}"
-                                                    Content="{DynamicResource Shared-ButtonAdd}"
-                                                    Style="{StaticResource ButtonDefault}" />
-                                                <Button
-                                                    Command="{Binding CopyExpertCommand}"
-                                                    Content="{DynamicResource Shared-ButtonCopy}"
-                                                    Style="{StaticResource ButtonDefault}" />
-                                                <Button
-                                                    Command="{Binding SaveExpertCommand}"
-                                                    Content="{DynamicResource Shared-ButtonSave}"
-                                                    Style="{StaticResource ButtonDefault}" />
-                                                <Button
-                                                    Command="{Binding DeleteExpertCommand}"
-                                                    Content="{DynamicResource Shared-ButtonDelete}"
-                                                    Style="{StaticResource ButtonDefault}" />
-                                            </StackPanel>
-                                            <GroupBox
-                                                Grid.Row="1"
-                                                Grid.Column="0"
-                                                Width="Auto"
-                                                Header="{DynamicResource Shared-ReferenceExpert}">
-                                                <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                                                    <Grid x:Name="LayoutGridRefExpert" MinWidth="300">
-                                                        <DataGrid
-                                                            Width="{Binding ElementName=LayoutGridRefExpert, Path=ActualWidth}"
-                                                            Height="Auto"
-                                                            MaxHeight="200"
-                                                            AlternatingRowBackground="LightBlue"
-                                                            AlternationCount="2"
-                                                            AutoGenerateColumns="False"
-                                                            BorderBrush="Gray"
-                                                            BorderThickness="2"
-                                                            FrozenColumnCount="2"
-                                                            GridLinesVisibility="All"
-                                                            HorizontalScrollBarVisibility="Visible"
-                                                            IsReadOnly="False"
-                                                            IsSynchronizedWithCurrentItem="true"
-                                                            ItemsSource="{Binding ReferenceExpertsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                                            RowDetailsTemplate="{StaticResource DataGridMemoDetail}"
-                                                            SelectedItem="{Binding SelectedReferenceExpert, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                            VerticalScrollBarVisibility="Visible">
-                                                            <DataGrid.Columns>
-                                                                <DataGridTextColumn
-                                                                    Width="Auto"
-                                                                    Binding="{Binding ReferenceId}"
-                                                                    Header="{DynamicResource Tbl90Reference-ReferenceId}" />
-                                                                <DataGridTextColumn
-                                                                    Width="Auto"
-                                                                    Binding="{Binding RefExpertId}"
-                                                                    Header="{DynamicResource Tbl90RefExpert-ExpertId}" />
-                                                                <DataGridTemplateColumn Width="Auto" Header="{DynamicResource Tbl90Reference-RefExpertName}">
-                                                                    <DataGridTemplateColumn.CellTemplate>
-                                                                        <DataTemplate>
-                                                                            <ComboBox
-                                                                                Width="Auto"
-                                                                                Margin="5,0,0,0"
-                                                                                IsSynchronizedWithCurrentItem="False"
-                                                                                ItemsSource="{Binding Source={StaticResource ExpertsColl}}"
-                                                                                SelectedValue="{Binding (models:Tbl90RefExpert.RefExpertId), UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                                                                SelectedValuePath="RefExpertId"
-                                                                                VirtualizingStackPanel.IsVirtualizing="True">
-                                                                                <ComboBox.ItemTemplate>
-                                                                                    <DataTemplate>
-                                                                                        <StackPanel Orientation="Horizontal">
-                                                                                            <TextBlock Text="{Binding (models:Tbl90RefExpert.RefExpertName)}" />
-                                                                                        </StackPanel>
-                                                                                    </DataTemplate>
-                                                                                </ComboBox.ItemTemplate>
-                                                                            </ComboBox>
-                                                                        </DataTemplate>
-                                                                    </DataGridTemplateColumn.CellTemplate>
-                                                                </DataGridTemplateColumn>
-                                                                <DataGridTextColumn
-                                                                    Width="Auto"
-                                                                    Binding="{Binding RegnumId}"
-                                                                    Header="{DynamicResource Tbl03Regnum-RegnumId}" />
-                                                                <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
-                                                                <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
-                                                                <DataGridTemplateColumn
-                                                                    Width="500"
-                                                                    CellEditingTemplate="{StaticResource Info500EditColumnTemplate}"
-                                                                    CellTemplate="{StaticResource Info500ColumnTemplate}"
-                                                                    Header="{DynamicResource Shared-Info}" />
-                                                            </DataGrid.Columns>
-                                                        </DataGrid>
-                                                    </Grid>
-                                                </ScrollViewer>
-                                            </GroupBox>
-                                        </Grid>
+                                        <StackPanel>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <StackPanel
+                                                    Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    VerticalAlignment="Top"
+                                                    Orientation="Horizontal">
+                                                    <searchTextBox:SearchTextBox
+                                                        x:Name="TbSearchExpert"
+                                                        Width="150"
+                                                        Height="30"
+                                                        Margin="10,5,30,2"
+                                                        AllowEmptySearches="True"
+                                                        BorderBrush="LightBlue"
+                                                        BorderThickness="1"
+                                                        Command="{Binding GetExpertsByNameOrIdCommand}"
+                                                        SearchMode="Instant"
+                                                        Text="{Binding SearchExpertName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                        ToolTip="{DynamicResource Shared-SearchInfoOrId}" />
+                                                </StackPanel>
+                                                <StackPanel
+                                                    Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    Margin="180,0,0,0"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    Orientation="Horizontal">
+                                                    <Button
+                                                        Command="{Binding AddExpertCommand}"
+                                                        Content="{DynamicResource Shared-ButtonAdd}"
+                                                        Style="{StaticResource ButtonDefault}" />
+                                                    <Button
+                                                        Command="{Binding CopyExpertCommand}"
+                                                        Content="{DynamicResource Shared-ButtonCopy}"
+                                                        Style="{StaticResource ButtonDefault}" />
+                                                    <Button
+                                                        Command="{Binding SaveExpertCommand}"
+                                                        Content="{DynamicResource Shared-ButtonSave}"
+                                                        Style="{StaticResource ButtonDefault}" />
+                                                    <Button
+                                                        Command="{Binding DeleteExpertCommand}"
+                                                        Content="{DynamicResource Shared-ButtonDelete}"
+                                                        Style="{StaticResource ButtonDefault}" />
+                                                </StackPanel>
+                                                <GroupBox
+                                                    Grid.Row="1"
+                                                    Grid.Column="0"
+                                                    Width="Auto"
+                                                    Header="{DynamicResource Shared-ReferenceExpert}">
+                                                    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                                                        <Grid x:Name="LayoutGridRefExpert" MinWidth="300">
+                                                            <DataGrid
+                                                                Width="{Binding ElementName=LayoutGridRefExpert, Path=ActualWidth}"
+                                                                Height="Auto"
+                                                                MaxHeight="200"
+                                                                AlternatingRowBackground="LightBlue"
+                                                                AlternationCount="2"
+                                                                AutoGenerateColumns="False"
+                                                                BorderBrush="Gray"
+                                                                BorderThickness="2"
+                                                                FrozenColumnCount="2"
+                                                                GridLinesVisibility="All"
+                                                                HorizontalScrollBarVisibility="Visible"
+                                                                IsReadOnly="False"
+                                                                IsSynchronizedWithCurrentItem="true"
+                                                                ItemsSource="{Binding ReferenceExpertsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                RowDetailsTemplate="{StaticResource DataGridMemoDetail}"
+                                                                SelectedItem="{Binding SelectedReferenceExpert, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                VerticalScrollBarVisibility="Visible">
+                                                                <DataGrid.Columns>
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding ReferenceId}"
+                                                                        Header="{DynamicResource Tbl90Reference-ReferenceId}" />
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding RefExpertId}"
+                                                                        Header="{DynamicResource Tbl90RefExpert-ExpertId}" />
+                                                                    <DataGridTemplateColumn Width="Auto" Header="{DynamicResource Tbl90Reference-RefExpertName}">
+                                                                        <DataGridTemplateColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <ComboBox
+                                                                                    Width="Auto"
+                                                                                    Margin="5,0,0,0"
+                                                                                    IsSynchronizedWithCurrentItem="False"
+                                                                                    ItemsSource="{Binding Source={StaticResource ExpertsColl}}"
+                                                                                    SelectedValue="{Binding (models:Tbl90RefExpert.RefExpertId), UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                                                    SelectedValuePath="RefExpertId"
+                                                                                    VirtualizingStackPanel.IsVirtualizing="True">
+                                                                                    <ComboBox.ItemTemplate>
+                                                                                        <DataTemplate>
+                                                                                            <StackPanel Orientation="Horizontal">
+                                                                                                <TextBlock Text="{Binding (models:Tbl90RefExpert.RefExpertName)}" />
+                                                                                            </StackPanel>
+                                                                                        </DataTemplate>
+                                                                                    </ComboBox.ItemTemplate>
+                                                                                </ComboBox>
+                                                                            </DataTemplate>
+                                                                        </DataGridTemplateColumn.CellTemplate>
+                                                                    </DataGridTemplateColumn>
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding RegnumId}"
+                                                                        Header="{DynamicResource Tbl03Regnum-RegnumId}" />
+                                                                    <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
+                                                                    <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                                                    <DataGridTemplateColumn
+                                                                        Width="500"
+                                                                        CellEditingTemplate="{StaticResource Info500EditColumnTemplate}"
+                                                                        CellTemplate="{StaticResource Info500ColumnTemplate}"
+                                                                        Header="{DynamicResource Shared-Info}" />
+                                                                </DataGrid.Columns>
+                                                            </DataGrid>
+                                                        </Grid>
+                                                    </ScrollViewer>
+                                                </GroupBox>
+                                            </Grid>
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <StackPanel
+                                                    Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    VerticalAlignment="Top"
+                                                    Orientation="Horizontal">
+                                                    <searchTextBox:SearchTextBox
+                                                        x:Name="TbSearchSource"
+                                                        Width="150"
+                                                        Height="30"
+                                                        Margin="10,5,30,2"
+                                                        AllowEmptySearches="True"
+                                                        BorderBrush="LightBlue"
+                                                        BorderThickness="1"
+                                                        Command="{Binding GetSourcesByNameOrIdCommand}"
+                                                        SearchMode="Instant"
+                                                        Text="{Binding SearchSourceName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                        ToolTip="{DynamicResource Shared-SearchInfoOrId}" />
+                                                </StackPanel>
+                                                <StackPanel
+                                                    Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    Margin="180,0,0,0"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    Orientation="Horizontal">
+                                                    <Button
+                                                        Command="{Binding AddSourceCommand}"
+                                                        Content="{DynamicResource Shared-ButtonAdd}"
+                                                        Style="{StaticResource ButtonDefault}" />
+                                                    <Button
+                                                        Command="{Binding CopySourceCommand}"
+                                                        Content="{DynamicResource Shared-ButtonCopy}"
+                                                        Style="{StaticResource ButtonDefault}" />
+                                                    <Button
+                                                        Command="{Binding SaveSourceCommand}"
+                                                        Content="{DynamicResource Shared-ButtonSave}"
+                                                        Style="{StaticResource ButtonDefault}" />
+                                                    <Button
+                                                        Command="{Binding DeleteSourceCommand}"
+                                                        Content="{DynamicResource Shared-ButtonDelete}"
+                                                        Style="{StaticResource ButtonDefault}" />
+                                                </StackPanel>
+                                                <GroupBox
+                                                    Grid.Row="1"
+                                                    Grid.Column="0"
+                                                    Width="Auto"
+                                                    Header="{DynamicResource Shared-ReferenceSource}">
+                                                    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                                                        <Grid x:Name="LayoutGridRefSource" MinWidth="300">
+                                                            <DataGrid
+                                                                Width="{Binding ElementName=LayoutGridRefSource, Path=ActualWidth}"
+                                                                Height="Auto"
+                                                                MaxHeight="200"
+                                                                AlternatingRowBackground="LightBlue"
+                                                                AlternationCount="2"
+                                                                AutoGenerateColumns="False"
+                                                                BorderBrush="Gray"
+                                                                BorderThickness="2"
+                                                                FrozenColumnCount="2"
+                                                                GridLinesVisibility="All"
+                                                                HorizontalScrollBarVisibility="Visible"
+                                                                IsReadOnly="False"
+                                                                IsSynchronizedWithCurrentItem="true"
+                                                                ItemsSource="{Binding ReferenceSourcesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                RowDetailsTemplate="{StaticResource DataGridMemoDetail}"
+                                                                SelectedItem="{Binding SelectedReferenceSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                VerticalScrollBarVisibility="Visible">
+                                                                <DataGrid.Columns>
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding ReferenceId}"
+                                                                        Header="{DynamicResource Tbl90Reference-ReferenceId}" />
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding RefSourceId}"
+                                                                        Header="{DynamicResource Tbl90RefSource-SourceId}" />
+                                                                    <DataGridTemplateColumn Width="Auto" Header="{DynamicResource Tbl90Reference-RefSourceName}">
+                                                                        <DataGridTemplateColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <ComboBox
+                                                                                    Width="Auto"
+                                                                                    Margin="5,0,0,0"
+                                                                                    IsSynchronizedWithCurrentItem="False"
+                                                                                    ItemsSource="{Binding Source={StaticResource SourcesColl}}"
+                                                                                    SelectedValue="{Binding (models:Tbl90RefSource.RefSourceId), UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                                                    SelectedValuePath="RefSourceId"
+                                                                                    VirtualizingStackPanel.IsVirtualizing="True">
+                                                                                    <ComboBox.ItemTemplate>
+                                                                                        <DataTemplate>
+                                                                                            <StackPanel Orientation="Horizontal">
+                                                                                                <TextBlock Text="{Binding (models:Tbl90RefSource.RefSourceName)}" />
+                                                                                            </StackPanel>
+                                                                                        </DataTemplate>
+                                                                                    </ComboBox.ItemTemplate>
+                                                                                </ComboBox>
+                                                                            </DataTemplate>
+                                                                        </DataGridTemplateColumn.CellTemplate>
+                                                                    </DataGridTemplateColumn>
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding RegnumId}"
+                                                                        Header="{DynamicResource Tbl03Regnum-RegnumId}" />
+                                                                    <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
+                                                                    <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                                                    <DataGridTemplateColumn
+                                                                        Width="500"
+                                                                        CellEditingTemplate="{StaticResource Info500EditColumnTemplate}"
+                                                                        CellTemplate="{StaticResource Info500ColumnTemplate}"
+                                                                        Header="{DynamicResource Shared-Info}" />
+                                                                </DataGrid.Columns>
+                                                            </DataGrid>
+                                                        </Grid>
+                                                    </ScrollViewer>
+                                                </GroupBox>
+                                            </Grid>
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <StackPanel
+                                                    Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    VerticalAlignment="Top"
+                                                    Orientation="Horizontal">
+                                                    <searchTextBox:SearchTextBox
+                                                        x:Name="TbSearchAuthor"
+                                                        Width="150"
+                                                        Height="30"
+                                                        Margin="10,5,30,2"
+                                                        AllowEmptySearches="True"
+                                                        BorderBrush="LightBlue"
+                                                        BorderThickness="1"
+                                                        Command="{Binding GetAuthorsByNameOrIdCommand}"
+                                                        SearchMode="Instant"
+                                                        Text="{Binding SearchAuthorName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                        ToolTip="{DynamicResource Shared-SearchInfoOrId}" />
+                                                </StackPanel>
+                                                <StackPanel
+                                                    Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    Margin="180,0,0,0"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    Orientation="Horizontal">
+                                                    <Button
+                                                        Command="{Binding AddAuthorCommand}"
+                                                        Content="{DynamicResource Shared-ButtonAdd}"
+                                                        Style="{StaticResource ButtonDefault}" />
+                                                    <Button
+                                                        Command="{Binding CopyAuthorCommand}"
+                                                        Content="{DynamicResource Shared-ButtonCopy}"
+                                                        Style="{StaticResource ButtonDefault}" />
+                                                    <Button
+                                                        Command="{Binding SaveAuthorCommand}"
+                                                        Content="{DynamicResource Shared-ButtonSave}"
+                                                        Style="{StaticResource ButtonDefault}" />
+                                                    <Button
+                                                        Command="{Binding DeleteAuthorCommand}"
+                                                        Content="{DynamicResource Shared-ButtonDelete}"
+                                                        Style="{StaticResource ButtonDefault}" />
+                                                </StackPanel>
+                                                <GroupBox
+                                                    Grid.Row="1"
+                                                    Grid.Column="0"
+                                                    Width="Auto"
+                                                    Header="{DynamicResource Shared-ReferenceAuthor}">
+                                                    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                                                        <Grid x:Name="LayoutGridRefAuthor" MinWidth="300">
+                                                            <DataGrid
+                                                                Width="{Binding ElementName=LayoutGridRefAuthor, Path=ActualWidth}"
+                                                                Height="Auto"
+                                                                MaxHeight="200"
+                                                                AlternatingRowBackground="LightBlue"
+                                                                AlternationCount="2"
+                                                                AutoGenerateColumns="False"
+                                                                BorderBrush="Gray"
+                                                                BorderThickness="2"
+                                                                FrozenColumnCount="2"
+                                                                GridLinesVisibility="All"
+                                                                HorizontalScrollBarVisibility="Visible"
+                                                                IsReadOnly="False"
+                                                                IsSynchronizedWithCurrentItem="true"
+                                                                ItemsSource="{Binding ReferenceAuthorsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                RowDetailsTemplate="{StaticResource DataGridMemoDetail}"
+                                                                SelectedItem="{Binding SelectedReferenceAuthor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                VerticalScrollBarVisibility="Visible">
+                                                                <DataGrid.Columns>
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding ReferenceId}"
+                                                                        Header="{DynamicResource Tbl90Reference-ReferenceId}" />
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding RefAuthorId}"
+                                                                        Header="{DynamicResource Tbl90RefAuthor-AuthorId}" />
+                                                                    <DataGridTemplateColumn Width="600" Header="{DynamicResource Tbl90Reference-RefAuthorName}">
+                                                                        <DataGridTemplateColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <ComboBox
+                                                                                    Width="Auto"
+                                                                                    Margin="5,0,0,0"
+                                                                                    IsSynchronizedWithCurrentItem="False"
+                                                                                    ItemsSource="{Binding Source={StaticResource AuthorsColl}}"
+                                                                                    SelectedValue="{Binding (models:Tbl90RefAuthor.RefAuthorId), UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                                                    SelectedValuePath="RefAuthorId"
+                                                                                    VirtualizingStackPanel.IsVirtualizing="True">
+                                                                                    <ComboBox.ItemTemplate>
+                                                                                        <DataTemplate>
+                                                                                            <StackPanel Orientation="Horizontal">
+                                                                                                <TextBlock Text="{Binding (models:Tbl90RefAuthor.RefAuthorName)}" />
+                                                                                                <TextBlock Text=" -- " />
+                                                                                                <TextBlock Text="{Binding (models:Tbl90RefAuthor.BookName)}" />
+                                                                                                <TextBlock Text=" -- " />
+                                                                                                <TextBlock Text="{Binding (models:Tbl90RefAuthor.Page1)}" />
+                                                                                            </StackPanel>
+                                                                                        </DataTemplate>
+                                                                                    </ComboBox.ItemTemplate>
+                                                                                </ComboBox>
+                                                                            </DataTemplate>
+                                                                        </DataGridTemplateColumn.CellTemplate>
+                                                                    </DataGridTemplateColumn>
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding RegnumId}"
+                                                                        Header="{DynamicResource Tbl03Regnum-RegnumId}" />
+                                                                    <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
+                                                                    <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                                                    <DataGridTemplateColumn
+                                                                        Width="500"
+                                                                        CellEditingTemplate="{StaticResource Info500EditColumnTemplate}"
+                                                                        CellTemplate="{StaticResource Info500ColumnTemplate}"
+                                                                        Header="{DynamicResource Shared-Info}" />
+                                                                </DataGrid.Columns>
+                                                            </DataGrid>
+                                                        </Grid>
+                                                    </ScrollViewer>
+                                                </GroupBox>
+                                            </Grid>
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <StackPanel
+                                                    Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    VerticalAlignment="Top"
+                                                    Orientation="Horizontal">
+                                                    <searchTextBox:SearchTextBox
+                                                        x:Name="TbSearchComment"
+                                                        Width="150"
+                                                        Height="30"
+                                                        Margin="10,5,30,2"
+                                                        AllowEmptySearches="True"
+                                                        BorderBrush="LightBlue"
+                                                        BorderThickness="1"
+                                                        Command="{Binding GetCommentsByNameOrIdCommand}"
+                                                        SearchMode="Instant"
+                                                        Text="{Binding SearchCommentName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                        ToolTip="{DynamicResource Shared-SearchInfoOrId}" />
+                                                </StackPanel>
+                                                <StackPanel
+                                                    Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    Margin="180,0,0,0"
+                                                    HorizontalAlignment="Left"
+                                                    Orientation="Horizontal">
+                                                    <Button
+                                                        Command="{Binding AddCommentCommand}"
+                                                        Content="{DynamicResource Shared-ButtonAdd}"
+                                                        Style="{StaticResource ButtonDefault}" />
+                                                    <Button
+                                                        Command="{Binding CopyCommentCommand}"
+                                                        Content="{DynamicResource Shared-ButtonCopy}"
+                                                        Style="{StaticResource ButtonDefault}" />
+                                                    <Button
+                                                        Command="{Binding SaveCommentCommand}"
+                                                        Content="{DynamicResource Shared-ButtonSave}"
+                                                        Style="{StaticResource ButtonDefault}" />
+                                                    <Button
+                                                        Command="{Binding DeleteCommentCommand}"
+                                                        Content="{DynamicResource Shared-ButtonDelete}"
+                                                        Style="{StaticResource ButtonDefault}" />
+                                                </StackPanel>
+                                                <GroupBox
+                                                    Grid.Row="1"
+                                                    Grid.Column="0"
+                                                    Width="Auto"
+                                                    Header="{DynamicResource Tbl93Comment-Comment}">
+                                                    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                                                        <Grid x:Name="LayoutGridComment" MinWidth="300">
+                                                            <DataGrid
+                                                                Width="{Binding ElementName=LayoutGridComment, Path=ActualWidth}"
+                                                                Height="Auto"
+                                                                MaxHeight="200"
+                                                                AlternatingRowBackground="LightBlue"
+                                                                AlternationCount="2"
+                                                                AutoGenerateColumns="False"
+                                                                BorderBrush="Gray"
+                                                                BorderThickness="2"
+                                                                FrozenColumnCount="2"
+                                                                GridLinesVisibility="All"
+                                                                HorizontalScrollBarVisibility="Visible"
+                                                                IsReadOnly="False"
+                                                                IsSynchronizedWithCurrentItem="true"
+                                                                ItemsSource="{Binding CommentsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                RowDetailsTemplate="{StaticResource DataGridMemoDetail}"
+                                                                SelectedItem="{Binding SelectedComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                VerticalScrollBarVisibility="Visible">
+                                                                <DataGrid.Columns>
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding CommentId}"
+                                                                        Header="{DynamicResource Tbl93Comment-CommentId}" />
+                                                                    <DataGridTextColumn
+                                                                        Width="Auto"
+                                                                        Binding="{Binding RegnumId}"
+                                                                        Header="{DynamicResource Tbl03Regnum-RegnumId}" />
+                                                                    <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
+                                                                    <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                                                    <DataGridTemplateColumn
+                                                                        Width="500"
+                                                                        CellEditingTemplate="{StaticResource Info500EditColumnTemplate}"
+                                                                        CellTemplate="{StaticResource Info500ColumnTemplate}"
+                                                                        Header="{DynamicResource Shared-Info}" />
+                                                                </DataGrid.Columns>
+                                                            </DataGrid>
+                                                        </Grid>
+                                                    </ScrollViewer>
+                                                </GroupBox>
+                                            </Grid>
+                                        </StackPanel>
                                     </StackPanel>
+                                </TabItem>
+                                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderPhylums}">
                                     <StackPanel>
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="*" />
-                                            </Grid.RowDefinitions>
-                                            <StackPanel
-                                                Grid.Row="0"
-                                                Grid.Column="0"
-                                                VerticalAlignment="Top"
-                                                Orientation="Horizontal">
-                                                <searchTextBox:SearchTextBox
-                                                    x:Name="TbSearchSource"
-                                                    Width="150"
-                                                    Height="30"
-                                                    Margin="10,5,30,2"
-                                                    AllowEmptySearches="True"
-                                                    BorderBrush="LightBlue"
-                                                    BorderThickness="1"
-                                                    Command="{Binding GetSourcesByNameOrIdCommand}"
-                                                    SearchMode="Instant"
-                                                    Text="{Binding SearchSourceName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                                    ToolTip="{DynamicResource Shared-SearchInfoOrId}" />
-                                            </StackPanel>
-                                            <StackPanel
-                                                Grid.Row="0"
-                                                Grid.Column="0"
-                                                Margin="180,0,0,0"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Center"
-                                                Orientation="Horizontal">
-                                                <Button
-                                                    Command="{Binding AddSourceCommand}"
-                                                    Content="{DynamicResource Shared-ButtonAdd}"
-                                                    Style="{StaticResource ButtonDefault}" />
-                                                <Button
-                                                    Command="{Binding CopySourceCommand}"
-                                                    Content="{DynamicResource Shared-ButtonCopy}"
-                                                    Style="{StaticResource ButtonDefault}" />
-                                                <Button
-                                                    Command="{Binding SaveSourceCommand}"
-                                                    Content="{DynamicResource Shared-ButtonSave}"
-                                                    Style="{StaticResource ButtonDefault}" />
-                                                <Button
-                                                    Command="{Binding DeleteSourceCommand}"
-                                                    Content="{DynamicResource Shared-ButtonDelete}"
-                                                    Style="{StaticResource ButtonDefault}" />
-                                            </StackPanel>
-                                            <GroupBox
-                                                Grid.Row="1"
-                                                Grid.Column="0"
-                                                Width="Auto"
-                                                Header="{DynamicResource Shared-ReferenceSource}">
-                                                <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                                                    <Grid x:Name="LayoutGridRefSource" MinWidth="300">
-                                                        <DataGrid
-                                                            Width="{Binding ElementName=LayoutGridRefSource, Path=ActualWidth}"
-                                                            Height="Auto"
-                                                            MaxHeight="200"
-                                                            AlternatingRowBackground="LightBlue"
-                                                            AlternationCount="2"
-                                                            AutoGenerateColumns="False"
-                                                            BorderBrush="Gray"
-                                                            BorderThickness="2"
-                                                            FrozenColumnCount="2"
-                                                            GridLinesVisibility="All"
-                                                            HorizontalScrollBarVisibility="Visible"
-                                                            IsReadOnly="False"
-                                                            IsSynchronizedWithCurrentItem="true"
-                                                            ItemsSource="{Binding ReferenceSourcesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                                            RowDetailsTemplate="{StaticResource DataGridMemoDetail}"
-                                                            SelectedItem="{Binding SelectedReferenceSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                            VerticalScrollBarVisibility="Visible">
-                                                            <DataGrid.Columns>
-                                                                <DataGridTextColumn
-                                                                    Width="Auto"
-                                                                    Binding="{Binding ReferenceId}"
-                                                                    Header="{DynamicResource Tbl90Reference-ReferenceId}" />
-                                                                <DataGridTextColumn
-                                                                    Width="Auto"
-                                                                    Binding="{Binding RefSourceId}"
-                                                                    Header="{DynamicResource Tbl90RefSource-SourceId}" />
-                                                                <DataGridTemplateColumn Width="Auto" Header="{DynamicResource Tbl90Reference-RefSourceName}">
-                                                                    <DataGridTemplateColumn.CellTemplate>
-                                                                        <DataTemplate>
-                                                                            <ComboBox
-                                                                                Width="Auto"
-                                                                                Margin="5,0,0,0"
-                                                                                IsSynchronizedWithCurrentItem="False"
-                                                                                ItemsSource="{Binding Source={StaticResource SourcesColl}}"
-                                                                                SelectedValue="{Binding (models:Tbl90RefSource.RefSourceId), UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                                                                SelectedValuePath="RefSourceId"
-                                                                                VirtualizingStackPanel.IsVirtualizing="True">
-                                                                                <ComboBox.ItemTemplate>
-                                                                                    <DataTemplate>
-                                                                                        <StackPanel Orientation="Horizontal">
-                                                                                            <TextBlock Text="{Binding (models:Tbl90RefSource.RefSourceName)}" />
-                                                                                        </StackPanel>
-                                                                                    </DataTemplate>
-                                                                                </ComboBox.ItemTemplate>
-                                                                            </ComboBox>
-                                                                        </DataTemplate>
-                                                                    </DataGridTemplateColumn.CellTemplate>
-                                                                </DataGridTemplateColumn>
-                                                                <DataGridTextColumn
-                                                                    Width="Auto"
-                                                                    Binding="{Binding RegnumId}"
-                                                                    Header="{DynamicResource Tbl03Regnum-RegnumId}" />
-                                                                <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
-                                                                <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
-                                                                <DataGridTemplateColumn
-                                                                    Width="500"
-                                                                    CellEditingTemplate="{StaticResource Info500EditColumnTemplate}"
-                                                                    CellTemplate="{StaticResource Info500ColumnTemplate}"
-                                                                    Header="{DynamicResource Shared-Info}" />
-                                                            </DataGrid.Columns>
-                                                        </DataGrid>
-                                                    </Grid>
-                                                </ScrollViewer>
-                                            </GroupBox>
-                                        </Grid>
+                                        <GroupBox Width="Auto" Header="{DynamicResource Shared-TabStripHeaderPhylums}">
+                                            <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                                                <Grid x:Name="LayoutGridPhylum" MinWidth="300">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <DataGrid
+                                                        Grid.ColumnSpan="2"
+                                                        Width="{Binding ElementName=LayoutGridPhylum, Path=ActualWidth}"
+                                                        Height="200"
+                                                        MaxHeight="500"
+                                                        AlternatingRowBackground="Gainsboro"
+                                                        AlternationCount="2"
+                                                        AutoGenerateColumns="False"
+                                                        BorderBrush="Gray"
+                                                        BorderThickness="2"
+                                                        FrozenColumnCount="2"
+                                                        GridLinesVisibility="All"
+                                                        HorizontalScrollBarVisibility="Visible"
+                                                        IsReadOnly="True"
+                                                        IsSynchronizedWithCurrentItem="true"
+                                                        ItemsSource="{Binding PhylumsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        SelectedItem="{Binding SelectedPhylum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        VerticalScrollBarVisibility="Visible">
+                                                        <DataGrid.Columns>
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding PhylumId}"
+                                                                Header="{DynamicResource Tbl06Phylum-PhylumId}" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding PhylumName}"
+                                                                Header="{DynamicResource Tbl06Phylum-PhylumName}" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding RegnumId}"
+                                                                Header="{DynamicResource Tbl03Regnum-RegnumId}" />
+                                                            <DataGridComboBoxColumn
+                                                                Width="Auto"
+                                                                DisplayMemberPath="RegnumName"
+                                                                Header="{DynamicResource Tbl03Regnum-RegnumName}"
+                                                                ItemsSource="{Binding Source={StaticResource RegnumsAllColl}}"
+                                                                SelectedValueBinding="{Binding RegnumId}"
+                                                                SelectedValuePath="RegnumId" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                                            <DataGridTemplateColumn
+                                                                Width="300"
+                                                                CellEditingTemplate="{StaticResource SynonymEditColumnTemplate}"
+                                                                CellTemplate="{StaticResource SynonymColumnTemplate}"
+                                                                Header="{DynamicResource Shared-Synonym}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource AuthorColumnTemplate}" Header="{DynamicResource Shared-Author}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource AuthorYearColumnTemplate}" Header="{DynamicResource Shared-AuthorYear}" />
+                                                            <DataGridTemplateColumn
+                                                                Width="300"
+                                                                CellTemplate="{StaticResource Info300ColumnTemplate}"
+                                                                Header="{DynamicResource Shared-Info}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource EngNameColumnTemplate}" Header="{DynamicResource Shared-EngName}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource GerNameColumnTemplate}" Header="{DynamicResource Shared-GerName}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource FraNameColumnTemplate}" Header="{DynamicResource Shared-FraName}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource SpaNameColumnTemplate}" Header="{DynamicResource Shared-SpaName}" />
+                                                            <DataGridTemplateColumn
+                                                                Width="500"
+                                                                CellTemplate="{StaticResource Memo500ColumnTemplate}"
+                                                                Header="{DynamicResource Shared-Memo}" />
+                                                        </DataGrid.Columns>
+                                                    </DataGrid>
+                                                </Grid>
+                                            </ScrollViewer>
+                                        </GroupBox>
                                     </StackPanel>
+                                </TabItem>
+                                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderDivisions}">
                                     <StackPanel>
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="*" />
-                                            </Grid.RowDefinitions>
-                                            <StackPanel
-                                                Grid.Row="0"
-                                                Grid.Column="0"
-                                                VerticalAlignment="Top"
-                                                Orientation="Horizontal">
-                                                <searchTextBox:SearchTextBox
-                                                    x:Name="TbSearchAuthor"
-                                                    Width="150"
-                                                    Height="30"
-                                                    Margin="10,5,30,2"
-                                                    AllowEmptySearches="True"
-                                                    BorderBrush="LightBlue"
-                                                    BorderThickness="1"
-                                                    Command="{Binding GetAuthorsByNameOrIdCommand}"
-                                                    SearchMode="Instant"
-                                                    Text="{Binding SearchAuthorName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                                    ToolTip="{DynamicResource Shared-SearchInfoOrId}" />
-                                            </StackPanel>
-                                            <StackPanel
-                                                Grid.Row="0"
-                                                Grid.Column="0"
-                                                Margin="180,0,0,0"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Top"
-                                                Orientation="Horizontal">
-                                                <Button
-                                                    Command="{Binding AddAuthorCommand}"
-                                                    Content="{DynamicResource Shared-ButtonAdd}"
-                                                    Style="{StaticResource ButtonDefault}" />
-                                                <Button
-                                                    Command="{Binding CopyAuthorCommand}"
-                                                    Content="{DynamicResource Shared-ButtonCopy}"
-                                                    Style="{StaticResource ButtonDefault}" />
-                                                <Button
-                                                    Command="{Binding SaveAuthorCommand}"
-                                                    Content="{DynamicResource Shared-ButtonSave}"
-                                                    Style="{StaticResource ButtonDefault}" />
-                                                <Button
-                                                    Command="{Binding DeleteAuthorCommand}"
-                                                    Content="{DynamicResource Shared-ButtonDelete}"
-                                                    Style="{StaticResource ButtonDefault}" />
-                                            </StackPanel>
-                                            <GroupBox
-                                                Grid.Row="1"
-                                                Grid.Column="0"
-                                                Width="Auto"
-                                                Header="{DynamicResource Shared-ReferenceAuthor}">
-                                                <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                                                    <Grid x:Name="LayoutGridRefAuthor" MinWidth="300">
-                                                        <DataGrid
-                                                            Width="{Binding ElementName=LayoutGridRefAuthor, Path=ActualWidth}"
-                                                            Height="Auto"
-                                                            MaxHeight="200"
-                                                            AlternatingRowBackground="LightBlue"
-                                                            AlternationCount="2"
-                                                            AutoGenerateColumns="False"
-                                                            BorderBrush="Gray"
-                                                            BorderThickness="2"
-                                                            FrozenColumnCount="2"
-                                                            GridLinesVisibility="All"
-                                                            HorizontalScrollBarVisibility="Visible"
-                                                            IsReadOnly="False"
-                                                            IsSynchronizedWithCurrentItem="true"
-                                                            ItemsSource="{Binding ReferenceAuthorsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                                            RowDetailsTemplate="{StaticResource DataGridMemoDetail}"
-                                                            SelectedItem="{Binding SelectedReferenceAuthor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                            VerticalScrollBarVisibility="Visible">
-                                                            <DataGrid.Columns>
-                                                                <DataGridTextColumn
-                                                                    Width="Auto"
-                                                                    Binding="{Binding ReferenceId}"
-                                                                    Header="{DynamicResource Tbl90Reference-ReferenceId}" />
-                                                                <DataGridTextColumn
-                                                                    Width="Auto"
-                                                                    Binding="{Binding RefAuthorId}"
-                                                                    Header="{DynamicResource Tbl90RefAuthor-AuthorId}" />
-                                                                <DataGridTemplateColumn Width="600" Header="{DynamicResource Tbl90Reference-RefAuthorName}">
-                                                                    <DataGridTemplateColumn.CellTemplate>
-                                                                        <DataTemplate>
-                                                                            <ComboBox
-                                                                                Width="Auto"
-                                                                                Margin="5,0,0,0"
-                                                                                IsSynchronizedWithCurrentItem="False"
-                                                                                ItemsSource="{Binding Source={StaticResource AuthorsColl}}"
-                                                                                SelectedValue="{Binding (models:Tbl90RefAuthor.RefAuthorId), UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                                                                SelectedValuePath="RefAuthorId"
-                                                                                VirtualizingStackPanel.IsVirtualizing="True">
-                                                                                <ComboBox.ItemTemplate>
-                                                                                    <DataTemplate>
-                                                                                        <StackPanel Orientation="Horizontal">
-                                                                                            <TextBlock Text="{Binding (models:Tbl90RefAuthor.RefAuthorName)}" />
-                                                                                            <TextBlock Text=" -- " />
-                                                                                            <TextBlock Text="{Binding (models:Tbl90RefAuthor.BookName)}" />
-                                                                                            <TextBlock Text=" -- " />
-                                                                                            <TextBlock Text="{Binding (models:Tbl90RefAuthor.Page1)}" />
-                                                                                        </StackPanel>
-                                                                                    </DataTemplate>
-                                                                                </ComboBox.ItemTemplate>
-                                                                            </ComboBox>
-                                                                        </DataTemplate>
-                                                                    </DataGridTemplateColumn.CellTemplate>
-                                                                </DataGridTemplateColumn>
-                                                                <DataGridTextColumn
-                                                                    Width="Auto"
-                                                                    Binding="{Binding RegnumId}"
-                                                                    Header="{DynamicResource Tbl03Regnum-RegnumId}" />
-                                                                <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
-                                                                <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
-                                                                <DataGridTemplateColumn
-                                                                    Width="500"
-                                                                    CellEditingTemplate="{StaticResource Info500EditColumnTemplate}"
-                                                                    CellTemplate="{StaticResource Info500ColumnTemplate}"
-                                                                    Header="{DynamicResource Shared-Info}" />
-                                                            </DataGrid.Columns>
-                                                        </DataGrid>
-                                                    </Grid>
-                                                </ScrollViewer>
-                                            </GroupBox>
-                                        </Grid>
+                                        <GroupBox Width="Auto" Header="{DynamicResource Shared-TabStripHeaderDivisions}">
+                                            <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                                                <Grid x:Name="LayoutGridDivision" MinWidth="300">
+                                                    <DataGrid
+                                                        Width="{Binding ElementName=LayoutGridDivision, Path=ActualWidth}"
+                                                        Height="200"
+                                                        MaxHeight="500"
+                                                        AlternatingRowBackground="Gainsboro"
+                                                        AlternationCount="2"
+                                                        AutoGenerateColumns="False"
+                                                        BorderBrush="Gray"
+                                                        BorderThickness="2"
+                                                        FrozenColumnCount="2"
+                                                        GridLinesVisibility="All"
+                                                        IsReadOnly="True"
+                                                        IsSynchronizedWithCurrentItem="true"
+                                                        ItemsSource="{Binding DivisionsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        SelectedItem="{Binding SelectedDivision, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        VerticalScrollBarVisibility="Visible">
+                                                        <DataGrid.Columns>
+                                                            <DataGridTextColumn
+                                                                Width="100"
+                                                                Binding="{Binding DivisionId}"
+                                                                Header="{DynamicResource Tbl09Division-DivisionId}" />
+                                                            <DataGridTextColumn
+                                                                Width="100"
+                                                                Binding="{Binding DivisionName}"
+                                                                Header="{DynamicResource Tbl09Division-DivisionName}" />
+                                                            <DataGridTextColumn
+                                                                Width="100"
+                                                                Binding="{Binding RegnumId}"
+                                                                Header="{DynamicResource Tbl03Regnum-RegnumId}" />
+                                                            <DataGridComboBoxColumn
+                                                                Width="Auto"
+                                                                DisplayMemberPath="RegnumName"
+                                                                Header="{DynamicResource Tbl03Regnum-RegnumName}"
+                                                                ItemsSource="{Binding Source={StaticResource RegnumsAllColl}}"
+                                                                SelectedValueBinding="{Binding RegnumId}"
+                                                                SelectedValuePath="RegnumId" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                                            <DataGridTemplateColumn
+                                                                Width="300"
+                                                                CellTemplate="{StaticResource SynonymColumnTemplate}"
+                                                                Header="{DynamicResource Shared-Synonym}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource AuthorColumnTemplate}" Header="{DynamicResource Shared-Author}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource AuthorYearColumnTemplate}" Header="{DynamicResource Shared-AuthorYear}" />
+                                                            <DataGridTemplateColumn
+                                                                Width="300"
+                                                                CellTemplate="{StaticResource Info300ColumnTemplate}"
+                                                                Header="{DynamicResource Shared-Info}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource EngNameColumnTemplate}" Header="{DynamicResource Shared-EngName}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource GerNameColumnTemplate}" Header="{DynamicResource Shared-GerName}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource FraNameColumnTemplate}" Header="{DynamicResource Shared-FraName}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource SpaNameColumnTemplate}" Header="{DynamicResource Shared-SpaName}" />
+                                                            <DataGridTemplateColumn
+                                                                Width="500"
+                                                                CellTemplate="{StaticResource Memo500ColumnTemplate}"
+                                                                Header="{DynamicResource Shared-Memo}" />
+                                                        </DataGrid.Columns>
+                                                    </DataGrid>
+                                                </Grid>
+                                            </ScrollViewer>
+                                        </GroupBox>
                                     </StackPanel>
+                                </TabItem>
+                                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderSubphylums}">
                                     <StackPanel>
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="*" />
-                                            </Grid.RowDefinitions>
-                                            <StackPanel
-                                                Grid.Row="0"
-                                                Grid.Column="0"
-                                                VerticalAlignment="Top"
-                                                Orientation="Horizontal">
-                                                <searchTextBox:SearchTextBox
-                                                    x:Name="TbSearchComment"
-                                                    Width="150"
-                                                    Height="30"
-                                                    Margin="10,5,30,2"
-                                                    AllowEmptySearches="True"
-                                                    BorderBrush="LightBlue"
-                                                    BorderThickness="1"
-                                                    Command="{Binding GetCommentsByNameOrIdCommand}"
-                                                    SearchMode="Instant"
-                                                    Text="{Binding SearchCommentName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                                    ToolTip="{DynamicResource Shared-SearchInfoOrId}" />
-                                            </StackPanel>
-                                            <StackPanel
-                                                Grid.Row="0"
-                                                Grid.Column="0"
-                                                Margin="180,0,0,0"
-                                                HorizontalAlignment="Left"
-                                                Orientation="Horizontal">
-                                                <Button
-                                                    Command="{Binding AddCommentCommand}"
-                                                    Content="{DynamicResource Shared-ButtonAdd}"
-                                                    Style="{StaticResource ButtonDefault}" />
-                                                <Button
-                                                    Command="{Binding CopyCommentCommand}"
-                                                    Content="{DynamicResource Shared-ButtonCopy}"
-                                                    Style="{StaticResource ButtonDefault}" />
-                                                <Button
-                                                    Command="{Binding SaveCommentCommand}"
-                                                    Content="{DynamicResource Shared-ButtonSave}"
-                                                    Style="{StaticResource ButtonDefault}" />
-                                                <Button
-                                                    Command="{Binding DeleteCommentCommand}"
-                                                    Content="{DynamicResource Shared-ButtonDelete}"
-                                                    Style="{StaticResource ButtonDefault}" />
-                                            </StackPanel>
-                                            <GroupBox
-                                                Grid.Row="1"
-                                                Grid.Column="0"
-                                                Width="Auto"
-                                                Header="{DynamicResource Tbl93Comment-Comment}">
-                                                <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                                                    <Grid x:Name="LayoutGridComment" MinWidth="300">
-                                                        <DataGrid
-                                                            Width="{Binding ElementName=LayoutGridComment, Path=ActualWidth}"
-                                                            Height="Auto"
-                                                            MaxHeight="200"
-                                                            AlternatingRowBackground="LightBlue"
-                                                            AlternationCount="2"
-                                                            AutoGenerateColumns="False"
-                                                            BorderBrush="Gray"
-                                                            BorderThickness="2"
-                                                            FrozenColumnCount="2"
-                                                            GridLinesVisibility="All"
-                                                            HorizontalScrollBarVisibility="Visible"
-                                                            IsReadOnly="False"
-                                                            IsSynchronizedWithCurrentItem="true"
-                                                            ItemsSource="{Binding CommentsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                                            RowDetailsTemplate="{StaticResource DataGridMemoDetail}"
-                                                            SelectedItem="{Binding SelectedComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                            VerticalScrollBarVisibility="Visible">
-                                                            <DataGrid.Columns>
-                                                                <DataGridTextColumn
-                                                                    Width="Auto"
-                                                                    Binding="{Binding CommentId}"
-                                                                    Header="{DynamicResource Tbl93Comment-CommentId}" />
-                                                                <DataGridTextColumn
-                                                                    Width="Auto"
-                                                                    Binding="{Binding RegnumId}"
-                                                                    Header="{DynamicResource Tbl03Regnum-RegnumId}" />
-                                                                <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
-                                                                <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
-                                                                <DataGridTemplateColumn
-                                                                    Width="500"
-                                                                    CellEditingTemplate="{StaticResource Info500EditColumnTemplate}"
-                                                                    CellTemplate="{StaticResource Info500ColumnTemplate}"
-                                                                    Header="{DynamicResource Shared-Info}" />
-                                                            </DataGrid.Columns>
-                                                        </DataGrid>
-                                                    </Grid>
-                                                </ScrollViewer>
-                                            </GroupBox>
-                                        </Grid>
+                                        <GroupBox Width="Auto" Header="{DynamicResource Shared-TabStripHeaderSubphylums}">
+                                            <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                                                <Grid x:Name="LayoutGridSubphylum" MinWidth="300">
+                                                    <DataGrid
+                                                        Width="{Binding ElementName=LayoutGridSubphylum, Path=ActualWidth}"
+                                                        Height="200"
+                                                        MaxHeight="500"
+                                                        AlternatingRowBackground="Gainsboro"
+                                                        AlternationCount="2"
+                                                        AutoGenerateColumns="False"
+                                                        BorderBrush="Gray"
+                                                        BorderThickness="2"
+                                                        FrozenColumnCount="2"
+                                                        GridLinesVisibility="All"
+                                                        HorizontalScrollBarVisibility="Visible"
+                                                        IsReadOnly="True"
+                                                        IsSynchronizedWithCurrentItem="true"
+                                                        ItemsSource="{Binding SubphylumsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        SelectedItem="{Binding SelectedSubphylum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        VerticalScrollBarVisibility="Visible">
+                                                        <DataGrid.Columns>
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding SubphylumId}"
+                                                                Header="{DynamicResource Tbl12Subphylum-SubphylumId}" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding SubphylumName}"
+                                                                Header="{DynamicResource Tbl12Subphylum-SubphylumName}" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding PhylumId}"
+                                                                Header="{DynamicResource Tbl06Phylum-PhylumId}" />
+                                                            <DataGridComboBoxColumn
+                                                                Width="Auto"
+                                                                DisplayMemberPath="PhylumName"
+                                                                Header="{DynamicResource Tbl06Phylum-PhylumName}"
+                                                                ItemsSource="{Binding Source={StaticResource PhylumsAllColl}}"
+                                                                SelectedValueBinding="{Binding (models:Tbl06Phylum.PhylumId)}"
+                                                                SelectedValuePath="PhylumId" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                                            <DataGridTemplateColumn
+                                                                Width="300"
+                                                                CellTemplate="{StaticResource SynonymColumnTemplate}"
+                                                                Header="{DynamicResource Shared-Synonym}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource AuthorColumnTemplate}" Header="{DynamicResource Shared-Author}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource AuthorYearColumnTemplate}" Header="{DynamicResource Shared-AuthorYear}" />
+                                                            <DataGridTemplateColumn
+                                                                Width="300"
+                                                                CellTemplate="{StaticResource Info300ColumnTemplate}"
+                                                                Header="{DynamicResource Shared-Info}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource EngNameColumnTemplate}" Header="{DynamicResource Shared-EngName}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource GerNameColumnTemplate}" Header="{DynamicResource Shared-GerName}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource FraNameColumnTemplate}" Header="{DynamicResource Shared-FraName}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource SpaNameColumnTemplate}" Header="{DynamicResource Shared-SpaName}" />
+                                                            <DataGridTemplateColumn
+                                                                Width="500"
+                                                                CellTemplate="{StaticResource Memo500ColumnTemplate}"
+                                                                Header="{DynamicResource Shared-Memo}" />
+                                                        </DataGrid.Columns>
+                                                    </DataGrid>
+                                                </Grid>
+                                            </ScrollViewer>
+                                        </GroupBox>
                                     </StackPanel>
-                                </StackPanel>
-                            </TabItem>
-                            <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderPhylums}">
-                                <StackPanel>
-                                    <GroupBox Width="Auto" Header="{DynamicResource Shared-TabStripHeaderPhylums}">
-                                        <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                                            <Grid x:Name="LayoutGridPhylum" MinWidth="300">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                </Grid.ColumnDefinitions>
-                                                <DataGrid
-                                                    Grid.ColumnSpan="2"
-                                                    Width="{Binding ElementName=LayoutGridPhylum, Path=ActualWidth}"
-                                                    Height="200"
-                                                    MaxHeight="500"
-                                                    AlternatingRowBackground="Gainsboro"
-                                                    AlternationCount="2"
-                                                    AutoGenerateColumns="False"
-                                                    BorderBrush="Gray"
-                                                    BorderThickness="2"
-                                                    FrozenColumnCount="2"
-                                                    GridLinesVisibility="All"
-                                                    HorizontalScrollBarVisibility="Visible"
-                                                    IsReadOnly="True"
-                                                    IsSynchronizedWithCurrentItem="true"
-                                                    ItemsSource="{Binding PhylumsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    SelectedItem="{Binding SelectedPhylum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    VerticalScrollBarVisibility="Visible">
-                                                    <DataGrid.Columns>
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding PhylumId}"
-                                                            Header="{DynamicResource Tbl06Phylum-PhylumId}" />
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding PhylumName}"
-                                                            Header="{DynamicResource Tbl06Phylum-PhylumName}" />
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding RegnumId}"
-                                                            Header="{DynamicResource Tbl03Regnum-RegnumId}" />
-                                                        <DataGridComboBoxColumn
-                                                            Width="Auto"
-                                                            DisplayMemberPath="RegnumName"
-                                                            Header="{DynamicResource Tbl03Regnum-RegnumName}"
-                                                            ItemsSource="{Binding Source={StaticResource RegnumsAllColl}}"
-                                                            SelectedValueBinding="{Binding RegnumId}"
-                                                            SelectedValuePath="RegnumId" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
-                                                        <DataGridTemplateColumn
-                                                            Width="300"
-                                                            CellEditingTemplate="{StaticResource SynonymEditColumnTemplate}"
-                                                            CellTemplate="{StaticResource SynonymColumnTemplate}"
-                                                            Header="{DynamicResource Shared-Synonym}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource AuthorColumnTemplate}" Header="{DynamicResource Shared-Author}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource AuthorYearColumnTemplate}" Header="{DynamicResource Shared-AuthorYear}" />
-                                                        <DataGridTemplateColumn
-                                                            Width="300"
-                                                            CellTemplate="{StaticResource Info300ColumnTemplate}"
-                                                            Header="{DynamicResource Shared-Info}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource EngNameColumnTemplate}" Header="{DynamicResource Shared-EngName}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource GerNameColumnTemplate}" Header="{DynamicResource Shared-GerName}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource FraNameColumnTemplate}" Header="{DynamicResource Shared-FraName}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource SpaNameColumnTemplate}" Header="{DynamicResource Shared-SpaName}" />
-                                                        <DataGridTemplateColumn
-                                                            Width="500"
-                                                            CellTemplate="{StaticResource Memo500ColumnTemplate}"
-                                                            Header="{DynamicResource Shared-Memo}" />
-                                                    </DataGrid.Columns>
-                                                </DataGrid>
-                                            </Grid>
-                                        </ScrollViewer>
-                                    </GroupBox>
-                                </StackPanel>
-                            </TabItem>
-                            <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderDivisions}">
-                                <StackPanel>
-                                    <GroupBox Width="Auto" Header="{DynamicResource Shared-TabStripHeaderDivisions}">
-                                        <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                                            <Grid x:Name="LayoutGridDivision" MinWidth="300">
-                                                <DataGrid
-                                                    Width="{Binding ElementName=LayoutGridDivision, Path=ActualWidth}"
-                                                    Height="200"
-                                                    MaxHeight="500"
-                                                    AlternatingRowBackground="Gainsboro"
-                                                    AlternationCount="2"
-                                                    AutoGenerateColumns="False"
-                                                    BorderBrush="Gray"
-                                                    BorderThickness="2"
-                                                    FrozenColumnCount="2"
-                                                    GridLinesVisibility="All"
-                                                    IsReadOnly="True"
-                                                    IsSynchronizedWithCurrentItem="true"
-                                                    ItemsSource="{Binding DivisionsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    SelectedItem="{Binding SelectedDivision, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    VerticalScrollBarVisibility="Visible">
-                                                    <DataGrid.Columns>
-                                                        <DataGridTextColumn
-                                                            Width="100"
-                                                            Binding="{Binding DivisionId}"
-                                                            Header="{DynamicResource Tbl09Division-DivisionId}" />
-                                                        <DataGridTextColumn
-                                                            Width="100"
-                                                            Binding="{Binding DivisionName}"
-                                                            Header="{DynamicResource Tbl09Division-DivisionName}" />
-                                                        <DataGridTextColumn
-                                                            Width="100"
-                                                            Binding="{Binding RegnumId}"
-                                                            Header="{DynamicResource Tbl03Regnum-RegnumId}" />
-                                                        <DataGridComboBoxColumn
-                                                            Width="Auto"
-                                                            DisplayMemberPath="RegnumName"
-                                                            Header="{DynamicResource Tbl03Regnum-RegnumName}"
-                                                            ItemsSource="{Binding Source={StaticResource RegnumsAllColl}}"
-                                                            SelectedValueBinding="{Binding RegnumId}"
-                                                            SelectedValuePath="RegnumId" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
-                                                        <DataGridTemplateColumn
-                                                            Width="300"
-                                                            CellTemplate="{StaticResource SynonymColumnTemplate}"
-                                                            Header="{DynamicResource Shared-Synonym}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource AuthorColumnTemplate}" Header="{DynamicResource Shared-Author}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource AuthorYearColumnTemplate}" Header="{DynamicResource Shared-AuthorYear}" />
-                                                        <DataGridTemplateColumn
-                                                            Width="300"
-                                                            CellTemplate="{StaticResource Info300ColumnTemplate}"
-                                                            Header="{DynamicResource Shared-Info}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource EngNameColumnTemplate}" Header="{DynamicResource Shared-EngName}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource GerNameColumnTemplate}" Header="{DynamicResource Shared-GerName}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource FraNameColumnTemplate}" Header="{DynamicResource Shared-FraName}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource SpaNameColumnTemplate}" Header="{DynamicResource Shared-SpaName}" />
-                                                        <DataGridTemplateColumn
-                                                            Width="500"
-                                                            CellTemplate="{StaticResource Memo500ColumnTemplate}"
-                                                            Header="{DynamicResource Shared-Memo}" />
-                                                    </DataGrid.Columns>
-                                                </DataGrid>
-                                            </Grid>
-                                        </ScrollViewer>
-                                    </GroupBox>
-                                </StackPanel>
-                            </TabItem>
-                            <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderSubphylums}">
-                                <StackPanel>
-                                    <GroupBox Width="Auto" Header="{DynamicResource Shared-TabStripHeaderSubphylums}">
-                                        <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                                            <Grid x:Name="LayoutGridSubphylum" MinWidth="300">
-                                                <DataGrid
-                                                    Width="{Binding ElementName=LayoutGridSubphylum, Path=ActualWidth}"
-                                                    Height="200"
-                                                    MaxHeight="500"
-                                                    AlternatingRowBackground="Gainsboro"
-                                                    AlternationCount="2"
-                                                    AutoGenerateColumns="False"
-                                                    BorderBrush="Gray"
-                                                    BorderThickness="2"
-                                                    FrozenColumnCount="2"
-                                                    GridLinesVisibility="All"
-                                                    HorizontalScrollBarVisibility="Visible"
-                                                    IsReadOnly="True"
-                                                    IsSynchronizedWithCurrentItem="true"
-                                                    ItemsSource="{Binding SubphylumsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    SelectedItem="{Binding SelectedSubphylum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    VerticalScrollBarVisibility="Visible">
-                                                    <DataGrid.Columns>
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding SubphylumId}"
-                                                            Header="{DynamicResource Tbl12Subphylum-SubphylumId}" />
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding SubphylumName}"
-                                                            Header="{DynamicResource Tbl12Subphylum-SubphylumName}" />
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding PhylumId}"
-                                                            Header="{DynamicResource Tbl06Phylum-PhylumId}" />
-                                                        <DataGridComboBoxColumn
-                                                            Width="Auto"
-                                                            DisplayMemberPath="PhylumName"
-                                                            Header="{DynamicResource Tbl06Phylum-PhylumName}"
-                                                            ItemsSource="{Binding Source={StaticResource PhylumsAllColl}}"
-                                                            SelectedValueBinding="{Binding (models:Tbl06Phylum.PhylumId)}"
-                                                            SelectedValuePath="PhylumId" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
-                                                        <DataGridTemplateColumn
-                                                            Width="300"
-                                                            CellTemplate="{StaticResource SynonymColumnTemplate}"
-                                                            Header="{DynamicResource Shared-Synonym}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource AuthorColumnTemplate}" Header="{DynamicResource Shared-Author}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource AuthorYearColumnTemplate}" Header="{DynamicResource Shared-AuthorYear}" />
-                                                        <DataGridTemplateColumn
-                                                            Width="300"
-                                                            CellTemplate="{StaticResource Info300ColumnTemplate}"
-                                                            Header="{DynamicResource Shared-Info}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource EngNameColumnTemplate}" Header="{DynamicResource Shared-EngName}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource GerNameColumnTemplate}" Header="{DynamicResource Shared-GerName}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource FraNameColumnTemplate}" Header="{DynamicResource Shared-FraName}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource SpaNameColumnTemplate}" Header="{DynamicResource Shared-SpaName}" />
-                                                        <DataGridTemplateColumn
-                                                            Width="500"
-                                                            CellTemplate="{StaticResource Memo500ColumnTemplate}"
-                                                            Header="{DynamicResource Shared-Memo}" />
-                                                    </DataGrid.Columns>
-                                                </DataGrid>
-                                            </Grid>
-                                        </ScrollViewer>
-                                    </GroupBox>
-                                </StackPanel>
-                            </TabItem>
-                            <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderSubdivisions}">
-                                <StackPanel>
-                                    <GroupBox Width="Auto" Header="{DynamicResource Shared-TabStripHeaderSubdivisions}">
-                                        <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                                            <Grid x:Name="LayoutGridSubdivision" MinWidth="300">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                </Grid.ColumnDefinitions>
-                                                <DataGrid
-                                                    Width="{Binding ElementName=LayoutGridSubdivision, Path=ActualWidth}"
-                                                    Height="200"
-                                                    MaxHeight="500"
-                                                    AlternatingRowBackground="Gainsboro"
-                                                    AlternationCount="2"
-                                                    AutoGenerateColumns="False"
-                                                    BorderBrush="Gray"
-                                                    BorderThickness="2"
-                                                    FrozenColumnCount="2"
-                                                    GridLinesVisibility="All"
-                                                    HorizontalScrollBarVisibility="Visible"
-                                                    IsReadOnly="True"
-                                                    IsSynchronizedWithCurrentItem="true"
-                                                    ItemsSource="{Binding SubdivisionsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    SelectedItem="{Binding SelectedSubdivision, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    VerticalScrollBarVisibility="Visible">
-                                                    <DataGrid.Columns>
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding SubdivisionId}"
-                                                            Header="{DynamicResource Tbl15Subdivision-SubdivisionId}" />
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding SubdivisionName}"
-                                                            Header="{DynamicResource Tbl15Subdivision-SubdivisionName}" />
-                                                        <DataGridTextColumn
-                                                            Width="Auto"
-                                                            Binding="{Binding DivisionId}"
-                                                            Header="{DynamicResource Tbl09Division-DivisionId}" />
-                                                        <DataGridComboBoxColumn
-                                                            Width="Auto"
-                                                            DisplayMemberPath="DivisionName"
-                                                            Header="{DynamicResource Tbl09Division-DivisionName}"
-                                                            ItemsSource="{Binding Source={StaticResource DivisionsAllColl}}"
-                                                            SelectedValueBinding="{Binding (models:Tbl09Division.DivisionId)}"
-                                                            SelectedValuePath="DivisionId" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
-                                                        <DataGridTemplateColumn
-                                                            Width="300"
-                                                            CellTemplate="{StaticResource SynonymColumnTemplate}"
-                                                            Header="{DynamicResource Shared-Synonym}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource AuthorColumnTemplate}" Header="{DynamicResource Shared-Author}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource AuthorYearColumnTemplate}" Header="{DynamicResource Shared-AuthorYear}" />
-                                                        <DataGridTemplateColumn
-                                                            Width="300"
-                                                            CellTemplate="{StaticResource Info300ColumnTemplate}"
-                                                            Header="{DynamicResource Shared-Info}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource EngNameColumnTemplate}" Header="{DynamicResource Shared-EngName}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource GerNameColumnTemplate}" Header="{DynamicResource Shared-GerName}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource FraNameColumnTemplate}" Header="{DynamicResource Shared-FraName}" />
-                                                        <DataGridTemplateColumn CellTemplate="{StaticResource SpaNameColumnTemplate}" Header="{DynamicResource Shared-SpaName}" />
-                                                        <DataGridTemplateColumn
-                                                            Width="500"
-                                                            CellTemplate="{StaticResource Memo500ColumnTemplate}"
-                                                            Header="{DynamicResource Shared-Memo}" />
-                                                    </DataGrid.Columns>
-                                                </DataGrid>
-                                            </Grid>
-                                        </ScrollViewer>
-                                    </GroupBox>
-                                </StackPanel>
-                            </TabItem>
-                        </TabControl>
+                                </TabItem>
+                                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderSubdivisions}">
+                                    <StackPanel>
+                                        <GroupBox Width="Auto" Header="{DynamicResource Shared-TabStripHeaderSubdivisions}">
+                                            <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                                                <Grid x:Name="LayoutGridSubdivision" MinWidth="300">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <DataGrid
+                                                        Width="{Binding ElementName=LayoutGridSubdivision, Path=ActualWidth}"
+                                                        Height="200"
+                                                        MaxHeight="500"
+                                                        AlternatingRowBackground="Gainsboro"
+                                                        AlternationCount="2"
+                                                        AutoGenerateColumns="False"
+                                                        BorderBrush="Gray"
+                                                        BorderThickness="2"
+                                                        FrozenColumnCount="2"
+                                                        GridLinesVisibility="All"
+                                                        HorizontalScrollBarVisibility="Visible"
+                                                        IsReadOnly="True"
+                                                        IsSynchronizedWithCurrentItem="true"
+                                                        ItemsSource="{Binding SubdivisionsCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        SelectedItem="{Binding SelectedSubdivision, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        VerticalScrollBarVisibility="Visible">
+                                                        <DataGrid.Columns>
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding SubdivisionId}"
+                                                                Header="{DynamicResource Tbl15Subdivision-SubdivisionId}" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding SubdivisionName}"
+                                                                Header="{DynamicResource Tbl15Subdivision-SubdivisionName}" />
+                                                            <DataGridTextColumn
+                                                                Width="Auto"
+                                                                Binding="{Binding DivisionId}"
+                                                                Header="{DynamicResource Tbl09Division-DivisionId}" />
+                                                            <DataGridComboBoxColumn
+                                                                Width="Auto"
+                                                                DisplayMemberPath="DivisionName"
+                                                                Header="{DynamicResource Tbl09Division-DivisionName}"
+                                                                ItemsSource="{Binding Source={StaticResource DivisionsAllColl}}"
+                                                                SelectedValueBinding="{Binding (models:Tbl09Division.DivisionId)}"
+                                                                SelectedValuePath="DivisionId" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                                            <DataGridTemplateColumn
+                                                                Width="300"
+                                                                CellTemplate="{StaticResource SynonymColumnTemplate}"
+                                                                Header="{DynamicResource Shared-Synonym}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource AuthorColumnTemplate}" Header="{DynamicResource Shared-Author}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource AuthorYearColumnTemplate}" Header="{DynamicResource Shared-AuthorYear}" />
+                                                            <DataGridTemplateColumn
+                                                                Width="300"
+                                                                CellTemplate="{StaticResource Info300ColumnTemplate}"
+                                                                Header="{DynamicResource Shared-Info}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource EngNameColumnTemplate}" Header="{DynamicResource Shared-EngName}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource GerNameColumnTemplate}" Header="{DynamicResource Shared-GerName}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource FraNameColumnTemplate}" Header="{DynamicResource Shared-FraName}" />
+                                                            <DataGridTemplateColumn CellTemplate="{StaticResource SpaNameColumnTemplate}" Header="{DynamicResource Shared-SpaName}" />
+                                                            <DataGridTemplateColumn
+                                                                Width="500"
+                                                                CellTemplate="{StaticResource Memo500ColumnTemplate}"
+                                                                Header="{DynamicResource Shared-Memo}" />
+                                                        </DataGrid.Columns>
+                                                    </DataGrid>
+                                                </Grid>
+                                            </ScrollViewer>
+                                        </GroupBox>
+                                    </StackPanel>
+                                </TabItem>
+                            </TabControl>
+                        </Expander>
                     </StackPanel>
                 </Grid>
             </StackPanel>
