@@ -165,63 +165,15 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             try
             {
                 var phylum = _uow.Tbl06Phylums.GetById(SelectedPhylum.PhylumId);
-                if (SelectedPhylum.PhylumId != 0)
-                {
-                    if (phylum != null) //update
-                    {
-                        phylum.PhylumName = _selectedPhylum.PhylumName;
-                        phylum.RegnumId = _selectedPhylum.RegnumId;
-                        phylum.Valid = _selectedPhylum.Valid;
-                        phylum.ValidYear = _selectedPhylum.ValidYear;
-                        phylum.Author = _selectedPhylum.Author;
-                        phylum.AuthorYear = _selectedPhylum.AuthorYear;
-                        phylum.Info = _selectedPhylum.Info;
-                        phylum.Synonym = _selectedPhylum.Synonym;
-                        phylum.EngName = _selectedPhylum.EngName;
-                        phylum.GerName = _selectedPhylum.GerName;
-                        phylum.FraName = _selectedPhylum.FraName;
-                        phylum.PorName = _selectedPhylum.PorName;
-                        phylum.Memo = _selectedPhylum.Memo;
-                        phylum.Updater = Environment.UserName;
-                        phylum.UpdaterDate = DateTime.Now;
-                    }
-                }
+                if (SelectedPhylum.PhylumId == 0)
+                    phylum = _extSave.PhylumAdd(SelectedPhylum);
                 else
-                {
-                    phylum = new Tbl06Phylum() //add new
-                    {
-                        PhylumName = _selectedPhylum.PhylumName,
-                        RegnumId = _selectedPhylum.RegnumId,
-                        CountId = RandomHelper.Randomnumber(),
-                        Valid = _selectedPhylum.Valid,
-                        ValidYear = _selectedPhylum.ValidYear,
-                        Author = _selectedPhylum.Author,
-                        AuthorYear = _selectedPhylum.AuthorYear,
-                        Info = _selectedPhylum.Info,
-                        Synonym = _selectedPhylum.Synonym,
-                        EngName = _selectedPhylum.EngName,
-                        GerName = _selectedPhylum.GerName,
-                        FraName = _selectedPhylum.FraName,
-                        PorName = _selectedPhylum.PorName,
-                        Memo = _selectedPhylum.Memo,
-                        Writer = Environment.UserName,
-                        WriterDate = DateTime.Now,
-                        Updater = Environment.UserName,
-                        UpdaterDate = DateTime.Now,
-                    };
-                }
+                    phylum = _extSave.PhylumUpdate(phylum, SelectedPhylum);
 
                 try
                 {
-                    if (_selectedPhylum.PhylumId != 0) //update
-                        _uow.Tbl06Phylums.Update(phylum);
-                    else                            //add
-                        _uow.Tbl06Phylums.Add(phylum);
-
-                    _uow.Complete();
-
+                    _extSave.PhylumSave(phylum, SelectedPhylum);
                     RaisePropertyChanged("PhylumsCollection");
-
                 }
                 catch (DbUpdateException e)
                 {
@@ -256,7 +208,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         //        PhylumsCollection.Add(phylum);
         //    }
         //}
-
 
         private void GetRegnums(int regnumId)
         {
@@ -433,48 +384,16 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             try
             {
                 var reference = _uow.Tbl90References.GetById(SelectedReferenceExpert.ReferenceId);
-                if (SelectedReferenceExpert.ReferenceId != 0)
-                {
-                    if (reference != null) //update
-                    {
-                        reference.RefExpertId = SelectedReferenceExpert.RefExpertId;
-                        reference.PhylumId = SelectedReferenceExpert.PhylumId;
-                        reference.Valid = SelectedReferenceExpert.Valid;
-                        reference.ValidYear = SelectedReferenceExpert.ValidYear;
-                        reference.Info = SelectedReferenceExpert.Info;
-                        reference.Updater = Environment.UserName;
-                        reference.UpdaterDate = DateTime.Now;
-                        reference.Memo = SelectedReferenceExpert.Memo;
-                    }
-                }
+
+                if (SelectedReferenceExpert.ReferenceId == 0)
+                    reference = _extSave.ReferenceExpertPhylumAdd(SelectedReferenceExpert);
                 else
-                {
-                    reference = new Tbl90Reference //add new
-                    {
-                        RefExpertId = SelectedReferenceExpert.RefExpertId,
-                        PhylumId = SelectedReferenceExpert.PhylumId,
-                        CountId = RandomHelper.Randomnumber(),
-                        Valid = SelectedReferenceExpert.Valid,
-                        ValidYear = SelectedReferenceExpert.ValidYear,
-                        Info = SelectedReferenceExpert.Info,
-                        Memo = SelectedReferenceExpert.Memo,
-                        Writer = Environment.UserName,
-                        WriterDate = DateTime.Now,
-                        Updater = Environment.UserName,
-                        UpdaterDate = DateTime.Now,
-                    };
-                }
+                    reference = _extSave.ReferenceExpertPhylumUpdate(reference, SelectedReferenceExpert);
 
                 try
                 {
-                    if (SelectedReferenceExpert.ReferenceId != 0) //update
-                    {
-                        if (reference != null) _uow.Tbl90References.Update(reference);
-                    }
-                    else                                //add
-                    if (reference != null) _uow.Tbl90References.Add(reference);
-
-                    _uow.Complete();
+                    _extSave.ReferenceExpertSave(reference, SelectedReferenceExpert);
+                    RaisePropertyChanged("ReferenceExpertsCollection");
 
                 }
                 catch (DbUpdateException e)
@@ -507,7 +426,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         }
 
         #endregion
-
 
         //-----------------------------------------
 
@@ -582,49 +500,15 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             try
             {
                 var reference = _uow.Tbl90References.GetById(SelectedReferenceSource.ReferenceId);
-                if (SelectedReferenceSource.ReferenceId != 0)
-                {
-                    if (reference != null) //update
-                    {
-                        reference.RefSourceId = SelectedReferenceSource.RefSourceId;
-                        reference.PhylumId = SelectedReferenceSource.PhylumId;
-                        reference.Valid = SelectedReferenceSource.Valid;
-                        reference.ValidYear = SelectedReferenceSource.ValidYear;
-                        reference.Info = SelectedReferenceSource.Info;
-                        reference.Updater = Environment.UserName;
-                        reference.UpdaterDate = DateTime.Now;
-                        reference.Memo = SelectedReferenceSource.Memo;
-                    }
-                }
+                if (SelectedReferenceSource.ReferenceId == 0)
+                    reference = _extSave.ReferenceSourcePhylumAdd(SelectedReferenceSource);
                 else
-                {
-                    reference = new Tbl90Reference //add new
-                    {
-                        RefSourceId = SelectedReferenceSource.RefSourceId,
-                        PhylumId = SelectedReferenceSource.PhylumId,
-                        CountId = RandomHelper.Randomnumber(),
-                        Valid = SelectedReferenceSource.Valid,
-                        ValidYear = SelectedReferenceSource.ValidYear,
-                        Info = SelectedReferenceSource.Info,
-                        Memo = SelectedReferenceSource.Memo,
-                        Writer = Environment.UserName,
-                        WriterDate = DateTime.Now,
-                        Updater = Environment.UserName,
-                        UpdaterDate = DateTime.Now,
-                    };
-                }
+                    reference = _extSave.ReferenceSourcePhylumUpdate(reference, SelectedReferenceSource);
 
                 try
                 {
-                    if (SelectedReferenceSource.ReferenceId != 0) //update
-                    {
-                        if (reference != null) _uow.Tbl90References.Update(reference);
-                    }
-                    else                                //add
-                    if (reference != null) _uow.Tbl90References.Add(reference);
-
-                    _uow.Complete();
-
+                    _extSave.ReferenceSourceSave(reference, SelectedReferenceSource);
+                    RaisePropertyChanged("ReferenceSourcesCollection");
                 }
                 catch (DbUpdateException e)
                 {
@@ -732,49 +616,16 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             try
             {
                 var reference = _uow.Tbl90References.GetById(SelectedReferenceAuthor.ReferenceId);
-                if (SelectedReferenceAuthor.ReferenceId != 0)
-                {
-                    if (reference != null) //update
-                    {
-                        reference.RefAuthorId = SelectedReferenceAuthor.RefAuthorId;
-                        reference.PhylumId = SelectedReferenceAuthor.PhylumId;
-                        reference.Valid = SelectedReferenceAuthor.Valid;
-                        reference.ValidYear = SelectedReferenceAuthor.ValidYear;
-                        reference.Info = SelectedReferenceAuthor.Info;
-                        reference.Updater = Environment.UserName;
-                        reference.UpdaterDate = DateTime.Now;
-                        reference.Memo = SelectedReferenceAuthor.Memo;
-                    }
-                }
+
+                if (SelectedReferenceAuthor.ReferenceId == 0)
+                    reference = _extSave.ReferenceAuthorPhylumAdd(SelectedReferenceAuthor);
                 else
-                {
-                    reference = new Tbl90Reference //add new
-                    {
-                        RefAuthorId = SelectedReferenceAuthor.RefAuthorId,
-                        PhylumId = SelectedReferenceAuthor.PhylumId,
-                        CountId = RandomHelper.Randomnumber(),
-                        Valid = SelectedReferenceAuthor.Valid,
-                        ValidYear = SelectedReferenceAuthor.ValidYear,
-                        Info = SelectedReferenceAuthor.Info,
-                        Memo = SelectedReferenceAuthor.Memo,
-                        Writer = Environment.UserName,
-                        WriterDate = DateTime.Now,
-                        Updater = Environment.UserName,
-                        UpdaterDate = DateTime.Now,
-                    };
-                }
+                    reference = _extSave.ReferenceAuthorPhylumUpdate(reference, SelectedReferenceAuthor);
 
                 try
                 {
-                    if (SelectedReferenceAuthor.ReferenceId != 0) //update
-                    {
-                        if (reference != null) _uow.Tbl90References.Update(reference);
-                    }
-                    else                                //add
-                    if (reference != null) _uow.Tbl90References.Add(reference);
-
-                    _uow.Complete();
-
+                    _extSave.ReferenceAuthorSave(reference, SelectedReferenceAuthor);
+                    RaisePropertyChanged("ReferenceAuthorsCollection");
                 }
                 catch (DbUpdateException e)
                 {
@@ -880,47 +731,16 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             try
             {
                 var comment = _uow.Tbl93Comments.GetById(SelectedComment.CommentId);
-                if (SelectedComment.CommentId != 0)
-                {
-                    if (comment != null) //update
-                    {
-                        comment.PhylumId = SelectedComment.PhylumId;
-                        comment.Valid = SelectedComment.Valid;
-                        comment.ValidYear = SelectedComment.ValidYear;
-                        comment.Info = SelectedComment.Info;
-                        comment.Updater = Environment.UserName;
-                        comment.UpdaterDate = DateTime.Now;
-                        comment.Memo = SelectedComment.Memo;
-                    }
-                }
+
+                if (SelectedComment.CommentId == 0)
+                    comment = _extSave.CommentPhylumAdd(SelectedComment);
                 else
-                {
-                    comment = new Tbl93Comment() //add new
-                    {
-                        PhylumId = SelectedComment.PhylumId,
-                        CountId = RandomHelper.Randomnumber(),
-                        Valid = SelectedComment.Valid,
-                        ValidYear = SelectedComment.ValidYear,
-                        Info = SelectedComment.Info,
-                        Memo = SelectedComment.Memo,
-                        Writer = Environment.UserName,
-                        WriterDate = DateTime.Now,
-                        Updater = Environment.UserName,
-                        UpdaterDate = DateTime.Now,
-                    };
-                }
+                    comment = _extSave.CommentPhylumUpdate(comment, SelectedComment);
 
                 try
                 {
-                    if (SelectedComment.CommentId != 0) //update
-                    {
-                        if (comment != null) _uow.Tbl93Comments.Update(comment);
-                    }
-                    else                                //add
-                    if (comment != null) _uow.Tbl93Comments.Add(comment);
-
-                    _uow.Complete();
-
+                    _extSave.CommentSave(comment, SelectedComment);
+                    RaisePropertyChanged("CommentsCollection");
                 }
                 catch (DbUpdateException e)
                 {

@@ -170,8 +170,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             ExecuteGetRegnumsByNameOrId(searchName);
             RaisePropertyChanged("RegnumsCollection");
         }
-
-
         private void ExecuteSaveRegnum(string searchName)
         {
             if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
@@ -179,63 +177,17 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             try
             {
                 var regnum = _uow.Tbl03Regnums.GetById(SelectedRegnum.RegnumId);
-                if (SelectedRegnum.RegnumId != 0)
-                {
-                    if (regnum != null) //update
-                    {
-                        regnum.RegnumName = _selectedRegnum.RegnumName;
-                        regnum.Subregnum = _selectedRegnum.Subregnum;
-                        regnum.Valid = _selectedRegnum.Valid;
-                        regnum.ValidYear = _selectedRegnum.ValidYear;
-                        regnum.Author = _selectedRegnum.Author;
-                        regnum.AuthorYear = _selectedRegnum.AuthorYear;
-                        regnum.Info = _selectedRegnum.Info;
-                        regnum.Synonym = _selectedRegnum.Synonym;
-                        regnum.EngName = _selectedRegnum.EngName;
-                        regnum.GerName = _selectedRegnum.GerName;
-                        regnum.FraName = _selectedRegnum.FraName;
-                        regnum.PorName = _selectedRegnum.PorName;
-                        regnum.Memo = _selectedRegnum.Memo;
-                        regnum.Updater = Environment.UserName;
-                        regnum.UpdaterDate = DateTime.Now;
-                    }
-                }
+
+                if (SelectedRegnum.RegnumId == 0)
+                    regnum = _extSave.RegnumAdd(SelectedRegnum);
                 else
-                {
-                    regnum = new Tbl03Regnum() //add new
-                    {
-                        RegnumName = _selectedRegnum.RegnumName,
-                        Subregnum = _selectedRegnum.Subregnum,
-                        CountId = RandomHelper.Randomnumber(),
-                        Valid = _selectedRegnum.Valid,
-                        ValidYear = _selectedRegnum.ValidYear,
-                        Author = _selectedRegnum.Author,
-                        AuthorYear = _selectedRegnum.AuthorYear,
-                        Info = _selectedRegnum.Info,
-                        Synonym = _selectedRegnum.Synonym,
-                        EngName = _selectedRegnum.EngName,
-                        GerName = _selectedRegnum.GerName,
-                        FraName = _selectedRegnum.FraName,
-                        PorName = _selectedRegnum.PorName,
-                        Memo = _selectedRegnum.Memo,
-                        Writer = Environment.UserName,
-                        WriterDate = DateTime.Now,
-                        Updater = Environment.UserName,
-                        UpdaterDate = DateTime.Now,
-                    };
-                }
+                    regnum = _extSave.RegnumUpdate(regnum, SelectedRegnum);
 
                 try
                 {
-                    if (SelectedRegnum.RegnumId != 0) //update
-                        _uow.Tbl03Regnums.Update(regnum);
-                    else                            //add
-                        _uow.Tbl03Regnums.Add(regnum);
-
-                    _uow.Complete();
+                    _extSave.RegnumSave(regnum, SelectedRegnum);
 
                     RaisePropertyChanged("RegnumsCollection");
-
                 }
                 catch (DbUpdateException e)
                 {
@@ -250,7 +202,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                     //         Log.Error(e);
                     return;
                 }
-                _allMessageBoxes.InfoMessageBox("SaveSuccess", SelectedRegnum.RegnumId == 0
+                _allMessageBoxes.InfoMessageBox("Save Successfull", SelectedRegnum.RegnumId == 0
                     ? CultRes.StringsRes.DatasetNew
                     : SelectedRegnum.RegnumName + " " + SelectedRegnum.Subregnum);
             }
@@ -456,49 +408,16 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             try
             {
                 var reference = _uow.Tbl90References.GetById(SelectedReferenceExpert.ReferenceId);
-                if (SelectedReferenceExpert.ReferenceId != 0)
-                {
-                    if (reference != null) //update
-                    {
-                        reference.RefExpertId = SelectedReferenceExpert.RefExpertId;
-                        reference.RegnumId = SelectedReferenceExpert.RegnumId;
-                        reference.Valid = SelectedReferenceExpert.Valid;
-                        reference.ValidYear = SelectedReferenceExpert.ValidYear;
-                        reference.Info = SelectedReferenceExpert.Info;
-                        reference.Updater = Environment.UserName;
-                        reference.UpdaterDate = DateTime.Now;
-                        reference.Memo = SelectedReferenceExpert.Memo;
-                    }
-                }
+
+                if (SelectedReferenceExpert.ReferenceId == 0)
+                    reference = _extSave.ReferenceExpertRegnumAdd(SelectedReferenceExpert);
                 else
-                {
-                    reference = new Tbl90Reference //add new
-                    {
-                        RefExpertId = SelectedReferenceExpert.RefExpertId,
-                        RegnumId = SelectedReferenceExpert.RegnumId,
-                        CountId = RandomHelper.Randomnumber(),
-                        Valid = SelectedReferenceExpert.Valid,
-                        ValidYear = SelectedReferenceExpert.ValidYear,
-                        Info = SelectedReferenceExpert.Info,
-                        Memo = SelectedReferenceExpert.Memo,
-                        Writer = Environment.UserName,
-                        WriterDate = DateTime.Now,
-                        Updater = Environment.UserName,
-                        UpdaterDate = DateTime.Now,
-                    };
-                }
+                    reference = _extSave.ReferenceExpertRegnumUpdate(reference, SelectedReferenceExpert);
 
                 try
                 {
-                    if (SelectedReferenceExpert.ReferenceId != 0) //update
-                    {
-                        if (reference != null) _uow.Tbl90References.Update(reference);
-                    }
-                    else                                //add
-                    if (reference != null) _uow.Tbl90References.Add(reference);
-
-                    _uow.Complete();
-
+                    _extSave.ReferenceExpertSave(reference, SelectedReferenceExpert);
+                    RaisePropertyChanged("ReferenceExpertsCollection");
                 }
                 catch (DbUpdateException e)
                 {
@@ -604,49 +523,16 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             try
             {
                 var reference = _uow.Tbl90References.GetById(SelectedReferenceSource.ReferenceId);
-                if (SelectedReferenceSource.ReferenceId != 0)
-                {
-                    if (reference != null) //update
-                    {
-                        reference.RefSourceId = SelectedReferenceSource.RefSourceId;
-                        reference.RegnumId = SelectedReferenceSource.RegnumId;
-                        reference.Valid = SelectedReferenceSource.Valid;
-                        reference.ValidYear = SelectedReferenceSource.ValidYear;
-                        reference.Info = SelectedReferenceSource.Info;
-                        reference.Updater = Environment.UserName;
-                        reference.UpdaterDate = DateTime.Now;
-                        reference.Memo = SelectedReferenceSource.Memo;
-                    }
-                }
+
+                if (SelectedReferenceSource.ReferenceId == 0)
+                    reference = _extSave.ReferenceSourceRegnumAdd(SelectedReferenceSource);
                 else
-                {
-                    reference = new Tbl90Reference //add new
-                    {
-                        RefSourceId = SelectedReferenceSource.RefSourceId,
-                        RegnumId = SelectedReferenceSource.RegnumId,
-                        CountId = RandomHelper.Randomnumber(),
-                        Valid = SelectedReferenceSource.Valid,
-                        ValidYear = SelectedReferenceSource.ValidYear,
-                        Info = SelectedReferenceSource.Info,
-                        Memo = SelectedReferenceSource.Memo,
-                        Writer = Environment.UserName,
-                        WriterDate = DateTime.Now,
-                        Updater = Environment.UserName,
-                        UpdaterDate = DateTime.Now,
-                    };
-                }
+                    reference = _extSave.ReferenceSourceRegnumUpdate(reference, SelectedReferenceSource);
 
                 try
                 {
-                    if (SelectedReferenceSource.ReferenceId != 0) //update
-                    {
-                        if (reference != null) _uow.Tbl90References.Update(reference);
-                    }
-                    else                                //add
-                    if (reference != null) _uow.Tbl90References.Add(reference);
-
-                    _uow.Complete();
-
+                    _extSave.ReferenceSourceSave(reference, SelectedReferenceSource);
+                    RaisePropertyChanged("ReferenceSourcesCollection");
                 }
                 catch (DbUpdateException e)
                 {
@@ -754,49 +640,16 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             try
             {
                 var reference = _uow.Tbl90References.GetById(SelectedReferenceAuthor.ReferenceId);
-                if (SelectedReferenceAuthor.ReferenceId != 0)
-                {
-                    if (reference != null) //update
-                    {
-                        reference.RefAuthorId = SelectedReferenceAuthor.RefAuthorId;
-                        reference.RegnumId = SelectedReferenceAuthor.RegnumId;
-                        reference.Valid = SelectedReferenceAuthor.Valid;
-                        reference.ValidYear = SelectedReferenceAuthor.ValidYear;
-                        reference.Info = SelectedReferenceAuthor.Info;
-                        reference.Updater = Environment.UserName;
-                        reference.UpdaterDate = DateTime.Now;
-                        reference.Memo = SelectedReferenceAuthor.Memo;
-                    }
-                }
+
+                if (SelectedReferenceAuthor.ReferenceId == 0)
+                    reference = _extSave.ReferenceAuthorRegnumAdd(SelectedReferenceAuthor);
                 else
-                {
-                    reference = new Tbl90Reference //add new
-                    {
-                        RefAuthorId = SelectedReferenceAuthor.RefAuthorId,
-                        RegnumId = SelectedReferenceAuthor.RegnumId,
-                        CountId = RandomHelper.Randomnumber(),
-                        Valid = SelectedReferenceAuthor.Valid,
-                        ValidYear = SelectedReferenceAuthor.ValidYear,
-                        Info = SelectedReferenceAuthor.Info,
-                        Memo = SelectedReferenceAuthor.Memo,
-                        Writer = Environment.UserName,
-                        WriterDate = DateTime.Now,
-                        Updater = Environment.UserName,
-                        UpdaterDate = DateTime.Now,
-                    };
-                }
+                    reference = _extSave.ReferenceAuthorRegnumUpdate(reference, SelectedReferenceAuthor);
 
                 try
                 {
-                    if (SelectedReferenceAuthor.ReferenceId != 0) //update
-                    {
-                        if (reference != null) _uow.Tbl90References.Update(reference);
-                    }
-                    else                                //add
-                    if (reference != null) _uow.Tbl90References.Add(reference);
-
-                    _uow.Complete();
-
+                    _extSave.ReferenceAuthorSave(reference, SelectedReferenceAuthor);
+                    RaisePropertyChanged("ReferenceAuthorsCollection");
                 }
                 catch (DbUpdateException e)
                 {
@@ -903,47 +756,16 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             try
             {
                 var comment = _uow.Tbl93Comments.GetById(SelectedComment.CommentId);
-                if (SelectedComment.CommentId != 0)
-                {
-                    if (comment != null) //update
-                    {
-                        comment.RegnumId = SelectedComment.RegnumId;
-                        comment.Valid = SelectedComment.Valid;
-                        comment.ValidYear = SelectedComment.ValidYear;
-                        comment.Info = SelectedComment.Info;
-                        comment.Updater = Environment.UserName;
-                        comment.UpdaterDate = DateTime.Now;
-                        comment.Memo = SelectedComment.Memo;
-                    }
-                }
+
+                if (SelectedComment.CommentId == 0)
+                    comment = _extSave.CommentRegnumAdd(SelectedComment);
                 else
-                {
-                    comment = new Tbl93Comment() //add new
-                    {
-                        RegnumId = SelectedComment.RegnumId,
-                        CountId = RandomHelper.Randomnumber(),
-                        Valid = SelectedComment.Valid,
-                        ValidYear = SelectedComment.ValidYear,
-                        Info = SelectedComment.Info,
-                        Memo = SelectedComment.Memo,
-                        Writer = Environment.UserName,
-                        WriterDate = DateTime.Now,
-                        Updater = Environment.UserName,
-                        UpdaterDate = DateTime.Now,
-                    };
-                }
+                    comment = _extSave.CommentRegnumUpdate(comment, SelectedComment);
 
                 try
                 {
-                    if (SelectedComment.CommentId != 0) //update
-                    {
-                        if (comment != null) _uow.Tbl93Comments.Update(comment);
-                    }
-                    else                                //add
-                    if (comment != null) _uow.Tbl93Comments.Add(comment);
-
-                    _uow.Complete();
-
+                    _extSave.CommentSave(comment, SelectedComment);
+                    RaisePropertyChanged("CommentsCollection");
                 }
                 catch (DbUpdateException e)
                 {
