@@ -45,7 +45,7 @@
                             FocusManager.FocusedElement="{Binding ElementName=TbSearchRegnum}"
                             Orientation="Horizontal">
                             <searchTextBox:SearchTextBox
-                                x:Name="TbSearchRegnum"
+                                x:Name="TbSearchRegnum1"
                                 Width="200"
                                 Height="30"
                                 Margin="20,2,30,2"
@@ -57,7 +57,7 @@
                                 SearchMode="Instant"
                                 Text="{Binding SearchRegnumName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
-                            <!--<TextBox  fehlt x nach eingabe zum löschen
+                            <TextBox
                                 x:Name="TbSearchRegnum"
                                 Width="200"
                                 Height="30"
@@ -65,30 +65,16 @@
                                 mah:TextBoxHelper.ButtonCommand="{Binding GetRegnumsByNameOrIdCommand}"
                                 mah:TextBoxHelper.ClearTextButton="False"
                                 mah:TextBoxHelper.HasText="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="False"
                                 mah:TextBoxHelper.Watermark="Suche RegnumName or ID"
                                 BorderBrush="LightBlue"
                                 BorderThickness="1"
                                 FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
                                 IsEnabled="True"
                                 Style="{DynamicResource MahApps.Styles.TextBox.Search}"
-                                Text="{Binding SearchRegnumName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />-->
+                                Text="{Binding SearchRegnumName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                            <!--  Style="{DynamicResource MahApps.Styles.TextBox.Search}"  -->
 
-                            <!--<TextBox
-                                x:Name="TbSearchRegnum"
-                                Width="200"
-                                Height="40"
-                                Margin="20,2,30,2"
-                                mah:TextBoxHelper.ButtonCommand="{Binding GetRegnumsByNameOrIdCommand}"
-                                mah:TextBoxHelper.ClearTextButton="False"
-                                mah:TextBoxHelper.HasText="True"
-                                mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="Rechercher. on top"
-                                BorderBrush="LightBlue"
-                                BorderThickness="1"
-                                FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
-                                IsEnabled="True"
-                                Style="{DynamicResource MahApps.Styles.TextBox.Search}"
-                                Text="{Binding SearchRegnumName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />-->
                             <Button
                                 Command="{Binding AddRegnumCommand}"
                                 Content="{DynamicResource Shared-ButtonAdd}"
@@ -143,23 +129,44 @@
                                                 Binding="{Binding Subregnum}"
                                                 Header="{DynamicResource Tbl03Regnum-Subregnum}" />
                                             <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
-                                            <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                            <DataGridTemplateColumn
+                                                CellEditingTemplate="{StaticResource ValidYearEditColumnTemplate}"
+                                                CellTemplate="{StaticResource ValidYearColumnTemplate}"
+                                                Header="{DynamicResource Shared-ValidYear}" />
                                             <DataGridTemplateColumn
                                                 Width="300"
                                                 CellEditingTemplate="{StaticResource SynonymEditColumnTemplate}"
                                                 CellTemplate="{StaticResource SynonymColumnTemplate}"
                                                 Header="{DynamicResource Shared-Synonym}" />
-                                            <DataGridTemplateColumn CellTemplate="{StaticResource AuthorColumnTemplate}" Header="{DynamicResource Shared-Author}" />
-                                            <DataGridTemplateColumn CellTemplate="{StaticResource AuthorYearColumnTemplate}" Header="{DynamicResource Shared-AuthorYear}" />
+                                            <DataGridTemplateColumn
+                                                CellEditingTemplate="{StaticResource AuthorEditColumnTemplate}"
+                                                CellTemplate="{StaticResource AuthorColumnTemplate}"
+                                                Header="{DynamicResource Shared-Author}" />
+                                            <DataGridTemplateColumn
+                                                CellEditingTemplate="{StaticResource AuthorYearEditColumnTemplate}"
+                                                CellTemplate="{StaticResource AuthorYearColumnTemplate}"
+                                                Header="{DynamicResource Shared-AuthorYear}" />
                                             <DataGridTemplateColumn
                                                 Width="300"
                                                 CellEditingTemplate="{StaticResource Info300EditColumnTemplate}"
                                                 CellTemplate="{StaticResource Info300ColumnTemplate}"
                                                 Header="{DynamicResource Shared-Info}" />
-                                            <DataGridTemplateColumn CellTemplate="{StaticResource EngNameColumnTemplate}" Header="{DynamicResource Shared-EngName}" />
-                                            <DataGridTemplateColumn CellTemplate="{StaticResource GerNameColumnTemplate}" Header="{DynamicResource Shared-GerName}" />
-                                            <DataGridTemplateColumn CellTemplate="{StaticResource FraNameColumnTemplate}" Header="{DynamicResource Shared-FraName}" />
-                                            <DataGridTemplateColumn CellTemplate="{StaticResource SpaNameColumnTemplate}" Header="{DynamicResource Shared-SpaName}" />
+                                            <DataGridTemplateColumn
+                                                CellEditingTemplate="{StaticResource EngNameEditColumnTemplate}"
+                                                CellTemplate="{StaticResource EngNameColumnTemplate}"
+                                                Header="{DynamicResource Shared-EngName}" />
+                                            <DataGridTemplateColumn
+                                                CellEditingTemplate="{StaticResource GerNameEditColumnTemplate}"
+                                                CellTemplate="{StaticResource GerNameColumnTemplate}"
+                                                Header="{DynamicResource Shared-GerName}" />
+                                            <DataGridTemplateColumn
+                                                CellEditingTemplate="{StaticResource FraNameEditColumnTemplate}"
+                                                CellTemplate="{StaticResource FraNameColumnTemplate}"
+                                                Header="{DynamicResource Shared-FraName}" />
+                                            <DataGridTemplateColumn
+                                                CellEditingTemplate="{StaticResource SpaNameEditColumnTemplate}"
+                                                CellTemplate="{StaticResource SpaNameColumnTemplate}"
+                                                Header="{DynamicResource Shared-SpaName}" />
                                         </DataGrid.Columns>
                                     </DataGrid>
                                 </Grid>
@@ -286,7 +293,10 @@
                                                                         Binding="{Binding RegnumId}"
                                                                         Header="{DynamicResource Tbl03Regnum-RegnumId}" />
                                                                     <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
-                                                                    <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                                                    <DataGridTemplateColumn
+                                                                        CellEditingTemplate="{StaticResource ValidYearEditColumnTemplate}"
+                                                                        CellTemplate="{StaticResource ValidYearColumnTemplate}"
+                                                                        Header="{DynamicResource Shared-ValidYear}" />
                                                                     <DataGridTemplateColumn
                                                                         Width="500"
                                                                         CellEditingTemplate="{StaticResource Info500EditColumnTemplate}"
@@ -408,7 +418,10 @@
                                                                         Binding="{Binding RegnumId}"
                                                                         Header="{DynamicResource Tbl03Regnum-RegnumId}" />
                                                                     <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
-                                                                    <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                                                    <DataGridTemplateColumn
+                                                                        CellEditingTemplate="{StaticResource ValidYearEditColumnTemplate}"
+                                                                        CellTemplate="{StaticResource ValidYearColumnTemplate}"
+                                                                        Header="{DynamicResource Shared-ValidYear}" />
                                                                     <DataGridTemplateColumn
                                                                         Width="500"
                                                                         CellEditingTemplate="{StaticResource Info500EditColumnTemplate}"
@@ -534,7 +547,10 @@
                                                                         Binding="{Binding RegnumId}"
                                                                         Header="{DynamicResource Tbl03Regnum-RegnumId}" />
                                                                     <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
-                                                                    <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                                                    <DataGridTemplateColumn
+                                                                        CellEditingTemplate="{StaticResource ValidYearEditColumnTemplate}"
+                                                                        CellTemplate="{StaticResource ValidYearColumnTemplate}"
+                                                                        Header="{DynamicResource Shared-ValidYear}" />
                                                                     <DataGridTemplateColumn
                                                                         Width="500"
                                                                         CellEditingTemplate="{StaticResource Info500EditColumnTemplate}"
@@ -629,7 +645,10 @@
                                                                         Binding="{Binding RegnumId}"
                                                                         Header="{DynamicResource Tbl03Regnum-RegnumId}" />
                                                                     <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
-                                                                    <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                                                    <DataGridTemplateColumn
+                                                                        CellEditingTemplate="{StaticResource ValidYearEditColumnTemplate}"
+                                                                        CellTemplate="{StaticResource ValidYearColumnTemplate}"
+                                                                        Header="{DynamicResource Shared-ValidYear}" />
                                                                     <DataGridTemplateColumn
                                                                         Width="500"
                                                                         CellEditingTemplate="{StaticResource Info500EditColumnTemplate}"

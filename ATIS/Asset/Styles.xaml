@@ -1,4 +1,7 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
 
     <!--  Styles  -->
     <Style x:Key="AtisFlatButton" TargetType="{x:Type Button}">
@@ -19,20 +22,38 @@
         <CheckBox
             Width="Auto"
             HorizontalAlignment="Center"
-            IsChecked="{Binding Valid}"
+            IsChecked="{Binding Valid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             IsThreeState="True" />
     </DataTemplate>
+
     <DataTemplate x:Key="ValidYearColumnTemplate">
         <TextBlock
             Width="Auto"
             HorizontalAlignment="Center"
             Text="{Binding ValidYear}" />
     </DataTemplate>
+    <DataTemplate x:Key="ValidYearEditColumnTemplate">
+        <TextBox
+            Width="Auto"
+            HorizontalAlignment="Center"
+            Text="{Binding ValidYear}" />
+    </DataTemplate>
+
     <DataTemplate x:Key="AuthorColumnTemplate">
         <TextBlock Width="Auto" Text="{Binding Author}" />
     </DataTemplate>
+    <DataTemplate x:Key="AuthorEditColumnTemplate">
+        <TextBox Width="Auto" Text="{Binding Author}" />
+    </DataTemplate>
+
     <DataTemplate x:Key="AuthorYearColumnTemplate">
         <TextBlock
+            Width="Auto"
+            HorizontalAlignment="Center"
+            Text="{Binding AuthorYear}" />
+    </DataTemplate>
+    <DataTemplate x:Key="AuthorYearEditColumnTemplate">
+        <TextBox
             Width="Auto"
             HorizontalAlignment="Center"
             Text="{Binding AuthorYear}" />
@@ -41,14 +62,29 @@
     <DataTemplate x:Key="EngNameColumnTemplate">
         <TextBlock Width="Auto" Text="{Binding EngName}" />
     </DataTemplate>
+    <DataTemplate x:Key="EngNameEditColumnTemplate">
+        <TextBox Width="Auto" Text="{Binding EngName}" />
+    </DataTemplate>
+
     <DataTemplate x:Key="GerNameColumnTemplate">
         <TextBlock Width="Auto" Text="{Binding GerName}" />
     </DataTemplate>
+    <DataTemplate x:Key="GerNameEditColumnTemplate">
+        <TextBox Width="Auto" Text="{Binding GerName}" />
+    </DataTemplate>
+
     <DataTemplate x:Key="FraNameColumnTemplate">
         <TextBlock Width="Auto" Text="{Binding FraName}" />
     </DataTemplate>
+    <DataTemplate x:Key="FraNameEditColumnTemplate">
+        <TextBox Width="Auto" Text="{Binding FraName}" />
+    </DataTemplate>
+
     <DataTemplate x:Key="SpaNameColumnTemplate">
         <TextBlock Width="Auto" Text="{Binding SpaName}" />
+    </DataTemplate>
+    <DataTemplate x:Key="SpaNameEditColumnTemplate">
+        <TextBox Width="Auto" Text="{Binding SpaName}" />
     </DataTemplate>
 
     <DataTemplate x:Key="SynonymColumnTemplate">
@@ -154,4 +190,8 @@
             </Border>
         </Expander>
     </DataTemplate>
+
+
+
+
 </ResourceDictionary>

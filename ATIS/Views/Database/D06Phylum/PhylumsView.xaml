@@ -126,23 +126,44 @@
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>
                                             <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
-                                            <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                            <DataGridTemplateColumn
+                                                CellEditingTemplate="{StaticResource ValidYearEditColumnTemplate}"
+                                                CellTemplate="{StaticResource ValidYearColumnTemplate}"
+                                                Header="{DynamicResource Shared-ValidYear}" />
                                             <DataGridTemplateColumn
                                                 Width="300"
                                                 CellEditingTemplate="{StaticResource SynonymEditColumnTemplate}"
                                                 CellTemplate="{StaticResource SynonymColumnTemplate}"
                                                 Header="{DynamicResource Shared-Synonym}" />
-                                            <DataGridTemplateColumn CellTemplate="{StaticResource AuthorColumnTemplate}" Header="{DynamicResource Shared-Author}" />
-                                            <DataGridTemplateColumn CellTemplate="{StaticResource AuthorYearColumnTemplate}" Header="{DynamicResource Shared-AuthorYear}" />
+                                            <DataGridTemplateColumn
+                                                CellEditingTemplate="{StaticResource AuthorEditColumnTemplate}"
+                                                CellTemplate="{StaticResource AuthorColumnTemplate}"
+                                                Header="{DynamicResource Shared-Author}" />
+                                            <DataGridTemplateColumn
+                                                CellEditingTemplate="{StaticResource AuthorYearEditColumnTemplate}"
+                                                CellTemplate="{StaticResource AuthorYearColumnTemplate}"
+                                                Header="{DynamicResource Shared-AuthorYear}" />
                                             <DataGridTemplateColumn
                                                 Width="300"
                                                 CellEditingTemplate="{StaticResource Info300EditColumnTemplate}"
                                                 CellTemplate="{StaticResource Info300ColumnTemplate}"
                                                 Header="{DynamicResource Shared-Info}" />
-                                            <DataGridTemplateColumn CellTemplate="{StaticResource EngNameColumnTemplate}" Header="{DynamicResource Shared-EngName}" />
-                                            <DataGridTemplateColumn CellTemplate="{StaticResource GerNameColumnTemplate}" Header="{DynamicResource Shared-GerName}" />
-                                            <DataGridTemplateColumn CellTemplate="{StaticResource FraNameColumnTemplate}" Header="{DynamicResource Shared-FraName}" />
-                                            <DataGridTemplateColumn CellTemplate="{StaticResource SpaNameColumnTemplate}" Header="{DynamicResource Shared-SpaName}" />
+                                            <DataGridTemplateColumn
+                                                CellEditingTemplate="{StaticResource EngNameEditColumnTemplate}"
+                                                CellTemplate="{StaticResource EngNameColumnTemplate}"
+                                                Header="{DynamicResource Shared-EngName}" />
+                                            <DataGridTemplateColumn
+                                                CellEditingTemplate="{StaticResource GerNameEditColumnTemplate}"
+                                                CellTemplate="{StaticResource GerNameColumnTemplate}"
+                                                Header="{DynamicResource Shared-GerName}" />
+                                            <DataGridTemplateColumn
+                                                CellEditingTemplate="{StaticResource FraNameEditColumnTemplate}"
+                                                CellTemplate="{StaticResource FraNameColumnTemplate}"
+                                                Header="{DynamicResource Shared-FraName}" />
+                                            <DataGridTemplateColumn
+                                                CellEditingTemplate="{StaticResource SpaNameEditColumnTemplate}"
+                                                CellTemplate="{StaticResource SpaNameColumnTemplate}"
+                                                Header="{DynamicResource Shared-SpaName}" />
                                         </DataGrid.Columns>
                                     </DataGrid>
                                 </Grid>
@@ -273,7 +294,6 @@
                                                     Header="{DynamicResource Shared-ReferenceExpert}">
                                                     <ScrollViewer HorizontalScrollBarVisibility="Auto">
                                                         <Grid x:Name="LayoutGridRefExpert" MinWidth="300">
-
                                                             <DataGrid
                                                                 Width="{Binding ElementName=LayoutGridRefExpert, Path=ActualWidth}"
                                                                 Height="Auto"
@@ -328,7 +348,10 @@
                                                                         Binding="{Binding PhylumId}"
                                                                         Header="{DynamicResource Tbl06Phylum-PhylumId}" />
                                                                     <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
-                                                                    <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                                                    <DataGridTemplateColumn
+                                                                        CellEditingTemplate="{StaticResource ValidYearEditColumnTemplate}"
+                                                                        CellTemplate="{StaticResource ValidYearColumnTemplate}"
+                                                                        Header="{DynamicResource Shared-ValidYear}" />
                                                                     <DataGridTemplateColumn
                                                                         Width="500"
                                                                         CellEditingTemplate="{StaticResource Info500EditColumnTemplate}"
@@ -450,7 +473,10 @@
                                                                         Binding="{Binding PhylumId}"
                                                                         Header="{DynamicResource Tbl06Phylum-PhylumId}" />
                                                                     <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
-                                                                    <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                                                    <DataGridTemplateColumn
+                                                                        CellEditingTemplate="{StaticResource ValidYearEditColumnTemplate}"
+                                                                        CellTemplate="{StaticResource ValidYearColumnTemplate}"
+                                                                        Header="{DynamicResource Shared-ValidYear}" />
                                                                     <DataGridTemplateColumn
                                                                         Width="500"
                                                                         CellEditingTemplate="{StaticResource Info500EditColumnTemplate}"
@@ -581,7 +607,10 @@
                                                                         Binding="{Binding PhylumId}"
                                                                         Header="{DynamicResource Tbl06Phylum-PhylumId}" />
                                                                     <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
-                                                                    <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                                                    <DataGridTemplateColumn
+                                                                        CellEditingTemplate="{StaticResource ValidYearEditColumnTemplate}"
+                                                                        CellTemplate="{StaticResource ValidYearColumnTemplate}"
+                                                                        Header="{DynamicResource Shared-ValidYear}" />
                                                                 </DataGrid.Columns>
                                                             </DataGrid>
                                                         </Grid>
@@ -671,7 +700,10 @@
                                                                         Binding="{Binding PhylumId}"
                                                                         Header="{DynamicResource Tbl06Phylum-PhylumId}" />
                                                                     <DataGridTemplateColumn CellTemplate="{StaticResource ValidColumnTemplate}" Header="{DynamicResource Shared-Valid}" />
-                                                                    <DataGridTemplateColumn CellTemplate="{StaticResource ValidYearColumnTemplate}" Header="{DynamicResource Shared-ValidYear}" />
+                                                                    <DataGridTemplateColumn
+                                                                        CellEditingTemplate="{StaticResource ValidYearEditColumnTemplate}"
+                                                                        CellTemplate="{StaticResource ValidYearColumnTemplate}"
+                                                                        Header="{DynamicResource Shared-ValidYear}" />
                                                                 </DataGrid.Columns>
                                                             </DataGrid>
                                                         </Grid>
