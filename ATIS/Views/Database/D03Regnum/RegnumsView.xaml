@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"
@@ -115,6 +116,7 @@
                                         <DataGrid.InputBindings>
                                             <KeyBinding Command="{Binding SaveRegnumCommand}" Gesture="Ctrl+Shift+S" />
                                         </DataGrid.InputBindings>
+
                                         <DataGrid.Columns>
                                             <DataGridTextColumn
                                                 Width="Auto"
@@ -203,9 +205,9 @@
                                                         AllowEmptySearches="True"
                                                         BorderBrush="LightBlue"
                                                         BorderThickness="1"
-                                                        Command="{Binding GetExpertsByNameOrIdCommand}"
+                                                        Command="{Binding GetExpertsSourcesAuthorsCommentsByNameOrIdCommand}"
                                                         SearchMode="Instant"
-                                                        Text="{Binding SearchExpertName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                        Text="{Binding SearchExpertSourceAuthorCommentName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                         ToolTip="{DynamicResource Shared-SearchInfoOrId}" />
                                                 </StackPanel>
                                                 <StackPanel
@@ -216,19 +218,19 @@
                                                     VerticalAlignment="Top"
                                                     Orientation="Horizontal">
                                                     <Button
-                                                        Command="{Binding AddExpertCommand}"
+                                                        Command="{Binding AddExpertSourceAuthorCommentCommand}"
                                                         Content="{DynamicResource Shared-ButtonAdd}"
                                                         Style="{StaticResource ButtonDefault}" />
                                                     <Button
-                                                        Command="{Binding CopyExpertCommand}"
+                                                        Command="{Binding CopyExpertSourceAuthorCommentCommand}"
                                                         Content="{DynamicResource Shared-ButtonCopy}"
                                                         Style="{StaticResource ButtonDefault}" />
                                                     <Button
-                                                        Command="{Binding SaveExpertCommand}"
+                                                        Command="{Binding SaveExpertSourceAuthorCommentCommand}"
                                                         Content="{DynamicResource Shared-ButtonSave}"
                                                         Style="{StaticResource ButtonDefault}" />
                                                     <Button
-                                                        Command="{Binding DeleteExpertCommand}"
+                                                        Command="{Binding DeleteExpertSourceAuthorCommentCommand}"
                                                         Content="{DynamicResource Shared-ButtonDelete}"
                                                         Style="{StaticResource ButtonDefault}" />
                                                 </StackPanel>
@@ -242,7 +244,7 @@
                                                             <DataGrid
                                                                 Width="{Binding ElementName=LayoutGridRefExpert, Path=ActualWidth}"
                                                                 Height="Auto"
-                                                                MaxHeight="200"
+                                                                MaxHeight="150"
                                                                 AlternatingRowBackground="LightBlue"
                                                                 AlternationCount="2"
                                                                 AutoGenerateColumns="False"
@@ -257,6 +259,13 @@
                                                                 RowDetailsTemplate="{StaticResource DataGridMemoDetail}"
                                                                 SelectedItem="{Binding SelectedReferenceExpert, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                 VerticalScrollBarVisibility="Visible">
+                                                                <!--  Bind the LostFocus event  -->
+                                                                <i:Interaction.Triggers>
+                                                                    <i:EventTrigger EventName="LostFocus">
+                                                                        <i:InvokeCommandAction Command="{Binding FocusExpertCommand}" />
+                                                                    </i:EventTrigger>
+                                                                </i:Interaction.Triggers>
+
                                                                 <DataGrid.Columns>
                                                                     <DataGridTextColumn
                                                                         Width="Auto"
@@ -315,48 +324,6 @@
                                                     <RowDefinition Height="Auto" />
                                                     <RowDefinition Height="*" />
                                                 </Grid.RowDefinitions>
-                                                <StackPanel
-                                                    Grid.Row="0"
-                                                    Grid.Column="0"
-                                                    VerticalAlignment="Top"
-                                                    Orientation="Horizontal">
-                                                    <searchTextBox:SearchTextBox
-                                                        x:Name="TbSearchSource"
-                                                        Width="150"
-                                                        Height="30"
-                                                        Margin="10,5,30,2"
-                                                        AllowEmptySearches="True"
-                                                        BorderBrush="LightBlue"
-                                                        BorderThickness="1"
-                                                        Command="{Binding GetSourcesByNameOrIdCommand}"
-                                                        SearchMode="Instant"
-                                                        Text="{Binding SearchSourceName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                                        ToolTip="{DynamicResource Shared-SearchInfoOrId}" />
-                                                </StackPanel>
-                                                <StackPanel
-                                                    Grid.Row="0"
-                                                    Grid.Column="0"
-                                                    Margin="180,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    VerticalAlignment="Center"
-                                                    Orientation="Horizontal">
-                                                    <Button
-                                                        Command="{Binding AddSourceCommand}"
-                                                        Content="{DynamicResource Shared-ButtonAdd}"
-                                                        Style="{StaticResource ButtonDefault}" />
-                                                    <Button
-                                                        Command="{Binding CopySourceCommand}"
-                                                        Content="{DynamicResource Shared-ButtonCopy}"
-                                                        Style="{StaticResource ButtonDefault}" />
-                                                    <Button
-                                                        Command="{Binding SaveSourceCommand}"
-                                                        Content="{DynamicResource Shared-ButtonSave}"
-                                                        Style="{StaticResource ButtonDefault}" />
-                                                    <Button
-                                                        Command="{Binding DeleteSourceCommand}"
-                                                        Content="{DynamicResource Shared-ButtonDelete}"
-                                                        Style="{StaticResource ButtonDefault}" />
-                                                </StackPanel>
                                                 <GroupBox
                                                     Grid.Row="1"
                                                     Grid.Column="0"
@@ -367,7 +334,7 @@
                                                             <DataGrid
                                                                 Width="{Binding ElementName=LayoutGridRefSource, Path=ActualWidth}"
                                                                 Height="Auto"
-                                                                MaxHeight="200"
+                                                                MaxHeight="150"
                                                                 AlternatingRowBackground="LightBlue"
                                                                 AlternationCount="2"
                                                                 AutoGenerateColumns="False"
@@ -382,6 +349,13 @@
                                                                 RowDetailsTemplate="{StaticResource DataGridMemoDetail}"
                                                                 SelectedItem="{Binding SelectedReferenceSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                 VerticalScrollBarVisibility="Visible">
+                                                                <!--  Bind the LostFocus event  -->
+                                                                <i:Interaction.Triggers>
+                                                                    <i:EventTrigger EventName="LostFocus">
+                                                                        <i:InvokeCommandAction Command="{Binding FocusSourceCommand}" />
+                                                                    </i:EventTrigger>
+                                                                </i:Interaction.Triggers>
+
                                                                 <DataGrid.Columns>
                                                                     <DataGridTextColumn
                                                                         Width="Auto"
@@ -440,48 +414,6 @@
                                                     <RowDefinition Height="Auto" />
                                                     <RowDefinition Height="*" />
                                                 </Grid.RowDefinitions>
-                                                <StackPanel
-                                                    Grid.Row="0"
-                                                    Grid.Column="0"
-                                                    VerticalAlignment="Top"
-                                                    Orientation="Horizontal">
-                                                    <searchTextBox:SearchTextBox
-                                                        x:Name="TbSearchAuthor"
-                                                        Width="150"
-                                                        Height="30"
-                                                        Margin="10,5,30,2"
-                                                        AllowEmptySearches="True"
-                                                        BorderBrush="LightBlue"
-                                                        BorderThickness="1"
-                                                        Command="{Binding GetAuthorsByNameOrIdCommand}"
-                                                        SearchMode="Instant"
-                                                        Text="{Binding SearchAuthorName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                                        ToolTip="{DynamicResource Shared-SearchInfoOrId}" />
-                                                </StackPanel>
-                                                <StackPanel
-                                                    Grid.Row="0"
-                                                    Grid.Column="0"
-                                                    Margin="180,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    VerticalAlignment="Top"
-                                                    Orientation="Horizontal">
-                                                    <Button
-                                                        Command="{Binding AddAuthorCommand}"
-                                                        Content="{DynamicResource Shared-ButtonAdd}"
-                                                        Style="{StaticResource ButtonDefault}" />
-                                                    <Button
-                                                        Command="{Binding CopyAuthorCommand}"
-                                                        Content="{DynamicResource Shared-ButtonCopy}"
-                                                        Style="{StaticResource ButtonDefault}" />
-                                                    <Button
-                                                        Command="{Binding SaveAuthorCommand}"
-                                                        Content="{DynamicResource Shared-ButtonSave}"
-                                                        Style="{StaticResource ButtonDefault}" />
-                                                    <Button
-                                                        Command="{Binding DeleteAuthorCommand}"
-                                                        Content="{DynamicResource Shared-ButtonDelete}"
-                                                        Style="{StaticResource ButtonDefault}" />
-                                                </StackPanel>
                                                 <GroupBox
                                                     Grid.Row="1"
                                                     Grid.Column="0"
@@ -492,7 +424,7 @@
                                                             <DataGrid
                                                                 Width="{Binding ElementName=LayoutGridRefAuthor, Path=ActualWidth}"
                                                                 Height="Auto"
-                                                                MaxHeight="200"
+                                                                MaxHeight="150"
                                                                 AlternatingRowBackground="LightBlue"
                                                                 AlternationCount="2"
                                                                 AutoGenerateColumns="False"
@@ -507,6 +439,13 @@
                                                                 RowDetailsTemplate="{StaticResource DataGridMemoDetail}"
                                                                 SelectedItem="{Binding SelectedReferenceAuthor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                 VerticalScrollBarVisibility="Visible">
+                                                                <!--  Bind the LostFocus event  -->
+                                                                <i:Interaction.Triggers>
+                                                                    <i:EventTrigger EventName="LostFocus">
+                                                                        <i:InvokeCommandAction Command="{Binding FocusAuthorCommand}" />
+                                                                    </i:EventTrigger>
+                                                                </i:Interaction.Triggers>
+
                                                                 <DataGrid.Columns>
                                                                     <DataGridTextColumn
                                                                         Width="Auto"
@@ -569,47 +508,6 @@
                                                     <RowDefinition Height="Auto" />
                                                     <RowDefinition Height="*" />
                                                 </Grid.RowDefinitions>
-                                                <StackPanel
-                                                    Grid.Row="0"
-                                                    Grid.Column="0"
-                                                    VerticalAlignment="Top"
-                                                    Orientation="Horizontal">
-                                                    <searchTextBox:SearchTextBox
-                                                        x:Name="TbSearchComment"
-                                                        Width="150"
-                                                        Height="30"
-                                                        Margin="10,5,30,2"
-                                                        AllowEmptySearches="True"
-                                                        BorderBrush="LightBlue"
-                                                        BorderThickness="1"
-                                                        Command="{Binding GetCommentsByNameOrIdCommand}"
-                                                        SearchMode="Instant"
-                                                        Text="{Binding SearchCommentName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                                        ToolTip="{DynamicResource Shared-SearchInfoOrId}" />
-                                                </StackPanel>
-                                                <StackPanel
-                                                    Grid.Row="0"
-                                                    Grid.Column="0"
-                                                    Margin="180,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    Orientation="Horizontal">
-                                                    <Button
-                                                        Command="{Binding AddCommentCommand}"
-                                                        Content="{DynamicResource Shared-ButtonAdd}"
-                                                        Style="{StaticResource ButtonDefault}" />
-                                                    <Button
-                                                        Command="{Binding CopyCommentCommand}"
-                                                        Content="{DynamicResource Shared-ButtonCopy}"
-                                                        Style="{StaticResource ButtonDefault}" />
-                                                    <Button
-                                                        Command="{Binding SaveCommentCommand}"
-                                                        Content="{DynamicResource Shared-ButtonSave}"
-                                                        Style="{StaticResource ButtonDefault}" />
-                                                    <Button
-                                                        Command="{Binding DeleteCommentCommand}"
-                                                        Content="{DynamicResource Shared-ButtonDelete}"
-                                                        Style="{StaticResource ButtonDefault}" />
-                                                </StackPanel>
                                                 <GroupBox
                                                     Grid.Row="1"
                                                     Grid.Column="0"
@@ -620,7 +518,7 @@
                                                             <DataGrid
                                                                 Width="{Binding ElementName=LayoutGridComment, Path=ActualWidth}"
                                                                 Height="Auto"
-                                                                MaxHeight="200"
+                                                                MaxHeight="150"
                                                                 AlternatingRowBackground="LightBlue"
                                                                 AlternationCount="2"
                                                                 AutoGenerateColumns="False"
@@ -635,6 +533,13 @@
                                                                 RowDetailsTemplate="{StaticResource DataGridMemoDetail}"
                                                                 SelectedItem="{Binding SelectedComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                 VerticalScrollBarVisibility="Visible">
+                                                                <!--  Bind the LostFocus event  -->
+                                                                <i:Interaction.Triggers>
+                                                                    <i:EventTrigger EventName="LostFocus">
+                                                                        <i:InvokeCommandAction Command="{Binding FocusCommentCommand}" />
+                                                                    </i:EventTrigger>
+                                                                </i:Interaction.Triggers>
+
                                                                 <DataGrid.Columns>
                                                                     <DataGridTextColumn
                                                                         Width="Auto"

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Input;
 using ATIS.Dal.Models;
 using ATIS.Ui.Core;
@@ -28,6 +29,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         private readonly BasicCopy _extCopy = new BasicCopy();
         private readonly BasicDelete _extDelete = new BasicDelete();
         private readonly BasicSave _extSave = new BasicSave();
+        private string _dataGridName;
 
         #region [ Constructor ]
 
@@ -192,7 +194,8 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
+                            CultRes.StringsRes.FailedToSave);
                     //     Log.Error(e);
                     return;
                 }
@@ -202,6 +205,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                     //         Log.Error(e);
                     return;
                 }
+
                 _allMessageBoxes.InfoMessageBox("Save Successfull", SelectedRegnum.RegnumId == 0
                     ? CultRes.StringsRes.DatasetNew
                     : SelectedRegnum.RegnumName + " " + SelectedRegnum.Subregnum);
@@ -211,6 +215,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
                 //         Log.Error(e);
             }
+
             ExecuteGetRegnumsByNameOrId(searchName);
         }
 
@@ -337,24 +342,130 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         //-----------------------------------------
 
+        #region [Commands Regnum ==> Tbl90Reference Expert, Source, Author, Tbl93Comment Comment]
+
+        private RelayCommand _getExpertsSourcesAuthorsCommentsByNameOrIdCommand;
+        public ICommand GetExpertsSourcesAuthorsCommentsByNameOrIdCommand => _getExpertsSourcesAuthorsCommentsByNameOrIdCommand ??=
+            new RelayCommand(delegate { ExecuteSearchExpertsSourcesAuthorsCommentsCommand(SearchExpertSourceAuthorCommentName); });
+        private RelayCommand _addCommand;
+        public ICommand AddExpertSourceAuthorCommentCommand => _addCommand ??= new RelayCommand(delegate { ExecuteAddExpertSourceAuthorCommentCommand(null); });
+        private RelayCommand _copyCommand;
+        public ICommand CopyExpertSourceAuthorCommentCommand => _copyCommand ??= new RelayCommand(delegate { ExecuteCopyExpertSourceAuthorCommentCommand(null); });
+        private RelayCommand _saveCommand;
+        public ICommand SaveExpertSourceAuthorCommentCommand => _saveCommand ??= new RelayCommand(delegate { ExecuteSaveExpertSourceAuthorCommentCommand(null); });
+        private RelayCommand _deleteCommand;
+        public ICommand DeleteExpertSourceAuthorCommentCommand => _deleteCommand ??= new RelayCommand(delegate { ExecuteDeleteExpertSourceAuthorCommentCommand(null); });
+
+        #endregion
+
+        #region[Methods Reference Expert, Source, Author, Tbl93Comment Comment]
+
+        //-----------------------------------------
+        private void ExecuteSearchExpertsSourcesAuthorsCommentsCommand(object o)
+        {
+            switch (_dataGridName)
+            {
+                case "Expert":
+                    ExecuteGetExpertsByNameOrId(SearchExpertSourceAuthorCommentName);
+                    break;
+                case "Source":
+                    ExecuteGetSourcesByNameOrId(SearchExpertSourceAuthorCommentName);
+                    break;
+                case "Author":
+                    ExecuteGetAuthorsByNameOrId(SearchExpertSourceAuthorCommentName);
+                    break;
+                case "Comment":
+                    ExecuteGetCommentsByNameOrId(SearchExpertSourceAuthorCommentName);
+                    break;
+            }
+        }
+        private void ExecuteAddExpertSourceAuthorCommentCommand(object o)
+        {
+            switch (_dataGridName)
+            {
+                case "Expert":
+                    ExecuteAddExpert(null);
+                    break;
+                case "Source":
+                    ExecuteAddSource(null);
+                    break;
+                case "Author":
+                    ExecuteAddAuthor(null);
+                    break;
+                case "Comment":
+                    ExecuteAddComment(null);
+                    break;
+            }
+        }
+        private void ExecuteCopyExpertSourceAuthorCommentCommand(object o)
+        {
+            switch (_dataGridName)
+            {
+                case "Expert":
+                    ExecuteCopyExpert(null);
+                    break;
+                case "Source":
+                    ExecuteCopySource(null);
+                    break;
+                case "Author":
+                    ExecuteCopyAuthor(null);
+                    break;
+                case "Comment":
+                    ExecuteCopyComment(null);
+                    break;
+            }
+        }
+        private void ExecuteSaveExpertSourceAuthorCommentCommand(object o)
+        {
+            switch (_dataGridName)
+            {
+                case "Expert":
+                    ExecuteSaveExpert(null);
+                    break;
+                case "Source":
+                    ExecuteSaveSource(null);
+                    break;
+                case "Author":
+                    ExecuteSaveAuthor(null);
+                    break;
+                case "Comment":
+                    ExecuteSaveComment(null);
+                    break;
+            }
+        }
+        private void ExecuteDeleteExpertSourceAuthorCommentCommand(object o)
+        {
+            switch (_dataGridName)
+            {
+                case "Expert":
+                    ExecuteDeleteExpert(null);
+                    break;
+                case "Source":
+                    ExecuteDeleteSource(null);
+                    break;
+                case "Author":
+                    ExecuteDeleteAuthor(null);
+                    break;
+                case "Comment":
+                    ExecuteDeleteComment(null);
+                    break;
+            }
+        }
+
+        #endregion
+
+        //-----------------------------------------
+
         #region [Commands Regnum ==> Tbl90Reference Expert]
 
-        private RelayCommand _getExpertsByNameOrIdCommand;
-        public ICommand GetExpertsByNameOrIdCommand => _getExpertsByNameOrIdCommand ??= new RelayCommand(delegate { ExecuteGetExpertsByNameOrId(SearchExpertName); });
-        private RelayCommand _addExpertCommand;
-        public ICommand AddExpertCommand => _addExpertCommand ??= new RelayCommand(delegate { ExecuteAddExpert(null); });
-        private RelayCommand _copyExpertCommand;
-        public ICommand CopyExpertCommand => _copyExpertCommand ??= new RelayCommand(delegate { ExecuteCopyExpert(null); });
-        private RelayCommand _deleteExpertCommand;
-        public ICommand DeleteExpertCommand => _deleteExpertCommand ??= new RelayCommand(delegate { ExecuteDeleteExpert(null); });
-        private RelayCommand _saveExpertCommand;
-        public ICommand SaveExpertCommand => _saveExpertCommand ??= new RelayCommand(delegate { ExecuteSaveExpert(null); });
+        private RelayCommand _getFocusExpertCommand;
+        public ICommand FocusExpertCommand => _getFocusExpertCommand ??= new RelayCommand(delegate { FocusExpert("Expert"); });
 
         #endregion
 
         #region[Methods Reference Expert]
 
-        private void ExecuteGetExpertsByNameOrId(string searchName)
+        public void ExecuteGetExpertsByNameOrId(string searchName)
         {
             ReferenceExpertsCollection = _extGet.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "expert");
             RaisePropertyChanged("ReferenceExpertsCollection");
@@ -401,6 +512,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         }
         private void ExecuteSaveExpert(object o)
         {
+            //       if (!FocusExpert(true)) return;
             if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
 
             SelectedReferenceExpert.RegnumId = SelectedRegnum.RegnumId;
@@ -447,6 +559,10 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
+        private void FocusExpert(string dataGridName)
+        {
+            _dataGridName = dataGridName;
+        }
 
         #endregion
 
@@ -454,16 +570,8 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         #region [Commands Regnum ==> Tbl90Reference Source]
 
-        private RelayCommand _getSourcesByNameOrIdCommand;
-        public ICommand GetSourcesByNameOrIdCommand => _getSourcesByNameOrIdCommand ??= new RelayCommand(delegate { ExecuteGetSourcesByNameOrId(SearchSourceName); });
-        private RelayCommand _addSourceCommand;
-        public ICommand AddSourceCommand => _addSourceCommand ??= new RelayCommand(delegate { ExecuteAddSource(null); });
-        private RelayCommand _copySourceCommand;
-        public ICommand CopySourceCommand => _copySourceCommand ??= new RelayCommand(delegate { ExecuteCopySource(null); });
-        private RelayCommand _deleteSourceCommand;
-        public ICommand DeleteSourceCommand => _deleteSourceCommand ??= new RelayCommand(delegate { ExecuteDeleteSource(null); });
-        private RelayCommand _saveSourceCommand;
-        public ICommand SaveSourceCommand => _saveSourceCommand ??= new RelayCommand(delegate { ExecuteSaveSource(null); });
+        private RelayCommand _getFocusSourceCommand;
+        public ICommand FocusSourceCommand => _getFocusSourceCommand ??= new RelayCommand(delegate { FocusSource("Source"); });
 
         #endregion
 
@@ -562,6 +670,10 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
+        private void FocusSource(string dataGridName)
+        {
+            _dataGridName = dataGridName;
+        }
 
         #endregion
 
@@ -569,18 +681,8 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         #region [Commands Regnum ==> Tbl90Reference Author]
 
-        private RelayCommand _getAuthorsByNameOrIdCommand;
-
-        public ICommand GetAuthorsByNameOrIdCommand => _getAuthorsByNameOrIdCommand ??= new RelayCommand(delegate { ExecuteGetAuthorsByNameOrId(SearchAuthorName); });
-        private RelayCommand _addAuthorCommand;
-        public ICommand AddAuthorCommand => _addAuthorCommand ??= new RelayCommand(delegate { ExecuteAddAuthor(null); });
-        private RelayCommand _copyAuthorCommand;
-        public ICommand CopyAuthorCommand => _copyAuthorCommand ??= new RelayCommand(delegate { ExecuteCopyAuthor(null); });
-        private RelayCommand _deleteAuthorCommand;
-        public ICommand DeleteAuthorCommand => _deleteAuthorCommand ??= new RelayCommand(delegate { ExecuteDeleteAuthor(null); });
-        private RelayCommand _saveAuthorCommand;
-        public ICommand SaveAuthorCommand => _saveAuthorCommand ??= new RelayCommand(delegate { ExecuteSaveAuthor(null); });
-
+        private RelayCommand _getFocusAuthorCommand;
+        public ICommand FocusAuthorCommand => _getFocusAuthorCommand ??= new RelayCommand(delegate { FocusAuthor("Author"); });
 
         #endregion
 
@@ -679,23 +781,19 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
+        private void FocusAuthor(string dataGridName)
+        {
+            _dataGridName = dataGridName;
+        }
 
         #endregion
 
         //-----------------------------------------
 
         #region [Commands Regnum ==> Tbl93Comment]
-        private RelayCommand _getCommentsByNameOrIdCommand;
-        public ICommand GetCommentsByNameOrIdCommand => _getCommentsByNameOrIdCommand ??= new RelayCommand(delegate { ExecuteGetCommentsByNameOrId(SearchCommentName); });
-        private RelayCommand _addCommentCommand;
-        public ICommand AddCommentCommand => _addCommentCommand ??= new RelayCommand(delegate { ExecuteAddComment(null); });
-        private RelayCommand _copyCommentCommand;
-        public ICommand CopyCommentCommand => _copyCommentCommand ??= new RelayCommand(delegate { ExecuteCopyComment(null); });
-        private RelayCommand _deleteCommentCommand;
-        public ICommand DeleteCommentCommand => _deleteCommentCommand ??= new RelayCommand(delegate { ExecuteDeleteComment(null); });
-        private RelayCommand _saveCommentCommand;
-        public ICommand SaveCommentCommand => _saveCommentCommand ??= new RelayCommand(delegate { ExecuteSaveComment(null); });
 
+        private RelayCommand _getFocusCommentCommand;
+        public ICommand FocusCommentCommand => _getFocusCommentCommand ??= new RelayCommand(delegate { FocusComment("Comment"); });
 
         #endregion
 
@@ -795,6 +893,10 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
             RaisePropertyChanged("CommentsCollection");
         }
+        private void FocusComment(string dataGridName)
+        {
+            _dataGridName = dataGridName;
+        }
 
         #endregion
 
@@ -842,32 +944,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         }
         #endregion
 
-        #region "Public Commands Connected Tables by DoubleClick"
-
-        //private RelayCommand _openRegnumsCrudCommand;
-        //public ICommand OpenRegnumsCrudCommand => _openRegnumsCrudCommand ??= new RelayCommand(delegate { OpenRegnumsCrud(RegnumsCollection); });
-
-        //private void OpenRegnumsCrud(object regnumsCollection)
-        //{
-        //    RegnumsCollection = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums
-        //        .Find(e => e.RegnumId == SelectedRegnum.RegnumId)
-        //        .OrderBy(a => a.RegnumName));
-
-        //    ////var test1View = new Test1() { DataContext = typeof(Test1WindowViewModel) };
-        //    //  var test1View = new Test1();
-        //    //test1View.Show();
-
-        //    var view = new Test1Window() { DataContext = typeof(RegnumsViewModel) };
-        //    //      view.DataContext = new RegnumsViewModel();
-        //    view.Title = "Test1View";
-        //    view.Width = 820;
-        //    view.Height = 620;
-        //    view.Show();
-
-        //}
-
-
-        #endregion "Public Commands Connected Tables by DoubleClick"
 
         #region [ Properties ]
 
@@ -976,6 +1052,12 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         #endregion "Public Properties"     
 
+        #region Public Properties ExpertSourceAuthorComment
+
+        public string SearchExpertSourceAuthorCommentName { get; set; }
+
+        #endregion "Public Properties"
+
         #region "Public Properties Tbl90Expert"
 
         public ObservableCollection<Tbl90RefExpert> ExpertsCollection { get; set; }
@@ -1002,8 +1084,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         #region Public Properties Tbl90ReferenceExpert
 
-        public string SearchExpertName { get; set; }
-
         Tbl90Reference _selectedReferenceExpert = null;
         public Tbl90Reference SelectedReferenceExpert
         {
@@ -1018,15 +1098,11 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 //}
             }
         }
-
-
         public ObservableCollection<Tbl90Reference> ReferenceExpertsCollection { get; set; }
 
         #endregion "Public Properties"
 
         #region "Public Properties Tbl90ReferenceSource"
-        public string SearchSourceName { get; set; }
-
 
         Tbl90Reference _selectedReferenceSource = null;
         public Tbl90Reference SelectedReferenceSource
@@ -1048,8 +1124,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         #region "Public Properties Tbl90ReferenceAuthor"
 
-        public string SearchAuthorName { get; set; }
-
         Tbl90Reference _selectedReferenceAuthor = null;
 
         public Tbl90Reference SelectedReferenceAuthor
@@ -1070,8 +1144,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         #endregion "Public Properties"
 
         #region Public Properties Tbl93Comment
-
-        public string SearchCommentName { get; set; }
 
         public ObservableCollection<Tbl93Comment> CommentsCollection { get; set; }
 
