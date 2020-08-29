@@ -65,9 +65,9 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         private RelayCommand _getPhylumsByNameOrIdCommand;
         public ICommand GetPhylumsByNameOrIdCommand => _getPhylumsByNameOrIdCommand ??= new RelayCommand(delegate { ExecuteGetPhylumsByNameOrId(SearchPhylumName); });
         private RelayCommand _addPhylumCommand;
-        public ICommand AddPhylumCommand => _addPhylumCommand ??= new RelayCommand(delegate { ExecuteAddPhylum(null); });
+        public ICommand AddPhylumCommand => _addPhylumCommand ??= new RelayCommand(delegate { ExecuteAddPhylum(); });
         private RelayCommand _copyPhylumCommand;
-        public ICommand CopyPhylumCommand => _copyPhylumCommand ??= new RelayCommand(delegate { ExecuteCopyPhylum(null); });
+        public ICommand CopyPhylumCommand => _copyPhylumCommand ??= new RelayCommand(delegate { ExecuteCopyPhylum(); });
         private RelayCommand _deletePhylumCommand;
         public ICommand DeletePhylumCommand => _deletePhylumCommand ??= new RelayCommand(delegate { ExecuteDeletePhylum(SearchPhylumName); });
         private RelayCommand _savePhylumCommand;
@@ -94,12 +94,12 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             PhylumsCollection = _extGet.SearchNameAndIdReturnCollection<Tbl06Phylum>(searchName, "phylum");
             RaisePropertyChanged("PhylumsCollection");
         }
-        private void ExecuteAddPhylum(object o)
+        private void ExecuteAddPhylum()
         {
             PhylumsCollection.Insert(0, new Tbl06Phylum() { PhylumName = CultRes.StringsRes.DatasetNew });
             RaisePropertyChanged("PhylumsCollection");
         }
-        private void ExecuteCopyPhylum(object o)
+        private void ExecuteCopyPhylum()
         {
             if (_genPhylumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedPhylum)) return;
 
@@ -317,22 +317,22 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private RelayCommand _getExpertsSourcesAuthorsCommentsByNameOrIdCommand;
         public ICommand GetExpertsSourcesAuthorsCommentsByNameOrIdCommand => _getExpertsSourcesAuthorsCommentsByNameOrIdCommand ??=
-            new RelayCommand(delegate { ExecuteSearchExpertsSourcesAuthorsCommentsCommand(SearchExpertSourceAuthorCommentName); });
+            new RelayCommand(ExecuteSearchExpertsSourcesAuthorsCommentsCommand);
         private RelayCommand _addCommand;
-        public ICommand AddExpertSourceAuthorCommentCommand => _addCommand ??= new RelayCommand(delegate { ExecuteAddExpertSourceAuthorCommentCommand(null); });
+        public ICommand AddExpertSourceAuthorCommentCommand => _addCommand ??= new RelayCommand(delegate { ExecuteAddExpertSourceAuthorCommentCommand(); });
         private RelayCommand _copyCommand;
-        public ICommand CopyExpertSourceAuthorCommentCommand => _copyCommand ??= new RelayCommand(delegate { ExecuteCopyExpertSourceAuthorCommentCommand(null); });
+        public ICommand CopyExpertSourceAuthorCommentCommand => _copyCommand ??= new RelayCommand(delegate { ExecuteCopyExpertSourceAuthorCommentCommand(); });
         private RelayCommand _saveCommand;
-        public ICommand SaveExpertSourceAuthorCommentCommand => _saveCommand ??= new RelayCommand(delegate { ExecuteSaveExpertSourceAuthorCommentCommand(null); });
+        public ICommand SaveExpertSourceAuthorCommentCommand => _saveCommand ??= new RelayCommand(delegate { ExecuteSaveExpertSourceAuthorCommentCommand(); });
         private RelayCommand _deleteCommand;
-        public ICommand DeleteExpertSourceAuthorCommentCommand => _deleteCommand ??= new RelayCommand(delegate { ExecuteDeleteExpertSourceAuthorCommentCommand(null); });
+        public ICommand DeleteExpertSourceAuthorCommentCommand => _deleteCommand ??= new RelayCommand(delegate { ExecuteDeleteExpertSourceAuthorCommentCommand(); });
 
         #endregion
 
         #region[Methods Reference Expert, Source, Author, Tbl93Comment Comment]
 
         //-----------------------------------------
-        private void ExecuteSearchExpertsSourcesAuthorsCommentsCommand(object o)
+        private void ExecuteSearchExpertsSourcesAuthorsCommentsCommand()
         {
             switch (_dataGridName)
             {
@@ -350,75 +350,75 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                     break;
             }
         }
-        private void ExecuteAddExpertSourceAuthorCommentCommand(object o)
+        private void ExecuteAddExpertSourceAuthorCommentCommand()
         {
             switch (_dataGridName)
             {
                 case "Expert":
-                    ExecuteAddExpert(null);
+                    ExecuteAddExpert();
                     break;
                 case "Source":
-                    ExecuteAddSource(null);
+                    ExecuteAddSource();
                     break;
                 case "Author":
-                    ExecuteAddAuthor(null);
+                    ExecuteAddAuthor();
                     break;
                 case "Comment":
-                    ExecuteAddComment(null);
+                    ExecuteAddComment();
                     break;
             }
         }
-        private void ExecuteCopyExpertSourceAuthorCommentCommand(object o)
+        private void ExecuteCopyExpertSourceAuthorCommentCommand()
         {
             switch (_dataGridName)
             {
                 case "Expert":
-                    ExecuteCopyExpert(null);
+                    ExecuteCopyExpert();
                     break;
                 case "Source":
-                    ExecuteCopySource(null);
+                    ExecuteCopySource();
                     break;
                 case "Author":
-                    ExecuteCopyAuthor(null);
+                    ExecuteCopyAuthor();
                     break;
                 case "Comment":
-                    ExecuteCopyComment(null);
+                    ExecuteCopyComment();
                     break;
             }
         }
-        private void ExecuteSaveExpertSourceAuthorCommentCommand(object o)
+        private void ExecuteSaveExpertSourceAuthorCommentCommand()
         {
             switch (_dataGridName)
             {
                 case "Expert":
-                    ExecuteSaveExpert(null);
+                    ExecuteSaveExpert();
                     break;
                 case "Source":
-                    ExecuteSaveSource(null);
+                    ExecuteSaveSource();
                     break;
                 case "Author":
-                    ExecuteSaveAuthor(null);
+                    ExecuteSaveAuthor();
                     break;
                 case "Comment":
-                    ExecuteSaveComment(null);
+                    ExecuteSaveComment();
                     break;
             }
         }
-        private void ExecuteDeleteExpertSourceAuthorCommentCommand(object o)
+        private void ExecuteDeleteExpertSourceAuthorCommentCommand()
         {
             switch (_dataGridName)
             {
                 case "Expert":
-                    ExecuteDeleteExpert(null);
+                    ExecuteDeleteExpert();
                     break;
                 case "Source":
-                    ExecuteDeleteSource(null);
+                    ExecuteDeleteSource();
                     break;
                 case "Author":
-                    ExecuteDeleteAuthor(null);
+                    ExecuteDeleteAuthor();
                     break;
                 case "Comment":
-                    ExecuteDeleteComment(null);
+                    ExecuteDeleteComment();
                     break;
             }
         }
@@ -432,7 +432,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         private RelayCommand _getFocusExpertCommand;
         public ICommand FocusExpertCommand => _getFocusExpertCommand ??= new RelayCommand(delegate { FocusExpert("Expert"); });
 
-
         #endregion
 
         #region[Methods Reference Expert]
@@ -442,21 +441,21 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             ReferenceExpertsCollection = _extGet.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "expert");
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
-        private void ExecuteAddExpert(object o)
+        private void ExecuteAddExpert()
         {
             if (_genPhylumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedPhylum)) return;
 
             ReferenceExpertsCollection.Insert(0, new Tbl90Reference() { PhylumId = SelectedPhylum.PhylumId, Info = CultRes.StringsRes.DatasetNew });
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
-        private void ExecuteCopyExpert(object o)
+        private void ExecuteCopyExpert()
         {
             if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceExpert)) return;
 
             ReferenceExpertsCollection = _extCopy.CopyReferencePhylum(SelectedReferenceExpert, "Expert");
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
-        private void ExecuteDeleteExpert(object o)
+        private void ExecuteDeleteExpert()
         {
             if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceExpert)) return;
 
@@ -482,7 +481,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             ReferenceExpertsCollection = _extDelete.SearchForDatasetWithPhylumIdAndRefAuthorIdAndRefSourceIdInTableReference(SelectedPhylum);
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
-        private void ExecuteSaveExpert(object o)
+        private void ExecuteSaveExpert()
         {
             if (_genPhylumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedPhylum)) return;
 
@@ -554,21 +553,21 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             ReferenceSourcesCollection = _extGet.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "source");
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
-        private void ExecuteAddSource(object o)
+        private void ExecuteAddSource()
         {
             if (_genPhylumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedPhylum)) return;
 
             ReferenceSourcesCollection.Insert(0, new Tbl90Reference() { PhylumId = SelectedPhylum.PhylumId, Info = CultRes.StringsRes.DatasetNew });
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
-        private void ExecuteCopySource(object o)
+        private void ExecuteCopySource()
         {
             if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceSource)) return;
 
             ReferenceSourcesCollection = _extCopy.CopyReferencePhylum(SelectedReferenceSource, "Source");
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
-        private void ExecuteDeleteSource(object o)
+        private void ExecuteDeleteSource()
         {
             if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceSource)) return;
 
@@ -594,7 +593,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             ReferenceSourcesCollection = _extDelete.SearchForDatasetWithPhylumIdAndRefAuthorIdAndRefExpertIdInTableReference(SelectedPhylum);
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
-        private void ExecuteSaveSource(object o)
+        private void ExecuteSaveSource()
         {
             if (_genPhylumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedPhylum)) return;
 
@@ -664,21 +663,21 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             ReferenceAuthorsCollection = _extGet.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "author");
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
-        private void ExecuteAddAuthor(object o)
+        private void ExecuteAddAuthor()
         {
             if (_genPhylumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedPhylum)) return;
 
             ReferenceAuthorsCollection.Insert(0, new Tbl90Reference() { PhylumId = SelectedPhylum.PhylumId, Info = CultRes.StringsRes.DatasetNew });
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
-        private void ExecuteCopyAuthor(object o)
+        private void ExecuteCopyAuthor()
         {
             if (_genAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceAuthor)) return;
 
             ReferenceAuthorsCollection = _extCopy.CopyReferencePhylum(SelectedReferenceAuthor, "Author");
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
-        private void ExecuteDeleteAuthor(object o)
+        private void ExecuteDeleteAuthor()
         {
             if (_genAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceAuthor)) return;
 
@@ -704,7 +703,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             ReferenceAuthorsCollection = _extDelete.SearchForDatasetWithPhylumIdAndRefSourceIdAndRefExpertIdInTableReference(SelectedPhylum);
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
-        private void ExecuteSaveAuthor(object o)
+        private void ExecuteSaveAuthor()
         {
             if (_genPhylumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedPhylum)) return;
 
@@ -774,21 +773,21 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             CommentsCollection = _extGet.SearchNameAndIdReturnCollection<Tbl93Comment>(searchName, "comment");
             RaisePropertyChanged("CommentsCollection");
         }
-        private void ExecuteAddComment(object o)
+        private void ExecuteAddComment()
         {
             if (_genPhylumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedPhylum)) return;
 
             CommentsCollection.Insert(0, new Tbl93Comment() { PhylumId = SelectedPhylum.PhylumId, Info = CultRes.StringsRes.DatasetNew });
             RaisePropertyChanged("CommentsCollection");
         }
-        private void ExecuteCopyComment(object o)
+        private void ExecuteCopyComment()
         {
             if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedComment)) return;
 
             CommentsCollection = _extCopy.CopyComment(SelectedComment, "Phylum");
             RaisePropertyChanged("CommentsCollection");
         }
-        private void ExecuteDeleteComment(object o)
+        private void ExecuteDeleteComment()
         {
             if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedComment)) return;
 
@@ -814,7 +813,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             CommentsCollection = _extDelete.SearchForDatasetWithPhylumIdInTableComment(SelectedPhylum);
             RaisePropertyChanged("CommentsCollection");
         }
-        private void ExecuteSaveComment(object o)
+        private void ExecuteSaveComment()
         {
             if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedComment)) return;
 
@@ -1060,7 +1059,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         #region Public Properties Tbl90ReferenceExpert
 
 
-        Tbl90Reference _selectedReferenceExpert = null;
+        Tbl90Reference _selectedReferenceExpert;
         public Tbl90Reference SelectedReferenceExpert
         {
             get => _selectedReferenceExpert;
@@ -1083,7 +1082,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         #region "Public Properties Tbl90ReferenceSource"
 
 
-        Tbl90Reference _selectedReferenceSource = null;
+        Tbl90Reference _selectedReferenceSource;
         public Tbl90Reference SelectedReferenceSource
         {
             get => _selectedReferenceSource;
@@ -1104,7 +1103,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         #region "Public Properties Tbl90ReferenceAuthor"
 
 
-        Tbl90Reference _selectedReferenceAuthor = null;
+        Tbl90Reference _selectedReferenceAuthor;
 
         public Tbl90Reference SelectedReferenceAuthor
         {
@@ -1128,7 +1127,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         public ObservableCollection<Tbl93Comment> CommentsCollection { get; set; }
 
-        Tbl93Comment _selectedComment = null;
+        Tbl93Comment _selectedComment;
 
         public Tbl93Comment SelectedComment
         {

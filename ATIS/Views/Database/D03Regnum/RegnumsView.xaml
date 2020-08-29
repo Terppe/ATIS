@@ -7,7 +7,6 @@
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"
-    xmlns:searchTextBox="clr-namespace:SearchTextBox;assembly=SearchTextBox"
     d:DesignHeight="1100"
     d:DesignWidth="1500"
     mc:Ignorable="d">
@@ -22,7 +21,6 @@
         <CollectionViewSource x:Key="AuthorsColl" Source="{Binding AuthorsCollection}" />
 
         <Thickness x:Key="ControlMargin">0 5 0 0</Thickness>
-
 
     </UserControl.Resources>
 
@@ -45,37 +43,15 @@
                             VerticalAlignment="Center"
                             FocusManager.FocusedElement="{Binding ElementName=TbSearchRegnum}"
                             Orientation="Horizontal">
-                            <searchTextBox:SearchTextBox
-                                x:Name="TbSearchRegnum1"
-                                Width="200"
-                                Height="30"
-                                Margin="20,2,30,2"
-                                AllowEmptySearches="True"
-                                BorderBrush="LightBlue"
-                                BorderThickness="1"
-                                Command="{Binding GetRegnumsByNameOrIdCommand}"
-                                FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
-                                SearchMode="Instant"
-                                Text="{Binding SearchRegnumName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-
                             <TextBox
                                 x:Name="TbSearchRegnum"
                                 Width="200"
-                                Height="30"
-                                Margin="20,2,30,2"
-                                mah:TextBoxHelper.ButtonCommand="{Binding GetRegnumsByNameOrIdCommand}"
-                                mah:TextBoxHelper.ClearTextButton="False"
-                                mah:TextBoxHelper.HasText="True"
-                                mah:TextBoxHelper.UseFloatingWatermark="False"
-                                mah:TextBoxHelper.Watermark="Suche RegnumName or ID"
-                                BorderBrush="LightBlue"
-                                BorderThickness="1"
+                                Margin="10,5,10,5"
+                                mah:TextBoxHelper.ButtonCommand="{Binding GetRegnumsByNameOrIdCommand, Mode=OneWay}"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-SearchNameOrId}"
                                 FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
-                                IsEnabled="True"
                                 Style="{DynamicResource MahApps.Styles.TextBox.Search}"
                                 Text="{Binding SearchRegnumName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-                            <!--  Style="{DynamicResource MahApps.Styles.TextBox.Search}"  -->
-
                             <Button
                                 Command="{Binding AddRegnumCommand}"
                                 Content="{DynamicResource Shared-ButtonAdd}"
@@ -98,7 +74,7 @@
                                 <Grid x:Name="LayoutGridRegnum" MinWidth="300">
                                     <DataGrid
                                         Width="{Binding ElementName=LayoutGridRegnum, Path=ActualWidth}"
-                                        Height="400"
+                                        Height="300"
                                         MaxHeight="500"
                                         AlternatingRowBackground="LightBlue"
                                         AlternationCount="2"
@@ -195,9 +171,9 @@
                                                 <StackPanel
                                                     Grid.Row="0"
                                                     Grid.Column="0"
-                                                    VerticalAlignment="Top"
+                                                    VerticalAlignment="Center"
                                                     Orientation="Horizontal">
-                                                    <searchTextBox:SearchTextBox
+                                                    <!--<searchTextBox:SearchTextBox
                                                         x:Name="TbSearchExpert"
                                                         Width="150"
                                                         Height="30"
@@ -208,14 +184,22 @@
                                                         Command="{Binding GetExpertsSourcesAuthorsCommentsByNameOrIdCommand}"
                                                         SearchMode="Instant"
                                                         Text="{Binding SearchExpertSourceAuthorCommentName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                                        ToolTip="{DynamicResource Shared-SearchInfoOrId}" />
+                                                        ToolTip="{DynamicResource Shared-SearchInfoOrId}" />-->
+                                                    <TextBox
+                                                        x:Name="TbSearchExpert"
+                                                        Width="200"
+                                                        Margin="10,5,10,5"
+                                                        mah:TextBoxHelper.ButtonCommand="{Binding GetExpertsSourcesAuthorsCommentsByNameOrIdCommand, Mode=OneWay}"
+                                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-SearchInfoOrId}"
+                                                        FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
+                                                        Style="{DynamicResource MahApps.Styles.TextBox.Search}"
+                                                        Text="{Binding SearchExpertSourceAuthorCommentName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                                                 </StackPanel>
                                                 <StackPanel
                                                     Grid.Row="0"
                                                     Grid.Column="0"
-                                                    Margin="180,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    VerticalAlignment="Top"
+                                                    Margin="220,0,0,0"
+                                                    VerticalAlignment="Center"
                                                     Orientation="Horizontal">
                                                     <Button
                                                         Command="{Binding AddExpertSourceAuthorCommentCommand}"
@@ -265,7 +249,6 @@
                                                                         <i:InvokeCommandAction Command="{Binding FocusExpertCommand}" />
                                                                     </i:EventTrigger>
                                                                 </i:Interaction.Triggers>
-
                                                                 <DataGrid.Columns>
                                                                     <DataGridTextColumn
                                                                         Width="Auto"

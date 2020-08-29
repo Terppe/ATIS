@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ATIS.Dal.Models;
@@ -8,6 +9,8 @@ using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Database.CrudHelper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using Microsoft.EntityFrameworkCore;
 
 namespace ATIS.Ui.Views.Database.D03Regnum
@@ -72,9 +75,9 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         public ICommand GetRegnumsByNameOrIdCommand => _getByNameOrIdCommand ??=
             new RelayCommand(delegate { ExecuteGetRegnumsByNameOrId(SearchRegnumName); });
         private RelayCommand _addRegnumCommand;
-        public ICommand AddRegnumCommand => _addRegnumCommand ??= new RelayCommand(delegate { ExecuteAddRegnum(null); });
+        public ICommand AddRegnumCommand => _addRegnumCommand ??= new RelayCommand(delegate { ExecuteAddRegnum(); });
         private RelayCommand _copyRegnumCommand;
-        public ICommand CopyRegnumCommand => _copyRegnumCommand ??= new RelayCommand(delegate { ExecuteCopyRegnum(null); });
+        public ICommand CopyRegnumCommand => _copyRegnumCommand ??= new RelayCommand(delegate { ExecuteCopyRegnum(); });
         private RelayCommand _deleteRegnumCommand;
         public ICommand DeleteRegnumCommand =>
             _deleteRegnumCommand ??= new RelayCommand(delegate { ExecuteDeleteRegnum(SearchRegnumName); });
@@ -103,12 +106,12 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             RegnumsCollection = _extGet.SearchNameAndIdReturnCollection<Tbl03Regnum>(searchName, "regnum");
             RaisePropertyChanged("RegnumsCollection");
         }
-        private void ExecuteAddRegnum(object o)
+        private void ExecuteAddRegnum()
         {
             RegnumsCollection.Insert(0, new Tbl03Regnum { RegnumName = CultRes.StringsRes.DatasetNew });
             RaisePropertyChanged("RegnumsCollection");
         }
-        private void ExecuteCopyRegnum(object o)
+        private void ExecuteCopyRegnum()
         {
             if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
 
@@ -346,22 +349,22 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private RelayCommand _getExpertsSourcesAuthorsCommentsByNameOrIdCommand;
         public ICommand GetExpertsSourcesAuthorsCommentsByNameOrIdCommand => _getExpertsSourcesAuthorsCommentsByNameOrIdCommand ??=
-            new RelayCommand(delegate { ExecuteSearchExpertsSourcesAuthorsCommentsCommand(SearchExpertSourceAuthorCommentName); });
+            new RelayCommand(ExecuteSearchExpertsSourcesAuthorsCommentsCommand);
         private RelayCommand _addCommand;
-        public ICommand AddExpertSourceAuthorCommentCommand => _addCommand ??= new RelayCommand(delegate { ExecuteAddExpertSourceAuthorCommentCommand(null); });
+        public ICommand AddExpertSourceAuthorCommentCommand => _addCommand ??= new RelayCommand(delegate { ExecuteAddExpertSourceAuthorCommentCommand(); });
         private RelayCommand _copyCommand;
-        public ICommand CopyExpertSourceAuthorCommentCommand => _copyCommand ??= new RelayCommand(delegate { ExecuteCopyExpertSourceAuthorCommentCommand(null); });
+        public ICommand CopyExpertSourceAuthorCommentCommand => _copyCommand ??= new RelayCommand(delegate { ExecuteCopyExpertSourceAuthorCommentCommand(); });
         private RelayCommand _saveCommand;
-        public ICommand SaveExpertSourceAuthorCommentCommand => _saveCommand ??= new RelayCommand(delegate { ExecuteSaveExpertSourceAuthorCommentCommand(null); });
+        public ICommand SaveExpertSourceAuthorCommentCommand => _saveCommand ??= new RelayCommand(delegate { ExecuteSaveExpertSourceAuthorCommentCommand(); });
         private RelayCommand _deleteCommand;
-        public ICommand DeleteExpertSourceAuthorCommentCommand => _deleteCommand ??= new RelayCommand(delegate { ExecuteDeleteExpertSourceAuthorCommentCommand(null); });
+        public ICommand DeleteExpertSourceAuthorCommentCommand => _deleteCommand ??= new RelayCommand(delegate { ExecuteDeleteExpertSourceAuthorCommentCommand(); });
 
         #endregion
 
         #region[Methods Reference Expert, Source, Author, Tbl93Comment Comment]
 
         //-----------------------------------------
-        private void ExecuteSearchExpertsSourcesAuthorsCommentsCommand(object o)
+        private void ExecuteSearchExpertsSourcesAuthorsCommentsCommand()
         {
             switch (_dataGridName)
             {
@@ -379,75 +382,75 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                     break;
             }
         }
-        private void ExecuteAddExpertSourceAuthorCommentCommand(object o)
+        private void ExecuteAddExpertSourceAuthorCommentCommand()
         {
             switch (_dataGridName)
             {
                 case "Expert":
-                    ExecuteAddExpert(null);
+                    ExecuteAddExpert();
                     break;
                 case "Source":
-                    ExecuteAddSource(null);
+                    ExecuteAddSource();
                     break;
                 case "Author":
-                    ExecuteAddAuthor(null);
+                    ExecuteAddAuthor();
                     break;
                 case "Comment":
-                    ExecuteAddComment(null);
+                    ExecuteAddComment();
                     break;
             }
         }
-        private void ExecuteCopyExpertSourceAuthorCommentCommand(object o)
+        private void ExecuteCopyExpertSourceAuthorCommentCommand()
         {
             switch (_dataGridName)
             {
                 case "Expert":
-                    ExecuteCopyExpert(null);
+                    ExecuteCopyExpert();
                     break;
                 case "Source":
-                    ExecuteCopySource(null);
+                    ExecuteCopySource();
                     break;
                 case "Author":
-                    ExecuteCopyAuthor(null);
+                    ExecuteCopyAuthor();
                     break;
                 case "Comment":
-                    ExecuteCopyComment(null);
+                    ExecuteCopyComment();
                     break;
             }
         }
-        private void ExecuteSaveExpertSourceAuthorCommentCommand(object o)
+        private void ExecuteSaveExpertSourceAuthorCommentCommand()
         {
             switch (_dataGridName)
             {
                 case "Expert":
-                    ExecuteSaveExpert(null);
+                    ExecuteSaveExpert();
                     break;
                 case "Source":
-                    ExecuteSaveSource(null);
+                    ExecuteSaveSource();
                     break;
                 case "Author":
-                    ExecuteSaveAuthor(null);
+                    ExecuteSaveAuthor();
                     break;
                 case "Comment":
-                    ExecuteSaveComment(null);
+                    ExecuteSaveComment();
                     break;
             }
         }
-        private void ExecuteDeleteExpertSourceAuthorCommentCommand(object o)
+        private void ExecuteDeleteExpertSourceAuthorCommentCommand()
         {
             switch (_dataGridName)
             {
                 case "Expert":
-                    ExecuteDeleteExpert(null);
+                    ExecuteDeleteExpert();
                     break;
                 case "Source":
-                    ExecuteDeleteSource(null);
+                    ExecuteDeleteSource();
                     break;
                 case "Author":
-                    ExecuteDeleteAuthor(null);
+                    ExecuteDeleteAuthor();
                     break;
                 case "Comment":
-                    ExecuteDeleteComment(null);
+                    ExecuteDeleteComment();
                     break;
             }
         }
@@ -470,21 +473,21 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             ReferenceExpertsCollection = _extGet.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "expert");
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
-        private void ExecuteAddExpert(object o)
+        private void ExecuteAddExpert()
         {
             if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
 
             ReferenceExpertsCollection.Insert(0, new Tbl90Reference() { RegnumId = SelectedRegnum.RegnumId, Info = CultRes.StringsRes.DatasetNew });
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
-        private void ExecuteCopyExpert(object o)
+        private void ExecuteCopyExpert()
         {
             if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceExpert)) return;
 
             ReferenceExpertsCollection = _extCopy.CopyReferenceRegnum(SelectedReferenceExpert, "Expert");
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
-        private void ExecuteDeleteExpert(object o)
+        private void ExecuteDeleteExpert()
         {
             if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceExpert)) return;
 
@@ -510,7 +513,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             ReferenceExpertsCollection = _extDelete.SearchForDatasetWithRegnumIdAndRefAuthorIdAndRefSourceIdInTableReference(SelectedRegnum);
             RaisePropertyChanged("ReferenceExpertsCollection");
         }
-        private void ExecuteSaveExpert(object o)
+        private void ExecuteSaveExpert()
         {
             //       if (!FocusExpert(true)) return;
             if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
@@ -582,21 +585,21 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             ReferenceSourcesCollection = _extGet.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "source");
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
-        private void ExecuteAddSource(object o)
+        private void ExecuteAddSource()
         {
             if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
 
             ReferenceSourcesCollection.Insert(0, new Tbl90Reference() { RegnumId = SelectedRegnum.RegnumId, Info = CultRes.StringsRes.DatasetNew });
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
-        private void ExecuteCopySource(object o)
+        private void ExecuteCopySource()
         {
             if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceSource)) return;
 
             ReferenceSourcesCollection = _extCopy.CopyReferenceRegnum(SelectedReferenceExpert, "Source");
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
-        private void ExecuteDeleteSource(object o)
+        private void ExecuteDeleteSource()
         {
             if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceSource)) return;
 
@@ -622,7 +625,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             ReferenceSourcesCollection = _extDelete.SearchForDatasetWithRegnumIdAndRefAuthorIdAndRefExpertIdInTableReference(SelectedRegnum);
             RaisePropertyChanged("ReferenceSourcesCollection");
         }
-        private void ExecuteSaveSource(object o)
+        private void ExecuteSaveSource()
         {
             if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
 
@@ -693,21 +696,21 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             ReferenceAuthorsCollection = _extGet.SearchNameAndIdReturnCollection<Tbl90Reference>(searchName, "author");
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
-        private void ExecuteAddAuthor(object o)
+        private void ExecuteAddAuthor()
         {
             if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
 
             ReferenceAuthorsCollection.Insert(0, new Tbl90Reference() { RegnumId = SelectedRegnum.RegnumId, Info = CultRes.StringsRes.DatasetNew });
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
-        private void ExecuteCopyAuthor(object o)
+        private void ExecuteCopyAuthor()
         {
             if (_genAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceAuthor)) return;
 
             ReferenceAuthorsCollection = _extCopy.CopyReferenceRegnum(SelectedReferenceAuthor, "Author");
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
-        private void ExecuteDeleteAuthor(object o)
+        private void ExecuteDeleteAuthor()
         {
             if (_genAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedReferenceAuthor)) return;
 
@@ -733,7 +736,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             ReferenceAuthorsCollection = _extDelete.SearchForDatasetWithRegnumIdAndRefSourceIdAndRefExpertIdInTableReference(SelectedRegnum);
             RaisePropertyChanged("ReferenceAuthorsCollection");
         }
-        private void ExecuteSaveAuthor(object o)
+        private void ExecuteSaveAuthor()
         {
             if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
 
@@ -804,14 +807,14 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             CommentsCollection = _extGet.SearchNameAndIdReturnCollection<Tbl93Comment>(searchName, "comment");
             RaisePropertyChanged("CommentsCollection");
         }
-        private void ExecuteAddComment(object o)
+        private void ExecuteAddComment()
         {
             if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedRegnum)) return;
 
             CommentsCollection.Insert(0, new Tbl93Comment() { RegnumId = SelectedRegnum.RegnumId, Info = CultRes.StringsRes.DatasetNew });
             RaisePropertyChanged("CommentsCollection");
         }
-        private void ExecuteCopyComment(object o)
+        private void ExecuteCopyComment()
         {
             if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedComment)) return;
 
@@ -819,7 +822,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             CommentsCollection = _extCopy.CopyComment(SelectedComment, "Regnum");
             RaisePropertyChanged("CommentsCollection");
         }
-        private void ExecuteDeleteComment(object o)
+        private void ExecuteDeleteComment()
         {
             if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedComment)) return;
 
@@ -845,7 +848,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             CommentsCollection = _extDelete.SearchForDatasetWithRegnumIdInTableComment(SelectedRegnum);
             RaisePropertyChanged("CommentsCollection");
         }
-        private void ExecuteSaveComment(object o)
+        private void ExecuteSaveComment()
         {
             if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(SelectedComment)) return;
 
@@ -1042,6 +1045,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         #endregion Public Properties
 
         #region Public Properties Tbl12Subphylum
+
         public ObservableCollection<Tbl12Subphylum> SubphylumsCollection { get; set; }
 
         #endregion Public Properties     
