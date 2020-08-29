@@ -192,12 +192,28 @@
         <!--  Header  -->
         <mah:HamburgerMenu.HamburgerMenuHeaderTemplate>
             <DataTemplate>
-                <TextBlock
-                    HorizontalAlignment="Center"
+                <StackPanel
                     VerticalAlignment="Center"
-                    FontSize="16"
-                    Foreground="White"
-                    Text="Pictures" />
+                    FocusManager.FocusedElement="{Binding ElementName=TbSearch}"
+                    Orientation="Horizontal">
+
+                    <!--<TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="16"
+                        Foreground="Black"
+                        Text="Pictures" />-->
+                    <TextBox
+                        x:Name="TbSearch"
+                        Width="170"
+                        Margin="10,5,10,5"
+                        VerticalAlignment="Center"
+                        mah:TextBoxHelper.ButtonCommand="{Binding GetByNameCommand, Mode=OneWay}"
+                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-Search}"
+                        FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
+                        Style="{DynamicResource MahApps.Styles.TextBox.Search}"
+                        Text="{Binding SearchName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                </StackPanel>
             </DataTemplate>
         </mah:HamburgerMenu.HamburgerMenuHeaderTemplate>
 
