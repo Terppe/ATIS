@@ -164,7 +164,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="DataGridMemoDetail">
-        <Expander>
+        <Expander Margin="10" Header="Click to show/hide Memo">
             <Border
                 Padding="10"
                 Background="{DynamicResource TextBoxBackground}"

@@ -71,7 +71,7 @@
                                 <Grid x:Name="LayoutGridPhylum" MinWidth="300">
                                     <DataGrid
                                         Width="{Binding ElementName=LayoutGridPhylum, Path=ActualWidth}"
-                                        Height="400"
+                                        Height="300"
                                         MaxHeight="500"
                                         AlternatingRowBackground="LightBlue"
                                         AlternationCount="2"
@@ -168,7 +168,7 @@
                         </GroupBox>
                     </StackPanel>
                     <StackPanel Grid.Row="2">
-                        <Expander>
+                        <Expander Margin="10" Header="Click to show/hide connected tables">
                             <TabControl
                                 Height="Auto"
                                 mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
