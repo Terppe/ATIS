@@ -10,6 +10,12 @@
 
   <ItemGroup>
     <None Remove="appsettings.json" />
+    <None Remove="Asset\Images\Aquarium.jpg" />
+    <None Remove="Asset\Images\Aquarium2.jpg" />
+    <None Remove="Asset\Images\Home.jpg" />
+    <None Remove="Asset\Images\Nilpferd.jpg" />
+    <None Remove="Asset\Images\Privat.jpg" />
+    <None Remove="Asset\Images\Settings.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,6 +58,15 @@
     <Reference Include="System.Windows.Interactivity">
       <HintPath>bin\Debug\netcoreapp3.1\System.Windows.Interactivity.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Asset\Images\Aquarium.jpg" />
+    <Resource Include="Asset\Images\Aquarium2.jpg" />
+    <Resource Include="Asset\Images\Home.jpg" />
+    <Resource Include="Asset\Images\Nilpferd.jpg" />
+    <Resource Include="Asset\Images\Privat.jpg" />
+    <Resource Include="Asset\Images\Settings.jpg" />
   </ItemGroup>
 
 </Project>
