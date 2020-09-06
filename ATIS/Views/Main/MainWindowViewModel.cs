@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 using ATIS.Ui.Helper;
-using ControlzEx.Theming;
 using MahApps.Metro.Controls.Dialogs;
 
 namespace ATIS.Ui.Views.Main
 {
-    public class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel : ViewModelBase, IDataErrorInfo, IDisposable
     {
+        private readonly IDialogCoordinator _dialogCoordinator;
+        private readonly IDisposable _disposable;
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(IDialogCoordinator dialogCoordinator)
         {
 
         }
@@ -45,6 +41,27 @@ namespace ATIS.Ui.Views.Main
         }
 
         public string SearchName { get; set; }
+
+        //----------------Close -----------------
+        private bool _quitConfirmationEnabled;
+
+        public bool QuitConfirmationEnabled
+        {
+            get => _quitConfirmationEnabled;
+            //     set => this.Set(ref this._quitConfirmationEnabled, value);
+            set => _quitConfirmationEnabled = value;
+        }
+        public void Dispose()
+        {
+            //  HotkeyManager.Current.Remove("demo");
+            if (_disposable != null) _disposable.Dispose();
+        }
+
+
+        public string Error { get; }
+
+        public string this[string columnName] => throw new NotImplementedException();
+
 
     }
 }

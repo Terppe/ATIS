@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
-using ATIS.Ui.Helper;
 using ControlzEx.Theming;
-using MahApps.Metro.Controls;
 
 namespace ATIS.Ui.Views.Main
 {
@@ -73,9 +70,9 @@ namespace ATIS.Ui.Views.Main
             if (selectedColor != null)
             {
                 var theme = ThemeManager.Current.DetectTheme(Application.Current);
-                var inverseTheme = ThemeManager.Current.GetInverseTheme(theme);
+                var inverseTheme = ThemeManager.Current.GetInverseTheme(theme!);
                 ThemeManager.Current.AddTheme(RuntimeThemeGenerator.Current.GenerateRuntimeTheme(inverseTheme.BaseColorScheme, selectedColor.Value.Value));
-                ThemeManager.Current.ChangeTheme(Application.Current, ThemeManager.Current.AddTheme(RuntimeThemeGenerator.Current.GenerateRuntimeTheme(theme.BaseColorScheme, selectedColor.Value.Value)));
+                ThemeManager.Current.ChangeTheme(Application.Current, ThemeManager.Current.AddTheme(RuntimeThemeGenerator.Current.GenerateRuntimeTheme(theme.BaseColorScheme, selectedColor.Value.Value)!));
                 Application.Current?.MainWindow?.Activate();
             }
         }

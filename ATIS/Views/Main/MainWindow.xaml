@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:main="clr-namespace:ATIS.Ui.Views.Main"
@@ -11,10 +12,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="1750"
     Height="950"
-    d:DataContext="{d:DesignInstance main:MainWindowViewModel}"
-    d:DesignHeight="300"
-    d:DesignWidth="400"
+    d:DesignHeight="400"
+    d:DesignWidth="600"
+    dialog:DialogParticipation.Register="{Binding}"
+    Closing="MetroWindow_Closing"
+    GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+    RenderOptions.ClearTypeHint="Enabled"
+    ResizeMode="CanResizeWithGrip"
     Style="{StaticResource WindowDefault}"
+    TextOptions.TextFormattingMode="Display"
+    TitleCharacterCasing="Normal"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
@@ -176,103 +183,150 @@
 
         </ResourceDictionary>
     </mah:MetroWindow.Resources>
-    <!--  ############# Connect Views and ViewModels with DataTemplate  -->
 
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="17*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-    <mah:HamburgerMenu
-        x:Name="HamburgerMenuControl"
-        HamburgerWidth="48"
-        IsPaneOpen="True"
-        ItemInvoked="HamburgerMenuControl_OnItemInvoked"
-        ItemTemplate="{StaticResource MenuItemTemplate}"
-        OptionsItemTemplate="{StaticResource MenuItemTemplate}"
-        SelectedIndex="0"
-        Style="{StaticResource MahApps.Styles.HamburgerMenu.Ripple}"
-        VerticalScrollBarOnLeftSide="False">
-        <!--  Header  -->
-        <mah:HamburgerMenu.HamburgerMenuHeaderTemplate>
-            <DataTemplate>
-                <StackPanel
-                    VerticalAlignment="Center"
-                    FocusManager.FocusedElement="{Binding ElementName=TbSearch}"
-                    Orientation="Horizontal">
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
 
-                    <!--<TextBlock
+            <Button
+                Grid.Row="0"
+                Width="130"
+                Margin="10,0,220,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Command="{Binding ShowLoginDialogCommand}"
+                Content="Show LoginDialog via VM ..." />
+            <TextBox
+                x:Name="TbSearch"
+                Width="170"
+                Height="30"
+                Margin="10,0,30,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                mah:TextBoxHelper.ButtonCommand="{Binding GetByNameCommand, Mode=OneWay}"
+                mah:TextBoxHelper.UseFloatingWatermark="True"
+                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Search}"
+                FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
+                Style="{DynamicResource MahApps.Styles.TextBox.Search}"
+                Text="{Binding SearchName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+        </Grid>
+
+        <StatusBar
+            Grid.Row="3"
+            Grid.Column="0"
+            Grid.ColumnSpan="2">
+            <StatusBarItem>ATIS Application</StatusBarItem>
+            <Separator Style="{StaticResource MahApps.Styles.Separator.StatusBar}" />
+            <StatusBarItem>Developer: Rudolf Terppé Version 6.0</StatusBarItem>
+            <StatusBarItem Content="{Binding ElementName=MainTabControl, Path=SelectedItem.Header, Mode=OneWay}" />
+        </StatusBar>
+
+        <!--  ############# Connect Views and ViewModels with DataTemplate  -->
+        <mah:HamburgerMenu
+            x:Name="HamburgerMenuControl"
+            Grid.Row="2"
+            Grid.Column="0"
+            HamburgerWidth="48"
+            IsPaneOpen="True"
+            ItemInvoked="HamburgerMenuControl_OnItemInvoked"
+            ItemTemplate="{StaticResource MenuItemTemplate}"
+            OptionsItemTemplate="{StaticResource MenuItemTemplate}"
+            SelectedIndex="0"
+            Style="{StaticResource MahApps.Styles.HamburgerMenu.Ripple}"
+            VerticalScrollBarOnLeftSide="False">
+            <!--  Header  -->
+            <mah:HamburgerMenu.HamburgerMenuHeaderTemplate>
+                <DataTemplate>
+                    <StackPanel
+                        VerticalAlignment="Center"
+                        FocusManager.FocusedElement="{Binding ElementName=TbSearch}"
+                        Orientation="Horizontal">
+
+                        <!--<TextBlock
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         FontSize="16"
                         Foreground="Black"
                         Text="Pictures" />-->
-                    <TextBox
-                        x:Name="TbSearch"
-                        Width="170"
-                        Margin="10,5,10,5"
-                        VerticalAlignment="Center"
-                        mah:TextBoxHelper.ButtonCommand="{Binding GetByNameCommand, Mode=OneWay}"
-                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-Search}"
-                        FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
-                        Style="{DynamicResource MahApps.Styles.TextBox.Search}"
-                        Text="{Binding SearchName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-                </StackPanel>
-            </DataTemplate>
-        </mah:HamburgerMenu.HamburgerMenuHeaderTemplate>
+                        <TextBox
+                            x:Name="TbSearch"
+                            Width="170"
+                            Margin="10,5,10,5"
+                            VerticalAlignment="Center"
+                            mah:TextBoxHelper.ButtonCommand="{Binding GetByNameCommand, Mode=OneWay}"
+                            mah:TextBoxHelper.Watermark="{DynamicResource Shared-Search}"
+                            FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
+                            Style="{DynamicResource MahApps.Styles.TextBox.Search}"
+                            Text="{Binding SearchName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                    </StackPanel>
+                </DataTemplate>
+            </mah:HamburgerMenu.HamburgerMenuHeaderTemplate>
 
-        <!--  Items  -->
-        <mah:HamburgerMenu.ItemsSource>
-            <mah:HamburgerMenuItemCollection>
-                <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Home}" Label="Dashboard">
-                    <mah:HamburgerMenuIconItem.Tag>
-                        <main:HomeView />
-                    </mah:HamburgerMenuIconItem.Tag>
-                </mah:HamburgerMenuIconItem>
-                <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Database}" Label="Database">
-                    <mah:HamburgerMenuIconItem.Tag>
-                        <main:DatabaseView />
-                    </mah:HamburgerMenuIconItem.Tag>
-                </mah:HamburgerMenuIconItem>
-                <mah:HamburgerMenuIconItem Icon="{iconPacks:Octicons Kind=Question}" Label="About">
-                    <mah:HamburgerMenuIconItem.Tag>
-                        <main:AboutView />
-                    </mah:HamburgerMenuIconItem.Tag>
-                </mah:HamburgerMenuIconItem>
-            </mah:HamburgerMenuItemCollection>
-        </mah:HamburgerMenu.ItemsSource>
+            <!--  Items  -->
+            <mah:HamburgerMenu.ItemsSource>
+                <mah:HamburgerMenuItemCollection>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Home}" Label="Dashboard">
+                        <mah:HamburgerMenuIconItem.Tag>
+                            <main:HomeView />
+                        </mah:HamburgerMenuIconItem.Tag>
+                    </mah:HamburgerMenuIconItem>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Database}" Label="Database">
+                        <mah:HamburgerMenuIconItem.Tag>
+                            <main:DatabaseView />
+                        </mah:HamburgerMenuIconItem.Tag>
+                    </mah:HamburgerMenuIconItem>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Octicons Kind=Question}" Label="About">
+                        <mah:HamburgerMenuIconItem.Tag>
+                            <main:AboutView />
+                        </mah:HamburgerMenuIconItem.Tag>
+                    </mah:HamburgerMenuIconItem>
+                </mah:HamburgerMenuItemCollection>
+            </mah:HamburgerMenu.ItemsSource>
 
+            <mah:HamburgerMenu.OptionsItemsSource>
+                <mah:HamburgerMenuItemCollection>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Cog}" Label="Settings">
+                        <mah:HamburgerMenuIconItem.Tag>
+                            <main:SettingView />
+                        </mah:HamburgerMenuIconItem.Tag>
+                    </mah:HamburgerMenuIconItem>
+                </mah:HamburgerMenuItemCollection>
+            </mah:HamburgerMenu.OptionsItemsSource>
 
+            <mah:HamburgerMenu.ContentTemplate>
+                <DataTemplate DataType="{x:Type mah:HamburgerMenuIconItem}">
+                    <Grid Margin="20,0,10,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Margin="0,15,0,5"
+                            Padding="0"
+                            FontFamily="{DynamicResource MahApps.Fonts.Family.Header}"
+                            Text="{Binding Label}" />
+                        <ScrollViewer
+                            Grid.Row="1"
+                            Focusable="False"
+                            HorizontalScrollBarVisibility="Disabled"
+                            VerticalScrollBarVisibility="Auto">
+                            <ContentControl Content="{Binding Tag}" Focusable="False" />
+                        </ScrollViewer>
+                    </Grid>
+                </DataTemplate>
+            </mah:HamburgerMenu.ContentTemplate>
+        </mah:HamburgerMenu>
 
-        <mah:HamburgerMenu.OptionsItemsSource>
-            <mah:HamburgerMenuItemCollection>
-                <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Cog}" Label="Settings">
-                    <mah:HamburgerMenuIconItem.Tag>
-                        <main:SettingView />
-                    </mah:HamburgerMenuIconItem.Tag>
-                </mah:HamburgerMenuIconItem>
-            </mah:HamburgerMenuItemCollection>
-        </mah:HamburgerMenu.OptionsItemsSource>
+    </Grid>
 
-
-        <mah:HamburgerMenu.ContentTemplate>
-            <DataTemplate DataType="{x:Type mah:HamburgerMenuIconItem}">
-                <Grid Margin="20,0,10,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <TextBlock
-                        Grid.Row="0"
-                        Margin="0,15,0,5"
-                        Padding="0"
-                        FontFamily="{DynamicResource MahApps.Fonts.Family.Header}"
-                        Text="{Binding Label}" />
-                    <ScrollViewer
-                        Grid.Row="1"
-                        Focusable="False"
-                        HorizontalScrollBarVisibility="Disabled"
-                        VerticalScrollBarVisibility="Auto">
-                        <ContentControl Content="{Binding Tag}" Focusable="False" />
-                    </ScrollViewer>
-                </Grid>
-            </DataTemplate>
-        </mah:HamburgerMenu.ContentTemplate>
-    </mah:HamburgerMenu>
 </mah:MetroWindow>
