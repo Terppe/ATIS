@@ -1,9 +1,14 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
+using System.Linq;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using ATIS.Ui.Helper;
-using ATIS.Ui.Views.Database;
-using ATIS.Ui.Views.Database.D03Regnum;
-using ATIS.Ui.Views.Database.D06Phylum;
+using ControlzEx.Theming;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace ATIS.Ui.Views.Main
 {
@@ -12,8 +17,11 @@ namespace ATIS.Ui.Views.Main
 
         public MainWindowViewModel()
         {
- 
+
         }
+
+
+        //--------------------Search -------------
         private RelayCommand _getByNameOrIdCommand;
         public ICommand GetByNameCommand => _getByNameOrIdCommand ??= new RelayCommand(delegate { ExecuteGetByName(SearchName); });
 
