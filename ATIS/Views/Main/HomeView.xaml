@@ -201,15 +201,14 @@
                 Height="400"
                 Margin="0,0,5,0"
                 CircularNavigation="False"
-                IsBannerEnabled="True"
+                IsBannerEnabled="False"
                 IsNavigationEnabled="True"
                 ItemTemplate="{StaticResource ImageDataTemplate}"
                 ItemsSource="{Binding FlipViewImages, Mode=OneWay}"
                 MouseHoverBorderEnabled="True"
                 NavigationButtonsPosition="Inside"
-                Orientation="Horizontal"
-                SelectionChanged="FlipView_SelectionChanged" />
-            <StackPanel
+                Orientation="Horizontal" />
+            <!--<StackPanel
                 HorizontalAlignment="Center"
                 DataContext="{Binding ElementName=FlipView, Mode=OneWay}"
                 Orientation="Horizontal">
@@ -221,7 +220,7 @@
                     Minimum="1"
                     SwitchUpDownButtons="True"
                     Value="{Binding Path=SelectedIndex, Mode=TwoWay, Converter={valueConverter:Int32IndexToNumberConverter}}" />
-            </StackPanel>
+            </StackPanel>-->
         </StackPanel>
 
         <!--<Grid Grid.Row="1" Grid.Column="0">

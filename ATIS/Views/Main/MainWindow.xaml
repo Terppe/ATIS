@@ -220,7 +220,7 @@
         <!--  Items  -->
         <mah:HamburgerMenu.ItemsSource>
             <mah:HamburgerMenuItemCollection>
-                <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Home}" Label="Home">
+                <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Home}" Label="Dashboard">
                     <mah:HamburgerMenuIconItem.Tag>
                         <main:HomeView />
                     </mah:HamburgerMenuIconItem.Tag>
