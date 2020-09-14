@@ -55,6 +55,7 @@ namespace ATIS.Ui.Core
         public DbSet<Tbl90RefExpert> Tbl90RefExperts { get; set; }
         public DbSet<Tbl90RefSource> Tbl90RefSources { get; set; }
         public DbSet<Tbl93Comment> Tbl93Comments { get; set; }
+        public DbSet<TblUserProfile> TblUserProfiles { get; set; }
 
     }
 

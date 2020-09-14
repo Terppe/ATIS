@@ -22,6 +22,7 @@ namespace ATIS.Ui.Core
             Tbl90RefSources = new Tbl90RefSourceRepository(_context);
             Tbl90RefAuthors = new Tbl90RefAuthorRepository(_context);
             Tbl93Comments = new Tbl93CommentRepository(_context);
+            TblUserProfiles = new TblUserProfileRepository(_context);
         }
 
 
@@ -37,6 +38,7 @@ namespace ATIS.Ui.Core
         public ITbl90RefSourceRepository Tbl90RefSources { get; }
         public ITbl90RefAuthorRepository Tbl90RefAuthors { get; }
         public ITbl93CommentRepository Tbl93Comments { get; }
+        public ITblUserProfileRepository TblUserProfiles { get; }
 
         public int Complete()
         {
