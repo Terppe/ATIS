@@ -13,7 +13,7 @@
     Width="1750"
     Height="950"
     d:DesignHeight="400"
-    d:DesignWidth="600"
+    d:DesignWidth="1000"
     dialog:DialogParticipation.Register="{Binding}"
     Closing="MetroWindow_Closing"
     GlowBrush="{DynamicResource MahApps.Brushes.Accent}"

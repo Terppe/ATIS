@@ -1,6 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
+using System.Windows;
 using System.Windows.Input;
+using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using MahApps.Metro.Controls.Dialogs;
 
@@ -10,10 +13,55 @@ namespace ATIS.Ui.Views.Main
     {
         private readonly IDialogCoordinator _dialogCoordinator;
         private readonly IDisposable _disposable;
+        private readonly AtisDbContext _context = new AtisDbContext();
 
         public MainWindowViewModel(IDialogCoordinator dialogCoordinator)
         {
+            _dialogCoordinator = dialogCoordinator;
 
+        }
+
+        //----------------Show Login Dialog via Vm ------------
+
+        private RelayCommand _showLoginDialogCommand;
+        public ICommand ShowLoginDialogCommand => _showLoginDialogCommand ??= new RelayCommand(delegate { ShowLoginDialog(); });
+
+        public async void ShowLoginDialog()
+        {
+            // note that setting allows much additional functionality
+            var settings = new LoginDialogSettings { NegativeButtonText = "Cancel", NegativeButtonVisibility = Visibility.Visible };
+
+            await _dialogCoordinator.ShowLoginAsync(this, "Please Login", "Login from ViewModel. For Test Username = admin, Password = admin ", settings)
+                .ContinueWith(t => HandleLoginClose(t.Result));
+        }
+
+        private async void HandleLoginClose(LoginDialogData tResult)
+        {
+            if (tResult != null)
+            {
+                var hashedPassword = Crypt.CalculateHash(tResult.Password, tResult.Username);
+                var userData = _context.TblUserProfiles.SingleOrDefault(i => i.Email.Equals(tResult.Username) && i.Password.Equals(hashedPassword));
+                if (tResult.Username == "admin" && tResult.Password == "admin")  //for testing with admin
+                {
+                    await _dialogCoordinator.ShowMessageAsync(this, "Administrator", tResult.Password);
+                }
+                else
+                {
+                    if (userData != null)
+                    {
+                        await _dialogCoordinator.ShowMessageAsync(this, userData.Role, "Sie sind eingeloggt");
+                    }
+                    else
+                    {
+                        await _dialogCoordinator.ShowMessageAsync(this, "Fehler bei der Eingabe", "E-Mail or Password");
+                    }
+                }
+            }
+            else
+            {
+                //  if (disposable != null) disposable.Dispose();  // Fehler
+                Dispose();
+            }
         }
 
 
