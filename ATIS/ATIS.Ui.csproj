@@ -42,7 +42,6 @@
 
   <ItemGroup>
     <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Log\" />
     <Folder Include="Views\User\" />
     <Folder Include="Views\Search\" />
     <Folder Include="Views\Report\" />

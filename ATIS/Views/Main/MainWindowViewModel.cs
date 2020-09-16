@@ -1,16 +1,34 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
+using ATIS.Ui.Views.Log;
+using ControlzEx.Theming;
 using MahApps.Metro.Controls.Dialogs;
 
 namespace ATIS.Ui.Views.Main
 {
     public class MainWindowViewModel : ViewModelBase, IDataErrorInfo, IDisposable
     {
+        /// <summary>
+        /// Interaktionslogik für LoginWindow.xaml
+        /// </summary>
+        public interface IView
+        {
+            IViewModel ViewModel
+            {
+                get;
+                set;
+            }
+            void Show();
+        }
+
         private readonly IDialogCoordinator _dialogCoordinator;
         private readonly IDisposable _disposable;
         private readonly AtisDbContext _context = new AtisDbContext();
@@ -64,6 +82,29 @@ namespace ATIS.Ui.Views.Main
             }
         }
 
+        //-----------------------Show Login Magnus Montin---------------------------------
+        private RelayCommand _showLoginCommand;
+        public ICommand ShowLoginCommand => _showLoginCommand ??= new RelayCommand(delegate { ShowLogin(); });
+
+        public void ShowLogin()
+        {
+            //Show the login view
+            var viewModel = new AuthenticationViewModel(new AuthenticationService());
+            var loginWindow = new LoginWindow(viewModel);
+            loginWindow.Show();
+        }
+
+        //-----------------------Show Register Magnus Montin---------------------------------
+        private RelayCommand _showRegisterCommand;
+        public ICommand ShowRegisterCommand => _showRegisterCommand ??= new RelayCommand(delegate { ShowRegister(); });
+
+        public void ShowRegister()
+        {
+            //Show the register view
+            var viewModel = new AuthenticationViewModel(new AuthenticationService());
+            var registerWindow = new RegisterWindow(viewModel);
+            registerWindow.Show();
+        }
 
         //--------------------Search -------------
         private RelayCommand _getByNameOrIdCommand;

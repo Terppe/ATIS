@@ -199,12 +199,27 @@
 
             <Button
                 Grid.Row="0"
-                Width="130"
+                Width="160"
                 Margin="10,0,220,0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 Command="{Binding ShowLoginDialogCommand}"
                 Content="Show LoginDialog via VM ..." />
+            <Button
+                Grid.Row="0"
+                Width="140"
+                Margin="10,0,400,0"
+                HorizontalAlignment="Right"
+                Command="{Binding ShowLoginCommand}"
+                Content="Show Login Montin ..." />
+            <Button
+                Grid.Row="0"
+                Width="140"
+                Margin="10,0,550,0"
+                HorizontalAlignment="Right"
+                Command="{Binding ShowRegisterCommand}"
+                Content="Show Register Montin ..." />
+
             <TextBox
                 x:Name="TbSearch"
                 Width="170"

@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Threading;
 using System.Windows;
 using System.Windows.Markup;
+using ATIS.Ui.Views.Log;
 
 namespace ATIS.Ui
 {
@@ -31,6 +32,10 @@ namespace ATIS.Ui
             //    Thread.CurrentThread.CurrentCulture = SqlMapper.Settings.Default.Culture;
             //    Thread.CurrentThread.CurrentUICulture = SqlMapper.Settings.Default.Culture;
             //}
+
+            //Create a custom principal with an anonymous identity at startup
+            var customPrincipal = new CustomPrincipal();
+            AppDomain.CurrentDomain.SetThreadPrincipal(customPrincipal);
 
             FrameworkElement.LanguageProperty.OverrideMetadata(
                 typeof(FrameworkElement),
