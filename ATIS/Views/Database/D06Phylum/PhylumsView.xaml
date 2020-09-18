@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"
@@ -40,7 +41,7 @@
                             VerticalAlignment="Center"
                             FocusManager.FocusedElement="{Binding ElementName=TbSearchPhylum}"
                             Orientation="Horizontal">
-                            <TextBox
+                            <!--<TextBox
                                 x:Name="TbSearchPhylum"
                                 Width="200"
                                 Margin="10,5,10,5"
@@ -48,7 +49,49 @@
                                 mah:TextBoxHelper.Watermark="{DynamicResource Shared-SearchNameOrId}"
                                 FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
                                 Style="{DynamicResource MahApps.Styles.TextBox.Search}"
-                                Text="{Binding SearchPhylumName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                Text="{Binding SearchPhylumName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />-->
+                            <TextBox
+                                x:Name="TbSearchPhylum"
+                                Width="170"
+                                Height="40"
+                                Margin="10,0,0,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                mah:TextBoxHelper.ButtonCommand="{Binding TextBoxButtonCmd, Mode=OneWay}"
+                                ContextMenu="{x:Null}"
+                                FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
+                                Text="{Binding SearchPhylumName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                <TextBox.Style>
+                                    <Style BasedOn="{StaticResource MahApps.Styles.TextBox}" TargetType="{x:Type TextBox}">
+                                        <Setter Property="mah:TextBoxHelper.ClearTextButton" Value="True" />
+                                        <Style.Triggers>
+                                            <Trigger Property="mah:TextBoxHelper.HasText" Value="False">
+                                                <Setter Property="mah:TextBoxHelper.ClearTextButton" Value="False" />
+                                                <Setter Property="mah:TextBoxHelper.Watermark" Value="{DynamicResource Shared-SearchNameOrId}" />
+                                            </Trigger>
+                                            <Trigger Property="mah:TextBoxHelper.HasText" Value="True">
+                                                <Setter Property="mah:TextBoxHelper.ClearTextButton" Value="True" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+                            <Button
+                                Width="40"
+                                Height="40"
+                                Margin="2,2,10,2"
+                                Command="{Binding GetPhylumsByNameOrIdCommand, Mode=OneWay}">
+                                <Button.ContentTemplate>
+                                    <DataTemplate>
+                                        <iconPacks:PackIconModern
+                                            Width="20"
+                                            Height="20"
+                                            Kind="PageSearch" />
+                                    </DataTemplate>
+                                </Button.ContentTemplate>
+
+                            </Button>
+
                             <Button
                                 Command="{Binding AddPhylumCommand}"
                                 Content="{DynamicResource Shared-ButtonAdd}"
@@ -71,7 +114,7 @@
                                 <Grid x:Name="LayoutGridPhylum" MinWidth="300">
                                     <DataGrid
                                         Width="{Binding ElementName=LayoutGridPhylum, Path=ActualWidth}"
-                                        Height="300"
+                                        Height="400"
                                         MaxHeight="500"
                                         AlternatingRowBackground="LightBlue"
                                         AlternationCount="2"
@@ -259,21 +302,62 @@
                                                         SearchMode="Instant"
                                                         Text="{Binding SearchExpertSourceAuthorCommentName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                         ToolTip="{DynamicResource Shared-SearchInfoOrId}" />-->
-                                                    <TextBox
-                                                        x:Name="TbSearchExpert"
+                                                    <!--<TextBox
+                                                        x:Name="TbSearchExpert1"
                                                         Width="200"
                                                         Margin="10,5,10,5"
                                                         mah:TextBoxHelper.ButtonCommand="{Binding GetPhylumsByNameOrIdCommand, Mode=OneWay}"
                                                         mah:TextBoxHelper.Watermark="{DynamicResource Shared-SearchNameOrId}"
                                                         FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
                                                         Style="{DynamicResource MahApps.Styles.TextBox.Search}"
-                                                        Text="{Binding SearchPhylumName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                                        Text="{Binding SearchPhylumName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />-->
+                                                    <TextBox
+                                                        x:Name="TbSearchExpert"
+                                                        Width="170"
+                                                        Height="40"
+                                                        Margin="10,0,0,0"
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Center"
+                                                        mah:TextBoxHelper.ButtonCommand="{Binding TextBoxButtonCmd, Mode=OneWay}"
+                                                        ContextMenu="{x:Null}"
+                                                        FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
+                                                        Text="{Binding SearchExpertSourceAuthorCommentName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                        <TextBox.Style>
+                                                            <Style BasedOn="{StaticResource MahApps.Styles.TextBox}" TargetType="{x:Type TextBox}">
+                                                                <Setter Property="mah:TextBoxHelper.ClearTextButton" Value="True" />
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="mah:TextBoxHelper.HasText" Value="False">
+                                                                        <Setter Property="mah:TextBoxHelper.ClearTextButton" Value="False" />
+                                                                        <Setter Property="mah:TextBoxHelper.Watermark" Value="{DynamicResource Shared-SearchInfoOrId}" />
+                                                                    </Trigger>
+                                                                    <Trigger Property="mah:TextBoxHelper.HasText" Value="True">
+                                                                        <Setter Property="mah:TextBoxHelper.ClearTextButton" Value="True" />
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBox.Style>
+                                                    </TextBox>
+                                                    <Button
+                                                        Width="40"
+                                                        Height="40"
+                                                        Margin="2"
+                                                        Command="{Binding GetExpertsSourcesAuthorsCommentsByNameOrIdCommand, Mode=OneWay}">
+                                                        <Button.ContentTemplate>
+                                                            <DataTemplate>
+                                                                <iconPacks:PackIconModern
+                                                                    Width="20"
+                                                                    Height="20"
+                                                                    Kind="PageSearch" />
+                                                            </DataTemplate>
+                                                        </Button.ContentTemplate>
+
+                                                    </Button>
 
                                                 </StackPanel>
                                                 <StackPanel
                                                     Grid.Row="0"
                                                     Grid.Column="0"
-                                                    Margin="220,0,0,0"
+                                                    Margin="230,0,0,0"
                                                     VerticalAlignment="Center"
                                                     Orientation="Horizontal">
                                                     <Button
