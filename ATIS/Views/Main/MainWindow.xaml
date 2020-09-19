@@ -200,6 +200,7 @@
             <Button
                 Grid.Row="0"
                 Width="160"
+                Height="32"
                 Margin="10,0,235,0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
@@ -208,6 +209,7 @@
             <Button
                 Grid.Row="0"
                 Width="140"
+                Height="32"
                 Margin="10,0,400,0"
                 HorizontalAlignment="Right"
                 Command="{Binding ShowLoginCommand}"
@@ -215,29 +217,16 @@
             <Button
                 Grid.Row="0"
                 Width="140"
+                Height="32"
                 Margin="10,0,550,0"
                 HorizontalAlignment="Right"
                 Command="{Binding ShowRegisterCommand}"
                 Content="Show Register Montin ..." />
-
-            <!--<TextBox
-                x:Name="TbSearch"
-                Width="170"
-                Height="30"
-                Margin="10,0,30,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                mah:TextBoxHelper.ButtonCommand="{Binding GetByNameCommand, Mode=OneWay}"
-                mah:TextBoxHelper.UseFloatingWatermark="True"
-                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Search}"
-                FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
-                Style="{DynamicResource MahApps.Styles.TextBox.Search}"
-                Text="{Binding SearchName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />-->
             <TextBox
                 x:Name="TbSearch"
                 Width="170"
-                Height="30"
-                Margin="10,0,50,0"
+                Height="32"
+                Margin="10,2,42,0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 mah:TextBoxHelper.ButtonCommand="{Binding TextBoxButtonCmd, Mode=OneWay}"
@@ -268,10 +257,10 @@
                 Command="{Binding SearchNameOrId, Mode=OneWay}">
                 <Button.ContentTemplate>
                     <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="PageSearch" />
+                        <iconPacks:PackIconBoxIcons
+                            Width="18"
+                            Height="18"
+                            Kind="RegularSearch" />
                     </DataTemplate>
                 </Button.ContentTemplate>
             </Button>
@@ -308,27 +297,11 @@
                         FocusManager.FocusedElement="{Binding ElementName=TbSearch}"
                         Orientation="Horizontal">
 
-                        <!--<TextBlock
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        FontSize="16"
-                        Foreground="Black"
-                        Text="Pictures" />-->
-                        <!--<TextBox
-                            x:Name="TbSearch"
-                            Width="170"
-                            Margin="10,5,10,5"
-                            VerticalAlignment="Center"
-                            mah:TextBoxHelper.ButtonCommand="{Binding GetByNameCommand, Mode=OneWay}"
-                            mah:TextBoxHelper.Watermark="{DynamicResource Shared-Search}"
-                            FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
-                            Style="{DynamicResource MahApps.Styles.TextBox.Search}"
-                            Text="{Binding SearchName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />-->
                         <TextBox
                             x:Name="TbSearch"
-                            Width="120"
-                            Height="30"
-                            Margin="10,0,10,0"
+                            Width="145"
+                            Height="32"
+                            Margin="2,2,2,2"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
                             mah:TextBoxHelper.ButtonCommand="{Binding TextBoxButtonCmd, Mode=OneWay}"
@@ -353,20 +326,19 @@
                         <Button
                             Width="30"
                             Height="30"
-                            Margin="10,0,10,0"
+                            Margin="5,2,2,2"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
                             Command="{Binding SearchNameOrId, Mode=OneWay}">
                             <Button.ContentTemplate>
                                 <DataTemplate>
-                                    <iconPacks:PackIconModern
-                                        Width="20"
-                                        Height="20"
-                                        Kind="PageSearch" />
+                                    <iconPacks:PackIconBoxIcons
+                                        Width="18"
+                                        Height="18"
+                                        Kind="RegularSearch" />
                                 </DataTemplate>
                             </Button.ContentTemplate>
                         </Button>
-
                     </StackPanel>
                 </DataTemplate>
             </mah:HamburgerMenu.HamburgerMenuHeaderTemplate>

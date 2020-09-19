@@ -41,20 +41,11 @@
                             VerticalAlignment="Center"
                             FocusManager.FocusedElement="{Binding ElementName=TbSearchPhylum}"
                             Orientation="Horizontal">
-                            <!--<TextBox
-                                x:Name="TbSearchPhylum"
-                                Width="200"
-                                Margin="10,5,10,5"
-                                mah:TextBoxHelper.ButtonCommand="{Binding GetPhylumsByNameOrIdCommand, Mode=OneWay}"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-SearchNameOrId}"
-                                FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
-                                Style="{DynamicResource MahApps.Styles.TextBox.Search}"
-                                Text="{Binding SearchPhylumName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />-->
                             <TextBox
                                 x:Name="TbSearchPhylum"
                                 Width="170"
-                                Height="40"
-                                Margin="10,0,0,0"
+                                Height="32"
+                                Margin="10,2,2,2"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 mah:TextBoxHelper.ButtonCommand="{Binding TextBoxButtonCmd, Mode=OneWay}"
@@ -77,16 +68,16 @@
                                 </TextBox.Style>
                             </TextBox>
                             <Button
-                                Width="40"
-                                Height="40"
+                                Width="30"
+                                Height="30"
                                 Margin="2,2,10,2"
                                 Command="{Binding GetPhylumsByNameOrIdCommand, Mode=OneWay}">
                                 <Button.ContentTemplate>
                                     <DataTemplate>
-                                        <iconPacks:PackIconModern
-                                            Width="20"
-                                            Height="20"
-                                            Kind="PageSearch" />
+                                        <iconPacks:PackIconBoxIcons
+                                            Width="18"
+                                            Height="18"
+                                            Kind="RegularSearch" />
                                     </DataTemplate>
                                 </Button.ContentTemplate>
 
@@ -290,32 +281,11 @@
                                                     Grid.Column="0"
                                                     VerticalAlignment="Center"
                                                     Orientation="Horizontal">
-                                                    <!--<searchTextBox:SearchTextBox
-                                                        x:Name="TbSearchExpert"
-                                                        Width="150"
-                                                        Height="30"
-                                                        Margin="10,5,30,2"
-                                                        AllowEmptySearches="True"
-                                                        BorderBrush="LightBlue"
-                                                        BorderThickness="1"
-                                                        Command="{Binding GetExpertsSourcesAuthorsCommentsByNameOrIdCommand}"
-                                                        SearchMode="Instant"
-                                                        Text="{Binding SearchExpertSourceAuthorCommentName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                                        ToolTip="{DynamicResource Shared-SearchInfoOrId}" />-->
-                                                    <!--<TextBox
-                                                        x:Name="TbSearchExpert1"
-                                                        Width="200"
-                                                        Margin="10,5,10,5"
-                                                        mah:TextBoxHelper.ButtonCommand="{Binding GetPhylumsByNameOrIdCommand, Mode=OneWay}"
-                                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-SearchNameOrId}"
-                                                        FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
-                                                        Style="{DynamicResource MahApps.Styles.TextBox.Search}"
-                                                        Text="{Binding SearchPhylumName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />-->
                                                     <TextBox
                                                         x:Name="TbSearchExpert"
                                                         Width="170"
-                                                        Height="40"
-                                                        Margin="10,0,0,0"
+                                                        Height="32"
+                                                        Margin="10,2,2,2"
                                                         HorizontalAlignment="Right"
                                                         VerticalAlignment="Center"
                                                         mah:TextBoxHelper.ButtonCommand="{Binding TextBoxButtonCmd, Mode=OneWay}"
@@ -338,19 +308,20 @@
                                                         </TextBox.Style>
                                                     </TextBox>
                                                     <Button
-                                                        Width="40"
-                                                        Height="40"
+                                                        Width="30"
+                                                        Height="30"
                                                         Margin="2"
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Center"
                                                         Command="{Binding GetExpertsSourcesAuthorsCommentsByNameOrIdCommand, Mode=OneWay}">
                                                         <Button.ContentTemplate>
                                                             <DataTemplate>
-                                                                <iconPacks:PackIconModern
-                                                                    Width="20"
-                                                                    Height="20"
-                                                                    Kind="PageSearch" />
+                                                                <iconPacks:PackIconBoxIcons
+                                                                    Width="18"
+                                                                    Height="18"
+                                                                    Kind="RegularSearch" />
                                                             </DataTemplate>
                                                         </Button.ContentTemplate>
-
                                                     </Button>
 
                                                 </StackPanel>
