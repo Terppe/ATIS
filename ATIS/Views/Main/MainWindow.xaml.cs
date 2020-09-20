@@ -86,5 +86,22 @@ namespace ATIS.Ui.Views.Main
                 Application.Current.Shutdown();
             }
         }
+
+        private void ShowModal(object sender, RoutedEventArgs e)
+        {
+            this.ToggleFlyout(0);
+        }
+
+        private void ToggleFlyout(int index)
+        {
+            var flyout = this.Flyouts.Items[index] as Flyout;
+            if (flyout == null)
+            {
+                return;
+            }
+
+            flyout.IsOpen = !flyout.IsOpen;
+        }
+
     }
 }

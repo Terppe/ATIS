@@ -184,6 +184,51 @@
         </ResourceDictionary>
     </mah:MetroWindow.Resources>
 
+    <mah:MetroWindow.Flyouts>
+        <mah:FlyoutsControl x:Name="FlyoutsControl">
+            <mah:Flyout
+                Header="Accented"
+                Position="Right"
+                Theme="Accent">
+                <Grid Width="400" Margin="10">
+                    <StackPanel>
+                        <TextBlock Text="This flyout adapts its theme to the current accent" />
+                        <GroupBox
+                            Height="250"
+                            Margin="10"
+                            Header="Flyout Group Box" />
+                        <Button Margin="10" Content="Button" />
+                        <Button
+                            x:Name="BtnClose"
+                            Width="32"
+                            Height="32"
+                            Margin="0,0,75,0"
+                            HorizontalAlignment="Right"
+                            Click="btnClose_Click"
+                            Command="{Binding CancelCommand}"
+                            ToolTip="Close">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconModern
+                                    Width="18"
+                                    Height="18"
+                                    Kind="DoorLeave" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            Width="140"
+                            Height="32"
+                            Margin="10,0,10,0"
+                            HorizontalAlignment="Right"
+                            Command="{Binding ShowRegisterCommand}"
+                            Content="Show Register Montin ..."
+                            ToolTip="Register" />
+                        <ToggleButton Margin="10" Content="Toggle Button" />
+                    </StackPanel>
+                </Grid>
+            </mah:Flyout>
+        </mah:FlyoutsControl>
+    </mah:MetroWindow.Flyouts>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="17*" />
@@ -269,7 +314,6 @@
                 </Button.ContentTemplate>
             </Button>
             <Button
-                x:Name="BtnClose"
                 Grid.Row="0"
                 Width="32"
                 Height="32"
@@ -291,6 +335,7 @@
                 Height="32"
                 Margin="10,2,10,2"
                 HorizontalAlignment="Right"
+                Click="ShowModal"
                 ToolTip="Flyout">
                 <StackPanel Orientation="Horizontal">
                     <iconPacks:PackIconBoxIcons
@@ -299,6 +344,18 @@
                         Kind="RegularMenu" />
                 </StackPanel>
             </Button>
+            <mah:Flyout
+                Header="Modal"
+                IsModal="True"
+                Position="Right">
+                <StackPanel
+                    Height="80"
+                    Margin="5,5,5,5"
+                    Orientation="Horizontal">
+                    <TextBlock>Modal Flyout</TextBlock>
+                </StackPanel>
+            </mah:Flyout>
+
         </Grid>
 
         <StatusBar
