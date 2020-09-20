@@ -34,6 +34,13 @@ namespace ATIS.Ui.Views.Main
             }
         }
 
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            IsNonCloseButtonClicked = true;
+            Close(); // this will trigger the Closing () event method
+        }
+
+        public bool IsNonCloseButtonClicked { get; set; }
 
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)

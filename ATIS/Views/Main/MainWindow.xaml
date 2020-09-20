@@ -194,45 +194,48 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-
         <Grid Grid.Row="0" Grid.ColumnSpan="2">
-
+            <Button
+                Grid.Row="0"
+                Width="140"
+                Height="32"
+                Margin="10,0,650,0"
+                HorizontalAlignment="Right"
+                Command="{Binding ShowRegisterCommand}"
+                Content="Show Register Montin ..."
+                ToolTip="Register" />
+            <Button
+                Grid.Row="0"
+                Width="140"
+                Height="32"
+                Margin="10,0,500,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Command="{Binding ShowLoginCommand}"
+                Content="Show Login Montin ..."
+                ToolTip="Log In" />
             <Button
                 Grid.Row="0"
                 Width="160"
                 Height="32"
-                Margin="10,0,235,0"
+                Margin="10,0,335,0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 Command="{Binding ShowLoginDialogCommand}"
-                Content="Show LoginDialog via VM ..." />
-            <Button
-                Grid.Row="0"
-                Width="140"
-                Height="32"
-                Margin="10,0,400,0"
-                HorizontalAlignment="Right"
-                Command="{Binding ShowLoginCommand}"
-                Content="Show Login Montin ..." />
-            <Button
-                Grid.Row="0"
-                Width="140"
-                Height="32"
-                Margin="10,0,550,0"
-                HorizontalAlignment="Right"
-                Command="{Binding ShowRegisterCommand}"
-                Content="Show Register Montin ..." />
+                Content="Show LoginDialog via VM ..."
+                ToolTip="Log In" />
             <TextBox
                 x:Name="TbSearch"
                 Width="170"
                 Height="32"
-                Margin="10,2,42,0"
+                Margin="10,2,142,0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 mah:TextBoxHelper.ButtonCommand="{Binding TextBoxButtonCmd, Mode=OneWay}"
                 ContextMenu="{x:Null}"
                 FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
-                Text="{Binding SearchName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                Text="{Binding SearchName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                ToolTip="Input Name or ID">
                 <TextBox.Style>
                     <Style BasedOn="{StaticResource MahApps.Styles.TextBox}" TargetType="{x:Type TextBox}">
                         <Setter Property="mah:TextBoxHelper.ClearTextButton" Value="True" />
@@ -251,10 +254,11 @@
             <Button
                 Width="30"
                 Height="30"
-                Margin="10,2,10,2"
+                Margin="10,2,110,2"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
-                Command="{Binding SearchNameOrId, Mode=OneWay}">
+                Command="{Binding SearchNameOrId, Mode=OneWay}"
+                ToolTip="Search">
                 <Button.ContentTemplate>
                     <DataTemplate>
                         <iconPacks:PackIconBoxIcons
@@ -263,6 +267,37 @@
                             Kind="RegularSearch" />
                     </DataTemplate>
                 </Button.ContentTemplate>
+            </Button>
+            <Button
+                x:Name="BtnClose"
+                Grid.Row="0"
+                Width="32"
+                Height="32"
+                Margin="0,0,75,0"
+                HorizontalAlignment="Right"
+                Click="btnClose_Click"
+                Command="{Binding CancelCommand}"
+                ToolTip="Close">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconModern
+                        Width="18"
+                        Height="18"
+                        Kind="DoorLeave" />
+                </StackPanel>
+            </Button>
+            <Button
+                Grid.Row="0"
+                Width="32"
+                Height="32"
+                Margin="10,2,10,2"
+                HorizontalAlignment="Right"
+                ToolTip="Flyout">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconBoxIcons
+                        Width="18"
+                        Height="18"
+                        Kind="RegularMenu" />
+                </StackPanel>
             </Button>
         </Grid>
 
