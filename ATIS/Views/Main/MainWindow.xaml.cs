@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows;
+using ATIS.Ui.Views.Log;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 
@@ -16,12 +17,37 @@ namespace ATIS.Ui.Views.Main
 
         public MainWindow()
         {
+            var auth = new AuthenticationViewModel(new AuthenticationService());
+
             //   DataContext = new MainWindowViewModel(DialogCoordinator.Instance);
             _viewModel = new MainWindowViewModel(DialogCoordinator.Instance);
             DataContext = _viewModel;
 
             InitializeComponent();
+            TbUser.Text = auth.AuthenticatedUser;
+
         }
+
+        //---------------------------Flyout --------------------------------
+
+        private void ShowModal(object sender, RoutedEventArgs e)
+        {
+            ToggleFlyout(0);
+        }
+
+        private void ToggleFlyout(int index)
+        {
+            var flyout = Flyouts.Items[index] as Flyout;
+            if (flyout == null)
+            {
+                return;
+            }
+
+            flyout.IsOpen = !flyout.IsOpen;
+        }
+
+
+        //--------------------------------HamburgerMenu------------------------------------
 
         private void HamburgerMenuControl_OnItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs e)
         {
@@ -86,22 +112,5 @@ namespace ATIS.Ui.Views.Main
                 Application.Current.Shutdown();
             }
         }
-
-        private void ShowModal(object sender, RoutedEventArgs e)
-        {
-            this.ToggleFlyout(0);
-        }
-
-        private void ToggleFlyout(int index)
-        {
-            var flyout = this.Flyouts.Items[index] as Flyout;
-            if (flyout == null)
-            {
-                return;
-            }
-
-            flyout.IsOpen = !flyout.IsOpen;
-        }
-
     }
 }

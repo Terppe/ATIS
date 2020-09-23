@@ -185,27 +185,49 @@
     </mah:MetroWindow.Resources>
 
     <mah:MetroWindow.Flyouts>
-        <mah:FlyoutsControl x:Name="FlyoutsControl">
+        <mah:FlyoutsControl x:Name="flyoutsControl">
             <mah:Flyout
-                Header="Accented"
+                AnimateOpacity="True"
+                CloseButtonIsCancel="True"
+                Header="Flyout"
+                IsModal="True"
                 Position="Right"
                 Theme="Accent">
-                <Grid Width="400" Margin="10">
+                <Grid Width="300" Margin="10">
                     <StackPanel>
                         <TextBlock Text="This flyout adapts its theme to the current accent" />
                         <GroupBox
                             Height="250"
                             Margin="10"
                             Header="Flyout Group Box" />
-                        <Button Margin="10" Content="Button" />
                         <Button
-                            x:Name="BtnClose"
-                            Width="32"
-                            Height="32"
-                            Margin="0,0,75,0"
-                            HorizontalAlignment="Right"
+                            Margin="10"
+                            Command="{Binding ShowLoginCommand}"
+                            Content="Show Login Montin ..."
+                            Style="{StaticResource MahApps.Styles.Button.Flat}"
+                            ToolTip="Log In" />
+                        <Button
+                            Margin="10"
+                            Command="{Binding ShowLoginDialogCommand}"
+                            Content="Show LoginDialog via VM ..."
+                            Style="{StaticResource MahApps.Styles.Button.Flat}"
+                            ToolTip="Log In" />
+
+                        <Button
+                            Margin="10"
+                            Command="{Binding ShowRegisterCommand}"
+                            Content="Show Register Montin ..."
+                            Style="{StaticResource MahApps.Styles.Button.Flat}"
+                            ToolTip="Register" />
+                        <Button
+                            Margin="10"
+                            Command="{Binding LogoutCommand}"
+                            Content="Logout Montin ..."
+                            Style="{StaticResource MahApps.Styles.Button.Flat}"
+                            ToolTip="Log Out" />
+                        <ToggleButton
+                            Margin="10"
                             Click="btnClose_Click"
-                            Command="{Binding CancelCommand}"
                             ToolTip="Close">
                             <StackPanel Orientation="Horizontal">
                                 <iconPacks:PackIconModern
@@ -213,16 +235,7 @@
                                     Height="18"
                                     Kind="DoorLeave" />
                             </StackPanel>
-                        </Button>
-                        <Button
-                            Width="140"
-                            Height="32"
-                            Margin="10,0,10,0"
-                            HorizontalAlignment="Right"
-                            Command="{Binding ShowRegisterCommand}"
-                            Content="Show Register Montin ..."
-                            ToolTip="Register" />
-                        <ToggleButton Margin="10" Content="Toggle Button" />
+                        </ToggleButton>
                     </StackPanel>
                 </Grid>
             </mah:Flyout>
@@ -240,40 +253,27 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Grid.ColumnSpan="2">
+            <TextBlock
+                x:Name="TbUser"
+                Width="Auto"
+                Margin="100,0,430,5"
+                Foreground="Red"
+                Text="{Binding AuthenticatedUser, UpdateSourceTrigger=PropertyChanged}"
+                TextWrapping="NoWrap"
+                Visibility="Visible" />
             <Button
-                Grid.Row="0"
-                Width="140"
-                Height="32"
-                Margin="10,0,650,0"
+                Width="180"
+                Margin="10,2,450,0"
                 HorizontalAlignment="Right"
-                Command="{Binding ShowRegisterCommand}"
-                Content="Show Register Montin ..."
-                ToolTip="Register" />
-            <Button
-                Grid.Row="0"
-                Width="140"
-                Height="32"
-                Margin="10,0,500,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
                 Command="{Binding ShowLoginCommand}"
                 Content="Show Login Montin ..."
-                ToolTip="Log In" />
-            <Button
-                Grid.Row="0"
-                Width="160"
-                Height="32"
-                Margin="10,0,335,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Command="{Binding ShowLoginDialogCommand}"
-                Content="Show LoginDialog via VM ..."
+                Style="{StaticResource MahApps.Styles.Button.Flat}"
                 ToolTip="Log In" />
             <TextBox
                 x:Name="TbSearch"
                 Width="170"
                 Height="32"
-                Margin="10,2,142,0"
+                Margin="10,2,242,0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 mah:TextBoxHelper.ButtonCommand="{Binding TextBoxButtonCmd, Mode=OneWay}"
@@ -299,7 +299,7 @@
             <Button
                 Width="30"
                 Height="30"
-                Margin="10,2,110,2"
+                Margin="10,2,210,2"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 Command="{Binding SearchNameOrId, Mode=OneWay}"
@@ -346,16 +346,9 @@
             </Button>
             <mah:Flyout
                 Header="Modal"
-                IsModal="True"
-                Position="Right">
-                <StackPanel
-                    Height="80"
-                    Margin="5,5,5,5"
-                    Orientation="Horizontal">
-                    <TextBlock>Modal Flyout</TextBlock>
-                </StackPanel>
-            </mah:Flyout>
-
+                IsModal="False"
+                Position="Right"
+                Theme="Accent" />
         </Grid>
 
         <StatusBar
