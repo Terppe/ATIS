@@ -67,8 +67,8 @@ Status:
 Titel: TextBox Style ändern
 Story: Bei MaterialDesign gibt es eine TextBox die das Label anzeigt und bei Füllen der textbox das label ganz klein über dem Eingabefeld anzeigt. 
 		Spart Platz und finde ich toll.
-Akzeptanzkriterien: Bei Core 3.1 nicht mehr vorhanden. Muss anders gelöst werden
-	* 
+		Akzeptanzkriterien: Bei Core 3.1 nicht mehr vorhanden. Muss anders gelöst werden
+	* Bei MahApps gibs es auch diese TextBox
 Status:
 •	Noch nicht implementiert
 •	
@@ -91,8 +91,9 @@ Titel: SearchTextBox Biliothek eingefügt
 Story:  
 Akzeptanzkriterien:
 	* Versuchen über MahApps zu lösen
+
 Status:
-•	 implementiert aber noch nicht fertig
+•	 implementiert mit MahApps TextBox mit Delete x und Button
 •	
 •	
 
@@ -116,7 +117,7 @@ Akzeptanzkriterien:
 	* Windows-Community-Toolkit Version 6.0 lässt sich nicht bei CORE 3.1 installieren
 	* Mit MahApps vorerst gelöst. Evtl. mit Compact navigation Menu von Meshack Musundi ohne MahApps
 Status:
-•	Noch nicht komplett implementiert
+•	implementiert mit MahApps
 •	
 •	
 
@@ -128,7 +129,7 @@ Story:
 Akzeptanzkriterien:
 	* Als separate DLL ?
 Status:
-•	Erfolgreich implementiert
+•	Erfolgreich implementiert als separate DLL
 •	
 •	
 
@@ -136,10 +137,11 @@ Status:
 ***************************************
 Titel: Authentifizierung Register, Login usw.
 Story:  
-Akzeptanzkriterien:
-	* 
+Akzeptanzkriterien:Login und Register nach Montin installiert
+	* Login auch aus MainWindowViewModel zu starten
+	* Fehlt Passwort vergessen und 
 Status:
-•	Noch nicht implementiert
+•	Noch nicht fertig implementiert
 •	
 •	
 
