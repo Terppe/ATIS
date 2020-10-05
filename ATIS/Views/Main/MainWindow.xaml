@@ -226,6 +226,28 @@
                             Content="Logout Montin ..."
                             Style="{StaticResource MahApps.Styles.Button.Flat}"
                             ToolTip="Log Out" />
+                        <Button
+                            Margin="10"
+                            Command="{Binding LoginWindowCommand}"
+                            Content="{DynamicResource MainWindow-Login}"
+                            Style="{StaticResource MahApps.Styles.Button.Flat}" />
+                        <Button
+                            Margin="10"
+                            Command="{Binding RegisterWindowCommand}"
+                            Content="{DynamicResource MainWindow-Register}"
+                            Style="{StaticResource MahApps.Styles.Button.Flat}" />
+                        <Button
+                            Margin="10"
+                            Command="{Binding PasswordForgotWindowCommand}"
+                            Content="{DynamicResource Login-PasswordForgot}"
+                            Style="{StaticResource MahApps.Styles.Button.Flat}" />
+                        <Button
+                            Margin="10"
+                            Command="{Binding PasswordChangeWindowCommand}"
+                            Content="{DynamicResource Login-PasswordChange}"
+                            Style="{StaticResource MahApps.Styles.Button.Flat}" />
+                        <Separator />
+
                         <ToggleButton
                             Margin="10"
                             Click="btnClose_Click"
@@ -246,6 +268,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="17*" />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />

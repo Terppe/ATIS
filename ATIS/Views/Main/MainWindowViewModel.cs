@@ -111,7 +111,7 @@ namespace ATIS.Ui.Views.Main
         }
 
         //----------------------------SearchQuick------------------------------------------
-        private SearchWindow _view;
+        //  private SearchWindow _view;
         //  public ICommand RunQuickSearchCommand => new AnotherCommandImplementation(ExecuteSearchQuickDialog);
 
         private RelayCommand _runQuickSearchCommand;
@@ -132,6 +132,57 @@ namespace ATIS.Ui.Views.Main
             MessageBox.Show(CultRes.StringsRes.Warning, CultRes.StringsRes.SearchBeClosed, MessageBoxButton.OK);
         }
 
+
+        //--------------------------------LoginWindow------------------------------------------------------------
+        private RelayCommand _loginWindowCommand;
+        public ICommand LoginWindowCommand => _loginWindowCommand ??= new RelayCommand(delegate { OpenLoginWindow(); });
+
+        //      public ICommand LoginWindowCommand => new DelegateCommand(OpenLoginWindow);
+
+        private void OpenLoginWindow()
+        {
+            var viewModel = new AuthenticationViewModel(new AuthenticationService());
+            IView loginWindow = new LoginWindow(viewModel);
+            loginWindow.Show();
+        }
+        //--------------------------------RegisterWindow------------------------------------------------------------
+        private RelayCommand _registerWindowCommand;
+        public ICommand RegisterWindowCommand => _registerWindowCommand ??= new RelayCommand(delegate { OpenRegisterWindow(); });
+
+        //     public ICommand RegisterWindowCommand => new DelegateCommand(OpenRegisterWindow);
+
+        private void OpenRegisterWindow()
+        {
+            var viewModel = new AuthenticationViewModel(new AuthenticationService());
+            IView registerWindow = new RegisterWindow(viewModel);
+            registerWindow.Show();
+        }
+
+        //--------------------------------PasswordForgotWindow------------------------------------------------------------
+        private RelayCommand _passwordForgotWindowCommand;
+        public ICommand PasswordForgotWindowCommand => _passwordForgotWindowCommand ??= new RelayCommand(delegate { OpenPasswordForgotWindow(); });
+
+        //    public ICommand PasswordForgotWindowCommand => new DelegateCommand(OpenPasswordForgotWindow);
+
+        private void OpenPasswordForgotWindow()
+        {
+            var viewModel = new AuthenticationViewModel(new AuthenticationService());
+            IView passwordForgotWindow = new PasswordForgotWindow(viewModel);
+            passwordForgotWindow.Show();
+        }
+        //--------------------------------PasswordChangeWindow------------------------------------------------------------
+        private RelayCommand _passwordChangeWindowCommand;
+        public ICommand PasswordChangeWindowCommand => _passwordChangeWindowCommand ??= new RelayCommand(delegate { OpenPasswordChangeWindow(); });
+
+        //   public ICommand PasswordChangeWindowCommand => new DelegateCommand(OpenPasswordChangeWindow);
+
+        private void OpenPasswordChangeWindow()
+        {
+            var viewModel = new AuthenticationViewModel(new AuthenticationService());
+            IView passwordChangeWindow = new PasswordChangeWindow(viewModel);
+            passwordChangeWindow.Show();
+        }
+        //------------------------------------------------------------------
 
         //------------------------------------------------------------------
         //private RelayCommand _searchQuickByNameCommand;
