@@ -17,6 +17,7 @@
     <system:String x:Key="Shared-SearchEmail">recherche Email</system:String>
     <system:String x:Key="Shared-SearchGenus">recherche Genus</system:String>
     <system:String x:Key="Shared-SearchImage">Search Image</system:String>
+    <system:String x:Key="Shared-CountId">counter</system:String>
     <system:String x:Key="Shared-Valid">valide</system:String>
     <system:String x:Key="Shared-ValidYear">année</system:String>
     <system:String x:Key="Shared-Author">auteur</system:String>
