@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using ATIS.Ui.Core.Interfaces;
 using ATIS.Ui.Core.Interfaces_UOW;
 using Microsoft.EntityFrameworkCore;
 

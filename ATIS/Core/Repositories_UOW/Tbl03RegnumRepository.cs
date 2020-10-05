@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using ATIS.Dal.Models;
-using ATIS.Ui.Core.Interfaces;
 using ATIS.Ui.Core.Interfaces_UOW;
 
 namespace ATIS.Ui.Core.Repositories_UOW

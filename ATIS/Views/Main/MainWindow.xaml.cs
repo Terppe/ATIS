@@ -25,7 +25,6 @@ namespace ATIS.Ui.Views.Main
 
             InitializeComponent();
             TbUser.Text = auth.AuthenticatedUser;
-
         }
 
         //---------------------------Flyout --------------------------------
@@ -56,7 +55,7 @@ namespace ATIS.Ui.Views.Main
             if (!e.IsItemOptions && HamburgerMenuControl.IsPaneOpen)
             {
                 // close the menu if a item was selected
-                 this.HamburgerMenuControl.IsPaneOpen = false;
+                this.HamburgerMenuControl.IsPaneOpen = false;
             }
         }
 
@@ -86,8 +85,6 @@ namespace ATIS.Ui.Views.Main
             }
             else
             {
-                // flyoutDemo?.Dispose();
-
                 _viewModel.Dispose();
             }
         }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Principal;
-using System.Text;
+﻿using System.Security.Principal;
 
 namespace ATIS.Ui.Views.Log
 {
@@ -21,6 +18,7 @@ namespace ATIS.Ui.Views.Log
         public string AuthenticationType => "Custom authentication";
 
         public bool IsAuthenticated => !string.IsNullOrEmpty(Email);
+
         public string? Name { get; }
 
         #endregion

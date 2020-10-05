@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="itext7" Version="7.1.12" />
     <PackageReference Include="MahApps.Metro" Version="2.2.0" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.5.0" />
     <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.1.5" />
@@ -43,8 +44,6 @@
   <ItemGroup>
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\User\" />
-    <Folder Include="Views\Search\" />
-    <Folder Include="Views\Report\" />
   </ItemGroup>
 
   <ItemGroup>

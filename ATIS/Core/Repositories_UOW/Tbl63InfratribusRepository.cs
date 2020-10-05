@@ -3,13 +3,14 @@ using ATIS.Ui.Core.Interfaces_UOW;
 
 namespace ATIS.Ui.Core.Repositories_UOW
 {
-    public class Tbl18SuperclassRepository : Repository<Tbl18Superclass>, ITbl18SuperclassRepository
+    public class Tbl63InfratribusRepository : Repository<Tbl63Infratribus>, ITbl63InfratribusRepository
     {
         private readonly AtisDbContext _atisDbContext;
 
-        public Tbl18SuperclassRepository(AtisDbContext context) : base(context)
+        public Tbl63InfratribusRepository(AtisDbContext context) : base(context)
         {
             _atisDbContext = context;
+
         }
     }
 }

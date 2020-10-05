@@ -10,6 +10,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:search="clr-namespace:ATIS.Ui.Views.Search"
     Width="1750"
     Height="950"
     d:DesignHeight="400"
@@ -279,15 +280,15 @@
                 mah:TextBoxHelper.ButtonCommand="{Binding TextBoxButtonCmd, Mode=OneWay}"
                 ContextMenu="{x:Null}"
                 FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
-                Text="{Binding SearchName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                ToolTip="Input Name or ID">
+                Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"
+                ToolTip="Input Name">
                 <TextBox.Style>
                     <Style BasedOn="{StaticResource MahApps.Styles.TextBox}" TargetType="{x:Type TextBox}">
                         <Setter Property="mah:TextBoxHelper.ClearTextButton" Value="True" />
                         <Style.Triggers>
                             <Trigger Property="mah:TextBoxHelper.HasText" Value="False">
                                 <Setter Property="mah:TextBoxHelper.ClearTextButton" Value="False" />
-                                <Setter Property="mah:TextBoxHelper.Watermark" Value="{DynamicResource Shared-SearchNameOrId}" />
+                                <Setter Property="mah:TextBoxHelper.Watermark" Value="{DynamicResource Shared-Search}" />
                             </Trigger>
                             <Trigger Property="mah:TextBoxHelper.HasText" Value="True">
                                 <Setter Property="mah:TextBoxHelper.ClearTextButton" Value="True" />
@@ -302,7 +303,7 @@
                 Margin="10,2,210,2"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
-                Command="{Binding SearchNameOrId, Mode=OneWay}"
+                Command="{Binding RunQuickSearchCommand, Mode=OneWay}"
                 ToolTip="Search">
                 <Button.ContentTemplate>
                     <DataTemplate>
@@ -377,7 +378,7 @@
             <!--  Header  -->
             <mah:HamburgerMenu.HamburgerMenuHeaderTemplate>
                 <DataTemplate>
-                    <StackPanel
+                    <!--<StackPanel
                         VerticalAlignment="Center"
                         FocusManager.FocusedElement="{Binding ElementName=TbSearch}"
                         Orientation="Horizontal">
@@ -392,7 +393,7 @@
                             mah:TextBoxHelper.ButtonCommand="{Binding TextBoxButtonCmd, Mode=OneWay}"
                             ContextMenu="{x:Null}"
                             FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
-                            Text="{Binding SearchName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                            Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}">
                             <TextBox.Style>
                                 <Style BasedOn="{StaticResource MahApps.Styles.TextBox}" TargetType="{x:Type TextBox}">
                                     <Setter Property="mah:TextBoxHelper.ClearTextButton" Value="True" />
@@ -414,7 +415,7 @@
                             Margin="5,2,2,2"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
-                            Command="{Binding SearchNameOrId, Mode=OneWay}">
+                            Command="{Binding RunQuickSearchCommand, Mode=OneWay}">
                             <Button.ContentTemplate>
                                 <DataTemplate>
                                     <iconPacks:PackIconBoxIcons
@@ -424,7 +425,7 @@
                                 </DataTemplate>
                             </Button.ContentTemplate>
                         </Button>
-                    </StackPanel>
+                    </StackPanel>-->
                 </DataTemplate>
             </mah:HamburgerMenu.HamburgerMenuHeaderTemplate>
 
@@ -439,6 +440,11 @@
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Database}" Label="Database">
                         <mah:HamburgerMenuIconItem.Tag>
                             <main:DatabaseView />
+                        </mah:HamburgerMenuIconItem.Tag>
+                    </mah:HamburgerMenuIconItem>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Octicons Kind=Search}" Label="Search Quick">
+                        <mah:HamburgerMenuIconItem.Tag>
+                            <search:SearchQuickView />
                         </mah:HamburgerMenuIconItem.Tag>
                     </mah:HamburgerMenuIconItem>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:Octicons Kind=Question}" Label="About">

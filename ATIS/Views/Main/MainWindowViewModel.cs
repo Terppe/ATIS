@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Log;
+using ATIS.Ui.Views.Search;
 using ControlzEx.Theming;
 using MahApps.Metro.Controls.Dialogs;
+using MaterialDesignThemes.Wpf;
 
 namespace ATIS.Ui.Views.Main
 {
@@ -32,11 +36,11 @@ namespace ATIS.Ui.Views.Main
         private readonly IDialogCoordinator _dialogCoordinator;
         private readonly IDisposable _disposable;
         private readonly AtisDbContext _context = new AtisDbContext();
+        private readonly SearchBasicGet _extSearchGet = new SearchBasicGet();
 
         public MainWindowViewModel(IDialogCoordinator dialogCoordinator)
         {
             _dialogCoordinator = dialogCoordinator;
-
         }
 
         //----------------Show Login Dialog via Vm ------------
@@ -106,30 +110,67 @@ namespace ATIS.Ui.Views.Main
             registerWindow.Show();
         }
 
-        //--------------------Search -------------
-        private RelayCommand _getByNameOrIdCommand;
-        public ICommand GetByNameCommand => _getByNameOrIdCommand ??= new RelayCommand(delegate { ExecuteGetByName(SearchName); });
+        //----------------------------SearchQuick------------------------------------------
+        private SearchWindow _view;
+        //  public ICommand RunQuickSearchCommand => new AnotherCommandImplementation(ExecuteSearchQuickDialog);
 
+        private RelayCommand _runQuickSearchCommand;
+        public ICommand RunQuickSearchCommand => _runQuickSearchCommand ??= new RelayCommand(delegate { ExecuteSearchQuickDialog(FilterText); });
 
-        private void ExecuteGetByName(string searchName)
+        private void ExecuteSearchQuickDialog(string filterText)
         {
-            //      TabIndexDetail = 1;
-
-            //PhylumsCollection.Clear();
-            //DivisionsCollection.Clear();
-            //SubphylumsCollection.Clear();
-            //SubdivisionsCollection.Clear();
-            //ReferencesCollection.Clear();
-            //ReferenceExpertsCollection.Clear();
-            //ReferenceSourcesCollection.Clear();
-            //ReferenceAuthorsCollection.Clear();
-            //CommentsCollection.Clear();
-
-            //    RegnumsCollection = _extGet.SearchNameAndIdReturnCollection<Tbl03Regnum>(searchName, "regnum");
-            //   RaisePropertyChanged("RegnumsCollection");
+            var viewModel = new SearchQuickViewModel(filterText);
+            var searchWindow = new SearchWindow(viewModel);
+            searchWindow.TbSearch.Text = filterText;
+            searchWindow.Show();
         }
 
-        public string SearchName { get; set; }
+        //   public ObservableCollection<Tbl66Genus> GenussesCollection { get; set; }
+
+        private void ClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
+        {
+            MessageBox.Show(CultRes.StringsRes.Warning, CultRes.StringsRes.SearchBeClosed, MessageBoxButton.OK);
+        }
+
+
+        //------------------------------------------------------------------
+        //private RelayCommand _searchQuickByNameCommand;
+        //public ICommand RunQuickSearchCommand => _searchQuickByNameCommand ??= new RelayCommand(delegate { InitSearchQuick(FilterText); });
+
+        //private void InitSearchQuick(string filterText)
+        //{
+        //    if (string.IsNullOrEmpty(filterText)) return;
+
+        //    GenussesCollection ??= new ObservableCollection<Tbl66Genus>();
+        //    GenussesCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl66Genus>(filterText, "genus");
+        //    RaisePropertyChanged("GenussesCollection");
+        //}
+
+        //----------------------------------------------------------------------
+
+        //private RelayCommand _getByNameOrIdCommand;
+        //public ICommand GetByNameCommand => _getByNameOrIdCommand ??= new RelayCommand(delegate { ExecuteGetByName(FilterText); });
+
+
+        //private void ExecuteGetByName(string searchName)
+        //{
+        //    //      TabIndexDetail = 1;
+
+        //    //PhylumsCollection.Clear();
+        //    //DivisionsCollection.Clear();
+        //    //SubphylumsCollection.Clear();
+        //    //SubdivisionsCollection.Clear();
+        //    //ReferencesCollection.Clear();
+        //    //ReferenceExpertsCollection.Clear();
+        //    //ReferenceSourcesCollection.Clear();
+        //    //ReferenceAuthorsCollection.Clear();
+        //    //CommentsCollection.Clear();
+
+        //    //    RegnumsCollection = _extGet.SearchNameAndIdReturnCollection<Tbl03Regnum>(searchName, "regnum");
+        //    //   RaisePropertyChanged("RegnumsCollection");
+        //}
+
+        public string FilterText { get; set; }
 
         //----------------Close -----------------
         private bool _quitConfirmationEnabled;
