@@ -1,28 +1,35 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
-using ATIS.Ui.Views.Main;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 using ATIS.Ui.Views.Report;
-using MahApps.Metro.Controls;
-using MahApps.Metro.Controls.Dialogs;
 
 namespace ATIS.Ui.Views.Search
 {
     /// <summary>
-    /// Interaktionslogik für SearchWindow.xaml
+    /// Interaktionslogik für SearchBase.xaml
     /// </summary>
-    public partial class SearchWindow : MetroWindow
+    public partial class SearchBase : UserControl
     {
-        public SearchWindow()
+        public SearchBase()
         {
+            DataContext = new SearchQuickViewModel();
 
-        }
-
-        public SearchWindow(SearchQuickViewModel viewModel)
-        {
-        //    DataContext = new SearchQuickViewModel();
-            DataContext = viewModel;
             InitializeComponent();
+        }
+        public SearchBase(string un)
+        {
+            DataContext = new SearchQuickViewModel(un);
+            InitializeComponent();
+
         }
 
         private void Print_Click(object sender, RoutedEventArgs e)
@@ -33,9 +40,6 @@ namespace ATIS.Ui.Views.Search
                 printDialog.PrintVisual(LayoutRoot, "Landscape broken Grid print");
 
         }
-
-        public string FilterText { get; set; }
-
         private void Tbl03RegnumsList_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             var lvItem = sender as ListViewItem;
@@ -253,6 +257,9 @@ namespace ATIS.Ui.Views.Search
             //      rp.Show();
         }
 
-
+        public void Connect(int connectionId, object target)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

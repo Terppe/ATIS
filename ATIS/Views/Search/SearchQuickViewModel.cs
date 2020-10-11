@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
-using ATIS.Ui.Views.Database.D03Regnum;
-using ATIS.Ui.Views.Main;
-using ATIS.Ui.Views.Report;
-using MahApps.Metro.Controls.Dialogs;
 
 namespace ATIS.Ui.Views.Search
 {
@@ -29,7 +20,6 @@ namespace ATIS.Ui.Views.Search
         public SearchQuickViewModel(string filterText)
         {
              InitSearchQuick(filterText);
-
         }
         //------------------------------------------------------------------
         public SearchQuickViewModel()
@@ -38,34 +28,6 @@ namespace ATIS.Ui.Views.Search
         }
 
         //------------------------------------------------------------------
-        #region "Public Commands Connected Tables by DoubleClick"
-
-        private RelayCommand _getConnectedTablesCommand;
-        public ICommand GetConnectedTablesCommand => _getConnectedTablesCommand ??= new RelayCommand(delegate { GetConnectedTablesById(null); });
-
-        private void GetConnectedTablesById(object o)
-        {
-
-       //     var tagValue = ((Hyperlink)sender).Tag;
-            var tagValue = 3;
-            var id = Convert.ToInt32(tagValue);
-            var rp = new ReportPhylumWindow(id, "Tbl06Phylums");
-            rp.Show();
-
-            //Tbl03RegnumsList = new ObservableCollection<Tbl03Regnum>(
-            //    _businessLayer.ListTbl03RegnumsByRegnumId(CurrentTbl06Phylum.RegnumID));
-
-            //RegnumsView = CollectionViewSource.GetDefaultView(Tbl03RegnumsList);
-            //RegnumsView.Refresh();
-
-            //var tagValue = ((Hyperlink)sender).Tag;
-            //var id = Convert.ToInt32(tagValue);
-            //           var rp = new ReportPhylumWindow(id, "Tbl06Phylums");
-            //          rp.Show();
-
-        }
-
-        #endregion "Public Commands Connected Tables by DoubleClick"     
 
         //------------------------------------------------------------------
         private RelayCommand _searchQuickByNameCommand;
@@ -78,6 +40,18 @@ namespace ATIS.Ui.Views.Search
             GenussesCollection ??= new ObservableCollection<Tbl66Genus>();
             GenussesCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl66Genus>(filterText, "genus");
             RaisePropertyChanged("GenussesCollection");
+
+            FiSpeciessesCollection ??= new ObservableCollection<Tbl69FiSpecies>();
+            FiSpeciessesCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl69FiSpecies>(filterText, "fispecies");
+            RaisePropertyChanged("FiSpeciessesCollection");
+
+            PlSpeciessesCollection ??= new ObservableCollection<Tbl72PlSpecies>();
+            PlSpeciessesCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl72PlSpecies>(filterText, "plspecies");
+            RaisePropertyChanged("PlSpeciessesCollection");
+
+            RegnumsCollection ??= new ObservableCollection<Tbl03Regnum>();
+            RegnumsCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl03Regnum>(filterText, "regnum");
+            RaisePropertyChanged("RegnumsCollection");
         }
 
         //----------------------------------------------------------------------
@@ -312,7 +286,7 @@ namespace ATIS.Ui.Views.Search
 
                 case Page.Page1:
                     {
-               //          Tbl09DivisionsList = new ObservableCollection<Tbl09Division>(_businessLayer.ListTbl09DivisionsByFilterText(filterText));
+               //          DivisionsCollection = new ObservableCollection<Tbl09Division>(_businessLayer.ListTbl09DivisionsByFilterText(filterText));
                         DivisionsCollection ??= new ObservableCollection<Tbl09Division>();
                         DivisionsCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl09Division>(filterText, "division");
                         RaisePropertyChanged("DivisionsCollection");
@@ -388,10 +362,10 @@ namespace ATIS.Ui.Views.Search
             NamesCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl78Name>(filterText, "name");
             SynonymsCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl84Synonym>(filterText, "synonym");
 
-            //    Tbl03RegnumsList = new ObservableCollection<Tbl03Regnum>(_businessLayer.ListTbl03RegnumsByFilterText(filterText));
-            //    Tbl06PhylumsList = new ObservableCollection<Tbl06Phylum>(_businessLayer.ListTbl06PhylumsByFilterText(filterText));
-            //    Tbl09DivisionsList = new ObservableCollection<Tbl09Division>(_businessLayer.ListTbl09DivisionsByFilterText(filterText));
-            //    Tbl12SubphylumsList = new ObservableCollection<Tbl12Subphylum>(_businessLayer.ListTbl12SubphylumsByFilterText(filterText));
+            //    RegnumsCollection = new ObservableCollection<Tbl03Regnum>(_businessLayer.ListTbl03RegnumsByFilterText(filterText));
+            //    PhylumsCollection = new ObservableCollection<Tbl06Phylum>(_businessLayer.ListTbl06PhylumsByFilterText(filterText));
+            //    DivisionsCollection = new ObservableCollection<Tbl09Division>(_businessLayer.ListTbl09DivisionsByFilterText(filterText));
+            //    SubphylumsCollection = new ObservableCollection<Tbl12Subphylum>(_businessLayer.ListTbl12SubphylumsByFilterText(filterText));
             //    Tbl15SubdivisionsList = new ObservableCollection<Tbl15Subdivision>(_businessLayer.ListTbl15SubdivisionsByFilterText(filterText));
             //    Tbl18SuperclassesList = new ObservableCollection<Tbl18Superclass>(_businessLayer.ListTbl18SuperclassesByFilterText(filterText));
             //    Tbl21ClassesList = new ObservableCollection<Tbl21Class>(_businessLayer.ListTbl21ClassesByFilterText(filterText));
@@ -496,4 +470,5 @@ namespace ATIS.Ui.Views.Search
 
 
     }
-}
+
+ }

@@ -121,7 +121,7 @@ namespace ATIS.Ui.Views.Main
         {
             var viewModel = new SearchQuickViewModel(filterText);
             var searchWindow = new SearchWindow(viewModel);
-            searchWindow.TbSearch.Text = filterText;
+        //    searchWindow.TbSearch.Text = filterText;
             searchWindow.Show();
         }
 

@@ -47,15 +47,15 @@ namespace ATIS.Ui.Views.Search
             //        PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, SmallBoldFont, new Chunk(CultRes.StringsRes.Phylum));
             //        doc = AddTbl06PhylumsList(doc, searchVm.PhylumsCollection);
             //    }
-            //    if (searchVm.Tbl12SubphylumsList.Count != 0)
+            //    if (searchVm.SubphylumsCollection.Count != 0)
             //    {
             //        PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, SmallBoldFont, new Chunk(CultRes.StringsRes.Subphylum));
-            //        doc = AddTbl12SubphylumsList(doc, searchVm.Tbl12SubphylumsList);
+            //        doc = AddTbl12SubphylumsList(doc, searchVm.SubphylumsCollection);
             //    }
-            //    if (searchVm.Tbl09DivisionsList.Count != 0)
+            //    if (searchVm.DivisionsCollection.Count != 0)
             //    {
             //        PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, SmallBoldFont, new Chunk(CultRes.StringsRes.Division));
-            //        doc = AddTbl09DivisionsList(doc, searchVm.Tbl09DivisionsList);
+            //        doc = AddTbl09DivisionsList(doc, searchVm.DivisionsCollection);
             //    }
             //    if (searchVm.Tbl15SubdivisionsList.Count != 0)
             //    {
