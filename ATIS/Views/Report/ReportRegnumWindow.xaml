@@ -1,5 +1,5 @@
 ﻿<mah:MetroWindow
-    x:Class="ATIS.Ui.Views.Report.ReportPhylumWindow"
+    x:Class="ATIS.Ui.Views.Report.ReportRegnumWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
@@ -30,7 +30,6 @@
         </ResourceDictionary>
     </mah:MetroWindow.Resources>
 
-    <!--  ReportTbl06PhylumsWindow.xaml  Skriptdatum:  12.12.2019  12:32  -->
 
     <Grid x:Name="LayoutRoot">
         <Grid.Resources>
@@ -89,7 +88,7 @@
                 Width="120"
                 Margin="5,5,10,5"
                 VerticalAlignment="Center"
-                Command="{Binding PdfTbl06PhylumsCommand}"
+                Command="{Binding PdfTbl03RegnumsCommand}"
                 Content="{DynamicResource Report-PrintPdf}"
                 Style="{StaticResource ButtonDefault}" />
         </StackPanel>
@@ -131,16 +130,22 @@
                                 Height="Auto"
                                 Margin="0"
                                 HorizontalAlignment="Left"
-                                ItemsSource="{Binding PhylumsCollection}">
+                                ItemsSource="{Binding RegnumsCollection}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
                                             <StackPanel Margin="2,0,0,0" Orientation="Horizontal">
                                                 <TextBlock
+                                                    x:Name="tbName"
                                                     Width="Auto"
                                                     FontSize="18"
                                                     FontWeight="Bold"
-                                                    Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
+                                                    Text="{Binding (models:Tbl03Regnum.RegnumName)}" />
+                                                <TextBlock
+                                                    Width="Auto"
+                                                    FontSize="18"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding (models:Tbl03Regnum.Subregnum)}" />
                                                 <TextBlock
                                                     Width="Auto"
                                                     Margin="2,0,0,0"
@@ -156,7 +161,7 @@
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Width="Auto" Text="{DynamicResource Report-TaxonomicId}" />
-                                                <TextBlock Width="Auto" Text="{Binding (models:Tbl06Phylum.CountId)}" />
+                                                <TextBlock Width="Auto" Text="{Binding (models:Tbl03Regnum.CountId)}" />
                                             </StackPanel>
                                         </StackPanel>
                                     </DataTemplate>
@@ -182,12 +187,13 @@
                     </Paragraph>
                     <Paragraph>
                         <GroupBox>
+
                             <ListBox
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
                                 Height="Auto"
                                 Margin="0"
                                 HorizontalAlignment="Left"
-                                ItemsSource="{Binding PhylumsCollection}">
+                                ItemsSource="{Binding RegnumsCollection}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
@@ -196,15 +202,15 @@
                                                     Width="300"
                                                     FontWeight="Bold"
                                                     Text="{DynamicResource Report-TaxoRank}" />
-                                                <TextBlock Width="130" Text="{DynamicResource Tbl06Phylum-Phylum}" />
+                                                <TextBlock Width="130" Text="{DynamicResource Tbl03Regnum-Regnum}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Synonyms}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl06Phylum.Synonym)}" />
+                                                <TextBlock Width="500" Text="{Binding (models:Tbl03Regnum.Synonym)}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-CommonNames}" />
-                                                <TextBlock Width="Auto" Text="{Binding (models:Tbl06Phylum.GerName)}" />
+                                                <TextBlock Width="Auto" Text="{Binding (models:Tbl03Regnum.GerName)}" />
                                                 <TextBlock
                                                     Width="130"
                                                     Margin="2,0,0,0"
@@ -214,7 +220,7 @@
                                                 <TextBlock
                                                     Width="Auto"
                                                     Margin="300,0,0,0"
-                                                    Text="{Binding (models:Tbl06Phylum.EngName)}" />
+                                                    Text="{Binding (models:Tbl03Regnum.EngName)}" />
                                                 <TextBlock
                                                     Width="130"
                                                     Margin="2,0,0,0"
@@ -224,7 +230,7 @@
                                                 <TextBlock
                                                     Width="Auto"
                                                     Margin="300,0,0,0"
-                                                    Text="{Binding (models:Tbl06Phylum.FraName)}" />
+                                                    Text="{Binding (models:Tbl03Regnum.FraName)}" />
                                                 <TextBlock
                                                     Width="130"
                                                     Margin="2,0,0,0"
@@ -234,7 +240,7 @@
                                                 <TextBlock
                                                     Width="Auto"
                                                     Margin="300,0,0,0"
-                                                    Text="{Binding (models:Tbl06Phylum.PorName)}" />
+                                                    Text="{Binding (models:Tbl03Regnum.PorName)}" />
                                                 <TextBlock
                                                     Width="130"
                                                     Margin="2,0,0,0"
@@ -248,11 +254,11 @@
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-CurrentStand}" />
-                                                <TextBlock Width="100" Text="{Binding (models:Tbl06Phylum.Valid)}" />
+                                                <TextBlock Width="100" Text="{Binding (models:Tbl03Regnum.Valid)}" />
                                                 <TextBlock
                                                     Width="300"
                                                     Margin="2,0,0,0"
-                                                    Text="{Binding (models:Tbl06Phylum.ValidYear)}" />
+                                                    Text="{Binding (models:Tbl03Regnum.ValidYear)}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,20,0,0" Orientation="Horizontal">
                                                 <TextBlock
@@ -269,18 +275,18 @@
                                                 </StackPanel.Resources>
                                                 <TextBlock Width="300" Text="{DynamicResource Report-RecordUpdate}" />
                                                 <TextBlock Width="300">
-                                                    <TextBlock Text="{Binding (models:Tbl06Phylum.UpdaterDate), Converter={StaticResource DateTimeConverter}}" />
+                                                    <TextBlock Text="{Binding (models:Tbl03Regnum.UpdaterDate), Converter={StaticResource DateTimeConverter}}" />
                                                 </TextBlock>
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Shared-Info}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl06Phylum.Info)}" />
+                                                <TextBlock Width="500" Text="{Binding (models:Tbl03Regnum.Info)}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Shared-Memo}" />
                                                 <TextBlock
                                                     Width="500"
-                                                    Text="{Binding (models:Tbl06Phylum.Memo)}"
+                                                    Text="{Binding (models:Tbl03Regnum.Memo)}"
                                                     TextWrapping="Wrap" />
                                             </StackPanel>
                                         </StackPanel>
@@ -317,19 +323,15 @@
                                     <DataTemplate>
                                         <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                             <TextBlock Width="300" Text="{DynamicResource Tbl03Regnum-Regnum}" />
-                                            <TextBlock>
-                                                <Hyperlink Click="HyperlinkRegnum_Click" Tag="{Binding (models:Tbl03Regnum.RegnumId)}">
-                                                    <TextBlock>
-                                                        <TextBlock.Text>
-                                                            <MultiBinding StringFormat=" {0} {1} ">
-                                                                <Binding Path="(models:Tbl03Regnum.RegnumName)" />
-                                                                <Binding Path="(models:Tbl03Regnum.Subregnum)" />
-                                                            </MultiBinding>
-                                                        </TextBlock.Text>
-                                                    </TextBlock>
-                                                </Hyperlink>
+                                            <TextBlock FontWeight="Bold">
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat=" {0} {1} ">
+                                                        <Binding Path="(models:Tbl03Regnum.RegnumName)" />
+                                                        <Binding Path="(models:Tbl03Regnum.Subregnum)" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
                                             </TextBlock>
-                                            <TextBlock Width="Auto" Margin="2,0,0,0">
+                                            <TextBlock Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource AuthorConverter}">
                                                         <Binding Path="Author" />
@@ -337,7 +339,7 @@
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
-                                            <TextBlock Width="Auto" Margin="2,0,0,0">
+                                            <TextBlock Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource NameConverter}">
                                                         <Binding Path="GerName" />
@@ -353,7 +355,14 @@
                             </ListBox>
                         </GroupBox>
 
+                        <!--  Direct Children  -->
                         <!--  Tbl06Phylums  -->
+
+                        <TextBlock
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Margin="20,0,0,0"
+                            FontWeight="Bold"
+                            Text="{DynamicResource Report-DirectChild}" />
                         <GroupBox>
                             <ListBox
                                 x:Name="Tbl06PhylumsList"
@@ -367,8 +376,12 @@
                                     <DataTemplate>
                                         <StackPanel Margin="28,0,0,0" Orientation="Horizontal">
                                             <TextBlock Width="292" Text="{DynamicResource Tbl06Phylum-Phylum}" />
-                                            <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
-                                            <TextBlock Width="Auto" Margin="2,0,0,0">
+                                            <TextBlock>
+                                                <Hyperlink Click="HyperlinkPhylum_Click" Tag="{Binding (models:Tbl06Phylum.PhylumId)}">
+                                                    <TextBlock Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
+                                                </Hyperlink>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource AuthorConverter}">
                                                         <Binding Path="Author" />
@@ -376,7 +389,7 @@
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
-                                            <TextBlock Width="Auto" Margin="2,0,0,0">
+                                            <TextBlock Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource NameConverter}">
                                                         <Binding Path="GerName" />
@@ -391,34 +404,34 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </GroupBox>
-                        <!--  Tbl12Subphylums Children  -->
 
-                        <GroupBox>
-                            <TextBlock
-                                Width="{Binding ElementName=PageWidthText, Path=Text}"
-                                Margin="20,0,0,0"
-                                FontWeight="Bold"
-                                Text="{DynamicResource Report-DirectChild}" />
-                        </GroupBox>
+                        <!--  Direct Children  -->
+                        <!--  Tbl09Divisions  -->
+
+                        <TextBlock
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Margin="20,0,0,0"
+                            FontWeight="Bold"
+                            Text="{DynamicResource Report-DirectChild}" />
                         <GroupBox>
                             <ListBox
-                                x:Name="Tbl12SubphylumsList"
+                                x:Name="Tbl09DivisionsList"
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
                                 Height="Auto"
                                 Margin="0"
                                 HorizontalAlignment="Left"
-                                ItemsSource="{Binding SubphylumsCollection}"
-                                Visibility="{Binding ElementName=Tbl12SubphylumsList, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                ItemsSource="{Binding DivisionsCollection}"
+                                Visibility="{Binding ElementName=Tbl09DivisionsList, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <StackPanel Margin="36,0,0,0" Orientation="Horizontal">
-                                            <TextBlock Width="284" Text="{DynamicResource Tbl12Subphylum-Subphylum}" />
+                                        <StackPanel Margin="28,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="292" Text="{DynamicResource Tbl09Division-Division}" />
                                             <TextBlock>
-                                                <Hyperlink Click="HyperlinkSubphylum_Click" Tag="{Binding (models:Tbl12Subphylum.SubphylumId)}">
-                                                    <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
+                                                <Hyperlink Click="HyperlinkDivision_Click" Tag="{Binding (models:Tbl09Division.DivisionId)}">
+                                                    <TextBlock Text="{Binding (models:Tbl09Division.DivisionName)}" />
                                                 </Hyperlink>
                                             </TextBlock>
-                                            <TextBlock Width="Auto" Margin="2,0,0,0">
+                                            <TextBlock Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource AuthorConverter}">
                                                         <Binding Path="Author" />
@@ -426,7 +439,7 @@
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
-                                            <TextBlock Width="Auto" Margin="2,0,0,0">
+                                            <TextBlock Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource NameConverter}">
                                                         <Binding Path="GerName" />
@@ -441,6 +454,7 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </GroupBox>
+
                     </Paragraph>
                 </Section>
 
@@ -457,13 +471,11 @@
                             FontWeight="Bold"
                             Foreground="{DynamicResource ValidationErrorBrush}"
                             Text="{DynamicResource Report-References}" />
-                        <GroupBox>
-                            <TextBlock
-                                Width="{Binding ElementName=PageWidthText, Path=Text}"
-                                Margin="20,0,0,0"
-                                FontWeight="Bold"
-                                Text="{DynamicResource Report-Experts}" />
-                        </GroupBox>
+                        <TextBlock
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Margin="20,0,0,0"
+                            FontWeight="Bold"
+                            Text="{DynamicResource Report-Experts}" />
                         <GroupBox>
                             <ListBox
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
@@ -490,13 +502,12 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </GroupBox>
-                        <GroupBox>
-                            <TextBlock
-                                Width="{Binding ElementName=PageWidthText, Path=Text}"
-                                Margin="20,0,0,0"
-                                FontWeight="Bold"
-                                Text="{DynamicResource Report-OtherSources}" />
-                        </GroupBox>
+
+                        <TextBlock
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Margin="20,0,0,0"
+                            FontWeight="Bold"
+                            Text="{DynamicResource Report-OtherSources}" />
                         <GroupBox>
                             <ListBox
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
@@ -538,13 +549,12 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </GroupBox>
-                        <GroupBox>
-                            <TextBlock
-                                Width="{Binding ElementName=PageWidthText, Path=Text}"
-                                Margin="20,0,0,0"
-                                FontWeight="Bold"
-                                Text="{DynamicResource Report-Publications}" />
-                        </GroupBox>
+
+                        <TextBlock
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Margin="20,0,0,0"
+                            FontWeight="Bold"
+                            Text="{DynamicResource Report-Publications}" />
                         <GroupBox>
                             <ListBox
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"

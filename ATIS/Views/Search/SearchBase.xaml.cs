@@ -45,9 +45,9 @@ namespace ATIS.Ui.Views.Search
             var lvItem = sender as ListViewItem;
 
             if (lvItem == null) return;
-            var id = (dynamic)lvItem.Tag;
-            //      var rp = new ReportRegnumWindow(id, "Tbl03Regnums");
-            //      rp.Show();
+            var id = (dynamic)lvItem.Tag; 
+            var rp = new ReportRegnumWindow(id, "Tbl03Regnums"); 
+            rp.Show();
         }
         private void Tbl06PhylumsList_DoubleClick(object sender, MouseButtonEventArgs e)
         {

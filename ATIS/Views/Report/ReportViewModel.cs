@@ -44,10 +44,10 @@ namespace ATIS.Ui.Views.Report
 
 			switch (tab)
 			{
-			//    case "Tbl03Regnums":
-			//        GetTbl03RegnumsById(id);
-			//        break;
-				case "Tbl06Phylums":
+                case "Tbl03Regnums":
+                    GetTbl03RegnumsById(id);
+                    break;
+                case "Tbl06Phylums":
 					GetTbl06PhylumsById(id);
 					break;
 			//    case "Tbl09Divisions":

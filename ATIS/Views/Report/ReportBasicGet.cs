@@ -103,7 +103,7 @@ namespace ATIS.Ui.Views.Report
         public ObservableCollection<Tbl12Subphylum> CollSubphylumsByPhylumIdAndHash(int id)
         {
             var collection = new ObservableCollection<Tbl12Subphylum>(_uow.Tbl12Subphylums
-                .Find(e => e.PhylumId == id &&
+                .Find(e => e.PhylumId == id && 
                            e.SubphylumName.Contains("#") == false));
             return collection;
         }
