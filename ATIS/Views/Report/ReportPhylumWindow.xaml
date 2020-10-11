@@ -3,44 +3,34 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:valueConverter="clr-namespace:ATIS.Ui.Helper.ValueConverter"
     xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"
     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
-    xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=System.ComponentModel.TypeConverter"
+    xmlns:valueConverter="clr-namespace:ATIS.Ui.Helper.ValueConverter"
     Title="{DynamicResource Report-Title}"
     Width="1000"
     Height="600"
-    Background="{DynamicResource MaterialDesignPaper}"
-    ResizeMode="CanResizeWithGrip"
-    TextElement.FontSize="13"
-    TextElement.FontWeight="Regular"
-    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-    TextOptions.TextFormattingMode="Ideal"
-    TextOptions.TextRenderingMode="Auto">
+    ResizeMode="CanResizeWithGrip">
 
-    <!--  ReportTbl06PhylumsWindow.xaml  Skriptdatum:  12.12.2019  12:32  -->
-
-    <Window.Resources>
+    <mah:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Shadows.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.CheckBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <!--<Style BasedOn="{StaticResource MaterialDesignTextBox}" TargetType="{x:Type TextBox}">
+            <Style BasedOn="{StaticResource MahApps.Styles.TextBox}" TargetType="{x:Type TextBox}">
                 <Setter Property="Margin" Value="2,0,2,0" />
             </Style>
-            <Style BasedOn="{StaticResource MaterialDesignListBox}" TargetType="{x:Type ListBox}">
+            <Style BasedOn="{StaticResource MahApps.Styles.ListBox}" TargetType="{x:Type ListBox}">
                 <Setter Property="Margin" Value="2,0,2,0" />
                 <Setter Property="Height" Value="24" />
             </Style>
             <Style TargetType="{x:Type TableCell}">
                 <Setter Property="Padding" Value="2" />
-            </Style>-->
+            </Style>
         </ResourceDictionary>
-    </Window.Resources>
+    </mah:MetroWindow.Resources>
+
+    <!--  ReportTbl06PhylumsWindow.xaml  Skriptdatum:  12.12.2019  12:32  -->
 
     <Grid x:Name="LayoutRoot">
         <Grid.Resources>
@@ -48,7 +38,6 @@
             <valueConverter:AuthorWithoutStringConverter x:Key="AuthorWithoutStringConverter" />
             <valueConverter:NameConverter x:Key="NameConverter" />
             <valueConverter:DateConverter x:Key="DateConverter" />
-            <componentModel:DateTimeConverter x:Key="DateTimeConverter" />
             <valueConverter:TimeConverter x:Key="TimeConverter" />
             <valueConverter:BooleanToVisibilityConverter
                 x:Key="BooleanToVisibilityConverter"
@@ -70,50 +59,37 @@
             <TextBox
                 x:Name="Reader"
                 Margin="10,0,10,0"
-                materialDesign:HintAssist.Hint="{DynamicResource ReportFlow-PaperWidth}"
                 LostFocus="Reader_LostFocus"
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                 Text="1000" />
             <TextBox
                 x:Name="PageWidthText"
                 Margin="10,0,10,0"
-                materialDesign:HintAssist.Hint="{DynamicResource ReportFlow-PageWidth}"
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                 Text="1000" />
             <TextBox
                 x:Name="PagePaddingText"
                 Margin="10,0,10,0"
-                materialDesign:HintAssist.Hint="{DynamicResource ReportFlow-PagePadding}"
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                 Text="28" />
             <TextBox
                 x:Name="ColumnWidthText"
                 Margin="10,0,10,0"
-                materialDesign:HintAssist.Hint="{DynamicResource ReportFlow-ColumnWidth}"
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                 Text="800" />
             <CheckBox
                 x:Name="FlexibleChecked"
                 VerticalAlignment="Center"
                 Content="{DynamicResource ReportFlow-ColumnWidthFlex}"
-                IsChecked="True"
-                Style="{StaticResource MaterialDesignCheckBox}" />
+                IsChecked="True" />
             <Button
                 Width="100"
                 Margin="100,5,10,5"
                 VerticalAlignment="Center"
-                materialDesign:ShadowAssist.ShadowDepth="Depth1"
                 Click="Print_Click"
-                Content="{DynamicResource Shared-ButtonPrint}"
-                Style="{StaticResource MaterialDesignFlatButton}" />
+                Content="{DynamicResource Shared-ButtonPrint}" />
             <Button
                 Width="120"
                 Margin="5,5,10,5"
                 VerticalAlignment="Center"
-                materialDesign:ShadowAssist.ShadowDepth="Depth1"
                 Command="{Binding PdfTbl06PhylumsCommand}"
-                Content="{DynamicResource Report-PrintPdf}"
-                Style="{StaticResource MaterialDesignFlatButton}" />
+                Content="{DynamicResource Report-PrintPdf}" />
         </StackPanel>
 
 
@@ -147,18 +123,17 @@
 
                 <Section>
                     <Paragraph>
-                        <materialDesign:Card
+                        <GroupBox
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
                             Margin="2,0,0,0"
                             Background="{DynamicResource PrimaryHueLightBrush}"
-                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                            UniformCornerRadius="2">
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
                             <ListBox
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
                                 Height="Auto"
                                 Margin="0"
                                 HorizontalAlignment="Left"
-                                ItemsSource="{Binding Tbl06PhylumsList}">
+                                ItemsSource="{Binding PhylumsCollection}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
@@ -189,7 +164,7 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                        </materialDesign:Card>
+                        </GroupBox>
                     </Paragraph>
                 </Section>
 
@@ -208,17 +183,16 @@
                             Text="{DynamicResource Report-TaxoNomen}" />
                     </Paragraph>
                     <Paragraph>
-                        <materialDesign:Card
+                        <GroupBox
                             Margin="2,0,0,0"
                             Background="{DynamicResource PrimaryHueLightBrush}"
-                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                            UniformCornerRadius="2">
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
                             <ListBox
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
                                 Height="Auto"
                                 Margin="0"
                                 HorizontalAlignment="Left"
-                                ItemsSource="{Binding Tbl06PhylumsList}">
+                                ItemsSource="{Binding PhylumsCollection}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
@@ -296,11 +270,11 @@
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <StackPanel.Resources>
-                                                    <componentModel:DateTimeConverter x:Key="DateTimeConverter" />
+                                                    <valueConverter:DateTimeConverter x:Key="DateTimeConverter" />
                                                 </StackPanel.Resources>
                                                 <TextBlock Width="300" Text="{DynamicResource Report-RecordUpdate}" />
                                                 <TextBlock Width="300">
-                                                    <!--<TextBlock Text="{Binding (models:Tbl06Phylum.UpdaterDate), Converter={StaticResource DateTimeConverter}}" />-->
+                                                    <TextBlock Text="{Binding (models:Tbl06Phylum.UpdaterDate), Converter={StaticResource DateTimeConverter}}" />
                                                 </TextBlock>
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
@@ -318,7 +292,7 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                        </materialDesign:Card>
+                        </GroupBox>
                     </Paragraph>
 
 
@@ -336,18 +310,17 @@
                             FontWeight="Bold"
                             Foreground="{DynamicResource ValidationErrorBrush}"
                             Text="{DynamicResource Report-TaxoHiera}" />
-                        <materialDesign:Card
+                        <GroupBox
                             Margin="2,0,0,0"
                             Background="{DynamicResource PrimaryHueLightBrush}"
-                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                            UniformCornerRadius="2">
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
                             <ListBox
                                 x:Name="Tbl03RegnumsList"
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
                                 Height="Auto"
                                 Margin="0"
                                 HorizontalAlignment="Left"
-                                ItemsSource="{Binding Tbl03RegnumsList}"
+                                ItemsSource="{Binding RegnumsCollection}"
                                 Visibility="{Binding ElementName=Tbl03RegnumsList, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
@@ -387,15 +360,14 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                        </materialDesign:Card>
+                        </GroupBox>
 
                         <!--  Tbl06Phylums  -->
 
-                        <materialDesign:Card
+                        <GroupBox
                             Margin="2,0,0,0"
                             Background="{DynamicResource PrimaryHueLightBrush}"
-                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                            UniformCornerRadius="2">
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
                             <ListBox
                                 x:Name="Tbl06PhylumsList"
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
@@ -409,15 +381,15 @@
                                         <StackPanel Margin="28,0,0,0" Orientation="Horizontal">
                                             <TextBlock Width="292" Text="{DynamicResource Tbl06Phylum-Phylum}" />
                                             <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
-                                            <!--<TextBlock Width="Auto" Margin="2,0,0,0">
+                                            <TextBlock Width="Auto" Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource AuthorConverter}">
                                                         <Binding Path="Author" />
                                                         <Binding Path="AuthorYear" />
                                                     </MultiBinding>
                                                 </TextBlock.Text>
-                                            </TextBlock>-->
-                                            <!--<TextBlock Width="Auto" Margin="2,0,0,0">
+                                            </TextBlock>
+                                            <TextBlock Width="Auto" Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource NameConverter}">
                                                         <Binding Path="GerName" />
@@ -426,31 +398,29 @@
                                                         <Binding Path="PorName" />
                                                     </MultiBinding>
                                                 </TextBlock.Text>
-                                            </TextBlock>-->
+                                            </TextBlock>
                                         </StackPanel>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                        </materialDesign:Card>
+                        </GroupBox>
 
                         <!--  Tbl12Subphylums Children  -->
 
-                        <materialDesign:Card
+                        <GroupBox
                             Margin="2,2,0,0"
                             Background="{DynamicResource PrimaryHueLightBrush}"
-                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                            UniformCornerRadius="2">
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
                             <TextBlock
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
                                 Margin="20,0,0,0"
                                 FontWeight="Bold"
                                 Text="{DynamicResource Report-DirectChild}" />
-                        </materialDesign:Card>
-                        <materialDesign:Card
+                        </GroupBox>
+                        <GroupBox
                             Margin="2,2,0,0"
                             Background="{DynamicResource PrimaryHueLightBrush}"
-                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                            UniformCornerRadius="2">
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
                             <ListBox
                                 x:Name="Tbl12SubphylumsList"
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
@@ -468,15 +438,15 @@
                                                     <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
                                                 </Hyperlink>
                                             </TextBlock>
-                                            <!--<TextBlock Width="Auto" Margin="2,0,0,0">
+                                            <TextBlock Width="Auto" Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource AuthorConverter}">
                                                         <Binding Path="Author" />
                                                         <Binding Path="AuthorYear" />
                                                     </MultiBinding>
                                                 </TextBlock.Text>
-                                            </TextBlock>-->
-                                            <!--<TextBlock Width="Auto" Margin="2,0,0,0">
+                                            </TextBlock>
+                                            <TextBlock Width="Auto" Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource NameConverter}">
                                                         <Binding Path="GerName" />
@@ -485,12 +455,12 @@
                                                         <Binding Path="PorName" />
                                                     </MultiBinding>
                                                 </TextBlock.Text>
-                                            </TextBlock>-->
+                                            </TextBlock>
                                         </StackPanel>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                        </materialDesign:Card>
+                        </GroupBox>
                     </Paragraph>
                 </Section>
 
@@ -507,28 +477,26 @@
                             FontWeight="Bold"
                             Foreground="{DynamicResource ValidationErrorBrush}"
                             Text="{DynamicResource Report-References}" />
-                        <materialDesign:Card
+                        <GroupBox
                             Margin="2,2,0,0"
                             Background="{DynamicResource PrimaryHueLightBrush}"
-                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                            UniformCornerRadius="2">
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
                             <TextBlock
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
                                 Margin="20,0,0,0"
                                 FontWeight="Bold"
                                 Text="{DynamicResource Report-Experts}" />
-                        </materialDesign:Card>
-                        <materialDesign:Card
+                        </GroupBox>
+                        <GroupBox
                             Margin="2,2,0,0"
                             Background="{DynamicResource PrimaryHueLightBrush}"
-                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                            UniformCornerRadius="2">
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
                             <ListBox
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
                                 Height="Auto"
                                 Margin="0"
                                 HorizontalAlignment="Left"
-                                ItemsSource="{Binding Tbl90ExpertsList}">
+                                ItemsSource="{Binding ExpertsCollection}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
@@ -547,29 +515,27 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                        </materialDesign:Card>
-                        <materialDesign:Card
+                        </GroupBox>
+                        <GroupBox
                             Margin="2,2,0,0"
                             Background="{DynamicResource PrimaryHueLightBrush}"
-                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                            UniformCornerRadius="2">
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
                             <TextBlock
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
                                 Margin="20,0,0,0"
                                 FontWeight="Bold"
                                 Text="{DynamicResource Report-OtherSources}" />
-                        </materialDesign:Card>
-                        <materialDesign:Card
+                        </GroupBox>
+                        <GroupBox
                             Margin="2,2,0,0"
                             Background="{DynamicResource PrimaryHueLightBrush}"
-                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                            UniformCornerRadius="2">
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
                             <ListBox
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
                                 Height="Auto"
                                 Margin="0"
                                 HorizontalAlignment="Left"
-                                ItemsSource="{Binding Tbl90SourcesList}">
+                                ItemsSource="{Binding SourcesCollection}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
@@ -603,29 +569,27 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                        </materialDesign:Card>
-                        <materialDesign:Card
+                        </GroupBox>
+                        <GroupBox
                             Margin="2,2,0,0"
                             Background="{DynamicResource PrimaryHueLightBrush}"
-                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                            UniformCornerRadius="2">
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
                             <TextBlock
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
                                 Margin="20,0,0,0"
                                 FontWeight="Bold"
                                 Text="{DynamicResource Report-Publications}" />
-                        </materialDesign:Card>
-                        <materialDesign:Card
+                        </GroupBox>
+                        <GroupBox
                             Margin="2,2,0,0"
                             Background="{DynamicResource PrimaryHueLightBrush}"
-                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                            UniformCornerRadius="2">
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
                             <ListBox
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
                                 Height="Auto"
                                 Margin="0"
                                 HorizontalAlignment="Left"
-                                ItemsSource="{Binding Tbl90AuthorsList}">
+                                ItemsSource="{Binding AuthorsCollection}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
@@ -676,7 +640,7 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                        </materialDesign:Card>
+                        </GroupBox>
                     </Paragraph>
                 </Section>
 
@@ -704,17 +668,16 @@
                             FontWeight="Bold"
                             Foreground="{DynamicResource ValidationErrorBrush}"
                             Text="{DynamicResource Report-Comments}" />
-                        <materialDesign:Card
+                        <GroupBox
                             Margin="2,0,0,0"
                             Background="{DynamicResource PrimaryHueLightBrush}"
-                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                            UniformCornerRadius="2">
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
                             <ListBox
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
                                 Height="Auto"
                                 Margin="2,0,0,0"
                                 HorizontalAlignment="Left"
-                                ItemsSource="{Binding Tbl93CommentsList}">
+                                ItemsSource="{Binding CommentsCollection}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
@@ -736,7 +699,7 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                        </materialDesign:Card>
+                        </GroupBox>
                     </Paragraph>
                 </Section>
 

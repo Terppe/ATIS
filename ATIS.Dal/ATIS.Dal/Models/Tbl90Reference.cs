@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ATIS.Dal.Models
 {
@@ -52,9 +53,17 @@ namespace ATIS.Dal.Models
         //public virtual Tbl09Division Tbl09Divisions { get; set; }
         //public virtual Tbl12Subphylum Tbl12Subphylums { get; set; }
         //public virtual Tbl15Subdivision Tbl15Subdivisions { get; set; }
-        //    public virtual Tbl90RefAuthor Tbl90RefAuthors { get; set; }
-        //public virtual Tbl90RefExpert Tbl90RefExperts { get; set; }
-        //public virtual Tbl90RefSource Tbl90RefSources { get; set; }
+        [ForeignKey("FiSpeciesId")]
+        public virtual Tbl69FiSpecies Tbl69FiSpeciesses { get; set; }
+        [ForeignKey("PlSpeciesId")]
+        public virtual Tbl72PlSpecies Tbl72PlSpeciesses { get; set; }
+
+        [ForeignKey("RefAuthorId")]
+        public virtual Tbl90RefAuthor Tbl90RefAuthors { get; set; }
+        [ForeignKey("RefExpertId")]
+        public virtual Tbl90RefExpert Tbl90RefExperts { get; set; }
+        [ForeignKey("RefSourceId")]
+        public virtual Tbl90RefSource Tbl90RefSources { get; set; }
 
 
     }

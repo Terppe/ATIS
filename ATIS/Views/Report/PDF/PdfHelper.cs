@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Globalization;
-using System.IO;
-using System.Text;
-using ATIS.Dal.Models;
-using ATIS.Ui.Helper;
-using iText.Kernel.Geom;
-using iText.Kernel.Pdf;
-using iText.Layout.Element;
+﻿using ATIS.Ui.Helper;
 using iText.StyledXmlParser.Jsoup.Nodes;
 using Microsoft.Win32;
 
@@ -16,7 +6,7 @@ namespace ATIS.Ui.Views.Report.PDF
 {
     public class PdfHelper : ViewModelBase
     {
-       // Set up the fonts to be used on the pages
+        // Set up the fonts to be used on the pages
 
         //private static readonly Font LargeFont = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD, BaseColor.BLACK);
         //private static readonly Font StandardFont = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL, BaseColor.BLACK);
@@ -31,8 +21,8 @@ namespace ATIS.Ui.Views.Report.PDF
             // Set up the fonts to be used on the pages 
 
             //var margin = Utilities.MillimetersToPoints(Convert.ToSingle(5));
-    //        var doc = new Document(PageSize.A4, margin, margin, margin, margin);
-            var doc = new Document( 20.ToString() );
+            //        var doc = new Document(PageSize.A4, margin, margin, margin, margin);
+            var doc = new Document(20.ToString());
 
             //PdfWriter.GetInstance(doc, new FileStream(sfd.FileName, FileMode.Create));
 
