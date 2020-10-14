@@ -8,6 +8,7 @@ using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Database.CrudHelper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
 using Microsoft.EntityFrameworkCore;
+using EntityState = Microsoft.EntityFrameworkCore.EntityState;
 
 namespace ATIS.Ui.Views.Database.D06Phylum
 {
@@ -43,6 +44,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             SubphylumsAllCollection = new ObservableCollection<Tbl12Subphylum>(_uow.Tbl12Subphylums.GetAll());
 
             RegnumsCollection = new ObservableCollection<Tbl03Regnum>();
+            PhylumsCollection = new ObservableCollection<Tbl06Phylum>();
             SubphylumsCollection = new ObservableCollection<Tbl12Subphylum>();
             SuperclassesCollection = new ObservableCollection<Tbl18Superclass>();
             ReferencesCollection = new ObservableCollection<Tbl90Reference>();
@@ -166,6 +168,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             try
             {
                 var phylum = _uow.Tbl06Phylums.GetById(SelectedPhylum.PhylumId);
+
                 if (SelectedPhylum.PhylumId == 0)
                     phylum = _extSave.PhylumAdd(SelectedPhylum);
                 else
@@ -175,6 +178,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 {
                     _extSave.PhylumSave(phylum, SelectedPhylum);
                     RaisePropertyChanged("PhylumsCollection");
+
                 }
                 catch (DbUpdateException e)
                 {

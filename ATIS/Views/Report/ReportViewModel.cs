@@ -17,7 +17,7 @@ namespace ATIS.Ui.Views.Report
 		#region "Private Data Members"
 		//private static IBusinessLayer _businessLayer;
 		//private static DbEntityException _entityException;
-		private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
+	//	private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
 		private readonly AtisDbContext _context = new AtisDbContext();
         private readonly ReportBasicGet _extReportBasicGet = new ReportBasicGet();
 
@@ -256,19 +256,6 @@ namespace ATIS.Ui.Views.Report
 
 		#endregion "Public Properties Tbl93Comment"
 
-		#region Functions
-
-		private int RegnumIdFromPhylumsCollectionSelect(int id)
-		{
-        //     var regnumIdFromPhylumsColl = _uow.Tbl06Phylums.GetById(id);
-            var regnumIdFromPhylumsColl = _context.Tbl06Phylums 
-                .SingleOrDefault(p => p.PhylumId == id);
-             if (regnumIdFromPhylumsColl == null) return 0;
-            return regnumIdFromPhylumsColl.RegnumId;
-        }
-
-
-		#endregion
 	}
 
 	#region Item Properties

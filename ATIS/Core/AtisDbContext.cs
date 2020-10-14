@@ -2,6 +2,7 @@
 using System.Reflection;
 using ATIS.Dal.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 
 namespace ATIS.Ui.Core
@@ -24,7 +25,12 @@ namespace ATIS.Ui.Core
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_connectionString);
+            optionsBuilder
+                .UseSqlServer(_connectionString)
+                // EF 2.0 make some warnings as error, just ignore them
+                // .ConfigureWarnings(w => w.Ignore(CoreEventId.IncludeIgnoredWarning))
+                // Allow logging sql parameters
+                .EnableSensitiveDataLogging();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

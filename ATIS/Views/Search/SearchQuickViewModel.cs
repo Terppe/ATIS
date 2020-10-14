@@ -9,11 +9,7 @@ namespace ATIS.Ui.Views.Search
     public class SearchQuickViewModel : ViewModelBase
     {
         #region "Private Data Members"
-        //    private static IBusinessLayer _businessLayer;
-        private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
-        private readonly AtisDbContext _context = new AtisDbContext();
         private readonly SearchBasicGet _extSearchGet = new SearchBasicGet();
-
 
         #endregion "Private Data Members"
 
@@ -92,7 +88,6 @@ namespace ATIS.Ui.Views.Search
             {
                 case Page.Page0:
                     {
-                        //   Tbl63InfratribussesList = new ObservableCollection<Tbl63Infratribus>(_businessLayer.ListTbl63InfratribussesByFilterText(filterText));
                         InfratribussesCollection ??= new ObservableCollection<Tbl63Infratribus>();
                         InfratribussesCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl63Infratribus>(filterText, "infratribus");
                         RaisePropertyChanged("InfratribussesCollection");
@@ -101,7 +96,6 @@ namespace ATIS.Ui.Views.Search
 
                 case Page.Page1:
                     {
-                        //   Tbl60SubtribussesList = new ObservableCollection<Tbl60Subtribus>(_businessLayer.ListTbl60SubtribussesByFilterText(filterText));
                         SubtribussesCollection ??= new ObservableCollection<Tbl60Subtribus>();
                         SubtribussesCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl60Subtribus>(filterText, "subtribus");
                         RaisePropertyChanged("SubtribussesCollection");
@@ -110,7 +104,6 @@ namespace ATIS.Ui.Views.Search
 
                 case Page.Page2:
                     {
-                        //       Tbl57TribussesList = new ObservableCollection<Tbl57Tribus>(_businessLayer.ListTbl57TribussesByFilterText(filterText));
                         TribussesCollection ??= new ObservableCollection<Tbl57Tribus>();
                         TribussesCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl57Tribus>(filterText, "tribus");
                         RaisePropertyChanged("TribussesCollection");
@@ -119,7 +112,6 @@ namespace ATIS.Ui.Views.Search
 
                 case Page.Page3:
                     {
-                        //    Tbl54SupertribussesList = new ObservableCollection<Tbl54Supertribus>(_businessLayer.ListTbl54SupertribussesByFilterText(filterText));
                         SupertribussesCollection ??= new ObservableCollection<Tbl54Supertribus>();
                         SupertribussesCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl54Supertribus>(filterText, "supertribus");
                         RaisePropertyChanged("SupertribussesCollection");
@@ -138,7 +130,6 @@ namespace ATIS.Ui.Views.Search
             {
                 case Page.Page0:
                     {
-                        //      Tbl51InfrafamiliesList = new ObservableCollection<Tbl51Infrafamily>(_businessLayer.ListTbl51InfrafamiliesByFilterText(filterText));
                         InfrafamiliesCollection ??= new ObservableCollection<Tbl51Infrafamily>();
                         InfrafamiliesCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl51Infrafamily>(filterText, "infrafamily");
                         RaisePropertyChanged("InfrafamiliesCollection");
@@ -147,7 +138,6 @@ namespace ATIS.Ui.Views.Search
 
                 case Page.Page1:
                     {
-                        //        Tbl48SubfamiliesList = new ObservableCollection<Tbl48Subfamily>(_businessLayer.ListTbl48SubfamiliesByFilterText(filterText));
                         SubfamiliesCollection ??= new ObservableCollection<Tbl48Subfamily>();
                         SubfamiliesCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl48Subfamily>(filterText, "subfamily");
                         RaisePropertyChanged("SubfamiliesCollection");
@@ -156,7 +146,6 @@ namespace ATIS.Ui.Views.Search
 
                 case Page.Page2:
                     {
-                        //        Tbl45FamiliesList = new ObservableCollection<Tbl45Family>(_businessLayer.ListTbl45FamiliesByFilterText(filterText));
                         FamiliesCollection ??= new ObservableCollection<Tbl45Family>();
                         FamiliesCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl45Family>(filterText, "family");
                         RaisePropertyChanged("FamiliesCollection");
@@ -165,7 +154,6 @@ namespace ATIS.Ui.Views.Search
 
                 case Page.Page3:
                     {
-                        //      Tbl42SuperfamiliesList = new ObservableCollection<Tbl42Superfamily>(_businessLayer.ListTbl42SuperfamiliesByFilterText(filterText));
                         SuperfamiliesCollection ??= new ObservableCollection<Tbl42Superfamily>();
                         SuperfamiliesCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl42Superfamily>(filterText, "superfamily");
                         RaisePropertyChanged("SuperfamiliesCollection");
@@ -185,7 +173,6 @@ namespace ATIS.Ui.Views.Search
             {
                 case Page.Page0:
                     {
-                        //     Tbl39InfraordosList = new ObservableCollection<Tbl39Infraordo>(_businessLayer.ListTbl39InfraordosByFilterText(filterText));
                         InfraordosCollection ??= new ObservableCollection<Tbl39Infraordo>();
                         InfraordosCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl39Infraordo>(filterText, "infraordo");
                         RaisePropertyChanged("InfraordosCollection");
@@ -194,7 +181,6 @@ namespace ATIS.Ui.Views.Search
 
                 case Page.Page1:
                     {
-                        //     Tbl36SubordosList = new ObservableCollection<Tbl36Subordo>(_businessLayer.ListTbl36SubordosByFilterText(filterText));
                         SubordosCollection ??= new ObservableCollection<Tbl36Subordo>();
                         SubordosCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl36Subordo>(filterText, "subordo");
                         RaisePropertyChanged("SubordosCollection");
@@ -203,7 +189,6 @@ namespace ATIS.Ui.Views.Search
 
                 case Page.Page2:
                     {
-                        //         Tbl33OrdosList = new ObservableCollection<Tbl33Ordo>(_businessLayer.ListTbl33OrdosByFilterText(filterText));
                         OrdosCollection ??= new ObservableCollection<Tbl33Ordo>();
                         OrdosCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl33Ordo>(filterText, "ordo");
                         RaisePropertyChanged("OrdosCollection");
@@ -212,7 +197,6 @@ namespace ATIS.Ui.Views.Search
 
                 case Page.Page3:
                     {
-                        //      Tbl30LegiosList = new ObservableCollection<Tbl30Legio>(_businessLayer.ListTbl30LegiosByFilterText(filterText));
                         LegiosCollection ??= new ObservableCollection<Tbl30Legio>();
                         LegiosCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl30Legio>(filterText, "legio");
                         RaisePropertyChanged("LegiosCollection");
@@ -231,7 +215,6 @@ namespace ATIS.Ui.Views.Search
             {
                 case Page.Page0:
                     {
-                        //   Tbl27InfraclassesList = new ObservableCollection<Tbl27Infraclass>(_businessLayer.ListTbl27InfraclassesByFilterText(filterText));
                         InfraclassesCollection ??= new ObservableCollection<Tbl27Infraclass>();
                         InfraclassesCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl27Infraclass>(filterText, "infraclass");
                         RaisePropertyChanged("InfraclassesCollection");
@@ -240,7 +223,6 @@ namespace ATIS.Ui.Views.Search
 
                 case Page.Page1:
                     {
-                        //    Tbl24SubclassesList = new ObservableCollection<Tbl24Subclass>(_businessLayer.ListTbl24SubclassesByFilterText(filterText));
                         SubclassesCollection ??= new ObservableCollection<Tbl24Subclass>();
                         SubclassesCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl24Subclass>(filterText, "subclass");
                         RaisePropertyChanged("SubclassesCollection");
@@ -249,7 +231,6 @@ namespace ATIS.Ui.Views.Search
 
                 case Page.Page2:
                     {
-                        //         Tbl21ClassesList = new ObservableCollection<Tbl21Class>(_businessLayer.ListTbl21ClassesByFilterText(filterText));
                         ClassesCollection ??= new ObservableCollection<Tbl21Class>();
                         ClassesCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl21Class>(filterText, "class");
                         RaisePropertyChanged("ClassesCollection");
@@ -258,7 +239,6 @@ namespace ATIS.Ui.Views.Search
 
                 case Page.Page3:
                     {
-                        //    Tbl18SuperclassesList = new ObservableCollection<Tbl18Superclass>(_businessLayer.ListTbl18SuperclassesByFilterText(filterText));
                         SuperclassesCollection ??= new ObservableCollection<Tbl18Superclass>();
                         SuperclassesCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl18Superclass>(filterText, "superclass");
                         RaisePropertyChanged("SuperclassesCollection");
@@ -277,7 +257,6 @@ namespace ATIS.Ui.Views.Search
             {
                 case Page.Page0:
                     {
-                        //        Tbl15SubdivisionsList = new ObservableCollection<Tbl15Subdivision>(_businessLayer.ListTbl15SubdivisionsByFilterText(filterText));
                         SubdivisionsCollection ??= new ObservableCollection<Tbl15Subdivision>();
                         SubdivisionsCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl15Subdivision>(filterText, "subdivision");
                         RaisePropertyChanged("SubdivisionsCollection");
@@ -286,7 +265,6 @@ namespace ATIS.Ui.Views.Search
 
                 case Page.Page1:
                     {
-                        //          DivisionsCollection = new ObservableCollection<Tbl09Division>(_businessLayer.ListTbl09DivisionsByFilterText(filterText));
                         DivisionsCollection ??= new ObservableCollection<Tbl09Division>();
                         DivisionsCollection = _extSearchGet.SearchFilterTextReturnCollection<Tbl09Division>(filterText, "division");
                         RaisePropertyChanged("DivisionsCollection");

@@ -61,7 +61,20 @@ Status:
 •	"MyDbConnection": "server=.\\SQLEXPRESS;database=ATIS35;trusted_connection=true;" in appsettings.json eingefügt
 •	erfolgreich mit UnitOfWork erledig
 *	Datenbank mit Daten vom Generator je 10 Datensätze gefüllt
+*	Für UOW entschieden. Manchmal AtisDbContext verwendet.
+*	
 
+
+***************************************
+
+Titel: Problem beim Erzeugen eines Datensatzes 
+Story: Wenn ein Datensatz erzeugt wird kann nicht sofort der Name geändert werden. Da der key noch im Zugriff ist
+		* Tracking
+	 
+Status:
+•	EnableSensitiveDataLogging in AtisDbContext eingefügt
+•	Lösung nur möglich Tabelle geschlossen und Datensatz neu gesucht wird
+•	bessere Lösung noch nicht gefunden
 
 ***************************************
 

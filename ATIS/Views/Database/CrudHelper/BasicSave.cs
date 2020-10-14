@@ -388,11 +388,13 @@ namespace ATIS.Ui.Views.Database.CrudHelper
         //--------------------------------------------------------
         public void PhylumSave(Tbl06Phylum phylum, Tbl06Phylum selectedPhylum)
         {
-            if (selectedPhylum.PhylumId != 0)   //update
+
+            if (selectedPhylum.PhylumId != 0) //update
+            {
                 _uow.Tbl06Phylums.Update(phylum);
+            }
             else                                //add
                 _uow.Tbl06Phylums.Add(phylum);
-
             _uow.Complete();
         }
         //--------------------------------------------------------
