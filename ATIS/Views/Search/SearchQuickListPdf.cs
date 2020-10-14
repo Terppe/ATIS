@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ATIS.Ui.Helper;
-using ATIS.Ui.Views.Report.PDF;
+﻿using ATIS.Ui.Helper;
 using iText.StyledXmlParser.Jsoup.Nodes;
 using Microsoft.Win32;
 
@@ -12,7 +8,7 @@ namespace ATIS.Ui.Views.Search
     {
         public SearchQuickListPdf()
         {
-            
+
         }
 
         public static void CreateMainAllPdf(string filtertext)

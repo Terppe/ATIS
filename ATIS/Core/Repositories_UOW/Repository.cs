@@ -1,9 +1,9 @@
-﻿using System;
+﻿using ATIS.Ui.Core.Interfaces_UOW;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using ATIS.Ui.Core.Interfaces_UOW;
-using Microsoft.EntityFrameworkCore;
 
 namespace ATIS.Ui.Core.Repositories_UOW
 {

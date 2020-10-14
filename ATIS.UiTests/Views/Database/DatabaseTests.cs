@@ -1,8 +1,8 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
-using ATIS.Dal.Models;
+﻿using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace ATIS.UiTests.Views.Database
 {

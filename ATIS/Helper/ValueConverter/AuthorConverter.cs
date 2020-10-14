@@ -72,7 +72,7 @@ namespace ATIS.Ui.Helper.ValueConverter
             //var property2 = values[1].ConvertTo<string>();  //AuthorYear
             if (values[0] != null)
             {
-                 var property1 = values[0].ToString(); //Author
+                var property1 = values[0].ToString(); //Author
                 var property2 = values[1].ToString(); //AuthorYear
 
                 //        if (property1.IsBlank()) return null;

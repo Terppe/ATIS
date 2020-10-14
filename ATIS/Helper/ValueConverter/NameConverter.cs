@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 using System.Windows.Data;
 //using Tyrrrz.Extensions;
 
@@ -25,7 +23,7 @@ namespace ATIS.Ui.Helper.ValueConverter
 
             if (values[0] != null)
             {
-                 gerName = values[0].ToString();  //GerName
+                gerName = values[0].ToString();  //GerName
             }
             if (values[1] != null)
             {
@@ -37,54 +35,54 @@ namespace ATIS.Ui.Helper.ValueConverter
             }
             if (values[3] != null)
             {
-                 porName = values[3].ToString();  //PorName
+                porName = values[3].ToString();  //PorName
             }
 
 
             //      if (!gerName.IsBlank() && engName.IsBlank() && fraName.IsBlank() && porName.IsBlank())
             if (gerName != String.Empty && engName == String.Empty && fraName == String.Empty && porName == String.Empty)
                 names = "- " + gerName;
-                //      if (!gerName.IsBlank() && !engName.IsBlank() && fraName.IsBlank() && porName.IsBlank())
-                if (gerName != String.Empty && engName != String.Empty && fraName == String.Empty && porName == String.Empty)
-                    names = "- " + gerName + ", " + engName;
-                //             if (!gerName.IsBlank() && !engName.IsBlank() && !fraName.IsBlank() && porName.IsBlank())
-                if (gerName != String.Empty && engName != String.Empty && fraName != String.Empty && porName == String.Empty)
-                    names = "- " + gerName + ", " + engName + ", " + fraName;
-                //             if (!gerName.IsBlank() && !engName.IsBlank() && !fraName.IsBlank() && !porName.IsBlank())
-                if (gerName != String.Empty && engName != String.Empty && fraName != String.Empty && porName != String.Empty)
-                    names = "- " + gerName + ", " + engName + ", " + fraName + ", " + porName;
+            //      if (!gerName.IsBlank() && !engName.IsBlank() && fraName.IsBlank() && porName.IsBlank())
+            if (gerName != String.Empty && engName != String.Empty && fraName == String.Empty && porName == String.Empty)
+                names = "- " + gerName + ", " + engName;
+            //             if (!gerName.IsBlank() && !engName.IsBlank() && !fraName.IsBlank() && porName.IsBlank())
+            if (gerName != String.Empty && engName != String.Empty && fraName != String.Empty && porName == String.Empty)
+                names = "- " + gerName + ", " + engName + ", " + fraName;
+            //             if (!gerName.IsBlank() && !engName.IsBlank() && !fraName.IsBlank() && !porName.IsBlank())
+            if (gerName != String.Empty && engName != String.Empty && fraName != String.Empty && porName != String.Empty)
+                names = "- " + gerName + ", " + engName + ", " + fraName + ", " + porName;
             //------------
-    //        if (!gerName.IsBlank() && engName.IsBlank() && !fraName.IsBlank() && porName.IsBlank())
-                if (gerName != String.Empty && engName == String.Empty && fraName != String.Empty && porName == String.Empty)
+            //        if (!gerName.IsBlank() && engName.IsBlank() && !fraName.IsBlank() && porName.IsBlank())
+            if (gerName != String.Empty && engName == String.Empty && fraName != String.Empty && porName == String.Empty)
                 names = "- " + gerName + ", " + fraName;
-                //           if (!gerName.IsBlank() && engName.IsBlank() && !fraName.IsBlank() && !porName.IsBlank())
-                if (gerName != String.Empty && engName == String.Empty && fraName != String.Empty && porName != String.Empty)
-                    names = "- " + gerName + ", " + fraName + ", " + porName;
+            //           if (!gerName.IsBlank() && engName.IsBlank() && !fraName.IsBlank() && !porName.IsBlank())
+            if (gerName != String.Empty && engName == String.Empty && fraName != String.Empty && porName != String.Empty)
+                names = "- " + gerName + ", " + fraName + ", " + porName;
             //------------
-      //      if (!gerName.IsBlank() && engName.IsBlank() && fraName.IsBlank() && !porName.IsBlank())
-                if (gerName != String.Empty && engName == String.Empty && fraName == String.Empty && porName != String.Empty)
+            //      if (!gerName.IsBlank() && engName.IsBlank() && fraName.IsBlank() && !porName.IsBlank())
+            if (gerName != String.Empty && engName == String.Empty && fraName == String.Empty && porName != String.Empty)
                 names = "- " + gerName + ", " + porName;
             //------------
 
-      //      if (gerName.IsBlank() && !engName.IsBlank() && fraName.IsBlank() && porName.IsBlank())
-                if (gerName == String.Empty && engName != String.Empty && fraName == String.Empty && porName == String.Empty)
+            //      if (gerName.IsBlank() && !engName.IsBlank() && fraName.IsBlank() && porName.IsBlank())
+            if (gerName == String.Empty && engName != String.Empty && fraName == String.Empty && porName == String.Empty)
                 names = "- " + engName;
-      //          if (gerName.IsBlank() && !engName.IsBlank() && !fraName.IsBlank() && porName.IsBlank())
-                    if (gerName == String.Empty && engName != String.Empty && fraName != String.Empty && porName == String.Empty)
+            //          if (gerName.IsBlank() && !engName.IsBlank() && !fraName.IsBlank() && porName.IsBlank())
+            if (gerName == String.Empty && engName != String.Empty && fraName != String.Empty && porName == String.Empty)
                 names = "- " + engName + ", " + fraName;
-                    //               if (gerName.IsBlank() && !engName.IsBlank() && !fraName.IsBlank() && !porName.IsBlank())
-                    if (gerName == String.Empty && engName != String.Empty && fraName != String.Empty && porName != String.Empty)
-                        names = "- " + engName + ", " + fraName + ", " + porName;
+            //               if (gerName.IsBlank() && !engName.IsBlank() && !fraName.IsBlank() && !porName.IsBlank())
+            if (gerName == String.Empty && engName != String.Empty && fraName != String.Empty && porName != String.Empty)
+                names = "- " + engName + ", " + fraName + ", " + porName;
             //------------
-     //       if (gerName.IsBlank() && engName.IsBlank() && !fraName.IsBlank() && porName.IsBlank())
-                if (gerName == String.Empty && engName == String.Empty && fraName != String.Empty && porName == String.Empty)
+            //       if (gerName.IsBlank() && engName.IsBlank() && !fraName.IsBlank() && porName.IsBlank())
+            if (gerName == String.Empty && engName == String.Empty && fraName != String.Empty && porName == String.Empty)
                 names = "- " + fraName;
-       //         if (gerName.IsBlank() && engName.IsBlank() && !fraName.IsBlank() && !porName.IsBlank())
-                    if (gerName == String.Empty && engName == String.Empty && fraName != String.Empty && porName != String.Empty)
+            //         if (gerName.IsBlank() && engName.IsBlank() && !fraName.IsBlank() && !porName.IsBlank())
+            if (gerName == String.Empty && engName == String.Empty && fraName != String.Empty && porName != String.Empty)
                 names = "- " + fraName + ", " + porName;
             //------------
-    //        if (gerName.IsBlank() && engName.IsBlank() && fraName.IsBlank() && !porName.IsBlank())
-                if (gerName == String.Empty && engName == String.Empty && fraName == String.Empty && porName != String.Empty)
+            //        if (gerName.IsBlank() && engName.IsBlank() && fraName.IsBlank() && !porName.IsBlank())
+            if (gerName == String.Empty && engName == String.Empty && fraName == String.Empty && porName != String.Empty)
                 names = "- " + porName;
             //------------
 

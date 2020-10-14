@@ -1,9 +1,9 @@
-﻿using System;
+﻿using ATIS.Ui.Views.Log;
+using System;
 using System.Globalization;
 using System.Threading;
 using System.Windows;
 using System.Windows.Markup;
-using ATIS.Ui.Views.Log;
 
 namespace ATIS.Ui
 {

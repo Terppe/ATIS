@@ -1,8 +1,7 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
-using ATIS.Dal.Models;
-using ATIS.Ui.Core;
+﻿using ATIS.Dal.Models;
 using ATIS.Ui.Helper;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace ATIS.Ui.Views.Search
 {

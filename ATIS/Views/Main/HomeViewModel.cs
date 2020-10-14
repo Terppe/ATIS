@@ -1,5 +1,5 @@
-﻿using System;
-using ATIS.Ui.Helper;
+﻿using ATIS.Ui.Helper;
+using System;
 
 namespace ATIS.Ui.Views.Main
 {

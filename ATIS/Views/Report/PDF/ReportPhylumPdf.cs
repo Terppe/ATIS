@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Drawing;
-using System.Globalization;
-using System.Text;
-using ATIS.Dal.Models;
+﻿using ATIS.Dal.Models;
 using ATIS.Ui.Helper;
-using iText.StyledXmlParser.Jsoup.Nodes;
-using Microsoft.Win32;
 using Spire.Pdf;
 using Spire.Pdf.Graphics;
+using System;
+using System.Drawing;
 
 namespace ATIS.Ui.Views.Report.PDF
 {

@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using ATIS.Ui.Core;
+using ATIS.Ui.Helper;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using ATIS.Ui.Core;
-using ATIS.Ui.Helper;
 
 namespace ATIS.Ui.Views.Database.CrudHelper
 {

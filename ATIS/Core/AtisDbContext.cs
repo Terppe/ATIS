@@ -1,9 +1,8 @@
-﻿using System.IO;
-using System.Reflection;
-using ATIS.Dal.Models;
+﻿using ATIS.Dal.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
+using System.IO;
+using System.Reflection;
 
 namespace ATIS.Ui.Core
 {

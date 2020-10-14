@@ -1,10 +1,10 @@
-﻿using System;
+﻿using ControlzEx.Theming;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using ControlzEx.Theming;
 
 namespace ATIS.Ui.Views.Main
 {
@@ -27,7 +27,7 @@ namespace ATIS.Ui.Views.Main
 
         public SettingView()
         {
-         //   DataContext = new SettingViewModel();
+            //   DataContext = new SettingViewModel();
 
             InitializeComponent();
             this.DataContext = this;
@@ -85,14 +85,14 @@ namespace ATIS.Ui.Views.Main
                 switch (rdButton.Tag.ToString())
                 {
                     case "Dark":
-        //                AppSettings.CurrentTheme = ElementTheme.Dark;
+                        //                AppSettings.CurrentTheme = ElementTheme.Dark;
                         break;
                     case "light":
-       //                 AppSettings.CurrentTheme = ElementTheme.Light;
+                        //                 AppSettings.CurrentTheme = ElementTheme.Light;
                         break;
                 }
 
-       //         AppSettings.ThemeUpdate();
+                //         AppSettings.ThemeUpdate();
             }
         }
     }

@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows.Input;
-using ATIS.Dal.Models;
+﻿using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Database.CrudHelper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
 using Microsoft.EntityFrameworkCore;
-using EntityState = Microsoft.EntityFrameworkCore.EntityState;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Input;
 
 namespace ATIS.Ui.Views.Database.D06Phylum
 {

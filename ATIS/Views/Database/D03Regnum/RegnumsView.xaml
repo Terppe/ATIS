@@ -87,21 +87,29 @@
                             </Button>
 
                             <Button
+                                Height="30"
+                                Margin="5"
                                 Command="{Binding AddRegnumCommand}"
                                 Content="{DynamicResource Shared-ButtonAdd}"
-                                Style="{StaticResource ButtonDefault}" />
+                                Style="{StaticResource MahApps.Styles.Button.Flat}" />
                             <Button
+                                Height="30"
+                                Margin="5"
                                 Command="{Binding CopyRegnumCommand}"
                                 Content="{DynamicResource Shared-ButtonCopy}"
-                                Style="{StaticResource ButtonDefault}" />
+                                Style="{StaticResource MahApps.Styles.Button.Flat}" />
                             <Button
+                                Height="30"
+                                Margin="5"
                                 Command="{Binding SaveRegnumCommand}"
                                 Content="{DynamicResource Shared-ButtonSave}"
-                                Style="{StaticResource ButtonDefault}" />
+                                Style="{StaticResource MahApps.Styles.Button.Flat}" />
                             <Button
+                                Height="30"
+                                Margin="5"
                                 Command="{Binding DeleteRegnumCommand}"
                                 Content="{DynamicResource Shared-ButtonDelete}"
-                                Style="{StaticResource ButtonDefault}" />
+                                Style="{StaticResource MahApps.Styles.Button.Flat}" />
                         </StackPanel>
                         <GroupBox Width="Auto" Header="{DynamicResource Shared-TabStripHeaderRegnums}">
                             <ScrollViewer HorizontalScrollBarVisibility="Auto">
@@ -134,6 +142,7 @@
                                                 Header="{DynamicResource Tbl03Regnum-RegnumId}" />
                                             <DataGridTextColumn
                                                 Width="Auto"
+                                                MinWidth="100"
                                                 Binding="{Binding RegnumName}"
                                                 Header="{DynamicResource Tbl03Regnum-RegnumName}" />
                                             <DataGridTextColumn
@@ -258,21 +267,29 @@
                                                     VerticalAlignment="Center"
                                                     Orientation="Horizontal">
                                                     <Button
+                                                        Height="30"
+                                                        Margin="5"
                                                         Command="{Binding AddExpertSourceAuthorCommentCommand}"
                                                         Content="{DynamicResource Shared-ButtonAdd}"
-                                                        Style="{StaticResource ButtonDefault}" />
+                                                        Style="{StaticResource MahApps.Styles.Button.Flat}" />
                                                     <Button
+                                                        Height="30"
+                                                        Margin="5"
                                                         Command="{Binding CopyExpertSourceAuthorCommentCommand}"
                                                         Content="{DynamicResource Shared-ButtonCopy}"
-                                                        Style="{StaticResource ButtonDefault}" />
+                                                        Style="{StaticResource MahApps.Styles.Button.Flat}" />
                                                     <Button
+                                                        Height="30"
+                                                        Margin="5"
                                                         Command="{Binding SaveExpertSourceAuthorCommentCommand}"
                                                         Content="{DynamicResource Shared-ButtonSave}"
-                                                        Style="{StaticResource ButtonDefault}" />
+                                                        Style="{StaticResource MahApps.Styles.Button.Flat}" />
                                                     <Button
+                                                        Height="30"
+                                                        Margin="5"
                                                         Command="{Binding DeleteExpertSourceAuthorCommentCommand}"
                                                         Content="{DynamicResource Shared-ButtonDelete}"
-                                                        Style="{StaticResource ButtonDefault}" />
+                                                        Style="{StaticResource MahApps.Styles.Button.Flat}" />
                                                 </StackPanel>
                                                 <GroupBox
                                                     Grid.Row="1"

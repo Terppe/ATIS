@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace ATIS.Dal.Models
 {
 
     public class Tbl69FiSpecies
     {
- 
+
         [Key]
         public int FiSpeciesId { get; set; }
         public string FiSpeciesName { get; set; }

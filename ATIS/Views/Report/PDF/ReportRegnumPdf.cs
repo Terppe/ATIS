@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Drawing;
-using System.Globalization;
-using System.Text;
-using ATIS.Dal.Models;
+﻿using ATIS.Dal.Models;
 using ATIS.Ui.Helper;
-using iText.StyledXmlParser.Jsoup.Nodes;
-using Microsoft.Win32;
 using Spire.Pdf;
 using Spire.Pdf.Graphics;
+using System;
+using System.Drawing;
 
 namespace ATIS.Ui.Views.Report.PDF
 {
@@ -31,7 +25,7 @@ namespace ATIS.Ui.Views.Report.PDF
         //    Part 1    
 
         public static void CreateMainPdf(int id)
-        { 
+        {
             //Create a pdf document
             PdfDocument doc = new PdfDocument();
 
@@ -151,9 +145,9 @@ namespace ATIS.Ui.Views.Report.PDF
 
             PdfTrueTypeFont font3 = new PdfTrueTypeFont(new Font("Arial", 9f));
             PdfStringFormat format3 = new PdfStringFormat();
-            format3.ParagraphIndent = font3.Size* 2;
+            format3.ParagraphIndent = font3.Size * 2;
             format3.MeasureTrailingSpaces = true;
-            format3.LineSpacing = font3.Size* 1.5f;
+            format3.LineSpacing = font3.Size * 1.5f;
             String text1 = "(All text and picture from ";
             String text2 = "Wikipedia";
             String text3 = ", the free encyclopedia)";
@@ -177,12 +171,12 @@ namespace ATIS.Ui.Views.Report.PDF
             PdfStringFormat format4 = new PdfStringFormat();
             text = System.IO.File.ReadAllText("Summary_of_Science.txt");
             PdfTrueTypeFont font5 = new PdfTrueTypeFont(new Font("Arial", 10f));
-            format4.LineSpacing = font5.Size* 1.5f;
+            format4.LineSpacing = font5.Size * 1.5f;
             PdfStringLayouter textLayouter = new PdfStringLayouter();
             float imageLeftBlockHeight = imageBottom - y;
             PdfStringLayoutResult result = textLayouter.Layout(text, font5, format4, new SizeF(imageLeftSpace, imageLeftBlockHeight));
 
-            if (result.ActualSize.Height<imageBottom - y)
+            if (result.ActualSize.Height < imageBottom - y)
             {
                 imageLeftBlockHeight = imageLeftBlockHeight + result.LineHeight;
                 result = textLayouter.Layout(text, font5, format4, new SizeF(imageLeftSpace, imageLeftBlockHeight));
@@ -204,275 +198,275 @@ namespace ATIS.Ui.Views.Report.PDF
         }
 
         //public static void CreateMainPdf(int id)
-      //  {
-            ////           _businessLayer = new BusinessLayer.BusinessLayer();
-            ////           _entityException = new DbEntityException();
+        //  {
+        ////           _businessLayer = new BusinessLayer.BusinessLayer();
+        ////           _entityException = new DbEntityException();
 
-            //           var reportVm = new ReportViewModel();
-            //           reportVm.GetTbl03RegnumsById(id);
+        //           var reportVm = new ReportViewModel();
+        //           reportVm.GetTbl03RegnumsById(id);
 
-            //           //From Database Tbl03Regnums
-            // //          _regnum = _businessLayer.SingleListTbl03RegnumsByRegnumId(id);
-
-
-            //           var sfd = new SaveFileDialog { Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*" };
-            //           var saveResult = sfd.ShowDialog();
-            //           if (saveResult != true) return;  //exit
-            //           Document doc = null;
-
-            //           try
-            //           {
-
-            //    doc = PdfHelper.HeaderMainPdf(sfd);
-            //    // Add pages to the document
-            //    PdfHelper.AddReportMain(doc);
-
-            //    doc = AddTbl03RegnumsHaeder(doc);
-            //    PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, LargeFont, new Chunk(CultRes.StringsRes.ReportTaxoNomen));
-            //    doc = AddTbl03RegnumsTaxoNomenList(doc);
-            //    PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, LargeFont, new Chunk(CultRes.StringsRes.ReportTaxoHiera));
-
-            //    doc = AddHierarchyList(doc);
-
-            //    if (reportVm.PhylumsCollection.Count != 0)
-            //        doc = AddTbl06PhylumsChildrenList(doc, reportVm.PhylumsCollection);
-            //    if (reportVm.DivisionsCollection.Count != 0)
-            //        doc = AddTbl09DivisionsChildrenList(doc, reportVm.DivisionsCollection);
-
-            //    PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, LargeFont, new Chunk(CultRes.StringsRes.ReportReferences));
-            //    if (reportVm.ExpertsCollection.Count != 0)
-            //        doc = PdfHelper.AddRefExpertList(doc, reportVm.ExpertsCollection);
-            //    if (reportVm.SourcesCollection.Count != 0)
-            //        doc = PdfHelper.AddRefSourceList(doc, reportVm.SourcesCollection);
-            //    if (reportVm.AuthorsCollection.Count != 0)
-            //        doc = PdfHelper.AddRefAuthorList(doc, reportVm.AuthorsCollection);
-            //    PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, LargeFont, new Chunk(CultRes.StringsRes.ReportComments));
-            //    if (reportVm.CommentsCollection.Count != 0)
-            //        doc = PdfHelper.AddCommentList(doc, reportVm.CommentsCollection);
-
-            //}
-            //catch (DocumentException)
-            //{
-            //    // Handle iTextSharp errors
-            //}
-            //finally
-            //{
-            //    // Clean up
-            //    doc?.Close();
-            //    doc = null;
-            //}
-            // }
-
-            //private static Document AddTbl03RegnumsHaeder(Document doc)
-            //{
-            //    // Add a new page to the document
-            //    doc.NewPage();
-
-            //    var table = new PdfPTable(4)
-            //    {
-            //        TotalWidth = 792f, //actual width of table in points
-            //        LockedWidth = true,
-            //        WidthPercentage = 100,
-            //        HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-            //        SpacingBefore = 10f,
-            //        SpacingAfter = 10f   //fix the absolute width of the table
-            //    };
-            //    table.SetWidths(new[] { 0.05f, 0.05f, 1.25f, 4.00f });
-
-            //    var author = PdfHelper.AuthorViewChangeWithoutString(_regnum.Author, _regnum.AuthorYear);
-
-            //    table.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author, LargeFont)) { Colspan = 4, Border = 0 });  // 1.-4. field
-            //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportTaxonomicId + " " + Convert.ToString(_regnum.CountID), StandardFont)) { Colspan = 4, Border = 0 }); // 1.-4. field
-            //    doc.Add(table);
-            //    return doc;
-            //}
-
-            //private static Document AddTbl03RegnumsTaxoNomenList(Document doc)
-
-            //{
-            //    var table = new PdfPTable(4)
-            //    {
-            //        TotalWidth = 792f, //actual width of table in points
-            //        LockedWidth = true,
-            //        WidthPercentage = 100,
-            //        HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-            //        SpacingBefore = 10f,
-            //        SpacingAfter = 10f   //fix the absolute width of the table
-            //    };
-            //    table.SetWidths(new[] { 0.05f, 1.25f, 2.50f, 1.50f });
-
-            //    table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, StandardFont)) { Border = 0 });  // 2. field
-            //    table.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum, StandardFont)) { Border = 0 });  // 3. field  
-            //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field     
-
-            //    table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportTaxoRank, StandardBoldFont)) { Border = 0 });  // 2. field
-            //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, StandardFont)) { Border = 0 });  // 3. field
-            //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
+        //           //From Database Tbl03Regnums
+        // //          _regnum = _businessLayer.SingleListTbl03RegnumsByRegnumId(id);
 
 
-            //    table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportSynonyms, StandardFont)) { Border = 0 });  // 2. field
-            //    table.AddCell(new PdfPCell(new Phrase(_regnum.Synonym, StandardFont)) { Border = 0 });  // 3. field
-            //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
+        //           var sfd = new SaveFileDialog { Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*" };
+        //           var saveResult = sfd.ShowDialog();
+        //           if (saveResult != true) return;  //exit
+        //           Document doc = null;
 
-            //    table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. fField
-            //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportCommonNames, StandardFont)) { Border = 0 });  // 2. field
-            //    table.AddCell(new PdfPCell(new Phrase(_regnum.GerName + " " + CultRes.StringsRes.ReportGerman, StandardFont)) { Border = 0 });  // 3. field
-            //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
+        //           try
+        //           {
 
-            //    table.AddCell(new PdfPCell { Colspan = 2, Border = 0 });  // 1. + 2.  field
-            //    table.AddCell(new PdfPCell(new Phrase(_regnum.EngName + " " + CultRes.StringsRes.ReportEnglish, StandardFont)) { Border = 0 });  // 3. field
-            //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
+        //    doc = PdfHelper.HeaderMainPdf(sfd);
+        //    // Add pages to the document
+        //    PdfHelper.AddReportMain(doc);
 
-            //    table.AddCell(new PdfPCell { Colspan = 2, Border = 0 });  // 1. + 2.  field
-            //    table.AddCell(new PdfPCell(new Phrase(_regnum.FraName + " " + CultRes.StringsRes.ReportFrench, StandardFont)) { Border = 0 });  // 3. field
-            //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
+        //    doc = AddTbl03RegnumsHaeder(doc);
+        //    PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, LargeFont, new Chunk(CultRes.StringsRes.ReportTaxoNomen));
+        //    doc = AddTbl03RegnumsTaxoNomenList(doc);
+        //    PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, LargeFont, new Chunk(CultRes.StringsRes.ReportTaxoHiera));
 
-            //    table.AddCell(new PdfPCell { Colspan = 2, Border = 0 });  // 1. + 2.  field
-            //    table.AddCell(new PdfPCell(new Phrase(_regnum.PorName + " " + CultRes.StringsRes.ReportPortuguese, StandardFont)) { Border = 0 });  // 3. field
-            //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
+        //    doc = AddHierarchyList(doc);
 
-            //    table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportTaxoStatus, StandardBoldFont)) { Colspan = 2, Border = 0 });  // 2.- 3. field
-            //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
+        //    if (reportVm.PhylumsCollection.Count != 0)
+        //        doc = AddTbl06PhylumsChildrenList(doc, reportVm.PhylumsCollection);
+        //    if (reportVm.DivisionsCollection.Count != 0)
+        //        doc = AddTbl09DivisionsChildrenList(doc, reportVm.DivisionsCollection);
 
-            //    table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportCurrentStand, StandardFont)) { Border = 0 });  // 2. field
-            //    table.AddCell(new PdfPCell(new Phrase(Convert.ToString(_regnum.Valid), StandardFont)) { Border = 0 });  // 3. field
-            //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
+        //    PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, LargeFont, new Chunk(CultRes.StringsRes.ReportReferences));
+        //    if (reportVm.ExpertsCollection.Count != 0)
+        //        doc = PdfHelper.AddRefExpertList(doc, reportVm.ExpertsCollection);
+        //    if (reportVm.SourcesCollection.Count != 0)
+        //        doc = PdfHelper.AddRefSourceList(doc, reportVm.SourcesCollection);
+        //    if (reportVm.AuthorsCollection.Count != 0)
+        //        doc = PdfHelper.AddRefAuthorList(doc, reportVm.AuthorsCollection);
+        //    PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, LargeFont, new Chunk(CultRes.StringsRes.ReportComments));
+        //    if (reportVm.CommentsCollection.Count != 0)
+        //        doc = PdfHelper.AddCommentList(doc, reportVm.CommentsCollection);
 
-            //    table.AddCell(new PdfPCell(new Phrase(" ")) { Colspan = 4, Border = 0 });  //Empty row
+        //}
+        //catch (DocumentException)
+        //{
+        //    // Handle iTextSharp errors
+        //}
+        //finally
+        //{
+        //    // Clean up
+        //    doc?.Close();
+        //    doc = null;
+        //}
+        // }
 
-            //    table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportDataQualiIndicator, StandardBoldFont)) { Colspan = 2, Border = 0 });  // 2.- 3. field
-            //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
+        //private static Document AddTbl03RegnumsHaeder(Document doc)
+        //{
+        //    // Add a new page to the document
+        //    doc.NewPage();
 
-            //    table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportRecordCrediRate, StandardFont)) { Colspan = 2, Border = 0 });  // 2. - 3. field
-            //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4. field
+        //    var table = new PdfPTable(4)
+        //    {
+        //        TotalWidth = 792f, //actual width of table in points
+        //        LockedWidth = true,
+        //        WidthPercentage = 100,
+        //        HorizontalAlignment = 0,  //0=Left aLign, 1=Center
+        //        SpacingBefore = 10f,
+        //        SpacingAfter = 10f   //fix the absolute width of the table
+        //    };
+        //    table.SetWidths(new[] { 0.05f, 0.05f, 1.25f, 4.00f });
 
-            //    table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportGlobalSpecComp, StandardFont)) { Colspan = 2, Border = 0 });  // 2. - 3. field
-            //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4. field
+        //    var author = PdfHelper.AuthorViewChangeWithoutString(_regnum.Author, _regnum.AuthorYear);
 
-            //    table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportRecordUpdate, StandardFont)) { Border = 0 });  // 2. field
-            //    table.AddCell(new PdfPCell(new Phrase(Convert.ToString(_regnum.UpdaterDate, CultureInfo.InvariantCulture), StandardFont)) { Border = 0 });  // 3. field
-            //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4. field
+        //    table.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author, LargeFont)) { Colspan = 4, Border = 0 });  // 1.-4. field
+        //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportTaxonomicId + " " + Convert.ToString(_regnum.CountID), StandardFont)) { Colspan = 4, Border = 0 }); // 1.-4. field
+        //    doc.Add(table);
+        //    return doc;
+        //}
 
-            //    table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportInfo, StandardFont)) { Border = 0 });  // 2. field
-            //    table.AddCell(new PdfPCell(new Phrase(_regnum.Info, StandardFont)) { Border = 0 });  // 3. field
-            //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4. field
+        //private static Document AddTbl03RegnumsTaxoNomenList(Document doc)
 
-            //    table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportMemo, StandardFont)) { Border = 0 });  // 2. field
-            //    table.AddCell(new PdfPCell(new Phrase(_regnum.Memo, StandardFont)) { Border = 0 });  // 3. field
-            //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4. field
+        //{
+        //    var table = new PdfPTable(4)
+        //    {
+        //        TotalWidth = 792f, //actual width of table in points
+        //        LockedWidth = true,
+        //        WidthPercentage = 100,
+        //        HorizontalAlignment = 0,  //0=Left aLign, 1=Center
+        //        SpacingBefore = 10f,
+        //        SpacingAfter = 10f   //fix the absolute width of the table
+        //    };
+        //    table.SetWidths(new[] { 0.05f, 1.25f, 2.50f, 1.50f });
 
-            //    doc.Add(table);
+        //    table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
+        //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, StandardFont)) { Border = 0 });  // 2. field
+        //    table.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum, StandardFont)) { Border = 0 });  // 3. field  
+        //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field     
 
-            //    return doc;
-            //}
+        //    table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
+        //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportTaxoRank, StandardBoldFont)) { Border = 0 });  // 2. field
+        //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, StandardFont)) { Border = 0 });  // 3. field
+        //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
-            //private static Document AddHierarchyList(Document doc)
-            //{
-            //    if (_regnum.RegnumName.Contains("#") == false)
-            //    {
-            //        var tableRegnum = new PdfPTable(4)
-            //        {
-            //            TotalWidth = 792f, //actual width of table in points
-            //            LockedWidth = true,   //fix the absolute width of the table
-            //            WidthPercentage = 100,
-            //            HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-            //            SpacingBefore = 10f,
-            //            SpacingAfter = 10f
-            //        };
-            //        tableRegnum.SetWidths(new[] { 0.05f, 1.25f, 2.50f, 1.50f });
 
-            //        var author = PdfHelper.AuthorViewChangeWithString(_regnum.Author, _regnum.AuthorYear);
-            //        var names = PdfHelper.NamesViewChange(_regnum.GerName, _regnum.EngName, _regnum.FraName, _regnum.PorName);
+        //    table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
+        //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportSynonyms, StandardFont)) { Border = 0 });  // 2. field
+        //    table.AddCell(new PdfPCell(new Phrase(_regnum.Synonym, StandardFont)) { Border = 0 });  // 3. field
+        //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
-            //        tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            //        tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            //        tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
-            //        tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
+        //    table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. fField
+        //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportCommonNames, StandardFont)) { Border = 0 });  // 2. field
+        //    table.AddCell(new PdfPCell(new Phrase(_regnum.GerName + " " + CultRes.StringsRes.ReportGerman, StandardFont)) { Border = 0 });  // 3. field
+        //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
-            //        doc.Add(tableRegnum);
-            //    }
-            //    return doc;
-            //}
+        //    table.AddCell(new PdfPCell { Colspan = 2, Border = 0 });  // 1. + 2.  field
+        //    table.AddCell(new PdfPCell(new Phrase(_regnum.EngName + " " + CultRes.StringsRes.ReportEnglish, StandardFont)) { Border = 0 });  // 3. field
+        //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
-            //private static Document AddTbl06PhylumsChildrenList(Document doc, ObservableCollection<Tbl06Phylum> tbl06PhylumsList)
-            //{
-            //    var table = new PdfPTable(4)
-            //    {
-            //        TotalWidth = 792f, //actual width of table in points
-            //        LockedWidth = true,
-            //        WidthPercentage = 100,
-            //        HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-            //        SpacingBefore = 0f,
-            //        SpacingAfter = 10f   //fix the absolute width of the table
-            //    };
+        //    table.AddCell(new PdfPCell { Colspan = 2, Border = 0 });  // 1. + 2.  field
+        //    table.AddCell(new PdfPCell(new Phrase(_regnum.FraName + " " + CultRes.StringsRes.ReportFrench, StandardFont)) { Border = 0 });  // 3. field
+        //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
-            //    table.SetWidths(new[] { 0.08f, 1.22f, 2.50f, 1.50f });
+        //    table.AddCell(new PdfPCell { Colspan = 2, Border = 0 });  // 1. + 2.  field
+        //    table.AddCell(new PdfPCell(new Phrase(_regnum.PorName + " " + CultRes.StringsRes.ReportPortuguese, StandardFont)) { Border = 0 });  // 3. field
+        //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
-            //    table.AddCell(new PdfPCell(new Phrase(" ")) { Colspan = 2, Border = 0 });  // 1. -2. field
-            //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportDirectChild, SmallBoldFont)) { Border = 0 }); //   3. field
-            //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
+        //    table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
+        //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportTaxoStatus, StandardBoldFont)) { Colspan = 2, Border = 0 });  // 2.- 3. field
+        //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
-            //    foreach (var t in tbl06PhylumsList)
-            //    {
-            //        var t1 = t.PhylumName;
+        //    table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
+        //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportCurrentStand, StandardFont)) { Border = 0 });  // 2. field
+        //    table.AddCell(new PdfPCell(new Phrase(Convert.ToString(_regnum.Valid), StandardFont)) { Border = 0 });  // 3. field
+        //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
-            //        var author = PdfHelper.AuthorViewChangeWithString(t.Author, t.AuthorYear);
-            //        var names = PdfHelper.NamesViewChange(t.GerName, t.EngName, t.FraName, t.PorName);
+        //    table.AddCell(new PdfPCell(new Phrase(" ")) { Colspan = 4, Border = 0 });  //Empty row
 
-            //        table.AddCell(new PdfPCell(new Phrase(" ")) { Colspan = 1, Border = 0 });  // 1.   field
-            //        table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
-            //        table.AddCell(new PdfPCell(new Phrase(t1 + " " + author + " " + names, SmallFont)) { Border = 0 });   // 3. field
-            //        table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-            //    }
-            //    doc.Add(table);
+        //    table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
+        //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportDataQualiIndicator, StandardBoldFont)) { Colspan = 2, Border = 0 });  // 2.- 3. field
+        //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
-            //    return doc;
-            //}
+        //    table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
+        //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportRecordCrediRate, StandardFont)) { Colspan = 2, Border = 0 });  // 2. - 3. field
+        //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4. field
 
-            //private static Document AddTbl09DivisionsChildrenList(Document doc, ObservableCollection<Tbl09Division> tbl09DivisionsList)
-            //{
-            //    var table = new PdfPTable(3)
-            //    {
-            //        TotalWidth = 792f, //actual width of table in points
-            //        LockedWidth = true,
-            //        WidthPercentage = 100,
-            //        HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-            //        SpacingBefore = 0f,
-            //        SpacingAfter = 10f   //fix the absolute width of the table
-            //    };
-            //    table.SetWidths(new[] { 0.08f, 1.22f, 4.00f });
+        //    table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
+        //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportGlobalSpecComp, StandardFont)) { Colspan = 2, Border = 0 });  // 2. - 3. field
+        //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4. field
 
-            //    table.AddCell(new PdfPCell(new Phrase(" ")) { Colspan = 2, Border = 0 });  // 1. -2. field
-            //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportDirectChild, SmallBoldFont)) { Border = 0 }); //   3. field
+        //    table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
+        //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportRecordUpdate, StandardFont)) { Border = 0 });  // 2. field
+        //    table.AddCell(new PdfPCell(new Phrase(Convert.ToString(_regnum.UpdaterDate, CultureInfo.InvariantCulture), StandardFont)) { Border = 0 });  // 3. field
+        //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4. field
 
-            //    foreach (var t in tbl09DivisionsList)
-            //    {
-            //        var t1 = t.DivisionName;
+        //    table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
+        //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportInfo, StandardFont)) { Border = 0 });  // 2. field
+        //    table.AddCell(new PdfPCell(new Phrase(_regnum.Info, StandardFont)) { Border = 0 });  // 3. field
+        //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4. field
 
-            //        var author = PdfHelper.AuthorViewChangeWithString(t.Author, t.AuthorYear);
-            //        var names = PdfHelper.NamesViewChange(t.GerName, t.EngName, t.FraName, t.PorName);
+        //    table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
+        //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportMemo, StandardFont)) { Border = 0 });  // 2. field
+        //    table.AddCell(new PdfPCell(new Phrase(_regnum.Memo, StandardFont)) { Border = 0 });  // 3. field
+        //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4. field
 
-            //        table.AddCell(new PdfPCell(new Phrase(" ")) { Colspan = 1, Border = 0 });  // 1.   field
-            //        table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
-            //        table.AddCell(new PdfPCell(new Phrase(t1 + " " + author + " " + names, SmallFont)) { Border = 0 });   // 3. field
-            //    }
-            //    doc.Add(table);
+        //    doc.Add(table);
 
-            //    return doc;
-            //}
+        //    return doc;
+        //}
 
-            // }
-       // }
+        //private static Document AddHierarchyList(Document doc)
+        //{
+        //    if (_regnum.RegnumName.Contains("#") == false)
+        //    {
+        //        var tableRegnum = new PdfPTable(4)
+        //        {
+        //            TotalWidth = 792f, //actual width of table in points
+        //            LockedWidth = true,   //fix the absolute width of the table
+        //            WidthPercentage = 100,
+        //            HorizontalAlignment = 0,  //0=Left aLign, 1=Center
+        //            SpacingBefore = 10f,
+        //            SpacingAfter = 10f
+        //        };
+        //        tableRegnum.SetWidths(new[] { 0.05f, 1.25f, 2.50f, 1.50f });
+
+        //        var author = PdfHelper.AuthorViewChangeWithString(_regnum.Author, _regnum.AuthorYear);
+        //        var names = PdfHelper.NamesViewChange(_regnum.GerName, _regnum.EngName, _regnum.FraName, _regnum.PorName);
+
+        //        tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
+        //        tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
+        //        tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
+        //        tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
+
+        //        doc.Add(tableRegnum);
+        //    }
+        //    return doc;
+        //}
+
+        //private static Document AddTbl06PhylumsChildrenList(Document doc, ObservableCollection<Tbl06Phylum> tbl06PhylumsList)
+        //{
+        //    var table = new PdfPTable(4)
+        //    {
+        //        TotalWidth = 792f, //actual width of table in points
+        //        LockedWidth = true,
+        //        WidthPercentage = 100,
+        //        HorizontalAlignment = 0,  //0=Left aLign, 1=Center
+        //        SpacingBefore = 0f,
+        //        SpacingAfter = 10f   //fix the absolute width of the table
+        //    };
+
+        //    table.SetWidths(new[] { 0.08f, 1.22f, 2.50f, 1.50f });
+
+        //    table.AddCell(new PdfPCell(new Phrase(" ")) { Colspan = 2, Border = 0 });  // 1. -2. field
+        //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportDirectChild, SmallBoldFont)) { Border = 0 }); //   3. field
+        //    table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
+
+        //    foreach (var t in tbl06PhylumsList)
+        //    {
+        //        var t1 = t.PhylumName;
+
+        //        var author = PdfHelper.AuthorViewChangeWithString(t.Author, t.AuthorYear);
+        //        var names = PdfHelper.NamesViewChange(t.GerName, t.EngName, t.FraName, t.PorName);
+
+        //        table.AddCell(new PdfPCell(new Phrase(" ")) { Colspan = 1, Border = 0 });  // 1.   field
+        //        table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
+        //        table.AddCell(new PdfPCell(new Phrase(t1 + " " + author + " " + names, SmallFont)) { Border = 0 });   // 3. field
+        //        table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
+        //    }
+        //    doc.Add(table);
+
+        //    return doc;
+        //}
+
+        //private static Document AddTbl09DivisionsChildrenList(Document doc, ObservableCollection<Tbl09Division> tbl09DivisionsList)
+        //{
+        //    var table = new PdfPTable(3)
+        //    {
+        //        TotalWidth = 792f, //actual width of table in points
+        //        LockedWidth = true,
+        //        WidthPercentage = 100,
+        //        HorizontalAlignment = 0,  //0=Left aLign, 1=Center
+        //        SpacingBefore = 0f,
+        //        SpacingAfter = 10f   //fix the absolute width of the table
+        //    };
+        //    table.SetWidths(new[] { 0.08f, 1.22f, 4.00f });
+
+        //    table.AddCell(new PdfPCell(new Phrase(" ")) { Colspan = 2, Border = 0 });  // 1. -2. field
+        //    table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportDirectChild, SmallBoldFont)) { Border = 0 }); //   3. field
+
+        //    foreach (var t in tbl09DivisionsList)
+        //    {
+        //        var t1 = t.DivisionName;
+
+        //        var author = PdfHelper.AuthorViewChangeWithString(t.Author, t.AuthorYear);
+        //        var names = PdfHelper.NamesViewChange(t.GerName, t.EngName, t.FraName, t.PorName);
+
+        //        table.AddCell(new PdfPCell(new Phrase(" ")) { Colspan = 1, Border = 0 });  // 1.   field
+        //        table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
+        //        table.AddCell(new PdfPCell(new Phrase(t1 + " " + author + " " + names, SmallFont)) { Border = 0 });   // 3. field
+        //    }
+        //    doc.Add(table);
+
+        //    return doc;
+        //}
+
+        // }
+        // }
     }
 }

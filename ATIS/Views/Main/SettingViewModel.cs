@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ATIS.Ui.Helper;
+﻿using ATIS.Ui.Helper;
 
 namespace ATIS.Ui.Views.Main
 {

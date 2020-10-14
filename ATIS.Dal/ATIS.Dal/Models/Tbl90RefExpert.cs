@@ -17,9 +17,9 @@ namespace ATIS.Dal.Models
         public string Updater { get; set; }
         public System.DateTime UpdaterDate { get; set; }
         public string Memo { get; set; }
-    //    public byte[] RowVersion { get; set; }
+        //    public byte[] RowVersion { get; set; }
 
-    //    public virtual Tbl90Reference Tbl90Reference { get; set; }
+        //    public virtual Tbl90Reference Tbl90Reference { get; set; }
 
     }
 

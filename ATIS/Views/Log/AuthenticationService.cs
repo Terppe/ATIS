@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using ATIS.Ui.Core;
+using ATIS.Ui.Helper;
+using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using ATIS.Dal.Models;
-using ATIS.Ui.Core;
-using ATIS.Ui.Helper;
 
 namespace ATIS.Ui.Views.Log
 {

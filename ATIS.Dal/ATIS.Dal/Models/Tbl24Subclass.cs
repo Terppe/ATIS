@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace ATIS.Dal.Models
 {
@@ -27,7 +25,7 @@ namespace ATIS.Dal.Models
         public string Updater { get; set; }
         public DateTime UpdaterDate { get; set; }
         public string Memo { get; set; }
-     //   public byte[] RowVersion { get; set; }
+        //   public byte[] RowVersion { get; set; }
 
     }
 }

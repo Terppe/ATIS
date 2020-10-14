@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ATIS.Dal.Models
+﻿namespace ATIS.Dal.Models
 {
     public interface IEntity
     {

@@ -1,15 +1,15 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using MahApps.Metro.Controls;
 
 namespace ATIS.Ui.Views.Report
 {
     /// <summary>
     /// Interaktionslogik für ReportPhylumWindow.xaml
     /// </summary>
-    public partial class ReportPhylumWindow :  MetroWindow
+    public partial class ReportPhylumWindow : MetroWindow
     {
         public ReportPhylumWindow(int un, string tab)
         {
@@ -17,7 +17,7 @@ namespace ATIS.Ui.Views.Report
             InitializeComponent();
 
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        //    WindowStartupLocation = WindowStartupLocation.Manual;
+            //    WindowStartupLocation = WindowStartupLocation.Manual;
 
             //       Left = Settings.Default.Left + (Settings.Default.Width / 2) - (Width / 2);
             //       Top = Settings.Default.Top + (Settings.Default.Height / 2) - (Height / 2);

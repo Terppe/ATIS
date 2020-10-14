@@ -1,9 +1,8 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Input;
-using MahApps.Metro.Controls;
 
 namespace ATIS.Ui.Views.Report
 {
@@ -14,7 +13,7 @@ namespace ATIS.Ui.Views.Report
     {
         public ReportRegnumWindow(int un, string tab)
         {
-      //      Mouse.OverrideCursor = Cursors.Wait;
+            //      Mouse.OverrideCursor = Cursors.Wait;
 
             DataContext = new ReportViewModel(un, tab);
             InitializeComponent();
@@ -65,8 +64,8 @@ namespace ATIS.Ui.Views.Report
         {
             var tagValue = ((Hyperlink)sender).Tag;
             var id = Convert.ToInt32(tagValue);
-       //     var rp = new ReportDivisionWindow(id, "Tbl09Divisions");
-      //      rp.Show();
+            //     var rp = new ReportDivisionWindow(id, "Tbl09Divisions");
+            //      rp.Show();
         }
     }
 }

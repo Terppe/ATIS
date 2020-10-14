@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Windows;
-using ATIS.Ui.Views.Log;
+﻿using ATIS.Ui.Views.Log;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using System;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace ATIS.Ui.Views.Main
 {

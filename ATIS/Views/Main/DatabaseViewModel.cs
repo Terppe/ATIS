@@ -7,7 +7,7 @@ namespace ATIS.Ui.Views.Main
 
         public DatabaseViewModel()
         {
-            
+
         }
     }
 }

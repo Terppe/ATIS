@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using ATIS.Dal.Models;
+using ATIS.Ui.Core.Interfaces_UOW;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using ATIS.Dal.Models;
-using ATIS.Ui.Core.Interfaces_UOW;
 
 namespace ATIS.Ui.Core.Repositories_UOW
 {

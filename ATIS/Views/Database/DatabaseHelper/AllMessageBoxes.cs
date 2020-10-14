@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
-using ATIS.Dal.Models;
+﻿using System.Windows;
 
 namespace ATIS.Ui.Views.Database.DatabaseHelper
 {

@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Media;
-using ATIS.Dal.Models;
-using ATIS.Ui.Core;
+﻿using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Log;
 using ATIS.Ui.Views.Search;
-using ControlzEx.Theming;
 using MahApps.Metro.Controls.Dialogs;
 using MaterialDesignThemes.Wpf;
+using System;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows;
+using System.Windows.Input;
 
 namespace ATIS.Ui.Views.Main
 {
@@ -121,7 +115,7 @@ namespace ATIS.Ui.Views.Main
         {
             var viewModel = new SearchQuickViewModel(filterText);
             var searchWindow = new SearchWindow(viewModel);
-        //    searchWindow.TbSearch.Text = filterText;
+            //    searchWindow.TbSearch.Text = filterText;
             searchWindow.Show();
         }
 

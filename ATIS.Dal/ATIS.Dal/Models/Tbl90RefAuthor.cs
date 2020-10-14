@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ATIS.Dal.Models
 {
@@ -27,11 +26,11 @@ namespace ATIS.Dal.Models
         public string Updater { get; set; }
         public System.DateTime UpdaterDate { get; set; }
         public string Memo { get; set; }
-    //    public byte[] RowVersion { get; set; }
+        //    public byte[] RowVersion { get; set; }
 
-     //   public virtual ICollection<Tbl90Reference> Tbl90References { get; set; }
+        //   public virtual ICollection<Tbl90Reference> Tbl90References { get; set; }
 
-    //    public virtual Tbl90Reference Tbl90Reference { get; set; }
+        //    public virtual Tbl90Reference Tbl90Reference { get; set; }
 
 
     }

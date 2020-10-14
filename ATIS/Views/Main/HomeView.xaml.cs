@@ -1,5 +1,4 @@
 ﻿using System.Windows.Controls;
-using MahApps.Metro.Controls;
 
 namespace ATIS.Ui.Views.Main
 {

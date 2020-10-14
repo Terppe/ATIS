@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
+﻿using ATIS.Ui.Views.Main;
+using MahApps.Metro.Controls;
+using System.ComponentModel;
 using System.Security.Permissions;
 using System.Windows;
-using ATIS.Ui.Views.Main;
-using MahApps.Metro.Controls;
 
 namespace ATIS.Ui.Views.Log
 {

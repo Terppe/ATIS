@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ATIS.Ui.Views.Log
+﻿namespace ATIS.Ui.Views.Log
 {
     public class AnonymousIdentity : CustomIdentity
     {

@@ -1,16 +1,15 @@
-﻿using System;
+﻿using ATIS.Dal.Models;
+using ATIS.Ui.Core;
+using ATIS.Ui.Helper;
+using ATIS.Ui.Views.Main;
+using System;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using ATIS.Dal.Models;
-using ATIS.Ui.Core;
-using ATIS.Ui.Helper;
-using ATIS.Ui.Views.Main;
 
 namespace ATIS.Ui.Views.Log
 {
@@ -255,10 +254,10 @@ namespace ATIS.Ui.Views.Log
                         view = new RegisterWindow();
                         break;
                     case "Admin":
-             //           view = new AdminWindow();
+                        //           view = new AdminWindow();
                         break;
                     case "Secret":
-             //           view = new SecretWindow();
+                        //           view = new SecretWindow();
                         break;
                 }
 

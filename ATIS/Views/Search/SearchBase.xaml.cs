@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using ATIS.Ui.Views.Report;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using ATIS.Ui.Views.Report;
 
 namespace ATIS.Ui.Views.Search
 {
@@ -45,8 +37,8 @@ namespace ATIS.Ui.Views.Search
             var lvItem = sender as ListViewItem;
 
             if (lvItem == null) return;
-            var id = (dynamic)lvItem.Tag; 
-            var rp = new ReportRegnumWindow(id, "Tbl03Regnums"); 
+            var id = (dynamic)lvItem.Tag;
+            var rp = new ReportRegnumWindow(id, "Tbl03Regnums");
             rp.Show();
         }
         private void Tbl06PhylumsList_DoubleClick(object sender, MouseButtonEventArgs e)

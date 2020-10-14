@@ -1,12 +1,9 @@
-﻿using System;
+﻿using ATIS.Ui.Core;
+using ATIS.Ui.Helper;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using ATIS.Dal.Models;
-using ATIS.Ui.Core;
-using ATIS.Ui.Helper;
-using Microsoft.EntityFrameworkCore;
 
 namespace ATIS.Ui.Views.Search
 {
@@ -105,7 +102,7 @@ namespace ATIS.Ui.Views.Search
         }
 
         //-----------------------Regnum---------------------------------
- 
+
         public ObservableCollection<T> RegnumsFilterCollection<T>(string filterText)
         {
             var collection = new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl03Regnums
@@ -123,7 +120,7 @@ namespace ATIS.Ui.Views.Search
             return collection;
         }
         //-----------------------Phylum---------------------------------
- 
+
         public ObservableCollection<T> PhylumsFilterCollection<T>(string filterText)
         {
             var collection = new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl06Phylums
@@ -463,7 +460,7 @@ namespace ATIS.Ui.Views.Search
         public ObservableCollection<T> FiSpeciessesFilterCollection<T>(string filterText)
         {
             var collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
-                .Include(a =>a.Tbl66Genusses)
+                .Include(a => a.Tbl66Genusses)
                 .Where(e => e.FiSpeciesName.StartsWith(filterText) &&
                             e.FiSpeciesName.Contains("#") == false ||
                             e.Tbl66Genusses.GenusName.Contains(filterText) ||
@@ -487,7 +484,7 @@ namespace ATIS.Ui.Views.Search
             var collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
                 .Include(a => a.Tbl66Genusses)
                 .Where(e => e.PlSpeciesName.StartsWith(filterText) &&
-                           e.PlSpeciesName.Contains("#") == false || 
+                           e.PlSpeciesName.Contains("#") == false ||
                            e.Tbl66Genusses.GenusName.Contains(filterText) ||
                            e.Subspecies.Contains(filterText) ||
                            e.Divers.Contains(filterText) ||
@@ -507,7 +504,7 @@ namespace ATIS.Ui.Views.Search
         public ObservableCollection<T> NamesFilterCollection<T>(string filterText)
         {
             var collection = new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl78Names
-                .Find(e => e.NameName.StartsWith(filterText)  &&
+                .Find(e => e.NameName.StartsWith(filterText) &&
                            e.Tbl69FiSpeciesses.FiSpeciesId == e.FiSpeciesId &&
                            e.Tbl72PlSpeciesses.PlSpeciesId == e.PlSpeciesId
                 )
@@ -520,7 +517,7 @@ namespace ATIS.Ui.Views.Search
         public ObservableCollection<T> SynonymsFilterCollection<T>(string filterText)
         {
             var collection = new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl84Synonyms
-                .Find(e => e.SynonymName.StartsWith(filterText)  &&
+                .Find(e => e.SynonymName.StartsWith(filterText) &&
                                         e.Tbl69FiSpeciesses.FiSpeciesId == e.FiSpeciesId &&
                                         e.Tbl72PlSpeciesses.PlSpeciesId == e.PlSpeciesId
                 )

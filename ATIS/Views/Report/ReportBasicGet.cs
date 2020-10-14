@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using ATIS.Dal.Models;
+﻿using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace ATIS.Ui.Views.Report
 {
@@ -103,7 +102,7 @@ namespace ATIS.Ui.Views.Report
         public ObservableCollection<Tbl12Subphylum> CollSubphylumsByPhylumIdAndHash(int id)
         {
             var collection = new ObservableCollection<Tbl12Subphylum>(_uow.Tbl12Subphylums
-                .Find(e => e.PhylumId == id && 
+                .Find(e => e.PhylumId == id &&
                            e.SubphylumName.Contains("#") == false));
             return collection;
         }

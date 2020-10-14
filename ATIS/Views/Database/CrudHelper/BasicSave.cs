@@ -1,7 +1,7 @@
-﻿using System;
-using ATIS.Dal.Models;
+﻿using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
+using System;
 
 namespace ATIS.Ui.Views.Database.CrudHelper
 {
