@@ -11,8 +11,6 @@
     xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:search="clr-namespace:ATIS.Ui.Views.Search"
-    Width="1750"
-    Height="950"
     d:DesignHeight="400"
     d:DesignWidth="1000"
     dialog:DialogParticipation.Register="{Binding}"
@@ -20,10 +18,12 @@
     GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
     RenderOptions.ClearTypeHint="Enabled"
     ResizeMode="CanResizeWithGrip"
+    SaveWindowPosition="True"
     Style="{StaticResource WindowDefault}"
     TextOptions.TextFormattingMode="Display"
     TitleCharacterCasing="Normal"
     WindowStartupLocation="CenterScreen"
+    WindowState="Normal"
     mc:Ignorable="d">
 
 
@@ -267,8 +267,8 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="17*" />
             <ColumnDefinition />
+            <ColumnDefinition Width="0*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
@@ -276,7 +276,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Grid.ColumnSpan="2">
+        <Grid Grid.Row="0">
             <TextBlock
                 x:Name="TbUser"
                 Width="Auto"
@@ -375,10 +375,7 @@
                 Theme="Accent" />
         </Grid>
 
-        <StatusBar
-            Grid.Row="3"
-            Grid.Column="0"
-            Grid.ColumnSpan="2">
+        <StatusBar Grid.Row="3" Grid.Column="0">
             <StatusBarItem>ATIS Application</StatusBarItem>
             <Separator Style="{StaticResource MahApps.Styles.Separator.StatusBar}" />
             <StatusBarItem>Developer: Rudolf Terppé Version 6.0</StatusBarItem>
@@ -390,6 +387,7 @@
             x:Name="HamburgerMenuControl"
             Grid.Row="2"
             Grid.Column="0"
+            Margin="0,0,1,0"
             HamburgerWidth="48"
             IsPaneOpen="True"
             ItemInvoked="HamburgerMenuControl_OnItemInvoked"
