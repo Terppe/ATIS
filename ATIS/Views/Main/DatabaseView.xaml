@@ -7,10 +7,15 @@
     xmlns:d06Phylum="clr-namespace:ATIS.Ui.Views.Database.D06Phylum"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d09Division="clr-namespace:ATIS.Ui.Views.Database.D09Division"
+    xmlns:ui="clr-namespace:ATIS.Ui"
     d:DesignHeight="450" Width="Auto"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <UserControl.Resources>
+        <DataTemplate DataType="{x:Type d09Division:DivisionsViewModel}">
+            <d09Division:DivisionsView />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type d06Phylum:PhylumsViewModel}">
             <d06Phylum:PhylumsView />
         </DataTemplate>
@@ -176,7 +181,9 @@
                             mah:TabControlHelper.Underlined="TabPanel"
                             SelectedIndex="1">
                             <TabItem Content="{Binding Tbl15SubdivisionsView}" Header="{DynamicResource Database-MenuSubdivision}" />
-                            <TabItem Content="{Binding Tbl09DivisionsView}" Header="{DynamicResource Database-MenuDivision}" />
+                            <TabItem   Header="{DynamicResource Database-MenuDivision}">
+                                <d09Division:DivisionsViewModel />
+                            </TabItem>
                         </TabControl>
                     </TabItem>
                     <TabItem Header="{DynamicResource Database-MenuRegnum}">
