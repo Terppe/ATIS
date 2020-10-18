@@ -4,6 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"
     d:DesignHeight="450"
@@ -321,45 +323,67 @@
 
 
     <Grid>
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition
-                Width="1"
-                MinWidth="318"
-                MaxWidth="932" />
-            <ColumnDefinition Width="5" />
-            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="50*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="50*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition />
+            <RowDefinition Height="50*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="50*" />
         </Grid.RowDefinitions>
+
+        <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>-->
 
         <!--  Part 1   Creating Sub-Grid in Column 0  -->
 
-        <Grid Grid.Column="0">
+        <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>-->
+        <!--<Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="5" />
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.7*" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>-->
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="1"
+            Background="Tan" />
 
-                <RowDefinition Height="225" />
-            </Grid.RowDefinitions>
+        <TabControl
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="1,1,1,1"
+            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+            <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderDivisions}">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <GroupBox>
+                            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
 
-            <TabControl Margin="1" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
-                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderDivisions}">
-
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                        <StackPanel>
-                            <GroupBox>
-                                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-
-                                        <TextBox
+                                    <!--<TextBox
                                             x:Name="TbSearchDivision"
                                             Grid.Column="1"
                                             Grid.ColumnSpan="2"
@@ -373,106 +397,193 @@
                                             Foreground="Gray"
                                             KeyDown="TbSearchDivision_KeyDown"
                                             Text="{Binding SearchDivisionName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                            ToolTip="{DynamicResource Shared-SearchNameOrId}" />
+                                            ToolTip="{DynamicResource Shared-SearchNameOrId}" />-->
+                                    <TextBox
+                                        x:Name="TbSearchDivision"
+                                        Width="170"
+                                        Margin="5"
+                                        HorizontalContentAlignment="Stretch"
+                                        mah:TextBoxHelper.ButtonCommand="{Binding TextBoxButtonCmd, Mode=OneWay}"
+                                        mah:TextBoxHelper.ClearTextButton="True"
+                                        mah:TextBoxHelper.IsWaitingForData="True"
+                                        mah:TextBoxHelper.UseFloatingWatermark="True"
+                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-SearchNameOrId}"
+                                        mah:TextBoxHelper.WatermarkAlignment="Left"
+                                        ContextMenu="{x:Null}"
+                                        FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
+                                        FontWeight="Medium"
+                                        SpellCheck.IsEnabled="True"
+                                        Text="{Binding SearchDivisionName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        ToolTip="Input Name or ID">
+                                        <TextBox.InputBindings>
+                                            <KeyBinding
+                                                Key="Return"
+                                                Command="{Binding TextBoxButtonCmd, Mode=OneWay}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=TextBox}, Path=Text, Mode=OneWay}" />
+                                        </TextBox.InputBindings>
+                                        <TextBox.Style>
+                                            <Style BasedOn="{StaticResource MahApps.Styles.TextBox.Search}" TargetType="{x:Type TextBox}">
+                                                <Style.Triggers>
+                                                    <Trigger Property="mah:TextBoxHelper.HasText" Value="True">
+                                                        <Setter Property="mah:TextBoxHelper.ButtonContent" Value="r" />
+                                                        <Setter Property="mah:TextBoxHelper.ButtonContentTemplate" Value="{x:Null}" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBox.Style>
 
-                                        <Button
-                                            x:Name="BtnClear"
-                                            Grid.Column="2"
-                                            Command="{Binding ClearDivisionCommand}"
-                                            FocusManager.FocusedElement="{Binding ElementName=TbSearchDivision}"
-                                            Style="{DynamicResource MaterialDesignToolButton}" />
-                                    </Grid>
+                                    </TextBox>
 
-                                    <Button
-                                        x:Name="BtnGet"
-                                        Margin="0,0,10,0"
-                                        HorizontalAlignment="Left"
-                                        Command="{Binding GetDivisionsByNameOrIdCommand}"
-                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                        ToolTip="{DynamicResource Shared-Search}" />
-                                    <Button
-                                        Margin="0,0,0,0"
-                                        HorizontalAlignment="Left"
-                                        Command="{Binding AddDivisionCommand}"
-                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                        ToolTip="{DynamicResource Shared-ActionLnkCreate}" />
-                                </StackPanel>
-                            </GroupBox>
+                                    <!--<Button
+                                        x:Name="BtnClear"
+                                        Grid.Column="2"
+                                        Command="{Binding ClearDivisionCommand}"
+                                        FocusManager.FocusedElement="{Binding ElementName=TbSearchDivision}"
+                                        Style="{DynamicResource MaterialDesignToolButton}" />-->
+                                </Grid>
 
-                            <GroupBox>
-                                <ListView
-                                    x:Name="Tbl09DivisionsList"
-                                    IsSynchronizedWithCurrentItem="True"
-                                    ItemsSource="{Binding Tbl09DivisionsList}"
-                                    ScrollViewer.IsDeferredScrollingEnabled="True"
-                                    SelectedItem="{Binding (Selector.SelectedItem)}"
-                                    VirtualizingStackPanel.IsVirtualizing="True"
-                                    VirtualizingStackPanel.VirtualizationMode="Recycling">
+                                <!--<Button
+                                    x:Name="BtnGet"
+                                    Margin="0,0,10,0"
+                                    HorizontalAlignment="Left"
+                                    Command="{Binding GetDivisionsByNameOrIdCommand}"
+                                    Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                    ToolTip="{DynamicResource Shared-Search}" />-->
 
-                                    <!--  trigger  -->
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="MouseDoubleClick">
-                                            <i:InvokeCommandAction Command="{Binding GetConnectedTablesCommand}" CommandParameter="{Binding ElementName=Tbl09DivisionsList, Path=SelectedItem}" />
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
+                                <ToggleButton
+                                    Width="36"
+                                    Height="36"
+                                    Margin="4"
+                                    Command="{Binding GetDivisionsByNameOrIdCommand}"
+                                    Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                    Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                    <ToggleButton.ContentTemplate>
+                                        <DataTemplate>
+                                            <iconPacks:PackIconModern
+                                                Width="20"
+                                                Height="20"
+                                                Kind="LayerUp" />
+                                        </DataTemplate>
+                                    </ToggleButton.ContentTemplate>
+                                </ToggleButton>
 
-                                    <ListView.View>
-                                        <GridView>
-                                            <GridViewColumn Width="Auto" Header="{DynamicResource Tbl09Division-DivisionId}">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock
-                                                            Width="100"
-                                                            Text="{Binding (models:Tbl09Division.DivisionId)}"
-                                                            TextAlignment="Left" />
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
+                                <!--<Button
+                                    Margin="0,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    Command="{Binding AddDivisionCommand}"
+                                    Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                    ToolTip="{DynamicResource Shared-ActionLnkCreate}" />-->
+                                <ToggleButton
+                                    Width="36"
+                                    Height="36"
+                                    Margin="4"
+                                    Command="{Binding AddDivisionCommand}"
+                                    Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                    Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                    <ToggleButton.ContentTemplate>
+                                        <DataTemplate>
+                                            <iconPacks:PackIconModern
+                                                Width="20"
+                                                Height="20"
+                                                Kind="Add" />
+                                        </DataTemplate>
+                                    </ToggleButton.ContentTemplate>
+                                </ToggleButton>
 
-                                            <GridViewColumn
-                                                Width="150"
-                                                DisplayMemberBinding="{Binding (models:Tbl09Division.DivisionName)}"
-                                                Header="{DynamicResource Tbl09Division-DivisionName}" />
+                            </StackPanel>
+                        </GroupBox>
 
-                                            <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <StackPanel Orientation="Horizontal">
-                                                            <CheckBox IsChecked="{Binding (models:Tbl09Division.Valid)}" />
-                                                        </StackPanel>
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
+                        <GroupBox>
+                            <ListView
+                                x:Name="Tbl09DivisionsList"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl09DivisionsList}"
+                                ScrollViewer.IsDeferredScrollingEnabled="True"
+                                SelectedItem="{Binding (Selector.SelectedItem)}"
+                                VirtualizingStackPanel.IsVirtualizing="True"
+                                VirtualizingStackPanel.VirtualizationMode="Recycling">
 
-                                            <GridViewColumn
-                                                Width="150"
-                                                DisplayMemberBinding="{Binding (models:Tbl09Division.Author)}"
-                                                Header="{DynamicResource Shared-Author}" />
-                                            <GridViewColumn
-                                                Width="80"
-                                                DisplayMemberBinding="{Binding (models:Tbl09Division.AuthorYear)}"
-                                                Header="{DynamicResource Shared-AuthorYear}" />
+                                <!--  trigger  -->
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <i:InvokeCommandAction Command="{Binding GetConnectedTablesCommand}" CommandParameter="{Binding ElementName=Tbl09DivisionsList, Path=SelectedItem}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
 
-                                            <GridViewColumn
-                                                Width="400"
-                                                DisplayMemberBinding="{Binding (models:Tbl09Division.Info)}"
-                                                Header="{DynamicResource Shared-Info}" />
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Width="Auto" Header="{DynamicResource Tbl09Division-DivisionId}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                        Width="100"
+                                                        Text="{Binding (models:Tbl09Division.DivisionId)}"
+                                                        TextAlignment="Left" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
 
-                                        </GridView>
-                                    </ListView.View>
-                                </ListView>
-                            </GroupBox>
-                        </StackPanel>
-                    </ScrollViewer>
-                </TabItem>
-            </TabControl>
+                                        <GridViewColumn
+                                            Width="150"
+                                            DisplayMemberBinding="{Binding (models:Tbl09Division.DivisionName)}"
+                                            Header="{DynamicResource Tbl09Division-DivisionName}" />
 
+                                        <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <CheckBox IsChecked="{Binding (models:Tbl09Division.Valid)}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
 
-            <!--  Part 2   FK1  aktuell  -->
+                                        <GridViewColumn
+                                            Width="150"
+                                            DisplayMemberBinding="{Binding (models:Tbl09Division.Author)}"
+                                            Header="{DynamicResource Shared-Author}" />
+                                        <GridViewColumn
+                                            Width="80"
+                                            DisplayMemberBinding="{Binding (models:Tbl09Division.AuthorYear)}"
+                                            Header="{DynamicResource Shared-AuthorYear}" />
 
+                                        <GridViewColumn
+                                            Width="400"
+                                            DisplayMemberBinding="{Binding (models:Tbl09Division.Info)}"
+                                            Header="{DynamicResource Shared-Info}" />
 
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+
+        <GridSplitter
+            Grid.Row="0"
+            Grid.Column="1"
+            Width="5"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Stretch"
+            Background="Black"
+            ShowsPreview="True" />
+
+        <ScrollViewer
+            Grid.Row="0"
+            Grid.Column="2"
+            Margin="0,0,0,0"
+            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+            VerticalScrollBarVisibility="Auto">
+            <!--<Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>-->
             <TabControl
-                Grid.Row="2"
                 Margin="1"
                 Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
                 SelectedIndex="{Binding SelectedMainTabIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
@@ -865,97 +976,384 @@
                     </ScrollViewer>
                 </TabItem>
             </TabControl>
-            <GridSplitter
-                Grid.Row="1"
-                Height="5"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Center"
-                Background="Black"
-                ResizeDirection="Rows" />
-        </Grid>
+
+        </ScrollViewer>
 
 
-        <!--  Part 8 Splitter  -->
 
+        <GridSplitter
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Height="5"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center"
+            Background="Black"
+            ShowsPreview="True" />
 
-        <!--  Creating Sub-Grid in Column 2  -->
-        <ScrollViewer
-            Grid.Row="0"
-            Grid.Column="2"
+        <!--  Part 2   FK1  aktuell  -->
+
+        <TabControl
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
             Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-            VerticalScrollBarVisibility="Auto">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
+            SelectedIndex="{Binding SelectedDetailTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <TabItem FontWeight="Medium" Header="{DynamicResource Tbl09Division-Division}">
+                <StackPanel>
+                    <GroupBox>
+
+                        <StackPanel Margin="0,0,5,0">
+                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                <!--<Button
+                                    Margin="0,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    Command="{Binding SaveDivisionCommand}"
+                                    Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                    ToolTip="{DynamicResource Shared-ButtonSave}" />-->
+
+                                <ToggleButton
+                                    Width="36"
+                                    Height="36"
+                                    Margin="4"
+                                    Command="{Binding SaveDivisionCommand}"
+                                    Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                    Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                    <ToggleButton.ContentTemplate>
+                                        <DataTemplate>
+                                            <iconPacks:PackIconModern
+                                                Width="20"
+                                                Height="20"
+                                                Kind="Save" />
+                                        </DataTemplate>
+                                    </ToggleButton.ContentTemplate>
+                                </ToggleButton>
+
+                                <!--<Button
+                                    Margin="0,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    Command="{Binding CopyDivisionCommand}"
+                                    Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                    ToolTip="{DynamicResource Shared-ActionLnkCopy}" />-->
+
+                                <ToggleButton
+                                    Width="36"
+                                    Height="36"
+                                    Margin="4"
+                                    Command="{Binding CopyDivisionCommand}"
+                                    Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                    Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                    <ToggleButton.ContentTemplate>
+                                        <DataTemplate>
+                                            <iconPacks:PackIconModern
+                                                Width="20"
+                                                Height="20"
+                                                Kind="PageCopy" />
+                                        </DataTemplate>
+                                    </ToggleButton.ContentTemplate>
+                                </ToggleButton>
+
+                                <!--<Button
+                                    Margin="0,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    Command="{Binding AddDivisionCommand}"
+                                    Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                    ToolTip="{DynamicResource Shared-ActionLnkCreate}" />-->
+
+                                <ToggleButton
+                                    Width="36"
+                                    Height="36"
+                                    Margin="4"
+                                    Command="{Binding AddDivisionCommand}"
+                                    Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                    Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                    <ToggleButton.ContentTemplate>
+                                        <DataTemplate>
+                                            <iconPacks:PackIconModern
+                                                Width="20"
+                                                Height="20"
+                                                Kind="Add" />
+                                        </DataTemplate>
+                                    </ToggleButton.ContentTemplate>
+                                </ToggleButton>
+
+                                <!--<Button
+                                    Margin="0,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    Command="{Binding DeleteDivisionCommand}"
+                                    Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                    ToolTip="{DynamicResource Shared-ActionLnkDelete}" />-->
+
+                                <ToggleButton
+                                    Width="36"
+                                    Height="36"
+                                    Margin="4"
+                                    Command="{Binding DeleteDivisionCommand}"
+                                    Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                    Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                    <ToggleButton.ContentTemplate>
+                                        <DataTemplate>
+                                            <iconPacks:PackIconModern
+                                                Width="20"
+                                                Height="20"
+                                                Kind="Delete" />
+                                        </DataTemplate>
+                                    </ToggleButton.ContentTemplate>
+                                </ToggleButton>
+
+                            </StackPanel>
+                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                <TextBox
+                                    Width="300"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.ClearTextButton="True"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Tbl09Division-DivisionName}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="Divisionname">
+                                    <TextBox.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="Custom Item" />
+                                            <Separator />
+                                            <!--<MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                                <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                                <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />-->
+                                        </ContextMenu>
+                                    </TextBox.ContextMenu>
+
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl09DivisionsList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl09Division.DivisionName)"
+                                            UpdateSourceTrigger="PropertyChanged" />
+                                    </TextBox.Text>
+                                </TextBox>
+                                <ComboBox
+                                    Width="300"
+                                    Margin="25,5,5,5"
+                                    VerticalAlignment="Bottom"
+                                    mah:TextBoxHelper.ClearTextButton="False"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="Please select Regnum ..."
+                                    DisplayMemberPath="RegnumName"
+                                    IsSynchronizedWithCurrentItem="True"
+                                    ItemsSource="{Binding Tbl03RegnumsAllList}"
+                                    SelectedIndex="0"
+                                    SelectedValue="{Binding SelectedItem.(models:Tbl03Regnum.RegnumId), ElementName=Tbl09DivisionsList, Mode=TwoWay}"
+                                    SelectedValuePath="RegnumId"
+                                    Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                    VirtualizingStackPanel.IsVirtualizing="True" />
+                            </StackPanel>
+
+                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                <CheckBox
+                                    Width="80"
+                                    Margin="5 "
+                                    VerticalAlignment="Bottom"
+                                    Content="{DynamicResource Shared-Valid}"
+                                    FontWeight="Normal"
+                                    IsChecked="{Binding SelectedItem.(models:Tbl09Division.Valid), ElementName=Tbl09DivisionsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Style="{StaticResource MahApps.Styles.CheckBox}" />
+
+                                <TextBox
+                                    Width="80"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.ClearTextButton="True"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-ValidYear}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="Valid Year">
+
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl09DivisionsList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl09Division.ValidYear)"
+                                            UpdateSourceTrigger="PropertyChanged" />
+                                    </TextBox.Text>
+                                </TextBox>
+                            </StackPanel>
+                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                    <TextBox
+                                        Height="Auto"
+                                        MinWidth="760"
+                                        MinHeight="100"
+                                        MaxWidth="760"
+                                        MaxHeight="400"
+                                        Margin="5"
+                                        VerticalAlignment="Stretch"
+                                        HorizontalContentAlignment="Stretch"
+                                        mah:TextBoxHelper.ClearTextButton="True"
+                                        mah:TextBoxHelper.IsWaitingForData="True"
+                                        mah:TextBoxHelper.UseFloatingWatermark="True"
+                                        mah:TextBoxHelper.Watermark="{DynamicResource Tbl09Division-DivisionName}"
+                                        mah:TextBoxHelper.WatermarkAlignment="Left"
+                                        AcceptsReturn="True"
+                                        FontWeight="Medium"
+                                        SpellCheck.IsEnabled="True"
+                                        Text="{Binding SelectedItem.(models:Tbl09Division.Synonym), ElementName=Tbl09DivisionsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        TextWrapping="Wrap"
+                                        ToolTip="Synonym"
+                                        VerticalScrollBarVisibility="Auto" />
+                                </ScrollViewer>
+                            </StackPanel>
+                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                <TextBox
+                                    Width="600"
+                                    Margin="5,0,0,0"
+                                    CharacterCasing="Upper">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl09DivisionsList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl09Division.Author)"
+                                            UpdateSourceTrigger="PropertyChanged" />
+                                    </TextBox.Text>
+                                </TextBox>
+                                <TextBox
+                                    Width="135"
+                                    Margin="25,0,0,0"
+                                    FontWeight="Medium">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl09DivisionsList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl09Division.AuthorYear)"
+                                            UpdateSourceTrigger="PropertyChanged" />
+                                    </TextBox.Text>
+                                </TextBox>
+                            </StackPanel>
+                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                <TextBox
+                                    Width="760"
+                                    Margin="5,0,0,0"
+                                    FontWeight="Medium">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl09DivisionsList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl09Division.Info)"
+                                            UpdateSourceTrigger="PropertyChanged" />
+                                    </TextBox.Text>
+                                </TextBox>
+                            </StackPanel>
+                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                <TextBox Width="367" Margin="5,0,0,0">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl09DivisionsList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl09Division.EngName)"
+                                            UpdateSourceTrigger="PropertyChanged" />
+                                    </TextBox.Text>
+                                </TextBox>
+                                <TextBox Width="367" Margin="25,0,0,0">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl09DivisionsList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl09Division.GerName)"
+                                            UpdateSourceTrigger="PropertyChanged" />
+                                    </TextBox.Text>
+                                </TextBox>
+                            </StackPanel>
+                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                <TextBox Width="367" Margin="5,0,0,0">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl09DivisionsList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl09Division.FraName)"
+                                            UpdateSourceTrigger="PropertyChanged" />
+                                    </TextBox.Text>
+                                </TextBox>
+                                <TextBox Width="367" Margin="25,0,0,0">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl09DivisionsList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl09Division.PorName)"
+                                            UpdateSourceTrigger="PropertyChanged" />
+                                    </TextBox.Text>
+                                </TextBox>
+                            </StackPanel>
+
+                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                    <TextBox
+                                        Height="Auto"
+                                        MinWidth="760"
+                                        MinHeight="100"
+                                        MaxWidth="760"
+                                        MaxHeight="400"
+                                        Margin="5,0,0,5"
+                                        VerticalAlignment="Stretch"
+                                        AcceptsReturn="True"
+                                        Text="{Binding SelectedItem.(models:Tbl09Division.Memo), ElementName=Tbl09DivisionsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        TextWrapping="Wrap"
+                                        VerticalScrollBarVisibility="Auto" />
+                                </ScrollViewer>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
 
 
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+            <!--  Part 8.1 FK1 - FK4 Connected  -->
 
-                <TabControl
-                    Height="Auto"
-                    Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-                    SelectedIndex="{Binding SelectedDetailTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    <TabItem FontWeight="Medium" Header="{DynamicResource Tbl09Division-Division}">
-                        <StackPanel>
+
+            <TabItem FontWeight="Medium" Header="{DynamicResource Shared-Connect}">
+                <GroupBox>
+                    <TabControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedDetailSubTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <TabItem FontWeight="Medium" Header="{DynamicResource Tbl03Regnum-Regnum}">
                             <GroupBox>
-
                                 <StackPanel Margin="0,0,5,0">
                                     <StackPanel Height="Auto" Orientation="Horizontal">
 
                                         <Button
                                             Margin="0,0,0,0"
                                             HorizontalAlignment="Left"
-                                            Command="{Binding SaveDivisionCommand}"
+                                            Command="{Binding SaveRegnumCommand}"
                                             Style="{StaticResource MahApps.Styles.Button.Flat}"
                                             ToolTip="{DynamicResource Shared-ButtonSave}" />
-
-                                        <Button
-                                            Margin="0,0,0,0"
-                                            HorizontalAlignment="Left"
-                                            Command="{Binding CopyDivisionCommand}"
-                                            Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                            ToolTip="{DynamicResource Shared-ActionLnkCopy}" />
-                                        <Button
-                                            Margin="0,0,0,0"
-                                            HorizontalAlignment="Left"
-                                            Command="{Binding AddDivisionCommand}"
-                                            Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                            ToolTip="{DynamicResource Shared-ActionLnkCreate}" />
-                                        <Button
-                                            Margin="0,0,0,0"
-                                            HorizontalAlignment="Left"
-                                            Command="{Binding DeleteDivisionCommand}"
-                                            Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                            ToolTip="{DynamicResource Shared-ActionLnkDelete}" />
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
-                                            Width="300"
+                                            Width="250"
                                             Margin="5,10,0,0"
                                             FontWeight="Medium">
                                             <TextBox.Text>
                                                 <Binding
-                                                    ElementName="Tbl09DivisionsList"
+                                                    ElementName="Tbl03RegnumsList"
                                                     Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl09Division.DivisionName)"
+                                                    Path="SelectedItem.(models:Tbl03Regnum.RegnumName)"
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
-                                        <ComboBox
-                                            Width="300"
-                                            Margin="25,0,0,0"
-                                            VerticalAlignment="Bottom"
-                                            DisplayMemberPath="RegnumName"
-                                            IsSynchronizedWithCurrentItem="True"
-                                            ItemsSource="{Binding Tbl03RegnumsAllList}"
-                                            SelectedValue="{Binding SelectedItem.(models:Tbl03Regnum.RegnumId), ElementName=Tbl09DivisionsList, Mode=TwoWay}"
-                                            SelectedValuePath="RegnumId"
-                                            VirtualizingStackPanel.IsVirtualizing="True" />
-                                    </StackPanel>
+                                        <TextBox
+                                            Width="250"
+                                            Margin="5,10,0,0"
+                                            FontWeight="Medium">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl03RegnumsList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl03Regnum.Subregnum)"
+                                                    UpdateSourceTrigger="PropertyChanged" />
+                                            </TextBox.Text>
+                                        </TextBox>
 
+                                    </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <CheckBox
                                             Width="80"
@@ -963,14 +1361,17 @@
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Shared-Valid}"
                                             FontWeight="Normal"
-                                            IsChecked="{Binding SelectedItem.(models:Tbl09Division.Valid), ElementName=Tbl09DivisionsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            IsChecked="{Binding SelectedItem.(models:Tbl03Regnum.Valid), ElementName=Tbl03RegnumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             Style="{StaticResource MahApps.Styles.CheckBox}" />
-                                        <TextBox Width="50" FontWeight="Medium">
+                                        <TextBox
+                                            Width="50"
+                                            Margin="25,0,0,0"
+                                            FontWeight="Medium">
                                             <TextBox.Text>
                                                 <Binding
-                                                    ElementName="Tbl09DivisionsList"
+                                                    ElementName="Tbl03RegnumsList"
                                                     Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl09Division.ValidYear)"
+                                                    Path="SelectedItem.(models:Tbl03Regnum.ValidYear)"
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
@@ -980,13 +1381,15 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="760"
-                                                MinHeight="100"
+                                                MinHeight="50"
                                                 MaxWidth="760"
                                                 MaxHeight="400"
                                                 Margin="5,0,0,0"
                                                 VerticalAlignment="Stretch"
                                                 AcceptsReturn="True"
-                                                Text="{Binding SelectedItem.(models:Tbl09Division.Synonym), ElementName=Tbl09DivisionsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                FontWeight="Medium"
+                                                Style="{StaticResource MahApps.Styles.TextBox}"
+                                                Text="{Binding SelectedItem.(models:Tbl03Regnum.Synonym), ElementName=Tbl03RegnumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 TextWrapping="Wrap"
                                                 VerticalScrollBarVisibility="Auto" />
                                         </ScrollViewer>
@@ -995,12 +1398,201 @@
                                         <TextBox
                                             Width="600"
                                             Margin="5,0,0,0"
-                                            CharacterCasing="Upper">
+                                            CharacterCasing="Upper"
+                                            FontWeight="Medium">
                                             <TextBox.Text>
                                                 <Binding
-                                                    ElementName="Tbl09DivisionsList"
+                                                    ElementName="Tbl03RegnumsList"
                                                     Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl09Division.Author)"
+                                                    Path="SelectedItem.(models:Tbl03Regnum.Author)"
+                                                    UpdateSourceTrigger="PropertyChanged" />
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBox Width="135" Margin="25,0,0,0">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl03RegnumsList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl03Regnum.AuthorYear)"
+                                                    UpdateSourceTrigger="PropertyChanged" />
+                                            </TextBox.Text>
+                                        </TextBox>
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox Width="760" Margin="5,0,0,0">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl03RegnumsList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl03Regnum.Info)"
+                                                    UpdateSourceTrigger="PropertyChanged" />
+                                            </TextBox.Text>
+                                        </TextBox>
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox Width="367" Margin="5,0,0,0">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl03RegnumsList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl03Regnum.EngName)"
+                                                    UpdateSourceTrigger="PropertyChanged" />
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBox Width="367" Margin="25,0,0,0">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl03RegnumsList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl03Regnum.GerName)"
+                                                    UpdateSourceTrigger="PropertyChanged" />
+                                            </TextBox.Text>
+                                        </TextBox>
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox Width="367" Margin="5,0,0,0">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl03RegnumsList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl03Regnum.FraName)"
+                                                    UpdateSourceTrigger="PropertyChanged" />
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBox Width="367" Margin="25,0,0,0">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl03RegnumsList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl03Regnum.PorName)"
+                                                    UpdateSourceTrigger="PropertyChanged" />
+                                            </TextBox.Text>
+                                        </TextBox>
+                                    </StackPanel>
+
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                            <TextBox
+                                                Height="Auto"
+                                                MinWidth="760"
+                                                MinHeight="50"
+                                                MaxWidth="760"
+                                                MaxHeight="400"
+                                                Margin="5,0,0,5"
+                                                VerticalAlignment="Stretch"
+                                                AcceptsReturn="True"
+                                                FontWeight="Medium"
+                                                Style="{StaticResource MahApps.Styles.TextBox}"
+                                                Text="{Binding SelectedItem.(models:Tbl03Regnum.Memo), ElementName=Tbl03RegnumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto" />
+                                        </ScrollViewer>
+                                    </StackPanel>
+                                </StackPanel>
+                            </GroupBox>
+                        </TabItem>
+
+
+                        <!--  Part 8.2 TK1 Connected  -->
+
+
+                        <TabItem FontWeight="Medium" Header="{DynamicResource Tbl15Subdivision-Subdivision}">
+                            <GroupBox>
+                                <StackPanel Margin="0,0,5,0">
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+
+                                        <Button
+                                            Margin="0,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            Command="{Binding SaveSubdivisionCommand}"
+                                            Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                            ToolTip="{DynamicResource Shared-ButtonSave}" />
+
+                                        <Button
+                                            Margin="0,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            Command="{Binding CopySubdivisionCommand}"
+                                            Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                            ToolTip="{DynamicResource Shared-ActionLnkCopy}" />
+                                        <Button
+                                            Margin="0,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            Command="{Binding AddSubdivisionCommand}"
+                                            Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                            ToolTip="{DynamicResource Shared-ActionLnkCreate}" />
+                                        <Button
+                                            Margin="0,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            Command="{Binding DeleteSubdivisionCommand}"
+                                            Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                            ToolTip="{DynamicResource Shared-ActionLnkDelete}" />
+
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox
+                                            Width="760"
+                                            Margin="5,10,25,0"
+                                            FontWeight="Medium">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl15SubdivisionsList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl15Subdivision.SubdivisionName)"
+                                                    UpdateSourceTrigger="PropertyChanged" />
+                                            </TextBox.Text>
+                                        </TextBox>
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <CheckBox
+                                            Width="80"
+                                            Margin="5,0,0,0"
+                                            VerticalAlignment="Bottom"
+                                            Content="{DynamicResource Shared-Valid}"
+                                            FontWeight="Normal"
+                                            IsChecked="{Binding SelectedItem.(models:Tbl15Subdivision.Valid), ElementName=Tbl15SubdivisionsList}"
+                                            Style="{StaticResource MahApps.Styles.CheckBox}" />
+                                        <TextBox
+                                            Width="135"
+                                            Margin="25,0,0,0"
+                                            FontWeight="Medium">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl15SubdivisionsList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl15Subdivision.ValidYear)"
+                                                    UpdateSourceTrigger="PropertyChanged" />
+                                            </TextBox.Text>
+                                        </TextBox>
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                            <TextBox
+                                                Height="Auto"
+                                                MinWidth="760"
+                                                MinHeight="50"
+                                                MaxWidth="760"
+                                                MaxHeight="400"
+                                                Margin="5,0,0,0"
+                                                VerticalAlignment="Stretch"
+                                                AcceptsReturn="True"
+                                                FontWeight="Medium"
+                                                Style="{StaticResource MahApps.Styles.TextBox}"
+                                                Text="{Binding SelectedItem.(models:Tbl15Subdivision.Synonym), ElementName=Tbl15SubdivisionsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto" />
+                                        </ScrollViewer>
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox
+                                            Width="600"
+                                            Margin="5,0,0,0"
+                                            CharacterCasing="Upper"
+                                            FontWeight="Medium">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl15SubdivisionsList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl15Subdivision.Author)"
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
@@ -1010,9 +1602,9 @@
                                             FontWeight="Medium">
                                             <TextBox.Text>
                                                 <Binding
-                                                    ElementName="Tbl09DivisionsList"
+                                                    ElementName="Tbl15SubdivisionsList"
                                                     Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl09Division.AuthorYear)"
+                                                    Path="SelectedItem.(models:Tbl15Subdivision.AuthorYear)"
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
@@ -1024,49 +1616,517 @@
                                             FontWeight="Medium">
                                             <TextBox.Text>
                                                 <Binding
-                                                    ElementName="Tbl09DivisionsList"
+                                                    ElementName="Tbl15SubdivisionsList"
                                                     Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl09Division.Info)"
+                                                    Path="SelectedItem.(models:Tbl15Subdivision.Info)"
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox Width="367" Margin="5,0,0,0">
+                                        <TextBox Width="368" Margin="5,0,0,0">
                                             <TextBox.Text>
                                                 <Binding
-                                                    ElementName="Tbl09DivisionsList"
+                                                    ElementName="Tbl15SubdivisionsList"
                                                     Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl09Division.EngName)"
+                                                    Path="SelectedItem.(models:Tbl15Subdivision.EngName)"
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
                                         <TextBox Width="367" Margin="25,0,0,0">
                                             <TextBox.Text>
                                                 <Binding
-                                                    ElementName="Tbl09DivisionsList"
+                                                    ElementName="Tbl15SubdivisionsList"
                                                     Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl09Division.GerName)"
+                                                    Path="SelectedItem.(models:Tbl15Subdivision.GerName)"
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox Width="367" Margin="5,0,0,0">
+                                        <TextBox Width="368" Margin="5,0,0,0">
                                             <TextBox.Text>
                                                 <Binding
-                                                    ElementName="Tbl09DivisionsList"
+                                                    ElementName="Tbl15SubdivisionsList"
                                                     Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl09Division.FraName)"
+                                                    Path="SelectedItem.(models:Tbl15Subdivision.FraName)"
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
                                         <TextBox Width="367" Margin="25,0,0,0">
                                             <TextBox.Text>
                                                 <Binding
-                                                    ElementName="Tbl09DivisionsList"
+                                                    ElementName="Tbl15SubdivisionsList"
                                                     Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl09Division.PorName)"
+                                                    Path="SelectedItem.(models:Tbl15Subdivision.PorName)"
+                                                    UpdateSourceTrigger="PropertyChanged" />
+                                            </TextBox.Text>
+                                        </TextBox>
+                                    </StackPanel>
+
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                            <TextBox
+                                                Height="Auto"
+                                                MinWidth="760"
+                                                MinHeight="50"
+                                                MaxWidth="760"
+                                                MaxHeight="400"
+                                                Margin="5,0,0,5"
+                                                VerticalAlignment="Stretch"
+                                                AcceptsReturn="True"
+                                                FontWeight="Medium"
+                                                Style="{StaticResource MahApps.Styles.TextBox}"
+                                                Text="{Binding SelectedItem.(models:Tbl15Subdivision.Memo), ElementName=Tbl15SubdivisionsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto" />
+                                        </ScrollViewer>
+                                    </StackPanel>
+                                </StackPanel>
+                            </GroupBox>
+                        </TabItem>
+
+
+                        <!--  Part 8.3  TK2  Connected  -->
+
+
+
+                        <!--  Part 8.3   TK3 Connected  -->
+
+
+
+                        <!--  Part 8.3   TK4  Connected  -->
+
+
+
+
+                        <!--  Part 11  -->
+
+                        <!--  Part 12  -->
+
+                        <!--  Part 13  -->
+
+
+                        <TabItem FontWeight="Medium" Header="{DynamicResource Shared-TabStripHeaderReferences}">
+                            <GroupBox>
+                                <TabControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedDetailSubRefTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceExpert}">
+                                        <GroupBox>
+                                            <StackPanel Margin="0,8,5,0">
+                                                <StackPanel Height="Auto" Orientation="Horizontal">
+
+                                                    <Button
+                                                        Margin="0,0,0,0"
+                                                        HorizontalAlignment="Left"
+                                                        Command="{Binding SaveReferenceExpertCommand}"
+                                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                                        ToolTip="{DynamicResource Shared-ButtonSave}" />
+                                                    <Button
+                                                        Margin="0,0,0,0"
+                                                        HorizontalAlignment="Left"
+                                                        Command="{Binding CopyReferenceExpertCommand}"
+                                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                                        ToolTip="{DynamicResource Shared-ActionLnkCopy}" />
+                                                    <Button
+                                                        Margin="0,0,0,0"
+                                                        HorizontalAlignment="Left"
+                                                        Command="{Binding AddReferenceExpertCommand}"
+                                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                                        ToolTip="{DynamicResource Shared-ActionLnkCreate}" />
+                                                    <Button
+                                                        Margin="0,0,0,0"
+                                                        HorizontalAlignment="Left"
+                                                        Command="{Binding DeleteReferenceExpertCommand}"
+                                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                                        ToolTip="{DynamicResource Shared-ActionLnkDelete}" />
+                                                </StackPanel>
+                                                <StackPanel Height="Auto" Orientation="Horizontal">
+                                                    <ComboBox
+                                                        Width="500"
+                                                        Margin="5,0,0,0"
+                                                        VerticalAlignment="Bottom"
+                                                        DisplayMemberPath="RefExpertName"
+                                                        IsSynchronizedWithCurrentItem="True"
+                                                        ItemContainerStyle="{StaticResource MahApps.Styles.ComboBox}"
+                                                        ItemsSource="{Binding Tbl90ExpertsAllList}"
+                                                        SelectedValue="{Binding SelectedItem.(models:Tbl90RefExpert.RefExpertId), ElementName=Tbl90ReferenceExpertsList, Mode=TwoWay}"
+                                                        SelectedValuePath="RefExpertID"
+                                                        Style="{StaticResource MahApps.Styles.ComboBox}"
+                                                        VirtualizingStackPanel.IsVirtualizing="True" />
+                                                </StackPanel>
+                                                <StackPanel Height="Auto" Orientation="Horizontal">
+                                                    <CheckBox
+                                                        Width="80"
+                                                        Margin="5,19,0,0"
+                                                        VerticalAlignment="Bottom"
+                                                        Content="{DynamicResource Shared-Valid}"
+                                                        FontWeight="Normal"
+                                                        IsChecked="{Binding SelectedItem.(models:Tbl90Reference.Valid), ElementName=Tbl90ReferenceExpertsList}"
+                                                        Style="{StaticResource MahApps.Styles.CheckBox}" />
+                                                </StackPanel>
+                                                <StackPanel Height="Auto" Orientation="Horizontal">
+                                                    <TextBox Width="760" Margin="5,0,0,0">
+                                                        <TextBox.Text>
+                                                            <Binding
+                                                                ElementName="Tbl90ReferenceExpertsList"
+                                                                Mode="TwoWay"
+                                                                Path="SelectedItem.(models:Tbl90Reference.Info)"
+                                                                UpdateSourceTrigger="PropertyChanged" />
+                                                        </TextBox.Text>
+                                                    </TextBox>
+                                                </StackPanel>
+
+                                                <StackPanel Height="Auto" Orientation="Horizontal">
+                                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                                        <TextBox
+                                                            Height="Auto"
+                                                            MinWidth="760"
+                                                            MinHeight="100"
+                                                            MaxWidth="760"
+                                                            MaxHeight="400"
+                                                            Margin="5,0,0,5"
+                                                            VerticalAlignment="Stretch"
+                                                            AcceptsReturn="True"
+                                                            Style="{StaticResource MahApps.Styles.TextBox}"
+                                                            Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferenceExpertsList}"
+                                                            TextWrapping="Wrap"
+                                                            VerticalScrollBarVisibility="Auto" />
+                                                    </ScrollViewer>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </GroupBox>
+                                    </TabItem>
+
+                                    <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceSource}">
+                                        <GroupBox>
+                                            <StackPanel Margin="0,8,5,0">
+                                                <StackPanel Height="Auto" Orientation="Horizontal">
+                                                    <Button
+                                                        Margin="0,0,0,0"
+                                                        HorizontalAlignment="Left"
+                                                        Command="{Binding SaveReferenceSourceCommand}"
+                                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                                        ToolTip="{DynamicResource Shared-ButtonSave}" />
+                                                    <Button
+                                                        Margin="0,0,0,0"
+                                                        HorizontalAlignment="Left"
+                                                        Command="{Binding CopyReferenceSourceCommand}"
+                                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                                        ToolTip="{DynamicResource Shared-ActionLnkCopy}" />
+                                                    <Button
+                                                        Margin="0,0,0,0"
+                                                        HorizontalAlignment="Left"
+                                                        Command="{Binding AddReferenceSourceCommand}"
+                                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                                        ToolTip="{DynamicResource Shared-ActionLnkCreate}" />
+                                                    <Button
+                                                        Margin="0,0,0,0"
+                                                        HorizontalAlignment="Left"
+                                                        Command="{Binding DeleteReferenceSourceCommand}"
+                                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                                        ToolTip="{DynamicResource Shared-ActionLnkDelete}" />
+                                                </StackPanel>
+                                                <StackPanel Height="Auto" Orientation="Horizontal">
+                                                    <ComboBox
+                                                        Width="760"
+                                                        Margin="5,0,0,0"
+                                                        VerticalAlignment="Bottom"
+                                                        IsSynchronizedWithCurrentItem="True"
+                                                        ItemContainerStyle="{StaticResource MahApps.Styles.ComboBox}"
+                                                        ItemsSource="{Binding Tbl90SourcesAllList}"
+                                                        SelectedValue="{Binding SelectedItem.(models:Tbl90RefSource.RefSourceId), ElementName=Tbl90ReferenceSourcesList, Mode=TwoWay}"
+                                                        SelectedValuePath="RefSourceID"
+                                                        Style="{StaticResource MahApps.Styles.ComboBox}"
+                                                        VirtualizingStackPanel.IsVirtualizing="True">
+                                                        <ComboBox.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <TextBlock Text="{Binding (models:Tbl90RefSource.RefSourceName)}" />
+                                                                    <TextBlock Text="{Binding (models:Tbl90RefSource.SourceYear)}" />
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </ComboBox.ItemTemplate>
+                                                    </ComboBox>
+                                                </StackPanel>
+                                                <StackPanel Height="Auto" Orientation="Horizontal">
+                                                    <CheckBox
+                                                        Width="80"
+                                                        Margin="5,0,0,0"
+                                                        VerticalAlignment="Bottom"
+                                                        Content="{DynamicResource Shared-Valid}"
+                                                        FontWeight="Normal"
+                                                        IsChecked="{Binding SelectedItem.(models:Tbl90Reference.Valid), ElementName=Tbl90ReferenceSourcesList}"
+                                                        Style="{StaticResource MahApps.Styles.CheckBox}" />
+                                                    <TextBox Width="50" Margin="25,0,0,0">
+                                                        <TextBox.Text>
+                                                            <Binding
+                                                                ElementName="Tbl90ReferenceSourcesList"
+                                                                Mode="TwoWay"
+                                                                Path="SelectedItem.(models:Tbl90Reference.ValidYear)"
+                                                                UpdateSourceTrigger="PropertyChanged" />
+                                                        </TextBox.Text>
+                                                    </TextBox>
+                                                </StackPanel>
+                                                <StackPanel Height="Auto" Orientation="Horizontal">
+                                                    <TextBox Width="760" Margin="5,0,0,0">
+                                                        <TextBox.Text>
+                                                            <Binding
+                                                                ElementName="Tbl90ReferenceSourcesList"
+                                                                Mode="TwoWay"
+                                                                Path="SelectedItem.(models:Tbl90Reference.Info)"
+                                                                UpdateSourceTrigger="PropertyChanged" />
+                                                        </TextBox.Text>
+                                                    </TextBox>
+                                                </StackPanel>
+
+                                                <StackPanel Height="Auto" Orientation="Horizontal">
+                                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                                        <TextBox
+                                                            Height="Auto"
+                                                            MinWidth="760"
+                                                            MinHeight="100"
+                                                            MaxWidth="760"
+                                                            MaxHeight="400"
+                                                            Margin="5,0,0,5"
+                                                            VerticalAlignment="Stretch"
+                                                            AcceptsReturn="True"
+                                                            Style="{StaticResource MahApps.Styles.TextBox}"
+                                                            Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferenceSourcesList}"
+                                                            TextWrapping="Wrap"
+                                                            VerticalScrollBarVisibility="Auto" />
+                                                    </ScrollViewer>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </GroupBox>
+                                    </TabItem>
+
+                                    <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceAuthor}">
+                                        <GroupBox>
+                                            <StackPanel Margin="0,8,5,0">
+                                                <StackPanel Height="Auto" Orientation="Horizontal">
+                                                    <Button
+                                                        Margin="0,0,0,0"
+                                                        HorizontalAlignment="Left"
+                                                        Command="{Binding SaveReferenceAuthorCommand}"
+                                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                                        ToolTip="{DynamicResource Shared-ButtonSave}" />
+                                                    <Button
+                                                        Margin="0,0,0,0"
+                                                        HorizontalAlignment="Left"
+                                                        Command="{Binding CopyReferenceAuthorCommand}"
+                                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                                        ToolTip="{DynamicResource Shared-ActionLnkCopy}" />
+                                                    <Button
+                                                        Margin="0,0,0,0"
+                                                        HorizontalAlignment="Left"
+                                                        Command="{Binding AddReferenceAuthorCommand}"
+                                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                                        ToolTip="{DynamicResource Shared-ActionLnkCreate}" />
+                                                    <Button
+                                                        Margin="0,0,0,0"
+                                                        HorizontalAlignment="Left"
+                                                        Command="{Binding DeleteReferenceAuthorCommand}"
+                                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                                        ToolTip="{DynamicResource Shared-ActionLnkDelete}" />
+                                                </StackPanel>
+                                                <StackPanel Height="Auto" Orientation="Horizontal">
+                                                    <ComboBox
+                                                        Width="760"
+                                                        Margin="5,0,0,0"
+                                                        VerticalAlignment="Bottom"
+                                                        IsSynchronizedWithCurrentItem="True"
+                                                        ItemContainerStyle="{StaticResource MahApps.Styles.ComboBox}"
+                                                        ItemsSource="{Binding Tbl90AuthorsAllList}"
+                                                        SelectedValue="{Binding SelectedItem.(models:Tbl90RefAuthor.RefAuthorId), ElementName=Tbl90ReferenceAuthorsList, Mode=TwoWay}"
+                                                        SelectedValuePath="RefAuthorID"
+                                                        Style="{StaticResource MahApps.Styles.ComboBox}"
+                                                        VirtualizingStackPanel.IsVirtualizing="True">
+                                                        <ComboBox.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <TextBlock Text="{Binding (models:Tbl90RefAuthor.RefAuthorName)}" />
+                                                                    <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl90RefAuthor.BookName)}" />
+                                                                    <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl90RefAuthor.Page1)}" />
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </ComboBox.ItemTemplate>
+                                                    </ComboBox>
+                                                </StackPanel>
+                                                <StackPanel Height="Auto" Orientation="Horizontal">
+                                                    <CheckBox
+                                                        Width="80"
+                                                        Margin="5,0,0,0"
+                                                        VerticalAlignment="Bottom"
+                                                        Content="{DynamicResource Shared-Valid}"
+                                                        FontWeight="Normal"
+                                                        IsChecked="{Binding SelectedItem.(models:Tbl90Reference.Valid), ElementName=Tbl90ReferenceAuthorsList}"
+                                                        Style="{StaticResource MahApps.Styles.CheckBox}" />
+                                                    <TextBox Width="50" Margin="25,0,0,0">
+                                                        <TextBox.Text>
+                                                            <Binding
+                                                                ElementName="Tbl90ReferenceAuthorsList"
+                                                                Mode="TwoWay"
+                                                                Path="SelectedItem.(models:Tbl90Reference.ValidYear)"
+                                                                UpdateSourceTrigger="PropertyChanged" />
+                                                        </TextBox.Text>
+                                                    </TextBox>
+                                                </StackPanel>
+                                                <StackPanel Height="Auto" Orientation="Horizontal">
+                                                    <TextBox Width="760" Margin="5,0,0,0">
+                                                        <TextBox.Text>
+                                                            <Binding
+                                                                ElementName="Tbl90ReferenceAuthorsList"
+                                                                Mode="TwoWay"
+                                                                Path="SelectedItem.(models:Tbl90Reference.Info)"
+                                                                UpdateSourceTrigger="PropertyChanged" />
+                                                        </TextBox.Text>
+                                                    </TextBox>
+                                                </StackPanel>
+
+                                                <StackPanel Height="Auto" Orientation="Horizontal">
+                                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                                        <TextBox
+                                                            Height="Auto"
+                                                            MinWidth="760"
+                                                            MinHeight="100"
+                                                            MaxWidth="760"
+                                                            MaxHeight="400"
+                                                            Margin="5,0,0,5"
+                                                            VerticalAlignment="Stretch"
+                                                            AcceptsReturn="True"
+                                                            Style="{StaticResource MahApps.Styles.TextBox}"
+                                                            Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferenceAuthorsList}"
+                                                            TextWrapping="Wrap"
+                                                            VerticalScrollBarVisibility="Auto" />
+                                                    </ScrollViewer>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </GroupBox>
+                                    </TabItem>
+                                </TabControl>
+                            </GroupBox>
+                        </TabItem>
+
+                        <!--  Part 14  -->
+
+                        <TabItem FontWeight="Medium" Header="{DynamicResource Tbl93Comment-Comment}">
+                            <GroupBox>
+                                <StackPanel Margin="0,8,5,0">
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <!--<Button
+                                            Margin="0,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            Command="{Binding SaveCommentCommand}"
+                                            Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                            ToolTip="{DynamicResource Shared-ButtonSave}" />-->
+
+                                        <ToggleButton
+                                            Width="48"
+                                            Height="48"
+                                            Margin="4"
+                                            Command="{Binding SaveCommentCommand}"
+                                            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                            Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                            <ToggleButton.ContentTemplate>
+                                                <DataTemplate>
+                                                    <iconPacks:PackIconModern
+                                                        Width="20"
+                                                        Height="20"
+                                                        Kind="Save" />
+                                                </DataTemplate>
+                                            </ToggleButton.ContentTemplate>
+                                        </ToggleButton>
+
+                                        <!--<Button
+                                            Margin="0,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            Command="{Binding CopyCommentCommand}"
+                                            Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                            ToolTip="{DynamicResource Shared-ActionLnkCopy}" />-->
+
+                                        <ToggleButton
+                                            Width="48"
+                                            Height="48"
+                                            Margin="4"
+                                            Command="{Binding CopyCommentCommand}"
+                                            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                            Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                            <ToggleButton.ContentTemplate>
+                                                <DataTemplate>
+                                                    <iconPacks:PackIconModern
+                                                        Width="20"
+                                                        Height="20"
+                                                        Kind="PageCopy" />
+                                                </DataTemplate>
+                                            </ToggleButton.ContentTemplate>
+                                        </ToggleButton>
+
+                                        <!--<Button
+                                            Margin="0,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            Command="{Binding AddCommentCommand}"
+                                            Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                            ToolTip="{DynamicResource Shared-ActionLnkCreate}" />-->
+
+                                        <ToggleButton
+                                            Width="48"
+                                            Height="48"
+                                            Margin="4"
+                                            Command="{Binding AddDivisionCommand}"
+                                            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                            Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                            <ToggleButton.ContentTemplate>
+                                                <DataTemplate>
+                                                    <iconPacks:PackIconModern
+                                                        Width="20"
+                                                        Height="20"
+                                                        Kind="Add" />
+                                                </DataTemplate>
+                                            </ToggleButton.ContentTemplate>
+                                        </ToggleButton>
+
+                                        <!--<Button
+                                            Margin="0,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            Command="{Binding DeleteCommentCommand}"
+                                            Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                            ToolTip="{DynamicResource Shared-ActionLnkDelete}" />-->
+
+                                        <ToggleButton
+                                            Width="48"
+                                            Height="48"
+                                            Margin="4"
+                                            Command="{Binding DeleteCommentCommand}"
+                                            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                            Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                            <ToggleButton.ContentTemplate>
+                                                <DataTemplate>
+                                                    <iconPacks:PackIconModern
+                                                        Width="20"
+                                                        Height="20"
+                                                        Kind="Delete" />
+                                                </DataTemplate>
+                                            </ToggleButton.ContentTemplate>
+                                        </ToggleButton>
+
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <CheckBox
+                                            Width="80"
+                                            Margin="5,19,0,0"
+                                            VerticalAlignment="Bottom"
+                                            Content="{DynamicResource Shared-Valid}"
+                                            FontWeight="Normal"
+                                            IsChecked="{Binding SelectedItem.(models:Tbl93Comment.Valid), ElementName=Tbl93CommentsList}"
+                                            Style="{StaticResource MahApps.Styles.CheckBox}" />
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox Width="760" Margin="5,0,0,0">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl93CommentsList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl93Comment.Info)"
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
@@ -1079,809 +2139,74 @@
                                                 MinWidth="760"
                                                 MinHeight="100"
                                                 MaxWidth="760"
-                                                MaxHeight="400"
+                                                MaxHeight="620"
                                                 Margin="5,0,0,5"
                                                 VerticalAlignment="Stretch"
                                                 AcceptsReturn="True"
-                                                Text="{Binding SelectedItem.(models:Tbl09Division.Memo), ElementName=Tbl09DivisionsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                Style="{StaticResource MahApps.Styles.TextBox}"
+                                                Text="{Binding SelectedItem.(models:Tbl93Comment.Memo), ElementName=Tbl93CommentsList}"
                                                 TextWrapping="Wrap"
                                                 VerticalScrollBarVisibility="Auto" />
                                         </ScrollViewer>
                                     </StackPanel>
                                 </StackPanel>
                             </GroupBox>
-                        </StackPanel>
-                    </TabItem>
+                        </TabItem>
+
+                    </TabControl>
+                </GroupBox>
+            </TabItem>
+        </TabControl>
 
 
-                    <!--  Part 8.1 FK1 - FK4 Connected  -->
+        <StackPanel
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="3" />
 
+        <!--<GridSplitter
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Height="5"
+                HorizontalAlignment="Stretch"
+                Background="Black"
+                ResizeDirection="Rows" />-->
 
-                    <TabItem FontWeight="Medium" Header="{DynamicResource Shared-Connect}">
-                        <GroupBox>
-                            <TabControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedDetailSubTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                <TabItem FontWeight="Medium" Header="{DynamicResource Tbl03Regnum-Regnum}">
-                                    <GroupBox>
-                                        <StackPanel Margin="0,0,5,0">
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
+        <!--<GridSplitter
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                Width="5"
+                HorizontalAlignment="Stretch"
+                Background="Black"
+                ResizeDirection="Columns"
+                ShowsPreview="False" />-->
 
-                                                <Button
-                                                    Margin="0,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    Command="{Binding SaveRegnumCommand}"
-                                                    Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                    ToolTip="{DynamicResource Shared-ButtonSave}" />
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <TextBox
-                                                    Width="250"
-                                                    Margin="5,10,0,0"
-                                                    FontWeight="Medium">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl03RegnumsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl03Regnum.RegnumName)"
-                                                            UpdateSourceTrigger="PropertyChanged" />
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                                <TextBox
-                                                    Width="250"
-                                                    Margin="5,10,0,0"
-                                                    FontWeight="Medium">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl03RegnumsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl03Regnum.Subregnum)"
-                                                            UpdateSourceTrigger="PropertyChanged" />
-                                                    </TextBox.Text>
-                                                </TextBox>
-
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <CheckBox
-                                                    Width="80"
-                                                    Margin="5,0,0,0"
-                                                    VerticalAlignment="Bottom"
-                                                    Content="{DynamicResource Shared-Valid}"
-                                                    FontWeight="Normal"
-                                                    IsChecked="{Binding SelectedItem.(models:Tbl03Regnum.Valid), ElementName=Tbl03RegnumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Style="{StaticResource MahApps.Styles.CheckBox}" />
-                                                <TextBox
-                                                    Width="50"
-                                                    Margin="25,0,0,0"
-                                                    FontWeight="Medium">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl03RegnumsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl03Regnum.ValidYear)"
-                                                            UpdateSourceTrigger="PropertyChanged" />
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                                    <TextBox
-                                                        Height="Auto"
-                                                        MinWidth="760"
-                                                        MinHeight="50"
-                                                        MaxWidth="760"
-                                                        MaxHeight="400"
-                                                        Margin="5,0,0,0"
-                                                        VerticalAlignment="Stretch"
-                                                        AcceptsReturn="True"
-                                                        FontWeight="Medium"
-                                                        Style="{StaticResource MahApps.Styles.TextBox}"
-                                                        Text="{Binding SelectedItem.(models:Tbl03Regnum.Synonym), ElementName=Tbl03RegnumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                        TextWrapping="Wrap"
-                                                        VerticalScrollBarVisibility="Auto" />
-                                                </ScrollViewer>
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <TextBox
-                                                    Width="600"
-                                                    Margin="5,0,0,0"
-                                                    CharacterCasing="Upper"
-                                                    FontWeight="Medium">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl03RegnumsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl03Regnum.Author)"
-                                                            UpdateSourceTrigger="PropertyChanged" />
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                                <TextBox Width="135" Margin="25,0,0,0">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl03RegnumsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl03Regnum.AuthorYear)"
-                                                            UpdateSourceTrigger="PropertyChanged" />
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <TextBox Width="760" Margin="5,0,0,0">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl03RegnumsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl03Regnum.Info)"
-                                                            UpdateSourceTrigger="PropertyChanged" />
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <TextBox Width="367" Margin="5,0,0,0">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl03RegnumsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl03Regnum.EngName)"
-                                                            UpdateSourceTrigger="PropertyChanged" />
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                                <TextBox Width="367" Margin="25,0,0,0">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl03RegnumsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl03Regnum.GerName)"
-                                                            UpdateSourceTrigger="PropertyChanged" />
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <TextBox Width="367" Margin="5,0,0,0">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl03RegnumsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl03Regnum.FraName)"
-                                                            UpdateSourceTrigger="PropertyChanged" />
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                                <TextBox Width="367" Margin="25,0,0,0">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl03RegnumsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl03Regnum.PorName)"
-                                                            UpdateSourceTrigger="PropertyChanged" />
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                            </StackPanel>
-
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                                    <TextBox
-                                                        Height="Auto"
-                                                        MinWidth="760"
-                                                        MinHeight="50"
-                                                        MaxWidth="760"
-                                                        MaxHeight="400"
-                                                        Margin="5,0,0,5"
-                                                        VerticalAlignment="Stretch"
-                                                        AcceptsReturn="True"
-                                                        FontWeight="Medium"
-                                                        Style="{StaticResource MahApps.Styles.TextBox}"
-                                                        Text="{Binding SelectedItem.(models:Tbl03Regnum.Memo), ElementName=Tbl03RegnumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                        TextWrapping="Wrap"
-                                                        VerticalScrollBarVisibility="Auto" />
-                                                </ScrollViewer>
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </GroupBox>
-                                </TabItem>
-
-
-                                <!--  Part 8.2 TK1 Connected  -->
-
-
-                                <TabItem FontWeight="Medium" Header="{DynamicResource Tbl15Subdivision-Subdivision}">
-                                    <GroupBox>
-                                        <StackPanel Margin="0,0,5,0">
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-
-                                                <Button
-                                                    Margin="0,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    Command="{Binding SaveSubdivisionCommand}"
-                                                    Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                    ToolTip="{DynamicResource Shared-ButtonSave}" />
-
-                                                <Button
-                                                    Margin="0,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    Command="{Binding CopySubdivisionCommand}"
-                                                    Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                    ToolTip="{DynamicResource Shared-ActionLnkCopy}" />
-                                                <Button
-                                                    Margin="0,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    Command="{Binding AddSubdivisionCommand}"
-                                                    Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                    ToolTip="{DynamicResource Shared-ActionLnkCreate}" />
-                                                <Button
-                                                    Margin="0,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    Command="{Binding DeleteSubdivisionCommand}"
-                                                    Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                    ToolTip="{DynamicResource Shared-ActionLnkDelete}" />
-
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <TextBox
-                                                    Width="760"
-                                                    Margin="5,10,25,0"
-                                                    FontWeight="Medium">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl15SubdivisionsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl15Subdivision.SubdivisionName)"
-                                                            UpdateSourceTrigger="PropertyChanged" />
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <CheckBox
-                                                    Width="80"
-                                                    Margin="5,0,0,0"
-                                                    VerticalAlignment="Bottom"
-                                                    Content="{DynamicResource Shared-Valid}"
-                                                    FontWeight="Normal"
-                                                    IsChecked="{Binding SelectedItem.(models:Tbl15Subdivision.Valid), ElementName=Tbl15SubdivisionsList}"
-                                                    Style="{StaticResource MahApps.Styles.CheckBox}" />
-                                                <TextBox
-                                                    Width="135"
-                                                    Margin="25,0,0,0"
-                                                    FontWeight="Medium">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl15SubdivisionsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl15Subdivision.ValidYear)"
-                                                            UpdateSourceTrigger="PropertyChanged" />
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                                    <TextBox
-                                                        Height="Auto"
-                                                        MinWidth="760"
-                                                        MinHeight="50"
-                                                        MaxWidth="760"
-                                                        MaxHeight="400"
-                                                        Margin="5,0,0,0"
-                                                        VerticalAlignment="Stretch"
-                                                        AcceptsReturn="True"
-                                                        FontWeight="Medium"
-                                                        Style="{StaticResource MahApps.Styles.TextBox}"
-                                                        Text="{Binding SelectedItem.(models:Tbl15Subdivision.Synonym), ElementName=Tbl15SubdivisionsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                        TextWrapping="Wrap"
-                                                        VerticalScrollBarVisibility="Auto" />
-                                                </ScrollViewer>
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <TextBox
-                                                    Width="600"
-                                                    Margin="5,0,0,0"
-                                                    CharacterCasing="Upper"
-                                                    FontWeight="Medium">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl15SubdivisionsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl15Subdivision.Author)"
-                                                            UpdateSourceTrigger="PropertyChanged" />
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                                <TextBox
-                                                    Width="135"
-                                                    Margin="25,0,0,0"
-                                                    FontWeight="Medium">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl15SubdivisionsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl15Subdivision.AuthorYear)"
-                                                            UpdateSourceTrigger="PropertyChanged" />
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <TextBox
-                                                    Width="760"
-                                                    Margin="5,0,0,0"
-                                                    FontWeight="Medium">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl15SubdivisionsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl15Subdivision.Info)"
-                                                            UpdateSourceTrigger="PropertyChanged" />
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <TextBox Width="368" Margin="5,0,0,0">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl15SubdivisionsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl15Subdivision.EngName)"
-                                                            UpdateSourceTrigger="PropertyChanged" />
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                                <TextBox Width="367" Margin="25,0,0,0">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl15SubdivisionsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl15Subdivision.GerName)"
-                                                            UpdateSourceTrigger="PropertyChanged" />
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <TextBox Width="368" Margin="5,0,0,0">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl15SubdivisionsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl15Subdivision.FraName)"
-                                                            UpdateSourceTrigger="PropertyChanged" />
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                                <TextBox Width="367" Margin="25,0,0,0">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl15SubdivisionsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl15Subdivision.PorName)"
-                                                            UpdateSourceTrigger="PropertyChanged" />
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                            </StackPanel>
-
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                                    <TextBox
-                                                        Height="Auto"
-                                                        MinWidth="760"
-                                                        MinHeight="50"
-                                                        MaxWidth="760"
-                                                        MaxHeight="400"
-                                                        Margin="5,0,0,5"
-                                                        VerticalAlignment="Stretch"
-                                                        AcceptsReturn="True"
-                                                        FontWeight="Medium"
-                                                        Style="{StaticResource MahApps.Styles.TextBox}"
-                                                        Text="{Binding SelectedItem.(models:Tbl15Subdivision.Memo), ElementName=Tbl15SubdivisionsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                        TextWrapping="Wrap"
-                                                        VerticalScrollBarVisibility="Auto" />
-                                                </ScrollViewer>
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </GroupBox>
-                                </TabItem>
-
-
-                                <!--  Part 8.3  TK2  Connected  -->
-
-
-
-                                <!--  Part 8.3   TK3 Connected  -->
-
-
-
-                                <!--  Part 8.3   TK4  Connected  -->
-
-
-
-
-                                <!--  Part 11  -->
-
-                                <!--  Part 12  -->
-
-                                <!--  Part 13  -->
-
-
-                                <TabItem FontWeight="Medium" Header="{DynamicResource Shared-TabStripHeaderReferences}">
-                                    <GroupBox>
-                                        <TabControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedDetailSubRefTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                            <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceExpert}">
-                                                <GroupBox>
-                                                    <StackPanel Margin="0,8,5,0">
-                                                        <StackPanel Height="Auto" Orientation="Horizontal">
-
-                                                            <Button
-                                                                Margin="0,0,0,0"
-                                                                HorizontalAlignment="Left"
-                                                                Command="{Binding SaveReferenceExpertCommand}"
-                                                                Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                                ToolTip="{DynamicResource Shared-ButtonSave}" />
-                                                            <Button
-                                                                Margin="0,0,0,0"
-                                                                HorizontalAlignment="Left"
-                                                                Command="{Binding CopyReferenceExpertCommand}"
-                                                                Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                                ToolTip="{DynamicResource Shared-ActionLnkCopy}" />
-                                                            <Button
-                                                                Margin="0,0,0,0"
-                                                                HorizontalAlignment="Left"
-                                                                Command="{Binding AddReferenceExpertCommand}"
-                                                                Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                                ToolTip="{DynamicResource Shared-ActionLnkCreate}" />
-                                                            <Button
-                                                                Margin="0,0,0,0"
-                                                                HorizontalAlignment="Left"
-                                                                Command="{Binding DeleteReferenceExpertCommand}"
-                                                                Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                                ToolTip="{DynamicResource Shared-ActionLnkDelete}" />
-                                                        </StackPanel>
-                                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                                            <ComboBox
-                                                                Width="500"
-                                                                Margin="5,0,0,0"
-                                                                VerticalAlignment="Bottom"
-                                                                DisplayMemberPath="RefExpertName"
-                                                                IsSynchronizedWithCurrentItem="True"
-                                                                ItemContainerStyle="{StaticResource MahApps.Styles.ComboBox}"
-                                                                ItemsSource="{Binding Tbl90ExpertsAllList}"
-                                                                SelectedValue="{Binding SelectedItem.(models:Tbl90RefExpert.RefExpertId), ElementName=Tbl90ReferenceExpertsList, Mode=TwoWay}"
-                                                                SelectedValuePath="RefExpertID"
-                                                                Style="{StaticResource MahApps.Styles.ComboBox}"
-                                                                VirtualizingStackPanel.IsVirtualizing="True" />
-                                                        </StackPanel>
-                                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                                            <CheckBox
-                                                                Width="80"
-                                                                Margin="5,19,0,0"
-                                                                VerticalAlignment="Bottom"
-                                                                Content="{DynamicResource Shared-Valid}"
-                                                                FontWeight="Normal"
-                                                                IsChecked="{Binding SelectedItem.(models:Tbl90Reference.Valid), ElementName=Tbl90ReferenceExpertsList}"
-                                                                Style="{StaticResource MahApps.Styles.CheckBox}" />
-                                                        </StackPanel>
-                                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                                            <TextBox Width="760" Margin="5,0,0,0">
-                                                                <TextBox.Text>
-                                                                    <Binding
-                                                                        ElementName="Tbl90ReferenceExpertsList"
-                                                                        Mode="TwoWay"
-                                                                        Path="SelectedItem.(models:Tbl90Reference.Info)"
-                                                                        UpdateSourceTrigger="PropertyChanged" />
-                                                                </TextBox.Text>
-                                                            </TextBox>
-                                                        </StackPanel>
-
-                                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                                            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                                                <TextBox
-                                                                    Height="Auto"
-                                                                    MinWidth="760"
-                                                                    MinHeight="100"
-                                                                    MaxWidth="760"
-                                                                    MaxHeight="400"
-                                                                    Margin="5,0,0,5"
-                                                                    VerticalAlignment="Stretch"
-                                                                    AcceptsReturn="True"
-                                                                    Style="{StaticResource MahApps.Styles.TextBox}"
-                                                                    Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferenceExpertsList}"
-                                                                    TextWrapping="Wrap"
-                                                                    VerticalScrollBarVisibility="Auto" />
-                                                            </ScrollViewer>
-                                                        </StackPanel>
-                                                    </StackPanel>
-                                                </GroupBox>
-                                            </TabItem>
-
-                                            <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceSource}">
-                                                <GroupBox>
-                                                    <StackPanel Margin="0,8,5,0">
-                                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                                            <Button
-                                                                Margin="0,0,0,0"
-                                                                HorizontalAlignment="Left"
-                                                                Command="{Binding SaveReferenceSourceCommand}"
-                                                                Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                                ToolTip="{DynamicResource Shared-ButtonSave}" />
-                                                            <Button
-                                                                Margin="0,0,0,0"
-                                                                HorizontalAlignment="Left"
-                                                                Command="{Binding CopyReferenceSourceCommand}"
-                                                                Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                                ToolTip="{DynamicResource Shared-ActionLnkCopy}" />
-                                                            <Button
-                                                                Margin="0,0,0,0"
-                                                                HorizontalAlignment="Left"
-                                                                Command="{Binding AddReferenceSourceCommand}"
-                                                                Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                                ToolTip="{DynamicResource Shared-ActionLnkCreate}" />
-                                                            <Button
-                                                                Margin="0,0,0,0"
-                                                                HorizontalAlignment="Left"
-                                                                Command="{Binding DeleteReferenceSourceCommand}"
-                                                                Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                                ToolTip="{DynamicResource Shared-ActionLnkDelete}" />
-                                                        </StackPanel>
-                                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                                            <ComboBox
-                                                                Width="760"
-                                                                Margin="5,0,0,0"
-                                                                VerticalAlignment="Bottom"
-                                                                IsSynchronizedWithCurrentItem="True"
-                                                                ItemContainerStyle="{StaticResource MahApps.Styles.ComboBox}"
-                                                                ItemsSource="{Binding Tbl90SourcesAllList}"
-                                                                SelectedValue="{Binding SelectedItem.(models:Tbl90RefSource.RefSourceId), ElementName=Tbl90ReferenceSourcesList, Mode=TwoWay}"
-                                                                SelectedValuePath="RefSourceID"
-                                                                Style="{StaticResource MahApps.Styles.ComboBox}"
-                                                                VirtualizingStackPanel.IsVirtualizing="True">
-                                                                <ComboBox.ItemTemplate>
-                                                                    <DataTemplate>
-                                                                        <StackPanel Orientation="Horizontal">
-                                                                            <TextBlock Text="{Binding (models:Tbl90RefSource.RefSourceName)}" />
-                                                                            <TextBlock Text="{Binding (models:Tbl90RefSource.SourceYear)}" />
-                                                                        </StackPanel>
-                                                                    </DataTemplate>
-                                                                </ComboBox.ItemTemplate>
-                                                            </ComboBox>
-                                                        </StackPanel>
-                                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                                            <CheckBox
-                                                                Width="80"
-                                                                Margin="5,0,0,0"
-                                                                VerticalAlignment="Bottom"
-                                                                Content="{DynamicResource Shared-Valid}"
-                                                                FontWeight="Normal"
-                                                                IsChecked="{Binding SelectedItem.(models:Tbl90Reference.Valid), ElementName=Tbl90ReferenceSourcesList}"
-                                                                Style="{StaticResource MahApps.Styles.CheckBox}" />
-                                                            <TextBox Width="50" Margin="25,0,0,0">
-                                                                <TextBox.Text>
-                                                                    <Binding
-                                                                        ElementName="Tbl90ReferenceSourcesList"
-                                                                        Mode="TwoWay"
-                                                                        Path="SelectedItem.(models:Tbl90Reference.ValidYear)"
-                                                                        UpdateSourceTrigger="PropertyChanged" />
-                                                                </TextBox.Text>
-                                                            </TextBox>
-                                                        </StackPanel>
-                                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                                            <TextBox Width="760" Margin="5,0,0,0">
-                                                                <TextBox.Text>
-                                                                    <Binding
-                                                                        ElementName="Tbl90ReferenceSourcesList"
-                                                                        Mode="TwoWay"
-                                                                        Path="SelectedItem.(models:Tbl90Reference.Info)"
-                                                                        UpdateSourceTrigger="PropertyChanged" />
-                                                                </TextBox.Text>
-                                                            </TextBox>
-                                                        </StackPanel>
-
-                                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                                            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                                                <TextBox
-                                                                    Height="Auto"
-                                                                    MinWidth="760"
-                                                                    MinHeight="100"
-                                                                    MaxWidth="760"
-                                                                    MaxHeight="400"
-                                                                    Margin="5,0,0,5"
-                                                                    VerticalAlignment="Stretch"
-                                                                    AcceptsReturn="True"
-                                                                    Style="{StaticResource MahApps.Styles.TextBox}"
-                                                                    Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferenceSourcesList}"
-                                                                    TextWrapping="Wrap"
-                                                                    VerticalScrollBarVisibility="Auto" />
-                                                            </ScrollViewer>
-                                                        </StackPanel>
-                                                    </StackPanel>
-                                                </GroupBox>
-                                            </TabItem>
-
-                                            <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceAuthor}">
-                                                <GroupBox>
-                                                    <StackPanel Margin="0,8,5,0">
-                                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                                            <Button
-                                                                Margin="0,0,0,0"
-                                                                HorizontalAlignment="Left"
-                                                                Command="{Binding SaveReferenceAuthorCommand}"
-                                                                Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                                ToolTip="{DynamicResource Shared-ButtonSave}" />
-                                                            <Button
-                                                                Margin="0,0,0,0"
-                                                                HorizontalAlignment="Left"
-                                                                Command="{Binding CopyReferenceAuthorCommand}"
-                                                                Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                                ToolTip="{DynamicResource Shared-ActionLnkCopy}" />
-                                                            <Button
-                                                                Margin="0,0,0,0"
-                                                                HorizontalAlignment="Left"
-                                                                Command="{Binding AddReferenceAuthorCommand}"
-                                                                Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                                ToolTip="{DynamicResource Shared-ActionLnkCreate}" />
-                                                            <Button
-                                                                Margin="0,0,0,0"
-                                                                HorizontalAlignment="Left"
-                                                                Command="{Binding DeleteReferenceAuthorCommand}"
-                                                                Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                                ToolTip="{DynamicResource Shared-ActionLnkDelete}" />
-                                                        </StackPanel>
-                                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                                            <ComboBox
-                                                                Width="760"
-                                                                Margin="5,0,0,0"
-                                                                VerticalAlignment="Bottom"
-                                                                IsSynchronizedWithCurrentItem="True"
-                                                                ItemContainerStyle="{StaticResource MahApps.Styles.ComboBox}"
-                                                                ItemsSource="{Binding Tbl90AuthorsAllList}"
-                                                                SelectedValue="{Binding SelectedItem.(models:Tbl90RefAuthor.RefAuthorId), ElementName=Tbl90ReferenceAuthorsList, Mode=TwoWay}"
-                                                                SelectedValuePath="RefAuthorID"
-                                                                Style="{StaticResource MahApps.Styles.ComboBox}"
-                                                                VirtualizingStackPanel.IsVirtualizing="True">
-                                                                <ComboBox.ItemTemplate>
-                                                                    <DataTemplate>
-                                                                        <StackPanel Orientation="Horizontal">
-                                                                            <TextBlock Text="{Binding (models:Tbl90RefAuthor.RefAuthorName)}" />
-                                                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl90RefAuthor.BookName)}" />
-                                                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl90RefAuthor.Page1)}" />
-                                                                        </StackPanel>
-                                                                    </DataTemplate>
-                                                                </ComboBox.ItemTemplate>
-                                                            </ComboBox>
-                                                        </StackPanel>
-                                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                                            <CheckBox
-                                                                Width="80"
-                                                                Margin="5,0,0,0"
-                                                                VerticalAlignment="Bottom"
-                                                                Content="{DynamicResource Shared-Valid}"
-                                                                FontWeight="Normal"
-                                                                IsChecked="{Binding SelectedItem.(models:Tbl90Reference.Valid), ElementName=Tbl90ReferenceAuthorsList}"
-                                                                Style="{StaticResource MahApps.Styles.CheckBox}" />
-                                                            <TextBox Width="50" Margin="25,0,0,0">
-                                                                <TextBox.Text>
-                                                                    <Binding
-                                                                        ElementName="Tbl90ReferenceAuthorsList"
-                                                                        Mode="TwoWay"
-                                                                        Path="SelectedItem.(models:Tbl90Reference.ValidYear)"
-                                                                        UpdateSourceTrigger="PropertyChanged" />
-                                                                </TextBox.Text>
-                                                            </TextBox>
-                                                        </StackPanel>
-                                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                                            <TextBox Width="760" Margin="5,0,0,0">
-                                                                <TextBox.Text>
-                                                                    <Binding
-                                                                        ElementName="Tbl90ReferenceAuthorsList"
-                                                                        Mode="TwoWay"
-                                                                        Path="SelectedItem.(models:Tbl90Reference.Info)"
-                                                                        UpdateSourceTrigger="PropertyChanged" />
-                                                                </TextBox.Text>
-                                                            </TextBox>
-                                                        </StackPanel>
-
-                                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                                            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                                                <TextBox
-                                                                    Height="Auto"
-                                                                    MinWidth="760"
-                                                                    MinHeight="100"
-                                                                    MaxWidth="760"
-                                                                    MaxHeight="400"
-                                                                    Margin="5,0,0,5"
-                                                                    VerticalAlignment="Stretch"
-                                                                    AcceptsReturn="True"
-                                                                    Style="{StaticResource MahApps.Styles.TextBox}"
-                                                                    Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferenceAuthorsList}"
-                                                                    TextWrapping="Wrap"
-                                                                    VerticalScrollBarVisibility="Auto" />
-                                                            </ScrollViewer>
-                                                        </StackPanel>
-                                                    </StackPanel>
-                                                </GroupBox>
-                                            </TabItem>
-                                        </TabControl>
-                                    </GroupBox>
-                                </TabItem>
-
-                                <!--  Part 14  -->
-
-                                <TabItem FontWeight="Medium" Header="{DynamicResource Tbl93Comment-Comment}">
-                                    <GroupBox>
-                                        <StackPanel Margin="0,8,5,0">
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <Button
-                                                    Margin="0,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    Command="{Binding SaveCommentCommand}"
-                                                    Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                    ToolTip="{DynamicResource Shared-ButtonSave}" />
-                                                <Button
-                                                    Margin="0,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    Command="{Binding CopyCommentCommand}"
-                                                    Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                    ToolTip="{DynamicResource Shared-ActionLnkCopy}" />
-                                                <Button
-                                                    Margin="0,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    Command="{Binding AddCommentCommand}"
-                                                    Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                    ToolTip="{DynamicResource Shared-ActionLnkCreate}" />
-                                                <Button
-                                                    Margin="0,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    Command="{Binding DeleteCommentCommand}"
-                                                    Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                    ToolTip="{DynamicResource Shared-ActionLnkDelete}" />
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <CheckBox
-                                                    Width="80"
-                                                    Margin="5,19,0,0"
-                                                    VerticalAlignment="Bottom"
-                                                    Content="{DynamicResource Shared-Valid}"
-                                                    FontWeight="Normal"
-                                                    IsChecked="{Binding SelectedItem.(models:Tbl93Comment.Valid), ElementName=Tbl93CommentsList}"
-                                                    Style="{StaticResource MahApps.Styles.CheckBox}" />
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <TextBox Width="760" Margin="5,0,0,0">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl93CommentsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl93Comment.Info)"
-                                                            UpdateSourceTrigger="PropertyChanged" />
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                            </StackPanel>
-
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                                    <TextBox
-                                                        Height="Auto"
-                                                        MinWidth="760"
-                                                        MinHeight="100"
-                                                        MaxWidth="760"
-                                                        MaxHeight="620"
-                                                        Margin="5,0,0,5"
-                                                        VerticalAlignment="Stretch"
-                                                        AcceptsReturn="True"
-                                                        Style="{StaticResource MahApps.Styles.TextBox}"
-                                                        Text="{Binding SelectedItem.(models:Tbl93Comment.Memo), ElementName=Tbl93CommentsList}"
-                                                        TextWrapping="Wrap"
-                                                        VerticalScrollBarVisibility="Auto" />
-                                                </ScrollViewer>
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </GroupBox>
-                                </TabItem>
-
-                            </TabControl>
-                        </GroupBox>
-                    </TabItem>
-                </TabControl>
-            </Grid>
-        </ScrollViewer>
-
-        <GridSplitter
-            Grid.Row="0"
-            Grid.RowSpan="3"
-            Grid.Column="1"
-            Width="4"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Stretch"
-            Background="Black"
-            ResizeDirection="Columns"
-            ShowsPreview="False" />
     </Grid>
+
+
+    <!--  Part 8 Splitter  -->
+
+
+    <!--  Creating Sub-Grid in Column 2  -->
+
+    <!--<GridSplitter
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Height="5"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center"
+            Background="Black"
+            ResizeDirection="Rows" />-->
+
+    <!--<GridSplitter
+            Grid.Row="0"
+            Grid.Column="0" ShowsPreview="False"  Background="Black"
+            Grid.ColumnSpan="3"
+            Height="5"
+            HorizontalAlignment="Stretch"
+            ResizeDirection="Columns" />-->
+
 </UserControl>

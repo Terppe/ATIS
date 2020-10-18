@@ -40,13 +40,13 @@ namespace ATIS.Ui.Views.Database.D15Subdivision
                     }));
             }
         }
-        private void TbSearchDivision_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Tab || e.Key == Key.Enter)
-            {
-                BtnGet.Focus();
-                e.Handled = true;
-            }
-        }
+        //private void TbSearchDivision_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (e.Key == Key.Tab || e.Key == Key.Enter)
+        //    {
+        //        BtnGet.Focus();
+        //        e.Handled = true;
+        //    }
+        //}
     }
 }

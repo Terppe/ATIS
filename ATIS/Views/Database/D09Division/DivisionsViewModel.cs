@@ -55,33 +55,27 @@ namespace ATIS.Ui.Views.Database.D09Division
         //-------------------------------------------------------------------------
         private RelayCommand _clearDivisionCommand;
 
-        public ICommand ClearDivisionCommand => _clearDivisionCommand ??
-                                                  (_clearDivisionCommand = new RelayCommand(delegate { ClearDivision(null); }));
+        public ICommand ClearDivisionCommand => _clearDivisionCommand ??= new RelayCommand(delegate { ClearDivision(null); });
 
         private RelayCommand _getDivisionsByNameOrIdCommand;
 
-        public ICommand GetDivisionsByNameOrIdCommand => _getDivisionsByNameOrIdCommand ??
-                                                           (_getDivisionsByNameOrIdCommand = new RelayCommand(delegate { GetDivisionsByNameOrId(null); }));
+        public ICommand GetDivisionsByNameOrIdCommand => _getDivisionsByNameOrIdCommand ??= new RelayCommand(delegate { GetDivisionsByNameOrId(null); });
 
         private RelayCommand _addDivisionCommand;
 
-        public ICommand AddDivisionCommand => _addDivisionCommand ??
-                                                (_addDivisionCommand = new RelayCommand(delegate { AddDivision(null); }));
+        public ICommand AddDivisionCommand => _addDivisionCommand ??= new RelayCommand(delegate { AddDivision(null); });
 
         private RelayCommand _copyDivisionCommand;
 
-        public ICommand CopyDivisionCommand => _copyDivisionCommand ??
-                                                 (_copyDivisionCommand = new RelayCommand(delegate { CopyDivision(null); }));
+        public ICommand CopyDivisionCommand => _copyDivisionCommand ??= new RelayCommand(delegate { CopyDivision(null); });
 
         private RelayCommand _deleteDivisionCommand;
 
-        public ICommand DeleteDivisionCommand => _deleteDivisionCommand ??
-                                                   (_deleteDivisionCommand = new RelayCommand(delegate { DeleteDivision(null); }));
+        public ICommand DeleteDivisionCommand => _deleteDivisionCommand ??= new RelayCommand(delegate { DeleteDivision(null); });
 
         private RelayCommand _saveDivisionCommand;
 
-        public ICommand SaveDivisionCommand => _saveDivisionCommand ??
-                                                 (_saveDivisionCommand = new RelayCommand(delegate { SaveDivision(null); }));
+        public ICommand SaveDivisionCommand => _saveDivisionCommand ??= new RelayCommand(delegate { SaveDivision(null); });
         //-------------------------------------------------------------------------          
 
         private void ClearDivision(object o)
@@ -2053,8 +2047,7 @@ namespace ATIS.Ui.Views.Database.D09Division
         #region "Public Commands Connected Tables by DoubleClick"
 
         private RelayCommand _getConnectedTablesCommand;
-        public ICommand GetConnectedTablesCommand => _getConnectedTablesCommand ??
-                                                         (_getConnectedTablesCommand = new RelayCommand(delegate { GetConnectedTablesById(null); }));
+        public ICommand GetConnectedTablesCommand => _getConnectedTablesCommand ??= new RelayCommand(delegate { GetConnectedTablesById(null); });
 
         private void GetConnectedTablesById(object o)
         {
