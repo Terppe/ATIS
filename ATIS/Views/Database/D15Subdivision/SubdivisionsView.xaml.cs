@@ -16,11 +16,11 @@ using ATIS.Ui.Views.Database.D09Division;
 namespace ATIS.Ui.Views.Database.D15Subdivision
 {
     /// <summary>
-    /// Interaktionslogik für SubdivisionView.xaml
+    /// Interaktionslogik für SubdivisionsView.xaml
     /// </summary>
-    public partial class SubdivisionView : UserControl
+    public partial class SubdivisionsView : UserControl
     {
-        public SubdivisionView()
+        public SubdivisionsView()
         {
             DataContext = new DivisionsViewModel();
 

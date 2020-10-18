@@ -458,12 +458,12 @@
                             <main:HomeView />
                         </mah:HamburgerMenuIconItem.Tag>
                     </mah:HamburgerMenuIconItem>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Database}" Label="Database">
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Database}"  >
                         <mah:HamburgerMenuIconItem.Tag>
                             <main:DatabaseView />
                         </mah:HamburgerMenuIconItem.Tag>
                     </mah:HamburgerMenuIconItem>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Octicons Kind=Search}" Label="Search Quick">
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Octicons Kind=Search}"  >
                         <mah:HamburgerMenuIconItem.Tag>
                             <search:SearchQuickView />
                         </mah:HamburgerMenuIconItem.Tag>

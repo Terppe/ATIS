@@ -5,14 +5,22 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:d03Regnum="clr-namespace:ATIS.Ui.Views.Database.D03Regnum"
     xmlns:d06Phylum="clr-namespace:ATIS.Ui.Views.Database.D06Phylum"
+    xmlns:d09Division="clr-namespace:ATIS.Ui.Views.Database.D09Division"
+    xmlns:d12Subphylum="clr-namespace:ATIS.Ui.Views.Database.D12Subphylum"
+    xmlns:d15Subdivision="clr-namespace:ATIS.Ui.Views.Database.D15Subdivision"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:d09Division="clr-namespace:ATIS.Ui.Views.Database.D09Division"
-    xmlns:ui="clr-namespace:ATIS.Ui"
-    d:DesignHeight="450" Width="Auto"
+    Width="Auto"
+    d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <UserControl.Resources>
+        <DataTemplate DataType="{x:Type d15Subdivision:SubdivisionsViewModel}">
+            <d15Subdivision:SubdivisionsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d12Subphylum:SubphylumsViewModel}">
+            <d12Subphylum:SubphylumsView />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type d09Division:DivisionsViewModel}">
             <d09Division:DivisionsView />
         </DataTemplate>
@@ -100,7 +108,9 @@
                             mah:HeaderedControlHelper.HeaderFontSize="16"
                             mah:TabControlHelper.Underlined="TabPanel"
                             SelectedIndex="1">
-                            <TabItem Content="{Binding Tbl12SubphylumsView}" Header="{DynamicResource Database-MenuSubphylum}" />
+                            <TabItem Header="{DynamicResource Database-MenuSubphylum}">
+                                <d12Subphylum:SubphylumsViewModel />
+                            </TabItem>
                             <TabItem Header="{DynamicResource Database-MenuPhylum}">
                                 <d06Phylum:PhylumsViewModel />
                             </TabItem>
@@ -181,7 +191,7 @@
                             mah:TabControlHelper.Underlined="TabPanel"
                             SelectedIndex="1">
                             <TabItem Content="{Binding Tbl15SubdivisionsView}" Header="{DynamicResource Database-MenuSubdivision}" />
-                            <TabItem   Header="{DynamicResource Database-MenuDivision}">
+                            <TabItem Header="{DynamicResource Database-MenuDivision}">
                                 <d09Division:DivisionsViewModel />
                             </TabItem>
                         </TabControl>
