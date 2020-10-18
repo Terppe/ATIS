@@ -2261,6 +2261,10 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         public ICollectionView PhylumsView;
         private Tbl06Phylum CurrentTbl06Phylum => PhylumsView?.CurrentItem as Tbl06Phylum;
 
+  //      public ObservableCollection<Tbl06Phylum> Tbl06PhylumsList { get; set; }
+        public ObservableCollection<Tbl06Phylum> Tbl06PhylumsAllList { get; set; }
+
+
         private ObservableCollection<Tbl06Phylum> _tbl06PhylumsList;
         public ObservableCollection<Tbl06Phylum> Tbl06PhylumsList
         {
@@ -2268,12 +2272,12 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             set { _tbl06PhylumsList = value; RaisePropertyChanged(""); }
         }
 
-        private ObservableCollection<Tbl06Phylum> _tbl06PhylumsAllList;
-        public ObservableCollection<Tbl06Phylum> Tbl06PhylumsAllList
-        {
-            get => _tbl06PhylumsAllList;
-            set { _tbl06PhylumsAllList = value; RaisePropertyChanged(""); }
-        }
+        //private ObservableCollection<Tbl06Phylum> _tbl06PhylumsAllList;
+        //public ObservableCollection<Tbl06Phylum> Tbl06PhylumsAllList
+        //{
+        //    get => _tbl06PhylumsAllList;
+        //    set { _tbl06PhylumsAllList = value; RaisePropertyChanged(""); }
+        //}
 
         #endregion "Public Properties"   
 
@@ -2281,6 +2285,10 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         public ICollectionView RegnumsView;
         private Tbl03Regnum CurrentTbl03Regnum => RegnumsView?.CurrentItem as Tbl03Regnum;
+
+        //public ObservableCollection<Tbl03Regnum> Tbl03RegnumsList { get; set; }
+        //public ObservableCollection<Tbl03Regnum> Tbl03RegnumsAllList { get; set; }
+
 
         private ObservableCollection<Tbl03Regnum> _tbl03RegnumsList;
         public ObservableCollection<Tbl03Regnum> Tbl03RegnumsList
@@ -2303,6 +2311,9 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         public ICollectionView SubphylumsView;
         private Tbl12Subphylum CurrentTbl12Subphylum => SubphylumsView?.CurrentItem as Tbl12Subphylum;
 
+  //      public ObservableCollection<Tbl12Subphylum> Tbl12SubphylumsList { get; set; }
+
+
         private ObservableCollection<Tbl12Subphylum> _tbl12SubphylumsList;
         public ObservableCollection<Tbl12Subphylum> Tbl12SubphylumsList
         {
@@ -2316,6 +2327,9 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         public ICollectionView SuperclassesView;
         private Tbl18Superclass CurrentTbl18Superclass => SuperclassesView?.CurrentItem as Tbl18Superclass;
 
+     //   public ObservableCollection<Tbl18Superclass> Tbl18SuperclassesList { get; set; }
+
+
         private ObservableCollection<Tbl18Superclass> _tbl18SuperclassesList;
         public ObservableCollection<Tbl18Superclass> Tbl18SuperclassesList
         {
@@ -2325,6 +2339,8 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         #endregion "Public Properties"     
 
         #region "Public Properties Tbl90Author"
+
+    //    public ObservableCollection<Tbl90RefAuthor> Tbl90AuthorsAllList { get; set; }
 
         private ObservableCollection<Tbl90RefAuthor> _tbl90AuthorsAllList;
         public ObservableCollection<Tbl90RefAuthor> Tbl90AuthorsAllList
@@ -2337,6 +2353,8 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         #region "Public Properties Tbl90Source"
 
+    //    public ObservableCollection<Tbl90RefSource> Tbl90SourcesAllList { get; set; }
+
         private ObservableCollection<Tbl90RefSource> _tbl90SourcesAllList;
         public ObservableCollection<Tbl90RefSource> Tbl90SourcesAllList
         {
@@ -2347,6 +2365,8 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         #endregion "Public Properties "
 
         #region "Public Properties Tbl90Expert"
+
+    //    public ObservableCollection<Tbl90RefExpert> Tbl90ExpertsAllList { get; set; }
 
         private ObservableCollection<Tbl90RefExpert> _tbl90ExpertsAllList;
         public ObservableCollection<Tbl90RefExpert> Tbl90ExpertsAllList
@@ -2362,6 +2382,8 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         public ICollectionView ReferenceAuthorsView;
         private Tbl90Reference CurrentTbl90ReferenceAuthor => ReferenceAuthorsView?.CurrentItem as Tbl90Reference;
 
+    //    public ObservableCollection<Tbl90Reference> Tbl90ReferenceAuthorsList { get; set; }
+
         private ObservableCollection<Tbl90Reference> _tbl90ReferenceAuthorsList;
         public ObservableCollection<Tbl90Reference> Tbl90ReferenceAuthorsList
         {
@@ -2375,6 +2397,8 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         public ICollectionView ReferenceSourcesView;
         private Tbl90Reference CurrentTbl90ReferenceSource => ReferenceSourcesView?.CurrentItem as Tbl90Reference;
+
+     //   public ObservableCollection<Tbl90Reference> Tbl90ReferenceSourcesList { get; set; }
 
         private ObservableCollection<Tbl90Reference> _tbl90ReferenceSourcesList;
         public ObservableCollection<Tbl90Reference> Tbl90ReferenceSourcesList
@@ -2390,6 +2414,8 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         public ICollectionView ReferenceExpertsView;
         private Tbl90Reference CurrentTbl90ReferenceExpert => ReferenceExpertsView?.CurrentItem as Tbl90Reference;
 
+    //    public ObservableCollection<Tbl90Reference> Tbl90ReferenceExpertsList { get; set; }
+
         private ObservableCollection<Tbl90Reference> _tbl90ReferenceExpertsList;
         public ObservableCollection<Tbl90Reference> Tbl90ReferenceExpertsList
         {
@@ -2403,6 +2429,8 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         public ICollectionView CommentsView;
         private Tbl93Comment CurrentTbl93Comment => CommentsView?.CurrentItem as Tbl93Comment;
+
+     //   public ObservableCollection<Tbl93Comment> Tbl93CommentsList { get; set; }
 
         private ObservableCollection<Tbl93Comment> _tbl93CommentsList;
         public ObservableCollection<Tbl93Comment> Tbl93CommentsList

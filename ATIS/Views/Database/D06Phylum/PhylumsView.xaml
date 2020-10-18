@@ -8,7 +8,7 @@
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"
-    d:DesignHeight="450"
+    d:DesignHeight="700"
     d:DesignWidth="800"
     mc:Ignorable="d">
 
@@ -335,9 +335,10 @@
         </Grid.RowDefinitions>
 
 
-        <!--  Part 1   Creating Sub-Grid in Column 0  -->
 
         <StackPanel Grid.Row="0" Grid.Column="1" />
+
+        <!--  Part 1   Creating Sub-Grid in Column 0  -->
 
         <TabControl
             Grid.Row="0"
@@ -425,7 +426,7 @@
                             </StackPanel>
                         </GroupBox>
 
-                        <GroupBox>
+                        <GroupBox Height="Auto">
                             <ListView
                                 x:Name="Tbl06PhylumsList"
                                 IsSynchronizedWithCurrentItem="True"
@@ -499,6 +500,8 @@
             VerticalAlignment="Stretch"
             Background="Black"
             ShowsPreview="True" />
+
+        <!--  Part 2   FK1  aktuell  -->
 
         <ScrollViewer
             Grid.Row="0"
@@ -599,7 +602,7 @@
                 <!--  Part 4  TK1  aktuell  -->
 
 
-                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderSubdivisions}">
+                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderSubphylums}">
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                         <StackPanel>
                             <GroupBox>
@@ -917,7 +920,7 @@
             Background="Black"
             ShowsPreview="True" />
 
-        <!--  Part 2   FK1  aktuell  -->
+        <!--  Part 8 Splitter  -->
 
         <TabControl
             Grid.Row="2"
@@ -934,7 +937,7 @@
                                     Width="36"
                                     Height="36"
                                     Margin="4"
-                                    Command="{Binding SaveDivisionCommand}"
+                                    Command="{Binding SavePhylumCommand}"
                                     Foreground="{DynamicResource MahApps.Brushes.Accent}"
                                     Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
                                     <ToggleButton.ContentTemplate>
@@ -950,7 +953,7 @@
                                     Width="36"
                                     Height="36"
                                     Margin="4"
-                                    Command="{Binding CopyDivisionCommand}"
+                                    Command="{Binding CopyPhylumCommand}"
                                     Foreground="{DynamicResource MahApps.Brushes.Accent}"
                                     Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
                                     <ToggleButton.ContentTemplate>
@@ -966,7 +969,7 @@
                                     Width="36"
                                     Height="36"
                                     Margin="4"
-                                    Command="{Binding AddDivisionCommand}"
+                                    Command="{Binding AddPhylumCommand}"
                                     Foreground="{DynamicResource MahApps.Brushes.Accent}"
                                     Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
                                     <ToggleButton.ContentTemplate>
@@ -982,7 +985,7 @@
                                     Width="36"
                                     Height="36"
                                     Margin="4"
-                                    Command="{Binding DeleteDivisionCommand}"
+                                    Command="{Binding DeletePhylumCommand}"
                                     Foreground="{DynamicResource MahApps.Brushes.Accent}"
                                     Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
                                     <ToggleButton.ContentTemplate>
@@ -994,14 +997,13 @@
                                         </DataTemplate>
                                     </ToggleButton.ContentTemplate>
                                 </ToggleButton>
-
                             </StackPanel>
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <TextBox
                                     Width="300"
                                     Margin="5"
                                     HorizontalContentAlignment="Stretch"
-                                    mah:TextBoxHelper.ClearTextButton="True"
+                                    mah:TextBoxHelper.ClearTextButton="False"
                                     mah:TextBoxHelper.IsWaitingForData="True"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
                                     mah:TextBoxHelper.Watermark="{DynamicResource Tbl06Phylum-PhylumName}"
@@ -1038,7 +1040,7 @@
                                     IsSynchronizedWithCurrentItem="True"
                                     ItemsSource="{Binding Tbl03RegnumsAllList}"
                                     SelectedIndex="0"
-                                    SelectedValue="{Binding SelectedItem.(models:Tbl03Regnum.RegnumId), ElementName=Tbl09DivisionsList, Mode=TwoWay}"
+                                    SelectedValue="{Binding SelectedItem.(models:Tbl03Regnum.RegnumId), ElementName=Tbl06PhylumsList, Mode=TwoWay}"
                                     SelectedValuePath="RegnumId"
                                     Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                     VirtualizingStackPanel.IsVirtualizing="True" />
@@ -1056,6 +1058,7 @@
 
                                 <TextBox
                                     Width="80"
+                                    Margin="5"
                                     HorizontalContentAlignment="Stretch"
                                     mah:TextBoxHelper.ClearTextButton="False"
                                     mah:TextBoxHelper.IsWaitingForData="True"
@@ -1088,7 +1091,7 @@
                                         mah:TextBoxHelper.ClearTextButton="False"
                                         mah:TextBoxHelper.IsWaitingForData="True"
                                         mah:TextBoxHelper.UseFloatingWatermark="True"
-                                        mah:TextBoxHelper.Watermark="{DynamicResource Tbl06Phylum-PhylumName}"
+                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-Synonym}"
                                         mah:TextBoxHelper.WatermarkAlignment="Left"
                                         AcceptsReturn="True"
                                         FontWeight="Medium"
@@ -1102,8 +1105,17 @@
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <TextBox
                                     Width="600"
-                                    Margin="5,0,0,0"
-                                    CharacterCasing="Upper">
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.ClearTextButton="False"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    CharacterCasing="Upper"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="Author">
                                     <TextBox.Text>
                                         <Binding
                                             ElementName="Tbl06PhylumsList"
@@ -1114,8 +1126,16 @@
                                 </TextBox>
                                 <TextBox
                                     Width="135"
-                                    Margin="25,0,0,0"
-                                    FontWeight="Medium">
+                                    Margin="25"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.ClearTextButton="False"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-AuthorYear}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="Author Year">
                                     <TextBox.Text>
                                         <Binding
                                             ElementName="Tbl06PhylumsList"
@@ -1128,8 +1148,16 @@
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <TextBox
                                     Width="760"
-                                    Margin="5,0,0,0"
-                                    FontWeight="Medium">
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.ClearTextButton="False"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Info}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="Info">
                                     <TextBox.Text>
                                         <Binding
                                             ElementName="Tbl06PhylumsList"
@@ -1140,7 +1168,18 @@
                                 </TextBox>
                             </StackPanel>
                             <StackPanel Height="Auto" Orientation="Horizontal">
-                                <TextBox Width="367" Margin="5,0,0,0">
+                                <TextBox
+                                    Width="367"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.ClearTextButton="False"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-EngName}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="English name">
                                     <TextBox.Text>
                                         <Binding
                                             ElementName="Tbl06PhylumsList"
@@ -1149,7 +1188,18 @@
                                             UpdateSourceTrigger="PropertyChanged" />
                                     </TextBox.Text>
                                 </TextBox>
-                                <TextBox Width="367" Margin="25,0,0,0">
+                                <TextBox
+                                    Width="367"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.ClearTextButton="False"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-GerName}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="German name">
                                     <TextBox.Text>
                                         <Binding
                                             ElementName="Tbl06PhylumsList"
@@ -1160,7 +1210,18 @@
                                 </TextBox>
                             </StackPanel>
                             <StackPanel Height="Auto" Orientation="Horizontal">
-                                <TextBox Width="367" Margin="5,0,0,0">
+                                <TextBox
+                                    Width="367"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.ClearTextButton="False"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-FraName}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="French name">
                                     <TextBox.Text>
                                         <Binding
                                             ElementName="Tbl06PhylumsList"
@@ -1169,7 +1230,19 @@
                                             UpdateSourceTrigger="PropertyChanged" />
                                     </TextBox.Text>
                                 </TextBox>
-                                <TextBox Width="367" Margin="25,0,0,0">
+                                <TextBox
+                                    Width="367"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.ClearTextButton="False"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-SpaName}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="Spanish name">
+
                                     <TextBox.Text>
                                         <Binding
                                             ElementName="Tbl06PhylumsList"
@@ -1196,9 +1269,9 @@
                                         mah:TextBoxHelper.UseFloatingWatermark="True"
                                         mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
                                         mah:TextBoxHelper.WatermarkAlignment="Left"
+                                        AcceptsReturn="True"
                                         FontWeight="Medium"
                                         SpellCheck.IsEnabled="True"
-                                        AcceptsReturn="True"
                                         Text="{Binding SelectedItem.(models:Tbl06Phylum.Memo), ElementName=Tbl06PhylumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         TextWrapping="Wrap"
                                         VerticalScrollBarVisibility="Auto" />
@@ -1221,12 +1294,28 @@
                                 <StackPanel Margin="0,0,5,0">
                                     <StackPanel Height="Auto" Orientation="Horizontal">
 
-                                        <Button
+                                        <!--<Button
                                             Margin="0,0,0,0"
                                             HorizontalAlignment="Left"
                                             Command="{Binding SaveRegnumCommand}"
                                             Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                            ToolTip="{DynamicResource Shared-ButtonSave}" />
+                                            ToolTip="{DynamicResource Shared-ButtonSave}" />-->
+                                        <ToggleButton
+                                            Width="36"
+                                            Height="36"
+                                            Margin="4"
+                                            Command="{Binding SaveRegnumCommand}"
+                                            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                            Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                            <ToggleButton.ContentTemplate>
+                                                <DataTemplate>
+                                                    <iconPacks:PackIconModern
+                                                        Width="20"
+                                                        Height="20"
+                                                        Kind="Save" />
+                                                </DataTemplate>
+                                            </ToggleButton.ContentTemplate>
+                                        </ToggleButton>
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
@@ -1397,18 +1486,17 @@
                         <!--  Part 8.2 TK1 Connected  -->
 
 
-                        <TabItem FontWeight="Medium" Header="{DynamicResource Tbl15Subdivision-Subdivision}">
+                        <TabItem FontWeight="Medium" Header="{DynamicResource Tbl12Subphylum-Subphylum}">
                             <GroupBox>
                                 <StackPanel Margin="0,0,5,0">
                                     <StackPanel Height="Auto" Orientation="Horizontal">
 
-                                        <Button
+                                        <!--<Button
                                             Margin="0,0,0,0"
                                             HorizontalAlignment="Left"
                                             Command="{Binding SaveSubdivisionCommand}"
                                             Style="{StaticResource MahApps.Styles.Button.Flat}"
                                             ToolTip="{DynamicResource Shared-ButtonSave}" />
-
                                         <Button
                                             Margin="0,0,0,0"
                                             HorizontalAlignment="Left"
@@ -1426,8 +1514,71 @@
                                             HorizontalAlignment="Left"
                                             Command="{Binding DeleteSubdivisionCommand}"
                                             Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                            ToolTip="{DynamicResource Shared-ActionLnkDelete}" />
-
+                                            ToolTip="{DynamicResource Shared-ActionLnkDelete}" />-->
+                                        <ToggleButton
+                                            Width="36"
+                                            Height="36"
+                                            Margin="4"
+                                            Command="{Binding SaveSubphylumCommand}"
+                                            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                            Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                            <ToggleButton.ContentTemplate>
+                                                <DataTemplate>
+                                                    <iconPacks:PackIconModern
+                                                        Width="20"
+                                                        Height="20"
+                                                        Kind="Save" />
+                                                </DataTemplate>
+                                            </ToggleButton.ContentTemplate>
+                                        </ToggleButton>
+                                        <ToggleButton
+                                            Width="36"
+                                            Height="36"
+                                            Margin="4"
+                                            Command="{Binding CopySubphylumCommand}"
+                                            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                            Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                            <ToggleButton.ContentTemplate>
+                                                <DataTemplate>
+                                                    <iconPacks:PackIconModern
+                                                        Width="20"
+                                                        Height="20"
+                                                        Kind="PageCopy" />
+                                                </DataTemplate>
+                                            </ToggleButton.ContentTemplate>
+                                        </ToggleButton>
+                                        <ToggleButton
+                                            Width="36"
+                                            Height="36"
+                                            Margin="4"
+                                            Command="{Binding AddSubphylumCommand}"
+                                            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                            Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                            <ToggleButton.ContentTemplate>
+                                                <DataTemplate>
+                                                    <iconPacks:PackIconModern
+                                                        Width="20"
+                                                        Height="20"
+                                                        Kind="Add" />
+                                                </DataTemplate>
+                                            </ToggleButton.ContentTemplate>
+                                        </ToggleButton>
+                                        <ToggleButton
+                                            Width="36"
+                                            Height="36"
+                                            Margin="4"
+                                            Command="{Binding DeleteSubphylumCommand}"
+                                            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                            Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                            <ToggleButton.ContentTemplate>
+                                                <DataTemplate>
+                                                    <iconPacks:PackIconModern
+                                                        Width="20"
+                                                        Height="20"
+                                                        Kind="Delete" />
+                                                </DataTemplate>
+                                            </ToggleButton.ContentTemplate>
+                                        </ToggleButton>
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
@@ -1436,9 +1587,9 @@
                                             FontWeight="Medium">
                                             <TextBox.Text>
                                                 <Binding
-                                                    ElementName="Tbl15SubdivisionsList"
+                                                    ElementName="Tbl12SubphylumsList"
                                                     Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl15Subdivision.SubdivisionName)"
+                                                    Path="SelectedItem.(models:Tbl12Subphylum.SubphylumName)"
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
@@ -1450,7 +1601,7 @@
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Shared-Valid}"
                                             FontWeight="Normal"
-                                            IsChecked="{Binding SelectedItem.(models:Tbl15Subdivision.Valid), ElementName=Tbl15SubdivisionsList}"
+                                            IsChecked="{Binding SelectedItem.(models:Tbl12Subphylum.Valid), ElementName=Tbl12SubphylumsList}"
                                             Style="{StaticResource MahApps.Styles.CheckBox}" />
                                         <TextBox
                                             Width="135"
@@ -1458,9 +1609,9 @@
                                             FontWeight="Medium">
                                             <TextBox.Text>
                                                 <Binding
-                                                    ElementName="Tbl15SubdivisionsList"
+                                                    ElementName="Tbl12SubphylumsList"
                                                     Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl15Subdivision.ValidYear)"
+                                                    Path="SelectedItem.(models:Tbl12Subphylum.ValidYear)"
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
@@ -1478,7 +1629,7 @@
                                                 AcceptsReturn="True"
                                                 FontWeight="Medium"
                                                 Style="{StaticResource MahApps.Styles.TextBox}"
-                                                Text="{Binding SelectedItem.(models:Tbl15Subdivision.Synonym), ElementName=Tbl15SubdivisionsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                Text="{Binding SelectedItem.(models:Tbl12Subphylum.Synonym), ElementName=Tbl12SubphylumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 TextWrapping="Wrap"
                                                 VerticalScrollBarVisibility="Auto" />
                                         </ScrollViewer>
@@ -1491,9 +1642,9 @@
                                             FontWeight="Medium">
                                             <TextBox.Text>
                                                 <Binding
-                                                    ElementName="Tbl15SubdivisionsList"
+                                                    ElementName="Tbl12SubphylumsList"
                                                     Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl15Subdivision.Author)"
+                                                    Path="SelectedItem.(models:Tbl12Subphylum.Author)"
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
@@ -1503,9 +1654,9 @@
                                             FontWeight="Medium">
                                             <TextBox.Text>
                                                 <Binding
-                                                    ElementName="Tbl15SubdivisionsList"
+                                                    ElementName="Tbl12SubphylumsList"
                                                     Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl15Subdivision.AuthorYear)"
+                                                    Path="SelectedItem.(models:Tbl12Subphylum.AuthorYear)"
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
@@ -1517,9 +1668,9 @@
                                             FontWeight="Medium">
                                             <TextBox.Text>
                                                 <Binding
-                                                    ElementName="Tbl15SubdivisionsList"
+                                                    ElementName="Tbl12SubphylumsList"
                                                     Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl15Subdivision.Info)"
+                                                    Path="SelectedItem.(models:Tbl12Subphylum.Info)"
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
@@ -1528,18 +1679,18 @@
                                         <TextBox Width="368" Margin="5,0,0,0">
                                             <TextBox.Text>
                                                 <Binding
-                                                    ElementName="Tbl15SubdivisionsList"
+                                                    ElementName="Tbl12SubphylumsList"
                                                     Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl15Subdivision.EngName)"
+                                                    Path="SelectedItem.(models:Tbl12Subphylum.EngName)"
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
                                         <TextBox Width="367" Margin="25,0,0,0">
                                             <TextBox.Text>
                                                 <Binding
-                                                    ElementName="Tbl15SubdivisionsList"
+                                                    ElementName="Tbl12SubphylumsList"
                                                     Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl15Subdivision.GerName)"
+                                                    Path="SelectedItem.(models:Tbl12Subphylum.GerName)"
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
@@ -1548,18 +1699,18 @@
                                         <TextBox Width="368" Margin="5,0,0,0">
                                             <TextBox.Text>
                                                 <Binding
-                                                    ElementName="Tbl15SubdivisionsList"
+                                                    ElementName="Tbl12SubphylumsList"
                                                     Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl15Subdivision.FraName)"
+                                                    Path="SelectedItem.(models:Tbl12Subphylum.FraName)"
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
                                         <TextBox Width="367" Margin="25,0,0,0">
                                             <TextBox.Text>
                                                 <Binding
-                                                    ElementName="Tbl15SubdivisionsList"
+                                                    ElementName="Tbl12SubphylumsList"
                                                     Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl15Subdivision.PorName)"
+                                                    Path="SelectedItem.(models:Tbl12Subphylum.PorName)"
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
@@ -1578,7 +1729,7 @@
                                                 AcceptsReturn="True"
                                                 FontWeight="Medium"
                                                 Style="{StaticResource MahApps.Styles.TextBox}"
-                                                Text="{Binding SelectedItem.(models:Tbl15Subdivision.Memo), ElementName=Tbl15SubdivisionsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                Text="{Binding SelectedItem.(models:Tbl12Subphylum.Memo), ElementName=Tbl12SubphylumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 TextWrapping="Wrap"
                                                 VerticalScrollBarVisibility="Auto" />
                                         </ScrollViewer>
@@ -1616,7 +1767,7 @@
                                             <StackPanel Margin="0,8,5,0">
                                                 <StackPanel Height="Auto" Orientation="Horizontal">
 
-                                                    <Button
+                                                    <!--<Button
                                                         Margin="0,0,0,0"
                                                         HorizontalAlignment="Left"
                                                         Command="{Binding SaveReferenceExpertCommand}"
@@ -1639,19 +1790,86 @@
                                                         HorizontalAlignment="Left"
                                                         Command="{Binding DeleteReferenceExpertCommand}"
                                                         Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                        ToolTip="{DynamicResource Shared-ActionLnkDelete}" />
+                                                        ToolTip="{DynamicResource Shared-ActionLnkDelete}" />-->
+                                                    <ToggleButton
+                                                        Width="36"
+                                                        Height="36"
+                                                        Margin="4"
+                                                        Command="{Binding SaveReferenceExpertCommand}"
+                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                                        Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                                        <ToggleButton.ContentTemplate>
+                                                            <DataTemplate>
+                                                                <iconPacks:PackIconModern
+                                                                    Width="20"
+                                                                    Height="20"
+                                                                    Kind="Save" />
+                                                            </DataTemplate>
+                                                        </ToggleButton.ContentTemplate>
+                                                    </ToggleButton>
+                                                    <ToggleButton
+                                                        Width="36"
+                                                        Height="36"
+                                                        Margin="4"
+                                                        Command="{Binding CopyReferenceExpertCommand}"
+                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                                        Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                                        <ToggleButton.ContentTemplate>
+                                                            <DataTemplate>
+                                                                <iconPacks:PackIconModern
+                                                                    Width="20"
+                                                                    Height="20"
+                                                                    Kind="PageCopy" />
+                                                            </DataTemplate>
+                                                        </ToggleButton.ContentTemplate>
+                                                    </ToggleButton>
+                                                    <ToggleButton
+                                                        Width="36"
+                                                        Height="36"
+                                                        Margin="4"
+                                                        Command="{Binding AddReferenceExpertCommand}"
+                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                                        Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                                        <ToggleButton.ContentTemplate>
+                                                            <DataTemplate>
+                                                                <iconPacks:PackIconModern
+                                                                    Width="20"
+                                                                    Height="20"
+                                                                    Kind="Add" />
+                                                            </DataTemplate>
+                                                        </ToggleButton.ContentTemplate>
+                                                    </ToggleButton>
+                                                    <ToggleButton
+                                                        Width="36"
+                                                        Height="36"
+                                                        Margin="4"
+                                                        Command="{Binding DeleteReferenceExpertCommand}"
+                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                                        Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                                        <ToggleButton.ContentTemplate>
+                                                            <DataTemplate>
+                                                                <iconPacks:PackIconModern
+                                                                    Width="20"
+                                                                    Height="20"
+                                                                    Kind="Delete" />
+                                                            </DataTemplate>
+                                                        </ToggleButton.ContentTemplate>
+                                                    </ToggleButton>
                                                 </StackPanel>
                                                 <StackPanel Height="Auto" Orientation="Horizontal">
                                                     <ComboBox
                                                         Width="500"
                                                         Margin="5,0,0,0"
+                                                        mah:TextBoxHelper.ClearTextButton="False"
+                                                        mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                        mah:TextBoxHelper.Watermark="Please select Expert ..."
                                                         VerticalAlignment="Bottom"
                                                         DisplayMemberPath="RefExpertName"
                                                         IsSynchronizedWithCurrentItem="True"
                                                         ItemContainerStyle="{StaticResource MahApps.Styles.ComboBox}"
                                                         ItemsSource="{Binding Tbl90ExpertsAllList}"
                                                         SelectedValue="{Binding SelectedItem.(models:Tbl90RefExpert.RefExpertId), ElementName=Tbl90ReferenceExpertsList, Mode=TwoWay}"
-                                                        SelectedValuePath="RefExpertID"
+                                                        SelectedValuePath="RefExpertId"
                                                         Style="{StaticResource MahApps.Styles.ComboBox}"
                                                         VirtualizingStackPanel.IsVirtualizing="True" />
                                                 </StackPanel>
@@ -1731,12 +1949,15 @@
                                                     <ComboBox
                                                         Width="760"
                                                         Margin="5,0,0,0"
+                                                        mah:TextBoxHelper.ClearTextButton="False"
+                                                        mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                        mah:TextBoxHelper.Watermark="Please select Source ..."
                                                         VerticalAlignment="Bottom"
                                                         IsSynchronizedWithCurrentItem="True"
                                                         ItemContainerStyle="{StaticResource MahApps.Styles.ComboBox}"
                                                         ItemsSource="{Binding Tbl90SourcesAllList}"
                                                         SelectedValue="{Binding SelectedItem.(models:Tbl90RefSource.RefSourceId), ElementName=Tbl90ReferenceSourcesList, Mode=TwoWay}"
-                                                        SelectedValuePath="RefSourceID"
+                                                        SelectedValuePath="RefSourceId"
                                                         Style="{StaticResource MahApps.Styles.ComboBox}"
                                                         VirtualizingStackPanel.IsVirtualizing="True">
                                                         <ComboBox.ItemTemplate>
@@ -1834,6 +2055,9 @@
                                                     <ComboBox
                                                         Width="760"
                                                         Margin="5,0,0,0"
+                                                        mah:TextBoxHelper.ClearTextButton="False"
+                                                        mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                        mah:TextBoxHelper.Watermark="Please select Author ..."
                                                         VerticalAlignment="Bottom"
                                                         IsSynchronizedWithCurrentItem="True"
                                                         ItemContainerStyle="{StaticResource MahApps.Styles.ComboBox}"
@@ -1914,12 +2138,6 @@
                             <GroupBox>
                                 <StackPanel Margin="0,8,5,0">
                                     <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <!--<Button
-                                            Margin="0,0,0,0"
-                                            HorizontalAlignment="Left"
-                                            Command="{Binding SaveCommentCommand}"
-                                            Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                            ToolTip="{DynamicResource Shared-ButtonSave}" />-->
 
                                         <ToggleButton
                                             Width="48"
@@ -1938,12 +2156,6 @@
                                             </ToggleButton.ContentTemplate>
                                         </ToggleButton>
 
-                                        <!--<Button
-                                            Margin="0,0,0,0"
-                                            HorizontalAlignment="Left"
-                                            Command="{Binding CopyCommentCommand}"
-                                            Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                            ToolTip="{DynamicResource Shared-ActionLnkCopy}" />-->
 
                                         <ToggleButton
                                             Width="48"
@@ -1962,12 +2174,6 @@
                                             </ToggleButton.ContentTemplate>
                                         </ToggleButton>
 
-                                        <!--<Button
-                                            Margin="0,0,0,0"
-                                            HorizontalAlignment="Left"
-                                            Command="{Binding AddCommentCommand}"
-                                            Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                            ToolTip="{DynamicResource Shared-ActionLnkCreate}" />-->
 
                                         <ToggleButton
                                             Width="48"
@@ -1986,12 +2192,6 @@
                                             </ToggleButton.ContentTemplate>
                                         </ToggleButton>
 
-                                        <!--<Button
-                                            Margin="0,0,0,0"
-                                            HorizontalAlignment="Left"
-                                            Command="{Binding DeleteCommentCommand}"
-                                            Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                            ToolTip="{DynamicResource Shared-ActionLnkDelete}" />-->
 
                                         <ToggleButton
                                             Width="48"
@@ -2053,7 +2253,6 @@
                                 </StackPanel>
                             </GroupBox>
                         </TabItem>
-
                     </TabControl>
                 </GroupBox>
             </TabItem>
@@ -2064,50 +2263,5 @@
             Grid.Row="2"
             Grid.Column="0"
             Grid.ColumnSpan="3" />
-
-        <!--<GridSplitter
-                Grid.Row="1"
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
-                Height="5"
-                HorizontalAlignment="Stretch"
-                Background="Black"
-                ResizeDirection="Rows" />-->
-
-        <!--<GridSplitter
-                Grid.Row="0"
-                Grid.RowSpan="2"
-                Grid.Column="1"
-                Width="5"
-                HorizontalAlignment="Stretch"
-                Background="Black"
-                ResizeDirection="Columns"
-                ShowsPreview="False" />-->
-
     </Grid>
-
-
-    <!--  Part 8 Splitter  -->
-
-
-    <!--  Creating Sub-Grid in Column 2  -->
-
-    <!--<GridSplitter
-            Grid.Row="0"
-            Grid.Column="0"
-            Grid.ColumnSpan="2"
-            Height="5"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Center"
-            Background="Black"
-            ResizeDirection="Rows" />-->
-
-    <!--<GridSplitter
-            Grid.Row="0"
-            Grid.Column="0" ShowsPreview="False"  Background="Black"
-            Grid.ColumnSpan="3"
-            Height="5"
-            HorizontalAlignment="Stretch"
-            ResizeDirection="Columns" />-->
-
 </UserControl>
