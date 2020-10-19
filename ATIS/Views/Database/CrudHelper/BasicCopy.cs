@@ -42,6 +42,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             collection.Insert(0, new Tbl06Phylum
             {
                 PhylumName = CultRes.StringsRes.DatasetNew,
+                RegnumId = phylum.RegnumId,
                 Valid = phylum.Valid,
                 ValidYear = phylum.ValidYear,
                 Synonym = phylum.Synonym,

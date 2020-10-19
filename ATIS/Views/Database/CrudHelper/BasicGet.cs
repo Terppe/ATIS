@@ -65,6 +65,30 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             return collection;
         }
 
+        public ObservableCollection<T> AllCollection<T>(string name)
+        {
+            var collection = new ObservableCollection<T>();
+
+            switch (name)
+            {
+                case "regnum":
+                    collection = RegnumAllCollection<T>();
+                    break;
+                case "phylum":
+                    collection = PhylumAllCollection<T>();
+                    break;
+                case "expert":
+                case "source":
+                case "author":
+                    collection = ReferenceAllCollection<T>();
+                    break;
+                case "comment":
+                    collection = CommentAllCollection<T>();
+                    break;
+            }
+            return collection;
+        }
+
         //-----------------------Regnum---------------------------------
         private ObservableCollection<T> RegnumAllCollection<T>()
         {

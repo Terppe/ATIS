@@ -30,6 +30,13 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly AtisDbContext _context = new AtisDbContext();
 
+        private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
+        private readonly GenericMessageBoxes<Tbl06Phylum> _genPhylumMessageBoxes = new GenericMessageBoxes<Tbl06Phylum>();
+        private readonly GenericMessageBoxes<Tbl03Regnum> _genRegnumMessageBoxes = new GenericMessageBoxes<Tbl03Regnum>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genExpertMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
         private readonly BasicGet _extGet = new BasicGet();
         private readonly BasicCopy _extCopy = new BasicCopy();
         private readonly BasicDelete _extDelete = new BasicDelete();
@@ -50,12 +57,41 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             else
             {
 
+                LoadCollections();
+
                 // Code runs "for real" 
                 //          _entityException = new DbEntityException();
             }
         }
 
         public bool IsInDesignMode { get; set; }
+
+        private void LoadCollections()
+        {
+            //Tbl03RegnumsAllList = new ObservableCollection<Tbl03Regnum>(_context.Tbl03Regnums
+            //    .OrderBy(a => a.RegnumName)
+            //    .ThenBy(a => a.Subregnum));
+            //RegnumsAllCollection = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums.GetAll());
+            //PhylumsAllCollection = new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums.GetAll());
+            //DivisionsAllCollection = new ObservableCollection<Tbl09Division>(_uow.Tbl09Divisions.GetAll());
+
+            //RegnumsCollection = new ObservableCollection<Tbl03Regnum>();
+            Tbl06PhylumsList = new ObservableCollection<Tbl06Phylum>();
+            //DivisionsCollection = new ObservableCollection<Tbl09Division>();
+            //SubphylumsCollection = new ObservableCollection<Tbl12Subphylum>();
+            //SubdivisionsCollection = new ObservableCollection<Tbl15Subdivision>();
+            //ReferencesCollection = new ObservableCollection<Tbl90Reference>();
+            //ReferenceExpertsCollection = new ObservableCollection<Tbl90Reference>();
+            //ReferenceSourcesCollection = new ObservableCollection<Tbl90Reference>();
+            //ReferenceAuthorsCollection = new ObservableCollection<Tbl90Reference>();
+            //ExpertsCollection = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+            //SourcesCollection = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+            //AuthorsCollection = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+
+            //CommentsCollection = new ObservableCollection<Tbl93Comment>();
+            //TabIndexDetail = 1;
+
+        }
 
         #endregion "Constructor"
 
@@ -73,28 +109,19 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         //public ICommand ClearPhylumCommand => _clearPhylumCommand ??= new RelayCommand(delegate { ClearPhylum(null); });
 
         private RelayCommand _getPhylumsByNameOrIdCommand;
-
-        public ICommand GetPhylumsByNameOrIdCommand => _getPhylumsByNameOrIdCommand ??=
-            new RelayCommand(delegate { GetPhylumsByNameOrId(SearchPhylumName); });
+        public ICommand GetPhylumsByNameOrIdCommand => _getPhylumsByNameOrIdCommand ??= new RelayCommand(delegate { ExecuteGetPhylumsByNameOrId(SearchPhylumName); });
 
         private RelayCommand _addPhylumCommand;
-
-        public ICommand AddPhylumCommand => _addPhylumCommand ??= new RelayCommand(delegate { AddPhylum(null); });
+        public ICommand AddPhylumCommand => _addPhylumCommand ??= new RelayCommand(delegate { ExecuteAddPhylum(null); });
 
         private RelayCommand _copyPhylumCommand;
-
-        //public ICommand CopyPhylumCommand => _copyPhylumCommand ??
-        //                                         (_copyPhylumCommand = new RelayCommand(delegate { CopyPhylum(null); }));
+        public ICommand CopyPhylumCommand => _copyPhylumCommand ??= new RelayCommand(delegate { ExecuteCopyPhylum(null); });
 
         private RelayCommand _deletePhylumCommand;
-
-        //public ICommand DeletePhylumCommand => _deletePhylumCommand ??
-        //                                           (_deletePhylumCommand = new RelayCommand(delegate { DeletePhylum(null); }));
+        public ICommand DeletePhylumCommand => _deletePhylumCommand ??= new RelayCommand(delegate { ExecuteDeletePhylum(SearchPhylumName); });
 
         private RelayCommand _savePhylumCommand;
-
-        //public ICommand SavePhylumCommand => _savePhylumCommand ??
-        //                                         (_savePhylumCommand = new RelayCommand(delegate { SavePhylum(null); }));
+        public ICommand SavePhylumCommand => _savePhylumCommand ??= new RelayCommand(delegate { ExecuteSavePhylum(SearchPhylumName); });
 
         #endregion [Commands Phylum]
 
@@ -122,56 +149,9 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         }
         //----------------------------------------------------------------------                  
 
-        private void GetPhylumsByNameOrId(string searchName)
+        private void ExecuteGetPhylumsByNameOrId(string searchName)
         {
-            //if (SearchPhylumName != "")
-            //{
-            //    Tbl06PhylumsList?.Clear();
-            //    if (SearchPhylumName == "*") // show whole table
-            //    {
-            //        SearchPhylumName = "";
-            //        //        _businessLayer = new BusinessLayer.BusinessLayer();
-            //        //     Tbl03RegnumsAllList = new ObservableCollection<Tbl03Regnum>(_businessLayer.ListTbl03Regnums());
-            //        Tbl03RegnumsAllList = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums.GetAll());
-
-            //        //  Tbl06PhylumsList = new ObservableCollection<Tbl06Phylum>(_businessLayer.ListTbl06PhylumsByPhylumName(SearchPhylumName));
-            //        Tbl06PhylumsList = _extGet.SearchNameAndIdReturnCollection<Tbl06Phylum>(SearchPhylumName, "phylum");
-            //        SearchPhylumName = "*";
-            //    }
-            //    else
-            //    {
-            //        //      _businessLayer = new BusinessLayer.BusinessLayer();
-            //        //     Tbl03RegnumsAllList = new ObservableCollection<Tbl03Regnum>(_businessLayer.ListTbl03Regnums());
-            //        Tbl03RegnumsAllList = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums.GetAll());
-            //        Tbl06PhylumsList = int.TryParse(SearchPhylumName, out var id)
-            //            ? new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums
-            //                .Find(e => e.PhylumId == id))
-            //            : new ObservableCollection<Tbl06Phylum>(
-            //                _uow.Tbl06Phylums.ListTbl06PhylumsOnlyAnimaliaOrderBy(SearchPhylumName));
-            //    }
-
-            //    if (Tbl06PhylumsList.Count == 0)
-            //    {
-            //        MessageBox.Show(CultRes.StringsRes.Tables, CultRes.StringsRes.DatasetNot,
-            //            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-            //    }
-            //    else
-            //    {
-            //        Tbl03RegnumsList?.Clear();
-            //        Tbl12SubphylumsList?.Clear();
-            //        Tbl90ReferenceExpertsList?.Clear();
-            //        Tbl90ReferenceSourcesList?.Clear();
-            //        Tbl90ReferenceAuthorsList?.Clear();
-            //        Tbl93CommentsList?.Clear();
-            //    }
-            //}
-            //else
-            //{
-            //    Tbl06PhylumsList = new ObservableCollection<Tbl06Phylum>();
-
-            //    MessageBox.Show(CultRes.StringsRes.SearchNameOrId, CultRes.StringsRes.InputRequested,
-            //        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-            //}
+            Tbl03RegnumsAllList = _extGet.AllCollection<Tbl03Regnum>("regnum");
 
             Tbl06PhylumsList = _extGet.SearchNameAndIdReturnCollection<Tbl06Phylum>(SearchPhylumName, "phylum");
 
@@ -180,315 +160,136 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         }
         //------------------------------------------------------------------------------------                          
 
-        private void AddPhylum(object o)
+        private void ExecuteAddPhylum(object o)
         {
-            if (Tbl06PhylumsList == null)
-                Tbl06PhylumsList = new ObservableCollection<Tbl06Phylum>();
-
             Tbl06PhylumsList.Insert(0, new Tbl06Phylum {PhylumName = CultRes.StringsRes.DatasetNew});
 
-            //_businessLayer = new BusinessLayer.BusinessLayer();
-            //Tbl03RegnumsAllList = new ObservableCollection<Tbl03Regnum>(_businessLayer.ListTbl03Regnums());
-            Tbl03RegnumsAllList = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums.GetAll());
+            Tbl03RegnumsAllList = _extGet.AllCollection<Tbl03Regnum>("regnum");
 
             PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
             PhylumsView.MoveCurrentToFirst();
         }
         //------------------------------------------------------------------------------------                               
 
-        //private void CopyPhylum(object o)
-        //{
-        //    if (CurrentTbl06Phylum == null)
-        //    {
-        //        MessageBox.Show(CultRes.StringsRes.DatasetNew,
-        //            CultRes.StringsRes.RequiredInput,
-        //            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //        return;
-        //    }
-        //    _businessLayer = new BusinessLayer.BusinessLayer();
+        private void ExecuteCopyPhylum(object o)
+        {
+            if (_genPhylumMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl06Phylum)) return;
 
-        //    var phylum = _businessLayer.SingleListTbl06PhylumsByPhylumId(CurrentTbl06Phylum.PhylumId);
+            Tbl06PhylumsList = _extCopy.CopyPhylum(CurrentTbl06Phylum);
 
-        //    Tbl06PhylumsList.Insert(0, new Tbl06Phylum
-        //    {
-        //        RegnumId = phylum.RegnumID,
-        //        PhylumName = CultRes.StringsRes.DatasetNew,
-        //        Valid = phylum.Valid,
-        //        ValidYear = phylum.ValidYear,
-        //        Synonym = phylum.Synonym,
-        //        Author = phylum.Author,
-        //        AuthorYear = phylum.AuthorYear,
-        //        Info = phylum.Info,
-        //        EngName = phylum.EngName,
-        //        GerName = phylum.GerName,
-        //        FraName = phylum.FraName,
-        //        PorName = phylum.PorName,
-        //        Memo = phylum.Memo
-        //    });
+            // evtl verbundene tabellen-Datensätze auch kopieren Expert, Source, Author und Comment
 
-        //    PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
-        //    PhylumsView.MoveCurrentToFirst();
-        //}
+            PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
+            PhylumsView.MoveCurrentToFirst();
+        }
         //---------------------------------------------------------------------------------------                            
 
-        //private void DeletePhylum(object o)
-        //{
-        //    if (CurrentTbl06Phylum == null)
-        //    {
-        //        WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-        //            CultRes.StringsRes.RequiredInput,
-        //            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //        return;
-        //    }
-        //    _businessLayer = new BusinessLayer.BusinessLayer();
+        private void ExecuteDeletePhylum(string searchName)
+        {
+            if (_genPhylumMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl06Phylum)) return;
 
-        //    var ret = false;
-        //    //check if in Tbl12Subphylums connected datasets, than return
-        //    Tbl12SubphylumsList = new ObservableCollection<Tbl12Subphylum>(_businessLayer.ListTbl12SubphylumsByPhylumId(CurrentTbl06Phylum.PhylumID));
-        //    if (Tbl12SubphylumsList.Count != 0)
-        //    {
-        //        MessageBox.Show(CultRes.StringsRes.ConnectedTable, CultRes.StringsRes.Subphylum + " " + CultRes.StringsRes.ConnectedDataset,
-        //            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //        ret = true;
-        //    }
-        //    Tbl90ReferenceAuthorsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90ReferenceListRefAuthorsByPhylumId(CurrentTbl06Phylum.PhylumID));
-        //    if (Tbl90ReferenceAuthorsList.Count != 0)
-        //    {
-        //        MessageBox.Show(CultRes.StringsRes.ConnectedTable, CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ConnectedDataset,
-        //            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //        ret = true;
-        //    }
-        //    Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90ReferenceListRefSourcesByPhylumId(CurrentTbl06Phylum.PhylumID));
-        //    if (Tbl90ReferenceSourcesList.Count != 0)
-        //    {
-        //        MessageBox.Show(CultRes.StringsRes.ConnectedTable, CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ConnectedDataset,
-        //            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //        ret = true;
-        //    }
-        //    Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90ReferenceListRefExpertsByPhylumId(CurrentTbl06Phylum.PhylumID));
-        //    if (Tbl90ReferenceExpertsList.Count != 0)
-        //    {
-        //        MessageBox.Show(CultRes.StringsRes.ConnectedTable, CultRes.StringsRes.ReferenceExpert + " " + CultRes.StringsRes.ConnectedDataset,
-        //            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //        ret = true;
-        //    }
-        //    Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_businessLayer.ListTbl93CommentsByPhylumId(CurrentTbl06Phylum.PhylumID));
-        //    if (Tbl93CommentsList.Count != 0)
-        //    {
-        //        MessageBox.Show(CultRes.StringsRes.ConnectedTable, CultRes.StringsRes.Comment + " " + CultRes.StringsRes.ConnectedDataset,
-        //            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //        ret = true;
-        //    }
-        //    if (ret) return;
-        //    {
-        //        try
-        //        {
-        //            var phylum = _businessLayer.SingleListTbl06PhylumsByPhylumId(CurrentTbl06Phylum.PhylumID);
-        //            if (phylum != null)
-        //            {
-        //                if (MessageBox.Show(CultRes.StringsRes.DeleteQuestion1, CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl06Phylum.PhylumName,
-        //                        MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-        //                    return;
-        //                phylum.EntityState = EntityState.Deleted;
-        //                _businessLayer.RemovePhylum(phylum);
+            //check if in Tbl12Subphylums connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
+            Tbl12SubphylumsList = _extDelete.SearchForConnectedDatasetsWithPhylumIdInTableSubphylum(CurrentTbl06Phylum);
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl12SubphylumsList.Count, "Subphylum")) return;
 
-        //                MessageBox.Show(CultRes.StringsRes.DeleteSuccess, CurrentTbl06Phylum.PhylumName,
-        //                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //            }
-        //            else
-        //            {
-        //                MessageBox.Show(CultRes.StringsRes.Information, CultRes.StringsRes.DeleteCan + " " + CurrentTbl06Phylum.PhylumName + " " + CultRes.StringsRes.DeleteCan1,
-        //                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //            }
-        //        }
-        //        catch (DbEntityValidationException ex)
-        //        {
-        //            _entityException.EntityException(ex);
-        //            Log.Error(ex);
-        //        }
-        //    }
-        //    if (SearchPhylumName != "")
-        //    {
-        //        if (SearchPhylumName == "*")  //show all datasets
-        //        {
-        //            SearchPhylumName = "";
-        //            Tbl06PhylumsList.Clear();
+            //Delete all References Experts, Sources, Authors  ----------------------------------------------------
+            Tbl90ReferencesList = _extDelete.DeleteDatasetsWithPhylumIdInTableReference(CurrentTbl06Phylum);
+            if (Tbl90ReferencesList.Count > 0)
+            {
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
-        //            Tbl06PhylumsList = new ObservableCollection<Tbl06Phylum>(_businessLayer.ListTbl06PhylumsByPhylumName(SearchPhylumName));
-        //            SearchPhylumName = "*";
-        //        }
-        //        else
-        //        {
-        //            Tbl06PhylumsList = new ObservableCollection<Tbl06Phylum>(_businessLayer.ListTbl06PhylumsByPhylumName(SearchPhylumName));
+                _extDelete.DeleteReferences(Tbl90ReferencesList);
 
-        //        }
-        //        PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
-        //        PhylumsView.Refresh();
-        //    }
-        //    else  //SearchName = empty
-        //    {
-        //        Tbl06PhylumsList = new ObservableCollection<Tbl06Phylum>(_businessLayer.ListTbl06PhylumsByPhylumName(SearchPhylumName));
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
+            }
 
-        //        PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
-        //        PhylumsView.MoveCurrentToFirst();
-        //    }
-        //}
+            //Delete all Comments  ----------------------------------------------------
+            Tbl93CommentsList = _extDelete.DeleteDatasetsWithPhylumIdInTableComment(CurrentTbl06Phylum);
+            if (Tbl93CommentsList.Count > 0)
+            {
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
+
+                _extDelete.DeleteComments(Tbl93CommentsList);
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
+            }
+
+            try
+            {
+                var phylum = _uow.Tbl06Phylums.GetById(CurrentTbl06Phylum.PhylumId);
+                if (phylum != null)
+                {
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl06Phylum.PhylumName)) return;
+
+                    _extDelete.DeletePhylum(phylum);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl06Phylum.PhylumName);
+                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl06Phylum.PhylumName + " " + CultRes.StringsRes.DeleteCan1);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+            ExecuteGetPhylumsByNameOrId(searchName);
+
+            PhylumsView.MoveCurrentToFirst();
+        }
         //-------------------------------------------------------------------------------------------------                    
 
-        //private void SavePhylum(object o)
-        //{
-        //    if (CurrentTbl06Phylum == null)
-        //    {
-        //        WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-        //            CultRes.StringsRes.RequiredInput,
-        //            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //        return;
-        //    }
-        //    _businessLayer = new BusinessLayer.BusinessLayer();
+        private void ExecuteSavePhylum(string searchName)
+        {
+            if (_genPhylumMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl06Phylum)) return;
 
-        //    try
-        //    {
-        //        var phylum = _businessLayer.SingleListTbl06PhylumsByPhylumId(CurrentTbl06Phylum.PhylumID);
-        //        if (CurrentTbl06Phylum.PhylumID != 0)
-        //        {
-        //            if (phylum != null) //update
-        //            {
-        //                phylum.PhylumName = CurrentTbl06Phylum.PhylumName;
-        //                phylum.RegnumID = CurrentTbl06Phylum.RegnumID;
-        //                phylum.Valid = CurrentTbl06Phylum.Valid;
-        //                phylum.ValidYear = CurrentTbl06Phylum.ValidYear;
-        //                phylum.Synonym = CurrentTbl06Phylum.Synonym;
-        //                phylum.Author = CurrentTbl06Phylum.Author;
-        //                phylum.AuthorYear = CurrentTbl06Phylum.AuthorYear;
-        //                phylum.Info = CurrentTbl06Phylum.Info;
-        //                phylum.EngName = CurrentTbl06Phylum.EngName;
-        //                phylum.GerName = CurrentTbl06Phylum.GerName;
-        //                phylum.FraName = CurrentTbl06Phylum.FraName;
-        //                phylum.PorName = CurrentTbl06Phylum.PorName;
-        //                phylum.Updater = Environment.UserName;
-        //                phylum.UpdaterDate = DateTime.Now;
-        //                phylum.Memo = CurrentTbl06Phylum.Memo;
-        //                phylum.EntityState = EntityState.Modified;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            phylum = new Tbl06Phylum   //add new
-        //            {
-        //                PhylumName = CurrentTbl06Phylum.PhylumName,
-        //                RegnumID = CurrentTbl06Phylum.RegnumID,
+            try
+            {
+                var phylum = _uow.Tbl06Phylums.GetById(CurrentTbl06Phylum.PhylumId);
+                //   var phylum = _context.Tbl06Phylums.AsNoTracking().FirstOrDefault(a=>a.PhylumId == CurrentTbl06Phylum.PhylumId);
+                //          _context.Entry(phylum).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
 
-        //                CountID = RandomHelper.Randomnumber(),
-        //                Valid = CurrentTbl06Phylum.Valid,
-        //                ValidYear = CurrentTbl06Phylum.ValidYear,
-        //                Synonym = CurrentTbl06Phylum.Synonym,
-        //                Author = CurrentTbl06Phylum.Author,
-        //                AuthorYear = CurrentTbl06Phylum.AuthorYear,
-        //                Info = CurrentTbl06Phylum.Info,
-        //                EngName = CurrentTbl06Phylum.EngName,
-        //                GerName = CurrentTbl06Phylum.GerName,
-        //                FraName = CurrentTbl06Phylum.FraName,
-        //                PorName = CurrentTbl06Phylum.PorName,
-        //                Writer = Environment.UserName,
-        //                WriterDate = DateTime.Now,
-        //                Updater = Environment.UserName,
-        //                UpdaterDate = DateTime.Now,
-        //                Memo = CurrentTbl06Phylum.Memo,
-        //                EntityState = EntityState.Added
-        //            };
-        //        }
-        //        {
-        //            //RegnumID may be not 0
-        //            if (CurrentTbl06Phylum.RegnumID == 0)
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl06Phylum.PhylumName))
+                    return;
 
-        //            {
-        //                WpfMessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-        //                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //                return;
-        //            }
+                if (CurrentTbl06Phylum.PhylumId == 0)
+                    phylum = _extSave.PhylumAdd(CurrentTbl06Phylum);
+                else
+                    phylum = _extSave.PhylumUpdate(phylum, CurrentTbl06Phylum);
 
-        //            //check if dataset with Name and RegnumId already exist       
-        //            var dataset = _businessLayer.ListTbl06PhylumsByPhylumNameAndRegnumIdAndAuthor(CurrentTbl06Phylum.PhylumName, CurrentTbl06Phylum.RegnumID, CurrentTbl06Phylum.Author);
+                _position = PhylumsView.CurrentPosition;
 
-        //            if (dataset.Count != 0 && CurrentTbl06Phylum.PhylumID == 0)  //dataset exist
-        //            {
-        //                WpfMessageBox.Show(CultRes.StringsRes.DatasetExist, CurrentTbl06Phylum.PhylumName,
-        //                MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //                return;
-        //            }
-        //            if (dataset.Count == 0 && CurrentTbl06Phylum.PhylumID == 0 ||
-        //                dataset.Count != 0 && CurrentTbl06Phylum.PhylumID != 0 ||
-        //                dataset.Count == 0 && CurrentTbl06Phylum.PhylumID != 0) //new dataset and update
-        //            {
-        //                if (WpfMessageBox.Show(CultRes.StringsRes.SaveQuestion2, CurrentTbl06Phylum.PhylumName,
-        //                        MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-        //                    return;
-        //                {
-        //                    try
-        //                    {
-        //                        _businessLayer.UpdatePhylum(phylum);
-        //                        _position = PhylumsView.CurrentPosition;
-        //                    }
-        //                    catch (DbUpdateException e)
-        //                    {
-        //                        if (e.InnerException != null)
-        //                            System.Windows.MessageBox.Show(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave,
-        //                                MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+                try
+                {
+                    _extSave.PhylumSave(phylum, CurrentTbl06Phylum);
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
+                            CultRes.StringsRes.FailedToSave); 
+                    Log.Error(e);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error); 
+                    Log.Error(e);
+                    return;
+                }
 
-        //                        Log.Error(e);
-        //                        return;
-        //                    }
-        //                    catch (Exception e)
-        //                    {
-        //                        System.Windows.MessageBox.Show(e.Message, CultRes.StringsRes.Error,
-        //                            MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-        //                        Log.Error(e);
-        //                        return;
-        //                    }
-        //                    WpfMessageBox.Show(CultRes.StringsRes.SaveSuccess,
-        //                        CurrentTbl06Phylum.PhylumID == 0
-        //                            ? CultRes.StringsRes.DatasetNew
-        //                            : CurrentTbl06Phylum.PhylumName,
-        //                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (DbEntityValidationException ex)
-        //    {
-        //        _entityException.EntityException(ex);
-        //        Log.Error(ex);
-        //        return;
-        //    }
-
-        //    if (SearchPhylumName != "")
-        //    {
-        //        if (SearchPhylumName == "*")  //show all datasets
-        //        {
-        //            SearchPhylumName = "";
-        //            Tbl06PhylumsList.Clear();
-
-        //            Tbl06PhylumsList = new ObservableCollection<Tbl06Phylum>(_businessLayer.ListTbl06PhylumsByPhylumName(SearchPhylumName));
-        //            SearchPhylumName = "*";
-        //        }
-        //        else
-        //        {
-        //            Tbl06PhylumsList = int.TryParse(SearchPhylumName, out var id)
-        //                ? new ObservableCollection<Tbl06Phylum>(_businessLayer.ListTbl06PhylumsByPhylumId(id))
-        //                : new ObservableCollection<Tbl06Phylum>(_businessLayer.ListTbl06PhylumsByPhylumName(SearchPhylumName));
-
-        //        }
-        //        PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
-        //        PhylumsView.MoveCurrentToPosition(_position);
-        //    }
-        //    else
-        //    {
-        //        Tbl06PhylumsList = new ObservableCollection<Tbl06Phylum>(_businessLayer.ListTbl06PhylumsByPhylumName(CurrentTbl06Phylum.PhylumName));
-
-        //        PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
-        //        PhylumsView.Refresh();
-        //    }
-        //}
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl06Phylum.PhylumId == 0
+                    ? "DatasetNew"
+                    : CurrentTbl06Phylum.PhylumName);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error); 
+                Log.Error(e);
+            }
+            ExecuteGetPhylumsByNameOrId(searchName);
+            PhylumsView.MoveCurrentToPosition(_position);
+        }
 
         #endregion [Methods Phylum]
 
@@ -497,137 +298,67 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         //    Part 2    
 
 
-        //#region "Public Commands Connect <== Tbl03Regnum"                 
-        ////-------------------------------------------------------------------------
+        #region "Public Commands Connect <== Tbl03Regnum"                 
+        //-------------------------------------------------------------------------
 
-        //private RelayCommand _saveRegnumCommand;
-
-        //public ICommand SaveRegnumCommand => _saveRegnumCommand ??
-        //                                         (_saveRegnumCommand = new RelayCommand(delegate { SaveRegnum(null); }));
+        private RelayCommand _saveRegnumCommand;
+        public ICommand SaveRegnumCommand => _saveRegnumCommand ??= new RelayCommand(delegate { ExecuteSaveRegnum(null); });
 
         ////-------------------------------------------------------------------------          
 
-        //private void SaveRegnum(object o)
-        //{
-        //    if (CurrentTbl03Regnum == null)
-        //    {
-        //        WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-        //            CultRes.StringsRes.RequiredInput,
-        //            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //        return;
-        //    }
+        private void ExecuteSaveRegnum(string searchName)
+        {
+            if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl03Regnum)) return;
 
-        //    try
-        //    {
-        //        var regnum = _businessLayer.SingleListTbl03RegnumsByRegnumId(CurrentTbl03Regnum.RegnumID);
-        //        if (CurrentTbl03Regnum.RegnumID != 0)
-        //        {
-        //            if (regnum != null) //update
-        //            {
-        //                regnum.RegnumName = CurrentTbl03Regnum.RegnumName;
-        //                regnum.Subregnum = CurrentTbl03Regnum.Subregnum;
-        //                regnum.Valid = CurrentTbl03Regnum.Valid;
-        //                regnum.ValidYear = CurrentTbl03Regnum.ValidYear;
-        //                regnum.Synonym = CurrentTbl03Regnum.Synonym;
-        //                regnum.Author = CurrentTbl03Regnum.Author;
-        //                regnum.AuthorYear = CurrentTbl03Regnum.AuthorYear;
-        //                regnum.Info = CurrentTbl03Regnum.Info;
-        //                regnum.EngName = CurrentTbl03Regnum.EngName;
-        //                regnum.GerName = CurrentTbl03Regnum.GerName;
-        //                regnum.FraName = CurrentTbl03Regnum.FraName;
-        //                regnum.PorName = CurrentTbl03Regnum.PorName;
-        //                regnum.Updater = Environment.UserName;
-        //                regnum.UpdaterDate = DateTime.Now;
-        //                regnum.Memo = CurrentTbl03Regnum.Memo;
-        //                regnum.EntityState = EntityState.Modified;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            regnum = new Tbl03Regnum   //add new
-        //            {
-        //                RegnumName = CurrentTbl03Regnum.RegnumName,
-        //                Subregnum = CurrentTbl03Regnum.Subregnum,
-        //                CountID = RandomHelper.Randomnumber(),
-        //                Valid = CurrentTbl03Regnum.Valid,
-        //                ValidYear = CurrentTbl03Regnum.ValidYear,
-        //                Synonym = CurrentTbl03Regnum.Synonym,
-        //                Author = CurrentTbl03Regnum.Author,
-        //                AuthorYear = CurrentTbl03Regnum.AuthorYear,
-        //                Info = CurrentTbl03Regnum.Info,
-        //                EngName = CurrentTbl03Regnum.EngName,
-        //                GerName = CurrentTbl03Regnum.GerName,
-        //                FraName = CurrentTbl03Regnum.FraName,
-        //                PorName = CurrentTbl03Regnum.PorName,
-        //                Writer = Environment.UserName,
-        //                WriterDate = DateTime.Now,
-        //                Updater = Environment.UserName,
-        //                UpdaterDate = DateTime.Now,
-        //                Memo = CurrentTbl03Regnum.Memo,
-        //                EntityState = EntityState.Added
-        //            };
-        //        }
-        //        {
-        //            //check if dataset with Name already exist       
-        //            var dataset = _businessLayer.ListTbl03RegnumsByRegnumNameAndSubregnum(CurrentTbl03Regnum.RegnumName, CurrentTbl03Regnum.Subregnum);
+            try
+            {
+                var regnum = _uow.Tbl03Regnums.GetById(CurrentTbl03Regnum.RegnumId);
 
-        //            if (dataset.Count != 0 && CurrentTbl03Regnum.RegnumID == 0)  //dataset exist
-        //            {
-        //                WpfMessageBox.Show(CultRes.StringsRes.DatasetExist, CurrentTbl03Regnum.RegnumName + " " + CurrentTbl03Regnum.Subregnum,
-        //                MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //                return;
-        //            }
-        //            if (dataset.Count == 0 && CurrentTbl03Regnum.RegnumID == 0 ||
-        //                dataset.Count != 0 && CurrentTbl03Regnum.RegnumID != 0 ||
-        //                dataset.Count == 0 && CurrentTbl03Regnum.RegnumID != 0) //new dataset and update
-        //            {
-        //                if (WpfMessageBox.Show(CultRes.StringsRes.SaveQuestion2, CurrentTbl03Regnum.RegnumName + " " + CurrentTbl03Regnum.Subregnum,
-        //                        MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-        //                    return;
-        //                {
-        //                    try
-        //                    {
-        //                        _businessLayer.UpdateRegnum(regnum);
-        //                    }
-        //                    catch (DbUpdateException e)
-        //                    {
-        //                        if (e.InnerException != null)
-        //                            System.Windows.MessageBox.Show(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave,
-        //                                MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+                if (CurrentTbl03Regnum.RegnumId == 0)
+                    regnum = _extSave.RegnumAdd(CurrentTbl03Regnum);
+                else
+                    regnum = _extSave.RegnumUpdate(regnum, CurrentTbl03Regnum);
 
-        //                        Log.Error(e);
-        //                        return;
-        //                    }
-        //                    catch (Exception e)
-        //                    {
-        //                        System.Windows.MessageBox.Show(e.Message, CultRes.StringsRes.Error,
-        //                            MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-        //                        Log.Error(e);
-        //                        return;
-        //                    }
-        //                    WpfMessageBox.Show(CultRes.StringsRes.SaveSuccess,
-        //                        CurrentTbl03Regnum.RegnumID == 0
-        //                            ? CultRes.StringsRes.DatasetNew
-        //                            : CurrentTbl03Regnum.RegnumName + " " + CurrentTbl03Regnum.Subregnum,
-        //                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (DbEntityValidationException ex)
-        //    {
-        //        _entityException.EntityException(ex);
-        //        Log.Error(ex);
-        //        return;
-        //    }
+                _position = PhylumsView.CurrentPosition;
 
-        //    Tbl03RegnumsList = new ObservableCollection<Tbl03Regnum>(_businessLayer.ListTbl03RegnumsByRegnumId(CurrentTbl06Phylum.RegnumID));
+                var cap = CurrentTbl03Regnum.RegnumName + " " + CurrentTbl03Regnum.Subregnum;
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(cap))
+                    return;
 
-        //    SelectedMainTabIndex = 0;
-        //    RegnumsView = CollectionViewSource.GetDefaultView(Tbl03RegnumsList);
-        //    RegnumsView.Refresh();
-        //}
-        //#endregion "Public Commands"                  
+                try
+                {
+                    _extSave.RegnumSave(regnum, CurrentTbl03Regnum);
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
+                            CultRes.StringsRes.FailedToSave); 
+                    Log.Error(e);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                    //         Log.Error(e);
+                    return;
+                }
+
+                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl03Regnum.RegnumId == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : CurrentTbl03Regnum.RegnumName + " " + CurrentTbl03Regnum.Subregnum);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+            ExecuteGetPhylumsByNameOrId(searchName);
+            PhylumsView.MoveCurrentToPosition(_position);
+        }
+
+        #endregion "Public Commands"                  
 
 
         //    Part 3    
@@ -2457,6 +2188,21 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         #endregion "Public Properties "
 
+        #region Public Properties Tbl90References
+
+        private ObservableCollection<Tbl90Reference> _tbl90ReferencesList;
+
+        public ObservableCollection<Tbl90Reference> Tbl90ReferencesList
+        {
+            get => _tbl90ReferencesList;
+            set
+            {
+                _tbl90ReferencesList = value; RaisePropertyChanged("");
+            }
+        }
+
+
+        #endregion
         #region "Public Properties Tbl90ReferenceAuthor"
 
         public ICollectionView ReferenceAuthorsView;

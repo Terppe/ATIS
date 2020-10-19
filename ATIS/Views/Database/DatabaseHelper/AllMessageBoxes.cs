@@ -57,10 +57,16 @@ namespace ATIS.Ui.Views.Database.DatabaseHelper
         public bool DeleteDatasetQuestionMessageBox(string caption)
         {
             return MessageBox.Show("Wollen Sie Datensätze löschen ?",
-                       caption + " " + "ConnectedDataset",
-                       MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes;
+                caption + " " + "ConnectedDataset",
+                MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes;
         }
 
+        public bool SaveDatasetQuestionMessageBox(string caption)
+        {
+            return MessageBox.Show(CultRes.StringsRes.SaveQuestion2, caption,
+                       MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes;
+        }
+        //------------------------------------------------------------------
         public void InfoMessageBox(string message, string caption)
         {
             MessageBox.Show(message, caption,

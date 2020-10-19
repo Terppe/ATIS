@@ -415,7 +415,7 @@
                                     Width="36"
                                     Height="36"
                                     Margin="4"
-                                    Command="{Binding AddDivisionCommand}"
+                                    Command="{Binding AddPhylumCommand}"
                                     Foreground="{DynamicResource MahApps.Brushes.Accent}"
                                     Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
                                     <ToggleButton.ContentTemplate>
