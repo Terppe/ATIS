@@ -77,6 +77,15 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 case "phylum":
                     collection = PhylumAllCollection<T>();
                     break;
+                case "subphylum":
+                    collection = SubphylumAllCollection<T>();
+                    break;
+                case "division":
+                    collection = DivisionAllCollection<T>();
+                    break;
+                case "subdivision":
+                    collection = SubdivisionAllCollection<T>();
+                    break;
                 case "expert":
                 case "source":
                 case "author":
@@ -115,7 +124,6 @@ namespace ATIS.Ui.Views.Database.CrudHelper
         private ObservableCollection<T> PhylumAllCollection<T>()
         {
             ObservableCollection<T> collection;
-   //         collection = new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl06Phylums.GetAll());
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl06Phylums
                 .OrderBy(a=>a.PhylumName));
             return collection;
@@ -130,8 +138,33 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             return collection;
         }
         //-----------------------Division--------------------------------
+        private ObservableCollection<T> DivisionAllCollection<T>()
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl09Divisions
+                .OrderBy(a => a.DivisionName));
+            return collection;
+        }
+
         //-----------------------Subphylum--------------------------------
+        private ObservableCollection<T> SubphylumAllCollection<T>()
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl12Subphylums
+                .OrderBy(a => a.SubphylumName));
+            return collection;
+        }
+
+ 
+
         //-----------------------Subdivision--------------------------------
+        private ObservableCollection<T> SubdivisionAllCollection<T>()
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl15Subdivisions
+                .OrderBy(a => a.SubdivisionName));
+            return collection;
+        }
 
         //-----------------------Reference--------------------------------
         private ObservableCollection<T> ReferenceAllCollection<T>()

@@ -191,7 +191,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             return comment;
         }
         //---------------------------------------------------------
-        //---------------------------------------------------------
+        //------------------Phylum---------------------------------------
         public Tbl06Phylum PhylumUpdate(Tbl06Phylum phylum, Tbl06Phylum selectedPhylum)
         {
             if (phylum != null) //update
@@ -374,63 +374,125 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             return comment;
         }
         //---------------------------------------------------------
+        //---------------------------------------------------------
+        //------------------Subphylum---------------------------------------
+        public Tbl12Subphylum SubphylumUpdate(Tbl12Subphylum home, Tbl12Subphylum selected)
+        {
+            if (home != null) //update
+            {
+                home.SubphylumName = selected.SubphylumName;
+                home.PhylumId = selected.PhylumId;
+                home.Valid = selected.Valid;
+                home.ValidYear = selected.ValidYear;
+                home.Author = selected.Author;
+                home.AuthorYear = selected.AuthorYear;
+                home.Info = selected.Info;
+                home.Synonym = selected.Synonym;
+                home.EngName = selected.EngName;
+                home.GerName = selected.GerName;
+                home.FraName = selected.FraName;
+                home.PorName = selected.PorName;
+                home.Memo = selected.Memo;
+                home.Updater = Environment.UserName;
+                home.UpdaterDate = DateTime.Now;
+            }
+            return home;
+        }
+        public Tbl12Subphylum SubphylumAdd(Tbl12Subphylum selected)
+        {
+            var home = new Tbl12Subphylum() //add new
+            {
+                SubphylumName = selected.SubphylumName,
+                PhylumId = selected.PhylumId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Author = selected.Author,
+                AuthorYear = selected.AuthorYear,
+                Info = selected.Info,
+                Synonym = selected.Synonym,
+                EngName = selected.EngName,
+                GerName = selected.GerName,
+                FraName = selected.FraName,
+                PorName = selected.PorName,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now
+            };
+            return home;
+        }
+        //---------------------------------------------------------
 
         //---------------------------------------------------------
-        public void RegnumSave(Tbl03Regnum regnum, Tbl03Regnum selectedRegnum)
+        public void RegnumSave(Tbl03Regnum home, Tbl03Regnum selected)
         {
-            if (selectedRegnum.RegnumId != 0)   //update
-                _uow.Tbl03Regnums.Update(regnum);
+            if (selected.RegnumId != 0)   //update
+                _uow.Tbl03Regnums.Update(home);
             else                                //add
-                _uow.Tbl03Regnums.Add(regnum);
+                _uow.Tbl03Regnums.Add(home);
 
             _uow.Complete();
         }
         //--------------------------------------------------------
-        public void PhylumSave(Tbl06Phylum phylum, Tbl06Phylum selectedPhylum)
+        public void PhylumSave(Tbl06Phylum home, Tbl06Phylum selected)
         {
 
-            if (selectedPhylum.PhylumId != 0) //update
+            if (selected.PhylumId != 0) //update
             {
-                _uow.Tbl06Phylums.Update(phylum);
+                _uow.Tbl06Phylums.Update(home);
             }
             else                                //add
-                _uow.Tbl06Phylums.Add(phylum);
+                _uow.Tbl06Phylums.Add(home);
             _uow.Complete();
         }
         //--------------------------------------------------------
-        public void ReferenceExpertSave(Tbl90Reference reference, Tbl90Reference selectedReferenceExpert)
+        public void SubphylumSave(Tbl12Subphylum home, Tbl12Subphylum selected)
         {
-            if (selectedReferenceExpert.ReferenceId != 0)   //update
-                _uow.Tbl90References.Update(reference);
+
+            if (selected.SubphylumId != 0) //update
+            {
+                _uow.Tbl12Subphylums.Update(home);
+            }
+            else                                //add
+                _uow.Tbl12Subphylums.Add(home);
+            _uow.Complete();
+        }
+        //--------------------------------------------------------
+        public void ReferenceExpertSave(Tbl90Reference home, Tbl90Reference selected)
+        {
+            if (selected.ReferenceId != 0)   //update
+                _uow.Tbl90References.Update(home);
             else                                            //add
-                _uow.Tbl90References.Add(reference);
+                _uow.Tbl90References.Add(home);
 
             _uow.Complete();
         }
-        public void ReferenceSourceSave(Tbl90Reference reference, Tbl90Reference selectedReferenceSource)
+        public void ReferenceSourceSave(Tbl90Reference home, Tbl90Reference selected)
         {
-            if (selectedReferenceSource.ReferenceId != 0)   //update
-                _uow.Tbl90References.Update(reference);
+            if (selected.ReferenceId != 0)   //update
+                _uow.Tbl90References.Update(home);
             else                                            //add
-                _uow.Tbl90References.Add(reference);
+                _uow.Tbl90References.Add(home);
 
             _uow.Complete();
         }
-        public void ReferenceAuthorSave(Tbl90Reference reference, Tbl90Reference selectedReferenceAuthor)
+        public void ReferenceAuthorSave(Tbl90Reference home, Tbl90Reference selected)
         {
-            if (selectedReferenceAuthor.ReferenceId != 0)   //update
-                _uow.Tbl90References.Update(reference);
+            if (selected.ReferenceId != 0)   //update
+                _uow.Tbl90References.Update(home);
             else                                            //add
-                _uow.Tbl90References.Add(reference);
+                _uow.Tbl90References.Add(home);
 
             _uow.Complete();
         }
-        public void CommentSave(Tbl93Comment comment, Tbl93Comment selectedComment)
+        public void CommentSave(Tbl93Comment home, Tbl93Comment selected)
         {
-            if (selectedComment.CommentId != 0)             //update
-                _uow.Tbl93Comments.Update(comment);
+            if (selected.CommentId != 0)             //update
+                _uow.Tbl93Comments.Update(home);
             else                                            //add
-                _uow.Tbl93Comments.Add(comment);
+                _uow.Tbl93Comments.Add(home);
 
             _uow.Complete();
         }

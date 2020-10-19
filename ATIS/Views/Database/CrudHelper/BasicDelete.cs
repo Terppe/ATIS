@@ -27,8 +27,13 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             var collection = new ObservableCollection<Tbl12Subphylum>(_uow.Tbl12Subphylums.Find(x => x.PhylumId == selected.PhylumId));
             return collection;
         }
-
-        //----------------------------------------------------------
+        //------------------------------Search with SubphylumId----------------------------
+        public ObservableCollection<Tbl18Superclass> SearchForConnectedDatasetsWithSubphylumIdInTableSuperclass(Tbl12Subphylum selected)
+        {
+            var collection = new ObservableCollection<Tbl18Superclass>(_uow.Tbl18Superclasses.Find(x => x.SubphylumId == selected.SubphylumId));
+            return collection;
+        }
+        //-------------------------------------------------------------------------------
         //------------------------------Delete with RegnumId----------------------------
 
         public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl03Regnum selected)
@@ -54,8 +59,19 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             return collection;
         }
 
-        //----------------------------------------------------------
-        //--------------------------------------------------------
+        //--------------------------------------Delete with SubphylumId--------------------
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubphylumIdInTableReference(Tbl12Subphylum selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubphylumId == selected.SubphylumId));
+            return collection;
+        }
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubphylumIdInTableComment(Tbl12Subphylum selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubphylumId == selected.SubphylumId));
+            return collection;
+        }
+
+        //--------------------------------------------------------------------------------------------
         //--------------------------Area Delete and search with RegnumId------------------------------
         public ObservableCollection<Tbl90Reference> SearchForDatasetWithRegnumIdAndRefAuthorIdAndRefSourceIdInTableReference(Tbl03Regnum selected)
         {
@@ -82,7 +98,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 .Find(x => x.RegnumId == selected.RegnumId));
             return collection;
         }
-        //----------------------------------------------------------
+        //--------------------------------------------------------------------------------------------
         //--------------------------Area Delete and search with PhylumId------------------------------
         public ObservableCollection<Tbl90Reference> SearchForDatasetWithPhylumIdAndRefAuthorIdAndRefSourceIdInTableReference(Tbl06Phylum selected)
         {
@@ -109,6 +125,34 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 .Find(x => x.PhylumId == selected.PhylumId));
             return collection;
         }
+        //--------------------------------------------------------------------------------------------
+        //--------------------------Area Delete and search with SubphylumId------------------------------
+        public ObservableCollection<Tbl90Reference> SearchForDatasetWithSubphylumIdAndRefAuthorIdAndRefSourceIdInTableReference(Tbl12Subphylum selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+                .Find(x => x.SubphylumId == selected.SubphylumId && x.RefAuthorId == null && x.RefSourceId == null));
+            return collection;
+        }
+        public ObservableCollection<Tbl90Reference> SearchForDatasetWithSubphylumIdAndRefAuthorIdAndRefExpertIdInTableReference(Tbl12Subphylum selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+                .Find(x => x.SubphylumId == selected.SubphylumId && x.RefAuthorId == null && x.RefExpertId == null));
+            return collection;
+        }
+        public ObservableCollection<Tbl90Reference> SearchForDatasetWithSubphylumIdAndRefSourceIdAndRefExpertIdInTableReference(Tbl12Subphylum selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+                .Find(x => x.SubphylumId == selected.SubphylumId && x.RefSourceId == null && x.RefExpertId == null));
+            return collection;
+        }
+        //----------------------------------------------------------
+        public ObservableCollection<Tbl93Comment> SearchForDatasetWithSubphylumIdInTableComment(Tbl12Subphylum selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
+                .Find(x => x.SubphylumId == selected.SubphylumId));
+            return collection;
+        }
+
         //----------------------------------------------------------
         //----------------------------------------------------------
 
@@ -124,7 +168,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 _uow.Tbl93Comments.Remove(t);
             _uow.Complete();
         }
-        //-----------------------------------------------------------
+        //-----------------------------Delete------------------------------
         public void DeleteRegnum(Tbl03Regnum regnum)
         {
             _uow.Tbl03Regnums.Remove(regnum);
@@ -133,6 +177,11 @@ namespace ATIS.Ui.Views.Database.CrudHelper
         public void DeletePhylum(Tbl06Phylum phylum)
         {
             _uow.Tbl06Phylums.Remove(phylum);
+            _uow.Complete();
+        }
+        public void DeleteSubphylum(Tbl12Subphylum subphylum)
+        {
+            _uow.Tbl12Subphylums.Remove(subphylum);
             _uow.Complete();
         }
         public void DeleteReference(Tbl90Reference reference)

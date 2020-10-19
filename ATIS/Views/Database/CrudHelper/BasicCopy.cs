@@ -59,6 +59,31 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             return collection;
         }
         //----------------------------------------------------------
+        public ObservableCollection<Tbl12Subphylum> CopySubphylum(Tbl12Subphylum selected)
+        {
+            var subphylum = _uow.Tbl12Subphylums.GetById(selected.PhylumId);
+            var collection = new ObservableCollection<Tbl12Subphylum>();
+
+            collection.Insert(0, new Tbl12Subphylum
+            {
+                SubphylumName = CultRes.StringsRes.DatasetNew,
+                PhylumId = subphylum.PhylumId,
+                Valid = subphylum.Valid,
+                ValidYear = subphylum.ValidYear,
+                Synonym = subphylum.Synonym,
+                Author = subphylum.Author,
+                AuthorYear = subphylum.AuthorYear,
+                Info = subphylum.Info,
+                EngName = subphylum.EngName,
+                GerName = subphylum.GerName,
+                FraName = subphylum.FraName,
+                PorName = subphylum.PorName,
+                Memo = subphylum.Memo
+            });
+
+            return collection;
+        }
+        //----------------------------------------------------------
         public ObservableCollection<Tbl90Reference> CopyReferenceRegnum(Tbl90Reference selected, string refer)
         {
             var reference = _uow.Tbl90References.GetById(selected.ReferenceId);

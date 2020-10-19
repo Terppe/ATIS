@@ -325,7 +325,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="950" />
+            <ColumnDefinition Width="750" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="50*" />
         </Grid.ColumnDefinitions>
@@ -346,7 +346,7 @@
             Grid.Column="0"
             Margin="1,1,1,1"
             Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
-            <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderPhylums}"  >
+            <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderPhylums}">
                 <ScrollViewer
                     helper:AutoScrollBehavior.TopMouseScrollPriority="True"
                     HorizontalScrollBarVisibility="Auto"
@@ -1108,9 +1108,9 @@
                             </StackPanel>
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <TextBox
+                                    Width="600"
                                     Height="Auto"
                                     MinHeight="75"
-                                    Width="600"
                                     MaxHeight="200"
                                     Margin="5"
                                     HorizontalContentAlignment="Stretch"
@@ -1498,30 +1498,6 @@
                                 <StackPanel Margin="0,0,5,0">
                                     <StackPanel Height="Auto" Orientation="Horizontal">
 
-                                        <!--<Button
-                                            Margin="0,0,0,0"
-                                            HorizontalAlignment="Left"
-                                            Command="{Binding SaveSubdivisionCommand}"
-                                            Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                            ToolTip="{DynamicResource Shared-ButtonSave}" />
-                                        <Button
-                                            Margin="0,0,0,0"
-                                            HorizontalAlignment="Left"
-                                            Command="{Binding CopySubdivisionCommand}"
-                                            Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                            ToolTip="{DynamicResource Shared-ActionLnkCopy}" />
-                                        <Button
-                                            Margin="0,0,0,0"
-                                            HorizontalAlignment="Left"
-                                            Command="{Binding AddSubdivisionCommand}"
-                                            Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                            ToolTip="{DynamicResource Shared-ActionLnkCreate}" />
-                                        <Button
-                                            Margin="0,0,0,0"
-                                            HorizontalAlignment="Left"
-                                            Command="{Binding DeleteSubdivisionCommand}"
-                                            Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                            ToolTip="{DynamicResource Shared-ActionLnkDelete}" />-->
                                         <ToggleButton
                                             Width="36"
                                             Height="36"
@@ -1589,7 +1565,7 @@
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
-                                            Width="760"
+                                            Width="300"
                                             Margin="5,10,25,0"
                                             FontWeight="Medium">
                                             <TextBox.Text>
@@ -1600,6 +1576,20 @@
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
+                                        <!--<ComboBox
+                                            Width="300"
+                                            Margin="25,5,5,5"
+                                            VerticalAlignment="Bottom"
+                                            mah:TextBoxHelper.ClearTextButton="False"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="Please select Phylum ..."
+                                            DisplayMemberPath="PhylumName"
+                                            IsSynchronizedWithCurrentItem="True"
+                                            ItemsSource="{Binding Tbl06PhylumsAllList}"
+                                            SelectedValue="{Binding SelectedItem.(models:Tbl06Phylum.PhylumId), ElementName=Tbl12SubphylumsList, Mode=TwoWay}"
+                                            SelectedValuePath="PhylumId"
+                                            Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                            VirtualizingStackPanel.IsVirtualizing="True" />-->
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <CheckBox
@@ -1773,31 +1763,6 @@
                                         <GroupBox>
                                             <StackPanel Margin="0,8,5,0">
                                                 <StackPanel Height="Auto" Orientation="Horizontal">
-
-                                                    <!--<Button
-                                                        Margin="0,0,0,0"
-                                                        HorizontalAlignment="Left"
-                                                        Command="{Binding SaveReferenceExpertCommand}"
-                                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                        ToolTip="{DynamicResource Shared-ButtonSave}" />
-                                                    <Button
-                                                        Margin="0,0,0,0"
-                                                        HorizontalAlignment="Left"
-                                                        Command="{Binding CopyReferenceExpertCommand}"
-                                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                        ToolTip="{DynamicResource Shared-ActionLnkCopy}" />
-                                                    <Button
-                                                        Margin="0,0,0,0"
-                                                        HorizontalAlignment="Left"
-                                                        Command="{Binding AddReferenceExpertCommand}"
-                                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                        ToolTip="{DynamicResource Shared-ActionLnkCreate}" />
-                                                    <Button
-                                                        Margin="0,0,0,0"
-                                                        HorizontalAlignment="Left"
-                                                        Command="{Binding DeleteReferenceExpertCommand}"
-                                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                        ToolTip="{DynamicResource Shared-ActionLnkDelete}" />-->
                                                     <ToggleButton
                                                         Width="36"
                                                         Height="36"
@@ -1873,11 +1838,10 @@
                                                         mah:TextBoxHelper.Watermark="Please select Expert ..."
                                                         DisplayMemberPath="RefExpertName"
                                                         IsSynchronizedWithCurrentItem="True"
-                                                        ItemContainerStyle="{StaticResource MahApps.Styles.ComboBox}"
                                                         ItemsSource="{Binding Tbl90ExpertsAllList}"
                                                         SelectedValue="{Binding SelectedItem.(models:Tbl90RefExpert.RefExpertId), ElementName=Tbl90ReferenceExpertsList, Mode=TwoWay}"
                                                         SelectedValuePath="RefExpertId"
-                                                        Style="{StaticResource MahApps.Styles.ComboBox}"
+                                                        Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                                         VirtualizingStackPanel.IsVirtualizing="True" />
                                                 </StackPanel>
                                                 <StackPanel Height="Auto" Orientation="Horizontal">
@@ -1927,30 +1891,71 @@
                                         <GroupBox>
                                             <StackPanel Margin="0,8,5,0">
                                                 <StackPanel Height="Auto" Orientation="Horizontal">
-                                                    <Button
-                                                        Margin="0,0,0,0"
-                                                        HorizontalAlignment="Left"
+                                                    <ToggleButton
+                                                        Width="36"
+                                                        Height="36"
+                                                        Margin="4"
                                                         Command="{Binding SaveReferenceSourceCommand}"
-                                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                        ToolTip="{DynamicResource Shared-ButtonSave}" />
-                                                    <Button
-                                                        Margin="0,0,0,0"
-                                                        HorizontalAlignment="Left"
+                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                                        Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                                        <ToggleButton.ContentTemplate>
+                                                            <DataTemplate>
+                                                                <iconPacks:PackIconModern
+                                                                    Width="20"
+                                                                    Height="20"
+                                                                    Kind="Save" />
+                                                            </DataTemplate>
+                                                        </ToggleButton.ContentTemplate>
+                                                    </ToggleButton>
+                                                    <ToggleButton
+                                                        Width="36"
+                                                        Height="36"
+                                                        Margin="4"
                                                         Command="{Binding CopyReferenceSourceCommand}"
-                                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                        ToolTip="{DynamicResource Shared-ActionLnkCopy}" />
-                                                    <Button
-                                                        Margin="0,0,0,0"
-                                                        HorizontalAlignment="Left"
+                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                                        Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                                        <ToggleButton.ContentTemplate>
+                                                            <DataTemplate>
+                                                                <iconPacks:PackIconModern
+                                                                    Width="20"
+                                                                    Height="20"
+                                                                    Kind="PageCopy" />
+                                                            </DataTemplate>
+                                                        </ToggleButton.ContentTemplate>
+                                                    </ToggleButton>
+                                                    <ToggleButton
+                                                        Width="36"
+                                                        Height="36"
+                                                        Margin="4"
                                                         Command="{Binding AddReferenceSourceCommand}"
-                                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                        ToolTip="{DynamicResource Shared-ActionLnkCreate}" />
-                                                    <Button
-                                                        Margin="0,0,0,0"
-                                                        HorizontalAlignment="Left"
+                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                                        Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                                        <ToggleButton.ContentTemplate>
+                                                            <DataTemplate>
+                                                                <iconPacks:PackIconModern
+                                                                    Width="20"
+                                                                    Height="20"
+                                                                    Kind="Add" />
+                                                            </DataTemplate>
+                                                        </ToggleButton.ContentTemplate>
+                                                    </ToggleButton>
+                                                    <ToggleButton
+                                                        Width="36"
+                                                        Height="36"
+                                                        Margin="4"
                                                         Command="{Binding DeleteReferenceSourceCommand}"
-                                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                        ToolTip="{DynamicResource Shared-ActionLnkDelete}" />
+                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                                        Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                                        <ToggleButton.ContentTemplate>
+                                                            <DataTemplate>
+                                                                <iconPacks:PackIconModern
+                                                                    Width="20"
+                                                                    Height="20"
+                                                                    Kind="Delete" />
+                                                            </DataTemplate>
+                                                        </ToggleButton.ContentTemplate>
+                                                    </ToggleButton>
+
                                                 </StackPanel>
                                                 <StackPanel Height="Auto" Orientation="Horizontal">
                                                     <ComboBox
@@ -1961,11 +1966,10 @@
                                                         mah:TextBoxHelper.UseFloatingWatermark="True"
                                                         mah:TextBoxHelper.Watermark="Please select Source ..."
                                                         IsSynchronizedWithCurrentItem="True"
-                                                        ItemContainerStyle="{StaticResource MahApps.Styles.ComboBox}"
                                                         ItemsSource="{Binding Tbl90SourcesAllList}"
                                                         SelectedValue="{Binding SelectedItem.(models:Tbl90RefSource.RefSourceId), ElementName=Tbl90ReferenceSourcesList, Mode=TwoWay}"
                                                         SelectedValuePath="RefSourceId"
-                                                        Style="{StaticResource MahApps.Styles.ComboBox}"
+                                                        Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                                         VirtualizingStackPanel.IsVirtualizing="True">
                                                         <ComboBox.ItemTemplate>
                                                             <DataTemplate>
@@ -2033,30 +2037,71 @@
                                         <GroupBox>
                                             <StackPanel Margin="0,8,5,0">
                                                 <StackPanel Height="Auto" Orientation="Horizontal">
-                                                    <Button
-                                                        Margin="0,0,0,0"
-                                                        HorizontalAlignment="Left"
+                                                    <ToggleButton
+                                                        Width="36"
+                                                        Height="36"
+                                                        Margin="4"
                                                         Command="{Binding SaveReferenceAuthorCommand}"
-                                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                        ToolTip="{DynamicResource Shared-ButtonSave}" />
-                                                    <Button
-                                                        Margin="0,0,0,0"
-                                                        HorizontalAlignment="Left"
+                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                                        Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                                        <ToggleButton.ContentTemplate>
+                                                            <DataTemplate>
+                                                                <iconPacks:PackIconModern
+                                                                    Width="20"
+                                                                    Height="20"
+                                                                    Kind="Save" />
+                                                            </DataTemplate>
+                                                        </ToggleButton.ContentTemplate>
+                                                    </ToggleButton>
+                                                    <ToggleButton
+                                                        Width="36"
+                                                        Height="36"
+                                                        Margin="4"
                                                         Command="{Binding CopyReferenceAuthorCommand}"
-                                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                        ToolTip="{DynamicResource Shared-ActionLnkCopy}" />
-                                                    <Button
-                                                        Margin="0,0,0,0"
-                                                        HorizontalAlignment="Left"
+                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                                        Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                                        <ToggleButton.ContentTemplate>
+                                                            <DataTemplate>
+                                                                <iconPacks:PackIconModern
+                                                                    Width="20"
+                                                                    Height="20"
+                                                                    Kind="PageCopy" />
+                                                            </DataTemplate>
+                                                        </ToggleButton.ContentTemplate>
+                                                    </ToggleButton>
+                                                    <ToggleButton
+                                                        Width="36"
+                                                        Height="36"
+                                                        Margin="4"
                                                         Command="{Binding AddReferenceAuthorCommand}"
-                                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                        ToolTip="{DynamicResource Shared-ActionLnkCreate}" />
-                                                    <Button
-                                                        Margin="0,0,0,0"
-                                                        HorizontalAlignment="Left"
+                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                                        Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                                        <ToggleButton.ContentTemplate>
+                                                            <DataTemplate>
+                                                                <iconPacks:PackIconModern
+                                                                    Width="20"
+                                                                    Height="20"
+                                                                    Kind="Add" />
+                                                            </DataTemplate>
+                                                        </ToggleButton.ContentTemplate>
+                                                    </ToggleButton>
+                                                    <ToggleButton
+                                                        Width="36"
+                                                        Height="36"
+                                                        Margin="4"
                                                         Command="{Binding DeleteReferenceAuthorCommand}"
-                                                        Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                                        ToolTip="{DynamicResource Shared-ActionLnkDelete}" />
+                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                                        Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                                        <ToggleButton.ContentTemplate>
+                                                            <DataTemplate>
+                                                                <iconPacks:PackIconModern
+                                                                    Width="20"
+                                                                    Height="20"
+                                                                    Kind="Delete" />
+                                                            </DataTemplate>
+                                                        </ToggleButton.ContentTemplate>
+                                                    </ToggleButton>
+
                                                 </StackPanel>
                                                 <StackPanel Height="Auto" Orientation="Horizontal">
                                                     <ComboBox
@@ -2067,11 +2112,10 @@
                                                         mah:TextBoxHelper.UseFloatingWatermark="True"
                                                         mah:TextBoxHelper.Watermark="Please select Author ..."
                                                         IsSynchronizedWithCurrentItem="True"
-                                                        ItemContainerStyle="{StaticResource MahApps.Styles.ComboBox}"
                                                         ItemsSource="{Binding Tbl90AuthorsAllList}"
                                                         SelectedValue="{Binding SelectedItem.(models:Tbl90RefAuthor.RefAuthorId), ElementName=Tbl90ReferenceAuthorsList, Mode=TwoWay}"
-                                                        SelectedValuePath="RefAuthorID"
-                                                        Style="{StaticResource MahApps.Styles.ComboBox}"
+                                                        SelectedValuePath="RefAuthorId"
+                                                        Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                                         VirtualizingStackPanel.IsVirtualizing="True">
                                                         <ComboBox.ItemTemplate>
                                                             <DataTemplate>
