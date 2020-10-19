@@ -9,6 +9,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
     public class BasicGet : ViewModelBase
     {
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
+        private readonly AtisDbContext _context = new AtisDbContext();
 
         public ObservableCollection<T> SearchNameAndIdReturnCollection<T>(string searchName, string name)
         {
@@ -68,7 +69,9 @@ namespace ATIS.Ui.Views.Database.CrudHelper
         private ObservableCollection<T> RegnumAllCollection<T>()
         {
             ObservableCollection<T> collection;
-            collection = new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl03Regnums.GetAll());
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl03Regnums
+                .OrderBy(a => a.RegnumName)
+                .ThenBy(a => a.Subregnum));
             return collection;
         }
         private ObservableCollection<T> RegnumNameIdCollection<T>(string searchName)
@@ -88,7 +91,9 @@ namespace ATIS.Ui.Views.Database.CrudHelper
         private ObservableCollection<T> PhylumAllCollection<T>()
         {
             ObservableCollection<T> collection;
-            collection = new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl06Phylums.GetAll());
+   //         collection = new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl06Phylums.GetAll());
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl06Phylums
+                .OrderBy(a=>a.PhylumName));
             return collection;
         }
         private ObservableCollection<T> PhylumNameIdCollection<T>(string searchName)

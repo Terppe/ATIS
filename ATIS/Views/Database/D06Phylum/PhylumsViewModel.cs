@@ -21,7 +21,10 @@ namespace ATIS.Ui.Views.Database.D06Phylum
     {
 
         #region "Private Data Members"
-        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        private static readonly ILog Log =
+            LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         //     private static IBusinessLayer _businessLayer;
         //     private static DbEntityException _entityException;
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
@@ -34,7 +37,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private int _position;
 
-        #endregion "Private Data Members"               
+        #endregion "Private Data Members"
 
         #region "Constructor"
 
@@ -48,27 +51,31 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             {
 
                 // Code runs "for real" 
-      //          _entityException = new DbEntityException();
+                //          _entityException = new DbEntityException();
             }
         }
 
         public bool IsInDesignMode { get; set; }
 
-        #endregion "Constructor"         
+        #endregion "Constructor"
 
 
         //    Part 1    
 
+        #region [Commands Phylum]
+
 
         #region "Public Commands Basic Tbl06Phylum"
-        //-------------------------------------------------------------------------
-        private RelayCommand _clearPhylumCommand;
 
-        public ICommand ClearPhylumCommand => _clearPhylumCommand ??= new RelayCommand(delegate { ClearPhylum(null); });
+        //-------------------------------------------------------------------------
+        //private RelayCommand _clearPhylumCommand;
+
+        //public ICommand ClearPhylumCommand => _clearPhylumCommand ??= new RelayCommand(delegate { ClearPhylum(null); });
 
         private RelayCommand _getPhylumsByNameOrIdCommand;
 
-        public ICommand GetPhylumsByNameOrIdCommand => _getPhylumsByNameOrIdCommand ??= new RelayCommand(delegate { GetPhylumsByNameOrId(null); });
+        public ICommand GetPhylumsByNameOrIdCommand => _getPhylumsByNameOrIdCommand ??=
+            new RelayCommand(delegate { GetPhylumsByNameOrId(SearchPhylumName); });
 
         private RelayCommand _addPhylumCommand;
 
@@ -88,13 +95,19 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         //public ICommand SavePhylumCommand => _savePhylumCommand ??
         //                                         (_savePhylumCommand = new RelayCommand(delegate { SavePhylum(null); }));
-        //-------------------------------------------------------------------------          
+
+        #endregion [Commands Phylum]
+
+        //-------------------------------------------------------------------------         
+
+        #region [Methods Phylum]
+
 
         private void ClearPhylum(object o)
         {
             SearchPhylumName = "";
 
-            SelectedMainTabIndex = 0;  //change tab
+            SelectedMainTabIndex = 0; //change tab
             SelectedDetailTabIndex = 0;
             SelectedDetailSubTabIndex = 0;
             SelectedDetailSubRefTabIndex = 0;
@@ -109,55 +122,59 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         }
         //----------------------------------------------------------------------                  
 
-        private void GetPhylumsByNameOrId(object o)
+        private void GetPhylumsByNameOrId(string searchName)
         {
-            if (SearchPhylumName != "")
-            {
-                Tbl06PhylumsList?.Clear();
-                if (SearchPhylumName == "*") // show whole table
-                {
-                    SearchPhylumName = "";
-            //        _businessLayer = new BusinessLayer.BusinessLayer();
-               //     Tbl03RegnumsAllList = new ObservableCollection<Tbl03Regnum>(_businessLayer.ListTbl03Regnums());
-                    Tbl03RegnumsAllList = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums.GetAll());
+            //if (SearchPhylumName != "")
+            //{
+            //    Tbl06PhylumsList?.Clear();
+            //    if (SearchPhylumName == "*") // show whole table
+            //    {
+            //        SearchPhylumName = "";
+            //        //        _businessLayer = new BusinessLayer.BusinessLayer();
+            //        //     Tbl03RegnumsAllList = new ObservableCollection<Tbl03Regnum>(_businessLayer.ListTbl03Regnums());
+            //        Tbl03RegnumsAllList = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums.GetAll());
 
-                    //  Tbl06PhylumsList = new ObservableCollection<Tbl06Phylum>(_businessLayer.ListTbl06PhylumsByPhylumName(SearchPhylumName));
-                    Tbl06PhylumsList = _extGet.SearchNameAndIdReturnCollection<Tbl06Phylum>(SearchPhylumName, "phylum");
-                    SearchPhylumName = "*";
-                }
-                else
-                {
-              //      _businessLayer = new BusinessLayer.BusinessLayer();
-               //     Tbl03RegnumsAllList = new ObservableCollection<Tbl03Regnum>(_businessLayer.ListTbl03Regnums());
-                    Tbl03RegnumsAllList = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums.GetAll());
-                    Tbl06PhylumsList = int.TryParse(SearchPhylumName, out var id) 
-                        ? new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums
-                            .Find(e => e.PhylumId == id))
-                        : new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums.ListTbl06PhylumsOnlyAnimaliaOrderBy(SearchPhylumName));
-                }
+            //        //  Tbl06PhylumsList = new ObservableCollection<Tbl06Phylum>(_businessLayer.ListTbl06PhylumsByPhylumName(SearchPhylumName));
+            //        Tbl06PhylumsList = _extGet.SearchNameAndIdReturnCollection<Tbl06Phylum>(SearchPhylumName, "phylum");
+            //        SearchPhylumName = "*";
+            //    }
+            //    else
+            //    {
+            //        //      _businessLayer = new BusinessLayer.BusinessLayer();
+            //        //     Tbl03RegnumsAllList = new ObservableCollection<Tbl03Regnum>(_businessLayer.ListTbl03Regnums());
+            //        Tbl03RegnumsAllList = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums.GetAll());
+            //        Tbl06PhylumsList = int.TryParse(SearchPhylumName, out var id)
+            //            ? new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums
+            //                .Find(e => e.PhylumId == id))
+            //            : new ObservableCollection<Tbl06Phylum>(
+            //                _uow.Tbl06Phylums.ListTbl06PhylumsOnlyAnimaliaOrderBy(SearchPhylumName));
+            //    }
 
-                if (Tbl06PhylumsList.Count == 0)
-                {
-                    MessageBox.Show(CultRes.StringsRes.Tables, CultRes.StringsRes.DatasetNot,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                }
-                else
-                {
-                    Tbl03RegnumsList?.Clear();
-                    Tbl12SubphylumsList?.Clear();
-                    Tbl90ReferenceExpertsList?.Clear();
-                    Tbl90ReferenceSourcesList?.Clear();
-                    Tbl90ReferenceAuthorsList?.Clear();
-                    Tbl93CommentsList?.Clear();
-                }
-            }
-            else
-            {
-                Tbl06PhylumsList = new ObservableCollection<Tbl06Phylum>();
+            //    if (Tbl06PhylumsList.Count == 0)
+            //    {
+            //        MessageBox.Show(CultRes.StringsRes.Tables, CultRes.StringsRes.DatasetNot,
+            //            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+            //    }
+            //    else
+            //    {
+            //        Tbl03RegnumsList?.Clear();
+            //        Tbl12SubphylumsList?.Clear();
+            //        Tbl90ReferenceExpertsList?.Clear();
+            //        Tbl90ReferenceSourcesList?.Clear();
+            //        Tbl90ReferenceAuthorsList?.Clear();
+            //        Tbl93CommentsList?.Clear();
+            //    }
+            //}
+            //else
+            //{
+            //    Tbl06PhylumsList = new ObservableCollection<Tbl06Phylum>();
 
-                MessageBox.Show(CultRes.StringsRes.SearchNameOrId, CultRes.StringsRes.InputRequested,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-            }
+            //    MessageBox.Show(CultRes.StringsRes.SearchNameOrId, CultRes.StringsRes.InputRequested,
+            //        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+            //}
+
+            Tbl06PhylumsList = _extGet.SearchNameAndIdReturnCollection<Tbl06Phylum>(SearchPhylumName, "phylum");
+
             PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
             PhylumsView.Refresh();
         }
@@ -168,7 +185,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             if (Tbl06PhylumsList == null)
                 Tbl06PhylumsList = new ObservableCollection<Tbl06Phylum>();
 
-            Tbl06PhylumsList.Insert(0, new Tbl06Phylum { PhylumName = CultRes.StringsRes.DatasetNew });
+            Tbl06PhylumsList.Insert(0, new Tbl06Phylum {PhylumName = CultRes.StringsRes.DatasetNew});
 
             //_businessLayer = new BusinessLayer.BusinessLayer();
             //Tbl03RegnumsAllList = new ObservableCollection<Tbl03Regnum>(_businessLayer.ListTbl03Regnums());
@@ -472,7 +489,8 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         //        PhylumsView.Refresh();
         //    }
         //}
-        #endregion "Public Commands"                  
+
+        #endregion [Methods Phylum]
 
 
 
@@ -2020,8 +2038,12 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         #region "Public Commands Connected Tables by DoubleClick"
 
         private RelayCommand _getConnectedTablesCommand;
+
         public ICommand GetConnectedTablesCommand => _getConnectedTablesCommand ??
-                                                         (_getConnectedTablesCommand = new RelayCommand(delegate { GetConnectedTablesById(null); }));
+                                                     (_getConnectedTablesCommand = new RelayCommand(delegate
+                                                     {
+                                                         GetConnectedTablesById(null);
+                                                     }));
 
         private void GetConnectedTablesById(object o)
         {
@@ -2031,7 +2053,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             Tbl90ReferenceAuthorsList?.Clear();
             Tbl93CommentsList?.Clear();
 
-            SelectedMainTabIndex = 0;  //change to Connect tab
+            SelectedMainTabIndex = 0; //change to Connect tab
             SelectedMainSubRefTabIndex = 0;
             SelectedDetailTabIndex = 1;
             SelectedDetailSubTabIndex = 0;
@@ -2044,7 +2066,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             RegnumsView.Refresh();
         }
 
-        #endregion "Public Commands Connected Tables by DoubleClick"     
+        #endregion "Public Commands Connected Tables by DoubleClick"
 
 
         //    Part 10    
@@ -2073,11 +2095,13 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                     SelectedDetailTabIndex = 1;
                     SelectedDetailSubTabIndex = 1;
                 }
+
                 if (_selectedMainTabIndex == 2)
                 {
                     SelectedDetailTabIndex = 1;
                     SelectedDetailSubTabIndex = 2;
                 }
+
                 if (_selectedMainTabIndex == 3)
                 {
                     SelectedDetailTabIndex = 1;
@@ -2116,6 +2140,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                     SelectedDetailSubTabIndex = 0;
                     SelectedMainTabIndex = 0;
                 }
+
                 if (_selectedDetailTabIndex == 1)
                     SelectedDetailSubTabIndex = 1;
                 if (_selectedDetailTabIndex == 2)
@@ -2135,17 +2160,18 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 RaisePropertyChanged("");
                 if (_selectedDetailSubTabIndex == 0)
                 {
-       //             Tbl03RegnumsList = new ObservableCollection<Tbl03Regnum>(_businessLayer.ListTbl03RegnumsByRegnumId(CurrentTbl06Phylum.RegnumId));
+                    //             Tbl03RegnumsList = new ObservableCollection<Tbl03Regnum>(_businessLayer.ListTbl03RegnumsByRegnumId(CurrentTbl06Phylum.RegnumId));
                     Tbl03RegnumsList = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums
-                        .Find(e=>e.RegnumId == CurrentTbl06Phylum.RegnumId)
-                        .OrderBy(k=>k.RegnumName)
-                        .ThenBy(k=>k.Subregnum));
+                        .Find(e => e.RegnumId == CurrentTbl06Phylum.RegnumId)
+                        .OrderBy(k => k.RegnumName)
+                        .ThenBy(k => k.Subregnum));
 
                     RegnumsView = CollectionViewSource.GetDefaultView(Tbl03RegnumsList);
                     RegnumsView.Refresh();
 
                     SelectedMainTabIndex = 0;
                 }
+
                 if (_selectedDetailSubTabIndex == 1)
                 {
                     //Tbl12SubphylumsList = new ObservableCollection<Tbl12Subphylum>(
@@ -2160,6 +2186,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
                     SelectedMainTabIndex = 1;
                 }
+
                 if (_selectedDetailSubTabIndex == 2)
                 {
                     //Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(
@@ -2172,6 +2199,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
                     SelectedMainTabIndex = 2;
                 }
+
                 if (_selectedDetailSubTabIndex == 3)
                 {
                     //Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(
@@ -2202,7 +2230,8 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                     //Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(
                     //    _businessLayer.ListTbl90RefExperts());
 
-                    Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+                    Tbl90ExpertsAllList =
+                        new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
 
                     //Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(
                     //    _businessLayer.ListTbl90ReferenceListRefExpertsByPhylumId(CurrentTbl06Phylum.PhylumId));
@@ -2212,11 +2241,13 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
                     SelectedMainSubRefTabIndex = 0;
                 }
+
                 if (_selectedDetailSubRefTabIndex == 1)
                 {
                     //Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(
                     //    _businessLayer.ListTbl90RefSources());
-                    Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+                    Tbl90SourcesAllList =
+                        new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
 
                     //Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>(
                     //    _businessLayer.ListTbl90ReferenceListRefSourcesByPhylumId(CurrentTbl06Phylum.PhylumId));
@@ -2226,11 +2257,13 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
                     SelectedMainSubRefTabIndex = 1;
                 }
+
                 if (_selectedDetailSubRefTabIndex == 2)
                 {
                     //Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(
                     //    _businessLayer.ListTbl90RefAuthors());
-                    Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+                    Tbl90AuthorsAllList =
+                        new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
 
                     //Tbl90ReferenceAuthorsList = new ObservableCollection<Tbl90Reference>(
                     //    _businessLayer.ListTbl90ReferenceListRefAuthorsByPhylumId(CurrentTbl06Phylum.PhylumId));
@@ -2252,24 +2285,34 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         #region "Public Properties Tbl06Phylum"
 
         private string _searchPhylumName = "";
+
         public string SearchPhylumName
         {
             get => _searchPhylumName;
-            set { _searchPhylumName = value; RaisePropertyChanged(""); }
+            set
+            {
+                _searchPhylumName = value;
+                RaisePropertyChanged("");
+            }
         }
 
         public ICollectionView PhylumsView;
         private Tbl06Phylum CurrentTbl06Phylum => PhylumsView?.CurrentItem as Tbl06Phylum;
 
-  //      public ObservableCollection<Tbl06Phylum> Tbl06PhylumsList { get; set; }
+        //      public ObservableCollection<Tbl06Phylum> Tbl06PhylumsList { get; set; }
         public ObservableCollection<Tbl06Phylum> Tbl06PhylumsAllList { get; set; }
 
 
         private ObservableCollection<Tbl06Phylum> _tbl06PhylumsList;
+
         public ObservableCollection<Tbl06Phylum> Tbl06PhylumsList
         {
             get => _tbl06PhylumsList;
-            set { _tbl06PhylumsList = value; RaisePropertyChanged(""); }
+            set
+            {
+                _tbl06PhylumsList = value;
+                RaisePropertyChanged("");
+            }
         }
 
         //private ObservableCollection<Tbl06Phylum> _tbl06PhylumsAllList;
@@ -2279,7 +2322,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         //    set { _tbl06PhylumsAllList = value; RaisePropertyChanged(""); }
         //}
 
-        #endregion "Public Properties"   
+        #endregion "Public Properties"
 
         #region "Public Properties Tbl03Regnum"
 
@@ -2291,88 +2334,125 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
 
         private ObservableCollection<Tbl03Regnum> _tbl03RegnumsList;
+
         public ObservableCollection<Tbl03Regnum> Tbl03RegnumsList
         {
             get => _tbl03RegnumsList;
-            set { _tbl03RegnumsList = value; RaisePropertyChanged(""); }
+            set
+            {
+                _tbl03RegnumsList = value;
+                RaisePropertyChanged("");
+            }
         }
 
         private ObservableCollection<Tbl03Regnum> _tbl03RegnumsAllList;
+
         public ObservableCollection<Tbl03Regnum> Tbl03RegnumsAllList
         {
             get => _tbl03RegnumsAllList;
-            set { _tbl03RegnumsAllList = value; RaisePropertyChanged(""); }
+            set
+            {
+                _tbl03RegnumsAllList = value;
+                RaisePropertyChanged("");
+            }
         }
 
-        #endregion "Public Properties"   
+        #endregion "Public Properties"
 
         #region "Public Properties Tbl12Subphylum"
 
         public ICollectionView SubphylumsView;
         private Tbl12Subphylum CurrentTbl12Subphylum => SubphylumsView?.CurrentItem as Tbl12Subphylum;
 
-  //      public ObservableCollection<Tbl12Subphylum> Tbl12SubphylumsList { get; set; }
+        //      public ObservableCollection<Tbl12Subphylum> Tbl12SubphylumsList { get; set; }
 
 
         private ObservableCollection<Tbl12Subphylum> _tbl12SubphylumsList;
+
         public ObservableCollection<Tbl12Subphylum> Tbl12SubphylumsList
         {
             get => _tbl12SubphylumsList;
-            set { _tbl12SubphylumsList = value; RaisePropertyChanged(""); }
+            set
+            {
+                _tbl12SubphylumsList = value;
+                RaisePropertyChanged("");
+            }
         }
-        #endregion "Public Properties"     
+
+        #endregion "Public Properties"
 
         #region "Public Properties Tbl18Superclass"
 
         public ICollectionView SuperclassesView;
         private Tbl18Superclass CurrentTbl18Superclass => SuperclassesView?.CurrentItem as Tbl18Superclass;
 
-     //   public ObservableCollection<Tbl18Superclass> Tbl18SuperclassesList { get; set; }
+        //   public ObservableCollection<Tbl18Superclass> Tbl18SuperclassesList { get; set; }
 
 
         private ObservableCollection<Tbl18Superclass> _tbl18SuperclassesList;
+
         public ObservableCollection<Tbl18Superclass> Tbl18SuperclassesList
         {
             get => _tbl18SuperclassesList;
-            set { _tbl18SuperclassesList = value; RaisePropertyChanged(""); }
+            set
+            {
+                _tbl18SuperclassesList = value;
+                RaisePropertyChanged("");
+            }
         }
-        #endregion "Public Properties"     
+
+        #endregion "Public Properties"
 
         #region "Public Properties Tbl90Author"
 
-    //    public ObservableCollection<Tbl90RefAuthor> Tbl90AuthorsAllList { get; set; }
+        //    public ObservableCollection<Tbl90RefAuthor> Tbl90AuthorsAllList { get; set; }
 
         private ObservableCollection<Tbl90RefAuthor> _tbl90AuthorsAllList;
+
         public ObservableCollection<Tbl90RefAuthor> Tbl90AuthorsAllList
         {
             get => _tbl90AuthorsAllList;
-            set { _tbl90AuthorsAllList = value; RaisePropertyChanged(""); }
+            set
+            {
+                _tbl90AuthorsAllList = value;
+                RaisePropertyChanged("");
+            }
         }
 
         #endregion "Public Properties "
 
         #region "Public Properties Tbl90Source"
 
-    //    public ObservableCollection<Tbl90RefSource> Tbl90SourcesAllList { get; set; }
+        //    public ObservableCollection<Tbl90RefSource> Tbl90SourcesAllList { get; set; }
 
         private ObservableCollection<Tbl90RefSource> _tbl90SourcesAllList;
+
         public ObservableCollection<Tbl90RefSource> Tbl90SourcesAllList
         {
             get => _tbl90SourcesAllList;
-            set { _tbl90SourcesAllList = value; RaisePropertyChanged(""); }
+            set
+            {
+                _tbl90SourcesAllList = value;
+                RaisePropertyChanged("");
+            }
         }
 
         #endregion "Public Properties "
 
         #region "Public Properties Tbl90Expert"
 
-    //    public ObservableCollection<Tbl90RefExpert> Tbl90ExpertsAllList { get; set; }
+        //    public ObservableCollection<Tbl90RefExpert> Tbl90ExpertsAllList { get; set; }
 
         private ObservableCollection<Tbl90RefExpert> _tbl90ExpertsAllList;
+
         public ObservableCollection<Tbl90RefExpert> Tbl90ExpertsAllList
         {
             get => _tbl90ExpertsAllList;
-            set { _tbl90ExpertsAllList = value; RaisePropertyChanged(""); }
+            set
+            {
+                _tbl90ExpertsAllList = value;
+                RaisePropertyChanged("");
+            }
         }
 
         #endregion "Public Properties "
@@ -2382,13 +2462,18 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         public ICollectionView ReferenceAuthorsView;
         private Tbl90Reference CurrentTbl90ReferenceAuthor => ReferenceAuthorsView?.CurrentItem as Tbl90Reference;
 
-    //    public ObservableCollection<Tbl90Reference> Tbl90ReferenceAuthorsList { get; set; }
+        //    public ObservableCollection<Tbl90Reference> Tbl90ReferenceAuthorsList { get; set; }
 
         private ObservableCollection<Tbl90Reference> _tbl90ReferenceAuthorsList;
+
         public ObservableCollection<Tbl90Reference> Tbl90ReferenceAuthorsList
         {
             get => _tbl90ReferenceAuthorsList;
-            set { _tbl90ReferenceAuthorsList = value; RaisePropertyChanged(""); }
+            set
+            {
+                _tbl90ReferenceAuthorsList = value;
+                RaisePropertyChanged("");
+            }
         }
 
         #endregion "Public Properties"
@@ -2398,13 +2483,18 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         public ICollectionView ReferenceSourcesView;
         private Tbl90Reference CurrentTbl90ReferenceSource => ReferenceSourcesView?.CurrentItem as Tbl90Reference;
 
-     //   public ObservableCollection<Tbl90Reference> Tbl90ReferenceSourcesList { get; set; }
+        //   public ObservableCollection<Tbl90Reference> Tbl90ReferenceSourcesList { get; set; }
 
         private ObservableCollection<Tbl90Reference> _tbl90ReferenceSourcesList;
+
         public ObservableCollection<Tbl90Reference> Tbl90ReferenceSourcesList
         {
             get => _tbl90ReferenceSourcesList;
-            set { _tbl90ReferenceSourcesList = value; RaisePropertyChanged(""); }
+            set
+            {
+                _tbl90ReferenceSourcesList = value;
+                RaisePropertyChanged("");
+            }
         }
 
         #endregion "Public Properties"
@@ -2414,32 +2504,43 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         public ICollectionView ReferenceExpertsView;
         private Tbl90Reference CurrentTbl90ReferenceExpert => ReferenceExpertsView?.CurrentItem as Tbl90Reference;
 
-    //    public ObservableCollection<Tbl90Reference> Tbl90ReferenceExpertsList { get; set; }
+        //    public ObservableCollection<Tbl90Reference> Tbl90ReferenceExpertsList { get; set; }
 
         private ObservableCollection<Tbl90Reference> _tbl90ReferenceExpertsList;
+
         public ObservableCollection<Tbl90Reference> Tbl90ReferenceExpertsList
         {
             get => _tbl90ReferenceExpertsList;
-            set { _tbl90ReferenceExpertsList = value; RaisePropertyChanged(""); }
+            set
+            {
+                _tbl90ReferenceExpertsList = value;
+                RaisePropertyChanged("");
+            }
         }
 
-        #endregion "Public Properties"   
+        #endregion "Public Properties"
 
         #region "Public Properties Tbl93Comment"
 
         public ICollectionView CommentsView;
         private Tbl93Comment CurrentTbl93Comment => CommentsView?.CurrentItem as Tbl93Comment;
 
-     //   public ObservableCollection<Tbl93Comment> Tbl93CommentsList { get; set; }
+        //   public ObservableCollection<Tbl93Comment> Tbl93CommentsList { get; set; }
 
         private ObservableCollection<Tbl93Comment> _tbl93CommentsList;
+
         public ObservableCollection<Tbl93Comment> Tbl93CommentsList
         {
             get => _tbl93CommentsList;
-            set { _tbl93CommentsList = value; RaisePropertyChanged(""); }
+            set
+            {
+                _tbl93CommentsList = value;
+                RaisePropertyChanged("");
+            }
         }
 
-        #endregion "Public Properties"     
+        #endregion "Public Properties"
+        #endregion "Public Properties"
 
 
 
