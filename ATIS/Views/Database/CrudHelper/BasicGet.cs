@@ -29,8 +29,15 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                             collection = PhylumAllCollection<T>();
                             break;
                         case "expert":
+                            collection = ReferenceExpertAllCollection<T>();
+                            break;
                         case "source":
+                            collection = ReferenceSourceAllCollection<T>();
+                            break;
                         case "author":
+                            collection = ReferenceAuthorAllCollection<T>();
+                            break;
+                        case "reference":
                             collection = ReferenceAllCollection<T>();
                             break;
                         case "comment":
@@ -86,9 +93,16 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 case "subdivision":
                     collection = SubdivisionAllCollection<T>();
                     break;
-                case "expert":
+                case "expert": 
+                    collection = ReferenceExpertAllCollection<T>();
+                    break;
                 case "source":
+                    collection = ReferenceSourceAllCollection<T>();
+                    break;
                 case "author":
+                    collection = ReferenceAuthorAllCollection<T>();
+                    break;
+                case "reference":
                     collection = ReferenceAllCollection<T>();
                     break;
                 case "comment":
@@ -173,6 +187,13 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             collection = new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl90References.GetAll());
             return collection;
         }
+        private ObservableCollection<T> ReferenceExpertAllCollection<T>()
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90RefExperts
+                .OrderBy(a=>a.RefExpertName));
+            return collection;
+        }
         private ObservableCollection<T> ReferenceExpertNameIdCollection<T>(string searchName)
         {
             ObservableCollection<T> collection;
@@ -185,6 +206,15 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             return collection;
         }
         //--------------------------------------------------------
+
+        private ObservableCollection<T> ReferenceSourceAllCollection<T>()
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90RefSources
+                .OrderBy(a => a.RefSourceName));
+            return collection;
+        }
+
         private ObservableCollection<T> ReferenceSourceNameIdCollection<T>(string searchName)
         {
             ObservableCollection<T> collection;
@@ -197,6 +227,17 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             return collection;
         }
         //--------------------------------------------------------
+        private ObservableCollection<T> ReferenceAuthorAllCollection<T>()
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90RefAuthors
+                .OrderBy(a => a.ArticelTitle)
+                .ThenBy(a => a.BookName)
+                .ThenBy(a => a.Page1)
+            );
+            return collection;
+        }
+
         private ObservableCollection<T> ReferenceAuthorNameIdCollection<T>(string searchName)
         {
             ObservableCollection<T> collection;

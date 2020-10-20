@@ -101,7 +101,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         #region [Commands Phylum]
 
-        #region "Public Commands Basic Tbl06Phylum"
 
         //-------------------------------------------------------------------------
         //private RelayCommand _clearPhylumCommand;
@@ -123,7 +122,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         private RelayCommand _savePhylumCommand;
         public ICommand SavePhylumCommand => _savePhylumCommand ??= new RelayCommand(delegate { ExecuteSavePhylum(SearchPhylumName); });
 
-        #endregion [Commands Phylum]
 
         #endregion [Commands Phylum]
 
@@ -561,9 +559,9 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         //    Part 8    
 
+        #region [Commands Phylum ==> Tbl90Reference Author]
 
-        //#region "Public Commands Connect ==> Tbl90ReferenceAuthor"
-        //-------------------------------------------------------------------------
+
         private RelayCommand _addReferenceAuthorCommand;
 
         public ICommand AddReferenceAuthorCommand => _addReferenceAuthorCommand ??= new RelayCommand(delegate { ExecuteAddReferenceAuthor(null); });
@@ -579,11 +577,16 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         private RelayCommand _saveReferenceAuthorCommand;
 
         public ICommand SaveReferenceAuthorCommand => _saveReferenceAuthorCommand ??= new RelayCommand(delegate { ExecuteSaveReferenceAuthor(null); });
-        //-------------------------------------------------------------------------                    
+
+        #endregion [Commands Phylum ==> Tbl90Reference Author]
+
+        #region [Methods Phylum ==> Tbl90Reference Author]
 
         public void ExecuteAddReferenceAuthor(object o)
         {
             Tbl90ReferenceAuthorsList ??= new ObservableCollection<Tbl90Reference>();
+
+            Tbl90AuthorsAllList = _extGet.AllCollection<Tbl90RefAuthor>("author");
 
             Tbl90ReferenceAuthorsList.Insert(0, new Tbl90Reference { Info = CultRes.StringsRes.DatasetNew });
 
@@ -594,33 +597,12 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         public void ExecuteCopyReferenceAuthor(object o)
         {
-            //if (CurrentTbl90ReferenceAuthor == null)
-            //{
-            //    MessageBox.Show(CultRes.StringsRes.DatasetNew,
-            //        CultRes.StringsRes.RequiredInput,
-            //        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-            //    return;
-            //}
             if (_genAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceAuthor)) return;
-
-            //var reference = _businessLayer.SingleListTbl90ReferencesByReferenceId(CurrentTbl90ReferenceAuthor.ReferenceId);
-
-            //Tbl90ReferenceAuthorsList.Insert(0, new Tbl90Reference
-            //{
-            //    RefAuthorId = reference.RefAuthorId,
-            //    Valid = reference.Valid,
-            //    ValidYear = reference.ValidYear,
-            //    Info = CultRes.StringsRes.DatasetNew,
-            //    Memo = reference.Memo
-            //});
-
-
 
             Tbl90ReferenceAuthorsList = _extCopy.CopyReferencePhylum(CurrentTbl90ReferenceAuthor, "Author");
 
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
             ReferenceAuthorsView.MoveCurrentToFirst();
-
         }
         //----------------------------------------------------------------------            
 
@@ -653,7 +635,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
             ReferenceAuthorsView.MoveCurrentToFirst();
-
         }
 
         ////----------------------------------------------------------------------            
@@ -673,7 +654,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 else
                     reference = _extSave.ReferenceAuthorPhylumUpdate(reference, CurrentTbl90ReferenceAuthor);
 
-                _position = PhylumsView.CurrentPosition;
+                //    _position = PhylumsView.CurrentPosition;
 
                 if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceAuthor.Info))
                     return;
@@ -715,817 +696,439 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
             ReferenceAuthorsView.MoveCurrentToFirst();
         }
-        //#endregion "Public Commands"                  
 
-        //#region "Public Commands Connect ==> Tbl90ReferenceSource" 
-        ////-------------------------------------------------------------------------
-        //private RelayCommand _addReferenceSourceCommand;
+        #endregion [Methods Phylum ==> Tbl90Reference Author]
 
-        //public ICommand AddReferenceSourceCommand => _addReferenceSourceCommand ??
-        //                                            (_addReferenceSourceCommand = new RelayCommand(delegate { AddReferenceSource(null); }));
+        #region [Commands Phylum ==> Tbl90Reference Source]
 
-        //private RelayCommand _copyReferenceSourceCommand;
 
-        //public ICommand CopyReferenceSourceCommand => _copyReferenceSourceCommand ??
-        //                (_copyReferenceSourceCommand = new RelayCommand(delegate { CopyReferenceSource(null); }));
+        private RelayCommand _addReferenceSourceCommand;
 
-        //private RelayCommand _deleteReferenceSourceCommand;
+        public ICommand AddReferenceSourceCommand => _addReferenceSourceCommand ??= new RelayCommand(delegate { ExecuteAddReferenceSource(null); });
 
-        //public ICommand DeleteReferenceSourceCommand => _deleteReferenceSourceCommand ??
-        //                                                (_deleteReferenceSourceCommand = new RelayCommand(delegate { DeleteReferenceSource(null); }));
+        private RelayCommand _copyReferenceSourceCommand;
 
-        //private RelayCommand _saveReferenceSourceCommand;
+        public ICommand CopyReferenceSourceCommand => _copyReferenceSourceCommand ??= new RelayCommand(delegate { ExecuteCopyReferenceSource(null); });
 
-        //public ICommand SaveReferenceSourceCommand => _saveReferenceSourceCommand ??
-        //             (_saveReferenceSourceCommand = new RelayCommand(delegate { SaveReferenceSource(null); }));
+        private RelayCommand _deleteReferenceSourceCommand;
 
-        ////-------------------------------------------------------------------------          
+        public ICommand DeleteReferenceSourceCommand => _deleteReferenceSourceCommand ??= new RelayCommand(delegate { ExecuteDeleteReferenceSource(null); });
 
-        //public void AddReferenceSource(object o)
-        //{
-        //    if (Tbl90ReferenceSourcesList == null)
-        //        Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>();
+        private RelayCommand _saveReferenceSourceCommand;
 
-        //    Tbl90ReferenceSourcesList.Insert(0, new Tbl90Reference { Info = CultRes.StringsRes.DatasetNew });
+        public ICommand SaveReferenceSourceCommand => _saveReferenceSourceCommand ??= new RelayCommand(delegate { ExecuteSaveReferenceSource(null); });
 
-        //    ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
-        //    ReferenceSourcesView.MoveCurrentToFirst();
-        //}
+        //-------------------------------------------------------------------------          
+        #endregion [Commands Phylum ==> Tbl90Reference Source]
+
+        #region [Methods Phylum ==> Tbl90Reference Source]
+
+        public void ExecuteAddReferenceSource(object o)
+        {
+            Tbl90ReferenceSourcesList ??= new ObservableCollection<Tbl90Reference>();
+
+            Tbl90SourcesAllList = _extGet.AllCollection<Tbl90RefSource>("source");
+
+            Tbl90ReferenceSourcesList.Insert(0, new Tbl90Reference { Info = CultRes.StringsRes.DatasetNew });
+
+            ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+            ReferenceSourcesView.MoveCurrentToFirst();
+        }
+        //----------------------------------------------------------------------            
+
+        public void ExecuteCopyReferenceSource(object o)
+        {
+            if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
+
+            Tbl90ReferenceAuthorsList = _extCopy.CopyReferencePhylum(CurrentTbl90ReferenceSource, "Source");
+
+            ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+            ReferenceSourcesView.MoveCurrentToFirst();
+        }
+        //----------------------------------------------------------------------            
+
+        private void ExecuteDeleteReferenceSource(object o)
+        {
+            if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
+
+            try
+            {
+                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceSource.ReferenceId);
+                if (reference != null)
+                {
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceSource.Info)) return;
+
+                    _extDelete.DeleteReference(reference);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceSource.Info);
+                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceSource.Info + " " + CultRes.StringsRes.DeleteCan1);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+            Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>(_context.Tbl90References
+                .Where(a => a.PhylumId == CurrentTbl90ReferenceSource.PhylumId)
+                .OrderBy(a => a.Info));
+
+            ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+            ReferenceSourcesView.MoveCurrentToFirst();
+        }
+        //----------------------------------------------------------------------            
+
+        public void ExecuteSaveReferenceSource(object o)
+        {
+            if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
+
+            CurrentTbl90ReferenceSource.PhylumId = CurrentTbl06Phylum.PhylumId;
+            try
+            {
+                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceSource.ReferenceId);
+
+
+                if (CurrentTbl90ReferenceSource.ReferenceId == 0)
+                    reference = _extSave.ReferenceSourcePhylumAdd(CurrentTbl90ReferenceSource);
+                else
+                    reference = _extSave.ReferenceSourcePhylumUpdate(reference, CurrentTbl90ReferenceSource);
+
+        //        _position = PhylumsView.CurrentPosition;
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceSource.Info))
+                    return;
+
+                try
+                {
+                    _extSave.ReferenceSourceSave(reference, CurrentTbl90ReferenceSource);
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
+                            CultRes.StringsRes.FailedToSave);
+                    Log.Error(e);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                    Log.Error(e);
+                    return;
+                }
+
+                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl90ReferenceSource.ReferenceId == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : CurrentTbl90ReferenceSource.Info);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+            Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>(_context.Tbl90References
+                .Where(a => a.PhylumId == CurrentTbl90ReferenceSource.PhylumId)
+                .OrderBy(a => a.Info));
+
+
+         //   SelectedMainSubRefTabIndex = 1;
+
+            ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+            ReferenceSourcesView.MoveCurrentToFirst();
+        }
+
+        #endregion [Methods Phylum ==> Tbl90Reference Source]
+
+        #region [Commands Phylum ==> Tbl90Reference Expert]
+
+        private RelayCommand _addReferenceExpertCommand;
+
+        public ICommand AddReferenceExpertCommand => _addReferenceExpertCommand ??= new RelayCommand(delegate { ExecuteAddReferenceExpert(null); });
+
+        private RelayCommand _copyReferenceExpertCommand;
+
+        public ICommand CopyReferenceExpertCommand => _copyReferenceExpertCommand ??= new RelayCommand(delegate { ExecuteCopyReferenceExpert(null); });
+
+        private RelayCommand _deleteReferenceExpertCommand;
+
+        public ICommand DeleteReferenceExpertCommand => _deleteReferenceExpertCommand ??= new RelayCommand(delegate { ExecuteDeleteReferenceExpert(null); });
+        private RelayCommand _saveReferenceExpertCommand;
+
+        public ICommand SaveReferenceExpertCommand => _saveReferenceExpertCommand ??= new RelayCommand(delegate { ExecuteSaveReferenceExpert(null); });
+
+        #endregion [Commands Phylum ==> Tbl90Reference Expert]
+
+        #region [Methods Phylum ==> Tbl90Reference Expert]
+
+
+        public void ExecuteAddReferenceExpert(object o)
+        {
+            Tbl90ReferenceExpertsList ??= new ObservableCollection<Tbl90Reference>();
+
+            Tbl90ExpertsAllList = _extGet.AllCollection<Tbl90RefExpert>("expert");
+
+            Tbl90ReferenceExpertsList.Insert(0, new Tbl90Reference { Info = CultRes.StringsRes.DatasetNew });
+
+            ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+            ReferenceExpertsView.MoveCurrentToFirst();
+        }
+        //----------------------------------------------------------------------            
+
+        public void ExecuteCopyReferenceExpert(object o)
+        {
+            if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
+
+            Tbl90ReferenceExpertsList = _extCopy.CopyReferencePhylum(CurrentTbl90ReferenceExpert, "Expert");
+
+
+            ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+            ReferenceExpertsView.MoveCurrentToFirst();
+        }
+        //----------------------------------------------------------------------            
+
+        private void ExecuteDeleteReferenceExpert(object o)
+        {
+            if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
+
+            try
+            {
+                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceExpert.ReferenceId);
+                if (reference != null)
+                {
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceExpert.Info)) return;
+
+                    _extDelete.DeleteReference(reference);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceExpert.Info);
+                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceExpert.Info + " " + CultRes.StringsRes.DeleteCan1);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+            Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(_context.Tbl90References
+                .Where(a => a.PhylumId == CurrentTbl90ReferenceExpert.PhylumId)
+                .OrderBy(a => a.Info));
+
+
+            ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+            ReferenceExpertsView.Refresh();
+        }
         ////----------------------------------------------------------------------            
 
-        //public void CopyReferenceSource(object o)
-        //{
-        //    if (CurrentTbl90ReferenceSource == null)
-        //    {
-        //        WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-        //            CultRes.StringsRes.RequiredInput,
-        //            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //        return;
-        //    }
+        public void ExecuteSaveReferenceExpert(object o)
+        {
+            if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
 
-        //    var reference = _businessLayer.SingleListTbl90ReferencesByReferenceId(CurrentTbl90ReferenceSource.ReferenceID);
+            CurrentTbl90ReferenceExpert.PhylumId = CurrentTbl06Phylum.PhylumId;
+            try
+            {
+                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceExpert.ReferenceId);
 
-        //    Tbl90ReferenceSourcesList.Insert(0, new Tbl90Reference
-        //    {
-        //        RefSourceID = reference.RefSourceID,
-        //        Valid = reference.Valid,
-        //        ValidYear = reference.ValidYear,
-        //        Info = CultRes.StringsRes.DatasetNew,
-        //        Memo = reference.Memo
-        //    });
 
-        //    ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
-        //    ReferenceSourcesView.MoveCurrentToFirst();
-        //}
+                if (CurrentTbl90ReferenceExpert.ReferenceId == 0)
+                    reference = _extSave.ReferenceExpertPhylumAdd(CurrentTbl90ReferenceExpert);
+                else
+                    reference = _extSave.ReferenceExpertPhylumUpdate(reference, CurrentTbl90ReferenceExpert);
+
+                //        _position = PhylumsView.CurrentPosition;
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceExpert.Info))
+                    return;
+
+                try
+                {
+                    _extSave.ReferenceExpertSave(reference, CurrentTbl90ReferenceExpert);
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
+                            CultRes.StringsRes.FailedToSave);
+                    Log.Error(e);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                    Log.Error(e);
+                    return;
+                }
+
+                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl90ReferenceExpert.ReferenceId == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : CurrentTbl90ReferenceExpert.Info);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+            Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(_context.Tbl90References
+                .Where(a => a.PhylumId == CurrentTbl90ReferenceExpert.PhylumId)
+                .OrderBy(a => a.Info));
+
+
+            //   SelectedMainSubRefTabIndex = 1;
+
+ 
+
+            SelectedMainSubRefTabIndex = 0;
+
+            ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+            ReferenceExpertsView.MoveCurrentToFirst();
+        }
+
+        #endregion [Methods Phylum ==> Tbl90Reference Expert]
+
+        #region [Commands Phylum ==> Tbl93Comments]
+
+        private RelayCommand _addCommentCommand;
+
+        public ICommand AddCommentCommand => _addCommentCommand ??= new RelayCommand(delegate { ExecuteAddComment(null); });
+
+        private RelayCommand _copyCommentCommand;
+
+        public ICommand CopyCommentCommand => _copyCommentCommand ??= new RelayCommand(delegate { ExecuteCopyComment(null); });
+
+        private RelayCommand _deleteCommentCommand;
+
+        public ICommand DeleteCommentCommand => _deleteCommentCommand ??= new RelayCommand(delegate { ExecuteDeleteComment(null); });
+
+        private RelayCommand _saveCommentCommand;
+
+        public ICommand SaveCommentCommand => _saveCommentCommand ??= new RelayCommand(delegate { ExecuteSaveComment(null); });
+
+        #endregion [Commands Phylum ==> Tbl93Comments]
+
+        #region [Methods Phylum ==> Tbl93Comments]
+
+        public void ExecuteAddComment(object o)
+        {
+            Tbl93CommentsList ??= new ObservableCollection<Tbl93Comment>();
+
+            Tbl93CommentsList.Insert(0, new Tbl93Comment { Info = CultRes.StringsRes.DatasetNew });
+
+            CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+            CommentsView.MoveCurrentToFirst();
+        }
+        //----------------------------------------------------------------------            
+
+        public void ExecuteCopyComment(object o)
+        {
+
+            if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
+
+            Tbl93CommentsList = _extCopy.CopyComment(CurrentTbl93Comment, "Comment");
+
+
+            CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+            CommentsView.MoveCurrentToFirst();
+        }
+        //----------------------------------------------------------------------            
+
+        private void ExecuteDeleteComment(object o)
+        {
+            if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
+
+            try
+            {
+                var comment = _uow.Tbl93Comments.GetById(CurrentTbl93Comment.CommentId);
+                if (comment != null)
+                {
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl93Comment.Info)) return;
+
+                    _extDelete.DeleteComment(comment);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl93Comment.Info);
+                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl93Comment.Info + " " + CultRes.StringsRes.DeleteCan1);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+            Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_context.Tbl93Comments
+                .Where(a => a.PhylumId == CurrentTbl93Comment.PhylumId)
+                .OrderBy(a => a.Info));
+
+            CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+            CommentsView.Refresh();
+        }
         ////----------------------------------------------------------------------            
 
-        //private void DeleteReferenceSource(object o)
-        //{
-        //    if (CurrentTbl90ReferenceSource == null)
-        //    {
-        //        WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-        //            CultRes.StringsRes.RequiredInput,
-        //            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //        return;
-        //    }
-
-        //    try
-        //    {
-        //        var reference = _businessLayer.SingleListTbl90ReferencesByReferenceId(CurrentTbl90ReferenceSource.ReferenceID);
-        //        if (reference != null)
-        //        {
-        //            if (WpfMessageBox.Show(CultRes.StringsRes.DeleteQuestion1, CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceSource.Info,
-        //                    MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-        //                return;
-        //            reference.EntityState = EntityState.Deleted;
-        //            _businessLayer.RemoveReference(reference);
-
-        //            WpfMessageBox.Show(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceSource.Info,
-        //                MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //        }
-        //        else
-        //        {
-        //            WpfMessageBox.Show(CultRes.StringsRes.Information, CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceSource.Info + " " + CultRes.StringsRes.DeleteCan1,
-        //                MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //        }
-        //    }
-        //    catch (DbEntityValidationException ex)
-        //    {
-        //        _entityException.EntityException(ex);
-        //        Log.Error(ex);
-        //    }
-
-        //    Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90ReferenceListRefSourcesByPhylumId(CurrentTbl06Phylum.PhylumID));
-
-        //    ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
-        //    ReferenceSourcesView.Refresh();
-        //}
-        ////----------------------------------------------------------------------            
-
-        //public void SaveReferenceSource(object o)
-        //{
-        //    if (CurrentTbl90ReferenceSource == null)
-        //    {
-        //        WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-        //            CultRes.StringsRes.RequiredInput,
-        //            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //        return;
-        //    }
-
-        //    CurrentTbl90ReferenceSource.PhylumID = CurrentTbl06Phylum.PhylumID;
-
-        //    try
-        //    {
-        //        var reference = _businessLayer.SingleListTbl90ReferencesByReferenceId(CurrentTbl90ReferenceSource.ReferenceID);
-        //        if (CurrentTbl90ReferenceSource.ReferenceID != 0)
-        //        {
-        //            if (reference != null) //update
-        //            {
-        //                reference.RefExpertID = CurrentTbl90ReferenceSource.RefExpertID;
-        //                reference.RefAuthorID = CurrentTbl90ReferenceSource.RefAuthorID;
-        //                reference.RefSourceID = CurrentTbl90ReferenceSource.RefSourceID;
-        //                reference.RegnumID = CurrentTbl90ReferenceSource.RegnumID;
-        //                reference.PhylumID = CurrentTbl90ReferenceSource.PhylumID;
-        //                reference.DivisionID = CurrentTbl90ReferenceSource.DivisionID;
-        //                reference.SubphylumID = CurrentTbl90ReferenceSource.SubphylumID;
-        //                reference.SubdivisionID = CurrentTbl90ReferenceSource.SubdivisionID;
-        //                reference.SuperclassID = CurrentTbl90ReferenceSource.SuperclassID;
-        //                reference.ClassID = CurrentTbl90ReferenceSource.ClassID;
-        //                reference.SubclassID = CurrentTbl90ReferenceSource.SubclassID;
-        //                reference.InfraclassID = CurrentTbl90ReferenceSource.InfraclassID;
-        //                reference.LegioID = CurrentTbl90ReferenceSource.LegioID;
-        //                reference.OrdoID = CurrentTbl90ReferenceSource.OrdoID;
-        //                reference.SubordoID = CurrentTbl90ReferenceSource.SubordoID;
-        //                reference.InfraordoID = CurrentTbl90ReferenceSource.InfraordoID;
-        //                reference.SuperfamilyID = CurrentTbl90ReferenceSource.SuperfamilyID;
-        //                reference.FamilyID = CurrentTbl90ReferenceSource.FamilyID;
-        //                reference.SubfamilyID = CurrentTbl90ReferenceSource.SubfamilyID;
-        //                reference.InfrafamilyID = CurrentTbl90ReferenceSource.InfrafamilyID;
-        //                reference.SupertribusID = CurrentTbl90ReferenceSource.SupertribusID;
-        //                reference.TribusID = CurrentTbl90ReferenceSource.TribusID;
-        //                reference.SubtribusID = CurrentTbl90ReferenceSource.SubtribusID;
-        //                reference.InfratribusID = CurrentTbl90ReferenceSource.InfratribusID;
-        //                reference.GenusID = CurrentTbl90ReferenceSource.GenusID;
-        //                reference.PlSpeciesID = CurrentTbl90ReferenceSource.PlSpeciesID;
-        //                reference.FiSpeciesID = CurrentTbl90ReferenceSource.FiSpeciesID;
-        //                reference.Valid = CurrentTbl90ReferenceSource.Valid;
-        //                reference.ValidYear = CurrentTbl90ReferenceSource.ValidYear;
-        //                reference.Info = CurrentTbl90ReferenceSource.Info;
-        //                reference.Updater = Environment.UserName;
-        //                reference.UpdaterDate = DateTime.Now;
-        //                reference.Memo = CurrentTbl90ReferenceSource.Memo;
-
-        //                reference.EntityState = EntityState.Modified;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            reference = new Tbl90Reference     //add new
-        //            {
-        //                RefAuthorID = CurrentTbl90ReferenceSource.RefAuthorID,
-        //                RefSourceID = CurrentTbl90ReferenceSource.RefSourceID,
-        //                RefExpertID = CurrentTbl90ReferenceSource.RefExpertID,
-        //                RegnumID = CurrentTbl90ReferenceSource.RegnumID,
-        //                PhylumID = CurrentTbl90ReferenceSource.PhylumID,
-        //                DivisionID = CurrentTbl90ReferenceSource.DivisionID,
-        //                SubphylumID = CurrentTbl90ReferenceSource.SubphylumID,
-        //                SubdivisionID = CurrentTbl90ReferenceSource.SubdivisionID,
-        //                SuperclassID = CurrentTbl90ReferenceSource.SuperclassID,
-        //                ClassID = CurrentTbl90ReferenceSource.ClassID,
-        //                SubclassID = CurrentTbl90ReferenceSource.SubclassID,
-        //                InfraclassID = CurrentTbl90ReferenceSource.InfraclassID,
-        //                LegioID = CurrentTbl90ReferenceSource.LegioID,
-        //                OrdoID = CurrentTbl90ReferenceSource.OrdoID,
-        //                SubordoID = CurrentTbl90ReferenceSource.SubordoID,
-        //                InfraordoID = CurrentTbl90ReferenceSource.InfraordoID,
-        //                SuperfamilyID = CurrentTbl90ReferenceSource.SuperfamilyID,
-        //                FamilyID = CurrentTbl90ReferenceSource.FamilyID,
-        //                SubfamilyID = CurrentTbl90ReferenceSource.SubfamilyID,
-        //                InfrafamilyID = CurrentTbl90ReferenceSource.InfrafamilyID,
-        //                SupertribusID = CurrentTbl90ReferenceSource.SupertribusID,
-        //                TribusID = CurrentTbl90ReferenceSource.TribusID,
-        //                SubtribusID = CurrentTbl90ReferenceSource.SubtribusID,
-        //                InfratribusID = CurrentTbl90ReferenceSource.InfratribusID,
-        //                GenusID = CurrentTbl90ReferenceSource.GenusID,
-        //                PlSpeciesID = CurrentTbl90ReferenceSource.PlSpeciesID,
-        //                FiSpeciesID = CurrentTbl90ReferenceSource.FiSpeciesID,
-        //                CountID = RandomHelper.Randomnumber(),
-        //                Valid = CurrentTbl90ReferenceSource.Valid,
-        //                ValidYear = CurrentTbl90ReferenceSource.ValidYear,
-        //                Info = CurrentTbl90ReferenceSource.Info,
-        //                Memo = CurrentTbl90ReferenceSource.Memo,
-        //                Writer = Environment.UserName,
-        //                WriterDate = DateTime.Now,
-        //                Updater = Environment.UserName,
-        //                UpdaterDate = DateTime.Now,
-        //                EntityState = EntityState.Added
-        //            };
-        //        }
-        //        {
-        //            //RefExpertID or RefSourceID or RefAuthorID may be not 0
-        //            if (CurrentTbl90ReferenceSource.RefExpertID == null && CurrentTbl90ReferenceSource.RefSourceID == null && CurrentTbl90ReferenceSource.RefAuthorID == null)
-        //            {
-        //                WpfMessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-        //                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //                return;
-        //            }
-
-        //            //check if dataset with vb-name already exist   
-        //            var dataset = _businessLayer.ListTbl90ReferencesByRefExpertIdAndRefSourceIdAndRefAuthorIdAndInfo(CurrentTbl90ReferenceSource);
-
-        //            if (dataset.Count != 0 && CurrentTbl90ReferenceSource.ReferenceID == 0)  //dataset exist
-        //            {
-        //                WpfMessageBox.Show(CultRes.StringsRes.DatasetExist, CurrentTbl90ReferenceSource.ReferenceID.ToString(),
-        //                MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //                return;
-        //            }
-        //            if (dataset.Count == 0 && CurrentTbl90ReferenceSource.ReferenceID == 0 ||
-        //                dataset.Count != 0 && CurrentTbl90ReferenceSource.ReferenceID != 0 ||
-        //                dataset.Count == 0 && CurrentTbl90ReferenceSource.ReferenceID != 0) //new dataset and update
-        //            {
-        //                if (WpfMessageBox.Show(CultRes.StringsRes.SaveQuestion2, CurrentTbl90ReferenceSource.Info,
-        //                        MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-        //                    return;
-        //                {
-        //                    try
-        //                    {
-        //                        _businessLayer.UpdateReference(reference);
-        //                    }
-        //                    catch (DbUpdateException e)
-        //                    {
-        //                        if (e.InnerException != null)
-        //                            System.Windows.MessageBox.Show(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave,
-        //                                MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-
-        //                        Log.Error(e);
-        //                        return;
-        //                    }
-        //                    catch (Exception e)
-        //                    {
-        //                        System.Windows.MessageBox.Show(e.Message, CultRes.StringsRes.Error,
-        //                            MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-        //                        Log.Error(e);
-        //                        return;
-        //                    }
-        //                    WpfMessageBox.Show(CultRes.StringsRes.SaveSuccess,
-        //                        CurrentTbl90ReferenceSource.ReferenceID == 0
-        //                            ? CultRes.StringsRes.DatasetNew
-        //                             : CurrentTbl90ReferenceSource.ReferenceID.ToString(),
-        //                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (DbEntityValidationException ex)
-        //    {
-        //        _entityException.EntityException(ex);
-        //        Log.Error(ex);
-        //        return;
-        //    }
-
-        //    Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90ReferenceListRefSourcesByPhylumId(CurrentTbl06Phylum.PhylumID));
-
-        //    SelectedMainSubRefTabIndex = 1;
-
-        //    ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
-        //    ReferenceSourcesView.Refresh();
-        //}
-        //#endregion "Public Commands"                  
-
-        //#region "Public Commands Connect ==> Tbl90ReferenceExpert"
-        ////-------------------------------------------------------------------------
-
-        //private RelayCommand _addReferenceExpertCommand;
-
-        //public ICommand AddReferenceExpertCommand => _addReferenceExpertCommand ??
-        //                                            (_addReferenceExpertCommand = new RelayCommand(delegate { AddReferenceExpert(null); }));
-
-        //private RelayCommand _copyReferenceExpertCommand;
-
-        //public ICommand CopyReferenceExpertCommand => _copyReferenceExpertCommand ??
-        //                (_copyReferenceExpertCommand = new RelayCommand(delegate { CopyReferenceExpert(null); }));
-
-        //private RelayCommand _deleteReferenceExpertCommand;
-
-        //public ICommand DeleteReferenceExpertCommand => _deleteReferenceExpertCommand ??
-        //                                                (_deleteReferenceExpertCommand = new RelayCommand(delegate { DeleteReferenceExpert(null); }));
-        //private RelayCommand _saveReferenceExpertCommand;
-
-        //public ICommand SaveReferenceExpertCommand => _saveReferenceExpertCommand ??
-        //             (_saveReferenceExpertCommand = new RelayCommand(delegate { SaveReferenceExpert(null); }));
-        ////-------------------------------------------------------------------------          
-
-        //public void AddReferenceExpert(object o)
-        //{
-        //    if (Tbl90ReferenceExpertsList == null)
-        //        Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>();
-
-        //    Tbl90ReferenceExpertsList.Insert(0, new Tbl90Reference { Info = CultRes.StringsRes.DatasetNew });
-
-        //    ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
-        //    ReferenceExpertsView.MoveCurrentToFirst();
-        //}
-        ////----------------------------------------------------------------------            
-
-        //public void CopyReferenceExpert(object o)
-        //{
-        //    if (CurrentTbl90ReferenceExpert == null)
-        //    {
-        //        WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-        //            CultRes.StringsRes.RequiredInput,
-        //            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //        return;
-        //    }
-
-        //    var reference = _businessLayer.SingleListTbl90ReferencesByReferenceId(CurrentTbl90ReferenceExpert.ReferenceID);
-
-        //    Tbl90ReferenceExpertsList.Insert(0, new Tbl90Reference
-        //    {
-        //        RefExpertID = reference.RefExpertID,
-        //        Valid = reference.Valid,
-        //        ValidYear = reference.ValidYear,
-        //        Info = CultRes.StringsRes.DatasetNew,
-        //        Memo = reference.Memo
-        //    });
-
-        //    ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
-        //    ReferenceExpertsView.MoveCurrentToFirst();
-        //}
-        ////----------------------------------------------------------------------            
-
-        //private void DeleteReferenceExpert(object o)
-        //{
-        //    if (CurrentTbl90ReferenceExpert == null)
-        //    {
-        //        WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-        //            CultRes.StringsRes.RequiredInput,
-        //            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //        return;
-        //    }
-
-        //    try
-        //    {
-        //        var reference = _businessLayer.SingleListTbl90ReferencesByReferenceId(CurrentTbl90ReferenceExpert.ReferenceID);
-        //        if (reference != null)
-        //        {
-        //            if (WpfMessageBox.Show(CultRes.StringsRes.DeleteQuestion1, CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceExpert.Info,
-        //                    MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-        //                return;
-        //            reference.EntityState = EntityState.Deleted;
-        //            _businessLayer.RemoveReference(reference);
-
-        //            WpfMessageBox.Show(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceExpert.Info,
-        //                MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //        }
-        //        else
-        //        {
-        //            WpfMessageBox.Show(CultRes.StringsRes.Information, CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceExpert.Info + " " + CultRes.StringsRes.DeleteCan1,
-        //                MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //        }
-        //    }
-        //    catch (DbEntityValidationException ex)
-        //    {
-        //        _entityException.EntityException(ex);
-        //        Log.Error(ex);
-        //    }
-
-        //    Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90ReferenceListRefExpertsByPhylumId(CurrentTbl06Phylum.PhylumID));
-
-        //    ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
-        //    ReferenceExpertsView.Refresh();
-        //}
-        ////----------------------------------------------------------------------            
-
-        //public void SaveReferenceExpert(object o)
-        //{
-        //    if (CurrentTbl90ReferenceExpert == null)
-        //    {
-        //        WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-        //            CultRes.StringsRes.RequiredInput,
-        //            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //        return;
-        //    }
-
-        //    CurrentTbl90ReferenceExpert.PhylumID = CurrentTbl06Phylum.PhylumID;
-
-        //    try
-        //    {
-        //        var reference = _businessLayer.SingleListTbl90ReferencesByReferenceId(CurrentTbl90ReferenceExpert.ReferenceID);
-        //        if (CurrentTbl90ReferenceExpert.ReferenceID != 0)
-        //        {
-        //            if (reference != null) //update
-        //            {
-        //                reference.RefExpertID = CurrentTbl90ReferenceExpert.RefExpertID;
-        //                reference.RefAuthorID = CurrentTbl90ReferenceExpert.RefAuthorID;
-        //                reference.RefSourceID = CurrentTbl90ReferenceExpert.RefSourceID;
-        //                reference.RegnumID = CurrentTbl90ReferenceExpert.RegnumID;
-        //                reference.PhylumID = CurrentTbl90ReferenceExpert.PhylumID;
-        //                reference.DivisionID = CurrentTbl90ReferenceExpert.DivisionID;
-        //                reference.SubphylumID = CurrentTbl90ReferenceExpert.SubphylumID;
-        //                reference.SubdivisionID = CurrentTbl90ReferenceExpert.SubdivisionID;
-        //                reference.SuperclassID = CurrentTbl90ReferenceExpert.SuperclassID;
-        //                reference.ClassID = CurrentTbl90ReferenceExpert.ClassID;
-        //                reference.SubclassID = CurrentTbl90ReferenceExpert.SubclassID;
-        //                reference.InfraclassID = CurrentTbl90ReferenceExpert.InfraclassID;
-        //                reference.LegioID = CurrentTbl90ReferenceExpert.LegioID;
-        //                reference.OrdoID = CurrentTbl90ReferenceExpert.OrdoID;
-        //                reference.SubordoID = CurrentTbl90ReferenceExpert.SubordoID;
-        //                reference.InfraordoID = CurrentTbl90ReferenceExpert.InfraordoID;
-        //                reference.SuperfamilyID = CurrentTbl90ReferenceExpert.SuperfamilyID;
-        //                reference.FamilyID = CurrentTbl90ReferenceExpert.FamilyID;
-        //                reference.SubfamilyID = CurrentTbl90ReferenceExpert.SubfamilyID;
-        //                reference.InfrafamilyID = CurrentTbl90ReferenceExpert.InfrafamilyID;
-        //                reference.SupertribusID = CurrentTbl90ReferenceExpert.SupertribusID;
-        //                reference.TribusID = CurrentTbl90ReferenceExpert.TribusID;
-        //                reference.SubtribusID = CurrentTbl90ReferenceExpert.SubtribusID;
-        //                reference.InfratribusID = CurrentTbl90ReferenceExpert.InfratribusID;
-        //                reference.GenusID = CurrentTbl90ReferenceExpert.GenusID;
-        //                reference.PlSpeciesID = CurrentTbl90ReferenceExpert.PlSpeciesID;
-        //                reference.FiSpeciesID = CurrentTbl90ReferenceExpert.FiSpeciesID;
-        //                reference.Valid = CurrentTbl90ReferenceExpert.Valid;
-        //                reference.ValidYear = CurrentTbl90ReferenceExpert.ValidYear;
-        //                reference.Info = CurrentTbl90ReferenceExpert.Info;
-        //                reference.Updater = Environment.UserName;
-        //                reference.UpdaterDate = DateTime.Now;
-        //                reference.Memo = CurrentTbl90ReferenceExpert.Memo;
-
-        //                reference.EntityState = EntityState.Modified;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            reference = new Tbl90Reference     //add new
-        //            {
-        //                RefAuthorID = CurrentTbl90ReferenceExpert.RefAuthorID,
-        //                RefSourceID = CurrentTbl90ReferenceExpert.RefSourceID,
-        //                RefExpertID = CurrentTbl90ReferenceExpert.RefExpertID,
-        //                RegnumID = CurrentTbl90ReferenceExpert.RegnumID,
-        //                PhylumID = CurrentTbl90ReferenceExpert.PhylumID,
-        //                DivisionID = CurrentTbl90ReferenceExpert.DivisionID,
-        //                SubphylumID = CurrentTbl90ReferenceExpert.SubphylumID,
-        //                SubdivisionID = CurrentTbl90ReferenceExpert.SubdivisionID,
-        //                SuperclassID = CurrentTbl90ReferenceExpert.SuperclassID,
-        //                ClassID = CurrentTbl90ReferenceExpert.ClassID,
-        //                SubclassID = CurrentTbl90ReferenceExpert.SubclassID,
-        //                InfraclassID = CurrentTbl90ReferenceExpert.InfraclassID,
-        //                LegioID = CurrentTbl90ReferenceExpert.LegioID,
-        //                OrdoID = CurrentTbl90ReferenceExpert.OrdoID,
-        //                SubordoID = CurrentTbl90ReferenceExpert.SubordoID,
-        //                InfraordoID = CurrentTbl90ReferenceExpert.InfraordoID,
-        //                SuperfamilyID = CurrentTbl90ReferenceExpert.SuperfamilyID,
-        //                FamilyID = CurrentTbl90ReferenceExpert.FamilyID,
-        //                SubfamilyID = CurrentTbl90ReferenceExpert.SubfamilyID,
-        //                InfrafamilyID = CurrentTbl90ReferenceExpert.InfrafamilyID,
-        //                SupertribusID = CurrentTbl90ReferenceExpert.SupertribusID,
-        //                TribusID = CurrentTbl90ReferenceExpert.TribusID,
-        //                SubtribusID = CurrentTbl90ReferenceExpert.SubtribusID,
-        //                InfratribusID = CurrentTbl90ReferenceExpert.InfratribusID,
-        //                GenusID = CurrentTbl90ReferenceExpert.GenusID,
-        //                PlSpeciesID = CurrentTbl90ReferenceExpert.PlSpeciesID,
-        //                FiSpeciesID = CurrentTbl90ReferenceExpert.FiSpeciesID,
-        //                CountID = RandomHelper.Randomnumber(),
-        //                Valid = CurrentTbl90ReferenceExpert.Valid,
-        //                ValidYear = CurrentTbl90ReferenceExpert.ValidYear,
-        //                Info = CurrentTbl90ReferenceExpert.Info,
-        //                Memo = CurrentTbl90ReferenceExpert.Memo,
-        //                Writer = Environment.UserName,
-        //                WriterDate = DateTime.Now,
-        //                Updater = Environment.UserName,
-        //                UpdaterDate = DateTime.Now,
-        //                EntityState = EntityState.Added
-        //            };
-        //        }
-        //        {
-        //            //RefExpertID or RefSourceID or RefAuthorID may be not 0
-        //            if (CurrentTbl90ReferenceExpert.RefExpertID == null && CurrentTbl90ReferenceExpert.RefSourceID == null && CurrentTbl90ReferenceExpert.RefAuthorID == null)
-        //            {
-        //                WpfMessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-        //                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //                return;
-        //            }
-
-        //            //check if dataset with vb-name already exist   
-        //            var dataset = _businessLayer.ListTbl90ReferencesByRefExpertIdAndRefSourceIdAndRefAuthorIdAndInfo(CurrentTbl90ReferenceExpert);
-
-        //            if (dataset.Count != 0 && CurrentTbl90ReferenceExpert.ReferenceID == 0)  //dataset exist
-        //            {
-        //                WpfMessageBox.Show(CultRes.StringsRes.DatasetExist, CurrentTbl90ReferenceExpert.ReferenceID.ToString(),
-        //                MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //                return;
-        //            }
-        //            if (dataset.Count == 0 && CurrentTbl90ReferenceExpert.ReferenceID == 0 ||
-        //                dataset.Count != 0 && CurrentTbl90ReferenceExpert.ReferenceID != 0 ||
-        //                dataset.Count == 0 && CurrentTbl90ReferenceExpert.ReferenceID != 0) //new dataset and update
-        //            {
-        //                if (WpfMessageBox.Show(CultRes.StringsRes.SaveQuestion2, CurrentTbl90ReferenceExpert.Info,
-        //                        MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-        //                    return;
-        //                {
-        //                    try
-        //                    {
-        //                        _businessLayer.UpdateReference(reference);
-        //                    }
-        //                    catch (DbUpdateException e)
-        //                    {
-        //                        if (e.InnerException != null)
-        //                            System.Windows.MessageBox.Show(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave,
-        //                                MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-
-        //                        Log.Error(e);
-        //                        return;
-        //                    }
-        //                    catch (Exception e)
-        //                    {
-        //                        System.Windows.MessageBox.Show(e.Message, CultRes.StringsRes.Error,
-        //                            MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-        //                        Log.Error(e);
-        //                        return;
-        //                    }
-        //                    WpfMessageBox.Show(CultRes.StringsRes.SaveSuccess,
-        //                        CurrentTbl90ReferenceExpert.ReferenceID == 0
-        //                            ? CultRes.StringsRes.DatasetNew
-        //                             : CurrentTbl90ReferenceExpert.ReferenceID.ToString(),
-        //                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (DbEntityValidationException ex)
-        //    {
-        //        _entityException.EntityException(ex);
-        //        Log.Error(ex);
-        //        return;
-        //    }
-
-        //    Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90ReferenceListRefExpertsByPhylumId(CurrentTbl06Phylum.PhylumID));
-
-        //    SelectedMainSubRefTabIndex = 0;
-
-        //    ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
-        //    ReferenceExpertsView.Refresh();
-        //}
-        //#endregion "Public Commands"                  
-
-        //#region "Public Commands Connect ==> Tbl93Comment"
-
-        ////-------------------------------------------------------------------------
-        //private RelayCommand _addCommentCommand;
-
-        //public ICommand AddCommentCommand => _addCommentCommand ??
-        //                                         (_addCommentCommand = new RelayCommand(delegate { AddComment(null); }));
-
-        //private RelayCommand _copyCommentCommand;
-
-        //public ICommand CopyCommentCommand => _copyCommentCommand ??
-        //                                          (_copyCommentCommand = new RelayCommand(delegate { CopyComment(null); }));
-
-        //private RelayCommand _deleteCommentCommand;
-
-        //public ICommand DeleteCommentCommand => _deleteCommentCommand ??
-        //                                                (_deleteCommentCommand = new RelayCommand(delegate { DeleteComment(null); }));
-
-        //private RelayCommand _saveCommentCommand;
-
-        //public ICommand SaveCommentCommand => _saveCommentCommand ??
-        //                                          (_saveCommentCommand = new RelayCommand(delegate { SaveComment(null); }));
-        ////-------------------------------------------------------------------------          
-
-        //public void AddComment(object o)
-        //{
-        //    if (Tbl93CommentsList == null)
-        //        Tbl93CommentsList = new ObservableCollection<Tbl93Comment>();
-
-        //    Tbl93CommentsList.Insert(0, new Tbl93Comment { Info = CultRes.StringsRes.DatasetNew });
-
-        //    CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
-        //    CommentsView.MoveCurrentToFirst();
-        //}
-        ////----------------------------------------------------------------------            
-
-        //public void CopyComment(object o)
-        //{
-        //    if (CurrentTbl93Comment == null)
-        //    {
-        //        WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-        //            CultRes.StringsRes.RequiredInput,
-        //            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //        return;
-        //    }
-
-        //    var comment = _businessLayer.SingleListTbl93CommentsByCommentId(CurrentTbl93Comment.CommentID);
-
-        //    Tbl93CommentsList.Insert(0, new Tbl93Comment
-        //    {
-        //        Valid = comment.Valid,
-        //        ValidYear = comment.ValidYear,
-        //        Info = CultRes.StringsRes.DatasetNew,
-        //        Memo = comment.Memo
-        //    });
-
-        //    CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
-        //    CommentsView.MoveCurrentToFirst();
-        //}
-        ////----------------------------------------------------------------------            
-
-        //private void DeleteComment(object o)
-        //{
-        //    if (CurrentTbl93Comment == null)
-        //    {
-        //        WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-        //            CultRes.StringsRes.RequiredInput,
-        //            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //        return;
-        //    }
-
-        //    try
-        //    {
-        //        var comment = _businessLayer.SingleListTbl93CommentsByCommentId(CurrentTbl93Comment.CommentID);
-        //        if (comment != null)
-        //        {
-        //            if (WpfMessageBox.Show(CultRes.StringsRes.DeleteQuestion1, CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl93Comment.Info,
-        //                    MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-        //                return;
-        //            comment.EntityState = EntityState.Deleted;
-        //            _businessLayer.RemoveComment(comment);
-
-        //            WpfMessageBox.Show(CultRes.StringsRes.DeleteSuccess, CurrentTbl93Comment.Info,
-        //                MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //        }
-        //        else
-        //        {
-        //            WpfMessageBox.Show(CultRes.StringsRes.Information, CultRes.StringsRes.DeleteCan + " " + CurrentTbl93Comment.Info + " " + CultRes.StringsRes.DeleteCan1,
-        //                MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //        }
-        //    }
-        //    catch (DbEntityValidationException ex)
-        //    {
-        //        _entityException.EntityException(ex);
-        //        Log.Error(ex);
-        //    }
-
-        //    Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_businessLayer.ListTbl93CommentsByPhylumId(CurrentTbl06Phylum.PhylumID));
-
-        //    CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
-        //    CommentsView.Refresh();
-        //}
-        ////----------------------------------------------------------------------            
-
-        //private void SaveComment(object o)
-        //{
-        //    if (CurrentTbl93Comment == null)
-        //    {
-        //        WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-        //            CultRes.StringsRes.RequiredInput,
-        //            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //        return;
-        //    }
-
-        //    CurrentTbl93Comment.PhylumID = CurrentTbl06Phylum.PhylumID;
-
-        //    try
-        //    {
-        //        var comment = _businessLayer.SingleListTbl93CommentsByCommentId(CurrentTbl93Comment.CommentID);
-        //        if (CurrentTbl93Comment.CommentID != 0)
-        //        {
-        //            if (comment != null) //update
-        //            {
-        //                comment.RegnumID = CurrentTbl93Comment.RegnumID;
-        //                comment.PhylumID = CurrentTbl93Comment.PhylumID;
-        //                comment.DivisionID = CurrentTbl93Comment.DivisionID;
-        //                comment.SubphylumID = CurrentTbl93Comment.SubphylumID;
-        //                comment.SubdivisionID = CurrentTbl93Comment.SubdivisionID;
-        //                comment.SuperclassID = CurrentTbl93Comment.SuperclassID;
-        //                comment.ClassID = CurrentTbl93Comment.ClassID;
-        //                comment.SubclassID = CurrentTbl93Comment.SubclassID;
-        //                comment.InfraclassID = CurrentTbl93Comment.InfraclassID;
-        //                comment.LegioID = CurrentTbl93Comment.LegioID;
-        //                comment.OrdoID = CurrentTbl93Comment.OrdoID;
-        //                comment.SubordoID = CurrentTbl93Comment.SubordoID;
-        //                comment.InfraordoID = CurrentTbl93Comment.InfraordoID;
-        //                comment.SuperfamilyID = CurrentTbl93Comment.SuperfamilyID;
-        //                comment.FamilyID = CurrentTbl93Comment.FamilyID;
-        //                comment.SubfamilyID = CurrentTbl93Comment.SubfamilyID;
-        //                comment.InfrafamilyID = CurrentTbl93Comment.InfrafamilyID;
-        //                comment.SupertribusID = CurrentTbl93Comment.SupertribusID;
-        //                comment.TribusID = CurrentTbl93Comment.TribusID;
-        //                comment.SubtribusID = CurrentTbl93Comment.SubtribusID;
-        //                comment.InfratribusID = CurrentTbl93Comment.InfratribusID;
-        //                comment.GenusID = CurrentTbl93Comment.GenusID;
-        //                comment.PlSpeciesID = CurrentTbl93Comment.PlSpeciesID;
-        //                comment.FiSpeciesID = CurrentTbl93Comment.FiSpeciesID;
-        //                comment.Valid = CurrentTbl93Comment.Valid;
-        //                comment.ValidYear = CurrentTbl93Comment.ValidYear;
-        //                comment.Info = CurrentTbl93Comment.Info;
-        //                comment.Memo = CurrentTbl93Comment.Memo;
-        //                comment.Updater = Environment.UserName;
-        //                comment.UpdaterDate = DateTime.Now;
-        //                comment.EntityState = EntityState.Modified;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            comment = new Tbl93Comment     //add new
-        //            {
-        //                RegnumID = CurrentTbl93Comment.RegnumID,
-        //                PhylumID = CurrentTbl93Comment.PhylumID,
-        //                DivisionID = CurrentTbl93Comment.DivisionID,
-        //                SubphylumID = CurrentTbl93Comment.SubphylumID,
-        //                SubdivisionID = CurrentTbl93Comment.SubdivisionID,
-        //                SuperclassID = CurrentTbl93Comment.SuperclassID,
-        //                ClassID = CurrentTbl93Comment.ClassID,
-        //                SubclassID = CurrentTbl93Comment.SubclassID,
-        //                InfraclassID = CurrentTbl93Comment.InfraclassID,
-        //                LegioID = CurrentTbl93Comment.LegioID,
-        //                OrdoID = CurrentTbl93Comment.OrdoID,
-        //                SubordoID = CurrentTbl93Comment.SubordoID,
-        //                InfraordoID = CurrentTbl93Comment.InfraordoID,
-        //                SuperfamilyID = CurrentTbl93Comment.SuperfamilyID,
-        //                FamilyID = CurrentTbl93Comment.FamilyID,
-        //                SubfamilyID = CurrentTbl93Comment.SubfamilyID,
-        //                InfrafamilyID = CurrentTbl93Comment.InfrafamilyID,
-        //                SupertribusID = CurrentTbl93Comment.SupertribusID,
-        //                TribusID = CurrentTbl93Comment.TribusID,
-        //                SubtribusID = CurrentTbl93Comment.SubtribusID,
-        //                InfratribusID = CurrentTbl93Comment.InfratribusID,
-        //                GenusID = CurrentTbl93Comment.GenusID,
-        //                PlSpeciesID = CurrentTbl93Comment.PlSpeciesID,
-        //                FiSpeciesID = CurrentTbl93Comment.FiSpeciesID,
-        //                CountID = RandomHelper.Randomnumber(),
-        //                Valid = CurrentTbl93Comment.Valid,
-        //                ValidYear = CurrentTbl93Comment.ValidYear,
-        //                Info = CurrentTbl93Comment.Info,
-        //                Memo = CurrentTbl93Comment.Memo,
-        //                Writer = Environment.UserName,
-        //                WriterDate = DateTime.Now,
-        //                Updater = Environment.UserName,
-        //                UpdaterDate = DateTime.Now,
-        //                EntityState = EntityState.Added
-        //            };
-        //        }
-        //        {
-        //            //check if dataset with Name and VbIds already exist       
-        //            var dataset = _businessLayer.ListTbl93CommentsByCurrentItem(CurrentTbl93Comment);
-
-        //            if (dataset.Count != 0 && CurrentTbl93Comment.CommentID == 0)  //dataset exist
-        //            {
-        //                WpfMessageBox.Show(CultRes.StringsRes.DatasetExist, CurrentTbl93Comment.Info,
-        //                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //                return;
-        //            }
-
-        //            if (dataset.Count == 0 && CurrentTbl93Comment.CommentID == 0 ||
-        //                dataset.Count != 0 && CurrentTbl93Comment.CommentID != 0 ||
-        //                dataset.Count == 0 && CurrentTbl93Comment.CommentID != 0) //new dataset and update
-        //            {
-        //                if (WpfMessageBox.Show(CultRes.StringsRes.SaveQuestion2, CurrentTbl93Comment.Info,
-        //                        MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-        //                    return;
-        //                {
-        //                    try
-        //                    {
-        //                        _businessLayer.UpdateComment(comment);
-        //                    }
-        //                    catch (DbUpdateException e)
-        //                    {
-        //                        if (e.InnerException != null)
-        //                            System.Windows.MessageBox.Show(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave,
-        //                                MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-
-        //                        Log.Error(e);
-        //                        return;
-        //                    }
-        //                    catch (Exception e)
-        //                    {
-        //                        System.Windows.MessageBox.Show(e.Message, CultRes.StringsRes.Error,
-        //                            MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-        //                        Log.Error(e);
-        //                        return;
-        //                    }
-        //                    WpfMessageBox.Show(CultRes.StringsRes.SaveSuccess,
-        //                        CurrentTbl93Comment.CommentID == 0
-        //                            ? CultRes.StringsRes.DatasetNew
-        //                            : CurrentTbl93Comment.Info,
-        //                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (DbEntityValidationException ex)
-        //    {
-        //        _entityException.EntityException(ex);
-        //        Log.Error(ex);
-        //        return;
-        //    }
-
-        //    Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_businessLayer.ListTbl93CommentsByPhylumId(CurrentTbl06Phylum.PhylumID));
-
-        //    SelectedMainTabIndex = 3;
-
-        //    CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
-        //    CommentsView.Refresh();
-        //}
-        //#endregion "Public Commands"                  
-
+        private void ExecuteSaveComment(object o)
+        {
+
+            if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
+
+            CurrentTbl93Comment.PhylumId = CurrentTbl06Phylum.PhylumId;
+            try
+            {
+                var comment = _uow.Tbl93Comments.GetById(CurrentTbl93Comment.CommentId);
+
+
+                if (CurrentTbl93Comment.CommentId == 0)
+                    comment = _extSave.CommentPhylumAdd(CurrentTbl93Comment);
+                else
+                    comment = _extSave.CommentPhylumUpdate(comment, CurrentTbl93Comment);
+
+                //        _position = PhylumsView.CurrentPosition;
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl93Comment.Info))
+                    return;
+
+                try
+                {
+                    _extSave.CommentSave(comment, CurrentTbl93Comment);
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
+                            CultRes.StringsRes.FailedToSave);
+                    Log.Error(e);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                    Log.Error(e);
+                    return;
+                }
+
+                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl93Comment.CommentId == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : CurrentTbl93Comment.Info);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+            Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_context.Tbl93Comments
+                .Where(a => a.PhylumId == CurrentTbl93Comment.PhylumId)
+                .OrderBy(a => a.Info));
+
+
+            //    SelectedMainTabIndex = 3;
+
+
+
+            CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+            CommentsView.MoveCurrentToFirst();
+        }
+
+        #endregion [Methods Phylum ==> Tbl93Comments]
 
         //    Part 9    
 
@@ -1538,6 +1141,10 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         {
             GetConnectedTablesById(null);
         });
+
+        #endregion "Public Commands Connected Tables by DoubleClick"
+
+        #region "Public Method Connected Tables by DoubleClick"
 
         private void GetConnectedTablesById(object o)
         {
@@ -1555,13 +1162,17 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
             //Tbl03RegnumsList = new ObservableCollection<Tbl03Regnum>(
             //        _businessLayer.ListTbl03RegnumsByRegnumId(CurrentTbl06Phylum.RegnumId));
+            Tbl03RegnumsList = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums
+                .Find(e => e.RegnumId == CurrentTbl06Phylum.RegnumId)
+                .OrderBy(k => k.RegnumName)
+                .ThenBy(k => k.Subregnum));
 
 
             RegnumsView = CollectionViewSource.GetDefaultView(Tbl03RegnumsList);
             RegnumsView.Refresh();
         }
 
-        #endregion "Public Commands Connected Tables by DoubleClick"
+        #endregion "Public Method Connected Tables by DoubleClick"
 
 
         //    Part 10    
@@ -1651,8 +1262,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             set
             {
                 if (value == _selectedDetailSubTabIndex) return;
-                _selectedDetailSubTabIndex = value;
-                RaisePropertyChanged("");
+                _selectedDetailSubTabIndex = value; RaisePropertyChanged("");
                 if (_selectedDetailSubTabIndex == 0)
                 {
                     //             Tbl03RegnumsList = new ObservableCollection<Tbl03Regnum>(_businessLayer.ListTbl03RegnumsByRegnumId(CurrentTbl06Phylum.RegnumId));
@@ -1688,11 +1298,20 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 {
                     //Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(
                     //    _businessLayer.ListTbl90RefExperts());
+
+              //      Tbl90ExpertsAllList = _extGet.AllCollection<Tbl90RefExpert>("expert");
+                    Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+
                     //Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(
                     //    _businessLayer.ListTbl90ReferenceListRefExpertsByPhylumId(CurrentTbl06Phylum.PhylumId));
 
-                    //ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
-                    //ReferenceExpertsView.Refresh();
+                    Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+                        .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId
+                                   && e.RefAuthorId == null && e.RefSourceId == null)
+                        .OrderBy(k => k.Info));
+
+                    ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                    ReferenceExpertsView.Refresh();
 
                     SelectedMainTabIndex = 2;
                 }
@@ -1727,14 +1346,18 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                     //Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(
                     //    _businessLayer.ListTbl90RefExperts());
 
-                    Tbl90ExpertsAllList =
-                        new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+                 //   Tbl90ExpertsAllList = _extGet.AllCollection<Tbl90RefExpert>("expert");
+                          Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
 
                     //Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(
                     //    _businessLayer.ListTbl90ReferenceListRefExpertsByPhylumId(CurrentTbl06Phylum.PhylumId));
+                    Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+                        .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId
+                                   && e.RefAuthorId == null && e.RefSourceId == null)
+                        .OrderBy(k => k.Info));
 
-                    //ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
-                    //ReferenceExpertsView.Refresh();
+                    ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                    ReferenceExpertsView.Refresh();
 
                     SelectedMainSubRefTabIndex = 0;
                 }
@@ -1743,30 +1366,29 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 {
                     //Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(
                     //    _businessLayer.ListTbl90RefSources());
-                    Tbl90SourcesAllList =
-                        new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+                    Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
 
                     //Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>(
                     //    _businessLayer.ListTbl90ReferenceListRefSourcesByPhylumId(CurrentTbl06Phylum.PhylumId));
+                    Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+                        .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId
+                                   && e.RefAuthorId == null && e.RefExpertId == null)
+                        .OrderBy(k => k.Info));
 
-                    //ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
-                    //ReferenceSourcesView.Refresh();
+
+                    ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+                    ReferenceSourcesView.Refresh();
 
                     SelectedMainSubRefTabIndex = 1;
                 }
 
                 if (_selectedDetailSubRefTabIndex == 2)
                 {
-                    //Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(
-                    //    _businessLayer.ListTbl90RefAuthors());
-                    Tbl90AuthorsAllList =
-                        new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
-
-                    //Tbl90ReferenceAuthorsList = new ObservableCollection<Tbl90Reference>(
-                    //    _businessLayer.ListTbl90ReferenceListRefAuthorsByPhylumId(CurrentTbl06Phylum.PhylumId));
+                    Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
 
                     Tbl90ReferenceAuthorsList = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                        .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId)
+                        .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId
+                                   && e.RefSourceId == null && e.RefExpertId == null)
                         .OrderBy(k => k.Info));
 
                     ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);

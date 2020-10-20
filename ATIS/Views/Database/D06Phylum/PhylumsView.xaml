@@ -2101,7 +2101,6 @@
                                                             </DataTemplate>
                                                         </ToggleButton.ContentTemplate>
                                                     </ToggleButton>
-
                                                 </StackPanel>
                                                 <StackPanel Height="Auto" Orientation="Horizontal">
                                                     <ComboBox
@@ -2191,8 +2190,8 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
 
                                         <ToggleButton
-                                            Width="48"
-                                            Height="48"
+                                            Width="36"
+                                            Height="36"
                                             Margin="4"
                                             Command="{Binding SaveCommentCommand}"
                                             Foreground="{DynamicResource MahApps.Brushes.Accent}"
@@ -2209,8 +2208,8 @@
 
 
                                         <ToggleButton
-                                            Width="48"
-                                            Height="48"
+                                            Width="36"
+                                            Height="36"
                                             Margin="4"
                                             Command="{Binding CopyCommentCommand}"
                                             Foreground="{DynamicResource MahApps.Brushes.Accent}"
@@ -2227,11 +2226,11 @@
 
 
                                         <ToggleButton
-                                            Width="48"
-                                            Height="48"
+                                            Width="36"
+                                            Height="36"
                                             Margin="4"
-                                            Command="{Binding AddDivisionCommand}"
-                                            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                            Command="{Binding AddCommentCommand}"
+                                            Foreground="{DynamicResource MahApps.Brushes.Accent4}"
                                             Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
                                             <ToggleButton.ContentTemplate>
                                                 <DataTemplate>
@@ -2245,8 +2244,8 @@
 
 
                                         <ToggleButton
-                                            Width="48"
-                                            Height="48"
+                                            Width="36"
+                                            Height="36"
                                             Margin="4"
                                             Command="{Binding DeleteCommentCommand}"
                                             Foreground="{DynamicResource MahApps.Brushes.Accent}"
