@@ -932,6 +932,200 @@
             Grid.ColumnSpan="3"
             Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
             SelectedIndex="{Binding SelectedDetailTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <TabItem FontWeight="Medium" Header="{DynamicResource Tbl03Regnum-Regnum}">
+                <GroupBox>
+                    <StackPanel Margin="0,0,5,0">
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+
+                            <!--<Button
+                                            Margin="0,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            Command="{Binding SaveRegnumCommand}"
+                                            Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                            ToolTip="{DynamicResource Shared-ButtonSave}" />-->
+                            <ToggleButton
+                                Width="36"
+                                Height="36"
+                                Margin="4"
+                                Command="{Binding SaveRegnumCommand}"
+                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                <ToggleButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <iconPacks:PackIconModern
+                                            Width="20"
+                                            Height="20"
+                                            Kind="Save" />
+                                    </DataTemplate>
+                                </ToggleButton.ContentTemplate>
+                            </ToggleButton>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="250"
+                                Margin="5,10,0,0"
+                                FontWeight="Medium">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl03RegnumsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl03Regnum.RegnumName)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox
+                                Width="250"
+                                Margin="5,10,0,0"
+                                FontWeight="Medium">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl03RegnumsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl03Regnum.Subregnum)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <CheckBox
+                                Width="80"
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Bottom"
+                                Content="{DynamicResource Shared-Valid}"
+                                FontWeight="Normal"
+                                IsChecked="{Binding SelectedItem.(models:Tbl03Regnum.Valid), ElementName=Tbl03RegnumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Style="{StaticResource MahApps.Styles.CheckBox}" />
+                            <TextBox
+                                Width="50"
+                                Margin="25,0,0,0"
+                                FontWeight="Medium">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl03RegnumsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl03Regnum.ValidYear)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <TextBox
+                                    Height="Auto"
+                                    MinWidth="760"
+                                    MinHeight="50"
+                                    MaxWidth="760"
+                                    MaxHeight="400"
+                                    Margin="5,0,0,0"
+                                    VerticalAlignment="Stretch"
+                                    AcceptsReturn="True"
+                                    FontWeight="Medium"
+                                    Style="{StaticResource MahApps.Styles.TextBox}"
+                                    Text="{Binding SelectedItem.(models:Tbl03Regnum.Synonym), ElementName=Tbl03RegnumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    TextWrapping="Wrap"
+                                    VerticalScrollBarVisibility="Auto" />
+                            </ScrollViewer>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="600"
+                                Margin="5,0,0,0"
+                                CharacterCasing="Upper"
+                                FontWeight="Medium">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl03RegnumsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl03Regnum.Author)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Width="135" Margin="25,0,0,0">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl03RegnumsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl03Regnum.AuthorYear)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox Width="760" Margin="5,0,0,0">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl03RegnumsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl03Regnum.Info)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox Width="367" Margin="5,0,0,0">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl03RegnumsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl03Regnum.EngName)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Width="367" Margin="25,0,0,0">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl03RegnumsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl03Regnum.GerName)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox Width="367" Margin="5,0,0,0">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl03RegnumsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl03Regnum.FraName)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Width="367" Margin="25,0,0,0">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl03RegnumsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl03Regnum.PorName)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <TextBox
+                                    Height="Auto"
+                                    MinWidth="760"
+                                    MinHeight="50"
+                                    MaxWidth="760"
+                                    MaxHeight="400"
+                                    Margin="5,0,0,5"
+                                    VerticalAlignment="Stretch"
+                                    AcceptsReturn="True"
+                                    FontWeight="Medium"
+                                    Style="{StaticResource MahApps.Styles.TextBox}"
+                                    Text="{Binding SelectedItem.(models:Tbl03Regnum.Memo), ElementName=Tbl03RegnumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    TextWrapping="Wrap"
+                                    VerticalScrollBarVisibility="Auto" />
+                            </ScrollViewer>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+            </TabItem>
+
+
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl06Phylum-Phylum}">
                 <StackPanel>
                     <GroupBox>
@@ -1293,290 +1487,93 @@
             <!--  Part 8.1 FK1 - FK4 Connected  -->
 
 
-            <TabItem FontWeight="Medium" Header="{DynamicResource Shared-Connect}">
+            <!--  Part 8.2 TK1 Connected  -->
+
+
+            <TabItem FontWeight="Medium" Header="{DynamicResource Tbl12Subphylum-Subphylum}">
                 <GroupBox>
-                    <TabControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedDetailSubTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                        <TabItem FontWeight="Medium" Header="{DynamicResource Tbl03Regnum-Regnum}">
-                            <GroupBox>
-                                <StackPanel Margin="0,0,5,0">
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                    <StackPanel Margin="0,0,5,0">
+                        <StackPanel Height="Auto" Orientation="Horizontal">
 
-                                        <!--<Button
-                                            Margin="0,0,0,0"
-                                            HorizontalAlignment="Left"
-                                            Command="{Binding SaveRegnumCommand}"
-                                            Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                            ToolTip="{DynamicResource Shared-ButtonSave}" />-->
-                                        <ToggleButton
-                                            Width="36"
-                                            Height="36"
-                                            Margin="4"
-                                            Command="{Binding SaveRegnumCommand}"
-                                            Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                            Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                            <ToggleButton.ContentTemplate>
-                                                <DataTemplate>
-                                                    <iconPacks:PackIconModern
-                                                        Width="20"
-                                                        Height="20"
-                                                        Kind="Save" />
-                                                </DataTemplate>
-                                            </ToggleButton.ContentTemplate>
-                                        </ToggleButton>
-                                    </StackPanel>
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox
-                                            Width="250"
-                                            Margin="5,10,0,0"
-                                            FontWeight="Medium">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.RegnumName)"
-                                                    UpdateSourceTrigger="PropertyChanged" />
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox
-                                            Width="250"
-                                            Margin="5,10,0,0"
-                                            FontWeight="Medium">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.Subregnum)"
-                                                    UpdateSourceTrigger="PropertyChanged" />
-                                            </TextBox.Text>
-                                        </TextBox>
-
-                                    </StackPanel>
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <CheckBox
-                                            Width="80"
-                                            Margin="5,0,0,0"
-                                            VerticalAlignment="Bottom"
-                                            Content="{DynamicResource Shared-Valid}"
-                                            FontWeight="Normal"
-                                            IsChecked="{Binding SelectedItem.(models:Tbl03Regnum.Valid), ElementName=Tbl03RegnumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            Style="{StaticResource MahApps.Styles.CheckBox}" />
-                                        <TextBox
-                                            Width="50"
-                                            Margin="25,0,0,0"
-                                            FontWeight="Medium">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.ValidYear)"
-                                                    UpdateSourceTrigger="PropertyChanged" />
-                                            </TextBox.Text>
-                                        </TextBox>
-                                    </StackPanel>
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                            <TextBox
-                                                Height="Auto"
-                                                MinWidth="760"
-                                                MinHeight="50"
-                                                MaxWidth="760"
-                                                MaxHeight="400"
-                                                Margin="5,0,0,0"
-                                                VerticalAlignment="Stretch"
-                                                AcceptsReturn="True"
-                                                FontWeight="Medium"
-                                                Style="{StaticResource MahApps.Styles.TextBox}"
-                                                Text="{Binding SelectedItem.(models:Tbl03Regnum.Synonym), ElementName=Tbl03RegnumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                TextWrapping="Wrap"
-                                                VerticalScrollBarVisibility="Auto" />
-                                        </ScrollViewer>
-                                    </StackPanel>
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox
-                                            Width="600"
-                                            Margin="5,0,0,0"
-                                            CharacterCasing="Upper"
-                                            FontWeight="Medium">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.Author)"
-                                                    UpdateSourceTrigger="PropertyChanged" />
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox Width="135" Margin="25,0,0,0">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.AuthorYear)"
-                                                    UpdateSourceTrigger="PropertyChanged" />
-                                            </TextBox.Text>
-                                        </TextBox>
-                                    </StackPanel>
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox Width="760" Margin="5,0,0,0">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.Info)"
-                                                    UpdateSourceTrigger="PropertyChanged" />
-                                            </TextBox.Text>
-                                        </TextBox>
-                                    </StackPanel>
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox Width="367" Margin="5,0,0,0">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.EngName)"
-                                                    UpdateSourceTrigger="PropertyChanged" />
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox Width="367" Margin="25,0,0,0">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.GerName)"
-                                                    UpdateSourceTrigger="PropertyChanged" />
-                                            </TextBox.Text>
-                                        </TextBox>
-                                    </StackPanel>
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox Width="367" Margin="5,0,0,0">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.FraName)"
-                                                    UpdateSourceTrigger="PropertyChanged" />
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox Width="367" Margin="25,0,0,0">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.PorName)"
-                                                    UpdateSourceTrigger="PropertyChanged" />
-                                            </TextBox.Text>
-                                        </TextBox>
-                                    </StackPanel>
-
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                            <TextBox
-                                                Height="Auto"
-                                                MinWidth="760"
-                                                MinHeight="50"
-                                                MaxWidth="760"
-                                                MaxHeight="400"
-                                                Margin="5,0,0,5"
-                                                VerticalAlignment="Stretch"
-                                                AcceptsReturn="True"
-                                                FontWeight="Medium"
-                                                Style="{StaticResource MahApps.Styles.TextBox}"
-                                                Text="{Binding SelectedItem.(models:Tbl03Regnum.Memo), ElementName=Tbl03RegnumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                TextWrapping="Wrap"
-                                                VerticalScrollBarVisibility="Auto" />
-                                        </ScrollViewer>
-                                    </StackPanel>
-                                </StackPanel>
-                            </GroupBox>
-                        </TabItem>
-
-
-                        <!--  Part 8.2 TK1 Connected  -->
-
-
-                        <TabItem FontWeight="Medium" Header="{DynamicResource Tbl12Subphylum-Subphylum}">
-                            <GroupBox>
-                                <StackPanel Margin="0,0,5,0">
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-
-                                        <ToggleButton
-                                            Width="36"
-                                            Height="36"
-                                            Margin="4"
-                                            Command="{Binding SaveSubphylumCommand}"
-                                            Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                            Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                            <ToggleButton.ContentTemplate>
-                                                <DataTemplate>
-                                                    <iconPacks:PackIconModern
-                                                        Width="20"
-                                                        Height="20"
-                                                        Kind="Save" />
-                                                </DataTemplate>
-                                            </ToggleButton.ContentTemplate>
-                                        </ToggleButton>
-                                        <ToggleButton
-                                            Width="36"
-                                            Height="36"
-                                            Margin="4"
-                                            Command="{Binding CopySubphylumCommand}"
-                                            Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                            Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                            <ToggleButton.ContentTemplate>
-                                                <DataTemplate>
-                                                    <iconPacks:PackIconModern
-                                                        Width="20"
-                                                        Height="20"
-                                                        Kind="PageCopy" />
-                                                </DataTemplate>
-                                            </ToggleButton.ContentTemplate>
-                                        </ToggleButton>
-                                        <ToggleButton
-                                            Width="36"
-                                            Height="36"
-                                            Margin="4"
-                                            Command="{Binding AddSubphylumCommand}"
-                                            Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                            Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                            <ToggleButton.ContentTemplate>
-                                                <DataTemplate>
-                                                    <iconPacks:PackIconModern
-                                                        Width="20"
-                                                        Height="20"
-                                                        Kind="Add" />
-                                                </DataTemplate>
-                                            </ToggleButton.ContentTemplate>
-                                        </ToggleButton>
-                                        <ToggleButton
-                                            Width="36"
-                                            Height="36"
-                                            Margin="4"
-                                            Command="{Binding DeleteSubphylumCommand}"
-                                            Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                            Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                            <ToggleButton.ContentTemplate>
-                                                <DataTemplate>
-                                                    <iconPacks:PackIconModern
-                                                        Width="20"
-                                                        Height="20"
-                                                        Kind="Delete" />
-                                                </DataTemplate>
-                                            </ToggleButton.ContentTemplate>
-                                        </ToggleButton>
-                                    </StackPanel>
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox
-                                            Width="300"
-                                            Margin="5,10,25,0"
-                                            FontWeight="Medium">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl12SubphylumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl12Subphylum.SubphylumName)"
-                                                    UpdateSourceTrigger="PropertyChanged" />
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <!--<ComboBox
+                            <ToggleButton
+                                Width="36"
+                                Height="36"
+                                Margin="4"
+                                Command="{Binding SaveSubphylumCommand}"
+                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                <ToggleButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <iconPacks:PackIconModern
+                                            Width="20"
+                                            Height="20"
+                                            Kind="Save" />
+                                    </DataTemplate>
+                                </ToggleButton.ContentTemplate>
+                            </ToggleButton>
+                            <ToggleButton
+                                Width="36"
+                                Height="36"
+                                Margin="4"
+                                Command="{Binding CopySubphylumCommand}"
+                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                <ToggleButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <iconPacks:PackIconModern
+                                            Width="20"
+                                            Height="20"
+                                            Kind="PageCopy" />
+                                    </DataTemplate>
+                                </ToggleButton.ContentTemplate>
+                            </ToggleButton>
+                            <ToggleButton
+                                Width="36"
+                                Height="36"
+                                Margin="4"
+                                Command="{Binding AddSubphylumCommand}"
+                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                <ToggleButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <iconPacks:PackIconModern
+                                            Width="20"
+                                            Height="20"
+                                            Kind="Add" />
+                                    </DataTemplate>
+                                </ToggleButton.ContentTemplate>
+                            </ToggleButton>
+                            <ToggleButton
+                                Width="36"
+                                Height="36"
+                                Margin="4"
+                                Command="{Binding DeleteSubphylumCommand}"
+                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                <ToggleButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <iconPacks:PackIconModern
+                                            Width="20"
+                                            Height="20"
+                                            Kind="Delete" />
+                                    </DataTemplate>
+                                </ToggleButton.ContentTemplate>
+                            </ToggleButton>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="300"
+                                Margin="5,10,25,0"
+                                FontWeight="Medium">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl12SubphylumsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl12Subphylum.SubphylumName)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <!--<ComboBox
                                             Width="300"
                                             Margin="25,5,5,5"
                                             VerticalAlignment="Bottom"
@@ -1590,722 +1587,722 @@
                                             SelectedValuePath="PhylumId"
                                             Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                             VirtualizingStackPanel.IsVirtualizing="True" />-->
-                                    </StackPanel>
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <CheckBox
-                                            Width="80"
-                                            Margin="5,0,0,0"
-                                            VerticalAlignment="Bottom"
-                                            Content="{DynamicResource Shared-Valid}"
-                                            FontWeight="Normal"
-                                            IsChecked="{Binding SelectedItem.(models:Tbl12Subphylum.Valid), ElementName=Tbl12SubphylumsList}"
-                                            Style="{StaticResource MahApps.Styles.CheckBox}" />
-                                        <TextBox
-                                            Width="135"
-                                            Margin="25,0,0,0"
-                                            FontWeight="Medium">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl12SubphylumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl12Subphylum.ValidYear)"
-                                                    UpdateSourceTrigger="PropertyChanged" />
-                                            </TextBox.Text>
-                                        </TextBox>
-                                    </StackPanel>
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                            <TextBox
-                                                Height="Auto"
-                                                MinWidth="760"
-                                                MinHeight="50"
-                                                MaxWidth="760"
-                                                MaxHeight="400"
-                                                Margin="5,0,0,0"
-                                                VerticalAlignment="Stretch"
-                                                AcceptsReturn="True"
-                                                FontWeight="Medium"
-                                                Style="{StaticResource MahApps.Styles.TextBox}"
-                                                Text="{Binding SelectedItem.(models:Tbl12Subphylum.Synonym), ElementName=Tbl12SubphylumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                TextWrapping="Wrap"
-                                                VerticalScrollBarVisibility="Auto" />
-                                        </ScrollViewer>
-                                    </StackPanel>
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox
-                                            Width="600"
-                                            Margin="5,0,0,0"
-                                            CharacterCasing="Upper"
-                                            FontWeight="Medium">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl12SubphylumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl12Subphylum.Author)"
-                                                    UpdateSourceTrigger="PropertyChanged" />
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox
-                                            Width="135"
-                                            Margin="25,0,0,0"
-                                            FontWeight="Medium">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl12SubphylumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl12Subphylum.AuthorYear)"
-                                                    UpdateSourceTrigger="PropertyChanged" />
-                                            </TextBox.Text>
-                                        </TextBox>
-                                    </StackPanel>
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox
-                                            Width="760"
-                                            Margin="5,0,0,0"
-                                            FontWeight="Medium">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl12SubphylumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl12Subphylum.Info)"
-                                                    UpdateSourceTrigger="PropertyChanged" />
-                                            </TextBox.Text>
-                                        </TextBox>
-                                    </StackPanel>
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox Width="368" Margin="5,0,0,0">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl12SubphylumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl12Subphylum.EngName)"
-                                                    UpdateSourceTrigger="PropertyChanged" />
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox Width="367" Margin="25,0,0,0">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl12SubphylumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl12Subphylum.GerName)"
-                                                    UpdateSourceTrigger="PropertyChanged" />
-                                            </TextBox.Text>
-                                        </TextBox>
-                                    </StackPanel>
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox Width="368" Margin="5,0,0,0">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl12SubphylumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl12Subphylum.FraName)"
-                                                    UpdateSourceTrigger="PropertyChanged" />
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox Width="367" Margin="25,0,0,0">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl12SubphylumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl12Subphylum.PorName)"
-                                                    UpdateSourceTrigger="PropertyChanged" />
-                                            </TextBox.Text>
-                                        </TextBox>
-                                    </StackPanel>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <CheckBox
+                                Width="80"
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Bottom"
+                                Content="{DynamicResource Shared-Valid}"
+                                FontWeight="Normal"
+                                IsChecked="{Binding SelectedItem.(models:Tbl12Subphylum.Valid), ElementName=Tbl12SubphylumsList}"
+                                Style="{StaticResource MahApps.Styles.CheckBox}" />
+                            <TextBox
+                                Width="135"
+                                Margin="25,0,0,0"
+                                FontWeight="Medium">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl12SubphylumsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl12Subphylum.ValidYear)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <TextBox
+                                    Height="Auto"
+                                    MinWidth="760"
+                                    MinHeight="50"
+                                    MaxWidth="760"
+                                    MaxHeight="400"
+                                    Margin="5,0,0,0"
+                                    VerticalAlignment="Stretch"
+                                    AcceptsReturn="True"
+                                    FontWeight="Medium"
+                                    Style="{StaticResource MahApps.Styles.TextBox}"
+                                    Text="{Binding SelectedItem.(models:Tbl12Subphylum.Synonym), ElementName=Tbl12SubphylumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    TextWrapping="Wrap"
+                                    VerticalScrollBarVisibility="Auto" />
+                            </ScrollViewer>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="600"
+                                Margin="5,0,0,0"
+                                CharacterCasing="Upper"
+                                FontWeight="Medium">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl12SubphylumsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl12Subphylum.Author)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox
+                                Width="135"
+                                Margin="25,0,0,0"
+                                FontWeight="Medium">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl12SubphylumsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl12Subphylum.AuthorYear)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="760"
+                                Margin="5,0,0,0"
+                                FontWeight="Medium">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl12SubphylumsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl12Subphylum.Info)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox Width="368" Margin="5,0,0,0">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl12SubphylumsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl12Subphylum.EngName)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Width="367" Margin="25,0,0,0">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl12SubphylumsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl12Subphylum.GerName)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox Width="368" Margin="5,0,0,0">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl12SubphylumsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl12Subphylum.FraName)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Width="367" Margin="25,0,0,0">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl12SubphylumsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl12Subphylum.PorName)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
 
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                            <TextBox
-                                                Height="Auto"
-                                                MinWidth="760"
-                                                MinHeight="50"
-                                                MaxWidth="760"
-                                                MaxHeight="400"
-                                                Margin="5,0,0,5"
-                                                VerticalAlignment="Stretch"
-                                                AcceptsReturn="True"
-                                                FontWeight="Medium"
-                                                Style="{StaticResource MahApps.Styles.TextBox}"
-                                                Text="{Binding SelectedItem.(models:Tbl12Subphylum.Memo), ElementName=Tbl12SubphylumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                TextWrapping="Wrap"
-                                                VerticalScrollBarVisibility="Auto" />
-                                        </ScrollViewer>
-                                    </StackPanel>
-                                </StackPanel>
-                            </GroupBox>
-                        </TabItem>
-
-
-                        <!--  Part 8.3  TK2  Connected  -->
-
-
-
-                        <!--  Part 8.3   TK3 Connected  -->
-
-
-
-                        <!--  Part 8.3   TK4  Connected  -->
-
-
-
-
-                        <!--  Part 11  -->
-
-                        <!--  Part 12  -->
-
-                        <!--  Part 13  -->
-
-
-                        <TabItem FontWeight="Medium" Header="{DynamicResource Shared-TabStripHeaderReferences}">
-                            <GroupBox>
-                                <TabControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedDetailSubRefTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                    <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceExpert}">
-                                        <GroupBox>
-                                            <StackPanel Margin="0,8,5,0">
-                                                <StackPanel Height="Auto" Orientation="Horizontal">
-                                                    <ToggleButton
-                                                        Width="36"
-                                                        Height="36"
-                                                        Margin="4"
-                                                        Command="{Binding SaveReferenceExpertCommand}"
-                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                                        Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                                        <ToggleButton.ContentTemplate>
-                                                            <DataTemplate>
-                                                                <iconPacks:PackIconModern
-                                                                    Width="20"
-                                                                    Height="20"
-                                                                    Kind="Save" />
-                                                            </DataTemplate>
-                                                        </ToggleButton.ContentTemplate>
-                                                    </ToggleButton>
-                                                    <ToggleButton
-                                                        Width="36"
-                                                        Height="36"
-                                                        Margin="4"
-                                                        Command="{Binding CopyReferenceExpertCommand}"
-                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                                        Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                                        <ToggleButton.ContentTemplate>
-                                                            <DataTemplate>
-                                                                <iconPacks:PackIconModern
-                                                                    Width="20"
-                                                                    Height="20"
-                                                                    Kind="PageCopy" />
-                                                            </DataTemplate>
-                                                        </ToggleButton.ContentTemplate>
-                                                    </ToggleButton>
-                                                    <ToggleButton
-                                                        Width="36"
-                                                        Height="36"
-                                                        Margin="4"
-                                                        Command="{Binding AddReferenceExpertCommand}"
-                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                                        Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                                        <ToggleButton.ContentTemplate>
-                                                            <DataTemplate>
-                                                                <iconPacks:PackIconModern
-                                                                    Width="20"
-                                                                    Height="20"
-                                                                    Kind="Add" />
-                                                            </DataTemplate>
-                                                        </ToggleButton.ContentTemplate>
-                                                    </ToggleButton>
-                                                    <ToggleButton
-                                                        Width="36"
-                                                        Height="36"
-                                                        Margin="4"
-                                                        Command="{Binding DeleteReferenceExpertCommand}"
-                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                                        Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                                        <ToggleButton.ContentTemplate>
-                                                            <DataTemplate>
-                                                                <iconPacks:PackIconModern
-                                                                    Width="20"
-                                                                    Height="20"
-                                                                    Kind="Delete" />
-                                                            </DataTemplate>
-                                                        </ToggleButton.ContentTemplate>
-                                                    </ToggleButton>
-                                                </StackPanel>
-                                                <StackPanel Height="Auto" Orientation="Horizontal">
-                                                    <ComboBox
-                                                        Width="500"
-                                                        Margin="5,0,0,0"
-                                                        VerticalAlignment="Bottom"
-                                                        mah:TextBoxHelper.ClearTextButton="False"
-                                                        mah:TextBoxHelper.UseFloatingWatermark="True"
-                                                        mah:TextBoxHelper.Watermark="Please select Expert ..."
-                                                        DisplayMemberPath="RefExpertName"
-                                                        IsSynchronizedWithCurrentItem="True"
-                                                        ItemsSource="{Binding Tbl90ExpertsAllList}"
-                                                        SelectedValue="{Binding SelectedItem.(models:Tbl90RefExpert.RefExpertId), ElementName=Tbl90ReferenceExpertsList, Mode=TwoWay}"
-                                                        SelectedValuePath="RefExpertId"
-                                                        Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
-                                                        VirtualizingStackPanel.IsVirtualizing="True" />
-                                                </StackPanel>
-                                                <StackPanel Height="Auto" Orientation="Horizontal">
-                                                    <CheckBox
-                                                        Width="80"
-                                                        Margin="5,19,0,0"
-                                                        VerticalAlignment="Bottom"
-                                                        Content="{DynamicResource Shared-Valid}"
-                                                        FontWeight="Normal"
-                                                        IsChecked="{Binding SelectedItem.(models:Tbl90Reference.Valid), ElementName=Tbl90ReferenceExpertsList}"
-                                                        Style="{StaticResource MahApps.Styles.CheckBox}" />
-                                                </StackPanel>
-                                                <StackPanel Height="Auto" Orientation="Horizontal">
-                                                    <TextBox Width="760" Margin="5,0,0,0">
-                                                        <TextBox.Text>
-                                                            <Binding
-                                                                ElementName="Tbl90ReferenceExpertsList"
-                                                                Mode="TwoWay"
-                                                                Path="SelectedItem.(models:Tbl90Reference.Info)"
-                                                                UpdateSourceTrigger="PropertyChanged" />
-                                                        </TextBox.Text>
-                                                    </TextBox>
-                                                </StackPanel>
-
-                                                <StackPanel Height="Auto" Orientation="Horizontal">
-                                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                                        <TextBox
-                                                            Height="Auto"
-                                                            MinWidth="760"
-                                                            MinHeight="100"
-                                                            MaxWidth="760"
-                                                            MaxHeight="400"
-                                                            Margin="5,0,0,5"
-                                                            VerticalAlignment="Stretch"
-                                                            AcceptsReturn="True"
-                                                            Style="{StaticResource MahApps.Styles.TextBox}"
-                                                            Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferenceExpertsList}"
-                                                            TextWrapping="Wrap"
-                                                            VerticalScrollBarVisibility="Auto" />
-                                                    </ScrollViewer>
-                                                </StackPanel>
-                                            </StackPanel>
-                                        </GroupBox>
-                                    </TabItem>
-
-                                    <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceSource}">
-                                        <GroupBox>
-                                            <StackPanel Margin="0,8,5,0">
-                                                <StackPanel Height="Auto" Orientation="Horizontal">
-                                                    <ToggleButton
-                                                        Width="36"
-                                                        Height="36"
-                                                        Margin="4"
-                                                        Command="{Binding SaveReferenceSourceCommand}"
-                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                                        Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                                        <ToggleButton.ContentTemplate>
-                                                            <DataTemplate>
-                                                                <iconPacks:PackIconModern
-                                                                    Width="20"
-                                                                    Height="20"
-                                                                    Kind="Save" />
-                                                            </DataTemplate>
-                                                        </ToggleButton.ContentTemplate>
-                                                    </ToggleButton>
-                                                    <ToggleButton
-                                                        Width="36"
-                                                        Height="36"
-                                                        Margin="4"
-                                                        Command="{Binding CopyReferenceSourceCommand}"
-                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                                        Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                                        <ToggleButton.ContentTemplate>
-                                                            <DataTemplate>
-                                                                <iconPacks:PackIconModern
-                                                                    Width="20"
-                                                                    Height="20"
-                                                                    Kind="PageCopy" />
-                                                            </DataTemplate>
-                                                        </ToggleButton.ContentTemplate>
-                                                    </ToggleButton>
-                                                    <ToggleButton
-                                                        Width="36"
-                                                        Height="36"
-                                                        Margin="4"
-                                                        Command="{Binding AddReferenceSourceCommand}"
-                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                                        Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                                        <ToggleButton.ContentTemplate>
-                                                            <DataTemplate>
-                                                                <iconPacks:PackIconModern
-                                                                    Width="20"
-                                                                    Height="20"
-                                                                    Kind="Add" />
-                                                            </DataTemplate>
-                                                        </ToggleButton.ContentTemplate>
-                                                    </ToggleButton>
-                                                    <ToggleButton
-                                                        Width="36"
-                                                        Height="36"
-                                                        Margin="4"
-                                                        Command="{Binding DeleteReferenceSourceCommand}"
-                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                                        Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                                        <ToggleButton.ContentTemplate>
-                                                            <DataTemplate>
-                                                                <iconPacks:PackIconModern
-                                                                    Width="20"
-                                                                    Height="20"
-                                                                    Kind="Delete" />
-                                                            </DataTemplate>
-                                                        </ToggleButton.ContentTemplate>
-                                                    </ToggleButton>
-
-                                                </StackPanel>
-                                                <StackPanel Height="Auto" Orientation="Horizontal">
-                                                    <ComboBox
-                                                        Width="760"
-                                                        Margin="5,0,0,0"
-                                                        VerticalAlignment="Bottom"
-                                                        mah:TextBoxHelper.ClearTextButton="False"
-                                                        mah:TextBoxHelper.UseFloatingWatermark="True"
-                                                        mah:TextBoxHelper.Watermark="Please select Source ..."
-                                                        IsSynchronizedWithCurrentItem="True"
-                                                        ItemsSource="{Binding Tbl90SourcesAllList}"
-                                                        SelectedValue="{Binding SelectedItem.(models:Tbl90RefSource.RefSourceId), ElementName=Tbl90ReferenceSourcesList, Mode=TwoWay}"
-                                                        SelectedValuePath="RefSourceId"
-                                                        Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
-                                                        VirtualizingStackPanel.IsVirtualizing="True">
-                                                        <ComboBox.ItemTemplate>
-                                                            <DataTemplate>
-                                                                <StackPanel Orientation="Horizontal">
-                                                                    <TextBlock Text="{Binding (models:Tbl90RefSource.RefSourceName)}" />
-                                                                    <TextBlock Text="{Binding (models:Tbl90RefSource.SourceYear)}" />
-                                                                </StackPanel>
-                                                            </DataTemplate>
-                                                        </ComboBox.ItemTemplate>
-                                                    </ComboBox>
-                                                </StackPanel>
-                                                <StackPanel Height="Auto" Orientation="Horizontal">
-                                                    <CheckBox
-                                                        Width="80"
-                                                        Margin="5,0,0,0"
-                                                        VerticalAlignment="Bottom"
-                                                        Content="{DynamicResource Shared-Valid}"
-                                                        FontWeight="Normal"
-                                                        IsChecked="{Binding SelectedItem.(models:Tbl90Reference.Valid), ElementName=Tbl90ReferenceSourcesList}"
-                                                        Style="{StaticResource MahApps.Styles.CheckBox}" />
-                                                    <TextBox Width="50" Margin="25,0,0,0">
-                                                        <TextBox.Text>
-                                                            <Binding
-                                                                ElementName="Tbl90ReferenceSourcesList"
-                                                                Mode="TwoWay"
-                                                                Path="SelectedItem.(models:Tbl90Reference.ValidYear)"
-                                                                UpdateSourceTrigger="PropertyChanged" />
-                                                        </TextBox.Text>
-                                                    </TextBox>
-                                                </StackPanel>
-                                                <StackPanel Height="Auto" Orientation="Horizontal">
-                                                    <TextBox Width="760" Margin="5,0,0,0">
-                                                        <TextBox.Text>
-                                                            <Binding
-                                                                ElementName="Tbl90ReferenceSourcesList"
-                                                                Mode="TwoWay"
-                                                                Path="SelectedItem.(models:Tbl90Reference.Info)"
-                                                                UpdateSourceTrigger="PropertyChanged" />
-                                                        </TextBox.Text>
-                                                    </TextBox>
-                                                </StackPanel>
-
-                                                <StackPanel Height="Auto" Orientation="Horizontal">
-                                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                                        <TextBox
-                                                            Height="Auto"
-                                                            MinWidth="760"
-                                                            MinHeight="100"
-                                                            MaxWidth="760"
-                                                            MaxHeight="400"
-                                                            Margin="5,0,0,5"
-                                                            VerticalAlignment="Stretch"
-                                                            AcceptsReturn="True"
-                                                            Style="{StaticResource MahApps.Styles.TextBox}"
-                                                            Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferenceSourcesList}"
-                                                            TextWrapping="Wrap"
-                                                            VerticalScrollBarVisibility="Auto" />
-                                                    </ScrollViewer>
-                                                </StackPanel>
-                                            </StackPanel>
-                                        </GroupBox>
-                                    </TabItem>
-
-                                    <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceAuthor}">
-                                        <GroupBox>
-                                            <StackPanel Margin="0,8,5,0">
-                                                <StackPanel Height="Auto" Orientation="Horizontal">
-                                                    <ToggleButton
-                                                        Width="36"
-                                                        Height="36"
-                                                        Margin="4"
-                                                        Command="{Binding SaveReferenceAuthorCommand}"
-                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                                        Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                                        <ToggleButton.ContentTemplate>
-                                                            <DataTemplate>
-                                                                <iconPacks:PackIconModern
-                                                                    Width="20"
-                                                                    Height="20"
-                                                                    Kind="Save" />
-                                                            </DataTemplate>
-                                                        </ToggleButton.ContentTemplate>
-                                                    </ToggleButton>
-                                                    <ToggleButton
-                                                        Width="36"
-                                                        Height="36"
-                                                        Margin="4"
-                                                        Command="{Binding CopyReferenceAuthorCommand}"
-                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                                        Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                                        <ToggleButton.ContentTemplate>
-                                                            <DataTemplate>
-                                                                <iconPacks:PackIconModern
-                                                                    Width="20"
-                                                                    Height="20"
-                                                                    Kind="PageCopy" />
-                                                            </DataTemplate>
-                                                        </ToggleButton.ContentTemplate>
-                                                    </ToggleButton>
-                                                    <ToggleButton
-                                                        Width="36"
-                                                        Height="36"
-                                                        Margin="4"
-                                                        Command="{Binding AddReferenceAuthorCommand}"
-                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                                        Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                                        <ToggleButton.ContentTemplate>
-                                                            <DataTemplate>
-                                                                <iconPacks:PackIconModern
-                                                                    Width="20"
-                                                                    Height="20"
-                                                                    Kind="Add" />
-                                                            </DataTemplate>
-                                                        </ToggleButton.ContentTemplate>
-                                                    </ToggleButton>
-                                                    <ToggleButton
-                                                        Width="36"
-                                                        Height="36"
-                                                        Margin="4"
-                                                        Command="{Binding DeleteReferenceAuthorCommand}"
-                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                                        Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                                        <ToggleButton.ContentTemplate>
-                                                            <DataTemplate>
-                                                                <iconPacks:PackIconModern
-                                                                    Width="20"
-                                                                    Height="20"
-                                                                    Kind="Delete" />
-                                                            </DataTemplate>
-                                                        </ToggleButton.ContentTemplate>
-                                                    </ToggleButton>
-                                                </StackPanel>
-                                                <StackPanel Height="Auto" Orientation="Horizontal">
-                                                    <ComboBox
-                                                        Width="760"
-                                                        Margin="5,0,0,0"
-                                                        VerticalAlignment="Bottom"
-                                                        mah:TextBoxHelper.ClearTextButton="False"
-                                                        mah:TextBoxHelper.UseFloatingWatermark="True"
-                                                        mah:TextBoxHelper.Watermark="Please select Author ..."
-                                                        IsSynchronizedWithCurrentItem="True"
-                                                        ItemsSource="{Binding Tbl90AuthorsAllList}"
-                                                        SelectedValue="{Binding SelectedItem.(models:Tbl90RefAuthor.RefAuthorId), ElementName=Tbl90ReferenceAuthorsList, Mode=TwoWay}"
-                                                        SelectedValuePath="RefAuthorId"
-                                                        Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
-                                                        VirtualizingStackPanel.IsVirtualizing="True">
-                                                        <ComboBox.ItemTemplate>
-                                                            <DataTemplate>
-                                                                <StackPanel Orientation="Horizontal">
-                                                                    <TextBlock Text="{Binding (models:Tbl90RefAuthor.RefAuthorName)}" />
-                                                                    <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl90RefAuthor.BookName)}" />
-                                                                    <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl90RefAuthor.Page1)}" />
-                                                                </StackPanel>
-                                                            </DataTemplate>
-                                                        </ComboBox.ItemTemplate>
-                                                    </ComboBox>
-                                                </StackPanel>
-                                                <StackPanel Height="Auto" Orientation="Horizontal">
-                                                    <CheckBox
-                                                        Width="80"
-                                                        Margin="5,0,0,0"
-                                                        VerticalAlignment="Bottom"
-                                                        Content="{DynamicResource Shared-Valid}"
-                                                        FontWeight="Normal"
-                                                        IsChecked="{Binding SelectedItem.(models:Tbl90Reference.Valid), ElementName=Tbl90ReferenceAuthorsList}"
-                                                        Style="{StaticResource MahApps.Styles.CheckBox}" />
-                                                    <TextBox Width="50" Margin="25,0,0,0">
-                                                        <TextBox.Text>
-                                                            <Binding
-                                                                ElementName="Tbl90ReferenceAuthorsList"
-                                                                Mode="TwoWay"
-                                                                Path="SelectedItem.(models:Tbl90Reference.ValidYear)"
-                                                                UpdateSourceTrigger="PropertyChanged" />
-                                                        </TextBox.Text>
-                                                    </TextBox>
-                                                </StackPanel>
-                                                <StackPanel Height="Auto" Orientation="Horizontal">
-                                                    <TextBox Width="760" Margin="5,0,0,0">
-                                                        <TextBox.Text>
-                                                            <Binding
-                                                                ElementName="Tbl90ReferenceAuthorsList"
-                                                                Mode="TwoWay"
-                                                                Path="SelectedItem.(models:Tbl90Reference.Info)"
-                                                                UpdateSourceTrigger="PropertyChanged" />
-                                                        </TextBox.Text>
-                                                    </TextBox>
-                                                </StackPanel>
-
-                                                <StackPanel Height="Auto" Orientation="Horizontal">
-                                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                                        <TextBox
-                                                            Height="Auto"
-                                                            MinWidth="760"
-                                                            MinHeight="100"
-                                                            MaxWidth="760"
-                                                            MaxHeight="400"
-                                                            Margin="5,0,0,5"
-                                                            VerticalAlignment="Stretch"
-                                                            AcceptsReturn="True"
-                                                            Style="{StaticResource MahApps.Styles.TextBox}"
-                                                            Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferenceAuthorsList}"
-                                                            TextWrapping="Wrap"
-                                                            VerticalScrollBarVisibility="Auto" />
-                                                    </ScrollViewer>
-                                                </StackPanel>
-                                            </StackPanel>
-                                        </GroupBox>
-                                    </TabItem>
-                                </TabControl>
-                            </GroupBox>
-                        </TabItem>
-
-                        <!--  Part 14  -->
-
-                        <TabItem FontWeight="Medium" Header="{DynamicResource Tbl93Comment-Comment}">
-                            <GroupBox>
-                                <StackPanel Margin="0,8,5,0">
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-
-                                        <ToggleButton
-                                            Width="36"
-                                            Height="36"
-                                            Margin="4"
-                                            Command="{Binding SaveCommentCommand}"
-                                            Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                            Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                            <ToggleButton.ContentTemplate>
-                                                <DataTemplate>
-                                                    <iconPacks:PackIconModern
-                                                        Width="20"
-                                                        Height="20"
-                                                        Kind="Save" />
-                                                </DataTemplate>
-                                            </ToggleButton.ContentTemplate>
-                                        </ToggleButton>
-
-
-                                        <ToggleButton
-                                            Width="36"
-                                            Height="36"
-                                            Margin="4"
-                                            Command="{Binding CopyCommentCommand}"
-                                            Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                            Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                            <ToggleButton.ContentTemplate>
-                                                <DataTemplate>
-                                                    <iconPacks:PackIconModern
-                                                        Width="20"
-                                                        Height="20"
-                                                        Kind="PageCopy" />
-                                                </DataTemplate>
-                                            </ToggleButton.ContentTemplate>
-                                        </ToggleButton>
-
-
-                                        <ToggleButton
-                                            Width="36"
-                                            Height="36"
-                                            Margin="4"
-                                            Command="{Binding AddCommentCommand}"
-                                            Foreground="{DynamicResource MahApps.Brushes.Accent4}"
-                                            Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                            <ToggleButton.ContentTemplate>
-                                                <DataTemplate>
-                                                    <iconPacks:PackIconModern
-                                                        Width="20"
-                                                        Height="20"
-                                                        Kind="Add" />
-                                                </DataTemplate>
-                                            </ToggleButton.ContentTemplate>
-                                        </ToggleButton>
-
-
-                                        <ToggleButton
-                                            Width="36"
-                                            Height="36"
-                                            Margin="4"
-                                            Command="{Binding DeleteCommentCommand}"
-                                            Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                            Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                            <ToggleButton.ContentTemplate>
-                                                <DataTemplate>
-                                                    <iconPacks:PackIconModern
-                                                        Width="20"
-                                                        Height="20"
-                                                        Kind="Delete" />
-                                                </DataTemplate>
-                                            </ToggleButton.ContentTemplate>
-                                        </ToggleButton>
-
-                                    </StackPanel>
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <CheckBox
-                                            Width="80"
-                                            Margin="5,19,0,0"
-                                            VerticalAlignment="Bottom"
-                                            Content="{DynamicResource Shared-Valid}"
-                                            FontWeight="Normal"
-                                            IsChecked="{Binding SelectedItem.(models:Tbl93Comment.Valid), ElementName=Tbl93CommentsList}"
-                                            Style="{StaticResource MahApps.Styles.CheckBox}" />
-                                    </StackPanel>
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox Width="760" Margin="5,0,0,0">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl93CommentsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl93Comment.Info)"
-                                                    UpdateSourceTrigger="PropertyChanged" />
-                                            </TextBox.Text>
-                                        </TextBox>
-                                    </StackPanel>
-
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                            <TextBox
-                                                Height="Auto"
-                                                MinWidth="760"
-                                                MinHeight="100"
-                                                MaxWidth="760"
-                                                MaxHeight="620"
-                                                Margin="5,0,0,5"
-                                                VerticalAlignment="Stretch"
-                                                AcceptsReturn="True"
-                                                Style="{StaticResource MahApps.Styles.TextBox}"
-                                                Text="{Binding SelectedItem.(models:Tbl93Comment.Memo), ElementName=Tbl93CommentsList}"
-                                                TextWrapping="Wrap"
-                                                VerticalScrollBarVisibility="Auto" />
-                                        </ScrollViewer>
-                                    </StackPanel>
-                                </StackPanel>
-                            </GroupBox>
-                        </TabItem>
-                    </TabControl>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <TextBox
+                                    Height="Auto"
+                                    MinWidth="760"
+                                    MinHeight="50"
+                                    MaxWidth="760"
+                                    MaxHeight="400"
+                                    Margin="5,0,0,5"
+                                    VerticalAlignment="Stretch"
+                                    AcceptsReturn="True"
+                                    FontWeight="Medium"
+                                    Style="{StaticResource MahApps.Styles.TextBox}"
+                                    Text="{Binding SelectedItem.(models:Tbl12Subphylum.Memo), ElementName=Tbl12SubphylumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    TextWrapping="Wrap"
+                                    VerticalScrollBarVisibility="Auto" />
+                            </ScrollViewer>
+                        </StackPanel>
+                    </StackPanel>
                 </GroupBox>
             </TabItem>
+
+
+            <!--  Part 8.3  TK2  Connected  -->
+
+
+
+            <!--  Part 8.3   TK3 Connected  -->
+
+
+
+            <!--  Part 8.3   TK4  Connected  -->
+
+
+
+
+            <!--  Part 11  -->
+
+            <!--  Part 12  -->
+
+            <!--  Part 13  -->
+
+
+            <!--<TabItem FontWeight="Medium" Header="{DynamicResource Shared-TabStripHeaderReferences}">
+                            <GroupBox>
+                                <TabControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedDetailSubRefTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">-->
+            <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceExpert}">
+                <GroupBox>
+                    <StackPanel Margin="0,8,5,0">
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ToggleButton
+                                Width="36"
+                                Height="36"
+                                Margin="4"
+                                Command="{Binding SaveReferenceExpertCommand}"
+                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                <ToggleButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <iconPacks:PackIconModern
+                                            Width="20"
+                                            Height="20"
+                                            Kind="Save" />
+                                    </DataTemplate>
+                                </ToggleButton.ContentTemplate>
+                            </ToggleButton>
+                            <ToggleButton
+                                Width="36"
+                                Height="36"
+                                Margin="4"
+                                Command="{Binding CopyReferenceExpertCommand}"
+                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                <ToggleButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <iconPacks:PackIconModern
+                                            Width="20"
+                                            Height="20"
+                                            Kind="PageCopy" />
+                                    </DataTemplate>
+                                </ToggleButton.ContentTemplate>
+                            </ToggleButton>
+                            <ToggleButton
+                                Width="36"
+                                Height="36"
+                                Margin="4"
+                                Command="{Binding AddReferenceExpertCommand}"
+                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                <ToggleButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <iconPacks:PackIconModern
+                                            Width="20"
+                                            Height="20"
+                                            Kind="Add" />
+                                    </DataTemplate>
+                                </ToggleButton.ContentTemplate>
+                            </ToggleButton>
+                            <ToggleButton
+                                Width="36"
+                                Height="36"
+                                Margin="4"
+                                Command="{Binding DeleteReferenceExpertCommand}"
+                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                <ToggleButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <iconPacks:PackIconModern
+                                            Width="20"
+                                            Height="20"
+                                            Kind="Delete" />
+                                    </DataTemplate>
+                                </ToggleButton.ContentTemplate>
+                            </ToggleButton>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ComboBox
+                                Width="500"
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.ClearTextButton="False"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="Please select Expert ..."
+                                DisplayMemberPath="RefExpertName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl90ExpertsAllList}"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl90RefExpert.RefExpertId), ElementName=Tbl90ReferenceExpertsList, Mode=TwoWay}"
+                                SelectedValuePath="RefExpertId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <CheckBox
+                                Width="80"
+                                Margin="5,19,0,0"
+                                VerticalAlignment="Bottom"
+                                Content="{DynamicResource Shared-Valid}"
+                                FontWeight="Normal"
+                                IsChecked="{Binding SelectedItem.(models:Tbl90Reference.Valid), ElementName=Tbl90ReferenceExpertsList}"
+                                Style="{StaticResource MahApps.Styles.CheckBox}" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox Width="760" Margin="5,0,0,0">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90ReferenceExpertsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90Reference.Info)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <TextBox
+                                    Height="Auto"
+                                    MinWidth="760"
+                                    MinHeight="100"
+                                    MaxWidth="760"
+                                    MaxHeight="400"
+                                    Margin="5,0,0,5"
+                                    VerticalAlignment="Stretch"
+                                    AcceptsReturn="True"
+                                    Style="{StaticResource MahApps.Styles.TextBox}"
+                                    Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferenceExpertsList}"
+                                    TextWrapping="Wrap"
+                                    VerticalScrollBarVisibility="Auto" />
+                            </ScrollViewer>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+            </TabItem>
+
+            <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceSource}">
+                <GroupBox>
+                    <StackPanel Margin="0,8,5,0">
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ToggleButton
+                                Width="36"
+                                Height="36"
+                                Margin="4"
+                                Command="{Binding SaveReferenceSourceCommand}"
+                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                <ToggleButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <iconPacks:PackIconModern
+                                            Width="20"
+                                            Height="20"
+                                            Kind="Save" />
+                                    </DataTemplate>
+                                </ToggleButton.ContentTemplate>
+                            </ToggleButton>
+                            <ToggleButton
+                                Width="36"
+                                Height="36"
+                                Margin="4"
+                                Command="{Binding CopyReferenceSourceCommand}"
+                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                <ToggleButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <iconPacks:PackIconModern
+                                            Width="20"
+                                            Height="20"
+                                            Kind="PageCopy" />
+                                    </DataTemplate>
+                                </ToggleButton.ContentTemplate>
+                            </ToggleButton>
+                            <ToggleButton
+                                Width="36"
+                                Height="36"
+                                Margin="4"
+                                Command="{Binding AddReferenceSourceCommand}"
+                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                <ToggleButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <iconPacks:PackIconModern
+                                            Width="20"
+                                            Height="20"
+                                            Kind="Add" />
+                                    </DataTemplate>
+                                </ToggleButton.ContentTemplate>
+                            </ToggleButton>
+                            <ToggleButton
+                                Width="36"
+                                Height="36"
+                                Margin="4"
+                                Command="{Binding DeleteReferenceSourceCommand}"
+                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                <ToggleButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <iconPacks:PackIconModern
+                                            Width="20"
+                                            Height="20"
+                                            Kind="Delete" />
+                                    </DataTemplate>
+                                </ToggleButton.ContentTemplate>
+                            </ToggleButton>
+
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ComboBox
+                                Width="760"
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.ClearTextButton="False"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="Please select Source ..."
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl90SourcesAllList}"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl90RefSource.RefSourceId), ElementName=Tbl90ReferenceSourcesList, Mode=TwoWay}"
+                                SelectedValuePath="RefSourceId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding (models:Tbl90RefSource.RefSourceName)}" />
+                                            <TextBlock Text="{Binding (models:Tbl90RefSource.SourceYear)}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <CheckBox
+                                Width="80"
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Bottom"
+                                Content="{DynamicResource Shared-Valid}"
+                                FontWeight="Normal"
+                                IsChecked="{Binding SelectedItem.(models:Tbl90Reference.Valid), ElementName=Tbl90ReferenceSourcesList}"
+                                Style="{StaticResource MahApps.Styles.CheckBox}" />
+                            <TextBox Width="50" Margin="25,0,0,0">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90ReferenceSourcesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90Reference.ValidYear)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox Width="760" Margin="5,0,0,0">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90ReferenceSourcesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90Reference.Info)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <TextBox
+                                    Height="Auto"
+                                    MinWidth="760"
+                                    MinHeight="100"
+                                    MaxWidth="760"
+                                    MaxHeight="400"
+                                    Margin="5,0,0,5"
+                                    VerticalAlignment="Stretch"
+                                    AcceptsReturn="True"
+                                    Style="{StaticResource MahApps.Styles.TextBox}"
+                                    Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferenceSourcesList}"
+                                    TextWrapping="Wrap"
+                                    VerticalScrollBarVisibility="Auto" />
+                            </ScrollViewer>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+            </TabItem>
+
+            <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceAuthor}">
+                <GroupBox>
+                    <StackPanel Margin="0,8,5,0">
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ToggleButton
+                                Width="36"
+                                Height="36"
+                                Margin="4"
+                                Command="{Binding SaveReferenceAuthorCommand}"
+                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                <ToggleButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <iconPacks:PackIconModern
+                                            Width="20"
+                                            Height="20"
+                                            Kind="Save" />
+                                    </DataTemplate>
+                                </ToggleButton.ContentTemplate>
+                            </ToggleButton>
+                            <ToggleButton
+                                Width="36"
+                                Height="36"
+                                Margin="4"
+                                Command="{Binding CopyReferenceAuthorCommand}"
+                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                <ToggleButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <iconPacks:PackIconModern
+                                            Width="20"
+                                            Height="20"
+                                            Kind="PageCopy" />
+                                    </DataTemplate>
+                                </ToggleButton.ContentTemplate>
+                            </ToggleButton>
+                            <ToggleButton
+                                Width="36"
+                                Height="36"
+                                Margin="4"
+                                Command="{Binding AddReferenceAuthorCommand}"
+                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                <ToggleButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <iconPacks:PackIconModern
+                                            Width="20"
+                                            Height="20"
+                                            Kind="Add" />
+                                    </DataTemplate>
+                                </ToggleButton.ContentTemplate>
+                            </ToggleButton>
+                            <ToggleButton
+                                Width="36"
+                                Height="36"
+                                Margin="4"
+                                Command="{Binding DeleteReferenceAuthorCommand}"
+                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                <ToggleButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <iconPacks:PackIconModern
+                                            Width="20"
+                                            Height="20"
+                                            Kind="Delete" />
+                                    </DataTemplate>
+                                </ToggleButton.ContentTemplate>
+                            </ToggleButton>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ComboBox
+                                Width="760"
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.ClearTextButton="False"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="Please select Author ..."
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl90AuthorsAllList}"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl90RefAuthor.RefAuthorId), ElementName=Tbl90ReferenceAuthorsList, Mode=TwoWay}"
+                                SelectedValuePath="RefAuthorId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding (models:Tbl90RefAuthor.RefAuthorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl90RefAuthor.BookName)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl90RefAuthor.Page1)}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <CheckBox
+                                Width="80"
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Bottom"
+                                Content="{DynamicResource Shared-Valid}"
+                                FontWeight="Normal"
+                                IsChecked="{Binding SelectedItem.(models:Tbl90Reference.Valid), ElementName=Tbl90ReferenceAuthorsList}"
+                                Style="{StaticResource MahApps.Styles.CheckBox}" />
+                            <TextBox Width="50" Margin="25,0,0,0">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90ReferenceAuthorsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90Reference.ValidYear)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox Width="760" Margin="5,0,0,0">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90ReferenceAuthorsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90Reference.Info)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <TextBox
+                                    Height="Auto"
+                                    MinWidth="760"
+                                    MinHeight="100"
+                                    MaxWidth="760"
+                                    MaxHeight="400"
+                                    Margin="5,0,0,5"
+                                    VerticalAlignment="Stretch"
+                                    AcceptsReturn="True"
+                                    Style="{StaticResource MahApps.Styles.TextBox}"
+                                    Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferenceAuthorsList}"
+                                    TextWrapping="Wrap"
+                                    VerticalScrollBarVisibility="Auto" />
+                            </ScrollViewer>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+            </TabItem>
+            <!--</TabControl>
+                            </GroupBox>
+                        </TabItem>-->
+
+            <!--  Part 14  -->
+
+            <TabItem FontWeight="Medium" Header="{DynamicResource Tbl93Comment-Comment}">
+                <GroupBox>
+                    <StackPanel Margin="0,8,5,0">
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+
+                            <ToggleButton
+                                Width="36"
+                                Height="36"
+                                Margin="4"
+                                Command="{Binding SaveCommentCommand}"
+                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                <ToggleButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <iconPacks:PackIconModern
+                                            Width="20"
+                                            Height="20"
+                                            Kind="Save" />
+                                    </DataTemplate>
+                                </ToggleButton.ContentTemplate>
+                            </ToggleButton>
+
+
+                            <ToggleButton
+                                Width="36"
+                                Height="36"
+                                Margin="4"
+                                Command="{Binding CopyCommentCommand}"
+                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                <ToggleButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <iconPacks:PackIconModern
+                                            Width="20"
+                                            Height="20"
+                                            Kind="PageCopy" />
+                                    </DataTemplate>
+                                </ToggleButton.ContentTemplate>
+                            </ToggleButton>
+
+
+                            <ToggleButton
+                                Width="36"
+                                Height="36"
+                                Margin="4"
+                                Command="{Binding AddCommentCommand}"
+                                Foreground="{DynamicResource MahApps.Brushes.Accent4}"
+                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                <ToggleButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <iconPacks:PackIconModern
+                                            Width="20"
+                                            Height="20"
+                                            Kind="Add" />
+                                    </DataTemplate>
+                                </ToggleButton.ContentTemplate>
+                            </ToggleButton>
+
+
+                            <ToggleButton
+                                Width="36"
+                                Height="36"
+                                Margin="4"
+                                Command="{Binding DeleteCommentCommand}"
+                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                                <ToggleButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <iconPacks:PackIconModern
+                                            Width="20"
+                                            Height="20"
+                                            Kind="Delete" />
+                                    </DataTemplate>
+                                </ToggleButton.ContentTemplate>
+                            </ToggleButton>
+
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <CheckBox
+                                Width="80"
+                                Margin="5,19,0,0"
+                                VerticalAlignment="Bottom"
+                                Content="{DynamicResource Shared-Valid}"
+                                FontWeight="Normal"
+                                IsChecked="{Binding SelectedItem.(models:Tbl93Comment.Valid), ElementName=Tbl93CommentsList}"
+                                Style="{StaticResource MahApps.Styles.CheckBox}" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox Width="760" Margin="5,0,0,0">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl93CommentsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl93Comment.Info)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <TextBox
+                                    Height="Auto"
+                                    MinWidth="760"
+                                    MinHeight="100"
+                                    MaxWidth="760"
+                                    MaxHeight="620"
+                                    Margin="5,0,0,5"
+                                    VerticalAlignment="Stretch"
+                                    AcceptsReturn="True"
+                                    Style="{StaticResource MahApps.Styles.TextBox}"
+                                    Text="{Binding SelectedItem.(models:Tbl93Comment.Memo), ElementName=Tbl93CommentsList}"
+                                    TextWrapping="Wrap"
+                                    VerticalScrollBarVisibility="Auto" />
+                            </ScrollViewer>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+            </TabItem>
+            <!--</TabControl>
+                </GroupBox>
+            </TabItem>-->
         </TabControl>
 
 
