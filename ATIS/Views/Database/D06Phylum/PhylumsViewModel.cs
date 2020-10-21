@@ -135,9 +135,9 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             SearchPhylumName = "";
 
             SelectedMainTabIndex = 0; //change tab
-            SelectedDetailTabIndex = 0;
-            SelectedDetailSubTabIndex = 0;
-            SelectedDetailSubRefTabIndex = 0;
+            SelectedDetailTabIndex = 1;
+            //SelectedDetailSubTabIndex = 0;
+            //SelectedDetailSubRefTabIndex = 0;
 
             Tbl03RegnumsList?.Clear();
             Tbl06PhylumsList?.Clear();
@@ -154,6 +154,9 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             Tbl03RegnumsAllList = _extGet.AllCollection<Tbl03Regnum>("regnum");
 
             Tbl06PhylumsList = _extGet.SearchNameAndIdReturnCollection<Tbl06Phylum>(SearchPhylumName, "phylum");
+
+            SelectedMainTabIndex = 0;
+            SelectedDetailTabIndex = 1;
 
             PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
             PhylumsView.Refresh();
@@ -1148,25 +1151,16 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void GetConnectedTablesById(object o)
         {
-            Tbl12SubphylumsList?.Clear();
-            Tbl90ReferenceExpertsList?.Clear();
-            Tbl90ReferenceSourcesList?.Clear();
-            Tbl90ReferenceAuthorsList?.Clear();
-            Tbl93CommentsList?.Clear();
+            //Tbl12SubphylumsList?.Clear();
+            //Tbl90ReferenceExpertsList?.Clear();
+            //Tbl90ReferenceSourcesList?.Clear();
+            //Tbl90ReferenceAuthorsList?.Clear();
+            //Tbl93CommentsList?.Clear();
 
-            SelectedMainTabIndex = 0; //change to Connect tab
-            SelectedMainSubRefTabIndex = 0;
-            SelectedDetailTabIndex = 1;
-            SelectedDetailSubTabIndex = 0;
-            SelectedDetailSubRefTabIndex = 0;
-
-            //Tbl03RegnumsList = new ObservableCollection<Tbl03Regnum>(
-            //        _businessLayer.ListTbl03RegnumsByRegnumId(CurrentTbl06Phylum.RegnumId));
             Tbl03RegnumsList = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums
                 .Find(e => e.RegnumId == CurrentTbl06Phylum.RegnumId)
                 .OrderBy(k => k.RegnumName)
                 .ThenBy(k => k.Subregnum));
-
 
             RegnumsView = CollectionViewSource.GetDefaultView(Tbl03RegnumsList);
             RegnumsView.Refresh();
@@ -1183,8 +1177,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
-        private int _selectedDetailSubTabIndex;
-        private int _selectedDetailSubRefTabIndex;
 
         public int SelectedMainTabIndex
         {
@@ -1192,27 +1184,182 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             set
             {
                 if (value == _selectedMainTabIndex) return;
-                _selectedMainTabIndex = value;
-                RaisePropertyChanged("");
+                _selectedMainTabIndex = value; RaisePropertyChanged("");
                 if (_selectedMainTabIndex == 0)
-                    SelectedDetailSubTabIndex = 0;
+                {
+                    if (CurrentTbl06Phylum != null)
+                    {
+                        Tbl03RegnumsList = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums
+                            .Find(e => e.RegnumId == CurrentTbl06Phylum.RegnumId)
+                            .OrderBy(k => k.RegnumName)
+                            .ThenBy(k => k.Subregnum));
+
+
+                        RegnumsView = CollectionViewSource.GetDefaultView(Tbl03RegnumsList);
+                        RegnumsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 0;
+                }
+                    
                 if (_selectedMainTabIndex == 1)
                 {
-                    SelectedDetailTabIndex = 1;
-                    SelectedDetailSubTabIndex = 1;
+                    if (CurrentTbl06Phylum != null)
+                    {
+                        Tbl12SubphylumsList = new ObservableCollection<Tbl12Subphylum>(_uow.Tbl12Subphylums
+                            .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId)
+                            .OrderBy(k => k.SubphylumName));
+
+                        Tbl06PhylumsAllList = _extGet.AllCollection<Tbl06Phylum>("phylum");
+
+                        SubphylumsView = CollectionViewSource.GetDefaultView(Tbl12SubphylumsList);
+                        SubphylumsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 2;
                 }
 
                 if (_selectedMainTabIndex == 2)
                 {
-                    SelectedDetailTabIndex = 1;
-                    SelectedDetailSubTabIndex = 2;
+                    SelectedDetailTabIndex = 3;
+                    SelectedMainSubRefTabIndex = 0;
                 }
 
                 if (_selectedMainTabIndex == 3)
                 {
-                    SelectedDetailTabIndex = 1;
-                    SelectedDetailSubTabIndex = 3;
+                    if (CurrentTbl06Phylum != null)
+                    {
+                        Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
+                            .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId)
+                            .OrderBy(k => k.Info));
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+
+                    }
+                    SelectedDetailTabIndex = 6;
                 }
+            }
+        }
+
+        public int SelectedDetailTabIndex
+        {
+            get => _selectedDetailTabIndex;
+            set
+            {
+                if (value == _selectedDetailTabIndex) return;
+                _selectedDetailTabIndex = value; RaisePropertyChanged("");
+                if (_selectedDetailTabIndex == 0)
+                {
+                    if (CurrentTbl06Phylum != null)
+                    {
+                        Tbl03RegnumsList = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums
+                            .Find(e => e.RegnumId == CurrentTbl06Phylum.RegnumId)
+                            .OrderBy(k => k.RegnumName)
+                            .ThenBy(k => k.Subregnum));
+
+                        RegnumsView = CollectionViewSource.GetDefaultView(Tbl03RegnumsList);
+                        RegnumsView.Refresh();
+                    }
+
+                    SelectedMainTabIndex = 0;
+                }
+
+                if (_selectedDetailTabIndex == 1)
+                {
+                    SelectedMainTabIndex = 0;
+                }
+
+                if (_selectedDetailTabIndex == 2)
+                {
+                    if (CurrentTbl06Phylum != null)
+                    {
+                        Tbl12SubphylumsList = new ObservableCollection<Tbl12Subphylum>(_uow.Tbl12Subphylums
+                            .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId)
+                            .OrderBy(k => k.SubphylumName));
+
+                        Tbl06PhylumsAllList = _extGet.AllCollection<Tbl06Phylum>("phylum");
+
+                        SubphylumsView = CollectionViewSource.GetDefaultView(Tbl12SubphylumsList);
+                        SubphylumsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 1;
+                }
+
+                if (_selectedDetailTabIndex == 3)
+                {
+                    if (CurrentTbl06Phylum != null)
+                    {
+
+                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+
+                        Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+                            .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId
+                                       && e.RefAuthorId == null && e.RefSourceId == null)
+                            .OrderBy(k => k.Info));
+
+                        ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                        ReferenceExpertsView.Refresh();
+                    }
+
+                    SelectedMainTabIndex = 2;
+                    SelectedMainSubRefTabIndex = 0;
+                }
+                if (_selectedDetailTabIndex == 4)
+                {
+                    if (CurrentTbl06Phylum != null)
+                    {
+
+                        Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+
+                        //Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>(
+                        //    _businessLayer.ListTbl90ReferenceListRefSourcesByPhylumId(CurrentTbl06Phylum.PhylumId));
+                        Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+                            .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId
+                                       && e.RefAuthorId == null && e.RefExpertId == null)
+                            .OrderBy(k => k.Info));
+
+
+                        ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+                        ReferenceSourcesView.Refresh();
+                    }
+
+                    SelectedMainTabIndex = 2;
+                    SelectedMainSubRefTabIndex = 1;
+                }
+                if (_selectedDetailTabIndex == 5)
+                {
+                    if (CurrentTbl06Phylum != null)
+                    {
+
+                        Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+
+                        Tbl90ReferenceAuthorsList = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+                            .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId
+                                       && e.RefSourceId == null && e.RefExpertId == null)
+                            .OrderBy(k => k.Info));
+
+                        ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
+                        ReferenceAuthorsView.Refresh();
+                    }
+
+                    SelectedMainTabIndex = 2;
+                    SelectedMainSubRefTabIndex = 2;
+                }
+                if (_selectedDetailTabIndex == 6)
+                {
+                    if (CurrentTbl06Phylum != null)
+                    {
+
+                        Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
+                            .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId)
+                            .OrderBy(k => k.Info));
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
+
+                    SelectedMainTabIndex = 3;
+                }
+
             }
         }
 
@@ -1225,179 +1372,68 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 _selectedMainSubRefTabIndex = value;
                 RaisePropertyChanged("");
                 if (_selectedMainSubRefTabIndex == 0)
-                    SelectedDetailSubRefTabIndex = 0;
+                {
+                    if (CurrentTbl06Phylum != null)
+                    {
+                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+
+
+                        Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+                            .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId
+                                       && e.RefAuthorId == null && e.RefSourceId == null)
+                            .OrderBy(k => k.Info));
+
+                        ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                        ReferenceExpertsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 3;
+                    SelectedMainTabIndex = 2;
+
+                }
+
                 if (_selectedMainSubRefTabIndex == 1)
-                    SelectedDetailSubRefTabIndex = 1;
+                {
+                    if (CurrentTbl06Phylum != null)
+                    {
+
+                        Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+
+                        Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+                            .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId
+                                       && e.RefAuthorId == null && e.RefExpertId == null)
+                            .OrderBy(k => k.Info));
+
+                        ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+                        ReferenceSourcesView.Refresh();
+                    }
+
+                    SelectedDetailTabIndex = 4;
+                    SelectedMainTabIndex = 2;
+
+                }
                 if (_selectedMainSubRefTabIndex == 2)
-                    SelectedDetailSubRefTabIndex = 2;
-            }
-        }
-
-        public int SelectedDetailTabIndex
-        {
-            get => _selectedDetailTabIndex;
-            set
-            {
-                if (value == _selectedDetailTabIndex) return;
-                _selectedDetailTabIndex = value;
-                RaisePropertyChanged("");
-                if (_selectedDetailTabIndex == 0)
                 {
-                    SelectedDetailSubTabIndex = 0;
-                    SelectedMainTabIndex = 0;
-                }
+                    if (CurrentTbl06Phylum != null)
+                    {
 
-                if (_selectedDetailTabIndex == 1)
-                    SelectedDetailSubTabIndex = 1;
-                if (_selectedDetailTabIndex == 2)
-                    SelectedDetailSubTabIndex = 2;
-                if (_selectedDetailTabIndex == 3)
-                    SelectedDetailSubTabIndex = 3;
-            }
-        }
+                        Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
 
-        public int SelectedDetailSubTabIndex
-        {
-            get => _selectedDetailSubTabIndex;
-            set
-            {
-                if (value == _selectedDetailSubTabIndex) return;
-                _selectedDetailSubTabIndex = value; RaisePropertyChanged("");
-                if (_selectedDetailSubTabIndex == 0)
-                {
-                    //             Tbl03RegnumsList = new ObservableCollection<Tbl03Regnum>(_businessLayer.ListTbl03RegnumsByRegnumId(CurrentTbl06Phylum.RegnumId));
-                    Tbl03RegnumsList = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums
-                        .Find(e => e.RegnumId == CurrentTbl06Phylum.RegnumId)
-                        .OrderBy(k => k.RegnumName)
-                        .ThenBy(k => k.Subregnum));
+                        Tbl90ReferenceAuthorsList = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
+                            .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId
+                                       && e.RefSourceId == null && e.RefExpertId == null)
+                            .OrderBy(k => k.Info));
 
-                    RegnumsView = CollectionViewSource.GetDefaultView(Tbl03RegnumsList);
-                    RegnumsView.Refresh();
+                        ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
+                        ReferenceAuthorsView.Refresh();
+                    }
 
-                    SelectedMainTabIndex = 0;
-                }
-
-                if (_selectedDetailSubTabIndex == 1)
-                {
-                    //Tbl12SubphylumsList = new ObservableCollection<Tbl12Subphylum>(
-                    //    _businessLayer.ListTbl12SubphylumsByPhylumId(CurrentTbl06Phylum.PhylumId));
-
-                    Tbl12SubphylumsList = new ObservableCollection<Tbl12Subphylum>(_uow.Tbl12Subphylums
-                        .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId)
-                        .OrderBy(k => k.SubphylumName));
-
-                    Tbl06PhylumsAllList = _extGet.AllCollection<Tbl06Phylum>("phylum");
-
-                    SubphylumsView = CollectionViewSource.GetDefaultView(Tbl12SubphylumsList);
-                    SubphylumsView.Refresh();
-
-                    SelectedMainTabIndex = 1;
-                }
-
-                if (_selectedDetailSubTabIndex == 2)
-                {
-                    //Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(
-                    //    _businessLayer.ListTbl90RefExperts());
-
-              //      Tbl90ExpertsAllList = _extGet.AllCollection<Tbl90RefExpert>("expert");
-                    Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
-
-                    //Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(
-                    //    _businessLayer.ListTbl90ReferenceListRefExpertsByPhylumId(CurrentTbl06Phylum.PhylumId));
-
-                    Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                        .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId
-                                   && e.RefAuthorId == null && e.RefSourceId == null)
-                        .OrderBy(k => k.Info));
-
-                    ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
-                    ReferenceExpertsView.Refresh();
-
+                    SelectedDetailTabIndex = 5;
                     SelectedMainTabIndex = 2;
                 }
-
-                if (_selectedDetailSubTabIndex == 3)
-                {
-                    //Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(
-                    //    _businessLayer.ListTbl93CommentsByPhylumId(CurrentTbl06Phylum.PhylumId));
-
-                    Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
-                        .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId)
-                        .OrderBy(k => k.Info));
-
-                    CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
-                    CommentsView.Refresh();
-
-                    SelectedMainTabIndex = 3;
-                }
             }
         }
 
-        public int SelectedDetailSubRefTabIndex
-        {
-            get => _selectedDetailSubRefTabIndex;
-            set
-            {
-                if (value == _selectedDetailSubRefTabIndex) return;
-                _selectedDetailSubRefTabIndex = value;
-                RaisePropertyChanged("");
-                if (_selectedDetailSubRefTabIndex == 0)
-                {
-                    //Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(
-                    //    _businessLayer.ListTbl90RefExperts());
 
-                 //   Tbl90ExpertsAllList = _extGet.AllCollection<Tbl90RefExpert>("expert");
-                          Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
-
-                    //Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(
-                    //    _businessLayer.ListTbl90ReferenceListRefExpertsByPhylumId(CurrentTbl06Phylum.PhylumId));
-                    Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                        .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId
-                                   && e.RefAuthorId == null && e.RefSourceId == null)
-                        .OrderBy(k => k.Info));
-
-                    ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
-                    ReferenceExpertsView.Refresh();
-
-                    SelectedMainSubRefTabIndex = 0;
-                }
-
-                if (_selectedDetailSubRefTabIndex == 1)
-                {
-                    //Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(
-                    //    _businessLayer.ListTbl90RefSources());
-                    Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
-
-                    //Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>(
-                    //    _businessLayer.ListTbl90ReferenceListRefSourcesByPhylumId(CurrentTbl06Phylum.PhylumId));
-                    Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                        .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId
-                                   && e.RefAuthorId == null && e.RefExpertId == null)
-                        .OrderBy(k => k.Info));
-
-
-                    ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
-                    ReferenceSourcesView.Refresh();
-
-                    SelectedMainSubRefTabIndex = 1;
-                }
-
-                if (_selectedDetailSubRefTabIndex == 2)
-                {
-                    Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
-
-                    Tbl90ReferenceAuthorsList = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                        .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId
-                                   && e.RefSourceId == null && e.RefExpertId == null)
-                        .OrderBy(k => k.Info));
-
-                    ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
-                    ReferenceAuthorsView.Refresh();
-
-                    SelectedMainSubRefTabIndex = 2;
-                }
-            }
-        }
 
         #endregion "Public Commands to open Detail TabItems"
 

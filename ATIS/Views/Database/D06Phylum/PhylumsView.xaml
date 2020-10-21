@@ -16,6 +16,43 @@
     <UserControl.Resources>
         <!--<converters:ComboBoxEmptyItemConverter x:Key="ComboBoxEmptyItemConverter" />-->
         <!--<valueConverter:CapitalizeFirstLetterConverter x:Key="CapFirst" />-->
+        <ControlTemplate x:Key="Crudbutton" TargetType="ToggleButton">
+            <ToggleButton
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding GetPhylumsByNameOrIdCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                <ToggleButton.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="Loop" />
+                    </DataTemplate>
+                </ToggleButton.ContentTemplate>
+            </ToggleButton>
+        </ControlTemplate>
+        <Style x:Key="OnOffToggleStyle" TargetType="ToggleButton">
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Content">
+                        <Setter.Value>
+                            <TextBlock Text="Yes"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="False">
+                    <Setter Property="Content">
+                        <Setter.Value>
+                            <TextBlock Text="No"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
 
     </UserControl.Resources>
     <!--<UserControl.Resources>
@@ -313,11 +350,6 @@
 
     </UserControl.Resources>-->
 
-    <!--<UserControl.DataContext>
-    -->
-    <!--<Binding Path="Tbl09Divisions" Source="{StaticResource Locator}" />-->
-    <!--
-    </UserControl.DataContext>-->
 
 
     <!--  PhylumsView.xaml  Skriptdatum:  12.12.2019  12:32  -->
@@ -334,7 +366,6 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="50*" />
         </Grid.RowDefinitions>
-
 
 
         <StackPanel Grid.Row="0" Grid.Column="1" />
@@ -395,6 +426,7 @@
                                         </TextBox.Style>
                                     </TextBox>
                                 </Grid>
+                                <ToggleButton Style="{StaticResource OnOffToggleStyle}"/>
                                 <ToggleButton
                                     Width="36"
                                     Height="36"

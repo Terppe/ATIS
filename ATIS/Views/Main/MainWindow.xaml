@@ -19,7 +19,7 @@
     RenderOptions.ClearTypeHint="Enabled"
     ResizeMode="CanResizeWithGrip"
     SaveWindowPosition="True"
-    Style="{StaticResource WindowDefault}"
+    Background="DarkTurquoise"
     TextOptions.TextFormattingMode="Display"
     TitleCharacterCasing="Normal"
     WindowStartupLocation="CenterScreen"

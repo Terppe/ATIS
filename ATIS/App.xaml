@@ -20,7 +20,7 @@
                 <ResourceDictionary Source="pack://application:,,,/ATIS.Culture;component/Cultures/StringsRes.fr-FR.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ATIS.Culture;component/Cultures/StringsRes.pt-PT.xaml" />
 
-                <ResourceDictionary Source="pack://application:,,,/ATIS.Styles;component/StylesDictionary.xaml" />
+                <!--<ResourceDictionary Source="pack://application:,,,/ATIS.Styles;component/StylesDictionary.xaml" />-->
 
                 <ResourceDictionary Source="Asset/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
