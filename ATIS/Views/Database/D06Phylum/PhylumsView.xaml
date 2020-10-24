@@ -9,51 +9,527 @@
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"
+    xmlns:valueConverter="clr-namespace:ATIS.Ui.Helper.ValueConverter"
     d:DesignHeight="700"
     d:DesignWidth="1250"
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <!--<converters:ComboBoxEmptyItemConverter x:Key="ComboBoxEmptyItemConverter" />-->
+        <valueConverter:ComboBoxEmptyItemConverter x:Key="ComboBoxEmptyItemConverter" />
         <!--<valueConverter:CapitalizeFirstLetterConverter x:Key="CapFirst" />-->
-        <ControlTemplate x:Key="Crudbutton" TargetType="ToggleButton">
-            <ToggleButton
+
+        <ControlTemplate x:Key="SaveRegnumButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding SaveRegnumCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="Save" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="SearchPhylumsButton" TargetType="Button">
+            <Button
                 Width="36"
                 Height="36"
                 Margin="4"
                 Command="{Binding GetPhylumsByNameOrIdCommand}"
                 Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                <ToggleButton.ContentTemplate>
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
                     <DataTemplate>
                         <iconPacks:PackIconModern
                             Width="20"
                             Height="20"
                             Kind="Loop" />
                     </DataTemplate>
-                </ToggleButton.ContentTemplate>
-            </ToggleButton>
+                </Button.ContentTemplate>
+            </Button>
         </ControlTemplate>
-        <Style x:Key="OnOffToggleStyle" TargetType="ToggleButton">
-            <Style.Triggers>
-                <Trigger Property="IsChecked" Value="True">
-                    <Setter Property="Content">
-                        <Setter.Value>
-                            <TextBlock Text="Yes"/>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-                <Trigger Property="IsChecked" Value="False">
-                    <Setter Property="Content">
-                        <Setter.Value>
-                            <TextBlock Text="No"/>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
 
+        <ControlTemplate x:Key="AddPhylumButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding AddPhylumCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="Add" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
+        <ControlTemplate x:Key="CopyPhylumButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding CopyPhylumCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="PageCopy" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
+        <ControlTemplate x:Key="SavePhylumButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding SavePhylumCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="Save" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
+        <ControlTemplate x:Key="DeletePhylumButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding DeletePhylumCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="Delete" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
 
+        <ControlTemplate x:Key="AddSubphylumButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding AddSubphylumCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="Add" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
+        <ControlTemplate x:Key="CopySubphylumButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding CopySubphylumCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="PageCopy" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
+        <ControlTemplate x:Key="SaveSubphylumButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding SaveSubphylumCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="Save" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
+        <ControlTemplate x:Key="DeleteSubphylumButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding DeleteSubphylumCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="Delete" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="AddReferenceExpertButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding AddReferenceExpertCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="Add" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
+        <ControlTemplate x:Key="CopyReferenceExpertButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding CopyReferenceExpertCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="PageCopy" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
+        <ControlTemplate x:Key="SaveReferenceExpertButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding SaveReferenceExpertCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="Save" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
+        <ControlTemplate x:Key="DeleteReferenceExpertButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding DeleteReferenceExpertCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="Delete" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="AddReferenceSourceButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding AddReferenceSourceCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="Add" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
+        <ControlTemplate x:Key="CopyReferenceSourceButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding CopyReferenceSourceCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="PageCopy" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
+        <ControlTemplate x:Key="SaveReferenceSourceButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding SaveReferenceSourceCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="Save" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
+        <ControlTemplate x:Key="DeleteReferenceSourceButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding DeleteReferenceSourceCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="Delete" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="AddReferenceAuthorButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding AddReferenceAuthorCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="Add" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
+        <ControlTemplate x:Key="CopyReferenceAuthorButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding CopyReferenceAuthorCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="PageCopy" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
+        <ControlTemplate x:Key="SaveReferenceAuthorButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding SaveReferenceAuthorCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="Save" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
+        <ControlTemplate x:Key="DeleteReferenceAuthorButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding DeleteReferenceAuthorCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="Delete" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="AddCommentButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding AddCommentCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="Add" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
+        <ControlTemplate x:Key="CopyCommentButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding CopyCommentCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="PageCopy" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
+        <ControlTemplate x:Key="SaveCommentButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding SaveCommentCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="Save" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
+        <ControlTemplate x:Key="DeleteCommentButton" TargetType="Button">
+            <Button
+                Width="36"
+                Height="36"
+                Margin="4"
+                Command="{Binding DeleteCommentCommand}"
+                Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                IsEnabled="True"
+                Style="{StaticResource MahApps.Styles.Button.Circle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconModern
+                            Width="20"
+                            Height="20"
+                            Kind="Delete" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="BasicTextBox" TargetType="TextBox">
+            <TextBox
+                Margin="5"
+                HorizontalContentAlignment="Stretch"
+                mah:TextBoxHelper.IsWaitingForData="True"
+                mah:TextBoxHelper.UseFloatingWatermark="True"
+                mah:TextBoxHelper.WatermarkAlignment="Left"
+                FontWeight="Medium"
+                SpellCheck.IsEnabled="True" />
+        </ControlTemplate>
     </UserControl.Resources>
     <!--<UserControl.Resources>
         <converters:ComboBoxEmptyItemConverter x:Key="ComboBoxEmptyItemConverter" />
@@ -351,9 +827,7 @@
     </UserControl.Resources>-->
 
 
-
     <!--  PhylumsView.xaml  Skriptdatum:  12.12.2019  12:32  -->
-
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -426,39 +900,8 @@
                                         </TextBox.Style>
                                     </TextBox>
                                 </Grid>
-                                <ToggleButton Style="{StaticResource OnOffToggleStyle}"/>
-                                <ToggleButton
-                                    Width="36"
-                                    Height="36"
-                                    Margin="4"
-                                    Command="{Binding GetPhylumsByNameOrIdCommand}"
-                                    Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                    Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                    <ToggleButton.ContentTemplate>
-                                        <DataTemplate>
-                                            <iconPacks:PackIconModern
-                                                Width="20"
-                                                Height="20"
-                                                Kind="Loop" />
-                                        </DataTemplate>
-                                    </ToggleButton.ContentTemplate>
-                                </ToggleButton>
-                                <ToggleButton
-                                    Width="36"
-                                    Height="36"
-                                    Margin="4"
-                                    Command="{Binding AddPhylumCommand}"
-                                    Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                    Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                    <ToggleButton.ContentTemplate>
-                                        <DataTemplate>
-                                            <iconPacks:PackIconModern
-                                                Width="20"
-                                                Height="20"
-                                                Kind="Add" />
-                                        </DataTemplate>
-                                    </ToggleButton.ContentTemplate>
-                                </ToggleButton>
+                                <Button Template="{StaticResource SearchPhylumsButton}" />
+                                <Button Template="{StaticResource AddPhylumButton}" />
                             </StackPanel>
                         </GroupBox>
 
@@ -466,8 +909,10 @@
                             <ListView
                                 x:Name="Tbl06PhylumsList"
                                 IsSynchronizedWithCurrentItem="True"
-                                ItemsSource="{Binding Tbl06PhylumsList}"
+                                ItemsSource="{Binding Tbl06PhylumsList}" 
+                                ScrollViewer.VerticalScrollBarVisibility="Visible"
                                 ScrollViewer.IsDeferredScrollingEnabled="True"
+                                ScrollViewer.HorizontalScrollBarVisibility="Visible"
                                 SelectedItem="{Binding (Selector.SelectedItem)}"
                                 VirtualizingStackPanel.IsVirtualizing="True"
                                 VirtualizingStackPanel.VirtualizationMode="Recycling">
@@ -539,26 +984,22 @@
 
         <!--  Part 2   FK1  aktuell  -->
 
-        <ScrollViewer
+        <!--<ScrollViewer
             Grid.Row="0"
             Grid.Column="2"
             Margin="0,0,0,0"
             Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-            VerticalScrollBarVisibility="Auto">
-            <!--<Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                </Grid.RowDefinitions>-->
+            VerticalScrollBarVisibility="Auto">-->
             <TabControl
-                Margin="1"
+                Grid.Row="0" Grid.Column="2" Margin="0"
                 Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
                 SelectedIndex="{Binding SelectedMainTabIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
 
                 <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderRegnums}">
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer
+                        helper:AutoScrollBehavior.TopMouseScrollPriority="True"
+                        HorizontalScrollBarVisibility="Auto"
+                        VerticalScrollBarVisibility="Auto">
                         <StackPanel>
                             <GroupBox>
                                 <ListView
@@ -639,7 +1080,10 @@
 
 
                 <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderSubphylums}">
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer
+                        helper:AutoScrollBehavior.TopMouseScrollPriority="True"
+                        HorizontalScrollBarVisibility="Auto"
+                        VerticalScrollBarVisibility="Auto">
                         <StackPanel>
                             <GroupBox>
                                 <ListView
@@ -713,192 +1157,204 @@
 
 
                 <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderReferences}">
+                    <!--<ScrollViewer
+                        helper:AutoScrollBehavior.TopMouseScrollPriority="True"
+                        HorizontalScrollBarVisibility="Auto"
+                        VerticalScrollBarVisibility="Auto">-->
+
                     <TabControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedMainSubRefTabIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <TabItem Header="{DynamicResource Shared-TabStripHeaderRefExperts}">
-                            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                                <StackPanel>
-                                    <GroupBox>
+                            <!--<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">-->
+                            <StackPanel>
+                                <GroupBox>
+                                    <ListView
+                                        x:Name="Tbl90ReferenceExpertsList"
+                                        IsSynchronizedWithCurrentItem="True"
+                                        ItemsSource="{Binding Tbl90ReferenceExpertsList}"
+                                        ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                        ScrollViewer.IsDeferredScrollingEnabled="True"
+                                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                        SelectedItem="{Binding (Selector.SelectedItem)}"
+                                        VirtualizingStackPanel.IsVirtualizing="True"
+                                        VirtualizingStackPanel.VirtualizationMode="Recycling">
 
-                                        <ListView
-                                            x:Name="Tbl90ReferenceExpertsList"
-                                            IsSynchronizedWithCurrentItem="True"
-                                            ItemsSource="{Binding Tbl90ReferenceExpertsList}"
-                                            ScrollViewer.IsDeferredScrollingEnabled="True"
-                                            SelectedItem="{Binding (Selector.SelectedItem)}"
-                                            VirtualizingStackPanel.IsVirtualizing="True"
-                                            VirtualizingStackPanel.VirtualizationMode="Recycling">
-
-                                            <ListView.View>
-                                                <GridView>
-                                                    <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90Reference-ReferenceId}">
-                                                        <GridViewColumn.CellTemplate>
-                                                            <DataTemplate>
-                                                                <TextBlock
-                                                                    Width="100"
-                                                                    Text="{Binding (models:Tbl90Reference.ReferenceId)}"
-                                                                    TextAlignment="Left" />
-                                                            </DataTemplate>
-                                                        </GridViewColumn.CellTemplate>
-                                                    </GridViewColumn>
-                                                    <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90RefExpert-ExpertId}">
-                                                        <GridViewColumn.CellTemplate>
-                                                            <DataTemplate>
-                                                                <TextBlock
-                                                                    Width="100"
-                                                                    Text="{Binding (models:Tbl90Reference.RefExpertId)}"
-                                                                    TextAlignment="Left" />
-                                                            </DataTemplate>
-                                                        </GridViewColumn.CellTemplate>
-                                                    </GridViewColumn>
-                                                    <GridViewColumn
-                                                        Width="550"
-                                                        DisplayMemberBinding="{Binding (models:Tbl90Reference.Tbl90RefExperts).RefExpertName}"
-                                                        Header="{DynamicResource Tbl90RefExpert-ExpertName}" />
-                                                    <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
-                                                        <GridViewColumn.CellTemplate>
-                                                            <DataTemplate>
-                                                                <StackPanel Orientation="Horizontal">
-                                                                    <CheckBox IsChecked="{Binding (models:Tbl90Reference.Valid)}" />
-                                                                </StackPanel>
-                                                            </DataTemplate>
-                                                        </GridViewColumn.CellTemplate>
-                                                    </GridViewColumn>
-                                                    <GridViewColumn
-                                                        Width="700"
-                                                        DisplayMemberBinding="{Binding (models:Tbl90Reference.Info)}"
-                                                        Header="{DynamicResource Shared-Info}" />
-                                                </GridView>
-                                            </ListView.View>
-                                        </ListView>
-                                    </GroupBox>
-                                </StackPanel>
-                            </ScrollViewer>
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90Reference-ReferenceId}">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Width="100"
+                                                                Text="{Binding (models:Tbl90Reference.ReferenceId)}"
+                                                                TextAlignment="Left" />
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90RefExpert-ExpertId}">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Width="100"
+                                                                Text="{Binding (models:Tbl90Reference.Tbl90RefExperts).RefExpertId}"
+                                                                TextAlignment="Left" />
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn
+                                                    Width="550"
+                                                    DisplayMemberBinding="{Binding (models:Tbl90Reference.Tbl90RefExperts).RefExpertName}"
+                                                    Header="{DynamicResource Tbl90RefExpert-ExpertName}" />
+                                                <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <CheckBox IsChecked="{Binding (models:Tbl90Reference.Valid)}" />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn
+                                                    Width="700"
+                                                    DisplayMemberBinding="{Binding (models:Tbl90Reference.Info)}"
+                                                    Header="{DynamicResource Shared-Info}" />
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </GroupBox>
+                            </StackPanel>
+                            <!--</ScrollViewer>-->
                         </TabItem>
                         <TabItem Header="{DynamicResource Shared-TabStripHeaderRefSources}">
-                            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                                <StackPanel>
-                                    <GroupBox>
+                            <!--<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">-->
+                            <StackPanel>
+                                <GroupBox>
+                                    <ListView
+                                        x:Name="Tbl90ReferenceSourcesList"
+                                        IsSynchronizedWithCurrentItem="True"
+                                        ItemsSource="{Binding Tbl90ReferenceSourcesList}"
+                                        ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                        ScrollViewer.IsDeferredScrollingEnabled="True"
+                                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                        SelectedItem="{Binding (Selector.SelectedItem)}"
+                                        VirtualizingStackPanel.IsVirtualizing="True"
+                                        VirtualizingStackPanel.VirtualizationMode="Recycling">
 
-                                        <ListView
-                                            x:Name="Tbl90ReferenceSourcesList"
-                                            IsSynchronizedWithCurrentItem="True"
-                                            ItemsSource="{Binding Tbl90ReferenceSourcesList}"
-                                            ScrollViewer.IsDeferredScrollingEnabled="True"
-                                            SelectedItem="{Binding (Selector.SelectedItem)}"
-                                            VirtualizingStackPanel.IsVirtualizing="True"
-                                            VirtualizingStackPanel.VirtualizationMode="Recycling">
-
-                                            <ListView.View>
-                                                <GridView>
-                                                    <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90Reference-ReferenceId}">
-                                                        <GridViewColumn.CellTemplate>
-                                                            <DataTemplate>
-                                                                <TextBlock
-                                                                    Width="100"
-                                                                    Text="{Binding (models:Tbl90Reference.ReferenceId)}"
-                                                                    TextAlignment="Left" />
-                                                            </DataTemplate>
-                                                        </GridViewColumn.CellTemplate>
-                                                    </GridViewColumn>
-                                                    <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90RefSource-SourceId}">
-                                                        <GridViewColumn.CellTemplate>
-                                                            <DataTemplate>
-                                                                <TextBlock
-                                                                    Width="100"
-                                                                    Text="{Binding (models:Tbl90Reference.RefSourceId)}"
-                                                                    TextAlignment="Left" />
-                                                            </DataTemplate>
-                                                        </GridViewColumn.CellTemplate>
-                                                    </GridViewColumn>
-                                                    <GridViewColumn
-                                                        Width="550"
-                                                        DisplayMemberBinding="{Binding (models:Tbl90Reference.Tbl90RefSources).RefSourceName}"
-                                                        Header="{DynamicResource Tbl90Reference-RefSourceName}" />
-                                                    <GridViewColumn Header="{DynamicResource Shared-Valid}">
-                                                        <GridViewColumn.CellTemplate>
-                                                            <DataTemplate>
-                                                                <StackPanel Orientation="Horizontal">
-                                                                    <CheckBox IsChecked="{Binding (models:Tbl90Reference.Valid)}" />
-                                                                </StackPanel>
-                                                            </DataTemplate>
-                                                        </GridViewColumn.CellTemplate>
-                                                    </GridViewColumn>
-                                                    <GridViewColumn
-                                                        Width="700"
-                                                        DisplayMemberBinding="{Binding (models:Tbl90Reference.Info)}"
-                                                        Header="{DynamicResource Shared-Info}" />
-                                                </GridView>
-                                            </ListView.View>
-                                        </ListView>
-                                    </GroupBox>
-                                </StackPanel>
-                            </ScrollViewer>
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90Reference-ReferenceId}">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Width="100"
+                                                                Text="{Binding (models:Tbl90Reference.ReferenceId)}"
+                                                                TextAlignment="Left" />
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90RefSource-SourceId}">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Width="100"
+                                                                Text="{Binding (models:Tbl90Reference.Tbl90RefSources).RefSourceId}"
+                                                                TextAlignment="Left" />
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn
+                                                    Width="550"
+                                                    DisplayMemberBinding="{Binding (models:Tbl90Reference.Tbl90RefSources).RefSourceName}"
+                                                    Header="{DynamicResource Tbl90Reference-RefSourceName}" />
+                                                <GridViewColumn Header="{DynamicResource Shared-Valid}">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <CheckBox IsChecked="{Binding (models:Tbl90Reference.Valid)}" />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn
+                                                    Width="700"
+                                                    DisplayMemberBinding="{Binding (models:Tbl90Reference.Info)}"
+                                                    Header="{DynamicResource Shared-Info}" />
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </GroupBox>
+                            </StackPanel>
+                            <!--</ScrollViewer>-->
                         </TabItem>
                         <TabItem Header="{DynamicResource Shared-TabStripHeaderRefAuthors}">
                             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                                <StackPanel>
-                                    <GroupBox>
+                            <StackPanel>
+                                <GroupBox>
+                                    <ListView
+                                        x:Name="Tbl90ReferenceAuthorsList"
+                                        IsSynchronizedWithCurrentItem="True"
+                                        ItemsSource="{Binding Tbl90ReferenceAuthorsList}"
+                                        ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                                        ScrollViewer.IsDeferredScrollingEnabled="True"
+                                        ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                        SelectedItem="{Binding (Selector.SelectedItem)}"
+                                        VirtualizingStackPanel.IsVirtualizing="True"
+                                        VirtualizingStackPanel.VirtualizationMode="Recycling">
 
-                                        <ListView
-                                            x:Name="Tbl90ReferenceAuthorsList"
-                                            IsSynchronizedWithCurrentItem="True"
-                                            ItemsSource="{Binding Tbl90ReferenceAuthorsList}"
-                                            ScrollViewer.IsDeferredScrollingEnabled="True"
-                                            SelectedItem="{Binding (Selector.SelectedItem)}"
-                                            VirtualizingStackPanel.IsVirtualizing="True"
-                                            VirtualizingStackPanel.VirtualizationMode="Recycling">
-
-                                            <ListView.View>
-                                                <GridView>
-                                                    <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90Reference-ReferenceId}">
-                                                        <GridViewColumn.CellTemplate>
-                                                            <DataTemplate>
-                                                                <TextBlock
-                                                                    Width="100"
-                                                                    Text="{Binding (models:Tbl90Reference.ReferenceId)}"
-                                                                    TextAlignment="Left" />
-                                                            </DataTemplate>
-                                                        </GridViewColumn.CellTemplate>
-                                                    </GridViewColumn>
-                                                    <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90RefAuthor-AuthorId}">
-                                                        <GridViewColumn.CellTemplate>
-                                                            <DataTemplate>
-                                                                <TextBlock
-                                                                    Width="100"
-                                                                    Text="{Binding (models:Tbl90Reference.RefAuthorId)}"
-                                                                    TextAlignment="Left" />
-                                                            </DataTemplate>
-                                                        </GridViewColumn.CellTemplate>
-                                                    </GridViewColumn>
-                                                    <GridViewColumn
-                                                        Width="550"
-                                                        DisplayMemberBinding="{Binding (models:Tbl90Reference.Tbl90RefAuthors).RefAuthorName}"
-                                                        Header="{DynamicResource Tbl90Reference-RefAuthorName}" />
-                                                    <GridViewColumn Header="{DynamicResource Shared-Valid}">
-                                                        <GridViewColumn.CellTemplate>
-                                                            <DataTemplate>
-                                                                <StackPanel Orientation="Horizontal">
-                                                                    <CheckBox IsChecked="{Binding (models:Tbl90Reference.Valid)}" />
-                                                                </StackPanel>
-                                                            </DataTemplate>
-                                                        </GridViewColumn.CellTemplate>
-                                                    </GridViewColumn>
-                                                    <GridViewColumn
-                                                        Width="700"
-                                                        DisplayMemberBinding="{Binding (models:Tbl90Reference.Info)}"
-                                                        Header="{DynamicResource Shared-Info}" />
-                                                </GridView>
-                                            </ListView.View>
-                                        </ListView>
-                                    </GroupBox>
-                                </StackPanel>
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90Reference-ReferenceId}">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Width="100"
+                                                                Text="{Binding (models:Tbl90Reference.ReferenceId)}"
+                                                                TextAlignment="Left" />
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90RefAuthor-AuthorId}">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Width="100"
+                                                                Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).RefAuthorId}"
+                                                                TextAlignment="Left" />
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn
+                                                    Width="550"
+                                                    DisplayMemberBinding="{Binding (models:Tbl90Reference.Tbl90RefAuthors).RefAuthorName}"
+                                                    Header="{DynamicResource Tbl90Reference-RefAuthorName}" />
+                                                <GridViewColumn Header="{DynamicResource Shared-Valid}">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <CheckBox IsChecked="{Binding (models:Tbl90Reference.Valid)}" />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn
+                                                    Width="700"
+                                                    DisplayMemberBinding="{Binding (models:Tbl90Reference.Info)}"
+                                                    Header="{DynamicResource Shared-Info}" />
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </GroupBox>
+                            </StackPanel>
                             </ScrollViewer>
                         </TabItem>
                     </TabControl>
+                    <!--</ScrollViewer>-->
                 </TabItem>
 
                 <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderComments}">
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer
+                        helper:AutoScrollBehavior.TopMouseScrollPriority="True"
+                        HorizontalScrollBarVisibility="Auto"
+                        VerticalScrollBarVisibility="Auto">
                         <StackPanel>
                             <GroupBox>
 
@@ -944,7 +1400,7 @@
                     </ScrollViewer>
                 </TabItem>
             </TabControl>
-        </ScrollViewer>
+        <!--</ScrollViewer>-->
 
         <GridSplitter
             Grid.Row="1"
@@ -958,6 +1414,7 @@
 
         <!--  Part 8 Splitter  -->
 
+
         <TabControl
             Grid.Row="2"
             Grid.Column="0"
@@ -969,13 +1426,9 @@
                     <StackPanel Margin="0,0,5,0">
                         <StackPanel Height="Auto" Orientation="Horizontal">
 
-                            <!--<Button
-                                            Margin="0,0,0,0"
-                                            HorizontalAlignment="Left"
-                                            Command="{Binding SaveRegnumCommand}"
-                                            Style="{StaticResource MahApps.Styles.Button.Flat}"
-                                            ToolTip="{DynamicResource Shared-ButtonSave}" />-->
-                            <ToggleButton
+                            <Button Template="{StaticResource SaveRegnumButton}" />
+
+                            <!--<ToggleButton
                                 Width="36"
                                 Height="36"
                                 Margin="4"
@@ -990,7 +1443,7 @@
                                             Kind="Save" />
                                     </DataTemplate>
                                 </ToggleButton.ContentTemplate>
-                            </ToggleButton>
+                            </ToggleButton>-->
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <TextBox
@@ -1159,98 +1612,37 @@
 
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl06Phylum-Phylum}">
+
                 <StackPanel>
                     <GroupBox>
                         <StackPanel Margin="0,0,5,0">
                             <StackPanel Height="Auto" Orientation="Horizontal">
-                                <ToggleButton
-                                    Width="36"
-                                    Height="36"
-                                    Margin="4"
-                                    Command="{Binding SavePhylumCommand}"
-                                    Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                    Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                    <ToggleButton.ContentTemplate>
-                                        <DataTemplate>
-                                            <iconPacks:PackIconModern
-                                                Width="20"
-                                                Height="20"
-                                                Kind="Save" />
-                                        </DataTemplate>
-                                    </ToggleButton.ContentTemplate>
-                                </ToggleButton>
-                                <ToggleButton
-                                    Width="36"
-                                    Height="36"
-                                    Margin="4"
-                                    Command="{Binding CopyPhylumCommand}"
-                                    Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                    Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                    <ToggleButton.ContentTemplate>
-                                        <DataTemplate>
-                                            <iconPacks:PackIconModern
-                                                Width="20"
-                                                Height="20"
-                                                Kind="PageCopy" />
-                                        </DataTemplate>
-                                    </ToggleButton.ContentTemplate>
-                                </ToggleButton>
-                                <ToggleButton
-                                    Width="36"
-                                    Height="36"
-                                    Margin="4"
-                                    Command="{Binding AddPhylumCommand}"
-                                    Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                    Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                    <ToggleButton.ContentTemplate>
-                                        <DataTemplate>
-                                            <iconPacks:PackIconModern
-                                                Width="20"
-                                                Height="20"
-                                                Kind="Add" />
-                                        </DataTemplate>
-                                    </ToggleButton.ContentTemplate>
-                                </ToggleButton>
-                                <ToggleButton
-                                    Width="36"
-                                    Height="36"
-                                    Margin="4"
-                                    Command="{Binding DeletePhylumCommand}"
-                                    Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                    Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                    <ToggleButton.ContentTemplate>
-                                        <DataTemplate>
-                                            <iconPacks:PackIconModern
-                                                Width="20"
-                                                Height="20"
-                                                Kind="Delete" />
-                                        </DataTemplate>
-                                    </ToggleButton.ContentTemplate>
-                                </ToggleButton>
+                                <Button Template="{StaticResource SavePhylumButton}" />
+                                <Button Template="{StaticResource CopyPhylumButton}" />
+                                <Button Template="{StaticResource AddPhylumButton}" />
+                                <Button Template="{StaticResource DeletePhylumButton}" />
                             </StackPanel>
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <TextBox
                                     Width="300"
                                     Margin="5"
                                     HorizontalContentAlignment="Stretch"
-                                    mah:TextBoxHelper.ClearTextButton="False"
                                     mah:TextBoxHelper.IsWaitingForData="True"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
                                     mah:TextBoxHelper.Watermark="{DynamicResource Tbl06Phylum-PhylumName}"
                                     mah:TextBoxHelper.WatermarkAlignment="Left"
                                     FontWeight="Medium"
                                     SpellCheck.IsEnabled="True"
-                                    ToolTip="Phylumname">
+                                    ToolTip="{DynamicResource Tbl06Phylum-PhylumName}">
                                     <TextBox.ContextMenu>
                                         <ContextMenu>
                                             <MenuItem Header="Custom Item" />
                                             <Separator />
-                                            <!--<MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                                <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                                <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />-->
+                                            <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                            <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                            <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
                                         </ContextMenu>
                                     </TextBox.ContextMenu>
-
                                     <TextBox.Text>
                                         <Binding
                                             ElementName="Tbl06PhylumsList"
@@ -1285,19 +1677,17 @@
                                     FontWeight="Normal"
                                     IsChecked="{Binding SelectedItem.(models:Tbl06Phylum.Valid), ElementName=Tbl06PhylumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{StaticResource MahApps.Styles.CheckBox}" />
-
                                 <TextBox
                                     Width="80"
                                     Margin="5"
                                     HorizontalContentAlignment="Stretch"
-                                    mah:TextBoxHelper.ClearTextButton="False"
                                     mah:TextBoxHelper.IsWaitingForData="True"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
                                     mah:TextBoxHelper.Watermark="{DynamicResource Shared-ValidYear}"
                                     mah:TextBoxHelper.WatermarkAlignment="Left"
                                     FontWeight="Medium"
                                     SpellCheck.IsEnabled="True"
-                                    ToolTip="Valid Year">
+                                    ToolTip="{DynamicResource Shared-ValidYear}">
                                     <TextBox.Text>
                                         <Binding
                                             ElementName="Tbl06PhylumsList"
@@ -1526,8 +1916,12 @@
                 <GroupBox>
                     <StackPanel Margin="0,0,5,0">
                         <StackPanel Height="Auto" Orientation="Horizontal">
+                            <Button Template="{StaticResource SaveSubphylumButton}" />
+                            <Button Template="{StaticResource CopySubphylumButton}" />
+                            <Button Template="{StaticResource AddSubphylumButton}" />
+                            <Button Template="{StaticResource DeleteSubphylumButton}" />
 
-                            <ToggleButton
+                            <!--<ToggleButton
                                 Width="36"
                                 Height="36"
                                 Margin="4"
@@ -1590,7 +1984,7 @@
                                             Kind="Delete" />
                                     </DataTemplate>
                                 </ToggleButton.ContentTemplate>
-                            </ToggleButton>
+                            </ToggleButton>-->
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <TextBox
@@ -1605,20 +1999,6 @@
                                         UpdateSourceTrigger="PropertyChanged" />
                                 </TextBox.Text>
                             </TextBox>
-                            <!--<ComboBox
-                                            Width="300"
-                                            Margin="25,5,5,5"
-                                            VerticalAlignment="Bottom"
-                                            mah:TextBoxHelper.ClearTextButton="False"
-                                            mah:TextBoxHelper.UseFloatingWatermark="True"
-                                            mah:TextBoxHelper.Watermark="Please select Phylum ..."
-                                            DisplayMemberPath="PhylumName"
-                                            IsSynchronizedWithCurrentItem="True"
-                                            ItemsSource="{Binding Tbl06PhylumsAllList}"
-                                            SelectedValue="{Binding SelectedItem.(models:Tbl06Phylum.PhylumId), ElementName=Tbl12SubphylumsList, Mode=TwoWay}"
-                                            SelectedValuePath="PhylumId"
-                                            Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
-                                            VirtualizingStackPanel.IsVirtualizing="True" />-->
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <CheckBox
@@ -1792,7 +2172,12 @@
                 <GroupBox>
                     <StackPanel Margin="0,8,5,0">
                         <StackPanel Height="Auto" Orientation="Horizontal">
-                            <ToggleButton
+                            <Button Template="{StaticResource SaveReferenceExpertButton}" />
+                            <Button Template="{StaticResource CopyReferenceExpertButton}" />
+                            <Button Template="{StaticResource AddReferenceExpertButton}" />
+                            <Button Template="{StaticResource DeleteReferenceExpertButton}" />
+
+                            <!--<ToggleButton
                                 Width="36"
                                 Height="36"
                                 Margin="4"
@@ -1855,23 +2240,22 @@
                                             Kind="Delete" />
                                     </DataTemplate>
                                 </ToggleButton.ContentTemplate>
-                            </ToggleButton>
+                            </ToggleButton>-->
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ComboBox
                                 Width="500"
                                 Margin="5,0,0,0"
                                 VerticalAlignment="Bottom"
-                                mah:TextBoxHelper.ClearTextButton="False"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                 mah:TextBoxHelper.Watermark="Please select Expert ..."
                                 DisplayMemberPath="RefExpertName"
-                                IsSynchronizedWithCurrentItem="True"
+                                IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Tbl90ExpertsAllList}"
                                 SelectedValue="{Binding SelectedItem.(models:Tbl90RefExpert.RefExpertId), ElementName=Tbl90ReferenceExpertsList, Mode=TwoWay}"
                                 SelectedValuePath="RefExpertId"
                                 Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
-                                VirtualizingStackPanel.IsVirtualizing="True" />
+                                VirtualizingStackPanel.IsVirtualizing="False" />
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <CheckBox
@@ -1920,7 +2304,12 @@
                 <GroupBox>
                     <StackPanel Margin="0,8,5,0">
                         <StackPanel Height="Auto" Orientation="Horizontal">
-                            <ToggleButton
+                            <Button Template="{StaticResource SaveReferenceSourceButton}" />
+                            <Button Template="{StaticResource CopyReferenceSourceButton}" />
+                            <Button Template="{StaticResource AddReferenceSourceButton}" />
+                            <Button Template="{StaticResource DeleteReferenceSourceButton}" />
+
+                            <!--<ToggleButton
                                 Width="36"
                                 Height="36"
                                 Margin="4"
@@ -1983,23 +2372,21 @@
                                             Kind="Delete" />
                                     </DataTemplate>
                                 </ToggleButton.ContentTemplate>
-                            </ToggleButton>
-
+                            </ToggleButton>-->
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ComboBox
                                 Width="760"
                                 Margin="5,0,0,0"
                                 VerticalAlignment="Bottom"
-                                mah:TextBoxHelper.ClearTextButton="False"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                 mah:TextBoxHelper.Watermark="Please select Source ..."
-                                IsSynchronizedWithCurrentItem="True"
+                                IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Tbl90SourcesAllList}"
                                 SelectedValue="{Binding SelectedItem.(models:Tbl90RefSource.RefSourceId), ElementName=Tbl90ReferenceSourcesList, Mode=TwoWay}"
                                 SelectedValuePath="RefSourceId"
                                 Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
-                                VirtualizingStackPanel.IsVirtualizing="True">
+                                VirtualizingStackPanel.IsVirtualizing="False">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
@@ -2066,7 +2453,12 @@
                 <GroupBox>
                     <StackPanel Margin="0,8,5,0">
                         <StackPanel Height="Auto" Orientation="Horizontal">
-                            <ToggleButton
+                            <Button Template="{StaticResource SaveReferenceAuthorButton}" />
+                            <Button Template="{StaticResource CopyReferenceAuthorButton}" />
+                            <Button Template="{StaticResource AddReferenceAuthorButton}" />
+                            <Button Template="{StaticResource DeleteReferenceAuthorButton}" />
+
+                            <!--<ToggleButton
                                 Width="36"
                                 Height="36"
                                 Margin="4"
@@ -2129,18 +2521,18 @@
                                             Kind="Delete" />
                                     </DataTemplate>
                                 </ToggleButton.ContentTemplate>
-                            </ToggleButton>
+                            </ToggleButton>-->
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
-                            <ComboBox
+                            <!--<ComboBox
                                 Width="760"
                                 Margin="5,0,0,0"
                                 VerticalAlignment="Bottom"
-                                mah:TextBoxHelper.ClearTextButton="False"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                 mah:TextBoxHelper.Watermark="Please select Author ..."
                                 IsSynchronizedWithCurrentItem="True"
                                 ItemsSource="{Binding Tbl90AuthorsAllList}"
+                                MaxDropDownHeight="200"
                                 SelectedValue="{Binding SelectedItem.(models:Tbl90RefAuthor.RefAuthorId), ElementName=Tbl90ReferenceAuthorsList, Mode=TwoWay}"
                                 SelectedValuePath="RefAuthorId"
                                 Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
@@ -2154,6 +2546,30 @@
                                         </StackPanel>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
+                            </ComboBox>-->
+                            <ComboBox
+                                Width="760"
+                                Margin="5,0,0,0"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="Please select Author ..."
+                                IsEditable="False"
+                                IsSynchronizedWithCurrentItem="False"
+                                ItemsSource="{Binding Tbl90AuthorsAllList}"
+                                MaxDropDownHeight="200"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl90RefAuthor.RefAuthorId), ElementName=Tbl90ReferenceAuthorsList, Mode=TwoWay}"
+                                SelectedValuePath="RefAuthorId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="False">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding (models:Tbl90RefAuthor.RefAuthorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl90RefAuthor.BookName)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl90RefAuthor.Page1)}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+
                             </ComboBox>
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
@@ -2217,8 +2633,12 @@
                 <GroupBox>
                     <StackPanel Margin="0,8,5,0">
                         <StackPanel Height="Auto" Orientation="Horizontal">
+                            <Button Template="{StaticResource SaveCommentButton}" />
+                            <Button Template="{StaticResource CopyCommentButton}" />
+                            <Button Template="{StaticResource AddCommentButton}" />
+                            <Button Template="{StaticResource DeleteCommentButton}" />
 
-                            <ToggleButton
+                            <!--<ToggleButton
                                 Width="36"
                                 Height="36"
                                 Margin="4"
@@ -2234,8 +2654,6 @@
                                     </DataTemplate>
                                 </ToggleButton.ContentTemplate>
                             </ToggleButton>
-
-
                             <ToggleButton
                                 Width="36"
                                 Height="36"
@@ -2252,8 +2670,6 @@
                                     </DataTemplate>
                                 </ToggleButton.ContentTemplate>
                             </ToggleButton>
-
-
                             <ToggleButton
                                 Width="36"
                                 Height="36"
@@ -2270,8 +2686,6 @@
                                     </DataTemplate>
                                 </ToggleButton.ContentTemplate>
                             </ToggleButton>
-
-
                             <ToggleButton
                                 Width="36"
                                 Height="36"
@@ -2287,8 +2701,7 @@
                                             Kind="Delete" />
                                     </DataTemplate>
                                 </ToggleButton.ContentTemplate>
-                            </ToggleButton>
-
+                            </ToggleButton>-->
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <CheckBox
@@ -2336,7 +2749,6 @@
                 </GroupBox>
             </TabItem>-->
         </TabControl>
-
 
         <StackPanel
             Grid.Row="2"

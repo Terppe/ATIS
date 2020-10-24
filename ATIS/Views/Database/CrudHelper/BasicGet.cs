@@ -231,7 +231,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90RefAuthors
-                .OrderBy(a => a.ArticelTitle)
+                .OrderBy(a => a.RefAuthorName)
                 .ThenBy(a => a.BookName)
                 .ThenBy(a => a.Page1)
             );

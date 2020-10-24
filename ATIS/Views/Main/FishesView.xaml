@@ -1,0 +1,118 @@
+﻿<UserControl
+    x:Class="ATIS.Ui.Views.Main.FishesView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:d03Regnum="clr-namespace:ATIS.Ui.Views.Database.D03Regnum"
+    xmlns:d06Phylum="clr-namespace:ATIS.Ui.Views.Database.D06Phylum"
+    xmlns:d09Division="clr-namespace:ATIS.Ui.Views.Database.D09Division"
+    xmlns:d12Subphylum="clr-namespace:ATIS.Ui.Views.Database.D12Subphylum"
+    xmlns:d15Subdivision="clr-namespace:ATIS.Ui.Views.Database.D15Subdivision"
+    xmlns:local="clr-namespace:ATIS.Ui.Views.Main"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type d15Subdivision:SubdivisionsViewModel}">
+            <d15Subdivision:SubdivisionsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d12Subphylum:SubphylumsViewModel}">
+            <d12Subphylum:SubphylumsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d09Division:DivisionsViewModel}">
+            <d09Division:DivisionsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d06Phylum:PhylumsViewModel}">
+            <d06Phylum:PhylumsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d03Regnum:RegnumsViewModel}">
+            <d03Regnum:RegnumsView />
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid>
+        <TabControl
+            Height="Auto"
+            mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+            mah:HeaderedControlHelper.HeaderFontSize="17"
+            mah:TabControlHelper.Underlined="TabItems"
+            SelectedIndex="0">
+            <TabItem Content="{Binding Tbl69FiSpeciessesView}" Header="{DynamicResource Database-MenuFiSpecies}" />
+            <TabItem Content="{Binding Tbl66GenussesView}" Header="{DynamicResource Database-MenuGenus}" />
+            <TabItem Content="{Binding Tbl68SpeciesgroupsView}" Header="{DynamicResource Database-MenuSpeciesgroup}" />
+            <TabItem Header="{DynamicResource Database-MenuTribus}">
+                <TabControl
+                    Height="Auto"
+                    mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+                    mah:HeaderedControlHelper.HeaderFontSize="16"
+                    mah:TabControlHelper.Underlined="TabItems"
+                    SelectedIndex="2">
+                    <TabItem Content="{Binding Tbl63InfratribussesView}" Header="{DynamicResource Database-MenuInfratribus}" />
+                    <TabItem Content="{Binding Tbl60SubtribussesView}" Header="{DynamicResource Database-MenuSubtribus}" />
+                    <TabItem Content="{Binding Tbl57TribussesView}" Header="{DynamicResource Database-MenuTribus}" />
+                    <TabItem Content="{Binding Tbl54SupertribussesView}" Header="{DynamicResource Database-MenuSupertribus}" />
+                </TabControl>
+            </TabItem>
+            <TabItem Header="{DynamicResource Database-MenuFamily}">
+                <TabControl
+                    Height="Auto"
+                    mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+                    mah:HeaderedControlHelper.HeaderFontSize="16"
+                    mah:TabControlHelper.Underlined="TabItems"
+                    SelectedIndex="2">
+                    <TabItem Content="{Binding Tbl51InfrafamiliesView}" Header="{DynamicResource Database-MenuInfrafamily}" />
+                    <TabItem Content="{Binding Tbl48SubfamiliesView}" Header="{DynamicResource Database-MenuSubfamily}" />
+                    <TabItem Content="{Binding Tbl45FamiliesView}" Header="{DynamicResource Database-MenuFamily}" />
+                    <TabItem Content="{Binding Tbl42SuperfamiliesView}" Header="{DynamicResource Database-MenuSuperfamily}" />
+                </TabControl>
+            </TabItem>
+            <TabItem Header="{DynamicResource Database-MenuOrdo}">
+                <TabControl
+                    Height="Auto"
+                    mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+                    mah:HeaderedControlHelper.HeaderFontSize="16"
+                    mah:TabControlHelper.Underlined="TabItems"
+                    SelectedIndex="2">
+                    <TabItem Content="{Binding Tbl39InfraordosView}" Header="{DynamicResource Database-MenuInfraordo}" />
+                    <TabItem Content="{Binding Tbl36SubordosView}" Header="{DynamicResource Database-MenuSubordo}" />
+                    <TabItem Content="{Binding Tbl33OrdosView}" Header="{DynamicResource Database-MenuOrdo}" />
+                    <TabItem Content="{Binding Tbl30LegiosView}" Header="{DynamicResource Database-MenuLegio}" />
+                </TabControl>
+            </TabItem>
+            <TabItem Header="{DynamicResource Database-MenuClass}">
+                <TabControl
+                    Height="Auto"
+                    mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+                    mah:HeaderedControlHelper.HeaderFontSize="16"
+                    mah:TabControlHelper.Underlined="TabItems"
+                    SelectedIndex="2">
+                    <TabItem Content="{Binding Tbl27InfraclassesView}" Header="{DynamicResource Database-MenuInfraclass}" />
+                    <TabItem Content="{Binding Tbl24SubclassesView}" Header="{DynamicResource Database-MenuSubclass}" />
+                    <TabItem Content="{Binding Tbl21ClassesView}" Header="{DynamicResource Database-MenuClass}" />
+                    <TabItem Content="{Binding Tbl18SuperclassesView}" Header="{DynamicResource Database-MenuSuperclass}" />
+                </TabControl>
+            </TabItem>
+            <TabItem Header="{DynamicResource Database-MenuPhylum}">
+                <TabControl
+                    Height="Auto"
+                    mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+                    mah:HeaderedControlHelper.HeaderFontSize="16"
+                    mah:TabControlHelper.Underlined="TabPanel"
+                    SelectedIndex="1">
+                    <TabItem Header="{DynamicResource Database-MenuSubphylum}">
+                        <d12Subphylum:SubphylumsViewModel />
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Database-MenuPhylum}">
+                        <d06Phylum:PhylumsViewModel />
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+            <TabItem Header="{DynamicResource Database-MenuRegnum}">
+                <d03Regnum:RegnumsViewModel />
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>
