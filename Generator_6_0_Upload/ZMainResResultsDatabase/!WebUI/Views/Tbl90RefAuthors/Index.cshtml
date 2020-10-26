@@ -1,0 +1,166 @@
+@model Atis.Domain.ViewModels.Tbl90RefAuthors.ListViewModel
+
+        <!-- Index  Skriptdatum:  29.12.2011  10:32   -->    
+    
+
+@{
+    ViewBag.Title =  Tbl90RefAuthorsRes.StringsRes.Index;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Tbl90RefAuthorsRes.StringsRes.Index</h2>
+
+@using (Html.BeginForm("Index", "Tbl90RefAuthors", FormMethod.Get))              
+{
+    <fieldset class="filtering">
+        <legend>@SharedRes.StringsRes.Filter</legend>  
+        <div> 
+            <p></p>         
+  
+            <table>                                             
+                <tr>  
+                    <td style="width:8em"><strong>@Tbl90RefAuthorsRes.StringsRes.RefAuthorID </strong></td>
+                    <td><input type="text" id="refAuthorid" name="refAuthorid" /></td>            
+                    <td style="width:8em"><strong>@Tbl90RefAuthorsRes.StringsRes.RefAuthorName </strong></td>
+                    <td><input type="text" id="refAuthorname" name="refAuthorname" /></td>            
+  
+                    <td style="width:4em"><strong>@SharedRes.StringsRes.Valid </strong></td>
+                    <td>@Html.EditorFor(m => m.Valid)</td>
+
+                    @Html.Hidden("sortBy", Model.SortBy)
+                    @Html.Hidden("ascending", Model.SortAscending)
+
+                    <td><input type="submit" value="@SharedRes.StringsRes.Search" /></td> 
+                </tr>   
+            </table>        
+ 
+        </div>
+    </fieldset>
+}
+
+<table class="grid" style="width: 95%">                
+    <tr>
+        <th></th>   
+ 
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "RefAuthorName" }, { "DisplayName", Tbl90RefAuthorsRes.StringsRes.RefAuthorName } })</th>                    
+  
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "PublicationYear" }, { "DisplayName", Tbl90RefAuthorsRes.StringsRes.PublicationYear } })</th>   
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "ArticelTitle" }, { "DisplayName", Tbl90RefAuthorsRes.StringsRes.ArticelTitle } })</th>   
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "BookName" }, { "DisplayName", Tbl90RefAuthorsRes.StringsRes.BookName } })</th>   
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "Page" }, { "DisplayName", Tbl90RefAuthorsRes.StringsRes.Page } })</th>   
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "Publisher" }, { "DisplayName", Tbl90RefAuthorsRes.StringsRes.Publisher } })</th>   
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "Notes" }, { "DisplayName", Tbl90RefAuthorsRes.StringsRes.Notes } })</th>   
+ 
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "Valid" }, { "DisplayName", SharedRes.StringsRes.Valid } })</th>
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "ValidYear" }, { "DisplayName", SharedRes.StringsRes.ValidYear } })</th>   
+
+     </tr>
+
+    @foreach (var item in Model.Tbl90RefAuthors) { 
+    
+    <tr>
+        <td class="left">
+            @Html.ActionLink(SharedRes.StringsRes.ActionLnkDelete, "Delete", new { id = item.RefAuthorID }) | 
+            @Html.ActionLink(SharedRes.StringsRes.ActionLnkEdit, "Edit", new { id = item.RefAuthorID }) |
+            @Html.ActionLink(SharedRes.StringsRes.ActionLnkDetails, "Details", new { id = item.RefAuthorID }) </td>           
+
+ 
+        <td class="left">@item.RefAuthorName </td>                    
+  
+        <td class="align-middle">@item.PublicationYear</td>       
+        <td class="left">@item.ArticelTitle</td>       
+        <td class="left">@item.BookName</td>       
+        <td class="left">@item.Page</td>       
+        <td class="left">@item.Publisher</td>       
+        <td class="left">@item.Notes</td>       
+  
+ 
+        <td class="align-middle">
+        @if (item.Valid == true) { 
+                <img src="@Url.Content("~/Content/Images/Ok.png")" alt="@SharedRes.StringsRes.ValidYes" title="@SharedRes.StringsRes.ValidYes" />   } 
+            else { 
+                <img src="@Url.Content("~/Content/Images/cancel.png")" alt="@SharedRes.StringsRes.ValidNo" title="@SharedRes.StringsRes.ValidNo" />   
+           } 
+         </td>
+        <td class="align-middle">@item.ValidYear</td>   
+
+    </tr>    
+    }     
+    <tr>        
+   
+        <td class="pager" colspan="10">        
+ 
+           @Html.Partial("_Pager", Model)
+        </td>
+    </tr>       
+</table>
+<div>
+    <ul id="nav-one" class="dropmenu css-only">      
+
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkFiSpeciesLeft, "Index", "Tbl69FiSpeciesses")</li>      
+  
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkPlSpeciesLeft, "Index", "Tbl72PlSpeciesses")</li>      
+       
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkRefExpertRight, "Index", "Tbl90RefExperts")</li>                       
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkRefSourceRight, "Index", "Tbl90RefSources")</li>                       
+  
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkReferenceRight, "Index", "Tbl90References")</li>                       
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkReferenceCreateRight, "Create", "Tbl90References",
+            new { regnumId = 0,
+                      phylumId = 0,
+                      divisionId = 0,
+                      subphylumId = 0,
+                      subdivisionId = 0,
+                      superclassId = 0,
+                      classId = 0,
+                      subclassId = 0,
+                      infraclassId = 0,
+                      legioId = 0,
+                      ordoId = 0,
+                      subordoId = 0,
+                      infraordoId = 0,
+                      superfamilyId = 0,
+                      familyId = 0,
+                      subfamilyId = 0,
+                      infrafamilyId = 0,
+                      supertribusId = 0,
+                      tribusId = 0,
+                      subtribusId = 0,
+                      infratribusId = 0,
+                      genusId = 0,
+                      fispeciesId = 0,
+                      plspeciesId = 0
+            }, null)</li>               
+ 
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkCommentRight, "Index", "Tbl93Comments")</li>                       
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkCommentCreateRight, "Create", "Tbl93Comments",
+            new { regnumId = 0,
+                      phylumId = 0,
+                      divisionId = 0,
+                      subphylumId = 0,
+                      subdivisionId = 0,
+                      superclassId = 0,
+                      classId = 0,
+                      subclassId = 0,
+                      infraclassId = 0,
+                      legioId = 0,
+                      ordoId = 0,
+                      subordoId = 0,
+                      infraordoId = 0,
+                      superfamilyId = 0,
+                      familyId = 0,
+                      subfamilyId = 0,
+                      infrafamilyId = 0,
+                      supertribusId = 0,
+                      tribusId = 0,
+                      subtribusId = 0,
+                      infratribusId = 0,
+                      genusId = 0,
+                      fispeciesId = 0,
+                      plspeciesId = 0
+            }, null)</li>               
+ 
+  
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkCreate, "Create", "Tbl90RefAuthors", new { NULLId = 0 }, null)</li>   
+    </ul> 
+</div>   

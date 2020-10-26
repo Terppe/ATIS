@@ -1,0 +1,96 @@
+    
+
+
+ //    Part 11    
+
+     
+        #region "Public Properties Tbl15Subdivision"
+
+        private string _searchSubdivisionName;
+        public string SearchSubdivisionName
+        {
+            get => _searchSubdivisionName; 
+            set { _searchSubdivisionName = value; OnPropertyChanged();  }
+        }
+
+        public ICollectionView SubdivisionsView;
+        public Tbl15Subdivision CurrentTbl15Subdivision => SubdivisionsView?.CurrentItem as Tbl15Subdivision;
+
+        private ObservableCollection<Tbl15Subdivision> _tbl15SubdivisionsList;
+        public ObservableCollection<Tbl15Subdivision> Tbl15SubdivisionsList
+        {
+            get => _tbl15SubdivisionsList; 
+            set {  _tbl15SubdivisionsList = value; OnPropertyChanged();       }
+        }
+
+        private ObservableCollection<Tbl15Subdivision> _tbl15SubdivisionsAllList;
+        public ObservableCollection<Tbl15Subdivision> Tbl15SubdivisionsAllList
+        {
+            get => _tbl15SubdivisionsAllList; 
+            set { _tbl15SubdivisionsAllList = value; OnPropertyChanged(); }
+        }
+
+        #endregion "Public Properties"   
+       
+        #region "Public Properties Tbl09Division"
+
+        private string _searchDivisionName;
+        public new string SearchDivisionName
+        {
+            get => _searchDivisionName; 
+            set { _searchDivisionName = value; OnPropertyChanged(); }
+        }
+
+        public new ICollectionView DivisionsView;
+        public new Tbl09Division CurrentTbl09Division => DivisionsView?.CurrentItem as Tbl09Division;           
+
+        private ObservableCollection<Tbl09Division> _tbl09DivisionsList;
+        public new ObservableCollection<Tbl09Division> Tbl09DivisionsList
+        {
+            get => _tbl09DivisionsList; 
+            set { _tbl09DivisionsList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl09Division> _tbl09DivisionsAllList;
+        public new ObservableCollection<Tbl09Division> Tbl09DivisionsAllList
+        {
+            get => _tbl09DivisionsAllList; 
+            set { _tbl09DivisionsAllList = value; OnPropertyChanged(); }       
+        }
+
+        #endregion "Public Properties"
+   
+  
+       
+        #region "Public Properties Tbl18Superclass"
+
+        private string _searchSuperclassName;
+        public string SearchSuperclassName
+        {
+            get => _searchSuperclassName; 
+            set { _searchSuperclassName = value; OnPropertyChanged(); }
+        }
+
+        public ICollectionView SuperclassesView;
+        public Tbl18Superclass CurrentTbl18Superclass => SuperclassesView?.CurrentItem as Tbl18Superclass;           
+
+        private ObservableCollection<Tbl18Superclass> _tbl18SuperclassesList;
+        public ObservableCollection<Tbl18Superclass> Tbl18SuperclassesList
+        {
+            get => _tbl18SuperclassesList; 
+            set { _tbl18SuperclassesList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl18Superclass> _tbl18SuperclassesAllList;
+        public ObservableCollection<Tbl18Superclass> Tbl18SuperclassesAllList
+        {
+            get => _tbl18SuperclassesAllList; 
+            set { _tbl18SuperclassesAllList = value; OnPropertyChanged(); }       
+        }
+
+        #endregion "Public Properties"
+   
+   
+
+ //    Part 12    
+

@@ -1,0 +1,27 @@
+@model Atis.Domain.Models.aspnet_User    	
+
+       <!-- Delete  Skriptdatum:  01.02.2012  10:32    -->        
+
+@{
+    ViewBag.Title = aspnet_UsersRes.StringsRes.Delete;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@aspnet_UsersRes.StringsRes.Delete</h2>
+
+    <div>
+        <p>@SharedRes.StringsRes.DeleteMessage       
+  
+             <i>@Model.UserName  ?</i>   
+ 
+         </p>     	   
+    </div>
+@using (Html.BeginForm()) {
+    <p>
+            <input name="confirmButton" type="submit" value="@SharedRes.StringsRes.ButtonDelete" /> 
+        @Html.ActionLink(SharedRes.StringsRes.ActionLnkBack, "Index")
+
+    </p>
+}
+
+    

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+ <Definition>
+  <File>TblCountries</File>
+
+  <DateTime> 29.11.2018 12:32  </DateTime>  
+  <Namespace>Atis</Namespace>  
+  <ConnString></ConnString> 
+  <RegisterContext>ATISEntities</RegisterContext > 
+  <Version>ATIS32</Version>
+  <Database>Atis</Database> 
+
+  <LayoutTK3>ListDetails</LayoutTK3>
+  <LayoutTK2>ListDetails</LayoutTK2>
+  <LayoutTK1>ListDetails</LayoutTK1>
+  <Layout>ListDetails</Layout>
+  <LayoutFK1>ListDetails</LayoutFK1>
+  <LayoutFK2>ListDetails</LayoutFK2>
+  <LayoutBK1>ListDetails</LayoutBK1>
+  <LayoutBK2>ListDetails</LayoutBK2>
+  <LayoutBK3>ListDetails</LayoutBK3>
+  <LayoutBK4>ListDetails</LayoutBK4>
+
+  <TableTK1>NULL</TableTK1>       
+  <Table>TblCountries</Table> 
+  <TableFK1>NULL</TableFK1> 
+  <TableFK2>NULL</TableFK2> 
+  <TableBK1>NULL</TableBK1>      
+  <TableBK2>NULL</TableBK2> 
+  <TableBK3>NULL</TableBK3> 
+  <TableBK4>NULL</TableBK4> 
+
+  <Primary>[CountryID] ASC</Primary> 
+  <Unique1>NULL</Unique1> 
+  <Unique2>NULL</Unique2> 
+  <Foreign1>NULL</Foreign1> 
+  <Foreign2>NULL</Foreign2> 
+  <Default1>NULL</Default1> 
+  <Default2>NULL</Default2> 
+
+  <KeyPK>PK_TblCountries</KeyPK> 
+  <KeyIX1>NULL</KeyIX1> 
+  <KeyIX2>NULL</KeyIX2> 
+  <KeyFK1>NULL</KeyFK1> 
+  <KeyFK2>NULL</KeyFK2> 
+  <KeyDF1>NULL</KeyDF1> 
+  <KeyDF2>NULL</KeyDF2> 
+
+  <FolderTK3>NULL</FolderTK3> 
+  <FolderTK2>NULL</FolderTK2> 
+  <FolderTK1>NULL</FolderTK1> 
+  <Folder>TblCountries</Folder> 
+  <FolderFK1>NULL</FolderFK1> 
+  <FolderFK2>NULL</FolderFK2> 
+  <FolderBK1>NULL</FolderBK1> 
+  <FolderBK2>NULL</FolderBK2> 
+  <FolderBK3>NULL</FolderBK3> 
+  <FolderBK4>NULL</FolderBK4> 
+
+  <IDTK1>NULL</IDTK1> 
+  <ID>CountryID</ID> 
+  <IDFK1>NULL</IDFK1> 
+  <IDFK2>NULL</IDFK2> 
+  <IDBK1>NULL</IDBK1> 
+  <IDBK2>NULL</IDBK2> 
+  <IDBK3>NULL</IDBK3> 
+  <IDBK4>NULL</IDBK4> 
+
+  <NameTK1>NULL</NameTK1> 
+  <Name>CountryName</Name> 
+  <NameFK1>NULL</NameFK1> 
+  <NameFK2>NULL</NameFK2> 
+  <NameBK1>NULL</NameBK1> 
+  <NameBK2>NULL</NameBK2> 
+  <NameBK3>NULL</NameBK3> 
+  <NameBK4>NULL</NameBK4> 
+
+  <BasisTK1>NULL</BasisTK1> 
+  <Basis>Country</Basis> 
+  <BasisFK1>NULL</BasisFK1> 
+  <BasisFK2>NULL</BasisFK2> 
+  <BasisBK1>NULL</BasisBK1> 
+  <BasisBK2>NULL</BasisBK2> 
+  <BasisBK3>NULL</BasisBK3> 
+  <BasisBK4>NULL</BasisBK4> 
+
+  <Basiss>Countries</Basiss> 
+
+  <BasisSmTK1>NULL</BasisSmTK1> 
+  <BasisSm>country</BasisSm> 
+  <BasisSmFK1>NULL</BasisSmFK1> 
+
+  <LinqModelTK1>NULL</LinqModelTK1> 
+  <LinqModel>TblCountry</LinqModel> 
+  <LinqModelFK1>NULL</LinqModelFK1> 
+  <LinqModelFK2>NULL</LinqModelFK2> 
+  <LinqModelBK1>NULL</LinqModelBK1> 
+  <LinqModelBK2>NULL</LinqModelBK2> 
+  <LinqModelBK3>NULL</LinqModelBK3> 
+  <LinqModelBK4>NULL</LinqModelBK4> 
+
+  <EntityTK1>NULL</EntityTK1> 
+  <Entity>tblCountry</Entity> 
+  <EntityFK1>NULL</EntityFK1> 
+
+  <EntitysTK1>NULL</EntitysTK1> 
+  <Entitys>_tblCountries</Entitys> 
+  <EntitysFK1>NULL</EntitysFK1> 
+
+  <EntityAblTK1>NULL</EntityAblTK1> 
+  <EntityAbl>TblCountry tblCountry</EntityAbl> 
+  <EntityAblFK1>NULL</EntityAblFK1> 
+
+   <Fields>
+    <Field><Name>CountryID</Name> <Type>int</Type>  <NotNull>IDENTITY(1,1) NOT NULL</NotNull> </Field>
+    <Field><Name>Name</Name> <Type>nvarchar</Type> <Length>100</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>Regex</Name> <Type>nvarchar</Type> <Length>250</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+ </Fields>
+</Definition>

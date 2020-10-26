@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+ <Definition>
+  <File>Tbl12Subphylums</File>
+
+  <DateTime>13.06.2018  12:32</DateTime>  
+  <Namespace>Atis</Namespace>  
+  <ConnString></ConnString> 
+  <RegisterContext>ATISEntities</RegisterContext > 
+  <Version>ATIS34</Version>
+  <Database>Atis</Database> 
+
+  <LayoutTK3>ListDetails</LayoutTK3>
+  <LayoutTK2>ListDetails</LayoutTK2>
+  <LayoutTK1>ListDetails</LayoutTK1>
+  <Layout>ListDetails</Layout>
+  <LayoutFK1>ListDetails</LayoutFK1>
+  <LayoutFK2>ListDetails</LayoutFK2>
+  <LayoutBK1>ListDetails</LayoutBK1>
+  <LayoutBK2>ListDetails</LayoutBK2>
+  <LayoutBK3>ListDetails</LayoutBK3>
+  <LayoutBK4>ListDetails</LayoutBK4>
+
+  <TableTK9>Tbl93Comments</TableTK9> 
+  <TableTK8>Tbl90RefAuthors</TableTK8> 
+  <TableTK7>Tbl90RefExperts</TableTK7> 
+  <TableTK6>Tbl90RefSources</TableTK6> 
+  <TableTK5>Tbl90References</TableTK5> 
+  <TableTK4>NULL</TableTK4> 
+  <TableTK3>NULL</TableTK3> 
+  <TableTK2>Tbl21Classes</TableTK2> 
+  <TableTK1>Tbl18Superclasses</TableTK1>       
+  <Table>Tbl12Subphylums</Table> 
+  <TableFK1>Tbl06Phylums</TableFK1> 
+  <TableFK2>NULL</TableFK2> 
+  <TableBK1>Tbl03Regnums</TableBK1>      
+  <TableBK2>NULL</TableBK2> 
+  <TableBK3>NULL</TableBK3> 
+  <TableBK4>NULL</TableBK4> 
+
+  <Primary>[SubphylumID] ASC</Primary> 
+  <Unique1>[SubphylumName] ASC, [PhylumID] ASC, [Author] ASC</Unique1> 
+  <Unique2>[CountID] ASC</Unique2> 
+  <Foreign1>PhylumID</Foreign1> 
+  <Foreign2>NULL</Foreign2> 
+  <Default1>NULL</Default1> 
+  <Default2>NULL</Default2> 
+
+  <KeyPK>PK_Tbl12Subphylums</KeyPK> 
+  <KeyIX1>IX_Tbl12Subphylums_SubphylumName</KeyIX1> 
+  <KeyIX2>IX_Tbl12Subphylums_CountID</KeyIX2> 
+  <KeyFK1>FK_Tbl12Subphylums_Tbl06Phylums</KeyFK1> 
+  <KeyFK2>NULL</KeyFK2> 
+  <KeyDF1>NULL</KeyDF1> 
+  <KeyDF2>NULL</KeyDF2> 
+
+  <FolderTK3>NULL</FolderTK3> 
+  <FolderTK2>NULL</FolderTK2> 
+  <FolderTK1>Tbl18Superclasses</FolderTK1> 
+  <Folder>Tbl12Subphylums</Folder> 
+  <FolderFK1>Tbl06Phylums</FolderFK1> 
+  <FolderFK2>NULL</FolderFK2> 
+  <FolderBK1>NULL</FolderBK1> 
+  <FolderBK2>NULL</FolderBK2> 
+  <FolderBK3>NULL</FolderBK3> 
+  <FolderBK4>NULL</FolderBK4> 
+
+  <IDTK9>CommentID</IDTK9> 
+  <IDTK8>RefAuthorID</IDTK8> 
+  <IDTK7>RefExpertID</IDTK7> 
+  <IDTK6>RefSourceID</IDTK6> 
+  <IDTK5>ReferenceID</IDTK5> 
+  <IDTK4>InfraclassID</IDTK4> 
+  <IDTK3>SubclassID</IDTK3> 
+  <IDTK2>ClassID</IDTK2> 
+  <IDTK1>SuperclassID</IDTK1> 
+  <ID>SubphylumID</ID> 
+  <IDFK1>PhylumID</IDFK1> 
+  <IDFK2>NULL</IDFK2> 
+  <IDBK1>RegnumID</IDBK1> 
+  <IDBK2>NULL</IDBK2> 
+  <IDBK3>NULL</IDBK3> 
+  <IDBK4>NULL</IDBK4> 
+
+  <NameTK9>CommentName</NameTK9> 
+  <NameTK8>RefAuthorName</NameTK8> 
+  <NameTK7>RefExpertName</NameTK7> 
+  <NameTK6>RefSourceName</NameTK6> 
+  <NameTK5>ReferenceName</NameTK5> 
+  <NameTK4>InfraclassName</NameTK4> 
+  <NameTK3>SubclassName</NameTK3> 
+  <NameTK2>ClassName</NameTK2> 
+  <NameTK1>SuperclassName</NameTK1> 
+  <Name>SubphylumName</Name> 
+  <NameFK1>PhylumName</NameFK1> 
+  <NameFK2>NULL</NameFK2> 
+  <NameBK1>RegnumName</NameBK1> 
+  <NameBK2>NULL</NameBK2> 
+  <NameBK3>NULL</NameBK3> 
+  <NameBK4>NULL</NameBK4> 
+
+  <BasisTK3>NULL</BasisTK3> 
+  <BasisTK2>Class</BasisTK2> 
+  <BasisTK1>Superclass</BasisTK1> 
+  <Basis>Subphylum</Basis> 
+  <BasisFK1>Phylum</BasisFK1> 
+  <BasisFK2>NULL</BasisFK2> 
+  <BasisBK1>Regnum</BasisBK1> 
+  <BasisBK2>NULL</BasisBK2> 
+  <BasisBK3>NULL</BasisBK3> 
+  <BasisBK4>NULL</BasisBK4> 
+
+  <BasissTK2>Classes</BasissTK2> 
+  <BasissTK1>Superclasses</BasissTK1> 
+  <Basiss>Subphylums</Basiss> 
+  <BasissFK1>Phylums</BasissFK1> 
+  <BasissFK2>NULL</BasissFK2> 
+
+  <BasisSmTK1>superclass</BasisSmTK1> 
+  <BasisSm>subphylum</BasisSm> 
+  <BasisSmFK1>phylum</BasisSmFK1> 
+  <BasisSmBK1>regnum</BasisSmBK1> 
+
+  <LinqModelTK9>Tbl93Comment</LinqModelTK9> 
+  <LinqModelTK8>Tbl90RefAuthor</LinqModelTK8> 
+  <LinqModelTK7>Tbl90RefExpert</LinqModelTK7> 
+  <LinqModelTK6>Tbl90RefSource</LinqModelTK6> 
+  <LinqModelTK5>Tbl90Reference</LinqModelTK5> 
+  <LinqModelTK4>Tbl27Infraclass</LinqModelTK4> 
+  <LinqModelTK3>Tbl24Subclass</LinqModelTK3> 
+  <LinqModelTK2>Tbl21Class</LinqModelTK2> 
+  <LinqModelTK1>Tbl18Superclass</LinqModelTK1> 
+  <LinqModel>Tbl12Subphylum</LinqModel> 
+  <LinqModelFK1>Tbl06Phylum</LinqModelFK1> 
+  <LinqModelFK2>NULL</LinqModelFK2> 
+  <LinqModelBK1>Tbl03Regnum</LinqModelBK1> 
+  <LinqModelBK2>NULL</LinqModelBK2> 
+  <LinqModelBK3>NULL</LinqModelBK3> 
+  <LinqModelBK4>NULL</LinqModelBK4> 
+
+  <TranslateTK2>NULL</TranslateTK2> 
+  <TranslateTK1>tbl18Superclasses</TranslateTK1> 
+  <Translate>tbl12Subphylums</Translate> 
+  <TranslateFK1>tbl06Phylums</TranslateFK1> 
+  <TranslateFK2>NULL</TranslateFK2> 
+  <TranslateBK1>tbl03Regnums</TranslateBK1> 
+
+  <EntityTK1>tbl18Superclass</EntityTK1> 
+  <Entity>tbl12Subphylum</Entity> 
+  <EntityFK1>tbl06Phylum</EntityFK1> 
+
+  <EntitysTK2>_tbl21Classes</EntitysTK2> 
+  <EntitysTK1>_tbl18Superclasses</EntitysTK1> 
+  <Entitys>_tbl12Subphylums</Entitys> 
+  <EntitysFK1>_tbl06Phylums</EntitysFK1> 
+  <EntitysBK1>_tbl03Regnums</EntitysBK1> 
+
+  <EntityAblTK1>Tbl18Superclass tbl18Superclass</EntityAblTK1> 
+  <EntityAbl>Tbl12Subphylum tbl12Subphylum</EntityAbl> 
+  <EntityAblFK1>Tbl06Phylum tbl06Phylum</EntityAblFK1> 
+
+   <Fields>
+    <Field><Name>SubphylumID</Name> <Type>int</Type>  <NotNull>IDENTITY(1,1) NOT NULL</NotNull> </Field>
+    <Field><Name>SubphylumName</Name> <Type>nvarchar</Type> <Length>100</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>PhylumID</Name> <Type>int</Type>  <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>CountID</Name> <Type>int</Type> <NotNull> NOT NULL</NotNull> </Field>
+    <Field><Name>Valid</Name> <Type>bit</Type> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>ValidYear</Name> <Type>nvarchar</Type> <Length>4</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>Synonym</Name> <Type>nvarchar</Type> <Length>MAX</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>Author</Name> <Type>nvarchar</Type> <Length>60</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>AuthorYear</Name> <Type>nvarchar</Type> <Length>4</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>Info</Name> <Type>nvarchar</Type> <Length>100</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>EngName</Name> <Type>nvarchar</Type> <Length>200</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>GerName</Name> <Type>nvarchar</Type> <Length>200</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>FraName</Name> <Type>nvarchar</Type> <Length>200</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>PorName</Name> <Type>nvarchar</Type> <Length>200</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>Writer</Name> <Type>nvarchar</Type> <Length>50</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>WriterDate</Name> <Type>datetime</Type> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>Updater</Name> <Type>nvarchar</Type> <Length>50</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>UpdaterDate</Name> <Type>datetime</Type> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>Memo</Name> <Type>nvarchar</Type> <Length>MAX</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>RowVersion</Name> <Type>timestamp</Type> <NotNull>NULL</NotNull> </Field>
+ </Fields>
+</Definition>

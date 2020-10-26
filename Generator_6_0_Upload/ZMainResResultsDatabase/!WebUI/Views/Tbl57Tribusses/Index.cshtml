@@ -1,0 +1,162 @@
+@model Atis.Domain.ViewModels.Tbl57Tribusses.ListViewModel
+
+        <!-- Index  Skriptdatum:  7.1.2012  10:32   -->    
+    
+
+@{
+    ViewBag.Title =  Tbl57TribussesRes.StringsRes.Index;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Tbl57TribussesRes.StringsRes.Index</h2>
+
+@using (Html.BeginForm("Index", "Tbl57Tribusses", FormMethod.Get))              
+{
+    <fieldset class="filtering">
+        <legend>@SharedRes.StringsRes.Filter</legend>  
+        <div> 
+            <p></p>         
+ 
+            <table>                                             
+                <tr>  
+                    <td style="width:8em"><strong>@Tbl57TribussesRes.StringsRes.TribusID </strong></td>
+                    <td><input type="text" id="tribusid" name="tribusid" /></td>            
+                    <td style="width:8em"><strong>@Tbl57TribussesRes.StringsRes.TribusName </strong></td>
+                    <td><input type="text" id="tribusname" name="tribusname" /></td>            
+                    <td style="width:8em"><strong>@Tbl54SupertribussesRes.StringsRes.SupertribusName </strong></td>
+                    <td>@Html.DropDownListFor(m => m.SupertribusID, Model.SupertribusList, SharedRes.StringsRes.DDLAll, new { @class = "ddl" })     </td>      
+  
+                    <td style="width:4em"><strong>@SharedRes.StringsRes.Valid </strong></td>
+                    <td>@Html.EditorFor(m => m.Valid)</td>
+
+                    @Html.Hidden("sortBy", Model.SortBy)
+                    @Html.Hidden("ascending", Model.SortAscending)
+
+                    <td><input type="submit" value="@SharedRes.StringsRes.Search" /></td> 
+                </tr>   
+            </table>        
+ 
+        </div>
+    </fieldset>
+}
+
+<table class="grid" style="width: 95%">                
+    <tr>
+        <th></th>   
+ 
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "TribusName" }, { "DisplayName", Tbl57TribussesRes.StringsRes.TribusName } })</th>                    
+ 
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "Author" }, { "DisplayName", SharedRes.StringsRes.Author } })</th>
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "AuthorYear" }, { "DisplayName", SharedRes.StringsRes.AuthorYear } })</th>  
+ 
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "Valid" }, { "DisplayName", SharedRes.StringsRes.Valid } })</th>
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "ValidYear" }, { "DisplayName", SharedRes.StringsRes.ValidYear } })</th>   
+ 
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "SupertribusID" }, { "DisplayName", Tbl54SupertribussesRes.StringsRes.SupertribusName } })</th>                 
+
+     </tr>
+
+    @foreach (var item in Model.Tbl57Tribusses) { 
+    
+    <tr>
+        <td class="left">
+            @Html.ActionLink(SharedRes.StringsRes.ActionLnkDelete, "Delete", new { id = item.TribusID }) | 
+            @Html.ActionLink(SharedRes.StringsRes.ActionLnkEdit, "Edit", new { id = item.TribusID }) |
+            @Html.ActionLink(SharedRes.StringsRes.ActionLnkDetails, "Details", new { id = item.TribusID }) </td>           
+
+ 
+        <td class="left">@item.TribusName </td>                    
+ 
+        <td class="left">@item.Author</td>       
+        <td class="align-middle">@item.AuthorYear</td>        
+  
+ 
+        <td class="align-middle">
+        @if (item.Valid == true) { 
+                <img src="@Url.Content("~/Content/Images/Ok.png")" alt="@SharedRes.StringsRes.ValidYes" title="@SharedRes.StringsRes.ValidYes" />   } 
+            else { 
+                <img src="@Url.Content("~/Content/Images/cancel.png")" alt="@SharedRes.StringsRes.ValidNo" title="@SharedRes.StringsRes.ValidNo" />   
+           } 
+         </td>
+        <td class="align-middle">@item.ValidYear</td>   
+ 
+        <td class="left">@item.Tbl54Supertribusses.SupertribusName  </td>                 
+
+    </tr>    
+    }     
+    <tr>        
+  
+        <td class="pager" colspan="9">   
+ 
+           @Html.Partial("_Pager", Model)
+        </td>
+    </tr>       
+</table>
+<div>
+    <ul id="nav-one" class="dropmenu css-only">      
+
+         <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkSupertribusLeft, "Index", "Tbl54Supertribusses")</li>        
+  
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkSubtribusRight, "Index", "Tbl60Subtribusses")</li>      
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkSubtribusCreateRight, "Create", "Tbl60Subtribusses", new { tribusId = 0 }, null)</li>  
+    
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkReferenceRight, "Index", "Tbl90References")</li>                       
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkReferenceCreateRight, "Create", "Tbl90References",
+            new { regnumId = 0,
+                      phylumId = 0,
+                      divisionId = 0,
+                      subphylumId = 0,
+                      subdivisionId = 0,
+                      superclassId = 0,
+                      classId = 0,
+                      subclassId = 0,
+                      infraclassId = 0,
+                      legioId = 0,
+                      ordoId = 0,
+                      subordoId = 0,
+                      infraordoId = 0,
+                      superfamilyId = 0,
+                      familyId = 0,
+                      subfamilyId = 0,
+                      infrafamilyId = 0,
+                      supertribusId = 0,
+                      tribusId = 0,
+                      subtribusId = 0,
+                      infratribusId = 0,
+                      genusId = 0,
+                      fispeciesId = 0,
+                      plspeciesId = 0
+            }, null)</li>               
+ 
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkCommentRight, "Index", "Tbl93Comments")</li>                       
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkCommentCreateRight, "Create", "Tbl93Comments",
+            new { regnumId = 0,
+                      phylumId = 0,
+                      divisionId = 0,
+                      subphylumId = 0,
+                      subdivisionId = 0,
+                      superclassId = 0,
+                      classId = 0,
+                      subclassId = 0,
+                      infraclassId = 0,
+                      legioId = 0,
+                      ordoId = 0,
+                      subordoId = 0,
+                      infraordoId = 0,
+                      superfamilyId = 0,
+                      familyId = 0,
+                      subfamilyId = 0,
+                      infrafamilyId = 0,
+                      supertribusId = 0,
+                      tribusId = 0,
+                      subtribusId = 0,
+                      infratribusId = 0,
+                      genusId = 0,
+                      fispeciesId = 0,
+                      plspeciesId = 0
+            }, null)</li>               
+ 
+  
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkCreate, "Create", "Tbl57Tribusses", new { supertribusId = 0 }, null)</li>   
+    </ul> 
+</div>   

@@ -1,0 +1,38 @@
+    
+
+
+ //    Part 11    
+
+  
+     
+        #region "Public Properties TblCountry"
+
+        private string _searchCountryName;
+        public  string SearchCountryName
+        {
+            get => _searchCountryName; 
+            set { _searchCountryName = value; OnPropertyChanged();  }
+        }
+
+        public  ICollectionView CountriesView;
+        public  TblCountry CurrentTblCountry => CountriesView?.CurrentItem as TblCountry;
+
+        private ObservableCollection<TblCountry> _tblCountriesList;
+        public  ObservableCollection<TblCountry> TblCountriesList
+        {
+            get => _tblCountriesList; 
+            set {  _tblCountriesList = value; OnPropertyChanged();     }      
+        }
+
+        private ObservableCollection<TblCountry> _tblCountriesAllList;
+        public  ObservableCollection<TblCountry> TblCountriesAllList
+        {
+            get => _tblCountriesAllList; 
+            set { _tblCountriesAllList = value; OnPropertyChanged(); }
+        }
+
+        #endregion "Public Properties"      
+ 
+
+ //    Part 12    
+

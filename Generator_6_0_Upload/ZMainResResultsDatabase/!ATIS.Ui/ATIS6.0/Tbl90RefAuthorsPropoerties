@@ -1,0 +1,39 @@
+    
+
+
+ //    Part 11    
+
+
+     
+        #region "Public Properties Tbl90RefAuthor"
+
+        public ICollectionView AuthorsView;
+        public Tbl90RefAuthor CurrentTbl90RefAuthor => AuthorsView?.CurrentItem as Tbl90RefAuthor;
+        
+        private string _searchRefAuthorName;
+        public string SearchRefAuthorName
+        {
+            get => _searchRefAuthorName; 
+            set { _searchRefAuthorName = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl90RefAuthor> _tbl90RefAuthorsList;
+        public  ObservableCollection<Tbl90RefAuthor> Tbl90RefAuthorsList
+        {
+            get => _tbl90RefAuthorsList; 
+            set { _tbl90RefAuthorsList = value; OnPropertyChanged();  }
+        }
+
+        private ObservableCollection<Tbl90RefAuthor> _tbl90RefAuthorsAllList;
+        public ObservableCollection<Tbl90RefAuthor> Tbl90RefAuthorsAllList
+        {
+            get => _tbl90RefAuthorsAllList; 
+            set { _tbl90RefAuthorsAllList = value; OnPropertyChanged(); }
+        }
+
+        #endregion "Public Properties"
+   
+ 
+
+ //    Part 12    
+

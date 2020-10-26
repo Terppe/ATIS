@@ -1,0 +1,510 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks">
+
+
+    <ControlTemplate x:Key="SaveRegnumButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding SaveRegnumCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="SearchPhylumsButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding GetPhylumsByNameOrIdCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Loop" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="AddPhylumButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding AddPhylumCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="CopyPhylumButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding CopyPhylumCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="SavePhylumButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding SavePhylumCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="DeletePhylumButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding DeletePhylumCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="AddSubphylumButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding AddSubphylumCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="CopySubphylumButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding CopySubphylumCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="SaveSubphylumButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding SaveSubphylumCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="DeleteSubphylumButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding DeleteSubphylumCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="AddReferenceExpertButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding AddReferenceExpertCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="CopyReferenceExpertButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding CopyReferenceExpertCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="SaveReferenceExpertButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding SaveReferenceExpertCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="DeleteReferenceExpertButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding DeleteReferenceExpertCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="AddReferenceSourceButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding AddReferenceSourceCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="CopyReferenceSourceButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding CopyReferenceSourceCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="SaveReferenceSourceButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding SaveReferenceSourceCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="DeleteReferenceSourceButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding DeleteReferenceSourceCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="AddReferenceAuthorButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding AddReferenceAuthorCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="CopyReferenceAuthorButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding CopyReferenceAuthorCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="SaveReferenceAuthorButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding SaveReferenceAuthorCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="DeleteReferenceAuthorButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding DeleteReferenceAuthorCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="AddCommentButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding AddCommentCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="CopyCommentButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding CopyCommentCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="SaveCommentButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding SaveCommentCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="DeleteCommentButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding DeleteCommentCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+
+</ResourceDictionary>

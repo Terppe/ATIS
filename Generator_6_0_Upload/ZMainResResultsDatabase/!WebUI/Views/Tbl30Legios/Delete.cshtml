@@ -1,0 +1,27 @@
+@model Atis.Domain.Models.Tbl30Legio    	
+
+       <!-- Delete  Skriptdatum:  7.1.2012  10:32    -->        
+
+@{
+    ViewBag.Title = Tbl30LegiosRes.StringsRes.Delete;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Tbl30LegiosRes.StringsRes.Delete</h2>
+
+    <div>
+        <p>@SharedRes.StringsRes.DeleteMessage       
+  
+             <i>@Model.LegioName  ?</i>   
+ 
+         </p>     	   
+    </div>
+@using (Html.BeginForm()) {
+    <p>
+            <input name="confirmButton" type="submit" value="@SharedRes.StringsRes.ButtonDelete" /> 
+        @Html.ActionLink(SharedRes.StringsRes.ActionLnkBack, "Index")
+
+    </p>
+}
+
+    

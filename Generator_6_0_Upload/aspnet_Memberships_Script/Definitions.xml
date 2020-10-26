@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+ <Definition>
+  <File>aspnet_Membership</File>  
+
+  <DateTime>06.02.2012  10:32</DateTime>  
+  <Namespace>Atis</Namespace>  
+  <ConnString></ConnString> 
+  <RegisterContext>ATISEntities</RegisterContext > 
+  <Version>ATIS32</Version>
+  <Database>Atis</Database> 
+
+  <LayoutTop>NULL</LayoutTop>
+  <Layout>ListDetails</Layout>
+  <LayoutBottom>ListDetails</LayoutBottom>
+  <LayoutFK1>NULL</LayoutFK1>
+  <LayoutFK2>NULL</LayoutFK2>
+
+  <TableTK3>NULL</TableTK3> 
+  <TableTK2>NULL</TableTK2> 
+  <TableTK1>NULL</TableTK1>       
+  <Table>aspnet_Memberships</Table> 
+  <TableFK1>aspnet_Applications</TableFK1> 
+  <TableFK2>aspnet_Users</TableFK2> 
+  <TableBK1>NULL</TableBK1>      
+  <TableBK2>NULL</TableBK2> 
+
+  <Primary>[UserId] ASC</Primary> 
+  <Unique1>NULL</Unique1> 
+  <Unique2>NULL</Unique2> 
+  <Foreign1>ApplicationId</Foreign1> 
+  <Foreign2>UserId</Foreign2> 
+  <Default1>PasswordFormat</Default1> 
+  <Default2>NULL</Default2> 
+  <Default3>NULL</Default3> 
+
+  <KeyPK>PRIMARY KEY NONCLUSTERD</KeyPK> 
+  <KeyIX1>NULL</KeyIX1> 
+  <KeyIX2>NULL</KeyIX2> 
+  <KeyFK1>FK__aspnet_Me__Appli__55F4C372</KeyFK1> 
+  <KeyFK2>FK__aspnet_Me__UserI__56E8E7AB</KeyFK2> 
+  <KeyDF1>((0))</KeyDF1> 
+  <KeyDF2>NULL</KeyDF2> 
+  <KeyDF3>NULL</KeyDF3> 
+
+  <FolderTK1>NULL</FolderTK1> 
+  <Folder>aspnet_Users</Folder> 
+  <FolderFK1>aspnet_Applications</FolderFK1> 
+  <FolderFK2>NULL</FolderFK2> 
+  <FolderBK1>NULL</FolderBK1> 
+
+  <IDTK1>NULL</IDTK1> 
+  <ID>UserId</ID> 
+  <IDFK1>ApplicationId</IDFK1> 
+  <IDFK2>UserId</IDFK2> 
+  <IDBK1>NULL</IDBK1> 
+
+  <NameTK1>NULL</NameTK1> 
+  <Name>UserName</Name> 
+  <NameFK1>ApplicationName</NameFK1> 
+  <NameFK2>UserName</NameFK2> 
+  <NameBK1>NULL</NameBK1> 
+  <NameBK2>NULL</NameBK2> 
+
+  <BasisTK1>NULL</BasisTK1> 
+  <Basis>aspnet_Membership</Basis> 
+  <BasisFK1>aspnet_Application</BasisFK1> 
+  <BasisFK2>aspnet_User</BasisFK2> 
+  <BasisBK1>NULL</BasisBK1> 
+
+  <BasisSmTK2>NULL</BasisSmTK2> 
+  <BasisSmTK1>NULL</BasisSmTK1> 
+  <BasisSm>membership</BasisSm> 
+  <BasisSmFK1>application</BasisSmFK1> 
+  <BasisSmFK2>user</BasisSmFK2> 
+
+  <LinqModelTK1>NULL</LinqModelTK1> 
+  <LinqModel>aspnet_Membership</LinqModel> 
+  <LinqModelFK1>aspnet_Application</LinqModelFK1> 
+  <LinqModelFK2>aspnet_User</LinqModelFK2> 
+  <LinqModelBK1>NULL</LinqModelBK1> 
+
+  <EntityTK2>NULL</EntityTK2> 
+  <EntityTK1>NULL</EntityTK1> 
+  <Entity>aspnet_membership</Entity> 
+  <EntityFK1>aspnet_application</EntityFK1> 
+  <EntityFK2>aspnet_user</EntityFK2> 
+
+  <EntitysTK2>NULL</EntitysTK2> 
+  <EntitysTK1>NULL</EntitysTK1> 
+  <Entitys>aspnet_Memberships</Entitys> 
+  <EntitysFK1>aspnet_Applications</EntitysFK1> 
+  <EntitysFK2>aspnet_Users</EntitysFK2> 
+
+  <EntityAblTK2>NULL</EntityAblTK2> 
+  <EntityAblTK1>NULL</EntityAblTK1> 
+  <EntityAbl>aspnet_Membership aspnet_membership</EntityAbl> 
+  <EntityAblFK1>aspnet_application aspnet_application</EntityAblFK1> 
+  <EntityAblFK2>aspnet_User aspnet_user</EntityAblFK2> 
+
+   <Fields>
+    <Field><Name>ApplicationId</Name> <Type>uniqueidentifier</Type> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>UserId</Name> <Type>uniqueidentifier</Type> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>Password</Name> <Type>nvarchar</Type> <Length>128</Length>  <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>PasswordFormat</Name> <Type>int</Type>   <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>PasswordSalt</Name> <Type>nvarchar</Type> <Length>128</Length>  <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>MobilePIN</Name> <Type>nvarchar</Type> <Length>16</Length>  <NotNull>NULL</NotNull> </Field>
+    <Field><Name>Email</Name> <Type>nvarchar</Type> <Length>256</Length>  <NotNull>NULL</NotNull> </Field>
+    <Field><Name>LoweredEmail</Name> <Type>nvarchar</Type> <Length>256</Length>  <NotNull>NULL</NotNull> </Field>
+    <Field><Name>PasswordQuestion</Name> <Type>nvarchar</Type> <Length>256</Length>  <NotNull>NULL</NotNull> </Field>
+    <Field><Name>PasswordAnswer</Name> <Type>nvarchar</Type> <Length>128</Length>  <NotNull>NULL</NotNull> </Field>
+    <Field><Name>IsApproved</Name> <Type>bit</Type> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>IsLockedOut</Name> <Type>bit</Type> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>CreateDate</Name> <Type>datetime</Type>  <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>LastLoginDate</Name> <Type>datetime</Type>  <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>LastPasswordChangedDate</Name> <Type>datetime</Type>  <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>LastLockoutDate</Name> <Type>datetime</Type>  <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>FailedPasswordAttemptCount</Name> <Type>int</Type>   <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>FailedPasswordAttemptWindowStart</Name> <Type>datetime</Type>  <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>FailedPasswordAnswerAttemptCount</Name> <Type>int</Type>   <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>FailedPasswordAnswerAttemptWindowStart</Name> <Type>datetime</Type>  <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>Comment</Name> <Type>ntext</Type>  <NotNull>NULL</NotNull> </Field>
+ </Fields>
+</Definition>
+

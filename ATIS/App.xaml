@@ -23,6 +23,7 @@
                 <!--<ResourceDictionary Source="pack://application:,,,/ATIS.Styles;component/StylesDictionary.xaml" />-->
 
                 <ResourceDictionary Source="Asset/Styles.xaml" />
+                <ResourceDictionary Source="Asset/ControlTemplateButtons.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

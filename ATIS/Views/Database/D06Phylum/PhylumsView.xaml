@@ -5,829 +5,16 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helper="clr-namespace:ATIS.Ui.Helper"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"
-    xmlns:valueConverter="clr-namespace:ATIS.Ui.Helper.ValueConverter"
     d:DesignHeight="700"
-    d:DesignWidth="1250"
+    d:DesignWidth="1550"
     mc:Ignorable="d">
 
-    <UserControl.Resources>
-        <valueConverter:ComboBoxEmptyItemConverter x:Key="ComboBoxEmptyItemConverter" />
-        <!--<valueConverter:CapitalizeFirstLetterConverter x:Key="CapFirst" />-->
+    <UserControl.Resources />
 
-        <ControlTemplate x:Key="SaveRegnumButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding SaveRegnumCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="Save" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-
-        <ControlTemplate x:Key="SearchPhylumsButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding GetPhylumsByNameOrIdCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="Loop" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-
-        <ControlTemplate x:Key="AddPhylumButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding AddPhylumCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="Add" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-        <ControlTemplate x:Key="CopyPhylumButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding CopyPhylumCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="PageCopy" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-        <ControlTemplate x:Key="SavePhylumButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding SavePhylumCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="Save" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-        <ControlTemplate x:Key="DeletePhylumButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding DeletePhylumCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="Delete" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-
-        <ControlTemplate x:Key="AddSubphylumButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding AddSubphylumCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="Add" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-        <ControlTemplate x:Key="CopySubphylumButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding CopySubphylumCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="PageCopy" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-        <ControlTemplate x:Key="SaveSubphylumButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding SaveSubphylumCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="Save" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-        <ControlTemplate x:Key="DeleteSubphylumButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding DeleteSubphylumCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="Delete" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-
-        <ControlTemplate x:Key="AddReferenceExpertButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding AddReferenceExpertCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="Add" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-        <ControlTemplate x:Key="CopyReferenceExpertButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding CopyReferenceExpertCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="PageCopy" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-        <ControlTemplate x:Key="SaveReferenceExpertButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding SaveReferenceExpertCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="Save" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-        <ControlTemplate x:Key="DeleteReferenceExpertButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding DeleteReferenceExpertCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="Delete" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-
-        <ControlTemplate x:Key="AddReferenceSourceButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding AddReferenceSourceCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="Add" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-        <ControlTemplate x:Key="CopyReferenceSourceButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding CopyReferenceSourceCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="PageCopy" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-        <ControlTemplate x:Key="SaveReferenceSourceButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding SaveReferenceSourceCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="Save" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-        <ControlTemplate x:Key="DeleteReferenceSourceButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding DeleteReferenceSourceCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="Delete" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-
-        <ControlTemplate x:Key="AddReferenceAuthorButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding AddReferenceAuthorCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="Add" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-        <ControlTemplate x:Key="CopyReferenceAuthorButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding CopyReferenceAuthorCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="PageCopy" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-        <ControlTemplate x:Key="SaveReferenceAuthorButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding SaveReferenceAuthorCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="Save" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-        <ControlTemplate x:Key="DeleteReferenceAuthorButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding DeleteReferenceAuthorCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="Delete" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-
-        <ControlTemplate x:Key="AddCommentButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding AddCommentCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="Add" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-        <ControlTemplate x:Key="CopyCommentButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding CopyCommentCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="PageCopy" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-        <ControlTemplate x:Key="SaveCommentButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding SaveCommentCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="Save" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-        <ControlTemplate x:Key="DeleteCommentButton" TargetType="Button">
-            <Button
-                Width="36"
-                Height="36"
-                Margin="4"
-                Command="{Binding DeleteCommentCommand}"
-                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                IsEnabled="True"
-                Style="{StaticResource MahApps.Styles.Button.Circle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <iconPacks:PackIconModern
-                            Width="20"
-                            Height="20"
-                            Kind="Delete" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </ControlTemplate>
-
-        <ControlTemplate x:Key="BasicTextBox" TargetType="TextBox">
-            <TextBox
-                Margin="5"
-                HorizontalContentAlignment="Stretch"
-                mah:TextBoxHelper.IsWaitingForData="True"
-                mah:TextBoxHelper.UseFloatingWatermark="True"
-                mah:TextBoxHelper.WatermarkAlignment="Left"
-                FontWeight="Medium"
-                SpellCheck.IsEnabled="True" />
-        </ControlTemplate>
-    </UserControl.Resources>
-    <!--<UserControl.Resources>
-        <converters:ComboBoxEmptyItemConverter x:Key="ComboBoxEmptyItemConverter" />
-        <converters:CapitalizeFirstLetterConverter x:Key="CapFirst" />
-        <ContextMenu x:Key="MenuSubdivision">
-            <MenuItem Command="{Binding SaveSubdivisionCommand}" Header="{DynamicResource Shared-ButtonSave}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="ContentSave"
-                        Opacity=".56" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="{Binding CopySubdivisionCommand}" Header="{DynamicResource Shared-ButtonCopy}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="ContentCopy" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="{Binding AddSubdivisionCommand}" Header="{DynamicResource Shared-ButtonAdd}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="Plus"
-                        Opacity=".56" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="{Binding DeleteSubdivisionCommand}" Header="{DynamicResource Shared-ButtonDelete}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="Delete"
-                        Opacity=".56" />
-                </MenuItem.Icon>
-            </MenuItem>
-        </ContextMenu>
-        <ContextMenu x:Key="MenuDivision">
-            <MenuItem Command="{Binding SaveDivisionCommand}" Header="{DynamicResource Shared-ButtonSave}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="ContentSave"
-                        Opacity=".56" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="{Binding CopyDivisionCommand}" Header="{DynamicResource Shared-ButtonCopy}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="ContentCopy" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="{Binding AddDivisionCommand}" Header="{DynamicResource Shared-ButtonAdd}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="Plus"
-                        Opacity=".56" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="{Binding DeleteDivisionCommand}" Header="{DynamicResource Shared-ButtonDelete}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="Delete"
-                        Opacity=".56" />
-                </MenuItem.Icon>
-            </MenuItem>
-        </ContextMenu>
-        <ContextMenu x:Key="MenuRegnum">
-            <MenuItem Command="{Binding SaveRegnumCommand}" Header="{DynamicResource Shared-ButtonSave}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="ContentSave"
-                        Opacity=".56" />
-                </MenuItem.Icon>
-            </MenuItem>
-        </ContextMenu>
-        <ContextMenu x:Key="MenuReferenceExpert">
-            <MenuItem Command="{Binding SaveReferenceExpertCommand}" Header="{DynamicResource Shared-ButtonSave}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="ContentSave"
-                        Opacity=".56" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="{Binding CopyReferenceExpertCommand}" Header="{DynamicResource Shared-ButtonCopy}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="ContentCopy" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="{Binding AddReferenceExpertCommand}" Header="{DynamicResource Shared-ButtonAdd}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="Plus"
-                        Opacity=".56" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="{Binding DeleteReferenceExpertCommand}" Header="{DynamicResource Shared-ButtonDelete}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="Delete"
-                        Opacity=".56" />
-                </MenuItem.Icon>
-            </MenuItem>
-        </ContextMenu>
-        <ContextMenu x:Key="MenuReferenceSource">
-            <MenuItem Command="{Binding SaveReferenceSourceCommand}" Header="{DynamicResource Shared-ButtonSave}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="ContentSave"
-                        Opacity=".56" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="{Binding CopyReferenceSourceCommand}" Header="{DynamicResource Shared-ButtonCopy}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="ContentCopy" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="{Binding AddReferenceSourceCommand}" Header="{DynamicResource Shared-ButtonAdd}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="Plus"
-                        Opacity=".56" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="{Binding DeleteReferenceSourceCommand}" Header="{DynamicResource Shared-ButtonDelete}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="Delete"
-                        Opacity=".56" />
-                </MenuItem.Icon>
-            </MenuItem>
-        </ContextMenu>
-        <ContextMenu x:Key="MenuReferenceAuthor">
-            <MenuItem Command="{Binding SaveReferenceAuthorCommand}" Header="{DynamicResource Shared-ButtonSave}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="ContentSave"
-                        Opacity=".56" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="{Binding CopyReferenceAuthorCommand}" Header="{DynamicResource Shared-ButtonCopy}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="ContentCopy" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="{Binding AddReferenceAuthorCommand}" Header="{DynamicResource Shared-ButtonAdd}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="Plus"
-                        Opacity=".56" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="{Binding DeleteReferenceAuthorCommand}" Header="{DynamicResource Shared-ButtonDelete}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="Delete"
-                        Opacity=".56" />
-                </MenuItem.Icon>
-            </MenuItem>
-        </ContextMenu>
-        <ContextMenu x:Key="MenuComment">
-            <MenuItem Command="{Binding SaveCommentCommand}" Header="{DynamicResource Shared-ButtonSave}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="ContentSave"
-                        Opacity=".56" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="{Binding CopyCommentCommand}" Header="{DynamicResource Shared-ButtonCopy}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="ContentCopy" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="{Binding AddCommentCommand}" Header="{DynamicResource Shared-ButtonAdd}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="Plus"
-                        Opacity=".56" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="{Binding DeleteCommentCommand}" Header="{DynamicResource Shared-ButtonDelete}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="Delete"
-                        Opacity=".56" />
-                </MenuItem.Icon>
-            </MenuItem>
-        </ContextMenu>
-        <ContextMenu x:Key="MenuEdit">
-            <MenuItem Command="Cut" Header="{DynamicResource Shared-ActionLnkCut}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="ContentCut"
-                        Opacity=".56" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="Copy" Header="{DynamicResource Shared-ActionLnkCopy}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="ContentCopy" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="Paste" Header="{DynamicResource Shared-ActionLnkPaste}">
-                <MenuItem.Icon>
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Margin="0,-5,0,0"
-                        Kind="ContentPaste"
-                        Opacity=".56" />
-                </MenuItem.Icon>
-            </MenuItem>
-        </ContextMenu>
-
-    </UserControl.Resources>-->
-
-
-    <!--  PhylumsView.xaml  Skriptdatum:  12.12.2019  12:32  -->
+    <!--  Tbl06PhylumsView.xaml  Skriptdatum:  24.10.2020  12:32  -->
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -841,15 +28,14 @@
             <RowDefinition Height="50*" />
         </Grid.RowDefinitions>
 
+        <!--  Part 1   Creating Main-Grid in Column 1  -->
 
         <StackPanel Grid.Row="0" Grid.Column="1" />
-
-        <!--  Part 1   Creating Sub-Grid in Column 0  -->
 
         <TabControl
             Grid.Row="0"
             Grid.Column="0"
-            Margin="1,1,1,1"
+            Margin="1"
             Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
             <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderPhylums}">
                 <ScrollViewer
@@ -881,7 +67,7 @@
                                         FontWeight="Medium"
                                         SpellCheck.IsEnabled="True"
                                         Text="{Binding SearchPhylumName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                        ToolTip="Input Name or ID">
+                                        ToolTip="{DynamicResource Shared-SearchNameOrId}">
                                         <TextBox.InputBindings>
                                             <KeyBinding
                                                 Key="Return"
@@ -904,15 +90,13 @@
                                 <Button Template="{StaticResource AddPhylumButton}" />
                             </StackPanel>
                         </GroupBox>
-
                         <GroupBox>
                             <ListView
                                 x:Name="Tbl06PhylumsList"
+                                Height="Auto"
                                 IsSynchronizedWithCurrentItem="True"
-                                ItemsSource="{Binding Tbl06PhylumsList}" 
-                                ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                ItemsSource="{Binding Tbl06PhylumsList}"
                                 ScrollViewer.IsDeferredScrollingEnabled="True"
-                                ScrollViewer.HorizontalScrollBarVisibility="Visible"
                                 SelectedItem="{Binding (Selector.SelectedItem)}"
                                 VirtualizingStackPanel.IsVirtualizing="True"
                                 VirtualizingStackPanel.VirtualizationMode="Recycling">
@@ -936,12 +120,10 @@
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
-
                                         <GridViewColumn
                                             Width="150"
                                             DisplayMemberBinding="{Binding (models:Tbl06Phylum.PhylumName)}"
                                             Header="{DynamicResource Tbl06Phylum-PhylumName}" />
-
                                         <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
@@ -951,7 +133,6 @@
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
-
                                         <GridViewColumn
                                             Width="150"
                                             DisplayMemberBinding="{Binding (models:Tbl06Phylum.Author)}"
@@ -973,6 +154,8 @@
             </TabItem>
         </TabControl>
 
+        <!--  Part 2 Splitter  -->
+
         <GridSplitter
             Grid.Row="0"
             Grid.Column="1"
@@ -980,204 +163,196 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Stretch"
             Background="Black"
-            ShowsPreview="True" />
+            ShowsPreview="False" />
 
         <!--  Part 2   FK1  aktuell  -->
 
-        <!--<ScrollViewer
+        <TabControl
             Grid.Row="0"
             Grid.Column="2"
-            Margin="0,0,0,0"
             Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-            VerticalScrollBarVisibility="Auto">-->
-            <TabControl
-                Grid.Row="0" Grid.Column="2" Margin="0"
-                Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-                SelectedIndex="{Binding SelectedMainTabIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            SelectedIndex="{Binding SelectedMainTabIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderRegnums}">
+                <ScrollViewer
+                    helper:AutoScrollBehavior.TopMouseScrollPriority="True"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <GroupBox>
+                            <ListView
+                                x:Name="Tbl03RegnumsList"
+                                Height="Auto"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl03RegnumsList}"
+                                ScrollViewer.IsDeferredScrollingEnabled="True"
+                                SelectedItem="{Binding (Selector.SelectedItem)}"
+                                VirtualizingStackPanel.IsVirtualizing="True"
+                                VirtualizingStackPanel.VirtualizationMode="Recycling">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Width="Auto" Header="{DynamicResource Tbl03Regnum-RegnumId}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                        Width="100"
+                                                        Text="{Binding (models:Tbl03Regnum.RegnumId)}"
+                                                        TextAlignment="Left" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
 
-                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderRegnums}">
-                    <ScrollViewer
-                        helper:AutoScrollBehavior.TopMouseScrollPriority="True"
-                        HorizontalScrollBarVisibility="Auto"
-                        VerticalScrollBarVisibility="Auto">
-                        <StackPanel>
-                            <GroupBox>
-                                <ListView
-                                    x:Name="Tbl03RegnumsList"
-                                    IsSynchronizedWithCurrentItem="True"
-                                    ItemsSource="{Binding Tbl03RegnumsList}"
-                                    ScrollViewer.IsDeferredScrollingEnabled="True"
-                                    SelectedItem="{Binding (Selector.SelectedItem)}"
-                                    VirtualizingStackPanel.IsVirtualizing="True"
-                                    VirtualizingStackPanel.VirtualizationMode="Recycling">
-                                    <ListView.View>
-                                        <GridView>
-                                            <GridViewColumn Width="Auto" Header="{DynamicResource Tbl03Regnum-RegnumId}">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock
-                                                            Width="100"
-                                                            Text="{Binding (models:Tbl03Regnum.RegnumId)}"
-                                                            TextAlignment="Left" />
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
+                                        <GridViewColumn
+                                            Width="150"
+                                            DisplayMemberBinding="{Binding (models:Tbl03Regnum.RegnumName)}"
+                                            Header="{DynamicResource Tbl03Regnum-RegnumName}" />
+                                        <GridViewColumn
+                                            Width="150"
+                                            DisplayMemberBinding="{Binding (models:Tbl03Regnum.Subregnum)}"
+                                            Header="{DynamicResource Tbl03Regnum-Subregnum}" />
 
-                                            <GridViewColumn
-                                                Width="150"
-                                                DisplayMemberBinding="{Binding (models:Tbl03Regnum.RegnumName)}"
-                                                Header="{DynamicResource Tbl03Regnum-RegnumName}" />
-                                            <GridViewColumn
-                                                Width="150"
-                                                DisplayMemberBinding="{Binding (models:Tbl03Regnum.Subregnum)}"
-                                                Header="{DynamicResource Tbl03Regnum-Subregnum}" />
+                                        <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <CheckBox IsChecked="{Binding (models:Tbl03Regnum.Valid)}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn
+                                            Width="150"
+                                            DisplayMemberBinding="{Binding (models:Tbl03Regnum.Author)}"
+                                            Header="{DynamicResource Shared-Author}" />
+                                        <GridViewColumn
+                                            Width="80"
+                                            DisplayMemberBinding="{Binding (models:Tbl03Regnum.AuthorYear)}"
+                                            Header="{DynamicResource Shared-AuthorYear}" />
 
-                                            <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <StackPanel Orientation="Horizontal">
-                                                            <CheckBox IsChecked="{Binding (models:Tbl03Regnum.Valid)}" />
-                                                        </StackPanel>
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
-                                            <GridViewColumn
-                                                Width="150"
-                                                DisplayMemberBinding="{Binding (models:Tbl03Regnum.Author)}"
-                                                Header="{DynamicResource Shared-Author}" />
-                                            <GridViewColumn
-                                                Width="80"
-                                                DisplayMemberBinding="{Binding (models:Tbl03Regnum.AuthorYear)}"
-                                                Header="{DynamicResource Shared-AuthorYear}" />
+                                        <GridViewColumn
+                                            Width="150"
+                                            DisplayMemberBinding="{Binding (models:Tbl03Regnum.Info)}"
+                                            Header="{DynamicResource Shared-Info}" />
 
-                                            <GridViewColumn
-                                                Width="150"
-                                                DisplayMemberBinding="{Binding (models:Tbl03Regnum.Info)}"
-                                                Header="{DynamicResource Shared-Info}" />
-
-                                        </GridView>
-                                    </ListView.View>
-                                </ListView>
-                            </GroupBox>
-                        </StackPanel>
-                    </ScrollViewer>
-                </TabItem>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
 
 
-                <!--  Part 2  FK2  aktuell  -->
+            <!--  Part 2  FK2  aktuell  -->
 
 
 
-                <!--  Part 2   FK3  aktuell  -->
+            <!--  Part 2   FK3  aktuell  -->
 
 
 
-                <!--  Part 2  FK4  aktuell  -->
+            <!--  Part 2  FK4  aktuell  -->
 
 
 
-                <!--  Part 4  TK1  aktuell  -->
+            <!--  Part 4  TK1  aktuell  -->
 
 
-                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderSubphylums}">
-                    <ScrollViewer
-                        helper:AutoScrollBehavior.TopMouseScrollPriority="True"
-                        HorizontalScrollBarVisibility="Auto"
-                        VerticalScrollBarVisibility="Auto">
-                        <StackPanel>
-                            <GroupBox>
-                                <ListView
-                                    x:Name="Tbl12SubphylumsList"
-                                    IsSynchronizedWithCurrentItem="True"
-                                    ItemsSource="{Binding Tbl12SubphylumsList}"
-                                    ScrollViewer.IsDeferredScrollingEnabled="True"
-                                    SelectedItem="{Binding (Selector.SelectedItem)}"
-                                    VirtualizingStackPanel.IsVirtualizing="True"
-                                    VirtualizingStackPanel.VirtualizationMode="Recycling">
-                                    <ListView.View>
-                                        <GridView>
-                                            <GridViewColumn Width="Auto" Header="{DynamicResource Tbl12Subphylum-SubphylumId}">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock
-                                                            Width="100"
-                                                            Text="{Binding (models:Tbl12Subphylum.SubphylumId)}"
-                                                            TextAlignment="Left" />
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
+            <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderSubphylums}">
+                <ScrollViewer
+                    helper:AutoScrollBehavior.TopMouseScrollPriority="True"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <GroupBox>
+                            <ListView
+                                x:Name="Tbl12SubphylumsList"
+                                Height="Auto"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl12SubphylumsList}"
+                                ScrollViewer.IsDeferredScrollingEnabled="True"
+                                SelectedItem="{Binding (Selector.SelectedItem)}"
+                                VirtualizingStackPanel.IsVirtualizing="True"
+                                VirtualizingStackPanel.VirtualizationMode="Recycling">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Width="Auto" Header="{DynamicResource Tbl12Subphylum-SubphylumId}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                        Width="100"
+                                                        Text="{Binding (models:Tbl12Subphylum.SubphylumId)}"
+                                                        TextAlignment="Left" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
 
-                                            <GridViewColumn
-                                                Width="150"
-                                                DisplayMemberBinding="{Binding (models:Tbl12Subphylum.SubphylumName)}"
-                                                Header="{DynamicResource Tbl12Subphylum-SubphylumName}" />
-                                            <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <StackPanel Orientation="Horizontal">
-                                                            <CheckBox IsChecked="{Binding (models:Tbl12Subphylum.Valid)}" />
-                                                        </StackPanel>
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
-                                            <GridViewColumn
-                                                Width="150"
-                                                DisplayMemberBinding="{Binding (models:Tbl12Subphylum.Author)}"
-                                                Header="{DynamicResource Shared-Author}" />
-                                            <GridViewColumn
-                                                Width="80"
-                                                DisplayMemberBinding="{Binding (models:Tbl12Subphylum.AuthorYear)}"
-                                                Header="{DynamicResource Shared-AuthorYear}" />
-                                            <GridViewColumn
-                                                Width="400"
-                                                DisplayMemberBinding="{Binding (models:Tbl12Subphylum.Info)}"
-                                                Header="{DynamicResource Shared-Info}" />
-                                        </GridView>
-                                    </ListView.View>
-                                </ListView>
-                            </GroupBox>
-                        </StackPanel>
-                    </ScrollViewer>
-                </TabItem>
-
-
-                <!--  Part 4   TK2  aktuell  -->
+                                        <GridViewColumn
+                                            Width="150"
+                                            DisplayMemberBinding="{Binding (models:Tbl12Subphylum.SubphylumName)}"
+                                            Header="{DynamicResource Tbl12Subphylum-SubphylumName}" />
+                                        <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <CheckBox IsChecked="{Binding (models:Tbl12Subphylum.Valid)}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn
+                                            Width="150"
+                                            DisplayMemberBinding="{Binding (models:Tbl12Subphylum.Author)}"
+                                            Header="{DynamicResource Shared-Author}" />
+                                        <GridViewColumn
+                                            Width="80"
+                                            DisplayMemberBinding="{Binding (models:Tbl12Subphylum.AuthorYear)}"
+                                            Header="{DynamicResource Shared-AuthorYear}" />
+                                        <GridViewColumn
+                                            Width="400"
+                                            DisplayMemberBinding="{Binding (models:Tbl12Subphylum.Info)}"
+                                            Header="{DynamicResource Shared-Info}" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
 
 
-
-                <!--  Part 4   TK3  aktuell  -->
+            <!--  Part 4   TK2  aktuell  -->
 
 
 
-                <!--  Part 4   TK4  aktuell  -->
+            <!--  Part 4   TK3  aktuell  -->
 
 
 
-                <!--  Part 7  -->
+            <!--  Part 4   TK4  aktuell  -->
 
 
-                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderReferences}">
-                    <!--<ScrollViewer
-                        helper:AutoScrollBehavior.TopMouseScrollPriority="True"
-                        HorizontalScrollBarVisibility="Auto"
-                        VerticalScrollBarVisibility="Auto">-->
 
-                    <TabControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedMainSubRefTabIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                        <TabItem Header="{DynamicResource Shared-TabStripHeaderRefExperts}">
-                            <!--<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">-->
+            <!--  Part 7  -->
+
+
+            <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderReferences}">
+                <TabControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedMainSubRefTabIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                    <TabItem Header="{DynamicResource Shared-TabStripHeaderRefExperts}">
+                        <ScrollViewer
+                            helper:AutoScrollBehavior.TopMouseScrollPriority="True"
+                            HorizontalScrollBarVisibility="Auto"
+                            VerticalScrollBarVisibility="Auto">
                             <StackPanel>
                                 <GroupBox>
                                     <ListView
                                         x:Name="Tbl90ReferenceExpertsList"
+                                        Height="Auto"
                                         IsSynchronizedWithCurrentItem="True"
                                         ItemsSource="{Binding Tbl90ReferenceExpertsList}"
-                                        ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                         ScrollViewer.IsDeferredScrollingEnabled="True"
-                                        ScrollViewer.VerticalScrollBarVisibility="Auto"
                                         SelectedItem="{Binding (Selector.SelectedItem)}"
                                         VirtualizingStackPanel.IsVirtualizing="True"
                                         VirtualizingStackPanel.VirtualizationMode="Recycling">
-
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90Reference-ReferenceId}">
@@ -1222,23 +397,24 @@
                                     </ListView>
                                 </GroupBox>
                             </StackPanel>
-                            <!--</ScrollViewer>-->
-                        </TabItem>
-                        <TabItem Header="{DynamicResource Shared-TabStripHeaderRefSources}">
-                            <!--<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">-->
+                        </ScrollViewer>
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Shared-TabStripHeaderRefSources}">
+                        <ScrollViewer
+                            helper:AutoScrollBehavior.TopMouseScrollPriority="True"
+                            HorizontalScrollBarVisibility="Auto"
+                            VerticalScrollBarVisibility="Auto">
                             <StackPanel>
                                 <GroupBox>
                                     <ListView
                                         x:Name="Tbl90ReferenceSourcesList"
+                                        Height="Auto"
                                         IsSynchronizedWithCurrentItem="True"
                                         ItemsSource="{Binding Tbl90ReferenceSourcesList}"
-                                        ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                         ScrollViewer.IsDeferredScrollingEnabled="True"
-                                        ScrollViewer.VerticalScrollBarVisibility="Auto"
                                         SelectedItem="{Binding (Selector.SelectedItem)}"
                                         VirtualizingStackPanel.IsVirtualizing="True"
                                         VirtualizingStackPanel.VirtualizationMode="Recycling">
-
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90Reference-ReferenceId}">
@@ -1283,19 +459,21 @@
                                     </ListView>
                                 </GroupBox>
                             </StackPanel>
-                            <!--</ScrollViewer>-->
-                        </TabItem>
-                        <TabItem Header="{DynamicResource Shared-TabStripHeaderRefAuthors}">
-                            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        </ScrollViewer>
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Shared-TabStripHeaderRefAuthors}">
+                        <ScrollViewer
+                            helper:AutoScrollBehavior.TopMouseScrollPriority="True"
+                            HorizontalScrollBarVisibility="Auto"
+                            VerticalScrollBarVisibility="Auto">
                             <StackPanel>
                                 <GroupBox>
                                     <ListView
                                         x:Name="Tbl90ReferenceAuthorsList"
+                                        Height="Auto"
                                         IsSynchronizedWithCurrentItem="True"
                                         ItemsSource="{Binding Tbl90ReferenceAuthorsList}"
-                                        ScrollViewer.HorizontalScrollBarVisibility="Visible"
                                         ScrollViewer.IsDeferredScrollingEnabled="True"
-                                        ScrollViewer.VerticalScrollBarVisibility="Visible"
                                         SelectedItem="{Binding (Selector.SelectedItem)}"
                                         VirtualizingStackPanel.IsVirtualizing="True"
                                         VirtualizingStackPanel.VirtualizationMode="Recycling">
@@ -1344,63 +522,61 @@
                                     </ListView>
                                 </GroupBox>
                             </StackPanel>
-                            </ScrollViewer>
-                        </TabItem>
-                    </TabControl>
-                    <!--</ScrollViewer>-->
-                </TabItem>
+                        </ScrollViewer>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+            <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderComments}">
+                <ScrollViewer
+                    helper:AutoScrollBehavior.TopMouseScrollPriority="True"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <GroupBox>
+                            <ListView
+                                x:Name="Tbl93CommentsList"
+                                Height="Auto"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl93CommentsList}"
+                                ScrollViewer.IsDeferredScrollingEnabled="True"
+                                SelectedItem="{Binding (Selector.SelectedItem)}"
+                                VirtualizingStackPanel.IsVirtualizing="True"
+                                VirtualizingStackPanel.VirtualizationMode="Recycling">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Width="Auto" Header="{DynamicResource Tbl93Comment-CommentId}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                        Width="100"
+                                                        Text="{Binding (models:Tbl93Comment.CommentId)}"
+                                                        TextAlignment="Left" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="{DynamicResource Shared-Valid}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <CheckBox IsChecked="{Binding (models:Tbl93Comment.Valid)}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn
+                                            Width="700"
+                                            DisplayMemberBinding="{Binding (models:Tbl93Comment.Info)}"
+                                            Header="{DynamicResource Shared-Info}" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
 
-                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderComments}">
-                    <ScrollViewer
-                        helper:AutoScrollBehavior.TopMouseScrollPriority="True"
-                        HorizontalScrollBarVisibility="Auto"
-                        VerticalScrollBarVisibility="Auto">
-                        <StackPanel>
-                            <GroupBox>
-
-                                <ListView
-                                    x:Name="Tbl93CommentsList"
-                                    IsSynchronizedWithCurrentItem="True"
-                                    ItemsSource="{Binding Tbl93CommentsList}"
-                                    ScrollViewer.IsDeferredScrollingEnabled="True"
-                                    SelectedItem="{Binding (Selector.SelectedItem)}"
-                                    VirtualizingStackPanel.IsVirtualizing="True"
-                                    VirtualizingStackPanel.VirtualizationMode="Recycling">
-
-                                    <ListView.View>
-                                        <GridView>
-                                            <GridViewColumn Width="Auto" Header="{DynamicResource Tbl93Comment-CommentId}">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock
-                                                            Width="100"
-                                                            Text="{Binding (models:Tbl93Comment.CommentId)}"
-                                                            TextAlignment="Left" />
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
-                                            <GridViewColumn Header="{DynamicResource Shared-Valid}">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <StackPanel Orientation="Horizontal">
-                                                            <CheckBox IsChecked="{Binding (models:Tbl93Comment.Valid)}" />
-                                                        </StackPanel>
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
-                                            <GridViewColumn
-                                                Width="700"
-                                                DisplayMemberBinding="{Binding (models:Tbl93Comment.Info)}"
-                                                Header="{DynamicResource Shared-Info}" />
-                                        </GridView>
-                                    </ListView.View>
-                                </ListView>
-                            </GroupBox>
-                        </StackPanel>
-                    </ScrollViewer>
-                </TabItem>
-            </TabControl>
-        <!--</ScrollViewer>-->
+        <!--  Part 2 Splitter  -->
 
         <GridSplitter
             Grid.Row="1"
@@ -1410,10 +586,9 @@
             HorizontalAlignment="Stretch"
             VerticalAlignment="Center"
             Background="Black"
-            ShowsPreview="True" />
+            ShowsPreview="False" />
 
-        <!--  Part 8 Splitter  -->
-
+        <!--  Part 2   FK1  aktuell  -->
 
         <TabControl
             Grid.Row="2"
@@ -1423,33 +598,22 @@
             SelectedIndex="{Binding SelectedDetailTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl03Regnum-Regnum}">
                 <GroupBox>
-                    <StackPanel Margin="0,0,5,0">
+                    <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
-
                             <Button Template="{StaticResource SaveRegnumButton}" />
-
-                            <!--<ToggleButton
-                                Width="36"
-                                Height="36"
-                                Margin="4"
-                                Command="{Binding SaveRegnumCommand}"
-                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                <ToggleButton.ContentTemplate>
-                                    <DataTemplate>
-                                        <iconPacks:PackIconModern
-                                            Width="20"
-                                            Height="20"
-                                            Kind="Save" />
-                                    </DataTemplate>
-                                </ToggleButton.ContentTemplate>
-                            </ToggleButton>-->
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <TextBox
                                 Width="250"
-                                Margin="5,10,0,0"
-                                FontWeight="Medium">
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl03Regnum-RegnumName}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl03Regnum-RegnumName}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl03RegnumsList"
@@ -1460,8 +624,15 @@
                             </TextBox>
                             <TextBox
                                 Width="250"
-                                Margin="5,10,0,0"
-                                FontWeight="Medium">
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl03Regnum-Subregnum}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl03Regnum-Subregnum}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl03RegnumsList"
@@ -1470,12 +641,11 @@
                                         UpdateSourceTrigger="PropertyChanged" />
                                 </TextBox.Text>
                             </TextBox>
-
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <CheckBox
                                 Width="80"
-                                Margin="5,0,0,0"
+                                Margin="5"
                                 VerticalAlignment="Bottom"
                                 Content="{DynamicResource Shared-Valid}"
                                 FontWeight="Normal"
@@ -1483,8 +653,15 @@
                                 Style="{StaticResource MahApps.Styles.CheckBox}" />
                             <TextBox
                                 Width="50"
-                                Margin="25,0,0,0"
-                                FontWeight="Medium">
+                                Margin="25,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-ValidYear}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-ValidYear}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl03RegnumsList"
@@ -1499,25 +676,38 @@
                                 <TextBox
                                     Height="Auto"
                                     MinWidth="760"
-                                    MinHeight="50"
+                                    MinHeight="75"
                                     MaxWidth="760"
-                                    MaxHeight="400"
-                                    Margin="5,0,0,0"
+                                    MaxHeight="200"
+                                    Margin="5"
                                     VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Synonym}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
                                     AcceptsReturn="True"
                                     FontWeight="Medium"
-                                    Style="{StaticResource MahApps.Styles.TextBox}"
+                                    SpellCheck.IsEnabled="True"
                                     Text="{Binding SelectedItem.(models:Tbl03Regnum.Synonym), ElementName=Tbl03RegnumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     TextWrapping="Wrap"
+                                    ToolTip="{DynamicResource Shared-Synonym}"
                                     VerticalScrollBarVisibility="Auto" />
                             </ScrollViewer>
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <TextBox
                                 Width="600"
-                                Margin="5,0,0,0"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
                                 CharacterCasing="Upper"
-                                FontWeight="Medium">
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-Author}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl03RegnumsList"
@@ -1526,7 +716,17 @@
                                         UpdateSourceTrigger="PropertyChanged" />
                                 </TextBox.Text>
                             </TextBox>
-                            <TextBox Width="135" Margin="25,0,0,0">
+                            <TextBox
+                                Width="150"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-AuthorYear}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-AuthorYear}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl03RegnumsList"
@@ -1537,7 +737,17 @@
                             </TextBox>
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
-                            <TextBox Width="760" Margin="5,0,0,0">
+                            <TextBox
+                                Width="760"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Info}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-Info}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl03RegnumsList"
@@ -1548,7 +758,17 @@
                             </TextBox>
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
-                            <TextBox Width="367" Margin="5,0,0,0">
+                            <TextBox
+                                Width="367"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-EngName}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-EngName}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl03RegnumsList"
@@ -1557,7 +777,17 @@
                                         UpdateSourceTrigger="PropertyChanged" />
                                 </TextBox.Text>
                             </TextBox>
-                            <TextBox Width="367" Margin="25,0,0,0">
+                            <TextBox
+                                Width="367"
+                                Margin="21,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-GerName}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-GerName}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl03RegnumsList"
@@ -1568,7 +798,17 @@
                             </TextBox>
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
-                            <TextBox Width="367" Margin="5,0,0,0">
+                            <TextBox
+                                Width="367"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-FraName}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-FraName}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl03RegnumsList"
@@ -1577,7 +817,17 @@
                                         UpdateSourceTrigger="PropertyChanged" />
                                 </TextBox.Text>
                             </TextBox>
-                            <TextBox Width="367" Margin="25,0,0,0">
+                            <TextBox
+                                Width="367"
+                                Margin="23,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-SpaName}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-SpaName}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl03RegnumsList"
@@ -1593,16 +843,22 @@
                                 <TextBox
                                     Height="Auto"
                                     MinWidth="760"
-                                    MinHeight="50"
+                                    MinHeight="75"
                                     MaxWidth="760"
-                                    MaxHeight="400"
-                                    Margin="5,0,0,5"
+                                    MaxHeight="200"
+                                    Margin="5"
                                     VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
                                     AcceptsReturn="True"
                                     FontWeight="Medium"
-                                    Style="{StaticResource MahApps.Styles.TextBox}"
+                                    SpellCheck.IsEnabled="True"
                                     Text="{Binding SelectedItem.(models:Tbl03Regnum.Memo), ElementName=Tbl03RegnumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     TextWrapping="Wrap"
+                                    ToolTip="{DynamicResource Shared-Memo}"
                                     VerticalScrollBarVisibility="Auto" />
                             </ScrollViewer>
                         </StackPanel>
@@ -1612,10 +868,9 @@
 
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl06Phylum-Phylum}">
-
                 <StackPanel>
                     <GroupBox>
-                        <StackPanel Margin="0,0,5,0">
+                        <StackPanel Margin="1">
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <Button Template="{StaticResource SavePhylumButton}" />
                                 <Button Template="{StaticResource CopyPhylumButton}" />
@@ -1655,9 +910,8 @@
                                     Width="300"
                                     Margin="25,5,5,5"
                                     VerticalAlignment="Bottom"
-                                    mah:TextBoxHelper.ClearTextButton="False"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
-                                    mah:TextBoxHelper.Watermark="Please select Regnum ..."
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
                                     DisplayMemberPath="RegnumName"
                                     IsSynchronizedWithCurrentItem="True"
                                     ItemsSource="{Binding Tbl03RegnumsAllList}"
@@ -1667,7 +921,6 @@
                                     Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                     VirtualizingStackPanel.IsVirtualizing="True" />
                             </StackPanel>
-
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <CheckBox
                                     Width="80"
@@ -1708,7 +961,6 @@
                                         Margin="5"
                                         VerticalAlignment="Stretch"
                                         HorizontalContentAlignment="Stretch"
-                                        mah:TextBoxHelper.ClearTextButton="False"
                                         mah:TextBoxHelper.IsWaitingForData="True"
                                         mah:TextBoxHelper.UseFloatingWatermark="True"
                                         mah:TextBoxHelper.Watermark="{DynamicResource Shared-Synonym}"
@@ -1718,19 +970,15 @@
                                         SpellCheck.IsEnabled="True"
                                         Text="{Binding SelectedItem.(models:Tbl06Phylum.Synonym), ElementName=Tbl06PhylumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         TextWrapping="Wrap"
-                                        ToolTip="Synonym"
+                                        ToolTip="{DynamicResource Shared-Synonym}"
                                         VerticalScrollBarVisibility="Auto" />
                                 </ScrollViewer>
                             </StackPanel>
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <TextBox
                                     Width="600"
-                                    Height="Auto"
-                                    MinHeight="75"
-                                    MaxHeight="200"
                                     Margin="5"
                                     HorizontalContentAlignment="Stretch"
-                                    mah:TextBoxHelper.ClearTextButton="False"
                                     mah:TextBoxHelper.IsWaitingForData="True"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
                                     mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
@@ -1738,7 +986,7 @@
                                     CharacterCasing="Upper"
                                     FontWeight="Medium"
                                     SpellCheck.IsEnabled="True"
-                                    ToolTip="Author">
+                                    ToolTip="{DynamicResource Shared-Author}">
                                     <TextBox.Text>
                                         <Binding
                                             ElementName="Tbl06PhylumsList"
@@ -1749,16 +997,15 @@
                                 </TextBox>
                                 <TextBox
                                     Width="130"
-                                    Margin="25"
+                                    Margin="25,5,5,5"
                                     HorizontalContentAlignment="Stretch"
-                                    mah:TextBoxHelper.ClearTextButton="False"
                                     mah:TextBoxHelper.IsWaitingForData="True"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
                                     mah:TextBoxHelper.Watermark="{DynamicResource Shared-AuthorYear}"
                                     mah:TextBoxHelper.WatermarkAlignment="Left"
                                     FontWeight="Medium"
                                     SpellCheck.IsEnabled="True"
-                                    ToolTip="Author Year">
+                                    ToolTip="{DynamicResource Shared-AuthorYear}">
                                     <TextBox.Text>
                                         <Binding
                                             ElementName="Tbl06PhylumsList"
@@ -1773,14 +1020,13 @@
                                     Width="760"
                                     Margin="5"
                                     HorizontalContentAlignment="Stretch"
-                                    mah:TextBoxHelper.ClearTextButton="False"
                                     mah:TextBoxHelper.IsWaitingForData="True"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
                                     mah:TextBoxHelper.Watermark="{DynamicResource Shared-Info}"
                                     mah:TextBoxHelper.WatermarkAlignment="Left"
                                     FontWeight="Medium"
                                     SpellCheck.IsEnabled="True"
-                                    ToolTip="Info">
+                                    ToolTip="{DynamicResource Shared-Info}">
                                     <TextBox.Text>
                                         <Binding
                                             ElementName="Tbl06PhylumsList"
@@ -1795,14 +1041,13 @@
                                     Width="367"
                                     Margin="5"
                                     HorizontalContentAlignment="Stretch"
-                                    mah:TextBoxHelper.ClearTextButton="False"
                                     mah:TextBoxHelper.IsWaitingForData="True"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
                                     mah:TextBoxHelper.Watermark="{DynamicResource Shared-EngName}"
                                     mah:TextBoxHelper.WatermarkAlignment="Left"
                                     FontWeight="Medium"
                                     SpellCheck.IsEnabled="True"
-                                    ToolTip="English name">
+                                    ToolTip="{DynamicResource Shared-EngName}">
                                     <TextBox.Text>
                                         <Binding
                                             ElementName="Tbl06PhylumsList"
@@ -1813,16 +1058,15 @@
                                 </TextBox>
                                 <TextBox
                                     Width="367"
-                                    Margin="5"
+                                    Margin="23,5,5,5"
                                     HorizontalContentAlignment="Stretch"
-                                    mah:TextBoxHelper.ClearTextButton="False"
                                     mah:TextBoxHelper.IsWaitingForData="True"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
                                     mah:TextBoxHelper.Watermark="{DynamicResource Shared-GerName}"
                                     mah:TextBoxHelper.WatermarkAlignment="Left"
                                     FontWeight="Medium"
                                     SpellCheck.IsEnabled="True"
-                                    ToolTip="German name">
+                                    ToolTip="{DynamicResource Shared-GerName}">
                                     <TextBox.Text>
                                         <Binding
                                             ElementName="Tbl06PhylumsList"
@@ -1837,14 +1081,13 @@
                                     Width="367"
                                     Margin="5"
                                     HorizontalContentAlignment="Stretch"
-                                    mah:TextBoxHelper.ClearTextButton="False"
                                     mah:TextBoxHelper.IsWaitingForData="True"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
                                     mah:TextBoxHelper.Watermark="{DynamicResource Shared-FraName}"
                                     mah:TextBoxHelper.WatermarkAlignment="Left"
                                     FontWeight="Medium"
                                     SpellCheck.IsEnabled="True"
-                                    ToolTip="French name">
+                                    ToolTip="{DynamicResource Shared-FraName}">
                                     <TextBox.Text>
                                         <Binding
                                             ElementName="Tbl06PhylumsList"
@@ -1855,16 +1098,15 @@
                                 </TextBox>
                                 <TextBox
                                     Width="367"
-                                    Margin="5"
+                                    Margin="23,5,5,5"
                                     HorizontalContentAlignment="Stretch"
-                                    mah:TextBoxHelper.ClearTextButton="False"
                                     mah:TextBoxHelper.IsWaitingForData="True"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
                                     mah:TextBoxHelper.Watermark="{DynamicResource Shared-SpaName}"
                                     mah:TextBoxHelper.WatermarkAlignment="Left"
                                     FontWeight="Medium"
                                     SpellCheck.IsEnabled="True"
-                                    ToolTip="Spanish name">
+                                    ToolTip="{DynamicResource Shared-SpaName}">
 
                                     <TextBox.Text>
                                         <Binding
@@ -1875,7 +1117,6 @@
                                     </TextBox.Text>
                                 </TextBox>
                             </StackPanel>
-
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                     <TextBox
@@ -1884,10 +1125,9 @@
                                         MinHeight="75"
                                         MaxWidth="760"
                                         MaxHeight="200"
-                                        Margin="5,0,0,5"
+                                        Margin="5"
                                         VerticalAlignment="Stretch"
                                         HorizontalContentAlignment="Stretch"
-                                        mah:TextBoxHelper.ClearTextButton="False"
                                         mah:TextBoxHelper.IsWaitingForData="True"
                                         mah:TextBoxHelper.UseFloatingWatermark="True"
                                         mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
@@ -1897,6 +1137,7 @@
                                         SpellCheck.IsEnabled="True"
                                         Text="{Binding SelectedItem.(models:Tbl06Phylum.Memo), ElementName=Tbl06PhylumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         TextWrapping="Wrap"
+                                        ToolTip="{DynamicResource Shared-Memo}"
                                         VerticalScrollBarVisibility="Auto" />
                                 </ScrollViewer>
                             </StackPanel>
@@ -1906,91 +1147,30 @@
             </TabItem>
 
 
-            <!--  Part 8.1 FK1 - FK4 Connected  -->
-
-
-            <!--  Part 8.2 TK1 Connected  -->
+            <!--  Part 4.2 TK1 Connected  -->
 
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl12Subphylum-Subphylum}">
                 <GroupBox>
-                    <StackPanel Margin="0,0,5,0">
+                    <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <Button Template="{StaticResource SaveSubphylumButton}" />
                             <Button Template="{StaticResource CopySubphylumButton}" />
                             <Button Template="{StaticResource AddSubphylumButton}" />
                             <Button Template="{StaticResource DeleteSubphylumButton}" />
-
-                            <!--<ToggleButton
-                                Width="36"
-                                Height="36"
-                                Margin="4"
-                                Command="{Binding SaveSubphylumCommand}"
-                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                <ToggleButton.ContentTemplate>
-                                    <DataTemplate>
-                                        <iconPacks:PackIconModern
-                                            Width="20"
-                                            Height="20"
-                                            Kind="Save" />
-                                    </DataTemplate>
-                                </ToggleButton.ContentTemplate>
-                            </ToggleButton>
-                            <ToggleButton
-                                Width="36"
-                                Height="36"
-                                Margin="4"
-                                Command="{Binding CopySubphylumCommand}"
-                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                <ToggleButton.ContentTemplate>
-                                    <DataTemplate>
-                                        <iconPacks:PackIconModern
-                                            Width="20"
-                                            Height="20"
-                                            Kind="PageCopy" />
-                                    </DataTemplate>
-                                </ToggleButton.ContentTemplate>
-                            </ToggleButton>
-                            <ToggleButton
-                                Width="36"
-                                Height="36"
-                                Margin="4"
-                                Command="{Binding AddSubphylumCommand}"
-                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                <ToggleButton.ContentTemplate>
-                                    <DataTemplate>
-                                        <iconPacks:PackIconModern
-                                            Width="20"
-                                            Height="20"
-                                            Kind="Add" />
-                                    </DataTemplate>
-                                </ToggleButton.ContentTemplate>
-                            </ToggleButton>
-                            <ToggleButton
-                                Width="36"
-                                Height="36"
-                                Margin="4"
-                                Command="{Binding DeleteSubphylumCommand}"
-                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                <ToggleButton.ContentTemplate>
-                                    <DataTemplate>
-                                        <iconPacks:PackIconModern
-                                            Width="20"
-                                            Height="20"
-                                            Kind="Delete" />
-                                    </DataTemplate>
-                                </ToggleButton.ContentTemplate>
-                            </ToggleButton>-->
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <TextBox
                                 Width="300"
-                                Margin="5,10,25,0"
-                                FontWeight="Medium">
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl12Subphylum-SubphylumName}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl12Subphylum-SubphylumName}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl12SubphylumsList"
@@ -2011,8 +1191,15 @@
                                 Style="{StaticResource MahApps.Styles.CheckBox}" />
                             <TextBox
                                 Width="135"
-                                Margin="25,0,0,0"
-                                FontWeight="Medium">
+                                Margin="25,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-ValidYear}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-ValidYear}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl12SubphylumsList"
@@ -2027,25 +1214,38 @@
                                 <TextBox
                                     Height="Auto"
                                     MinWidth="760"
-                                    MinHeight="50"
+                                    MinHeight="75"
                                     MaxWidth="760"
-                                    MaxHeight="400"
-                                    Margin="5,0,0,0"
+                                    MaxHeight="200"
+                                    Margin="5"
                                     VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Synonym}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
                                     AcceptsReturn="True"
                                     FontWeight="Medium"
-                                    Style="{StaticResource MahApps.Styles.TextBox}"
+                                    SpellCheck.IsEnabled="True"
                                     Text="{Binding SelectedItem.(models:Tbl12Subphylum.Synonym), ElementName=Tbl12SubphylumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     TextWrapping="Wrap"
+                                    ToolTip="{DynamicResource Shared-Synonym}"
                                     VerticalScrollBarVisibility="Auto" />
                             </ScrollViewer>
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <TextBox
                                 Width="600"
-                                Margin="5,0,0,0"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
                                 CharacterCasing="Upper"
-                                FontWeight="Medium">
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-Author}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl12SubphylumsList"
@@ -2055,9 +1255,16 @@
                                 </TextBox.Text>
                             </TextBox>
                             <TextBox
-                                Width="135"
-                                Margin="25,0,0,0"
-                                FontWeight="Medium">
+                                Width="130"
+                                Margin="25,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-AuthorYear}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-AuthorYear}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl12SubphylumsList"
@@ -2070,8 +1277,15 @@
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <TextBox
                                 Width="760"
-                                Margin="5,0,0,0"
-                                FontWeight="Medium">
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Info}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-Info}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl12SubphylumsList"
@@ -2082,7 +1296,17 @@
                             </TextBox>
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
-                            <TextBox Width="368" Margin="5,0,0,0">
+                            <TextBox
+                                Width="368"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-EngName}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-EngName}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl12SubphylumsList"
@@ -2091,7 +1315,17 @@
                                         UpdateSourceTrigger="PropertyChanged" />
                                 </TextBox.Text>
                             </TextBox>
-                            <TextBox Width="367" Margin="25,0,0,0">
+                            <TextBox
+                                Width="367"
+                                Margin="20,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-GerName}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-GerName}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl12SubphylumsList"
@@ -2102,7 +1336,17 @@
                             </TextBox>
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
-                            <TextBox Width="368" Margin="5,0,0,0">
+                            <TextBox
+                                Width="367"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-FraName}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-FraName}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl12SubphylumsList"
@@ -2111,7 +1355,17 @@
                                         UpdateSourceTrigger="PropertyChanged" />
                                 </TextBox.Text>
                             </TextBox>
-                            <TextBox Width="367" Margin="25,0,0,0">
+                            <TextBox
+                                Width="367"
+                                Margin="20,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-SpaName}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-SpaName}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl12SubphylumsList"
@@ -2121,22 +1375,27 @@
                                 </TextBox.Text>
                             </TextBox>
                         </StackPanel>
-
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <TextBox
                                     Height="Auto"
                                     MinWidth="760"
-                                    MinHeight="50"
+                                    MinHeight="75"
                                     MaxWidth="760"
-                                    MaxHeight="400"
-                                    Margin="5,0,0,5"
+                                    MaxHeight="200"
+                                    Margin="5"
                                     VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
                                     AcceptsReturn="True"
                                     FontWeight="Medium"
-                                    Style="{StaticResource MahApps.Styles.TextBox}"
+                                    SpellCheck.IsEnabled="True"
                                     Text="{Binding SelectedItem.(models:Tbl12Subphylum.Memo), ElementName=Tbl12SubphylumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     TextWrapping="Wrap"
+                                    ToolTip="{DynamicResource Shared-Memo}"
                                     VerticalScrollBarVisibility="Auto" />
                             </ScrollViewer>
                         </StackPanel>
@@ -2165,9 +1424,6 @@
             <!--  Part 13  -->
 
 
-            <!--<TabItem FontWeight="Medium" Header="{DynamicResource Shared-TabStripHeaderReferences}">
-                            <GroupBox>
-                                <TabControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedDetailSubRefTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">-->
             <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceExpert}">
                 <GroupBox>
                     <StackPanel Margin="0,8,5,0">
@@ -2176,79 +1432,14 @@
                             <Button Template="{StaticResource CopyReferenceExpertButton}" />
                             <Button Template="{StaticResource AddReferenceExpertButton}" />
                             <Button Template="{StaticResource DeleteReferenceExpertButton}" />
-
-                            <!--<ToggleButton
-                                Width="36"
-                                Height="36"
-                                Margin="4"
-                                Command="{Binding SaveReferenceExpertCommand}"
-                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                <ToggleButton.ContentTemplate>
-                                    <DataTemplate>
-                                        <iconPacks:PackIconModern
-                                            Width="20"
-                                            Height="20"
-                                            Kind="Save" />
-                                    </DataTemplate>
-                                </ToggleButton.ContentTemplate>
-                            </ToggleButton>
-                            <ToggleButton
-                                Width="36"
-                                Height="36"
-                                Margin="4"
-                                Command="{Binding CopyReferenceExpertCommand}"
-                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                <ToggleButton.ContentTemplate>
-                                    <DataTemplate>
-                                        <iconPacks:PackIconModern
-                                            Width="20"
-                                            Height="20"
-                                            Kind="PageCopy" />
-                                    </DataTemplate>
-                                </ToggleButton.ContentTemplate>
-                            </ToggleButton>
-                            <ToggleButton
-                                Width="36"
-                                Height="36"
-                                Margin="4"
-                                Command="{Binding AddReferenceExpertCommand}"
-                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                <ToggleButton.ContentTemplate>
-                                    <DataTemplate>
-                                        <iconPacks:PackIconModern
-                                            Width="20"
-                                            Height="20"
-                                            Kind="Add" />
-                                    </DataTemplate>
-                                </ToggleButton.ContentTemplate>
-                            </ToggleButton>
-                            <ToggleButton
-                                Width="36"
-                                Height="36"
-                                Margin="4"
-                                Command="{Binding DeleteReferenceExpertCommand}"
-                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                <ToggleButton.ContentTemplate>
-                                    <DataTemplate>
-                                        <iconPacks:PackIconModern
-                                            Width="20"
-                                            Height="20"
-                                            Kind="Delete" />
-                                    </DataTemplate>
-                                </ToggleButton.ContentTemplate>
-                            </ToggleButton>-->
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ComboBox
                                 Width="500"
-                                Margin="5,0,0,0"
+                                Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="Please select Expert ..."
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
                                 DisplayMemberPath="RefExpertName"
                                 IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Tbl90ExpertsAllList}"
@@ -2268,7 +1459,17 @@
                                 Style="{StaticResource MahApps.Styles.CheckBox}" />
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
-                            <TextBox Width="760" Margin="5,0,0,0">
+                            <TextBox
+                                Width="760"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Info}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-Info}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl90ReferenceExpertsList"
@@ -2287,12 +1488,19 @@
                                     MinHeight="100"
                                     MaxWidth="760"
                                     MaxHeight="400"
-                                    Margin="5,0,0,5"
+                                    Margin="5"
                                     VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
                                     AcceptsReturn="True"
-                                    Style="{StaticResource MahApps.Styles.TextBox}"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
                                     Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferenceExpertsList}"
                                     TextWrapping="Wrap"
+                                    ToolTip="{DynamicResource Shared-Memo}"
                                     VerticalScrollBarVisibility="Auto" />
                             </ScrollViewer>
                         </StackPanel>
@@ -2308,79 +1516,14 @@
                             <Button Template="{StaticResource CopyReferenceSourceButton}" />
                             <Button Template="{StaticResource AddReferenceSourceButton}" />
                             <Button Template="{StaticResource DeleteReferenceSourceButton}" />
-
-                            <!--<ToggleButton
-                                Width="36"
-                                Height="36"
-                                Margin="4"
-                                Command="{Binding SaveReferenceSourceCommand}"
-                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                <ToggleButton.ContentTemplate>
-                                    <DataTemplate>
-                                        <iconPacks:PackIconModern
-                                            Width="20"
-                                            Height="20"
-                                            Kind="Save" />
-                                    </DataTemplate>
-                                </ToggleButton.ContentTemplate>
-                            </ToggleButton>
-                            <ToggleButton
-                                Width="36"
-                                Height="36"
-                                Margin="4"
-                                Command="{Binding CopyReferenceSourceCommand}"
-                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                <ToggleButton.ContentTemplate>
-                                    <DataTemplate>
-                                        <iconPacks:PackIconModern
-                                            Width="20"
-                                            Height="20"
-                                            Kind="PageCopy" />
-                                    </DataTemplate>
-                                </ToggleButton.ContentTemplate>
-                            </ToggleButton>
-                            <ToggleButton
-                                Width="36"
-                                Height="36"
-                                Margin="4"
-                                Command="{Binding AddReferenceSourceCommand}"
-                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                <ToggleButton.ContentTemplate>
-                                    <DataTemplate>
-                                        <iconPacks:PackIconModern
-                                            Width="20"
-                                            Height="20"
-                                            Kind="Add" />
-                                    </DataTemplate>
-                                </ToggleButton.ContentTemplate>
-                            </ToggleButton>
-                            <ToggleButton
-                                Width="36"
-                                Height="36"
-                                Margin="4"
-                                Command="{Binding DeleteReferenceSourceCommand}"
-                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                <ToggleButton.ContentTemplate>
-                                    <DataTemplate>
-                                        <iconPacks:PackIconModern
-                                            Width="20"
-                                            Height="20"
-                                            Kind="Delete" />
-                                    </DataTemplate>
-                                </ToggleButton.ContentTemplate>
-                            </ToggleButton>-->
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ComboBox
                                 Width="760"
-                                Margin="5,0,0,0"
+                                Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="Please select Source ..."
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
                                 IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Tbl90SourcesAllList}"
                                 SelectedValue="{Binding SelectedItem.(models:Tbl90RefSource.RefSourceId), ElementName=Tbl90ReferenceSourcesList, Mode=TwoWay}"
@@ -2400,13 +1543,23 @@
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <CheckBox
                                 Width="80"
-                                Margin="5,0,0,0"
+                                Margin="5"
                                 VerticalAlignment="Bottom"
                                 Content="{DynamicResource Shared-Valid}"
                                 FontWeight="Normal"
                                 IsChecked="{Binding SelectedItem.(models:Tbl90Reference.Valid), ElementName=Tbl90ReferenceSourcesList}"
                                 Style="{StaticResource MahApps.Styles.CheckBox}" />
-                            <TextBox Width="50" Margin="25,0,0,0">
+                            <TextBox
+                                Width="50"
+                                Margin="25,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-ValidYear}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-ValidYear}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl90ReferenceSourcesList"
@@ -2417,7 +1570,17 @@
                             </TextBox>
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
-                            <TextBox Width="760" Margin="5,0,0,0">
+                            <TextBox
+                                Width="760"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Info}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-Info}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl90ReferenceSourcesList"
@@ -2436,12 +1599,19 @@
                                     MinHeight="100"
                                     MaxWidth="760"
                                     MaxHeight="400"
-                                    Margin="5,0,0,5"
+                                    Margin="5"
                                     VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
                                     AcceptsReturn="True"
-                                    Style="{StaticResource MahApps.Styles.TextBox}"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
                                     Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferenceSourcesList}"
                                     TextWrapping="Wrap"
+                                    ToolTip="{DynamicResource Shared-Memo}"
                                     VerticalScrollBarVisibility="Auto" />
                             </ScrollViewer>
                         </StackPanel>
@@ -2457,101 +1627,13 @@
                             <Button Template="{StaticResource CopyReferenceAuthorButton}" />
                             <Button Template="{StaticResource AddReferenceAuthorButton}" />
                             <Button Template="{StaticResource DeleteReferenceAuthorButton}" />
-
-                            <!--<ToggleButton
-                                Width="36"
-                                Height="36"
-                                Margin="4"
-                                Command="{Binding SaveReferenceAuthorCommand}"
-                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                <ToggleButton.ContentTemplate>
-                                    <DataTemplate>
-                                        <iconPacks:PackIconModern
-                                            Width="20"
-                                            Height="20"
-                                            Kind="Save" />
-                                    </DataTemplate>
-                                </ToggleButton.ContentTemplate>
-                            </ToggleButton>
-                            <ToggleButton
-                                Width="36"
-                                Height="36"
-                                Margin="4"
-                                Command="{Binding CopyReferenceAuthorCommand}"
-                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                <ToggleButton.ContentTemplate>
-                                    <DataTemplate>
-                                        <iconPacks:PackIconModern
-                                            Width="20"
-                                            Height="20"
-                                            Kind="PageCopy" />
-                                    </DataTemplate>
-                                </ToggleButton.ContentTemplate>
-                            </ToggleButton>
-                            <ToggleButton
-                                Width="36"
-                                Height="36"
-                                Margin="4"
-                                Command="{Binding AddReferenceAuthorCommand}"
-                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                <ToggleButton.ContentTemplate>
-                                    <DataTemplate>
-                                        <iconPacks:PackIconModern
-                                            Width="20"
-                                            Height="20"
-                                            Kind="Add" />
-                                    </DataTemplate>
-                                </ToggleButton.ContentTemplate>
-                            </ToggleButton>
-                            <ToggleButton
-                                Width="36"
-                                Height="36"
-                                Margin="4"
-                                Command="{Binding DeleteReferenceAuthorCommand}"
-                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                <ToggleButton.ContentTemplate>
-                                    <DataTemplate>
-                                        <iconPacks:PackIconModern
-                                            Width="20"
-                                            Height="20"
-                                            Kind="Delete" />
-                                    </DataTemplate>
-                                </ToggleButton.ContentTemplate>
-                            </ToggleButton>-->
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
-                            <!--<ComboBox
-                                Width="760"
-                                Margin="5,0,0,0"
-                                VerticalAlignment="Bottom"
-                                mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="Please select Author ..."
-                                IsSynchronizedWithCurrentItem="True"
-                                ItemsSource="{Binding Tbl90AuthorsAllList}"
-                                MaxDropDownHeight="200"
-                                SelectedValue="{Binding SelectedItem.(models:Tbl90RefAuthor.RefAuthorId), ElementName=Tbl90ReferenceAuthorsList, Mode=TwoWay}"
-                                SelectedValuePath="RefAuthorId"
-                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
-                                VirtualizingStackPanel.IsVirtualizing="True">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding (models:Tbl90RefAuthor.RefAuthorName)}" />
-                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl90RefAuthor.BookName)}" />
-                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl90RefAuthor.Page1)}" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>-->
                             <ComboBox
                                 Width="760"
-                                Margin="5,0,0,0"
+                                Margin="5"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="Please select Author ..."
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
                                 IsEditable="False"
                                 IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Tbl90AuthorsAllList}"
@@ -2575,13 +1657,23 @@
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <CheckBox
                                 Width="80"
-                                Margin="5,0,0,0"
+                                Margin="5"
                                 VerticalAlignment="Bottom"
                                 Content="{DynamicResource Shared-Valid}"
                                 FontWeight="Normal"
                                 IsChecked="{Binding SelectedItem.(models:Tbl90Reference.Valid), ElementName=Tbl90ReferenceAuthorsList}"
                                 Style="{StaticResource MahApps.Styles.CheckBox}" />
-                            <TextBox Width="50" Margin="25,0,0,0">
+                            <TextBox
+                                Width="50"
+                                Margin="25,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-ValidYear}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-ValidYear}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl90ReferenceAuthorsList"
@@ -2592,7 +1684,17 @@
                             </TextBox>
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
-                            <TextBox Width="760" Margin="5,0,0,0">
+                            <TextBox
+                                Width="760"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Info}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-Info}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl90ReferenceAuthorsList"
@@ -2611,21 +1713,26 @@
                                     MinHeight="100"
                                     MaxWidth="760"
                                     MaxHeight="400"
-                                    Margin="5,0,0,5"
+                                    Margin="5"
                                     VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
                                     AcceptsReturn="True"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
                                     Style="{StaticResource MahApps.Styles.TextBox}"
                                     Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferenceAuthorsList}"
                                     TextWrapping="Wrap"
+                                    ToolTip="{DynamicResource Shared-Memo}"
                                     VerticalScrollBarVisibility="Auto" />
                             </ScrollViewer>
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>
             </TabItem>
-            <!--</TabControl>
-                            </GroupBox>
-                        </TabItem>-->
 
             <!--  Part 14  -->
 
@@ -2637,71 +1744,6 @@
                             <Button Template="{StaticResource CopyCommentButton}" />
                             <Button Template="{StaticResource AddCommentButton}" />
                             <Button Template="{StaticResource DeleteCommentButton}" />
-
-                            <!--<ToggleButton
-                                Width="36"
-                                Height="36"
-                                Margin="4"
-                                Command="{Binding SaveCommentCommand}"
-                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                <ToggleButton.ContentTemplate>
-                                    <DataTemplate>
-                                        <iconPacks:PackIconModern
-                                            Width="20"
-                                            Height="20"
-                                            Kind="Save" />
-                                    </DataTemplate>
-                                </ToggleButton.ContentTemplate>
-                            </ToggleButton>
-                            <ToggleButton
-                                Width="36"
-                                Height="36"
-                                Margin="4"
-                                Command="{Binding CopyCommentCommand}"
-                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                <ToggleButton.ContentTemplate>
-                                    <DataTemplate>
-                                        <iconPacks:PackIconModern
-                                            Width="20"
-                                            Height="20"
-                                            Kind="PageCopy" />
-                                    </DataTemplate>
-                                </ToggleButton.ContentTemplate>
-                            </ToggleButton>
-                            <ToggleButton
-                                Width="36"
-                                Height="36"
-                                Margin="4"
-                                Command="{Binding AddCommentCommand}"
-                                Foreground="{DynamicResource MahApps.Brushes.Accent4}"
-                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                <ToggleButton.ContentTemplate>
-                                    <DataTemplate>
-                                        <iconPacks:PackIconModern
-                                            Width="20"
-                                            Height="20"
-                                            Kind="Add" />
-                                    </DataTemplate>
-                                </ToggleButton.ContentTemplate>
-                            </ToggleButton>
-                            <ToggleButton
-                                Width="36"
-                                Height="36"
-                                Margin="4"
-                                Command="{Binding DeleteCommentCommand}"
-                                Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                                Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                                <ToggleButton.ContentTemplate>
-                                    <DataTemplate>
-                                        <iconPacks:PackIconModern
-                                            Width="20"
-                                            Height="20"
-                                            Kind="Delete" />
-                                    </DataTemplate>
-                                </ToggleButton.ContentTemplate>
-                            </ToggleButton>-->
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <CheckBox
@@ -2714,7 +1756,17 @@
                                 Style="{StaticResource MahApps.Styles.CheckBox}" />
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
-                            <TextBox Width="760" Margin="5,0,0,0">
+                            <TextBox
+                                Width="760"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Info}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-Info}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl93CommentsList"
@@ -2733,21 +1785,26 @@
                                     MinHeight="100"
                                     MaxWidth="760"
                                     MaxHeight="620"
-                                    Margin="5,0,0,5"
+                                    Margin="5"
                                     VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
                                     AcceptsReturn="True"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
                                     Style="{StaticResource MahApps.Styles.TextBox}"
                                     Text="{Binding SelectedItem.(models:Tbl93Comment.Memo), ElementName=Tbl93CommentsList}"
                                     TextWrapping="Wrap"
+                                    ToolTip="{DynamicResource Shared-Memo}"
                                     VerticalScrollBarVisibility="Auto" />
                             </ScrollViewer>
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>
             </TabItem>
-            <!--</TabControl>
-                </GroupBox>
-            </TabItem>-->
         </TabControl>
 
         <StackPanel

@@ -1,16 +1,18 @@
-﻿using ATIS.Dal.Models;
-using ATIS.Ui.Core;
-using ATIS.Ui.Helper;
-using ATIS.Ui.Views.Database.CrudHelper;
-using ATIS.Ui.Views.Database.DatabaseHelper;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
 using Common.Logging;
+using ATIS.Dal.Models;
+using ATIS.Ui.Core;
+using ATIS.Ui.Helper;
+using ATIS.Ui.Views.Database.CrudHelper;
+using ATIS.Ui.Views.Database.DatabaseHelper;
+using Microsoft.EntityFrameworkCore;
+
+//    Tbl06PhylumsViewModel Skriptdatum:  24.10.2020  12:32    
 
 namespace ATIS.Ui.Views.Database.D06Phylum
 {
@@ -19,8 +21,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         #region "Private Data Members"
 
-        private static readonly ILog Log =
-            LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly AtisDbContext _context = new AtisDbContext();
@@ -52,8 +53,8 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             }
             else
             {
-                Tbl06PhylumsList = new ObservableCollection<Tbl06Phylum>();
                 // Code runs "for real" 
+                Tbl06PhylumsList = new ObservableCollection<Tbl06Phylum>();
             }
         }
 
@@ -65,12 +66,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         //    Part 1    
 
         #region [Commands Phylum]
-
-
-        //-------------------------------------------------------------------------
-        //private RelayCommand _clearPhylumCommand;
-
-        //public ICommand ClearPhylumCommand => _clearPhylumCommand ??= new RelayCommand(delegate { ClearPhylum(null); });
 
         private RelayCommand _getPhylumsByNameOrIdCommand;
         public ICommand GetPhylumsByNameOrIdCommand => _getPhylumsByNameOrIdCommand ??= new RelayCommand(delegate { ExecuteGetPhylumsByNameOrId(SearchPhylumName); });
@@ -90,29 +85,8 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         #endregion [Commands Phylum]
 
-        //-------------------------------------------------------------------------         
 
         #region [Methods Phylum]
-
-
-        private void ClearPhylum(object o)
-        {
-            SearchPhylumName = "";
-
-            SelectedMainTabIndex = 0; //change tab
-            SelectedDetailTabIndex = 1;
-            //SelectedDetailSubTabIndex = 0;
-            //SelectedDetailSubRefTabIndex = 0;
-
-            Tbl03RegnumsList?.Clear();
-            Tbl06PhylumsList?.Clear();
-            Tbl12SubphylumsList?.Clear();
-            Tbl90ReferenceExpertsList?.Clear();
-            Tbl90ReferenceSourcesList?.Clear();
-            Tbl90ReferenceAuthorsList?.Clear();
-            Tbl93CommentsList?.Clear();
-        }
-        //----------------------------------------------------------------------                  
 
         private void ExecuteGetPhylumsByNameOrId(string searchName)
         {

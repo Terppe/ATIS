@@ -1,0 +1,86 @@
+@model Atis.Domain.ViewModels.AspnetUsers.ListViewModel
+
+        <!-- Index  Skriptdatum:  16.03.2012  10:32   -->    
+    
+
+@{
+    ViewBag.Title =  AspnetUsersRes.StringsRes.Index;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@AspnetUsersRes.StringsRes.Index</h2>
+
+@using (Html.BeginForm("Index", "AspnetUsers", FormMethod.Get))              
+{
+    <fieldset class="filtering">
+        <legend>@SharedRes.StringsRes.Filter</legend>  
+        <div> 
+            <p></p>         
+ 
+            <table>                                             
+                <tr>  
+                    <td style="width:8em"><strong>@AspnetUsersRes.StringsRes.UserId </strong></td>
+                    <td><input type="text" id="userid" name="userid" /></td>            
+                    <td style="width:8em"><strong>@AspnetUsersRes.StringsRes.UserName </strong></td>
+                    <td><input type="text" id="username" name="username" /></td>            
+                    <td style="width:8em"><strong>@AspnetApplicationsRes.StringsRes.ApplicationName </strong></td>
+                    <td>@Html.DropDownListFor(m => m.ApplicationId, Model.ApplicationList, SharedRes.StringsRes.DDLAll, new { @class = "ddl" })     </td>      
+  
+                    
+                    @Html.Hidden("sortBy", Model.SortBy)
+                    @Html.Hidden("ascending", Model.SortAscending)
+
+                    <td><input type="submit" value="@SharedRes.StringsRes.Search" /></td> 
+                </tr>   
+            </table>              
+ 
+        </div>
+    </fieldset>
+}
+
+<table class="grid" style="width: 95%">                
+    <tr>
+        <th></th>   
+ 
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "UserName" }, { "DisplayName", AspnetUsersRes.StringsRes.UserName } })</th>                    
+  
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "LoweredUserName" }, { "DisplayName", AspnetUsersRes.StringsRes.LoweredUserName } })</th>   
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "MobileAlias" }, { "DisplayName", AspnetUsersRes.StringsRes.MobileAlias } })</th>   
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "IsAnonymous" }, { "DisplayName", AspnetUsersRes.StringsRes.IsAnonymous } })</th>   
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "LastActivityDate" }, { "DisplayName", AspnetUsersRes.StringsRes.LastActivityDate } })</th>   
+
+     </tr>
+
+    @foreach (var item in Model.AspnetUsers) { 
+    
+    <tr>
+        <td class="left">
+            @Html.ActionLink(SharedRes.StringsRes.ActionLnkDelete, "Delete", new { id = item.UserId }) | 
+            @Html.ActionLink(SharedRes.StringsRes.ActionLnkEdit, "Edit", new { id = item.UserId }) |
+            @Html.ActionLink(SharedRes.StringsRes.ActionLnkDetails, "Details", new { id = item.UserId }) </td>           
+
+  
+        <td class="left">@item.UserName </td>                   
+        <td class="left">@item.LoweredUserName </td>   
+        <td class="left">@item.MobileAlias </td>   
+        <td class="left">@item.IsAnonymous </td>   
+        <td class="left">@item.LastActivityDate </td>   
+
+    </tr>    
+    }     
+    <tr>        
+  
+        <td class="pager" colspan="9">   
+ 
+           @Html.Partial("_Pager", Model)
+        </td>
+    </tr>       
+</table>
+<div>
+    <ul id="nav-one" class="dropmenu css-only">      
+
+         <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkApplicationLeft, "Index", "AspnetApplications")</li>        
+       
+  
+    </ul> 
+</div>           

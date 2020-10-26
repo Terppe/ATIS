@@ -1,0 +1,2519 @@
+    
+<UserControl 
+             x:Class="Te.Atis.Ui.Desktop.Views.Database.Tbl42SuperfamiliesView"               
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:Te.Atis.Ui.Desktop.Domain.Converters"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"      
+        
+             xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+             xmlns:helper="clr-namespace:Te.Atis.Ui.Desktop.Domain.Helper"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"                                                     
+        
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:models="clr-namespace:Te.Atis.DomainModel;assembly=Te.Atis.DomainModel"
+             xmlns:validationRules="clr-namespace:Te.Atis.Ui.Desktop.Domain.Helper.ValidationRules"                                              
+            
+             d:DesignHeight="830" 
+             d:DesignWidth="1140"
+             mc:Ignorable="d">                                              
+                   
+    <UserControl.Resources>
+        <converters:ComboBoxEmptyItemConverter x:Key="ComboBoxEmptyItemConverter" />
+        <converters:CapitalizeFirstLetterConverter x:Key="CapFirst" />
+        <ContextMenu x:Key="MenuFamily" >
+            <MenuItem Command="{Binding SaveFamilyCommand}" Header="{DynamicResource Shared-ButtonSave}" >
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="ContentSave"
+                        Opacity=".56" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding CopyFamilyCommand}" Header="{DynamicResource Shared-ButtonCopy}" >
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="ContentCopy" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding AddFamilyCommand}" Header="{DynamicResource Shared-ButtonAdd}" >
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="Plus"
+                        Opacity=".56" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding DeleteFamilyCommand}" Header="{DynamicResource Shared-ButtonDelete}" >
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="Delete"
+                        Opacity=".56" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MenuSuperfamily">
+            <MenuItem Command="{Binding SaveSuperfamilyCommand}" Header="{DynamicResource Shared-ButtonSave}" >   
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="ContentSave"
+                        Opacity=".56" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding CopySuperfamilyCommand}" Header="{DynamicResource Shared-ButtonCopy}" >
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="ContentCopy" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding AddSuperfamilyCommand}" Header="{DynamicResource Shared-ButtonAdd}" >
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="Plus"
+                        Opacity=".56" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding DeleteSuperfamilyCommand}" Header="{DynamicResource Shared-ButtonDelete}" >
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="Delete"
+                        Opacity=".56" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MenuInfraordo">
+            <MenuItem Command="{Binding SaveInfraordoCommand}" Header="{DynamicResource Shared-ButtonSave}" >
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="ContentSave"
+                        Opacity=".56" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MenuReferenceExpert">
+            <MenuItem Command="{Binding SaveReferenceExpertCommand}" Header="{DynamicResource Shared-ButtonSave}" >
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="ContentSave"
+                        Opacity=".56" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding CopyReferenceExpertCommand}" Header="{DynamicResource Shared-ButtonCopy}" >
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="ContentCopy" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding AddReferenceExpertCommand}" Header="{DynamicResource Shared-ButtonAdd}" >
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="Plus"
+                        Opacity=".56" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding DeleteReferenceExpertCommand}" Header="{DynamicResource Shared-ButtonDelete}" >
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="Delete"
+                        Opacity=".56" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MenuReferenceSource">
+            <MenuItem Command="{Binding SaveReferenceSourceCommand}" Header="{DynamicResource Shared-ButtonSave}" >
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="ContentSave"
+                        Opacity=".56" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding CopyReferenceSourceCommand}" Header="{DynamicResource Shared-ButtonCopy}" >
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="ContentCopy" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding AddReferenceSourceCommand}" Header="{DynamicResource Shared-ButtonAdd}" >
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="Plus"
+                        Opacity=".56" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding DeleteReferenceSourceCommand}" Header="{DynamicResource Shared-ButtonDelete}" >
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="Delete"
+                        Opacity=".56" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MenuReferenceAuthor">
+            <MenuItem Command="{Binding SaveReferenceAuthorCommand}" Header="{DynamicResource Shared-ButtonSave}" >
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="ContentSave"
+                        Opacity=".56" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding CopyReferenceAuthorCommand}" Header="{DynamicResource Shared-ButtonCopy}" >
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="ContentCopy" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding AddReferenceAuthorCommand}" Header="{DynamicResource Shared-ButtonAdd}" >
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="Plus"
+                        Opacity=".56" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding DeleteReferenceAuthorCommand}" Header="{DynamicResource Shared-ButtonDelete}" >
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="Delete"
+                        Opacity=".56" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MenuComment">
+            <MenuItem Command="{Binding SaveCommentCommand}" Header="{DynamicResource Shared-ButtonSave}" >
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="ContentSave"
+                        Opacity=".56" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding CopyCommentCommand}" Header="{DynamicResource Shared-ButtonCopy}" >
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="ContentCopy" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding AddCommentCommand}" Header="{DynamicResource Shared-ButtonAdd}" >
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="Plus"
+                        Opacity=".56" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding DeleteCommentCommand}" Header="{DynamicResource Shared-ButtonDelete}" >
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="Delete"
+                        Opacity=".56" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MenuEdit">
+            <MenuItem Command="Cut" Header="{DynamicResource Shared-ActionLnkCut}">
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="ContentCut"
+                        Opacity=".56" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="Copy" Header="{DynamicResource Shared-ActionLnkCopy}">
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="ContentCopy" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="Paste" Header="{DynamicResource Shared-ActionLnkPaste}">
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Margin="0,-5,0,0"
+                        Kind="ContentPaste"
+                        Opacity=".56" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>          
+       
+    </UserControl.Resources>
+
+    <UserControl.DataContext>
+        <Binding Path="Tbl42Superfamilies" Source="{StaticResource Locator}"/>
+    </UserControl.DataContext>                           
+ 
+
+        <!-- Tbl42SuperfamiliesView.xaml  Skriptdatum:  08.11.2018  10:32   -->    
+
+             
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition
+                Width="1"
+                MinWidth="318"
+                MaxWidth="932" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>                                    
+
+                            <!-- Part 1   Creating Sub-Grid in Column 0  -->              
+             
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.7*" />
+                <RowDefinition Height="Auto" />                                    
+             
+                <RowDefinition Height="225" />
+            </Grid.RowDefinitions>                                    
+             
+            <dragablz:TabablzControl Margin="1" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderSuperfamilies}">                                      
+             
+                    <ScrollViewer
+                        helper:AutoScrollBehavior.TopMouseScrollPriority="True"
+                        HorizontalScrollBarVisibility="Auto"
+                        VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                           <GroupBox>
+                                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                    <materialDesign:ColorZone
+                                        Width="180"
+                                        Margin="10,10,0,10"
+                                        materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                                        Background="White"
+                                        CornerRadius="1"
+                                        Focusable="True"
+                                        Mode="PrimaryMid">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>                                         
+             
+                                            <TextBox
+                                                x:Name="TbSearchSuperfamily"
+                                                Grid.Column="1"
+                                                Grid.ColumnSpan="2"
+                                                Width="180"
+                                                Margin="-5,4"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Center"                                        
+             
+                                                materialDesign:HintAssist.Hint="{DynamicResource Shared-SearchNameOrId}"                                      
+             
+                                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                                BorderThickness="0"
+                                                FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
+                                                Focusable="True"
+                                                Foreground="Gray" 
+                                                KeyDown="TbSearchSuperfamily_KeyDown"                                    
+             
+                                                Text="{Binding SearchSuperfamilyName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                ToolTip="{DynamicResource Shared-SearchNameOrId}"  />                                       
+             
+                                        <Button
+                                            x:Name="BtnClear"
+                                            Grid.Column="2"
+                                            Command="{Binding ClearSuperfamilyCommand}"
+                                            FocusManager.FocusedElement="{Binding ElementName=TbSearchSuperfamily}"
+                                            Style="{DynamicResource MaterialDesignToolButton}">
+                                                <materialDesign:PackIcon
+                                                    Width="24"
+                                                    Height="24"
+                                                    Margin="10,0,0,0"
+                                                    Kind="Close"
+                                                    Opacity=".56" />
+                                            </Button>
+                                    </Grid>
+                                </materialDesign:ColorZone>                                      
+             
+                                    <Button
+                                        x:Name="BtnGet"
+                                        Margin="0,0,10,0"
+                                        HorizontalAlignment="Left"
+                                        Command="{Binding GetSuperfamiliesByNameOrIdCommand}"
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        ToolTip="{DynamicResource Shared-Search}">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Margin="0,0,-5,0"
+                                            Kind="Magnify"
+                                            Opacity=".56" />
+                                    </Button>
+                                    <Button
+                                        Margin="0,0,0,0"
+                                        HorizontalAlignment="Left"
+                                        Command="{Binding AddSuperfamilyCommand}"
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        ToolTip="{DynamicResource Shared-ActionLnkCreate}">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Margin="0,0,-5,0"
+                                            Kind="Plus"
+                                            Opacity=".56" />
+                                    </Button>
+                            </StackPanel>     
+                        </GroupBox>     
+             
+                            <GroupBox>
+                                <ListView
+                                     x:Name="Tbl42SuperfamiliesList"   
+             
+                                    IsSynchronizedWithCurrentItem="True"
+                                    ItemsSource="{Binding Tbl42SuperfamiliesList}" 
+                                    ScrollViewer.IsDeferredScrollingEnabled="True"
+                                    SelectedItem="{Binding (Selector.SelectedItem)}"
+                                    VirtualizingStackPanel.IsVirtualizing="True"
+                                    VirtualizingStackPanel.VirtualizationMode="Recycling">   
+             
+                                    <!--  trigger  -->
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseDoubleClick">
+                                            <i:InvokeCommandAction Command="{Binding GetConnectedTablesCommand}" CommandParameter="{Binding ElementName=Tbl42SuperfamiliesList, Path=SelectedItem}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>    
+             
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Width="Auto" Header="{DynamicResource Tbl42Superfamily-SuperfamilyId}" >       
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock     
+                                                            Width="100"  
+                                                            Text="{Binding (models:Tbl42Superfamily.SuperfamilyID)}"
+                                                            TextAlignment="Left" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>   
+            
+                                            <GridViewColumn
+                                                Width="150"
+                                                DisplayMemberBinding="{Binding (models:Tbl42Superfamily.SuperfamilyName)}"
+                                                Header="{DynamicResource Tbl42Superfamily-SuperfamilyName}"  />                                                                                               
+             
+                                            <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <CheckBox IsChecked="{Binding (models:Tbl42Superfamily.Valid)}" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>                                                                                                                           
+             
+                                            <GridViewColumn
+                                                Width="150"
+                                                DisplayMemberBinding="{Binding (models:Tbl42Superfamily.Author)}"          
+                                                Header="{DynamicResource Shared-Author}" />
+                                            <GridViewColumn
+                                                Width="80"
+                                                DisplayMemberBinding="{Binding (models:Tbl42Superfamily.AuthorYear)}"
+                                                Header="{DynamicResource Shared-AuthorYear}" />                                                                                                                           
+             
+                                            <GridViewColumn
+                                                Width="400"
+                                                DisplayMemberBinding="{Binding (models:Tbl42Superfamily.Info)}"
+                                                Header="{DynamicResource Shared-Info}" />                                                                                                                           
+             
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </GroupBox>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+            </dragablz:TabablzControl>                                                                                                                           
+
+
+                     <!-- Part 2   FK1  aktuell  -->    
+
+             
+            <dragablz:TabablzControl
+                Grid.Row="2"
+                Margin="1"
+                Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                SelectedIndex="{Binding SelectedMainTabIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">                                     
+               
+                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderInfraordos}" >            
+                    <ScrollViewer
+                        helper:AutoScrollBehavior.TopMouseScrollPriority="True"
+                        HorizontalScrollBarVisibility="Auto"
+                        VerticalScrollBarVisibility="Auto">
+                            <StackPanel>
+                            <GroupBox>
+                                <ListView
+                                    x:Name="Tbl39InfraordosList"                                                                 
+                         
+                                                IsSynchronizedWithCurrentItem="True"
+                                                ItemsSource="{Binding Tbl39InfraordosList}" 
+                                    ScrollViewer.IsDeferredScrollingEnabled="True"
+                                    SelectedItem="{Binding (Selector.SelectedItem)}"
+                                    VirtualizingStackPanel.IsVirtualizing="True"
+                                    VirtualizingStackPanel.VirtualizationMode="Recycling">
+                                                <ListView.View>
+                                                    <GridView>
+                                                        <GridViewColumn Width="Auto" Header="{DynamicResource Tbl39Infraordo-InfraordoId}" >       
+                                                            <GridViewColumn.CellTemplate>
+                                                                <DataTemplate>
+                                                                    <TextBlock
+                                                                        Width="100"
+                                                                        Text="{Binding (models:Tbl39Infraordo.InfraordoID)}"
+                                                                        TextAlignment="Left" />
+                                                                    </DataTemplate>
+                                                            </GridViewColumn.CellTemplate>
+                                                        </GridViewColumn>                                                                                                               
+                          
+                                                        <GridViewColumn
+                                                            Width="150"
+                                                            DisplayMemberBinding="{Binding (models:Tbl39Infraordo.InfraordoName)}"
+                                                            Header="{DynamicResource Tbl39Infraordo-InfraordoName}" />                                                                                                                
+                   
+                                                        <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
+                                                            <GridViewColumn.CellTemplate>
+                                                                <DataTemplate>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                         <CheckBox IsChecked="{Binding (models:Tbl39Infraordo.Valid)}" />
+                                                                   </StackPanel>
+                                                                </DataTemplate>
+                                                            </GridViewColumn.CellTemplate>
+                                                        </GridViewColumn>
+                                                        <GridViewColumn
+                                                            Width="150"
+                                                            DisplayMemberBinding="{Binding (models:Tbl39Infraordo.Author)}"
+                                                            Header="{DynamicResource Shared-Author}" />
+                                                        <GridViewColumn
+                                                            Width="80"
+                                                            DisplayMemberBinding="{Binding (models:Tbl39Infraordo.AuthorYear)}"
+                                                            Header="{DynamicResource Shared-AuthorYear}" />                                                                                                              
+                   
+                                                        <GridViewColumn
+                                                            Width="150"
+                                                            DisplayMemberBinding="{Binding (models:Tbl39Infraordo.Info)}"
+                                                            Header="{DynamicResource Shared-Info}" />                                                                                                                                                                                                                                       
+                  
+                                                    </GridView>
+                                                </ListView.View>
+                                            </ListView>
+                                         </GroupBox>
+                                     </StackPanel>
+                                  </ScrollViewer>
+                              </TabItem>                                                                                                               
+                                                          
+
+                     <!-- Part 2  FK2  aktuell  -->    
+             
+                                                            
+        
+                     <!-- Part 2   FK3  aktuell  -->    
+
+   
+             
+                     <!-- Part 2  FK4  aktuell  -->    
+             
+   
+
+                     <!-- Part 4  TK1  aktuell  -->    
+
+               
+                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderFamilies}" >            
+                    <ScrollViewer
+                        helper:AutoScrollBehavior.TopMouseScrollPriority="True"
+                        HorizontalScrollBarVisibility="Auto"
+                        VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <GroupBox>
+                                <ListView
+                                    x:Name="Tbl45FamiliesList"                                                                 
+                         
+                                                IsSynchronizedWithCurrentItem="True"
+                                                ItemsSource="{Binding Tbl45FamiliesList}" 
+                                    ScrollViewer.IsDeferredScrollingEnabled="True"
+                                    SelectedItem="{Binding (Selector.SelectedItem)}"
+                                    VirtualizingStackPanel.IsVirtualizing="True"
+                                    VirtualizingStackPanel.VirtualizationMode="Recycling">
+                                                <ListView.View>
+                                                    <GridView>
+                                                        <GridViewColumn Width="Auto" Header="{DynamicResource Tbl45Family-FamilyId}" >       
+                                                            <GridViewColumn.CellTemplate>
+                                                                <DataTemplate>
+                                                                    <TextBlock
+                                                                        Width="100"
+                                                                        Text="{Binding (models:Tbl45Family.FamilyID)}"
+                                                                        TextAlignment="Left" />
+                                                                    </DataTemplate>
+                                                            </GridViewColumn.CellTemplate>
+                                                        </GridViewColumn>                                                                                                               
+            
+                                                        <GridViewColumn
+                                                            Width="150"
+                                                            DisplayMemberBinding="{Binding (models:Tbl45Family.FamilyName)}"
+                                                            Header="{DynamicResource Tbl45Family-FamilyName}" />
+                                                        <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
+                                                            <GridViewColumn.CellTemplate>
+                                                                <DataTemplate>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <CheckBox IsChecked="{Binding (models:Tbl45Family.Valid)}" />
+                                                                    </StackPanel>
+                                                                </DataTemplate>
+                                                            </GridViewColumn.CellTemplate>
+                                                        </GridViewColumn>
+                                                        <GridViewColumn
+                                                            Width="150"
+                                                            DisplayMemberBinding="{Binding (models:Tbl45Family.Author)}"
+                                                            Header="{DynamicResource Shared-Author}" />
+                                                        <GridViewColumn
+                                                            Width="80"
+                                                            DisplayMemberBinding="{Binding (models:Tbl45Family.AuthorYear)}"
+                                                            Header="{DynamicResource Shared-AuthorYear}" />
+                                                         <GridViewColumn
+                                                            Width="400"
+                                                            DisplayMemberBinding="{Binding (models:Tbl45Family.Info)}"
+                                                            Header="{DynamicResource Shared-Info}" />                                                                                                                                                                                                                                                    
+                  
+                                                    </GridView>
+                                                </ListView.View>
+                                            </ListView>
+                                         </GroupBox>
+                                     </StackPanel>
+                                  </ScrollViewer>
+                              </TabItem>                                                                                                               
+  
+
+                     <!-- Part 4   TK2  aktuell  -->    
+     
+  
+       
+                     <!-- Part 4   TK3  aktuell  -->    
+   
+  
+            
+                     <!-- Part 4   TK4  aktuell  -->    
+
+              
+     
+                     <!-- Part 7   -->        
+
+            
+                                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderReferences}">
+                                    <dragablz:TabablzControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedMainSubRefTabIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                        <TabItem Header="{DynamicResource Shared-TabStripHeaderRefExperts}">
+                                            <ScrollViewer
+                                                 helper:AutoScrollBehavior.TopMouseScrollPriority="True"
+                                                 HorizontalScrollBarVisibility="Auto"
+                                                VerticalScrollBarVisibility="Auto">
+                                                <StackPanel>
+                                                    <GroupBox>                                                    
+                                            
+                                               <ListView
+                                            x:Name="Tbl90ReferenceExpertsList"
+                                            IsSynchronizedWithCurrentItem="True"
+                                            ItemsSource="{Binding Tbl90ReferenceExpertsList}"
+                                            ScrollViewer.IsDeferredScrollingEnabled="True"
+                                            SelectedItem="{Binding (Selector.SelectedItem)}"
+                                            VirtualizingStackPanel.IsVirtualizing="True"
+                                            VirtualizingStackPanel.VirtualizationMode="Recycling">      
+            
+                                                    <ListView.View>
+                                                        <GridView>
+                                                            <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90Reference-ReferenceId}">
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                        Width="100"
+                                                                        Text="{Binding (models:Tbl90Reference.ReferenceID)}"
+                                                                        TextAlignment="Left" />
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+                                                            <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90RefExpert-ExpertId}">
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                        Width="100"
+                                                                        Text="{Binding (models:Tbl90Reference.RefExpertID)}"
+                                                                        TextAlignment="Left" />
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+                                                            <GridViewColumn
+                                                                Width="550"
+                                                                DisplayMemberBinding="{Binding (models:Tbl90Reference.Tbl90RefExperts).RefExpertName}"
+                                                                Header="{DynamicResource Tbl90RefExpert-ExpertName}" />
+                                                            <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <StackPanel Orientation="Horizontal">
+                                                                            <CheckBox IsChecked="{Binding (models:Tbl90Reference.Valid)}" />
+                                                                        </StackPanel>
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+                                                            <GridViewColumn
+                                                                Width="700"
+                                                                DisplayMemberBinding="{Binding (models:Tbl90Reference.Info)}"
+                                                                Header="{DynamicResource Shared-Info}" />
+                                                        </GridView>
+                                                    </ListView.View>
+                                                  </ListView>
+                                               </GroupBox>
+                                             </StackPanel>
+                                          </ScrollViewer>
+                                        </TabItem>
+                                        <TabItem Header="{DynamicResource Shared-TabStripHeaderRefSources}">
+                                            <ScrollViewer
+                                              helper:AutoScrollBehavior.TopMouseScrollPriority="True"
+                                             HorizontalScrollBarVisibility="Auto"
+                                            VerticalScrollBarVisibility="Auto">
+                                                <StackPanel>
+                                                  <GroupBox>                                                
+            
+                                        <ListView
+                                            x:Name="Tbl90ReferenceSourcesList"
+                                            IsSynchronizedWithCurrentItem="True"
+                                            ItemsSource="{Binding Tbl90ReferenceSourcesList}"
+                                            ScrollViewer.IsDeferredScrollingEnabled="True"
+                                            SelectedItem="{Binding (Selector.SelectedItem)}"
+                                            VirtualizingStackPanel.IsVirtualizing="True"
+                                            VirtualizingStackPanel.VirtualizationMode="Recycling">      
+            
+                                                    <ListView.View>
+                                                        <GridView>
+                                                            <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90Reference-ReferenceId}">
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                        Width="100"
+                                                                        Text="{Binding (models:Tbl90Reference.ReferenceID)}"
+                                                                        TextAlignment="Left" />
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+                                                            <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90RefSource-SourceId}">
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                        Width="100"
+                                                                        Text="{Binding (models:Tbl90Reference.RefSourceID)}"
+                                                                        TextAlignment="Left" />
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+                                                            <GridViewColumn
+                                                                Width="550"
+                                                                DisplayMemberBinding="{Binding (models:Tbl90Reference.Tbl90RefSources).RefSourceName}"
+                                                                Header="{DynamicResource Tbl90Reference-RefSourceName}" />
+                                                            <GridViewColumn Header="{DynamicResource Shared-Valid}">
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <StackPanel Orientation="Horizontal">
+                                                                            <CheckBox IsChecked="{Binding (models:Tbl90Reference.Valid)}" />
+                                                                        </StackPanel>
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+                                                            <GridViewColumn
+                                                                Width="700"
+                                                                DisplayMemberBinding="{Binding (models:Tbl90Reference.Info)}"
+                                                                Header="{DynamicResource Shared-Info}" />
+                                                        </GridView>
+                                                    </ListView.View>
+                                                </ListView>
+                                             </GroupBox>
+                                            </StackPanel>
+                                          </ScrollViewer>
+                                        </TabItem>
+                                        <TabItem Header="{DynamicResource Shared-TabStripHeaderRefAuthors}">
+                                            <ScrollViewer
+                                                helper:AutoScrollBehavior.TopMouseScrollPriority="True"
+                                               HorizontalScrollBarVisibility="Auto"
+                                               VerticalScrollBarVisibility="Auto">
+                                                <StackPanel>
+                                                  <GroupBox>                           
+            
+                                        <ListView
+                                            x:Name="Tbl90ReferenceAuthorsList"
+                                            IsSynchronizedWithCurrentItem="True"
+                                            ItemsSource="{Binding Tbl90ReferenceAuthorsList}"
+                                            ScrollViewer.IsDeferredScrollingEnabled="True"
+                                            SelectedItem="{Binding (Selector.SelectedItem)}"
+                                            VirtualizingStackPanel.IsVirtualizing="True"
+                                            VirtualizingStackPanel.VirtualizationMode="Recycling">     
+            
+                                                    <ListView.View>
+                                                        <GridView>
+                                                            <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90Reference-ReferenceId}">
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                        Width="100"
+                                                                        Text="{Binding (models:Tbl90Reference.ReferenceID)}"
+                                                                        TextAlignment="Left" />
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+                                                            <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90RefAuthor-AuthorId}">
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                        Width="100"
+                                                                        Text="{Binding (models:Tbl90Reference.RefAuthorID)}"
+                                                                        TextAlignment="Left" />
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+                                                            <GridViewColumn
+                                                                Width="550"
+                                                                DisplayMemberBinding="{Binding (models:Tbl90Reference.Tbl90RefAuthors).RefAuthorName}"
+                                                                Header="{DynamicResource Tbl90Reference-RefAuthorName}" />
+                                                            <GridViewColumn Header="{DynamicResource Shared-Valid}">
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <StackPanel Orientation="Horizontal">
+                                                                            <CheckBox IsChecked="{Binding (models:Tbl90Reference.Valid)}" />
+                                                                        </StackPanel>
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+                                                            <GridViewColumn
+                                                                Width="700"
+                                                                DisplayMemberBinding="{Binding (models:Tbl90Reference.Info)}"
+                                                                Header="{DynamicResource Shared-Info}" />
+                                                        </GridView>
+                                                    </ListView.View>
+                                                </ListView>
+                                              </GroupBox>
+                                            </StackPanel>
+                                          </ScrollViewer>
+                                        </TabItem>
+                                    </dragablz:TabablzControl>
+                                </TabItem>                                                                                        
+        
+                                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderComments}">
+                                    <ScrollViewer
+                                     helper:AutoScrollBehavior.TopMouseScrollPriority="True"
+                                     HorizontalScrollBarVisibility="Auto"
+                                     VerticalScrollBarVisibility="Auto">
+                                    <StackPanel>
+                                       <GroupBox>                                
+            
+                                <ListView
+                                    x:Name="Tbl93CommentsList"
+                                    IsSynchronizedWithCurrentItem="True"
+                                    ItemsSource="{Binding Tbl93CommentsList}"
+                                            ScrollViewer.IsDeferredScrollingEnabled="True"
+                                            SelectedItem="{Binding (Selector.SelectedItem)}"
+                                            VirtualizingStackPanel.IsVirtualizing="True"
+                                            VirtualizingStackPanel.VirtualizationMode="Recycling">     
+        
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn Width="Auto" Header="{DynamicResource Tbl93Comment-CommentId}">
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock
+                                                                        Width="100"
+                                                                        Text="{Binding (models:Tbl93Comment.CommentID)}"
+                                                                        TextAlignment="Left" />
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn Header="{DynamicResource Shared-Valid}">
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <CheckBox IsChecked="{Binding (models:Tbl93Comment.Valid)}" />
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn
+                                                        Width="700"
+                                                        DisplayMemberBinding="{Binding (models:Tbl93Comment.Info)}"
+                                                        Header="{DynamicResource Shared-Info}" />
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                      </GroupBox>
+                                    </StackPanel>
+                                  </ScrollViewer>
+                                </TabItem>
+                            </dragablz:TabablzControl>
+                            <GridSplitter
+                                Grid.Row="1"
+                                Height="5"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Center"
+                                Background="Black"
+                                ResizeDirection="Rows" />
+                        </Grid>      
+
+                                                                                                                                          
+                     <!-- Part 8 Splitter  -->    
+
+        
+        <!--  Creating Sub-Grid in Column 2  -->
+        <ScrollViewer
+            Grid.Row="0"
+            Grid.Column="2"
+            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+            VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+          
+        
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>           
+        
+            <dragablz:TabablzControl
+                Height="Auto"
+                Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                SelectedIndex="{Binding SelectedDetailTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <TabItem FontWeight="Medium" Header="{DynamicResource Tbl42Superfamily-Superfamily}" >  
+                    <StackPanel>
+                        <GroupBox ContextMenu="{StaticResource MenuSuperfamily}">           
+            
+                        <StackPanel Margin="0,0,5,0">
+                            <StackPanel Height="Auto" Orientation="Horizontal">   
+         
+                                        <Button
+                                            Margin="0,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            Command="{Binding SaveSuperfamilyCommand}"
+                                            Style="{StaticResource MaterialDesignFlatButton}"
+                                            ToolTip="{DynamicResource Shared-ButtonSave}">
+                                            <materialDesign:PackIcon
+                                                Width="24"
+                                                Height="24"
+                                                Margin="0,0,-5,0"
+                                                Kind="ContentSave"
+                                                Opacity=".56" />
+                                        </Button> 
+         
+                                        <Button
+                                            Margin="0,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            Command="{Binding CopySuperfamilyCommand}"
+                                            Style="{StaticResource MaterialDesignFlatButton}"
+                                            ToolTip="{DynamicResource Shared-ActionLnkCopy}">
+                                            <materialDesign:PackIcon
+                                                Width="24"
+                                                Height="24"
+                                                Margin="0,0,-5,0"
+                                                Kind="ContentCopy"
+                                                Opacity=".56" />
+                                        </Button>
+                                        <Button
+                                            Margin="0,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            Command="{Binding AddSuperfamilyCommand}"
+                                            Style="{StaticResource MaterialDesignFlatButton}"
+                                            ToolTip="{DynamicResource Shared-ActionLnkCreate}">
+                                            <materialDesign:PackIcon
+                                                Width="24"
+                                                Height="24"
+                                                Margin="0,0,-5,0"
+                                                Kind="Plus"
+                                                Opacity=".56" />
+                                        </Button>
+                                        <Button
+                                            Margin="0,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            Command="{Binding DeleteSuperfamilyCommand}"
+                                            Style="{StaticResource MaterialDesignFlatButton}"
+                                            ToolTip="{DynamicResource Shared-ActionLnkDelete}">
+                                            <materialDesign:PackIcon
+                                                Width="24"
+                                                Height="24"
+                                                Margin="0,0,-5,0"
+                                                Kind="Delete"
+                                                Opacity=".56" />
+                                        </Button>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                <TextBox
+                                    Width="300"
+                                    Margin="5,10,0,0"
+                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl42Superfamily-SuperfamilyName}"
+                                    materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                    FontWeight="Medium"
+                                    Style="{StaticResource TextBoxInError}"
+                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                    <TextBox.Text>
+                                        <Binding
+                                            Converter="{StaticResource CapFirst}"
+                                            ElementName="Tbl42SuperfamiliesList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl42Superfamily.SuperfamilyName)"            
+                                            UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validationRules:Name200Validator />
+                                                <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="False" />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>  
+                                <ComboBox
+                                    Width="300"
+                                    Margin="25,0,0,0"
+                                    VerticalAlignment="Bottom"
+                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl39Infraordo-InfraordoName}"
+                                    DisplayMemberPath="InfraordoName" 
+                                    IsSynchronizedWithCurrentItem="True"
+                                    ItemContainerStyle="{StaticResource ComboStyle}"
+                                    ItemsSource="{Binding Tbl39InfraordosAllList}"
+                                    SelectedValue="{Binding SelectedItem.(models:Tbl39Infraordo.InfraordoID), ElementName=Tbl42SuperfamiliesList, Mode=TwoWay}"
+                                    SelectedValuePath="InfraordoID" 
+                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                    VirtualizingStackPanel.IsVirtualizing="True" />
+                                    </StackPanel>    
+       
+                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                <CheckBox
+                                    Width="80"
+                                    Margin="5,0,0,0"
+                                    VerticalAlignment="Bottom"
+                                    Content="{DynamicResource Shared-Valid}"
+                                    FontWeight="Normal"
+                                    IsChecked="{Binding SelectedItem.(models:Tbl42Superfamily.Valid), ElementName=Tbl42SuperfamiliesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Style="{StaticResource MaterialDesignCheckBox}" />
+                                <TextBox
+                                    Width="50"
+                                    Margin="25,0,0,0"
+                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-ValidYear}"
+                                    materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                    FontWeight="Medium"
+                                    Style="{StaticResource TextBoxInError}"
+                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl42SuperfamiliesList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl42Superfamily.ValidYear)"            
+                                            UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validationRules:NumberValidator />
+                                                <validationRules:Year4Validator />
+                                                <validationRules:DoubleRangeRule Max="2100" Min="1000" />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>    
+                           </StackPanel>
+                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                            <TextBox
+                                                Height="Auto"
+                                                MinWidth="760"
+                                                MinHeight="100"
+                                                MaxWidth="760"
+                                                MaxHeight="400"
+                                    Margin="5,0,0,0"
+                                    VerticalAlignment="Stretch"
+                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-Synonym}"
+                                    AcceptsReturn="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    Text="{Binding SelectedItem.(models:Tbl42Superfamily.Synonym), ElementName=Tbl42SuperfamiliesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CapFirst}}" 
+                                    TextWrapping="Wrap"
+                                    VerticalScrollBarVisibility="Auto" />
+                                        </ScrollViewer>
+                              </StackPanel>
+                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                <TextBox
+                                    Width="600"
+                                    Margin="5,0,0,0"
+                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-Author}"
+                                    materialDesign:ValidationAssist.UsePopup="True"
+                                    CharacterCasing="Upper"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                    Style="{StaticResource TextBoxInError}"
+                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl42SuperfamiliesList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl42Superfamily.Author)"            
+                                            UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validationRules:Name100Validator />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>    
+                                <TextBox
+                                    Width="135"
+                                    Margin="25,0,0,0"
+                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-AuthorYear}"
+                                    materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                    FontWeight="Medium"
+                                    Style="{StaticResource TextBoxInError}"
+                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl42SuperfamiliesList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl42Superfamily.AuthorYear)"            
+                                            UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validationRules:NumberValidator />
+                                                <validationRules:Year4Validator />
+                                                <validationRules:DoubleRangeRule Max="2100" Min="1000" />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>    
+                            </StackPanel>
+                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                <TextBox
+                                    Width="760"
+                                    Margin="5,0,0,0"
+                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-Info}"
+                                    materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                    FontWeight="Medium"
+                                    Style="{StaticResource TextBoxInError}"
+                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl42SuperfamiliesList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl42Superfamily.Info)"            
+                                            UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validationRules:Name100Validator />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>    
+                            </StackPanel>
+                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                <TextBox
+                                    Width="367"
+                                    Margin="5,0,0,0"
+                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-EngName}"
+                                    materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                    Style="{StaticResource TextBoxInError}"
+                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl42SuperfamiliesList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl42Superfamily.EngName)"            
+                                            UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validationRules:Name200Validator />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>    
+                                <TextBox
+                                    Width="367"
+                                    Margin="25,0,0,0"
+                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-GerName}"
+                                    materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                    Style="{StaticResource TextBoxInError}"
+                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl42SuperfamiliesList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl42Superfamily.GerName)"            
+                                            UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validationRules:Name200Validator />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>    
+                            </StackPanel>
+                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                <TextBox
+                                    Width="367"
+                                    Margin="5,0,0,0"
+                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-FraName}"
+                                    materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                    Style="{StaticResource TextBoxInError}"
+                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl42SuperfamiliesList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl42Superfamily.FraName)"            
+                                            UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validationRules:Name200Validator />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>    
+                                <TextBox
+                                    Width="367"
+                                    Margin="25,0,0,0"
+                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-SpaName}"
+                                    materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                    Style="{StaticResource TextBoxInError}"
+                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl42SuperfamiliesList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl42Superfamily.PorName)"            
+                                            UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validationRules:Name200Validator />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>    
+                            </StackPanel>                   
+       
+                            <StackPanel Height="Auto" Orientation="Horizontal">
+                              <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <TextBox
+                                                Height="Auto"
+                                                MinWidth="760"
+                                                MinHeight="100"
+                                                MaxWidth="760"
+                                                MaxHeight="400"
+                                    Margin="5,0,0,5"
+                                    VerticalAlignment="Stretch"
+                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-Memo}"
+                                    AcceptsReturn="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    Text="{Binding SelectedItem.(models:Tbl42Superfamily.Memo), ElementName=Tbl42SuperfamiliesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    TextWrapping="Wrap"
+                                    VerticalScrollBarVisibility="Auto" />
+                                </ScrollViewer>
+                            </StackPanel>  
+                        </StackPanel> 
+                      </GroupBox>
+                    </StackPanel>
+                 </TabItem>                   
+
+
+                     <!-- Part 8.1 FK1 - FK4 Connected -->         
+
+       
+                            <TabItem FontWeight="Medium" Header="{DynamicResource Shared-Connect}">
+                             <GroupBox>
+                               <dragablz:TabablzControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedDetailSubTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                  <TabItem FontWeight="Medium" Header="{DynamicResource Tbl39Infraordo-Infraordo}"  >
+                                     <GroupBox ContextMenu="{StaticResource MenuInfraordo}">   
+                                        <StackPanel Margin="0,0,5,0">
+                                            <StackPanel Height="Auto" Orientation="Horizontal">    
+         
+                                                <Button
+                                                    Margin="0,0,0,0"
+                                                    HorizontalAlignment="Left"
+                                                    Command="{Binding SaveInfraordoCommand}"
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    ToolTip="{DynamicResource Shared-ButtonSave}">
+                                                    <materialDesign:PackIcon
+                                                        Width="24"
+                                                        Height="24"
+                                                        Margin="0,0,-5,0"
+                                                        Kind="ContentSave"
+                                                        Opacity=".56" />
+                                                </Button> 
+                                      </StackPanel>
+                                      <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox
+                                            Width="760"
+                                            Margin="5,10,25,0"
+                                            materialDesign:HintAssist.Hint="{DynamicResource Tbl39Infraordo-InfraordoName}"
+                                            materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                            FontWeight="Medium"
+                                            Style="{StaticResource TextBoxInError}"
+                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    Converter="{StaticResource CapFirst}"
+                                                    ElementName="Tbl39InfraordosList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl39Infraordo.InfraordoName)"             
+                                                    UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:Name200Validator />
+                                                        <validationRules:NotEmptyValidationRule  ValidatesOnTargetUpdated="False" />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>     
+         
+                                   </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <ComboBox
+                                                Width="760"
+                                                Margin="5,0,0,0"
+                                                VerticalAlignment="Bottom"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Tbl36Subordo-SubordoName}"
+                                                DisplayMemberPath="SubordoName" 
+                                                IsSynchronizedWithCurrentItem="True"
+                                                ItemContainerStyle="{StaticResource ComboStyle}"
+                                                ItemsSource="{Binding Tbl36SubordosAllList}"
+                                                SelectedValue="{Binding SelectedItem.(models:Tbl36Subordo.SubordoID), ElementName=Tbl39InfraordosList, Mode=TwoWay}"
+                                                SelectedValuePath="SubordoID"
+                                                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                                VirtualizingStackPanel.IsVirtualizing="True" />
+                                         </StackPanel>
+                                         <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <CheckBox
+                                                Width="80"
+                                                Margin="5,0,0,0"
+                                                VerticalAlignment="Bottom"
+                                                Content="{DynamicResource Shared-Valid}"
+                                                FontWeight="Normal"
+                                                IsChecked="{Binding SelectedItem.(models:Tbl39Infraordo.Valid), ElementName=Tbl39InfraordosList}"
+                                                Style="{StaticResource MaterialDesignCheckBox}" />
+                                        <TextBox
+                                            Width="115"
+                                            Margin="5,10,0,0"
+                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-ValidYear}"
+                                            materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                            FontWeight="Medium"
+                                            Style="{StaticResource TextBoxInError}"
+                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl39InfraordosList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl39Infraordo.ValidYear)"             
+                                                    UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:NumberValidator />
+                                                        <validationRules:Year4Validator />
+                                                        <validationRules:DoubleRangeRule Max="2100" Min="1000" />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                      </StackPanel>
+                                         <StackPanel Height="Auto" Orientation="Horizontal">
+                                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                                    <TextBox
+                                                        Height="Auto"
+                                                        MinWidth="760"
+                                                        MinHeight="50"
+                                                        MaxWidth="760"
+                                                        MaxHeight="400"
+                                                Margin="5,0,0,0"
+                                                VerticalAlignment="Stretch"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Shared-Synonym}"
+                                                AcceptsReturn="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                                FontWeight="Medium"
+                                               Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                               Text="{Binding SelectedItem.(models:Tbl39Infraordo.Synonym), ElementName=Tbl39InfraordosList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CapFirst}}"
+                                               TextWrapping="Wrap"
+                                               VerticalScrollBarVisibility="Auto"  /> 
+                                            </ScrollViewer>
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox
+                                            Width="620"
+                                            Margin="5,10,0,0"
+                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-Author}"
+                                            materialDesign:ValidationAssist.UsePopup="True"
+                                            CharacterCasing="Upper"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                            FontWeight="Medium"
+                                           Style="{StaticResource TextBoxInError}"
+                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl39InfraordosList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl39Infraordo.Author)"             
+                                                    UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:Name100Validator />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                        <TextBox
+                                            Width="115"
+                                            Margin="25,0,0,0"
+                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-AuthorYear}"
+                                            materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                            FontWeight="Medium"
+                                            Style="{StaticResource TextBoxInError}"
+                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl39InfraordosList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl39Infraordo.AuthorYear)"             
+                                                    UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:NumberValidator />
+                                                        <validationRules:Year4Validator />
+                                                        <validationRules:DoubleRangeRule Max="2100" Min="1000" />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox
+                                            Width="760"
+                                            Margin="5,0,0,0"
+                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-Info}"
+                                            materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                            FontWeight="Medium"
+                                            Style="{StaticResource TextBoxInError}"
+                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl39InfraordosList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl39Infraordo.Info)"             
+                                                    UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:Name100Validator />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                         <TextBox
+                                            Width="367"
+                                            Margin="5,0,0,0"
+                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-EngName}"
+                                            materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                            FontWeight="Medium"
+                                            Style="{StaticResource TextBoxInError}"
+                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl39InfraordosList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl39Infraordo.EngName)"             
+                                                    UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:Name200Validator />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                         <TextBox
+                                            Width="367"
+                                            Margin="25,0,0,0"
+                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-GerName}"
+                                            materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                            FontWeight="Medium"
+                                            Style="{StaticResource TextBoxInError}"
+                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl39InfraordosList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl39Infraordo.GerName)"             
+                                                    UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:Name200Validator />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                         <TextBox
+                                            Width="367"
+                                            Margin="5,0,0,0"
+                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-FraName}"
+                                            materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                            FontWeight="Medium"
+                                            Style="{StaticResource TextBoxInError}"
+                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl39InfraordosList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl39Infraordo.FraName)"             
+                                                    UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:Name200Validator />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                         <TextBox
+                                            Width="367"
+                                            Margin="25,0,0,0"
+                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-SpaName}"
+                                            materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                            FontWeight="Medium"
+                                            Style="{StaticResource TextBoxInError}"
+                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl39InfraordosList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl39Infraordo.PorName)"             
+                                                    UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:Name200Validator />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                        </StackPanel>  
+         
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                          <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                            <TextBox
+                                                Height="Auto"
+                                                MinWidth="760"
+                                                MinHeight="50"
+                                                MaxWidth="760"
+                                                MaxHeight="400"
+                                                        Margin="5,0,0,5"
+                                                VerticalAlignment="Stretch"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Shared-Memo}"
+                                                AcceptsReturn="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                                FontWeight="Medium"
+                                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                Text="{Binding SelectedItem.(models:Tbl39Infraordo.Memo), ElementName=Tbl39InfraordosList}"
+                                                TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto" />
+                                             </ScrollViewer>
+                                       </StackPanel>
+                                    </StackPanel>
+                                    </GroupBox>
+                                </TabItem>   
+         
+  
+             <!--  Part 8.2 TK1 Connected -->  
+
+       
+                            <TabItem  FontWeight="Medium" Header="{DynamicResource Tbl45Family-Family}"  >
+                             <GroupBox ContextMenu="{StaticResource MenuFamily}">
+                              <StackPanel Margin="0,0,5,0">
+                                    <StackPanel Height="Auto" Orientation="Horizontal">      
+         
+                                                <Button
+                                                    Margin="0,0,0,0"
+                                                    HorizontalAlignment="Left"
+                                                    Command="{Binding SaveFamilyCommand}"
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    ToolTip="{DynamicResource Shared-ButtonSave}">
+                                                    <materialDesign:PackIcon
+                                                        Width="24"
+                                                        Height="24"
+                                                        Margin="0,0,-5,0"
+                                                        Kind="ContentSave"
+                                                        Opacity=".56" />
+                                                </Button>  
+         
+                                                <Button
+                                                    Margin="0,0,0,0"
+                                                    HorizontalAlignment="Left"
+                                                    Command="{Binding CopyFamilyCommand}"
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    ToolTip="{DynamicResource Shared-ActionLnkCopy}">
+                                                    <materialDesign:PackIcon
+                                                        Width="24"
+                                                        Height="24"
+                                                        Margin="0,0,-5,0"
+                                                        Kind="ContentCopy"
+                                                        Opacity=".56" />
+                                                </Button>
+                                                <Button
+                                                    Margin="0,0,0,0"
+                                                    HorizontalAlignment="Left"
+                                                    Command="{Binding AddFamilyCommand}"
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    ToolTip="{DynamicResource Shared-ActionLnkCreate}">
+                                                    <materialDesign:PackIcon
+                                                        Width="24"
+                                                        Height="24"
+                                                        Margin="0,0,-5,0"
+                                                        Kind="Plus"
+                                                        Opacity=".56" />
+                                                </Button>
+                                                <Button
+                                                    Margin="0,0,0,0"
+                                                    HorizontalAlignment="Left"
+                                                    Command="{Binding DeleteFamilyCommand}"
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    ToolTip="{DynamicResource Shared-ActionLnkDelete}">
+                                                    <materialDesign:PackIcon
+                                                        Width="24"
+                                                        Height="24"
+                                                        Margin="0,0,-5,0"
+                                                        Kind="Delete"
+                                                        Opacity=".56" />
+                                                </Button>    
+         
+                                       </StackPanel>
+                                       <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox
+                                            Width="760"
+                                            Margin="5,10,25,0"
+                                            materialDesign:HintAssist.Hint="{DynamicResource Tbl45Family-FamilyName}"                    
+                                            materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                            FontWeight="Medium"
+                                            Style="{StaticResource TextBoxInError}"
+                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    Converter="{StaticResource CapFirst}"
+                                                    ElementName="Tbl45FamiliesList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl45Family.FamilyName)"    
+                                                    UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:Name200Validator />
+                                                        <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="False" />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                         </TextBox> 
+                                      </StackPanel>
+                                      <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <CheckBox
+                                                Width="80"
+                                                Margin="5,0,0,0"
+                                                VerticalAlignment="Bottom"
+                                                Content="{DynamicResource Shared-Valid}"
+                                                FontWeight="Normal"
+                                                IsChecked="{Binding SelectedItem.(models:Tbl45Family.Valid), ElementName=Tbl45FamiliesList}"
+                                                Style="{StaticResource MaterialDesignCheckBox}" />
+                                        <TextBox
+                                            Width="135"
+                                            Margin="25,0,0,0"
+                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-ValidYear}"
+                                            materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                            FontWeight="Medium"
+                                            Style="{StaticResource TextBoxInError}"
+                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl45FamiliesList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl45Family.ValidYear)"
+                                                    UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:NumberValidator />
+                                                        <validationRules:Year4Validator />
+                                                        <validationRules:DoubleRangeRule Max="2100" Min="1000" />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                      </StackPanel>
+                                         <StackPanel Height="Auto" Orientation="Horizontal">
+                                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                                    <TextBox
+                                                        Height="Auto"
+                                                        MinWidth="760"
+                                                        MinHeight="50"
+                                                        MaxWidth="760"
+                                                        MaxHeight="400"
+                                                Margin="5,0,0,0"
+                                                VerticalAlignment="Stretch"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Shared-Synonym}"
+                                                AcceptsReturn="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                                FontWeight="Medium"
+                                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                               Text="{Binding SelectedItem.(models:Tbl45Family.Synonym), ElementName=Tbl45FamiliesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CapFirst}}"
+                                                TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto"  /> 
+                                                </ScrollViewer>
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox
+                                            Width="600"
+                                            Margin="5,0,0,0"
+                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-Author}"
+                                            materialDesign:ValidationAssist.UsePopup="True"
+                                            CharacterCasing="Upper"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                            FontWeight="Medium"
+                                            Style="{StaticResource TextBoxInError}"
+                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl45FamiliesList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl45Family.Author)"
+                                                    UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:Name100Validator />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBox
+                                            Width="135"
+                                            Margin="25,0,0,0"
+                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-AuthorYear}"
+                                            materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                                FontWeight="Medium"
+                                            Style="{StaticResource TextBoxInError}"
+                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl45FamiliesList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl45Family.AuthorYear)"
+                                                    UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:NumberValidator />
+                                                        <validationRules:Year4Validator />
+                                                        <validationRules:DoubleRangeRule Max="2500" Min="1000" />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        </StackPanel>
+                                         <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox
+                                            Width="760"
+                                            Margin="5,0,0,0"
+                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-Info}"
+                                            materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                                FontWeight="Medium"
+                                            Style="{StaticResource TextBoxInError}"
+                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl45FamiliesList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl45Family.Info)"
+                                                    UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:Name100Validator />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox
+                                            Width="368"
+                                            Margin="5,0,0,0"
+                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-EngName}"
+                                            materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                            Style="{StaticResource TextBoxInError}"
+                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl45FamiliesList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl45Family.EngName)"
+                                                    UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:Name200Validator />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBox
+                                            Width="367"
+                                            Margin="25,0,0,0"
+                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-GerName}"
+                                            materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                            Style="{StaticResource TextBoxInError}"
+                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl45FamiliesList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl45Family.GerName)"
+                                                    UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:Name200Validator />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox
+                                            Width="368"
+                                            Margin="5,0,0,0"
+                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-FraName}"
+                                            materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                            Style="{StaticResource TextBoxInError}"
+                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl45FamiliesList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl45Family.FraName)"
+                                                    UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:Name200Validator />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBox
+                                            Width="367"
+                                            Margin="25,0,0,0"
+                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-SpaName}"
+                                            materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                            Style="{StaticResource TextBoxInError}"
+                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl45FamiliesList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl45Family.PorName)"
+                                                    UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:Name200Validator />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                    </StackPanel>   
+         
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                                    <TextBox
+                                                        Height="Auto"
+                                                        MinWidth="760"
+                                                        MinHeight="50"
+                                                        MaxWidth="760"
+                                                        MaxHeight="400"
+                                                Margin="5,0,0,5"
+                                                VerticalAlignment="Stretch"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Shared-Memo}"
+                                                AcceptsReturn="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                                FontWeight="Medium"
+                                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                Text="{Binding SelectedItem.(models:Tbl45Family.Memo), ElementName=Tbl45FamiliesList}"
+                                                TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto" />
+                                                </ScrollViewer>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </GroupBox>
+                                </TabItem>   
+                                                            
+                                                                                                                                                                                                                                                                                                  
+                     <!-- Part 8.3  TK2  Connected-->           
+
+
+     
+                     <!-- Part 8.3   TK3 Connected -->           
+
+
+     
+                     <!-- Part 8.3   TK4  Connected  -->           
+
+                                                          
+
+
+                     <!-- Part 11  -->                
+
+                     <!-- Part 12  -->                
+
+                     <!-- Part 13  -->                
+
+           
+                            <TabItem FontWeight="Medium" Header="{DynamicResource Shared-TabStripHeaderReferences}">
+                              <GroupBox>
+                                <dragablz:TabablzControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedDetailSubRefTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceExpert}">
+                                      <GroupBox ContextMenu="{StaticResource MenuReferenceExpert}">
+                                        <StackPanel Margin="0,8,5,0">
+                                          <StackPanel Height="Auto" Orientation="Horizontal">       
+            
+                                                            <Button
+                                                                Margin="0,0,0,0"
+                                                                HorizontalAlignment="Left"
+                                                                Command="{Binding SaveReferenceExpertCommand}"
+                                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                                ToolTip="{DynamicResource Shared-ButtonSave}">
+                                                                <materialDesign:PackIcon
+                                                                    Width="24"
+                                                                    Height="24"
+                                                                    Margin="0,0,-5,0"
+                                                                    Kind="ContentSave"
+                                                                    Opacity=".56" />
+                                                            </Button>
+                                                            <Button
+                                                                Margin="0,0,0,0"
+                                                                HorizontalAlignment="Left"
+                                                                Command="{Binding CopyReferenceExpertCommand}"
+                                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                                ToolTip="{DynamicResource Shared-ActionLnkCopy}">
+                                                                <materialDesign:PackIcon
+                                                                    Width="24"
+                                                                    Height="24"
+                                                                    Margin="0,0,-5,0"
+                                                                    Kind="ContentCopy"
+                                                                    Opacity=".56" />
+                                                            </Button>
+                                                            <Button
+                                                                Margin="0,0,0,0"
+                                                                HorizontalAlignment="Left"
+                                                                Command="{Binding AddReferenceExpertCommand}"
+                                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                                ToolTip="{DynamicResource Shared-ActionLnkCreate}">
+                                                                <materialDesign:PackIcon
+                                                                    Width="24"
+                                                                    Height="24"
+                                                                    Margin="0,0,-5,0"
+                                                                    Kind="Plus"
+                                                                    Opacity=".56" />
+                                                            </Button>
+                                                            <Button
+                                                                Margin="0,0,0,0"
+                                                                HorizontalAlignment="Left"
+                                                                Command="{Binding DeleteReferenceExpertCommand}"
+                                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                                ToolTip="{DynamicResource Shared-ActionLnkDelete}">
+                                                                <materialDesign:PackIcon
+                                                                    Width="24"
+                                                                    Height="24"
+                                                                    Margin="0,0,-5,0"
+                                                                    Kind="Delete"
+                                                                    Opacity=".56" />
+                                                            </Button>
+                                                    </StackPanel>
+                                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                                        <ComboBox
+                                                            Width="500"
+                                                            Margin="5,0,0,0"
+                                                            VerticalAlignment="Bottom"
+                                                            materialDesign:HintAssist.Hint="{DynamicResource Tbl90RefExpert-ExpertName}"
+                                                            DisplayMemberPath="RefExpertName" 
+                                                            IsSynchronizedWithCurrentItem="True"
+                                                            ItemContainerStyle="{StaticResource ComboStyle}"
+                                                            ItemsSource="{Binding Tbl90ExpertsAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                            SelectedValue="{Binding SelectedItem.(models:Tbl90RefExpert.RefExpertID), ElementName=Tbl90ReferenceExpertsList, Mode=TwoWay}"
+                                                            SelectedValuePath="RefExpertID"
+                                                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                                            VirtualizingStackPanel.IsVirtualizing="True" />
+                                                      </StackPanel>
+                                                      <StackPanel Height="Auto" Orientation="Horizontal">
+                                                         <CheckBox
+                                                            Width="80"
+                                                            Margin="5,19,0,0"
+                                                            VerticalAlignment="Bottom"
+                                                            Content="{DynamicResource Shared-Valid}"
+                                                            FontWeight="Normal"
+                                                            IsChecked="{Binding SelectedItem.(models:Tbl90Reference.Valid), ElementName=Tbl90ReferenceExpertsList}"
+                                                            Style="{StaticResource MaterialDesignCheckBox}" />
+                                            </StackPanel>
+                                           <StackPanel Height="Auto" Orientation="Horizontal">
+                                                <TextBox
+                                                    Width="760"
+                                                    Margin="5,0,0,0"
+                                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-Info}"
+                                                    materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                                    Style="{StaticResource TextBoxInError}"
+                                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                                    <TextBox.Text>
+                                                        <Binding
+                                                            ElementName="Tbl90ReferenceExpertsList"
+                                                            Mode="TwoWay"
+                                                            Path="SelectedItem.(models:Tbl90Reference.Info)"
+                                                            UpdateSourceTrigger="PropertyChanged">
+                                                            <Binding.ValidationRules>
+                                                                <validationRules:Name100Validator />
+                                                            </Binding.ValidationRules>
+                                                        </Binding>
+                                                    </TextBox.Text>
+                                                </TextBox>
+                                            </StackPanel>     
+             
+                                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                                    <TextBox
+                                                        Height="Auto"
+                                                        MinWidth="760"
+                                                        MinHeight="100"
+                                                        MaxWidth="760"
+                                                        MaxHeight="400"
+                                                                Margin="5,0,0,5"
+                                                            VerticalAlignment="Stretch"
+                                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-Memo}"
+                                                            AcceptsReturn="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                                Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferenceExpertsList}"
+                                                                TextWrapping="Wrap"
+                                                                VerticalScrollBarVisibility="Auto" />
+                                                            </ScrollViewer>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </GroupBox>
+                                </TabItem>      
+             
+                                    <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceSource}">
+                                                <GroupBox ContextMenu="{StaticResource MenuReferenceSource}">
+                                                    <StackPanel Margin="0,8,5,0">
+                                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                                            <Button
+                                                                Margin="0,0,0,0"
+                                                                HorizontalAlignment="Left"
+                                                                Command="{Binding SaveReferenceSourceCommand}"
+                                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                                ToolTip="{DynamicResource Shared-ButtonSave}">
+                                                                <materialDesign:PackIcon
+                                                                    Width="24"
+                                                                    Height="24"
+                                                                    Margin="0,0,-5,0"
+                                                                    Kind="ContentSave"
+                                                                    Opacity=".56" />
+                                                            </Button>
+                                                            <Button
+                                                                Margin="0,0,0,0"
+                                                                HorizontalAlignment="Left"
+                                                                Command="{Binding CopyReferenceSourceCommand}"
+                                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                                ToolTip="{DynamicResource Shared-ActionLnkCopy}">
+                                                                <materialDesign:PackIcon
+                                                                    Width="24"
+                                                                    Height="24"
+                                                                    Margin="0,0,-5,0"
+                                                                    Kind="ContentCopy"
+                                                                    Opacity=".56" />
+                                                            </Button>
+                                                            <Button
+                                                                Margin="0,0,0,0"
+                                                                HorizontalAlignment="Left"
+                                                                Command="{Binding AddReferenceSourceCommand}"
+                                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                                ToolTip="{DynamicResource Shared-ActionLnkCreate}">
+                                                                <materialDesign:PackIcon
+                                                                    Width="24"
+                                                                    Height="24"
+                                                                    Margin="0,0,-5,0"
+                                                                    Kind="Plus"
+                                                                    Opacity=".56" />
+                                                            </Button>
+                                                            <Button
+                                                                Margin="0,0,0,0"
+                                                                HorizontalAlignment="Left"
+                                                                Command="{Binding DeleteReferenceSourceCommand}"
+                                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                                ToolTip="{DynamicResource Shared-ActionLnkDelete}">
+                                                                <materialDesign:PackIcon
+                                                                    Width="24"
+                                                                    Height="24"
+                                                                    Margin="0,0,-5,0"
+                                                                    Kind="Delete"
+                                                                    Opacity=".56" />
+                                                            </Button>
+                                                    </StackPanel>
+                                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                                        <ComboBox
+                                                            Width="760"
+                                                            Margin="5,0,0,0"
+                                                            VerticalAlignment="Bottom"
+                                                            materialDesign:HintAssist.Hint="{DynamicResource Tbl90RefSource-SourceName}"
+                                                            IsSynchronizedWithCurrentItem="True"
+                                                            ItemContainerStyle="{StaticResource ComboStyle}"
+                                                            ItemsSource="{Binding Tbl90SourcesAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                            SelectedValue="{Binding SelectedItem.(models:Tbl90RefSource.RefSourceID), ElementName=Tbl90ReferenceSourcesList, Mode=TwoWay}"
+                                                            SelectedValuePath="RefSourceID"
+                                                           Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                                           VirtualizingStackPanel.IsVirtualizing="True">
+                                                    <ComboBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl90RefSource.RefSourceName)}" />
+                                                                <TextBlock Text="{Binding (models:Tbl90RefSource.SourceYear)}" />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ComboBox.ItemTemplate>
+                                                </ComboBox>
+                                             </StackPanel>
+                                             <StackPanel Height="Auto" Orientation="Horizontal">
+                                              <CheckBox
+                                                    Width="80"
+                                                    Margin="5,0,0,0"
+                                                    VerticalAlignment="Bottom"
+                                                    Content="{DynamicResource Shared-Valid}"
+                                                    FontWeight="Normal"
+                                                    IsChecked="{Binding SelectedItem.(models:Tbl90Reference.Valid), ElementName=Tbl90ReferenceSourcesList}"
+                                                    Style="{StaticResource MaterialDesignCheckBox}" />
+                                                <TextBox
+                                                    Width="50"
+                                                    Margin="25,0,0,0"
+                                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-ValidYear}"
+                                                    materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                                    Style="{StaticResource TextBoxInError}"
+                                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                                    <TextBox.Text>
+                                                        <Binding
+                                                            ElementName="Tbl90ReferenceSourcesList"
+                                                            Mode="TwoWay"
+                                                            Path="SelectedItem.(models:Tbl90Reference.ValidYear)"
+                                                            UpdateSourceTrigger="PropertyChanged">
+                                                            <Binding.ValidationRules>
+                                                                <validationRules:NumberValidator />
+                                                                <validationRules:Year4Validator />
+                                                                <validationRules:DoubleRangeRule Max="2100" Min="1000" />
+                                                            </Binding.ValidationRules>
+                                                        </Binding>
+                                                    </TextBox.Text>
+                                                </TextBox>
+                                            </StackPanel>
+                                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                                <TextBox
+                                                    Width="760"
+                                                    Margin="5,0,0,0"
+                                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-Info}"
+                                                    materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                                    Style="{StaticResource TextBoxInError}"
+                                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                                    <TextBox.Text>
+                                                        <Binding
+                                                            ElementName="Tbl90ReferenceSourcesList"
+                                                            Mode="TwoWay"
+                                                            Path="SelectedItem.(models:Tbl90Reference.Info)"
+                                                            UpdateSourceTrigger="PropertyChanged">
+                                                            <Binding.ValidationRules>
+                                                                <validationRules:Name100Validator />
+                                                            </Binding.ValidationRules>
+                                                        </Binding>
+                                                    </TextBox.Text>
+                                                </TextBox>
+                                            </StackPanel>     
+             
+                                              <StackPanel Height="Auto" Orientation="Horizontal">
+                                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                                    <TextBox
+                                                        Height="Auto"
+                                                        MinWidth="760"
+                                                        MinHeight="100"
+                                                        MaxWidth="760"
+                                                        MaxHeight="400"
+                                                        Margin="5,0,0,5"
+                                                        VerticalAlignment="Stretch"
+                                                        materialDesign:HintAssist.Hint="{DynamicResource Shared-Memo}"
+                                                        AcceptsReturn="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                        Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferenceSourcesList}"
+                                                        TextWrapping="Wrap"
+                                                        VerticalScrollBarVisibility="Auto" />
+                                                    </ScrollViewer>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </GroupBox>
+                                   </TabItem>     
+             
+                                    <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceAuthor}">
+                                                <GroupBox ContextMenu="{StaticResource MenuReferenceAuthor}">
+                                                    <StackPanel Margin="0,8,5,0">
+                                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                                            <Button
+                                                                Margin="0,0,0,0"
+                                                                HorizontalAlignment="Left"
+                                                                Command="{Binding SaveReferenceAuthorCommand}"
+                                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                                ToolTip="{DynamicResource Shared-ButtonSave}">
+                                                                <materialDesign:PackIcon
+                                                                    Width="24"
+                                                                    Height="24"
+                                                                    Margin="0,0,-5,0"
+                                                                    Kind="ContentSave"
+                                                                    Opacity=".56" />
+                                                            </Button>
+                                                            <Button
+                                                                Margin="0,0,0,0"
+                                                                HorizontalAlignment="Left"
+                                                                Command="{Binding CopyReferenceAuthorCommand}"
+                                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                                ToolTip="{DynamicResource Shared-ActionLnkCopy}">
+                                                                <materialDesign:PackIcon
+                                                                    Width="24"
+                                                                    Height="24"
+                                                                    Margin="0,0,-5,0"
+                                                                    Kind="ContentCopy"
+                                                                    Opacity=".56" />
+                                                            </Button>
+                                                            <Button
+                                                                Margin="0,0,0,0"
+                                                                HorizontalAlignment="Left"
+                                                                Command="{Binding AddReferenceAuthorCommand}"
+                                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                                ToolTip="{DynamicResource Shared-ActionLnkCreate}">
+                                                                <materialDesign:PackIcon
+                                                                    Width="24"
+                                                                    Height="24"
+                                                                    Margin="0,0,-5,0"
+                                                                    Kind="Plus"
+                                                                    Opacity=".56" />
+                                                            </Button>
+                                                            <Button
+                                                                Margin="0,0,0,0"
+                                                                HorizontalAlignment="Left"
+                                                                Command="{Binding DeleteReferenceAuthorCommand}"
+                                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                                ToolTip="{DynamicResource Shared-ActionLnkDelete}">
+                                                                <materialDesign:PackIcon
+                                                                    Width="24"
+                                                                    Height="24"
+                                                                    Margin="0,0,-5,0"
+                                                                    Kind="Delete"
+                                                                    Opacity=".56" />
+                                                            </Button>
+                                                    </StackPanel>
+                                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                                            <ComboBox
+                                                                Width="760"
+                                                                Margin="5,0,0,0"
+                                                                VerticalAlignment="Bottom"
+                                                                materialDesign:HintAssist.Hint="{DynamicResource Tbl90RefAuthor-AuthorName}"
+                                                                IsSynchronizedWithCurrentItem="True"
+                                                                ItemContainerStyle="{StaticResource ComboStyle}"
+                                                                ItemsSource="{Binding Tbl90AuthorsAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                                SelectedValue="{Binding SelectedItem.(models:Tbl90RefAuthor.RefAuthorID), ElementName=Tbl90ReferenceAuthorsList, Mode=TwoWay}"
+                                                                SelectedValuePath="RefAuthorID"
+                                                                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                                                VirtualizingStackPanel.IsVirtualizing="True">
+                                                                <ComboBox.ItemTemplate>
+                                                                    <DataTemplate>
+                                                                        <StackPanel Orientation="Horizontal">
+                                                                            <TextBlock Text="{Binding (models:Tbl90RefAuthor.RefAuthorName)}" />
+                                                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl90RefAuthor.BookName)}" />
+                                                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl90RefAuthor.Page1)}" />
+                                                                        </StackPanel>
+                                                                    </DataTemplate>
+                                                                </ComboBox.ItemTemplate>
+                                                            </ComboBox>
+                                            </StackPanel>
+                                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                                <CheckBox
+                                                    Width="80"
+                                                    Margin="5,0,0,0"
+                                                    VerticalAlignment="Bottom"
+                                                    Content="{DynamicResource Shared-Valid}"
+                                                    FontWeight="Normal"
+                                                    IsChecked="{Binding SelectedItem.(models:Tbl90Reference.Valid), ElementName=Tbl90ReferenceAuthorsList}"
+                                                    Style="{StaticResource MaterialDesignCheckBox}" />
+                                                <TextBox
+                                                    Width="50"
+                                                    Margin="25,0,0,0"
+                                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-ValidYear}"
+                                                    materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                                    Style="{StaticResource TextBoxInError}"
+                                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                                    <TextBox.Text>
+                                                        <Binding
+                                                            ElementName="Tbl90ReferenceAuthorsList"
+                                                            Mode="TwoWay"
+                                                            Path="SelectedItem.(models:Tbl90Reference.ValidYear)"
+                                                            UpdateSourceTrigger="PropertyChanged">
+                                                            <Binding.ValidationRules>
+                                                                <validationRules:NumberValidator />
+                                                                <validationRules:Year4Validator />
+                                                                <validationRules:DoubleRangeRule Max="2100" Min="1000" />
+                                                            </Binding.ValidationRules>
+                                                        </Binding>
+                                                    </TextBox.Text>
+                                                </TextBox>
+                                              </StackPanel>
+                                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                                <TextBox
+                                                    Width="760"
+                                                    Margin="5,0,0,0"
+                                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-Info}"
+                                                    materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                                    Style="{StaticResource TextBoxInError}"
+                                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                                    <TextBox.Text>
+                                                        <Binding
+                                                                        ElementName="Tbl90ReferenceAuthorsList"
+                                                            Mode="TwoWay"
+                                                            Path="SelectedItem.(models:Tbl90Reference.Info)"
+                                                            UpdateSourceTrigger="PropertyChanged">
+                                                            <Binding.ValidationRules>
+                                                                <validationRules:Name100Validator />
+                                                            </Binding.ValidationRules>
+                                                        </Binding>
+                                                    </TextBox.Text>
+                                                </TextBox>
+                                            </StackPanel>     
+             
+                                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                                    <TextBox
+                                                        Height="Auto"
+                                                        MinWidth="760"
+                                                        MinHeight="100"
+                                                        MaxWidth="760"
+                                                        MaxHeight="400"
+                                                                Margin="5,0,0,5"
+                                                            VerticalAlignment="Stretch"
+                                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-Memo}"
+                                                            AcceptsReturn="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                                Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferenceAuthorsList}"
+                                                            TextWrapping="Wrap"
+                                                            VerticalScrollBarVisibility="Auto" />
+                                                            </ScrollViewer>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </GroupBox>
+                                            </TabItem>
+                                        </dragablz:TabablzControl>
+                                    </GroupBox>
+                            </TabItem>               
+          
+                            <!--  Part 14  -->
+
+                            <TabItem FontWeight="Medium" Header="{DynamicResource Tbl93Comment-Comment}">              
+                                    <GroupBox ContextMenu="{StaticResource MenuComment}">
+                                        <StackPanel Margin="0,8,5,0">
+                                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                                <Button
+                                                    Margin="0,0,0,0"
+                                                    HorizontalAlignment="Left"
+                                                    Command="{Binding SaveCommentCommand}"
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                                ToolTip="{DynamicResource Shared-ButtonSave}">
+                                                    <materialDesign:PackIcon
+                                                        Width="24"
+                                                        Height="24"
+                                                        Margin="0,0,-5,0"
+                                                        Kind="ContentSave"
+                                                        Opacity=".56" />
+                                                </Button>
+                                                <Button
+                                                    Margin="0,0,0,0"
+                                                    HorizontalAlignment="Left"
+                                                    Command="{Binding CopyCommentCommand}"
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    ToolTip="{DynamicResource Shared-ActionLnkCopy}">
+                                                    <materialDesign:PackIcon
+                                                        Width="24"
+                                                        Height="24"
+                                                        Margin="0,0,-5,0"
+                                                        Kind="ContentCopy"
+                                                        Opacity=".56" />
+                                                </Button>
+                                                <Button
+                                                    Margin="0,0,0,0"
+                                                    HorizontalAlignment="Left"
+                                                    Command="{Binding AddCommentCommand}"
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    ToolTip="{DynamicResource Shared-ActionLnkCreate}">
+                                                    <materialDesign:PackIcon
+                                                        Width="24"
+                                                        Height="24"
+                                                        Margin="0,0,-5,0"
+                                                        Kind="Plus"
+                                                        Opacity=".56" />
+                                                </Button>
+                                                <Button
+                                                    Margin="0,0,0,0"
+                                                    HorizontalAlignment="Left"
+                                                    Command="{Binding DeleteCommentCommand}"
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    ToolTip="{DynamicResource Shared-ActionLnkDelete}">
+                                                    <materialDesign:PackIcon
+                                                        Width="24"
+                                                        Height="24"
+                                                        Margin="0,0,-5,0"
+                                                        Kind="Delete"
+                                                        Opacity=".56" />
+                                                </Button>
+                                    </StackPanel>
+                                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                                <CheckBox
+                                                    Width="80"
+                                                    Margin="5,19,0,0"
+                                                    VerticalAlignment="Bottom"
+                                                    Content="{DynamicResource Shared-Valid}"
+                                                    FontWeight="Normal"
+                                                    IsChecked="{Binding SelectedItem.(models:Tbl93Comment.Valid), ElementName=Tbl93CommentsList}" 
+                                                    Style="{StaticResource MaterialDesignCheckBox}"/>
+                                            </StackPanel>
+                                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox
+                                            Width="760"
+                                            Margin="5,0,0,0"
+                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-Info}"
+                                            materialDesign:ValidationAssist.UsePopup="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                            Style="{StaticResource TextBoxInError}"
+                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl93CommentsList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl93Comment.Info)"
+                                                    UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:Name100Validator />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                    </StackPanel>              
+          
+                                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                                    <TextBox
+                                                        Height="Auto"
+                                                        MinWidth="760"
+                                                        MinHeight="100"
+                                                        MaxWidth="760"
+                                                        MaxHeight="620"
+                                                    Margin="5,0,0,5"
+                                                    VerticalAlignment="Stretch"
+                                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-Memo}"
+                                                    AcceptsReturn="True"
+                                            ContextMenu="{StaticResource MenuEdit}"
+                                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                    Text="{Binding SelectedItem.(models:Tbl93Comment.Memo), ElementName=Tbl93CommentsList}"
+                                                    TextWrapping="Wrap"
+                                                    VerticalScrollBarVisibility="Auto" />
+                                                 </ScrollViewer>
+                                           </StackPanel>
+                                        </StackPanel>
+                                    </GroupBox>
+                          </TabItem>              
+        
+                                </dragablz:TabablzControl>
+                              </GroupBox>
+                            </TabItem>
+                        </dragablz:TabablzControl>
+                </Grid> 
+           </ScrollViewer>             
+        
+        <GridSplitter
+            Grid.Row="0"
+            Grid.RowSpan="3"
+            Grid.Column="1"
+            Width="4"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Stretch"
+            Background="Black"
+            ResizeDirection="Columns"
+            ShowsPreview="False" />
+  </Grid>
+</UserControl>
+            

@@ -1,0 +1,86 @@
+    
+
+
+ //    Part 11    
+
+    
+     
+        #region "Public Properties Tbl68Speciesgroup"
+
+        private string _searchSpeciesgroupName;
+        public string SearchSpeciesgroupName
+        {
+            get => _searchSpeciesgroupName; 
+            set { _searchSpeciesgroupName = value; OnPropertyChanged(); }
+        }
+
+        public ICollectionView SpeciesgroupsView;
+        public Tbl68Speciesgroup CurrentTbl68Speciesgroup => SpeciesgroupsView?.CurrentItem as Tbl68Speciesgroup;           
+
+        private ObservableCollection<Tbl68Speciesgroup> _tbl68SpeciesgroupsList;
+        public ObservableCollection<Tbl68Speciesgroup> Tbl68SpeciesgroupsList
+        {
+            get => _tbl68SpeciesgroupsList; 
+            set { _tbl68SpeciesgroupsList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl68Speciesgroup> _tbl68SpeciesgroupsAllList;
+        public ObservableCollection<Tbl68Speciesgroup> Tbl68SpeciesgroupsAllList
+        {
+            get => _tbl68SpeciesgroupsAllList; 
+            set { _tbl68SpeciesgroupsAllList = value; OnPropertyChanged(); }       
+        }
+
+        private ObservableCollection<Tbl66Genus> _tbl66GenussesAllList;
+        public ObservableCollection<Tbl66Genus> Tbl66GenussesAllList
+        {
+            get => _tbl66GenussesAllList; 
+            set { _tbl66GenussesAllList = value; OnPropertyChanged(); }
+        }
+        #endregion "Public Properties"   
+
+        #region "Public Properties Tbl69FiSpecies"
+
+        private string _searchFiSpeciesName;
+        public string SearchFiSpeciesName
+        {
+            get => _searchFiSpeciesName; 
+            set { _searchFiSpeciesName = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl69FiSpecies> _tbl69FiSpeciesList;
+        public ObservableCollection<Tbl69FiSpecies> Tbl69FiSpeciessesList
+        {
+            get => _tbl69FiSpeciesList; 
+            set { _tbl69FiSpeciesList = value; OnPropertyChanged(); }
+        }
+
+        public ICollectionView FiSpeciessesView;
+        public Tbl69FiSpecies CurrentTbl69FiSpecies => FiSpeciessesView?.CurrentItem as Tbl69FiSpecies;
+
+        #endregion "Public Properties"
+
+        #region "Public Properties Tbl72PlSpecies"
+
+        private string _searchPlSpeciesName;
+        public string SearchPlSpeciesName
+        {
+            get => _searchPlSpeciesName; 
+            set { _searchPlSpeciesName = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl72PlSpecies> _tbl72PlSpeciesList;
+        public ObservableCollection<Tbl72PlSpecies> Tbl72PlSpeciessesList
+        {
+            get => _tbl72PlSpeciesList; 
+            set { _tbl72PlSpeciesList = value; OnPropertyChanged(); }
+        }
+
+        public ICollectionView PlSpeciessesView;
+        public Tbl72PlSpecies CurrentTbl72PlSpecies => PlSpeciessesView?.CurrentItem as Tbl72PlSpecies;
+
+        #endregion "Public Properties"   
+ 
+
+ //    Part 12    
+

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">
+<xsl:output method="text" version="1.0" encoding="UTF-8" indent="yes"/>
+<xsl:template match="Definition"><![CDATA[@model Atis.Domain.ViewModels.]]><xsl:value-of select="Table"/><![CDATA[.ListViewModel     ]]>
+
+     <![CDATA[   <!-- _Pager.cshtml  Skriptdatum: ]]> <xsl:value-of select="DateTime"/>  <![CDATA[  -->
+
+<div class="pager">
+@{
+    // Create Previous link
+    Html.RenderPartial("_PagerLink", Model, new ViewDataDictionary { { "Text", SharedRes.StringsRes.PagerPrevious }, { "PageIndex", Model.CurrentPageIndex - 1 }, { "Selected", false }, { "Inactive", Model.CurrentPageIndex == 1 } });
+
+    
+    // Create numeric links    
+    var startPageIndex = Math.Max(1, Model.CurrentPageIndex - Model.NumericPageCount / 2);
+    var endPageIndex = Math.Min(Model.PageCount, Model.CurrentPageIndex + Model.NumericPageCount / 2);
+
+    // Add in initial page numbers, if needed
+    if (Model.PageCount > Model.NumericPageCount / 2)
+    {
+        if (startPageIndex > 1)
+        {
+            Html.RenderPartial("_PagerLink", Model, new ViewDataDictionary { { "Text", "1" }, { "PageIndex", 1 }, { "Selected", false }, { "Inactive", false } });
+        }
+        if (startPageIndex > 2)
+        {
+            Html.RenderPartial("_PagerLink", Model, new ViewDataDictionary { { "Text", "2" }, { "PageIndex", 2 }, { "Selected", false }, { "Inactive", false } });
+        }
+        if (startPageIndex > 3)
+        {
+            Html.RenderPartial("_PagerLink", Model, new ViewDataDictionary { { "Text", "..." }, { "PageIndex", 1 }, { "Selected", false }, { "Inactive", true } });
+        }
+    }
+
+    // Add in the numeric pages    
+    for (var i = startPageIndex; i <= endPageIndex; i++) { 
+        Html.RenderPartial("_PagerLink", Model, new ViewDataDictionary { { "Text", i }, { "PageIndex", i }, { "Selected", i == Model.CurrentPageIndex }, { "Inactive", false } });
+    }
+
+    
+    // Add in trailing page numbers, if needed 
+    if (Model.PageCount > Model.NumericPageCount / 2)
+    {
+        if (endPageIndex < Model.PageCount - 2)
+        { 
+            Html.RenderPartial("_PagerLink", Model, new ViewDataDictionary { { "Text", "..." }, { "PageIndex", 1 }, { "Selected", false }, { "Inactive", true } });
+        }
+        if (endPageIndex < Model.PageCount - 1)
+        { 
+            Html.RenderPartial("_PagerLink", Model, new ViewDataDictionary { { "Text", Model.PageCount - 1 }, { "PageIndex", Model.PageCount - 1 }, { "Selected", false }, { "Inactive", false } });
+        }
+        if (endPageIndex < Model.PageCount)
+        { 
+            Html.RenderPartial("_PagerLink", Model, new ViewDataDictionary { { "Text", Model.PageCount }, { "PageIndex", Model.PageCount }, { "Selected", false }, { "Inactive", false } });
+        }
+    }
+
+        
+    // Create Next link
+    Html.RenderPartial("_PagerLink", Model, new ViewDataDictionary { { "Text", SharedRes.StringsRes.PagerNext }, { "PageIndex", Model.CurrentPageIndex + 1 }, { "Selected", false }, { "Inactive", Model.CurrentPageIndex == Model.PageCount } });
+}
+</div>
+
+
+     ]]>                 
+
+
+
+</xsl:template>
+</xsl:stylesheet>
+
+
+
+
+
+

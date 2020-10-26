@@ -1,0 +1,171 @@
+@model Atis.Domain.ViewModels.Tbl69FiSpeciesses.ListViewModel
+
+        <!-- Index  Skriptdatum:  15.03.2012  10:32   -->    
+    
+
+@{
+    ViewBag.Title =  Tbl69FiSpeciessesRes.StringsRes.Index;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Tbl69FiSpeciessesRes.StringsRes.Index</h2>
+
+@using (Html.BeginForm("Index", "Tbl69FiSpeciesses", FormMethod.Get))              
+{
+    <fieldset class="filtering">
+        <legend>@SharedRes.StringsRes.Filter</legend>  
+        <div> 
+            <p></p>         
+ 
+            <table>                                             
+                <tr>  
+                    <td style="width:8em"><strong>@Tbl69FiSpeciessesRes.StringsRes.FiSpeciesID </strong></td>
+                    <td><input type="text" id="fispeciesid" name="fispeciesid" /></td>            
+                    <td style="width:8em"><strong>@Tbl69FiSpeciessesRes.StringsRes.FiSpeciesName </strong></td>
+                    <td><input type="text" id="fispeciesname" name="fispeciesname" /></td>            
+                    <td style="width:8em"><strong>@Tbl66GenussesRes.StringsRes.GenusName </strong></td>
+                    <td>@Html.DropDownListFor(m => m.GenusID, Model.GenusList, SharedRes.StringsRes.DDLAll, new { @class = "ddl" })     </td>      
+  
+                    <td style="width:4em"><strong>@SharedRes.StringsRes.Valid </strong></td>
+                    <td>@Html.EditorFor(m => m.Valid)</td>
+
+                    @Html.Hidden("sortBy", Model.SortBy)
+                    @Html.Hidden("ascending", Model.SortAscending)
+
+                    <td><input type="submit" value="@SharedRes.StringsRes.Search" /></td> 
+                </tr>   
+            </table>        
+ 
+        </div>
+    </fieldset>
+}
+
+<table class="grid" style="width: 95%">                
+    <tr>
+        <th></th>   
+  
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "GenusID" }, { "DisplayName", Tbl66GenussesRes.StringsRes.GenusName } })</th>                
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "FiSpeciesName" }, { "DisplayName", Tbl69FiSpeciessesRes.StringsRes.FiSpeciesName } })</th>                   
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "Subspecies" }, { "DisplayName", Tbl69FiSpeciessesRes.StringsRes.Subspecies } })</th>                    
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "Divers" }, { "DisplayName", Tbl69FiSpeciessesRes.StringsRes.Divers } })</th>                    
+ 
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "Author" }, { "DisplayName", SharedRes.StringsRes.Author } })</th>
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "AuthorYear" }, { "DisplayName", SharedRes.StringsRes.AuthorYear } })</th>  
+ 
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "Valid" }, { "DisplayName", SharedRes.StringsRes.Valid } })</th>
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "ValidYear" }, { "DisplayName", SharedRes.StringsRes.ValidYear } })</th>   
+
+     </tr>
+
+    @foreach (var item in Model.Tbl69FiSpeciesses) { 
+    
+    <tr>
+        <td class="left">
+            @Html.ActionLink(SharedRes.StringsRes.ActionLnkDelete, "Delete", new { id = item.FiSpeciesID }) | 
+            @Html.ActionLink(SharedRes.StringsRes.ActionLnkEdit, "Edit", new { id = item.FiSpeciesID }) |
+            @Html.ActionLink(SharedRes.StringsRes.ActionLnkDetails, "Details", new { id = item.FiSpeciesID }) </td>           
+
+  
+        <td class="left">@item.Tbl66Genusses.GenusName  </td>                
+        <td class="left">@item.FiSpeciesName </td>
+        <td class="left">@item.Subspecies </td>
+        <td class="left">@item.Divers </td>   
+ 
+        <td class="left">@item.Author</td>       
+        <td class="align-middle">@item.AuthorYear</td>        
+  
+ 
+        <td class="align-middle">
+        @if (item.Valid == true) { 
+                <img src="@Url.Content("~/Content/Images/Ok.png")" alt="@SharedRes.StringsRes.ValidYes" title="@SharedRes.StringsRes.ValidYes" />   } 
+            else { 
+                <img src="@Url.Content("~/Content/Images/cancel.png")" alt="@SharedRes.StringsRes.ValidNo" title="@SharedRes.StringsRes.ValidNo" />   
+           } 
+         </td>
+        <td class="align-middle">@item.ValidYear</td>   
+
+    </tr>    
+    }     
+    <tr>        
+  
+        <td class="pager" colspan="9">   
+ 
+           @Html.Partial("_Pager", Model)
+        </td>
+    </tr>       
+</table>
+<div>
+    <ul id="nav-one" class="dropmenu css-only">      
+
+         <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkGenusLeft, "Index", "Tbl66Genusses")</li>        
+  
+         <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkSpeciesgroupLeft, "Index", "Tbl68Speciesgroups")</li>      
+  
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkNameRight, "Index", "Tbl78Names")</li>      
+  
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkImageRight, "Index", "Tbl81Images")</li>      
+  
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkSynonymRight, "Index", "Tbl84Synonyms")</li>      
+  
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkGeographicRight, "Index", "Tbl87Geographics")</li>      
+    
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkReferenceRight, "Index", "Tbl90References")</li>                       
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkReferenceCreateRight, "Create", "Tbl90References",
+            new { regnumId = 0,
+                      phylumId = 0,
+                      divisionId = 0,
+                      subphylumId = 0,
+                      subdivisionId = 0,
+                      superclassId = 0,
+                      classId = 0,
+                      subclassId = 0,
+                      infraclassId = 0,
+                      legioId = 0,
+                      ordoId = 0,
+                      subordoId = 0,
+                      infraordoId = 0,
+                      superfamilyId = 0,
+                      familyId = 0,
+                      subfamilyId = 0,
+                      infrafamilyId = 0,
+                      supertribusId = 0,
+                      tribusId = 0,
+                      subtribusId = 0,
+                      infratribusId = 0,
+                      genusId = 0,
+                      fispeciesId = 0,
+                      plspeciesId = 0
+            }, null)</li>               
+ 
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkCommentRight, "Index", "Tbl93Comments")</li>                       
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkCommentCreateRight, "Create", "Tbl93Comments",
+            new { regnumId = 0,
+                      phylumId = 0,
+                      divisionId = 0,
+                      subphylumId = 0,
+                      subdivisionId = 0,
+                      superclassId = 0,
+                      classId = 0,
+                      subclassId = 0,
+                      infraclassId = 0,
+                      legioId = 0,
+                      ordoId = 0,
+                      subordoId = 0,
+                      infraordoId = 0,
+                      superfamilyId = 0,
+                      familyId = 0,
+                      subfamilyId = 0,
+                      infrafamilyId = 0,
+                      supertribusId = 0,
+                      tribusId = 0,
+                      subtribusId = 0,
+                      infratribusId = 0,
+                      genusId = 0,
+                      fispeciesId = 0,
+                      plspeciesId = 0
+            }, null)</li>               
+ 
+  
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkCreate, "Create", "Tbl69FiSpeciesses", new { genusId = 0 }, null)</li>   
+    </ul> 
+</div>   

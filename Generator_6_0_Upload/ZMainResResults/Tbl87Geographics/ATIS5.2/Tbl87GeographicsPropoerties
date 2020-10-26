@@ -1,0 +1,195 @@
+    
+
+
+ //    Part 11    
+
+
+     
+        #region "Public Properties Tbl87Geographic"
+
+        public ICollectionView GeographicsView;
+        public Tbl87Geographic CurrentTbl87Geographic => GeographicsView?.CurrentItem as Tbl87Geographic;
+        
+        private int _searchGeographicId;
+        public int SearchGeographicId
+        {
+            get => _searchGeographicId; 
+            set { _searchGeographicId = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl87Geographic> _tbl87GeographicsList;
+        public  ObservableCollection<Tbl87Geographic> Tbl87GeographicsList
+        {
+            get => _tbl87GeographicsList; 
+            set { _tbl87GeographicsList = value; OnPropertyChanged();    }
+        }
+
+        private ObservableCollection<Tbl69FiSpecies> _tbl69FiSpeciessesAllList;
+        public ObservableCollection<Tbl69FiSpecies> Tbl69FiSpeciessesAllList
+        {
+            get => _tbl69FiSpeciessesAllList; 
+            set { _tbl69FiSpeciessesAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl72PlSpecies> _tbl72PlSpeciessesAllList;
+        public ObservableCollection<Tbl72PlSpecies> Tbl72PlSpeciessesAllList
+        {
+            get => _tbl72PlSpeciessesAllList; 
+            set { _tbl72PlSpeciessesAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl68Speciesgroup> _tbl68SpeciesgroupsTbl69FiSpeciessesAllList;
+        public ObservableCollection<Tbl68Speciesgroup> Tbl68SpeciesgroupsTbl69FiSpeciessesAllList
+        {
+            get => _tbl68SpeciesgroupsTbl69FiSpeciessesAllList; 
+            set { _tbl68SpeciesgroupsTbl69FiSpeciessesAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl68Speciesgroup> _tbl68SpeciesgroupsTbl72PlSpeciessesAllList;
+        public ObservableCollection<Tbl68Speciesgroup> Tbl68SpeciesgroupsTbl72PlSpeciessesAllList
+        {
+            get => _tbl68SpeciesgroupsTbl72PlSpeciessesAllList; 
+            set { _tbl68SpeciesgroupsTbl72PlSpeciessesAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl87Geographic> _tbl87GeographicsAllList;
+        public ObservableCollection<Tbl87Geographic> Tbl87GeographicsAllList
+        {
+            get => _tbl87GeographicsAllList; 
+            set { _tbl87GeographicsAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl66Genus> _tbl66GenussesTbl69FiSpeciessesAllList;
+        public  ObservableCollection<Tbl66Genus> Tbl66GenussesTbl69FiSpeciessesAllList
+        {
+            get => _tbl66GenussesTbl69FiSpeciessesAllList; 
+            set { _tbl66GenussesTbl69FiSpeciessesAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl66Genus> _tbl66GenussesTbl72PlSpeciessesAllList;
+        public  ObservableCollection<Tbl66Genus> Tbl66GenussesTbl72PlSpeciessesAllList
+        {
+            get => _tbl66GenussesTbl72PlSpeciessesAllList; 
+            set { _tbl66GenussesTbl72PlSpeciessesAllList = value; OnPropertyChanged(); }
+        }
+        #endregion "Public Properties"
+   
+       
+        #region "Public Properties Tbl69FiSpecies"
+
+        private string _searchFiSpeciesName;
+        public  string SearchFiSpeciesName
+        {
+            get => _searchFiSpeciesName; 
+            set { _searchFiSpeciesName = value; OnPropertyChanged();  }
+        }
+
+        public ICollectionView FiSpeciessesView;
+        public Tbl69FiSpecies CurrentTbl69FiSpecies => FiSpeciessesView?.CurrentItem as Tbl69FiSpecies;
+
+        private ObservableCollection<Tbl69FiSpecies> _tbl69FiSpeciessesList;
+        public  ObservableCollection<Tbl69FiSpecies> Tbl69FiSpeciessesList
+        {
+            get => _tbl69FiSpeciessesList; 
+            set {  _tbl69FiSpeciessesList = value; OnPropertyChanged();  }
+        }
+
+        #endregion "Public Properties"
+   
+         
+        #region "Public Properties Tbl72PlSpecies"
+
+        private string _searchPlSpeciesName;
+        public  string SearchPlSpeciesName
+        {
+            get => _searchPlSpeciesName; 
+            set { _searchPlSpeciesName = value; OnPropertyChanged();  }
+        }
+
+        public ICollectionView PlSpeciessesView;
+        public Tbl72PlSpecies CurrentTbl72PlSpecies => PlSpeciessesView?.CurrentItem as Tbl72PlSpecies;
+
+        private ObservableCollection<Tbl72PlSpecies> _tbl72PlSpeciessesList;
+        public  ObservableCollection<Tbl72PlSpecies> Tbl72PlSpeciessesList
+        {
+            get => _tbl72PlSpeciessesList; 
+            set {  _tbl72PlSpeciessesList = value; OnPropertyChanged();  }
+        }      
+   
+   
+		private ObservableCollection<PhoneValidator> _phoneValidatorsList;
+		public ObservableCollection<PhoneValidator> PhoneValidatorsList
+		{
+	                    get => _phoneValidatorsList; 
+	                    set { _phoneValidatorsList = value; OnPropertyChanged();     }
+		}
+
+        #endregion "Public Properties"  
+
+       
+        #region "Public Properties Tbl66Genus"
+
+        private ObservableCollection<Tbl66Genus> _tbl66GenussesAllList;
+        public  new ObservableCollection<Tbl66Genus> Tbl66GenussesAllList
+        {
+            get => _tbl66GenussesAllList; 
+            set { _tbl66GenussesAllList = value; OnPropertyChanged(); }
+        }
+
+        #endregion "Public Properties"
+   
+   
+
+ //    Part 12    
+
+        
+
+         #region "Private Methods"
+
+       private void GetValueContinent()
+        {
+            _continents = new List<Continent>()
+            {
+                new Continent {Name = "Africa"},
+                new Continent {Name = "Antarctica"},
+                new Continent {Name = "Asia"},
+                new Continent {Name = "Australia"},
+                new Continent {Name = "Central/South America"},
+                new Continent {Name = "Europe"},
+                new Continent {Name = "North America/Caribbean"}
+            };
+
+            _selectedContinent = new Continent();
+        }
+
+        private List<Continent> _continents;
+        public List<Continent> Continents
+        {
+            get => _continents; 
+            set { _continents = value; OnPropertyChanged(); }
+        }
+
+        private Continent _selectedContinent;
+        public Continent SelectedContinent
+        {
+            get => _selectedContinent; 
+            set { _selectedContinent = value; OnPropertyChanged(); }
+        }
+
+        public class Continent
+        {
+            public string Name
+            {
+                get;
+                set;
+            }
+        }
+
+        private ObservableCollection<TblCountry> _tblCountriesList;
+        public ObservableCollection<TblCountry> TblCountriesList
+        {
+            get => _tblCountriesList; 
+            set { _tblCountriesList = value; OnPropertyChanged(); }
+        }
+
+        #endregion "Private Methods"   

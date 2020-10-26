@@ -1,0 +1,27 @@
+@model Atis.Domain.Models.Tbl57Tribus    	
+
+       <!-- Delete  Skriptdatum:  7.1.2012  10:32    -->        
+
+@{
+    ViewBag.Title = Tbl57TribussesRes.StringsRes.Delete;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Tbl57TribussesRes.StringsRes.Delete</h2>
+
+    <div>
+        <p>@SharedRes.StringsRes.DeleteMessage       
+  
+             <i>@Model.TribusName  ?</i>   
+ 
+         </p>     	   
+    </div>
+@using (Html.BeginForm()) {
+    <p>
+            <input name="confirmButton" type="submit" value="@SharedRes.StringsRes.ButtonDelete" /> 
+        @Html.ActionLink(SharedRes.StringsRes.ActionLnkBack, "Index")
+
+    </p>
+}
+
+    

@@ -1,0 +1,76 @@
+@model Atis.Domain.Models.Tbl90RefSource 
+
+        <!-- Details Skriptdatum:  29.12.2011  10:32    -->   
+
+@{
+    ViewBag.Title = Tbl90RefSourcesRes.StringsRes.Details;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Tbl90RefSourcesRes.StringsRes.Details</h2>
+
+    <div id="pagination">
+        @Html.ActionLink(SharedRes.StringsRes.ActionLnkBack, "Index", null, new { style = "font-weight:bold" })
+    </div>
+
+<fieldset><legend>@SharedRes.StringsRes.Fields </legend>   
+
+
+
+ 
+        <p>
+            <strong>@Tbl90RefSourcesRes.StringsRes.RefSourceID  :</strong>
+            @Model.RefSourceID 
+        </p>      
+        <p>
+            <strong>@SharedRes.StringsRes.CountID  :</strong>
+            @Model.CountID            
+        </p>      
+ 
+        <p>
+            <strong>@Tbl90RefSourcesRes.StringsRes.RefSourceName  :</strong>
+            @Model.RefSourceName 
+        </p>      
+   
+        <p>
+            <strong>@SharedRes.StringsRes.Valid  :</strong>
+            @Html.DisplayFor(m => m.Valid)
+            @Model.ValidYear 
+        </p>      
+ 
+        <p>
+            <strong>@SharedRes.StringsRes.Info  :</strong>
+            @Model.Info            
+        </p>      
+ 
+        <p>
+            <strong>@SharedRes.StringsRes.Memo  :</strong>
+            @Model.Memo            
+        </p>      
+ 
+         <p>
+            <strong>@SharedRes.StringsRes.Writer  :</strong>
+            @Model.Writer  |
+            @Model.WriterDate.ToShortDateString() 
+            <strong>@@</strong>
+            @Model.WriterDate.ToShortTimeString() 
+        </p>  
+        <p>        
+            <strong>@SharedRes.StringsRes.Updater  :</strong>
+            @Model.Updater  |
+            @Model.UpdaterDate.ToShortDateString() 
+            <strong>@@</strong>
+            @Model.UpdaterDate.ToShortTimeString() 
+        </p>  
+   
+        <p></p>
+</fieldset>
+<p>
+    @Html.ActionLink(SharedRes.StringsRes.ActionLnkEdit, "Edit", new { id = Model.RefSourceID }) |
+    @Html.ActionLink(SharedRes.StringsRes.ActionLnkBack, "Index")
+</p>
+    <div class="pagination"></div>
+
+    
+  
+

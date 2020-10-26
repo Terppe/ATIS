@@ -1,0 +1,96 @@
+    
+
+
+ //    Part 11    
+
+     
+        #region "Public Properties Tbl09Division"
+
+        private string _searchDivisionName;
+        public new string SearchDivisionName
+        {
+            get => _searchDivisionName; 
+            set { _searchDivisionName = value; OnPropertyChanged();  }
+        }
+
+        public new ICollectionView DivisionsView;
+        public new Tbl09Division CurrentTbl09Division => DivisionsView?.CurrentItem as Tbl09Division;
+
+        private ObservableCollection<Tbl09Division> _tbl09DivisionsList;
+        public new ObservableCollection<Tbl09Division> Tbl09DivisionsList
+        {
+            get => _tbl09DivisionsList; 
+            set {  _tbl09DivisionsList = value; OnPropertyChanged();   }
+        }
+
+        private ObservableCollection<Tbl09Division> _tbl09DivisionsAllList;
+        public new ObservableCollection<Tbl09Division> Tbl09DivisionsAllList
+        {
+            get => _tbl09DivisionsAllList; 
+            set { _tbl09DivisionsAllList = value; OnPropertyChanged(); }
+        }
+
+        #endregion "Public Properties"   
+       
+        #region "Public Properties Tbl03Regnum"
+
+        private string _searchRegnumName;
+        public new string SearchRegnumName
+        {
+            get => _searchRegnumName; 
+            set { _searchRegnumName = value; OnPropertyChanged(); }
+        }
+
+        public new  ICollectionView RegnumsView;
+        public new  Tbl03Regnum CurrentTbl03Regnum => RegnumsView?.CurrentItem as Tbl03Regnum;           
+
+        private ObservableCollection<Tbl03Regnum> _tbl03RegnumsList;
+        public new  ObservableCollection<Tbl03Regnum> Tbl03RegnumsList
+        {
+            get => _tbl03RegnumsList; 
+            set { _tbl03RegnumsList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl03Regnum> _tbl03RegnumsAllList;
+        public new  ObservableCollection<Tbl03Regnum> Tbl03RegnumsAllList
+        {
+            get => _tbl03RegnumsAllList; 
+            set { _tbl03RegnumsAllList = value; OnPropertyChanged(); }       
+        }
+
+        #endregion "Public Properties"
+   
+  
+       
+        #region "Public Properties Tbl15Subdivision"
+
+        private string _searchSubdivisionName;
+        public string SearchSubdivisionName
+        {
+            get => _searchSubdivisionName; 
+            set { _searchSubdivisionName = value; OnPropertyChanged(); }
+        }
+
+        public ICollectionView SubdivisionsView;
+        public Tbl15Subdivision CurrentTbl15Subdivision => SubdivisionsView?.CurrentItem as Tbl15Subdivision;           
+
+        private ObservableCollection<Tbl15Subdivision> _tbl15SubdivisionsList;
+        public ObservableCollection<Tbl15Subdivision> Tbl15SubdivisionsList
+        {
+            get => _tbl15SubdivisionsList; 
+            set { _tbl15SubdivisionsList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl15Subdivision> _tbl15SubdivisionsAllList;
+        public ObservableCollection<Tbl15Subdivision> Tbl15SubdivisionsAllList
+        {
+            get => _tbl15SubdivisionsAllList; 
+            set { _tbl15SubdivisionsAllList = value; OnPropertyChanged(); }       
+        }
+
+        #endregion "Public Properties"
+   
+   
+
+ //    Part 12    
+

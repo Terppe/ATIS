@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+ <Definition>
+  <File>Tbl90References</File>
+
+  <DateTime>29.11.2018  10:32</DateTime>  
+  <Namespace>Atis</Namespace>  
+  <ConnString></ConnString> 
+  <RegisterContext>ATISEntities</RegisterContext > 
+  <Version>ATIS34</Version>
+  <Database>Atis</Database> 
+
+  <LayoutTK3>ListDetails</LayoutTK3>
+  <LayoutTK2>ListDetails</LayoutTK2>
+  <LayoutTK1>ListDetails</LayoutTK1>
+  <Layout>ListDetails</Layout>
+  <LayoutFK1>ListDetails</LayoutFK1>
+  <LayoutFK2>ListDetails</LayoutFK2>
+  <LayoutBK1>ListDetails</LayoutBK1>
+  <LayoutBK2>ListDetails</LayoutBK2>
+  <LayoutBK3>ListDetails</LayoutBK3>
+  <LayoutBK4>ListDetails</LayoutBK4>
+
+  <TableTK3>NULL</TableTK3> 
+  <TableTK2>NULL</TableTK2> 
+  <TableTK1>Tbl90RefAuthors</TableTK1>       
+  <Table>Tbl90References</Table> 
+  <TableFK1>Tbl90RefExperts</TableFK1> 
+  <TableFK2>Tbl90RefSources</TableFK2> 
+  <TableFK3>Tbl90RefAuthors</TableFK3> 
+  <TableFK4>Tbl69FiSpeciesses</TableFK4> 
+  <TableFK5>Tbl72PlSpeciesses</TableFK5> 
+  <TableFK6>Tbl66Genusses</TableFK6> 
+  <TableFK7>Tbl63Infratribusses</TableFK7> 
+  <TableFK8>Tbl60Subtribusses</TableFK8> 
+  <TableFK9>Tbl57Tribusses</TableFK9> 
+  <TableFK10>Tbl54Supertribusses</TableFK10> 
+  <TableFK11>Tbl51Infrafamilies</TableFK11> 
+  <TableFK12>Tbl48Subfamilies</TableFK12> 
+  <TableFK13>Tbl45Families</TableFK13> 
+  <TableFK14>Tbl42Superfamilies</TableFK14> 
+  <TableFK15>Tbl39Infraordos</TableFK15> 
+  <TableFK16>Tbl36Subordos</TableFK16> 
+  <TableFK17>Tbl33Ordos</TableFK17> 
+  <TableFK18>Tbl30Legios</TableFK18> 
+  <TableFK19>Tbl27Infraclasses</TableFK19> 
+  <TableFK20>Tbl24Subclasses</TableFK20> 
+  <TableFK21>Tbl21Classes</TableFK21> 
+  <TableFK22>Tbl18Superclasses</TableFK22> 
+  <TableFK23>Tbl15Subdivisions</TableFK23> 
+  <TableFK24>Tbl12Subphylums</TableFK24> 
+  <TableFK25>Tbl09Divisions</TableFK25> 
+  <TableFK26>Tbl06Phylums</TableFK26> 
+  <TableFK27>Tbl03Regnums</TableFK27> 
+  <TableBK1>Tbl66Genusses</TableBK1>      
+  <TableBK2>NULL</TableBK2> 
+  <TableBK3>NULL</TableBK3> 
+  <TableBK4>NULL</TableBK4> 
+
+  <Primary>[ReferenceID] ASC</Primary> 
+  <Unique1>[CountID] ASC</Unique1> 
+  <Unique2>NULL</Unique2> 
+  <Foreign1>RefExpertID</Foreign1> 
+  <Foreign2>RefSourceID</Foreign2> 
+  <Foreign3>RefAuthorID</Foreign3> 
+  <Foreign4>FiSpeciesID</Foreign4> 
+  <Foreign5>PlSpeciesID</Foreign5> 
+  <Foreign6>GenusID</Foreign6> 
+  <Foreign7>InfratribusID</Foreign7> 
+  <Foreign8>SubtribusID</Foreign8> 
+  <Foreign9>TribusID</Foreign9> 
+  <Foreign10>SupertribusID</Foreign10> 
+  <Foreign11>InfrafamilyID</Foreign11> 
+  <Foreign12>SubfamilyID</Foreign12> 
+  <Foreign13>FamilyID</Foreign13> 
+  <Foreign14>SuperfamilyID</Foreign14> 
+  <Foreign15>InfraordoID</Foreign15> 
+  <Foreign16>SubordoID</Foreign16> 
+  <Foreign17>OrdoID</Foreign17> 
+  <Foreign18>LegioID</Foreign18> 
+  <Foreign19>InfraclassID</Foreign19> 
+  <Foreign20>SubclassID</Foreign20> 
+  <Foreign21>ClassID</Foreign21> 
+  <Foreign22>SuperclassID</Foreign22> 
+  <Foreign23>SubdivisionID</Foreign23> 
+  <Foreign24>SubphylumID</Foreign24> 
+  <Foreign25>DivisionID</Foreign25> 
+  <Foreign26>PhylumID</Foreign26> 
+  <Foreign27>RegnumID</Foreign27> 
+  <Default1>NULL</Default1> 
+  <Default2>NULL</Default2> 
+
+  <KeyPK>PK_Tbl90References</KeyPK> 
+  <KeyIX1>IX_Tbl90References_CountID</KeyIX1> 
+  <KeyIX2>NULL</KeyIX2> 
+  <KeyFK1>FK_Tbl90References_Tbl90RefExperts</KeyFK1> 
+  <KeyFK2>FK_Tbl90References_Tbl90RefSources</KeyFK2> 
+  <KeyFK3>FK_Tbl90References_Tbl90RefAuthors</KeyFK3> 
+  <KeyFK4>FK_Tbl90References_Tbl69FiSpeciesses</KeyFK4> 
+  <KeyFK5>FK_Tbl90References_Tbl72PlSpeciesses</KeyFK5> 
+  <KeyFK6>FK_Tbl90References_Tbl66Genusses</KeyFK6> 
+  <KeyFK7>FK_Tbl90References_Tbl63Infratribusses</KeyFK7> 
+  <KeyFK8>FK_Tbl90References_Tbl60Subtribusses</KeyFK8> 
+  <KeyFK9>FK_Tbl90References_Tbl57Tribusses</KeyFK9> 
+  <KeyFK10>FK_Tbl90References_Tbl54Supertribusses</KeyFK10> 
+  <KeyFK11>FK_Tbl90References_Tbl51Infrafamilies</KeyFK11> 
+  <KeyFK12>FK_Tbl90References_Tbl48Subfamilies</KeyFK12> 
+  <KeyFK13>FK_Tbl90References_Tbl45Families</KeyFK13> 
+  <KeyFK14>FK_Tbl90References_Tbl42Superfamilies</KeyFK14> 
+  <KeyFK15>FK_Tbl90References_Tbl39Infraordos</KeyFK15> 
+  <KeyFK16>FK_Tbl90References_Tbl36Subordos</KeyFK16> 
+  <KeyFK17>FK_Tbl90References_Tbl33Ordos</KeyFK17> 
+  <KeyFK18>FK_Tbl90References_Tbl30Legios</KeyFK18> 
+  <KeyFK19>FK_Tbl90References_Tbl27Infraclasses</KeyFK19> 
+  <KeyFK20>FK_Tbl90References_Tbl24Subclasses</KeyFK20> 
+  <KeyFK21>FK_Tbl90References_Tbl21Classes</KeyFK21> 
+  <KeyFK22>FK_Tbl90References_Tbl18Superclasses</KeyFK22> 
+  <KeyFK23>FK_Tbl90References_Tbl15Subdivisions</KeyFK23> 
+  <KeyFK24>FK_Tbl90References_Tbl12Subphylums</KeyFK24> 
+  <KeyFK25>FK_Tbl90References_Tbl09Divisions</KeyFK25> 
+  <KeyFK26>FK_Tbl90References_Tbl06Phylums</KeyFK26> 
+  <KeyFK27>FK_Tbl90References_Tbl03Regnums</KeyFK27> 
+  <KeyDF1>NULL</KeyDF1> 
+  <KeyDF2>NULL</KeyDF2> 
+
+  <FolderTK3>NULL</FolderTK3> 
+  <FolderTK2>NULL</FolderTK2> 
+  <FolderTK1>NULL</FolderTK1> 
+  <Folder>Tbl90References</Folder> 
+  <FolderFK1>Tbl90RefExperts</FolderFK1> 
+  <FolderFK2>Tbl90RefSources</FolderFK2> 
+  <FolderFK3>Tbl90RefAuthors</FolderFK3> 
+  <FolderBK1>NULL</FolderBK1> 
+  <FolderBK2>NULL</FolderBK2> 
+  <FolderBK3>NULL</FolderBK3> 
+  <FolderBK4>NULL</FolderBK4> 
+
+  <IDTK3>NULL</IDTK3> 
+  <IDTK2>NULL</IDTK2> 
+  <IDTK1>RefAuthorID</IDTK1> 
+  <ID>ReferenceID</ID> 
+  <IDFK1>RefExpertID</IDFK1> 
+  <IDFK2>RefSourceID</IDFK2> 
+  <IDFK3>RefAuthorID</IDFK3> 
+  <IDFK4>FiSpeciesID</IDFK4> 
+  <IDFK5>PlSpeciesID</IDFK5> 
+  <IDFK6>GenusID</IDFK6> 
+  <IDFK7>InfratribusID</IDFK7> 
+  <IDFK8>SubtribusID</IDFK8> 
+  <IDFK9>TribusID</IDFK9> 
+  <IDFK10>SupertribusID</IDFK10> 
+  <IDFK11>InfrafamilyID</IDFK11> 
+  <IDFK12>SubfamilyID</IDFK12> 
+  <IDFK13>FamilyID</IDFK13> 
+  <IDFK14>SuperfamilyID</IDFK14> 
+  <IDFK15>InfraordoID</IDFK15> 
+  <IDFK16>SubordoID</IDFK16> 
+  <IDFK17>OrdoID</IDFK17> 
+  <IDFK18>LegioID</IDFK18> 
+  <IDFK19>InfraclassID</IDFK19> 
+  <IDFK20>SubclassID</IDFK20> 
+  <IDFK21>ClassID</IDFK21> 
+  <IDFK22>SuperclassID</IDFK22> 
+  <IDFK23>SubdivisionID</IDFK23> 
+  <IDFK24>SubphylumID</IDFK24> 
+  <IDFK25>DivisionID</IDFK25> 
+  <IDFK26>PhylumID</IDFK26> 
+  <IDFK27>RegnumID</IDFK27> 
+  <IDBK1>GenusID</IDBK1> 
+  <IDBK2>NULL</IDBK2> 
+  <IDBK3>NULL</IDBK3> 
+  <IDBK4>NULL</IDBK4> 
+
+  <NameTK3>NULL</NameTK3> 
+  <NameTK2>NULL</NameTK2> 
+  <NameTK1>RefAuthorName</NameTK1> 
+  <Name>ReferenceName</Name> 
+  <NameFK1>RefExpertName</NameFK1> 
+  <NameFK2>RefSourceName</NameFK2> 
+  <NameFK3>RefAuthorName</NameFK3> 
+  <NameFK4>FiSpeciesName</NameFK4> 
+  <NameFK5>PlSpeciesName</NameFK5> 
+  <NameFK6>GenusName</NameFK6> 
+  <NameFK7>InfratribusName</NameFK7> 
+  <NameFK8>SubtribusName</NameFK8> 
+  <NameFK9>TribusName</NameFK9> 
+  <NameFK10>SupertribusName</NameFK10> 
+  <NameFK11>InfrafamilyName</NameFK11> 
+  <NameFK12>SubfamilyName</NameFK12> 
+  <NameFK13>FamilyName</NameFK13> 
+  <NameFK14>SuperfamilyName</NameFK14> 
+  <NameFK15>InfraordoName</NameFK15> 
+  <NameFK16>SubordoName</NameFK16> 
+  <NameFK17>OrdoName</NameFK17> 
+  <NameFK18>LegioName</NameFK18> 
+  <NameFK19>InfraclassName</NameFK19> 
+  <NameFK20>SubclassName</NameFK20> 
+  <NameFK21>ClassName</NameFK21> 
+  <NameFK22>SuperclassName</NameFK22> 
+  <NameFK23>SubdivisionName</NameFK23> 
+  <NameFK24>SubphylumName</NameFK24> 
+  <NameFK25>DivisionName</NameFK25> 
+  <NameFK26>PhylumName</NameFK26> 
+  <NameFK27>RegnumName</NameFK27> 
+  <NameBK1>GenusName</NameBK1> 
+  <NameBK2>NULL</NameBK2> 
+  <NameBK3>NULL</NameBK3> 
+  <NameBK4>NULL</NameBK4> 
+
+  <BasisTK3>NULL</BasisTK3> 
+  <BasisTK2>NULL</BasisTK2> 
+  <BasisTK1>RefAuthor</BasisTK1> 
+  <Basis>Reference</Basis> 
+  <BasisFK1>RefExpert</BasisFK1> 
+  <BasisFK2>RefSource</BasisFK2> 
+  <BasisFK3>RefAuthor</BasisFK3> 
+  <BasisFK4>FiSpecies</BasisFK4> 
+  <BasisFK5>PlSpecies</BasisFK5> 
+  <BasisFK6>Genus</BasisFK6> 
+  <BasisFK7>Infratribus</BasisFK7> 
+  <BasisFK8>Subtribus</BasisFK8> 
+  <BasisFK9>Tribus</BasisFK9> 
+  <BasisFK10>Supertribus</BasisFK10> 
+  <BasisFK11>Infrafamily</BasisFK11> 
+  <BasisFK12>Subfamily</BasisFK12> 
+  <BasisFK13>Family</BasisFK13> 
+  <BasisFK14>Superfamily</BasisFK14> 
+  <BasisFK15>Infraordo</BasisFK15> 
+  <BasisFK16>Subordo</BasisFK16> 
+  <BasisFK17>Ordo</BasisFK17> 
+  <BasisFK18>Legio</BasisFK18> 
+  <BasisFK19>Infraclass</BasisFK19> 
+  <BasisFK20>Subclass</BasisFK20> 
+  <BasisFK21>Class</BasisFK21> 
+  <BasisFK22>Superclass</BasisFK22> 
+  <BasisFK23>Subdivision</BasisFK23> 
+  <BasisFK24>Subphylum</BasisFK24> 
+  <BasisFK25>Division</BasisFK25> 
+  <BasisFK26>Phylum</BasisFK26> 
+  <BasisFK27>Regnum</BasisFK27> 
+  <BasisBK1>Genus</BasisBK1> 
+  <BasisBK2>NULL</BasisBK2> 
+  <BasisBK3>NULL</BasisBK3> 
+  <BasisBK4>NULL</BasisBK4> 
+
+  <BasissTK1>RefAuthors</BasissTK1> 
+  <Basiss>References</Basiss> 
+  <BasissFK1>RefExperts</BasissFK1> 
+  <BasissFK2>RefSources</BasissFK2> 
+  <BasissFK3>RefAuthors</BasissFK3> 
+
+  <BasisSmTK2>NULL</BasisSmTK2> 
+  <BasisSmTK1>refauthor</BasisSmTK1> 
+  <BasisSm>reference</BasisSm> 
+  <BasisSmFK1>refexpert</BasisSmFK1> 
+  <BasisSmFK2>refsource</BasisSmFK2> 
+  <BasisSmFK3>refauthor</BasisSmFK3> 
+  <BasisSmFK4>fispecies</BasisSmFK4> 
+  <BasisSmFK5>plspecies</BasisSmFK5> 
+  <BasisSmFK6>genus</BasisSmFK6> 
+  <BasisSmFK7>infratribus</BasisSmFK7> 
+  <BasisSmFK8>subtribus</BasisSmFK8> 
+  <BasisSmFK9>tribus</BasisSmFK9> 
+  <BasisSmFK10>supertribus</BasisSmFK10> 
+  <BasisSmFK11>infrafamily</BasisSmFK11> 
+  <BasisSmFK12>subfamily</BasisSmFK12> 
+  <BasisSmFK13>family</BasisSmFK13> 
+  <BasisSmFK14>superfamily</BasisSmFK14> 
+  <BasisSmFK15>infraordo</BasisSmFK15> 
+  <BasisSmFK16>subordo</BasisSmFK16> 
+  <BasisSmFK17>ordo</BasisSmFK17> 
+  <BasisSmFK18>legio</BasisSmFK18> 
+  <BasisSmFK19>infraclass</BasisSmFK19> 
+  <BasisSmFK20>subclass</BasisSmFK20> 
+  <BasisSmFK21>class</BasisSmFK21> 
+  <BasisSmFK22>superclass</BasisSmFK22> 
+  <BasisSmFK23>subdivision</BasisSmFK23> 
+  <BasisSmFK24>subphylum</BasisSmFK24> 
+  <BasisSmFK25>division</BasisSmFK25> 
+  <BasisSmFK26>phylum</BasisSmFK26> 
+  <BasisSmFK27>regnum</BasisSmFK27> 
+
+
+  <LinqModelTK3>NULL</LinqModelTK3> 
+  <LinqModelTK2>NULL</LinqModelTK2> 
+  <LinqModelTK1>Tbl90RefAuthor</LinqModelTK1> 
+  <LinqModel>Tbl90Reference</LinqModel> 
+  <LinqModelFK1>Tbl90RefExpert</LinqModelFK1> 
+  <LinqModelFK2>Tbl90RefSource</LinqModelFK2> 
+  <LinqModelFK3>Tbl90RefAuthor</LinqModelFK3> 
+  <LinqModelFK4>Tbl69FiSpecies</LinqModelFK4> 
+  <LinqModelFK5>Tbl72PlSpecies</LinqModelFK5> 
+  <LinqModelFK6>Tbl66Genus</LinqModelFK6> 
+  <LinqModelFK7>Tbl63Infratribus</LinqModelFK7> 
+  <LinqModelFK8>Tbl60Subtribus</LinqModelFK8> 
+  <LinqModelFK9>Tbl57Tribus</LinqModelFK9> 
+  <LinqModelFK10>Tbl54Supertribus</LinqModelFK10> 
+  <LinqModelFK11>Tbl51Infrafamily</LinqModelFK11> 
+  <LinqModelFK12>Tbl48Subfamily</LinqModelFK12> 
+  <LinqModelFK13>Tbl45Family</LinqModelFK13> 
+  <LinqModelFK14>Tbl42Superfamily</LinqModelFK14> 
+  <LinqModelFK15>Tbl39Infraordo</LinqModelFK15> 
+  <LinqModelFK16>Tbl36Subordo</LinqModelFK16> 
+  <LinqModelFK17>Tbl33Ordo</LinqModelFK17> 
+  <LinqModelFK18>Tbl30Legio</LinqModelFK18> 
+  <LinqModelFK19>Tbl27Infraclass</LinqModelFK19> 
+  <LinqModelFK20>Tbl24Subclass</LinqModelFK20> 
+  <LinqModelFK21>Tbl21Class</LinqModelFK21> 
+  <LinqModelFK22>Tbl18Superclass</LinqModelFK22> 
+  <LinqModelFK23>Tbl15Subdivision</LinqModelFK23> 
+  <LinqModelFK24>Tbl12Subphylum</LinqModelFK24> 
+  <LinqModelFK25>Tbl09Division</LinqModelFK25> 
+  <LinqModelFK26>Tbl06Phylum</LinqModelFK26> 
+  <LinqModelFK27>Tbl03Regnum</LinqModelFK27> 
+  <LinqModelBK1>Tbl66Genus</LinqModelBK1> 
+  <LinqModelBK2>NULL</LinqModelBK2> 
+  <LinqModelBK3>NULL</LinqModelBK3> 
+  <LinqModelBK4>NULL</LinqModelBK4> 
+
+  <EntityTK2>NULL</EntityTK2> 
+  <EntityTK1>NULL</EntityTK1> 
+  <Entity>tbl90Reference</Entity> 
+  <EntityFK1>tbl69FiSpecies</EntityFK1> 
+  <EntityFK2>tbl72PlSpecies</EntityFK2> 
+  <EntityBK1>tbl66Genus</EntityBK1> 
+
+  <EntitysTK2>NULL</EntitysTK2> 
+  <EntitysTK1>_tbl90RefAuthors</EntitysTK1> 
+  <Entitys>_tbl90References</Entitys> 
+  <EntitysFK1>_tbl90RefExperts</EntitysFK1> 
+  <EntitysFK2>_tbl90RefSources</EntitysFK2> 
+  <EntitysFK3>_tbl90RefAuthors</EntitysFK3> 
+  <EntitysFK4>_tbl69FiSpeciesses</EntitysFK4> 
+  <EntitysFK5>_tbl72PlSpeciesses</EntitysFK5> 
+  <EntitysFK6>_tbl66Genusses</EntitysFK6> 
+  <EntitysFK7>_tbl63Infratribusses</EntitysFK7> 
+  <EntitysFK8>_tbl60Subtribusses</EntitysFK8> 
+  <EntitysFK9>_tbl57Tribusses</EntitysFK9> 
+  <EntitysFK10>_tbl54Supertribusses</EntitysFK10> 
+  <EntitysFK11>_tbl51Infrafamilies</EntitysFK11> 
+  <EntitysFK12>_tbl48Subfamilies</EntitysFK12> 
+  <EntitysFK13>_tbl45Families</EntitysFK13> 
+  <EntitysFK14>_tbl42Superfamilies</EntitysFK14> 
+  <EntitysFK15>_tbl39Infraordos</EntitysFK15> 
+  <EntitysFK16>_tbl36Subordos</EntitysFK16> 
+  <EntitysFK17>_tbl33Ordos</EntitysFK17> 
+  <EntitysFK18>_tbl30Legios</EntitysFK18> 
+  <EntitysFK19>_tbl27Infraclasses</EntitysFK19> 
+  <EntitysFK20>_tbl24Subclasses</EntitysFK20> 
+  <EntitysFK21>_tbl21Classes</EntitysFK21> 
+  <EntitysFK22>_tbl18Superclasses</EntitysFK22> 
+  <EntitysFK23>_tbl15Subdivisions</EntitysFK23> 
+  <EntitysFK24>_tbl12Subphylums</EntitysFK24> 
+  <EntitysFK25>_tbl09Divisions</EntitysFK25> 
+  <EntitysFK26>_tbl06Phylums</EntitysFK26> 
+  <EntitysFK27>_tbl03Regnums</EntitysFK27> 
+  <EntitysBK1>_tbl66Genusses</EntitysBK1> 
+
+  <EntityAblTK2>NULL</EntityAblTK2> 
+  <EntityAblTK1>NULL</EntityAblTK1> 
+  <EntityAbl>Tbl90Reference tbl90Reference</EntityAbl> 
+  <EntityAblFK1>Tbl69FiSpecies tbl69FiSpecies</EntityAblFK1> 
+  <EntityAblFK2>Tbl72PlSpecies tbl72PlSpecies</EntityAblFK2> 
+
+   <Fields>
+    <Field><Name>ReferenceID</Name> <Type>int</Type>  <NotNull>IDENTITY(1,1) NOT NULL</NotNull> </Field>
+    <Field><Name>FiSpeciesID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>PlSpeciesID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>GenusID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>InfratribusID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>SubtribusID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>TribusID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>SupertribusID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>InfrafamilyID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>SubfamilyID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>FamilyID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>SuperfamilyID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>InfraordoID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>SubordoID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>OrdoID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>LegioID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>InfraclassID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>SubclassID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>ClassID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>SuperclassID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>SubdivisionID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>SubphylumID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>DivisionID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>PhylumID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>RegnumID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>RefExpertID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>RefSourceID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>RefAuthorID</Name> <Type>int</Type> <NotNull> NULL</NotNull> </Field>
+    <Field><Name>CountID</Name> <Type>int</Type> <NotNull> NOT NULL</NotNull> </Field>
+    <Field><Name>Valid</Name> <Type>bit</Type> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>ValidYear</Name> <Type>nvarchar</Type> <Length>4</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>Info</Name> <Type>nvarchar</Type> <Length>100</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>Writer</Name> <Type>nvarchar</Type> <Length>50</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>WriterDate</Name> <Type>datetime</Type> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>Updater</Name> <Type>nvarchar</Type> <Length>50</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>UpdaterDate</Name> <Type>datetime</Type> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>Memo</Name> <Type>nvarchar</Type> <Length>MAX</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>RowVersion</Name> <Type>timestamp</Type> <NotNull>NULL</NotNull> </Field>
+ </Fields>
+</Definition>
+
