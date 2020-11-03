@@ -1,50 +1,27 @@
 using System;  
 
     
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Threading;   
+using System.Windows.Controls;   
  
 
       //  Tbl24SubclassesView.xaml.cs Skriptdatum:  13.12.2019  18:32     
 
-namespace Te.Atis.Ui.Desktop.Views.Database
+namespace ATIS.Ui.Views.Database.ListDetails
 {  
 
     /// <summary>
-    /// Interactionslogic for Tbl24SubclassesView.xaml
+    /// Interactionslogic for SubclassesView.xaml
     /// </summary>
-    public partial class Tbl24SubclassesView : UserControl
+    public partial class SubclassesView : UserControl
    {      
 
    
-        public Tbl24SubclassesView()
-        {         
+        public SubclassesView()
+        {  
+            DataContext = new SubclassesViewModel();  
+       
             InitializeComponent();   
-            IsVisibleChanged += UserControl_IsVisibleChanged;
-        }
-
-        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if ((bool)e.NewValue)
-            {
-                Dispatcher.BeginInvoke(
-                DispatcherPriority.ContextIdle,
-                new Action(delegate
-                {
-                    TbSearchSubclass.Focus();
-                }));
-            }
-        }
-        private void TbSearchSubclass_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Tab || e.Key == Key.Enter)
-            {
-                BtnGet.Focus();
-                e.Handled = true;
-            }
-        }   
+        }      
  
 
     }

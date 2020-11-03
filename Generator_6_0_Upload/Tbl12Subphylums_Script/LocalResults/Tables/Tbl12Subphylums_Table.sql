@@ -1,6 +1,6 @@
 USE [ATIS34]
 GO
-/****** Object:  Table [dbo].[Tbl12Subphylums]    Script Date:  13.06.2018  12:32   ******/  
+/****** Object:  Table [dbo].[Tbl12Subphylums]    Script Date:  30.10.2020  12:32   ******/  
 SET ANSI_NULLS ON
 GO
 

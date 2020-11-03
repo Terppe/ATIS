@@ -1,50 +1,27 @@
 using System;  
 
     
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Threading;   
+using System.Windows.Controls;   
  
 
       //  Tbl63InfratribussesView.xaml.cs Skriptdatum:  08.11.2018  10:32     
 
-namespace Te.Atis.Ui.Desktop.Views.Database
+namespace ATIS.Ui.Views.Database.ListDetails
 {  
 
     /// <summary>
-    /// Interactionslogic for Tbl63InfratribussesView.xaml
+    /// Interactionslogic for InfratribussesView.xaml
     /// </summary>
-    public partial class Tbl63InfratribussesView : UserControl
+    public partial class InfratribussesView : UserControl
    {      
 
    
-        public Tbl63InfratribussesView()
-        {         
+        public InfratribussesView()
+        {  
+            DataContext = new InfratribussesViewModel();  
+       
             InitializeComponent();   
-            IsVisibleChanged += UserControl_IsVisibleChanged;
-        }
-
-        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if ((bool)e.NewValue)
-            {
-                Dispatcher.BeginInvoke(
-                DispatcherPriority.ContextIdle,
-                new Action(delegate
-                {
-                    TbSearchInfratribus.Focus();
-                }));
-            }
-        }
-        private void TbSearchInfratribus_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Tab || e.Key == Key.Enter)
-            {
-                BtnGet.Focus();
-                e.Handled = true;
-            }
-        }   
+        }      
  
 
     }

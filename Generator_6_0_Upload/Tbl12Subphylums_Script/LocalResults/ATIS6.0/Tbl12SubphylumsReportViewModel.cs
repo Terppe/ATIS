@@ -17,7 +17,7 @@
         {
              Tbl12SubphylumsList = new ObservableCollection<Tbl12Subphylum>
                   (from y in _tbl12SubphylumsRepository.GetAll()
-                   where y.SubphylumID == currentId 
+                   where y.SubphylumId == currentId 
    
                    orderby y.SubphylumName   
                    select y);

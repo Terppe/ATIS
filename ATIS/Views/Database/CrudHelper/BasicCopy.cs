@@ -11,24 +11,24 @@ namespace ATIS.Ui.Views.Database.CrudHelper
 
         public ObservableCollection<Tbl03Regnum> CopyRegnum(Tbl03Regnum selected)
         {
-            var regnum = _uow.Tbl03Regnums.GetById(selected.RegnumId);
+            var dataset = _uow.Tbl03Regnums.GetById(selected.RegnumId);
             var collection = new ObservableCollection<Tbl03Regnum>();
 
             collection.Insert(0, new Tbl03Regnum
             {
                 RegnumName = CultRes.StringsRes.DatasetNew,
-                Subregnum = regnum.Subregnum,
-                Valid = regnum.Valid,
-                ValidYear = regnum.ValidYear,
-                Synonym = regnum.Synonym,
-                Author = regnum.Author,
-                AuthorYear = regnum.AuthorYear,
-                Info = regnum.Info,
-                EngName = regnum.EngName,
-                GerName = regnum.GerName,
-                FraName = regnum.FraName,
-                PorName = regnum.PorName,
-                Memo = regnum.Memo
+                Subregnum = dataset.Subregnum,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Synonym = dataset.Synonym,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                EngName = dataset.EngName,
+                GerName = dataset.GerName,
+                FraName = dataset.FraName,
+                PorName = dataset.PorName,
+                Memo = dataset.Memo
             });
 
             return collection;
@@ -36,24 +36,49 @@ namespace ATIS.Ui.Views.Database.CrudHelper
         //----------------------------------------------------------
         public ObservableCollection<Tbl06Phylum> CopyPhylum(Tbl06Phylum selected)
         {
-            var phylum = _uow.Tbl06Phylums.GetById(selected.PhylumId);
+            var dataset = _uow.Tbl06Phylums.GetById(selected.PhylumId);
             var collection = new ObservableCollection<Tbl06Phylum>();
 
             collection.Insert(0, new Tbl06Phylum
             {
                 PhylumName = CultRes.StringsRes.DatasetNew,
-                RegnumId = phylum.RegnumId,
-                Valid = phylum.Valid,
-                ValidYear = phylum.ValidYear,
-                Synonym = phylum.Synonym,
-                Author = phylum.Author,
-                AuthorYear = phylum.AuthorYear,
-                Info = phylum.Info,
-                EngName = phylum.EngName,
-                GerName = phylum.GerName,
-                FraName = phylum.FraName,
-                PorName = phylum.PorName,
-                Memo = phylum.Memo
+                RegnumId = dataset.RegnumId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Synonym = dataset.Synonym,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                EngName = dataset.EngName,
+                GerName = dataset.GerName,
+                FraName = dataset.FraName,
+                PorName = dataset.PorName,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
+        //----------------------------------------------------------
+        public ObservableCollection<Tbl09Division> CopyDivision(Tbl09Division selected)
+        {
+            var dataset = _uow.Tbl09Divisions.GetById(selected.DivisionId);
+            var collection = new ObservableCollection<Tbl09Division>();
+
+            collection.Insert(0, new Tbl09Division
+            {
+                DivisionName = CultRes.StringsRes.DatasetNew,
+                RegnumId = dataset.RegnumId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Synonym = dataset.Synonym,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                EngName = dataset.EngName,
+                GerName = dataset.GerName,
+                FraName = dataset.FraName,
+                PorName = dataset.PorName,
+                Memo = dataset.Memo
             });
 
             return collection;
@@ -61,66 +86,120 @@ namespace ATIS.Ui.Views.Database.CrudHelper
         //----------------------------------------------------------
         public ObservableCollection<Tbl12Subphylum> CopySubphylum(Tbl12Subphylum selected)
         {
-            var subphylum = _uow.Tbl12Subphylums.GetById(selected.PhylumId);
+            var dataset = _uow.Tbl12Subphylums.GetById(selected.SubphylumId);
             var collection = new ObservableCollection<Tbl12Subphylum>();
 
             collection.Insert(0, new Tbl12Subphylum
             {
                 SubphylumName = CultRes.StringsRes.DatasetNew,
-                PhylumId = subphylum.PhylumId,
-                Valid = subphylum.Valid,
-                ValidYear = subphylum.ValidYear,
-                Synonym = subphylum.Synonym,
-                Author = subphylum.Author,
-                AuthorYear = subphylum.AuthorYear,
-                Info = subphylum.Info,
-                EngName = subphylum.EngName,
-                GerName = subphylum.GerName,
-                FraName = subphylum.FraName,
-                PorName = subphylum.PorName,
-                Memo = subphylum.Memo
+                PhylumId = dataset.PhylumId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Synonym = dataset.Synonym,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                EngName = dataset.EngName,
+                GerName = dataset.GerName,
+                FraName = dataset.FraName,
+                PorName = dataset.PorName,
+                Memo = dataset.Memo
             });
 
             return collection;
         }
         //----------------------------------------------------------
+        public ObservableCollection<Tbl15Subdivision> CopySubdivision(Tbl15Subdivision selected)
+        {
+            var dataset = _uow.Tbl15Subdivisions.GetById(selected.SubdivisionId);
+            var collection = new ObservableCollection<Tbl15Subdivision>();
+
+            collection.Insert(0, new Tbl15Subdivision
+            {
+                SubdivisionName = CultRes.StringsRes.DatasetNew,
+                DivisionId = dataset.DivisionId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Synonym = dataset.Synonym,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                EngName = dataset.EngName,
+                GerName = dataset.GerName,
+                FraName = dataset.FraName,
+                PorName = dataset.PorName,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
+        //----------------------------------------------------------
+        public ObservableCollection<Tbl18Superclass> CopySuperclass(Tbl18Superclass selected)
+        {
+            var datasrt = _uow.Tbl18Superclasses.GetById(selected.SuperclassId);
+            var collection = new ObservableCollection<Tbl18Superclass>();
+
+            collection.Insert(0, new Tbl18Superclass
+            {
+                SuperclassName = CultRes.StringsRes.DatasetNew,
+                SubphylumId = datasrt.SubphylumId,
+                SubdivisionId = datasrt.SubdivisionId,
+                Valid = datasrt.Valid,
+                ValidYear = datasrt.ValidYear,
+                Synonym = datasrt.Synonym,
+                Author = datasrt.Author,
+                AuthorYear = datasrt.AuthorYear,
+                Info = datasrt.Info,
+                EngName = datasrt.EngName,
+                GerName = datasrt.GerName,
+                FraName = datasrt.FraName,
+                PorName = datasrt.PorName,
+                Memo = datasrt.Memo
+            });
+
+            return collection;
+        }
+        //----------------------------------------------------------
+
+
+
         public ObservableCollection<Tbl90Reference> CopyReferenceRegnum(Tbl90Reference selected, string refer)
         {
-            var reference = _uow.Tbl90References.GetById(selected.ReferenceId);
+            var dataset = _uow.Tbl90References.GetById(selected.ReferenceId);
             var collection = new ObservableCollection<Tbl90Reference>();
             switch (refer)
             {
                 case "Expert":
                     collection.Insert(0, new Tbl90Reference()
                     {
-                        RegnumId = reference.RegnumId,
-                        RefExpertId = reference.RefExpertId,
-                        Valid = reference.Valid,
-                        ValidYear = reference.ValidYear,
+                        RegnumId = dataset.RegnumId,
+                        RefExpertId = dataset.RefExpertId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
                         Info = CultRes.StringsRes.DatasetNew,
-                        Memo = reference.Memo
+                        Memo = dataset.Memo
                     });
                     break;
                 case "Source":
                     collection.Insert(0, new Tbl90Reference()
                     {
-                        RegnumId = reference.RegnumId,
-                        RefSourceId = reference.RefSourceId,
-                        Valid = reference.Valid,
-                        ValidYear = reference.ValidYear,
+                        RegnumId = dataset.RegnumId,
+                        RefSourceId = dataset.RefSourceId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
                         Info = CultRes.StringsRes.DatasetNew,
-                        Memo = reference.Memo
+                        Memo = dataset.Memo
                     });
                     break;
                 case "Author":
                     collection.Insert(0, new Tbl90Reference()
                     {
-                        RegnumId = reference.RegnumId,
-                        RefAuthorId = reference.RefAuthorId,
-                        Valid = reference.Valid,
-                        ValidYear = reference.ValidYear,
+                        RegnumId = dataset.RegnumId,
+                        RefAuthorId = dataset.RefAuthorId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
                         Info = CultRes.StringsRes.DatasetNew,
-                        Memo = reference.Memo
+                        Memo = dataset.Memo
                     });
                     break;
             }
@@ -130,41 +209,217 @@ namespace ATIS.Ui.Views.Database.CrudHelper
         //----------------------------------------------------------
         public ObservableCollection<Tbl90Reference> CopyReferencePhylum(Tbl90Reference selected, string refer)
         {
-            var reference = _uow.Tbl90References.GetById(selected.ReferenceId);
+            var dataset = _uow.Tbl90References.GetById(selected.ReferenceId);
             var collection = new ObservableCollection<Tbl90Reference>();
             switch (refer)
             {
                 case "Expert":
                     collection.Insert(0, new Tbl90Reference()
                     {
-                        PhylumId = reference.PhylumId,
-                        RefExpertId = reference.RefExpertId,
-                        Valid = reference.Valid,
-                        ValidYear = reference.ValidYear,
+                        PhylumId = dataset.PhylumId,
+                        RefExpertId = dataset.RefExpertId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
                         Info = CultRes.StringsRes.DatasetNew,
-                        Memo = reference.Memo
+                        Memo = dataset.Memo
                     });
                     break;
                 case "Source":
                     collection.Insert(0, new Tbl90Reference()
                     {
-                        PhylumId = reference.PhylumId,
-                        RefSourceId = reference.RefSourceId,
-                        Valid = reference.Valid,
-                        ValidYear = reference.ValidYear,
+                        PhylumId = dataset.PhylumId,
+                        RefSourceId = dataset.RefSourceId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
                         Info = CultRes.StringsRes.DatasetNew,
-                        Memo = reference.Memo
+                        Memo = dataset.Memo
                     });
                     break;
                 case "Author":
                     collection.Insert(0, new Tbl90Reference()
                     {
-                        PhylumId = reference.PhylumId,
-                        RefAuthorId = reference.RefAuthorId,
-                        Valid = reference.Valid,
-                        ValidYear = reference.ValidYear,
+                        PhylumId = dataset.PhylumId,
+                        RefAuthorId = dataset.RefAuthorId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
                         Info = CultRes.StringsRes.DatasetNew,
-                        Memo = reference.Memo
+                        Memo = dataset.Memo
+                    });
+                    break;
+            }
+
+            return collection;
+        }
+        //----------------------------------------------------------
+        public ObservableCollection<Tbl90Reference> CopyReferenceDivision(Tbl90Reference selected, string refer)
+        {
+            var dataset = _uow.Tbl90References.GetById(selected.ReferenceId);
+            var collection = new ObservableCollection<Tbl90Reference>();
+            switch (refer)
+            {
+                case "Expert":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        DivisionId = dataset.DivisionId,
+                        RefExpertId = dataset.RefExpertId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Source":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        DivisionId = dataset.DivisionId,
+                        RefSourceId = dataset.RefSourceId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Author":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        DivisionId = dataset.DivisionId,
+                        RefAuthorId = dataset.RefAuthorId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+            }
+
+            return collection;
+        }
+        //----------------------------------------------------------
+        public ObservableCollection<Tbl90Reference> CopyReferenceSubphylum(Tbl90Reference selected, string refer)
+        {
+            var dataset = _uow.Tbl90References.GetById(selected.ReferenceId);
+            var collection = new ObservableCollection<Tbl90Reference>();
+            switch (refer)
+            {
+                case "Expert":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        SubphylumId = dataset.SubphylumId,
+                        RefExpertId = dataset.RefExpertId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Source":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        SubphylumId = dataset.SubphylumId,
+                        RefSourceId = dataset.RefSourceId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Author":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        SubphylumId = dataset.SubphylumId,
+                        RefAuthorId = dataset.RefAuthorId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+            }
+
+            return collection;
+        }
+        //----------------------------------------------------------
+        public ObservableCollection<Tbl90Reference> CopyReferenceSubdivision(Tbl90Reference selected, string refer)
+        {
+            var dataset = _uow.Tbl90References.GetById(selected.ReferenceId);
+            var collection = new ObservableCollection<Tbl90Reference>();
+            switch (refer)
+            {
+                case "Expert":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        SubdivisionId = dataset.SubdivisionId,
+                        RefExpertId = dataset.RefExpertId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Source":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        SubdivisionId = dataset.SubdivisionId,
+                        RefSourceId = dataset.RefSourceId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Author":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        SubdivisionId = dataset.SubdivisionId,
+                        RefAuthorId = dataset.RefAuthorId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+            }
+
+            return collection;
+        }
+        //----------------------------------------------------------
+        public ObservableCollection<Tbl90Reference> CopyReferenceSuperclass(Tbl90Reference selected, string refer)
+        {
+            var dataset = _uow.Tbl90References.GetById(selected.ReferenceId);
+            var collection = new ObservableCollection<Tbl90Reference>();
+            switch (refer)
+            {
+                case "Expert":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        SuperclassId = dataset.SuperclassId,
+                        RefExpertId = dataset.RefExpertId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Source":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        SuperclassId = dataset.SuperclassId,
+                        RefSourceId = dataset.RefSourceId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Author":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        SuperclassId = dataset.SuperclassId,
+                        RefAuthorId = dataset.RefAuthorId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
                     });
                     break;
             }
@@ -174,28 +429,68 @@ namespace ATIS.Ui.Views.Database.CrudHelper
         //----------------------------------------------------------
         public ObservableCollection<Tbl93Comment> CopyComment(Tbl93Comment selected, string name)
         {
-            var comment = _uow.Tbl93Comments.GetById(selected.CommentId);
+            var dataset = _uow.Tbl93Comments.GetById(selected.CommentId);
             var collection = new ObservableCollection<Tbl93Comment>();
             switch (name)
             {
                 case "Regnum":
                     collection.Insert(0, new Tbl93Comment
                     {
-                        RegnumId = comment.RegnumId,
-                        Valid = comment.Valid,
-                        ValidYear = comment.ValidYear,
+                        RegnumId = dataset.RegnumId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
                         Info = CultRes.StringsRes.DatasetNew,
-                        Memo = comment.Memo
+                        Memo = dataset.Memo
                     });
                     break;
                 case "Phylum":
                     collection.Insert(0, new Tbl93Comment
                     {
-                        PhylumId = comment.PhylumId,
-                        Valid = comment.Valid,
-                        ValidYear = comment.ValidYear,
+                        PhylumId = dataset.PhylumId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
                         Info = CultRes.StringsRes.DatasetNew,
-                        Memo = comment.Memo
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Division":
+                    collection.Insert(0, new Tbl93Comment
+                    {
+                        DivisionId = dataset.DivisionId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Subphylum":
+                    collection.Insert(0, new Tbl93Comment
+                    {
+                        SubphylumId = dataset.SubphylumId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Subdivision":
+                    collection.Insert(0, new Tbl93Comment
+                    {
+                        SubdivisionId = dataset.SubdivisionId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Superclass":
+                    collection.Insert(0, new Tbl93Comment
+                    {
+                        SuperclassId = dataset.SuperclassId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
                     });
                     break;
             }

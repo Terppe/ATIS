@@ -1,0 +1,94 @@
+    
+        public ObservableCollection<Tbl68Speciesgroup> SearchForConnectedDatasetsWithImageIdInTableName(Tbl81Image selected)
+        {
+            var collection = new ObservableCollection<Tbl68Speciesgroup>(_uow.NULL.Find(x => x.ImageId == selected.ImageId));
+            return collection;
+        }
+
+
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithImageIdInTableReference(Tbl81Image selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.ImageId == selected.ImageId));
+            return collection;
+        }
+
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithImageIdInTableComment(Tbl81Image selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.ImageId == selected.ImageId));
+            return collection;
+        }
+
+        public void DeleteImage(Tbl81Image selected)
+        {
+            _uow.Tbl81Images.Remove(selected);
+            _uow.Complete();
+        }
+
+        public ObservableCollection<T> GetFiSpeciessesCollectionOrderByFromFiSpeciesId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
+                .Where(e => e.FiSpeciesId == id)
+                .OrderBy(k => k.FiSpeciesName));
+
+            return collection;
+        }
+
+        public ObservableCollection<T> GetImagesCollectionOrderByFromImageId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl81Images
+                .Where(e => e.ImageId == id)
+                .OrderBy(k => k.ImageName));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetNULLCollectionOrderByFromSubphylumId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.NULL
+                .Where(e => e.ImageId == id)
+                .OrderBy(k => k.NameName));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferenceExpertsCollectionOrderByFromImageIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.ImageId == id && e.RefAuthorId == null && e.RefSourceId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferenceSourcesCollectionOrderByFromImageIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefSources)
+                .Where(e => e.ImageId == id && e.RefAuthorId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferenceAuthorsCollectionOrderByFromImageIdAndRefSourceIdIsNullAndRefExpertIdIsNull<T>(int id)   
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.ImageId == id && e.RefSourceId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetCommentsCollectionOrderByFromSubphylumId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
+                .Where(e => e.ImageId == id)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+   

@@ -7,7 +7,7 @@ using Te.Atis.BusinessLayer;
 using Te.Atis.DomainModel;
 using Te.Atis.Ui.Desktop.Views.Report.PDF;    
 
-// <!-- Interface Skriptdatum:  13.06.2018  12:32     -->  
+// <!-- Interface Skriptdatum:  30.10.2020  12:32     -->  
 
 namespace Te.Atis.Ui.Desktop.Views.Report   
 {       
@@ -71,7 +71,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report
 		public IList<Tbl12Subphylum> ListTbl12SubphylumsBySubphylumId(int subphylumId)
 		{
 			return _tbl12SubphylumsRepository.ListWhereOrderByInclude(
-				e => e.SubphylumID == subphylumId,
+				e => e.SubphylumId == subphylumId,
 				_tbl12SubphylumsRepository.OrderBy(r => r.SubphylumName + r.Subregnum),
 				p => p.Tbl18Superclasses, k => k.Tbl21Classes);
 		}
@@ -79,7 +79,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report
 		public IList<Tbl18Superclass> ListTbl18SuperclassesBySubphylumIdAndHash(int subphylumId)
 		{
 			return _tbl18SuperclassesRepository.ListWhereOrderByInclude(
-				e => e.SubphylumID == subphylumId &&
+				e => e.SubphylumId == subphylumId &&
 				e.SuperclassName.Contains("#") == false,
 				_tbl18SuperclassesRepository.OrderBy(r => r.SuperclassName),
 				p => p.NULL, k => k.Tbl12Subphylums);
@@ -90,7 +90,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report
 		public IList<Tbl90Reference> ListTbl90AuthorsBySubphylumId(int subphylumId)
 		{
 			return _tbl90ReferencesRepository.ListWhereOrderByInclude(
-				e => e.RefAuthorID == e.Tbl90RefAuthors.RefAuthorID && e.SubphylumID == subphylumId,
+				e => e.RefAuthorID == e.Tbl90RefAuthors.RefAuthorID && e.SubphylumId == subphylumId,
 				_tbl90ReferencesRepository.OrderBy(r => r.Tbl90RefAuthors.RefAuthorName + r.Tbl90RefAuthors.ArticelTitle + r.Tbl90RefAuthors.BookName + r.Tbl90RefAuthors.Page1 + r.Tbl90RefAuthors.Publisher),
 				p => p.Tbl90RefAuthors);
 		}
@@ -98,7 +98,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report
 		public IList<Tbl90Reference> ListTbl90SourcesBySubphylumId(int subphylumId)
 		{
 			return _tbl90ReferencesRepository.ListWhereOrderByInclude(
-				e => e.RefSourceID == e.Tbl90RefSources.RefSourceID && e.SubphylumID == subphylumId,
+				e => e.RefSourceID == e.Tbl90RefSources.RefSourceID && e.SubphylumId == subphylumId,
 				_tbl90ReferencesRepository.OrderBy(r => r.Tbl90RefSources.RefSourceName + r.Tbl90RefSources.SourceYear),
 				p => p.Tbl90RefSources);
 		}
@@ -106,7 +106,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report
 		public IList<Tbl90Reference> ListTbl90ExpertsBySubphylumId(int subphylumId)
 		{
 			return _tbl90ReferencesRepository.ListWhereOrderByInclude(
-				e => e.RefExpertID == e.Tbl90RefExperts.RefExpertID && e.SubphylumID == subphylumId,
+				e => e.RefExpertID == e.Tbl90RefExperts.RefExpertID && e.SubphylumId == subphylumId,
 				_tbl90ReferencesRepository.OrderBy(r => r.Tbl90RefExperts.RefExpertName),
 				p => p.Tbl90RefExperts);
 		}
@@ -114,7 +114,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report
 		public IList<Tbl90Reference> ListTbl90RefAuthorsBySubphylumId(int subphylumId)
 		{
 			return _tbl90ReferencesRepository.ListWhereOrderByInclude(
-				e => e.RefAuthorID == e.Tbl90RefAuthors.RefAuthorID && e.SubphylumID == subphylumId,
+				e => e.RefAuthorID == e.Tbl90RefAuthors.RefAuthorID && e.SubphylumId == subphylumId,
 				_tbl90ReferencesRepository.OrderBy(r => r.Tbl90RefAuthors.RefAuthorName + r.Tbl90RefAuthors.ArticelTitle + r.Tbl90RefAuthors.BookName + r.Tbl90RefAuthors.Page1 + r.Tbl90RefAuthors.Publisher),
 				p => p.Tbl90RefAuthors);
 		}
@@ -122,7 +122,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report
 		public IList<Tbl90Reference> ListTbl90RefSourcesBySubphylumId(int subphylumId)
 		{
 			return _tbl90ReferencesRepository.ListWhereOrderByInclude(
-				e => e.RefSourceID == e.Tbl90RefSources.RefSourceID && e.SubphylumID == subphylumId,
+				e => e.RefSourceID == e.Tbl90RefSources.RefSourceID && e.SubphylumId == subphylumId,
 				_tbl90ReferencesRepository.OrderBy(r => r.Tbl90RefSources.RefSourceName + r.Tbl90RefSources.SourceYear),
 				p => p.Tbl90RefSources);
 		}
@@ -130,7 +130,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report
 		public IList<Tbl90Reference> ListTbl90RefExpertsBySubphylumId(int subphylumId)
 		{
 			return _tbl90ReferencesRepository.ListWhereOrderByInclude(
-				e => e.RefExpertID == e.Tbl90RefExperts.RefExpertID && e.SubphylumID == subphylumId,
+				e => e.RefExpertID == e.Tbl90RefExperts.RefExpertID && e.SubphylumId == subphylumId,
 				_tbl90ReferencesRepository.OrderBy(r => r.Tbl90RefExperts.RefExpertName),
 				p => p.Tbl90RefExperts);
 		}
@@ -140,7 +140,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report
 		public IList<Tbl93Comment> ListTbl93CommentsBySubphylumId(int subphylumId)
 		{
 			return _tbl93CommentsRepository.ListWhereOrderByInclude(
-				e => e.SubphylumID == subphylumId,
+				e => e.SubphylumId == subphylumId,
 				_tbl93CommentsRepository.OrderBy(r => r.Info),
 				p => p.Tbl18Superclasses);
 		}      

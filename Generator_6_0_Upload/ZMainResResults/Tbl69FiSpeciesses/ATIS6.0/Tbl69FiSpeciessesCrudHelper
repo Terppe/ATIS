@@ -1,0 +1,94 @@
+    
+        public ObservableCollection<Tbl78Name> SearchForConnectedDatasetsWithFiSpeciesIdInTableName(Tbl69FiSpecies selected)
+        {
+            var collection = new ObservableCollection<Tbl78Name>(_uow.Tbl78Names.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
+            return collection;
+        }
+
+
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithFiSpeciesIdInTableReference(Tbl69FiSpecies selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
+            return collection;
+        }
+
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithFiSpeciesIdInTableComment(Tbl69FiSpecies selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
+            return collection;
+        }
+
+        public void DeleteFiSpecies(Tbl69FiSpecies selected)
+        {
+            _uow.Tbl69FiSpeciesses.Remove(selected);
+            _uow.Complete();
+        }
+
+        public ObservableCollection<T> GetGenussesCollectionOrderByFromGenusId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl66Genusses
+                .Where(e => e.GenusId == id)
+                .OrderBy(k => k.GenusName));
+
+            return collection;
+        }
+
+        public ObservableCollection<T> GetFiSpeciessesCollectionOrderByFromFiSpeciesId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
+                .Where(e => e.FiSpeciesId == id)
+                .OrderBy(k => k.FiSpeciesName));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetNamesCollectionOrderByFromSubphylumId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl78Names
+                .Where(e => e.FiSpeciesId == id)
+                .OrderBy(k => k.NameName));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferenceExpertsCollectionOrderByFromFiSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.FiSpeciesId == id && e.RefAuthorId == null && e.RefSourceId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferenceSourcesCollectionOrderByFromFiSpeciesIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefSources)
+                .Where(e => e.FiSpeciesId == id && e.RefAuthorId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferenceAuthorsCollectionOrderByFromFiSpeciesIdAndRefSourceIdIsNullAndRefExpertIdIsNull<T>(int id)   
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.FiSpeciesId == id && e.RefSourceId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetCommentsCollectionOrderByFromSubphylumId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
+                .Where(e => e.FiSpeciesId == id)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+   

@@ -1,0 +1,94 @@
+    
+        public ObservableCollection<Tbl69FiSpecies> SearchForConnectedDatasetsWithGenusIdInTableFiSpecies(Tbl66Genus selected)
+        {
+            var collection = new ObservableCollection<Tbl69FiSpecies>(_uow.Tbl69FiSpeciesses.Find(x => x.GenusId == selected.GenusId));
+            return collection;
+        }
+
+
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithGenusIdInTableReference(Tbl66Genus selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.GenusId == selected.GenusId));
+            return collection;
+        }
+
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithGenusIdInTableComment(Tbl66Genus selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.GenusId == selected.GenusId));
+            return collection;
+        }
+
+        public void DeleteGenus(Tbl66Genus selected)
+        {
+            _uow.Tbl66Genusses.Remove(selected);
+            _uow.Complete();
+        }
+
+        public ObservableCollection<T> GetInfratribussesCollectionOrderByFromInfratribusId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl63Infratribusses
+                .Where(e => e.InfratribusId == id)
+                .OrderBy(k => k.InfratribusName));
+
+            return collection;
+        }
+
+        public ObservableCollection<T> GetGenussesCollectionOrderByFromGenusId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl66Genusses
+                .Where(e => e.GenusId == id)
+                .OrderBy(k => k.GenusName));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetFiSpeciessesCollectionOrderByFromSubphylumId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
+                .Where(e => e.GenusId == id)
+                .OrderBy(k => k.FiSpeciesName));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferenceExpertsCollectionOrderByFromGenusIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.GenusId == id && e.RefAuthorId == null && e.RefSourceId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferenceSourcesCollectionOrderByFromGenusIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefSources)
+                .Where(e => e.GenusId == id && e.RefAuthorId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferenceAuthorsCollectionOrderByFromGenusIdAndRefSourceIdIsNullAndRefExpertIdIsNull<T>(int id)   
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.GenusId == id && e.RefSourceId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetCommentsCollectionOrderByFromSubphylumId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
+                .Where(e => e.GenusId == id)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+   

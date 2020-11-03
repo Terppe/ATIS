@@ -1,50 +1,27 @@
 using System;  
 
     
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Threading;   
+using System.Windows.Controls;   
  
 
-      //  Tbl03RegnumsView.xaml.cs Skriptdatum:  12.12.2019  12:32       
+      //  Tbl03RegnumsView.xaml.cs Skriptdatum:  01.11.2020  12:32       
 
-namespace Te.Atis.Ui.Desktop.Views.Database
+namespace ATIS.Ui.Views.Database.D03Regnum
 {  
 
     /// <summary>
-    /// Interactionslogic for Tbl03RegnumsView.xaml
+    /// Interactionslogic for RegnumsView.xaml
     /// </summary>
-    public partial class Tbl03RegnumsView : UserControl
+    public partial class RegnumsView : UserControl
    {      
 
    
-        public Tbl03RegnumsView()
-        {         
+        public RegnumsView()
+        {  
+            DataContext = new RegnumsViewModel();  
+       
             InitializeComponent();   
-            IsVisibleChanged += UserControl_IsVisibleChanged;
-        }
-
-        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if ((bool)e.NewValue)
-            {
-                Dispatcher.BeginInvoke(
-                DispatcherPriority.ContextIdle,
-                new Action(delegate
-                {
-                    TbSearchRegnum.Focus();
-                }));
-            }
-        }
-        private void TbSearchRegnum_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Tab || e.Key == Key.Enter)
-            {
-                BtnGet.Focus();
-                e.Handled = true;
-            }
-        }   
+        }      
  
 
     }

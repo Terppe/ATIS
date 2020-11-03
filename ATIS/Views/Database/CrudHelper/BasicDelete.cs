@@ -9,45 +9,44 @@ namespace ATIS.Ui.Views.Database.CrudHelper
     {
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
 
-        //-------------------------Search with RegnumId---------------------------------
+        //------------------------------ Regnum   --------------------------------------------------------------------------------------------
+        public void DeleteRegnum(Tbl03Regnum selected)
+        {
+            _uow.Tbl03Regnums.Remove(selected);
+            _uow.Complete();
+        }
         public ObservableCollection<Tbl06Phylum> SearchForConnectedDatasetsWithRegnumIdInTablePhylum(Tbl03Regnum selected)
         {
             var collection = new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums.Find(x => x.RegnumId == selected.RegnumId));
             return collection;
         }
-        //-------------------------Search with RegnumId---------------------------------
         public ObservableCollection<Tbl09Division> SearchForConnectedDatasetsWithRegnumIdInTableDivision(Tbl03Regnum selected)
         {
             var collection = new ObservableCollection<Tbl09Division>(_uow.Tbl09Divisions.Find(x => x.RegnumId == selected.RegnumId));
             return collection;
         }
-        //-------------------------Search with PhylumId---------------------------------
-        public ObservableCollection<Tbl12Subphylum> SearchForConnectedDatasetsWithPhylumIdInTableSubphylum(Tbl06Phylum selected)
-        {
-            var collection = new ObservableCollection<Tbl12Subphylum>(_uow.Tbl12Subphylums.Find(x => x.PhylumId == selected.PhylumId));
-            return collection;
-        }
-        //------------------------------Search with SubphylumId----------------------------
-        public ObservableCollection<Tbl18Superclass> SearchForConnectedDatasetsWithSubphylumIdInTableSuperclass(Tbl12Subphylum selected)
-        {
-            var collection = new ObservableCollection<Tbl18Superclass>(_uow.Tbl18Superclasses.Find(x => x.SubphylumId == selected.SubphylumId));
-            return collection;
-        }
-        //-------------------------------------------------------------------------------
-        //------------------------------Delete with RegnumId----------------------------
-
         public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl03Regnum selected)
         {
             var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.RegnumId == selected.RegnumId));
             return collection;
         }
-
         public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl03Regnum selected)
         {
             var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.RegnumId == selected.RegnumId));
             return collection;
         }
-        //-----------------------------Delete with PhylumId-----------------------------
+
+        //------------------------------ Phylum   --------------------------------------------------------------------------------------------
+        public void DeletePhylum(Tbl06Phylum selected)
+        {
+            _uow.Tbl06Phylums.Remove(selected);
+            _uow.Complete();
+        }
+        public ObservableCollection<Tbl12Subphylum> SearchForConnectedDatasetsWithPhylumIdInTableSubphylum(Tbl06Phylum selected)
+        {
+            var collection = new ObservableCollection<Tbl12Subphylum>(_uow.Tbl12Subphylums.Find(x => x.PhylumId == selected.PhylumId));
+            return collection;
+        }
         public ObservableCollection<Tbl90Reference> DeleteDatasetsWithPhylumIdInTableReference(Tbl06Phylum selected)
         {
             var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.PhylumId == selected.PhylumId));
@@ -58,8 +57,40 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.PhylumId == selected.PhylumId));
             return collection;
         }
+        //------------------------------ Division   --------------------------------------------------------------------------------------------
+        public void DeleteDivision(Tbl09Division selected)
+        {
+            _uow.Tbl09Divisions.Remove(selected);
+            _uow.Complete();
+        }
+        public ObservableCollection<Tbl15Subdivision> SearchForConnectedDatasetsWithDivisionIdInTableSubdivision(Tbl09Division selected)
+        {
+            var collection = new ObservableCollection<Tbl15Subdivision>(_uow.Tbl15Subdivisions.Find(x => x.DivisionId == selected.DivisionId));
+            return collection;
+        }
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithDivisionIdInTableReference(Tbl09Division selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.DivisionId == selected.DivisionId));
+            return collection;
+        }
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithDivisionIdInTableComment(Tbl09Division selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.DivisionId == selected.DivisionId));
+            return collection;
+        }
 
-        //--------------------------------------Delete with SubphylumId--------------------
+
+        //------------------------------ Subphylum   --------------------------------------------------------------------------------------------
+        public void DeleteSubphylum(Tbl12Subphylum selected)
+        {
+            _uow.Tbl12Subphylums.Remove(selected);
+            _uow.Complete();
+        }
+        public ObservableCollection<Tbl18Superclass> SearchForConnectedDatasetsWithSubphylumIdInTableSuperclass(Tbl12Subphylum selected)
+        {
+            var collection = new ObservableCollection<Tbl18Superclass>(_uow.Tbl18Superclasses.Find(x => x.SubphylumId == selected.SubphylumId));
+            return collection;
+        }
         public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubphylumIdInTableReference(Tbl12Subphylum selected)
         {
             var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubphylumId == selected.SubphylumId));
@@ -71,128 +102,53 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             return collection;
         }
 
-        //--------------------------------------------------------------------------------------------
-        //--------------------------Area Delete and search with RegnumId------------------------------
-        public ObservableCollection<Tbl90Reference> SearchForDatasetWithRegnumIdAndRefAuthorIdAndRefSourceIdInTableReference(Tbl03Regnum selected)
+        //----------------------------- Superclass------------------------------  
+        public void DeleteSuperclass(Tbl18Superclass selected)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                .Find(x => x.RegnumId == selected.RegnumId && x.RefAuthorId == null && x.RefSourceId == null));
+            _uow.Tbl18Superclasses.Remove(selected);
+            _uow.Complete();
+        } 
+        public ObservableCollection<Tbl21Class> SearchForConnectedDatasetsWithSuperclassIdInTableClass(Tbl18Superclass selected)
+        {
+            var collection = new ObservableCollection<Tbl21Class>(_uow.Tbl21Classes.Find(x => x.SuperclassId == selected.SuperclassId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> SearchForDatasetWithRegnumIdAndRefAuthorIdAndRefExpertIdInTableReference(Tbl03Regnum selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSuperclassIdInTableReference(Tbl18Superclass selected)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                .Find(x => x.RegnumId == selected.RegnumId && x.RefAuthorId == null && x.RefExpertId == null));
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SuperclassId == selected.SuperclassId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> SearchForDatasetWithRegnumIdAndRefSourceIdAndRefExpertIdInTableReference(Tbl03Regnum selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSuperclassIdInTableComment(Tbl18Superclass selected)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                .Find(x => x.RegnumId == selected.RegnumId && x.RefSourceId == null && x.RefExpertId == null));
-            return collection;
-        }
-        //----------------------------------------------------------
-        public ObservableCollection<Tbl93Comment> SearchForDatasetWithRegnumIdInTableComment(Tbl03Regnum selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
-                .Find(x => x.RegnumId == selected.RegnumId));
-            return collection;
-        }
-        //--------------------------------------------------------------------------------------------
-        //--------------------------Area Delete and search with PhylumId------------------------------
-        public ObservableCollection<Tbl90Reference> SearchForDatasetWithPhylumIdAndRefAuthorIdAndRefSourceIdInTableReference(Tbl06Phylum selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                .Find(x => x.PhylumId == selected.PhylumId && x.RefAuthorId == null && x.RefSourceId == null));
-            return collection;
-        }
-        public ObservableCollection<Tbl90Reference> SearchForDatasetWithPhylumIdAndRefAuthorIdAndRefExpertIdInTableReference(Tbl06Phylum selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                .Find(x => x.PhylumId == selected.PhylumId && x.RefAuthorId == null && x.RefExpertId == null));
-            return collection;
-        }
-        public ObservableCollection<Tbl90Reference> SearchForDatasetWithPhylumIdAndRefSourceIdAndRefExpertIdInTableReference(Tbl06Phylum selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                .Find(x => x.PhylumId == selected.PhylumId && x.RefSourceId == null && x.RefExpertId == null));
-            return collection;
-        }
-        //----------------------------------------------------------
-        public ObservableCollection<Tbl93Comment> SearchForDatasetWithPhylumIdInTableComment(Tbl06Phylum selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
-                .Find(x => x.PhylumId == selected.PhylumId));
-            return collection;
-        }
-        //--------------------------------------------------------------------------------------------
-        //--------------------------Area Delete and search with SubphylumId------------------------------
-        public ObservableCollection<Tbl90Reference> SearchForDatasetWithSubphylumIdAndRefAuthorIdAndRefSourceIdInTableReference(Tbl12Subphylum selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                .Find(x => x.SubphylumId == selected.SubphylumId && x.RefAuthorId == null && x.RefSourceId == null));
-            return collection;
-        }
-        public ObservableCollection<Tbl90Reference> SearchForDatasetWithSubphylumIdAndRefAuthorIdAndRefExpertIdInTableReference(Tbl12Subphylum selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                .Find(x => x.SubphylumId == selected.SubphylumId && x.RefAuthorId == null && x.RefExpertId == null));
-            return collection;
-        }
-        public ObservableCollection<Tbl90Reference> SearchForDatasetWithSubphylumIdAndRefSourceIdAndRefExpertIdInTableReference(Tbl12Subphylum selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                .Find(x => x.SubphylumId == selected.SubphylumId && x.RefSourceId == null && x.RefExpertId == null));
-            return collection;
-        }
-        //----------------------------------------------------------
-        public ObservableCollection<Tbl93Comment> SearchForDatasetWithSubphylumIdInTableComment(Tbl12Subphylum selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
-                .Find(x => x.SubphylumId == selected.SubphylumId));
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SuperclassId == selected.SuperclassId));
             return collection;
         }
 
-        //----------------------------------------------------------
-        //----------------------------------------------------------
+        //-----------------------DeleteReferences, DeleteComments, DeleteReference, DeleteComment-----------------------------------
 
-        public void DeleteReferences(ObservableCollection<Tbl90Reference> referencesCollection)
+        public void DeleteReferences(ObservableCollection<Tbl90Reference> coll)
         {
-            foreach (var t in referencesCollection)
+            foreach (var t in coll)
                 _uow.Tbl90References.Remove(t);
             _uow.Complete();
         }
-        public void DeleteComments(ObservableCollection<Tbl93Comment> commentsCollection)
+        public void DeleteComments(ObservableCollection<Tbl93Comment> coll)
         {
-            foreach (var t in commentsCollection)
+            foreach (var t in coll)
                 _uow.Tbl93Comments.Remove(t);
             _uow.Complete();
         }
-        //-----------------------------Delete------------------------------
-        public void DeleteRegnum(Tbl03Regnum regnum)
+        public void DeleteReference(Tbl90Reference selected)
         {
-            _uow.Tbl03Regnums.Remove(regnum);
+            _uow.Tbl90References.Remove(selected);
             _uow.Complete();
         }
-        public void DeletePhylum(Tbl06Phylum phylum)
+        public void DeleteComment(Tbl93Comment selected)
         {
-            _uow.Tbl06Phylums.Remove(phylum);
+            _uow.Tbl93Comments.Remove(selected);
             _uow.Complete();
         }
-        public void DeleteSubphylum(Tbl12Subphylum subphylum)
-        {
-            _uow.Tbl12Subphylums.Remove(subphylum);
-            _uow.Complete();
-        }
-        public void DeleteReference(Tbl90Reference reference)
-        {
-            _uow.Tbl90References.Remove(reference);
-            _uow.Complete();
-        }
-        public void DeleteComment(Tbl93Comment comment)
-        {
-            _uow.Tbl93Comments.Remove(comment);
-            _uow.Complete();
-        }
+        //--------------------------------------------------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------------------------------------------------
     }
 }

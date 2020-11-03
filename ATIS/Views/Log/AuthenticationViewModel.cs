@@ -202,7 +202,7 @@ namespace ATIS.Ui.Views.Log
                             userprofile = new TblUserProfile //add new
                             {
                                 Email = Email,
-                                CountID = RandomHelper.Randomnumber(),
+                                CountId = RandomHelper.Randomnumber(),
                                 Password = Crypt.CalculateHash(clearTextPassword, Email),
                                 Role = "User",
                                 StartDate = DateTime.Now,

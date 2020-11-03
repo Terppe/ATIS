@@ -1,48 +1,61 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Validation;
+using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using GalaSoft.MvvmLight;
-using log4net;
-using Te.Atis.DomainModel;
-using Te.Atis.Ui.Desktop.BusinessLayer;
-using Te.Atis.Ui.Desktop.Domain;
-using Te.Atis.Ui.Desktop.Domain.Helper;
-using Te.Atis.Ui.Desktop.MessageBox;    
+using Common.Logging;
+using ATIS.Dal.Models;
+using ATIS.Ui.Core;
+using ATIS.Ui.Helper;
+using ATIS.Ui.Views.Database.CrudHelper;
+using ATIS.Ui.Views.Database.DatabaseHelper;
+using Microsoft.EntityFrameworkCore;          
 
     
 using System.Collections.Generic;  
     
-         //    TblUserProfilesViewModel Skriptdatum:   26.02.2019  10:32    
+         //    UserProfilesViewModel Skriptdatum:   26.02.2019  10:32    
 
-namespace Te.Atis.Ui.Desktop.Views.Database
+namespace ATIS.Ui.Views.Database.ListDetails
 {     
     
-    public class TblUserProfilesViewModel : ViewModelBase                     
-    {     
+    public class UserProfilesViewModel : ViewModelBase                     
+    {  
+        // Version with Generic Unit Of Work and AtisDbContext for general use   
          
-        #region "Private Data Members"
+        #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private static IBusinessLayer _businessLayer;
-        private static DbEntityException _entityException;
+        private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
+        private readonly AtisDbContext _context = new AtisDbContext();
+
+        private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
+        private readonly GenericMessageBoxes<TblUserProfile> _genUserProfileMessageBoxes = new GenericMessageBoxes<TblUserProfile>();
+        private readonly GenericMessageBoxes<NULL> _genNULLMessageBoxes = new GenericMessageBoxes<NULL>();
+        private readonly GenericMessageBoxes<NULL> _genNULLMessageBoxes = new GenericMessageBoxes<NULL>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genExpertMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
+        private readonly BasicGet _extGet = new BasicGet();
+        private readonly BasicCopy _extCopy = new BasicCopy();
+        private readonly BasicDelete _extDelete = new BasicDelete();
+        private readonly BasicSave _extSave = new BasicSave();        
         private int _position;   
          
-        #endregion "Private Data Members"               
+        #endregion [Private Data Members]               
       
-        #region "Constructor"
+        #region [Constructor]
 
-        public TblUserProfilesViewModel()
+        public UserProfilesViewModel()
         {
             if (IsInDesignMode)
             {
                 // Code runs in Blend --> create design time data.
             }
             else
-            {    
+            {          
       
                  GetValueRole();
                  GetValueGender();
@@ -56,396 +69,124 @@ namespace Te.Atis.Ui.Desktop.Views.Database
 
  //    Part 1    
 
-             
-        #region "Public Commands Basic TblUserProfile"
-        //-------------------------------------------------------------------------
-        private RelayCommand _clearUserProfileCommand;
+         
 
-        public ICommand ClearUserProfileCommand => _clearUserProfileCommand ??
-                                                  (_clearUserProfileCommand = new RelayCommand(delegate { ClearUserProfile(null); }));         
-             
-        private RelayCommand _getUserProfilesByNameOrIdCommand;  
+        #region [Commands UserProfile]
 
-        public  ICommand GetUserProfilesByNameOrIdCommand => _getUserProfilesByNameOrIdCommand ??
-                                                           (_getUserProfilesByNameOrIdCommand = new RelayCommand(delegate { GetUserProfilesByNameOrId(null); }));        
+        private RelayCommand _getUserProfilesByNameOrIdCommand;
+        public ICommand GetUserProfilesByNameOrIdCommand => _getUserProfilesByNameOrIdCommand ??= new RelayCommand(delegate {ExecuteGetUserProfilesByNameOrId(SearchUserProfileName); });    
              
         private RelayCommand _addUserProfileCommand;
-
-        public ICommand AddUserProfileCommand => _addUserProfileCommand ??
-                                                (_addUserProfileCommand = new RelayCommand(delegate { AddUserProfile(null); }));
+        public ICommand AddUserProfileCommand => _addUserProfileCommand ??= new RelayCommand(delegate { ExecuteAddUserProfile(null); });
 
         private RelayCommand _copyUserProfileCommand;
-
-        public ICommand CopyUserProfileCommand => _copyUserProfileCommand ??
-                                                 (_copyUserProfileCommand = new RelayCommand(delegate { CopyUserProfile(null); }));      
+        public ICommand CopyUserProfileCommand => _copyUserProfileCommand ??= new RelayCommand(delegate { ExecuteCopyUserProfile(null); });      
              
         private RelayCommand _deleteUserProfileCommand;
-
-        public ICommand DeleteUserProfileCommand => _deleteUserProfileCommand ??
-                                                   (_deleteUserProfileCommand = new RelayCommand(delegate { DeleteUserProfile(null); }));    
+        public ICommand DeleteUserProfileCommand => _deleteUserProfileCommand ??= new RelayCommand(delegate { ExecuteDeleteUserProfile(SearchUserProfileName); });    
              
         private RelayCommand _saveUserProfileCommand;
+        public ICommand SaveUserProfileCommand => _saveUserProfileCommand ??= new RelayCommand(delegate { ExecuteSaveUserProfile(SearchUserProfileName); });    
 
-        public ICommand SaveUserProfileCommand => _saveUserProfileCommand ??
-                                                 (_saveUserProfileCommand = new RelayCommand(delegate { SaveUserProfile(null); }));
-        //-------------------------------------------------------------------------          
-        
-        private void ClearUserProfile(object o)
-        {
-            SearchEmail = "";
+        #endregion [Commands UserProfile]       
 
-            TblUserProfilesList?.Clear();
-        }
-        //----------------------------------------------------------------------                  
-        
-        private void GetUserProfilesByNameOrId(object o)
-        {
-            if (SearchEmail  != "")
-            {
-                TblUserProfilesList?.Clear();
-                if (SearchEmail  == "*") // show whole table
-                {
-                    SearchEmail  = "";
-                    _businessLayer = new BusinessLayer.BusinessLayer();
-                    TblCountriesAllList = new ObservableCollection<TblCountry>(_businessLayer.ListTblCountries());
-                    TblUserProfilesList = new ObservableCollection<TblUserProfile>(_businessLayer.ListTblUserProfilesByEmail(SearchEmail));
-                    SearchEmail  = "*";
-                }
-                else
-                {
-                    _businessLayer = new BusinessLayer.BusinessLayer();
-                    TblCountriesAllList = new ObservableCollection<TblCountry>(_businessLayer.ListTblCountries());
-                    TblUserProfilesList = int.TryParse(SearchEmail , out var id) ?
-                        new ObservableCollection<TblUserProfile>(_businessLayer.ListTblUserProfilesByUserProfileId(id)) :
-                        new ObservableCollection<TblUserProfile>(_businessLayer.ListTblUserProfilesByEmail(SearchEmail));
-                }
-
-                if (TblUserProfilesList.Count == 0)
-                {
-                    WpfMessageBox.Show(CultRes.StringsRes.Tables, CultRes.StringsRes.DatasetNot,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                }
-            }
-            else
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.SearchNameOrId, CultRes.StringsRes.InputRequested,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-            }
-            UserProfilesView = CollectionViewSource.GetDefaultView(TblUserProfilesList);
+UserProfilesView = CollectionViewSource.GetDefaultView(TblUserProfilesList);
             UserProfilesView.Refresh();
         }
         //------------------------------------------------------------------------------------                          
         
-        private void AddUserProfile(object o)
+        private void ExecuteAddUserProfile(object o)
         {
-            if (TblUserProfilesList == null)
-            TblUserProfilesList =  new ObservableCollection<TblUserProfile>( );
-
             TblUserProfilesList.Insert(0, new TblUserProfile {   LastName = CultRes.StringsRes.DatasetNew}  );
-            _businessLayer = new BusinessLayer.BusinessLayer();
 
             TblCountriesAllList = new ObservableCollection<TblCountry>(_businessLayer.ListTblCountries());
             UserProfilesView = CollectionViewSource.GetDefaultView(TblUserProfilesList);
             UserProfilesView.MoveCurrentToFirst();
         }
         //------------------------------------------------------------------------------------                               
-        
-        private void CopyUserProfile(object o)
+     
+        private void ExecuteCopyUserProfile(object o)
         {
-            if (CurrentTblUserProfile == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-            _businessLayer = new BusinessLayer.BusinessLayer();
+            if (_genUserProfileMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTblUserProfile)) return;
 
-            var userprofile = _businessLayer.SingleListTblUserProfilesByUserProfileId(CurrentTblUserProfile.UserProfileID);
+            TblUserProfilesList = _extCopy.CopyUserProfile(CurrentTblUserProfile);
 
-            TblUserProfilesList.Insert(0, new TblUserProfile
-            {
-                Email = CultRes.StringsRes.DatasetNew,
-                Role = userprofile.Role,
-                Flag = userprofile.Flag,
-                Colour = userprofile.Colour,
-                Title = userprofile.Title,
-                FirstName = userprofile.FirstName,
-                LastName = userprofile.LastName,
-                BirthDate = userprofile.BirthDate,
-                Gender = userprofile.Gender,
-                Country = userprofile.Country,
-                Postcode = userprofile.Postcode,
-                City = userprofile.City,
-                Street1 = userprofile.Street1,
-                Street2 = userprofile.Street2,
-                Tel = userprofile.Tel,
-                Mobil = userprofile.Mobil,
-                Fax = userprofile.Fax,
-                HomePageURL = userprofile.HomePageURL,
-                Business = userprofile.Business,
-                Company = userprofile.Company,
-                Filestream = userprofile.Filestream,
-                ImageMimeType = userprofile.ImageMimeType,
-                FilestreamID = Guid.NewGuid(),
-                Signature = userprofile.Signature,
-                MailNewsletter = userprofile.MailNewsletter,
-                MaulHTML = userprofile.MaulHTML,
-                Known = userprofile.Known,
-                StartDate = userprofile.StartDate,
-                EndDate = userprofile.EndDate,
-                Memo = userprofile.Memo
-            });
+            // evtl verbundene tabellen-Datensätze auch kopieren Expert, Source, Author und Comment
 
             UserProfilesView = CollectionViewSource.GetDefaultView(TblUserProfilesList);
             UserProfilesView.MoveCurrentToFirst();
-        }
-        //---------------------------------------------------------------------------------------                            
-        
-        private void DeleteUserProfile(object o)
+        }                         
+     
+        private void ExecuteDeleteUserProfile(string searchName)
         {
-            if (CurrentTblUserProfile == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-            _businessLayer = new BusinessLayer.BusinessLayer();
+            if (_genUserProfileMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTblUserProfile)) return;               
+ 
+    
+            //check if in NULL connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
 
+            NULLList = _extDelete.SearchForConnectedDatasetsWithUserProfileIdInTableNULL(CurrentTblUserProfile);     
+     
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(NULLList.Count, "NULL")) return;
+
+            //Delete all References Experts, Sources, Authors  ----------------------------------------------------
+            Tbl90ReferencesList = _extDelete.DeleteDatasetsWithUserProfileIdInTableReference(CurrentTblUserProfile);
+            if (Tbl90ReferencesList.Count > 0)
+            {
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+
+                _extDelete.DeleteReferences(Tbl90ReferencesList);
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
+            }
+
+            //Delete all Comments  ----------------------------------------------------
+            Tbl93CommentsList = _extDelete.DeleteDatasetsWithUserProfileIdInTableComment(CurrentTblUserProfile);
+            if (Tbl93CommentsList.Count > 0)
+            {
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
+
+                _extDelete.DeleteComments(Tbl93CommentsList);
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
+            }
             try
             {
-                var userprofile = _businessLayer.SingleListTblUserProfilesByUserProfileId(CurrentTblUserProfile.UserProfileID);
-                if (userprofile != null)
+                var userprofile= _uow.TblUserProfiles.GetById(CurrentTblUserProfile.UserProfileId);
+                if (userprofile!= null)
                 {
-                    if (WpfMessageBox.Show(CultRes.StringsRes.DeleteQuestion1, CultRes.StringsRes.DeleteQuestion + " " + CurrentTblUserProfile.Email,
-                            MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-                        return;
-                    userprofile.EntityState = EntityState.Deleted;
-                    _businessLayer.RemoveUserProfile(userprofile);
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTblUserProfile.UserProfileName)) return;
 
-                    WpfMessageBox.Show(CultRes.StringsRes.DeleteSuccess, CurrentTblUserProfile.Email,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                    _extDelete.DeleteUserProfile(userprofile);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTblUserProfile.UserProfileName);
                 }
-                else
-                {
-                    WpfMessageBox.Show(CultRes.StringsRes.Information, CultRes.StringsRes.DeleteCan + " " + CurrentTblUserProfile.Email+ " " + CultRes.StringsRes.DeleteCan1,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTblUserProfile.UserProfileName + " " + CultRes.StringsRes.DeleteCan1);
             }
-            catch (DbEntityValidationException ex)
+            catch (Exception e)
             {
-                _entityException.EntityException(ex);
-                    Log.Error(ex);
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
             }
 
-            if (SearchEmail != "")
-            {
-                if (SearchEmail == "*")  //show all datasets
-                {
-                    SearchEmail = "";
-                    TblUserProfilesList.Clear();
-                    
-                TblUserProfilesList = new ObservableCollection<TblUserProfile>(_businessLayer.ListTblUserProfilesByEmail(SearchEmail));            
-                    SearchEmail = "*";
-                }
-                else
-                {               
-                    TblUserProfilesList =  new ObservableCollection<TblUserProfile>(_businessLayer.ListTblUserProfilesByEmail(SearchEmail));
+            ExecuteGetUserProfilesByNameOrId(searchName);
 
-                }
-                UserProfilesView = CollectionViewSource.GetDefaultView(TblUserProfilesList);
-                UserProfilesView.Refresh();
-            }
-            else  //SearchEmail = empty
+            UserProfilesView.MoveCurrentToFirst();
+        }                
+     
+        private void ExecuteSaveUserProfile(string searchName)
+        {
+            if (_genUserProfileMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTblUserProfile)) return;      
+       
+            //Combobox select NULLID  may be not 0
+            if (CurrentTblUserProfile.NULLId == 0)
             {
-                TblUserProfilesList = new ObservableCollection<TblUserProfile>(_businessLayer.ListTblUserProfilesByEmail(SearchEmail));
-
-                UserProfilesView = CollectionViewSource.GetDefaultView(TblUserProfilesList);
-                UserProfilesView.MoveCurrentToFirst();
-             }
-        }
-        //-------------------------------------------------------------------------------------------------                    
+                MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }     
        
         private void SaveUserProfile(object o)
         {
-            if (CurrentTblUserProfile == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-            _businessLayer = new BusinessLayer.BusinessLayer();
-
-            try
-            {
-                var userprofile = _businessLayer.SingleListTblUserProfilesByUserProfileId(CurrentTblUserProfile.UserProfileID);
-                if (CurrentTblUserProfile.UserProfileID != 0)
-                {
-                    if (userprofile != null) //update
-                    {
-                            userprofile.Email = CurrentTblUserProfile.Email;
-                            userprofile.Password = Crypt.CalculateHash(CurrentTblUserProfile.Password, CurrentTblUserProfile.Email);
-                            userprofile.Role = CurrentTblUserProfile.Role;
-                            userprofile.Flag = CurrentTblUserProfile.Flag;
-                            userprofile.Colour = CurrentTblUserProfile.Colour;
-                            userprofile.Title = CurrentTblUserProfile.Title;
-                            userprofile.FirstName = CurrentTblUserProfile.FirstName;
-                            userprofile.LastName = CurrentTblUserProfile.LastName;
-                            userprofile.BirthDate = CurrentTblUserProfile.BirthDate;
-                            userprofile.Gender = CurrentTblUserProfile.Gender;
-                            userprofile.Country = CurrentTblUserProfile.Country;
-                            userprofile.Postcode = CurrentTblUserProfile.Postcode;
-                            userprofile.City = CurrentTblUserProfile.City;
-                            userprofile.Street1 = CurrentTblUserProfile.Street1;
-                            userprofile.Street2 = CurrentTblUserProfile.Street2;
-                            userprofile.Tel = CurrentTblUserProfile.Tel;
-                            userprofile.Mobil = CurrentTblUserProfile.Mobil;
-                            userprofile.Fax = CurrentTblUserProfile.Fax;
-                            userprofile.HomePageURL = CurrentTblUserProfile.HomePageURL;
-                            userprofile.Business = CurrentTblUserProfile.Business;
-                            userprofile.Company = CurrentTblUserProfile.Company;
-                            userprofile.Filestream = CurrentTblUserProfile.Filestream;
-                            userprofile.ImageMimeType = CurrentTblUserProfile.ImageMimeType;
-                            userprofile.FilestreamID = CurrentTblUserProfile.FilestreamID;
-                            userprofile.Signature = CurrentTblUserProfile.Signature;
-                            userprofile.MailNewsletter = CurrentTblUserProfile.MailNewsletter;
-                            userprofile.MaulHTML = CurrentTblUserProfile.MaulHTML;
-                            userprofile.Known = CurrentTblUserProfile.Known;
-                            userprofile.StartDate = DateTime.Now;
-                            userprofile.EndDate = DateTime.Now;
-                            userprofile.Updater = Environment.UserName;
-                            userprofile.UpdaterDate = DateTime.Now;
-                            userprofile.Memo = CurrentTblUserProfile.Memo;
-                            userprofile.EntityState = EntityState.Modified;
-                    }
-                }
-                else
-                {
-                            userprofile = new TblUserProfile   //add new
-                            {
-                        Email = CurrentTblUserProfile.Email,
-                            CountID = RandomHelper.Randomnumber(),
-                            Password = Crypt.CalculateHash(CurrentTblUserProfile.Password, CurrentTblUserProfile.Email),
-                            Role = CurrentTblUserProfile.Role,
-                            Flag = CurrentTblUserProfile.Flag,
-                            Colour = CurrentTblUserProfile.Colour,
-                            Title = CurrentTblUserProfile.Title,
-                            FirstName = CurrentTblUserProfile.FirstName,
-                            LastName = CurrentTblUserProfile.LastName,
-                            BirthDate = CurrentTblUserProfile.BirthDate,
-                            Gender = CurrentTblUserProfile.Gender,
-                            Country = CurrentTblUserProfile.Country,
-                            Postcode = CurrentTblUserProfile.Postcode,
-                            City = CurrentTblUserProfile.City,
-                            Street1 = CurrentTblUserProfile.Street1,
-                            Street2 = CurrentTblUserProfile.Street2,
-                            Tel = CurrentTblUserProfile.Tel,
-                            Mobil = CurrentTblUserProfile.Mobil,
-                            Fax = CurrentTblUserProfile.Fax,
-                            HomePageURL = CurrentTblUserProfile.HomePageURL,
-                            Business = CurrentTblUserProfile.Business,
-                            Company = CurrentTblUserProfile.Company,
-                            Filestream = CurrentTblUserProfile.Filestream,
-                            ImageMimeType = CurrentTblUserProfile.ImageMimeType,
-                            FilestreamID = Guid.NewGuid(),
-                            Signature = CurrentTblUserProfile.Signature,
-                            MailNewsletter = CurrentTblUserProfile.MailNewsletter,
-                            MaulHTML = CurrentTblUserProfile.MaulHTML,
-                            Known = CurrentTblUserProfile.Known,
-                            StartDate = DateTime.Now,
-                            EndDate = DateTime.Now,
-                            Writer = Environment.UserName,
-                            WriterDate = DateTime.Now,
-                            Updater = Environment.UserName,
-                            UpdaterDate = DateTime.Now,
-                            Memo = CurrentTblUserProfile.Memo,
-                            EntityState = EntityState.Added
-                    };
-                }
-                {
-                        //check if dataset with Email already exist       
-                        var dataset = _businessLayer.ListTblUserProfilesByEmail(CurrentTblUserProfile.Email);
-
-                    if (dataset.Count != 0 && CurrentTblUserProfile.UserProfileID == 0)  //dataset exist
-                    {
-                        WpfMessageBox.Show(CultRes.StringsRes.DatasetExist, CurrentTblUserProfile.Email,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        return;
-                    }
-                    if (dataset.Count == 0 && CurrentTblUserProfile.UserProfileID == 0 ||
-                        dataset.Count != 0 && CurrentTblUserProfile.UserProfileID != 0 ||
-                        dataset.Count == 0 && CurrentTblUserProfile.UserProfileID != 0) //new dataset and update
-                    {
-                        if (WpfMessageBox.Show(CultRes.StringsRes.SaveQuestion2, CurrentTblUserProfile.Email,
-                                MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-                            return;
-                        {
-                            try
-                            {
-                                _businessLayer.UpdateUserProfile(userprofile);
-                                _position = UserProfilesView.CurrentPosition;
-                            }
-                            catch (DbUpdateException e)
-                            {
-                                if (e.InnerException != null)
-                                    System.Windows.MessageBox.Show(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave,
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-
-                                Log.Error(e);
-                                return;
-                            }
-                            catch (Exception e)
-                            {
-                                System.Windows.MessageBox.Show(e.Message, CultRes.StringsRes.Error,
-                                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-                                Log.Error(e);
-                                return;
-                            }
-                                    WpfMessageBox.Show(CultRes.StringsRes.SaveSuccess,
-                                        CurrentTblUserProfile.UserProfileID == 0
-                                            ? CultRes.StringsRes.DatasetNew
-                                            : CurrentTblUserProfile.Email,
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        }
-                    }
-                }
-            }
-            catch (DbEntityValidationException ex)
-            {
-                _entityException.EntityException(ex);
-                    Log.Error(ex);
-                  return;
-            }
-
-            if (SearchEmail != "")
-            {
-                if (SearchEmail == "*")  //show all datasets
-                {
-                    SearchEmail = "";
-                    TblUserProfilesList.Clear();
-                    
-                TblUserProfilesList = new ObservableCollection<TblUserProfile>(_businessLayer.ListTblUserProfilesByEmail(SearchEmail));            
-                    SearchEmail = "*";
-                }
-                else
-                {               
-                    TblUserProfilesList = int.TryParse(SearchEmail, out var id)
-                        ? new ObservableCollection<TblUserProfile>(_businessLayer.ListTblUserProfilesByUserProfileId(id))
-                        : new ObservableCollection<TblUserProfile>(_businessLayer.ListTblUserProfilesByEmail(SearchEmail));
-
-                }
-                UserProfilesView = CollectionViewSource.GetDefaultView(TblUserProfilesList);
-                UserProfilesView.MoveCurrentToPosition(_position);
-            }
-            else  
-            {
-                TblUserProfilesList = new ObservableCollection<TblUserProfile>(_businessLayer.ListTblUserProfilesByEmail(CurrentTblUserProfile.Email));
-
-                UserProfilesView= CollectionViewSource.GetDefaultView(TblUserProfilesList);
-                UserProfilesView.Refresh();
-            }
         }
         #endregion "Public Commands"                   
  
@@ -453,6 +194,17 @@ namespace Te.Atis.Ui.Desktop.Views.Database
 
  //    Part 2    
 
+     
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+            ExecuteGetUserProfilesByNameOrId(searchName);
+            UserProfilesView.MoveCurrentToPosition(_position);
+        }
+
+        #endregion "Public Commands"                  
                                                           
 
  //    Part 3    
@@ -485,10 +237,247 @@ namespace Te.Atis.Ui.Desktop.Views.Database
              
  //    Part 9    
 
+
+     
+        #region "Public Commands Connected Tables by DoubleClick"
+
+        private RelayCommand _getConnectedTablesCommand;
+        public ICommand GetConnectedTablesCommand => _getConnectedTablesCommand ??= new RelayCommand(delegate { GetConnectedTablesById(null); });
+
+        #endregion "Public Commands Connected Tables by DoubleClick"
+
+        #region "Public Method Connected Tables by DoubleClick"
+
+        private void GetConnectedTablesById(object o)
+        {           
+     
+        }
+
+        #endregion "Public Method Connected Tables by DoubleClick"     
  
+
 
  //    Part 10    
 
+     
+        #region "Public Commands to open Detail TabItems"
+
+        private int _selectedMainTabIndex;
+        private int _selectedMainSubRefTabIndex;
+        private int _selectedDetailTabIndex;
+
+        public  int SelectedMainTabIndex
+        {
+            get => _selectedMainTabIndex; 
+            set
+            {
+                if (value == _selectedMainTabIndex) return;
+                _selectedMainTabIndex = value; RaisePropertyChanged("");        
+     
+                if (_selectedMainTabIndex == 0)             
+                {
+                    if (CurrentTblUserProfile != null)
+                    {
+                        NULLList = _extGet.GetCollectionOrderByFromNULLId<NULL>(CurrentTblUserProfile.NULLId);
+
+                        NULLAllList = _extGet.AllCollection<NULL>("");
+
+                        View = CollectionViewSource.GetDefaultView(NULLList);
+                        View.Refresh();
+                    }
+                    SelectedDetailTabIndex = 0;
+                }         
+     
+                if (_selectedMainTabIndex == 1)
+                {
+                    if (CurrentTblUserProfile != null)
+                    {
+                        NULLList = _extGet.GetCollectionOrderByFromUserProfileId<NULL>(CurrentTblUserProfile.UserProfileId);
+
+                        TblUserProfilesAllList = _extGet.AllCollection<TblUserProfile>("userprofile");
+
+                        View = CollectionViewSource.GetDefaultView(NULLList);
+                        View.Refresh();
+                    }
+                    SelectedDetailTabIndex = 2;   
+               }      
+     
+                if (_selectedMainTabIndex == 2)
+                {
+                    SelectedDetailTabIndex = 3;
+                    SelectedMainSubRefTabIndex = 0;
+                }           
+     
+                if (_selectedMainTabIndex == 3)
+                {
+                    if (CurrentTblUserProfile != null)
+                    {
+                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromUserProfileId<Tbl93Comment>(CurrentTblUserProfile.UserProfileId);
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 6;
+                }        
+     
+            }
+        }
+
+        public  int SelectedDetailTabIndex
+        {
+            get => _selectedDetailTabIndex; 
+            set
+            {
+                if (value == _selectedDetailTabIndex) return;
+                _selectedDetailTabIndex = value;    RaisePropertyChanged("");       
+     
+                if (_selectedDetailTabIndex == 0)
+                {
+                    if (CurrentTblUserProfile != null)
+                    {
+                        NULLList = _extGet.GetCollectionOrderByFromNULLId<NULL>(CurrentTblUserProfile.NULLId);
+
+                        View = CollectionViewSource.GetDefaultView(NULLList);
+                        View.Refresh();
+                    }
+                    SelectedMainTabIndex = 0;  
+               }     
+     
+                if (_selectedDetailTabIndex == 1)                
+                {
+                    SelectedMainTabIndex = 0;
+                }    
+     
+                if (_selectedDetailTabIndex == 2)                
+                {
+                    if (CurrentTblUserProfile != null)
+                    {
+                        NULLList = _extGet.GetCollectionOrderByFromUserProfileId<NULL>(CurrentTblUserProfile.UserProfileId);
+
+                        TblUserProfilesAllList = _extGet.AllCollection<TblUserProfile>("userprofile");
+
+                        View = CollectionViewSource.GetDefaultView(NULLList);
+                        View.Refresh();
+                    }
+                    SelectedMainTabIndex = 1;
+               }    
+     
+                if (_selectedDetailTabIndex == 3)
+                {
+                    if (CurrentTblUserProfile != null)
+                    {
+                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+
+                        Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFromUserProfileIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTblUserProfile.UserProfileId);
+
+                        ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                        ReferenceExpertsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 2;
+                    SelectedMainSubRefTabIndex = 0;
+                }        
+     
+                if (_selectedDetailTabIndex == 4)
+                {
+                    if (CurrentTblUserProfile != null)
+                    {
+                        Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+
+                        Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromUserProfileIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTblUserProfile.UserProfileId);
+
+                        ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+                        ReferenceSourcesView.Refresh();
+                    }
+                    SelectedMainTabIndex = 2;
+                    SelectedMainSubRefTabIndex = 1;
+                }        
+     
+                if (_selectedDetailTabIndex == 5)
+                {
+                    if (CurrentTblUserProfile != null)
+                    {
+                        Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+
+                        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFromUserProfileIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTblUserProfile.UserProfileId);
+
+                        ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
+                        ReferenceAuthorsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 2;
+                    SelectedMainSubRefTabIndex = 2;
+                }       
+     
+                if (_selectedDetailTabIndex == 6)
+                {
+                    if (CurrentTblUserProfile != null)
+                    {
+                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromUserProfileId<Tbl93Comment>(CurrentTblUserProfile.UserProfileId);
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 3;
+                }       
+     
+            }
+        }
+
+        public int SelectedMainSubRefTabIndex
+        {
+            get => _selectedMainSubRefTabIndex;
+            set
+            {
+                if (value == _selectedMainSubRefTabIndex) return;
+                _selectedMainSubRefTabIndex = value;  RaisePropertyChanged("");     
+     
+                if (_selectedMainSubRefTabIndex == 0)
+                {
+                    if (CurrentTblUserProfile != null)
+                    {
+                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+
+                        Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFromUserProfileIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTblUserProfile.UserProfileId);
+
+                        ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                        ReferenceExpertsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 3;
+                    SelectedMainTabIndex = 2;
+                }        
+     
+                if (_selectedMainSubRefTabIndex == 1)
+                {
+                    if (CurrentTblUserProfile != null)
+                    {
+                        Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+
+                        Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromUserProfileIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTblUserProfile.UserProfileId);
+
+                        ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+                        ReferenceSourcesView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 4;
+                    SelectedMainTabIndex = 2;
+                }      
+     
+                if (_selectedMainSubRefTabIndex == 2)
+                {
+                    if (CurrentTblUserProfile != null)
+                    {
+                        Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+
+                        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFromUserProfileIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTblUserProfile.UserProfileId);
+
+                        ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
+                        ReferenceAuthorsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 5;
+                    SelectedMainTabIndex = 2;
+                }      
+                     
+            }
+        }    
+        #endregion "Public Commands to open Detail TabItems"          
  
 
  //    Part 11    
@@ -654,10 +643,6 @@ namespace Te.Atis.Ui.Desktop.Views.Database
 
         #endregion "Private Methods"  
  
-
- 
-
-
 
    }
 }   

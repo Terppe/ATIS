@@ -1,21 +1,18 @@
 using System;  
 
     
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Threading;   
+using System.Windows.Controls;   
  
 
       //  Tbl90RefAuthorsView.xaml.cs Skriptdatum:  30.03.2019  10:32     
 
-namespace Te.Atis.Ui.Desktop.Views.Database
+namespace ATIS.Ui.Views.Database.ListDetails
 {  
 
     /// <summary>
-    /// Interactionslogic for Tbl90RefAuthorsView.xaml
+    /// Interactionslogic for RefAuthorsView.xaml
     /// </summary>
-    public partial class Tbl90RefAuthorsView : UserControl
+    public partial class RefAuthorsView : UserControl
    {      
 
                 

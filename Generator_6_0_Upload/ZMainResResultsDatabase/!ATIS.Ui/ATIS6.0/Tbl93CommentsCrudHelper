@@ -1,0 +1,94 @@
+    
+        public ObservableCollection<NULL> SearchForConnectedDatasetsWithCommentIdInTableNULL(Tbl93Comment selected)
+        {
+            var collection = new ObservableCollection<NULL>(_uow.NULL.Find(x => x.CommentId == selected.CommentId));
+            return collection;
+        }
+
+
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithCommentIdInTableReference(Tbl93Comment selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.CommentId == selected.CommentId));
+            return collection;
+        }
+
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithCommentIdInTableComment(Tbl93Comment selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.CommentId == selected.CommentId));
+            return collection;
+        }
+
+        public void DeleteComment(Tbl93Comment selected)
+        {
+            _uow.Tbl93Comments.Remove(selected);
+            _uow.Complete();
+        }
+
+        public ObservableCollection<T> GetNULLCollectionOrderByFromNULLId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.NULL
+                .Where(e => e.NULLId == id)
+                .OrderBy(k => k.NULLName));
+
+            return collection;
+        }
+
+        public ObservableCollection<T> GetCommentsCollectionOrderByFromCommentId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
+                .Where(e => e.CommentId == id)
+                .OrderBy(k => k.CommentName));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetNULLCollectionOrderByFromSubphylumId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.NULL
+                .Where(e => e.CommentId == id)
+                .OrderBy(k => k.NULLName));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferenceExpertsCollectionOrderByFromCommentIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.CommentId == id && e.RefAuthorId == null && e.RefSourceId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferenceSourcesCollectionOrderByFromCommentIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefSources)
+                .Where(e => e.CommentId == id && e.RefAuthorId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferenceAuthorsCollectionOrderByFromCommentIdAndRefSourceIdIsNullAndRefExpertIdIsNull<T>(int id)   
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.CommentId == id && e.RefSourceId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetCommentsCollectionOrderByFromSubphylumId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
+                .Where(e => e.CommentId == id)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+   

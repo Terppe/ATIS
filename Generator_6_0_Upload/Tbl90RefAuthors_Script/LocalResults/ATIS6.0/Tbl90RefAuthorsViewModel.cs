@@ -1,389 +1,188 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Validation;
+using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using GalaSoft.MvvmLight;
-using log4net;
-using Te.Atis.DomainModel;
-using Te.Atis.Ui.Desktop.BusinessLayer;
-using Te.Atis.Ui.Desktop.Domain;
-using Te.Atis.Ui.Desktop.Domain.Helper;
-using Te.Atis.Ui.Desktop.MessageBox;    
+using Common.Logging;
+using ATIS.Dal.Models;
+using ATIS.Ui.Core;
+using ATIS.Ui.Helper;
+using ATIS.Ui.Views.Database.CrudHelper;
+using ATIS.Ui.Views.Database.DatabaseHelper;
+using Microsoft.EntityFrameworkCore;          
 
     
-         //    Tbl90RefAuthorsViewModel Skriptdatum:  30.03.2019  10:32    
+         //    RefAuthorsViewModel Skriptdatum:  30.03.2019  10:32    
 
-namespace Te.Atis.Ui.Desktop.Views.Database
+namespace ATIS.Ui.Views.Database.ListDetails
 {     
     
-    public class Tbl90RefAuthorsViewModel : ViewModelBase                     
-    {     
+    public class RefAuthorsViewModel : ViewModelBase                     
+    {  
+        // Version with Generic Unit Of Work and AtisDbContext for general use   
          
-        #region "Private Data Members"
+        #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private static IBusinessLayer _businessLayer;
-        private static DbEntityException _entityException;
+        private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
+        private readonly AtisDbContext _context = new AtisDbContext();
+
+        private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
+        private readonly GenericMessageBoxes<Tbl90RefAuthor> _genRefAuthorMessageBoxes = new GenericMessageBoxes<Tbl90RefAuthor>();
+        private readonly GenericMessageBoxes<NULL> _genNULLMessageBoxes = new GenericMessageBoxes<NULL>();
+        private readonly GenericMessageBoxes<NULL> _genFiSpeciesMessageBoxes = new GenericMessageBoxes<NULL>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genExpertMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
+        private readonly BasicGet _extGet = new BasicGet();
+        private readonly BasicCopy _extCopy = new BasicCopy();
+        private readonly BasicDelete _extDelete = new BasicDelete();
+        private readonly BasicSave _extSave = new BasicSave();        
         private int _position;   
          
-        #endregion "Private Data Members"               
+        #endregion [Private Data Members]               
       
-        #region "Constructor"
+        #region [Constructor]
 
-        public Tbl90RefAuthorsViewModel()
+        public RefAuthorsViewModel()
         {
             if (IsInDesignMode)
             {
                 // Code runs in Blend --> create design time data.
             }
             else
-            {    
+            {          
         
                 // Code runs "for real" 
-                _entityException = new DbEntityException();
+                Tbl90RefAuthorsList = new ObservableCollection<Tbl90RefAuthor>();    
             }
         }     
-        #endregion "Constructor"         
+        public bool IsInDesignMode { get; set; }
+
+        #endregion [Constructor]         
  
 
  //    Part 1    
 
-             
-        #region "Public Commands Basic Tbl90RefAuthor"
-        //-------------------------------------------------------------------------
-        private RelayCommand _clearRefAuthorCommand;
+         
 
-        public ICommand ClearRefAuthorCommand => _clearRefAuthorCommand ??
-                                                  (_clearRefAuthorCommand = new RelayCommand(delegate { ClearRefAuthor(null); }));         
-             
-        private RelayCommand _getRefAuthorsByNameOrIdCommand;  
+        #region [Commands RefAuthor]
 
-        public  ICommand GetRefAuthorsByNameOrIdCommand => _getRefAuthorsByNameOrIdCommand ??
-                                                           (_getRefAuthorsByNameOrIdCommand = new RelayCommand(delegate { GetRefAuthorsByNameOrId(null); }));        
+        private RelayCommand _getRefAuthorsByNameOrIdCommand;
+        public ICommand GetRefAuthorsByNameOrIdCommand => _getRefAuthorsByNameOrIdCommand ??= new RelayCommand(delegate {ExecuteGetRefAuthorsByNameOrId(SearchRefAuthorName); });    
              
         private RelayCommand _addRefAuthorCommand;
-
-        public ICommand AddRefAuthorCommand => _addRefAuthorCommand ??
-                                                (_addRefAuthorCommand = new RelayCommand(delegate { AddRefAuthor(null); }));
+        public ICommand AddRefAuthorCommand => _addRefAuthorCommand ??= new RelayCommand(delegate { ExecuteAddRefAuthor(null); });
 
         private RelayCommand _copyRefAuthorCommand;
-
-        public ICommand CopyRefAuthorCommand => _copyRefAuthorCommand ??
-                                                 (_copyRefAuthorCommand = new RelayCommand(delegate { CopyRefAuthor(null); }));      
+        public ICommand CopyRefAuthorCommand => _copyRefAuthorCommand ??= new RelayCommand(delegate { ExecuteCopyRefAuthor(null); });      
              
         private RelayCommand _deleteRefAuthorCommand;
-
-        public ICommand DeleteRefAuthorCommand => _deleteRefAuthorCommand ??
-                                                   (_deleteRefAuthorCommand = new RelayCommand(delegate { DeleteRefAuthor(null); }));    
+        public ICommand DeleteRefAuthorCommand => _deleteRefAuthorCommand ??= new RelayCommand(delegate { ExecuteDeleteRefAuthor(SearchRefAuthorName); });    
              
         private RelayCommand _saveRefAuthorCommand;
+        public ICommand SaveRefAuthorCommand => _saveRefAuthorCommand ??= new RelayCommand(delegate { ExecuteSaveRefAuthor(SearchRefAuthorName); });    
 
-        public ICommand SaveRefAuthorCommand => _saveRefAuthorCommand ??
-                                                 (_saveRefAuthorCommand = new RelayCommand(delegate { SaveRefAuthor(null); }));
-        //-------------------------------------------------------------------------          
-        
-        private void ClearRefAuthor(object o)
-        {
-            SearchRefAuthorName = "";
+        #endregion [Commands RefAuthor]       
 
-            Tbl90RefAuthorsList?.Clear();
-        }
-        //----------------------------------------------------------------------                  
-        
-        private void GetRefAuthorsByNameOrId(object o)
-        {
-            if (SearchRefAuthorName != "")
-            {
-                Tbl90RefAuthorsList?.Clear();
-                if (SearchRefAuthorName == "*") // show whole table
-                {
-                    SearchRefAuthorName = "";
-                    _businessLayer = new BusinessLayer.BusinessLayer();
-                    Tbl90RefAuthorsList = new ObservableCollection<Tbl90RefAuthor>(_businessLayer.ListTbl90RefAuthorsByRefAuthorName(SearchRefAuthorName));
-                    SearchRefAuthorName = "*";
-                }
-                else
-                {
-                    _businessLayer = new BusinessLayer.BusinessLayer();
-                    Tbl90RefAuthorsList = int.TryParse(SearchRefAuthorName, out var id) ?
-                        new ObservableCollection<Tbl90RefAuthor>(_businessLayer.ListTbl90RefAuthorsByRefAuthorId(id)) :
-                        new ObservableCollection<Tbl90RefAuthor>(_businessLayer.ListTbl90RefAuthorsByRefAuthorName(SearchRefAuthorName));
-                }
-
-                if (Tbl90RefAuthorsList.Count == 0)
-                {
-                    WpfMessageBox.Show(CultRes.StringsRes.Tables, CultRes.StringsRes.DatasetNot,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                }
-            }
-            else
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.SearchNameOrId, CultRes.StringsRes.InputRequested,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-            }
-            RefAuthorsView = CollectionViewSource.GetDefaultView(Tbl90RefAuthorsList);
+RefAuthorsView = CollectionViewSource.GetDefaultView(Tbl90RefAuthorsList);
             RefAuthorsView.Refresh();
         }
         //------------------------------------------------------------------------------------                          
         
-        private void AddRefAuthor(object o)
+        private void ExecuteAddRefAuthor(object o)
         {
-            if (Tbl90RefAuthorsList == null)
-                Tbl90RefAuthorsList =  new ObservableCollection<Tbl90RefAuthor>( );
- 
             Tbl90RefAuthorsList.Insert(0, new Tbl90RefAuthor {   RefAuthorName = CultRes.StringsRes.DatasetNew}  );
 
             RefAuthorsView = CollectionViewSource.GetDefaultView(Tbl90RefAuthorsList);
             RefAuthorsView.MoveCurrentToFirst();
         }
         //------------------------------------------------------------------------------------                               
-        
-        private void CopyRefAuthor(object o)
+     
+        private void ExecuteCopyRefAuthor(object o)
         {
-            if (CurrentTbl90RefAuthor == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-            _businessLayer = new BusinessLayer.BusinessLayer();
+            if (_genRefAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90RefAuthor)) return;
 
-            var refAuthor = _businessLayer.SingleListTbl90RefAuthorsByRefAuthorId(CurrentTbl90RefAuthor.RefAuthorID);
+            Tbl90RefAuthorsList = _extCopy.CopyRefAuthor(CurrentTbl90RefAuthor);
 
-            Tbl90RefAuthorsList.Insert(0, new Tbl90RefAuthor
-            {
-                RefAuthorName = CultRes.StringsRes.DatasetNew,
-                Valid = refAuthor.Valid,
-                ValidYear = refAuthor.ValidYear,
-                PublicationYear = refAuthor.PublicationYear,
-                ArticelTitle = refAuthor.ArticelTitle,
-                BookName = refAuthor.BookName,
-                Info = refAuthor.Info,
-                Page1 = refAuthor.Page1,
-                Publisher = refAuthor.Publisher,
-                PublicationPlace = refAuthor.PublicationPlace,
-                ISBN = refAuthor.ISBN,
-                Notes = refAuthor.Notes,
-                Memo = refAuthor.Memo
-            });
+            // evtl verbundene tabellen-Datensätze auch kopieren Expert, Source, Author und Comment
 
             RefAuthorsView = CollectionViewSource.GetDefaultView(Tbl90RefAuthorsList);
             RefAuthorsView.MoveCurrentToFirst();
-        }
-        //---------------------------------------------------------------------------------------                            
-        
-        private void DeleteRefAuthor(object o)
+        }                         
+     
+        private void ExecuteDeleteRefAuthor(string searchName)
         {
-            if (CurrentTbl90RefAuthor == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-            _businessLayer = new BusinessLayer.BusinessLayer();
+            if (_genRefAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90RefAuthor)) return;               
+ 
+    
+            //check if in Tbl69FiSpeciesses connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
 
+            Tbl69FiSpeciessesList = _extDelete.SearchForConnectedDatasetsWithRefAuthorIdInTableFiSpecies(CurrentTbl90RefAuthor);     
+     
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl69FiSpeciessesList.Count, "FiSpecies")) return;
+
+            //Delete all References Experts, Sources, Authors  ----------------------------------------------------
+            Tbl90ReferencesList = _extDelete.DeleteDatasetsWithRefAuthorIdInTableReference(CurrentTbl90RefAuthor);
+            if (Tbl90ReferencesList.Count > 0)
+            {
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+
+                _extDelete.DeleteReferences(Tbl90ReferencesList);
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
+            }
+
+            //Delete all Comments  ----------------------------------------------------
+            Tbl93CommentsList = _extDelete.DeleteDatasetsWithRefAuthorIdInTableComment(CurrentTbl90RefAuthor);
+            if (Tbl93CommentsList.Count > 0)
+            {
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
+
+                _extDelete.DeleteComments(Tbl93CommentsList);
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
+            }
             try
             {
-                var refAuthor = _businessLayer.SingleListTbl90RefAuthorsByRefAuthorId(CurrentTbl90RefAuthor.RefAuthorID);
-                if (refAuthor != null)
+                var refAuthor= _uow.Tbl90RefAuthors.GetById(CurrentTbl90RefAuthor.RefAuthorId);
+                if (refAuthor!= null)
                 {
-                    if (WpfMessageBox.Show(CultRes.StringsRes.DeleteQuestion1, CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90RefAuthor.RefAuthorName,
-                            MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-                        return;
-                    refAuthor.EntityState = EntityState.Deleted;
-                    _businessLayer.RemoveRefAuthor(refAuthor);
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90RefAuthor.RefAuthorName)) return;
 
-                    WpfMessageBox.Show(CultRes.StringsRes.DeleteSuccess, CurrentTbl90RefAuthor.RefAuthorName,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                    _extDelete.DeleteRefAuthor(refAuthor);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90RefAuthor.RefAuthorName);
                 }
-                else
-                {
-                    WpfMessageBox.Show(CultRes.StringsRes.Information, CultRes.StringsRes.DeleteCan + " " + CurrentTbl90RefAuthor.RefAuthorName + " " + CultRes.StringsRes.DeleteCan1,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl90RefAuthor.RefAuthorName + " " + CultRes.StringsRes.DeleteCan1);
             }
-            catch (DbEntityValidationException ex)
+            catch (Exception e)
             {
-                _entityException.EntityException(ex);
-                    Log.Error(ex);
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
             }
 
-            if (SearchRefAuthorName != "")
-            {
-                if (SearchRefAuthorName == "*")  //show all datasets
-                {
-                    SearchRefAuthorName = "";
-                    Tbl90RefAuthorsList.Clear();
-                    
-                Tbl90RefAuthorsList = new ObservableCollection<Tbl90RefAuthor>(_businessLayer.ListTbl90RefAuthorsByRefAuthorName(SearchRefAuthorName));            
-                    SearchRefAuthorName = "*";
-                }
-                else
-                {               
-                    Tbl90RefAuthorsList =  new ObservableCollection<Tbl90RefAuthor>(_businessLayer.ListTbl90RefAuthorsByRefAuthorName(SearchRefAuthorName));
+            ExecuteGetRefAuthorsByNameOrId(searchName);
 
-                }
-                RefAuthorsView = CollectionViewSource.GetDefaultView(Tbl90RefAuthorsList);
-                RefAuthorsView.Refresh();
-            }
-            else  //SearchName = empty
+            RefAuthorsView.MoveCurrentToFirst();
+        }                
+     
+        private void ExecuteSaveRefAuthor(string searchName)
+        {
+            if (_genRefAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90RefAuthor)) return;      
+       
+            //Combobox select NULLID  may be not 0
+            if (CurrentTbl90RefAuthor.NULLId == 0)
             {
-                Tbl90RefAuthorsList = new ObservableCollection<Tbl90RefAuthor>(_businessLayer.ListTbl90RefAuthorsByRefAuthorName(SearchRefAuthorName));
-
-                RefAuthorsView = CollectionViewSource.GetDefaultView(Tbl90RefAuthorsList);
-                RefAuthorsView.MoveCurrentToFirst();
-             }
-        }
-        //-------------------------------------------------------------------------------------------------                    
+                MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }     
        
         private void SaveRefAuthor(object o)
         {
-            if (CurrentTbl90RefAuthor == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-            _businessLayer = new BusinessLayer.BusinessLayer();
-
-            try
-            {
-                var refAuthor = _businessLayer.SingleListTbl90RefAuthorsByRefAuthorId(CurrentTbl90RefAuthor.RefAuthorID);
-                if (CurrentTbl90RefAuthor.RefAuthorID != 0)
-                {
-                    if (refAuthor != null) //update
-                    {
-                            refAuthor.RefAuthorName = CurrentTbl90RefAuthor.RefAuthorName;
-                            refAuthor.Valid = CurrentTbl90RefAuthor.Valid;
-                            refAuthor.ValidYear = CurrentTbl90RefAuthor.ValidYear;
-                            refAuthor.PublicationYear = CurrentTbl90RefAuthor.PublicationYear;
-                            refAuthor.ArticelTitle = CurrentTbl90RefAuthor.ArticelTitle;
-                            refAuthor.BookName = CurrentTbl90RefAuthor.BookName;
-                            refAuthor.Info = CurrentTbl90RefAuthor.Info;
-                            refAuthor.Page1 = CurrentTbl90RefAuthor.Page1;
-                            refAuthor.Publisher = CurrentTbl90RefAuthor.Publisher;
-                            refAuthor.PublicationPlace = CurrentTbl90RefAuthor.PublicationPlace;
-                            refAuthor.ISBN = CurrentTbl90RefAuthor.ISBN;
-                            refAuthor.Notes = CurrentTbl90RefAuthor.Notes;
-                            refAuthor.Updater = Environment.UserName;
-                            refAuthor.UpdaterDate = DateTime.Now;
-                            refAuthor.Memo = CurrentTbl90RefAuthor.Memo;
-                            refAuthor.EntityState = EntityState.Modified;
-                    }
-                }
-                else
-                {
-                            refAuthor = new Tbl90RefAuthor   //add new
-                            {
-                            RefAuthorName = CurrentTbl90RefAuthor.RefAuthorName,
-                            CountID = RandomHelper.Randomnumber(),
-                            Valid = CurrentTbl90RefAuthor.Valid,
-                            ValidYear = CurrentTbl90RefAuthor.ValidYear,
-                            PublicationYear = CurrentTbl90RefAuthor.PublicationYear,
-                            ArticelTitle = CurrentTbl90RefAuthor.ArticelTitle,
-                            BookName = CurrentTbl90RefAuthor.BookName,
-                            Info = CurrentTbl90RefAuthor.Info,
-                            Page1 = CurrentTbl90RefAuthor.Page1,
-                            Publisher = CurrentTbl90RefAuthor.Publisher,
-                            PublicationPlace = CurrentTbl90RefAuthor.PublicationPlace,
-                            ISBN = CurrentTbl90RefAuthor.ISBN,
-                            Notes = CurrentTbl90RefAuthor.Notes,
-                            Writer = Environment.UserName,
-                            WriterDate = DateTime.Now,
-                            Updater = Environment.UserName,
-                            UpdaterDate = DateTime.Now,
-                            Memo = CurrentTbl90RefAuthor.Memo,
-                            EntityState = EntityState.Added
-                    };
-                }
-                {
-                    //check if dataset with RefAuthorName and ArticelTitle and BookName and Page 1 and Publisher and PublicationPlace already exist       
-                    var dataset = _businessLayer.ListTbl90RefAuthorsByRefAuthorNameAndArticelTitleAndBookNameAndPage1AndPublisherAndPublicationPlace(CurrentTbl90RefAuthor.RefAuthorName, CurrentTbl90RefAuthor.ArticelTitle, CurrentTbl90RefAuthor.BookName,  CurrentTbl90RefAuthor.Page1, CurrentTbl90RefAuthor.Publisher, CurrentTbl90RefAuthor.PublicationPlace);
-
-                    if (dataset.Count != 0 && CurrentTbl90RefAuthor.RefAuthorID == 0)  //dataset exist
-                    {
-                        WpfMessageBox.Show(CultRes.StringsRes.DatasetExist, CurrentTbl90RefAuthor.RefAuthorName,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        return;
-                    }
-                    if (dataset.Count == 0 && CurrentTbl90RefAuthor.RefAuthorID == 0 ||
-                        dataset.Count != 0 && CurrentTbl90RefAuthor.RefAuthorID != 0 ||
-                        dataset.Count == 0 && CurrentTbl90RefAuthor.RefAuthorID != 0) //new dataset and update
-                    {
-                        if (WpfMessageBox.Show(CultRes.StringsRes.SaveQuestion2, CurrentTbl90RefAuthor.RefAuthorName,
-                                MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-                            return;
-                        {
-                            try
-                            {
-                                _businessLayer.UpdateRefAuthor(refAuthor);
-                                _position = RefAuthorsView.CurrentPosition;
-                            }
-                            catch (DbUpdateException e)
-                            {
-                                if (e.InnerException != null)
-                                    System.Windows.MessageBox.Show(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave,
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-
-                                Log.Error(e);
-                                return;
-                            }
-                            catch (Exception e)
-                            {
-                                System.Windows.MessageBox.Show(e.Message, CultRes.StringsRes.Error,
-                                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-                                Log.Error(e);
-                                return;
-                            }
-                                    WpfMessageBox.Show(CultRes.StringsRes.SaveSuccess,
-                                        CurrentTbl90RefAuthor.RefAuthorID == 0
-                                            ? CultRes.StringsRes.DatasetNew
-                                            : CurrentTbl90RefAuthor.RefAuthorName,
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        }
-                    }
-                }
-            }
-            catch (DbEntityValidationException ex)
-            {
-                _entityException.EntityException(ex);
-                    Log.Error(ex);
-                  return;
-            }
-
-            if (SearchRefAuthorName != "")
-            {
-                if (SearchRefAuthorName == "*")  //show all datasets
-                {
-                    SearchRefAuthorName = "";
-                    Tbl90RefAuthorsList.Clear();
-                    
-                Tbl90RefAuthorsList = new ObservableCollection<Tbl90RefAuthor>(_businessLayer.ListTbl90RefAuthorsByRefAuthorName(SearchRefAuthorName));            
-                    SearchRefAuthorName = "*";
-                }
-                else
-                {               
-                    Tbl90RefAuthorsList = int.TryParse(SearchRefAuthorName, out var id)
-                        ? new ObservableCollection<Tbl90RefAuthor>(_businessLayer.ListTbl90RefAuthorsByRefAuthorId(id))
-                        : new ObservableCollection<Tbl90RefAuthor>(_businessLayer.ListTbl90RefAuthorsByRefAuthorName(SearchRefAuthorName));
-
-                }
-                RefAuthorsView = CollectionViewSource.GetDefaultView(Tbl90RefAuthorsList);
-                RefAuthorsView.MoveCurrentToPosition(_position);
-            }
-            else  
-            {
-                Tbl90RefAuthorsList = new ObservableCollection<Tbl90RefAuthor>(_businessLayer.ListTbl90RefAuthorsByRefAuthorName(CurrentTbl90RefAuthor.RefAuthorName));
-
-                RefAuthorsView= CollectionViewSource.GetDefaultView(Tbl90RefAuthorsList);
-                RefAuthorsView.Refresh();
-            }
         }
         #endregion "Public Commands"                   
  
@@ -391,6 +190,17 @@ namespace Te.Atis.Ui.Desktop.Views.Database
 
  //    Part 2    
 
+     
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+            ExecuteGetRefAuthorsByNameOrId(searchName);
+            RefAuthorsView.MoveCurrentToPosition(_position);
+        }
+
+        #endregion "Public Commands"                  
                                                           
 
  //    Part 3    
@@ -423,10 +233,247 @@ namespace Te.Atis.Ui.Desktop.Views.Database
              
  //    Part 9    
 
+
+     
+        #region "Public Commands Connected Tables by DoubleClick"
+
+        private RelayCommand _getConnectedTablesCommand;
+        public ICommand GetConnectedTablesCommand => _getConnectedTablesCommand ??= new RelayCommand(delegate { GetConnectedTablesById(null); });
+
+        #endregion "Public Commands Connected Tables by DoubleClick"
+
+        #region "Public Method Connected Tables by DoubleClick"
+
+        private void GetConnectedTablesById(object o)
+        {           
+     
+        }
+
+        #endregion "Public Method Connected Tables by DoubleClick"     
  
+
 
  //    Part 10    
 
+     
+        #region "Public Commands to open Detail TabItems"
+
+        private int _selectedMainTabIndex;
+        private int _selectedMainSubRefTabIndex;
+        private int _selectedDetailTabIndex;
+
+        public  int SelectedMainTabIndex
+        {
+            get => _selectedMainTabIndex; 
+            set
+            {
+                if (value == _selectedMainTabIndex) return;
+                _selectedMainTabIndex = value; RaisePropertyChanged("");        
+     
+                if (_selectedMainTabIndex == 0)             
+                {
+                    if (CurrentTbl90RefAuthor != null)
+                    {
+                        NULLList = _extGet.GetCollectionOrderByFromNULLId<NULL>(CurrentTbl90RefAuthor.NULLId);
+
+                        NULLAllList = _extGet.AllCollection<NULL>("");
+
+                        View = CollectionViewSource.GetDefaultView(NULLList);
+                        View.Refresh();
+                    }
+                    SelectedDetailTabIndex = 0;
+                }         
+     
+                if (_selectedMainTabIndex == 1)
+                {
+                    if (CurrentTbl90RefAuthor != null)
+                    {
+                        Tbl69FiSpeciessesList = _extGet.GetCollectionOrderByFromRefAuthorId<NULL>(CurrentTbl90RefAuthor.RefAuthorId);
+
+                        Tbl90RefAuthorsAllList = _extGet.AllCollection<Tbl90RefAuthor>("refAuthor");
+
+                        View = CollectionViewSource.GetDefaultView(Tbl69FiSpeciessesList);
+                        View.Refresh();
+                    }
+                    SelectedDetailTabIndex = 2;   
+               }      
+     
+                if (_selectedMainTabIndex == 2)
+                {
+                    SelectedDetailTabIndex = 3;
+                    SelectedMainSubRefTabIndex = 0;
+                }           
+     
+                if (_selectedMainTabIndex == 3)
+                {
+                    if (CurrentTbl90RefAuthor != null)
+                    {
+                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromRefAuthorId<Tbl93Comment>(CurrentTbl90RefAuthor.RefAuthorId);
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 6;
+                }        
+     
+            }
+        }
+
+        public  int SelectedDetailTabIndex
+        {
+            get => _selectedDetailTabIndex; 
+            set
+            {
+                if (value == _selectedDetailTabIndex) return;
+                _selectedDetailTabIndex = value;    RaisePropertyChanged("");       
+     
+                if (_selectedDetailTabIndex == 0)
+                {
+                    if (CurrentTbl90RefAuthor != null)
+                    {
+                        NULLList = _extGet.GetCollectionOrderByFromNULLId<NULL>(CurrentTbl90RefAuthor.NULLId);
+
+                        View = CollectionViewSource.GetDefaultView(NULLList);
+                        View.Refresh();
+                    }
+                    SelectedMainTabIndex = 0;  
+               }     
+     
+                if (_selectedDetailTabIndex == 1)                
+                {
+                    SelectedMainTabIndex = 0;
+                }    
+     
+                if (_selectedDetailTabIndex == 2)                
+                {
+                    if (CurrentTbl90RefAuthor != null)
+                    {
+                        Tbl69FiSpeciessesList = _extGet.GetCollectionOrderByFromRefAuthorId<NULL>(CurrentTbl90RefAuthor.RefAuthorId);
+
+                        Tbl90RefAuthorsAllList = _extGet.AllCollection<Tbl90RefAuthor>("refAuthor");
+
+                        View = CollectionViewSource.GetDefaultView(Tbl69FiSpeciessesList);
+                        View.Refresh();
+                    }
+                    SelectedMainTabIndex = 1;
+               }    
+     
+                if (_selectedDetailTabIndex == 3)
+                {
+                    if (CurrentTbl90RefAuthor != null)
+                    {
+                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+
+                        Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFromRefAuthorIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTbl90RefAuthor.RefAuthorId);
+
+                        ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                        ReferenceExpertsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 2;
+                    SelectedMainSubRefTabIndex = 0;
+                }        
+     
+                if (_selectedDetailTabIndex == 4)
+                {
+                    if (CurrentTbl90RefAuthor != null)
+                    {
+                        Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+
+                        Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromRefAuthorIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl90RefAuthor.RefAuthorId);
+
+                        ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+                        ReferenceSourcesView.Refresh();
+                    }
+                    SelectedMainTabIndex = 2;
+                    SelectedMainSubRefTabIndex = 1;
+                }        
+     
+                if (_selectedDetailTabIndex == 5)
+                {
+                    if (CurrentTbl90RefAuthor != null)
+                    {
+                        Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+
+                        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFromRefAuthorIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl90RefAuthor.RefAuthorId);
+
+                        ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
+                        ReferenceAuthorsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 2;
+                    SelectedMainSubRefTabIndex = 2;
+                }       
+     
+                if (_selectedDetailTabIndex == 6)
+                {
+                    if (CurrentTbl90RefAuthor != null)
+                    {
+                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromRefAuthorId<Tbl93Comment>(CurrentTbl90RefAuthor.RefAuthorId);
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 3;
+                }       
+     
+            }
+        }
+
+        public int SelectedMainSubRefTabIndex
+        {
+            get => _selectedMainSubRefTabIndex;
+            set
+            {
+                if (value == _selectedMainSubRefTabIndex) return;
+                _selectedMainSubRefTabIndex = value;  RaisePropertyChanged("");     
+     
+                if (_selectedMainSubRefTabIndex == 0)
+                {
+                    if (CurrentTbl90RefAuthor != null)
+                    {
+                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+
+                        Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFromRefAuthorIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTbl90RefAuthor.RefAuthorId);
+
+                        ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                        ReferenceExpertsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 3;
+                    SelectedMainTabIndex = 2;
+                }        
+     
+                if (_selectedMainSubRefTabIndex == 1)
+                {
+                    if (CurrentTbl90RefAuthor != null)
+                    {
+                        Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+
+                        Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromRefAuthorIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl90RefAuthor.RefAuthorId);
+
+                        ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+                        ReferenceSourcesView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 4;
+                    SelectedMainTabIndex = 2;
+                }      
+     
+                if (_selectedMainSubRefTabIndex == 2)
+                {
+                    if (CurrentTbl90RefAuthor != null)
+                    {
+                        Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+
+                        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFromRefAuthorIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl90RefAuthor.RefAuthorId);
+
+                        ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
+                        ReferenceAuthorsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 5;
+                    SelectedMainTabIndex = 2;
+                }      
+                     
+            }
+        }    
+        #endregion "Public Commands to open Detail TabItems"          
  
 
  //    Part 11    
@@ -438,7 +485,7 @@ namespace Te.Atis.Ui.Desktop.Views.Database
         public string SearchRefAuthorName
         {
             get => _searchRefAuthorName; 
-            set { _searchRefAuthorName = value; RaisePropertyChanged();  }
+            set { _searchRefAuthorName = value; RaisePropertyChanged("");  }
         }
 
         public  ICollectionView RefAuthorsView;
@@ -448,22 +495,25 @@ namespace Te.Atis.Ui.Desktop.Views.Database
         public  ObservableCollection<Tbl90RefAuthor> Tbl90RefAuthorsList
         {
             get => _tbl90RefAuthorsList; 
-            set {  _tbl90RefAuthorsList = value; RaisePropertyChanged();   }
+            set {  _tbl90RefAuthorsList = value; RaisePropertyChanged("");   }
         }
 
         private ObservableCollection<Tbl90RefAuthor> _tbl90RefAuthorsAllList;
         public  ObservableCollection<Tbl90RefAuthor> Tbl90RefAuthorsAllList
         {
             get => _tbl90RefAuthorsAllList; 
-            set {  _tbl90RefAuthorsAllList = value; RaisePropertyChanged();   }
+            set {  _tbl90RefAuthorsAllList = value; RaisePropertyChanged("");   }
+        }
+
+        private ObservableCollection<NULL> NULLAllList;
+        public  ObservableCollection<NULL> Tbl69FiSpeciessesAllList
+        {
+            get => NULLAllList; 
+            set {  NULLAllList = value; RaisePropertyChanged("");   }
         }
 
         #endregion "Public Properties"   
  
-
- 
-
-
 
    }
 }   

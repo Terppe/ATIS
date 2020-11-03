@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using Common.Logging;
@@ -12,17 +12,18 @@ using ATIS.Ui.Views.Database.CrudHelper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
 using Microsoft.EntityFrameworkCore;
 
-//    Tbl06PhylumsViewModel Skriptdatum:  24.10.2020  12:32    
+
+//    PhylumsViewModel Skriptdatum:  27.10.2020  12:32    
 
 namespace ATIS.Ui.Views.Database.D06Phylum
 {
+
     public class PhylumsViewModel : ViewModelBase
     {
+        // Version with Generic Unit Of Work and AtisDbContext for general use   
 
-        #region "Private Data Members"
-
+        #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly AtisDbContext _context = new AtisDbContext();
 
@@ -38,12 +39,11 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         private readonly BasicCopy _extCopy = new BasicCopy();
         private readonly BasicDelete _extDelete = new BasicDelete();
         private readonly BasicSave _extSave = new BasicSave();
-
         private int _position;
 
-        #endregion "Private Data Members"
+        #endregion [Private Data Members]               
 
-        #region "Constructor"
+        #region [Constructor]
 
         public PhylumsViewModel()
         {
@@ -53,17 +53,19 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             }
             else
             {
+
                 // Code runs "for real" 
                 Tbl06PhylumsList = new ObservableCollection<Tbl06Phylum>();
             }
         }
-
         public bool IsInDesignMode { get; set; }
 
-        #endregion "Constructor"
+        #endregion [Constructor]         
 
 
         //    Part 1    
+
+
 
         #region [Commands Phylum]
 
@@ -82,8 +84,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         private RelayCommand _savePhylumCommand;
         public ICommand SavePhylumCommand => _savePhylumCommand ??= new RelayCommand(delegate { ExecuteSavePhylum(SearchPhylumName); });
 
-
-        #endregion [Commands Phylum]
+        #endregion [Commands Phylum]       
 
 
         #region [Methods Phylum]
@@ -91,7 +92,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         private void ExecuteGetPhylumsByNameOrId(string searchName)
         {
             Tbl03RegnumsAllList = _extGet.AllCollection<Tbl03Regnum>("regnum");
-
             Tbl06PhylumsList = _extGet.SearchNameAndIdReturnCollection<Tbl06Phylum>(SearchPhylumName, "phylum");
 
             SelectedMainTabIndex = 0;
@@ -100,18 +100,15 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
             PhylumsView.Refresh();
         }
-        //------------------------------------------------------------------------------------                          
 
         private void ExecuteAddPhylum(object o)
         {
-            Tbl06PhylumsList.Insert(0, new Tbl06Phylum {PhylumName = CultRes.StringsRes.DatasetNew});
-
+            Tbl06PhylumsList.Insert(0, new Tbl06Phylum { PhylumName = CultRes.StringsRes.DatasetNew });
             Tbl03RegnumsAllList = _extGet.AllCollection<Tbl03Regnum>("regnum");
 
             PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
             PhylumsView.MoveCurrentToFirst();
         }
-        //------------------------------------------------------------------------------------                               
 
         private void ExecuteCopyPhylum(object o)
         {
@@ -124,7 +121,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
             PhylumsView.MoveCurrentToFirst();
         }
-        //---------------------------------------------------------------------------------------                            
 
         private void ExecuteDeletePhylum(string searchName)
         {
@@ -132,6 +128,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
             //check if in Tbl12Subphylums connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
             Tbl12SubphylumsList = _extDelete.SearchForConnectedDatasetsWithPhylumIdInTableSubphylum(CurrentTbl06Phylum);
+
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl12SubphylumsList.Count, "Subphylum")) return;
 
             //Delete all References Experts, Sources, Authors  ----------------------------------------------------
@@ -155,7 +152,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
             }
-
             try
             {
                 var phylum = _uow.Tbl06Phylums.GetById(CurrentTbl06Phylum.PhylumId);
@@ -179,11 +175,18 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
             PhylumsView.MoveCurrentToFirst();
         }
-        //-------------------------------------------------------------------------------------------------                    
 
         private void ExecuteSavePhylum(string searchName)
         {
             if (_genPhylumMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl06Phylum)) return;
+
+            //Combobox select RegnumID  may be not 0
+            if (CurrentTbl06Phylum.RegnumId == 0)
+            {
+                MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
 
             try
             {
@@ -209,13 +212,13 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave); 
+                            CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
                     return;
                 }
                 catch (Exception e)
                 {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error); 
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
                     Log.Error(e);
                     return;
                 }
@@ -226,14 +229,13 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             }
             catch (Exception e)
             {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error); 
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
             ExecuteGetPhylumsByNameOrId(searchName);
             PhylumsView.MoveCurrentToPosition(_position);
         }
-
-        #endregion [Methods Phylum]
+        #endregion [Methods Phylum]                
 
 
 
@@ -241,12 +243,11 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
 
         #region "Public Commands Connect <== Tbl03Regnum"                 
-        //-------------------------------------------------------------------------
+
 
         private RelayCommand _saveRegnumCommand;
-        public ICommand SaveRegnumCommand => _saveRegnumCommand ??= new RelayCommand(delegate { ExecuteSaveRegnum(null); });
 
-        ////-------------------------------------------------------------------------          
+        public ICommand SaveRegnumCommand => _saveRegnumCommand ??= new RelayCommand(delegate { ExecuteSaveRegnum(null); });
 
         private void ExecuteSaveRegnum(string searchName)
         {
@@ -264,8 +265,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 _position = PhylumsView.CurrentPosition;
 
                 var cap = CurrentTbl03Regnum.RegnumName + " " + CurrentTbl03Regnum.Subregnum;
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(cap))
-                    return;
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(cap)) return;
 
                 try
                 {
@@ -275,7 +275,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave); 
+                            CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
                     return;
                 }
@@ -290,12 +290,12 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                     ? CultRes.StringsRes.DatasetNew
                     : CurrentTbl03Regnum.RegnumName + " " + CurrentTbl03Regnum.Subregnum);
             }
+
             catch (Exception e)
             {
                 _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
-
             ExecuteGetPhylumsByNameOrId(searchName);
             PhylumsView.MoveCurrentToPosition(_position);
         }
@@ -312,36 +312,32 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         //    Part 4    
 
 
-        #region "Public Commands Connect ==> Tbl12Subphylum"                 
-        //-------------------------------------------------------------------------
-        private RelayCommand _addSubphylumCommand;
+        #region [Public Commands Connect ==> Tbl12Subphylum]                 
 
+        private RelayCommand _addSubphylumCommand;
         public ICommand AddSubphylumCommand => _addSubphylumCommand ??= new RelayCommand(delegate { ExecuteAddSubphylum(null); });
 
         private RelayCommand _copySubphylumCommand;
-
         public ICommand CopySubphylumCommand => _copySubphylumCommand ??= new RelayCommand(delegate { ExecuteCopySubphylum(null); });
 
         private RelayCommand _deleteSubphylumCommand;
-
         public ICommand DeleteSubphylumCommand => _deleteSubphylumCommand ??= new RelayCommand(delegate { ExecuteDeleteSubphylum(SearchPhylumName); });
 
         private RelayCommand _saveSubphylumCommand;
-
         public ICommand SaveSubphylumCommand => _saveSubphylumCommand ??= new RelayCommand(delegate { ExecuteSaveSubphylum(SearchPhylumName); });
 
-        //-------------------------------------------------------------------------          
+        #endregion [Public Commands Connect ==> Tbl12Subphylum]    
+
+        #region [Public Methods Connect ==> Tbl12Subphylum]                   
 
         private void ExecuteAddSubphylum(object o)
         {
             Tbl12SubphylumsList.Insert(0, new Tbl12Subphylum { SubphylumName = CultRes.StringsRes.DatasetNew });
-
             Tbl06PhylumsAllList = _extGet.AllCollection<Tbl06Phylum>("phylum");
 
             SubphylumsView = CollectionViewSource.GetDefaultView(Tbl12SubphylumsList);
             SubphylumsView.MoveCurrentToFirst();
         }
-        //----------------------------------------------------------------------            
 
         private void ExecuteCopySubphylum(object o)
         {
@@ -354,12 +350,10 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             SubphylumsView = CollectionViewSource.GetDefaultView(Tbl12SubphylumsList);
             SubphylumsView.MoveCurrentToFirst();
         }
-        ////----------------------------------------------------------------------            
 
         private void ExecuteDeleteSubphylum(string searchName)
         {
             if (_genSubphylumMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl12Subphylum)) return;
-
 
             //check if in Tbl18Superclasses connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
             Tbl18SuperclassesList = _extDelete.SearchForConnectedDatasetsWithSubphylumIdInTableSuperclass(CurrentTbl12Subphylum);
@@ -406,14 +400,11 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 Log.Error(e);
             }
 
-            Tbl12SubphylumsList = new ObservableCollection<Tbl12Subphylum>(_context.Tbl12Subphylums
-                .Where(a => a.PhylumId == CurrentTbl12Subphylum.PhylumId)
-                .OrderBy(a=>a.SubphylumName));
+            Tbl12SubphylumsList = _extGet.GetSubphylumsCollectionOrderByFromPhylumId<Tbl12Subphylum>(CurrentTbl12Subphylum.PhylumId);
 
             SubphylumsView = CollectionViewSource.GetDefaultView(Tbl12SubphylumsList);
             SubphylumsView.MoveCurrentToFirst();
         }
-        ////-------------------------------------------------------------------------------------------------                    
 
         private void ExecuteSaveSubphylum(string searchName)
         {
@@ -430,10 +421,9 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 else
                     subphylum = _extSave.SubphylumUpdate(subphylum, CurrentTbl12Subphylum);
 
-              //  _position = SubphylumsView.CurrentPosition;
+                //  _position = SubphylumsView.CurrentPosition;
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl12Subphylum.SubphylumName))
-                    return;
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl12Subphylum.SubphylumName)) return;
 
                 try
                 {
@@ -464,16 +454,13 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 Log.Error(e);
             }
 
-
-             Tbl12SubphylumsList = new ObservableCollection<Tbl12Subphylum>(_context.Tbl12Subphylums
-                .Where(a => a.PhylumId == CurrentTbl12Subphylum.PhylumId)
-                .OrderBy(a => a.SubphylumName));
+            Tbl12SubphylumsList = _extGet.GetSubphylumsCollectionOrderByFromPhylumId<Tbl12Subphylum>(CurrentTbl12Subphylum.PhylumId);
 
             SubphylumsView = CollectionViewSource.GetDefaultView(Tbl12SubphylumsList);
             SubphylumsView.MoveCurrentToFirst();
+        }
 
-         }
-        #endregion "Public Commands Connect ==> Tbl12Subphylum"                 
+        #endregion [Public Methods  Connect ==> Tbl12Subphylum]                                                                                                                                            
 
 
 
@@ -492,8 +479,8 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         //    Part 8    
 
-        #region [Commands Phylum ==> Tbl90Reference Author]
 
+        #region [Commands Phylum ==> Tbl90Reference Author]
 
         private RelayCommand _addReferenceAuthorCommand;
 
@@ -511,7 +498,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         public ICommand SaveReferenceAuthorCommand => _saveReferenceAuthorCommand ??= new RelayCommand(delegate { ExecuteSaveReferenceAuthor(null); });
 
-        #endregion [Commands Phylum ==> Tbl90Reference Author]
+        #endregion [Commands Phylum ==> Tbl90Reference Author]                
 
         #region [Methods Phylum ==> Tbl90Reference Author]
 
@@ -520,13 +507,11 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             Tbl90ReferenceAuthorsList ??= new ObservableCollection<Tbl90Reference>();
 
             Tbl90AuthorsAllList = _extGet.AllCollection<Tbl90RefAuthor>("author");
-
             Tbl90ReferenceAuthorsList.Insert(0, new Tbl90Reference { Info = CultRes.StringsRes.DatasetNew });
 
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
             ReferenceAuthorsView.MoveCurrentToFirst();
         }
-        //----------------------------------------------------------------------            
 
         public void ExecuteCopyReferenceAuthor(object o)
         {
@@ -537,7 +522,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
             ReferenceAuthorsView.MoveCurrentToFirst();
         }
-        //----------------------------------------------------------------------            
 
         private void ExecuteDeleteReferenceAuthor(string searchName)
         {
@@ -562,40 +546,40 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 Log.Error(e);
             }
 
-            //Tbl90ReferenceAuthorsList = new ObservableCollection<Tbl90Reference>(_context.Tbl90References
-            //    .Where(a => a.PhylumId == CurrentTbl90ReferenceAuthor.PhylumId
-            //                && a.RefSourceId == null && a.RefExpertId == null)
-            //    .OrderBy(a => a.Info));
-
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
             ReferenceAuthorsView.Refresh();
         }
-
-        ////----------------------------------------------------------------------            
 
         public void ExecuteSaveReferenceAuthor(string searchName)
         {
             if (_genAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceAuthor)) return;
 
+            CurrentTbl90ReferenceAuthor.PhylumId = CurrentTbl06Phylum.PhylumId;
 
+            //Combobox select RefExpertId or RefSourceId or RefAuthorId may be not null
+            if (CurrentTbl90ReferenceAuthor.RefExpertId == null &&
+                CurrentTbl90ReferenceAuthor.RefSourceId == null &&
+                CurrentTbl90ReferenceAuthor.RefAuthorId == null)
+            {
+                MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
 
-            // eingabe bei combobox überprüfen fehlt !!!!!!!!!!!!!
-
-                CurrentTbl90ReferenceAuthor.PhylumId = CurrentTbl06Phylum.PhylumId;
-                try
+            try
             {
                 var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceAuthor.ReferenceId);
 
 
                 if (CurrentTbl90ReferenceAuthor.ReferenceId == 0)
                     reference = _extSave.ReferenceAuthorPhylumAdd(CurrentTbl90ReferenceAuthor);
+
                 else
                     reference = _extSave.ReferenceAuthorPhylumUpdate(reference, CurrentTbl90ReferenceAuthor);
 
                 //    _position = PhylumsView.CurrentPosition;
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceAuthor.Info))
-                    return;
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceAuthor.Info)) return;
 
                 try
                 {
@@ -625,21 +609,15 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFromPhylumIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl06Phylum.PhylumId);
 
-                Tbl90ReferenceAuthorsList = new ObservableCollection<Tbl90Reference>(_context.Tbl90References
-                    .Where(a => a.PhylumId == CurrentTbl90ReferenceAuthor.PhylumId
-                                && a.RefSourceId == null && a.RefExpertId == null)
-                    .OrderBy(a => a.Info));
 
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
-        //    ReferenceAuthorsView.MoveCurrentToFirst();
             ReferenceAuthorsView.Refresh();
         }
+        #endregion [Methods Phylum ==> Tbl90Reference Author]              
 
-        #endregion [Methods Phylum ==> Tbl90Reference Author]
-
-        #region [Commands Phylum ==> Tbl90Reference Source]
-
+        #region [Commands Phylum ==> Tbl90Reference Source]      
 
         private RelayCommand _addReferenceSourceCommand;
 
@@ -657,10 +635,10 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         public ICommand SaveReferenceSourceCommand => _saveReferenceSourceCommand ??= new RelayCommand(delegate { ExecuteSaveReferenceSource(null); });
 
-        //-------------------------------------------------------------------------          
-        #endregion [Commands Phylum ==> Tbl90Reference Source]
 
-        #region [Methods Phylum ==> Tbl90Reference Source]
+        #endregion [Commands Phylum ==> Tbl90Reference Source]         
+
+        #region [Methods Phylum ==> Tbl90Reference Source]      
 
         public void ExecuteAddReferenceSource(object o)
         {
@@ -673,7 +651,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
             ReferenceSourcesView.MoveCurrentToFirst();
         }
-        //----------------------------------------------------------------------            
 
         public void ExecuteCopyReferenceSource(object o)
         {
@@ -684,7 +661,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
             ReferenceSourcesView.MoveCurrentToFirst();
         }
-        //----------------------------------------------------------------------            
 
         private void ExecuteDeleteReferenceSource(object o)
         {
@@ -709,20 +685,28 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 Log.Error(e);
             }
 
-            Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>(_context.Tbl90References
-                .Where(a => a.PhylumId == CurrentTbl90ReferenceSource.PhylumId)
-                .OrderBy(a => a.Info));
+            Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromPhylumIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl06Phylum.PhylumId);
 
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
             ReferenceSourcesView.MoveCurrentToFirst();
         }
-        //----------------------------------------------------------------------            
 
         public void ExecuteSaveReferenceSource(object o)
         {
             if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
 
+            //RefExpertId or RefSourceId or RefAuthorId may be not 0
+            if (CurrentTbl90ReferenceSource.RefExpertId == null &&
+                CurrentTbl90ReferenceSource.RefSourceId == null &&
+                CurrentTbl90ReferenceSource.RefAuthorId == null)
+            {
+                MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
             CurrentTbl90ReferenceSource.PhylumId = CurrentTbl06Phylum.PhylumId;
+
             try
             {
                 var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceSource.ReferenceId);
@@ -733,14 +717,14 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 else
                     reference = _extSave.ReferenceSourcePhylumUpdate(reference, CurrentTbl90ReferenceSource);
 
-        //        _position = PhylumsView.CurrentPosition;
+                //        _position = PhylumsView.CurrentPosition;
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceSource.Info))
-                    return;
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceSource.Info)) return;
 
                 try
                 {
                     _extSave.ReferenceSourceSave(reference, CurrentTbl90ReferenceSource);
+
                 }
                 catch (DbUpdateException e)
                 {
@@ -767,20 +751,16 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 Log.Error(e);
             }
 
-            Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>(_context.Tbl90References
-                .Where(a => a.PhylumId == CurrentTbl90ReferenceSource.PhylumId)
-                .OrderBy(a => a.Info));
+            Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromPhylumIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl06Phylum.PhylumId);
 
 
-         //   SelectedMainSubRefTabIndex = 1;
 
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
             ReferenceSourcesView.MoveCurrentToFirst();
         }
+        #endregion [Methods Phylum ==> Tbl90Reference Source]                    
 
-        #endregion [Methods Phylum ==> Tbl90Reference Source]
-
-        #region [Commands Phylum ==> Tbl90Reference Expert]
+        #region [Commands Phylum ==> Tbl90Reference Expert]                 
 
         private RelayCommand _addReferenceExpertCommand;
 
@@ -797,23 +777,21 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         public ICommand SaveReferenceExpertCommand => _saveReferenceExpertCommand ??= new RelayCommand(delegate { ExecuteSaveReferenceExpert(null); });
 
-        #endregion [Commands Phylum ==> Tbl90Reference Expert]
+        #endregion [Commands Phylum ==> Tbl90Reference Expert]                    
 
-        #region [Methods Phylum ==> Tbl90Reference Expert]
 
+        #region [Methods Phylum ==> Tbl90Reference Expert]                 
 
         public void ExecuteAddReferenceExpert(object o)
         {
             Tbl90ReferenceExpertsList ??= new ObservableCollection<Tbl90Reference>();
 
             Tbl90ExpertsAllList = _extGet.AllCollection<Tbl90RefExpert>("expert");
-
             Tbl90ReferenceExpertsList.Insert(0, new Tbl90Reference { Info = CultRes.StringsRes.DatasetNew });
 
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
             ReferenceExpertsView.MoveCurrentToFirst();
         }
-        //----------------------------------------------------------------------            
 
         public void ExecuteCopyReferenceExpert(object o)
         {
@@ -821,11 +799,9 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
             Tbl90ReferenceExpertsList = _extCopy.CopyReferencePhylum(CurrentTbl90ReferenceExpert, "Expert");
 
-
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
             ReferenceExpertsView.MoveCurrentToFirst();
         }
-        //----------------------------------------------------------------------            
 
         private void ExecuteDeleteReferenceExpert(object o)
         {
@@ -850,21 +826,28 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 Log.Error(e);
             }
 
-            Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(_context.Tbl90References
-                .Where(a => a.PhylumId == CurrentTbl90ReferenceExpert.PhylumId)
-                .OrderBy(a => a.Info));
-
+            Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFromPhylumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTbl06Phylum.PhylumId);
 
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
             ReferenceExpertsView.Refresh();
         }
-        ////----------------------------------------------------------------------            
 
         public void ExecuteSaveReferenceExpert(object o)
         {
             if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
 
+            //RefExpertId or RefSourceId or RefAuthorId may be not 0
+            if (CurrentTbl90ReferenceExpert.RefExpertId == null &&
+                CurrentTbl90ReferenceExpert.RefSourceId == null &&
+                CurrentTbl90ReferenceExpert.RefAuthorId == null)
+            {
+                MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
             CurrentTbl90ReferenceExpert.PhylumId = CurrentTbl06Phylum.PhylumId;
+
             try
             {
                 var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceExpert.ReferenceId);
@@ -877,8 +860,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
                 //        _position = PhylumsView.CurrentPosition;
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceExpert.Info))
-                    return;
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceExpert.Info)) return;
 
                 try
                 {
@@ -909,24 +891,15 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 Log.Error(e);
             }
 
-            Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(_context.Tbl90References
-                .Where(a => a.PhylumId == CurrentTbl90ReferenceExpert.PhylumId)
-                .OrderBy(a => a.Info));
+            Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFromPhylumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTbl06Phylum.PhylumId);
 
-
-            //   SelectedMainSubRefTabIndex = 1;
-
- 
-
-            SelectedMainSubRefTabIndex = 0;
 
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
             ReferenceExpertsView.MoveCurrentToFirst();
         }
+        #endregion [Methods Phylum ==> Tbl90Reference Expert]                               
 
-        #endregion [Methods Phylum ==> Tbl90Reference Expert]
-
-        #region [Commands Phylum ==> Tbl93Comments]
+        #region [Commands Phylum ==> Tbl93Comments]        
 
         private RelayCommand _addCommentCommand;
 
@@ -944,9 +917,11 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         public ICommand SaveCommentCommand => _saveCommentCommand ??= new RelayCommand(delegate { ExecuteSaveComment(null); });
 
-        #endregion [Commands Phylum ==> Tbl93Comments]
+        #endregion [Commands Phylum ==> Tbl93Comments]        
 
-        #region [Methods Phylum ==> Tbl93Comments]
+
+
+        #region [Methods Phylum ==> Tbl93Comments]        
 
         public void ExecuteAddComment(object o)
         {
@@ -957,7 +932,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
             CommentsView.MoveCurrentToFirst();
         }
-        //----------------------------------------------------------------------            
 
         public void ExecuteCopyComment(object o)
         {
@@ -966,11 +940,9 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
             Tbl93CommentsList = _extCopy.CopyComment(CurrentTbl93Comment, "Comment");
 
-
             CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
             CommentsView.MoveCurrentToFirst();
         }
-        //----------------------------------------------------------------------            
 
         private void ExecuteDeleteComment(object o)
         {
@@ -995,21 +967,18 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 Log.Error(e);
             }
 
-            Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_context.Tbl93Comments
-                .Where(a => a.PhylumId == CurrentTbl93Comment.PhylumId)
-                .OrderBy(a => a.Info));
+            Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromPhylumId<Tbl93Comment>(CurrentTbl93Comment.PhylumId);
 
             CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
             CommentsView.Refresh();
         }
-        ////----------------------------------------------------------------------            
 
         private void ExecuteSaveComment(object o)
         {
-
             if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
 
             CurrentTbl93Comment.PhylumId = CurrentTbl06Phylum.PhylumId;
+
             try
             {
                 var comment = _uow.Tbl93Comments.GetById(CurrentTbl93Comment.CommentId);
@@ -1054,32 +1023,23 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 Log.Error(e);
             }
 
-            Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_context.Tbl93Comments
-                .Where(a => a.PhylumId == CurrentTbl93Comment.PhylumId)
-                .OrderBy(a => a.Info));
-
-
-            //    SelectedMainTabIndex = 3;
-
+            Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromPhylumId<Tbl93Comment>(CurrentTbl93Comment.PhylumId);
 
 
             CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
             CommentsView.MoveCurrentToFirst();
         }
+        #endregion [Methods Phylum ==> Tbl93Comments]                 
 
-        #endregion [Methods Phylum ==> Tbl93Comments]
 
         //    Part 9    
+
 
 
         #region "Public Commands Connected Tables by DoubleClick"
 
         private RelayCommand _getConnectedTablesCommand;
-
-        public ICommand GetConnectedTablesCommand => _getConnectedTablesCommand ??= new RelayCommand(delegate
-        {
-            GetConnectedTablesById(null);
-        });
+        public ICommand GetConnectedTablesCommand => _getConnectedTablesCommand ??= new RelayCommand(delegate { GetConnectedTablesById(null); });
 
         #endregion "Public Commands Connected Tables by DoubleClick"
 
@@ -1087,24 +1047,15 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void GetConnectedTablesById(object o)
         {
-            //Tbl12SubphylumsList?.Clear();
-            //Tbl90ReferenceExpertsList?.Clear();
-            //Tbl90ReferenceSourcesList?.Clear();
-            //Tbl90ReferenceAuthorsList?.Clear();
-            //Tbl93CommentsList?.Clear();
-
-   //         Tbl90AuthorsAllList = _extGet.AllCollection<Tbl90RefAuthor>("author");
-
-            Tbl03RegnumsList = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums
-                .Find(e => e.RegnumId == CurrentTbl06Phylum.RegnumId)
-                .OrderBy(k => k.RegnumName)
-                .ThenBy(k => k.Subregnum));
+            Tbl03RegnumsList = _extGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(CurrentTbl06Phylum.RegnumId);
 
             RegnumsView = CollectionViewSource.GetDefaultView(Tbl03RegnumsList);
             RegnumsView.Refresh();
+
         }
 
-        #endregion "Public Method Connected Tables by DoubleClick"
+        #endregion "Public Method Connected Tables by DoubleClick"     
+
 
 
         //    Part 10    
@@ -1123,29 +1074,24 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             {
                 if (value == _selectedMainTabIndex) return;
                 _selectedMainTabIndex = value; RaisePropertyChanged("");
+
                 if (_selectedMainTabIndex == 0)
                 {
                     if (CurrentTbl06Phylum != null)
                     {
-                        Tbl03RegnumsList = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums
-                            .Find(e => e.RegnumId == CurrentTbl06Phylum.RegnumId)
-                            .OrderBy(k => k.RegnumName)
-                            .ThenBy(k => k.Subregnum));
-
+                        Tbl03RegnumsList = _extGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(CurrentTbl06Phylum.RegnumId);
 
                         RegnumsView = CollectionViewSource.GetDefaultView(Tbl03RegnumsList);
                         RegnumsView.Refresh();
                     }
                     SelectedDetailTabIndex = 0;
                 }
-                    
+
                 if (_selectedMainTabIndex == 1)
                 {
                     if (CurrentTbl06Phylum != null)
                     {
-                        Tbl12SubphylumsList = new ObservableCollection<Tbl12Subphylum>(_uow.Tbl12Subphylums
-                            .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId)
-                            .OrderBy(k => k.SubphylumName));
+                        Tbl12SubphylumsList = _extGet.GetSubphylumsCollectionOrderByFromPhylumId<Tbl12Subphylum>(CurrentTbl06Phylum.PhylumId);
 
                         Tbl06PhylumsAllList = _extGet.AllCollection<Tbl06Phylum>("phylum");
 
@@ -1165,16 +1111,14 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 {
                     if (CurrentTbl06Phylum != null)
                     {
-                        Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
-                            .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId)
-                            .OrderBy(k => k.Info));
+                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromPhylumId<Tbl93Comment>(CurrentTbl06Phylum.PhylumId);
 
                         CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
                         CommentsView.Refresh();
-
                     }
                     SelectedDetailTabIndex = 6;
                 }
+
             }
         }
 
@@ -1185,19 +1129,16 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             {
                 if (value == _selectedDetailTabIndex) return;
                 _selectedDetailTabIndex = value; RaisePropertyChanged("");
+
                 if (_selectedDetailTabIndex == 0)
                 {
                     if (CurrentTbl06Phylum != null)
                     {
-                        Tbl03RegnumsList = new ObservableCollection<Tbl03Regnum>(_uow.Tbl03Regnums
-                            .Find(e => e.RegnumId == CurrentTbl06Phylum.RegnumId)
-                            .OrderBy(k => k.RegnumName)
-                            .ThenBy(k => k.Subregnum));
+                        Tbl03RegnumsList = _extGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(CurrentTbl06Phylum.RegnumId);
 
                         RegnumsView = CollectionViewSource.GetDefaultView(Tbl03RegnumsList);
                         RegnumsView.Refresh();
                     }
-
                     SelectedMainTabIndex = 0;
                 }
 
@@ -1210,9 +1151,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 {
                     if (CurrentTbl06Phylum != null)
                     {
-                        Tbl12SubphylumsList = new ObservableCollection<Tbl12Subphylum>(_uow.Tbl12Subphylums
-                            .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId)
-                            .OrderBy(k => k.SubphylumName));
+                        Tbl12SubphylumsList = _extGet.GetSubphylumsCollectionOrderByFromPhylumId<Tbl12Subphylum>(CurrentTbl06Phylum.PhylumId);
 
                         Tbl06PhylumsAllList = _extGet.AllCollection<Tbl06Phylum>("phylum");
 
@@ -1226,75 +1165,56 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 {
                     if (CurrentTbl06Phylum != null)
                     {
-
                         Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
 
-                        Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                            .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId
-                                       && e.RefAuthorId == null && e.RefSourceId == null)
-                            .OrderBy(k => k.Info));
+                        Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFromPhylumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTbl06Phylum.PhylumId);
 
                         ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
                         ReferenceExpertsView.Refresh();
                     }
-
                     SelectedMainTabIndex = 2;
                     SelectedMainSubRefTabIndex = 0;
                 }
+
                 if (_selectedDetailTabIndex == 4)
                 {
                     if (CurrentTbl06Phylum != null)
                     {
-
                         Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
 
-                        //Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>(
-                        //    _businessLayer.ListTbl90ReferenceListRefSourcesByPhylumId(CurrentTbl06Phylum.PhylumId));
-                        Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                            .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId
-                                       && e.RefAuthorId == null && e.RefExpertId == null)
-                            .OrderBy(k => k.Info));
-
+                        Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromPhylumIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl06Phylum.PhylumId);
 
                         ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
                         ReferenceSourcesView.Refresh();
                     }
-
                     SelectedMainTabIndex = 2;
                     SelectedMainSubRefTabIndex = 1;
                 }
+
                 if (_selectedDetailTabIndex == 5)
                 {
                     if (CurrentTbl06Phylum != null)
                     {
-
                         Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
 
-                        Tbl90ReferenceAuthorsList = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                            .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId
-                                       && e.RefSourceId == null && e.RefExpertId == null)
-                            .OrderBy(k => k.Info));
+                        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFromPhylumIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl06Phylum.PhylumId);
 
                         ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
                         ReferenceAuthorsView.Refresh();
                     }
-
                     SelectedMainTabIndex = 2;
                     SelectedMainSubRefTabIndex = 2;
                 }
+
                 if (_selectedDetailTabIndex == 6)
                 {
                     if (CurrentTbl06Phylum != null)
                     {
-
-                        Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
-                            .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId)
-                            .OrderBy(k => k.Info));
+                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromPhylumId<Tbl93Comment>(CurrentTbl06Phylum.PhylumId);
 
                         CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
                         CommentsView.Refresh();
                     }
-
                     SelectedMainTabIndex = 3;
                 }
 
@@ -1307,73 +1227,56 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             set
             {
                 if (value == _selectedMainSubRefTabIndex) return;
-                _selectedMainSubRefTabIndex = value;
-                RaisePropertyChanged("");
+                _selectedMainSubRefTabIndex = value; RaisePropertyChanged("");
+
                 if (_selectedMainSubRefTabIndex == 0)
                 {
                     if (CurrentTbl06Phylum != null)
                     {
                         Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
 
-
-                        Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                            .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId
-                                       && e.RefAuthorId == null && e.RefSourceId == null)
-                            .OrderBy(k => k.Info));
+                        Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFromPhylumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTbl06Phylum.PhylumId);
 
                         ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
                         ReferenceExpertsView.Refresh();
                     }
                     SelectedDetailTabIndex = 3;
                     SelectedMainTabIndex = 2;
-
                 }
 
                 if (_selectedMainSubRefTabIndex == 1)
                 {
                     if (CurrentTbl06Phylum != null)
                     {
-
                         Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
 
-                        Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                            .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId
-                                       && e.RefAuthorId == null && e.RefExpertId == null)
-                            .OrderBy(k => k.Info));
+                        Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromPhylumIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl06Phylum.PhylumId);
 
                         ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
                         ReferenceSourcesView.Refresh();
                     }
-
                     SelectedDetailTabIndex = 4;
                     SelectedMainTabIndex = 2;
-
                 }
+
                 if (_selectedMainSubRefTabIndex == 2)
                 {
                     if (CurrentTbl06Phylum != null)
                     {
-
                         Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
 
-                        Tbl90ReferenceAuthorsList = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References
-                            .Find(e => e.PhylumId == CurrentTbl06Phylum.PhylumId
-                                       && e.RefSourceId == null && e.RefExpertId == null)
-                            .OrderBy(k => k.Info));
+                        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFromPhylumIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl06Phylum.PhylumId);
 
                         ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
                         ReferenceAuthorsView.Refresh();
                     }
-
                     SelectedDetailTabIndex = 5;
                     SelectedMainTabIndex = 2;
                 }
+
             }
         }
-
-
-
-        #endregion "Public Commands to open Detail TabItems"
+        #endregion "Public Commands to open Detail TabItems"          
 
 
         //    Part 11    
@@ -1382,7 +1285,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         #region "Public Properties Tbl06Phylum"
 
         private string _searchPhylumName = "";
-
         public string SearchPhylumName
         {
             get => _searchPhylumName;
@@ -1392,12 +1294,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         public ICollectionView PhylumsView;
         private Tbl06Phylum CurrentTbl06Phylum => PhylumsView?.CurrentItem as Tbl06Phylum;
 
-        //      public ObservableCollection<Tbl06Phylum> Tbl06PhylumsList { get; set; }
-      //  public ObservableCollection<Tbl06Phylum> Tbl06PhylumsAllList { get; set; }
-
-
         private ObservableCollection<Tbl06Phylum> _tbl06PhylumsList;
-
         public ObservableCollection<Tbl06Phylum> Tbl06PhylumsList
         {
             get => _tbl06PhylumsList;
@@ -1411,19 +1308,14 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             set { _tbl06PhylumsAllList = value; RaisePropertyChanged(""); }
         }
 
-        #endregion "Public Properties"
+        #endregion "Public Properties"   
 
         #region "Public Properties Tbl03Regnum"
 
         public ICollectionView RegnumsView;
         private Tbl03Regnum CurrentTbl03Regnum => RegnumsView?.CurrentItem as Tbl03Regnum;
 
-        //public ObservableCollection<Tbl03Regnum> Tbl03RegnumsList { get; set; }
-        //public ObservableCollection<Tbl03Regnum> Tbl03RegnumsAllList { get; set; }
-
-
         private ObservableCollection<Tbl03Regnum> _tbl03RegnumsList;
-
         public ObservableCollection<Tbl03Regnum> Tbl03RegnumsList
         {
             get => _tbl03RegnumsList;
@@ -1431,92 +1323,39 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         }
 
         private ObservableCollection<Tbl03Regnum> _tbl03RegnumsAllList;
-
         public ObservableCollection<Tbl03Regnum> Tbl03RegnumsAllList
         {
             get => _tbl03RegnumsAllList;
             set { _tbl03RegnumsAllList = value; RaisePropertyChanged(""); }
         }
 
-        #endregion "Public Properties"
+        #endregion "Public Properties"   
 
         #region "Public Properties Tbl12Subphylum"
 
         public ICollectionView SubphylumsView;
         private Tbl12Subphylum CurrentTbl12Subphylum => SubphylumsView?.CurrentItem as Tbl12Subphylum;
 
-        //      public ObservableCollection<Tbl12Subphylum> Tbl12SubphylumsList { get; set; }
-
-
         private ObservableCollection<Tbl12Subphylum> _tbl12SubphylumsList;
-
         public ObservableCollection<Tbl12Subphylum> Tbl12SubphylumsList
         {
             get => _tbl12SubphylumsList;
             set { _tbl12SubphylumsList = value; RaisePropertyChanged(""); }
         }
-
-        #endregion "Public Properties"
+        #endregion "Public Properties"     
 
         #region "Public Properties Tbl18Superclass"
 
         public ICollectionView SuperclassesView;
         private Tbl18Superclass CurrentTbl18Superclass => SuperclassesView?.CurrentItem as Tbl18Superclass;
 
-        //   public ObservableCollection<Tbl18Superclass> Tbl18SuperclassesList { get; set; }
-
-
         private ObservableCollection<Tbl18Superclass> _tbl18SuperclassesList;
-
         public ObservableCollection<Tbl18Superclass> Tbl18SuperclassesList
         {
             get => _tbl18SuperclassesList;
             set { _tbl18SuperclassesList = value; RaisePropertyChanged(""); }
         }
-
-        #endregion "Public Properties"
-
-        #region "Public Properties Tbl90Author"
-
-        //    public ObservableCollection<Tbl90RefAuthor> Tbl90AuthorsAllList { get; set; }
-
-        private ObservableCollection<Tbl90RefAuthor> _tbl90AuthorsAllList;
-
-        public ObservableCollection<Tbl90RefAuthor> Tbl90AuthorsAllList
-        {
-            get => _tbl90AuthorsAllList;
-            set { _tbl90AuthorsAllList = value; RaisePropertyChanged(""); }
-        }
-
-        #endregion "Public Properties "
-
-        #region "Public Properties Tbl90Source"
-
-        //    public ObservableCollection<Tbl90RefSource> Tbl90SourcesAllList { get; set; }
-
-        private ObservableCollection<Tbl90RefSource> _tbl90SourcesAllList;
-
-        public ObservableCollection<Tbl90RefSource> Tbl90SourcesAllList
-        {
-            get => _tbl90SourcesAllList;
-            set { _tbl90SourcesAllList = value; RaisePropertyChanged(""); }
-        }
-
-        #endregion "Public Properties "
-
-        #region "Public Properties Tbl90Expert"
-
-        //    public ObservableCollection<Tbl90RefExpert> Tbl90ExpertsAllList { get; set; }
-
-        private ObservableCollection<Tbl90RefExpert> _tbl90ExpertsAllList;
-
-        public ObservableCollection<Tbl90RefExpert> Tbl90ExpertsAllList
-        {
-            get => _tbl90ExpertsAllList;
-            set { _tbl90ExpertsAllList = value; RaisePropertyChanged(""); }
-        }
-
-        #endregion "Public Properties "
+        #endregion "Public Properties"     
 
         #region Public Properties Tbl90References
 
@@ -1528,17 +1367,47 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             set { _tbl90ReferencesList = value; RaisePropertyChanged(""); }
         }
 
-
         #endregion
+
+        #region "Public Properties Tbl90Author"
+
+        private ObservableCollection<Tbl90RefAuthor> _tbl90AuthorsAllList;
+        public ObservableCollection<Tbl90RefAuthor> Tbl90AuthorsAllList
+        {
+            get => _tbl90AuthorsAllList;
+            set { _tbl90AuthorsAllList = value; RaisePropertyChanged(""); }
+        }
+
+        #endregion "Public Properties "
+
+        #region "Public Properties Tbl90Source"
+
+        private ObservableCollection<Tbl90RefSource> _tbl90SourcesAllList;
+        public ObservableCollection<Tbl90RefSource> Tbl90SourcesAllList
+        {
+            get => _tbl90SourcesAllList;
+            set { _tbl90SourcesAllList = value; RaisePropertyChanged(""); }
+        }
+
+        #endregion "Public Properties "
+
+        #region "Public Properties Tbl90Expert"
+
+        private ObservableCollection<Tbl90RefExpert> _tbl90ExpertsAllList;
+        public ObservableCollection<Tbl90RefExpert> Tbl90ExpertsAllList
+        {
+            get => _tbl90ExpertsAllList;
+            set { _tbl90ExpertsAllList = value; RaisePropertyChanged(""); }
+        }
+
+        #endregion "Public Properties "
+
         #region "Public Properties Tbl90ReferenceAuthor"
 
         public ICollectionView ReferenceAuthorsView;
         private Tbl90Reference CurrentTbl90ReferenceAuthor => ReferenceAuthorsView?.CurrentItem as Tbl90Reference;
 
-        //    public ObservableCollection<Tbl90Reference> Tbl90ReferenceAuthorsList { get; set; }
-
         private ObservableCollection<Tbl90Reference> _tbl90ReferenceAuthorsList;
-
         public ObservableCollection<Tbl90Reference> Tbl90ReferenceAuthorsList
         {
             get => _tbl90ReferenceAuthorsList;
@@ -1552,10 +1421,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         public ICollectionView ReferenceSourcesView;
         private Tbl90Reference CurrentTbl90ReferenceSource => ReferenceSourcesView?.CurrentItem as Tbl90Reference;
 
-        //   public ObservableCollection<Tbl90Reference> Tbl90ReferenceSourcesList { get; set; }
-
         private ObservableCollection<Tbl90Reference> _tbl90ReferenceSourcesList;
-
         public ObservableCollection<Tbl90Reference> Tbl90ReferenceSourcesList
         {
             get => _tbl90ReferenceSourcesList;
@@ -1569,38 +1435,28 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         public ICollectionView ReferenceExpertsView;
         private Tbl90Reference CurrentTbl90ReferenceExpert => ReferenceExpertsView?.CurrentItem as Tbl90Reference;
 
-        //    public ObservableCollection<Tbl90Reference> Tbl90ReferenceExpertsList { get; set; }
-
         private ObservableCollection<Tbl90Reference> _tbl90ReferenceExpertsList;
-
         public ObservableCollection<Tbl90Reference> Tbl90ReferenceExpertsList
         {
             get => _tbl90ReferenceExpertsList;
             set { _tbl90ReferenceExpertsList = value; RaisePropertyChanged(""); }
         }
 
-        #endregion "Public Properties"
+        #endregion "Public Properties"   
 
         #region "Public Properties Tbl93Comment"
 
         public ICollectionView CommentsView;
         private Tbl93Comment CurrentTbl93Comment => CommentsView?.CurrentItem as Tbl93Comment;
 
-        //   public ObservableCollection<Tbl93Comment> Tbl93CommentsList { get; set; }
-
         private ObservableCollection<Tbl93Comment> _tbl93CommentsList;
-
         public ObservableCollection<Tbl93Comment> Tbl93CommentsList
         {
             get => _tbl93CommentsList;
             set { _tbl93CommentsList = value; RaisePropertyChanged(""); }
         }
 
-        #endregion "Public Properties"
-
-
-
-
+        #endregion "Public Properties"     
 
 
     }

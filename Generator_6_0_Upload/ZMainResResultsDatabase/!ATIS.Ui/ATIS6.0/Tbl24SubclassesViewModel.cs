@@ -1,465 +1,244 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Validation;
+using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using GalaSoft.MvvmLight;
-using log4net;
-using Te.Atis.DomainModel;
-using Te.Atis.Ui.Desktop.BusinessLayer;
-using Te.Atis.Ui.Desktop.Domain;
-using Te.Atis.Ui.Desktop.Domain.Helper;
-using Te.Atis.Ui.Desktop.MessageBox;    
+using Common.Logging;
+using ATIS.Dal.Models;
+using ATIS.Ui.Core;
+using ATIS.Ui.Helper;
+using ATIS.Ui.Views.Database.CrudHelper;
+using ATIS.Ui.Views.Database.DatabaseHelper;
+using Microsoft.EntityFrameworkCore;          
 
     
-         //    Tbl24SubclassesViewModel Skriptdatum:  13.12.2019  18:32    
+         //    SubclassesViewModel Skriptdatum:  13.12.2019  18:32    
 
-namespace Te.Atis.Ui.Desktop.Views.Database
+namespace ATIS.Ui.Views.Database.ListDetails
 {     
     
-    public class Tbl24SubclassesViewModel : ViewModelBase                     
-    {     
+    public class SubclassesViewModel : ViewModelBase                     
+    {  
+        // Version with Generic Unit Of Work and AtisDbContext for general use   
          
-        #region "Private Data Members"
+        #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private static IBusinessLayer _businessLayer;
-        private static DbEntityException _entityException;
+        private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
+        private readonly AtisDbContext _context = new AtisDbContext();
+
+        private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
+        private readonly GenericMessageBoxes<Tbl24Subclass> _genSubclassMessageBoxes = new GenericMessageBoxes<Tbl24Subclass>();
+        private readonly GenericMessageBoxes<Tbl21Class> _genClassMessageBoxes = new GenericMessageBoxes<Tbl21Class>();
+        private readonly GenericMessageBoxes<Tbl27Infraclass> _genInfraclassMessageBoxes = new GenericMessageBoxes<Tbl27Infraclass>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genExpertMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
+        private readonly BasicGet _extGet = new BasicGet();
+        private readonly BasicCopy _extCopy = new BasicCopy();
+        private readonly BasicDelete _extDelete = new BasicDelete();
+        private readonly BasicSave _extSave = new BasicSave();        
         private int _position;   
          
-        #endregion "Private Data Members"               
+        #endregion [Private Data Members]               
       
-        #region "Constructor"
+        #region [Constructor]
 
-        public Tbl24SubclassesViewModel()
+        public SubclassesViewModel()
         {
             if (IsInDesignMode)
             {
                 // Code runs in Blend --> create design time data.
             }
             else
-            {    
+            {          
         
                 // Code runs "for real" 
-                _entityException = new DbEntityException();
+                Tbl24SubclassesList = new ObservableCollection<Tbl24Subclass>();    
             }
         }     
-        #endregion "Constructor"         
+        public bool IsInDesignMode { get; set; }
+
+        #endregion [Constructor]         
  
 
  //    Part 1    
 
-             
-        #region "Public Commands Basic Tbl24Subclass"
-        //-------------------------------------------------------------------------
-        private RelayCommand _clearSubclassCommand;
+         
 
-        public ICommand ClearSubclassCommand => _clearSubclassCommand ??
-                                                  (_clearSubclassCommand = new RelayCommand(delegate { ClearSubclass(null); }));         
-             
-        private RelayCommand _getSubclassesByNameOrIdCommand;  
+        #region [Commands Subclass]
 
-        public  ICommand GetSubclassesByNameOrIdCommand => _getSubclassesByNameOrIdCommand ??
-                                                           (_getSubclassesByNameOrIdCommand = new RelayCommand(delegate { GetSubclassesByNameOrId(null); }));        
+        private RelayCommand _getSubclassesByNameOrIdCommand;
+        public ICommand GetSubclassesByNameOrIdCommand => _getSubclassesByNameOrIdCommand ??= new RelayCommand(delegate {ExecuteGetSubclassesByNameOrId(SearchSubclassName); });    
              
         private RelayCommand _addSubclassCommand;
-
-        public ICommand AddSubclassCommand => _addSubclassCommand ??
-                                                (_addSubclassCommand = new RelayCommand(delegate { AddSubclass(null); }));
+        public ICommand AddSubclassCommand => _addSubclassCommand ??= new RelayCommand(delegate { ExecuteAddSubclass(null); });
 
         private RelayCommand _copySubclassCommand;
-
-        public ICommand CopySubclassCommand => _copySubclassCommand ??
-                                                 (_copySubclassCommand = new RelayCommand(delegate { CopySubclass(null); }));      
+        public ICommand CopySubclassCommand => _copySubclassCommand ??= new RelayCommand(delegate { ExecuteCopySubclass(null); });      
              
         private RelayCommand _deleteSubclassCommand;
-
-        public ICommand DeleteSubclassCommand => _deleteSubclassCommand ??
-                                                   (_deleteSubclassCommand = new RelayCommand(delegate { DeleteSubclass(null); }));    
+        public ICommand DeleteSubclassCommand => _deleteSubclassCommand ??= new RelayCommand(delegate { ExecuteDeleteSubclass(SearchSubclassName); });    
              
         private RelayCommand _saveSubclassCommand;
+        public ICommand SaveSubclassCommand => _saveSubclassCommand ??= new RelayCommand(delegate { ExecuteSaveSubclass(SearchSubclassName); });    
 
-        public ICommand SaveSubclassCommand => _saveSubclassCommand ??
-                                                 (_saveSubclassCommand = new RelayCommand(delegate { SaveSubclass(null); }));
-        //-------------------------------------------------------------------------          
+        #endregion [Commands Subclass]       
+
      
-        private void ClearSubclass(object o)
+        #region [Methods Subclass]
+
+        private void ExecuteGetSubclassesByNameOrId(string searchName)
         {
-            SearchSubclassName = "";
+            Tbl21ClassesAllList = _extGet.AllCollection<Tbl21Class>("classe");
+            Tbl24SubclassesList = _extGet.SearchNameAndIdReturnCollection<Tbl24Subclass>(SearchSubclassName, "subclass");
 
-            SelectedMainTabIndex = 0;  //change tab
-            SelectedDetailTabIndex = 0;
-            SelectedDetailSubTabIndex = 0;
-            SelectedDetailSubRefTabIndex = 0;
+            SelectedMainTabIndex = 0;
+            SelectedDetailTabIndex = 1;
 
-            Tbl21ClassesList?.Clear();
-            Tbl24SubclassesList?.Clear();
-            Tbl27InfraclassesList?.Clear();
-            Tbl90ReferenceExpertsList?.Clear();
-            Tbl90ReferenceSourcesList?.Clear();
-            Tbl90ReferenceAuthorsList?.Clear();
-            Tbl93CommentsList?.Clear();
-        }
-        //----------------------------------------------------------------------                  
-     
-        private void GetSubclassesByNameOrId(object o)
-        {
-            if (SearchSubclassName != "")
-            {
-                Tbl24SubclassesList?.Clear();
-                if (SearchSubclassName == "*") // show whole table
-                {
-                    SearchSubclassName = "";
-                    _businessLayer = new BusinessLayer.BusinessLayer();
-                    Tbl21ClassesAllList = new ObservableCollection<Tbl21Class>(_businessLayer.ListTbl21Classes());
-                    Tbl24SubclassesList = new ObservableCollection<Tbl24Subclass>(_businessLayer.ListTbl24SubclassesBySubclassName(SearchSubclassName));
-                    SearchSubclassName = "*";
-                }
-                else
-                {
-                    _businessLayer = new BusinessLayer.BusinessLayer();
-                    Tbl21ClassesAllList = new ObservableCollection<Tbl21Class>(_businessLayer.ListTbl21Classes());
-                    Tbl24SubclassesList = int.TryParse(SearchSubclassName, out var id) ?
-                        new ObservableCollection<Tbl24Subclass>(_businessLayer.ListTbl24SubclassesBySubclassId(id)) :
-                        new ObservableCollection<Tbl24Subclass>(_businessLayer.ListTbl24SubclassesBySubclassName(SearchSubclassName));
-                }
-
-                if (Tbl24SubclassesList.Count == 0)
-                {
-                    WpfMessageBox.Show(CultRes.StringsRes.Tables, CultRes.StringsRes.DatasetNot,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                }
-                else
-                {
-                    Tbl21ClassesList?.Clear();
-                    Tbl27InfraclassesList?.Clear();
-                    Tbl90ReferenceExpertsList?.Clear();
-                    Tbl90ReferenceSourcesList?.Clear();
-                    Tbl90ReferenceAuthorsList?.Clear();
-                    Tbl93CommentsList?.Clear();
-                }
-            }
-            else
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.SearchNameOrId, CultRes.StringsRes.InputRequested,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-            }
             SubclassesView = CollectionViewSource.GetDefaultView(Tbl24SubclassesList);
             SubclassesView.Refresh();
-        }
-        //------------------------------------------------------------------------------------                          
+        }                     
      
-        private void AddSubclass(object o)
+        private void ExecuteAddSubclass(object o)
         {
-            if (Tbl24SubclassesList == null)
-                Tbl24SubclassesList =  new ObservableCollection<Tbl24Subclass>( );
-
             Tbl24SubclassesList.Insert(0, new Tbl24Subclass   {   SubclassName = CultRes.StringsRes.DatasetNew  }  );
-
-                    _businessLayer = new BusinessLayer.BusinessLayer();
-                Tbl21ClassesAllList = new ObservableCollection<Tbl21Class>(_businessLayer.ListTbl21Classes());
+            Tbl21ClassesAllList = _extGet.AllCollection<Tbl21Class>("classe");
 
             SubclassesView = CollectionViewSource.GetDefaultView(Tbl24SubclassesList);
             SubclassesView.MoveCurrentToFirst();
-        }
-        //------------------------------------------------------------------------------------                               
+        }                       
      
-        private void CopySubclass(object o)
+        private void ExecuteCopySubclass(object o)
         {
-            if (CurrentTbl24Subclass == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-            _businessLayer = new BusinessLayer.BusinessLayer();
+            if (_genSubclassMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl24Subclass)) return;
 
-            var subclass = _businessLayer.SingleListTbl24SubclassesBySubclassId(CurrentTbl24Subclass.SubclassID);
+            Tbl24SubclassesList = _extCopy.CopySubclass(CurrentTbl24Subclass);
 
-            Tbl24SubclassesList.Insert(0, new Tbl24Subclass
-            {
-                 ClassID =  subclass. ClassID,
-                 SubclassName = CultRes.StringsRes.DatasetNew,
-                Valid =  subclass.Valid,
-                ValidYear =  subclass.ValidYear,
-                Synonym =  subclass.Synonym,
-                Author =  subclass.Author,
-                AuthorYear =  subclass.AuthorYear,
-                Info =  subclass.Info,
-                EngName =  subclass.EngName,
-                GerName =  subclass.GerName,
-                FraName =  subclass.FraName,
-                PorName =  subclass.PorName,
-                Memo =  subclass.Memo
-            });
+            // evtl verbundene tabellen-Datensätze auch kopieren Expert, Source, Author und Comment
 
             SubclassesView = CollectionViewSource.GetDefaultView(Tbl24SubclassesList);
             SubclassesView.MoveCurrentToFirst();
-        }
-        //---------------------------------------------------------------------------------------                            
+        }                         
      
-        private void DeleteSubclass(object o)
+        private void ExecuteDeleteSubclass(string searchName)
         {
-            if (CurrentTbl24Subclass == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-            _businessLayer = new BusinessLayer.BusinessLayer();
+            if (_genSubclassMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl24Subclass)) return;               
+ 
+    
+            //check if in Tbl27Infraclasses connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
 
-            var ret = false;
-            //check if in Tbl27Infraclasses connected datasets, than return
-            Tbl27InfraclassesList = new ObservableCollection<Tbl27Infraclass>(_businessLayer.ListTbl27InfraclassesBySubclassId(CurrentTbl24Subclass.SubclassID));
-            if (Tbl27InfraclassesList.Count != 0)
+            Tbl27InfraclassesList = _extDelete.SearchForConnectedDatasetsWithSubclassIdInTableInfraclass(CurrentTbl24Subclass);     
+     
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl27InfraclassesList.Count, "Infraclass")) return;
+
+            //Delete all References Experts, Sources, Authors  ----------------------------------------------------
+            Tbl90ReferencesList = _extDelete.DeleteDatasetsWithSubclassIdInTableReference(CurrentTbl24Subclass);
+            if (Tbl90ReferencesList.Count > 0)
             {
-                WpfMessageBox.Show(CultRes.StringsRes.ConnectedTable, CultRes.StringsRes.Infraclass + " " + CultRes.StringsRes.ConnectedDataset,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                 ret = true;              
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+
+                _extDelete.DeleteReferences(Tbl90ReferencesList);
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
             }
-            Tbl90ReferenceAuthorsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90ReferenceListRefAuthorsBySubclassId(CurrentTbl24Subclass.SubclassID));
-            if (Tbl90ReferenceAuthorsList.Count != 0)
+
+            //Delete all Comments  ----------------------------------------------------
+            Tbl93CommentsList = _extDelete.DeleteDatasetsWithSubclassIdInTableComment(CurrentTbl24Subclass);
+            if (Tbl93CommentsList.Count > 0)
             {
-                WpfMessageBox.Show(CultRes.StringsRes.ConnectedTable, CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ConnectedDataset,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                ret = true;
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
+
+                _extDelete.DeleteComments(Tbl93CommentsList);
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
             }
-            Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90ReferenceListRefSourcesBySubclassId(CurrentTbl24Subclass.SubclassID));
-            if (Tbl90ReferenceSourcesList.Count != 0)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.ConnectedTable, CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ConnectedDataset,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                ret = true;
-            }
-            Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90ReferenceListRefExpertsBySubclassId(CurrentTbl24Subclass.SubclassID));
-            if (Tbl90ReferenceExpertsList.Count != 0)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.ConnectedTable, CultRes.StringsRes.ReferenceExpert + " " + CultRes.StringsRes.ConnectedDataset,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                ret = true;
-            }
-            Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_businessLayer.ListTbl93CommentsBySubclassId(CurrentTbl24Subclass.SubclassID));
-            if (Tbl93CommentsList.Count != 0)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.ConnectedTable, CultRes.StringsRes.Comment + " " + CultRes.StringsRes.ConnectedDataset,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                ret = true;
-            }
-            if (ret)  return;
-            {
             try
             {
-                var subclass = _businessLayer.SingleListTbl24SubclassesBySubclassId(CurrentTbl24Subclass.SubclassID);
-                if (subclass != null)
+                var subclass= _uow.Tbl24Subclasses.GetById(CurrentTbl24Subclass.SubclassId);
+                if (subclass!= null)
                 {
-                    if (WpfMessageBox.Show(CultRes.StringsRes.DeleteQuestion1, CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl24Subclass.SubclassName,
-                            MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-                        return;
-                    subclass.EntityState = EntityState.Deleted;
-                    _businessLayer.RemoveSubclass(subclass);
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl24Subclass.SubclassName)) return;
 
-                    WpfMessageBox.Show(CultRes.StringsRes.DeleteSuccess, CurrentTbl24Subclass.SubclassName,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                }
-                else
-                {
-                    WpfMessageBox.Show(CultRes.StringsRes.Information, CultRes.StringsRes.DeleteCan + " " + CurrentTbl24Subclass.SubclassName + " " + CultRes.StringsRes.DeleteCan1,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                }
-            }
-            catch (DbEntityValidationException ex)
-            {
-                _entityException.EntityException(ex);
-                    Log.Error(ex);
-            }
-         }
-            if (SearchSubclassName != "")
-            {
-                if (SearchSubclassName == "*")  //show all datasets
-                {
-                    SearchSubclassName = "";
-                    Tbl24SubclassesList.Clear();
-                    
-                Tbl24SubclassesList = new ObservableCollection<Tbl24Subclass>(_businessLayer.ListTbl24SubclassesBySubclassName(SearchSubclassName));            
-                    SearchSubclassName = "*";
-                }
-                else
-                {               
-                    Tbl24SubclassesList =  new ObservableCollection<Tbl24Subclass>(_businessLayer.ListTbl24SubclassesBySubclassName(SearchSubclassName));
+                    _extDelete.DeleteSubclass(subclass);
 
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl24Subclass.SubclassName);
                 }
-                SubclassesView = CollectionViewSource.GetDefaultView(Tbl24SubclassesList);
-                SubclassesView.Refresh();
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl24Subclass.SubclassName + " " + CultRes.StringsRes.DeleteCan1);
             }
-            else  //SearchName = empty
+            catch (Exception e)
             {
-                Tbl24SubclassesList = new ObservableCollection<Tbl24Subclass>(_businessLayer.ListTbl24SubclassesBySubclassName(SearchSubclassName));
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
 
-                SubclassesView = CollectionViewSource.GetDefaultView(Tbl24SubclassesList);
-                SubclassesView.MoveCurrentToFirst();
-             }
-        }
-        //-------------------------------------------------------------------------------------------------                    
+            ExecuteGetSubclassesByNameOrId(searchName);
+
+            SubclassesView.MoveCurrentToFirst();
+        }                
      
-        private void SaveSubclass(object o)
+        private void ExecuteSaveSubclass(string searchName)
         {
-            if (CurrentTbl24Subclass == null)
+            if (_genSubclassMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl24Subclass)) return;      
+       
+            //Combobox select ClassID  may be not 0
+            if (CurrentTbl24Subclass.ClassId == 0)
             {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
+                    MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
-            }
-            _businessLayer = new BusinessLayer.BusinessLayer();
-
+            }     
+     
             try
             {
-                var subclass = _businessLayer.SingleListTbl24SubclassesBySubclassId(CurrentTbl24Subclass.SubclassID);
-                if (CurrentTbl24Subclass.SubclassID != 0)
-                {
-                    if (subclass != null) //update
-                    {
-                        subclass.SubclassName = CurrentTbl24Subclass.SubclassName;
-                        subclass.ClassID = CurrentTbl24Subclass.ClassID;
-                        subclass.Valid = CurrentTbl24Subclass.Valid;
-                        subclass.ValidYear = CurrentTbl24Subclass.ValidYear;       
-                        subclass.Synonym = CurrentTbl24Subclass.Synonym;
-                        subclass.Author = CurrentTbl24Subclass.Author;
-                        subclass.AuthorYear = CurrentTbl24Subclass.AuthorYear;
-                        subclass.Info = CurrentTbl24Subclass.Info;
-                        subclass.EngName = CurrentTbl24Subclass.EngName;
-                        subclass.GerName = CurrentTbl24Subclass.GerName;
-                        subclass.FraName = CurrentTbl24Subclass.FraName;
-                        subclass.PorName = CurrentTbl24Subclass.PorName;
-                        subclass.Updater = Environment.UserName;
-                        subclass.UpdaterDate = DateTime.Now;
-                        subclass.Memo = CurrentTbl24Subclass.Memo;
-                        subclass.EntityState = EntityState.Modified;
-                    }
-                }
+                var subclass = _uow.Tbl24Subclasses .GetById(CurrentTbl24Subclass.SubclassId);
+                //   var phylum = _context.Tbl24Subclasses.AsNoTracking().FirstOrDefault(a=>a.SubclassId == CurrentTbl24Subclass.SubclassId);
+                //          _context.Entry(subclass).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl24Subclass.SubclassName))
+                    return;
+
+                if (CurrentTbl24Subclass.SubclassId == 0)
+                    subclass = _extSave.SubclassAdd(CurrentTbl24Subclass);
                 else
+                    subclass = _extSave.SubclassUpdate(subclass, CurrentTbl24Subclass);
+
+                _position = SubclassesView.CurrentPosition;
+
+                try
                 {
-                    subclass = new Tbl24Subclass   //add new
-                    {
-                        SubclassName = CurrentTbl24Subclass.SubclassName,
-                        ClassID = CurrentTbl24Subclass.ClassID,
-
-                        CountID = RandomHelper.Randomnumber(),
-                        Valid = CurrentTbl24Subclass.Valid,
-                        ValidYear = CurrentTbl24Subclass.ValidYear,
-                        Synonym = CurrentTbl24Subclass.Synonym,
-                        Author = CurrentTbl24Subclass.Author,
-                        AuthorYear = CurrentTbl24Subclass.AuthorYear,
-                        Info = CurrentTbl24Subclass.Info,
-                        EngName = CurrentTbl24Subclass.EngName,
-                        GerName = CurrentTbl24Subclass.GerName,
-                        FraName = CurrentTbl24Subclass.FraName,
-                        PorName = CurrentTbl24Subclass.PorName,
-                        Writer = Environment.UserName,
-                        WriterDate = DateTime.Now,
-                        Updater = Environment.UserName,
-                        UpdaterDate = DateTime.Now,
-                        Memo = CurrentTbl24Subclass.Memo,
-                        EntityState = EntityState.Added
-                    };
+                    _extSave.SubclassSave(subclass, CurrentTbl24Subclass);
                 }
+                catch (DbUpdateException e)
                 {
-                    //ClassID may be not 0
-                    if (CurrentTbl24Subclass.ClassID == 0)          
-
-                    {
-                        WpfMessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        return;
-                    }
-
-                    //check if dataset with Name and ClassId already exist       
-                    var dataset = _businessLayer.ListTbl24SubclassesBySubclassNameAndClassId(CurrentTbl24Subclass.SubclassName, CurrentTbl24Subclass.ClassID);
-
-                    if (dataset.Count != 0 && CurrentTbl24Subclass.SubclassID == 0)  //dataset exist
-                    {
-                        WpfMessageBox.Show(CultRes.StringsRes.DatasetExist, CurrentTbl24Subclass.SubclassName,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        return;
-                    }
-                    if (dataset.Count == 0 && CurrentTbl24Subclass.SubclassID == 0 ||
-                        dataset.Count != 0 && CurrentTbl24Subclass.SubclassID != 0 ||
-                        dataset.Count == 0 && CurrentTbl24Subclass.SubclassID != 0) //new dataset and update
-                    {
-                        if (WpfMessageBox.Show(CultRes.StringsRes.SaveQuestion2, CurrentTbl24Subclass.SubclassName,
-                                MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-                            return;
-                        {
-                            try
-                            {
-                                _businessLayer.UpdateSubclass(subclass);
-                                _position = SubclassesView.CurrentPosition;
-                            }
-                            catch (DbUpdateException e)
-                            {
-                                if (e.InnerException != null)
-                                    System.Windows.MessageBox.Show(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave,
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-
-                                Log.Error(e);
-                                return;
-                            }
-                            catch (Exception e)
-                            {
-                                System.Windows.MessageBox.Show(e.Message, CultRes.StringsRes.Error,
-                                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-                                Log.Error(e);
-                                return;
-                            }
-                                    WpfMessageBox.Show(CultRes.StringsRes.SaveSuccess,
-                                        CurrentTbl24Subclass.SubclassID == 0
-                                            ? CultRes.StringsRes.DatasetNew
-                                            : CurrentTbl24Subclass.SubclassName,
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                          }
-                    }
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
+                            CultRes.StringsRes.FailedToSave); 
+                    Log.Error(e);
+                    return;
                 }
-            }
-            catch (DbEntityValidationException ex)
-            {
-                _entityException.EntityException(ex);
-                    Log.Error(ex);
-                  return;
-            }
-
-            if (SearchSubclassName != "")
-            {
-                if (SearchSubclassName == "*")  //show all datasets
+                catch (Exception e)
                 {
-                    SearchSubclassName = "";
-                    Tbl24SubclassesList.Clear();
-                    
-                Tbl24SubclassesList = new ObservableCollection<Tbl24Subclass>(_businessLayer.ListTbl24SubclassesBySubclassName(SearchSubclassName));            
-                    SearchSubclassName = "*";
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error); 
+                    Log.Error(e);
+                    return;
                 }
-                else
-                {               
-                    Tbl24SubclassesList = int.TryParse(SearchSubclassName, out var id)
-                        ? new ObservableCollection<Tbl24Subclass>(_businessLayer.ListTbl24SubclassesBySubclassId(id))
-                        : new ObservableCollection<Tbl24Subclass>(_businessLayer.ListTbl24SubclassesBySubclassName(SearchSubclassName));
 
-                }
-                SubclassesView = CollectionViewSource.GetDefaultView(Tbl24SubclassesList);
-                SubclassesView.MoveCurrentToPosition(_position);
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl24Subclass.SubclassId == 0
+                    ? "DatasetNew"
+                    : CurrentTbl24Subclass.SubclassName);
             }
-            else  
+            catch (Exception e)
             {
-                Tbl24SubclassesList = new ObservableCollection<Tbl24Subclass>(_businessLayer.ListTbl24SubclassesBySubclassName(CurrentTbl24Subclass.SubclassName));
-
-                SubclassesView= CollectionViewSource.GetDefaultView(Tbl24SubclassesList);
-                SubclassesView.Refresh();
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error); 
+                Log.Error(e);
             }
+            ExecuteGetSubclassesByNameOrId(searchName);
+            SubclassesView.MoveCurrentToPosition(_position);
         }
-        #endregion "Public Commands"                  
+        #endregion [Methods Subclass]                
  
  
 
@@ -467,144 +246,63 @@ namespace Te.Atis.Ui.Desktop.Views.Database
 
            
         #region "Public Commands Connect <== Tbl21Class"                 
-        //-------------------------------------------------------------------------
+        
 
         private RelayCommand _saveClassCommand;
 
-        public ICommand SaveClassCommand => _saveClassCommand ??
-                                                 (_saveClassCommand = new RelayCommand(delegate { SaveClass(null); }));
-
-        //-------------------------------------------------------------------------          
-     
-        private void SaveClass(object o)
+        public ICommand SaveClassCommand => _saveClassCommand ??= new RelayCommand(delegate { ExecuteSaveClass(null); });        
+           
+        private void ExecuteSaveClass(string searchName)
         {
-            if (CurrentTbl21Class == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
+            if (_genClassMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl21Class)) return;
 
             try
             {
-                var classe = _businessLayer.SingleListTbl21ClassesByClassId(CurrentTbl21Class.ClassID);
-                if (CurrentTbl21Class.ClassID != 0)
-                {
-                    if (classe != null) //update
-                    {
-                        classe.ClassName = CurrentTbl21Class.ClassName;
-                        classe.Valid = CurrentTbl21Class.Valid;
-                        classe.ValidYear = CurrentTbl21Class.ValidYear;       
-                        classe.Synonym = CurrentTbl21Class.Synonym;
-                        classe.Author = CurrentTbl21Class.Author;
-                        classe.AuthorYear = CurrentTbl21Class.AuthorYear;
-                        classe.Info = CurrentTbl21Class.Info;
-                        classe.EngName = CurrentTbl21Class.EngName;
-                        classe.GerName = CurrentTbl21Class.GerName;
-                        classe.FraName = CurrentTbl21Class.FraName;
-                        classe.PorName = CurrentTbl21Class.PorName;
-                        classe.Updater = Environment.UserName;
-                        classe.UpdaterDate = DateTime.Now;
-                        classe.Memo = CurrentTbl21Class.Memo;
-                        classe.EntityState = EntityState.Modified;
-                    }
-                }
+                var classe = _uow.Tbl21Classes.GetById(CurrentTbl21Class.ClassId);
+
+                if (CurrentTbl21Class.ClassId == 0)
+                    classe = _extSave.ClassAdd(CurrentTbl21Class);
                 else
+                    classe = _extSave.ClassUpdate(classe, CurrentTbl21Class);
+
+                _position = SubclassesView.CurrentPosition;   
+       
+                var cap = CurrentTbl21Class.ClassName;
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(cap))        return;               
+       
+                try
                 {
-                    classe = new Tbl21Class   //add new
-                    {
-                        ClassName = CurrentTbl21Class.ClassName,              
-                        SuperclassID = CurrentTbl21Class.SuperclassID,     
-                        CountID = RandomHelper.Randomnumber(),
-
-                        Valid = CurrentTbl21Class.Valid,
-                        ValidYear = CurrentTbl21Class.ValidYear,
-                        Synonym = CurrentTbl21Class.Synonym,
-                        Author = CurrentTbl21Class.Author,
-                        AuthorYear = CurrentTbl21Class.AuthorYear,
-                        Info = CurrentTbl21Class.Info,
-                        EngName = CurrentTbl21Class.EngName,
-                        GerName = CurrentTbl21Class.GerName,
-                        FraName = CurrentTbl21Class.FraName,
-                        PorName = CurrentTbl21Class.PorName,
-                        Writer = Environment.UserName,
-                        WriterDate = DateTime.Now,
-                        Updater = Environment.UserName,
-                        UpdaterDate = DateTime.Now,
-                        Memo = CurrentTbl21Class.Memo,
-                        EntityState = EntityState.Added
-                    };
+                    _extSave.ClassSave(classe, CurrentTbl21Class);
                 }
+                catch (DbUpdateException e)
                 {
-                    //SuperclassID may be not 0
-                    if (CurrentTbl21Class.SuperclassID == 0)          
-
-                    {
-                        WpfMessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        return;
-                    }
-
-                    //check if dataset with Name and ClassId already exist       
-                    var dataset = _businessLayer.ListTbl21ClassesByClassNameAndSuperclassId(CurrentTbl21Class.ClassName, CurrentTbl21Class.SuperclassID);
-
-                    if (dataset.Count != 0 && CurrentTbl21Class.ClassID == 0)  //dataset exist
-                    {
-                        WpfMessageBox.Show(CultRes.StringsRes.DatasetExist, CurrentTbl21Class.ClassName,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        return;
-                    }
-                    if (dataset.Count == 0 && CurrentTbl21Class.ClassID == 0 ||
-                        dataset.Count != 0 && CurrentTbl21Class.ClassID != 0 ||
-                        dataset.Count == 0 && CurrentTbl21Class.ClassID != 0) //new dataset and update
-                    {
-                        if (WpfMessageBox.Show(CultRes.StringsRes.SaveQuestion2, CurrentTbl21Class.ClassName,
-                                MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-                            return;
-                        {
-                            try
-                            {
-                                _businessLayer.UpdateClass(classe);
-                            }
-                            catch (DbUpdateException e)
-                            {
-                                if (e.InnerException != null)
-                                    System.Windows.MessageBox.Show(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave,
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-
-                                Log.Error(e);
-                                return;
-                            }
-                            catch (Exception e)
-                            {
-                                System.Windows.MessageBox.Show(e.Message, CultRes.StringsRes.Error,
-                                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-                                Log.Error(e);
-                                return;
-                            }
-                                    WpfMessageBox.Show(CultRes.StringsRes.SaveSuccess,
-                                        CurrentTbl21Class.ClassID == 0
-                                            ? CultRes.StringsRes.DatasetNew
-                                            : CurrentTbl21Class.ClassName,
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        }
-                    }
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
+                            CultRes.StringsRes.FailedToSave); 
+                    Log.Error(e);
+                    return;
                 }
-            }
-            catch (DbEntityValidationException ex)
+                catch (Exception e)
+                {
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                    //         Log.Error(e);
+                    return;
+                }            
+      
+                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl21Class.ClassId == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : CurrentTbl21Class.ClassName);
+            }       
+     
+            catch (Exception e)
             {
-                _entityException.EntityException(ex);
-                    Log.Error(ex);
-                   return;
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
             }
-
-                Tbl21ClassesList = new ObservableCollection<Tbl21Class>(_businessLayer.ListTbl21ClassesByClassId(CurrentTbl24Subclass.ClassID));            
-
-            SelectedMainTabIndex = 0;
-            ClassesView = CollectionViewSource.GetDefaultView(Tbl21ClassesList);
-            ClassesView.Refresh();
+            ExecuteGetSubclassesByNameOrId(searchName);
+            SubclassesView.MoveCurrentToPosition(_position);
         }
+
         #endregion "Public Commands"                  
                                                           
 
@@ -617,292 +315,155 @@ namespace Te.Atis.Ui.Desktop.Views.Database
  //    Part 4    
 
            
-        #region "Public Commands Connect ==> Tbl27Infraclass"                 
-        //-------------------------------------------------------------------------
+        #region [Public Commands Connect ==> Tbl27Infraclass]                 
+        
         private RelayCommand _addInfraclassCommand;
-
-        public ICommand AddInfraclassCommand => _addInfraclassCommand ??
-                                                (_addInfraclassCommand = new RelayCommand(delegate { AddInfraclass(null); }));
+        public ICommand AddInfraclassCommand => _addInfraclassCommand ??= new RelayCommand(delegate { ExecuteAddInfraclass(null); });
 
         private RelayCommand _copyInfraclassCommand;
-
-        public ICommand CopyInfraclassCommand => _copyInfraclassCommand ??
-                                                 (_copyInfraclassCommand = new RelayCommand(delegate { CopyInfraclass(null); }));
+        public ICommand CopyInfraclassCommand => _copyInfraclassCommand ??= new RelayCommand(delegate { ExecuteCopyInfraclass(null); });
 
         private RelayCommand _deleteInfraclassCommand;
-
-        public ICommand DeleteInfraclassCommand => _deleteInfraclassCommand ??
-                                                 (_deleteInfraclassCommand = new RelayCommand(delegate { DeleteInfraclass(null); }));
+        public ICommand DeleteInfraclassCommand => _deleteInfraclassCommand ??= new RelayCommand(delegate { ExecuteDeleteInfraclass(SearchSubclassName); });
 
         private RelayCommand _saveInfraclassCommand;
+        public ICommand SaveInfraclassCommand => _saveInfraclassCommand ??= new RelayCommand(delegate { ExecuteSaveInfraclass(SearchSubclassName); });    
 
-        public ICommand SaveInfraclassCommand => _saveInfraclassCommand ??
-                                                 (_saveInfraclassCommand = new RelayCommand(delegate { SaveInfraclass(null); }));
+        #endregion [Public Commands Connect ==> Tbl27Infraclass]    
 
-        //-------------------------------------------------------------------------          
+        #region [Public Methods Connect ==> Tbl27Infraclass]                   
      
-        private void AddInfraclass(object o)      
+        private void ExecuteAddInfraclass(object o)      
         {
-            if (Tbl27InfraclassesList == null)
-                Tbl27InfraclassesList =  new ObservableCollection<Tbl27Infraclass>( );
-
             Tbl27InfraclassesList.Insert(0, new Tbl27Infraclass  { InfraclassName = CultRes.StringsRes.DatasetNew});
-
-            _businessLayer = new BusinessLayer.BusinessLayer();
-                Tbl24SubclassesAllList = new ObservableCollection<Tbl24Subclass>(_businessLayer.ListTbl24Subclasses());
+            Tbl24SubclassesAllList = _extGet.AllCollection<Tbl24Subclass>("subclass");
 
             InfraclassesView = CollectionViewSource.GetDefaultView(Tbl27InfraclassesList);
             InfraclassesView.MoveCurrentToFirst();
-        }
-        //----------------------------------------------------------------------            
+        }         
      
-        private void CopyInfraclass(object o)
+        private void ExecuteCopyInfraclass(object o)
         {
-            if (CurrentTbl27Infraclass == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
+            if (_genInfraclassMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl27Infraclass)) return;
 
-            var infraclass = _businessLayer.SingleListTbl27InfraclassesByInfraclassId(CurrentTbl27Infraclass.InfraclassID);
+            Tbl27InfraclassesList = _extCopy.CopyInfraclass(CurrentTbl27Infraclass);
 
-            Tbl27InfraclassesList.Insert(0, new Tbl27Infraclass
-            {
-                InfraclassName = CultRes.StringsRes.DatasetNew,
-                Valid =  infraclass.Valid,
-                ValidYear =  infraclass.ValidYear,
-                Synonym =  infraclass.Synonym,
-                Author =  infraclass.Author,
-                AuthorYear =  infraclass.AuthorYear,
-                Info =  infraclass.Info,
-                EngName =  infraclass.EngName,
-                GerName =  infraclass.GerName,
-                FraName =  infraclass.FraName,
-                PorName =  infraclass.PorName,
-                Memo =  infraclass.Memo
-            });
+            // evtl verbundene tabellen-Datensätze auch kopieren Expert, Source, Author und Comment
 
             InfraclassesView = CollectionViewSource.GetDefaultView(Tbl27InfraclassesList);
             InfraclassesView.MoveCurrentToFirst();
-        }
-        //----------------------------------------------------------------------            
+        }        
+                  
+        private void ExecuteDeleteInfraclass(string searchName)
+        {
+             if (_genInfraclassMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl27Infraclass)) return;
+
+            //check if in Tbl30Legios connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
+            Tbl30LegiosList = _extDelete.SearchForConnectedDatasetsWithInfraclassIdInTableLegio(CurrentTbl27Infraclass);
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl30LegiosList.Count, "Legio")) return;                                                                                                                   
            
-        private void DeleteInfraclass(object o)
-        {
-            if (CurrentTbl27Infraclass == null)
+            //Delete all References Experts, Sources, Authors  ----------------------------------------------------
+            Tbl90ReferencesList = _extDelete.DeleteDatasetsWithInfraclassIdInTableReference(CurrentTbl27Infraclass);
+            if (Tbl90ReferencesList.Count > 0)
             {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+
+                _extDelete.DeleteReferences(Tbl90ReferencesList);
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
             }
 
-            var ret = false;
-            //check if in Tbl30Legios connected datasets, than return
-            Tbl30LegiosList = new ObservableCollection<Tbl30Legio>(_businessLayer.ListTbl30LegiosByInfraclassId(CurrentTbl27Infraclass.InfraclassID));
-            if (Tbl30LegiosList.Count != 0)
+            //Delete all Comments  ----------------------------------------------------
+            Tbl93CommentsList = _extDelete.DeleteDatasetsWithInfraclassIdInTableComment(CurrentTbl27Infraclass);
+            if (Tbl93CommentsList.Count > 0)
             {
-                WpfMessageBox.Show(CultRes.StringsRes.ConnectedTable, CultRes.StringsRes.Legio + " " + CultRes.StringsRes.ConnectedDataset,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                 ret = true;              
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
+
+                _extDelete.DeleteComments(Tbl93CommentsList);
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
             }
-            Tbl90ReferenceAuthorsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90ReferenceListRefAuthorsByInfraclassId(CurrentTbl27Infraclass.InfraclassID));
-            if (Tbl90ReferenceAuthorsList.Count != 0)
+
+            try 
             {
-                WpfMessageBox.Show(CultRes.StringsRes.ConnectedTable, CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ConnectedDataset,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                ret = true;
+                var infraclass = _uow.Tbl27Infraclasses.GetById(CurrentTbl27Infraclass.InfraclassId);
+                if (infraclass != null)
+                {
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl27Infraclass.InfraclassName)) return;
+
+                    _extDelete.DeleteInfraclass(infraclass);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl27Infraclass.InfraclassName);
+                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl27Infraclass.InfraclassName + " " + CultRes.StringsRes.DeleteCan1);
             }
-            Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90ReferenceListRefSourcesByInfraclassId(CurrentTbl27Infraclass.InfraclassID));
-            if (Tbl90ReferenceSourcesList.Count != 0)
+            catch (Exception e)
             {
-                WpfMessageBox.Show(CultRes.StringsRes.ConnectedTable, CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ConnectedDataset,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                ret = true;
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
             }
-            Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90ReferenceListRefExpertsByInfraclassId(CurrentTbl27Infraclass.InfraclassID));
-            if (Tbl90ReferenceExpertsList.Count != 0)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.ConnectedTable, CultRes.StringsRes.ReferenceExpert + " " + CultRes.StringsRes.ConnectedDataset,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                ret = true;
-            }
-            Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_businessLayer.ListTbl93CommentsByInfraclassId(CurrentTbl27Infraclass.InfraclassID));
-            if (Tbl93CommentsList.Count != 0)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.ConnectedTable, CultRes.StringsRes.Comment + " " + CultRes.StringsRes.ConnectedDataset,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                ret = true;
-            }
-            if (ret)  return;
-            {
+
+            Tbl27InfraclassesList = _extGet.GetInfraclassesCollectionOrderByFromSubclassId<Tbl27Infraclass>(CurrentTbl27Infraclass.SubclassId);
+
+            InfraclassesView = CollectionViewSource.GetDefaultView(Tbl27InfraclassesList);
+            InfraclassesView.MoveCurrentToFirst();
+        }                 
+                  
+        private void ExecuteSaveInfraclass(string searchName)
+        {
+             if (_genInfraclassMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl27Infraclass)) return;
+
+            CurrentTbl27Infraclass.SubclassId = CurrentTbl24Subclass.SubclassId;                                                                                                                      
+              
             try
             {
-                var infraclass = _businessLayer.SingleListTbl27InfraclassesByInfraclassId(CurrentTbl27Infraclass.InfraclassID);
-                if (infraclass!= null)
+                var infraclass = _uow.Tbl27Infraclasses.GetById(CurrentTbl27Infraclass.InfraclassId);
+
+                if (CurrentTbl27Infraclass.InfraclassId == 0)
+                    infraclass = _extSave.InfraclassAdd(CurrentTbl27Infraclass);
+                else
+                    infraclass = _extSave.InfraclassUpdate(infraclass, CurrentTbl27Infraclass);
+
+              //  _position = InfraclassesView.CurrentPosition;
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl27Infraclass.InfraclassName))  return;
+
+                try
                 {
-                    if (WpfMessageBox.Show(CultRes.StringsRes.DeleteQuestion1, CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl27Infraclass.InfraclassName,
-                         MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes) 
+                    _extSave.InfraclassSave(infraclass, CurrentTbl27Infraclass);
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
+                            CultRes.StringsRes.FailedToSave);
+                    Log.Error(e);
                     return;
-                    infraclass.EntityState = EntityState.Deleted;
-                    _businessLayer.RemoveInfraclass(infraclass);
-
-                    WpfMessageBox.Show(CultRes.StringsRes.DeleteSuccess, CurrentTbl27Infraclass.InfraclassName,
-                       MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);  
                 }
-                else
+                catch (Exception e)
                 {
-                    WpfMessageBox.Show(CultRes.StringsRes.Information, CultRes.StringsRes.DeleteCan + " " + CurrentTbl27Infraclass.InfraclassName + " " + CultRes.StringsRes.DeleteCan1,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                    //         Log.Error(e);
+                    return;
                 }
+
+                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl27Infraclass.InfraclassId == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : CurrentTbl27Infraclass.InfraclassName);
             }
-            catch (DbEntityValidationException ex)
+            catch (Exception e)
             {
-                _entityException.EntityException(ex);
-                    Log.Error(ex);
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
             }
-         }
-            Tbl27InfraclassesList = new ObservableCollection<Tbl27Infraclass>(_businessLayer.ListTbl27InfraclassesBySubclassId(CurrentTbl24Subclass.SubclassID));
+
+            Tbl27InfraclassesList = _extGet.GetInfraclassesCollectionOrderByFromSubclassId<Tbl27Infraclass>(CurrentTbl27Infraclass.SubclassId);
 
             InfraclassesView = CollectionViewSource.GetDefaultView(Tbl27InfraclassesList);
-            InfraclassesView.Refresh();
+            InfraclassesView.MoveCurrentToFirst();
         }
-        //-------------------------------------------------------------------------------------------------                    
-     
-        private void SaveInfraclass(object o)
-        {
-            if (CurrentTbl27Infraclass == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
 
-            CurrentTbl27Infraclass.SubclassID = CurrentTbl24Subclass.SubclassID;
-
-            try
-            {
-                var infraclass = _businessLayer.SingleListTbl27InfraclassesByInfraclassId(CurrentTbl27Infraclass.InfraclassID);
-                if (CurrentTbl27Infraclass.InfraclassID != 0)
-                {
-                    if (infraclass != null) //update
-                    {
-                        infraclass.InfraclassName = CurrentTbl27Infraclass.InfraclassName;
-                        infraclass.SubclassID = CurrentTbl27Infraclass.SubclassID;
-                        infraclass.Valid = CurrentTbl27Infraclass.Valid;
-                        infraclass.ValidYear = CurrentTbl27Infraclass.ValidYear;       
-                        infraclass.Synonym = CurrentTbl27Infraclass.Synonym;
-                        infraclass.Author = CurrentTbl27Infraclass.Author;
-                        infraclass.AuthorYear = CurrentTbl27Infraclass.AuthorYear;
-                        infraclass.Info = CurrentTbl27Infraclass.Info;
-                        infraclass.EngName = CurrentTbl27Infraclass.EngName;
-                        infraclass.GerName = CurrentTbl27Infraclass.GerName;
-                        infraclass.FraName = CurrentTbl27Infraclass.FraName;
-                        infraclass.PorName = CurrentTbl27Infraclass.PorName;
-                        infraclass.Updater = Environment.UserName;
-                        infraclass.UpdaterDate = DateTime.Now;
-                        infraclass.Memo = CurrentTbl27Infraclass.Memo;
-                        infraclass.EntityState = EntityState.Modified;
-                    }
-                }
-                else
-                {
-                    infraclass = new Tbl27Infraclass   //add new
-                    {
-                        InfraclassName = CurrentTbl27Infraclass.InfraclassName,              
-                        SubclassID = CurrentTbl27Infraclass.SubclassID,     
-                        CountID = RandomHelper.Randomnumber(),
-                        Valid = CurrentTbl27Infraclass.Valid,
-                        ValidYear = CurrentTbl27Infraclass.ValidYear,
-                        Synonym = CurrentTbl27Infraclass.Synonym,
-                        Author = CurrentTbl27Infraclass.Author,
-                        AuthorYear = CurrentTbl27Infraclass.AuthorYear,
-                        Info = CurrentTbl27Infraclass.Info,
-                        EngName = CurrentTbl27Infraclass.EngName,
-                        GerName = CurrentTbl27Infraclass.GerName,
-                        FraName = CurrentTbl27Infraclass.FraName,
-                        PorName = CurrentTbl27Infraclass.PorName,
-                        Writer = Environment.UserName,
-                        WriterDate = DateTime.Now,
-                        Updater = Environment.UserName,
-                        UpdaterDate = DateTime.Now,
-                        Memo = CurrentTbl27Infraclass.Memo,
-                        EntityState = EntityState.Added
-                    };
-                }
-                {
-                    //SubclassID may be not 0
-                    if (CurrentTbl27Infraclass.SubclassID == 0)          
-
-                    {
-                        WpfMessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        return;
-                    }
-
-                    //check if dataset with Name and SubclassId already exist       
-                    var dataset = _businessLayer.ListTbl27InfraclassesByInfraclassNameAndSubclassId(CurrentTbl27Infraclass.InfraclassName, CurrentTbl27Infraclass.SubclassID);
-
-                    if (dataset.Count != 0 && CurrentTbl27Infraclass.InfraclassID == 0)  //dataset exist
-                    {
-                        WpfMessageBox.Show(CultRes.StringsRes.DatasetExist, CurrentTbl27Infraclass.InfraclassName,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        return;
-                    }
-                    if (dataset.Count == 0 && CurrentTbl27Infraclass.InfraclassID == 0 ||
-                        dataset.Count != 0 && CurrentTbl27Infraclass.InfraclassID != 0 ||
-                        dataset.Count == 0 && CurrentTbl27Infraclass.InfraclassID != 0) //new dataset and update
-                    {
-                        if (WpfMessageBox.Show(CultRes.StringsRes.SaveQuestion2, CurrentTbl27Infraclass.InfraclassName,
-                                MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-                            return;
-                        {
-                            try
-                            {
-                                _businessLayer.UpdateInfraclass(infraclass);
-                            }
-                            catch (DbUpdateException e)
-                            {
-                                if (e.InnerException != null)
-                                    System.Windows.MessageBox.Show(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave,
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-
-                                Log.Error(e);
-                                return;
-                            }
-                            catch (Exception e)
-                            {
-                                System.Windows.MessageBox.Show(e.Message, CultRes.StringsRes.Error,
-                                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-                                Log.Error(e);
-                                return;
-                            }
-                                    WpfMessageBox.Show(CultRes.StringsRes.SaveSuccess,
-                                        CurrentTbl27Infraclass.InfraclassID == 0
-                                            ? CultRes.StringsRes.DatasetNew
-                                            : CurrentTbl27Infraclass.InfraclassName,
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        }
-                    }
-                }
-            }
-            catch (DbEntityValidationException ex)
-            {
-                _entityException.EntityException(ex);
-                    Log.Error(ex);
-                  return;
-            }
-
-            Tbl27InfraclassesList = new ObservableCollection<Tbl27Infraclass>(_businessLayer.ListTbl27InfraclassesBySubclassId(CurrentTbl24Subclass.SubclassID));            
-
-            SelectedMainTabIndex = 1;
-            InfraclassesView = CollectionViewSource.GetDefaultView(Tbl27InfraclassesList);
-            InfraclassesView.Refresh();
-        }
-        #endregion "Public Commands"                  
+        #endregion [Public Methods  Connect ==> Tbl27Infraclass]                                                                                                                                            
                                                           
 
 
@@ -922,1140 +483,594 @@ namespace Te.Atis.Ui.Desktop.Views.Database
  //    Part 8    
 
            
-        #region "Public Commands Connect ==> Tbl90ReferenceAuthor"
-        //-------------------------------------------------------------------------
+        #region [Commands Subclass ==> Tbl90Reference Author]
+
         private RelayCommand _addReferenceAuthorCommand;
 
-        public ICommand AddReferenceAuthorCommand => _addReferenceAuthorCommand ??
-                                                    (_addReferenceAuthorCommand = new RelayCommand(delegate { AddReferenceAuthor(null); }));
+        public ICommand AddReferenceAuthorCommand => _addReferenceAuthorCommand ??= new RelayCommand(delegate { ExecuteAddReferenceAuthor(null); });
 
         private RelayCommand _copyReferenceAuthorCommand;
 
-        public ICommand CopyReferenceAuthorCommand => _copyReferenceAuthorCommand ??
-                        (_copyReferenceAuthorCommand = new RelayCommand(delegate { CopyReferenceAuthor(null); }));
+        public ICommand CopyReferenceAuthorCommand => _copyReferenceAuthorCommand ??= new RelayCommand(delegate { ExecuteCopyReferenceAuthor(null); });
 
         private RelayCommand _deleteReferenceAuthorCommand;
 
-        public ICommand DeleteReferenceAuthorCommand => _deleteReferenceAuthorCommand ??
-                                               (_deleteReferenceAuthorCommand = new RelayCommand(delegate { DeleteReferenceAuthor(null); }));
+        public ICommand DeleteReferenceAuthorCommand => _deleteReferenceAuthorCommand ??= new RelayCommand(delegate { ExecuteDeleteReferenceAuthor(null); });
 
         private RelayCommand _saveReferenceAuthorCommand;
 
-        public ICommand SaveReferenceAuthorCommand => _saveReferenceAuthorCommand ??
-                     (_saveReferenceAuthorCommand = new RelayCommand(delegate { SaveReferenceAuthor(null); }));
-        //-------------------------------------------------------------------------                    
-     
-        public void AddReferenceAuthor(object o)
-        {
-            if (Tbl90ReferenceAuthorsList == null)
-                Tbl90ReferenceAuthorsList = new ObservableCollection<Tbl90Reference>();
+        public ICommand SaveReferenceAuthorCommand => _saveReferenceAuthorCommand ??= new RelayCommand(delegate { ExecuteSaveReferenceAuthor(null); });        
 
+        #endregion [Commands Subclass ==> Tbl90Reference Author]                
+     
+        #region [Methods Subclass ==> Tbl90Reference Author]
+
+        public void ExecuteAddReferenceAuthor(object o)
+        {
+            Tbl90ReferenceAuthorsList ??= new ObservableCollection<Tbl90Reference>();
+
+            Tbl90AuthorsAllList = _extGet.AllCollection<Tbl90RefAuthor>("author");
             Tbl90ReferenceAuthorsList.Insert(0, new Tbl90Reference   { Info = CultRes.StringsRes.DatasetNew });
 
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
             ReferenceAuthorsView.MoveCurrentToFirst();
-         }
-        //----------------------------------------------------------------------            
+         }         
      
-        public void CopyReferenceAuthor(object o)
+        public void ExecuteCopyReferenceAuthor(object o)
         {
-            if (CurrentTbl90ReferenceAuthor == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
+            if (_genAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceAuthor)) return;
 
-            var reference = _businessLayer.SingleListTbl90ReferencesByReferenceId(CurrentTbl90ReferenceAuthor.ReferenceID);
-
-            Tbl90ReferenceAuthorsList.Insert(0, new Tbl90Reference
-            {
-                RefAuthorID = reference.RefAuthorID,
-                Valid = reference.Valid,
-                ValidYear = reference.ValidYear,
-                Info = CultRes.StringsRes.DatasetNew,
-                Memo = reference.Memo
-            });
+            Tbl90ReferenceAuthorsList = _extCopy.CopyReferenceSubclass(CurrentTbl90ReferenceAuthor, "Author");
 
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
             ReferenceAuthorsView.MoveCurrentToFirst();
-        }
-        //----------------------------------------------------------------------            
+        }          
      
-        private void DeleteReferenceAuthor(object o)
+        private void ExecuteDeleteReferenceAuthor(string searchName)
         {
-            if (CurrentTbl90ReferenceAuthor == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-
-                 try
-                {
-                    var reference = _businessLayer.SingleListTbl90ReferencesByReferenceId(CurrentTbl90ReferenceAuthor.ReferenceID);
-                    if (reference != null)
-                    {
-                        if (WpfMessageBox.Show(CultRes.StringsRes.DeleteQuestion1, CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceAuthor.Info,
-                                MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-                            return;
-                        reference.EntityState = EntityState.Deleted;
-                        _businessLayer.RemoveReference(reference);
-
-                        WpfMessageBox.Show(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceAuthor.Info,
-                            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                    }
-                    else
-                    {
-                        WpfMessageBox.Show(CultRes.StringsRes.Information, CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceAuthor.Info + " " + CultRes.StringsRes.DeleteCan1,
-                            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                    }
-                }
-                catch (DbEntityValidationException ex)
-                {
-                    _entityException.EntityException(ex);
-                                Log.Error(ex);
-                }
-
-            Tbl90ReferenceAuthorsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90ReferenceListRefAuthorsBySubclassId(CurrentTbl24Subclass.SubclassID));
-
-            ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
-            ReferenceAuthorsView.Refresh();
-        }
-
-        //----------------------------------------------------------------------            
-     
-        public void SaveReferenceAuthor(object o)
-        {
-            if (CurrentTbl90ReferenceAuthor == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-
-            CurrentTbl90ReferenceAuthor.SubclassID = CurrentTbl24Subclass.SubclassID;
+            if (_genAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceAuthor)) return;
 
             try
             {
-                var reference = _businessLayer.SingleListTbl90ReferencesByReferenceId(CurrentTbl90ReferenceAuthor.ReferenceID);
-                if (CurrentTbl90ReferenceAuthor.ReferenceID != 0)
+                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceAuthor.ReferenceId);
+                if (reference != null)
                 {
-                    if (reference != null) //update
-                    {
-                        reference.RefExpertID = CurrentTbl90ReferenceAuthor.RefExpertID;
-                        reference.RefAuthorID = CurrentTbl90ReferenceAuthor.RefAuthorID;
-                        reference.RefSourceID = CurrentTbl90ReferenceAuthor.RefSourceID;
-                        reference.RegnumID = CurrentTbl90ReferenceAuthor.RegnumID;
-                        reference.PhylumID = CurrentTbl90ReferenceAuthor.PhylumID;
-                        reference.DivisionID = CurrentTbl90ReferenceAuthor.DivisionID;
-                        reference.SubphylumID = CurrentTbl90ReferenceAuthor.SubphylumID;
-                        reference.SubdivisionID = CurrentTbl90ReferenceAuthor.SubdivisionID;
-                        reference.SuperclassID = CurrentTbl90ReferenceAuthor.SuperclassID;
-                        reference.ClassID = CurrentTbl90ReferenceAuthor.ClassID;
-                        reference.SubclassID = CurrentTbl90ReferenceAuthor.SubclassID;
-                        reference.InfraclassID = CurrentTbl90ReferenceAuthor.InfraclassID;
-                        reference.LegioID = CurrentTbl90ReferenceAuthor.LegioID;
-                        reference.OrdoID = CurrentTbl90ReferenceAuthor.OrdoID;
-                        reference.SubordoID = CurrentTbl90ReferenceAuthor.SubordoID;
-                        reference.InfraordoID = CurrentTbl90ReferenceAuthor.InfraordoID;
-                        reference.SuperfamilyID = CurrentTbl90ReferenceAuthor.SuperfamilyID;
-                        reference.FamilyID = CurrentTbl90ReferenceAuthor.FamilyID;
-                        reference.SubfamilyID = CurrentTbl90ReferenceAuthor.SubfamilyID;
-                        reference.InfrafamilyID = CurrentTbl90ReferenceAuthor.InfrafamilyID;
-                        reference.SupertribusID = CurrentTbl90ReferenceAuthor.SupertribusID;
-                        reference.TribusID = CurrentTbl90ReferenceAuthor.TribusID;
-                        reference.SubtribusID = CurrentTbl90ReferenceAuthor.SubtribusID;
-                        reference.InfratribusID = CurrentTbl90ReferenceAuthor.InfratribusID;
-                        reference.GenusID = CurrentTbl90ReferenceAuthor.GenusID;
-                        reference.PlSpeciesID = CurrentTbl90ReferenceAuthor.PlSpeciesID;
-                        reference.FiSpeciesID = CurrentTbl90ReferenceAuthor.FiSpeciesID;
-                        reference.Valid = CurrentTbl90ReferenceAuthor.Valid;
-                        reference.ValidYear = CurrentTbl90ReferenceAuthor.ValidYear;
-                        reference.Info = CurrentTbl90ReferenceAuthor.Info;
-                        reference.Updater = Environment.UserName;
-                        reference.UpdaterDate = DateTime.Now;
-                        reference.Memo = CurrentTbl90ReferenceAuthor.Memo;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceAuthor.Info)) return;
 
-                        reference.EntityState = EntityState.Modified;
-                    }
+                    _extDelete.DeleteReference(reference);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceAuthor.Info);
                 }
-                else
-                {
-                    reference = new Tbl90Reference     //add new
-                    {
-                        RefAuthorID = CurrentTbl90ReferenceAuthor.RefAuthorID,
-                        RefSourceID = CurrentTbl90ReferenceAuthor.RefSourceID,
-                        RefExpertID = CurrentTbl90ReferenceAuthor.RefExpertID,
-                        RegnumID = CurrentTbl90ReferenceAuthor.RegnumID,
-                        PhylumID = CurrentTbl90ReferenceAuthor.PhylumID,
-                        DivisionID = CurrentTbl90ReferenceAuthor.DivisionID,
-                        SubphylumID = CurrentTbl90ReferenceAuthor.SubphylumID,
-                        SubdivisionID = CurrentTbl90ReferenceAuthor.SubdivisionID,
-                        SuperclassID = CurrentTbl90ReferenceAuthor.SuperclassID,
-                        ClassID = CurrentTbl90ReferenceAuthor.ClassID,
-                        SubclassID = CurrentTbl90ReferenceAuthor.SubclassID,
-                        InfraclassID = CurrentTbl90ReferenceAuthor.InfraclassID,
-                        LegioID = CurrentTbl90ReferenceAuthor.LegioID,
-                        OrdoID = CurrentTbl90ReferenceAuthor.OrdoID,
-                        SubordoID = CurrentTbl90ReferenceAuthor.SubordoID,
-                        InfraordoID = CurrentTbl90ReferenceAuthor.InfraordoID,
-                        SuperfamilyID = CurrentTbl90ReferenceAuthor.SuperfamilyID,
-                        FamilyID = CurrentTbl90ReferenceAuthor.FamilyID,
-                        SubfamilyID = CurrentTbl90ReferenceAuthor.SubfamilyID,
-                        InfrafamilyID = CurrentTbl90ReferenceAuthor.InfrafamilyID,
-                        SupertribusID = CurrentTbl90ReferenceAuthor.SupertribusID,
-                        TribusID = CurrentTbl90ReferenceAuthor.TribusID,
-                        SubtribusID = CurrentTbl90ReferenceAuthor.SubtribusID,
-                        InfratribusID = CurrentTbl90ReferenceAuthor.InfratribusID,
-                        GenusID = CurrentTbl90ReferenceAuthor.GenusID,
-                        PlSpeciesID = CurrentTbl90ReferenceAuthor.PlSpeciesID,
-                        FiSpeciesID = CurrentTbl90ReferenceAuthor.FiSpeciesID,
-                        CountID = RandomHelper.Randomnumber(),
-                        Valid = CurrentTbl90ReferenceAuthor.Valid,
-                        ValidYear = CurrentTbl90ReferenceAuthor.ValidYear,
-                        Info = CurrentTbl90ReferenceAuthor.Info,
-                        Memo = CurrentTbl90ReferenceAuthor.Memo,
-                        Writer = Environment.UserName,
-                        WriterDate = DateTime.Now,
-                        Updater = Environment.UserName,
-                        UpdaterDate = DateTime.Now,
-                        EntityState = EntityState.Added
-                    };
-                }
-                {
-                    //RefExpertID or RefSourceID or RefAuthorID may be not 0
-                        if (CurrentTbl90ReferenceAuthor.RefExpertID == null &&
-                            CurrentTbl90ReferenceAuthor.RefSourceID == null &&
-                            CurrentTbl90ReferenceAuthor.RefAuthorID == null)
-                    {
-                        WpfMessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        return;
-                    }
-
-                    //check if dataset with vb-name already exist   
-                    var dataset = _businessLayer.ListTbl90ReferencesByRefExpertIdAndRefSourceIdAndRefAuthorIdAndInfo(CurrentTbl90ReferenceAuthor);
-
-                    if (dataset.Count != 0 && CurrentTbl90ReferenceAuthor.ReferenceID == 0)  //dataset exist
-                    {
-                        WpfMessageBox.Show(CultRes.StringsRes.DatasetExist, CurrentTbl90ReferenceAuthor.ReferenceID.ToString(),
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        return;
-                    }
-                    if (dataset.Count == 0 && CurrentTbl90ReferenceAuthor.ReferenceID == 0 ||
-                        dataset.Count != 0 && CurrentTbl90ReferenceAuthor.ReferenceID != 0 ||
-                        dataset.Count == 0 && CurrentTbl90ReferenceAuthor.ReferenceID != 0) //new dataset and update
-                    {
-                        if (WpfMessageBox.Show(CultRes.StringsRes.SaveQuestion2, CurrentTbl90ReferenceAuthor.Info,
-                                MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-                            return;
-                        {
-                            try
-                            {
-                                _businessLayer.UpdateReference(reference);
-                            }
-                            catch (DbUpdateException e)
-                            {
-                                if (e.InnerException != null)
-                                    System.Windows.MessageBox.Show(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave,
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-
-                                Log.Error(e);
-                                return;
-                            }
-                            catch (Exception e)
-                            {
-                                System.Windows.MessageBox.Show(e.Message, CultRes.StringsRes.Error,
-                                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-                                Log.Error(e);
-                                return;
-                            }
-                                    WpfMessageBox.Show(CultRes.StringsRes.SaveSuccess,
-                                        CurrentTbl90ReferenceAuthor.ReferenceID == 0
-                                            ? CultRes.StringsRes.DatasetNew
-                                            : CurrentTbl90ReferenceAuthor.ReferenceID.ToString(),
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        }
-                    }
-                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceAuthor.Info + " " + CultRes.StringsRes.DeleteCan1);
             }
-            catch (DbEntityValidationException ex)
+            catch (Exception e)
             {
-                _entityException.EntityException(ex);
-                                Log.Error(ex);
-                 return;
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
             }
 
-            Tbl90ReferenceAuthorsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90ReferenceListRefAuthorsBySubclassId(CurrentTbl24Subclass.SubclassID));           
+            ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
+            ReferenceAuthorsView.Refresh();
+        }          
      
+        public void ExecuteSaveReferenceAuthor(string searchName)
+        {
+            if (_genAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceAuthor)) return;
 
-            SelectedMainSubRefTabIndex = 2;
+            CurrentTbl90ReferenceAuthor.SubclassId = CurrentTbl24Subclass.SubclassId;
+
+            //Combobox select RefExpertId or RefSourceId or RefAuthorId may be not null
+            if (CurrentTbl90ReferenceAuthor.RefExpertId == null &&
+                CurrentTbl90ReferenceAuthor.RefSourceId == null &&
+                CurrentTbl90ReferenceAuthor.RefAuthorId == null)
+            {
+                MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            try
+            {
+                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceAuthor.ReferenceId);
+
+
+                if (CurrentTbl90ReferenceAuthor.ReferenceId == 0)
+                    reference = _extSave.ReferenceAuthorSubclassAdd(CurrentTbl90ReferenceAuthor);
+
+                else
+                    reference = _extSave.ReferenceAuthorSubclassUpdate(reference, CurrentTbl90ReferenceAuthor);
+
+                //    _position = SubclassesView.CurrentPosition;
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceAuthor.Info))  return;
+
+                try
+                {
+                    _extSave.ReferenceAuthorSave(reference, CurrentTbl90ReferenceAuthor);
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
+                            CultRes.StringsRes.FailedToSave);
+                    Log.Error(e);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                    Log.Error(e);
+                    return;
+                }
+
+                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl90ReferenceAuthor.ReferenceId == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : CurrentTbl90ReferenceAuthor.Info);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+           Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFromSubclassIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl24Subclass.SubclassId);            
+     
 
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
             ReferenceAuthorsView.Refresh();
         }
-        #endregion "Public Commands"                  
+        #endregion [Methods Subclass ==> Tbl90Reference Author]              
            
-        #region "Public Commands Connect ==> Tbl90ReferenceSource" 
-        //-------------------------------------------------------------------------
+        #region [Commands Subclass ==> Tbl90Reference Source]      
+
         private RelayCommand _addReferenceSourceCommand;
 
-        public ICommand AddReferenceSourceCommand => _addReferenceSourceCommand ??
-                                                    (_addReferenceSourceCommand = new RelayCommand(delegate { AddReferenceSource(null); }));
+        public ICommand AddReferenceSourceCommand => _addReferenceSourceCommand ??= new RelayCommand(delegate { ExecuteAddReferenceSource(null); });
 
         private RelayCommand _copyReferenceSourceCommand;
 
-        public ICommand CopyReferenceSourceCommand => _copyReferenceSourceCommand ??
-                        (_copyReferenceSourceCommand = new RelayCommand(delegate { CopyReferenceSource(null); }));
+        public ICommand CopyReferenceSourceCommand => _copyReferenceSourceCommand ??= new RelayCommand(delegate {ExecuteCopyReferenceSource(null); });
 
         private RelayCommand _deleteReferenceSourceCommand;
 
-        public ICommand DeleteReferenceSourceCommand => _deleteReferenceSourceCommand ??
-                                                        (_deleteReferenceSourceCommand = new RelayCommand(delegate { DeleteReferenceSource(null); }));
+        public ICommand DeleteReferenceSourceCommand => _deleteReferenceSourceCommand ??= new RelayCommand(delegate { ExecuteDeleteReferenceSource(null); });
 
         private RelayCommand _saveReferenceSourceCommand;
 
-        public ICommand SaveReferenceSourceCommand => _saveReferenceSourceCommand ??
-                     (_saveReferenceSourceCommand = new RelayCommand(delegate { SaveReferenceSource(null); }));
+        public ICommand SaveReferenceSourceCommand => _saveReferenceSourceCommand ??= new RelayCommand(delegate { ExecuteSaveReferenceSource(null); });
 
-        //-------------------------------------------------------------------------          
+            
+        #endregion [Commands Subclass ==> Tbl90Reference Source]         
      
-        public void AddReferenceSource(object o)
+        #region [Methods Subclass ==> Tbl90Reference Source]      
+
+        public void ExecuteAddReferenceSource(object o)
         {
-            if (Tbl90ReferenceSourcesList == null)
-                Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>();
+            Tbl90ReferenceSourcesList ??= new ObservableCollection<Tbl90Reference>();
+
+            Tbl90SourcesAllList = _extGet.AllCollection<Tbl90RefSource>("source");
 
             Tbl90ReferenceSourcesList .Insert(0, new Tbl90Reference  { Info = CultRes.StringsRes.DatasetNew });
 
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
             ReferenceSourcesView.MoveCurrentToFirst();
-         }
-        //----------------------------------------------------------------------            
+         }         
      
-        public void CopyReferenceSource(object o)
+        public void ExecuteCopyReferenceSource(object o)
         {
-            if (CurrentTbl90ReferenceSource == null)
+            if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
+
+            Tbl90ReferenceAuthorsList = _extCopy.CopyReferenceSubclass(CurrentTbl90ReferenceSource, "Source");
+
+            ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+            ReferenceSourcesView.MoveCurrentToFirst();
+        }           
+     
+        private void ExecuteDeleteReferenceSource(object o)
+        {
+            if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
+
+            try
             {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceSource.ReferenceId);
+                if (reference != null)
+                {
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceSource.Info)) return;
+
+                    _extDelete.DeleteReference(reference);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceSource.Info);
+                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceSource.Info + " " + CultRes.StringsRes.DeleteCan1);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+           Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromSubclassIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl24Subclass.SubclassId);          
+
+            ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+            ReferenceSourcesView.MoveCurrentToFirst();
+        }                  
+     
+        public void ExecuteSaveReferenceSource(object o)
+        { 
+           if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
+
+            //RefExpertId or RefSourceId or RefAuthorId may be not 0
+            if (CurrentTbl90ReferenceSource.RefExpertId == null &&
+                CurrentTbl90ReferenceSource.RefSourceId == null &&
+                CurrentTbl90ReferenceSource.RefAuthorId == null)
+            {
+                MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
+                    MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
-            var reference = _businessLayer.SingleListTbl90ReferencesByReferenceId(CurrentTbl90ReferenceSource.ReferenceID);
+            CurrentTbl90ReferenceSource.SubclassId = CurrentTbl24Subclass.SubclassId;
 
-            Tbl90ReferenceSourcesList.Insert(0, new Tbl90Reference
+            try
             {
-                RefSourceID = reference.RefSourceID,
-                Valid = reference.Valid,
-                ValidYear = reference.ValidYear,
-                Info = CultRes.StringsRes.DatasetNew,
-                Memo = reference.Memo
-            });
+                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceSource.ReferenceId);
+
+
+                if (CurrentTbl90ReferenceSource.ReferenceId == 0)
+                    reference = _extSave.ReferenceSourceSubclassAdd(CurrentTbl90ReferenceSource);
+                else
+                    reference = _extSave.ReferenceSourceSubclassUpdate(reference, CurrentTbl90ReferenceSource);
+
+        //        _position = SubclassesView.CurrentPosition;
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceSource.Info))  return;
+
+                try
+                {
+                    _extSave.ReferenceSourceSave(reference, CurrentTbl90ReferenceSource);
+
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
+                            CultRes.StringsRes.FailedToSave);
+                    Log.Error(e);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                    Log.Error(e);
+                    return;
+                }
+
+                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl90ReferenceSource.ReferenceId == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : CurrentTbl90ReferenceSource.Info);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+           Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromSubclassIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl24Subclass.SubclassId);            
+
+     
 
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
             ReferenceSourcesView.MoveCurrentToFirst();
         }
-        //----------------------------------------------------------------------            
-     
-        private void DeleteReferenceSource(object o)
-        {
-            if (CurrentTbl90ReferenceSource == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-
-            try
-            {
-                var reference = _businessLayer.SingleListTbl90ReferencesByReferenceId(CurrentTbl90ReferenceSource.ReferenceID);
-                if (reference != null)
-                {
-                    if (WpfMessageBox.Show(CultRes.StringsRes.DeleteQuestion1, CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceSource.Info,
-                            MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-                        return;
-                    reference.EntityState = EntityState.Deleted;
-                    _businessLayer.RemoveReference(reference);
-
-                    WpfMessageBox.Show(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceSource.Info,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                }
-                else
-                {
-                    WpfMessageBox.Show(CultRes.StringsRes.Information, CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceSource.Info + " " + CultRes.StringsRes.DeleteCan1,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                }
-            }
-            catch (DbEntityValidationException ex)
-            {
-                _entityException.EntityException(ex);
-                                Log.Error(ex);
-            }
-
-            Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90ReferenceListRefSourcesBySubclassId(CurrentTbl24Subclass.SubclassID));
-
-            ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
-            ReferenceSourcesView.Refresh();
-        }        
-        //----------------------------------------------------------------------            
-     
-        public void SaveReferenceSource(object o)
-        {
-            if (CurrentTbl90ReferenceSource == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-
-            CurrentTbl90ReferenceSource.SubclassID = CurrentTbl24Subclass.SubclassID;
-
-            try
-            {
-                var reference = _businessLayer.SingleListTbl90ReferencesByReferenceId(CurrentTbl90ReferenceSource.ReferenceID);
-                if (CurrentTbl90ReferenceSource.ReferenceID != 0)
-                {
-                    if (reference != null) //update
-                    {
-                        reference.RefExpertID = CurrentTbl90ReferenceSource.RefExpertID;
-                        reference.RefAuthorID = CurrentTbl90ReferenceSource.RefAuthorID;
-                        reference.RefSourceID = CurrentTbl90ReferenceSource.RefSourceID;
-                        reference.RegnumID = CurrentTbl90ReferenceSource.RegnumID;
-                        reference.PhylumID = CurrentTbl90ReferenceSource.PhylumID;
-                        reference.DivisionID = CurrentTbl90ReferenceSource.DivisionID;
-                        reference.SubphylumID = CurrentTbl90ReferenceSource.SubphylumID;
-                        reference.SubdivisionID = CurrentTbl90ReferenceSource.SubdivisionID;
-                        reference.SuperclassID = CurrentTbl90ReferenceSource.SuperclassID;
-                        reference.ClassID = CurrentTbl90ReferenceSource.ClassID;
-                        reference.SubclassID = CurrentTbl90ReferenceSource.SubclassID;
-                        reference.InfraclassID = CurrentTbl90ReferenceSource.InfraclassID;
-                        reference.LegioID = CurrentTbl90ReferenceSource.LegioID;
-                        reference.OrdoID = CurrentTbl90ReferenceSource.OrdoID;
-                        reference.SubordoID = CurrentTbl90ReferenceSource.SubordoID;
-                        reference.InfraordoID = CurrentTbl90ReferenceSource.InfraordoID;
-                        reference.SuperfamilyID = CurrentTbl90ReferenceSource.SuperfamilyID;
-                        reference.FamilyID = CurrentTbl90ReferenceSource.FamilyID;
-                        reference.SubfamilyID = CurrentTbl90ReferenceSource.SubfamilyID;
-                        reference.InfrafamilyID = CurrentTbl90ReferenceSource.InfrafamilyID;
-                        reference.SupertribusID = CurrentTbl90ReferenceSource.SupertribusID;
-                        reference.TribusID = CurrentTbl90ReferenceSource.TribusID;
-                        reference.SubtribusID = CurrentTbl90ReferenceSource.SubtribusID;
-                        reference.InfratribusID = CurrentTbl90ReferenceSource.InfratribusID;
-                        reference.GenusID = CurrentTbl90ReferenceSource.GenusID;
-                        reference.PlSpeciesID = CurrentTbl90ReferenceSource.PlSpeciesID;
-                        reference.FiSpeciesID = CurrentTbl90ReferenceSource.FiSpeciesID;
-                        reference.Valid = CurrentTbl90ReferenceSource.Valid;
-                        reference.ValidYear = CurrentTbl90ReferenceSource.ValidYear;
-                        reference.Info = CurrentTbl90ReferenceSource.Info;
-                        reference.Updater = Environment.UserName;
-                        reference.UpdaterDate = DateTime.Now;
-                        reference.Memo = CurrentTbl90ReferenceSource.Memo;
-
-                        reference.EntityState = EntityState.Modified;
-                    }
-                }
-                else
-                {
-                    reference = new Tbl90Reference     //add new
-                    {
-                        RefAuthorID = CurrentTbl90ReferenceSource.RefAuthorID,
-                        RefSourceID = CurrentTbl90ReferenceSource.RefSourceID,
-                        RefExpertID = CurrentTbl90ReferenceSource.RefExpertID,
-                        RegnumID = CurrentTbl90ReferenceSource.RegnumID,
-                        PhylumID = CurrentTbl90ReferenceSource.PhylumID,
-                        DivisionID = CurrentTbl90ReferenceSource.DivisionID,
-                        SubphylumID = CurrentTbl90ReferenceSource.SubphylumID,
-                        SubdivisionID = CurrentTbl90ReferenceSource.SubdivisionID,
-                        SuperclassID = CurrentTbl90ReferenceSource.SuperclassID,
-                        ClassID = CurrentTbl90ReferenceSource.ClassID,
-                        SubclassID = CurrentTbl90ReferenceSource.SubclassID,
-                        InfraclassID = CurrentTbl90ReferenceSource.InfraclassID,
-                        LegioID = CurrentTbl90ReferenceSource.LegioID,
-                        OrdoID = CurrentTbl90ReferenceSource.OrdoID,
-                        SubordoID = CurrentTbl90ReferenceSource.SubordoID,
-                        InfraordoID = CurrentTbl90ReferenceSource.InfraordoID,
-                        SuperfamilyID = CurrentTbl90ReferenceSource.SuperfamilyID,
-                        FamilyID = CurrentTbl90ReferenceSource.FamilyID,
-                        SubfamilyID = CurrentTbl90ReferenceSource.SubfamilyID,
-                        InfrafamilyID = CurrentTbl90ReferenceSource.InfrafamilyID,
-                        SupertribusID = CurrentTbl90ReferenceSource.SupertribusID,
-                        TribusID = CurrentTbl90ReferenceSource.TribusID,
-                        SubtribusID = CurrentTbl90ReferenceSource.SubtribusID,
-                        InfratribusID = CurrentTbl90ReferenceSource.InfratribusID,
-                        GenusID = CurrentTbl90ReferenceSource.GenusID,
-                        PlSpeciesID = CurrentTbl90ReferenceSource.PlSpeciesID,
-                        FiSpeciesID = CurrentTbl90ReferenceSource.FiSpeciesID,
-                        CountID = RandomHelper.Randomnumber(),
-                        Valid = CurrentTbl90ReferenceSource.Valid,
-                        ValidYear = CurrentTbl90ReferenceSource.ValidYear,
-                        Info = CurrentTbl90ReferenceSource.Info,
-                        Memo = CurrentTbl90ReferenceSource.Memo,
-                        Writer = Environment.UserName,
-                        WriterDate = DateTime.Now,
-                        Updater = Environment.UserName,
-                        UpdaterDate = DateTime.Now,
-                        EntityState = EntityState.Added
-                    };
-                }
-                {
-                    //RefExpertID or RefSourceID or RefAuthorID may be not 0
-                    if (CurrentTbl90ReferenceSource.RefExpertID == null && CurrentTbl90ReferenceSource.RefSourceID == null && CurrentTbl90ReferenceSource.RefAuthorID == null)
-                    {
-                        WpfMessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        return;
-                    }
-
-                    //check if dataset with vb-name already exist   
-                    var dataset = _businessLayer.ListTbl90ReferencesByRefExpertIdAndRefSourceIdAndRefAuthorIdAndInfo(CurrentTbl90ReferenceSource);
-
-                    if (dataset.Count != 0 && CurrentTbl90ReferenceSource.ReferenceID == 0)  //dataset exist
-                    {
-                        WpfMessageBox.Show(CultRes.StringsRes.DatasetExist, CurrentTbl90ReferenceSource.ReferenceID.ToString(),
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        return;
-                    }
-                    if (dataset.Count == 0 && CurrentTbl90ReferenceSource.ReferenceID == 0 ||
-                        dataset.Count != 0 && CurrentTbl90ReferenceSource.ReferenceID != 0 ||
-                        dataset.Count == 0 && CurrentTbl90ReferenceSource.ReferenceID != 0) //new dataset and update
-                    {
-                        if (WpfMessageBox.Show(CultRes.StringsRes.SaveQuestion2, CurrentTbl90ReferenceSource.Info,
-                                MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-                            return;
-                        {
-                            try
-                            {
-                                _businessLayer.UpdateReference(reference);
-                            }
-                            catch (DbUpdateException e)
-                            {
-                                if (e.InnerException != null)
-                                    System.Windows.MessageBox.Show(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave,
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-
-                                Log.Error(e);
-                                return;
-                            }
-                            catch (Exception e)
-                            {
-                                System.Windows.MessageBox.Show(e.Message, CultRes.StringsRes.Error,
-                                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-                                Log.Error(e);
-                                return;
-                            }
-                                    WpfMessageBox.Show(CultRes.StringsRes.SaveSuccess,
-                                        CurrentTbl90ReferenceSource.ReferenceID == 0
-                                            ? CultRes.StringsRes.DatasetNew
-                                             : CurrentTbl90ReferenceSource.ReferenceID.ToString(),
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        }
-                    }
-                }
-            }
-            catch (DbEntityValidationException ex)
-            {
-                _entityException.EntityException(ex);
-                                Log.Error(ex);
-                 return;
-            }
-
-            Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90ReferenceListRefSourcesBySubclassId(CurrentTbl24Subclass.SubclassID));           
-     
-            SelectedMainSubRefTabIndex = 1;
-
-            ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
-            ReferenceSourcesView.Refresh();
-        }
-        #endregion "Public Commands"                  
+        #endregion [Methods Subclass ==> Tbl90Reference Source]                    
            
-        #region "Public Commands Connect ==> Tbl90ReferenceExpert"
-        //-------------------------------------------------------------------------
+        #region [Commands Subclass ==> Tbl90Reference Expert]                 
  
         private RelayCommand _addReferenceExpertCommand;
 
-        public ICommand AddReferenceExpertCommand => _addReferenceExpertCommand ??
-                                                    (_addReferenceExpertCommand = new RelayCommand(delegate { AddReferenceExpert(null); }));
+        public ICommand AddReferenceExpertCommand => _addReferenceExpertCommand ??= new RelayCommand(delegate { ExecuteAddReferenceExpert(null); });
 
         private RelayCommand _copyReferenceExpertCommand;
 
-        public ICommand CopyReferenceExpertCommand => _copyReferenceExpertCommand ??
-                        (_copyReferenceExpertCommand = new RelayCommand(delegate { CopyReferenceExpert(null); }));
+        public ICommand CopyReferenceExpertCommand => _copyReferenceExpertCommand ??= new RelayCommand(delegate { ExecuteCopyReferenceExpert(null); });
 
         private RelayCommand _deleteReferenceExpertCommand;
 
-        public ICommand DeleteReferenceExpertCommand => _deleteReferenceExpertCommand ??
-                                                        (_deleteReferenceExpertCommand = new RelayCommand(delegate { DeleteReferenceExpert(null); }));
+        public ICommand DeleteReferenceExpertCommand => _deleteReferenceExpertCommand ??= new RelayCommand(delegate { ExecuteDeleteReferenceExpert(null); });
         private RelayCommand _saveReferenceExpertCommand;
 
-        public ICommand SaveReferenceExpertCommand => _saveReferenceExpertCommand ??
-                     (_saveReferenceExpertCommand = new RelayCommand(delegate { SaveReferenceExpert(null); }));
-        //-------------------------------------------------------------------------          
-     
-        public void AddReferenceExpert(object o)
-        {
-            if (Tbl90ReferenceExpertsList == null)
-                Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>();
+        public ICommand SaveReferenceExpertCommand => _saveReferenceExpertCommand ??= new RelayCommand(delegate { ExecuteSaveReferenceExpert(null); });
 
+        #endregion [Commands Subclass ==> Tbl90Reference Expert]                    
+     
+     
+        #region [Methods Subclass ==> Tbl90Reference Expert]                 
+
+        public void ExecuteAddReferenceExpert(object o)
+        {
+            Tbl90ReferenceExpertsList ??= new ObservableCollection<Tbl90Reference>();
+
+            Tbl90ExpertsAllList = _extGet.AllCollection<Tbl90RefExpert>("expert");
             Tbl90ReferenceExpertsList .Insert(0, new Tbl90Reference   { Info = CultRes.StringsRes.DatasetNew });
 
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
             ReferenceExpertsView.MoveCurrentToFirst();
-         }
-        //----------------------------------------------------------------------            
+         }          
      
-        public void CopyReferenceExpert(object o)
+        public void ExecuteCopyReferenceExpert(object o)
         {
-            if (CurrentTbl90ReferenceExpert == null)
+            if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
+
+            Tbl90ReferenceExpertsList = _extCopy.CopyReferenceSubclass(CurrentTbl90ReferenceExpert, "Expert");
+
+            ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+            ReferenceExpertsView.MoveCurrentToFirst();
+        }         
+     
+        private void ExecuteDeleteReferenceExpert(object o)
+        {
+            if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
+
+            try
             {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceExpert.ReferenceId);
+                if (reference != null)
+                {
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceExpert.Info)) return;
+
+                    _extDelete.DeleteReference(reference);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceExpert.Info);
+                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceExpert.Info + " " + CultRes.StringsRes.DeleteCan1);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+           Tbl90ReferenceExpertsList= _extGet.GetReferenceExpertsCollectionOrderByFromSubclassIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTbl24Subclass.SubclassId);           
+
+            ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+            ReferenceExpertsView.Refresh();
+        }          
+     
+        public void ExecuteSaveReferenceExpert(object o)
+        {
+             if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
+
+            //RefExpertId or RefSourceId or RefAuthorId may be not 0
+            if (CurrentTbl90ReferenceExpert.RefExpertId == null &&
+                CurrentTbl90ReferenceExpert.RefSourceId == null &&
+                CurrentTbl90ReferenceExpert.RefAuthorId == null)
+            {
+                MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
+                    MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
-            var reference = _businessLayer.SingleListTbl90ReferencesByReferenceId(CurrentTbl90ReferenceExpert.ReferenceID);
+            CurrentTbl90ReferenceExpert.SubclassId = CurrentTbl24Subclass.SubclassId;
 
-            Tbl90ReferenceExpertsList.Insert(0, new Tbl90Reference
+            try
             {
-                RefExpertID = reference.RefExpertID,
-                Valid = reference.Valid,
-                ValidYear = reference.ValidYear,
-                Info = CultRes.StringsRes.DatasetNew,
-                Memo = reference.Memo
-            });
+                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceExpert.ReferenceId);
+
+
+                if (CurrentTbl90ReferenceExpert.ReferenceId == 0)
+                    reference = _extSave.ReferenceExpertSubclassAdd(CurrentTbl90ReferenceExpert);
+                else
+                    reference = _extSave.ReferenceExpertSubclassUpdate(reference, CurrentTbl90ReferenceExpert);
+
+                //        _position = PhylumsView.CurrentPosition;
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceExpert.Info))  return;
+
+                try
+                {
+                    _extSave.ReferenceExpertSave(reference, CurrentTbl90ReferenceExpert);
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
+                            CultRes.StringsRes.FailedToSave);
+                    Log.Error(e);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                    Log.Error(e);
+                    return;
+                }
+
+                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl90ReferenceExpert.ReferenceId == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : CurrentTbl90ReferenceExpert.Info);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+           Tbl90ReferenceExpertsList= _extGet.GetReferenceExpertsCollectionOrderByFromSubclassIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTbl24Subclass.SubclassId);                     
+     
 
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
             ReferenceExpertsView.MoveCurrentToFirst();
         }
-        //----------------------------------------------------------------------            
-     
-        private void DeleteReferenceExpert(object o)
-        {
-            if (CurrentTbl90ReferenceExpert == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-
-            try
-            {
-                var reference = _businessLayer.SingleListTbl90ReferencesByReferenceId(CurrentTbl90ReferenceExpert.ReferenceID);
-                if (reference != null)
-                {
-                    if (WpfMessageBox.Show(CultRes.StringsRes.DeleteQuestion1, CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceExpert.Info,
-                            MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-                        return;
-                    reference.EntityState = EntityState.Deleted;
-                    _businessLayer.RemoveReference(reference);
-
-                    WpfMessageBox.Show(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceExpert.Info,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                }
-                else
-                {
-                    WpfMessageBox.Show(CultRes.StringsRes.Information, CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceExpert.Info + " " + CultRes.StringsRes.DeleteCan1,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                }
-            }
-            catch (DbEntityValidationException ex)
-            {
-                _entityException.EntityException(ex);
-                                Log.Error(ex);
-            }
-
-            Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90ReferenceListRefExpertsBySubclassId(CurrentTbl24Subclass.SubclassID));
-
-            ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
-            ReferenceExpertsView.Refresh();
-        }
-        //----------------------------------------------------------------------            
-     
-        public void SaveReferenceExpert(object o)
-        {
-            if (CurrentTbl90ReferenceExpert == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-
-            CurrentTbl90ReferenceExpert.SubclassID = CurrentTbl24Subclass.SubclassID;
-
-            try
-            {
-                var reference = _businessLayer.SingleListTbl90ReferencesByReferenceId(CurrentTbl90ReferenceExpert.ReferenceID);
-                if (CurrentTbl90ReferenceExpert.ReferenceID != 0)
-                {
-                    if (reference != null) //update
-                    {
-                        reference.RefExpertID = CurrentTbl90ReferenceExpert.RefExpertID;
-                        reference.RefAuthorID = CurrentTbl90ReferenceExpert.RefAuthorID;
-                        reference.RefSourceID = CurrentTbl90ReferenceExpert.RefSourceID;
-                        reference.RegnumID = CurrentTbl90ReferenceExpert.RegnumID;
-                        reference.PhylumID = CurrentTbl90ReferenceExpert.PhylumID;
-                        reference.DivisionID = CurrentTbl90ReferenceExpert.DivisionID;
-                        reference.SubphylumID = CurrentTbl90ReferenceExpert.SubphylumID;
-                        reference.SubdivisionID = CurrentTbl90ReferenceExpert.SubdivisionID;
-                        reference.SuperclassID = CurrentTbl90ReferenceExpert.SuperclassID;
-                        reference.ClassID = CurrentTbl90ReferenceExpert.ClassID;
-                        reference.SubclassID = CurrentTbl90ReferenceExpert.SubclassID;
-                        reference.InfraclassID = CurrentTbl90ReferenceExpert.InfraclassID;
-                        reference.LegioID = CurrentTbl90ReferenceExpert.LegioID;
-                        reference.OrdoID = CurrentTbl90ReferenceExpert.OrdoID;
-                        reference.SubordoID = CurrentTbl90ReferenceExpert.SubordoID;
-                        reference.InfraordoID = CurrentTbl90ReferenceExpert.InfraordoID;
-                        reference.SuperfamilyID = CurrentTbl90ReferenceExpert.SuperfamilyID;
-                        reference.FamilyID = CurrentTbl90ReferenceExpert.FamilyID;
-                        reference.SubfamilyID = CurrentTbl90ReferenceExpert.SubfamilyID;
-                        reference.InfrafamilyID = CurrentTbl90ReferenceExpert.InfrafamilyID;
-                        reference.SupertribusID = CurrentTbl90ReferenceExpert.SupertribusID;
-                        reference.TribusID = CurrentTbl90ReferenceExpert.TribusID;
-                        reference.SubtribusID = CurrentTbl90ReferenceExpert.SubtribusID;
-                        reference.InfratribusID = CurrentTbl90ReferenceExpert.InfratribusID;
-                        reference.GenusID = CurrentTbl90ReferenceExpert.GenusID;
-                        reference.PlSpeciesID = CurrentTbl90ReferenceExpert.PlSpeciesID;
-                        reference.FiSpeciesID = CurrentTbl90ReferenceExpert.FiSpeciesID;
-                        reference.Valid = CurrentTbl90ReferenceExpert.Valid;
-                        reference.ValidYear = CurrentTbl90ReferenceExpert.ValidYear;
-                        reference.Info = CurrentTbl90ReferenceExpert.Info;
-                        reference.Updater = Environment.UserName;
-                        reference.UpdaterDate = DateTime.Now;
-                        reference.Memo = CurrentTbl90ReferenceExpert.Memo;
-
-                        reference.EntityState = EntityState.Modified;
-                    }
-                }
-                else
-                {
-                    reference = new Tbl90Reference     //add new
-                    {
-                        RefAuthorID = CurrentTbl90ReferenceExpert.RefAuthorID,
-                        RefSourceID = CurrentTbl90ReferenceExpert.RefSourceID,
-                        RefExpertID = CurrentTbl90ReferenceExpert.RefExpertID,
-                        RegnumID = CurrentTbl90ReferenceExpert.RegnumID,
-                        PhylumID = CurrentTbl90ReferenceExpert.PhylumID,
-                        DivisionID = CurrentTbl90ReferenceExpert.DivisionID,
-                        SubphylumID = CurrentTbl90ReferenceExpert.SubphylumID,
-                        SubdivisionID = CurrentTbl90ReferenceExpert.SubdivisionID,
-                        SuperclassID = CurrentTbl90ReferenceExpert.SuperclassID,
-                        ClassID = CurrentTbl90ReferenceExpert.ClassID,
-                        SubclassID = CurrentTbl90ReferenceExpert.SubclassID,
-                        InfraclassID = CurrentTbl90ReferenceExpert.InfraclassID,
-                        LegioID = CurrentTbl90ReferenceExpert.LegioID,
-                        OrdoID = CurrentTbl90ReferenceExpert.OrdoID,
-                        SubordoID = CurrentTbl90ReferenceExpert.SubordoID,
-                        InfraordoID = CurrentTbl90ReferenceExpert.InfraordoID,
-                        SuperfamilyID = CurrentTbl90ReferenceExpert.SuperfamilyID,
-                        FamilyID = CurrentTbl90ReferenceExpert.FamilyID,
-                        SubfamilyID = CurrentTbl90ReferenceExpert.SubfamilyID,
-                        InfrafamilyID = CurrentTbl90ReferenceExpert.InfrafamilyID,
-                        SupertribusID = CurrentTbl90ReferenceExpert.SupertribusID,
-                        TribusID = CurrentTbl90ReferenceExpert.TribusID,
-                        SubtribusID = CurrentTbl90ReferenceExpert.SubtribusID,
-                        InfratribusID = CurrentTbl90ReferenceExpert.InfratribusID,
-                        GenusID = CurrentTbl90ReferenceExpert.GenusID,
-                        PlSpeciesID = CurrentTbl90ReferenceExpert.PlSpeciesID,
-                        FiSpeciesID = CurrentTbl90ReferenceExpert.FiSpeciesID,
-                        CountID = RandomHelper.Randomnumber(),
-                        Valid = CurrentTbl90ReferenceExpert.Valid,
-                        ValidYear = CurrentTbl90ReferenceExpert.ValidYear,
-                        Info = CurrentTbl90ReferenceExpert.Info,
-                        Memo = CurrentTbl90ReferenceExpert.Memo,
-                        Writer = Environment.UserName,
-                        WriterDate = DateTime.Now,
-                        Updater = Environment.UserName,
-                        UpdaterDate = DateTime.Now,
-                        EntityState = EntityState.Added
-                    };
-                }
-                {
-                    //RefExpertID or RefSourceID or RefAuthorID may be not 0
-                    if (CurrentTbl90ReferenceExpert.RefExpertID == null && CurrentTbl90ReferenceExpert.RefSourceID == null && CurrentTbl90ReferenceExpert.RefAuthorID == null)
-                    {
-                        WpfMessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        return;
-                    }
-
-                    //check if dataset with vb-name already exist   
-                    var dataset = _businessLayer.ListTbl90ReferencesByRefExpertIdAndRefSourceIdAndRefAuthorIdAndInfo(CurrentTbl90ReferenceExpert);
-
-                    if (dataset.Count != 0 && CurrentTbl90ReferenceExpert.ReferenceID == 0)  //dataset exist
-                    {
-                        WpfMessageBox.Show(CultRes.StringsRes.DatasetExist, CurrentTbl90ReferenceExpert.ReferenceID.ToString(),
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        return;
-                    }
-                    if (dataset.Count == 0 && CurrentTbl90ReferenceExpert.ReferenceID == 0 ||
-                        dataset.Count != 0 && CurrentTbl90ReferenceExpert.ReferenceID != 0 ||
-                        dataset.Count == 0 && CurrentTbl90ReferenceExpert.ReferenceID != 0) //new dataset and update
-                    {
-                        if (WpfMessageBox.Show(CultRes.StringsRes.SaveQuestion2, CurrentTbl90ReferenceExpert.Info,
-                                MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-                            return;
-                        {
-                            try
-                            {
-                                _businessLayer.UpdateReference(reference);
-                            }
-                            catch (DbUpdateException e)
-                            {
-                                if (e.InnerException != null)
-                                    System.Windows.MessageBox.Show(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave,
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-
-                                Log.Error(e);
-                                return;
-                            }
-                            catch (Exception e)
-                            {
-                                System.Windows.MessageBox.Show(e.Message, CultRes.StringsRes.Error,
-                                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-                                Log.Error(e);
-                                return;
-                            }
-                                    WpfMessageBox.Show(CultRes.StringsRes.SaveSuccess,
-                                        CurrentTbl90ReferenceExpert.ReferenceID == 0
-                                            ? CultRes.StringsRes.DatasetNew
-                                             : CurrentTbl90ReferenceExpert.ReferenceID.ToString(),
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        }
-                    }
-                }
-            }
-            catch (DbEntityValidationException ex)
-            {
-                _entityException.EntityException(ex);
-                                Log.Error(ex);
-                  return;
-            }
-
-            Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90ReferenceListRefExpertsBySubclassId(CurrentTbl24Subclass.SubclassID));     
-     
-            SelectedMainSubRefTabIndex = 0;
-
-            ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
-            ReferenceExpertsView.Refresh();
-        }
-        #endregion "Public Commands"                  
+        #endregion [Methods Subclass ==> Tbl90Reference Expert]                               
            
-        #region "Public Commands Connect ==> Tbl93Comment"
+       #region [Commands Subclass ==> Tbl93Comments]        
+   
+       private RelayCommand _addCommentCommand;
 
-        //-------------------------------------------------------------------------
-        private RelayCommand _addCommentCommand;
-
-        public ICommand AddCommentCommand => _addCommentCommand ??
-                                                 (_addCommentCommand = new RelayCommand(delegate { AddComment(null); }));
+        public ICommand AddCommentCommand => _addCommentCommand ??= new RelayCommand(delegate { ExecuteAddComment(null); });
 
         private RelayCommand _copyCommentCommand;
 
-        public ICommand CopyCommentCommand => _copyCommentCommand ??
-                                                  (_copyCommentCommand = new RelayCommand(delegate { CopyComment(null); }));
+        public ICommand CopyCommentCommand => _copyCommentCommand ??= new RelayCommand(delegate { ExecuteCopyComment(null); });
 
         private RelayCommand _deleteCommentCommand;
 
-        public ICommand DeleteCommentCommand => _deleteCommentCommand ??
-                                                        (_deleteCommentCommand = new RelayCommand(delegate { DeleteComment(null); }));
+        public ICommand DeleteCommentCommand => _deleteCommentCommand ??= new RelayCommand(delegate { ExecuteDeleteComment(null); });
 
         private RelayCommand _saveCommentCommand;
 
-        public ICommand SaveCommentCommand => _saveCommentCommand ??
-                                                  (_saveCommentCommand = new RelayCommand(delegate { SaveComment(null); }));
-        //-------------------------------------------------------------------------          
+        public ICommand SaveCommentCommand => _saveCommentCommand ??= new RelayCommand(delegate { ExecuteSaveComment(null); });
+
+       #endregion [Commands Subclass ==> Tbl93Comments]        
+   
      
-        public void AddComment(object o)
+
+       #region [Methods Subclass ==> Tbl93Comments]        
+
+        public void ExecuteAddComment(object o)
         {
-            if (Tbl93CommentsList == null)
-                Tbl93CommentsList = new ObservableCollection<Tbl93Comment>();
+            Tbl93CommentsList ??= new ObservableCollection<Tbl93Comment>();
 
             Tbl93CommentsList .Insert(0, new Tbl93Comment  { Info = CultRes.StringsRes.DatasetNew });
 
             CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
             CommentsView.MoveCurrentToFirst();
-         }
-        //----------------------------------------------------------------------            
+         }          
      
-        public void CopyComment(object o)
+        public void ExecuteCopyComment(object o)
         {
-            if (CurrentTbl93Comment == null)
+
+            if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
+
+            Tbl93CommentsList = _extCopy.CopyComment(CurrentTbl93Comment, "Comment");
+
+            CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+            CommentsView.MoveCurrentToFirst();
+        }         
+     
+        private void ExecuteDeleteComment(object o)
+        {
+            if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
+
+            try
             {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
+                var comment = _uow.Tbl93Comments.GetById(CurrentTbl93Comment.CommentId);
+                if (comment != null)
+                {
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl93Comment.Info)) return;
+
+                    _extDelete.DeleteComment(comment);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl93Comment.Info);
+                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl93Comment.Info + " " + CultRes.StringsRes.DeleteCan1);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
             }
 
-            var comment = _businessLayer.SingleListTbl93CommentsByCommentId(CurrentTbl93Comment.CommentID);
+            Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromSubclassId<Tbl93Comment>(CurrentTbl93Comment.SubclassId);
 
-            Tbl93CommentsList.Insert(0, new Tbl93Comment
+            CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+            CommentsView.Refresh();
+        }        
+     
+        private void ExecuteSaveComment(object o)
+        {
+            if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
+
+            CurrentTbl93Comment.SubclassId = CurrentTbl24Subclass.SubclassId;
+
+            try
             {
-                Valid = comment.Valid,
-                ValidYear = comment.ValidYear,
-                Info = CultRes.StringsRes.DatasetNew,
-                Memo = comment.Memo
-            });
+                var comment = _uow.Tbl93Comments.GetById(CurrentTbl93Comment.CommentId);
+
+
+                if (CurrentTbl93Comment.CommentId == 0)
+                    comment = _extSave.CommentSubclassAdd(CurrentTbl93Comment);
+                else
+                    comment = _extSave.CommentSubclassUpdate(comment, CurrentTbl93Comment);
+
+                //        _position = SubclassesView.CurrentPosition;
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl93Comment.Info))
+                    return;
+
+                try
+                {
+                    _extSave.CommentSave(comment, CurrentTbl93Comment);
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
+                            CultRes.StringsRes.FailedToSave);
+                    Log.Error(e);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                    Log.Error(e);
+                    return;
+                }
+
+                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl93Comment.CommentId == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : CurrentTbl93Comment.Info);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+            Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromSubclassId<Tbl93Comment>(CurrentTbl93Comment.SubclassId);                 
+     
 
             CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
             CommentsView.MoveCurrentToFirst();
         }
-        //----------------------------------------------------------------------            
-     
-        private void DeleteComment(object o)
-        {
-            if (CurrentTbl93Comment == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-
-            try
-            {
-                var comment = _businessLayer.SingleListTbl93CommentsByCommentId(CurrentTbl93Comment.CommentID);
-                if (comment != null)
-                {
-                    if (WpfMessageBox.Show(CultRes.StringsRes.DeleteQuestion1, CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl93Comment.Info,
-                            MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-                        return;
-                    comment.EntityState = EntityState.Deleted;
-                    _businessLayer.RemoveComment(comment);
-
-                    WpfMessageBox.Show(CultRes.StringsRes.DeleteSuccess, CurrentTbl93Comment.Info,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                }
-                else
-                {
-                    WpfMessageBox.Show(CultRes.StringsRes.Information, CultRes.StringsRes.DeleteCan + " " + CurrentTbl93Comment.Info + " " + CultRes.StringsRes.DeleteCan1,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                }
-            }
-            catch (DbEntityValidationException ex)
-            {
-                _entityException.EntityException(ex);
-                                Log.Error(ex);
-            }
-
-            Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_businessLayer.ListTbl93CommentsBySubclassId(CurrentTbl24Subclass.SubclassID));
-
-            CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
-            CommentsView.Refresh();
-        }
-        //----------------------------------------------------------------------            
-     
-        private void SaveComment(object o)
-        {
-            if (CurrentTbl93Comment == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-
-            CurrentTbl93Comment.SubclassID = CurrentTbl24Subclass.SubclassID;
-
-            try
-            {
-                var comment = _businessLayer.SingleListTbl93CommentsByCommentId(CurrentTbl93Comment.CommentID);
-                if (CurrentTbl93Comment.CommentID != 0)
-                {
-                    if (comment != null) //update
-                    {
-                        comment.RegnumID = CurrentTbl93Comment.RegnumID;
-                        comment.PhylumID = CurrentTbl93Comment.PhylumID;
-                        comment.DivisionID = CurrentTbl93Comment.DivisionID;
-                        comment.SubphylumID = CurrentTbl93Comment.SubphylumID;
-                        comment.SubdivisionID = CurrentTbl93Comment.SubdivisionID;
-                        comment.SuperclassID = CurrentTbl93Comment.SuperclassID;
-                        comment.ClassID = CurrentTbl93Comment.ClassID;
-                        comment.SubclassID = CurrentTbl93Comment.SubclassID;
-                        comment.InfraclassID = CurrentTbl93Comment.InfraclassID;
-                        comment.LegioID = CurrentTbl93Comment.LegioID;
-                        comment.OrdoID = CurrentTbl93Comment.OrdoID;
-                        comment.SubordoID = CurrentTbl93Comment.SubordoID;
-                        comment.InfraordoID = CurrentTbl93Comment.InfraordoID;
-                        comment.SuperfamilyID = CurrentTbl93Comment.SuperfamilyID;
-                        comment.FamilyID = CurrentTbl93Comment.FamilyID;
-                        comment.SubfamilyID = CurrentTbl93Comment.SubfamilyID;
-                        comment.InfrafamilyID = CurrentTbl93Comment.InfrafamilyID;
-                        comment.SupertribusID = CurrentTbl93Comment.SupertribusID;
-                        comment.TribusID = CurrentTbl93Comment.TribusID;
-                        comment.SubtribusID = CurrentTbl93Comment.SubtribusID;
-                        comment.InfratribusID = CurrentTbl93Comment.InfratribusID;
-                        comment.GenusID = CurrentTbl93Comment.GenusID;
-                        comment.PlSpeciesID = CurrentTbl93Comment.PlSpeciesID;
-                        comment.FiSpeciesID = CurrentTbl93Comment.FiSpeciesID;
-                        comment.Valid = CurrentTbl93Comment.Valid;
-                        comment.ValidYear = CurrentTbl93Comment.ValidYear;
-                        comment.Info = CurrentTbl93Comment.Info;
-                        comment.Memo = CurrentTbl93Comment.Memo;
-                        comment.Updater = Environment.UserName;
-                        comment.UpdaterDate = DateTime.Now;
-                        comment.EntityState = EntityState.Modified;
-                    }
-                }
-                else
-                {
-                    comment = new Tbl93Comment     //add new
-                    {
-                        RegnumID = CurrentTbl93Comment.RegnumID,
-                        PhylumID = CurrentTbl93Comment.PhylumID,
-                        DivisionID = CurrentTbl93Comment.DivisionID,
-                        SubphylumID = CurrentTbl93Comment.SubphylumID,
-                        SubdivisionID = CurrentTbl93Comment.SubdivisionID,
-                        SuperclassID = CurrentTbl93Comment.SuperclassID,
-                        ClassID = CurrentTbl93Comment.ClassID,
-                        SubclassID = CurrentTbl93Comment.SubclassID,
-                        InfraclassID = CurrentTbl93Comment.InfraclassID,
-                        LegioID = CurrentTbl93Comment.LegioID,
-                        OrdoID = CurrentTbl93Comment.OrdoID,
-                        SubordoID = CurrentTbl93Comment.SubordoID,
-                        InfraordoID = CurrentTbl93Comment.InfraordoID,
-                        SuperfamilyID = CurrentTbl93Comment.SuperfamilyID,
-                        FamilyID = CurrentTbl93Comment.FamilyID,
-                        SubfamilyID = CurrentTbl93Comment.SubfamilyID,
-                        InfrafamilyID = CurrentTbl93Comment.InfrafamilyID,
-                        SupertribusID = CurrentTbl93Comment.SupertribusID,
-                        TribusID = CurrentTbl93Comment.TribusID,
-                        SubtribusID = CurrentTbl93Comment.SubtribusID,
-                        InfratribusID = CurrentTbl93Comment.InfratribusID,
-                        GenusID = CurrentTbl93Comment.GenusID,
-                        PlSpeciesID = CurrentTbl93Comment.PlSpeciesID,
-                        FiSpeciesID = CurrentTbl93Comment.FiSpeciesID,
-                        CountID = RandomHelper.Randomnumber(),
-                        Valid = CurrentTbl93Comment.Valid,
-                        ValidYear = CurrentTbl93Comment.ValidYear,
-                        Info = CurrentTbl93Comment.Info,
-                        Memo = CurrentTbl93Comment.Memo,
-                        Writer = Environment.UserName,
-                        WriterDate = DateTime.Now,
-                        Updater = Environment.UserName,
-                        UpdaterDate = DateTime.Now,
-                        EntityState = EntityState.Added
-                    };
-                }
-                {
-                    //check if dataset with Name and VbIds already exist       
-                    var dataset = _businessLayer.ListTbl93CommentsByCurrentItem(CurrentTbl93Comment);
-
-                    if (dataset.Count != 0 && CurrentTbl93Comment.CommentID == 0)  //dataset exist
-                    {
-                        WpfMessageBox.Show(CultRes.StringsRes.DatasetExist, CurrentTbl93Comment.Info,
-                            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                            return;
-                    }
-
-                    if (dataset.Count == 0 && CurrentTbl93Comment.CommentID == 0 ||
-                        dataset.Count != 0 && CurrentTbl93Comment.CommentID != 0 ||
-                        dataset.Count == 0 && CurrentTbl93Comment.CommentID != 0) //new dataset and update
-                    {
-                        if (WpfMessageBox.Show(CultRes.StringsRes.SaveQuestion2, CurrentTbl93Comment.Info,
-                                MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-                            return;
-                        {
-                            try
-                            {
-                                _businessLayer.UpdateComment(comment);
-                            }
-                            catch (DbUpdateException e)
-                            {
-                                if (e.InnerException != null)
-                                    System.Windows.MessageBox.Show(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave,
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-
-                                Log.Error(e);
-                                return;
-                            }
-                            catch (Exception e)
-                            {
-                                System.Windows.MessageBox.Show(e.Message, CultRes.StringsRes.Error,
-                                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-                                Log.Error(e);
-                                return;
-                            }
-                                    WpfMessageBox.Show(CultRes.StringsRes.SaveSuccess,
-                                        CurrentTbl93Comment.CommentID == 0
-                                            ? CultRes.StringsRes.DatasetNew
-                                            : CurrentTbl93Comment.Info,
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        }
-                    }
-                }
-            }
-            catch (DbEntityValidationException ex)
-            {
-                _entityException.EntityException(ex);
-                                Log.Error(ex);
-                   return;
-            }
-
-            Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_businessLayer.ListTbl93CommentsBySubclassId(CurrentTbl24Subclass.SubclassID));          
-     
-            SelectedMainTabIndex = 3;
-
-            CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
-            CommentsView.Refresh();
-        }
-        #endregion "Public Commands"                  
+        #endregion [Methods Subclass ==> Tbl93Comments]                 
  
              
  //    Part 9    
 
-      
+
+     
         #region "Public Commands Connected Tables by DoubleClick"
 
         private RelayCommand _getConnectedTablesCommand;
-        public ICommand GetConnectedTablesCommand => _getConnectedTablesCommand ??
-                                                         (_getConnectedTablesCommand = new RelayCommand(delegate { GetConnectedTablesById(null); }));
+        public ICommand GetConnectedTablesCommand => _getConnectedTablesCommand ??= new RelayCommand(delegate { GetConnectedTablesById(null); });
+
+        #endregion "Public Commands Connected Tables by DoubleClick"
+
+        #region "Public Method Connected Tables by DoubleClick"
 
         private void GetConnectedTablesById(object o)
-        {
-            Tbl27InfraclassesList?.Clear();
-            Tbl90ReferenceExpertsList?.Clear();
-            Tbl90ReferenceSourcesList?.Clear();
-            Tbl90ReferenceAuthorsList?.Clear();
-            Tbl93CommentsList?.Clear();
+        {           
+Tbl21ClassesList = _extGet.GetClassesCollectionOrderByFromClassId<Tbl21Class>(CurrentTbl24Subclass.ClassId);
 
-            SelectedMainTabIndex = 0;  //change to Connect tab
-            SelectedMainSubRefTabIndex = 0;
-            SelectedDetailTabIndex = 1;
-            SelectedDetailSubTabIndex = 0;
-            SelectedDetailSubRefTabIndex = 0;
+            Tbl18SuperclassesAllList = _extGet.AllCollection<Tbl18Superclass>("");
 
-            _businessLayer = new BusinessLayer.BusinessLayer();
-             Tbl18SuperclassesAllList =  new ObservableCollection<Tbl18Superclass>(_businessLayer.ListTbl18Superclasses());
-
-             Tbl21ClassesList =  new ObservableCollection<Tbl21Class>(
-                       _businessLayer.ListTbl21ClassesByClassId(CurrentTbl24Subclass.ClassID));
- 
             ClassesView = CollectionViewSource.GetDefaultView(Tbl21ClassesList);
-            ClassesView.Refresh();
+            ClassesView.Refresh();     
+     
         }
 
-        #endregion "Public Commands Connected Tables by DoubleClick"     
+        #endregion "Public Method Connected Tables by DoubleClick"     
  
+
 
  //    Part 10    
 
-    
+     
         #region "Public Commands to open Detail TabItems"
 
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
-        private int _selectedDetailSubTabIndex;
-        private int _selectedDetailSubRefTabIndex;
 
         public  int SelectedMainTabIndex
         {
@@ -2063,42 +1078,54 @@ namespace Te.Atis.Ui.Desktop.Views.Database
             set
             {
                 if (value == _selectedMainTabIndex) return;
-                _selectedMainTabIndex = value; 
-                RaisePropertyChanged();
+                _selectedMainTabIndex = value; RaisePropertyChanged("");        
+     
                 if (_selectedMainTabIndex == 0)             
-                    SelectedDetailSubTabIndex = 0;              
+                {
+                    if (CurrentTbl24Subclass != null)
+                    {
+                        Tbl21ClassesList = _extGet.GetClassesCollectionOrderByFromClassId<Tbl21Class>(CurrentTbl24Subclass.ClassId);
+
+                        Tbl18SuperclassesAllList = _extGet.AllCollection<Tbl18Superclass>("");
+
+                        ClassesView = CollectionViewSource.GetDefaultView(Tbl21ClassesList);
+                        ClassesView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 0;
+                }         
+     
                 if (_selectedMainTabIndex == 1)
                 {
-                    SelectedDetailTabIndex = 1;
-                    SelectedDetailSubTabIndex = 1;
-                }
+                    if (CurrentTbl24Subclass != null)
+                    {
+                        Tbl27InfraclassesList = _extGet.GetInfraclassesCollectionOrderByFromSubclassId<Tbl27Infraclass>(CurrentTbl24Subclass.SubclassId);
+
+                        Tbl24SubclassesAllList = _extGet.AllCollection<Tbl24Subclass>("subclass");
+
+                        InfraclassesView = CollectionViewSource.GetDefaultView(Tbl27InfraclassesList);
+                        InfraclassesView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 2;   
+               }      
+     
                 if (_selectedMainTabIndex == 2)
                 {
-                    SelectedDetailTabIndex = 1;
-                    SelectedDetailSubTabIndex = 2;
-                }
+                    SelectedDetailTabIndex = 3;
+                    SelectedMainSubRefTabIndex = 0;
+                }           
+     
                 if (_selectedMainTabIndex == 3)
                 {
-                    SelectedDetailTabIndex = 1;
-                    SelectedDetailSubTabIndex = 3;
-                }
-            }
-        }
+                    if (CurrentTbl24Subclass != null)
+                    {
+                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromSubclassId<Tbl93Comment>(CurrentTbl24Subclass.SubclassId);
 
-        public  int SelectedMainSubRefTabIndex
-        {
-            get => _selectedMainSubRefTabIndex; 
-            set
-            {
-                if (value == _selectedMainSubRefTabIndex) return;
-                _selectedMainSubRefTabIndex = value; 
-                 RaisePropertyChanged();
-                if (_selectedMainSubRefTabIndex == 0)
-                    SelectedDetailSubRefTabIndex = 0;
-                if (_selectedMainSubRefTabIndex == 1)
-                    SelectedDetailSubRefTabIndex = 1;
-                if (_selectedMainSubRefTabIndex == 2)
-                    SelectedDetailSubRefTabIndex = 2;
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 6;
+                }        
+     
             }
         }
 
@@ -2108,128 +1135,155 @@ namespace Te.Atis.Ui.Desktop.Views.Database
             set
             {
                 if (value == _selectedDetailTabIndex) return;
-                _selectedDetailTabIndex = value; 
-                RaisePropertyChanged();
+                _selectedDetailTabIndex = value;    RaisePropertyChanged("");       
+     
                 if (_selectedDetailTabIndex == 0)
                 {
-                    SelectedDetailSubTabIndex = 0;
-                    SelectedMainTabIndex = 0;
-                }
+                    if (CurrentTbl24Subclass != null)
+                    {
+                        Tbl21ClassesList = _extGet.GetClassesCollectionOrderByFromClassId<Tbl21Class>(CurrentTbl24Subclass.ClassId);
+
+                        ClassesView = CollectionViewSource.GetDefaultView(Tbl21ClassesList);
+                        ClassesView.Refresh();
+                    }
+                    SelectedMainTabIndex = 0;  
+               }     
+     
                 if (_selectedDetailTabIndex == 1)                
-                    SelectedDetailSubTabIndex = 1;                
-                if (_selectedDetailTabIndex == 2)                
-                    SelectedDetailSubTabIndex = 2;               
-                if (_selectedDetailTabIndex == 3)
-                    SelectedDetailSubTabIndex = 3;
-            }
-        }
-
-        public  int SelectedDetailSubTabIndex
-        {
-            get => _selectedDetailSubTabIndex;
-            set
-            {
-                if (value == _selectedDetailSubTabIndex) return;
-                _selectedDetailSubTabIndex = value;
-                RaisePropertyChanged();
-                if (_selectedDetailSubTabIndex == 0)
                 {
-                    Tbl21ClassesList =  new ObservableCollection<Tbl21Class>(
-                        _businessLayer.ListTbl21ClassesByClassId(CurrentTbl24Subclass.ClassID));
- 
-                    Tbl18SuperclassesAllList =  new ObservableCollection<Tbl18Superclass>(
-                        _businessLayer.ListTbl18Superclasses());
-
-                    ClassesView = CollectionViewSource.GetDefaultView(Tbl21ClassesList);
-                    ClassesView.Refresh();
-
                     SelectedMainTabIndex = 0;
-                }
-                if (_selectedDetailSubTabIndex == 1)
+                }    
+     
+                if (_selectedDetailTabIndex == 2)                
                 {
-                    Tbl27InfraclassesList =  new ObservableCollection<Tbl27Infraclass>(
-                        _businessLayer.ListTbl27InfraclassesBySubclassId(CurrentTbl24Subclass.SubclassID));
+                    if (CurrentTbl24Subclass != null)
+                    {
+                        Tbl27InfraclassesList = _extGet.GetInfraclassesCollectionOrderByFromSubclassId<Tbl27Infraclass>(CurrentTbl24Subclass.SubclassId);
 
-                    InfraclassesView = CollectionViewSource.GetDefaultView(Tbl27InfraclassesList);
-                    InfraclassesView.Refresh();
+                        Tbl24SubclassesAllList = _extGet.AllCollection<Tbl24Subclass>("subclass");
 
+                        InfraclassesView = CollectionViewSource.GetDefaultView(Tbl27InfraclassesList);
+                        InfraclassesView.Refresh();
+                    }
                     SelectedMainTabIndex = 1;
-                }
-                if (_selectedDetailSubTabIndex == 2)
+               }    
+     
+                if (_selectedDetailTabIndex == 3)
                 {
-                    Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(
-                        _businessLayer.ListTbl90RefExperts());
-                    Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(
-                        _businessLayer.ListTbl90ReferenceListRefExpertsBySubclassId(CurrentTbl24Subclass.SubclassID));
+                    if (CurrentTbl24Subclass != null)
+                    {
+                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
 
-                    ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
-                    ReferenceExpertsView.Refresh();
+                        Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFromSubclassIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTbl24Subclass.SubclassId);
 
+                        ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                        ReferenceExpertsView.Refresh();
+                    }
                     SelectedMainTabIndex = 2;
-                }
-                if (_selectedDetailSubTabIndex == 3)
+                    SelectedMainSubRefTabIndex = 0;
+                }        
+     
+                if (_selectedDetailTabIndex == 4)
                 {
-                    Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(
-                        _businessLayer.ListTbl93CommentsBySubclassId(CurrentTbl24Subclass.SubclassID));
+                    if (CurrentTbl24Subclass != null)
+                    {
+                        Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
 
-                    CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
-                    CommentsView.Refresh();
+                        Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromSubclassIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl24Subclass.SubclassId);
 
+                        ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+                        ReferenceSourcesView.Refresh();
+                    }
+                    SelectedMainTabIndex = 2;
+                    SelectedMainSubRefTabIndex = 1;
+                }        
+     
+                if (_selectedDetailTabIndex == 5)
+                {
+                    if (CurrentTbl24Subclass != null)
+                    {
+                        Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+
+                        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFromSubclassIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl24Subclass.SubclassId);
+
+                        ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
+                        ReferenceAuthorsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 2;
+                    SelectedMainSubRefTabIndex = 2;
+                }       
+     
+                if (_selectedDetailTabIndex == 6)
+                {
+                    if (CurrentTbl24Subclass != null)
+                    {
+                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromSubclassId<Tbl93Comment>(CurrentTbl24Subclass.SubclassId);
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
                     SelectedMainTabIndex = 3;
-                }
+                }       
+     
             }
         }
 
-        public  int SelectedDetailSubRefTabIndex
+        public int SelectedMainSubRefTabIndex
         {
-            get => _selectedDetailSubRefTabIndex;
+            get => _selectedMainSubRefTabIndex;
             set
             {
-                if (value == _selectedDetailSubRefTabIndex) return;
-                _selectedDetailSubRefTabIndex = value;
-                RaisePropertyChanged();
-                if (_selectedDetailSubRefTabIndex == 0)
+                if (value == _selectedMainSubRefTabIndex) return;
+                _selectedMainSubRefTabIndex = value;  RaisePropertyChanged("");     
+     
+                if (_selectedMainSubRefTabIndex == 0)
                 {
-                    Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(
-                        _businessLayer.ListTbl90RefExperts());
-                    Tbl90ReferenceExpertsList = new ObservableCollection<Tbl90Reference>(
-                        _businessLayer.ListTbl90ReferenceListRefExpertsBySubclassId(CurrentTbl24Subclass.SubclassID));
+                    if (CurrentTbl24Subclass != null)
+                    {
+                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
 
-                    ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
-                    ReferenceExpertsView.Refresh();
+                        Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFromSubclassIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTbl24Subclass.SubclassId);
 
-                    SelectedMainSubRefTabIndex = 0;
-                }
-                if (_selectedDetailSubRefTabIndex == 1)
+                        ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                        ReferenceExpertsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 3;
+                    SelectedMainTabIndex = 2;
+                }        
+     
+                if (_selectedMainSubRefTabIndex == 1)
                 {
-                    Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(
-                        _businessLayer.ListTbl90RefSources());
+                    if (CurrentTbl24Subclass != null)
+                    {
+                        Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
 
-                    Tbl90ReferenceSourcesList = new ObservableCollection<Tbl90Reference>(
-                        _businessLayer.ListTbl90ReferenceListRefSourcesBySubclassId(CurrentTbl24Subclass.SubclassID));
+                        Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromSubclassIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl24Subclass.SubclassId);
 
-                    ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
-                    ReferenceSourcesView.Refresh();
-
-                    SelectedMainSubRefTabIndex = 1;
-                }
-                if (_selectedDetailSubRefTabIndex == 2)
+                        ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+                        ReferenceSourcesView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 4;
+                    SelectedMainTabIndex = 2;
+                }      
+     
+                if (_selectedMainSubRefTabIndex == 2)
                 {
-                    Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(
-                        _businessLayer.ListTbl90RefAuthors());
+                    if (CurrentTbl24Subclass != null)
+                    {
+                        Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
 
-                    Tbl90ReferenceAuthorsList = new ObservableCollection<Tbl90Reference>(
-                        _businessLayer.ListTbl90ReferenceListRefAuthorsBySubclassId(CurrentTbl24Subclass.SubclassID));
+                        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFromSubclassIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl24Subclass.SubclassId);
 
-                    ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
-                    ReferenceAuthorsView.Refresh();
-
-                    SelectedMainSubRefTabIndex = 2;
-                }
+                        ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
+                        ReferenceAuthorsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 5;
+                    SelectedMainTabIndex = 2;
+                }      
+                     
             }
-        }
-
-        #endregion "Public Commands to open Detail TabItems"
+        }    
+        #endregion "Public Commands to open Detail TabItems"          
  
 
  //    Part 11    
@@ -2241,7 +1295,7 @@ namespace Te.Atis.Ui.Desktop.Views.Database
         public string SearchSubclassName
         {
             get => _searchSubclassName; 
-            set { _searchSubclassName = value; RaisePropertyChanged();  }
+            set { _searchSubclassName = value; RaisePropertyChanged("");  }
         }
 
         public  ICollectionView SubclassesView;
@@ -2251,14 +1305,21 @@ namespace Te.Atis.Ui.Desktop.Views.Database
         public  ObservableCollection<Tbl24Subclass> Tbl24SubclassesList
         {
             get => _tbl24SubclassesList; 
-            set {  _tbl24SubclassesList = value; RaisePropertyChanged();   }
+            set {  _tbl24SubclassesList = value; RaisePropertyChanged("");   }
         }
 
         private ObservableCollection<Tbl24Subclass> _tbl24SubclassesAllList;
         public  ObservableCollection<Tbl24Subclass> Tbl24SubclassesAllList
         {
             get => _tbl24SubclassesAllList; 
-            set {  _tbl24SubclassesAllList = value; RaisePropertyChanged();   }
+            set {  _tbl24SubclassesAllList = value; RaisePropertyChanged("");   }
+        }
+
+        private ObservableCollection<Tbl27Infraclass> _tbl27InfraclassesAllList;
+        public  ObservableCollection<Tbl27Infraclass> Tbl27InfraclassesAllList
+        {
+            get => _tbl27InfraclassesAllList; 
+            set {  _tbl27InfraclassesAllList = value; RaisePropertyChanged("");   }
         }
 
         #endregion "Public Properties"   
@@ -2272,14 +1333,14 @@ namespace Te.Atis.Ui.Desktop.Views.Database
         public  ObservableCollection<Tbl21Class> Tbl21ClassesList
         {
             get => _tbl21ClassesList; 
-            set { _tbl21ClassesList = value; RaisePropertyChanged(); }
+            set { _tbl21ClassesList = value; RaisePropertyChanged(""); }
         }
 
         private ObservableCollection<Tbl21Class> _tbl21ClassesAllList;
         public  ObservableCollection<Tbl21Class> Tbl21ClassesAllList
         {
             get => _tbl21ClassesAllList; 
-            set { _tbl21ClassesAllList = value; RaisePropertyChanged(); }       
+            set { _tbl21ClassesAllList = value; RaisePropertyChanged(""); }       
         }
 
         #endregion "Public Properties"   
@@ -2293,7 +1354,7 @@ namespace Te.Atis.Ui.Desktop.Views.Database
         public  ObservableCollection<Tbl27Infraclass> Tbl27InfraclassesList
         {
             get => _tbl27InfraclassesList; 
-            set { _tbl27InfraclassesList = value; RaisePropertyChanged(); }
+            set { _tbl27InfraclassesList = value; RaisePropertyChanged(""); }
         }
         #endregion "Public Properties"     
         
@@ -2306,7 +1367,7 @@ namespace Te.Atis.Ui.Desktop.Views.Database
         public  ObservableCollection<Tbl30Legio> Tbl30LegiosList
         {
             get => _tbl30LegiosList; 
-            set { _tbl30LegiosList = value; RaisePropertyChanged(); }
+            set { _tbl30LegiosList = value; RaisePropertyChanged(""); }
         }
         #endregion "Public Properties"     
         
@@ -2316,18 +1377,30 @@ namespace Te.Atis.Ui.Desktop.Views.Database
         public  ObservableCollection<Tbl18Superclass> Tbl18SuperclassesAllList
         {
             get => _tbl18SuperclassesAllList; 
-            set { _tbl18SuperclassesAllList = value; RaisePropertyChanged(); }       
+            set { _tbl18SuperclassesAllList = value; RaisePropertyChanged(""); }       
         }
 
         #endregion "Public Properties"     
            
+        #region Public Properties Tbl90References
+
+        private ObservableCollection<Tbl90Reference> _tbl90ReferencesList;
+
+        public ObservableCollection<Tbl90Reference> Tbl90ReferencesList
+        {
+            get => _tbl90ReferencesList;
+            set { _tbl90ReferencesList = value; RaisePropertyChanged(""); }
+        }
+
+        #endregion
+
         #region "Public Properties Tbl90Author"
 
         private ObservableCollection<Tbl90RefAuthor> _tbl90AuthorsAllList;
         public  ObservableCollection<Tbl90RefAuthor> Tbl90AuthorsAllList
         {
             get => _tbl90AuthorsAllList; 
-            set { _tbl90AuthorsAllList = value; RaisePropertyChanged(); }
+            set { _tbl90AuthorsAllList = value; RaisePropertyChanged(""); }
         }
 
         #endregion "Public Properties "
@@ -2338,7 +1411,7 @@ namespace Te.Atis.Ui.Desktop.Views.Database
         public  ObservableCollection<Tbl90RefSource> Tbl90SourcesAllList
         {
             get => _tbl90SourcesAllList; 
-            set { _tbl90SourcesAllList = value; RaisePropertyChanged(); }
+            set { _tbl90SourcesAllList = value; RaisePropertyChanged(""); }
         }
 
         #endregion "Public Properties "
@@ -2349,7 +1422,7 @@ namespace Te.Atis.Ui.Desktop.Views.Database
         public ObservableCollection<Tbl90RefExpert> Tbl90ExpertsAllList
         {
             get => _tbl90ExpertsAllList; 
-            set { _tbl90ExpertsAllList = value; RaisePropertyChanged(); }
+            set { _tbl90ExpertsAllList = value; RaisePropertyChanged(""); }
         }
 
         #endregion "Public Properties "
@@ -2363,7 +1436,7 @@ namespace Te.Atis.Ui.Desktop.Views.Database
         public ObservableCollection<Tbl90Reference> Tbl90ReferenceAuthorsList
         {
             get => _tbl90ReferenceAuthorsList; 
-            set { _tbl90ReferenceAuthorsList = value; RaisePropertyChanged(); }
+            set { _tbl90ReferenceAuthorsList = value; RaisePropertyChanged(""); }
         }
 
         #endregion "Public Properties"
@@ -2377,7 +1450,7 @@ namespace Te.Atis.Ui.Desktop.Views.Database
         public ObservableCollection<Tbl90Reference> Tbl90ReferenceSourcesList
         {
             get => _tbl90ReferenceSourcesList; 
-            set { _tbl90ReferenceSourcesList = value; RaisePropertyChanged(); }
+            set { _tbl90ReferenceSourcesList = value; RaisePropertyChanged(""); }
         }
 
         #endregion "Public Properties"
@@ -2391,7 +1464,7 @@ namespace Te.Atis.Ui.Desktop.Views.Database
         public ObservableCollection<Tbl90Reference> Tbl90ReferenceExpertsList
         {
             get => _tbl90ReferenceExpertsList; 
-            set { _tbl90ReferenceExpertsList = value; RaisePropertyChanged(); }
+            set { _tbl90ReferenceExpertsList = value; RaisePropertyChanged(""); }
         }
 
         #endregion "Public Properties"   
@@ -2405,15 +1478,11 @@ namespace Te.Atis.Ui.Desktop.Views.Database
         public ObservableCollection<Tbl93Comment> Tbl93CommentsList
         {
             get => _tbl93CommentsList; 
-            set { _tbl93CommentsList = value; RaisePropertyChanged(); }
+            set { _tbl93CommentsList = value; RaisePropertyChanged(""); }
         }
 
         #endregion "Public Properties"     
  
-
- 
-
-
 
    }
 }   

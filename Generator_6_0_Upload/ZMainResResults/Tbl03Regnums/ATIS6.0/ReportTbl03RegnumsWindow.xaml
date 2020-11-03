@@ -20,7 +20,7 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto" >  
 
-        <!-- ReportTbl03RegnumsWindow.xaml  Skriptdatum:  12.12.2019  12:32     -->    
+        <!-- ReportTbl03RegnumsWindow.xaml  Skriptdatum:  01.11.2020  12:32     -->    
           
     <Window.Resources>
         <ResourceDictionary>

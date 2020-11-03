@@ -1,6 +1,6 @@
     
 <UserControl 
-             x:Class="ATIS.Ui.Views.Database.D06Phylum.FiSpeciessesView"               
+             x:Class="ATIS.Ui.Views.Database.ListDetails.FiSpeciessesView"               
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -29,7 +29,7 @@
             <ColumnDefinition Width="50*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="250" />
+            <RowDefinition Height="300" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="50*" />
         </Grid.RowDefinitions>
@@ -128,7 +128,7 @@
                                                     <DataTemplate>
                                                         <TextBlock     
                                                             Width="100"  
-                                                            Text="{Binding (models:Tbl69FiSpecies.FiSpeciesID)}"
+                                                            Text="{Binding (models:Tbl69FiSpecies.FiSpeciesId)}"
                                                             TextAlignment="Left" />
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
@@ -376,7 +376,7 @@
                                                                 <DataTemplate>
                                                                     <TextBlock
                                                                         Width="100"
-                                                                        Text="{Binding (models:Tbl78Name.NameID)}"
+                                                                        Text="{Binding (models:Tbl78Name.NameId)}"
                                                                         TextAlignment="Left" />
                                                                     </DataTemplate>
                                                             </GridViewColumn.CellTemplate>
@@ -435,7 +435,7 @@
                                                                 <DataTemplate>
                                                                     <TextBlock
                                                                         Width="100"
-                                                                        Text="{Binding (models:Tbl81Image.ImageID)}"
+                                                                        Text="{Binding (models:Tbl81Image.ImageId)}"
                                                                         TextAlignment="Left" />
                                                                     </DataTemplate>
                                                             </GridViewColumn.CellTemplate>
@@ -873,6 +873,44 @@
                                  <GroupBox>   
                                     <StackPanel Margin="1">
                                         <StackPanel Height="Auto" Orientation="Horizontal">    
+        
+                            <Button Template="{StaticResource SaveGenusButton}" />   
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="250"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource  Tbl66Genus-GenusName}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                               FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl66Genus-GenusName}">
+                                <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl66GenussesList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl66Genus.GenusName)"
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                </TextBox.Text>
+                            </TextBox>          
+         
+                                            <ComboBox
+                                                Width="760"
+                                                Margin="5"
+                                                VerticalAlignment="Bottom"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
+                                                DisplayMemberPath="InfratribusName" 
+                                                IsSynchronizedWithCurrentItem="True"
+                                                ItemsSource="{Binding Tbl63InfratribussesAllList}"
+                                                SelectedIndex="0"
+                                                SelectedValue="{Binding SelectedItem.(models:Tbl63Infratribus.InfratribusId), ElementName=Tbl66GenussesList, Mode=TwoWay}"
+                                                SelectedValuePath="InfratribusId"
+                                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                                VirtualizingStackPanel.IsVirtualizing="True" />  
          
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                           <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -918,8 +956,8 @@
                                             IsSynchronizedWithCurrentItem="True"
                                             ItemContainerStyle="{StaticResource ComboStyle}"
                                             ItemsSource="{Binding Tbl66GenussesAllList}"
-                                            SelectedValue="{Binding SelectedItem.(models:Tbl66Genus.GenusID), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay}"
-                                            SelectedValuePath="GenusID"
+                                            SelectedValue="{Binding SelectedItem.(models:Tbl66Genus.GenusId), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay}"
+                                            SelectedValuePath="GenusId"
                                             Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                                             VirtualizingStackPanel.IsVirtualizing="True" />
                                         <ComboBox
@@ -932,8 +970,8 @@
                                             IsSynchronizedWithCurrentItem="True"
                                             ItemContainerStyle="{StaticResource ComboStyle}"
                                             ItemsSource="{Binding Tbl68SpeciesgroupsAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
-                                            SelectedValue="{Binding SelectedItem.(models:Tbl68Speciesgroup.SpeciesgroupID), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay}"
-                                            SelectedValuePath="SpeciesgroupID"
+                                            SelectedValue="{Binding SelectedItem.(models:Tbl68Speciesgroup.SpeciesgroupId), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay}"
+                                            SelectedValuePath="SpeciesgroupId"
                                             Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                                             VirtualizingStackPanel.IsVirtualizing="True" />
                             </StackPanel>    
@@ -1489,8 +1527,8 @@
 
        
                             <TabItem  FontWeight="Medium" Header="{DynamicResource Tbl81Image-Image}"  >
-                                 <GroupBox  ContextMenu="{StaticResource MenuImage}">
-                                  <StackPanel Margin="0,0,5,0">
+                                 <GroupBox>
+                                  <StackPanel Margin="5">
                                     <StackPanel Height="Auto" Orientation="Horizontal">       
          
                                         <Button

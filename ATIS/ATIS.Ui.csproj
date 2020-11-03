@@ -44,6 +44,7 @@
 
   <ItemGroup>
     <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Database\D18Superclass\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
 

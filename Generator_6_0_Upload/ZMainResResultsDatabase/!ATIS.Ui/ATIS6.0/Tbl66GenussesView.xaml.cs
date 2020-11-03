@@ -1,50 +1,27 @@
 using System;  
 
     
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Threading;   
+using System.Windows.Controls;   
  
 
       //  Tbl66GenussesView.xaml.cs Skriptdatum:  12.12.2019  10:32     
 
-namespace Te.Atis.Ui.Desktop.Views.Database
+namespace ATIS.Ui.Views.Database.ListDetails
 {  
 
     /// <summary>
-    /// Interactionslogic for Tbl66GenussesView.xaml
+    /// Interactionslogic for GenussesView.xaml
     /// </summary>
-    public partial class Tbl66GenussesView : UserControl
+    public partial class GenussesView : UserControl
    {      
 
    
-        public Tbl66GenussesView()
-        {         
+        public GenussesView()
+        {  
+            DataContext = new GenussesViewModel();  
+       
             InitializeComponent();   
-            IsVisibleChanged += UserControl_IsVisibleChanged;
-        }
-
-        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if ((bool)e.NewValue)
-            {
-                Dispatcher.BeginInvoke(
-                DispatcherPriority.ContextIdle,
-                new Action(delegate
-                {
-                    TbSearchGenus.Focus();
-                }));
-            }
-        }
-        private void TbSearchGenus_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Tab || e.Key == Key.Enter)
-            {
-                BtnGet.Focus();
-                e.Handled = true;
-            }
-        }   
+        }      
  
 
     }

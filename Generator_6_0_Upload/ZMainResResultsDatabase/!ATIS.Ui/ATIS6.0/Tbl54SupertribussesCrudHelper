@@ -1,0 +1,94 @@
+    
+        public ObservableCollection<Tbl57Tribus> SearchForConnectedDatasetsWithSupertribusIdInTableTribus(Tbl54Supertribus selected)
+        {
+            var collection = new ObservableCollection<Tbl57Tribus>(_uow.Tbl57Tribusses.Find(x => x.SupertribusId == selected.SupertribusId));
+            return collection;
+        }
+
+
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSupertribusIdInTableReference(Tbl54Supertribus selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SupertribusId == selected.SupertribusId));
+            return collection;
+        }
+
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSupertribusIdInTableComment(Tbl54Supertribus selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SupertribusId == selected.SupertribusId));
+            return collection;
+        }
+
+        public void DeleteSupertribus(Tbl54Supertribus selected)
+        {
+            _uow.Tbl54Supertribusses.Remove(selected);
+            _uow.Complete();
+        }
+
+        public ObservableCollection<T> GetInfrafamiliesCollectionOrderByFromInfrafamilyId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl51Infrafamilies
+                .Where(e => e.InfrafamilyId == id)
+                .OrderBy(k => k.InfrafamilyName));
+
+            return collection;
+        }
+
+        public ObservableCollection<T> GetSupertribussesCollectionOrderByFromSupertribusId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl54Supertribusses
+                .Where(e => e.SupertribusId == id)
+                .OrderBy(k => k.SupertribusName));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetTribussesCollectionOrderByFromSubphylumId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl57Tribusses
+                .Where(e => e.SupertribusId == id)
+                .OrderBy(k => k.TribusName));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferenceExpertsCollectionOrderByFromSupertribusIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.SupertribusId == id && e.RefAuthorId == null && e.RefSourceId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferenceSourcesCollectionOrderByFromSupertribusIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefSources)
+                .Where(e => e.SupertribusId == id && e.RefAuthorId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferenceAuthorsCollectionOrderByFromSupertribusIdAndRefSourceIdIsNullAndRefExpertIdIsNull<T>(int id)   
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.SupertribusId == id && e.RefSourceId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetCommentsCollectionOrderByFromSubphylumId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
+                .Where(e => e.SupertribusId == id)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+   

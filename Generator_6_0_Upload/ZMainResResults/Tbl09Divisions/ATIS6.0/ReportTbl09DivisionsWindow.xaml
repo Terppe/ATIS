@@ -20,7 +20,7 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto" >  
 
-        <!-- ReportTbl09DivisionsWindow.xaml  Skriptdatum:  12.12.2019  12:32   -->    
+        <!-- ReportTbl09DivisionsWindow.xaml  Skriptdatum:  03.11.2020  12:32   -->    
           
     <Window.Resources>
         <ResourceDictionary>

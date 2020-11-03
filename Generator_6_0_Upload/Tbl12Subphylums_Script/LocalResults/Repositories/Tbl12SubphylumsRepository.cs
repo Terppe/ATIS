@@ -2,7 +2,7 @@ using System.Linq;
 using Atis.WpfUi.Interfaces;
 using Atis.WpfUi.Model;    
 
-// <!-- Repository Skriptdatum:  13.06.2018  12:32    -->  
+// <!-- Repository Skriptdatum:  30.10.2020  12:32    -->  
 
 namespace Atis.WpfUi.Repositories      {  
     public class Tbl12SubphylumsRepository : ITbl12SubphylumsRepository    {
@@ -25,7 +25,7 @@ namespace Atis.WpfUi.Repositories      {
         }                                                                                                                                                                   
   
           public Tbl12Subphylum Get(int id)        {
-            return _entities.Tbl12Subphylums.FirstOrDefault(d => d.SubphylumID == id);
+            return _entities.Tbl12Subphylums.FirstOrDefault(d => d.SubphylumId == id);
         }          
         
 

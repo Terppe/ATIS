@@ -1,6 +1,6 @@
     
 <UserControl 
-             x:Class="ATIS.Ui.Views.Database.D06Phylum.SpeciesgroupsView"               
+             x:Class="ATIS.Ui.Views.Database.ListDetails.SpeciesgroupsView"               
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -27,7 +27,7 @@
             <ColumnDefinition Width="50*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="250" />
+            <RowDefinition Height="300" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="50*" />
         </Grid.RowDefinitions>
@@ -126,7 +126,7 @@
                                                     <DataTemplate>
                                                         <TextBlock     
                                                             Width="100"  
-                                                            Text="{Binding (models:Tbl68Speciesgroup.SpeciesgroupID)}"
+                                                            Text="{Binding (models:Tbl68Speciesgroup.SpeciesgroupId)}"
                                                             TextAlignment="Left" />
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
@@ -235,7 +235,7 @@
                                                                 <DataTemplate>
                                                                     <TextBlock
                                                                         Width="100"
-                                                                        Text="{Binding (models:Tbl69FiSpecies.FiSpeciesID)}"
+                                                                        Text="{Binding (models:Tbl69FiSpecies.FiSpeciesId)}"
                                                                         TextAlignment="Left" />
                                                                     </DataTemplate>
                                                             </GridViewColumn.CellTemplate>
@@ -310,7 +310,7 @@
                                                                 <DataTemplate>
                                                                     <TextBlock
                                                                         Width="100"
-                                                                        Text="{Binding (models:Tbl72PlSpecies.PlSpeciesID)}"
+                                                                        Text="{Binding (models:Tbl72PlSpecies.PlSpeciesId)}"
                                                                         TextAlignment="Left" />
                                                                     </DataTemplate>
                                                             </GridViewColumn.CellTemplate>
@@ -409,63 +409,27 @@
                                  <GroupBox>   
                                     <StackPanel Margin="1">
                                         <StackPanel Height="Auto" Orientation="Horizontal">    
+         
+                                            <ComboBox
+                                                Width="760"
+                                                Margin="5"
+                                                VerticalAlignment="Bottom"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
+                                                DisplayMemberPath="NULL" 
+                                                IsSynchronizedWithCurrentItem="True"
+                                                ItemsSource="{Binding NULLAllList}"
+                                                SelectedIndex="0"
+                                                SelectedValue="{Binding SelectedItem.(models:NULL.NULLId), ElementName=Tbl66GenussesList, Mode=TwoWay}"
+                                                SelectedValuePath="NULLId"
+                                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                                VirtualizingStackPanel.IsVirtualizing="True" />  
           
                 <TabItem FontWeight="Medium" Header="{DynamicResource Tbl68Speciesgroup-Speciesgroup}" >  
                     <StackPanel>
                         <GroupBox>
                             <StackPanel Margin="1">
                                 <StackPanel Height="Auto" Orientation="Horizontal">           
-          
-                                <Button Template="{StaticResource CopySpeciesgroupButton}" />
-                                <Button Template="{StaticResource AddSpeciesgroupButton}" />
-                                <Button Template="{StaticResource DeleteSpeciesgroupButton}" /> 
-                        </StackPanel>
-                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                <TextBox
-                                    Width="350"
-                                    Margin="5,10,0,0"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl68Speciesgroup-SpeciesgroupName}"
-                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    FontWeight="Medium"
-                                    Style="{StaticResource TextBoxInError}"
-                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                    <TextBox.Text>
-                                        <Binding
-                                            Converter="{StaticResource CapFirst}"
-                                            ElementName="Tbl68SpeciesgroupsList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl68Speciesgroup.SpeciesgroupName)"            
-                                            UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <validationRules:Name200Validator />
-                                                <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="False" />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>  
-                                        <TextBox
-                                            Width="350"
-                                            Margin="25,0,0,0"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Tbl68Speciesgroup-Subspeciesgroup}"
-                                            materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            FontWeight="Medium"
-                                            Style="{StaticResource TextBoxInError}"
-                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl68SpeciesgroupsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl68Speciesgroup.Subspeciesgroup)"
-                                                    UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validationRules:Name200Validator />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                            </StackPanel>    
        
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <CheckBox
@@ -727,23 +691,7 @@
                                                     UpdateSourceTrigger="PropertyChanged"/>
                                 </TextBox.Text>
                             </TextBox>         
-           
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <ComboBox
-                                                    Width="450"
-                                                    Margin="5,0,0,0"
-                                                    VerticalAlignment="Bottom"
-                                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl66Genus-GenusName}"
-                                                    DisplayMemberPath="GenusName"
-                                                    IsSynchronizedWithCurrentItem="True"
-                                                    ItemContainerStyle="{StaticResource ComboStyle}"
-                                                    ItemsSource="{Binding Tbl66GenussesAllList}"
-                                                    SelectedValue="{Binding SelectedItem.(models:Tbl66Genus.GenusID), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay}"
-                                                    SelectedValuePath="GenusID"
-                                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                                    VirtualizingStackPanel.IsVirtualizing="True" />      
-              
+                
                             <TabItem FontWeight="Medium" Header="{DynamicResource Shared-Connect}">
                               <GroupBox>
                                <dragablz:TabablzControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedDetailSubTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">         
@@ -1120,8 +1068,8 @@
 
        
                             <TabItem  FontWeight="Medium" Header="{DynamicResource Tbl72PlSpecies-PlSpecies}"  >
-                                 <GroupBox  ContextMenu="{StaticResource MenuPlSpecies}">
-                                  <StackPanel Margin="0,0,5,0">
+                                 <GroupBox>
+                                  <StackPanel Margin="5">
                                     <StackPanel Height="Auto" Orientation="Horizontal">       
          
                                                 <Button

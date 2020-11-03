@@ -13,13 +13,13 @@ using Microsoft.Win32;
 
       //  Tbl81ImagesView.xaml.cs Skriptdatum:  22.01.2019  10:32     
 
-namespace Te.Atis.Ui.Desktop.Views.Database
+namespace ATIS.Ui.Views.Database.ListDetails
 {  
 
     /// <summary>
-    /// Interactionslogic for Tbl81ImagesView.xaml
+    /// Interactionslogic for ImagesView.xaml
     /// </summary>
-    public partial class Tbl81ImagesView : UserControl
+    public partial class ImagesView : UserControl
    {      
 
     

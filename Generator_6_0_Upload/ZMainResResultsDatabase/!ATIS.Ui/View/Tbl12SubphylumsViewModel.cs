@@ -14,7 +14,7 @@ using GalaSoft.MvvmLight.Command;
 using MessageBoxImage = System.Windows.MessageBoxImage;
 
     
-         //    Tbl12SubphylumsViewModel Skriptdatum:  13.06.2018  12:32    
+         //    Tbl12SubphylumsViewModel Skriptdatum:  30.10.2020  12:32    
 
 namespace WPFUI.Views.Database
 {     
@@ -122,11 +122,11 @@ SubphylumsView = CollectionViewSource.GetDefaultView(Tbl12SubphylumsList);
         {
             Tbl12SubphylumsList = new ObservableCollection<Tbl12Subphylum>();
 
-            var subphylum = _tbl12SubphylumsRepository.Get(CurrentTbl12Subphylum.SubphylumID);
+            var subphylum = _tbl12SubphylumsRepository.Get(CurrentTbl12Subphylum.SubphylumId);
 
             Tbl12SubphylumsList.Insert(0, new Tbl12Subphylum
             {                 
-PhylumID = subphylum.PhylumID,              
+PhylumId = subphylum.PhylumId,              
                             SubphylumName = CultRes.StringsRes.DatasetNew,              
                             Valid = subphylum.Valid,
                             ValidYear = subphylum.ValidYear,
@@ -159,7 +159,7 @@ PhylumID = subphylum.PhylumID,
         {
             try
             {
-                var subphylum = _tbl12SubphylumsRepository.Get(CurrentTbl12Subphylum.SubphylumID);
+                var subphylum = _tbl12SubphylumsRepository.Get(CurrentTbl12Subphylum.SubphylumId);
                 if (subphylum!= null)
                 {
                     if (WpfMessageBox.Show(CultRes.StringsRes.DeleteQuestion1, CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl12Subphylum.SubphylumName,
@@ -214,18 +214,18 @@ SubphylumsView = CollectionViewSource.GetDefaultView(Tbl12SubphylumsList);
         {
             try
             {
-                var subphylum = _tbl12SubphylumsRepository.Get(CurrentTbl12Subphylum.SubphylumID);
+                var subphylum = _tbl12SubphylumsRepository.Get(CurrentTbl12Subphylum.SubphylumId);
                 if (CurrentTbl12Subphylum == null)              
                     WpfMessageBox.Show(CultRes.StringsRes.Warning, CultRes.StringsRes.DatasetNotExist, 
                         MessageBoxButton.OK, MessageBoxImage.Warning);               
                 else
                 {
-                    if (CurrentTbl12Subphylum.SubphylumID!= 0)
+                    if (CurrentTbl12Subphylum.SubphylumId!= 0)
                     {
                         if (subphylum!= null) //update
                         {   
 subphylum.SubphylumName = CurrentTbl12Subphylum.SubphylumName;  
-subphylum.PhylumID = CurrentTbl12Subphylum.PhylumID;
+subphylum.PhylumId = CurrentTbl12Subphylum.PhylumId;
                             subphylum.Valid = CurrentTbl12Subphylum.Valid;
                             subphylum.ValidYear = CurrentTbl12Subphylum.ValidYear;
                             subphylum.Synonym = CurrentTbl12Subphylum.Synonym;
@@ -246,7 +246,7 @@ subphylum.PhylumID = CurrentTbl12Subphylum.PhylumID;
                     {
                         _tbl12SubphylumsRepository.Add(new Tbl12Subphylum     //add new
                         {   
-PhylumID= CurrentTbl12Subphylum.PhylumID,              
+PhylumId= CurrentTbl12Subphylum.PhylumId,              
                             SubphylumName= CurrentTbl12Subphylum.SubphylumName,              
                             CountID = RandomHelper.Randomnumber(),
                             Valid = CurrentTbl12Subphylum.Valid,
@@ -268,8 +268,8 @@ PhylumID= CurrentTbl12Subphylum.PhylumID,
                         });
                     }
                     {
-                        //PhylumID may be not 0
-                        if (CurrentTbl12Subphylum.PhylumID == 0)
+                        //PhylumId may be not 0
+                        if (CurrentTbl12Subphylum.PhylumId == 0)
                         {
                             WpfMessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
                                 MessageBoxButton.OK, MessageBoxImage.Information);
@@ -281,18 +281,18 @@ PhylumID= CurrentTbl12Subphylum.PhylumID,
                         (from a in _tbl12SubphylumsRepository.GetAll()
                          where
                          a.SubphylumName.Trim() == CurrentTbl12Subphylum.SubphylumName.Trim() &&                
-                         a.PhylumID == CurrentTbl12Subphylum.PhylumID
+                         a.PhylumId == CurrentTbl12Subphylum.PhylumId
                          select a);
 
-                        if (dataset.Count != 0 && CurrentTbl12Subphylum.SubphylumID== 0)  //dataset exist
+                        if (dataset.Count != 0 && CurrentTbl12Subphylum.SubphylumId== 0)  //dataset exist
                         {
                               WpfMessageBox.Show(CultRes.StringsRes.DatasetExist, CurrentTbl12Subphylum.SubphylumName,
                               MessageBoxButton.OK, MessageBoxImage.Information);
                         } 
 
-                        if (dataset.Count == 0 && CurrentTbl12Subphylum.SubphylumID== 0 ||
-                            dataset.Count != 0 && CurrentTbl12Subphylum.SubphylumID != 0  ||
-                            dataset.Count == 0 && CurrentTbl12Subphylum.SubphylumID != 0) //new dataset and update
+                        if (dataset.Count == 0 && CurrentTbl12Subphylum.SubphylumId== 0 ||
+                            dataset.Count != 0 && CurrentTbl12Subphylum.SubphylumId != 0  ||
+                            dataset.Count == 0 && CurrentTbl12Subphylum.SubphylumId != 0) //new dataset and update
                         {
                             if (WpfMessageBox.Show(CultRes.StringsRes.SaveQuestion2, CurrentTbl12Subphylum.SubphylumName,
                                     MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)                            
@@ -305,14 +305,14 @@ PhylumID= CurrentTbl12Subphylum.PhylumID,
                             }
                         } 
          
-                        if (SearchSubphylumName == null && CurrentTbl12Subphylum.SubphylumID == 0)  //new Dataset                        
+                        if (SearchSubphylumName == null && CurrentTbl12Subphylum.SubphylumId == 0)  //new Dataset                        
                             Tbl12SubphylumsList = _allListVm.GetValueTbl12SubphylumsList();  //last Dataset
-                        if (SearchSubphylumName == null && CurrentTbl12Subphylum.SubphylumID != 0)   //update 
-                            Tbl12SubphylumsList = _allListVm.GetValueTbl12SubphylumsList(CurrentTbl12Subphylum.SubphylumID);
-                        if (SearchSubphylumName != null && CurrentTbl12Subphylum.SubphylumID == 0)  //new Dataset                        
+                        if (SearchSubphylumName == null && CurrentTbl12Subphylum.SubphylumId != 0)   //update 
+                            Tbl12SubphylumsList = _allListVm.GetValueTbl12SubphylumsList(CurrentTbl12Subphylum.SubphylumId);
+                        if (SearchSubphylumName != null && CurrentTbl12Subphylum.SubphylumId == 0)  //new Dataset                        
                             Tbl12SubphylumsList = _allListVm.GetValueTbl12SubphylumsList();  //last Dataset
-                        if (SearchSubphylumName != null && CurrentTbl12Subphylum.SubphylumID != 0)   //update 
-                            Tbl12SubphylumsList = _allListVm.GetValueTbl12SubphylumsList(CurrentTbl12Subphylum.SubphylumID);
+                        if (SearchSubphylumName != null && CurrentTbl12Subphylum.SubphylumId != 0)   //update 
+                            Tbl12SubphylumsList = _allListVm.GetValueTbl12SubphylumsList(CurrentTbl12Subphylum.SubphylumId);
 
                             SubphylumsView = CollectionViewSource.GetDefaultView(Tbl12SubphylumsList);
                             SubphylumsView.Refresh();                          
@@ -397,7 +397,7 @@ PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
         {
             Tbl06PhylumsList = new ObservableCollection<Tbl06Phylum>();
 
-            var phylum = _tbl06PhylumsRepository.Get(CurrentTbl06Phylum.PhylumID);
+            var phylum = _tbl06PhylumsRepository.Get(CurrentTbl06Phylum.PhylumId);
 
             Tbl06PhylumsList.Insert(0, new Tbl06Phylum
             {                 
@@ -435,7 +435,7 @@ PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
         {
             try
             {
-                var phylum = _tbl06PhylumsRepository.Get(CurrentTbl06Phylum.PhylumID);
+                var phylum = _tbl06PhylumsRepository.Get(CurrentTbl06Phylum.PhylumId);
                 if (phylum!= null)
                 {  
          
@@ -494,16 +494,16 @@ PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
         {
             try
             {
-                var phylum = _tbl06PhylumsRepository.Get(CurrentTbl06Phylum.PhylumID);
+                var phylum = _tbl06PhylumsRepository.Get(CurrentTbl06Phylum.PhylumId);
                 if (CurrentTbl06Phylum == null)              
                     WpfMessageBox.Show(CultRes.StringsRes.Warning, CultRes.StringsRes.DatasetNotExist, MessageBoxButton.OK, MessageBoxImage.Warning);               
                 else
                 {
-                    if (CurrentTbl06Phylum.PhylumID!= 0)
+                    if (CurrentTbl06Phylum.PhylumId!= 0)
                     {
                         if (phylum!= null) //update
                         {   
-phylum.RegnumID = CurrentTbl06Phylum.RegnumID;
+phylum.RegnumId = CurrentTbl06Phylum.RegnumId;
                             phylum.PhylumName= CurrentTbl06Phylum.PhylumName;             
 phylum.Valid = CurrentTbl06Phylum.Valid;
                             phylum.ValidYear = CurrentTbl06Phylum.ValidYear;
@@ -525,7 +525,7 @@ phylum.Valid = CurrentTbl06Phylum.Valid;
                     {
                         _tbl06PhylumsRepository.Add(new Tbl06Phylum     //add new
                         {   
-RegnumID = CurrentTbl06Phylum.RegnumID,     
+RegnumId = CurrentTbl06Phylum.RegnumId,     
                             PhylumName= CurrentTbl06Phylum.PhylumName,              
                             CountID = RandomHelper.Randomnumber(),
                             Valid = CurrentTbl06Phylum.Valid,
@@ -547,8 +547,8 @@ RegnumID = CurrentTbl06Phylum.RegnumID,
                         });
                     }
                     {
-                        //RegnumID may be not 0
-                        if (CurrentTbl06Phylum.RegnumID == 0)
+                        //RegnumId may be not 0
+                        if (CurrentTbl06Phylum.RegnumId == 0)
                         {
                             WpfMessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
                                 MessageBoxButton.OK, MessageBoxImage.Information);
@@ -560,18 +560,18 @@ RegnumID = CurrentTbl06Phylum.RegnumID,
                         (from a in _tbl06PhylumsRepository.GetAll()
                          where
                          a.PhylumName.Trim() == CurrentTbl06Phylum.PhylumName.Trim() &&                
-                         a.RegnumID == CurrentTbl06Phylum.RegnumID
+                         a.RegnumId == CurrentTbl06Phylum.RegnumId
                          select a);
 
-                        if (dataset.Count != 0 && CurrentTbl06Phylum.PhylumID== 0)  //dataset exist
+                        if (dataset.Count != 0 && CurrentTbl06Phylum.PhylumId== 0)  //dataset exist
                         {
                               WpfMessageBox.Show(CultRes.StringsRes.DatasetExist, CurrentTbl06Phylum.PhylumName,
                               MessageBoxButton.OK, MessageBoxImage.Information);
                         }
 
-                        if (dataset.Count == 0 && CurrentTbl06Phylum.PhylumID == 0 ||
-                            dataset.Count != 0 && CurrentTbl06Phylum.PhylumID != 0  ||
-                            dataset.Count == 0 && CurrentTbl06Phylum.PhylumID != 0) //new dataset and update
+                        if (dataset.Count == 0 && CurrentTbl06Phylum.PhylumId == 0 ||
+                            dataset.Count != 0 && CurrentTbl06Phylum.PhylumId != 0  ||
+                            dataset.Count == 0 && CurrentTbl06Phylum.PhylumId != 0) //new dataset and update
                         {
                             if (WpfMessageBox.Show(CultRes.StringsRes.SaveQuestion2, CurrentTbl06Phylum.PhylumName,
                                     MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)                            
@@ -584,14 +584,14 @@ RegnumID = CurrentTbl06Phylum.RegnumID,
                             }
                         }  
         
-                        if (SearchPhylumName == null && CurrentTbl06Phylum.PhylumID == 0)  //new Dataset                        
+                        if (SearchPhylumName == null && CurrentTbl06Phylum.PhylumId == 0)  //new Dataset                        
                             GetConnectedTablesById(o); //refresh doubleClick                                          
-                        if (SearchPhylumName == null && CurrentTbl06Phylum.PhylumID != 0)  //update                     
-                            Tbl06PhylumsList = _allListVm.GetValueTbl06PhylumsList(CurrentTbl06Phylum.PhylumID);
-                        if (SearchPhylumName != null && CurrentTbl06Phylum.PhylumID == 0)  //new Dataset                        
+                        if (SearchPhylumName == null && CurrentTbl06Phylum.PhylumId != 0)  //update                     
+                            Tbl06PhylumsList = _allListVm.GetValueTbl06PhylumsList(CurrentTbl06Phylum.PhylumId);
+                        if (SearchPhylumName != null && CurrentTbl06Phylum.PhylumId == 0)  //new Dataset                        
                             GetConnectedTablesById(o); //refresh doubleClick                                          
-                        if (SearchPhylumName != null && CurrentTbl06Phylum.PhylumID != 0)  //update                     
-                            Tbl06PhylumsList = _allListVm.GetValueTbl06PhylumsList(CurrentTbl06Phylum.PhylumID); 
+                        if (SearchPhylumName != null && CurrentTbl06Phylum.PhylumId != 0)  //update                     
+                            Tbl06PhylumsList = _allListVm.GetValueTbl06PhylumsList(CurrentTbl06Phylum.PhylumId); 
 
                         PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
                         PhylumsView.Refresh();         
@@ -680,7 +680,7 @@ RegnumID = CurrentTbl06Phylum.RegnumID,
         {
             Tbl18SuperclassesList = new ObservableCollection<Tbl18Superclass>();
 
-            var superclass = _tbl18SuperclassesRepository.Get(CurrentTbl18Superclass.SuperclassID);
+            var superclass = _tbl18SuperclassesRepository.Get(CurrentTbl18Superclass.SuperclassId);
 
             Tbl18SuperclassesList.Insert(0, new Tbl18Superclass
             {                 
@@ -719,7 +719,7 @@ RegnumID = CurrentTbl06Phylum.RegnumID,
         {
             try
             {
-                var superclass = _tbl18SuperclassesRepository.Get(CurrentTbl18Superclass.SuperclassID);
+                var superclass = _tbl18SuperclassesRepository.Get(CurrentTbl18Superclass.SuperclassId);
                 if (superclass!= null)
                 {  
                                                     
@@ -778,17 +778,17 @@ RegnumID = CurrentTbl06Phylum.RegnumID,
         {
             try
             {
-                var superclass = _tbl18SuperclassesRepository.Get(CurrentTbl18Superclass.SuperclassID);
+                var superclass = _tbl18SuperclassesRepository.Get(CurrentTbl18Superclass.SuperclassId);
                 if (CurrentTbl18Superclass == null)               
                     WpfMessageBox.Show(CultRes.StringsRes.Warning, CultRes.StringsRes.DatasetNotExist, 
                         MessageBoxButton.OK, MessageBoxImage.Warning);              
                 else
                 {
-                    if (CurrentTbl18Superclass.SuperclassID!= 0)
+                    if (CurrentTbl18Superclass.SuperclassId!= 0)
                     {
                         if (superclass!= null) //update
                         {   
-  superclass.SubphylumID= CurrentTbl18Superclass.SubphylumID;            
+  superclass.SubphylumId= CurrentTbl18Superclass.SubphylumId;            
                             superclass.SuperclassName= CurrentTbl18Superclass.SuperclassName;
                             superclass.Valid = CurrentTbl18Superclass.Valid;
                             superclass.ValidYear = CurrentTbl18Superclass.ValidYear;
@@ -834,8 +834,8 @@ RegnumID = CurrentTbl06Phylum.RegnumID,
                         });
                     }
                     {
-                        //SubphylumID may be not 0
-                        if (CurrentTbl18Superclass.SubphylumID == 0)
+                        //SubphylumId may be not 0
+                        if (CurrentTbl18Superclass.SubphylumId == 0)
                         {
                             WpfMessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
                                 MessageBoxButton.OK, MessageBoxImage.Information);
@@ -847,18 +847,18 @@ RegnumID = CurrentTbl06Phylum.RegnumID,
                         (from a in _tbl18SuperclassesRepository.GetAll()
                          where
                          a.SuperclassName.Trim() == CurrentTbl18Superclass.SuperclassName.Trim() &&                
-                         a.SubphylumID == CurrentTbl18Superclass.SubphylumID
+                         a.SubphylumId == CurrentTbl18Superclass.SubphylumId
                          select a);
 
-                        if (dataset.Count != 0 && CurrentTbl18Superclass.SuperclassID== 0)  //dataset exist
+                        if (dataset.Count != 0 && CurrentTbl18Superclass.SuperclassId== 0)  //dataset exist
                         {
                               WpfMessageBox.Show(CultRes.StringsRes.DatasetExist, CurrentTbl18Superclass.SuperclassName,
                               MessageBoxButton.OK, MessageBoxImage.Information);
                         }
 
-                        if (dataset.Count == 0 && CurrentTbl18Superclass.SuperclassID == 0 ||
-                            dataset.Count != 0 && CurrentTbl18Superclass.SuperclassID != 0  ||
-                            dataset.Count == 0 && CurrentTbl18Superclass.SuperclassID != 0) //new dataset and update
+                        if (dataset.Count == 0 && CurrentTbl18Superclass.SuperclassId == 0 ||
+                            dataset.Count != 0 && CurrentTbl18Superclass.SuperclassId != 0  ||
+                            dataset.Count == 0 && CurrentTbl18Superclass.SuperclassId != 0) //new dataset and update
                         {
                             if (WpfMessageBox.Show(CultRes.StringsRes.SaveQuestion2, CurrentTbl18Superclass.SuperclassName,
                                     MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)                            
@@ -871,14 +871,14 @@ RegnumID = CurrentTbl06Phylum.RegnumID,
                             }
                         }  
                 
-                        if (SearchSuperclassName == null && CurrentTbl18Superclass.SuperclassID == 0)  //new Dataset                        
+                        if (SearchSuperclassName == null && CurrentTbl18Superclass.SuperclassId == 0)  //new Dataset                        
                             Tbl18SuperclassesList = _allListVm.GetValueTbl18SuperclassesList();  //last Dataset
-                        if (SearchSuperclassName == null && CurrentTbl18Superclass.SuperclassID != 0)   //update
-                            Tbl18SuperclassesList = _allListVm.GetValueTbl18SuperclassesList(CurrentTbl18Superclass.SuperclassID);
-                        if (SearchSuperclassName != null && CurrentTbl18Superclass.SuperclassID == 0)  //new Dataset
+                        if (SearchSuperclassName == null && CurrentTbl18Superclass.SuperclassId != 0)   //update
+                            Tbl18SuperclassesList = _allListVm.GetValueTbl18SuperclassesList(CurrentTbl18Superclass.SuperclassId);
+                        if (SearchSuperclassName != null && CurrentTbl18Superclass.SuperclassId == 0)  //new Dataset
                             Tbl18SuperclassesList = _allListVm.GetValueTbl18SuperclassesList();  //last Dataset
-                        if (SearchSuperclassName != null && CurrentTbl18Superclass.SuperclassID != 0)   //update
-                            Tbl18SuperclassesList = _allListVm.GetValueTbl18SuperclassesList(CurrentTbl18Superclass.SuperclassID);
+                        if (SearchSuperclassName != null && CurrentTbl18Superclass.SuperclassId != 0)   //update
+                            Tbl18SuperclassesList = _allListVm.GetValueTbl18SuperclassesList(CurrentTbl18Superclass.SuperclassId);
                                                                        
 
                         SuperclassesView = CollectionViewSource.GetDefaultView(Tbl18SuperclassesList);
@@ -967,7 +967,7 @@ RegnumID = CurrentTbl06Phylum.RegnumID,
 
             Tbl21ClassesList.Insert(0, new Tbl21Class
             {                 
-  SubphylumID = .SubphylumID,     
+  SubphylumId = .SubphylumId,     
                 ClassName = CultRes.StringsRes.DatasetNew,     
                 Valid = .Valid,
                 ValidYear = .ValidYear,
@@ -1068,7 +1068,7 @@ RegnumID = CurrentTbl06Phylum.RegnumID,
                     {
                         if (!= null) //update
                         {   
-  .SubphylumID= CurrentTbl21Class.SubphylumID;            
+  .SubphylumId= CurrentTbl21Class.SubphylumId;            
                             .ClassName= CurrentTbl21Class.ClassName;
                             .Valid = CurrentTbl21Class.Valid;
                             .ValidYear = CurrentTbl21Class.ValidYear;
@@ -1090,7 +1090,7 @@ RegnumID = CurrentTbl06Phylum.RegnumID,
                     {
                         _tbl21ClassesRepository.Add(new Tbl21Class     //add new
                         {   
-  SubphylumID = CurrentTbl21Class.SubphylumID,              
+  SubphylumId = CurrentTbl21Class.SubphylumId,              
                             ClassName = CurrentTbl21Class.ClassName,              
                             CountID = RandomHelper.Randomnumber(),
                             Valid = CurrentTbl21Class.Valid,
@@ -1112,8 +1112,8 @@ RegnumID = CurrentTbl06Phylum.RegnumID,
                         });
                     }
                     {
-                        //SubphylumID may be not 0
-                        if (CurrentTbl21Class.SubphylumID == 0)
+                        //SubphylumId may be not 0
+                        if (CurrentTbl21Class.SubphylumId == 0)
                         {
                             WpfMessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
                                 MessageBoxButton.OK, MessageBoxImage.Information);
@@ -1125,7 +1125,7 @@ RegnumID = CurrentTbl06Phylum.RegnumID,
                         (from a in _tbl21ClassesRepository.GetAll()
                          where
                          a.ClassName.Trim() == CurrentTbl21Class.ClassName.Trim() &&                
-                         a.SubphylumID == CurrentTbl21Class.SubphylumID
+                         a.SubphylumId == CurrentTbl21Class.SubphylumId
                          select a);
 
                         if (dataset.Count != 0 && CurrentTbl21Class.ClassID == 0)  //dataset exist
@@ -1257,7 +1257,7 @@ RegnumID = CurrentTbl06Phylum.RegnumID,
 
             Tbl90RefAuthorsList.Insert(0, new Tbl90Reference
             {                 
-SubphylumID = refAuthor.SubphylumID,              
+SubphylumId = refAuthor.SubphylumId,              
                 Info = CultRes.StringsRes.DatasetNew,
                 Valid = refAuthor.Valid,
                 ValidYear = refAuthor.ValidYear,
@@ -1350,7 +1350,7 @@ SubphylumID = refAuthor.SubphylumID,
                         if (refAuthor != null)  //update
                         {   
          
-                            refAuthor.SubphylumID = CurrentTbl90RefAuthor.SubphylumID;  
+                            refAuthor.SubphylumId = CurrentTbl90RefAuthor.SubphylumId;  
                             refAuthor.RefAuthorID = CurrentTbl90RefAuthor.RefAuthorID;
                             refAuthor.Valid = CurrentTbl90RefAuthor.Valid;
                             refAuthor.ValidYear = CurrentTbl90RefAuthor.ValidYear;
@@ -1365,7 +1365,7 @@ SubphylumID = refAuthor.SubphylumID,
                     {
                         _tbl90ReferencesRepository.Add(new Tbl90Reference   //add new
                         {   
-SubphylumID = CurrentTbl90RefAuthor.SubphylumID,              
+SubphylumId = CurrentTbl90RefAuthor.SubphylumId,              
                             RefAuthorID = CurrentTbl90RefAuthor.RefAuthorID,
                             CountID = RandomHelper.Randomnumber(),
                             Valid = CurrentTbl90RefAuthor.Valid,
@@ -1380,8 +1380,8 @@ SubphylumID = CurrentTbl90RefAuthor.SubphylumID,
                         });
                     }
                     {
-                        //SubphylumID may be not 0
-                        if (CurrentTbl90RefAuthor.SubphylumID == 0 || CurrentTbl90RefAuthor.RefAuthorID == 0)
+                        //SubphylumId may be not 0
+                        if (CurrentTbl90RefAuthor.SubphylumId == 0 || CurrentTbl90RefAuthor.RefAuthorID == 0)
                         {
                             WpfMessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
                                 MessageBoxButton.OK, MessageBoxImage.Information);
@@ -1393,7 +1393,7 @@ SubphylumID = CurrentTbl90RefAuthor.SubphylumID,
                         (from a in _tbl90ReferencesRepository.GetAll()
                          where
                          a.Info.Trim() == CurrentTbl90RefAuthor.Info.Trim() &&                
-                         a.SubphylumID == CurrentTbl90RefAuthor.SubphylumID &&
+                         a.SubphylumId == CurrentTbl90RefAuthor.SubphylumId &&
                          a.RefAuthorID == CurrentTbl90RefAuthor.RefAuthorID
                          select a);
 
@@ -1513,7 +1513,7 @@ SubphylumID = CurrentTbl90RefAuthor.SubphylumID,
 
             Tbl90RefSourcesList.Insert(0, new Tbl90Reference
             {                 
-SubphylumID = refSource.SubphylumID,              
+SubphylumId = refSource.SubphylumId,              
                 Info = CultRes.StringsRes.DatasetNew,
                 Valid = refSource.Valid,
                 ValidYear = refSource.ValidYear,
@@ -1605,7 +1605,7 @@ SubphylumID = refSource.SubphylumID,
                         if (refSource != null)  //update
                         {   
          
-                            refSource.SubphylumID = CurrentTbl90RefSource.SubphylumID;            
+                            refSource.SubphylumId = CurrentTbl90RefSource.SubphylumId;            
                             refSource.RefSourceID = CurrentTbl90RefSource.RefSourceID;
                             refSource.Valid = CurrentTbl90RefSource.Valid;
                             refSource.ValidYear = CurrentTbl90RefSource.ValidYear;
@@ -1620,7 +1620,7 @@ SubphylumID = refSource.SubphylumID,
                     {
                         _tbl90ReferencesRepository.Add(new Tbl90Reference    //add new
                         {   
-SubphylumID = CurrentTbl90RefSource.SubphylumID,              
+SubphylumId = CurrentTbl90RefSource.SubphylumId,              
                             RefSourceID = CurrentTbl90RefSource.RefSourceID,
                             CountID = RandomHelper.Randomnumber(),
                             Valid = CurrentTbl90RefSource.Valid,
@@ -1635,8 +1635,8 @@ SubphylumID = CurrentTbl90RefSource.SubphylumID,
                         });
                     }
                     {
-                        //SubphylumID may be not 0
-                        if (CurrentTbl90RefSource.SubphylumID == 0 || CurrentTbl90RefSource.RefSourceID == 0)
+                        //SubphylumId may be not 0
+                        if (CurrentTbl90RefSource.SubphylumId == 0 || CurrentTbl90RefSource.RefSourceID == 0)
                         {
                             WpfMessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,            
                                 MessageBoxButton.OK, MessageBoxImage.Information);
@@ -1648,7 +1648,7 @@ SubphylumID = CurrentTbl90RefSource.SubphylumID,
                         (from a in _tbl90ReferencesRepository.GetAll()
                          where
                          a.Info.Trim() == CurrentTbl90RefSource.Info.Trim() &&                
-                         a.SubphylumID == CurrentTbl90RefSource.SubphylumID &&
+                         a.SubphylumId == CurrentTbl90RefSource.SubphylumId &&
                          a.RefSourceID == CurrentTbl90RefSource.RefSourceID
                          select a);
 
@@ -1768,7 +1768,7 @@ SubphylumID = CurrentTbl90RefSource.SubphylumID,
 
             Tbl90RefExpertsList.Insert(0, new Tbl90Reference
             {                 
-SubphylumID = refExpert.SubphylumID,              
+SubphylumId = refExpert.SubphylumId,              
                 Info = CultRes.StringsRes.DatasetNew,
                 Valid = refExpert.Valid,
                 ValidYear = refExpert.ValidYear,
@@ -1860,7 +1860,7 @@ SubphylumID = refExpert.SubphylumID,
                         if (refExpert != null)	//update
                         {   
       
-                            refExpert.SubphylumID = CurrentTbl90RefExpert.SubphylumID;           
+                            refExpert.SubphylumId = CurrentTbl90RefExpert.SubphylumId;           
                             refExpert.RefExpertID = CurrentTbl90RefExpert.RefExpertID;
                             refExpert.Valid = CurrentTbl90RefExpert.Valid;
                             refExpert.ValidYear = CurrentTbl90RefExpert.ValidYear;
@@ -1875,7 +1875,7 @@ SubphylumID = refExpert.SubphylumID,
                     {
                         _tbl90ReferencesRepository.Add(new Tbl90Reference  //add new
                         {   
-SubphylumID = CurrentTbl90RefExpert.SubphylumID,              
+SubphylumId = CurrentTbl90RefExpert.SubphylumId,              
                             RefExpertID= CurrentTbl90RefExpert.RefExpertID,
                             CountID = RandomHelper.Randomnumber(),
                             Valid = CurrentTbl90RefExpert.Valid,
@@ -1890,8 +1890,8 @@ SubphylumID = CurrentTbl90RefExpert.SubphylumID,
                         });
                     }
                     {
-                        //SubphylumID may be not 0
-                        if (CurrentTbl90RefExpert.SubphylumID == 0 || CurrentTbl90RefExpert.RefExpertID == 0)   
+                        //SubphylumId may be not 0
+                        if (CurrentTbl90RefExpert.SubphylumId == 0 || CurrentTbl90RefExpert.RefExpertID == 0)   
                         {
                             WpfMessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,          
                                 MessageBoxButton.OK, MessageBoxImage.Information);
@@ -1902,7 +1902,7 @@ SubphylumID = CurrentTbl90RefExpert.SubphylumID,
                         (from a in _tbl90ReferencesRepository.GetAll()
                          where
                          a.Info.Trim() == CurrentTbl90RefExpert.Info.Trim() &&                
-                         a.SubphylumID == CurrentTbl90RefExpert.SubphylumID &&
+                         a.SubphylumId == CurrentTbl90RefExpert.SubphylumId &&
                          a.RefExpertID == CurrentTbl90RefExpert.RefExpertID
                          select a);
 
@@ -2021,7 +2021,7 @@ SubphylumID = CurrentTbl90RefExpert.SubphylumID,
 
             Tbl93CommentsList.Insert(0, new Tbl93Comment
             {                 
-SubphylumID = comment.SubphylumID,              
+SubphylumId = comment.SubphylumId,              
                 Info = CultRes.StringsRes.DatasetNew,
                 Valid = comment.Valid,
                 ValidYear = comment.ValidYear,
@@ -2114,7 +2114,7 @@ SubphylumID = comment.SubphylumID,
                         if (comment != null)  //update
                         {   
       
-                            comment.SubphylumID = CurrentTbl93Comment.SubphylumID;            
+                            comment.SubphylumId = CurrentTbl93Comment.SubphylumId;            
                             comment.Valid = CurrentTbl93Comment.Valid;
                             comment.ValidYear = CurrentTbl93Comment.ValidYear;
                             comment.Info = CurrentTbl93Comment.Info;
@@ -2128,7 +2128,7 @@ SubphylumID = comment.SubphylumID,
                     {
                         _tbl93CommentsRepository.Add(new Tbl93Comment  //add new
                         {   
-SubphylumID = CurrentTbl93Comment.SubphylumID,              
+SubphylumId = CurrentTbl93Comment.SubphylumId,              
                             CountID = RandomHelper.Randomnumber(),
                             Valid = CurrentTbl93Comment.Valid,
                             ValidYear = CurrentTbl93Comment.ValidYear,
@@ -2142,8 +2142,8 @@ SubphylumID = CurrentTbl93Comment.SubphylumID,
                         });
                     }
                     {
-                        //SubphylumID may be not 0
-                        if (CurrentTbl93Comment.SubphylumID == 0)
+                        //SubphylumId may be not 0
+                        if (CurrentTbl93Comment.SubphylumId == 0)
                         {
                             WpfMessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
                                 MessageBoxButton.OK, MessageBoxImage.Information);
@@ -2155,7 +2155,7 @@ SubphylumID = CurrentTbl93Comment.SubphylumID,
                         (from a in _tbl93CommentsRepository.GetAll()
                          where
                          a.Info.Trim() == CurrentTbl93Comment.Info.Trim() &&                
-                         a.SubphylumID == CurrentTbl93Comment.SubphylumID
+                         a.SubphylumId == CurrentTbl93Comment.SubphylumId
                          select a);
 
                         if (dataset.Count != 0 && CurrentTbl93Comment.CommentID == 0)  //dataset exist
@@ -2230,7 +2230,7 @@ SubphylumID = CurrentTbl93Comment.SubphylumID,
 
             Tbl06PhylumsList =  new ObservableCollection<Tbl06Phylum>
                                                        (from x in _tbl06PhylumsRepository.GetAll()
-                                                       where x.PhylumID== CurrentTbl12Subphylum.PhylumID
+                                                       where x.PhylumId== CurrentTbl12Subphylum.PhylumId
                                                        orderby x.PhylumName
                                                        select x);
 
@@ -2239,7 +2239,7 @@ SubphylumID = CurrentTbl93Comment.SubphylumID,
             //-----------------------------------------------------------------------------------
             Tbl18SuperclassesList =  new ObservableCollection<Tbl18Superclass>
                                                        (from y in _tbl18SuperclassesRepository.GetAll()
-                                                       where y.SubphylumID== CurrentTbl12Subphylum.SubphylumID
+                                                       where y.SubphylumId== CurrentTbl12Subphylum.SubphylumId
                                                        orderby y.Tbl12Subphylums.SubphylumName
                                                        select y);
 
@@ -2249,7 +2249,7 @@ SubphylumID = CurrentTbl93Comment.SubphylumID,
             //-----------------------------------------------------------------------------------
             Tbl90RefAuthorsList =  new ObservableCollection<Tbl90Reference>
                                                           (from refAu in _tbl90ReferencesRepository.GetAll()
-                                                          where refAu.SubphylumID== CurrentTbl12Subphylum.SubphylumID
+                                                          where refAu.SubphylumId== CurrentTbl12Subphylum.SubphylumId
                                                           && refAu.RefExpertID == null
                                                           && refAu.RefSourceID == null
                                                           orderby refAu.Tbl90RefAuthors.RefAuthorName, refAu.Tbl90RefAuthors.BookName, refAu.Tbl90RefAuthors.Page1
@@ -2260,7 +2260,7 @@ SubphylumID = CurrentTbl93Comment.SubphylumID,
             //--------------------------------------------------------------------------------------
             Tbl90RefSourcesList =  new ObservableCollection<Tbl90Reference>
                                                           (from refSo in _tbl90ReferencesRepository.GetAll()
-                                                          where refSo.SubphylumID== CurrentTbl12Subphylum.SubphylumID
+                                                          where refSo.SubphylumId== CurrentTbl12Subphylum.SubphylumId
                                                           && refSo.RefExpertID == null
                                                           && refSo.RefAuthorID == null
                                                           orderby refSo.Tbl90RefSources.RefSourceName
@@ -2271,7 +2271,7 @@ SubphylumID = CurrentTbl93Comment.SubphylumID,
             //--------------------------------------------------------------------------------------
             Tbl90RefExpertsList =   new ObservableCollection<Tbl90Reference>
                                                           (from refEx in _tbl90ReferencesRepository.GetAll()
-                                                          where refEx.SubphylumID== CurrentTbl12Subphylum.SubphylumID
+                                                          where refEx.SubphylumId== CurrentTbl12Subphylum.SubphylumId
                                                           && refEx.RefAuthorID == null
                                                           && refEx.RefSourceID == null
                                                           orderby refEx.Tbl90RefExperts.RefExpertName
@@ -2282,7 +2282,7 @@ SubphylumID = CurrentTbl93Comment.SubphylumID,
             //-----------------------------------------------------------------------------------
             Tbl93CommentsList =  new ObservableCollection<Tbl93Comment>
                                                         (from comm in _tbl93CommentsRepository.GetAll()
-                                                        where comm.SubphylumID== CurrentTbl12Subphylum.SubphylumID
+                                                        where comm.SubphylumId== CurrentTbl12Subphylum.SubphylumId
                                                         orderby comm.Info
                                                         select comm);
 

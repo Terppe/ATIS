@@ -16,13 +16,13 @@ using Te.Atis.Ui.Desktop.Properties;
 
       //  Tbl87GeographicsView.xaml.cs Skriptdatum:  22.01.2019  10:32     
 
-namespace Te.Atis.Ui.Desktop.Views.Database
+namespace ATIS.Ui.Views.Database.ListDetails
 {  
 
     /// <summary>
-    /// Interactionslogic for Tbl87GeographicsView.xaml
+    /// Interactionslogic for GeographicsView.xaml
     /// </summary>
-    public partial class Tbl87GeographicsView : UserControl
+    public partial class GeographicsView : UserControl
    {      
 
     

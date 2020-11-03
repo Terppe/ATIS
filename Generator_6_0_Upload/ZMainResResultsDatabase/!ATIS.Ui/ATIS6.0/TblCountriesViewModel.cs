@@ -1,349 +1,188 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Validation;
+using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using GalaSoft.MvvmLight;
-using log4net;
-using Te.Atis.DomainModel;
-using Te.Atis.Ui.Desktop.BusinessLayer;
-using Te.Atis.Ui.Desktop.Domain;
-using Te.Atis.Ui.Desktop.Domain.Helper;
-using Te.Atis.Ui.Desktop.MessageBox;    
+using Common.Logging;
+using ATIS.Dal.Models;
+using ATIS.Ui.Core;
+using ATIS.Ui.Helper;
+using ATIS.Ui.Views.Database.CrudHelper;
+using ATIS.Ui.Views.Database.DatabaseHelper;
+using Microsoft.EntityFrameworkCore;          
 
     
-         //    TblCountriesViewModel Skriptdatum:   29.11.2018 12:32      
+         //    CountriesViewModel Skriptdatum:   29.11.2018 12:32      
 
-namespace Te.Atis.Ui.Desktop.Views.Database
+namespace ATIS.Ui.Views.Database.ListDetails
 {     
     
-    public class TblCountriesViewModel : ViewModelBase                     
-    {     
+    public class CountriesViewModel : ViewModelBase                     
+    {  
+        // Version with Generic Unit Of Work and AtisDbContext for general use   
          
-        #region "Private Data Members"
+        #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private static IBusinessLayer _businessLayer;
-        private static DbEntityException _entityException;
+        private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
+        private readonly AtisDbContext _context = new AtisDbContext();
+
+        private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
+        private readonly GenericMessageBoxes<TblCountry> _genCountryMessageBoxes = new GenericMessageBoxes<TblCountry>();
+        private readonly GenericMessageBoxes<NULL> _genNULLMessageBoxes = new GenericMessageBoxes<NULL>();
+        private readonly GenericMessageBoxes<NULL> _genNULLMessageBoxes = new GenericMessageBoxes<NULL>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genExpertMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
+        private readonly BasicGet _extGet = new BasicGet();
+        private readonly BasicCopy _extCopy = new BasicCopy();
+        private readonly BasicDelete _extDelete = new BasicDelete();
+        private readonly BasicSave _extSave = new BasicSave();        
         private int _position;   
          
-        #endregion "Private Data Members"               
+        #endregion [Private Data Members]               
       
-        #region "Constructor"
+        #region [Constructor]
 
-        public TblCountriesViewModel()
+        public CountriesViewModel()
         {
             if (IsInDesignMode)
             {
                 // Code runs in Blend --> create design time data.
             }
             else
-            {    
+            {          
         
                 // Code runs "for real" 
-                _entityException = new DbEntityException();
+                TblCountriesList = new ObservableCollection<TblCountry>();    
             }
         }     
-        #endregion "Constructor"         
+        public bool IsInDesignMode { get; set; }
+
+        #endregion [Constructor]         
  
 
  //    Part 1    
 
-             
-        #region "Public Commands Basic TblCountry"
-        //-------------------------------------------------------------------------
-        private RelayCommand _clearCountryCommand;
+         
 
-        public ICommand ClearCountryCommand => _clearCountryCommand ??
-                                                  (_clearCountryCommand = new RelayCommand(delegate { ClearCountry(null); }));         
-             
-        private RelayCommand _getCountriesByNameOrIdCommand;  
+        #region [Commands Country]
 
-        public  ICommand GetCountriesByNameOrIdCommand => _getCountriesByNameOrIdCommand ??
-                                                           (_getCountriesByNameOrIdCommand = new RelayCommand(delegate { GetCountriesByNameOrId(null); }));        
+        private RelayCommand _getCountriesByNameOrIdCommand;
+        public ICommand GetCountriesByNameOrIdCommand => _getCountriesByNameOrIdCommand ??= new RelayCommand(delegate {ExecuteGetCountriesByNameOrId(SearchCountryName); });    
              
         private RelayCommand _addCountryCommand;
-
-        public ICommand AddCountryCommand => _addCountryCommand ??
-                                                (_addCountryCommand = new RelayCommand(delegate { AddCountry(null); }));
+        public ICommand AddCountryCommand => _addCountryCommand ??= new RelayCommand(delegate { ExecuteAddCountry(null); });
 
         private RelayCommand _copyCountryCommand;
-
-        public ICommand CopyCountryCommand => _copyCountryCommand ??
-                                                 (_copyCountryCommand = new RelayCommand(delegate { CopyCountry(null); }));      
+        public ICommand CopyCountryCommand => _copyCountryCommand ??= new RelayCommand(delegate { ExecuteCopyCountry(null); });      
              
         private RelayCommand _deleteCountryCommand;
-
-        public ICommand DeleteCountryCommand => _deleteCountryCommand ??
-                                                   (_deleteCountryCommand = new RelayCommand(delegate { DeleteCountry(null); }));    
+        public ICommand DeleteCountryCommand => _deleteCountryCommand ??= new RelayCommand(delegate { ExecuteDeleteCountry(SearchCountryName); });    
              
         private RelayCommand _saveCountryCommand;
+        public ICommand SaveCountryCommand => _saveCountryCommand ??= new RelayCommand(delegate { ExecuteSaveCountry(SearchCountryName); });    
 
-        public ICommand SaveCountryCommand => _saveCountryCommand ??
-                                                 (_saveCountryCommand = new RelayCommand(delegate { SaveCountry(null); }));
-        //-------------------------------------------------------------------------          
-        
-        private void ClearCountry(object o)
-        {
-            SearchCountryName = "";
+        #endregion [Commands Country]       
 
-            TblCountriesList?.Clear();
-        }
-        //----------------------------------------------------------------------                  
-        
-        private void GetCountriesByNameOrId(object o)
-        {
-            if (SearchCountryName != "")
-            {
-                TblCountriesList?.Clear();
-                if (SearchCountryName == "*") // show whole table
-                {
-                    SearchCountryName = "";
-                    _businessLayer = new BusinessLayer.BusinessLayer();
-                    TblCountriesList = new ObservableCollection<TblCountry>(_businessLayer.ListTblCountriesByCountryName(SearchCountryName));
-                    SearchCountryName = "*";
-                }
-                else
-                {
-                     _businessLayer = new BusinessLayer.BusinessLayer();
-                       TblCountriesList = int.TryParse(SearchCountryName, out var id) ?
-                        new ObservableCollection<TblCountry>(_businessLayer.ListTblCountriesByCountryId(id)) :
-                        new ObservableCollection<TblCountry>(_businessLayer.ListTblCountriesByCountryName(SearchCountryName));
-                }
-
-                if (TblCountriesList.Count == 0)
-                {
-                    WpfMessageBox.Show(CultRes.StringsRes.Tables, CultRes.StringsRes.DatasetNot,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                }
-            }
-            else
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.SearchNameOrId, CultRes.StringsRes.InputRequested,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-            }
-            CountriesView = CollectionViewSource.GetDefaultView(TblCountriesList);
+CountriesView = CollectionViewSource.GetDefaultView(TblCountriesList);
             CountriesView.Refresh();
         }
         //------------------------------------------------------------------------------------                          
         
-        private void AddCountry(object o)
+        private void ExecuteAddCountry(object o)
         {
-            if (TblCountriesList == null)
-                TblCountriesList =  new ObservableCollection<TblCountry>( );
-
             TblCountriesList.Insert(0, new TblCountry {   Name = CultRes.StringsRes.DatasetNew}  );
 
             CountriesView = CollectionViewSource.GetDefaultView(TblCountriesList);
             CountriesView.MoveCurrentToFirst();
         }
         //------------------------------------------------------------------------------------                               
-        
-        private void CopyCountry(object o)
+     
+        private void ExecuteCopyCountry(object o)
         {
-            if (CurrentTblCountry == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-            _businessLayer = new BusinessLayer.BusinessLayer();
+            if (_genCountryMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTblCountry)) return;
 
-            var country = _businessLayer.SingleListTblCountriesByCountryId(CurrentTblCountry.CountryID);
+            TblCountriesList = _extCopy.CopyCountry(CurrentTblCountry);
 
-            TblCountriesList.Insert(0, new TblCountry
-            {
-                Name = country.Name,
-                Regex = country.Regex
-            });
+            // evtl verbundene tabellen-Datensätze auch kopieren Expert, Source, Author und Comment
 
             CountriesView = CollectionViewSource.GetDefaultView(TblCountriesList);
             CountriesView.MoveCurrentToFirst();
-        }
-        //---------------------------------------------------------------------------------------                            
-        
-        private void DeleteCountry(object o)
+        }                         
+     
+        private void ExecuteDeleteCountry(string searchName)
         {
-            if (CurrentTblCountry == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-            _businessLayer = new BusinessLayer.BusinessLayer();
+            if (_genCountryMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTblCountry)) return;               
+ 
+    
+            //check if in NULL connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
 
+            NULLList = _extDelete.SearchForConnectedDatasetsWithCountryIdInTableNULL(CurrentTblCountry);     
+     
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(NULLList.Count, "NULL")) return;
+
+            //Delete all References Experts, Sources, Authors  ----------------------------------------------------
+            Tbl90ReferencesList = _extDelete.DeleteDatasetsWithCountryIdInTableReference(CurrentTblCountry);
+            if (Tbl90ReferencesList.Count > 0)
+            {
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+
+                _extDelete.DeleteReferences(Tbl90ReferencesList);
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
+            }
+
+            //Delete all Comments  ----------------------------------------------------
+            Tbl93CommentsList = _extDelete.DeleteDatasetsWithCountryIdInTableComment(CurrentTblCountry);
+            if (Tbl93CommentsList.Count > 0)
+            {
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
+
+                _extDelete.DeleteComments(Tbl93CommentsList);
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
+            }
             try
             {
-                var country = _businessLayer.SingleListTblCountriesByCountryId(CurrentTblCountry.CountryID);
-                if (country != null)
+                var country= _uow.TblCountries.GetById(CurrentTblCountry.CountryId);
+                if (country!= null)
                 {
-                    if (WpfMessageBox.Show(CultRes.StringsRes.DeleteQuestion1, CultRes.StringsRes.DeleteQuestion + " " + CurrentTblCountry.Name,
-                            MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-                        return;
-                    country.EntityState = EntityState.Deleted;
-                    _businessLayer.RemoveCountry(country);
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTblCountry.CountryName)) return;
 
-                    WpfMessageBox.Show(CultRes.StringsRes.DeleteSuccess, CurrentTblCountry.Name,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                    _extDelete.DeleteCountry(country);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTblCountry.CountryName);
                 }
-                else
-                {
-                    WpfMessageBox.Show(CultRes.StringsRes.Information, CultRes.StringsRes.DeleteCan + " " + CurrentTblCountry.Name + " " + CultRes.StringsRes.DeleteCan1,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTblCountry.CountryName + " " + CultRes.StringsRes.DeleteCan1);
             }
-            catch (DbEntityValidationException ex)
+            catch (Exception e)
             {
-                _entityException.EntityException(ex);
-                    Log.Error(ex);
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
             }
 
-            if (SearchCountryName != "")
-            {
-                if (SearchCountryName == "*")  //show all datasets
-                {
-                    SearchCountryName = "";
-                    TblCountriesList.Clear();
-                    
-                TblCountriesList = new ObservableCollection<TblCountry>(_businessLayer.ListTblCountriesByCountryName(SearchCountryName));            
-                    SearchCountryName = "*";
-                }
-                else
-                {               
-                    TblCountriesList =  new ObservableCollection<TblCountry>(_businessLayer.ListTblCountriesByCountryName(SearchCountryName));
+            ExecuteGetCountriesByNameOrId(searchName);
 
-                }
-                CountriesView = CollectionViewSource.GetDefaultView(TblCountriesList);
-                CountriesView.Refresh();
-            }
-            else  //SearchName = empty
+            CountriesView.MoveCurrentToFirst();
+        }                
+     
+        private void ExecuteSaveCountry(string searchName)
+        {
+            if (_genCountryMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTblCountry)) return;      
+       
+            //Combobox select NULLID  may be not 0
+            if (CurrentTblCountry.NULLId == 0)
             {
-                TblCountriesList = new ObservableCollection<TblCountry>(_businessLayer.ListTblCountriesByCountryName(SearchCountryName));
-
-                CountriesView = CollectionViewSource.GetDefaultView(TblCountriesList);
-                CountriesView.MoveCurrentToFirst();
-             }
-        }
-        //-------------------------------------------------------------------------------------------------                    
+                MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }     
        
         private void SaveCountry(object o)
         {
-            if (CurrentTblCountry == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-            _businessLayer = new BusinessLayer.BusinessLayer();
-
-            try
-            {
-                var country = _businessLayer.SingleListTblCountriesByCountryId(CurrentTblCountry.CountryID);
-                if (CurrentTblCountry.CountryID != 0)
-                {
-                    if (country != null) //update
-                    {
-                            country.Name = CurrentTblCountry.Name;
-                            country.Regex = CurrentTblCountry.Regex;
-                            country.EntityState = EntityState.Modified;
-                    }
-                }
-                else
-                {
-                            country = new TblCountry   //add new
-                            {
-                            Name = CurrentTblCountry.Name,
-                            Regex = CurrentTblCountry.Regex,
-                            EntityState = EntityState.Added
-                    };
-                }
-                {
-                        //check if dataset with Name already exist       
-                        var dataset = _businessLayer.ListTblCountriesByCountryName(CurrentTblCountry.Name);
-
-                    if (dataset.Count != 0 && CurrentTblCountry.CountryID == 0)  //dataset exist
-                    {
-                        WpfMessageBox.Show(CultRes.StringsRes.DatasetExist, CurrentTblCountry.Name,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        return;
-                    }
-                    if (dataset.Count == 0 && CurrentTblCountry.CountryID == 0 ||
-                        dataset.Count != 0 && CurrentTblCountry.CountryID != 0 ||
-                        dataset.Count == 0 && CurrentTblCountry.CountryID != 0) //new dataset and update
-                    {
-                        if (WpfMessageBox.Show(CultRes.StringsRes.SaveQuestion2, CurrentTblCountry.Name,
-                                MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-                            return;
-                        {
-                            try
-                            {
-                                _businessLayer.UpdateCountry(country);
-                                _position = CountriesView.CurrentPosition;
-                            }
-                            catch (DbUpdateException e)
-                            {
-                                if (e.InnerException != null)
-                                    System.Windows.MessageBox.Show(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave,
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-
-                                Log.Error(e);
-                                return;
-                            }
-                            catch (Exception e)
-                            {
-                                System.Windows.MessageBox.Show(e.Message, CultRes.StringsRes.Error,
-                                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-                                Log.Error(e);
-                                return;
-                            }
-                                    WpfMessageBox.Show(CultRes.StringsRes.SaveSuccess,
-                                        CurrentTblCountry.CountryID == 0
-                                            ? CultRes.StringsRes.DatasetNew
-                                            : CurrentTblCountry.Name,
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        }
-                    }
-                }
-            }
-            catch (DbEntityValidationException ex)
-            {
-                _entityException.EntityException(ex);
-                    Log.Error(ex);
-                   return;
-            }
-
-            if (SearchCountryName != "")
-            {
-                if (SearchCountryName == "*")  //show all datasets
-                {
-                    SearchCountryName = "";
-                    TblCountriesList.Clear();
-                    
-                TblCountriesList = new ObservableCollection<TblCountry>(_businessLayer.ListTblCountriesByCountryName(SearchCountryName));            
-                    SearchCountryName = "*";
-                }
-                else
-                {               
-                    TblCountriesList = int.TryParse(SearchCountryName, out var id)
-                        ? new ObservableCollection<TblCountry>(_businessLayer.ListTblCountriesByCountryId(id))
-                        : new ObservableCollection<TblCountry>(_businessLayer.ListTblCountriesByCountryName(SearchCountryName));
-
-                }
-                CountriesView = CollectionViewSource.GetDefaultView(TblCountriesList);
-                CountriesView.MoveCurrentToPosition(_position);
-            }
-            else  
-            {
-                TblCountriesList = new ObservableCollection<TblCountry>(_businessLayer.ListTblCountriesByCountryName(CurrentTblCountry.Name));
-
-                CountriesView= CollectionViewSource.GetDefaultView(TblCountriesList);
-                CountriesView.Refresh();
-            }
         }
         #endregion "Public Commands"                   
  
@@ -351,6 +190,17 @@ namespace Te.Atis.Ui.Desktop.Views.Database
 
  //    Part 2    
 
+     
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+            ExecuteGetCountriesByNameOrId(searchName);
+            CountriesView.MoveCurrentToPosition(_position);
+        }
+
+        #endregion "Public Commands"                  
                                                           
 
  //    Part 3    
@@ -383,10 +233,247 @@ namespace Te.Atis.Ui.Desktop.Views.Database
              
  //    Part 9    
 
+
+     
+        #region "Public Commands Connected Tables by DoubleClick"
+
+        private RelayCommand _getConnectedTablesCommand;
+        public ICommand GetConnectedTablesCommand => _getConnectedTablesCommand ??= new RelayCommand(delegate { GetConnectedTablesById(null); });
+
+        #endregion "Public Commands Connected Tables by DoubleClick"
+
+        #region "Public Method Connected Tables by DoubleClick"
+
+        private void GetConnectedTablesById(object o)
+        {           
+     
+        }
+
+        #endregion "Public Method Connected Tables by DoubleClick"     
  
+
 
  //    Part 10    
 
+     
+        #region "Public Commands to open Detail TabItems"
+
+        private int _selectedMainTabIndex;
+        private int _selectedMainSubRefTabIndex;
+        private int _selectedDetailTabIndex;
+
+        public  int SelectedMainTabIndex
+        {
+            get => _selectedMainTabIndex; 
+            set
+            {
+                if (value == _selectedMainTabIndex) return;
+                _selectedMainTabIndex = value; RaisePropertyChanged("");        
+     
+                if (_selectedMainTabIndex == 0)             
+                {
+                    if (CurrentTblCountry != null)
+                    {
+                        NULLList = _extGet.GetCollectionOrderByFromNULLId<NULL>(CurrentTblCountry.NULLId);
+
+                        NULLAllList = _extGet.AllCollection<NULL>("");
+
+                        View = CollectionViewSource.GetDefaultView(NULLList);
+                        View.Refresh();
+                    }
+                    SelectedDetailTabIndex = 0;
+                }         
+     
+                if (_selectedMainTabIndex == 1)
+                {
+                    if (CurrentTblCountry != null)
+                    {
+                        NULLList = _extGet.GetCollectionOrderByFromCountryId<NULL>(CurrentTblCountry.CountryId);
+
+                        TblCountriesAllList = _extGet.AllCollection<TblCountry>("country");
+
+                        View = CollectionViewSource.GetDefaultView(NULLList);
+                        View.Refresh();
+                    }
+                    SelectedDetailTabIndex = 2;   
+               }      
+     
+                if (_selectedMainTabIndex == 2)
+                {
+                    SelectedDetailTabIndex = 3;
+                    SelectedMainSubRefTabIndex = 0;
+                }           
+     
+                if (_selectedMainTabIndex == 3)
+                {
+                    if (CurrentTblCountry != null)
+                    {
+                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromCountryId<Tbl93Comment>(CurrentTblCountry.CountryId);
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 6;
+                }        
+     
+            }
+        }
+
+        public  int SelectedDetailTabIndex
+        {
+            get => _selectedDetailTabIndex; 
+            set
+            {
+                if (value == _selectedDetailTabIndex) return;
+                _selectedDetailTabIndex = value;    RaisePropertyChanged("");       
+     
+                if (_selectedDetailTabIndex == 0)
+                {
+                    if (CurrentTblCountry != null)
+                    {
+                        NULLList = _extGet.GetCollectionOrderByFromNULLId<NULL>(CurrentTblCountry.NULLId);
+
+                        View = CollectionViewSource.GetDefaultView(NULLList);
+                        View.Refresh();
+                    }
+                    SelectedMainTabIndex = 0;  
+               }     
+     
+                if (_selectedDetailTabIndex == 1)                
+                {
+                    SelectedMainTabIndex = 0;
+                }    
+     
+                if (_selectedDetailTabIndex == 2)                
+                {
+                    if (CurrentTblCountry != null)
+                    {
+                        NULLList = _extGet.GetCollectionOrderByFromCountryId<NULL>(CurrentTblCountry.CountryId);
+
+                        TblCountriesAllList = _extGet.AllCollection<TblCountry>("country");
+
+                        View = CollectionViewSource.GetDefaultView(NULLList);
+                        View.Refresh();
+                    }
+                    SelectedMainTabIndex = 1;
+               }    
+     
+                if (_selectedDetailTabIndex == 3)
+                {
+                    if (CurrentTblCountry != null)
+                    {
+                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+
+                        Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFromCountryIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTblCountry.CountryId);
+
+                        ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                        ReferenceExpertsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 2;
+                    SelectedMainSubRefTabIndex = 0;
+                }        
+     
+                if (_selectedDetailTabIndex == 4)
+                {
+                    if (CurrentTblCountry != null)
+                    {
+                        Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+
+                        Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromCountryIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTblCountry.CountryId);
+
+                        ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+                        ReferenceSourcesView.Refresh();
+                    }
+                    SelectedMainTabIndex = 2;
+                    SelectedMainSubRefTabIndex = 1;
+                }        
+     
+                if (_selectedDetailTabIndex == 5)
+                {
+                    if (CurrentTblCountry != null)
+                    {
+                        Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+
+                        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFromCountryIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTblCountry.CountryId);
+
+                        ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
+                        ReferenceAuthorsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 2;
+                    SelectedMainSubRefTabIndex = 2;
+                }       
+     
+                if (_selectedDetailTabIndex == 6)
+                {
+                    if (CurrentTblCountry != null)
+                    {
+                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromCountryId<Tbl93Comment>(CurrentTblCountry.CountryId);
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 3;
+                }       
+     
+            }
+        }
+
+        public int SelectedMainSubRefTabIndex
+        {
+            get => _selectedMainSubRefTabIndex;
+            set
+            {
+                if (value == _selectedMainSubRefTabIndex) return;
+                _selectedMainSubRefTabIndex = value;  RaisePropertyChanged("");     
+     
+                if (_selectedMainSubRefTabIndex == 0)
+                {
+                    if (CurrentTblCountry != null)
+                    {
+                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+
+                        Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFromCountryIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTblCountry.CountryId);
+
+                        ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                        ReferenceExpertsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 3;
+                    SelectedMainTabIndex = 2;
+                }        
+     
+                if (_selectedMainSubRefTabIndex == 1)
+                {
+                    if (CurrentTblCountry != null)
+                    {
+                        Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+
+                        Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromCountryIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTblCountry.CountryId);
+
+                        ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+                        ReferenceSourcesView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 4;
+                    SelectedMainTabIndex = 2;
+                }      
+     
+                if (_selectedMainSubRefTabIndex == 2)
+                {
+                    if (CurrentTblCountry != null)
+                    {
+                        Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+
+                        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFromCountryIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTblCountry.CountryId);
+
+                        ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
+                        ReferenceAuthorsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 5;
+                    SelectedMainTabIndex = 2;
+                }      
+                     
+            }
+        }    
+        #endregion "Public Commands to open Detail TabItems"          
  
 
  //    Part 11    
@@ -398,7 +485,7 @@ namespace Te.Atis.Ui.Desktop.Views.Database
         public string SearchCountryName
         {
             get => _searchCountryName; 
-            set { _searchCountryName = value; RaisePropertyChanged();  }
+            set { _searchCountryName = value; RaisePropertyChanged("");  }
         }
 
         public  ICollectionView CountriesView;
@@ -408,22 +495,25 @@ namespace Te.Atis.Ui.Desktop.Views.Database
         public  ObservableCollection<TblCountry> TblCountriesList
         {
             get => _tblCountriesList; 
-            set {  _tblCountriesList = value; RaisePropertyChanged();   }
+            set {  _tblCountriesList = value; RaisePropertyChanged("");   }
         }
 
         private ObservableCollection<TblCountry> _tblCountriesAllList;
         public  ObservableCollection<TblCountry> TblCountriesAllList
         {
             get => _tblCountriesAllList; 
-            set {  _tblCountriesAllList = value; RaisePropertyChanged();   }
+            set {  _tblCountriesAllList = value; RaisePropertyChanged("");   }
+        }
+
+        private ObservableCollection<NULL> NULLAllList;
+        public  ObservableCollection<NULL> NULLAllList
+        {
+            get => NULLAllList; 
+            set {  NULLAllList = value; RaisePropertyChanged("");   }
         }
 
         #endregion "Public Properties"   
  
-
- 
-
-
 
    }
 }   

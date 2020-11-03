@@ -1,368 +1,189 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Validation;
+using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using GalaSoft.MvvmLight;
-using log4net;
-using Te.Atis.DomainModel;
-using Te.Atis.Ui.Desktop.BusinessLayer;
-using Te.Atis.Ui.Desktop.Domain;
-using Te.Atis.Ui.Desktop.Domain.Helper;
-using Te.Atis.Ui.Desktop.MessageBox;    
+using Common.Logging;
+using ATIS.Dal.Models;
+using ATIS.Ui.Core;
+using ATIS.Ui.Helper;
+using ATIS.Ui.Views.Database.CrudHelper;
+using ATIS.Ui.Views.Database.DatabaseHelper;
+using Microsoft.EntityFrameworkCore;          
 
     
-         //    Tbl90RefExpertsViewModel Skriptdatum:  29.11.2018  10:32    
+         //    RefExpertsViewModel Skriptdatum:  29.11.2018  10:32    
 
-namespace Te.Atis.Ui.Desktop.Views.Database
+namespace ATIS.Ui.Views.Database.ListDetails
 {     
     
-    public class Tbl90RefExpertsViewModel : ViewModelBase                     
-    {     
+    public class RefExpertsViewModel : ViewModelBase                     
+    {  
+        // Version with Generic Unit Of Work and AtisDbContext for general use   
          
-        #region "Private Data Members"
+        #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private static IBusinessLayer _businessLayer;
-        private static DbEntityException _entityException;
+        private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
+        private readonly AtisDbContext _context = new AtisDbContext();
+
+        private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
+        private readonly GenericMessageBoxes<Tbl90RefExpert> _genRefExpertMessageBoxes = new GenericMessageBoxes<Tbl90RefExpert>();
+        private readonly GenericMessageBoxes<NULL> _genNULLMessageBoxes = new GenericMessageBoxes<NULL>();
+        private readonly GenericMessageBoxes<NULL> _genFiSpeciesMessageBoxes = new GenericMessageBoxes<NULL>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genExpertMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
+        private readonly BasicGet _extGet = new BasicGet();
+        private readonly BasicCopy _extCopy = new BasicCopy();
+        private readonly BasicDelete _extDelete = new BasicDelete();
+        private readonly BasicSave _extSave = new BasicSave();        
         private int _position;   
          
-        #endregion "Private Data Members"               
+        #endregion [Private Data Members]               
       
-        #region "Constructor"
+        #region [Constructor]
 
-        public Tbl90RefExpertsViewModel()
+        public RefExpertsViewModel()
         {
             if (IsInDesignMode)
             {
                 // Code runs in Blend --> create design time data.
             }
             else
-            {    
+            {          
         
                 // Code runs "for real" 
-                _entityException = new DbEntityException();
+                Tbl90RefExpertsList = new ObservableCollection<Tbl90RefExpert>();    
             }
         }     
-        #endregion "Constructor"         
+        public bool IsInDesignMode { get; set; }
+
+        #endregion [Constructor]         
  
 
  //    Part 1    
 
-             
-        #region "Public Commands Basic Tbl90RefExpert"
-        //-------------------------------------------------------------------------
-        private RelayCommand _clearRefExpertCommand;
+         
 
-        public ICommand ClearRefExpertCommand => _clearRefExpertCommand ??
-                                                  (_clearRefExpertCommand = new RelayCommand(delegate { ClearRefExpert(null); }));         
-             
-        private RelayCommand _getRefExpertsByNameOrIdCommand;  
+        #region [Commands RefExpert]
 
-        public  ICommand GetRefExpertsByNameOrIdCommand => _getRefExpertsByNameOrIdCommand ??
-                                                           (_getRefExpertsByNameOrIdCommand = new RelayCommand(delegate { GetRefExpertsByNameOrId(null); }));        
+        private RelayCommand _getRefExpertsByNameOrIdCommand;
+        public ICommand GetRefExpertsByNameOrIdCommand => _getRefExpertsByNameOrIdCommand ??= new RelayCommand(delegate {ExecuteGetRefExpertsByNameOrId(SearchRefExpertName); });    
              
         private RelayCommand _addRefExpertCommand;
-
-        public ICommand AddRefExpertCommand => _addRefExpertCommand ??
-                                                (_addRefExpertCommand = new RelayCommand(delegate { AddRefExpert(null); }));
+        public ICommand AddRefExpertCommand => _addRefExpertCommand ??= new RelayCommand(delegate { ExecuteAddRefExpert(null); });
 
         private RelayCommand _copyRefExpertCommand;
-
-        public ICommand CopyRefExpertCommand => _copyRefExpertCommand ??
-                                                 (_copyRefExpertCommand = new RelayCommand(delegate { CopyRefExpert(null); }));      
+        public ICommand CopyRefExpertCommand => _copyRefExpertCommand ??= new RelayCommand(delegate { ExecuteCopyRefExpert(null); });      
              
         private RelayCommand _deleteRefExpertCommand;
-
-        public ICommand DeleteRefExpertCommand => _deleteRefExpertCommand ??
-                                                   (_deleteRefExpertCommand = new RelayCommand(delegate { DeleteRefExpert(null); }));    
+        public ICommand DeleteRefExpertCommand => _deleteRefExpertCommand ??= new RelayCommand(delegate { ExecuteDeleteRefExpert(SearchRefExpertName); });    
              
         private RelayCommand _saveRefExpertCommand;
+        public ICommand SaveRefExpertCommand => _saveRefExpertCommand ??= new RelayCommand(delegate { ExecuteSaveRefExpert(SearchRefExpertName); });    
 
-        public ICommand SaveRefExpertCommand => _saveRefExpertCommand ??
-                                                 (_saveRefExpertCommand = new RelayCommand(delegate { SaveRefExpert(null); }));
-        //-------------------------------------------------------------------------          
-        
-        private void ClearRefExpert(object o)
-        {
-            SearchRefExpertName = "";
+        #endregion [Commands RefExpert]       
 
-            Tbl90RefExpertsList?.Clear();
-        }
-        //----------------------------------------------------------------------                  
-        
-        private void GetRefExpertsByNameOrId(object o)
-        {
-            if (SearchRefExpertName != "")
-            {
-                Tbl90RefExpertsList?.Clear();
-                if (SearchRefExpertName == "*") // show whole table
-                {
-                    SearchRefExpertName = "";
-                    _businessLayer = new BusinessLayer.BusinessLayer();
-                    Tbl90RefExpertsList = new ObservableCollection<Tbl90RefExpert>(_businessLayer.ListTbl90RefExpertsByRefExpertName(SearchRefExpertName));
-                    SearchRefExpertName = "*";
-                }
-                else
-                {
-                    _businessLayer = new BusinessLayer.BusinessLayer();
-                    Tbl90RefExpertsList = int.TryParse(SearchRefExpertName, out var id) ?
-                        new ObservableCollection<Tbl90RefExpert>(_businessLayer.ListTbl90RefExpertsByRefExpertId(id)) :
-                        new ObservableCollection<Tbl90RefExpert>(_businessLayer.ListTbl90RefExpertsByRefExpertName(SearchRefExpertName));
-                }
-
-                if (Tbl90RefExpertsList.Count == 0)
-                {
-                    WpfMessageBox.Show(CultRes.StringsRes.Tables, CultRes.StringsRes.DatasetNot,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                }
-            }
-            else
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.SearchNameOrId, CultRes.StringsRes.InputRequested,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-            }
-            RefExpertsView = CollectionViewSource.GetDefaultView(Tbl90RefExpertsList);
+RefExpertsView = CollectionViewSource.GetDefaultView(Tbl90RefExpertsList);
             RefExpertsView.Refresh();
         }
         //------------------------------------------------------------------------------------                          
         
-        private void AddRefExpert(object o)
+        private void ExecuteAddRefExpert(object o)
         {
-            if (Tbl90RefExpertsList == null)
-                Tbl90RefExpertsList =  new ObservableCollection<Tbl90RefExpert>( );
-
             Tbl90RefExpertsList.Insert(0, new Tbl90RefExpert {   RefExpertName = CultRes.StringsRes.DatasetNew}  );
 
             RefExpertsView = CollectionViewSource.GetDefaultView(Tbl90RefExpertsList);
             RefExpertsView.MoveCurrentToFirst();
         }
         //------------------------------------------------------------------------------------                               
-        
-        private void CopyRefExpert(object o)
+     
+        private void ExecuteCopyRefExpert(object o)
         {
-            if (CurrentTbl90RefExpert == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-            _businessLayer = new BusinessLayer.BusinessLayer();
+            if (_genRefExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90RefExpert)) return;
 
-            var refExpert = _businessLayer.SingleListTbl90RefExpertsByRefExpertId(CurrentTbl90RefExpert.RefExpertID);
+            Tbl90RefExpertsList = _extCopy.CopyRefExpert(CurrentTbl90RefExpert);
 
-            Tbl90RefExpertsList.Insert(0, new Tbl90RefExpert
-            {
-                RefExpertName = CultRes.StringsRes.DatasetNew,
-                Valid = refExpert.Valid,
-                ValidYear = refExpert.ValidYear,
-                Info = refExpert.Info,
-                Notes = refExpert.Notes,
-                Memo = refExpert.Memo
-            });
+            // evtl verbundene tabellen-Datensätze auch kopieren Expert, Source, Author und Comment
 
             RefExpertsView = CollectionViewSource.GetDefaultView(Tbl90RefExpertsList);
             RefExpertsView.MoveCurrentToFirst();
-        }
-        //---------------------------------------------------------------------------------------                            
-        
-        private void DeleteRefExpert(object o)
+        }                         
+     
+        private void ExecuteDeleteRefExpert(string searchName)
         {
-            if (CurrentTbl90RefExpert == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-            _businessLayer = new BusinessLayer.BusinessLayer();
+            if (_genRefExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90RefExpert)) return;               
+ 
+    
+            //check if in Tbl69FiSpeciesses connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
 
+            Tbl69FiSpeciessesList = _extDelete.SearchForConnectedDatasetsWithRefExpertIdInTableFiSpecies(CurrentTbl90RefExpert);     
+     
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl69FiSpeciessesList.Count, "FiSpecies")) return;
+
+            //Delete all References Experts, Sources, Authors  ----------------------------------------------------
+            Tbl90ReferencesList = _extDelete.DeleteDatasetsWithRefExpertIdInTableReference(CurrentTbl90RefExpert);
+            if (Tbl90ReferencesList.Count > 0)
+            {
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+
+                _extDelete.DeleteReferences(Tbl90ReferencesList);
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
+            }
+
+            //Delete all Comments  ----------------------------------------------------
+            Tbl93CommentsList = _extDelete.DeleteDatasetsWithRefExpertIdInTableComment(CurrentTbl90RefExpert);
+            if (Tbl93CommentsList.Count > 0)
+            {
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
+
+                _extDelete.DeleteComments(Tbl93CommentsList);
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
+            }
             try
             {
-                var refExpert = _businessLayer.SingleListTbl90RefExpertsByRefExpertId(CurrentTbl90RefExpert.RefExpertID);
-                if (refExpert != null)
+                var refExpert= _uow.Tbl90RefExperts.GetById(CurrentTbl90RefExpert.RefExpertId);
+                if (refExpert!= null)
                 {
-                    if (WpfMessageBox.Show(CultRes.StringsRes.DeleteQuestion1, CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90RefExpert.RefExpertName,
-                            MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-                        return;
-                    refExpert.EntityState = EntityState.Deleted;
-                    _businessLayer.RemoveRefExpert(refExpert);
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90RefExpert.RefExpertName)) return;
 
-                    WpfMessageBox.Show(CultRes.StringsRes.DeleteSuccess, CurrentTbl90RefExpert.RefExpertName,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                    _extDelete.DeleteRefExpert(refExpert);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90RefExpert.RefExpertName);
                 }
-                else
-                {
-                    WpfMessageBox.Show(CultRes.StringsRes.Information, CultRes.StringsRes.DeleteCan + " " + CurrentTbl90RefExpert.RefExpertName + " " + CultRes.StringsRes.DeleteCan1,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl90RefExpert.RefExpertName + " " + CultRes.StringsRes.DeleteCan1);
             }
-            catch (DbEntityValidationException ex)
+            catch (Exception e)
             {
-                _entityException.EntityException(ex);
-                    Log.Error(ex);
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
             }
 
-            if (SearchRefExpertName != "")
-            {
-                if (SearchRefExpertName == "*")  //show all datasets
-                {
-                    SearchRefExpertName = "";
-                    Tbl90RefExpertsList.Clear();
-                    
-                Tbl90RefExpertsList = new ObservableCollection<Tbl90RefExpert>(_businessLayer.ListTbl90RefExpertsByRefExpertName(SearchRefExpertName));            
-                    SearchRefExpertName = "*";
-                }
-                else
-                {               
-                    Tbl90RefExpertsList =  new ObservableCollection<Tbl90RefExpert>(_businessLayer.ListTbl90RefExpertsByRefExpertName(SearchRefExpertName));
+            ExecuteGetRefExpertsByNameOrId(searchName);
 
-                }
-                RefExpertsView = CollectionViewSource.GetDefaultView(Tbl90RefExpertsList);
-                RefExpertsView.Refresh();
-            }
-            else  //SearchName = empty
+            RefExpertsView.MoveCurrentToFirst();
+        }                
+     
+        private void ExecuteSaveRefExpert(string searchName)
+        {
+            if (_genRefExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90RefExpert)) return;      
+       
+            //Combobox select NULLID  may be not 0
+            if (CurrentTbl90RefExpert.NULLId == 0)
             {
-                Tbl90RefExpertsList = new ObservableCollection<Tbl90RefExpert>(_businessLayer.ListTbl90RefExpertsByRefExpertName(SearchRefExpertName));
-
-                RefExpertsView = CollectionViewSource.GetDefaultView(Tbl90RefExpertsList);
-                RefExpertsView.MoveCurrentToFirst();
-             }
-        }
-        //-------------------------------------------------------------------------------------------------                    
+                MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }     
        
         private void SaveRefExpert(object o)
         {
-            if (CurrentTbl90RefExpert == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-            _businessLayer = new BusinessLayer.BusinessLayer();
-
-            try
-            {
-                var refExpert = _businessLayer.SingleListTbl90RefExpertsByRefExpertId(CurrentTbl90RefExpert.RefExpertID);
-                if (CurrentTbl90RefExpert.RefExpertID != 0)
-                {
-                    if (refExpert != null) //update
-                    {
-                            refExpert.RefExpertName = CurrentTbl90RefExpert.RefExpertName;
-                            refExpert.Valid = CurrentTbl90RefExpert.Valid;
-                            refExpert.ValidYear = CurrentTbl90RefExpert.ValidYear;
-                            refExpert.Info = CurrentTbl90RefExpert.Info;
-                            refExpert.Notes = CurrentTbl90RefExpert.Notes;
-                            refExpert.Updater = Environment.UserName;
-                            refExpert.UpdaterDate = DateTime.Now;
-                            refExpert.Memo = CurrentTbl90RefExpert.Memo;
-                        refExpert.EntityState = EntityState.Modified;
-                    }
-                }
-                else
-                {
-                            refExpert = new Tbl90RefExpert   //add new
-                            {
-                            RefExpertName = CurrentTbl90RefExpert.RefExpertName,
-                            CountID = RandomHelper.Randomnumber(),
-                            Valid = CurrentTbl90RefExpert.Valid,
-                            ValidYear = CurrentTbl90RefExpert.ValidYear,
-                            Info = CurrentTbl90RefExpert.Info,
-                            Notes = CurrentTbl90RefExpert.Notes,
-                            Writer = Environment.UserName,
-                            WriterDate = DateTime.Now,
-                            Updater = Environment.UserName,
-                            UpdaterDate = DateTime.Now,
-                            Memo = CurrentTbl90RefExpert.Memo,
-                            EntityState = EntityState.Added
-                    };
-                }
-                {
-                    //check if dataset with Name already exist       
-                    var dataset = _businessLayer.ListTbl90RefExpertsByRefExpertName(CurrentTbl90RefExpert.RefExpertName);
-
-                    if (dataset.Count != 0 && CurrentTbl90RefExpert.RefExpertID == 0)  //dataset exist
-                    {
-                        WpfMessageBox.Show(CultRes.StringsRes.DatasetExist, CurrentTbl90RefExpert.RefExpertName,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        return;
-                    }
-                    if (dataset.Count == 0 && CurrentTbl90RefExpert.RefExpertID == 0 ||
-                        dataset.Count != 0 && CurrentTbl90RefExpert.RefExpertID != 0 ||
-                        dataset.Count == 0 && CurrentTbl90RefExpert.RefExpertID != 0) //new dataset and update
-                    {
-                        if (WpfMessageBox.Show(CultRes.StringsRes.SaveQuestion2, CurrentTbl90RefExpert.RefExpertName,
-                                MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-                            return;
-                        {
-                            try
-                            {
-                                _businessLayer.UpdateRefExpert(refExpert);
-                                _position = RefExpertsView.CurrentPosition;
-                            }
-                            catch (DbUpdateException e)
-                            {
-                                if (e.InnerException != null)
-                                    System.Windows.MessageBox.Show(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave,
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-
-                                Log.Error(e);
-                                return;
-                            }
-                            catch (Exception e)
-                            {
-                                System.Windows.MessageBox.Show(e.Message, CultRes.StringsRes.Error,
-                                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-                                Log.Error(e);
-                                return;
-                            }
-                                    WpfMessageBox.Show(CultRes.StringsRes.SaveSuccess,
-                                        CurrentTbl90RefExpert.RefExpertID == 0
-                                            ? CultRes.StringsRes.DatasetNew
-                                            : CurrentTbl90RefExpert.RefExpertName,
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        }
-                    }
-                }
-            }
-            catch (DbEntityValidationException ex)
-            {
-                _entityException.EntityException(ex);
-                    Log.Error(ex);
-                  return;
-            }
-
-            if (SearchRefExpertName != "")
-            {
-                if (SearchRefExpertName == "*")  //show all datasets
-                {
-                    SearchRefExpertName = "";
-                    Tbl90RefExpertsList.Clear();
-                    
-                Tbl90RefExpertsList = new ObservableCollection<Tbl90RefExpert>(_businessLayer.ListTbl90RefExpertsByRefExpertName(SearchRefExpertName));            
-                    SearchRefExpertName = "*";
-                }
-                else
-                {               
-                    Tbl90RefExpertsList = int.TryParse(SearchRefExpertName, out var id)
-                        ? new ObservableCollection<Tbl90RefExpert>(_businessLayer.ListTbl90RefExpertsByRefExpertId(id))
-                        : new ObservableCollection<Tbl90RefExpert>(_businessLayer.ListTbl90RefExpertsByRefExpertName(SearchRefExpertName));
-
-                }
-                RefExpertsView = CollectionViewSource.GetDefaultView(Tbl90RefExpertsList);
-                RefExpertsView.MoveCurrentToPosition(_position);
-            }
-            else  
-            {
-                Tbl90RefExpertsList = new ObservableCollection<Tbl90RefExpert>(_businessLayer.ListTbl90RefExpertsByRefExpertName(CurrentTbl90RefExpert.RefExpertName));
-
-                RefExpertsView= CollectionViewSource.GetDefaultView(Tbl90RefExpertsList);
-                RefExpertsView.Refresh();
-            }
+ 
         }
         #endregion "Public Commands"                   
  
@@ -370,6 +191,17 @@ namespace Te.Atis.Ui.Desktop.Views.Database
 
  //    Part 2    
 
+     
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+            ExecuteGetRefExpertsByNameOrId(searchName);
+            RefExpertsView.MoveCurrentToPosition(_position);
+        }
+
+        #endregion "Public Commands"                  
                                                           
 
  //    Part 3    
@@ -402,10 +234,247 @@ namespace Te.Atis.Ui.Desktop.Views.Database
              
  //    Part 9    
 
+
+     
+        #region "Public Commands Connected Tables by DoubleClick"
+
+        private RelayCommand _getConnectedTablesCommand;
+        public ICommand GetConnectedTablesCommand => _getConnectedTablesCommand ??= new RelayCommand(delegate { GetConnectedTablesById(null); });
+
+        #endregion "Public Commands Connected Tables by DoubleClick"
+
+        #region "Public Method Connected Tables by DoubleClick"
+
+        private void GetConnectedTablesById(object o)
+        {           
+     
+        }
+
+        #endregion "Public Method Connected Tables by DoubleClick"     
  
+
 
  //    Part 10    
 
+     
+        #region "Public Commands to open Detail TabItems"
+
+        private int _selectedMainTabIndex;
+        private int _selectedMainSubRefTabIndex;
+        private int _selectedDetailTabIndex;
+
+        public  int SelectedMainTabIndex
+        {
+            get => _selectedMainTabIndex; 
+            set
+            {
+                if (value == _selectedMainTabIndex) return;
+                _selectedMainTabIndex = value; RaisePropertyChanged("");        
+     
+                if (_selectedMainTabIndex == 0)             
+                {
+                    if (CurrentTbl90RefExpert != null)
+                    {
+                        NULLList = _extGet.GetCollectionOrderByFromNULLId<NULL>(CurrentTbl90RefExpert.NULLId);
+
+                        NULLAllList = _extGet.AllCollection<NULL>("");
+
+                        View = CollectionViewSource.GetDefaultView(NULLList);
+                        View.Refresh();
+                    }
+                    SelectedDetailTabIndex = 0;
+                }         
+     
+                if (_selectedMainTabIndex == 1)
+                {
+                    if (CurrentTbl90RefExpert != null)
+                    {
+                        Tbl69FiSpeciessesList = _extGet.GetCollectionOrderByFromRefExpertId<NULL>(CurrentTbl90RefExpert.RefExpertId);
+
+                        Tbl90RefExpertsAllList = _extGet.AllCollection<Tbl90RefExpert>("refExpert");
+
+                        View = CollectionViewSource.GetDefaultView(Tbl69FiSpeciessesList);
+                        View.Refresh();
+                    }
+                    SelectedDetailTabIndex = 2;   
+               }      
+     
+                if (_selectedMainTabIndex == 2)
+                {
+                    SelectedDetailTabIndex = 3;
+                    SelectedMainSubRefTabIndex = 0;
+                }           
+     
+                if (_selectedMainTabIndex == 3)
+                {
+                    if (CurrentTbl90RefExpert != null)
+                    {
+                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromRefExpertId<Tbl93Comment>(CurrentTbl90RefExpert.RefExpertId);
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 6;
+                }        
+     
+            }
+        }
+
+        public  int SelectedDetailTabIndex
+        {
+            get => _selectedDetailTabIndex; 
+            set
+            {
+                if (value == _selectedDetailTabIndex) return;
+                _selectedDetailTabIndex = value;    RaisePropertyChanged("");       
+     
+                if (_selectedDetailTabIndex == 0)
+                {
+                    if (CurrentTbl90RefExpert != null)
+                    {
+                        NULLList = _extGet.GetCollectionOrderByFromNULLId<NULL>(CurrentTbl90RefExpert.NULLId);
+
+                        View = CollectionViewSource.GetDefaultView(NULLList);
+                        View.Refresh();
+                    }
+                    SelectedMainTabIndex = 0;  
+               }     
+     
+                if (_selectedDetailTabIndex == 1)                
+                {
+                    SelectedMainTabIndex = 0;
+                }    
+     
+                if (_selectedDetailTabIndex == 2)                
+                {
+                    if (CurrentTbl90RefExpert != null)
+                    {
+                        Tbl69FiSpeciessesList = _extGet.GetCollectionOrderByFromRefExpertId<NULL>(CurrentTbl90RefExpert.RefExpertId);
+
+                        Tbl90RefExpertsAllList = _extGet.AllCollection<Tbl90RefExpert>("refExpert");
+
+                        View = CollectionViewSource.GetDefaultView(Tbl69FiSpeciessesList);
+                        View.Refresh();
+                    }
+                    SelectedMainTabIndex = 1;
+               }    
+     
+                if (_selectedDetailTabIndex == 3)
+                {
+                    if (CurrentTbl90RefExpert != null)
+                    {
+                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+
+                        Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFromRefExpertIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTbl90RefExpert.RefExpertId);
+
+                        ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                        ReferenceExpertsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 2;
+                    SelectedMainSubRefTabIndex = 0;
+                }        
+     
+                if (_selectedDetailTabIndex == 4)
+                {
+                    if (CurrentTbl90RefExpert != null)
+                    {
+                        Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+
+                        Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromRefExpertIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl90RefExpert.RefExpertId);
+
+                        ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+                        ReferenceSourcesView.Refresh();
+                    }
+                    SelectedMainTabIndex = 2;
+                    SelectedMainSubRefTabIndex = 1;
+                }        
+     
+                if (_selectedDetailTabIndex == 5)
+                {
+                    if (CurrentTbl90RefExpert != null)
+                    {
+                        Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+
+                        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFromRefExpertIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl90RefExpert.RefExpertId);
+
+                        ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
+                        ReferenceAuthorsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 2;
+                    SelectedMainSubRefTabIndex = 2;
+                }       
+     
+                if (_selectedDetailTabIndex == 6)
+                {
+                    if (CurrentTbl90RefExpert != null)
+                    {
+                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromRefExpertId<Tbl93Comment>(CurrentTbl90RefExpert.RefExpertId);
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 3;
+                }       
+     
+            }
+        }
+
+        public int SelectedMainSubRefTabIndex
+        {
+            get => _selectedMainSubRefTabIndex;
+            set
+            {
+                if (value == _selectedMainSubRefTabIndex) return;
+                _selectedMainSubRefTabIndex = value;  RaisePropertyChanged("");     
+     
+                if (_selectedMainSubRefTabIndex == 0)
+                {
+                    if (CurrentTbl90RefExpert != null)
+                    {
+                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+
+                        Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFromRefExpertIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTbl90RefExpert.RefExpertId);
+
+                        ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                        ReferenceExpertsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 3;
+                    SelectedMainTabIndex = 2;
+                }        
+     
+                if (_selectedMainSubRefTabIndex == 1)
+                {
+                    if (CurrentTbl90RefExpert != null)
+                    {
+                        Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+
+                        Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromRefExpertIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl90RefExpert.RefExpertId);
+
+                        ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+                        ReferenceSourcesView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 4;
+                    SelectedMainTabIndex = 2;
+                }      
+     
+                if (_selectedMainSubRefTabIndex == 2)
+                {
+                    if (CurrentTbl90RefExpert != null)
+                    {
+                        Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+
+                        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFromRefExpertIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl90RefExpert.RefExpertId);
+
+                        ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
+                        ReferenceAuthorsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 5;
+                    SelectedMainTabIndex = 2;
+                }      
+                     
+            }
+        }    
+        #endregion "Public Commands to open Detail TabItems"          
  
 
  //    Part 11    
@@ -417,7 +486,7 @@ namespace Te.Atis.Ui.Desktop.Views.Database
         public string SearchRefExpertName
         {
             get => _searchRefExpertName; 
-            set { _searchRefExpertName = value; RaisePropertyChanged();  }
+            set { _searchRefExpertName = value; RaisePropertyChanged("");  }
         }
 
         public  ICollectionView RefExpertsView;
@@ -427,22 +496,25 @@ namespace Te.Atis.Ui.Desktop.Views.Database
         public  ObservableCollection<Tbl90RefExpert> Tbl90RefExpertsList
         {
             get => _tbl90RefExpertsList; 
-            set {  _tbl90RefExpertsList = value; RaisePropertyChanged();   }
+            set {  _tbl90RefExpertsList = value; RaisePropertyChanged("");   }
         }
 
         private ObservableCollection<Tbl90RefExpert> _tbl90RefExpertsAllList;
         public  ObservableCollection<Tbl90RefExpert> Tbl90RefExpertsAllList
         {
             get => _tbl90RefExpertsAllList; 
-            set {  _tbl90RefExpertsAllList = value; RaisePropertyChanged();   }
+            set {  _tbl90RefExpertsAllList = value; RaisePropertyChanged("");   }
+        }
+
+        private ObservableCollection<NULL> NULLAllList;
+        public  ObservableCollection<NULL> Tbl69FiSpeciessesAllList
+        {
+            get => NULLAllList; 
+            set {  NULLAllList = value; RaisePropertyChanged("");   }
         }
 
         #endregion "Public Properties"   
  
-
- 
-
-
 
    }
 }   

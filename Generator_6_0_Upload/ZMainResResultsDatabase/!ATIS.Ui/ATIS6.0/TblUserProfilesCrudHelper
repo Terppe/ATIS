@@ -1,0 +1,94 @@
+    
+        public ObservableCollection<NULL> SearchForConnectedDatasetsWithUserProfileIdInTableNULL(TblUserProfile selected)
+        {
+            var collection = new ObservableCollection<NULL>(_uow.NULL.Find(x => x.UserProfileId == selected.UserProfileId));
+            return collection;
+        }
+
+
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithUserProfileIdInTableReference(TblUserProfile selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.UserProfileId == selected.UserProfileId));
+            return collection;
+        }
+
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithUserProfileIdInTableComment(TblUserProfile selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.UserProfileId == selected.UserProfileId));
+            return collection;
+        }
+
+        public void DeleteUserProfile(TblUserProfile selected)
+        {
+            _uow.TblUserProfiles.Remove(selected);
+            _uow.Complete();
+        }
+
+        public ObservableCollection<T> GetCollectionOrderByFromNULLId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.NULL
+                .Where(e => e.NULLId == id)
+                .OrderBy(k => k.NULLName));
+
+            return collection;
+        }
+
+        public ObservableCollection<T> GetUserProfilesCollectionOrderByFromUserProfileId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.TblUserProfiles
+                .Where(e => e.UserProfileId == id)
+                .OrderBy(k => k.UserProfileName));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetCollectionOrderByFromSubphylumId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.NULL
+                .Where(e => e.UserProfileId == id)
+                .OrderBy(k => k.NULLName));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferenceExpertsCollectionOrderByFromUserProfileIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.UserProfileId == id && e.RefAuthorId == null && e.RefSourceId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferenceSourcesCollectionOrderByFromUserProfileIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefSources)
+                .Where(e => e.UserProfileId == id && e.RefAuthorId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferenceAuthorsCollectionOrderByFromUserProfileIdAndRefSourceIdIsNullAndRefExpertIdIsNull<T>(int id)   
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.UserProfileId == id && e.RefSourceId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetCommentsCollectionOrderByFromSubphylumId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
+                .Where(e => e.UserProfileId == id)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+   

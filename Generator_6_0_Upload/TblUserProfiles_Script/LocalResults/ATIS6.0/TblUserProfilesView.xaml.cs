@@ -1,50 +1,27 @@
 using System;  
 
     
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Threading;   
+using System.Windows.Controls;   
  
 
       //  TblUserProfilesView.xaml.cs Skriptdatum:   26.02.2019  10:32     
 
-namespace Te.Atis.Ui.Desktop.Views.Database
+namespace ATIS.Ui.Views.Database.ListDetails
 {  
 
     /// <summary>
-    /// Interactionslogic for TblUserProfilesView.xaml
+    /// Interactionslogic for UserProfilesView.xaml
     /// </summary>
-    public partial class TblUserProfilesView : UserControl
+    public partial class UserProfilesView : UserControl
    {      
 
    
-        public TblUserProfilesView()
-        {         
+        public UserProfilesView()
+        {  
+            DataContext = new UserProfilesViewModel();  
+       
             InitializeComponent();   
-            IsVisibleChanged += UserControl_IsVisibleChanged;
-        }
-
-        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if ((bool)e.NewValue)
-            {
-                Dispatcher.BeginInvoke(
-                DispatcherPriority.ContextIdle,
-                new Action(delegate
-                {
-                    TbSearchUserProfile.Focus();
-                }));
-            }
-        }
-        private void TbSearchUserProfile_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Tab || e.Key == Key.Enter)
-            {
-                BtnGet.Focus();
-                e.Handled = true;
-            }
-        }   
+        }      
  
 
     }

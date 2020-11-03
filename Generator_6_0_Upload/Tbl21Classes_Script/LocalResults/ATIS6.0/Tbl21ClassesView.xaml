@@ -1,6 +1,6 @@
     
 <UserControl 
-             x:Class="ATIS.Ui.Views.Database.D06Phylum.ClassesView"               
+             x:Class="ATIS.Ui.Views.Database.ListDetails.ClassesView"               
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -27,7 +27,7 @@
             <ColumnDefinition Width="50*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="250" />
+            <RowDefinition Height="300" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="50*" />
         </Grid.RowDefinitions>
@@ -126,7 +126,7 @@
                                                     <DataTemplate>
                                                         <TextBlock     
                                                             Width="100"  
-                                                            Text="{Binding (models:Tbl21Class.ClassID)}"
+                                                            Text="{Binding (models:Tbl21Class.ClassId)}"
                                                             TextAlignment="Left" />
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
@@ -297,7 +297,7 @@
                                                                 <DataTemplate>
                                                                     <TextBlock
                                                                         Width="100"
-                                                                        Text="{Binding (models:Tbl24Subclass.SubclassID)}"
+                                                                        Text="{Binding (models:Tbl24Subclass.SubclassId)}"
                                                                         TextAlignment="Left" />
                                                                     </DataTemplate>
                                                             </GridViewColumn.CellTemplate>
@@ -631,6 +631,44 @@
                                  <GroupBox>   
                                     <StackPanel Margin="1">
                                         <StackPanel Height="Auto" Orientation="Horizontal">    
+        
+                            <Button Template="{StaticResource SaveSuperclassButton}" />   
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="250"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource  Tbl18Superclass-SuperclassName}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                               FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl18Superclass-SuperclassName}">
+                                <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl18SuperclassesList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl18Superclass.SuperclassName)"
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                </TextBox.Text>
+                            </TextBox>          
+         
+                                            <ComboBox
+                                                Width="760"
+                                                Margin="5"
+                                                VerticalAlignment="Bottom"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
+                                                DisplayMemberPath="SubphylumName" 
+                                                IsSynchronizedWithCurrentItem="True"
+                                                ItemsSource="{Binding Tbl12SubphylumsAllList}"
+                                                SelectedIndex="0"
+                                                SelectedValue="{Binding SelectedItem.(models:Tbl12Subphylum.SubphylumId), ElementName=Tbl18SuperclassesList, Mode=TwoWay}"
+                                                SelectedValuePath="SubphylumId"
+                                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                                VirtualizingStackPanel.IsVirtualizing="True" />  
          
                                         <StackPanel Height="Auto" Orientation="Horizontal">
                                           <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -710,8 +748,8 @@
                                     IsSynchronizedWithCurrentItem="True"
                                     ItemsSource="{Binding Tbl18SuperclassesAllList}"
                                     SelectedIndex="0"
-                                    SelectedValue="{Binding SelectedItem.(models:Tbl18Superclass.SuperclassID), ElementName=Tbl21ClassesList, Mode=TwoWay}"
-                                    SelectedValuePath="SuperclassID" 
+                                    SelectedValue="{Binding SelectedItem.(models:Tbl18Superclass.SuperclassId), ElementName=Tbl21ClassesList, Mode=TwoWay}"
+                                    SelectedValuePath="SuperclassId" 
                                     Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                     VirtualizingStackPanel.IsVirtualizing="True" />
                                     </StackPanel>    
@@ -981,11 +1019,11 @@
                                       <StackPanel Height="Auto" Orientation="Horizontal">
                                             <CheckBox
                                                 Width="80"
-                                                Margin="5,0,0,0"
+                                                Margin="5"
                                                 VerticalAlignment="Bottom"
                                                 Content="{DynamicResource Shared-Valid}"
                                                 FontWeight="Normal"
-                                                IsChecked="{Binding SelectedItem.(models:Tbl24Subclass.Valid), ElementName=Tbl24SubclassesList}"
+                                                IsChecked="{Binding SelectedItem.(models:Tbl24Subclass.Valid), ElementName=Tbl24SubclassesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Style="{StaticResource MahApps.Styles.CheckBox}" />
                                         <TextBox
                                 Width="135"
@@ -1095,7 +1133,7 @@
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
-                                            Width="368"
+                                            Width="367"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -1115,7 +1153,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="367"
-                                Margin="20,5,5,5"
+                                Margin="23,5,5,5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1155,7 +1193,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="367"
-                                Margin="20,5,5,5"
+                                Margin="23,5,5,5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1595,10 +1633,17 @@
                                     FontWeight="Medium"
                                     SpellCheck.IsEnabled="True"
                                     Style="{StaticResource MahApps.Styles.TextBox}"
-                                    Text="{Binding SelectedItem.(models:Tbl93Comment.Memo), ElementName=Tbl93CommentsList}"
                                     TextWrapping="Wrap"
                                     ToolTip="{DynamicResource Shared-Memo}"
-                                    VerticalScrollBarVisibility="Auto" />
+                                    VerticalScrollBarVisibility="Auto" >
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl93CommentsList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl93Comment.Memo)"
+                                            UpdateSourceTrigger="PropertyChanged" />
+                                    </TextBox.Text>
+                                </TextBox>
                                                  </ScrollViewer>
                                            </StackPanel>
                                         </StackPanel>

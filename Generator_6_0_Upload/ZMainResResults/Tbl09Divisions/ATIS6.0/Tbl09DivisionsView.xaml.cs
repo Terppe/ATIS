@@ -1,50 +1,27 @@
 using System;  
 
     
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Threading;   
+using System.Windows.Controls;   
  
 
-      //  Tbl09DivisionsView.xaml.cs Skriptdatum:  12.12.2019  12:32     
+      //  Tbl09DivisionsView.xaml.cs Skriptdatum:  03.11.2020  12:32     
 
-namespace Te.Atis.Ui.Desktop.Views.Database
+namespace ATIS.Ui.Views.Database.D09Division
 {  
 
     /// <summary>
-    /// Interactionslogic for Tbl09DivisionsView.xaml
+    /// Interactionslogic for DivisionsView.xaml
     /// </summary>
-    public partial class Tbl09DivisionsView : UserControl
+    public partial class DivisionsView : UserControl
    {      
 
    
-        public Tbl09DivisionsView()
-        {         
+        public DivisionsView()
+        {  
+            DataContext = new DivisionsViewModel();  
+       
             InitializeComponent();   
-            IsVisibleChanged += UserControl_IsVisibleChanged;
-        }
-
-        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if ((bool)e.NewValue)
-            {
-                Dispatcher.BeginInvoke(
-                DispatcherPriority.ContextIdle,
-                new Action(delegate
-                {
-                    TbSearchDivision.Focus();
-                }));
-            }
-        }
-        private void TbSearchDivision_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Tab || e.Key == Key.Enter)
-            {
-                BtnGet.Focus();
-                e.Handled = true;
-            }
-        }   
+        }      
  
 
     }

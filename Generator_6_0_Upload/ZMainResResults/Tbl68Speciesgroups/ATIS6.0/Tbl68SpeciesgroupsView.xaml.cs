@@ -1,50 +1,27 @@
 using System;  
 
     
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Threading;   
+using System.Windows.Controls;   
  
 
       //  Tbl68SpeciesgroupsView.xaml.cs Skriptdatum:  09.11.2018  10:32     
 
-namespace Te.Atis.Ui.Desktop.Views.Database
+namespace ATIS.Ui.Views.Database.ListDetails
 {  
 
     /// <summary>
-    /// Interactionslogic for Tbl68SpeciesgroupsView.xaml
+    /// Interactionslogic for SpeciesgroupsView.xaml
     /// </summary>
-    public partial class Tbl68SpeciesgroupsView : UserControl
+    public partial class SpeciesgroupsView : UserControl
    {      
 
    
-        public Tbl68SpeciesgroupsView()
-        {         
+        public SpeciesgroupsView()
+        {  
+            DataContext = new SpeciesgroupsViewModel();  
+       
             InitializeComponent();   
-            IsVisibleChanged += UserControl_IsVisibleChanged;
-        }
-
-        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if ((bool)e.NewValue)
-            {
-                Dispatcher.BeginInvoke(
-                DispatcherPriority.ContextIdle,
-                new Action(delegate
-                {
-                    TbSearchSpeciesgroup.Focus();
-                }));
-            }
-        }
-        private void TbSearchSpeciesgroup_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Tab || e.Key == Key.Enter)
-            {
-                BtnGet.Focus();
-                e.Handled = true;
-            }
-        }   
+        }      
  
 
     }

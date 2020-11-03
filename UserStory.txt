@@ -40,8 +40,8 @@ Story:
 Akzeptanzkriterien:
 	* Versuch über reines TreeView mit vielen Unter-TreeViews evtl später,
 	da doch sehr aufwändig, da in verschiedenen Ebenen der Button-Down-Event auszulösen ist.
-	Jetzt mit Aufruf des Bereiches und selektierung über TabControl
-	Database ==> TreeView-Button ==> Regnum, Phylum, Division... Genus, Species ==> tabcontrol
+	Jetzt mit Aufruf des Bereiches Fische, Pflanzen, Krankheiten, Futter und AddOns
+	und selektierung über TabControl mit TabItem Regnum, Phylum, Division... Genus, Species ==> tabcontrol
 	Mit MahApps verwirklicht. Aber keine Unter-TreeViews
 Status:
 •	Noch nicht entgültig implementiert
@@ -62,7 +62,7 @@ Status:
 •	erfolgreich mit UnitOfWork erledig
 *	Datenbank mit Daten vom Generator je 10 Datensätze gefüllt
 *	Für UOW entschieden. Manchmal AtisDbContext verwendet.
-*	
+*	Implementiert
 
 
 ***************************************
@@ -81,10 +81,9 @@ Status:
 Titel: TextBox Style ändern
 Story: Bei MaterialDesign gibt es eine TextBox die das Label anzeigt und bei Füllen der textbox das label ganz klein über dem Eingabefeld anzeigt. 
 		Spart Platz und finde ich toll.
-		Akzeptanzkriterien: Bei Core 3.1 nicht mehr vorhanden. Muss anders gelöst werden
 	* Bei MahApps gibs es auch diese TextBox
 Status:
-•	Noch nicht implementiert
+•	implementiert
 •	
 •	
 
@@ -129,7 +128,7 @@ Titel: Display mit hamburger menü Fluent Moderne Oberfläche
 Story: Wie UWP mit Windows-Community-Toolkit und Windows-UI-Bibliothek usw
 Akzeptanzkriterien:
 	* Windows-Community-Toolkit Version 6.0 lässt sich nicht bei CORE 3.1 installieren
-	* Mit MahApps vorerst gelöst. Evtl. mit Compact navigation Menu von Meshack Musundi ohne MahApps
+	* Mit MahApps gelöst
 Status:
 •	implementiert mit MahApps
 •	
@@ -164,7 +163,8 @@ Status:
 Titel: Search
 Story:  
 Akzeptanzkriterien:
-	* 
+	* Search über alle Tabellen mit SearchQuick installiert
+	* feinschliff fehlt
 Status:
 •	Noch nicht implementiert
 •	

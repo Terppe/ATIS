@@ -1,50 +1,27 @@
 using System;  
 
     
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Threading;   
+using System.Windows.Controls;   
  
 
       //  Tbl45FamiliesView.xaml.cs Skriptdatum:  19.06.2018  10:32     
 
-namespace Te.Atis.Ui.Desktop.Views.Database
+namespace ATIS.Ui.Views.Database.ListDetails
 {  
 
     /// <summary>
-    /// Interactionslogic for Tbl45FamiliesView.xaml
+    /// Interactionslogic for FamiliesView.xaml
     /// </summary>
-    public partial class Tbl45FamiliesView : UserControl
+    public partial class FamiliesView : UserControl
    {      
 
    
-        public Tbl45FamiliesView()
-        {         
+        public FamiliesView()
+        {  
+            DataContext = new FamiliesViewModel();  
+       
             InitializeComponent();   
-            IsVisibleChanged += UserControl_IsVisibleChanged;
-        }
-
-        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if ((bool)e.NewValue)
-            {
-                Dispatcher.BeginInvoke(
-                DispatcherPriority.ContextIdle,
-                new Action(delegate
-                {
-                    TbSearchFamily.Focus();
-                }));
-            }
-        }
-        private void TbSearchFamily_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Tab || e.Key == Key.Enter)
-            {
-                BtnGet.Focus();
-                e.Handled = true;
-            }
-        }   
+        }      
  
 
     }

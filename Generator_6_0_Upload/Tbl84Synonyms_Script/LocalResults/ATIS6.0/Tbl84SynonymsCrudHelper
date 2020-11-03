@@ -1,0 +1,94 @@
+    
+        public ObservableCollection<Tbl68Speciesgroup> SearchForConnectedDatasetsWithSynonymIdInTableName(Tbl84Synonym selected)
+        {
+            var collection = new ObservableCollection<Tbl68Speciesgroup>(_uow.NULL.Find(x => x.SynonymId == selected.SynonymId));
+            return collection;
+        }
+
+
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSynonymIdInTableReference(Tbl84Synonym selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SynonymId == selected.SynonymId));
+            return collection;
+        }
+
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSynonymIdInTableComment(Tbl84Synonym selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SynonymId == selected.SynonymId));
+            return collection;
+        }
+
+        public void DeleteSynonym(Tbl84Synonym selected)
+        {
+            _uow.Tbl84Synonyms.Remove(selected);
+            _uow.Complete();
+        }
+
+        public ObservableCollection<T> GetFiSpeciessesCollectionOrderByFromFiSpeciesId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
+                .Where(e => e.FiSpeciesId == id)
+                .OrderBy(k => k.FiSpeciesName));
+
+            return collection;
+        }
+
+        public ObservableCollection<T> GetSynonymsCollectionOrderByFromSynonymId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl84Synonyms
+                .Where(e => e.SynonymId == id)
+                .OrderBy(k => k.SynonymName));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetNULLCollectionOrderByFromSubphylumId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.NULL
+                .Where(e => e.SynonymId == id)
+                .OrderBy(k => k.NameName));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferenceExpertsCollectionOrderByFromSynonymIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.SynonymId == id && e.RefAuthorId == null && e.RefSourceId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferenceSourcesCollectionOrderByFromSynonymIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefSources)
+                .Where(e => e.SynonymId == id && e.RefAuthorId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferenceAuthorsCollectionOrderByFromSynonymIdAndRefSourceIdIsNullAndRefExpertIdIsNull<T>(int id)   
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.SynonymId == id && e.RefSourceId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetCommentsCollectionOrderByFromSubphylumId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
+                .Where(e => e.SynonymId == id)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+   

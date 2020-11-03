@@ -16,7 +16,7 @@ using MessageBoxImage = System.Windows.MessageBoxImage;
     
 using GalaSoft.MvvmLight; 
     
-         //    Tbl03RegnumsViewModel Skriptdatum:  12.12.2019  12:32      
+         //    Tbl03RegnumsViewModel Skriptdatum:  01.11.2020  12:32      
 
 namespace WPFUI.Views.Database
 {     

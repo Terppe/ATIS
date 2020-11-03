@@ -21,13 +21,13 @@ using UserControl = System.Windows.Controls.UserControl;
 
       //  Tbl69FiSpeciessesView.xaml.cs Skriptdatum:  15.12.2019  10:32     
 
-namespace Te.Atis.Ui.Desktop.Views.Database
+namespace ATIS.Ui.Views.Database.ListDetails
 {  
 
     /// <summary>
-    /// Interactionslogic for Tbl69FiSpeciessesView.xaml
+    /// Interactionslogic for FiSpeciessesView.xaml
     /// </summary>
-    public partial class Tbl69FiSpeciessesView : UserControl
+    public partial class FiSpeciessesView : UserControl
    {      
 
     
@@ -44,11 +44,9 @@ namespace Te.Atis.Ui.Desktop.Views.Database
         private Location _center;
         private MapPolygon _currentShape;
 
-        public Tbl69FiSpeciessesView()
+        public FiSpeciessesView()
         {       
-            _businessLayer = new BusinessLayer.BusinessLayer();
-            _entityException = new DbEntityException();
-  
+            DataContext = new FiSpeciessesViewModel();  
             InitializeComponent();   
             IsVisibleChanged += UserControl_IsVisibleChanged;
             //Video

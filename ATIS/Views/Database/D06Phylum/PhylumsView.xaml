@@ -14,7 +14,9 @@
 
     <UserControl.Resources />
 
-    <!--  Tbl06PhylumsView.xaml  Skriptdatum:  24.10.2020  12:32  -->
+
+    <!--  Tbl06PhylumsView.xaml  Skriptdatum:  27.10.2020  12:32  -->
+
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -23,7 +25,7 @@
             <ColumnDefinition Width="50*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="250" />
+            <RowDefinition Height="300" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="50*" />
         </Grid.RowDefinitions>
@@ -38,6 +40,7 @@
             Margin="1"
             Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
             <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderPhylums}">
+
                 <ScrollViewer
                     helper:AutoScrollBehavior.TopMouseScrollPriority="True"
                     HorizontalScrollBarVisibility="Auto"
@@ -51,6 +54,7 @@
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
+
                                     <TextBox
                                         x:Name="TbSearchPhylum"
                                         Width="170"
@@ -86,10 +90,12 @@
                                         </TextBox.Style>
                                     </TextBox>
                                 </Grid>
+
                                 <Button Template="{StaticResource SearchPhylumsButton}" />
                                 <Button Template="{StaticResource AddPhylumButton}" />
                             </StackPanel>
                         </GroupBox>
+
                         <GroupBox>
                             <ListView
                                 x:Name="Tbl06PhylumsList"
@@ -120,10 +126,12 @@
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
+
                                         <GridViewColumn
                                             Width="150"
                                             DisplayMemberBinding="{Binding (models:Tbl06Phylum.PhylumName)}"
                                             Header="{DynamicResource Tbl06Phylum-PhylumName}" />
+
                                         <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
@@ -133,6 +141,7 @@
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
+
                                         <GridViewColumn
                                             Width="150"
                                             DisplayMemberBinding="{Binding (models:Tbl06Phylum.Author)}"
@@ -141,10 +150,12 @@
                                             Width="80"
                                             DisplayMemberBinding="{Binding (models:Tbl06Phylum.AuthorYear)}"
                                             Header="{DynamicResource Shared-AuthorYear}" />
+
                                         <GridViewColumn
                                             Width="400"
                                             DisplayMemberBinding="{Binding (models:Tbl06Phylum.Info)}"
                                             Header="{DynamicResource Shared-Info}" />
+
                                     </GridView>
                                 </ListView.View>
                             </ListView>
@@ -165,13 +176,16 @@
             Background="Black"
             ShowsPreview="False" />
 
+
         <!--  Part 2   FK1  aktuell  -->
+
 
         <TabControl
             Grid.Row="0"
             Grid.Column="2"
             Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
             SelectedIndex="{Binding SelectedMainTabIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+
             <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderRegnums}">
                 <ScrollViewer
                     helper:AutoScrollBehavior.TopMouseScrollPriority="True"
@@ -311,6 +325,7 @@
                                             Width="400"
                                             DisplayMemberBinding="{Binding (models:Tbl12Subphylum.Info)}"
                                             Header="{DynamicResource Shared-Info}" />
+
                                     </GridView>
                                 </ListView.View>
                             </ListView>
@@ -344,6 +359,7 @@
                             VerticalScrollBarVisibility="Auto">
                             <StackPanel>
                                 <GroupBox>
+
                                     <ListView
                                         x:Name="Tbl90ReferenceExpertsList"
                                         Height="Auto"
@@ -353,6 +369,7 @@
                                         SelectedItem="{Binding (Selector.SelectedItem)}"
                                         VirtualizingStackPanel.IsVirtualizing="True"
                                         VirtualizingStackPanel.VirtualizationMode="Recycling">
+
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90Reference-ReferenceId}">
@@ -406,6 +423,7 @@
                             VerticalScrollBarVisibility="Auto">
                             <StackPanel>
                                 <GroupBox>
+
                                     <ListView
                                         x:Name="Tbl90ReferenceSourcesList"
                                         Height="Auto"
@@ -415,6 +433,7 @@
                                         SelectedItem="{Binding (Selector.SelectedItem)}"
                                         VirtualizingStackPanel.IsVirtualizing="True"
                                         VirtualizingStackPanel.VirtualizationMode="Recycling">
+
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90Reference-ReferenceId}">
@@ -468,6 +487,7 @@
                             VerticalScrollBarVisibility="Auto">
                             <StackPanel>
                                 <GroupBox>
+
                                     <ListView
                                         x:Name="Tbl90ReferenceAuthorsList"
                                         Height="Auto"
@@ -526,6 +546,7 @@
                     </TabItem>
                 </TabControl>
             </TabItem>
+
             <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderComments}">
                 <ScrollViewer
                     helper:AutoScrollBehavior.TopMouseScrollPriority="True"
@@ -533,6 +554,7 @@
                     VerticalScrollBarVisibility="Auto">
                     <StackPanel>
                         <GroupBox>
+
                             <ListView
                                 x:Name="Tbl93CommentsList"
                                 Height="Auto"
@@ -542,6 +564,7 @@
                                 SelectedItem="{Binding (Selector.SelectedItem)}"
                                 VirtualizingStackPanel.IsVirtualizing="True"
                                 VirtualizingStackPanel.VirtualizationMode="Recycling">
+
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Width="Auto" Header="{DynamicResource Tbl93Comment-CommentId}">
@@ -576,7 +599,9 @@
             </TabItem>
         </TabControl>
 
+
         <!--  Part 2 Splitter  -->
+
 
         <GridSplitter
             Grid.Row="1"
@@ -588,7 +613,9 @@
             Background="Black"
             ShowsPreview="False" />
 
+
         <!--  Part 2   FK1  aktuell  -->
+
 
         <TabControl
             Grid.Row="2"
@@ -596,10 +623,12 @@
             Grid.ColumnSpan="3"
             Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
             SelectedIndex="{Binding SelectedDetailTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl03Regnum-Regnum}">
                 <GroupBox>
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
+
                             <Button Template="{StaticResource SaveRegnumButton}" />
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
@@ -641,6 +670,7 @@
                                         UpdateSourceTrigger="PropertyChanged" />
                                 </TextBox.Text>
                             </TextBox>
+
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <CheckBox
@@ -652,7 +682,7 @@
                                 IsChecked="{Binding SelectedItem.(models:Tbl03Regnum.Valid), ElementName=Tbl03RegnumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Style="{StaticResource MahApps.Styles.CheckBox}" />
                             <TextBox
-                                Width="50"
+                                Width="80"
                                 Margin="25,5,5,5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -717,8 +747,8 @@
                                 </TextBox.Text>
                             </TextBox>
                             <TextBox
-                                Width="150"
-                                Margin="5"
+                                Width="130"
+                                Margin="25,5,5,5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -779,7 +809,7 @@
                             </TextBox>
                             <TextBox
                                 Width="367"
-                                Margin="21,5,5,5"
+                                Margin="23,5,5,5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -866,12 +896,12 @@
                 </GroupBox>
             </TabItem>
 
-
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl06Phylum-Phylum}">
                 <StackPanel>
                     <GroupBox>
                         <StackPanel Margin="1">
                             <StackPanel Height="Auto" Orientation="Horizontal">
+
                                 <Button Template="{StaticResource SavePhylumButton}" />
                                 <Button Template="{StaticResource CopyPhylumButton}" />
                                 <Button Template="{StaticResource AddPhylumButton}" />
@@ -921,6 +951,7 @@
                                     Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                     VirtualizingStackPanel.IsVirtualizing="True" />
                             </StackPanel>
+
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <CheckBox
                                     Width="80"
@@ -1107,7 +1138,6 @@
                                     FontWeight="Medium"
                                     SpellCheck.IsEnabled="True"
                                     ToolTip="{DynamicResource Shared-SpaName}">
-
                                     <TextBox.Text>
                                         <Binding
                                             ElementName="Tbl06PhylumsList"
@@ -1117,6 +1147,7 @@
                                     </TextBox.Text>
                                 </TextBox>
                             </StackPanel>
+
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                     <TextBox
@@ -1147,6 +1178,7 @@
             </TabItem>
 
 
+
             <!--  Part 4.2 TK1 Connected  -->
 
 
@@ -1154,6 +1186,7 @@
                 <GroupBox>
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
+
                             <Button Template="{StaticResource SaveSubphylumButton}" />
                             <Button Template="{StaticResource CopySubphylumButton}" />
                             <Button Template="{StaticResource AddSubphylumButton}" />
@@ -1179,15 +1212,16 @@
                                         UpdateSourceTrigger="PropertyChanged" />
                                 </TextBox.Text>
                             </TextBox>
+
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <CheckBox
                                 Width="80"
-                                Margin="5,0,0,0"
+                                Margin="5"
                                 VerticalAlignment="Bottom"
                                 Content="{DynamicResource Shared-Valid}"
                                 FontWeight="Normal"
-                                IsChecked="{Binding SelectedItem.(models:Tbl12Subphylum.Valid), ElementName=Tbl12SubphylumsList}"
+                                IsChecked="{Binding SelectedItem.(models:Tbl12Subphylum.Valid), ElementName=Tbl12SubphylumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Style="{StaticResource MahApps.Styles.CheckBox}" />
                             <TextBox
                                 Width="135"
@@ -1297,7 +1331,7 @@
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <TextBox
-                                Width="368"
+                                Width="367"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -1317,7 +1351,7 @@
                             </TextBox>
                             <TextBox
                                 Width="367"
-                                Margin="20,5,5,5"
+                                Margin="23,5,5,5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1357,7 +1391,7 @@
                             </TextBox>
                             <TextBox
                                 Width="367"
-                                Margin="20,5,5,5"
+                                Margin="23,5,5,5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1375,6 +1409,7 @@
                                 </TextBox.Text>
                             </TextBox>
                         </StackPanel>
+
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <TextBox
@@ -1428,6 +1463,7 @@
                 <GroupBox>
                     <StackPanel Margin="0,8,5,0">
                         <StackPanel Height="Auto" Orientation="Horizontal">
+
                             <Button Template="{StaticResource SaveReferenceExpertButton}" />
                             <Button Template="{StaticResource CopyReferenceExpertButton}" />
                             <Button Template="{StaticResource AddReferenceExpertButton}" />
@@ -1651,7 +1687,6 @@
                                         </StackPanel>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
-
                             </ComboBox>
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
@@ -1796,20 +1831,30 @@
                                     FontWeight="Medium"
                                     SpellCheck.IsEnabled="True"
                                     Style="{StaticResource MahApps.Styles.TextBox}"
-                                    Text="{Binding SelectedItem.(models:Tbl93Comment.Memo), ElementName=Tbl93CommentsList}"
                                     TextWrapping="Wrap"
                                     ToolTip="{DynamicResource Shared-Memo}"
-                                    VerticalScrollBarVisibility="Auto" />
+                                    VerticalScrollBarVisibility="Auto">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl93CommentsList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl93Comment.Memo)"
+                                            UpdateSourceTrigger="PropertyChanged" />
+                                    </TextBox.Text>
+                                </TextBox>
                             </ScrollViewer>
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>
             </TabItem>
+
         </TabControl>
 
         <StackPanel
             Grid.Row="2"
             Grid.Column="0"
             Grid.ColumnSpan="3" />
+
     </Grid>
 </UserControl>
+

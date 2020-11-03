@@ -1,169 +1,101 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Validation;
+using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using GalaSoft.MvvmLight;
-using log4net;
-using Te.Atis.DomainModel;
-using Te.Atis.Ui.Desktop.BusinessLayer;
-using Te.Atis.Ui.Desktop.Domain;
-using Te.Atis.Ui.Desktop.Domain.Helper;
-using Te.Atis.Ui.Desktop.MessageBox;    
+using Common.Logging;
+using ATIS.Dal.Models;
+using ATIS.Ui.Core;
+using ATIS.Ui.Helper;
+using ATIS.Ui.Views.Database.CrudHelper;
+using ATIS.Ui.Views.Database.DatabaseHelper;
+using Microsoft.EntityFrameworkCore;          
 
     
-         //    Tbl93CommentsViewModel Skriptdatum:  29.11.2018  10:32    
+         //    CommentsViewModel Skriptdatum:  29.11.2018  10:32    
 
-namespace Te.Atis.Ui.Desktop.Views.Database
+namespace ATIS.Ui.Views.Database.ListDetails
 {     
     
-    public class Tbl93CommentsViewModel : ViewModelBase                     
-    {     
+    public class CommentsViewModel : ViewModelBase                     
+    {  
+        // Version with Generic Unit Of Work and AtisDbContext for general use   
          
-        #region "Private Data Members"
+        #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private static IBusinessLayer _businessLayer;
-        private static DbEntityException _entityException;
+        private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
+        private readonly AtisDbContext _context = new AtisDbContext();
+
+        private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
+        private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
+        private readonly GenericMessageBoxes<NULL> _genNULLMessageBoxes = new GenericMessageBoxes<NULL>();
+        private readonly GenericMessageBoxes<NULL> _genNULLMessageBoxes = new GenericMessageBoxes<NULL>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genExpertMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
+        private readonly BasicGet _extGet = new BasicGet();
+        private readonly BasicCopy _extCopy = new BasicCopy();
+        private readonly BasicDelete _extDelete = new BasicDelete();
+        private readonly BasicSave _extSave = new BasicSave();        
         private int _position;   
          
-        #endregion "Private Data Members"               
+        #endregion [Private Data Members]               
       
-        #region "Constructor"
+        #region [Constructor]
 
-        public Tbl93CommentsViewModel()
+        public CommentsViewModel()
         {
             if (IsInDesignMode)
             {
                 // Code runs in Blend --> create design time data.
             }
             else
-            {    
+            {          
         
                 // Code runs "for real" 
-                _entityException = new DbEntityException();
+                Tbl93CommentsList = new ObservableCollection<Tbl93Comment>();    
             }
         }     
-        #endregion "Constructor"         
+        public bool IsInDesignMode { get; set; }
+
+        #endregion [Constructor]         
  
 
  //    Part 1    
 
-             
-        #region "Public Commands Basic Tbl93Comment"
-        //-------------------------------------------------------------------------
-        private RelayCommand _clearCommentCommand;
+         
 
-        public ICommand ClearCommentCommand => _clearCommentCommand ??
-                                                  (_clearCommentCommand = new RelayCommand(delegate { ClearComment(null); }));         
-             
-        private RelayCommand _getCommentsByNameOrIdCommand;  
+        #region [Commands Comment]
 
-        public  ICommand GetCommentsByNameOrIdCommand => _getCommentsByNameOrIdCommand ??
-                                                           (_getCommentsByNameOrIdCommand = new RelayCommand(delegate { GetCommentsByNameOrId(null); }));        
+        private RelayCommand _getCommentsByNameOrIdCommand;
+        public ICommand GetCommentsByNameOrIdCommand => _getCommentsByNameOrIdCommand ??= new RelayCommand(delegate {ExecuteGetCommentsByNameOrId(SearchCommentName); });    
              
         private RelayCommand _addCommentCommand;
-
-        public ICommand AddCommentCommand => _addCommentCommand ??
-                                                (_addCommentCommand = new RelayCommand(delegate { AddComment(null); }));
+        public ICommand AddCommentCommand => _addCommentCommand ??= new RelayCommand(delegate { ExecuteAddComment(null); });
 
         private RelayCommand _copyCommentCommand;
-
-        public ICommand CopyCommentCommand => _copyCommentCommand ??
-                                                 (_copyCommentCommand = new RelayCommand(delegate { CopyComment(null); }));      
+        public ICommand CopyCommentCommand => _copyCommentCommand ??= new RelayCommand(delegate { ExecuteCopyComment(null); });      
              
         private RelayCommand _deleteCommentCommand;
-
-        public ICommand DeleteCommentCommand => _deleteCommentCommand ??
-                                                   (_deleteCommentCommand = new RelayCommand(delegate { DeleteComment(null); }));    
+        public ICommand DeleteCommentCommand => _deleteCommentCommand ??= new RelayCommand(delegate { ExecuteDeleteComment(SearchCommentName); });    
              
         private RelayCommand _saveCommentCommand;
+        public ICommand SaveCommentCommand => _saveCommentCommand ??= new RelayCommand(delegate { ExecuteSaveComment(SearchCommentName); });    
 
-        public ICommand SaveCommentCommand => _saveCommentCommand ??
-                                                 (_saveCommentCommand = new RelayCommand(delegate { SaveComment(null); }));
-        //-------------------------------------------------------------------------          
-        
-        private void ClearComment(object o)
-        {
-            SearchCommentInfo = "";
+        #endregion [Commands Comment]       
 
-            Tbl93CommentsList?.Clear();
-        }
-        //----------------------------------------------------------------------                  
-        
-        private void GetCommentsByNameOrId(object o)
-        {
-            if (SearchCommentInfo != "")
-            {
-                Tbl93CommentsList?.Clear();
-                if (SearchCommentInfo == "*") // show whole table
-                {
-                    SearchCommentInfo = "";
-                    _businessLayer = new BusinessLayer.BusinessLayer();
-                    Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_businessLayer.ListTbl93CommentsByInfo(SearchCommentInfo));
-                    SearchCommentInfo = "*";
-                }
-                else
-                {
-                    _businessLayer = new BusinessLayer.BusinessLayer();
-                    Tbl93CommentsList = int.TryParse(SearchCommentInfo, out var id) ?
-                    new ObservableCollection<Tbl93Comment>(_businessLayer.ListTbl93CommentsByCommentId(id)) :
-                    new ObservableCollection<Tbl93Comment>(_businessLayer.ListTbl93CommentsByInfo(SearchCommentInfo));
-                }
-                if (Tbl93CommentsList.Count == 0)
-                {
-                    WpfMessageBox.Show(CultRes.StringsRes.Tables, CultRes.StringsRes.DatasetNot,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                }
-                else
-                {
-                    _businessLayer = new BusinessLayer.BusinessLayer();
-                       Tbl03RegnumsAllList = new ObservableCollection<Tbl03Regnum>(_businessLayer.ListTbl03Regnums());
-                       Tbl06PhylumsAllList = new ObservableCollection<Tbl06Phylum>(_businessLayer.ListTbl06Phylums());
-                       Tbl09DivisionsAllList = new ObservableCollection<Tbl09Division>(_businessLayer.ListTbl09Divisions());
-                       Tbl12SubphylumsAllList = new ObservableCollection<Tbl12Subphylum>(_businessLayer.ListTbl12Subphylums());
-                       Tbl15SubdivisionsAllList = new ObservableCollection<Tbl15Subdivision>(_businessLayer.ListTbl15Subdivisions());
-                       Tbl18SuperclassesAllList = new ObservableCollection<Tbl18Superclass>(_businessLayer.ListTbl18Superclasses());
-                       Tbl21ClassesAllList = new ObservableCollection<Tbl21Class>(_businessLayer.ListTbl21Classes());
-                       Tbl24SubclassesAllList = new ObservableCollection<Tbl24Subclass>(_businessLayer.ListTbl24Subclasses());
-                       Tbl27InfraclassesAllList = new ObservableCollection<Tbl27Infraclass>(_businessLayer.ListTbl27Infraclasses());
-                       Tbl30LegiosAllList = new ObservableCollection<Tbl30Legio>(_businessLayer.ListTbl30Legios());
-                       Tbl33OrdosAllList = new ObservableCollection<Tbl33Ordo>(_businessLayer.ListTbl33Ordos());
-                       Tbl36SubordosAllList = new ObservableCollection<Tbl36Subordo>(_businessLayer.ListTbl36Subordos());
-                       Tbl39InfraordosAllList = new ObservableCollection<Tbl39Infraordo>(_businessLayer.ListTbl39Infraordos());
-                       Tbl42SuperfamiliesAllList = new ObservableCollection<Tbl42Superfamily>(_businessLayer.ListTbl42Superfamilies());
-                       Tbl45FamiliesAllList = new ObservableCollection<Tbl45Family>(_businessLayer.ListTbl45Families());
-                       Tbl48SubfamiliesAllList = new ObservableCollection<Tbl48Subfamily>(_businessLayer.ListTbl48Subfamilies());
-                       Tbl51InfrafamiliesAllList = new ObservableCollection<Tbl51Infrafamily>(_businessLayer.ListTbl51Infrafamilies());
-                       Tbl54SupertribussesAllList = new ObservableCollection<Tbl54Supertribus>(_businessLayer.ListTbl54Supertribusses());
-                       Tbl57TribussesAllList = new ObservableCollection<Tbl57Tribus>(_businessLayer.ListTbl57Tribusses());
-                       Tbl60SubtribussesAllList = new ObservableCollection<Tbl60Subtribus>(_businessLayer.ListTbl60Subtribusses());
-                       Tbl63InfratribussesAllList = new ObservableCollection<Tbl63Infratribus>(_businessLayer.ListTbl63Infratribusses());
-                       Tbl66GenussesAllList = new ObservableCollection<Tbl66Genus>(_businessLayer.ListTbl66Genusses());
-                       Tbl69FiSpeciessesAllList = new ObservableCollection<Tbl69FiSpecies>(_businessLayer.ListTbl69FiSpeciesses());
-                       Tbl72PlSpeciessesAllList = new ObservableCollection<Tbl72PlSpecies>(_businessLayer.ListTbl72PlSpeciesses());
-                }
-            }
-            else
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.SearchNameOrId, CultRes.StringsRes.InputRequested,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-            }
-            CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
             CommentsView.Refresh();
         }
         //------------------------------------------------------------------------------------                          
         
-        private void AddComment(object o)
+        private void ExecuteAddComment(object o)
         {  
-            if (Tbl93CommentsList == null)
-                Tbl93CommentsList =  new ObservableCollection<Tbl93Comment>( );
-
             Tbl93CommentsList.Insert(0, new Tbl93Comment {   Info = CultRes.StringsRes.DatasetNew }  );
 
-                    _businessLayer = new BusinessLayer.BusinessLayer();
             Tbl03RegnumsAllList = new ObservableCollection<Tbl03Regnum>(_businessLayer.ListTbl03Regnums());
             Tbl06PhylumsAllList = new ObservableCollection<Tbl06Phylum>(_businessLayer.ListTbl06Phylums());
             Tbl09DivisionsAllList = new ObservableCollection<Tbl09Division>(_businessLayer.ListTbl09Divisions());
@@ -193,271 +125,89 @@ namespace Te.Atis.Ui.Desktop.Views.Database
             CommentsView.MoveCurrentToFirst();
         }
         //------------------------------------------------------------------------------------                               
-        
-        private void CopyComment(object o)
+     
+        private void ExecuteCopyComment(object o)
         {
-            if (CurrentTbl93Comment == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-            _businessLayer = new BusinessLayer.BusinessLayer();
+            if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
 
-            var comment = _businessLayer.SingleListTbl93CommentsByCommentId(CurrentTbl93Comment.CommentID);
+            Tbl93CommentsList = _extCopy.CopyComment(CurrentTbl93Comment);
 
-            Tbl93CommentsList.Insert(0, new Tbl93Comment
-            {
-                Valid = comment.Valid,
-                ValidYear = comment.ValidYear,
-                Info = comment.Info,
-                Memo = comment.Memo
-            });
+            // evtl verbundene tabellen-Datensätze auch kopieren Expert, Source, Author und Comment
 
             CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
             CommentsView.MoveCurrentToFirst();
-        }
-        //---------------------------------------------------------------------------------------                            
-        
-        private void DeleteComment(object o)
+        }                         
+     
+        private void ExecuteDeleteComment(string searchName)
         {
-            if (CurrentTbl93Comment == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-            _businessLayer = new BusinessLayer.BusinessLayer();
+            if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;               
+ 
+    
+            //check if in NULL connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
 
+            NULLList = _extDelete.SearchForConnectedDatasetsWithCommentIdInTableNULL(CurrentTbl93Comment);     
+     
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(NULLList.Count, "NULL")) return;
+
+            //Delete all References Experts, Sources, Authors  ----------------------------------------------------
+            Tbl90ReferencesList = _extDelete.DeleteDatasetsWithCommentIdInTableReference(CurrentTbl93Comment);
+            if (Tbl90ReferencesList.Count > 0)
+            {
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+
+                _extDelete.DeleteReferences(Tbl90ReferencesList);
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
+            }
+
+            //Delete all Comments  ----------------------------------------------------
+            Tbl93CommentsList = _extDelete.DeleteDatasetsWithCommentIdInTableComment(CurrentTbl93Comment);
+            if (Tbl93CommentsList.Count > 0)
+            {
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
+
+                _extDelete.DeleteComments(Tbl93CommentsList);
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
+            }
             try
             {
-                var comment = _businessLayer.SingleListTbl93CommentsByCommentId(CurrentTbl93Comment.CommentID);
-                if (comment != null)
+                var comment= _uow.Tbl93Comments.GetById(CurrentTbl93Comment.CommentId);
+                if (comment!= null)
                 {
-                    if (WpfMessageBox.Show(CultRes.StringsRes.DeleteQuestion1, CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl93Comment.Info,
-                            MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-                        return;
-                    comment.EntityState = EntityState.Deleted;
-                    _businessLayer.RemoveComment(comment);
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl93Comment.CommentName)) return;
 
-                    WpfMessageBox.Show(CultRes.StringsRes.DeleteSuccess, CurrentTbl93Comment.Info,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                    _extDelete.DeleteComment(comment);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl93Comment.CommentName);
                 }
-                else
-                {
-                    WpfMessageBox.Show(CultRes.StringsRes.Information, CultRes.StringsRes.DeleteCan + " " + CurrentTbl93Comment.Info + " " + CultRes.StringsRes.DeleteCan1,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl93Comment.CommentName + " " + CultRes.StringsRes.DeleteCan1);
             }
-            catch (DbEntityValidationException ex)
+            catch (Exception e)
             {
-                _entityException.EntityException(ex);
-                    Log.Error(ex);
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
             }
 
-            if (SearchCommentInfo != "")
-            {
-                if (SearchCommentInfo == "*")  //show all datasets
-                {
-                    SearchCommentInfo = "";
-                    Tbl93CommentsList.Clear();
-                    
-                Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_businessLayer.ListTbl93CommentsByInfo(SearchCommentInfo));            
-                    SearchCommentInfo = "*";
-                }
-                else
-                {               
-                    Tbl93CommentsList =  new ObservableCollection<Tbl93Comment>(_businessLayer.ListTbl93CommentsByInfo(SearchCommentInfo));
+            ExecuteGetCommentsByNameOrId(searchName);
 
-                }
-                CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
-                CommentsView.Refresh();
-            }
-            else  //SearchName = empty
+            CommentsView.MoveCurrentToFirst();
+        }                
+     
+        private void ExecuteSaveComment(string searchName)
+        {
+            if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;      
+       
+            //Combobox select NULLID  may be not 0
+            if (CurrentTbl93Comment.NULLId == 0)
             {
-                Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_businessLayer.ListTbl93CommentsByInfo(SearchCommentInfo));
-
-                CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
-                CommentsView.MoveCurrentToFirst();
-             }
-        }
-        //-------------------------------------------------------------------------------------------------                    
+                MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }     
        
         private void SaveComment(object o)
         {
-            if (CurrentTbl93Comment == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
-            _businessLayer = new BusinessLayer.BusinessLayer();
-
-            try
-            {
-                var comment = _businessLayer.SingleListTbl93CommentsByCommentId(CurrentTbl93Comment.CommentID);
-                if (CurrentTbl93Comment.CommentID != 0)
-                {
-                    if (comment != null) //update
-                    {
-                            comment.RegnumID = CurrentTbl93Comment.RegnumID;
-                            comment.PhylumID = CurrentTbl93Comment.PhylumID;
-                            comment.DivisionID = CurrentTbl93Comment.DivisionID;
-                            comment.SubphylumID = CurrentTbl93Comment.SubphylumID;
-                            comment.SubdivisionID = CurrentTbl93Comment.SubdivisionID;
-                            comment.SuperclassID = CurrentTbl93Comment.SuperclassID;
-                            comment.ClassID = CurrentTbl93Comment.ClassID;
-                            comment.SubclassID = CurrentTbl93Comment.SubclassID;
-                            comment.InfraclassID = CurrentTbl93Comment.InfraclassID;
-                            comment.LegioID = CurrentTbl93Comment.LegioID;
-                            comment.OrdoID = CurrentTbl93Comment.OrdoID;
-                            comment.SubordoID = CurrentTbl93Comment.SubordoID;
-                            comment.InfraordoID = CurrentTbl93Comment.InfraordoID;
-                            comment.SuperfamilyID = CurrentTbl93Comment.SuperfamilyID;
-                            comment.FamilyID = CurrentTbl93Comment.FamilyID;
-                            comment.SubfamilyID = CurrentTbl93Comment.SubfamilyID;
-                            comment.InfrafamilyID = CurrentTbl93Comment.InfrafamilyID;
-                            comment.SupertribusID = CurrentTbl93Comment.SupertribusID;
-                            comment.TribusID = CurrentTbl93Comment.TribusID;
-                            comment.SubtribusID = CurrentTbl93Comment.SubtribusID;
-                            comment.InfratribusID = CurrentTbl93Comment.InfratribusID;
-                            comment.GenusID = CurrentTbl93Comment.GenusID;
-                            comment.PlSpeciesID = CurrentTbl93Comment.PlSpeciesID;
-                            comment.FiSpeciesID = CurrentTbl93Comment.FiSpeciesID;
-                            comment.Valid = CurrentTbl93Comment.Valid;
-                            comment.ValidYear = CurrentTbl93Comment.ValidYear;
-                            comment.Info = CurrentTbl93Comment.Info;
-                            comment.Memo = CurrentTbl93Comment.Memo;
-                            comment.Updater = Environment.UserName;
-                            comment.UpdaterDate = DateTime.Now;
-                        comment.EntityState = EntityState.Modified;
-                    }
-                }
-                else
-                {
-                            comment = new Tbl93Comment   //add new
-                            {
-                        RegnumID = CurrentTbl93Comment.RegnumID,
-                            PhylumID = CurrentTbl93Comment.PhylumID,
-                            DivisionID = CurrentTbl93Comment.DivisionID,
-                            SubphylumID = CurrentTbl93Comment.SubphylumID,
-                            SubdivisionID = CurrentTbl93Comment.SubdivisionID,
-                            SuperclassID = CurrentTbl93Comment.SuperclassID,
-                            ClassID = CurrentTbl93Comment.ClassID,
-                            SubclassID = CurrentTbl93Comment.SubclassID,
-                            InfraclassID = CurrentTbl93Comment.InfraclassID,
-                            LegioID = CurrentTbl93Comment.LegioID,
-                            OrdoID = CurrentTbl93Comment.OrdoID,
-                            SubordoID = CurrentTbl93Comment.SubordoID,
-                            InfraordoID = CurrentTbl93Comment.InfraordoID,
-                            SuperfamilyID = CurrentTbl93Comment.SuperfamilyID,
-                            FamilyID = CurrentTbl93Comment.FamilyID,
-                            SubfamilyID = CurrentTbl93Comment.SubfamilyID,
-                            InfrafamilyID = CurrentTbl93Comment.InfrafamilyID,
-                            SupertribusID = CurrentTbl93Comment.SupertribusID,
-                            TribusID = CurrentTbl93Comment.TribusID,
-                            SubtribusID = CurrentTbl93Comment.SubtribusID,
-                            InfratribusID = CurrentTbl93Comment.InfratribusID,
-                            GenusID = CurrentTbl93Comment.GenusID,
-                            PlSpeciesID = CurrentTbl93Comment.PlSpeciesID,
-                            FiSpeciesID = CurrentTbl93Comment.FiSpeciesID,
-                            CountID = RandomHelper.Randomnumber(),
-                            Valid = CurrentTbl93Comment.Valid,
-                            ValidYear = CurrentTbl93Comment.ValidYear,
-                            Info = CurrentTbl93Comment.Info,
-                            Memo = CurrentTbl93Comment.Memo,
-                            Writer = Environment.UserName,
-                            WriterDate = DateTime.Now,
-                            Updater = Environment.UserName,
-                            UpdaterDate = DateTime.Now,
-                            EntityState = EntityState.Added
-                    };
-                }
-                {
-                    //check if dataset RegnumID to PlSpeciesID and Info already exist       
-                    var dataset = _businessLayer.ListTbl93CommentsByCurrentItem(CurrentTbl93Comment);
-
-                    if (dataset.Count != 0 && CurrentTbl93Comment.CommentID == 0)  //dataset exist
-                    {
-                        WpfMessageBox.Show(CultRes.StringsRes.DatasetExist, CurrentTbl93Comment.CommentID.ToString(),
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        return;
-                    }
-                    if (dataset.Count == 0 && CurrentTbl93Comment.CommentID == 0 ||
-                        dataset.Count != 0 && CurrentTbl93Comment.CommentID != 0 ||
-                        dataset.Count == 0 && CurrentTbl93Comment.CommentID != 0) //new dataset and update
-                    {
-                        if (WpfMessageBox.Show(CultRes.StringsRes.SaveQuestion2, CurrentTbl93Comment.CommentID.ToString(),
-                                MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-                            return;
-                        {
-                            try
-                            {
-                                _businessLayer.UpdateComment(comment);
-                                _position = CommentsView.CurrentPosition;
-                            }
-                            catch (DbUpdateException e)
-                            {
-                                if (e.InnerException != null)
-                                    System.Windows.MessageBox.Show(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave,
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-
-                                Log.Error(e);
-                                return;
-                            }
-                            catch (Exception e)
-                            {
-                                System.Windows.MessageBox.Show(e.Message, CultRes.StringsRes.Error,
-                                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-                                Log.Error(e);
-                                return;
-                            }
-                                    WpfMessageBox.Show(CultRes.StringsRes.SaveSuccess,
-                                        CurrentTbl93Comment.CommentID == 0
-                                            ? CultRes.StringsRes.DatasetNew
-                                            : CurrentTbl93Comment.CommentID.ToString(),
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        }
-                    }
-                }
-            }
-            catch (DbEntityValidationException ex)
-            {
-                _entityException.EntityException(ex);
-                    Log.Error(ex);
-                   return;
-            }
-
-            if (SearchCommentInfo != "")
-            {
-                if (SearchCommentInfo == "*")  //show all datasets
-                {
-                    SearchCommentInfo = "";
-                    Tbl93CommentsList.Clear();
-                    
-                Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_businessLayer.ListTbl93CommentsByInfo(SearchCommentInfo));            
-                    SearchCommentInfo = "*";
-                }
-                else
-                {               
-                    Tbl93CommentsList = int.TryParse(SearchCommentInfo, out var id)
-                        ? new ObservableCollection<Tbl93Comment>(_businessLayer.ListTbl93CommentsByCommentId(id))
-                        : new ObservableCollection<Tbl93Comment>(_businessLayer.ListTbl93CommentsByInfo(SearchCommentInfo));
-
-                }
-                CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
-                CommentsView.MoveCurrentToPosition(_position);
-            }
-            else  
-            {
-                Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_businessLayer.ListTbl93CommentsByInfo(CurrentTbl93Comment.Info));
-
-                CommentsView= CollectionViewSource.GetDefaultView(Tbl93CommentsList);
-                CommentsView.Refresh();
-            }
         }
         #endregion "Public Commands"                   
  
@@ -465,6 +215,17 @@ namespace Te.Atis.Ui.Desktop.Views.Database
 
  //    Part 2    
 
+     
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+            ExecuteGetCommentsByNameOrId(searchName);
+            CommentsView.MoveCurrentToPosition(_position);
+        }
+
+        #endregion "Public Commands"                  
                                                           
 
  //    Part 3    
@@ -497,10 +258,247 @@ namespace Te.Atis.Ui.Desktop.Views.Database
              
  //    Part 9    
 
+
+     
+        #region "Public Commands Connected Tables by DoubleClick"
+
+        private RelayCommand _getConnectedTablesCommand;
+        public ICommand GetConnectedTablesCommand => _getConnectedTablesCommand ??= new RelayCommand(delegate { GetConnectedTablesById(null); });
+
+        #endregion "Public Commands Connected Tables by DoubleClick"
+
+        #region "Public Method Connected Tables by DoubleClick"
+
+        private void GetConnectedTablesById(object o)
+        {           
+     
+        }
+
+        #endregion "Public Method Connected Tables by DoubleClick"     
  
+
 
  //    Part 10    
 
+     
+        #region "Public Commands to open Detail TabItems"
+
+        private int _selectedMainTabIndex;
+        private int _selectedMainSubRefTabIndex;
+        private int _selectedDetailTabIndex;
+
+        public  int SelectedMainTabIndex
+        {
+            get => _selectedMainTabIndex; 
+            set
+            {
+                if (value == _selectedMainTabIndex) return;
+                _selectedMainTabIndex = value; RaisePropertyChanged("");        
+     
+                if (_selectedMainTabIndex == 0)             
+                {
+                    if (CurrentTbl93Comment != null)
+                    {
+                        NULLList = _extGet.GetNULLCollectionOrderByFromNULLId<NULL>(CurrentTbl93Comment.NULLId);
+
+                        Tbl66GenussesAllList = _extGet.AllCollection<Tbl66Genus>("");
+
+                        NULLView = CollectionViewSource.GetDefaultView(NULLList);
+                        NULLView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 0;
+                }         
+     
+                if (_selectedMainTabIndex == 1)
+                {
+                    if (CurrentTbl93Comment != null)
+                    {
+                        NULLList = _extGet.GetNULLCollectionOrderByFromCommentId<NULL>(CurrentTbl93Comment.CommentId);
+
+                        Tbl93CommentsAllList = _extGet.AllCollection<Tbl93Comment>("comment");
+
+                        NULLView = CollectionViewSource.GetDefaultView(NULLList);
+                        NULLView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 2;   
+               }      
+     
+                if (_selectedMainTabIndex == 2)
+                {
+                    SelectedDetailTabIndex = 3;
+                    SelectedMainSubRefTabIndex = 0;
+                }           
+     
+                if (_selectedMainTabIndex == 3)
+                {
+                    if (CurrentTbl93Comment != null)
+                    {
+                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromCommentId<Tbl93Comment>(CurrentTbl93Comment.CommentId);
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 6;
+                }        
+     
+            }
+        }
+
+        public  int SelectedDetailTabIndex
+        {
+            get => _selectedDetailTabIndex; 
+            set
+            {
+                if (value == _selectedDetailTabIndex) return;
+                _selectedDetailTabIndex = value;    RaisePropertyChanged("");       
+     
+                if (_selectedDetailTabIndex == 0)
+                {
+                    if (CurrentTbl93Comment != null)
+                    {
+                        NULLList = _extGet.GetNULLCollectionOrderByFromNULLId<NULL>(CurrentTbl93Comment.NULLId);
+
+                        NULLView = CollectionViewSource.GetDefaultView(NULLList);
+                        NULLView.Refresh();
+                    }
+                    SelectedMainTabIndex = 0;  
+               }     
+     
+                if (_selectedDetailTabIndex == 1)                
+                {
+                    SelectedMainTabIndex = 0;
+                }    
+     
+                if (_selectedDetailTabIndex == 2)                
+                {
+                    if (CurrentTbl93Comment != null)
+                    {
+                        NULLList = _extGet.GetNULLCollectionOrderByFromCommentId<NULL>(CurrentTbl93Comment.CommentId);
+
+                        Tbl93CommentsAllList = _extGet.AllCollection<Tbl93Comment>("comment");
+
+                        NULLView = CollectionViewSource.GetDefaultView(NULLList);
+                        NULLView.Refresh();
+                    }
+                    SelectedMainTabIndex = 1;
+               }    
+     
+                if (_selectedDetailTabIndex == 3)
+                {
+                    if (CurrentTbl93Comment != null)
+                    {
+                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+
+                        Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFromCommentIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTbl93Comment.CommentId);
+
+                        ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                        ReferenceExpertsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 2;
+                    SelectedMainSubRefTabIndex = 0;
+                }        
+     
+                if (_selectedDetailTabIndex == 4)
+                {
+                    if (CurrentTbl93Comment != null)
+                    {
+                        Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+
+                        Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromCommentIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl93Comment.CommentId);
+
+                        ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+                        ReferenceSourcesView.Refresh();
+                    }
+                    SelectedMainTabIndex = 2;
+                    SelectedMainSubRefTabIndex = 1;
+                }        
+     
+                if (_selectedDetailTabIndex == 5)
+                {
+                    if (CurrentTbl93Comment != null)
+                    {
+                        Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+
+                        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFromCommentIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl93Comment.CommentId);
+
+                        ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
+                        ReferenceAuthorsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 2;
+                    SelectedMainSubRefTabIndex = 2;
+                }       
+     
+                if (_selectedDetailTabIndex == 6)
+                {
+                    if (CurrentTbl93Comment != null)
+                    {
+                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromCommentId<Tbl93Comment>(CurrentTbl93Comment.CommentId);
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 3;
+                }       
+     
+            }
+        }
+
+        public int SelectedMainSubRefTabIndex
+        {
+            get => _selectedMainSubRefTabIndex;
+            set
+            {
+                if (value == _selectedMainSubRefTabIndex) return;
+                _selectedMainSubRefTabIndex = value;  RaisePropertyChanged("");     
+     
+                if (_selectedMainSubRefTabIndex == 0)
+                {
+                    if (CurrentTbl93Comment != null)
+                    {
+                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+
+                        Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFromCommentIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTbl93Comment.CommentId);
+
+                        ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                        ReferenceExpertsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 3;
+                    SelectedMainTabIndex = 2;
+                }        
+     
+                if (_selectedMainSubRefTabIndex == 1)
+                {
+                    if (CurrentTbl93Comment != null)
+                    {
+                        Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+
+                        Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromCommentIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl93Comment.CommentId);
+
+                        ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+                        ReferenceSourcesView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 4;
+                    SelectedMainTabIndex = 2;
+                }      
+     
+                if (_selectedMainSubRefTabIndex == 2)
+                {
+                    if (CurrentTbl93Comment != null)
+                    {
+                        Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+
+                        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFromCommentIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl93Comment.CommentId);
+
+                        ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
+                        ReferenceAuthorsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 5;
+                    SelectedMainTabIndex = 2;
+                }      
+                     
+            }
+        }    
+        #endregion "Public Commands to open Detail TabItems"          
  
 
  //    Part 11    
@@ -512,7 +510,7 @@ namespace Te.Atis.Ui.Desktop.Views.Database
         public string SearchCommentInfo
         {
             get => _searchCommentInfo;
-            set { _searchCommentInfo = value; RaisePropertyChanged(); }
+            set { _searchCommentInfo = value; RaisePropertyChanged(""); }
         }
 
         public ICollectionView CommentsView;
@@ -702,10 +700,6 @@ namespace Te.Atis.Ui.Desktop.Views.Database
 
         #endregion "Public Properties"     
  
-
- 
-
-
 
    }
 }   

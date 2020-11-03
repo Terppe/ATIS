@@ -1,0 +1,94 @@
+    
+        public ObservableCollection<Tbl51Infrafamily> SearchForConnectedDatasetsWithSubfamilyIdInTableInfrafamily(Tbl48Subfamily selected)
+        {
+            var collection = new ObservableCollection<Tbl51Infrafamily>(_uow.Tbl51Infrafamilies.Find(x => x.SubfamilyId == selected.SubfamilyId));
+            return collection;
+        }
+
+
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubfamilyIdInTableReference(Tbl48Subfamily selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubfamilyId == selected.SubfamilyId));
+            return collection;
+        }
+
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubfamilyIdInTableComment(Tbl48Subfamily selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubfamilyId == selected.SubfamilyId));
+            return collection;
+        }
+
+        public void DeleteSubfamily(Tbl48Subfamily selected)
+        {
+            _uow.Tbl48Subfamilies.Remove(selected);
+            _uow.Complete();
+        }
+
+        public ObservableCollection<T> GetFamiliesCollectionOrderByFromFamilyId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl45Families
+                .Where(e => e.FamilyId == id)
+                .OrderBy(k => k.FamilyName));
+
+            return collection;
+        }
+
+        public ObservableCollection<T> GetSubfamiliesCollectionOrderByFromSubfamilyId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl48Subfamilies
+                .Where(e => e.SubfamilyId == id)
+                .OrderBy(k => k.SubfamilyName));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetInfrafamiliesCollectionOrderByFromSubphylumId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl51Infrafamilies
+                .Where(e => e.SubfamilyId == id)
+                .OrderBy(k => k.InfrafamilyName));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferenceExpertsCollectionOrderByFromSubfamilyIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.SubfamilyId == id && e.RefAuthorId == null && e.RefSourceId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferenceSourcesCollectionOrderByFromSubfamilyIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefSources)
+                .Where(e => e.SubfamilyId == id && e.RefAuthorId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferenceAuthorsCollectionOrderByFromSubfamilyIdAndRefSourceIdIsNullAndRefExpertIdIsNull<T>(int id)   
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.SubfamilyId == id && e.RefSourceId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetCommentsCollectionOrderByFromSubphylumId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
+                .Where(e => e.SubfamilyId == id)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+   

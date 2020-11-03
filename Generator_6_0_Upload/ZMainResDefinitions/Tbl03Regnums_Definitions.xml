@@ -2,7 +2,7 @@
  <Definition>
   <File>Tbl03Regnums</File>
 
-  <DateTime>12.12.2019  12:32  </DateTime>  
+  <DateTime>01.11.2020  12:32  </DateTime>  
   <Namespace>Atis</Namespace>  
   <ConnString></ConnString> 
   <RegisterContext>ATISEntities</RegisterContext > 
@@ -11,9 +11,9 @@
 
   <LayoutTK3>ListDetails</LayoutTK3>
   <LayoutTK2>ListDetails</LayoutTK2>
-  <LayoutTK1>ListDetails</LayoutTK1>
-  <Layout>ListDetails</Layout>
-  <LayoutFK1>ListDetails</LayoutFK1>
+  <LayoutTK1>D06Phylum</LayoutTK1>
+  <Layout>D03Regnum</Layout>
+  <LayoutFK1>NULL</LayoutFK1>
   <LayoutFK2>ListDetails</LayoutFK2>
   <LayoutBK1>ListDetails</LayoutBK1>
   <LayoutBK2>ListDetails</LayoutBK2>
@@ -110,7 +110,8 @@
   <BasisBK3>NULL</BasisBK3> 
   <BasisBK4>NULL</BasisBK4> 
 
-  <BasissTK3>NULL</BasissTK3> 
+  <BasissTK4>Subdivisions</BasissTK4> 
+  <BasissTK3>Subphylums</BasissTK3> 
   <BasissTK2>Divisions</BasissTK2> 
   <BasissTK1>Phylums</BasissTK1> 
   <Basiss>Regnums</Basiss> 

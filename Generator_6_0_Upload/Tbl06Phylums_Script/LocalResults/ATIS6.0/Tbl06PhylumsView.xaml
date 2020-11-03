@@ -17,7 +17,7 @@
     <UserControl.Resources />                                        
 
 
-        <!-- Tbl06PhylumsView.xaml  Skriptdatum:  24.10.2020  12:32   -->    
+        <!-- Tbl06PhylumsView.xaml  Skriptdatum:  27.10.2020  12:32   -->    
               
              
     <Grid>
@@ -27,7 +27,7 @@
             <ColumnDefinition Width="50*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="250" />
+            <RowDefinition Height="300" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="50*" />
         </Grid.RowDefinitions>
@@ -678,203 +678,201 @@
                                 </TextBox.Text>
                             </TextBox>    
          
-                                   </StackPanel>
+                                        </StackPanel>
                                         <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <CheckBox
-                                            Width="80"
-                                            Margin="5"
-                                            VerticalAlignment="Bottom"
-                                            Content="{DynamicResource Shared-Valid}"
-                                            FontWeight="Normal"
-                                            IsChecked="{Binding SelectedItem.(models:Tbl03Regnum.Valid), ElementName=Tbl03RegnumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            Style="{StaticResource MahApps.Styles.CheckBox}" />
+                                            <CheckBox
+                                                Width="80"
+                                                Margin="5"
+                                                VerticalAlignment="Bottom"
+                                                Content="{DynamicResource Shared-Valid}"
+                                                FontWeight="Normal"
+                                                IsChecked="{Binding SelectedItem.(models:Tbl03Regnum.Valid), ElementName=Tbl03RegnumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                Style="{StaticResource MahApps.Styles.CheckBox}" />
                                         <TextBox
-                                            Width="50"
-                                Margin="25,5,5,5"
-                                HorizontalContentAlignment="Stretch"
-                                mah:TextBoxHelper.IsWaitingForData="True"
-                                mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-ValidYear}"
-                                mah:TextBoxHelper.WatermarkAlignment="Left"
-                                FontWeight="Medium"
-                                SpellCheck.IsEnabled="True"
-                                ToolTip="{DynamicResource Shared-ValidYear}">
+                                    Width="80"
+                                    Margin="25,5,5,5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-ValidYear}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-ValidYear}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl03RegnumsList"
                                                     Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.ValidYear)"
+                                                    Path="SelectedItem.(models:Tbl03Regnum.ValidYear)"             
                                                     UpdateSourceTrigger="PropertyChanged"/>
                                             </TextBox.Text>
-                                        </TextBox>
+                                        </TextBox>     
                                       </StackPanel>
                                          <StackPanel Height="Auto" Orientation="Horizontal">
                                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                                     <TextBox
-                                    Height="Auto"
-                                    MinWidth="760"
-                                    MinHeight="75"
-                                    MaxWidth="760"
-                                    MaxHeight="200"
+                                        Height="Auto"
+                                        MinWidth="760"
+                                        MinHeight="75"
+                                        MaxWidth="760"
+                                        MaxHeight="200"
+                                        Margin="5"
+                                        VerticalAlignment="Stretch"
+                                        HorizontalContentAlignment="Stretch"
+                                        mah:TextBoxHelper.IsWaitingForData="True"
+                                        mah:TextBoxHelper.UseFloatingWatermark="True"
+                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-Synonym}"
+                                        mah:TextBoxHelper.WatermarkAlignment="Left"
+                                        AcceptsReturn="True"
+                                        FontWeight="Medium"
+                                        SpellCheck.IsEnabled="True"
+                                               Text="{Binding SelectedItem.(models:Tbl03Regnum.Synonym), ElementName=Tbl03RegnumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                               TextWrapping="Wrap"
+                                        ToolTip="{DynamicResource Shared-Synonym}"
+                                               VerticalScrollBarVisibility="Auto"  /> 
+                                            </ScrollViewer>
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox
+                                    Width="600"
                                     Margin="5"
-                                    VerticalAlignment="Stretch"
                                     HorizontalContentAlignment="Stretch"
                                     mah:TextBoxHelper.IsWaitingForData="True"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
-                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Synonym}"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
                                     mah:TextBoxHelper.WatermarkAlignment="Left"
-                                    AcceptsReturn="True"
+                                    CharacterCasing="Upper"
                                     FontWeight="Medium"
                                     SpellCheck.IsEnabled="True"
-                                    Text="{Binding SelectedItem.(models:Tbl03Regnum.Synonym), ElementName=Tbl03RegnumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    TextWrapping="Wrap"
-                                    ToolTip="{DynamicResource Shared-Synonym}"
-                                            VerticalScrollBarVisibility="Auto" />
-                                                </ScrollViewer>
+                                    ToolTip="{DynamicResource Shared-Author}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl03RegnumsList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl03Regnum.Author)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                        <TextBox
+                                    Width="130"
+                                    Margin="25,5,5,5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-AuthorYear}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-AuthorYear}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl03RegnumsList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl03Regnum.AuthorYear)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox
+                                    Width="760"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Info}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-Info}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl03RegnumsList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl03Regnum.Info)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                         <TextBox
+                                    Width="367"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-EngName}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-EngName}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl03RegnumsList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl03Regnum.EngName)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                         <TextBox
+                                    Width="367"
+                                    Margin="23,5,5,5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-GerName}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-GerName}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl03RegnumsList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl03Regnum.GerName)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
                                         </StackPanel>
                                         <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox
-                                            Width="600"
-                                Margin="5"
-                                HorizontalContentAlignment="Stretch"
-                                mah:TextBoxHelper.IsWaitingForData="True"
-                                mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
-                                mah:TextBoxHelper.WatermarkAlignment="Left"
-                                CharacterCasing="Upper"
-                                FontWeight="Medium"
-                                SpellCheck.IsEnabled="True"
-                                ToolTip="{DynamicResource Shared-Author}">
+                                         <TextBox
+                                    Width="367"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-FraName}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-FraName}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl03RegnumsList"
                                                     Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.Author)"
+                                                    Path="SelectedItem.(models:Tbl03Regnum.FraName)"             
                                                     UpdateSourceTrigger="PropertyChanged"/>
                                             </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox
-                                Width="150"
-                                Margin="5"
-                                HorizontalContentAlignment="Stretch"
-                                mah:TextBoxHelper.IsWaitingForData="True"
-                                mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-AuthorYear}"
-                                mah:TextBoxHelper.WatermarkAlignment="Left"
-                                FontWeight="Medium"
-                                SpellCheck.IsEnabled="True"
-                                ToolTip="{DynamicResource Shared-AuthorYear}">
+                                        </TextBox>     
+                                         <TextBox
+                                    Width="367"
+                                    Margin="23,5,5,5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-SpaName}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-SpaName}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl03RegnumsList"
                                                     Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.AuthorYear)"
+                                                    Path="SelectedItem.(models:Tbl03Regnum.PorName)"             
                                                     UpdateSourceTrigger="PropertyChanged"/>
                                             </TextBox.Text>
-                                        </TextBox>
-                                        </StackPanel>
-                                         <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox
-                                            Width="760"
-                                Margin="5"
-                                HorizontalContentAlignment="Stretch"
-                                mah:TextBoxHelper.IsWaitingForData="True"
-                                mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Info}"
-                                mah:TextBoxHelper.WatermarkAlignment="Left"
-                                FontWeight="Medium"
-                                SpellCheck.IsEnabled="True"
-                                ToolTip="{DynamicResource Shared-Info}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.Info)"
-                                                    UpdateSourceTrigger="PropertyChanged"/>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        </StackPanel>
-                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox
-                                            Width="367"
-                                Margin="5"
-                                HorizontalContentAlignment="Stretch"
-                                mah:TextBoxHelper.IsWaitingForData="True"
-                                mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-EngName}"
-                                mah:TextBoxHelper.WatermarkAlignment="Left"
-                                FontWeight="Medium"
-                                SpellCheck.IsEnabled="True"
-                                ToolTip="{DynamicResource Shared-EngName}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.EngName)"
-                                                    UpdateSourceTrigger="PropertyChanged"/>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox
-                                            Width="367"
-                                Margin="21,5,5,5"
-                                HorizontalContentAlignment="Stretch"
-                                mah:TextBoxHelper.IsWaitingForData="True"
-                                mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-GerName}"
-                                mah:TextBoxHelper.WatermarkAlignment="Left"
-                                FontWeight="Medium"
-                                SpellCheck.IsEnabled="True"
-                                ToolTip="{DynamicResource Shared-GerName}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.GerName)"
-                                                    UpdateSourceTrigger="PropertyChanged"/>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        </StackPanel>
-                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox
-                                            Width="367"
-                                Margin="5"
-                                HorizontalContentAlignment="Stretch"
-                                mah:TextBoxHelper.IsWaitingForData="True"
-                                mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-FraName}"
-                                mah:TextBoxHelper.WatermarkAlignment="Left"
-                                FontWeight="Medium"
-                                SpellCheck.IsEnabled="True"
-                                ToolTip="{DynamicResource Shared-FraName}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.FraName)"
-                                                    UpdateSourceTrigger="PropertyChanged"/>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox
-                                            Width="367"
-                                Margin="23,5,5,5"
-                                HorizontalContentAlignment="Stretch"
-                                mah:TextBoxHelper.IsWaitingForData="True"
-                                mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-SpaName}"
-                                mah:TextBoxHelper.WatermarkAlignment="Left"
-                                FontWeight="Medium"
-                                SpellCheck.IsEnabled="True"
-                                ToolTip="{DynamicResource Shared-SpaName}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.PorName)"
-                                                    UpdateSourceTrigger="PropertyChanged"/>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
+                                        </TextBox>     
                                         </StackPanel>  
          
                                         <StackPanel Height="Auto" Orientation="Horizontal">
@@ -1226,11 +1224,11 @@
                                       <StackPanel Height="Auto" Orientation="Horizontal">
                                             <CheckBox
                                                 Width="80"
-                                                Margin="5,0,0,0"
+                                                Margin="5"
                                                 VerticalAlignment="Bottom"
                                                 Content="{DynamicResource Shared-Valid}"
                                                 FontWeight="Normal"
-                                                IsChecked="{Binding SelectedItem.(models:Tbl12Subphylum.Valid), ElementName=Tbl12SubphylumsList}"
+                                                IsChecked="{Binding SelectedItem.(models:Tbl12Subphylum.Valid), ElementName=Tbl12SubphylumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Style="{StaticResource MahApps.Styles.CheckBox}" />
                                         <TextBox
                                 Width="135"
@@ -1340,7 +1338,7 @@
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
-                                            Width="368"
+                                            Width="367"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -1360,7 +1358,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="367"
-                                Margin="20,5,5,5"
+                                Margin="23,5,5,5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1400,7 +1398,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="367"
-                                Margin="20,5,5,5"
+                                Margin="23,5,5,5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1840,10 +1838,17 @@
                                     FontWeight="Medium"
                                     SpellCheck.IsEnabled="True"
                                     Style="{StaticResource MahApps.Styles.TextBox}"
-                                    Text="{Binding SelectedItem.(models:Tbl93Comment.Memo), ElementName=Tbl93CommentsList}"
                                     TextWrapping="Wrap"
                                     ToolTip="{DynamicResource Shared-Memo}"
-                                    VerticalScrollBarVisibility="Auto" />
+                                    VerticalScrollBarVisibility="Auto" >
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl93CommentsList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl93Comment.Memo)"
+                                            UpdateSourceTrigger="PropertyChanged" />
+                                    </TextBox.Text>
+                                </TextBox>
                                                  </ScrollViewer>
                                            </StackPanel>
                                         </StackPanel>

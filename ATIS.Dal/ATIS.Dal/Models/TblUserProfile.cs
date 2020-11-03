@@ -7,7 +7,7 @@ namespace ATIS.Dal.Models
     {
         [Key]
 
-        public int UserProfileID { get; set; }
+        public int UserProfileId { get; set; }
         public string Email { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
@@ -19,7 +19,7 @@ namespace ATIS.Dal.Models
         public DateTime? EndDate { get; set; }
         public string Notes { get; set; }
         public string Colour { get; set; }
-        public int CountID { get; set; }
+        public int CountId { get; set; }
         public DateTime? BirthDate { get; set; }
         public string Gender { get; set; }
         public string Country { get; set; }
@@ -30,7 +30,7 @@ namespace ATIS.Dal.Models
         public string Tel { get; set; }
         public string Mobil { get; set; }
         public string Fax { get; set; }
-        public string HomePageURL { get; set; }
+        public string HomePageUrl { get; set; }
         public string Business { get; set; }
         public string Company { get; set; }
         public string Writer { get; set; }
@@ -40,10 +40,10 @@ namespace ATIS.Dal.Models
         public string Memo { get; set; }
         public byte[] Filestream { get; set; }
         public string ImageMimeType { get; set; }
-        public Guid? FilestreamID { get; set; }
+        public Guid? FilestreamId { get; set; }
         public string Signature { get; set; }
         public bool? MailNewsletter { get; set; }
-        public bool? MaulHTML { get; set; }
+        public bool? MaulHtml { get; set; }
         public string Known { get; set; }
         //    public byte[] RowVersion { get; set; }
         //   public EntityState EntityState { get; set; }

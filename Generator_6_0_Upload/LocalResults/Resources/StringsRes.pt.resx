@@ -60,15 +60,15 @@
 	</resheader>
     
     
-    <data name="Create" xml:space="preserve"><value>Create Subphylum </value></data>  
-    <data name="Delete" xml:space="preserve"><value>Delete Subphylum  </value></data>  
-    <data name="Details" xml:space="preserve"><value>Details Subphylum : </value></data>  
-    <data name="Edit" xml:space="preserve"><value>Edit Subphylum </value></data>  
-    <data name="Index" xml:space="preserve"><value>List of Tbl12Subphylums </value></data>  
-    <data name="SubphylumID" xml:space="preserve"><value>SubphylumID </value></data>  
+    <data name="Create" xml:space="preserve"><value>Create Phylum </value></data>  
+    <data name="Delete" xml:space="preserve"><value>Delete Phylum  </value></data>  
+    <data name="Details" xml:space="preserve"><value>Details Phylum : </value></data>  
+    <data name="Edit" xml:space="preserve"><value>Edit Phylum </value></data>  
+    <data name="Index" xml:space="preserve"><value>List of Tbl06Phylums </value></data>  
+    <data name="PhylumId" xml:space="preserve"><value>PhylumId </value></data>  
   
   
-    <data name="SubphylumName" xml:space="preserve"><value>SubphylumName</value></data>  
+    <data name="PhylumName" xml:space="preserve"><value>PhylumName</value></data>  
 
           
 

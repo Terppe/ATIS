@@ -1,21 +1,18 @@
 using System;  
 
     
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Threading;   
+using System.Windows.Controls;   
  
 
       //  Tbl90RefExpertsView.xaml.cs Skriptdatum:  29.11.2018  10:32     
 
-namespace Te.Atis.Ui.Desktop.Views.Database
+namespace ATIS.Ui.Views.Database.ListDetails
 {  
 
     /// <summary>
-    /// Interactionslogic for Tbl90RefExpertsView.xaml
+    /// Interactionslogic for RefExpertsView.xaml
     /// </summary>
-    public partial class Tbl90RefExpertsView : UserControl
+    public partial class RefExpertsView : UserControl
    {      
 
                 

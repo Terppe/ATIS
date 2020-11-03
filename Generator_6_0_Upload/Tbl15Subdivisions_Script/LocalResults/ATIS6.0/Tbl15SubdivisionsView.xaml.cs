@@ -1,50 +1,27 @@
 using System;  
 
     
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Threading;   
+using System.Windows.Controls;   
  
 
       //  Tbl15SubdivisionsView.xaml.cs Skriptdatum:  12.12.2019  12:32     
 
-namespace Te.Atis.Ui.Desktop.Views.Database
+namespace ATIS.Ui.Views.Database.ListDetails
 {  
 
     /// <summary>
-    /// Interactionslogic for Tbl15SubdivisionsView.xaml
+    /// Interactionslogic for SubdivisionsView.xaml
     /// </summary>
-    public partial class Tbl15SubdivisionsView : UserControl
+    public partial class SubdivisionsView : UserControl
    {      
 
    
-        public Tbl15SubdivisionsView()
-        {         
+        public SubdivisionsView()
+        {  
+            DataContext = new SubdivisionsViewModel();  
+       
             InitializeComponent();   
-            IsVisibleChanged += UserControl_IsVisibleChanged;
-        }
-
-        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if ((bool)e.NewValue)
-            {
-                Dispatcher.BeginInvoke(
-                DispatcherPriority.ContextIdle,
-                new Action(delegate
-                {
-                    TbSearchSubdivision.Focus();
-                }));
-            }
-        }
-        private void TbSearchSubdivision_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Tab || e.Key == Key.Enter)
-            {
-                BtnGet.Focus();
-                e.Handled = true;
-            }
-        }   
+        }      
  
 
     }

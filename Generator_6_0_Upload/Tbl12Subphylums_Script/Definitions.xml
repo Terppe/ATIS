@@ -2,7 +2,7 @@
  <Definition>
   <File>Tbl12Subphylums</File>
 
-  <DateTime>13.06.2018  12:32</DateTime>  
+  <DateTime>30.10.2020  12:32</DateTime>  
   <Namespace>Atis</Namespace>  
   <ConnString></ConnString> 
   <RegisterContext>ATISEntities</RegisterContext > 
@@ -11,9 +11,9 @@
 
   <LayoutTK3>ListDetails</LayoutTK3>
   <LayoutTK2>ListDetails</LayoutTK2>
-  <LayoutTK1>ListDetails</LayoutTK1>
-  <Layout>ListDetails</Layout>
-  <LayoutFK1>ListDetails</LayoutFK1>
+  <LayoutTK1>D18Superclass</LayoutTK1>
+  <Layout>D12Subphylum</Layout>
+  <LayoutFK1>D06Phylum</LayoutFK1>
   <LayoutFK2>ListDetails</LayoutFK2>
   <LayoutBK1>ListDetails</LayoutBK1>
   <LayoutBK2>ListDetails</LayoutBK2>
@@ -72,11 +72,11 @@
   <IDTK4>InfraclassID</IDTK4> 
   <IDTK3>SubclassID</IDTK3> 
   <IDTK2>ClassID</IDTK2> 
-  <IDTK1>SuperclassID</IDTK1> 
-  <ID>SubphylumID</ID> 
-  <IDFK1>PhylumID</IDFK1> 
+  <IDTK1>SuperclassId</IDTK1> 
+  <ID>SubphylumId</ID> 
+  <IDFK1>PhylumId</IDFK1> 
   <IDFK2>NULL</IDFK2> 
-  <IDBK1>RegnumID</IDBK1> 
+  <IDBK1>RegnumId</IDBK1> 
   <IDBK2>NULL</IDBK2> 
   <IDBK3>NULL</IDBK3> 
   <IDBK4>NULL</IDBK4> 

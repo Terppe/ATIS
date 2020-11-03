@@ -21,13 +21,13 @@ using UserControl = System.Windows.Controls.UserControl;
 
       //  Tbl72PlSpeciessesView.xaml.cs Skriptdatum:  13.12.2019  12:32     
 
-namespace Te.Atis.Ui.Desktop.Views.Database
+namespace ATIS.Ui.Views.Database.ListDetails
 {  
 
     /// <summary>
-    /// Interactionslogic for Tbl72PlSpeciessesView.xaml
+    /// Interactionslogic for PlSpeciessesView.xaml
     /// </summary>
-    public partial class Tbl72PlSpeciessesView : UserControl
+    public partial class PlSpeciessesView : UserControl
    {      
 
     
