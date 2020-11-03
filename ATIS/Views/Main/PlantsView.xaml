@@ -15,14 +15,8 @@
         <DataTemplate DataType="{x:Type d15Subdivision:SubdivisionsViewModel}">
             <d15Subdivision:SubdivisionsView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type d12Subphylum:SubphylumsViewModel}">
-            <d12Subphylum:SubphylumsView />
-        </DataTemplate>
         <DataTemplate DataType="{x:Type d09Division:DivisionsViewModel}">
             <d09Division:DivisionsView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type d06Phylum:PhylumsViewModel}">
-            <d06Phylum:PhylumsView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type d03Regnum:RegnumsViewModel}">
             <d03Regnum:RegnumsView />
