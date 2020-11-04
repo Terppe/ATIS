@@ -296,7 +296,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
 
             return collection;
         }
-        public ObservableCollection<T> GetSubphylumsCollectionOrderByFromDivisionId<T>(int id)
+        public ObservableCollection<T> GetSubdivisionsCollectionOrderByFromDivisionId<T>(int id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl15Subdivisions
@@ -315,6 +315,14 @@ namespace ATIS.Ui.Views.Database.CrudHelper
 
             return collection;
         }
+        public ObservableCollection<T> GetSuperclassesCollectionOrderByFromSubdivisionId<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl18Superclasses
+                .Where(e => e.SubdivisionId == id)
+                .OrderBy(k => k.SuperclassName));
+            return collection;
+        }
         public ObservableCollection<T> GetSuperclassesCollectionOrderByFromSubphylumId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -323,6 +331,8 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 .OrderBy(k => k.SuperclassName));
             return collection;
         }
+
+
 
         //-----------------------Reference--------------------------------
         private ObservableCollection<T> ReferenceAllCollection<T>()
@@ -478,6 +488,66 @@ namespace ATIS.Ui.Views.Database.CrudHelper
         }
 
 
+        //----------------------------------------------------------
+        public ObservableCollection<T> GetReferenceExpertsCollectionOrderByFromDivisionIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.DivisionId == id && e.RefAuthorId == null && e.RefSourceId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        public ObservableCollection<T> GetReferenceSourcesCollectionOrderByFromDivisionIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefSources)
+                .Where(e => e.DivisionId == id && e.RefAuthorId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        public ObservableCollection<T> GetReferenceAuthorsCollectionOrderByFromDivisionIdAndRefSourceIdIsNullAndRefExpertIdIsNull<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.DivisionId == id && e.RefSourceId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+        //-----------------------------------------------------------
+        public ObservableCollection<T> GetReferenceExpertsCollectionOrderByFromSubdivisionIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.SubdivisionId == id && e.RefAuthorId == null && e.RefSourceId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        public ObservableCollection<T> GetReferenceSourcesCollectionOrderByFromSubdivisionIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefSources)
+                .Where(e => e.SubdivisionId == id && e.RefAuthorId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        public ObservableCollection<T> GetReferenceAuthorsCollectionOrderByFromSubdivisionIdAndRefSourceIdIsNullAndRefExpertIdIsNull<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.SubdivisionId == id && e.RefSourceId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
+
+        
         //------------------------Comment-------------------------------
         private ObservableCollection<T> CommentAllCollection<T>()
         {
@@ -496,7 +566,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 );
             return collection;
         }
-        public ObservableCollection<T> GetCommentsCollectionOrderByFromRegnumId<T>(int id)
+        public ObservableCollection<T> GetCommentsCollectionOrderByFromRegnumId<T>(int? id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
@@ -504,7 +574,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 .OrderBy(e => e.Info));
             return collection;
         }
-        public ObservableCollection<T> GetCommentsCollectionOrderByFromPhylumId<T>(int id)
+        public ObservableCollection<T> GetCommentsCollectionOrderByFromPhylumId<T>(int? id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
@@ -512,7 +582,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 .OrderBy(k => k.Info));
             return collection;
         }
-        public ObservableCollection<T> GetCommentsCollectionOrderByFromSubphylumId<T>(int id)
+        public ObservableCollection<T> GetCommentsCollectionOrderByFromSubphylumId<T>(int? id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
@@ -520,7 +590,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 .OrderBy(k => k.Info));
             return collection;
         }
-        public ObservableCollection<T> GetCommentsCollectionOrderByFromDivisionId<T>(int id)
+        public ObservableCollection<T> GetCommentsCollectionOrderByFromDivisionId<T>(int? id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
@@ -528,7 +598,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 .OrderBy(k => k.Info));
             return collection;
         }
-        public ObservableCollection<T> GetCommentsCollectionOrderByFromSubdivisionId<T>(int id)
+        public ObservableCollection<T> GetCommentsCollectionOrderByFromSubdivisionId<T>(int? id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
@@ -536,7 +606,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 .OrderBy(k => k.Info));
             return collection;
         }
-        public ObservableCollection<T> GetCommentsCollectionOrderByFromSuperclassId<T>(int id)
+        public ObservableCollection<T> GetCommentsCollectionOrderByFromSuperclassId<T>(int? id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments

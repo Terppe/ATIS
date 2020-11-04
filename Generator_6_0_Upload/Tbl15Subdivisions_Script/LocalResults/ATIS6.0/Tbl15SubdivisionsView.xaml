@@ -1,6 +1,6 @@
     
 <UserControl 
-             x:Class="ATIS.Ui.Views.Database.ListDetails.SubdivisionsView"               
+             x:Class="ATIS.Ui.Views.Database.D15Subdivision.SubdivisionsView"               
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -17,7 +17,7 @@
     <UserControl.Resources />                                        
 
 
-        <!-- Tbl15SubdivisionsView.xaml  Skriptdatum:  12.12.2019  12:32   -->    
+        <!-- Tbl15SubdivisionsView.xaml  Skriptdatum:  04.11.2020  12:32   -->    
               
              
     <Grid>
@@ -215,7 +215,7 @@
                                                                 <DataTemplate>
                                                                     <TextBlock
                                                                         Width="100"
-                                                                        Text="{Binding (models:Tbl09Division.DivisionID)}"
+                                                                        Text="{Binding (models:Tbl09Division.DivisionId)}"
                                                                         TextAlignment="Left" />
                                                                     </DataTemplate>
                                                             </GridViewColumn.CellTemplate>
@@ -656,8 +656,8 @@
                             </TextBox>          
          
                                             <ComboBox
-                                                Width="760"
-                                                Margin="5"
+                                                Width="300"
+                                                Margin="25,5,5,5"
                                                 VerticalAlignment="Bottom"
                                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                                 mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"

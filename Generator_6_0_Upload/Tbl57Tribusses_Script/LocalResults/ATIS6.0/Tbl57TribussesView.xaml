@@ -215,7 +215,7 @@
                                                                 <DataTemplate>
                                                                     <TextBlock
                                                                         Width="100"
-                                                                        Text="{Binding (models:Tbl54Supertribus.SupertribusID)}"
+                                                                        Text="{Binding (models:Tbl54Supertribus.SupertribusId)}"
                                                                         TextAlignment="Left" />
                                                                     </DataTemplate>
                                                             </GridViewColumn.CellTemplate>
@@ -656,8 +656,8 @@
                             </TextBox>          
          
                                             <ComboBox
-                                                Width="760"
-                                                Margin="5"
+                                                Width="300"
+                                                Margin="25,5,5,5"
                                                 VerticalAlignment="Bottom"
                                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                                 mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"

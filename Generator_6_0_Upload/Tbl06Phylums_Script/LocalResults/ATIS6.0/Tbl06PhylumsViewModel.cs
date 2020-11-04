@@ -1077,14 +1077,12 @@ Tbl03RegnumsList = _extGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(
             {
                 if (value == _selectedMainTabIndex) return;
                 _selectedMainTabIndex = value; RaisePropertyChanged("");        
-     
+       
                 if (_selectedMainTabIndex == 0)             
                 {
                     if (CurrentTbl06Phylum != null)
                     {
                         Tbl03RegnumsList = _extGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(CurrentTbl06Phylum.RegnumId);
-
-                        NULLAllList = _extGet.AllCollection<NULL>("");
 
                         RegnumsView = CollectionViewSource.GetDefaultView(Tbl03RegnumsList);
                         RegnumsView.Refresh();

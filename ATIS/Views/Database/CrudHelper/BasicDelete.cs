@@ -80,6 +80,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
         }
 
 
+
         //------------------------------ Subphylum   --------------------------------------------------------------------------------------------
         public void DeleteSubphylum(Tbl12Subphylum selected)
         {
@@ -99,6 +100,28 @@ namespace ATIS.Ui.Views.Database.CrudHelper
         public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubphylumIdInTableComment(Tbl12Subphylum selected)
         {
             var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubphylumId == selected.SubphylumId));
+            return collection;
+        }
+
+        //--------------------------------Subdivision------------------------------
+        public void DeleteSubdivision(Tbl15Subdivision selected)
+        {
+            _uow.Tbl15Subdivisions.Remove(selected);
+            _uow.Complete();
+        }
+        public ObservableCollection<Tbl18Superclass> SearchForConnectedDatasetsWithSubdivisionIdInTableSuperclass(Tbl15Subdivision selected)
+        {
+            var collection = new ObservableCollection<Tbl18Superclass>(_uow.Tbl18Superclasses.Find(x => x.SubdivisionId == selected.SubdivisionId));
+            return collection;
+        }
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubdivisionIdInTableReference(Tbl15Subdivision selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubdivisionId == selected.SubdivisionId));
+            return collection;
+        }
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubdivisionIdInTableComment(Tbl15Subdivision selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubdivisionId == selected.SubdivisionId));
             return collection;
         }
 

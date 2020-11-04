@@ -1,6 +1,6 @@
 USE [ATIS34]
 GO
-/****** Object:  Table [dbo].[Tbl09Divisions]    Script Date:  03.11.2020  12:32   ******/  
+/****** Object:  Table [dbo].[Tbl09Divisions]    Script Date:  04.11.2020  12:32   ******/  
 SET ANSI_NULLS ON
 GO
 

@@ -215,7 +215,7 @@
                                                                 <DataTemplate>
                                                                     <TextBlock
                                                                         Width="100"
-                                                                        Text="{Binding (models:Tbl12Subphylum.SubphylumID)}"
+                                                                        Text="{Binding (models:Tbl12Subphylum.SubphylumId)}"
                                                                         TextAlignment="Left" />
                                                                     </DataTemplate>
                                                             </GridViewColumn.CellTemplate>
@@ -285,7 +285,7 @@
                                                                 <DataTemplate>
                                                                     <TextBlock
                                                                         Width="100"
-                                                                        Text="{Binding (models:Tbl15Subdivision.SubdivisionID)}"
+                                                                        Text="{Binding (models:Tbl15Subdivision.SubdivisionId)}"
                                                                         TextAlignment="Left" />
                                                                     </DataTemplate>
                                                             </GridViewColumn.CellTemplate>
@@ -722,8 +722,8 @@
                             </TextBox>          
          
                                             <ComboBox
-                                                Width="760"
-                                                Margin="5"
+                                                Width="300"
+                                                Margin="25,5,5,5"
                                                 VerticalAlignment="Bottom"
                                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                                 mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"

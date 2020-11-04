@@ -823,7 +823,7 @@
                                                                 <DataTemplate>
                                                                     <TextBlock
                                                                         Width="100"
-                                                                        Text="{Binding (models:]]><xsl:value-of select="LinqModelFK1"/><![CDATA[.]]><xsl:value-of select="IDFK1"/><![CDATA[)}"
+                                                                        Text="{Binding (models:]]><xsl:value-of select="LinqModelFK1"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id)}"
                                                                         TextAlignment="Left" />
                                                                     </DataTemplate>
                                                             </GridViewColumn.CellTemplate>
@@ -1141,7 +1141,7 @@
                                                                 <DataTemplate>
                                                                     <TextBlock
                                                                         Width="100"
-                                                                        Text="{Binding (models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.]]><xsl:value-of select="IDFK2"/><![CDATA[)}"
+                                                                        Text="{Binding (models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.]]><xsl:value-of select="BasisFK2"/><![CDATA[Id)}"
                                                                         TextAlignment="Left" />
                                                                     </DataTemplate>
                                                             </GridViewColumn.CellTemplate>
@@ -3569,8 +3569,8 @@
 <xsl:otherwise>   
   <xsl:if test="TableFK1 !='NULL'">    <![CDATA[   
                                             <ComboBox
-                                                Width="760"
-                                                Margin="5"
+                                                Width="300"
+                                                Margin="25,5,5,5"
                                                 VerticalAlignment="Bottom"
                                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                                 mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"

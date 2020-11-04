@@ -14,7 +14,7 @@ using GalaSoft.MvvmLight.Command;
 using MessageBoxImage = System.Windows.MessageBoxImage;
 
     
-         //    Tbl15SubdivisionsViewModel Skriptdatum:  12.12.2019  12:32    
+         //    Tbl15SubdivisionsViewModel Skriptdatum:  04.11.2020  12:32    
 
 namespace WPFUI.Views.Database
 {     

@@ -219,7 +219,7 @@
                                                                 <DataTemplate>
                                                                     <TextBlock
                                                                         Width="100"
-                                                                        Text="{Binding (models:Tbl69FiSpecies.FiSpeciesID)}"
+                                                                        Text="{Binding (models:Tbl69FiSpecies.FiSpeciesId)}"
                                                                         TextAlignment="Left" />
                                                                     </DataTemplate>
                                                             </GridViewColumn.CellTemplate>
@@ -296,7 +296,7 @@
                                                                 <DataTemplate>
                                                                     <TextBlock
                                                                         Width="100"
-                                                                        Text="{Binding (models:Tbl72PlSpecies.PlSpeciesID)}"
+                                                                        Text="{Binding (models:Tbl72PlSpecies.PlSpeciesId)}"
                                                                         TextAlignment="Left" />
                                                                     </DataTemplate>
                                                             </GridViewColumn.CellTemplate>
@@ -414,8 +414,8 @@
                                         <StackPanel Height="Auto" Orientation="Horizontal">    
          
                                             <ComboBox
-                                                Width="760"
-                                                Margin="5"
+                                                Width="300"
+                                                Margin="25,5,5,5"
                                                 VerticalAlignment="Bottom"
                                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                                 mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"

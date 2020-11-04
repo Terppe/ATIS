@@ -2,7 +2,7 @@
  <Definition>
   <File>Tbl09Divisions</File>
 
-  <DateTime>03.11.2020  12:32</DateTime>  
+  <DateTime>04.11.2020  12:32</DateTime>  
   <Namespace>Atis</Namespace>  
   <ConnString></ConnString> 
   <RegisterContext>ATISEntities</RegisterContext > 

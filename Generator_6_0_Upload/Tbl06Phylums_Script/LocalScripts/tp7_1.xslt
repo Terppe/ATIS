@@ -5705,6 +5705,32 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     SelectedDetailTabIndex = 1;
                 }       ]]>  
 </xsl:when> 
+<xsl:when test="Table ='Tbl06Phylums'">      <![CDATA[ 
+                if (_selectedMainTabIndex == 0)             
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[Id<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
+
+                        ]]><xsl:value-of select="BasissFK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableFK1"/><![CDATA[List);
+                        ]]><xsl:value-of select="BasissFK1"/><![CDATA[View.Refresh();
+                    }
+                    SelectedDetailTabIndex = 0;
+                }       ]]>  
+</xsl:when> 
+<xsl:when test="Table ='Tbl09Divisions'">      <![CDATA[ 
+                if (_selectedMainTabIndex == 0)             
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[Id<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
+
+                        ]]><xsl:value-of select="BasissFK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableFK1"/><![CDATA[List);
+                        ]]><xsl:value-of select="BasissFK1"/><![CDATA[View.Refresh();
+                    }
+                    SelectedDetailTabIndex = 0;
+                }       ]]>  
+</xsl:when> 
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedMainTabIndex == 0)             
                 {

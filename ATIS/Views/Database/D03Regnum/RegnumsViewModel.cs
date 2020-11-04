@@ -1065,6 +1065,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         {
             if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
 
+
             CurrentTbl93Comment.RegnumId = CurrentTbl03Regnum.RegnumId;
 
             try

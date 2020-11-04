@@ -4,9 +4,9 @@ using System;
 using System.Windows.Controls;   
  
 
-      //  Tbl15SubdivisionsView.xaml.cs Skriptdatum:  12.12.2019  12:32     
+      //  Tbl15SubdivisionsView.xaml.cs Skriptdatum:  04.11.2020  12:32     
 
-namespace ATIS.Ui.Views.Database.ListDetails
+namespace ATIS.Ui.Views.Database.D15Subdivision
 {  
 
     /// <summary>

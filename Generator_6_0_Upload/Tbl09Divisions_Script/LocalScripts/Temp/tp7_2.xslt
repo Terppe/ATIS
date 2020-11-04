@@ -3569,8 +3569,8 @@
 <xsl:otherwise>   
   <xsl:if test="TableFK1 !='NULL'">    <![CDATA[   
                                             <ComboBox
-                                                Width="760"
-                                                Margin="5"
+                                                Width="300"
+                                                Margin="25,5,5,5"
                                                 VerticalAlignment="Bottom"
                                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                                 mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"

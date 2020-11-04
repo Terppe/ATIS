@@ -17,7 +17,7 @@
     <UserControl.Resources />                                        
 
 
-        <!-- Tbl09DivisionsView.xaml  Skriptdatum:  03.11.2020  12:32   -->    
+        <!-- Tbl09DivisionsView.xaml  Skriptdatum:  04.11.2020  12:32   -->    
               
              
     <Grid>
@@ -215,7 +215,7 @@
                                                                 <DataTemplate>
                                                                     <TextBlock
                                                                         Width="100"
-                                                                        Text="{Binding (models:Tbl03Regnum.RegnumID)}"
+                                                                        Text="{Binding (models:Tbl03Regnum.RegnumId)}"
                                                                         TextAlignment="Left" />
                                                                     </DataTemplate>
                                                             </GridViewColumn.CellTemplate>

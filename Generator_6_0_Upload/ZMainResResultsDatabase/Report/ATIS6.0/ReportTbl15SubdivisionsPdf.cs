@@ -9,7 +9,7 @@ using Te.Atis.DomainModel;
 using Te.Atis.Ui.Desktop.BusinessLayer;   
 
     
-         //    ReportTbl15SubdivisionsPdf Skriptdatum:  12.12.2019  12:32    
+         //    ReportTbl15SubdivisionsPdf Skriptdatum:  04.11.2020  12:32    
 
 namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 {     

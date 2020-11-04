@@ -4,6 +4,7 @@
 <xsl:template match="Definition"><![CDATA[using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -13,7 +14,7 @@ using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Database.CrudHelper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
-using Microsoft.EntityFrameworkCore;    ]]>
+using Microsoft.EntityFrameworkCore;    ]]>      
 
 <xsl:choose>
 <xsl:when test="Table ='Header++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
@@ -5638,9 +5639,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='TblUserProfiles'"> 
 </xsl:when>
 <xsl:otherwise>    <![CDATA[ 
-            ]]><xsl:value-of select="TableBK1"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModelBK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmBK1"/><![CDATA[");
-
             ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[Id<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
+
+            ]]><xsl:value-of select="TableBK1"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModelBK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmBK1"/><![CDATA[");
 
             ]]><xsl:value-of select="BasissFK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableFK1"/><![CDATA[List);
             ]]><xsl:value-of select="BasissFK1"/><![CDATA[View.Refresh();    ]]> 
@@ -5704,12 +5705,40 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     SelectedDetailTabIndex = 1;
                 }       ]]>  
 </xsl:when> 
+<xsl:when test="Table ='Tbl06Phylums'">      <![CDATA[ 
+                if (_selectedMainTabIndex == 0)             
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[Id<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
+
+                        ]]><xsl:value-of select="BasissFK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableFK1"/><![CDATA[List);
+                        ]]><xsl:value-of select="BasissFK1"/><![CDATA[View.Refresh();
+                    }
+                    SelectedDetailTabIndex = 0;
+                }       ]]>  
+</xsl:when> 
+<xsl:when test="Table ='Tbl09Divisions'">      <![CDATA[ 
+                if (_selectedMainTabIndex == 0)             
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[Id<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
+
+                        ]]><xsl:value-of select="BasissFK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableFK1"/><![CDATA[List);
+                        ]]><xsl:value-of select="BasissFK1"/><![CDATA[View.Refresh();
+                    }
+                    SelectedDetailTabIndex = 0;
+                }       ]]>  
+</xsl:when> 
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedMainTabIndex == 0)             
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
                         ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[Id<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
+
+                        ]]><xsl:value-of select="TableBK1"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModelBK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmBK1"/><![CDATA[");
 
                         ]]><xsl:value-of select="BasissFK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableFK1"/><![CDATA[List);
                         ]]><xsl:value-of select="BasissFK1"/><![CDATA[View.Refresh();

@@ -2,7 +2,7 @@
  <Definition>
   <File>Tbl09Divisions</File>
 
-  <DateTime>12.12.2019  12:32</DateTime>  
+  <DateTime>03.11.2020  12:32</DateTime>  
   <Namespace>Atis</Namespace>  
   <ConnString></ConnString> 
   <RegisterContext>ATISEntities</RegisterContext > 
@@ -11,9 +11,9 @@
 
   <LayoutTK3>ListDetails</LayoutTK3>
   <LayoutTK2>ListDetails</LayoutTK2>
-  <LayoutTK1>ListDetails</LayoutTK1>
-  <Layout>ListDetails</Layout>
-  <LayoutFK1>ListDetails</LayoutFK1>
+  <LayoutTK1>D15Subdivision</LayoutTK1>
+  <Layout>D09Division</Layout>
+  <LayoutFK1>D03Regnum</LayoutFK1>
   <LayoutFK2>ListDetails</LayoutFK2>
   <LayoutBK1>ListDetails</LayoutBK1>
   <LayoutBK2>ListDetails</LayoutBK2>

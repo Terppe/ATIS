@@ -3562,6 +3562,10 @@
 </xsl:when>  
 <xsl:when test="Table ='Tbl03Regnums'">    
 </xsl:when>  
+<xsl:when test="Table ='Tbl06Phylums'">    
+</xsl:when>  
+<xsl:when test="Table ='Tbl09Divisions'">    
+</xsl:when>  
 <xsl:otherwise>   
   <xsl:if test="TableFK1 !='NULL'">    <![CDATA[   
                                             <ComboBox
@@ -3570,15 +3574,14 @@
                                                 VerticalAlignment="Bottom"
                                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                                 mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
-                                                DisplayMemberPath="]]><xsl:value-of select="NameFK1"/><![CDATA[" 
+                                                DisplayMemberPath="]]><xsl:value-of select="NameBK1"/><![CDATA[" 
                                                 IsSynchronizedWithCurrentItem="True"
-                                                ItemsSource="{Binding ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList}"
+                                                ItemsSource="{Binding ]]><xsl:value-of select="TableBK1"/><![CDATA[AllList}"
                                                 SelectedIndex="0"
-                                                SelectedValue="{Binding SelectedItem.(models:]]><xsl:value-of select="LinqModelFK1"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id), ElementName=]]><xsl:value-of select="TableFK1"/><![CDATA[List, Mode=TwoWay}"
-                                                SelectedValuePath="]]><xsl:value-of select="BasisFK1"/><![CDATA[Id"
+                                                SelectedValue="{Binding SelectedItem.(models:]]><xsl:value-of select="LinqModelBK1"/><![CDATA[.]]><xsl:value-of select="BasisBK1"/><![CDATA[Id), ElementName=]]><xsl:value-of select="TableFK1"/><![CDATA[List, Mode=TwoWay}"
+                                                SelectedValuePath="]]><xsl:value-of select="BasisBK1"/><![CDATA[Id"
                                                 Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
-                                                VirtualizingStackPanel.IsVirtualizing="True" />
-                                         </StackPanel>  ]]> 
+                                                VirtualizingStackPanel.IsVirtualizing="True" /> ]]> 
   </xsl:if>          
 </xsl:otherwise>    
 </xsl:choose>

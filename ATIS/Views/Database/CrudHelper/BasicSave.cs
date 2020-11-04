@@ -9,112 +9,88 @@ namespace ATIS.Ui.Views.Database.CrudHelper
     {
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
 
-        public Tbl03Regnum RegnumUpdate(Tbl03Regnum regnum, Tbl03Regnum selectedRegnum)
+        public Tbl03Regnum RegnumUpdate(Tbl03Regnum home, Tbl03Regnum selected)
         {
-            if (regnum != null) //update
+            if (home != null) //update
             {
-                regnum.RegnumName = selectedRegnum.RegnumName;
-                regnum.Subregnum = selectedRegnum.Subregnum;
-                regnum.Valid = selectedRegnum.Valid;
-                regnum.ValidYear = selectedRegnum.ValidYear;
-                regnum.Author = selectedRegnum.Author;
-                regnum.AuthorYear = selectedRegnum.AuthorYear;
-                regnum.Info = selectedRegnum.Info;
-                regnum.Synonym = selectedRegnum.Synonym;
-                regnum.EngName = selectedRegnum.EngName;
-                regnum.GerName = selectedRegnum.GerName;
-                regnum.FraName = selectedRegnum.FraName;
-                regnum.PorName = selectedRegnum.PorName;
-                regnum.Memo = selectedRegnum.Memo;
-                regnum.Updater = Environment.UserName;
-                regnum.UpdaterDate = DateTime.Now;
+                home.RegnumName = selected.RegnumName;
+                home.Subregnum = selected.Subregnum;
+                home.Valid = selected.Valid;
+                home.ValidYear = selected.ValidYear;
+                home.Author = selected.Author;
+                home.AuthorYear = selected.AuthorYear;
+                home.Info = selected.Info;
+                home.Synonym = selected.Synonym;
+                home.EngName = selected.EngName;
+                home.GerName = selected.GerName;
+                home.FraName = selected.FraName;
+                home.PorName = selected.PorName;
+                home.Memo = selected.Memo;
+                home.Updater = Environment.UserName;
+                home.UpdaterDate = DateTime.Now;
             }
-            return regnum;
+            return home;
         }
-        public Tbl03Regnum RegnumAdd(Tbl03Regnum selectedRegnum)
+        public Tbl03Regnum RegnumAdd(Tbl03Regnum selected)
         {
-            var regnum = new Tbl03Regnum() //add new
+            var home = new Tbl03Regnum() //add new
             {
-                RegnumName = selectedRegnum.RegnumName,
-                Subregnum = selectedRegnum.Subregnum,
+                RegnumName = selected.RegnumName,
+                Subregnum = selected.Subregnum,
                 CountId = RandomHelper.Randomnumber(),
-                Valid = selectedRegnum.Valid,
-                ValidYear = selectedRegnum.ValidYear,
-                Author = selectedRegnum.Author,
-                AuthorYear = selectedRegnum.AuthorYear,
-                Info = selectedRegnum.Info,
-                Synonym = selectedRegnum.Synonym,
-                EngName = selectedRegnum.EngName,
-                GerName = selectedRegnum.GerName,
-                FraName = selectedRegnum.FraName,
-                PorName = selectedRegnum.PorName,
-                Memo = selectedRegnum.Memo,
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Author = selected.Author,
+                AuthorYear = selected.AuthorYear,
+                Info = selected.Info,
+                Synonym = selected.Synonym,
+                EngName = selected.EngName,
+                GerName = selected.GerName,
+                FraName = selected.FraName,
+                PorName = selected.PorName,
+                Memo = selected.Memo,
                 Writer = Environment.UserName,
                 WriterDate = DateTime.Now,
                 Updater = Environment.UserName,
                 UpdaterDate = DateTime.Now,
             };
-            return regnum;
+            return home;
         }
-        public Tbl90Reference ReferenceExpertRegnumUpdate(Tbl90Reference reference, Tbl90Reference selectedReferenceExpert)
+        public void RegnumSave(Tbl03Regnum home, Tbl03Regnum selected)
+        {
+            if (selected.RegnumId != 0)   //update
+                _uow.Tbl03Regnums.Update(home);
+            else                                //add
+                _uow.Tbl03Regnums.Add(home);
+
+            _uow.Complete();
+        }
+        public Tbl90Reference ReferenceExpertRegnumUpdate(Tbl90Reference reference, Tbl90Reference selected)
         {
             if (reference != null) //update
             {
-                reference.RefExpertId = selectedReferenceExpert.RefExpertId;
-                reference.RegnumId = selectedReferenceExpert.RegnumId;
-                reference.Valid = selectedReferenceExpert.Valid;
-                reference.ValidYear = selectedReferenceExpert.ValidYear;
-                reference.Info = selectedReferenceExpert.Info;
+                reference.RefExpertId = selected.RefExpertId;
+                reference.RegnumId = selected.RegnumId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
                 reference.Updater = Environment.UserName;
                 reference.UpdaterDate = DateTime.Now;
-                reference.Memo = selectedReferenceExpert.Memo;
+                reference.Memo = selected.Memo;
             }
             return reference;
         }
-        public Tbl90Reference ReferenceExpertRegnumAdd(Tbl90Reference selectedReferenceExpert)
+        public Tbl90Reference ReferenceExpertRegnumAdd(Tbl90Reference selected)
         {
             var reference = new Tbl90Reference //add new
             {
-                RefExpertId = selectedReferenceExpert.RefExpertId,
-                RegnumId = selectedReferenceExpert.RegnumId,
+                RefExpertId = selected.RefExpertId,
+                RegnumId = selected.RegnumId,
                 CountId = RandomHelper.Randomnumber(),
-                Valid = selectedReferenceExpert.Valid,
-                ValidYear = selectedReferenceExpert.ValidYear,
-                Info = selectedReferenceExpert.Info,
-                Memo = selectedReferenceExpert.Memo,
-                Writer = Environment.UserName,
-                WriterDate = DateTime.Now,
-                Updater = Environment.UserName,
-                UpdaterDate = DateTime.Now,
-            };
-            return reference;
-        }
-        public Tbl90Reference ReferenceSourceRegnumUpdate(Tbl90Reference reference, Tbl90Reference selectedReferenceSource)
-        {
-            if (reference != null) //update
-            {
-                reference.RefSourceId = selectedReferenceSource.RefSourceId;
-                reference.RegnumId = selectedReferenceSource.RegnumId;
-                reference.Valid = selectedReferenceSource.Valid;
-                reference.ValidYear = selectedReferenceSource.ValidYear;
-                reference.Info = selectedReferenceSource.Info;
-                reference.Updater = Environment.UserName;
-                reference.UpdaterDate = DateTime.Now;
-                reference.Memo = selectedReferenceSource.Memo;
-            }
-            return reference;
-        }
-        public Tbl90Reference ReferenceSourceRegnumAdd(Tbl90Reference selectedReferenceSource)
-        {
-            var reference = new Tbl90Reference //add new
-            {
-                RefSourceId = selectedReferenceSource.RefSourceId,
-                RegnumId = selectedReferenceSource.RegnumId,
-                CountId = RandomHelper.Randomnumber(),
-                Valid = selectedReferenceSource.Valid,
-                ValidYear = selectedReferenceSource.ValidYear,
-                Info = selectedReferenceSource.Info,
-                Memo = selectedReferenceSource.Memo,
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
                 Writer = Environment.UserName,
                 WriterDate = DateTime.Now,
                 Updater = Environment.UserName,
@@ -122,32 +98,65 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             };
             return reference;
         }
-        public Tbl90Reference ReferenceAuthorRegnumUpdate(Tbl90Reference reference, Tbl90Reference selectedReferenceAuthor)
+        public Tbl90Reference ReferenceSourceRegnumUpdate(Tbl90Reference reference, Tbl90Reference selected)
         {
             if (reference != null) //update
             {
-                reference.RefAuthorId = selectedReferenceAuthor.RefAuthorId;
-                reference.RegnumId = selectedReferenceAuthor.RegnumId;
-                reference.Valid = selectedReferenceAuthor.Valid;
-                reference.ValidYear = selectedReferenceAuthor.ValidYear;
-                reference.Info = selectedReferenceAuthor.Info;
+                reference.RefSourceId = selected.RefSourceId;
+                reference.RegnumId = selected.RegnumId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
                 reference.Updater = Environment.UserName;
                 reference.UpdaterDate = DateTime.Now;
-                reference.Memo = selectedReferenceAuthor.Memo;
+                reference.Memo = selected.Memo;
             }
             return reference;
         }
-        public Tbl90Reference ReferenceAuthorRegnumAdd(Tbl90Reference selectedReferenceAuthor)
+        public Tbl90Reference ReferenceSourceRegnumAdd(Tbl90Reference selected)
         {
             var reference = new Tbl90Reference //add new
             {
-                RefAuthorId = selectedReferenceAuthor.RefAuthorId,
-                RegnumId = selectedReferenceAuthor.RegnumId,
+                RefSourceId = selected.RefSourceId,
+                RegnumId = selected.RegnumId,
                 CountId = RandomHelper.Randomnumber(),
-                Valid = selectedReferenceAuthor.Valid,
-                ValidYear = selectedReferenceAuthor.ValidYear,
-                Info = selectedReferenceAuthor.Info,
-                Memo = selectedReferenceAuthor.Memo,
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorRegnumUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefAuthorId = selected.RefAuthorId;
+                reference.RegnumId = selected.RegnumId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorRegnumAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefAuthorId = selected.RefAuthorId,
+                RegnumId = selected.RegnumId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
                 Writer = Environment.UserName,
                 WriterDate = DateTime.Now,
                 Updater = Environment.UserName,
@@ -186,193 +195,54 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             };
             return comment;
         }
-        public void RegnumSave(Tbl03Regnum home, Tbl03Regnum selected)
-        {
-            if (selected.RegnumId != 0)   //update
-                _uow.Tbl03Regnums.Update(home);
-            else                                //add
-                _uow.Tbl03Regnums.Add(home);
-
-            _uow.Complete();
-        }
 
         //------------------Phylum---------------------------------------
-        public Tbl06Phylum PhylumUpdate(Tbl06Phylum phylum, Tbl06Phylum selectedPhylum)
+        public Tbl06Phylum PhylumUpdate(Tbl06Phylum home, Tbl06Phylum selected)
         {
-            if (phylum != null) //update
+            if (home != null) //update
             {
-                phylum.PhylumName = selectedPhylum.PhylumName;
-                phylum.RegnumId = selectedPhylum.RegnumId;
-                phylum.Valid = selectedPhylum.Valid;
-                phylum.ValidYear = selectedPhylum.ValidYear;
-                phylum.Author = selectedPhylum.Author;
-                phylum.AuthorYear = selectedPhylum.AuthorYear;
-                phylum.Info = selectedPhylum.Info;
-                phylum.Synonym = selectedPhylum.Synonym;
-                phylum.EngName = selectedPhylum.EngName;
-                phylum.GerName = selectedPhylum.GerName;
-                phylum.FraName = selectedPhylum.FraName;
-                phylum.PorName = selectedPhylum.PorName;
-                phylum.Memo = selectedPhylum.Memo;
-                phylum.Updater = Environment.UserName;
-                phylum.UpdaterDate = DateTime.Now;
+                home.PhylumName = selected.PhylumName;
+                home.RegnumId = selected.RegnumId;
+                home.Valid = selected.Valid;
+                home.ValidYear = selected.ValidYear;
+                home.Author = selected.Author;
+                home.AuthorYear = selected.AuthorYear;
+                home.Info = selected.Info;
+                home.Synonym = selected.Synonym;
+                home.EngName = selected.EngName;
+                home.GerName = selected.GerName;
+                home.FraName = selected.FraName;
+                home.PorName = selected.PorName;
+                home.Memo = selected.Memo;
+                home.Updater = Environment.UserName;
+                home.UpdaterDate = DateTime.Now;
             }
-            return phylum;
+            return home;
         }
-        public Tbl06Phylum PhylumAdd(Tbl06Phylum selectedPhylum)
+        public Tbl06Phylum PhylumAdd(Tbl06Phylum selected)
         {
-            var phylum = new Tbl06Phylum() //add new
+            var home = new Tbl06Phylum() //add new
             {
-                PhylumName = selectedPhylum.PhylumName,
-                RegnumId = selectedPhylum.RegnumId,
+                PhylumName = selected.PhylumName,
+                RegnumId = selected.RegnumId,
                 CountId = RandomHelper.Randomnumber(),
-                Valid = selectedPhylum.Valid,
-                ValidYear = selectedPhylum.ValidYear,
-                Author = selectedPhylum.Author,
-                AuthorYear = selectedPhylum.AuthorYear,
-                Info = selectedPhylum.Info,
-                Synonym = selectedPhylum.Synonym,
-                EngName = selectedPhylum.EngName,
-                GerName = selectedPhylum.GerName,
-                FraName = selectedPhylum.FraName,
-                PorName = selectedPhylum.PorName,
-                Memo = selectedPhylum.Memo,
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Author = selected.Author,
+                AuthorYear = selected.AuthorYear,
+                Info = selected.Info,
+                Synonym = selected.Synonym,
+                EngName = selected.EngName,
+                GerName = selected.GerName,
+                FraName = selected.FraName,
+                PorName = selected.PorName,
+                Memo = selected.Memo,
                 Writer = Environment.UserName,
                 WriterDate = DateTime.Now,
                 Updater = Environment.UserName,
                 UpdaterDate = DateTime.Now,
             };
-            return phylum;
-        }
-        public Tbl90Reference ReferenceExpertPhylumUpdate(Tbl90Reference reference, Tbl90Reference selectedReferenceExpert)
-        {
-            if (reference != null) //update
-            {
-                reference.RefExpertId = selectedReferenceExpert.RefExpertId;
-                reference.PhylumId = selectedReferenceExpert.PhylumId;
-                reference.Valid = selectedReferenceExpert.Valid;
-                reference.ValidYear = selectedReferenceExpert.ValidYear;
-                reference.Info = selectedReferenceExpert.Info;
-                reference.Updater = Environment.UserName;
-                reference.UpdaterDate = DateTime.Now;
-                reference.Memo = selectedReferenceExpert.Memo;
-            }
-            return reference;
-        }
-        public Tbl90Reference ReferenceExpertPhylumAdd(Tbl90Reference selectedReferenceExpert)
-        {
-            var reference = new Tbl90Reference //add new
-            {
-                RefExpertId = selectedReferenceExpert.RefExpertId,
-                PhylumId = selectedReferenceExpert.PhylumId,
-                CountId = RandomHelper.Randomnumber(),
-                Valid = selectedReferenceExpert.Valid,
-                ValidYear = selectedReferenceExpert.ValidYear,
-                Info = selectedReferenceExpert.Info,
-                Memo = selectedReferenceExpert.Memo,
-                Writer = Environment.UserName,
-                WriterDate = DateTime.Now,
-                Updater = Environment.UserName,
-                UpdaterDate = DateTime.Now,
-            };
-            return reference;
-        }
-        public Tbl90Reference ReferenceSourcePhylumUpdate(Tbl90Reference reference, Tbl90Reference selectedReferenceSource)
-        {
-            if (reference != null) //update
-            {
-                reference.RefSourceId = selectedReferenceSource.RefSourceId;
-                reference.PhylumId = selectedReferenceSource.PhylumId;
-                reference.Valid = selectedReferenceSource.Valid;
-                reference.ValidYear = selectedReferenceSource.ValidYear;
-                reference.Info = selectedReferenceSource.Info;
-                reference.Updater = Environment.UserName;
-                reference.UpdaterDate = DateTime.Now;
-                reference.Memo = selectedReferenceSource.Memo;
-            }
-            return reference;
-        }
-        public Tbl90Reference ReferenceSourcePhylumAdd(Tbl90Reference selectedReferenceSource)
-        {
-            var reference = new Tbl90Reference //add new
-            {
-                RefSourceId = selectedReferenceSource.RefSourceId,
-                PhylumId = selectedReferenceSource.PhylumId,
-                CountId = RandomHelper.Randomnumber(),
-                Valid = selectedReferenceSource.Valid,
-                ValidYear = selectedReferenceSource.ValidYear,
-                Info = selectedReferenceSource.Info,
-                Memo = selectedReferenceSource.Memo,
-                Writer = Environment.UserName,
-                WriterDate = DateTime.Now,
-                Updater = Environment.UserName,
-                UpdaterDate = DateTime.Now,
-            };
-            return reference;
-        }
-        public Tbl90Reference ReferenceAuthorPhylumUpdate(Tbl90Reference reference, Tbl90Reference selectedReferenceAuthor)
-        {
-            if (reference != null) //update
-            {
-                reference.RefAuthorId = selectedReferenceAuthor.RefAuthorId;
-                reference.PhylumId = selectedReferenceAuthor.PhylumId;
-                reference.Valid = selectedReferenceAuthor.Valid;
-                reference.ValidYear = selectedReferenceAuthor.ValidYear;
-                reference.Info = selectedReferenceAuthor.Info;
-                reference.Updater = Environment.UserName;
-                reference.UpdaterDate = DateTime.Now;
-                reference.Memo = selectedReferenceAuthor.Memo;
-            }
-            return reference;
-        }
-        public Tbl90Reference ReferenceAuthorPhylumAdd(Tbl90Reference selectedReferenceAuthor)
-        {
-            var reference = new Tbl90Reference //add new
-            {
-                RefAuthorId = selectedReferenceAuthor.RefAuthorId,
-                PhylumId = selectedReferenceAuthor.PhylumId,
-                CountId = RandomHelper.Randomnumber(),
-                Valid = selectedReferenceAuthor.Valid,
-                ValidYear = selectedReferenceAuthor.ValidYear,
-                Info = selectedReferenceAuthor.Info,
-                Memo = selectedReferenceAuthor.Memo,
-                Writer = Environment.UserName,
-                WriterDate = DateTime.Now,
-                Updater = Environment.UserName,
-                UpdaterDate = DateTime.Now,
-            };
-            return reference;
-        }
-        public Tbl93Comment CommentPhylumUpdate(Tbl93Comment comment, Tbl93Comment selectedComment)
-        {
-            if (comment != null) //update
-            {
-                comment.PhylumId = selectedComment.PhylumId;
-                comment.Valid = selectedComment.Valid;
-                comment.ValidYear = selectedComment.ValidYear;
-                comment.Info = selectedComment.Info;
-                comment.Updater = Environment.UserName;
-                comment.UpdaterDate = DateTime.Now;
-                comment.Memo = selectedComment.Memo;
-            }
-            return comment;
-        }
-        public Tbl93Comment CommentPhylumAdd(Tbl93Comment selectedComment)
-        {
-            var comment = new Tbl93Comment //add new
-            {
-                PhylumId = selectedComment.PhylumId,
-                CountId = RandomHelper.Randomnumber(),
-                Valid = selectedComment.Valid,
-                ValidYear = selectedComment.ValidYear,
-                Info = selectedComment.Info,
-                Memo = selectedComment.Memo,
-                Writer = Environment.UserName,
-                WriterDate = DateTime.Now,
-                Updater = Environment.UserName,
-                UpdaterDate = DateTime.Now,
-            };
-            return comment;
+            return home;
         }
         public void PhylumSave(Tbl06Phylum home, Tbl06Phylum selected)
         {
@@ -384,6 +254,136 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             else                                //add
                 _uow.Tbl06Phylums.Add(home);
             _uow.Complete();
+        }
+        public Tbl90Reference ReferenceExpertPhylumUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefExpertId = selected.RefExpertId;
+                reference.PhylumId = selected.PhylumId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceExpertPhylumAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefExpertId = selected.RefExpertId,
+                PhylumId = selected.PhylumId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourcePhylumUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefSourceId = selected.RefSourceId;
+                reference.PhylumId = selected.PhylumId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourcePhylumAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefSourceId = selected.RefSourceId,
+                PhylumId = selected.PhylumId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorPhylumUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefAuthorId = selected.RefAuthorId;
+                reference.PhylumId = selected.PhylumId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorPhylumAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefAuthorId = selected.RefAuthorId,
+                PhylumId = selected.PhylumId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl93Comment CommentPhylumUpdate(Tbl93Comment comment, Tbl93Comment selected)
+        {
+            if (comment != null) //update
+            {
+                comment.PhylumId = selected.PhylumId;
+                comment.Valid = selected.Valid;
+                comment.ValidYear = selected.ValidYear;
+                comment.Info = selected.Info;
+                comment.Updater = Environment.UserName;
+                comment.UpdaterDate = DateTime.Now;
+                comment.Memo = selected.Memo;
+            }
+            return comment;
+        }
+        public Tbl93Comment CommentPhylumAdd(Tbl93Comment selected)
+        {
+            var comment = new Tbl93Comment //add new
+            {
+                PhylumId = selected.PhylumId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return comment;
         }
 
         //------------------Division---------------------------------------
@@ -433,6 +433,16 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 UpdaterDate = DateTime.Now,
             };
             return res;
+        }
+        public void DivisionSave(Tbl09Division home, Tbl09Division selected)
+        {
+            if (selected.DivisionId != 0) //update
+            {
+                _uow.Tbl09Divisions.Update(home);
+            }
+            else                                //add
+                _uow.Tbl09Divisions.Add(home);
+            _uow.Complete();
         }
         public Tbl90Reference ReferenceExpertDivisionUpdate(Tbl90Reference reference, Tbl90Reference selected)
         {
@@ -564,16 +574,6 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             };
             return comment;
         }
-        public void DivisionSave(Tbl09Division home, Tbl09Division selected)
-        {
-            if (selected.DivisionId != 0) //update
-            {
-                _uow.Tbl09Divisions.Update(home);
-            }
-            else                                //add
-                _uow.Tbl09Divisions.Add(home);
-            _uow.Complete();
-        }
 
         //------------------Subphylum---------------------------------------
         public Tbl12Subphylum SubphylumUpdate(Tbl12Subphylum home, Tbl12Subphylum selected)
@@ -623,32 +623,43 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             };
             return home;
         }
-        public Tbl90Reference ReferenceExpertSubphylumUpdate(Tbl90Reference reference, Tbl90Reference selectedReferenceExpert)
+        public void SubphylumSave(Tbl12Subphylum home, Tbl12Subphylum selected)
+        {
+
+            if (selected.SubphylumId != 0) //update
+            {
+                _uow.Tbl12Subphylums.Update(home);
+            }
+            else                                //add
+                _uow.Tbl12Subphylums.Add(home);
+            _uow.Complete();
+        }
+        public Tbl90Reference ReferenceExpertSubphylumUpdate(Tbl90Reference reference, Tbl90Reference selected)
         {
             if (reference != null) //update
             {
-                reference.RefExpertId = selectedReferenceExpert.RefExpertId;
-                reference.SubphylumId = selectedReferenceExpert.SubphylumId;
-                reference.Valid = selectedReferenceExpert.Valid;
-                reference.ValidYear = selectedReferenceExpert.ValidYear;
-                reference.Info = selectedReferenceExpert.Info;
+                reference.RefExpertId = selected.RefExpertId;
+                reference.SubphylumId = selected.SubphylumId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
                 reference.Updater = Environment.UserName;
                 reference.UpdaterDate = DateTime.Now;
-                reference.Memo = selectedReferenceExpert.Memo;
+                reference.Memo = selected.Memo;
             }
             return reference;
         }
-        public Tbl90Reference ReferenceExpertSubphylumAdd(Tbl90Reference selectedReferenceExpert)
+        public Tbl90Reference ReferenceExpertSubphylumAdd(Tbl90Reference selected)
         {
             var reference = new Tbl90Reference //add new
             {
-                RefExpertId = selectedReferenceExpert.RefExpertId,
-                SubphylumId = selectedReferenceExpert.SubphylumId,
+                RefExpertId = selected.RefExpertId,
+                SubphylumId = selected.SubphylumId,
                 CountId = RandomHelper.Randomnumber(),
-                Valid = selectedReferenceExpert.Valid,
-                ValidYear = selectedReferenceExpert.ValidYear,
-                Info = selectedReferenceExpert.Info,
-                Memo = selectedReferenceExpert.Memo,
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
                 Writer = Environment.UserName,
                 WriterDate = DateTime.Now,
                 Updater = Environment.UserName,
@@ -656,32 +667,32 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             };
             return reference;
         }
-        public Tbl90Reference ReferenceSourceSubphylumUpdate(Tbl90Reference reference, Tbl90Reference selectedReferenceSource)
+        public Tbl90Reference ReferenceSourceSubphylumUpdate(Tbl90Reference reference, Tbl90Reference selected)
         {
             if (reference != null) //update
             {
-                reference.RefSourceId = selectedReferenceSource.RefSourceId;
-                reference.SubphylumId = selectedReferenceSource.SubphylumId;
-                reference.Valid = selectedReferenceSource.Valid;
-                reference.ValidYear = selectedReferenceSource.ValidYear;
-                reference.Info = selectedReferenceSource.Info;
+                reference.RefSourceId = selected.RefSourceId;
+                reference.SubphylumId = selected.SubphylumId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
                 reference.Updater = Environment.UserName;
                 reference.UpdaterDate = DateTime.Now;
-                reference.Memo = selectedReferenceSource.Memo;
+                reference.Memo = selected.Memo;
             }
             return reference;
         }
-        public Tbl90Reference ReferenceSourceSubphylumAdd(Tbl90Reference selectedReferenceSource)
+        public Tbl90Reference ReferenceSourceSubphylumAdd(Tbl90Reference selected)
         {
             var reference = new Tbl90Reference //add new
             {
-                RefSourceId = selectedReferenceSource.RefSourceId,
-                SubphylumId = selectedReferenceSource.SubphylumId,
+                RefSourceId = selected.RefSourceId,
+                SubphylumId = selected.SubphylumId,
                 CountId = RandomHelper.Randomnumber(),
-                Valid = selectedReferenceSource.Valid,
-                ValidYear = selectedReferenceSource.ValidYear,
-                Info = selectedReferenceSource.Info,
-                Memo = selectedReferenceSource.Memo,
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
                 Writer = Environment.UserName,
                 WriterDate = DateTime.Now,
                 Updater = Environment.UserName,
@@ -689,18 +700,18 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             };
             return reference;
         }
-        public Tbl90Reference ReferenceAuthorSubphylumUpdate(Tbl90Reference reference, Tbl90Reference selectedReferenceAuthor)
+        public Tbl90Reference ReferenceAuthorSubphylumUpdate(Tbl90Reference reference, Tbl90Reference selected)
         {
             if (reference != null) //update
             {
-                reference.RefAuthorId = selectedReferenceAuthor.RefAuthorId;
-                reference.SubphylumId = selectedReferenceAuthor.SubphylumId;
-                reference.Valid = selectedReferenceAuthor.Valid;
-                reference.ValidYear = selectedReferenceAuthor.ValidYear;
-                reference.Info = selectedReferenceAuthor.Info;
+                reference.RefAuthorId = selected.RefAuthorId;
+                reference.SubphylumId = selected.SubphylumId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
                 reference.Updater = Environment.UserName;
                 reference.UpdaterDate = DateTime.Now;
-                reference.Memo = selectedReferenceAuthor.Memo;
+                reference.Memo = selected.Memo;
             }
             return reference;
         }
@@ -753,19 +764,55 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             };
             return comment;
         }
-        public void SubphylumSave(Tbl12Subphylum home, Tbl12Subphylum selected)
-        {
-
-            if (selected.SubphylumId != 0) //update
-            {
-                _uow.Tbl12Subphylums.Update(home);
-            }
-            else                                //add
-                _uow.Tbl12Subphylums.Add(home);
-            _uow.Complete();
-        }
 
         //------------------Subdivision---------------------------------------
+        public Tbl15Subdivision SubdivisionUpdate(Tbl15Subdivision home, Tbl15Subdivision selected)
+        {
+            if (home != null) //update
+            {
+                home.SubdivisionName = selected.SubdivisionName;
+                home.DivisionId = selected.DivisionId;
+                home.Valid = selected.Valid;
+                home.ValidYear = selected.ValidYear;
+                home.Author = selected.Author;
+                home.AuthorYear = selected.AuthorYear;
+                home.Info = selected.Info;
+                home.Synonym = selected.Synonym;
+                home.EngName = selected.EngName;
+                home.GerName = selected.GerName;
+                home.FraName = selected.FraName;
+                home.PorName = selected.PorName;
+                home.Memo = selected.Memo;
+                home.Updater = Environment.UserName;
+                home.UpdaterDate = DateTime.Now;
+            }
+            return home;
+        }
+        public Tbl15Subdivision SubdivisionAdd(Tbl15Subdivision selected)
+        {
+            var home = new Tbl15Subdivision() //add new
+            {
+                SubdivisionName = selected.SubdivisionName,
+                DivisionId = selected.DivisionId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Author = selected.Author,
+                AuthorYear = selected.AuthorYear,
+                Info = selected.Info,
+                Synonym = selected.Synonym,
+                EngName = selected.EngName,
+                GerName = selected.GerName,
+                FraName = selected.FraName,
+                PorName = selected.PorName,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now
+            };
+            return home;
+        }
         public void SubdivisionSave(Tbl15Subdivision home, Tbl15Subdivision selected)
         {
 
@@ -776,6 +823,136 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             else                                //add
                 _uow.Tbl15Subdivisions.Add(home);
             _uow.Complete();
+        }
+        public Tbl90Reference ReferenceAuthorSubdivisionUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefAuthorId = selected.RefAuthorId;
+                reference.SubdivisionId = selected.SubdivisionId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorSubdivisionAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefAuthorId = selected.RefAuthorId,
+                SubdivisionId = selected.SubdivisionId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourceSubdivisionUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefSourceId = selected.RefSourceId;
+                reference.SubdivisionId = selected.SubdivisionId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourceSubdivisionAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefSourceId = selected.RefSourceId,
+                SubdivisionId = selected.SubdivisionId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceExpertSubdivisionUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefExpertId = selected.RefExpertId;
+                reference.SubdivisionId = selected.SubdivisionId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceExpertSubdivisionAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefExpertId = selected.RefExpertId,
+                SubdivisionId = selected.SubdivisionId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl93Comment CommentSubdivisionUpdate(Tbl93Comment comment, Tbl93Comment selected)
+        {
+            if (comment != null) //update
+            {
+                comment.SubdivisionId = selected.SubdivisionId;
+                comment.Valid = selected.Valid;
+                comment.ValidYear = selected.ValidYear;
+                comment.Info = selected.Info;
+                comment.Updater = Environment.UserName;
+                comment.UpdaterDate = DateTime.Now;
+                comment.Memo = selected.Memo;
+            }
+            return comment;
+        }
+        public Tbl93Comment CommentSubdivisionAdd(Tbl93Comment selected)
+        {
+            var comment = new Tbl93Comment //add new
+            {
+                SubdivisionId = selected.SubdivisionId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return comment;
         }
 
         //------------------Superclass---------------------------------------
@@ -827,6 +1004,17 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 UpdaterDate = DateTime.Now
             };
             return home;
+        }
+        public void SuperclassSave(Tbl18Superclass home, Tbl18Superclass selected)
+        {
+
+            if (selected.SuperclassId != 0) //update
+            {
+                _uow.Tbl18Superclasses.Update(home);
+            }
+            else                                //add
+                _uow.Tbl18Superclasses.Add(home);
+            _uow.Complete();
         }
         public Tbl90Reference ReferenceExpertSuperclassUpdate(Tbl90Reference reference, Tbl90Reference selected)
         {
@@ -894,6 +1082,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             };
             return reference;
         }
+
         public Tbl90Reference ReferenceAuthorSuperclassUpdate(Tbl90Reference reference, Tbl90Reference selected)
         {
             if (reference != null) //update
@@ -927,6 +1116,36 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             };
             return reference;
         }
+
+        //-------------------Reference-------------------------------------
+        public void ReferenceExpertSave(Tbl90Reference home, Tbl90Reference selected)
+        {
+            if (selected.ReferenceId != 0)   //update
+                _uow.Tbl90References.Update(home);
+            else                                            //add
+                _uow.Tbl90References.Add(home);
+
+            _uow.Complete();
+        }
+        public void ReferenceSourceSave(Tbl90Reference home, Tbl90Reference selected)
+        {
+            if (selected.ReferenceId != 0)   //update
+                _uow.Tbl90References.Update(home);
+            else                                            //add
+                _uow.Tbl90References.Add(home);
+
+            _uow.Complete();
+        }
+        public void ReferenceAuthorSave(Tbl90Reference home, Tbl90Reference selected)
+        {
+            if (selected.ReferenceId != 0)   //update
+                _uow.Tbl90References.Update(home);
+            else                                            //add
+                _uow.Tbl90References.Add(home);
+
+            _uow.Complete();
+        }
+        //-------------------Comment-------------------------------------
         public Tbl93Comment CommentSuperclassUpdate(Tbl93Comment comment, Tbl93Comment selected)
         {
             if (comment != null) //update
@@ -958,47 +1177,6 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             };
             return comment;
         }
-        public void SuperclassSave(Tbl18Superclass home, Tbl18Superclass selected)
-        {
-
-            if (selected.SuperclassId != 0) //update
-            {
-                _uow.Tbl18Superclasses.Update(home);
-            }
-            else                                //add
-                _uow.Tbl18Superclasses.Add(home);
-            _uow.Complete();
-        }
-
-        //-------------------Reference-------------------------------------
-        public void ReferenceExpertSave(Tbl90Reference home, Tbl90Reference selected)
-        {
-            if (selected.ReferenceId != 0)   //update
-                _uow.Tbl90References.Update(home);
-            else                                            //add
-                _uow.Tbl90References.Add(home);
-
-            _uow.Complete();
-        }
-        public void ReferenceSourceSave(Tbl90Reference home, Tbl90Reference selected)
-        {
-            if (selected.ReferenceId != 0)   //update
-                _uow.Tbl90References.Update(home);
-            else                                            //add
-                _uow.Tbl90References.Add(home);
-
-            _uow.Complete();
-        }
-        public void ReferenceAuthorSave(Tbl90Reference home, Tbl90Reference selected)
-        {
-            if (selected.ReferenceId != 0)   //update
-                _uow.Tbl90References.Update(home);
-            else                                            //add
-                _uow.Tbl90References.Add(home);
-
-            _uow.Complete();
-        }
-        //-------------------Comment-------------------------------------
         public void CommentSave(Tbl93Comment home, Tbl93Comment selected)
         {
             if (selected.CommentId != 0)             //update

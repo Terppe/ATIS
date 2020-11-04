@@ -14,9 +14,9 @@ using ATIS.Ui.Views.Database.DatabaseHelper;
 using Microsoft.EntityFrameworkCore;          
 
     
-         //    SubdivisionsViewModel Skriptdatum:  12.12.2019  12:32    
+         //    SubdivisionsViewModel Skriptdatum:  04.11.2020  12:32    
 
-namespace ATIS.Ui.Views.Database.ListDetails
+namespace ATIS.Ui.Views.Database.D15Subdivision
 {     
     
     public class SubdivisionsViewModel : ViewModelBase                     

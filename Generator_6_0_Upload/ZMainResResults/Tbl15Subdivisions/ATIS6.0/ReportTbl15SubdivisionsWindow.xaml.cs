@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using Te.Atis.Ui.Desktop.Properties;
 
-   //  ReportTbl15SubdivisionsWindow.xaml.cs Skriptdatum:  12.12.2019  12:32     
+   //  ReportTbl15SubdivisionsWindow.xaml.cs Skriptdatum:  04.11.2020  12:32     
 
 namespace Te.Atis.Ui.Desktop.Views.Report 
 {  

@@ -7,7 +7,7 @@ using System.Windows.Input;
 using System.Windows.Threading;   
  
 
-      //  Tbl15SubdivisionsView.xaml.cs Skriptdatum:  12.12.2019  12:32     
+      //  Tbl15SubdivisionsView.xaml.cs Skriptdatum:  04.11.2020  12:32     
 
 namespace WPFUI.Views.Database
 {  

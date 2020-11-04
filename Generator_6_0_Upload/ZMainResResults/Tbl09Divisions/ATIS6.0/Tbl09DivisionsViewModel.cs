@@ -14,7 +14,7 @@ using ATIS.Ui.Views.Database.DatabaseHelper;
 using Microsoft.EntityFrameworkCore;          
 
     
-         //    DivisionsViewModel Skriptdatum:  03.11.2020  12:32    
+         //    DivisionsViewModel Skriptdatum:  04.11.2020  12:32    
 
 namespace ATIS.Ui.Views.Database.D09Division
 {     
@@ -1077,14 +1077,12 @@ Tbl03RegnumsList = _extGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(
             {
                 if (value == _selectedMainTabIndex) return;
                 _selectedMainTabIndex = value; RaisePropertyChanged("");        
-     
+       
                 if (_selectedMainTabIndex == 0)             
                 {
                     if (CurrentTbl09Division != null)
                     {
                         Tbl03RegnumsList = _extGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(CurrentTbl09Division.RegnumId);
-
-                        NULLAllList = _extGet.AllCollection<NULL>("");
 
                         RegnumsView = CollectionViewSource.GetDefaultView(Tbl03RegnumsList);
                         RegnumsView.Refresh();
