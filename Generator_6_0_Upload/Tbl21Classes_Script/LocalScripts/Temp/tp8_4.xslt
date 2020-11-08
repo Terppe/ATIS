@@ -1338,7 +1338,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 <xsl:when test="Table ='Tbl03Regnums'">        <![CDATA[        
             var author = PdfHelper.AuthorViewChangeWithoutString(_regnum.Author, _regnum.AuthorYear);
 
-            table.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author, LargeFont)) { Colspan = 4, Border = 0 });  // 1.-4. field
+            table.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author, LargeFont)) { Colspan = 4, Border = 0 });  // 1.-4. field
             table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportTaxonomicId + " " + Convert.ToString(_]]><xsl:value-of select="BasisSm"/><![CDATA[.CountID), StandardFont)) { Colspan = 4, Border = 0 }); // 1.-4. field
             doc.Add(table);
             return doc;
@@ -1347,7 +1347,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 <xsl:when test="Table ='Tbl69FiSpeciesses'">        <![CDATA[   
             var author = PdfHelper.AuthorViewChangeWithoutString(_fispecies.Author, _fispecies.AuthorYear);
 
-            table.AddCell(new PdfPCell(new Phrase(_fispecies.Tbl66Genusses.GenusName + " " + _fispecies.FiSpeciesName + " " + _fispecies.Subspecies + " " + _fispecies.Divers + "  " + author, LargeFont)) { Colspan = 4, Border = 0 });   // 1.-4. field
+            table.AddCell(new PdfPCell(new Phrase(_fispecies.Tbl66Genusses.GenusName + " " + _fispecies.FiSpeciesName + " " + _fispecies.Subspecies + " " + _fispecies.Divers + " " + author, LargeFont)) { Colspan = 4, Border = 0 });   // 1.-4. field
             table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportTaxonomicId + " " + Convert.ToString(_]]><xsl:value-of select="BasisSm"/><![CDATA[.CountID), StandardFont)) { Colspan = 4, Border = 0 }); // 1.-4. field
             doc.Add(table);
             return doc;
@@ -1356,7 +1356,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 <xsl:when test="Table ='Tbl72PlSpeciesses'">        <![CDATA[     
             var author = PdfHelper.AuthorViewChangeWithoutString(_plspecies.Author, _plspecies.AuthorYear);
 
-            table.AddCell(new PdfPCell(new Phrase(_plspecies.Tbl66Genusses.GenusName + " " + _plspecies.PlSpeciesName + " " + _plspecies.Subspecies + " " + _plspecies.Divers + "  " + author, LargeFont)) { Colspan = 4, Border = 0 });   // 1.-4. field
+            table.AddCell(new PdfPCell(new Phrase(_plspecies.Tbl66Genusses.GenusName + " " + _plspecies.PlSpeciesName + " " + _plspecies.Subspecies + " " + _plspecies.Divers + " " + author, LargeFont)) { Colspan = 4, Border = 0 });   // 1.-4. field
               table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportTaxonomicId + " " + Convert.ToString(_]]><xsl:value-of select="BasisSm"/><![CDATA[.CountID), StandardFont)) { Colspan = 4, Border = 0 }); // 1.-4. field
             doc.Add(table);
             return doc;
@@ -1365,7 +1365,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 <xsl:otherwise>    <![CDATA[  
             var author = PdfHelper.AuthorViewChangeWithoutString(_]]><xsl:value-of select="BasisSm"/><![CDATA[.Author, _]]><xsl:value-of select="BasisSm"/><![CDATA[.AuthorYear);
 
-            table.AddCell(new PdfPCell(new Phrase(_]]><xsl:value-of select="BasisSm"/><![CDATA[.]]><xsl:value-of select="Name"/><![CDATA[ + "  " + author, LargeFont)) { Colspan = 4, Border = 0 });  // 1.-4. field
+            table.AddCell(new PdfPCell(new Phrase(_]]><xsl:value-of select="BasisSm"/><![CDATA[.]]><xsl:value-of select="Name"/><![CDATA[ + " " + author, LargeFont)) { Colspan = 4, Border = 0 });  // 1.-4. field
             table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportTaxonomicId + " " + Convert.ToString(_]]><xsl:value-of select="BasisSm"/><![CDATA[.CountID), StandardFont)) { Colspan = 4, Border = 0 }); // 1.-4. field
             doc.Add(table);
             return doc;
@@ -1742,7 +1742,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableRegnum);
@@ -1771,7 +1771,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableRegnum); 
@@ -1795,7 +1795,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tablePhylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablePhylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
-            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablePhylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tablePhylum);
@@ -1824,7 +1824,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableRegnum); 
@@ -1848,7 +1848,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableDivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableDivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Division, SmallFont)) { Border = 0 });  // 2. field
-            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + "  " + author+ "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + " " + author+ " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableDivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableDivision);
@@ -1877,7 +1877,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
             tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableRegnum); 
@@ -1901,7 +1901,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tablePhylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablePhylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
-            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablePhylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tablePhylum);
@@ -1925,7 +1925,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubphylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subphylum, SmallFont)) { Border = 0 });  // 2. field
-            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubphylum);
@@ -1954,7 +1954,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableRegnum); 
@@ -1978,7 +1978,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableDivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableDivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Division, SmallFont)) { Border = 0 });  // 2. field
-            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + "  " + author+ "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + " " + author+ " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableDivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableDivision);
@@ -2002,7 +2002,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubdivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subdivision, SmallFont)) { Border = 0 });  // 2. field
-            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubdivision);
@@ -2031,7 +2031,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableRegnum);
@@ -2057,7 +2057,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableDivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableDivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Division, SmallFont)) { Border = 0 });  // 2. field
-            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + "  " + author+ "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + " " + author+ " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableDivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableDivision);
@@ -2081,7 +2081,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubdivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subdivision, SmallFont)) { Border = 0 });  // 2. field
-            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubdivision);
@@ -2109,7 +2109,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tablePhylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablePhylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
-            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablePhylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tablePhylum);
@@ -2133,7 +2133,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubphylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subphylum, SmallFont)) { Border = 0 });  // 2. field
-            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubphylum);
@@ -2158,7 +2158,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSuperclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperclass);
@@ -2188,7 +2188,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableRegnum);
@@ -2215,7 +2215,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableDivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableDivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Division, SmallFont)) { Border = 0 });  // 2. field
-            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + "  " + author+ "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + " " + author+ " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableDivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableDivision);
@@ -2239,7 +2239,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubdivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subdivision, SmallFont)) { Border = 0 });  // 2. field
-            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubdivision);
@@ -2267,7 +2267,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tablePhylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablePhylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
-            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablePhylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tablePhylum);
@@ -2291,7 +2291,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubphylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subphylum, SmallFont)) { Border = 0 });  // 2. field
-            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubphylum);
@@ -2316,7 +2316,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSuperclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
             doc.Add(tableSuperclass);
             }
@@ -2334,11 +2334,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableClass.SetWidths(new[] { 0.17f, 1.13f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_class.Author, _class.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_class.Author, _class.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_class.GerName, _class.EngName, _class.FraName, _class.PorName);
 
             tableClass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableClass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Class, SmallFont)) { Border = 0 });  // 2. field
-            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " - " + author + "  " + _class.GerName + " " + _class.EngName + " " + _class.FraName + " " + _class.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableClass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableClass);
@@ -2367,7 +2368,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableRegnum);
@@ -2393,7 +2394,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableDivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableDivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Division, SmallFont)) { Border = 0 });  // 2. field
-            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + "  " + author+ "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + " " + author+ " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableDivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableDivision);
@@ -2417,7 +2418,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubdivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subdivision, SmallFont)) { Border = 0 });  // 2. field
-            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubdivision);
@@ -2445,7 +2446,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tablePhylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablePhylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
-            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablePhylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tablePhylum);
@@ -2469,7 +2470,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubphylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subphylum, SmallFont)) { Border = 0 });  // 2. field
-            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubphylum);
@@ -2494,7 +2495,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSuperclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperclass);
@@ -2513,11 +2514,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableClass.SetWidths(new[] { 0.17f, 1.13f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_class.Author, _class.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_class.Author, _class.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_class.GerName, _class.EngName, _class.FraName, _class.PorName);
 
             tableClass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableClass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Class, SmallFont)) { Border = 0 });  // 2. field
-            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " - " + author + "  " + _class.GerName + " " + _class.EngName + " " + _class.FraName + " " + _class.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableClass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableClass);
@@ -2536,11 +2538,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubclass.SetWidths(new[] { 0.20f, 1.10f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subclass.Author, _subclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subclass.Author, _subclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subclass.GerName, _subclass.EngName, _subclass.FraName, _subclass.PorName);
 
             tableSubclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " - " + author + "  " + _subclass.GerName + " " + _subclass.EngName + " " + _subclass.FraName + " " + _subclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubclass);
@@ -2569,7 +2572,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableRegnum);
@@ -2595,7 +2598,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableDivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableDivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Division, SmallFont)) { Border = 0 });  // 2. field
-            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + "  " + author+ "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + " " + author+ " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableDivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableDivision);
@@ -2619,7 +2622,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubdivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subdivision, SmallFont)) { Border = 0 });  // 2. field
-            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubdivision);
@@ -2647,7 +2650,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tablePhylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablePhylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
-            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablePhylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tablePhylum);
@@ -2671,7 +2674,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubphylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subphylum, SmallFont)) { Border = 0 });  // 2. field
-            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubphylum);
@@ -2696,7 +2699,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSuperclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperclass);
@@ -2715,11 +2718,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableClass.SetWidths(new[] { 0.17f, 1.13f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_class.Author, _class.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_class.Author, _class.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_class.GerName, _class.EngName, _class.FraName, _class.PorName);
 
             tableClass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableClass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Class, SmallFont)) { Border = 0 });  // 2. field
-            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " - " + author + "  " + _class.GerName + " " + _class.EngName + " " + _class.FraName + " " + _class.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableClass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableClass);
@@ -2738,11 +2742,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubclass.SetWidths(new[] { 0.20f, 1.10f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subclass.Author, _subclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subclass.Author, _subclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subclass.GerName, _subclass.EngName, _subclass.FraName, _subclass.PorName);
 
             tableSubclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " - " + author + "  " + _subclass.GerName + " " + _subclass.EngName + " " + _subclass.FraName + " " + _subclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubclass);
@@ -2761,11 +2766,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraclass.SetWidths(new[] { 0.23f, 1.07f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraclass.Author, _infraclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraclass.Author, _infraclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraclass.GerName, _infraclass.EngName, _infraclass.FraName, _infraclass.PorName);
 
             tableInfraclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraclass, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " - " + author + "  " + _infraclass.GerName + " " + _infraclass.EngName + " " + _infraclass.FraName + " " + _infraclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraclass);
@@ -2794,7 +2800,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableRegnum);
@@ -2820,7 +2826,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableDivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableDivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Division, SmallFont)) { Border = 0 });  // 2. field
-            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + "  " + author+ "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + " " + author+ " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableDivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableDivision);
@@ -2844,7 +2850,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubdivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subdivision, SmallFont)) { Border = 0 });  // 2. field
-            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubdivision);
@@ -2872,7 +2878,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tablePhylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablePhylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
-            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablePhylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tablePhylum);
@@ -2896,7 +2902,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubphylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subphylum, SmallFont)) { Border = 0 });  // 2. field
-            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName +  " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubphylum);
@@ -2921,7 +2927,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSuperclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperclass);
@@ -2940,11 +2946,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableClass.SetWidths(new[] { 0.17f, 1.13f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_class.Author, _class.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_class.Author, _class.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_class.GerName, _class.EngName, _class.FraName, _class.PorName);
 
             tableClass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableClass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Class, SmallFont)) { Border = 0 });  // 2. field
-            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " - " + author + "  " + _class.GerName + " " + _class.EngName + " " + _class.FraName + " " + _class.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableClass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableClass);
@@ -2963,11 +2970,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubclass.SetWidths(new[] { 0.20f, 1.10f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subclass.Author, _subclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subclass.Author, _subclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subclass.GerName, _subclass.EngName, _subclass.FraName, _subclass.PorName);
 
             tableSubclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " - " + author + "  " + _subclass.GerName + " " + _subclass.EngName + " " + _subclass.FraName + " " + _subclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubclass);
@@ -2986,11 +2994,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraclass.SetWidths(new[] { 0.23f, 1.07f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraclass.Author, _infraclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraclass.Author, _infraclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraclass.GerName, _infraclass.EngName, _infraclass.FraName, _infraclass.PorName);
 
             tableInfraclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraclass, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " - " + author + "  " + _infraclass.GerName + " " + _infraclass.EngName + " " + _infraclass.FraName + " " + _infraclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraclass);
@@ -3009,11 +3018,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableLegio.SetWidths(new[] { 0.26f, 1.04f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_legio.Author, _legio.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_legio.Author, _legio.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_legio.GerName, _legio.EngName, _legio.FraName, _legio.PorName);
 
             tableLegio.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableLegio.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Legio, SmallFont)) { Border = 0 });  // 2. field
-            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " - " + author + "  " + _legio.GerName + " " + _legio.EngName + " " + _legio.FraName + " " + _legio.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableLegio.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableLegio);
@@ -3042,7 +3052,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableRegnum);
@@ -3068,7 +3078,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableDivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableDivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Division, SmallFont)) { Border = 0 });  // 2. field
-            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + "  " + author+ "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + " " + author+ " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableDivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableDivision);
@@ -3092,7 +3102,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubdivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subdivision, SmallFont)) { Border = 0 });  // 2. field
-            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubdivision);
@@ -3120,7 +3130,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tablePhylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablePhylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
-            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablePhylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tablePhylum);
@@ -3144,7 +3154,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubphylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subphylum, SmallFont)) { Border = 0 });  // 2. field
-            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubphylum);
@@ -3169,7 +3179,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSuperclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperclass);
@@ -3188,11 +3198,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableClass.SetWidths(new[] { 0.17f, 1.13f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_class.Author, _class.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_class.Author, _class.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_class.GerName, _class.EngName, _class.FraName, _class.PorName);
 
             tableClass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableClass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Class, SmallFont)) { Border = 0 });  // 2. field
-            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " - " + author + "  " + _class.GerName + " " + _class.EngName + " " + _class.FraName + " " + _class.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableClass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableClass);
@@ -3211,11 +3222,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubclass.SetWidths(new[] { 0.20f, 1.10f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subclass.Author, _subclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subclass.Author, _subclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subclass.GerName, _subclass.EngName, _subclass.FraName, _subclass.PorName);
 
             tableSubclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " - " + author + "  " + _subclass.GerName + " " + _subclass.EngName + " " + _subclass.FraName + " " + _subclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubclass);
@@ -3234,11 +3246,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraclass.SetWidths(new[] { 0.23f, 1.07f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraclass.Author, _infraclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraclass.Author, _infraclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraclass.GerName, _infraclass.EngName, _infraclass.FraName, _infraclass.PorName);
 
             tableInfraclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraclass, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " - " + author + "  " + _infraclass.GerName + " " + _infraclass.EngName + " " + _infraclass.FraName + " " + _infraclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraclass);
@@ -3257,11 +3270,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableLegio.SetWidths(new[] { 0.26f, 1.04f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_legio.Author, _legio.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_legio.Author, _legio.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_legio.GerName, _legio.EngName, _legio.FraName, _legio.PorName);
 
             tableLegio.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableLegio.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Legio, SmallFont)) { Border = 0 });  // 2. field
-            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " - " + author + "  " + _legio.GerName + " " + _legio.EngName + " " + _legio.FraName + " " + _legio.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableLegio.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableLegio);
@@ -3280,11 +3294,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableOrdo.SetWidths(new[] { 0.29f, 1.01f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_ordo.Author, _ordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_ordo.Author, _ordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_ordo.GerName, _ordo.EngName, _ordo.FraName, _ordo.PorName);
 
             tableOrdo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableOrdo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Ordo, SmallFont)) { Border = 0 });  // 2. field
-            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " - " + author + "  " + _ordo.GerName + " " + _ordo.EngName + " " + _ordo.FraName + " " + _ordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableOrdo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableOrdo);
@@ -3313,7 +3328,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableRegnum);
@@ -3339,7 +3354,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableDivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableDivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Division, SmallFont)) { Border = 0 });  // 2. field
-            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + "  " + author+ "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + " " + author+ " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableDivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableDivision);
@@ -3363,7 +3378,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubdivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subdivision, SmallFont)) { Border = 0 });  // 2. field
-            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubdivision);
@@ -3391,7 +3406,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tablePhylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablePhylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
-            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablePhylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tablePhylum);
@@ -3415,7 +3430,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubphylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subphylum, SmallFont)) { Border = 0 });  // 2. field
-            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubphylum);
@@ -3440,7 +3455,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSuperclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperclass);
@@ -3459,11 +3474,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableClass.SetWidths(new[] { 0.17f, 1.13f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_class.Author, _class.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_class.Author, _class.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_class.GerName, _class.EngName, _class.FraName, _class.PorName);
 
             tableClass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableClass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Class, SmallFont)) { Border = 0 });  // 2. field
-            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " - " + author + "  " + _class.GerName + " " + _class.EngName + " " + _class.FraName + " " + _class.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableClass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableClass);
@@ -3482,11 +3498,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubclass.SetWidths(new[] { 0.20f, 1.10f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subclass.Author, _subclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subclass.Author, _subclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subclass.GerName, _subclass.EngName, _subclass.FraName, _subclass.PorName);
 
             tableSubclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " - " + author + "  " + _subclass.GerName + " " + _subclass.EngName + " " + _subclass.FraName + " " + _subclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubclass);
@@ -3505,11 +3522,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraclass.SetWidths(new[] { 0.23f, 1.07f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraclass.Author, _infraclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraclass.Author, _infraclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraclass.GerName, _infraclass.EngName, _infraclass.FraName, _infraclass.PorName);
 
             tableInfraclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraclass, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " - " + author + "  " + _infraclass.GerName + " " + _infraclass.EngName + " " + _infraclass.FraName + " " + _infraclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraclass);
@@ -3528,11 +3546,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableLegio.SetWidths(new[] { 0.26f, 1.04f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_legio.Author, _legio.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_legio.Author, _legio.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_legio.GerName, _legio.EngName, _legio.FraName, _legio.PorName);
 
             tableLegio.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableLegio.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Legio, SmallFont)) { Border = 0 });  // 2. field
-            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " - " + author + "  " + _legio.GerName + " " + _legio.EngName + " " + _legio.FraName + " " + _legio.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableLegio.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableLegio);
@@ -3551,11 +3570,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableOrdo.SetWidths(new[] { 0.29f, 1.01f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_ordo.Author, _ordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_ordo.Author, _ordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_ordo.GerName, _ordo.EngName, _ordo.FraName, _ordo.PorName);
 
             tableOrdo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableOrdo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Ordo, SmallFont)) { Border = 0 });  // 2. field
-            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " - " + author + "  " + _ordo.GerName + " " + _ordo.EngName + " " + _ordo.FraName + " " + _ordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableOrdo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableOrdo);
@@ -3574,11 +3594,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubordo.SetWidths(new[] { 0.32f, 0.98f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subordo.Author, _subordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subordo.Author, _subordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subordo.GerName, _subordo.EngName, _subordo.FraName, _subordo.PorName);
 
             tableSubordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subordo, SmallFont)) { Border = 0 });  // 2. field
-            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " - " + author + "  " + _subordo.GerName + " " + _subordo.EngName + " " + _subordo.FraName + " " + _subordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubordo);
@@ -3607,7 +3628,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableRegnum);
@@ -3634,7 +3655,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableDivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableDivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Division, SmallFont)) { Border = 0 });  // 2. field
-            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + "  " + author+ "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + " " + author+ " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableDivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableDivision);
@@ -3658,7 +3679,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubdivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subdivision, SmallFont)) { Border = 0 });  // 2. field
-            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubdivision);
@@ -3686,7 +3707,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tablePhylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablePhylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
-            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablePhylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tablePhylum);
@@ -3710,7 +3731,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubphylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subphylum, SmallFont)) { Border = 0 });  // 2. field
-            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubphylum);
@@ -3735,7 +3756,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSuperclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperclass);
@@ -3754,11 +3775,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableClass.SetWidths(new[] { 0.17f, 1.13f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_class.Author, _class.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_class.Author, _class.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_class.GerName, _class.EngName, _class.FraName, _class.PorName);
 
             tableClass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableClass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Class, SmallFont)) { Border = 0 });  // 2. field
-            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " - " + author + "  " + _class.GerName + " " + _class.EngName + " " + _class.FraName + " " + _class.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableClass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableClass);
@@ -3777,11 +3799,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubclass.SetWidths(new[] { 0.20f, 1.10f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subclass.Author, _subclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subclass.Author, _subclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subclass.GerName, _subclass.EngName, _subclass.FraName, _subclass.PorName);
 
             tableSubclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " - " + author + "  " + _subclass.GerName + " " + _subclass.EngName + " " + _subclass.FraName + " " + _subclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubclass);
@@ -3800,11 +3823,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraclass.SetWidths(new[] { 0.23f, 1.07f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraclass.Author, _infraclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraclass.Author, _infraclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraclass.GerName, _infraclass.EngName, _infraclass.FraName, _infraclass.PorName);
 
             tableInfraclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraclass, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " - " + author + "  " + _infraclass.GerName + " " + _infraclass.EngName + " " + _infraclass.FraName + " " + _infraclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraclass);
@@ -3823,11 +3847,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableLegio.SetWidths(new[] { 0.26f, 1.04f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_legio.Author, _legio.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_legio.Author, _legio.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_legio.GerName, _legio.EngName, _legio.FraName, _legio.PorName);
 
             tableLegio.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableLegio.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Legio, SmallFont)) { Border = 0 });  // 2. field
-            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " - " + author + "  " + _legio.GerName + " " + _legio.EngName + " " + _legio.FraName + " " + _legio.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableLegio.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableLegio);
@@ -3846,11 +3871,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableOrdo.SetWidths(new[] { 0.29f, 1.01f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_ordo.Author, _ordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_ordo.Author, _ordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_ordo.GerName, _ordo.EngName, _ordo.FraName, _ordo.PorName);
 
             tableOrdo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableOrdo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Ordo, SmallFont)) { Border = 0 });  // 2. field
-            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " - " + author + "  " + _ordo.GerName + " " + _ordo.EngName + " " + _ordo.FraName + " " + _ordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableOrdo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableOrdo);
@@ -3869,11 +3895,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubordo.SetWidths(new[] { 0.32f, 0.98f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subordo.Author, _subordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subordo.Author, _subordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subordo.GerName, _subordo.EngName, _subordo.FraName, _subordo.PorName);
 
             tableSubordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subordo, SmallFont)) { Border = 0 });  // 2. field
-            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " - " + author + "  " + _subordo.GerName + " " + _subordo.EngName + " " + _subordo.FraName + " " + _subordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubordo);
@@ -3892,11 +3919,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraordo.SetWidths(new[] { 0.35f, 0.95f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraordo.Author, _infraordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraordo.Author, _infraordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraordo.GerName, _infraordo.EngName, _infraordo.FraName, _infraordo.PorName);
 
             tableInfraordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraordo, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " - " + author + "  " + _infraordo.GerName + " " + _infraordo.EngName + " " + _infraordo.FraName + " " + _infraordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraordo);
@@ -3925,7 +3953,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableRegnum);
@@ -3951,7 +3979,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableDivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableDivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Division, SmallFont)) { Border = 0 });  // 2. field
-            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + "  " + author+ "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + " " + author+ " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableDivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableDivision);
@@ -3975,7 +4003,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubdivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subdivision, SmallFont)) { Border = 0 });  // 2. field
-            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubdivision);
@@ -4003,7 +4031,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tablePhylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablePhylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
-            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablePhylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tablePhylum);
@@ -4027,7 +4055,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubphylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subphylum, SmallFont)) { Border = 0 });  // 2. field
-            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubphylum);
@@ -4052,7 +4080,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSuperclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperclass);
@@ -4071,11 +4099,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableClass.SetWidths(new[] { 0.17f, 1.13f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_class.Author, _class.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_class.Author, _class.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_class.GerName, _class.EngName, _class.FraName, _class.PorName);
 
             tableClass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableClass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Class, SmallFont)) { Border = 0 });  // 2. field
-            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " - " + author + "  " + _class.GerName + " " + _class.EngName + " " + _class.FraName + " " + _class.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableClass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableClass);
@@ -4094,11 +4123,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubclass.SetWidths(new[] { 0.20f, 1.10f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subclass.Author, _subclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subclass.Author, _subclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subclass.GerName, _subclass.EngName, _subclass.FraName, _subclass.PorName);
 
             tableSubclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " - " + author + "  " + _subclass.GerName + " " + _subclass.EngName + " " + _subclass.FraName + " " + _subclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubclass);
@@ -4117,11 +4147,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraclass.SetWidths(new[] { 0.23f, 1.07f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraclass.Author, _infraclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraclass.Author, _infraclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraclass.GerName, _infraclass.EngName, _infraclass.FraName, _infraclass.PorName);
 
             tableInfraclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraclass, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " - " + author + "  " + _infraclass.GerName + " " + _infraclass.EngName + " " + _infraclass.FraName + " " + _infraclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraclass);
@@ -4140,11 +4171,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableLegio.SetWidths(new[] { 0.26f, 1.04f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_legio.Author, _legio.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_legio.Author, _legio.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_legio.GerName, _legio.EngName, _legio.FraName, _legio.PorName);
 
             tableLegio.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableLegio.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Legio, SmallFont)) { Border = 0 });  // 2. field
-            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " - " + author + "  " + _legio.GerName + " " + _legio.EngName + " " + _legio.FraName + " " + _legio.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableLegio.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableLegio);
@@ -4163,11 +4195,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableOrdo.SetWidths(new[] { 0.29f, 1.01f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_ordo.Author, _ordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_ordo.Author, _ordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_ordo.GerName, _ordo.EngName, _ordo.FraName, _ordo.PorName);
 
             tableOrdo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableOrdo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Ordo, SmallFont)) { Border = 0 });  // 2. field
-            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " - " + author + "  " + _ordo.GerName + " " + _ordo.EngName + " " + _ordo.FraName + " " + _ordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableOrdo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableOrdo);
@@ -4186,11 +4219,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubordo.SetWidths(new[] { 0.32f, 0.98f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subordo.Author, _subordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subordo.Author, _subordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subordo.GerName, _subordo.EngName, _subordo.FraName, _subordo.PorName);
 
             tableSubordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subordo, SmallFont)) { Border = 0 });  // 2. field
-            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " - " + author + "  " + _subordo.GerName + " " + _subordo.EngName + " " + _subordo.FraName + " " + _subordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubordo);
@@ -4209,11 +4243,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraordo.SetWidths(new[] { 0.35f, 0.95f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraordo.Author, _infraordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraordo.Author, _infraordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraordo.GerName, _infraordo.EngName, _infraordo.FraName, _infraordo.PorName);
 
             tableInfraordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraordo, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " - " + author + "  " + _infraordo.GerName + " " + _infraordo.EngName + " " + _infraordo.FraName + " " + _infraordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraordo);
@@ -4232,11 +4267,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSuperfamily.SetWidths(new[] { 0.38f, 0.92f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_superfamily.Author, _superfamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_superfamily.Author, _superfamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_superfamily.GerName, _superfamily.EngName, _superfamily.FraName, _superfamily.PorName);
 
             tableSuperfamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperfamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superfamily, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperfamily.AddCell(new PdfPCell(new Phrase(_superfamily.SuperfamilyName + " - " + author + "  " + _superfamily.GerName + " " + _superfamily.EngName + " " + _superfamily.FraName + " " + _superfamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperfamily.AddCell(new PdfPCell(new Phrase(_superfamily.SuperfamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperfamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperfamily);
@@ -4265,7 +4301,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableRegnum);
@@ -4291,7 +4327,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableDivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableDivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Division, SmallFont)) { Border = 0 });  // 2. field
-            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + "  " + author+ "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + " " + author+ " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableDivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableDivision);
@@ -4315,7 +4351,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubdivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subdivision, SmallFont)) { Border = 0 });  // 2. field
-            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubdivision);
@@ -4343,7 +4379,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tablePhylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablePhylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
-            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablePhylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tablePhylum);
@@ -4367,7 +4403,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubphylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subphylum, SmallFont)) { Border = 0 });  // 2. field
-            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubphylum);
@@ -4392,7 +4428,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSuperclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperclass);
@@ -4411,11 +4447,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableClass.SetWidths(new[] { 0.17f, 1.13f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_class.Author, _class.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_class.Author, _class.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_class.GerName, _class.EngName, _class.FraName, _class.PorName);
 
             tableClass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableClass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Class, SmallFont)) { Border = 0 });  // 2. field
-            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " - " + author + "  " + _class.GerName + " " + _class.EngName + " " + _class.FraName + " " + _class.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableClass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableClass);
@@ -4434,11 +4471,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubclass.SetWidths(new[] { 0.20f, 1.10f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subclass.Author, _subclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subclass.Author, _subclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subclass.GerName, _subclass.EngName, _subclass.FraName, _subclass.PorName);
 
             tableSubclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " - " + author + "  " + _subclass.GerName + " " + _subclass.EngName + " " + _subclass.FraName + " " + _subclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubclass);
@@ -4457,11 +4495,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraclass.SetWidths(new[] { 0.23f, 1.07f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraclass.Author, _infraclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraclass.Author, _infraclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraclass.GerName, _infraclass.EngName, _infraclass.FraName, _infraclass.PorName);
 
             tableInfraclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraclass, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " - " + author + "  " + _infraclass.GerName + " " + _infraclass.EngName + " " + _infraclass.FraName + " " + _infraclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraclass);
@@ -4480,11 +4519,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableLegio.SetWidths(new[] { 0.26f, 1.04f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_legio.Author, _legio.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_legio.Author, _legio.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_legio.GerName, _legio.EngName, _legio.FraName, _legio.PorName);
 
             tableLegio.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableLegio.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Legio, SmallFont)) { Border = 0 });  // 2. field
-            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " - " + author + "  " + _legio.GerName + " " + _legio.EngName + " " + _legio.FraName + " " + _legio.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableLegio.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableLegio);
@@ -4503,11 +4543,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableOrdo.SetWidths(new[] { 0.29f, 1.01f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_ordo.Author, _ordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_ordo.Author, _ordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_ordo.GerName, _ordo.EngName, _ordo.FraName, _ordo.PorName);
 
             tableOrdo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableOrdo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Ordo, SmallFont)) { Border = 0 });  // 2. field
-            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " - " + author + "  " + _ordo.GerName + " " + _ordo.EngName + " " + _ordo.FraName + " " + _ordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableOrdo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableOrdo);
@@ -4526,11 +4567,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubordo.SetWidths(new[] { 0.32f, 0.98f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subordo.Author, _subordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subordo.Author, _subordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subordo.GerName, _subordo.EngName, _subordo.FraName, _subordo.PorName);
 
             tableSubordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subordo, SmallFont)) { Border = 0 });  // 2. field
-            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " - " + author + "  " + _subordo.GerName + " " + _subordo.EngName + " " + _subordo.FraName + " " + _subordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubordo);
@@ -4549,11 +4591,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraordo.SetWidths(new[] { 0.35f, 0.95f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraordo.Author, _infraordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraordo.Author, _infraordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraordo.GerName, _infraordo.EngName, _infraordo.FraName, _infraordo.PorName);
 
             tableInfraordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraordo, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " - " + author + "  " + _infraordo.GerName + " " + _infraordo.EngName + " " + _infraordo.FraName + " " + _infraordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraordo);
@@ -4572,11 +4615,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSuperfamily.SetWidths(new[] { 0.38f, 0.92f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_superfamily.Author, _superfamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_superfamily.Author, _superfamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_superfamily.GerName, _superfamily.EngName, _superfamily.FraName, _superfamily.PorName);
 
             tableSuperfamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperfamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superfamily, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperfamily.AddCell(new PdfPCell(new Phrase(_superfamily.SuperfamilyName + " - " + author + "  " + _superfamily.GerName + " " + _superfamily.EngName + " " + _superfamily.FraName + " " + _superfamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperfamily.AddCell(new PdfPCell(new Phrase(_superfamily.SuperfamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperfamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperfamily);
@@ -4595,11 +4639,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableFamily.SetWidths(new[] { 0.41f, 0.89f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_family.Author, _family.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_family.Author, _family.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_family.GerName, _family.EngName, _family.FraName, _family.PorName);
 
             tableFamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableFamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Family, SmallFont)) { Border = 0 });  // 2. field
-            tableFamily.AddCell(new PdfPCell(new Phrase(_family.FamilyName + " - " + author + "  " + _family.GerName + " " + _family.EngName + " " + _family.FraName + " " + _family.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableFamily.AddCell(new PdfPCell(new Phrase(_family.FamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableFamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableFamily);
@@ -4628,7 +4673,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableRegnum);
@@ -4654,7 +4699,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableDivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableDivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Division, SmallFont)) { Border = 0 });  // 2. field
-            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + "  " + author+ "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + " " + author+ " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableDivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableDivision);
@@ -4678,7 +4723,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubdivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subdivision, SmallFont)) { Border = 0 });  // 2. field
-            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubdivision);
@@ -4706,7 +4751,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tablePhylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablePhylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
-            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablePhylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tablePhylum);
@@ -4730,7 +4775,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubphylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subphylum, SmallFont)) { Border = 0 });  // 2. field
-            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubphylum);
@@ -4755,7 +4800,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSuperclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperclass);
@@ -4774,11 +4819,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableClass.SetWidths(new[] { 0.17f, 1.13f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_class.Author, _class.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_class.Author, _class.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_class.GerName, _class.EngName, _class.FraName, _class.PorName);
 
             tableClass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableClass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Class, SmallFont)) { Border = 0 });  // 2. field
-            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " - " + author + "  " + _class.GerName + " " + _class.EngName + " " + _class.FraName + " " + _class.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableClass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableClass);
@@ -4797,11 +4843,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubclass.SetWidths(new[] { 0.20f, 1.10f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subclass.Author, _subclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subclass.Author, _subclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subclass.GerName, _subclass.EngName, _subclass.FraName, _subclass.PorName);
 
             tableSubclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " - " + author + "  " + _subclass.GerName + " " + _subclass.EngName + " " + _subclass.FraName + " " + _subclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubclass);
@@ -4820,11 +4867,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraclass.SetWidths(new[] { 0.23f, 1.07f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraclass.Author, _infraclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraclass.Author, _infraclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraclass.GerName, _infraclass.EngName, _infraclass.FraName, _infraclass.PorName);
 
             tableInfraclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraclass, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " - " + author + "  " + _infraclass.GerName + " " + _infraclass.EngName + " " + _infraclass.FraName + " " + _infraclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraclass);
@@ -4843,11 +4891,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableLegio.SetWidths(new[] { 0.26f, 1.04f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_legio.Author, _legio.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_legio.Author, _legio.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_legio.GerName, _legio.EngName, _legio.FraName, _legio.PorName);
 
             tableLegio.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableLegio.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Legio, SmallFont)) { Border = 0 });  // 2. field
-            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " - " + author + "  " + _legio.GerName + " " + _legio.EngName + " " + _legio.FraName + " " + _legio.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableLegio.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableLegio);
@@ -4866,11 +4915,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableOrdo.SetWidths(new[] { 0.29f, 1.01f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_ordo.Author, _ordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_ordo.Author, _ordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_ordo.GerName, _ordo.EngName, _ordo.FraName, _ordo.PorName);
 
             tableOrdo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableOrdo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Ordo, SmallFont)) { Border = 0 });  // 2. field
-            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " - " + author + "  " + _ordo.GerName + " " + _ordo.EngName + " " + _ordo.FraName + " " + _ordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableOrdo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableOrdo);
@@ -4889,11 +4939,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubordo.SetWidths(new[] { 0.32f, 0.98f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subordo.Author, _subordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subordo.Author, _subordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subordo.GerName, _subordo.EngName, _subordo.FraName, _subordo.PorName);
 
             tableSubordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subordo, SmallFont)) { Border = 0 });  // 2. field
-            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " - " + author + "  " + _subordo.GerName + " " + _subordo.EngName + " " + _subordo.FraName + " " + _subordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubordo);
@@ -4912,11 +4963,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraordo.SetWidths(new[] { 0.35f, 0.95f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraordo.Author, _infraordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraordo.Author, _infraordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraordo.GerName, _infraordo.EngName, _infraordo.FraName, _infraordo.PorName);
 
             tableInfraordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraordo, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " - " + author + "  " + _infraordo.GerName + " " + _infraordo.EngName + " " + _infraordo.FraName + " " + _infraordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraordo);
@@ -4935,11 +4987,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSuperfamily.SetWidths(new[] { 0.38f, 0.92f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_superfamily.Author, _superfamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_superfamily.Author, _superfamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_superfamily.GerName, _superfamily.EngName, _superfamily.FraName, _superfamily.PorName);
 
             tableSuperfamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperfamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superfamily, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperfamily.AddCell(new PdfPCell(new Phrase(_superfamily.SuperfamilyName + " - " + author + "  " + _superfamily.GerName + " " + _superfamily.EngName + " " + _superfamily.FraName + " " + _superfamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperfamily.AddCell(new PdfPCell(new Phrase(_superfamily.SuperfamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperfamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperfamily);
@@ -4958,11 +5011,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableFamily.SetWidths(new[] { 0.41f, 0.89f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_family.Author, _family.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_family.Author, _family.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_family.GerName, _family.EngName, _family.FraName, _family.PorName);
 
             tableFamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableFamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Family, SmallFont)) { Border = 0 });  // 2. field
-            tableFamily.AddCell(new PdfPCell(new Phrase(_family.FamilyName + " - " + author + "  " + _family.GerName + " " + _family.EngName + " " + _family.FraName + " " + _family.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableFamily.AddCell(new PdfPCell(new Phrase(_family.FamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableFamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableFamily);
@@ -4981,11 +5035,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubfamily.SetWidths(new[] { 0.44f, 0.86f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subfamily.Author, _subfamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subfamily.Author, _subfamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subfamily.GerName, _subfamily.EngName, _subfamily.FraName, _subfamily.PorName);
 
             tableSubfamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubfamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subfamily, SmallFont)) { Border = 0 });  // 2. field
-            tableSubfamily.AddCell(new PdfPCell(new Phrase(_subfamily.SubfamilyName + " - " + author + "  " + _subfamily.GerName + " " + _subfamily.EngName + " " + _subfamily.FraName + " " + _subfamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubfamily.AddCell(new PdfPCell(new Phrase(_subfamily.SubfamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubfamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubfamily);
@@ -5014,7 +5069,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableRegnum);
@@ -5040,7 +5095,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableDivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableDivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Division, SmallFont)) { Border = 0 });  // 2. field
-            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + "  " + author+ "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + " " + author+ " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableDivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableDivision);
@@ -5064,7 +5119,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubdivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subdivision, SmallFont)) { Border = 0 });  // 2. field
-            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubdivision);
@@ -5092,7 +5147,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tablePhylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablePhylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
-            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablePhylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tablePhylum);
@@ -5116,7 +5171,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubphylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subphylum, SmallFont)) { Border = 0 });  // 2. field
-            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubphylum);
@@ -5141,7 +5196,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSuperclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperclass);
@@ -5160,11 +5215,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableClass.SetWidths(new[] { 0.17f, 1.13f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_class.Author, _class.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_class.Author, _class.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_class.GerName, _class.EngName, _class.FraName, _class.PorName);
 
             tableClass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableClass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Class, SmallFont)) { Border = 0 });  // 2. field
-            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " - " + author + "  " + _class.GerName + " " + _class.EngName + " " + _class.FraName + " " + _class.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableClass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableClass);
@@ -5183,11 +5239,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubclass.SetWidths(new[] { 0.20f, 1.10f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subclass.Author, _subclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subclass.Author, _subclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subclass.GerName, _subclass.EngName, _subclass.FraName, _subclass.PorName);
 
             tableSubclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " - " + author + "  " + _subclass.GerName + " " + _subclass.EngName + " " + _subclass.FraName + " " + _subclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubclass);
@@ -5206,11 +5263,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraclass.SetWidths(new[] { 0.23f, 1.07f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraclass.Author, _infraclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraclass.Author, _infraclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraclass.GerName, _infraclass.EngName, _infraclass.FraName, _infraclass.PorName);
 
             tableInfraclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraclass, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " - " + author + "  " + _infraclass.GerName + " " + _infraclass.EngName + " " + _infraclass.FraName + " " + _infraclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraclass);
@@ -5229,11 +5287,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableLegio.SetWidths(new[] { 0.26f, 1.04f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_legio.Author, _legio.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_legio.Author, _legio.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_legio.GerName, _legio.EngName, _legio.FraName, _legio.PorName);
 
             tableLegio.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableLegio.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Legio, SmallFont)) { Border = 0 });  // 2. field
-            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " - " + author + "  " + _legio.GerName + " " + _legio.EngName + " " + _legio.FraName + " " + _legio.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableLegio.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableLegio);
@@ -5252,11 +5311,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableOrdo.SetWidths(new[] { 0.29f, 1.01f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_ordo.Author, _ordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_ordo.Author, _ordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_ordo.GerName, _ordo.EngName, _ordo.FraName, _ordo.PorName);
 
             tableOrdo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableOrdo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Ordo, SmallFont)) { Border = 0 });  // 2. field
-            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " - " + author + "  " + _ordo.GerName + " " + _ordo.EngName + " " + _ordo.FraName + " " + _ordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableOrdo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableOrdo);
@@ -5275,11 +5335,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubordo.SetWidths(new[] { 0.32f, 0.98f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subordo.Author, _subordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subordo.Author, _subordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subordo.GerName, _subordo.EngName, _subordo.FraName, _subordo.PorName);
 
             tableSubordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subordo, SmallFont)) { Border = 0 });  // 2. field
-            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " - " + author + "  " + _subordo.GerName + " " + _subordo.EngName + " " + _subordo.FraName + " " + _subordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubordo);
@@ -5298,11 +5359,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraordo.SetWidths(new[] { 0.35f, 0.95f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraordo.Author, _infraordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraordo.Author, _infraordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraordo.GerName, _infraordo.EngName, _infraordo.FraName, _infraordo.PorName);
 
             tableInfraordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraordo, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " - " + author + "  " + _infraordo.GerName + " " + _infraordo.EngName + " " + _infraordo.FraName + " " + _infraordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraordo);
@@ -5321,11 +5383,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSuperfamily.SetWidths(new[] { 0.38f, 0.92f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_superfamily.Author, _superfamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_superfamily.Author, _superfamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_superfamily.GerName, _superfamily.EngName, _superfamily.FraName, _superfamily.PorName);
 
             tableSuperfamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperfamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superfamily, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperfamily.AddCell(new PdfPCell(new Phrase(_superfamily.SuperfamilyName + " - " + author + "  " + _superfamily.GerName + " " + _superfamily.EngName + " " + _superfamily.FraName + " " + _superfamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperfamily.AddCell(new PdfPCell(new Phrase(_superfamily.SuperfamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperfamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperfamily);
@@ -5344,11 +5407,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableFamily.SetWidths(new[] { 0.41f, 0.89f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_family.Author, _family.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_family.Author, _family.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_family.GerName, _family.EngName, _family.FraName, _family.PorName);
 
             tableFamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableFamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Family, SmallFont)) { Border = 0 });  // 2. field
-            tableFamily.AddCell(new PdfPCell(new Phrase(_family.FamilyName + " - " + author + "  " + _family.GerName + " " + _family.EngName + " " + _family.FraName + " " + _family.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableFamily.AddCell(new PdfPCell(new Phrase(_family.FamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableFamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableFamily);
@@ -5367,11 +5431,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubfamily.SetWidths(new[] { 0.44f, 0.86f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subfamily.Author, _subfamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subfamily.Author, _subfamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subfamily.GerName, _subfamily.EngName, _subfamily.FraName, _subfamily.PorName);
 
             tableSubfamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubfamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subfamily, SmallFont)) { Border = 0 });  // 2. field
-            tableSubfamily.AddCell(new PdfPCell(new Phrase(_subfamily.SubfamilyName + " - " + author + "  " + _subfamily.GerName + " " + _subfamily.EngName + " " + _subfamily.FraName + " " + _subfamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubfamily.AddCell(new PdfPCell(new Phrase(_subfamily.SubfamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubfamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubfamily);
@@ -5390,11 +5455,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfrafamily.SetWidths(new[] { 0.47f, 0.83f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infrafamily.Author, _infrafamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infrafamily.Author, _infrafamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infrafamily.GerName, _infrafamily.EngName, _infrafamily.FraName, _infrafamily.PorName);
 
             tableInfrafamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfrafamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infrafamily, SmallFont)) { Border = 0 });  // 2. field
-            tableInfrafamily.AddCell(new PdfPCell(new Phrase(_infrafamily.InfrafamilyName + " - " + author + "  " + _infrafamily.GerName + " " + _infrafamily.EngName + " " + _infrafamily.FraName + " " + _infrafamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfrafamily.AddCell(new PdfPCell(new Phrase(_infrafamily.InfrafamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfrafamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfrafamily);
@@ -5423,7 +5489,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableRegnum);
@@ -5449,7 +5515,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableDivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableDivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Division, SmallFont)) { Border = 0 });  // 2. field
-            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + "  " + author+ "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + " " + author+ " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableDivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableDivision);
@@ -5473,7 +5539,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubdivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subdivision, SmallFont)) { Border = 0 });  // 2. field
-            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubdivision);
@@ -5501,7 +5567,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tablePhylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablePhylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
-            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablePhylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tablePhylum);
@@ -5525,7 +5591,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubphylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subphylum, SmallFont)) { Border = 0 });  // 2. field
-            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubphylum);
@@ -5550,7 +5616,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSuperclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperclass);
@@ -5569,11 +5635,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableClass.SetWidths(new[] { 0.17f, 1.13f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_class.Author, _class.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_class.Author, _class.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_class.GerName, _class.EngName, _class.FraName, _class.PorName);
 
             tableClass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableClass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Class, SmallFont)) { Border = 0 });  // 2. field
-            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " - " + author + "  " + _class.GerName + " " + _class.EngName + " " + _class.FraName + " " + _class.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableClass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableClass);
@@ -5592,11 +5659,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubclass.SetWidths(new[] { 0.20f, 1.10f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subclass.Author, _subclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subclass.Author, _subclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subclass.GerName, _subclass.EngName, _subclass.FraName, _subclass.PorName);
 
             tableSubclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " - " + author + "  " + _subclass.GerName + " " + _subclass.EngName + " " + _subclass.FraName + " " + _subclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubclass);
@@ -5615,11 +5683,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraclass.SetWidths(new[] { 0.23f, 1.07f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraclass.Author, _infraclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraclass.Author, _infraclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraclass.GerName, _infraclass.EngName, _infraclass.FraName, _infraclass.PorName);
 
             tableInfraclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraclass, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " - " + author + "  " + _infraclass.GerName + " " + _infraclass.EngName + " " + _infraclass.FraName + " " + _infraclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraclass);
@@ -5638,11 +5707,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableLegio.SetWidths(new[] { 0.26f, 1.04f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_legio.Author, _legio.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_legio.Author, _legio.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_legio.GerName, _legio.EngName, _legio.FraName, _legio.PorName);
 
             tableLegio.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableLegio.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Legio, SmallFont)) { Border = 0 });  // 2. field
-            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " - " + author + "  " + _legio.GerName + " " + _legio.EngName + " " + _legio.FraName + " " + _legio.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableLegio.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableLegio);
@@ -5661,11 +5731,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableOrdo.SetWidths(new[] { 0.29f, 1.01f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_ordo.Author, _ordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_ordo.Author, _ordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_ordo.GerName, _ordo.EngName, _ordo.FraName, _ordo.PorName);
 
             tableOrdo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableOrdo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Ordo, SmallFont)) { Border = 0 });  // 2. field
-            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " - " + author + "  " + _ordo.GerName + " " + _ordo.EngName + " " + _ordo.FraName + " " + _ordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableOrdo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableOrdo);
@@ -5684,11 +5755,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubordo.SetWidths(new[] { 0.32f, 0.98f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subordo.Author, _subordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subordo.Author, _subordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subordo.GerName, _subordo.EngName, _subordo.FraName, _subordo.PorName);
 
             tableSubordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subordo, SmallFont)) { Border = 0 });  // 2. field
-            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " - " + author + "  " + _subordo.GerName + " " + _subordo.EngName + " " + _subordo.FraName + " " + _subordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubordo);
@@ -5707,11 +5779,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraordo.SetWidths(new[] { 0.35f, 0.95f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraordo.Author, _infraordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraordo.Author, _infraordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraordo.GerName, _infraordo.EngName, _infraordo.FraName, _infraordo.PorName);
 
             tableInfraordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraordo, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " - " + author + "  " + _infraordo.GerName + " " + _infraordo.EngName + " " + _infraordo.FraName + " " + _infraordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraordo);
@@ -5730,11 +5803,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSuperfamily.SetWidths(new[] { 0.38f, 0.92f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_superfamily.Author, _superfamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_superfamily.Author, _superfamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_superfamily.GerName, _superfamily.EngName, _superfamily.FraName, _superfamily.PorName);
 
             tableSuperfamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperfamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superfamily, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperfamily.AddCell(new PdfPCell(new Phrase(_superfamily.SuperfamilyName + " - " + author + "  " + _superfamily.GerName + " " + _superfamily.EngName + " " + _superfamily.FraName + " " + _superfamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperfamily.AddCell(new PdfPCell(new Phrase(_superfamily.SuperfamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperfamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperfamily);
@@ -5753,11 +5827,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableFamily.SetWidths(new[] { 0.41f, 0.89f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_family.Author, _family.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_family.Author, _family.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_family.GerName, _family.EngName, _family.FraName, _family.PorName);
 
             tableFamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableFamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Family, SmallFont)) { Border = 0 });  // 2. field
-            tableFamily.AddCell(new PdfPCell(new Phrase(_family.FamilyName + " - " + author + "  " + _family.GerName + " " + _family.EngName + " " + _family.FraName + " " + _family.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableFamily.AddCell(new PdfPCell(new Phrase(_family.FamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableFamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableFamily);
@@ -5776,11 +5851,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubfamily.SetWidths(new[] { 0.44f, 0.86f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subfamily.Author, _subfamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subfamily.Author, _subfamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subfamily.GerName, _subfamily.EngName, _subfamily.FraName, _subfamily.PorName);
 
             tableSubfamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubfamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subfamily, SmallFont)) { Border = 0 });  // 2. field
-            tableSubfamily.AddCell(new PdfPCell(new Phrase(_subfamily.SubfamilyName + " - " + author + "  " + _subfamily.GerName + " " + _subfamily.EngName + " " + _subfamily.FraName + " " + _subfamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubfamily.AddCell(new PdfPCell(new Phrase(_subfamily.SubfamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubfamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubfamily);
@@ -5799,11 +5875,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfrafamily.SetWidths(new[] { 0.47f, 0.83f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infrafamily.Author, _infrafamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infrafamily.Author, _infrafamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infrafamily.GerName, _infrafamily.EngName, _infrafamily.FraName, _infrafamily.PorName);
 
             tableInfrafamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfrafamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infrafamily, SmallFont)) { Border = 0 });  // 2. field
-            tableInfrafamily.AddCell(new PdfPCell(new Phrase(_infrafamily.InfrafamilyName + " - " + author + "  " + _infrafamily.GerName + " " + _infrafamily.EngName + " " + _infrafamily.FraName + " " + _infrafamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfrafamily.AddCell(new PdfPCell(new Phrase(_infrafamily.InfrafamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfrafamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfrafamily);
@@ -5822,11 +5899,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSupertribus.SetWidths(new[] { 0.50f, 0.80f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_supertribus.Author, _supertribus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_supertribus.Author, _supertribus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_supertribus.GerName, _supertribus.EngName, _supertribus.FraName, _supertribus.PorName);
 
             tableSupertribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSupertribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Supertribus, SmallFont)) { Border = 0 });  // 2. field
-            tableSupertribus.AddCell(new PdfPCell(new Phrase(_supertribus.SupertribusName + " - " + author + "  " + _supertribus.GerName + " " + _supertribus.EngName + " " + _supertribus.FraName + " " + _supertribus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSupertribus.AddCell(new PdfPCell(new Phrase(_supertribus.SupertribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSupertribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSupertribus);
@@ -5855,7 +5933,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableRegnum);
@@ -5881,7 +5959,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableDivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableDivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Division, SmallFont)) { Border = 0 });  // 2. field
-            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + "  " + author+ "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + " " + author+ " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableDivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableDivision);
@@ -5905,7 +5983,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubdivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subdivision, SmallFont)) { Border = 0 });  // 2. field
-            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubdivision);
@@ -5933,7 +6011,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tablePhylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablePhylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
-            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablePhylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tablePhylum);
@@ -5957,7 +6035,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubphylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subphylum, SmallFont)) { Border = 0 });  // 2. field
-            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubphylum);
@@ -5982,7 +6060,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSuperclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperclass);
@@ -6001,11 +6079,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableClass.SetWidths(new[] { 0.17f, 1.13f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_class.Author, _class.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_class.Author, _class.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_class.GerName, _class.EngName, _class.FraName, _class.PorName);
 
             tableClass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableClass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Class, SmallFont)) { Border = 0 });  // 2. field
-            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " - " + author + "  " + _class.GerName + " " + _class.EngName + " " + _class.FraName + " " + _class.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableClass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableClass);
@@ -6024,11 +6103,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubclass.SetWidths(new[] { 0.20f, 1.10f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subclass.Author, _subclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subclass.Author, _subclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subclass.GerName, _subclass.EngName, _subclass.FraName, _subclass.PorName);
 
             tableSubclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " - " + author + "  " + _subclass.GerName + " " + _subclass.EngName + " " + _subclass.FraName + " " + _subclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubclass);
@@ -6047,11 +6127,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraclass.SetWidths(new[] { 0.23f, 1.07f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraclass.Author, _infraclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraclass.Author, _infraclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraclass.GerName, _infraclass.EngName, _infraclass.FraName, _infraclass.PorName);
 
             tableInfraclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraclass, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " - " + author + "  " + _infraclass.GerName + " " + _infraclass.EngName + " " + _infraclass.FraName + " " + _infraclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraclass);
@@ -6070,11 +6151,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableLegio.SetWidths(new[] { 0.26f, 1.04f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_legio.Author, _legio.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_legio.Author, _legio.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_legio.GerName, _legio.EngName, _legio.FraName, _legio.PorName);
 
             tableLegio.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableLegio.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Legio, SmallFont)) { Border = 0 });  // 2. field
-            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " - " + author + "  " + _legio.GerName + " " + _legio.EngName + " " + _legio.FraName + " " + _legio.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableLegio.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableLegio);
@@ -6093,11 +6175,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableOrdo.SetWidths(new[] { 0.29f, 1.01f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_ordo.Author, _ordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_ordo.Author, _ordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_ordo.GerName, _ordo.EngName, _ordo.FraName, _ordo.PorName);
 
             tableOrdo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableOrdo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Ordo, SmallFont)) { Border = 0 });  // 2. field
-            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " - " + author + "  " + _ordo.GerName + " " + _ordo.EngName + " " + _ordo.FraName + " " + _ordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableOrdo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableOrdo);
@@ -6116,11 +6199,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubordo.SetWidths(new[] { 0.32f, 0.98f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subordo.Author, _subordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subordo.Author, _subordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subordo.GerName, _subordo.EngName, _subordo.FraName, _subordo.PorName);
 
             tableSubordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subordo, SmallFont)) { Border = 0 });  // 2. field
-            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " - " + author + "  " + _subordo.GerName + " " + _subordo.EngName + " " + _subordo.FraName + " " + _subordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubordo);
@@ -6139,11 +6223,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraordo.SetWidths(new[] { 0.35f, 0.95f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraordo.Author, _infraordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraordo.Author, _infraordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraordo.GerName, _infraordo.EngName, _infraordo.FraName, _infraordo.PorName);
 
             tableInfraordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraordo, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " - " + author + "  " + _infraordo.GerName + " " + _infraordo.EngName + " " + _infraordo.FraName + " " + _infraordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraordo);
@@ -6162,11 +6247,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSuperfamily.SetWidths(new[] { 0.38f, 0.92f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_superfamily.Author, _superfamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_superfamily.Author, _superfamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_superfamily.GerName, _superfamily.EngName, _superfamily.FraName, _superfamily.PorName);
 
             tableSuperfamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperfamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superfamily, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperfamily.AddCell(new PdfPCell(new Phrase(_superfamily.SuperfamilyName + " - " + author + "  " + _superfamily.GerName + " " + _superfamily.EngName + " " + _superfamily.FraName + " " + _superfamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperfamily.AddCell(new PdfPCell(new Phrase(_superfamily.SuperfamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperfamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperfamily);
@@ -6185,11 +6271,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableFamily.SetWidths(new[] { 0.41f, 0.89f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_family.Author, _family.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_family.Author, _family.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_family.GerName, _family.EngName, _family.FraName, _family.PorName);
 
             tableFamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableFamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Family, SmallFont)) { Border = 0 });  // 2. field
-            tableFamily.AddCell(new PdfPCell(new Phrase(_family.FamilyName + " - " + author + "  " + _family.GerName + " " + _family.EngName + " " + _family.FraName + " " + _family.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableFamily.AddCell(new PdfPCell(new Phrase(_family.FamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableFamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableFamily);
@@ -6208,11 +6295,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubfamily.SetWidths(new[] { 0.44f, 0.86f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subfamily.Author, _subfamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subfamily.Author, _subfamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subfamily.GerName, _subfamily.EngName, _subfamily.FraName, _subfamily.PorName);
 
             tableSubfamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubfamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subfamily, SmallFont)) { Border = 0 });  // 2. field
-            tableSubfamily.AddCell(new PdfPCell(new Phrase(_subfamily.SubfamilyName + " - " + author + "  " + _subfamily.GerName + " " + _subfamily.EngName + " " + _subfamily.FraName + " " + _subfamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubfamily.AddCell(new PdfPCell(new Phrase(_subfamily.SubfamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubfamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubfamily);
@@ -6231,11 +6319,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfrafamily.SetWidths(new[] { 0.47f, 0.83f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infrafamily.Author, _infrafamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infrafamily.Author, _infrafamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infrafamily.GerName, _infrafamily.EngName, _infrafamily.FraName, _infrafamily.PorName);
 
             tableInfrafamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfrafamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infrafamily, SmallFont)) { Border = 0 });  // 2. field
-            tableInfrafamily.AddCell(new PdfPCell(new Phrase(_infrafamily.InfrafamilyName + " - " + author + "  " + _infrafamily.GerName + " " + _infrafamily.EngName + " " + _infrafamily.FraName + " " + _infrafamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfrafamily.AddCell(new PdfPCell(new Phrase(_infrafamily.InfrafamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfrafamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfrafamily);
@@ -6254,11 +6343,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSupertribus.SetWidths(new[] { 0.50f, 0.80f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_supertribus.Author, _supertribus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_supertribus.Author, _supertribus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_supertribus.GerName, _supertribus.EngName, _supertribus.FraName, _supertribus.PorName);
 
             tableSupertribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSupertribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Supertribus, SmallFont)) { Border = 0 });  // 2. field
-            tableSupertribus.AddCell(new PdfPCell(new Phrase(_supertribus.SupertribusName + " - " + author + "  " + _supertribus.GerName + " " + _supertribus.EngName + " " + _supertribus.FraName + " " + _supertribus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSupertribus.AddCell(new PdfPCell(new Phrase(_supertribus.SupertribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSupertribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSupertribus);
@@ -6277,11 +6367,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tabletribus.SetWidths(new[] { 0.53f, 0.77f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_tribus.Author, _tribus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_tribus.Author, _tribus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_tribus.GerName, _tribus.EngName, _tribus.FraName, _tribus.PorName);
 
             tabletribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tabletribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Tribus, SmallFont)) { Border = 0 });  // 2. field
-            tabletribus.AddCell(new PdfPCell(new Phrase(_tribus.TribusName + " - " + author + "  " + _tribus.GerName + " " + _tribus.EngName + " " + _tribus.FraName + " " + _tribus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tabletribus.AddCell(new PdfPCell(new Phrase(_tribus.TribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tabletribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tabletribus);
@@ -6310,7 +6401,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableRegnum);
@@ -6336,7 +6427,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableDivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableDivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Division, SmallFont)) { Border = 0 });  // 2. field
-            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + "  " + author+ "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + " " + author+ " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableDivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableDivision);
@@ -6360,7 +6451,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubdivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subdivision, SmallFont)) { Border = 0 });  // 2. field
-            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubdivision);
@@ -6388,7 +6479,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tablePhylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablePhylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
-            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablePhylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tablePhylum);
@@ -6412,7 +6503,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubphylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subphylum, SmallFont)) { Border = 0 });  // 2. field
-            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubphylum);
@@ -6437,7 +6528,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSuperclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperclass);
@@ -6456,11 +6547,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableClass.SetWidths(new[] { 0.17f, 1.13f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_class.Author, _class.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_class.Author, _class.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_class.GerName, _class.EngName, _class.FraName, _class.PorName);
 
             tableClass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableClass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Class, SmallFont)) { Border = 0 });  // 2. field
-            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " - " + author + "  " + _class.GerName + " " + _class.EngName + " " + _class.FraName + " " + _class.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableClass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableClass);
@@ -6479,11 +6571,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubclass.SetWidths(new[] { 0.20f, 1.10f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subclass.Author, _subclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subclass.Author, _subclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subclass.GerName, _subclass.EngName, _subclass.FraName, _subclass.PorName);
 
             tableSubclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " - " + author + "  " + _subclass.GerName + " " + _subclass.EngName + " " + _subclass.FraName + " " + _subclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubclass);
@@ -6502,11 +6595,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraclass.SetWidths(new[] { 0.23f, 1.07f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraclass.Author, _infraclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraclass.Author, _infraclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraclass.GerName, _infraclass.EngName, _infraclass.FraName, _infraclass.PorName);
 
             tableInfraclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraclass, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " - " + author + "  " + _infraclass.GerName + " " + _infraclass.EngName + " " + _infraclass.FraName + " " + _infraclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraclass);
@@ -6525,11 +6619,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableLegio.SetWidths(new[] { 0.26f, 1.04f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_legio.Author, _legio.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_legio.Author, _legio.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_legio.GerName, _legio.EngName, _legio.FraName, _legio.PorName);
 
             tableLegio.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableLegio.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Legio, SmallFont)) { Border = 0 });  // 2. field
-            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " - " + author + "  " + _legio.GerName + " " + _legio.EngName + " " + _legio.FraName + " " + _legio.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableLegio.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableLegio);
@@ -6548,11 +6643,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableOrdo.SetWidths(new[] { 0.29f, 1.01f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_ordo.Author, _ordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_ordo.Author, _ordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_ordo.GerName, _ordo.EngName, _ordo.FraName, _ordo.PorName);
 
             tableOrdo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableOrdo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Ordo, SmallFont)) { Border = 0 });  // 2. field
-            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " - " + author + "  " + _ordo.GerName + " " + _ordo.EngName + " " + _ordo.FraName + " " + _ordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableOrdo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableOrdo);
@@ -6571,11 +6667,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubordo.SetWidths(new[] { 0.32f, 0.98f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subordo.Author, _subordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subordo.Author, _subordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subordo.GerName, _subordo.EngName, _subordo.FraName, _subordo.PorName);
 
             tableSubordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subordo, SmallFont)) { Border = 0 });  // 2. field
-            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " - " + author + "  " + _subordo.GerName + " " + _subordo.EngName + " " + _subordo.FraName + " " + _subordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubordo);
@@ -6594,11 +6691,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraordo.SetWidths(new[] { 0.35f, 0.95f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraordo.Author, _infraordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraordo.Author, _infraordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraordo.GerName, _infraordo.EngName, _infraordo.FraName, _infraordo.PorName);
 
             tableInfraordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraordo, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " - " + author + "  " + _infraordo.GerName + " " + _infraordo.EngName + " " + _infraordo.FraName + " " + _infraordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraordo);
@@ -6617,11 +6715,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSuperfamily.SetWidths(new[] { 0.38f, 0.92f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_superfamily.Author, _superfamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_superfamily.Author, _superfamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_superfamily.GerName, _superfamily.EngName, _superfamily.FraName, _superfamily.PorName);
 
             tableSuperfamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperfamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superfamily, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperfamily.AddCell(new PdfPCell(new Phrase(_superfamily.SuperfamilyName + " - " + author + "  " + _superfamily.GerName + " " + _superfamily.EngName + " " + _superfamily.FraName + " " + _superfamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperfamily.AddCell(new PdfPCell(new Phrase(_superfamily.SuperfamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperfamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperfamily);
@@ -6640,11 +6739,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableFamily.SetWidths(new[] { 0.41f, 0.89f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_family.Author, _family.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_family.Author, _family.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_family.GerName, _family.EngName, _family.FraName, _family.PorName);
 
             tableFamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableFamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Family, SmallFont)) { Border = 0 });  // 2. field
-            tableFamily.AddCell(new PdfPCell(new Phrase(_family.FamilyName + " - " + author + "  " + _family.GerName + " " + _family.EngName + " " + _family.FraName + " " + _family.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableFamily.AddCell(new PdfPCell(new Phrase(_family.FamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableFamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableFamily);
@@ -6663,11 +6763,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubfamily.SetWidths(new[] { 0.44f, 0.86f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subfamily.Author, _subfamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subfamily.Author, _subfamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subfamily.GerName, _subfamily.EngName, _subfamily.FraName, _subfamily.PorName);
 
             tableSubfamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubfamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subfamily, SmallFont)) { Border = 0 });  // 2. field
-            tableSubfamily.AddCell(new PdfPCell(new Phrase(_subfamily.SubfamilyName + " - " + author + "  " + _subfamily.GerName + " " + _subfamily.EngName + " " + _subfamily.FraName + " " + _subfamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubfamily.AddCell(new PdfPCell(new Phrase(_subfamily.SubfamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubfamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubfamily);
@@ -6686,11 +6787,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfrafamily.SetWidths(new[] { 0.47f, 0.83f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infrafamily.Author, _infrafamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infrafamily.Author, _infrafamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infrafamily.GerName, _infrafamily.EngName, _infrafamily.FraName, _infrafamily.PorName);
 
             tableInfrafamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfrafamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infrafamily, SmallFont)) { Border = 0 });  // 2. field
-            tableInfrafamily.AddCell(new PdfPCell(new Phrase(_infrafamily.InfrafamilyName + " - " + author + "  " + _infrafamily.GerName + " " + _infrafamily.EngName + " " + _infrafamily.FraName + " " + _infrafamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfrafamily.AddCell(new PdfPCell(new Phrase(_infrafamily.InfrafamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfrafamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfrafamily);
@@ -6709,11 +6811,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSupertribus.SetWidths(new[] { 0.50f, 0.80f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_supertribus.Author, _supertribus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_supertribus.Author, _supertribus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_supertribus.GerName, _supertribus.EngName, _supertribus.FraName, _supertribus.PorName);
 
             tableSupertribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSupertribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Supertribus, SmallFont)) { Border = 0 });  // 2. field
-            tableSupertribus.AddCell(new PdfPCell(new Phrase(_supertribus.SupertribusName + " - " + author + "  " + _supertribus.GerName + " " + _supertribus.EngName + " " + _supertribus.FraName + " " + _supertribus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSupertribus.AddCell(new PdfPCell(new Phrase(_supertribus.SupertribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSupertribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSupertribus);
@@ -6732,11 +6835,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tabletribus.SetWidths(new[] { 0.53f, 0.77f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_tribus.Author, _tribus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_tribus.Author, _tribus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_tribus.GerName, _tribus.EngName, _tribus.FraName, _tribus.PorName);
 
             tabletribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tabletribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Tribus, SmallFont)) { Border = 0 });  // 2. field
-            tabletribus.AddCell(new PdfPCell(new Phrase(_tribus.TribusName + " - " + author + "  " + _tribus.GerName + " " + _tribus.EngName + " " + _tribus.FraName + " " + _tribus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tabletribus.AddCell(new PdfPCell(new Phrase(_tribus.TribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tabletribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tabletribus);
@@ -6755,11 +6859,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tablesubtribus.SetWidths(new[] { 0.56f, 0.74f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subtribus.Author, _subtribus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subtribus.Author, _subtribus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subtribus.GerName, _subtribus.EngName, _subtribus.FraName, _subtribus.PorName);
 
             tablesubtribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablesubtribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subtribus, SmallFont)) { Border = 0 });  // 2. field
-            tablesubtribus.AddCell(new PdfPCell(new Phrase(_subtribus.SubtribusName + " - " + author + "  " + _subtribus.GerName + " " + _subtribus.EngName + " " + _subtribus.FraName + " " + _subtribus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tablesubtribus.AddCell(new PdfPCell(new Phrase(_subtribus.SubtribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablesubtribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tablesubtribus);
@@ -6788,7 +6893,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableRegnum);
@@ -6814,7 +6919,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableDivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableDivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Division, SmallFont)) { Border = 0 });  // 2. field
-            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + "  " + author+ "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + " " + author+ " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableDivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableDivision);
@@ -6838,7 +6943,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubdivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subdivision, SmallFont)) { Border = 0 });  // 2. field
-            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubdivision);
@@ -6866,7 +6971,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tablePhylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablePhylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
-            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablePhylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tablePhylum);
@@ -6890,7 +6995,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubphylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subphylum, SmallFont)) { Border = 0 });  // 2. field
-            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubphylum);
@@ -6915,7 +7020,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSuperclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperclass);
@@ -6934,11 +7039,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableClass.SetWidths(new[] { 0.17f, 1.13f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_class.Author, _class.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_class.Author, _class.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_class.GerName, _class.EngName, _class.FraName, _class.PorName);
 
             tableClass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableClass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Class, SmallFont)) { Border = 0 });  // 2. field
-            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " - " + author + "  " + _class.GerName + " " + _class.EngName + " " + _class.FraName + " " + _class.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableClass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableClass);
@@ -6957,11 +7063,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubclass.SetWidths(new[] { 0.20f, 1.10f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subclass.Author, _subclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subclass.Author, _subclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subclass.GerName, _subclass.EngName, _subclass.FraName, _subclass.PorName);
 
             tableSubclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " - " + author + "  " + _subclass.GerName + " " + _subclass.EngName + " " + _subclass.FraName + " " + _subclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubclass);
@@ -6980,11 +7087,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraclass.SetWidths(new[] { 0.23f, 1.07f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraclass.Author, _infraclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraclass.Author, _infraclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraclass.GerName, _infraclass.EngName, _infraclass.FraName, _infraclass.PorName);
 
             tableInfraclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraclass, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " - " + author + "  " + _infraclass.GerName + " " + _infraclass.EngName + " " + _infraclass.FraName + " " + _infraclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraclass);
@@ -7003,11 +7111,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableLegio.SetWidths(new[] { 0.26f, 1.04f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_legio.Author, _legio.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_legio.Author, _legio.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_legio.GerName, _legio.EngName, _legio.FraName, _legio.PorName);
 
             tableLegio.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableLegio.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Legio, SmallFont)) { Border = 0 });  // 2. field
-            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " - " + author + "  " + _legio.GerName + " " + _legio.EngName + " " + _legio.FraName + " " + _legio.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableLegio.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableLegio);
@@ -7026,11 +7135,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableOrdo.SetWidths(new[] { 0.29f, 1.01f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_ordo.Author, _ordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_ordo.Author, _ordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_ordo.GerName, _ordo.EngName, _ordo.FraName, _ordo.PorName);
 
             tableOrdo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableOrdo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Ordo, SmallFont)) { Border = 0 });  // 2. field
-            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " - " + author + "  " + _ordo.GerName + " " + _ordo.EngName + " " + _ordo.FraName + " " + _ordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableOrdo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableOrdo);
@@ -7049,11 +7159,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubordo.SetWidths(new[] { 0.32f, 0.98f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subordo.Author, _subordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subordo.Author, _subordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subordo.GerName, _subordo.EngName, _subordo.FraName, _subordo.PorName);
 
             tableSubordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subordo, SmallFont)) { Border = 0 });  // 2. field
-            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " - " + author + "  " + _subordo.GerName + " " + _subordo.EngName + " " + _subordo.FraName + " " + _subordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubordo);
@@ -7072,11 +7183,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraordo.SetWidths(new[] { 0.35f, 0.95f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraordo.Author, _infraordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraordo.Author, _infraordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraordo.GerName, _infraordo.EngName, _infraordo.FraName, _infraordo.PorName);
 
             tableInfraordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraordo, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " - " + author + "  " + _infraordo.GerName + " " + _infraordo.EngName + " " + _infraordo.FraName + " " + _infraordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraordo);
@@ -7095,11 +7207,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSuperfamily.SetWidths(new[] { 0.38f, 0.92f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_superfamily.Author, _superfamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_superfamily.Author, _superfamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_superfamily.GerName, _superfamily.EngName, _superfamily.FraName, _superfamily.PorName);
 
             tableSuperfamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperfamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superfamily, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperfamily.AddCell(new PdfPCell(new Phrase(_superfamily.SuperfamilyName + " - " + author + "  " + _superfamily.GerName + " " + _superfamily.EngName + " " + _superfamily.FraName + " " + _superfamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperfamily.AddCell(new PdfPCell(new Phrase(_superfamily.SuperfamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperfamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperfamily);
@@ -7118,11 +7231,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableFamily.SetWidths(new[] { 0.41f, 0.89f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_family.Author, _family.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_family.Author, _family.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_family.GerName, _family.EngName, _family.FraName, _family.PorName);
 
             tableFamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableFamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Family, SmallFont)) { Border = 0 });  // 2. field
-            tableFamily.AddCell(new PdfPCell(new Phrase(_family.FamilyName + " - " + author + "  " + _family.GerName + " " + _family.EngName + " " + _family.FraName + " " + _family.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableFamily.AddCell(new PdfPCell(new Phrase(_family.FamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableFamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableFamily);
@@ -7141,11 +7255,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubfamily.SetWidths(new[] { 0.44f, 0.86f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subfamily.Author, _subfamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subfamily.Author, _subfamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subfamily.GerName, _subfamily.EngName, _subfamily.FraName, _subfamily.PorName);
 
             tableSubfamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubfamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subfamily, SmallFont)) { Border = 0 });  // 2. field
-            tableSubfamily.AddCell(new PdfPCell(new Phrase(_subfamily.SubfamilyName + " - " + author + "  " + _subfamily.GerName + " " + _subfamily.EngName + " " + _subfamily.FraName + " " + _subfamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubfamily.AddCell(new PdfPCell(new Phrase(_subfamily.SubfamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubfamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubfamily);
@@ -7164,11 +7279,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfrafamily.SetWidths(new[] { 0.47f, 0.83f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infrafamily.Author, _infrafamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infrafamily.Author, _infrafamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infrafamily.GerName, _infrafamily.EngName, _infrafamily.FraName, _infrafamily.PorName);
 
             tableInfrafamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfrafamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infrafamily, SmallFont)) { Border = 0 });  // 2. field
-            tableInfrafamily.AddCell(new PdfPCell(new Phrase(_infrafamily.InfrafamilyName + " - " + author + "  " + _infrafamily.GerName + " " + _infrafamily.EngName + " " + _infrafamily.FraName + " " + _infrafamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfrafamily.AddCell(new PdfPCell(new Phrase(_infrafamily.InfrafamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfrafamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfrafamily);
@@ -7187,11 +7303,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSupertribus.SetWidths(new[] { 0.50f, 0.80f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_supertribus.Author, _supertribus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_supertribus.Author, _supertribus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_supertribus.GerName, _supertribus.EngName, _supertribus.FraName, _supertribus.PorName);
 
             tableSupertribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSupertribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Supertribus, SmallFont)) { Border = 0 });  // 2. field
-            tableSupertribus.AddCell(new PdfPCell(new Phrase(_supertribus.SupertribusName + " - " + author + "  " + _supertribus.GerName + " " + _supertribus.EngName + " " + _supertribus.FraName + " " + _supertribus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSupertribus.AddCell(new PdfPCell(new Phrase(_supertribus.SupertribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSupertribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSupertribus);
@@ -7210,11 +7327,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tabletribus.SetWidths(new[] { 0.53f, 0.77f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_tribus.Author, _tribus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_tribus.Author, _tribus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_tribus.GerName, _tribus.EngName, _tribus.FraName, _tribus.PorName);
 
             tabletribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tabletribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Tribus, SmallFont)) { Border = 0 });  // 2. field
-            tabletribus.AddCell(new PdfPCell(new Phrase(_tribus.TribusName + " - " + author + "  " + _tribus.GerName + " " + _tribus.EngName + " " + _tribus.FraName + " " + _tribus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tabletribus.AddCell(new PdfPCell(new Phrase(_tribus.TribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tabletribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tabletribus);
@@ -7233,11 +7351,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tablesubtribus.SetWidths(new[] { 0.56f, 0.74f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subtribus.Author, _subtribus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subtribus.Author, _subtribus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subtribus.GerName, _subtribus.EngName, _subtribus.FraName, _subtribus.PorName);
 
             tablesubtribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablesubtribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subtribus, SmallFont)) { Border = 0 });  // 2. field
-            tablesubtribus.AddCell(new PdfPCell(new Phrase(_subtribus.SubtribusName + " - " + author + "  " + _subtribus.GerName + " " + _subtribus.EngName + " " + _subtribus.FraName + " " + _subtribus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tablesubtribus.AddCell(new PdfPCell(new Phrase(_subtribus.SubtribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablesubtribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tablesubtribus);
@@ -7256,11 +7375,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfratribus.SetWidths(new[] { 0.59f, 0.71f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infratribus.Author, _infratribus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infratribus.Author, _infratribus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infratribus.GerName, _infratribus.EngName, _infratribus.FraName, _infratribus.PorName);
 
             tableInfratribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfratribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infratribus, SmallFont)) { Border = 0 });  // 2. field
-            tableInfratribus.AddCell(new PdfPCell(new Phrase(_infratribus.InfratribusName + " - " + author + "  " + _infratribus.GerName + " " + _infratribus.EngName + " " + _infratribus.FraName + " " + _infratribus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfratribus.AddCell(new PdfPCell(new Phrase(_infratribus.InfratribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfratribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfratribus);
@@ -7289,7 +7409,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableRegnum);
@@ -7315,7 +7435,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableDivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableDivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Division, SmallFont)) { Border = 0 });  // 2. field
-            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + "  " + author+ "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + " " + author+ " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableDivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableDivision);
@@ -7339,7 +7459,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubdivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subdivision, SmallFont)) { Border = 0 });  // 2. field
-            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubdivision);
@@ -7367,7 +7487,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tablePhylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablePhylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
-            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablePhylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tablePhylum);
@@ -7391,7 +7511,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubphylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subphylum, SmallFont)) { Border = 0 });  // 2. field
-            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubphylum);
@@ -7416,7 +7536,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSuperclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperclass);
@@ -7435,11 +7555,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableClass.SetWidths(new[] { 0.17f, 1.13f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_class.Author, _class.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_class.Author, _class.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_class.GerName, _class.EngName, _class.FraName, _class.PorName);
 
             tableClass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableClass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Class, SmallFont)) { Border = 0 });  // 2. field
-            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " - " + author + "  " + _class.GerName + " " + _class.EngName + " " + _class.FraName + " " + _class.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableClass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableClass);
@@ -7458,11 +7579,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubclass.SetWidths(new[] { 0.20f, 1.10f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subclass.Author, _subclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subclass.Author, _subclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subclass.GerName, _subclass.EngName, _subclass.FraName, _subclass.PorName);
 
             tableSubclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " - " + author + "  " + _subclass.GerName + " " + _subclass.EngName + " " + _subclass.FraName + " " + _subclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubclass);
@@ -7481,11 +7603,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraclass.SetWidths(new[] { 0.23f, 1.07f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraclass.Author, _infraclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraclass.Author, _infraclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraclass.GerName, _infraclass.EngName, _infraclass.FraName, _infraclass.PorName);
 
             tableInfraclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraclass, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " - " + author + "  " + _infraclass.GerName + " " + _infraclass.EngName + " " + _infraclass.FraName + " " + _infraclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraclass);
@@ -7504,11 +7627,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableLegio.SetWidths(new[] { 0.26f, 1.04f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_legio.Author, _legio.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_legio.Author, _legio.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_legio.GerName, _legio.EngName, _legio.FraName, _legio.PorName);
 
             tableLegio.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableLegio.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Legio, SmallFont)) { Border = 0 });  // 2. field
-            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " - " + author + "  " + _legio.GerName + " " + _legio.EngName + " " + _legio.FraName + " " + _legio.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableLegio.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableLegio);
@@ -7527,11 +7651,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableOrdo.SetWidths(new[] { 0.29f, 1.01f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_ordo.Author, _ordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_ordo.Author, _ordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_ordo.GerName, _ordo.EngName, _ordo.FraName, _ordo.PorName);
 
             tableOrdo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableOrdo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Ordo, SmallFont)) { Border = 0 });  // 2. field
-            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " - " + author + "  " + _ordo.GerName + " " + _ordo.EngName + " " + _ordo.FraName + " " + _ordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableOrdo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableOrdo);
@@ -7550,11 +7675,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubordo.SetWidths(new[] { 0.32f, 0.98f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subordo.Author, _subordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subordo.Author, _subordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subordo.GerName, _subordo.EngName, _subordo.FraName, _subordo.PorName);
 
             tableSubordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subordo, SmallFont)) { Border = 0 });  // 2. field
-            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " - " + author + "  " + _subordo.GerName + " " + _subordo.EngName + " " + _subordo.FraName + " " + _subordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubordo);
@@ -7573,11 +7699,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraordo.SetWidths(new[] { 0.35f, 0.95f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraordo.Author, _infraordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraordo.Author, _infraordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraordo.GerName, _infraordo.EngName, _infraordo.FraName, _infraordo.PorName);
 
             tableInfraordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraordo, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " - " + author + "  " + _infraordo.GerName + " " + _infraordo.EngName + " " + _infraordo.FraName + " " + _infraordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraordo);
@@ -7596,11 +7723,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSuperfamily.SetWidths(new[] { 0.38f, 0.92f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_superfamily.Author, _superfamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_superfamily.Author, _superfamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_superfamily.GerName, _superfamily.EngName, _superfamily.FraName, _superfamily.PorName);
 
             tableSuperfamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperfamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superfamily, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperfamily.AddCell(new PdfPCell(new Phrase(_superfamily.SuperfamilyName + " - " + author + "  " + _superfamily.GerName + " " + _superfamily.EngName + " " + _superfamily.FraName + " " + _superfamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperfamily.AddCell(new PdfPCell(new Phrase(_superfamily.SuperfamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperfamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperfamily);
@@ -7619,11 +7747,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableFamily.SetWidths(new[] { 0.41f, 0.89f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_family.Author, _family.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_family.Author, _family.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_family.GerName, _family.EngName, _family.FraName, _family.PorName);
 
             tableFamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableFamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Family, SmallFont)) { Border = 0 });  // 2. field
-            tableFamily.AddCell(new PdfPCell(new Phrase(_family.FamilyName + " - " + author + "  " + _family.GerName + " " + _family.EngName + " " + _family.FraName + " " + _family.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableFamily.AddCell(new PdfPCell(new Phrase(_family.FamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableFamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableFamily);
@@ -7642,11 +7771,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubfamily.SetWidths(new[] { 0.44f, 0.86f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subfamily.Author, _subfamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subfamily.Author, _subfamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subfamily.GerName, _subfamily.EngName, _subfamily.FraName, _subfamily.PorName);
 
             tableSubfamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubfamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subfamily, SmallFont)) { Border = 0 });  // 2. field
-            tableSubfamily.AddCell(new PdfPCell(new Phrase(_subfamily.SubfamilyName + " - " + author + "  " + _subfamily.GerName + " " + _subfamily.EngName + " " + _subfamily.FraName + " " + _subfamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubfamily.AddCell(new PdfPCell(new Phrase(_subfamily.SubfamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubfamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubfamily);
@@ -7665,11 +7795,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfrafamily.SetWidths(new[] { 0.47f, 0.83f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infrafamily.Author, _infrafamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infrafamily.Author, _infrafamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infrafamily.GerName, _infrafamily.EngName, _infrafamily.FraName, _infrafamily.PorName);
 
             tableInfrafamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfrafamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infrafamily, SmallFont)) { Border = 0 });  // 2. field
-            tableInfrafamily.AddCell(new PdfPCell(new Phrase(_infrafamily.InfrafamilyName + " - " + author + "  " + _infrafamily.GerName + " " + _infrafamily.EngName + " " + _infrafamily.FraName + " " + _infrafamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfrafamily.AddCell(new PdfPCell(new Phrase(_infrafamily.InfrafamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfrafamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfrafamily);
@@ -7688,11 +7819,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSupertribus.SetWidths(new[] { 0.50f, 0.80f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_supertribus.Author, _supertribus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_supertribus.Author, _supertribus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_supertribus.GerName, _supertribus.EngName, _supertribus.FraName, _supertribus.PorName);
 
             tableSupertribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSupertribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Supertribus, SmallFont)) { Border = 0 });  // 2. field
-            tableSupertribus.AddCell(new PdfPCell(new Phrase(_supertribus.SupertribusName + " - " + author + "  " + _supertribus.GerName + " " + _supertribus.EngName + " " + _supertribus.FraName + " " + _supertribus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSupertribus.AddCell(new PdfPCell(new Phrase(_supertribus.SupertribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSupertribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSupertribus);
@@ -7711,11 +7843,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tabletribus.SetWidths(new[] { 0.53f, 0.77f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_tribus.Author, _tribus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_tribus.Author, _tribus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_tribus.GerName, _tribus.EngName, _tribus.FraName, _tribus.PorName);
 
             tabletribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tabletribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Tribus, SmallFont)) { Border = 0 });  // 2. field
-            tabletribus.AddCell(new PdfPCell(new Phrase(_tribus.TribusName + " - " + author + "  " + _tribus.GerName + " " + _tribus.EngName + " " + _tribus.FraName + " " + _tribus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tabletribus.AddCell(new PdfPCell(new Phrase(_tribus.TribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tabletribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tabletribus);
@@ -7734,11 +7867,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tablesubtribus.SetWidths(new[] { 0.56f, 0.74f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subtribus.Author, _subtribus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subtribus.Author, _subtribus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subtribus.GerName, _subtribus.EngName, _subtribus.FraName, _subtribus.PorName);
 
             tablesubtribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablesubtribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subtribus, SmallFont)) { Border = 0 });  // 2. field
-            tablesubtribus.AddCell(new PdfPCell(new Phrase(_subtribus.SubtribusName + " - " + author + "  " + _subtribus.GerName + " " + _subtribus.EngName + " " + _subtribus.FraName + " " + _subtribus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tablesubtribus.AddCell(new PdfPCell(new Phrase(_subtribus.SubtribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablesubtribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tablesubtribus);
@@ -7757,11 +7891,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfratribus.SetWidths(new[] { 0.59f, 0.71f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infratribus.Author, _infratribus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infratribus.Author, _infratribus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infratribus.GerName, _infratribus.EngName, _infratribus.FraName, _infratribus.PorName);
 
             tableInfratribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfratribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infratribus, SmallFont)) { Border = 0 });  // 2. field
-            tableInfratribus.AddCell(new PdfPCell(new Phrase(_infratribus.InfratribusName + " - " + author + "  " + _infratribus.GerName + " " + _infratribus.EngName + " " + _infratribus.FraName + " " + _infratribus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfratribus.AddCell(new PdfPCell(new Phrase(_infratribus.InfratribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfratribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfratribus);
@@ -7780,11 +7915,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableGenus.SetWidths(new[] { 0.62f, 0.68f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_genus.Author, _genus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_genus.Author, _genus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_genus.GerName, _genus.EngName, _genus.FraName, _genus.PorName);
 
             tableGenus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableGenus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Genus, SmallFont)) { Border = 0 });  // 2. field
-            tableGenus.AddCell(new PdfPCell(new Phrase(_genus.GenusName + " - " + author + "  " + _genus.GerName + " " + _genus.EngName + " " + _genus.FraName + " " + _genus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableGenus.AddCell(new PdfPCell(new Phrase(_genus.GenusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableGenus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableGenus);
@@ -7813,7 +7949,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableRegnum);
@@ -7839,7 +7975,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableDivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableDivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Division, SmallFont)) { Border = 0 });  // 2. field
-            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + "  " + author+ "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + " " + author+ " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableDivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableDivision);
@@ -7863,7 +7999,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubdivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subdivision, SmallFont)) { Border = 0 });  // 2. field
-            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubdivision);
@@ -7891,7 +8027,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tablePhylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablePhylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
-            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablePhylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tablePhylum);
@@ -7915,7 +8051,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubphylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subphylum, SmallFont)) { Border = 0 });  // 2. field
-            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubphylum);
@@ -7940,7 +8076,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSuperclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperclass);
@@ -7959,11 +8095,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableClass.SetWidths(new[] { 0.17f, 1.13f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_class.Author, _class.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_class.Author, _class.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_class.GerName, _class.EngName, _class.FraName, _class.PorName);
 
             tableClass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableClass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Class, SmallFont)) { Border = 0 });  // 2. field
-            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " - " + author + "  " + _class.GerName + " " + _class.EngName + " " + _class.FraName + " " + _class.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableClass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableClass);
@@ -7982,11 +8119,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubclass.SetWidths(new[] { 0.20f, 1.10f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subclass.Author, _subclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subclass.Author, _subclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subclass.GerName, _subclass.EngName, _subclass.FraName, _subclass.PorName);
 
             tableSubclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " - " + author + "  " + _subclass.GerName + " " + _subclass.EngName + " " + _subclass.FraName + " " + _subclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubclass);
@@ -8005,11 +8143,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraclass.SetWidths(new[] { 0.23f, 1.07f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraclass.Author, _infraclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraclass.Author, _infraclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraclass.GerName, _infraclass.EngName, _infraclass.FraName, _infraclass.PorName);
 
             tableInfraclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraclass, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " - " + author + "  " + _infraclass.GerName + " " + _infraclass.EngName + " " + _infraclass.FraName + " " + _infraclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraclass);
@@ -8028,11 +8167,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableLegio.SetWidths(new[] { 0.26f, 1.04f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_legio.Author, _legio.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_legio.Author, _legio.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_legio.GerName, _legio.EngName, _legio.FraName, _legio.PorName);
 
             tableLegio.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableLegio.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Legio, SmallFont)) { Border = 0 });  // 2. field
-            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " - " + author + "  " + _legio.GerName + " " + _legio.EngName + " " + _legio.FraName + " " + _legio.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableLegio.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableLegio);
@@ -8051,11 +8191,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableOrdo.SetWidths(new[] { 0.29f, 1.01f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_ordo.Author, _ordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_ordo.Author, _ordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_ordo.GerName, _ordo.EngName, _ordo.FraName, _ordo.PorName);
 
             tableOrdo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableOrdo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Ordo, SmallFont)) { Border = 0 });  // 2. field
-            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " - " + author + "  " + _ordo.GerName + " " + _ordo.EngName + " " + _ordo.FraName + " " + _ordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableOrdo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableOrdo);
@@ -8074,11 +8215,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubordo.SetWidths(new[] { 0.32f, 0.98f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subordo.Author, _subordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subordo.Author, _subordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subordo.GerName, _subordo.EngName, _subordo.FraName, _subordo.PorName);
 
             tableSubordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subordo, SmallFont)) { Border = 0 });  // 2. field
-            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " - " + author + "  " + _subordo.GerName + " " + _subordo.EngName + " " + _subordo.FraName + " " + _subordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubordo);
@@ -8097,11 +8239,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraordo.SetWidths(new[] { 0.35f, 0.95f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraordo.Author, _infraordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraordo.Author, _infraordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraordo.GerName, _infraordo.EngName, _infraordo.FraName, _infraordo.PorName);
 
             tableInfraordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraordo, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " - " + author + "  " + _infraordo.GerName + " " + _infraordo.EngName + " " + _infraordo.FraName + " " + _infraordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraordo);
@@ -8120,11 +8263,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSuperfamily.SetWidths(new[] { 0.38f, 0.92f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_superfamily.Author, _superfamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_superfamily.Author, _superfamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_superfamily.GerName, _superfamily.EngName, _superfamily.FraName, _superfamily.PorName);
 
             tableSuperfamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperfamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superfamily, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperfamily.AddCell(new PdfPCell(new Phrase(_superfamily.SuperfamilyName + " - " + author + "  " + _superfamily.GerName + " " + _superfamily.EngName + " " + _superfamily.FraName + " " + _superfamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperfamily.AddCell(new PdfPCell(new Phrase(_superfamily.SuperfamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperfamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperfamily);
@@ -8143,11 +8287,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableFamily.SetWidths(new[] { 0.41f, 0.89f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_family.Author, _family.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_family.Author, _family.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_family.GerName, _family.EngName, _family.FraName, _family.PorName);
 
             tableFamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableFamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Family, SmallFont)) { Border = 0 });  // 2. field
-            tableFamily.AddCell(new PdfPCell(new Phrase(_family.FamilyName + " - " + author + "  " + _family.GerName + " " + _family.EngName + " " + _family.FraName + " " + _family.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableFamily.AddCell(new PdfPCell(new Phrase(_family.FamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableFamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableFamily);
@@ -8166,11 +8311,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubfamily.SetWidths(new[] { 0.44f, 0.86f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subfamily.Author, _subfamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subfamily.Author, _subfamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subfamily.GerName, _subfamily.EngName, _subfamily.FraName, _subfamily.PorName);
 
             tableSubfamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubfamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subfamily, SmallFont)) { Border = 0 });  // 2. field
-            tableSubfamily.AddCell(new PdfPCell(new Phrase(_subfamily.SubfamilyName + " - " + author + "  " + _subfamily.GerName + " " + _subfamily.EngName + " " + _subfamily.FraName + " " + _subfamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubfamily.AddCell(new PdfPCell(new Phrase(_subfamily.SubfamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubfamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubfamily);
@@ -8189,11 +8335,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfrafamily.SetWidths(new[] { 0.47f, 0.83f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infrafamily.Author, _infrafamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infrafamily.Author, _infrafamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infrafamily.GerName, _infrafamily.EngName, _infrafamily.FraName, _infrafamily.PorName);
 
             tableInfrafamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfrafamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infrafamily, SmallFont)) { Border = 0 });  // 2. field
-            tableInfrafamily.AddCell(new PdfPCell(new Phrase(_infrafamily.InfrafamilyName + " - " + author + "  " + _infrafamily.GerName + " " + _infrafamily.EngName + " " + _infrafamily.FraName + " " + _infrafamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfrafamily.AddCell(new PdfPCell(new Phrase(_infrafamily.InfrafamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfrafamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfrafamily);
@@ -8212,11 +8359,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSupertribus.SetWidths(new[] { 0.50f, 0.80f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_supertribus.Author, _supertribus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_supertribus.Author, _supertribus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_supertribus.GerName, _supertribus.EngName, _supertribus.FraName, _supertribus.PorName);
 
             tableSupertribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSupertribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Supertribus, SmallFont)) { Border = 0 });  // 2. field
-            tableSupertribus.AddCell(new PdfPCell(new Phrase(_supertribus.SupertribusName + " - " + author + "  " + _supertribus.GerName + " " + _supertribus.EngName + " " + _supertribus.FraName + " " + _supertribus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSupertribus.AddCell(new PdfPCell(new Phrase(_supertribus.SupertribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSupertribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSupertribus);
@@ -8235,11 +8383,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tabletribus.SetWidths(new[] { 0.53f, 0.77f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_tribus.Author, _tribus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_tribus.Author, _tribus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_tribus.GerName, _tribus.EngName, _tribus.FraName, _tribus.PorName);
 
             tabletribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tabletribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Tribus, SmallFont)) { Border = 0 });  // 2. field
-            tabletribus.AddCell(new PdfPCell(new Phrase(_tribus.TribusName + " - " + author + "  " + _tribus.GerName + " " + _tribus.EngName + " " + _tribus.FraName + " " + _tribus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tabletribus.AddCell(new PdfPCell(new Phrase(_tribus.TribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tabletribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tabletribus);
@@ -8258,11 +8407,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tablesubtribus.SetWidths(new[] { 0.56f, 0.74f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subtribus.Author, _subtribus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subtribus.Author, _subtribus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subtribus.GerName, _subtribus.EngName, _subtribus.FraName, _subtribus.PorName);
 
             tablesubtribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablesubtribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subtribus, SmallFont)) { Border = 0 });  // 2. field
-            tablesubtribus.AddCell(new PdfPCell(new Phrase(_subtribus.SubtribusName + " - " + author + "  " + _subtribus.GerName + " " + _subtribus.EngName + " " + _subtribus.FraName + " " + _subtribus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tablesubtribus.AddCell(new PdfPCell(new Phrase(_subtribus.SubtribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablesubtribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tablesubtribus);
@@ -8281,11 +8431,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfratribus.SetWidths(new[] { 0.59f, 0.71f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infratribus.Author, _infratribus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infratribus.Author, _infratribus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infratribus.GerName, _infratribus.EngName, _infratribus.FraName, _infratribus.PorName);
 
             tableInfratribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfratribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infratribus, SmallFont)) { Border = 0 });  // 2. field
-            tableInfratribus.AddCell(new PdfPCell(new Phrase(_infratribus.InfratribusName + " - " + author + "  " + _infratribus.GerName + " " + _infratribus.EngName + " " + _infratribus.FraName + " " + _infratribus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfratribus.AddCell(new PdfPCell(new Phrase(_infratribus.InfratribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfratribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfratribus);
@@ -8304,11 +8455,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableGenus.SetWidths(new[] { 0.62f, 0.68f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_genus.Author, _genus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_genus.Author, _genus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_genus.GerName, _genus.EngName, _genus.FraName, _genus.PorName);
 
             tableGenus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableGenus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Genus, SmallFont)) { Border = 0 });  // 2. field
-            tableGenus.AddCell(new PdfPCell(new Phrase(_genus.GenusName + " - " + author + "  " + _genus.GerName + " " + _genus.EngName + " " + _genus.FraName + " " + _genus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableGenus.AddCell(new PdfPCell(new Phrase(_genus.GenusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableGenus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableGenus);
@@ -8328,11 +8480,11 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableFiSpecies.SetWidths(new[] { 0.65f, 0.65f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_fispecies.Author, _fispecies.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_fispecies.Author, _fispecies.AuthorYear);
 
             tableFiSpecies.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableFiSpecies.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.FiSpecies, SmallFont)) { Border = 0 });  // 2. field
-            tableFiSpecies.AddCell(new PdfPCell(new Phrase(_fispecies.Tbl66Genusses.GenusName + "  " + _fispecies.FiSpeciesName + "  -  " + author, SmallFont)) { Border = 0 });  // 3. field
+            tableFiSpecies.AddCell(new PdfPCell(new Phrase(_fispecies.Tbl66Genusses.GenusName + " " + _fispecies.FiSpeciesName + " " + author, SmallFont)) { Border = 0 });  // 3. field
             tableFiSpecies.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableFiSpecies);
@@ -8348,11 +8500,11 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
                 };
                 tableSubspecies.SetWidths(new[] { 0.68f, 0.62f, 2.50f, 1.50f });
 
-                var author1 = PdfHelper.AuthorViewChange(_fispecies.Author, _fispecies.AuthorYear);
+                var author1 = PdfHelper.AuthorViewChangeWithString(_fispecies.Author, _fispecies.AuthorYear);
 
                 tableSubspecies.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
                 tableSubspecies.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subspecies, SmallFont)) { Border = 0 });  // 2. field
-                tableSubspecies.AddCell(new PdfPCell(new Phrase(_fispecies.Tbl66Genusses.GenusName + "  " + _fispecies.FiSpeciesName + "  " + _fispecies.Subspecies + "  " + _fispecies.Divers + "  -  " + author1, SmallFont)) { Border = 0 });  // 3. field
+                tableSubspecies.AddCell(new PdfPCell(new Phrase(_fispecies.Tbl66Genusses.GenusName + " " + _fispecies.FiSpeciesName + " " + _fispecies.Subspecies + " " + _fispecies.Divers + " " + author1, SmallFont)) { Border = 0 });  // 3. field
                 tableSubspecies.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubspecies);
@@ -8370,11 +8522,11 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
                 };
                 tableFiSpecies.SetWidths(new[] { 0.65f, 0.65f, 2.50f, 1.50f });
 
-                var author2 = PdfHelper.AuthorViewChange(_fispecies.Author, _fispecies.AuthorYear);
+                var author2 = PdfHelper.AuthorViewChangeWithString(_fispecies.Author, _fispecies.AuthorYear);
 
                 tableFiSpecies.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
                 tableFiSpecies.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.FiSpecies, SmallFont)) { Border = 0 });  // 2. field
-                tableFiSpecies.AddCell(new PdfPCell(new Phrase(_fispecies.Tbl66Genusses.GenusName + "  " + _fispecies.FiSpeciesName + "  -  " + author2 , SmallFont)) { Border = 0 });  // 3. field
+                tableFiSpecies.AddCell(new PdfPCell(new Phrase(_fispecies.Tbl66Genusses.GenusName + " " + _fispecies.FiSpeciesName + " " + author2 , SmallFont)) { Border = 0 });  // 3. field
                 tableFiSpecies.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableFiSpecies);
@@ -8408,11 +8560,11 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
                 var t3 = t.Subspecies;
                 var t4 = t.Divers;
 
-                var author = PdfHelper.AuthorViewChange(t.Author, t.AuthorYear);
+                var author = PdfHelper.AuthorViewChangeWithString(t.Author, t.AuthorYear);
 
                 table.AddCell(new PdfPCell(new Phrase(" ")) { Colspan = 1, Border = 0 });  // 1.   field
                 table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subspecies, SmallFont)) { Border = 0 });  // 2. field
-                table.AddCell(new PdfPCell(new Phrase(t1 + " " + t2 + " " + t3 + " " + t4 + " - " + author, SmallFont)) { Border = 0 });   // 3. field
+                table.AddCell(new PdfPCell(new Phrase(t1 + " " + t2 + " " + t3 + " " + t4 + " " + author, SmallFont)) { Border = 0 });   // 3. field
                 table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
             }
             doc.Add(table);
@@ -8441,7 +8593,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + "  " + _regnum.Subregnum + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableRegnum);
@@ -8467,7 +8619,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableDivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableDivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Division, SmallFont)) { Border = 0 });  // 2. field
-            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + "  " + author+ "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + " " + author+ " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableDivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableDivision);
@@ -8491,7 +8643,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubdivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subdivision, SmallFont)) { Border = 0 });  // 2. field
-            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubdivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubdivision);
@@ -8519,7 +8671,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tablePhylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablePhylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
-            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablePhylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tablePhylum);
@@ -8543,7 +8695,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSubphylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subphylum, SmallFont)) { Border = 0 });  // 2. field
-            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubphylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubphylum);
@@ -8568,7 +8720,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             tableSuperclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + "  " + author + "  " + names, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperclass);
@@ -8587,11 +8739,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableClass.SetWidths(new[] { 0.17f, 1.13f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_class.Author, _class.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_class.Author, _class.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_class.GerName, _class.EngName, _class.FraName, _class.PorName);
 
             tableClass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableClass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Class, SmallFont)) { Border = 0 });  // 2. field
-            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " - " + author + "  " + _class.GerName + " " + _class.EngName + " " + _class.FraName + " " + _class.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableClass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableClass);
@@ -8610,11 +8763,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubclass.SetWidths(new[] { 0.20f, 1.10f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subclass.Author, _subclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subclass.Author, _subclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subclass.GerName, _subclass.EngName, _subclass.FraName, _subclass.PorName);
 
             tableSubclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " - " + author + "  " + _subclass.GerName + " " + _subclass.EngName + " " + _subclass.FraName + " " + _subclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubclass);
@@ -8633,11 +8787,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraclass.SetWidths(new[] { 0.23f, 1.07f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraclass.Author, _infraclass.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraclass.Author, _infraclass.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraclass.GerName, _infraclass.EngName, _infraclass.FraName, _infraclass.PorName);
 
             tableInfraclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraclass, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " - " + author + "  " + _infraclass.GerName + " " + _infraclass.EngName + " " + _infraclass.FraName + " " + _infraclass.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraclass);
@@ -8656,11 +8811,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableLegio.SetWidths(new[] { 0.26f, 1.04f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_legio.Author, _legio.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_legio.Author, _legio.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_legio.GerName, _legio.EngName, _legio.FraName, _legio.PorName);
 
             tableLegio.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableLegio.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Legio, SmallFont)) { Border = 0 });  // 2. field
-            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " - " + author + "  " + _legio.GerName + " " + _legio.EngName + " " + _legio.FraName + " " + _legio.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableLegio.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableLegio);
@@ -8679,11 +8835,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableOrdo.SetWidths(new[] { 0.29f, 1.01f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_ordo.Author, _ordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_ordo.Author, _ordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_ordo.GerName, _ordo.EngName, _ordo.FraName, _ordo.PorName);
 
             tableOrdo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableOrdo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Ordo, SmallFont)) { Border = 0 });  // 2. field
-            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " - " + author + "  " + _ordo.GerName + " " + _ordo.EngName + " " + _ordo.FraName + " " + _ordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableOrdo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableOrdo);
@@ -8702,11 +8859,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubordo.SetWidths(new[] { 0.32f, 0.98f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subordo.Author, _subordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subordo.Author, _subordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subordo.GerName, _subordo.EngName, _subordo.FraName, _subordo.PorName);
 
             tableSubordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subordo, SmallFont)) { Border = 0 });  // 2. field
-            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " - " + author + "  " + _subordo.GerName + " " + _subordo.EngName + " " + _subordo.FraName + " " + _subordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubordo);
@@ -8725,11 +8883,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfraordo.SetWidths(new[] { 0.35f, 0.95f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infraordo.Author, _infraordo.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infraordo.Author, _infraordo.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infraordo.GerName, _infraordo.EngName, _infraordo.FraName, _infraordo.PorName);
 
             tableInfraordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfraordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraordo, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " - " + author + "  " + _infraordo.GerName + " " + _infraordo.EngName + " " + _infraordo.FraName + " " + _infraordo.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfraordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfraordo);
@@ -8748,11 +8907,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSuperfamily.SetWidths(new[] { 0.38f, 0.92f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_superfamily.Author, _superfamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_superfamily.Author, _superfamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_superfamily.GerName, _superfamily.EngName, _superfamily.FraName, _superfamily.PorName);
 
             tableSuperfamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSuperfamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superfamily, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperfamily.AddCell(new PdfPCell(new Phrase(_superfamily.SuperfamilyName + " - " + author + "  " + _superfamily.GerName + " " + _superfamily.EngName + " " + _superfamily.FraName + " " + _superfamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSuperfamily.AddCell(new PdfPCell(new Phrase(_superfamily.SuperfamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSuperfamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSuperfamily);
@@ -8771,11 +8931,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableFamily.SetWidths(new[] { 0.41f, 0.89f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_family.Author, _family.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_family.Author, _family.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_family.GerName, _family.EngName, _family.FraName, _family.PorName);
 
             tableFamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableFamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Family, SmallFont)) { Border = 0 });  // 2. field
-            tableFamily.AddCell(new PdfPCell(new Phrase(_family.FamilyName + " - " + author + "  " + _family.GerName + " " + _family.EngName + " " + _family.FraName + " " + _family.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableFamily.AddCell(new PdfPCell(new Phrase(_family.FamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableFamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableFamily);
@@ -8794,11 +8955,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSubfamily.SetWidths(new[] { 0.44f, 0.86f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subfamily.Author, _subfamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subfamily.Author, _subfamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subfamily.GerName, _subfamily.EngName, _subfamily.FraName, _subfamily.PorName);
 
             tableSubfamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSubfamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subfamily, SmallFont)) { Border = 0 });  // 2. field
-            tableSubfamily.AddCell(new PdfPCell(new Phrase(_subfamily.SubfamilyName + " - " + author + "  " + _subfamily.GerName + " " + _subfamily.EngName + " " + _subfamily.FraName + " " + _subfamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSubfamily.AddCell(new PdfPCell(new Phrase(_subfamily.SubfamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSubfamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSubfamily);
@@ -8817,11 +8979,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfrafamily.SetWidths(new[] { 0.47f, 0.83f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infrafamily.Author, _infrafamily.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infrafamily.Author, _infrafamily.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infrafamily.GerName, _infrafamily.EngName, _infrafamily.FraName, _infrafamily.PorName);
 
             tableInfrafamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfrafamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infrafamily, SmallFont)) { Border = 0 });  // 2. field
-            tableInfrafamily.AddCell(new PdfPCell(new Phrase(_infrafamily.InfrafamilyName + " - " + author + "  " + _infrafamily.GerName + " " + _infrafamily.EngName + " " + _infrafamily.FraName + " " + _infrafamily.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfrafamily.AddCell(new PdfPCell(new Phrase(_infrafamily.InfrafamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfrafamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfrafamily);
@@ -8840,11 +9003,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableSupertribus.SetWidths(new[] { 0.50f, 0.80f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_supertribus.Author, _supertribus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_supertribus.Author, _supertribus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_supertribus.GerName, _supertribus.EngName, _supertribus.FraName, _supertribus.PorName);
 
             tableSupertribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableSupertribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Supertribus, SmallFont)) { Border = 0 });  // 2. field
-            tableSupertribus.AddCell(new PdfPCell(new Phrase(_supertribus.SupertribusName + " - " + author + "  " + _supertribus.GerName + " " + _supertribus.EngName + " " + _supertribus.FraName + " " + _supertribus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableSupertribus.AddCell(new PdfPCell(new Phrase(_supertribus.SupertribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableSupertribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableSupertribus);
@@ -8863,11 +9027,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tabletribus.SetWidths(new[] { 0.53f, 0.77f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_tribus.Author, _tribus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_tribus.Author, _tribus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_tribus.GerName, _tribus.EngName, _tribus.FraName, _tribus.PorName);
 
             tabletribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tabletribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Tribus, SmallFont)) { Border = 0 });  // 2. field
-            tabletribus.AddCell(new PdfPCell(new Phrase(_tribus.TribusName + " - " + author + "  " + _tribus.GerName + " " + _tribus.EngName + " " + _tribus.FraName + " " + _tribus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tabletribus.AddCell(new PdfPCell(new Phrase(_tribus.TribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tabletribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tabletribus);
@@ -8886,11 +9051,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tablesubtribus.SetWidths(new[] { 0.56f, 0.74f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_subtribus.Author, _subtribus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_subtribus.Author, _subtribus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_subtribus.GerName, _subtribus.EngName, _subtribus.FraName, _subtribus.PorName);
 
             tablesubtribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablesubtribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subtribus, SmallFont)) { Border = 0 });  // 2. field
-            tablesubtribus.AddCell(new PdfPCell(new Phrase(_subtribus.SubtribusName + " - " + author + "  " + _subtribus.GerName + " " + _subtribus.EngName + " " + _subtribus.FraName + " " + _subtribus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tablesubtribus.AddCell(new PdfPCell(new Phrase(_subtribus.SubtribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tablesubtribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tablesubtribus);
@@ -8909,11 +9075,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableInfratribus.SetWidths(new[] { 0.59f, 0.71f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_infratribus.Author, _infratribus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_infratribus.Author, _infratribus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_infratribus.GerName, _infratribus.EngName, _infratribus.FraName, _infratribus.PorName);
 
             tableInfratribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableInfratribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infratribus, SmallFont)) { Border = 0 });  // 2. field
-            tableInfratribus.AddCell(new PdfPCell(new Phrase(_infratribus.InfratribusName + " - " + author + "  " + _infratribus.GerName + " " + _infratribus.EngName + " " + _infratribus.FraName + " " + _infratribus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableInfratribus.AddCell(new PdfPCell(new Phrase(_infratribus.InfratribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableInfratribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableInfratribus);
@@ -8932,11 +9099,12 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tableGenus.SetWidths(new[] { 0.62f, 0.68f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_genus.Author, _genus.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_genus.Author, _genus.AuthorYear);
+            var names = PdfHelper.NamesViewChange(_genus.GerName, _genus.EngName, _genus.FraName, _genus.PorName);
 
             tableGenus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tableGenus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Genus, SmallFont)) { Border = 0 });  // 2. field
-            tableGenus.AddCell(new PdfPCell(new Phrase(_genus.GenusName + " - " + author + "  " + _genus.GerName + " " + _genus.EngName + " " + _genus.FraName + " " + _genus.PorName, SmallFont)) { Border = 0 });  // 3. field
+            tableGenus.AddCell(new PdfPCell(new Phrase(_genus.GenusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
             tableGenus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tableGenus);
@@ -8956,11 +9124,11 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             tablePlSpecies.SetWidths(new[] { 0.65f, 0.65f, 2.50f, 1.50f });
 
-            var author = PdfHelper.AuthorViewChange(_plspecies.Author, _plspecies.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithString(_plspecies.Author, _plspecies.AuthorYear);
 
             tablePlSpecies.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             tablePlSpecies.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.PlSpecies, SmallFont)) { Border = 0 });  // 2. field
-            tablePlSpecies.AddCell(new PdfPCell(new Phrase(_plspecies.Tbl66Genusses.GenusName + "  " + _plspecies.PlSpeciesName + "  -  " + author, SmallFont)) { Border = 0 });  // 3. field
+            tablePlSpecies.AddCell(new PdfPCell(new Phrase(_plspecies.Tbl66Genusses.GenusName + " " + _plspecies.PlSpeciesName + " " + author, SmallFont)) { Border = 0 });  // 3. field
             tablePlSpecies.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             doc.Add(tablePlSpecies);
@@ -8976,11 +9144,11 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
                 };
                 tableSubspecies.SetWidths(new[] { 0.68f, 0.62f, 2.50f, 1.50f });
 
-                var author1 = PdfHelper.AuthorViewChange(_plspecies.Author, _plspecies.AuthorYear);
+                var author1 = PdfHelper.AuthorViewChangeWithString(_plspecies.Author, _plspecies.AuthorYear);
 
                 tableSubspecies.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
                 tableSubspecies.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subspecies, SmallFont)) { Border = 0 });  // 2. field
-                tableSubspecies.AddCell(new PdfPCell(new Phrase(_plspecies.Tbl66Genusses.GenusName + "  " + _plspecies.PlSpeciesName + "  " + _plspecies.Subspecies + "  " + _plspecies.Divers + "  -  " + author1, SmallFont)) { Border = 0 });  // 3. field
+                tableSubspecies.AddCell(new PdfPCell(new Phrase(_plspecies.Tbl66Genusses.GenusName + " " + _plspecies.PlSpeciesName + " " + _plspecies.Subspecies + " " + _plspecies.Divers + " " + author1, SmallFont)) { Border = 0 });  // 3. field
                 tableSubspecies.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tableSubspecies);
@@ -8998,11 +9166,11 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
                 };
                 tablePlSpecies.SetWidths(new[] { 0.65f, 0.65f, 2.50f, 1.50f });
 
-                var author2 = PdfHelper.AuthorViewChange(_plspecies.Author, _plspecies.AuthorYear);
+                var author2 = PdfHelper.AuthorViewChangeWithString(_plspecies.Author, _plspecies.AuthorYear);
 
                 tablePlSpecies.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
                 tablePlSpecies.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.PlSpecies, SmallFont)) { Border = 0 });  // 2. field
-                tablePlSpecies.AddCell(new PdfPCell(new Phrase(_plspecies.Tbl66Genusses.GenusName + "  " + _plspecies.PlSpeciesName + "  -  " + author2 , SmallFont)) { Border = 0 });  // 3. field
+                tablePlSpecies.AddCell(new PdfPCell(new Phrase(_plspecies.Tbl66Genusses.GenusName + " " + _plspecies.PlSpeciesName + " " + author2 , SmallFont)) { Border = 0 });  // 3. field
                 tablePlSpecies.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
                 doc.Add(tablePlSpecies);
@@ -9036,11 +9204,11 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
                 var t3 = t.Subspecies;
                 var t4 = t.Divers;
 
-                var author = PdfHelper.AuthorViewChange(t.Author, t.AuthorYear);
+                var author = PdfHelper.AuthorViewChangeWithString(t.Author, t.AuthorYear);
 
                 table.AddCell(new PdfPCell(new Phrase(" ")) { Colspan = 1, Border = 0 });  // 1.   field
                 table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subspecies, SmallFont)) { Border = 0 });  // 2. field
-                table.AddCell(new PdfPCell(new Phrase(t1 + " " + t2 + " " + t3 + " " + t4 + " - " + author, SmallFont)) { Border = 0 });   // 3. field
+                table.AddCell(new PdfPCell(new Phrase(t1 + " " + t2 + " " + t3 + " " + t4 + " " + author, SmallFont)) { Border = 0 });   // 3. field
                 table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
             }
             doc.Add(table);
@@ -9081,11 +9249,11 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
                 var t3 = t.Subspecies;
                 var t4 = t.Divers;
 
-                var author = PdfHelper.AuthorViewChange(t.Author, t.AuthorYear);
+                var author = PdfHelper.AuthorViewChangeWithString(t.Author, t.AuthorYear);
 
                 table.AddCell(new PdfPCell(new Phrase(" ")) { Colspan = 1, Border = 0 });  // 1.   field
                 table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.FiSpecies, SmallFont)) { Border = 0 });  // 2. field
-                table.AddCell(new PdfPCell(new Phrase(t1 + "  " + t2 + " " + t3 + " " + t4 + " - " + author, SmallFont)) { Border = 0 });   // 3. field
+                table.AddCell(new PdfPCell(new Phrase(t1 + "  " + t2 + " " + t3 + " " + t4 + " " + author, SmallFont)) { Border = 0 });   // 3. field
                 table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
             }
             doc.Add(table);
@@ -9112,15 +9280,17 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             foreach (var t in tbl72PlSpeciessesList)
             {
-                var t1 = t.PlSpeciesName;
-                var t2 = t.Subspecies;
-                var t3 = t.Divers;
-                var t4 = t.Author;
+                var t1 = t.Tbl66Genusses.GenusName;
+                var t2 = t.PlSpeciesName;
+                var t3 = t.Subspecies;
+                var t4 = t.Divers;
+
+                var author = PdfHelper.AuthorViewChangeWithString(t.Author, t.AuthorYear);
 
                 table.AddCell(new PdfPCell(new Phrase(" ")) { Colspan = 1, Border = 0 });  // 1.   field
-                table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.PlSpecies, SmallFont)) { Border = 0 });  // 2. field
-                table.AddCell(new PdfPCell(new Phrase(t1 + " - " + t2 + " " + t3 + " " + t4, SmallFont)) { Border = 0 });   // 3. field
-                table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field 
+                table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subspecies, SmallFont)) { Border = 0 });  // 2. field
+                table.AddCell(new PdfPCell(new Phrase(t1 + " " + t2 + " " + t3 + " " + t4 + " " + author, SmallFont)) { Border = 0 });   // 3. field
+                table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
             }
             doc.Add(table);
 
@@ -9579,7 +9749,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
                 table.AddCell(new PdfPCell(new Phrase(" ")) { Colspan = 1, Border = 0 });  // 1.   field
                 table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.]]><xsl:value-of select="BasisTK1"/><![CDATA[, SmallFont)) { Border = 0 });  // 2. field
-                table.AddCell(new PdfPCell(new Phrase(t1 + "  " + author+ "  " + names, SmallFont)) { Border = 0 });   // 3. field
+                table.AddCell(new PdfPCell(new Phrase(t1 + " " + author+ " " + names, SmallFont)) { Border = 0 });   // 3. field
                 table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
             }
             doc.Add(table);
@@ -9619,7 +9789,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
                 table.AddCell(new PdfPCell(new Phrase(" ")) { Colspan = 1, Border = 0 });  // 1.   field
                 table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.]]><xsl:value-of select="BasisTK1"/><![CDATA[, SmallFont)) { Border = 0 });  // 2. field
-                table.AddCell(new PdfPCell(new Phrase(t1 + "  " + author + "  " + names, SmallFont)) { Border = 0 });   // 3. field
+                table.AddCell(new PdfPCell(new Phrase(t1 + " " + author + " " + names, SmallFont)) { Border = 0 });   // 3. field
             }
             doc.Add(table);
 

@@ -1,7 +1,8 @@
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
+using System.ComponentModel;  
+
+    
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -12,7 +13,6 @@ using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Database.CrudHelper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
 using Microsoft.EntityFrameworkCore;          
-
     
          //    RegnumsViewModel Skriptdatum:  01.11.2020  12:32      
 
@@ -1199,8 +1199,8 @@ Tbl06PhylumsList = _extGet.GetPhylumsCollectionOrderByFromRegnumId<Tbl06Phylum>(
      
                 if (_selectedMainTabIndex == 2)
                 {
-                    SelectedDetailTabIndex = 3;
-                    SelectedMainSubRefTabIndex = 0;
+                        SelectedDetailTabIndex = 3;
+                        SelectedMainSubRefTabIndex = 0;                  
                 }           
      
                 if (_selectedMainTabIndex == 3)
@@ -1228,11 +1228,8 @@ Tbl06PhylumsList = _extGet.GetPhylumsCollectionOrderByFromRegnumId<Tbl06Phylum>(
        
                 if (_selectedDetailTabIndex == 0)
                 {
-                    if (CurrentTbl03Regnum != null)
-                    {
-                    }
                     SelectedMainTabIndex = 0;  
-               }     
+                 }       
      
                 if (_selectedDetailTabIndex == 1)                
                 {

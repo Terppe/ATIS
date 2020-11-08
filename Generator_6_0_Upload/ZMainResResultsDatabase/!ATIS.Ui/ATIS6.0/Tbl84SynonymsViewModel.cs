@@ -1,7 +1,8 @@
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
+using System.ComponentModel;  
+
+    
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -12,7 +13,6 @@ using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Database.CrudHelper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
 using Microsoft.EntityFrameworkCore;          
-
     
          //    SynonymsViewModel Skriptdatum:  13.11.2018  10:32    
 
@@ -254,7 +254,7 @@ SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
 
         #endregion "Public Commands"                  
        
-        private void SaveFiSpecies(string searchName)
+        private void ExecuteSaveFiSpecies(string searchName)
         {
             if (_genFiSpeciesMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl69FiSpecies)) return;
 
@@ -428,8 +428,8 @@ SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
      
                 if (_selectedMainTabIndex == 2)
                 {
-                    SelectedDetailTabIndex = 3;
-                    SelectedMainSubRefTabIndex = 0;
+                        SelectedDetailTabIndex = 3;
+                        SelectedMainSubRefTabIndex = 0;                  
                 }           
      
                 if (_selectedMainTabIndex == 3)
@@ -541,6 +541,18 @@ SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
                         CommentsView.Refresh();
                     }
                     SelectedMainTabIndex = 3;
+                }       
+     
+                if (_selectedDetailTabIndex == 7)
+                {
+                    if (CurrentTbl84Synonym != null)
+                    {
+                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromSynonymId<Tbl93Comment>(CurrentTbl84Synonym.SynonymId);
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 4;
                 }       
      
             }

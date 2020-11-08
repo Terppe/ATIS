@@ -1,7 +1,8 @@
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
+using System.ComponentModel;  
+
+    
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -12,7 +13,6 @@ using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Database.CrudHelper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
 using Microsoft.EntityFrameworkCore;          
-
     
          //    SubordosViewModel Skriptdatum:  15.12.2019  10:32    
 
@@ -1110,8 +1110,8 @@ Tbl33OrdosList = _extGet.GetOrdosCollectionOrderByFromOrdoId<Tbl33Ordo>(CurrentT
      
                 if (_selectedMainTabIndex == 2)
                 {
-                    SelectedDetailTabIndex = 3;
-                    SelectedMainSubRefTabIndex = 0;
+                        SelectedDetailTabIndex = 3;
+                        SelectedMainSubRefTabIndex = 0;                  
                 }           
      
                 if (_selectedMainTabIndex == 3)
@@ -1223,6 +1223,18 @@ Tbl33OrdosList = _extGet.GetOrdosCollectionOrderByFromOrdoId<Tbl33Ordo>(CurrentT
                         CommentsView.Refresh();
                     }
                     SelectedMainTabIndex = 3;
+                }       
+     
+                if (_selectedDetailTabIndex == 7)
+                {
+                    if (CurrentTbl36Subordo != null)
+                    {
+                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromSubordoId<Tbl93Comment>(CurrentTbl36Subordo.SubordoId);
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 4;
                 }       
      
             }

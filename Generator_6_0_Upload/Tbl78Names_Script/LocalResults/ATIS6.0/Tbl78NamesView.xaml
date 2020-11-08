@@ -10,7 +10,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"     
         
-             d:DesignHeight="700" 
+             d:DesignHeight="800" 
              d:DesignWidth="1550"
              mc:Ignorable="d">                                              
                          
@@ -363,16 +363,40 @@
      
                      <!-- Part 7   -->        
 
-          
-                            </dragablz:TabablzControl>
-                            <GridSplitter
-                                Grid.Row="1"
-                                Height="5"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Center"
-                                Background="Black"
-                                ResizeDirection="Rows" />
-                        </Grid>                   
+        
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn Width="Auto" Header="{DynamicResource Tbl93Comment-CommentId}">
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock
+                                                                        Width="100"
+                                                                        Text="{Binding (models:Tbl93Comment.CommentId)}"
+                                                                        TextAlignment="Left" />
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn Header="{DynamicResource Shared-Valid}">
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <CheckBox IsChecked="{Binding (models:Tbl93Comment.Valid)}" />
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn
+                                                        Width="700"
+                                                        DisplayMemberBinding="{Binding (models:Tbl93Comment.Info)}"
+                                                        Header="{DynamicResource Shared-Info}" />
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                      </GroupBox>
+                                    </StackPanel>
+                                  </ScrollViewer>
+                                </TabItem>
+                            </TabControl>     
 
 
                      <!-- Part 2 Splitter  -->    
@@ -478,7 +502,7 @@
                                            <StackPanel Height="Auto" Orientation="Horizontal">
                                                 <ComboBox
                                                     Width="250"
-                                                    Margin="5,0,0,0"
+                                                    Margin="5"
                                                     VerticalAlignment="Bottom"
                                                     materialDesign:HintAssist.Hint="{DynamicResource Tbl66Genus-GenusName}"
                                                     DisplayMemberPath="GenusName" 
@@ -491,7 +515,7 @@
                                                     VirtualizingStackPanel.IsVirtualizing="True" />
                                                 <ComboBox
                                                     Width="250"
-                                                    Margin="25,0,0,0"
+                                                    Margin="25,5,5,5"
                                                     VerticalAlignment="Bottom"
                                                     materialDesign:HintAssist.Hint="{DynamicResource Tbl68Speciesgroup-SpeciesgroupName}"
                                                     IsSynchronizedWithCurrentItem="True"
@@ -1706,7 +1730,7 @@
                                     </TextBox.Text>
                                 </TextBox>
                                 <TextBox
-                                    Width="135"
+                                    Width="130"
                                     Margin="25,0,0,0"
                                     materialDesign:HintAssist.Hint="{DynamicResource Shared-AuthorYear}"
                                     materialDesign:ValidationAssist.UsePopup="True"

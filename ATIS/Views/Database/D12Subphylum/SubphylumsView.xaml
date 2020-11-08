@@ -8,7 +8,7 @@
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"
-    d:DesignHeight="700"
+    d:DesignHeight="800"
     d:DesignWidth="1550"
     mc:Ignorable="d">
 
@@ -798,7 +798,7 @@
                             </TextBox>
                             <TextBox
                                 Width="367"
-                                Margin="23,5,5,5"
+                                Margin="21,5,5,5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -838,7 +838,7 @@
                             </TextBox>
                             <TextBox
                                 Width="367"
-                                Margin="23,5,5,5"
+                                Margin="21,5,5,5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -949,7 +949,7 @@
                                     Style="{StaticResource MahApps.Styles.CheckBox}" />
                                 <TextBox
                                     Width="80"
-                                    Margin="5"
+                                    Margin="25,5,5,5"
                                     HorizontalContentAlignment="Stretch"
                                     mah:TextBoxHelper.IsWaitingForData="True"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1075,7 +1075,7 @@
                                 </TextBox>
                                 <TextBox
                                     Width="367"
-                                    Margin="23,5,5,5"
+                                    Margin="21,5,5,5"
                                     HorizontalContentAlignment="Stretch"
                                     mah:TextBoxHelper.IsWaitingForData="True"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1115,7 +1115,7 @@
                                 </TextBox>
                                 <TextBox
                                     Width="367"
-                                    Margin="23,5,5,5"
+                                    Margin="21,5,5,5"
                                     HorizontalContentAlignment="Stretch"
                                     mah:TextBoxHelper.IsWaitingForData="True"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1207,7 +1207,7 @@
                                 IsChecked="{Binding SelectedItem.(models:Tbl18Superclass.Valid), ElementName=Tbl18SuperclassesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Style="{StaticResource MahApps.Styles.CheckBox}" />
                             <TextBox
-                                Width="135"
+                                Width="130"
                                 Margin="25,5,5,5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -1334,7 +1334,7 @@
                             </TextBox>
                             <TextBox
                                 Width="367"
-                                Margin="23,5,5,5"
+                                Margin="21,5,5,5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1374,7 +1374,7 @@
                             </TextBox>
                             <TextBox
                                 Width="367"
-                                Margin="23,5,5,5"
+                                Margin="21,5,5,5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"

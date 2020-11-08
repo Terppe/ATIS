@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using Te.Atis.Ui.Desktop.Properties;
 
-   //  ReportTbl21ClassesWindow.xaml.cs Skriptdatum:  12.12.2019  18:32     
+   //  ReportTbl21ClassesWindow.xaml.cs Skriptdatum:  05.11.2020  18:32     
 
 namespace Te.Atis.Ui.Desktop.Views.Report 
 {  

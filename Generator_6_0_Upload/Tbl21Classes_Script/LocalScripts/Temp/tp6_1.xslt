@@ -109,6 +109,9 @@
 <xsl:otherwise>           <![CDATA[  
     <Grid x:Name="LayoutRoot">
         <Grid.Resources>
+            <converters:AuthorConverter x:Key="AuthorConverter" />
+            <converters:AuthorWithoutStringConverter x:Key="AuthorWithoutStringConverter" />
+            <converters:NameConverter x:Key="NameConverter" />
             <converters:DateConverter x:Key="DateConverter" />
             <converters:TimeConverter x:Key="TimeConverter" />
             <converters:BooleanToVisibilityConverter
@@ -246,18 +249,18 @@
                                                 FontSize="18"
                                                 FontWeight="Bold"
                                                 Text="{Binding (models:]]><xsl:value-of select="LinqModel"/><![CDATA[.Subregnum)}" />            
-                                            <TextBlock
-                                                Width="Auto"
-                                                Margin="2,0,0,0"
-                                                FontSize="18"
-                                                FontWeight="Bold"
-                                                Text="{Binding (models:]]><xsl:value-of select="LinqModel"/><![CDATA[.Author)}" />
-                                            <TextBlock
-                                                Width="Auto"
-                                                Margin="2,0,0,0"
-                                                FontSize="18"
-                                                FontWeight="Bold"
-                                                Text="{Binding (models:]]><xsl:value-of select="LinqModel"/><![CDATA[.AuthorYear)}" />
+                                                <TextBlock
+                                                    Width="Auto"
+                                                    Margin="2,0,0,0"
+                                                    FontSize="18"
+                                                    FontWeight="Bold">
+                                                    <TextBlock.Text>
+                                                        <MultiBinding Converter="{StaticResource AuthorWithoutStringConverter}">
+                                                            <Binding Path="Author" />
+                                                            <Binding Path="AuthorYear" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
                                         </StackPanel>
                                         <StackPanel  Orientation="Horizontal">
                                             <TextBlock Width="Auto" Text="{DynamicResource Report-TaxonomicId}" />
@@ -313,18 +316,18 @@
                                                 FontSize="18"
                                                 FontWeight="Bold"
                                                 Text="{Binding (models:]]><xsl:value-of select="LinqModel"/><![CDATA[.Divers)}" />            
-                                            <TextBlock
-                                                Width="Auto"
-                                                Margin="2,0,0,0"
-                                                FontSize="18"
-                                                FontWeight="Bold"
-                                                Text="{Binding (models:]]><xsl:value-of select="LinqModel"/><![CDATA[.Author)}" />
-                                            <TextBlock
-                                                Width="Auto"
-                                                Margin="2,0,0,0"
-                                                FontSize="18"
-                                                FontWeight="Bold"
-                                                Text="{Binding (models:]]><xsl:value-of select="LinqModel"/><![CDATA[.AuthorYear)}" />
+                                                <TextBlock
+                                                    Width="Auto"
+                                                    Margin="2,0,0,0"
+                                                    FontSize="18"
+                                                    FontWeight="Bold">
+                                                    <TextBlock.Text>
+                                                        <MultiBinding Converter="{StaticResource AuthorWithoutStringConverter}">
+                                                            <Binding Path="Author" />
+                                                            <Binding Path="AuthorYear" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
                                         </StackPanel>
                                         <StackPanel  Orientation="Horizontal">
                                             <TextBlock Width="Auto" Text="{DynamicResource Report-TaxonomicId}" />
@@ -380,18 +383,18 @@
                                                 FontSize="18"
                                                 FontWeight="Bold"
                                                 Text="{Binding (models:]]><xsl:value-of select="LinqModel"/><![CDATA[.Divers)}" />            
-                                            <TextBlock
-                                                Width="Auto"
-                                                Margin="2,0,0,0"
-                                                FontSize="18"
-                                                FontWeight="Bold"
-                                                Text="{Binding (models:]]><xsl:value-of select="LinqModel"/><![CDATA[.Author)}" />
-                                            <TextBlock
-                                                Width="Auto"
-                                                Margin="2,0,0,0"
-                                                FontSize="18"
-                                                FontWeight="Bold"
-                                                Text="{Binding (models:]]><xsl:value-of select="LinqModel"/><![CDATA[.AuthorYear)}" />
+                                                <TextBlock
+                                                    Width="Auto"
+                                                    Margin="2,0,0,0"
+                                                    FontSize="18"
+                                                    FontWeight="Bold">
+                                                    <TextBlock.Text>
+                                                        <MultiBinding Converter="{StaticResource AuthorWithoutStringConverter}">
+                                                            <Binding Path="Author" />
+                                                            <Binding Path="AuthorYear" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
                                         </StackPanel>
                                         <StackPanel  Orientation="Horizontal">
                                             <TextBlock Width="Auto" Text="{DynamicResource Report-TaxonomicId}" />
@@ -429,18 +432,18 @@
                                                 FontSize="18"
                                                 FontWeight="Bold"
                                                 Text="{Binding (models:]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Name"/><![CDATA[)}" />            
-                                            <TextBlock
-                                                Width="Auto"
-                                                Margin="2,0,0,0"
-                                                FontSize="18"
-                                                FontWeight="Bold"
-                                                Text="{Binding (models:]]><xsl:value-of select="LinqModel"/><![CDATA[.Author)}" />
-                                            <TextBlock
-                                                Width="Auto"
-                                                Margin="2,0,0,0"
-                                                FontSize="18"
-                                                FontWeight="Bold"
-                                                Text="{Binding (models:]]><xsl:value-of select="LinqModel"/><![CDATA[.AuthorYear)}" />
+                                                <TextBlock
+                                                    Width="Auto"
+                                                    Margin="2,0,0,0"
+                                                    FontSize="18"
+                                                    FontWeight="Bold">
+                                                    <TextBlock.Text>
+                                                        <MultiBinding Converter="{StaticResource AuthorWithoutStringConverter}">
+                                                            <Binding Path="Author" />
+                                                            <Binding Path="AuthorYear" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
                                         </StackPanel>
                                         <StackPanel  Orientation="Horizontal">
                                             <TextBlock Width="Auto" Text="{DynamicResource Report-TaxonomicId}" />
@@ -1038,22 +1041,24 @@
                                                 </MultiBinding>
                                             </TextBlock.Text>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -1096,22 +1101,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -1154,22 +1161,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl09Division.DivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -1218,22 +1227,24 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -1260,22 +1271,24 @@
                                     <StackPanel Margin="28,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="292" Text="{DynamicResource Tbl06Phylum-Phylum}" />
                                         <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -1317,22 +1330,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -1381,22 +1396,24 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -1423,22 +1440,24 @@
                                     <StackPanel Margin="28,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="292" Text="{DynamicResource Tbl09Division-Division}" />
                                         <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl09Division.DivisionName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -1480,22 +1499,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -1544,22 +1565,24 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -1590,22 +1613,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -1632,22 +1657,24 @@
                                     <StackPanel Margin="36,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="284" Text="{DynamicResource Tbl12Subphylum-Subphylum}" />
                                         <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -1689,22 +1716,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl18Superclass.SuperclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -1753,22 +1782,24 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -1799,22 +1830,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl09Division.DivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -1841,22 +1874,24 @@
                                     <StackPanel Margin="36,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="284" Text="{DynamicResource Tbl15Subdivision-Subdivision}" />
                                         <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -1898,22 +1933,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl18Superclass.SuperclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -1962,22 +1999,24 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -2008,22 +2047,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -2054,22 +2095,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl09Division.DivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -2100,22 +2143,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -2146,22 +2191,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -2188,22 +2235,24 @@
                                     <StackPanel Margin="44,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="276" Text="{DynamicResource Tbl18Superclass-Superclass}" />
                                         <TextBlock Text="{Binding (models:Tbl18Superclass.SuperclassName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -2245,22 +2294,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl21Class.ClassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -2309,22 +2360,24 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -2355,22 +2408,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -2401,22 +2456,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl09Division.DivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -2447,22 +2504,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -2493,22 +2552,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -2539,22 +2600,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl18Superclass.SuperclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -2581,22 +2644,24 @@
                                     <StackPanel Margin="52,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="268" Text="{DynamicResource Tbl21Class-Class}" />
                                         <TextBlock FontWeight="Bold"  Text="{Binding (models:Tbl21Class.ClassName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -2638,22 +2703,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl24Subclass.SubclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -2702,22 +2769,24 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -2748,22 +2817,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -2794,22 +2865,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl09Division.DivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -2840,22 +2913,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -2886,22 +2961,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -2932,22 +3009,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl18Superclass.SuperclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -2978,22 +3057,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl21Class.ClassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -3020,22 +3101,24 @@
                                     <StackPanel Margin="60,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="260" Text="{DynamicResource Tbl24Subclass-Subclass}" />
                                         <TextBlock FontWeight="Bold"  Text="{Binding (models:Tbl24Subclass.SubclassName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -3077,22 +3160,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl27Infraclass.InfraclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -3141,22 +3226,24 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -3187,22 +3274,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -3233,22 +3322,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl09Division.DivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -3279,22 +3370,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -3325,22 +3418,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -3371,22 +3466,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl18Superclass.SuperclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -3417,22 +3514,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl21Class.ClassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -3463,22 +3562,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl24Subclass.SubclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -3505,22 +3606,24 @@
                                     <StackPanel Margin="68,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="252" Text="{DynamicResource Tbl27Infraclass-Infraclass}" />
                                         <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl27Infraclass.InfraclassName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -3562,22 +3665,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl30Legio.LegioName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -3626,22 +3731,24 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -3672,22 +3779,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -3718,22 +3827,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl09Division.DivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -3764,22 +3875,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -3810,22 +3923,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -3856,22 +3971,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl18Superclass.SuperclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -3902,22 +4019,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl21Class.ClassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -3948,22 +4067,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl24Subclass.SubclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -3994,22 +4115,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl27Infraclass.InfraclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -4036,22 +4159,24 @@
                                     <StackPanel Margin="76,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="244" Text="{DynamicResource Tbl30Legio-Legio}" />
                                         <TextBlock FontWeight="Bold"  Text="{Binding (models:Tbl30Legio.LegioName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -4093,22 +4218,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl33Ordo.OrdoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -4157,22 +4284,24 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -4203,22 +4332,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -4249,22 +4380,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl09Division.DivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -4295,22 +4428,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -4341,22 +4476,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -4387,22 +4524,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl18Superclass.SuperclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -4433,22 +4572,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl21Class.ClassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -4479,22 +4620,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl24Subclass.SubclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -4525,22 +4668,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl27Infraclass.InfraclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -4571,22 +4716,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl30Legio.LegioName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -4613,22 +4760,24 @@
                                     <StackPanel Margin="84,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="252" Text="{DynamicResource Tbl33Ordo-Ordo}" />
                                         <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl33Ordo.OrdoName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -4671,22 +4820,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl36Subordo.SubordoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -4735,22 +4886,24 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -4781,22 +4934,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -4827,22 +4982,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl09Division.DivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -4873,22 +5030,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -4919,22 +5078,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -4965,22 +5126,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl18Superclass.SuperclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -5011,22 +5174,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl21Class.ClassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -5057,22 +5222,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl24Subclass.SubclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -5103,22 +5270,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl27Infraclass.InfraclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -5149,22 +5318,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl30Legio.LegioName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -5195,22 +5366,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl33Ordo.OrdoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -5237,22 +5410,24 @@
                                     <StackPanel Margin="92,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="228" Text="{DynamicResource Tbl36Subordo-Subordo}" />
                                         <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl36Subordo.SubordoName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -5295,22 +5470,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl39Infraordo.InfraordoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -5359,22 +5536,24 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -5405,22 +5584,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -5451,22 +5632,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl09Division.DivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -5497,22 +5680,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -5543,22 +5728,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -5589,22 +5776,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl18Superclass.SuperclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -5635,22 +5824,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl21Class.ClassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -5681,22 +5872,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl24Subclass.SubclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -5727,22 +5920,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl27Infraclass.InfraclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -5773,22 +5968,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl30Legio.LegioName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -5819,22 +6016,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl33Ordo.OrdoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -5865,22 +6064,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl36Subordo.SubordoName)}" />
                                              </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -5907,22 +6108,24 @@
                                     <StackPanel Margin="100,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="220" Text="{DynamicResource Tbl39Infraordo-Infraordo}" />
                                         <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl39Infraordo.InfraordoName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -5964,22 +6167,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl42Superfamily.SuperfamilyName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -6028,22 +6233,24 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -6074,22 +6281,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -6120,22 +6329,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl09Division.DivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -6166,22 +6377,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -6212,22 +6425,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -6258,22 +6473,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl18Superclass.SuperclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -6304,22 +6521,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl21Class.ClassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -6350,22 +6569,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl24Subclass.SubclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -6396,22 +6617,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl27Infraclass.InfraclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -6442,22 +6665,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl30Legio.LegioName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -6488,22 +6713,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl33Ordo.OrdoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -6534,22 +6761,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl36Subordo.SubordoName)}" />
                                              </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -6580,22 +6809,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl39Infraordo.InfraordoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -6622,22 +6853,24 @@
                                     <StackPanel Margin="108,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="121" Text="{DynamicResource Tbl42Superfamily-Superfamily}" />
                                         <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl42Superfamily.SuperfamilyName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -6679,22 +6912,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl45Family.FamilyName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -6743,22 +6978,24 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -6789,23 +7026,25 @@
                                                 <TextBlock Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.PorName)}" />
-                                    </StackPanel>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
@@ -6835,23 +7074,25 @@
                                                 <TextBlock Text="{Binding (models:Tbl09Division.DivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.PorName)}" />
-                                    </StackPanel>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
@@ -6881,22 +7122,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -6927,22 +7170,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -6973,22 +7218,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl18Superclass.SuperclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -7019,22 +7266,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl21Class.ClassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -7065,22 +7314,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl24Subclass.SubclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -7111,22 +7362,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl27Infraclass.InfraclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -7157,22 +7410,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl30Legio.LegioName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -7203,22 +7458,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl33Ordo.OrdoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -7249,22 +7506,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl36Subordo.SubordoName)}" />
                                              </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -7295,22 +7554,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl39Infraordo.InfraordoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -7341,22 +7602,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl42Superfamily.SuperfamilyName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -7383,22 +7646,24 @@
                                     <StackPanel Margin="116,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="204" Text="{DynamicResource Tbl45Family-Family}" />
                                         <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl45Family.FamilyName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -7440,22 +7705,24 @@
                                                 <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl48Subfamily.SubfamilyName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -7504,22 +7771,24 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -7550,22 +7819,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -7596,22 +7867,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl09Division.DivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -7642,22 +7915,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -7688,22 +7963,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -7734,22 +8011,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl18Superclass.SuperclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -7780,22 +8059,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl21Class.ClassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -7826,22 +8107,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl24Subclass.SubclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -7872,22 +8155,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl27Infraclass.InfraclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -7918,22 +8203,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl30Legio.LegioName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -7964,22 +8251,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl33Ordo.OrdoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -8010,22 +8299,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl36Subordo.SubordoName)}" />
                                              </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -8056,22 +8347,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl39Infraordo.InfraordoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -8102,22 +8395,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl42Superfamily.SuperfamilyName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -8148,22 +8443,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl45Family.FamilyName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -8190,22 +8487,24 @@
                                     <StackPanel Margin="124,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="196" Text="{DynamicResource Tbl48Subfamily-Subfamily}" />
                                         <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl48Subfamily.SubfamilyName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -8247,22 +8546,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl51Infrafamily.InfrafamilyName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -8311,22 +8612,24 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -8357,22 +8660,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -8403,22 +8708,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl09Division.DivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -8449,22 +8756,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -8495,22 +8804,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -8541,22 +8852,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl18Superclass.SuperclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -8587,22 +8900,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl21Class.ClassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -8633,22 +8948,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl24Subclass.SubclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -8679,22 +8996,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl27Infraclass.InfraclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -8725,22 +9044,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl30Legio.LegioName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -8771,22 +9092,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl33Ordo.OrdoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -8817,22 +9140,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl36Subordo.SubordoName)}" />
                                              </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -8863,22 +9188,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl39Infraordo.InfraordoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -8909,22 +9236,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl42Superfamily.SuperfamilyName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -8955,22 +9284,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl45Family.FamilyName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -9001,22 +9332,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl48Subfamily.SubfamilyName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -9043,22 +9376,24 @@
                                     <StackPanel Margin="132,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="188" Text="{DynamicResource Tbl51Infrafamily-Infrafamily}" />
                                         <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl51Infrafamily.InfrafamilyName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -9100,22 +9435,24 @@
                                                 <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl54Supertribus.SupertribusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -9164,22 +9501,24 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -9210,22 +9549,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -9256,22 +9597,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl09Division.DivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -9302,22 +9645,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -9348,22 +9693,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -9394,22 +9741,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl18Superclass.SuperclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -9440,22 +9789,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl21Class.ClassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -9486,22 +9837,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl24Subclass.SubclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -9532,22 +9885,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl27Infraclass.InfraclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -9578,22 +9933,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl30Legio.LegioName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -9624,22 +9981,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl33Ordo.OrdoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -9670,22 +10029,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl36Subordo.SubordoName)}" />
                                              </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -9716,22 +10077,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl39Infraordo.InfraordoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -9762,22 +10125,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl42Superfamily.SuperfamilyName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -9808,22 +10173,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl45Family.FamilyName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -9854,22 +10221,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl48Subfamily.SubfamilyName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -9900,22 +10269,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl51Infrafamily.InfrafamilyName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -9941,23 +10312,29 @@
                                 <DataTemplate>
                                     <StackPanel Margin="140,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="180" Text="{DynamicResource Tbl54Supertribus-Supertribus}" />
-                                        <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl54Supertribus.SupertribusName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.PorName)}" />
+                                            <TextBlock>
+                                                <Hyperlink Click="HyperlinkSupertribus_Click" Tag="{Binding (models:Tbl54Supertribus.SupertribusID)}">
+                                                    <TextBlock Text="{Binding (models:Tbl54Supertribus.SupertribusName)}" />
+                                                </Hyperlink>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -9999,22 +10376,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl57Tribus.TribusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -10063,22 +10442,24 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -10109,22 +10490,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -10155,22 +10538,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl09Division.DivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -10201,22 +10586,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -10247,22 +10634,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -10293,22 +10682,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl18Superclass.SuperclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -10339,22 +10730,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl21Class.ClassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -10385,22 +10778,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl24Subclass.SubclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -10431,22 +10826,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl27Infraclass.InfraclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -10477,22 +10874,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl30Legio.LegioName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -10523,22 +10922,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl33Ordo.OrdoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -10569,22 +10970,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl36Subordo.SubordoName)}" />
                                              </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -10615,22 +11018,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl39Infraordo.InfraordoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -10661,22 +11066,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl42Superfamily.SuperfamilyName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -10707,22 +11114,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl45Family.FamilyName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -10753,22 +11162,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl48Subfamily.SubfamilyName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -10799,22 +11210,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl51Infrafamily.InfrafamilyName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -10845,22 +11258,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl54Supertribus.SupertribusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -10885,24 +11300,25 @@
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Margin="148,0,0,0" Orientation="Horizontal">
-                                        <TextBlock Width="172" Text="{DynamicResource Tbl57Tribus-Tribus}" />
-                                        <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl57Tribus.TribusName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.PorName)}" />
+                                            <TextBlock Text="{Binding (models:Tbl57Tribus.TribusName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -10944,22 +11360,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl60Subtribus.SubtribusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl60Subtribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl60Subtribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl60Subtribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl60Subtribus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -11008,22 +11426,24 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -11054,22 +11474,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -11100,22 +11522,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl09Division.DivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -11146,22 +11570,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -11192,22 +11618,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -11238,22 +11666,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl18Superclass.SuperclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -11284,22 +11714,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl21Class.ClassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -11330,22 +11762,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl24Subclass.SubclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -11376,22 +11810,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl27Infraclass.InfraclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -11422,22 +11858,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl30Legio.LegioName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -11468,22 +11906,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl33Ordo.OrdoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -11514,22 +11954,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl36Subordo.SubordoName)}" />
                                              </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -11560,22 +12002,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl39Infraordo.InfraordoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -11606,22 +12050,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl42Superfamily.SuperfamilyName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -11652,22 +12098,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl45Family.FamilyName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -11698,22 +12146,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl48Subfamily.SubfamilyName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -11744,22 +12194,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl51Infrafamily.InfrafamilyName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -11790,22 +12242,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl54Supertribus.SupertribusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -11836,22 +12290,24 @@
                                                 <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl57Tribus.TribusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -11877,23 +12333,25 @@
                                 <DataTemplate>
                                     <StackPanel Margin="156,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="164" Text="{DynamicResource Tbl60Subtribus-Subtribus}" />
-                                        <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl60Subtribus.SubtribusName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl60Subtribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl60Subtribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl60Subtribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl60Subtribus.PorName)}" />
+                                           <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl60Subtribus.SubtribusName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -11935,22 +12393,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl63Infratribus.InfratribusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl63Infratribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl63Infratribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl63Infratribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl63Infratribus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -11999,22 +12459,24 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -12045,22 +12507,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -12091,22 +12555,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl09Division.DivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -12137,22 +12603,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -12183,22 +12651,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -12229,22 +12699,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl18Superclass.SuperclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -12275,22 +12747,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl21Class.ClassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -12321,22 +12795,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl24Subclass.SubclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -12367,22 +12843,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl27Infraclass.InfraclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -12413,22 +12891,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl30Legio.LegioName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -12459,22 +12939,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl33Ordo.OrdoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -12505,22 +12987,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl36Subordo.SubordoName)}" />
                                              </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -12551,22 +13035,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl39Infraordo.InfraordoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -12597,22 +13083,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl42Superfamily.SuperfamilyName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -12643,22 +13131,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl45Family.FamilyName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -12689,22 +13179,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl48Subfamily.SubfamilyName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -12735,22 +13227,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl51Infrafamily.InfrafamilyName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -12781,22 +13275,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl54Supertribus.SupertribusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -12827,22 +13323,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl57Tribus.TribusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -12873,22 +13371,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl60Subtribus.SubtribusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl60Subtribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl60Subtribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl60Subtribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl60Subtribus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -12914,23 +13414,25 @@
                                 <DataTemplate>
                                     <StackPanel Margin="164,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="156" Text="{DynamicResource Tbl63Infratribus-Infratribus}" />
-                                        <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl63Infratribus.InfratribusName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl63Infratribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl63Infratribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl63Infratribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl63Infratribus.PorName)}" />
+                                           <TextBlock Text="{Binding (models:Tbl63Infratribus.InfratribusName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -12972,30 +13474,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl66Genus.GenusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl66Genus.Author)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl66Genus.AuthorYear)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl66Genus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl66Genus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl66Genus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl66Genus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -13044,22 +13540,24 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -13090,22 +13588,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -13136,22 +13636,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl09Division.DivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -13182,22 +13684,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -13228,22 +13732,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -13274,22 +13780,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl18Superclass.SuperclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -13320,22 +13828,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl21Class.ClassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -13366,22 +13876,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl24Subclass.SubclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -13412,22 +13924,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl27Infraclass.InfraclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -13458,22 +13972,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl30Legio.LegioName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -13504,22 +14020,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl33Ordo.OrdoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -13550,22 +14068,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl36Subordo.SubordoName)}" />
                                              </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -13596,22 +14116,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl39Infraordo.InfraordoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -13642,22 +14164,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl42Superfamily.SuperfamilyName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -13688,22 +14212,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl45Family.FamilyName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -13734,22 +14260,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl48Subfamily.SubfamilyName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -13780,22 +14308,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl51Infrafamily.InfrafamilyName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -13826,22 +14356,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl54Supertribus.SupertribusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -13872,22 +14404,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl57Tribus.TribusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -13918,22 +14452,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl60Subtribus.SubtribusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl60Subtribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl60Subtribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl60Subtribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl60Subtribus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -13964,22 +14500,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl63Infratribus.InfratribusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl63Infratribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl63Infratribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl63Infratribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl63Infratribus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -14006,30 +14544,24 @@
                                     <StackPanel Margin="172,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="148" Text="{DynamicResource Tbl66Genus-Genus}" />
                                         <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl66Genus.GenusName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl66Genus.Author)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl66Genus.AuthorYear)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl66Genus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl66Genus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl66Genus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl66Genus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -14080,14 +14612,14 @@
                                                 </TextBlock>
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl69FiSpecies.Author)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl69FiSpecies.AuthorYear)}" />
+                                            <TextBlock Width="Auto" Margin="2,0,0,0">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -14138,14 +14670,14 @@
                                                 </TextBlock>
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl72PlSpecies.Author)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl72PlSpecies.AuthorYear)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -14194,22 +14726,24 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -14240,22 +14774,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -14286,22 +14822,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl09Division.DivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -14332,22 +14870,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -14378,22 +14918,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -14424,22 +14966,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl18Superclass.SuperclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -14470,22 +15014,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl21Class.ClassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -14516,22 +15062,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl24Subclass.SubclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -14562,22 +15110,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl27Infraclass.InfraclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -14608,22 +15158,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl30Legio.LegioName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -14654,22 +15206,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl33Ordo.OrdoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -14700,22 +15254,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl36Subordo.SubordoName)}" />
                                              </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -14746,22 +15302,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl39Infraordo.InfraordoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -14792,22 +15350,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl42Superfamily.SuperfamilyName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -14838,22 +15398,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl45Family.FamilyName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -14884,22 +15446,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl48Subfamily.SubfamilyName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -14930,22 +15494,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl51Infrafamily.InfrafamilyName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl51Infrafamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -14976,22 +15542,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl54Supertribus.SupertribusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -15022,22 +15590,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl57Tribus.TribusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -15068,22 +15638,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl60Subtribus.SubtribusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl60Subtribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl60Subtribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl60Subtribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl60Subtribus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -15114,22 +15686,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl63Infratribus.InfratribusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl63Infratribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl63Infratribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl63Infratribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl63Infratribus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -15160,78 +15734,213 @@
                                                 <TextBlock  Text="{Binding (models:Tbl66Genus.GenusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl66Genus.Author)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl66Genus.AuthorYear)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl66Genus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl66Genus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl66Genus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl66Genus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
                       </materialDesign:Card>
 
-            <!--   Tbl69FiSpecies  -->
-
+                        <!--  Tbl69FiSpecies FiSpeciesName -->
                         <materialDesign:Card
                             Margin="2,0,0,0"
                             Background="{DynamicResource PrimaryHueLightBrush}"
                             Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
                             UniformCornerRadius="2">
-                        <ListBox
-                            x:Name="Tbl69FiSpeciessesList"
-                            Width="{Binding ElementName=PageWidthText, Path=Text}"
-                            Height="Auto"
-                            Margin="0"
-                            HorizontalAlignment="Left"
-                            ItemsSource="{Binding Tbl69FiSpeciessesList}"
-                            Visibility="{Binding ElementName=Tbl69FiSpeciessesList, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Margin="180,0,0,0" Orientation="Horizontal">
-                                        <TextBlock Width="140" Text="{DynamicResource Tbl69FiSpecies-FiSpecies}" />
-                                                <TextBlock FontWeight="Bold">
-                                                    <TextBlock.Text>
-			        <MultiBinding StringFormat=" {0} {1} {2} {3} ">
-                                                            <Binding Path="(models:Tbl69FiSpecies.Tbl66Genusses).GenusName" />
-                                                            <Binding Path="(models:Tbl69FiSpecies.FiSpeciesName)" />
-                                                            <Binding Path="(models:Tbl69FiSpecies.Subspecies)" />
-                                                            <Binding Path="(models:Tbl69FiSpecies.Divers)" />
-                                                        </MultiBinding>
-                                                    </TextBlock.Text>
-                                                </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl69FiSpecies.Author)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl69FiSpecies.AuthorYear)}" />
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                      </materialDesign:Card>
+                            <ListBox
+                                x:Name="Tbl69FiSpeciessesFiSpeciesNameList"
+                                Width="{Binding ElementName=PageWidthText, Path=Text}"
+                                Height="Auto"
+                                Margin="0"
+                                HorizontalAlignment="Left"
+                                ItemsSource="{Binding Tbl69FiSpeciessesFiSpeciesNameList}"
+                                Visibility="{Binding ElementName=Tbl69FiSpeciessesFiSpeciesNameList, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="180,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="140" Text="{DynamicResource Tbl69FiSpecies-FiSpecies}" />
+                                            <TextBlock FontWeight="Bold">
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat=" {0} {1} ">
+                                                        <Binding Path="(models:Tbl69FiSpecies.Tbl66Genusses).GenusName" />
+                                                        <Binding Path="(models:Tbl69FiSpecies.FiSpeciesName)" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </materialDesign:Card>
+                        <!--  Tbl69FiSpecies Gattung Art Unterart -->
+                        <materialDesign:Card
+                            Margin="2,0,0,0"
+                            Background="{DynamicResource PrimaryHueLightBrush}"
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                            UniformCornerRadius="2">
+                            <ListBox
+                                x:Name="Tbl69FiSpeciessesList"
+                                Width="{Binding ElementName=PageWidthText, Path=Text}"
+                                Height="Auto"
+                                Margin="0"
+                                HorizontalAlignment="Left"
+                                ItemsSource="{Binding Tbl69FiSpeciessesList}"
+                                Visibility="{Binding ElementName=Tbl69FiSpeciessesList, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="180,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="140" Text="{DynamicResource Tbl69FiSpecies-FiSpecies}" />
+                                            <TextBlock FontWeight="Bold">
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat=" {0} {1} {2} {3} ">
+                                                        <Binding Path="(models:Tbl69FiSpecies.Tbl66Genusses).GenusName" />
+                                                        <Binding Path="(models:Tbl69FiSpecies.FiSpeciesName)" />
+                                                        <Binding Path="(models:Tbl69FiSpecies.Subspecies)" />
+                                                        <Binding Path="(models:Tbl69FiSpecies.Divers)" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </materialDesign:Card>
+                        <!--  Tbl69FiSpecies Gattung Art Unterart as Sublist -->
+                        <materialDesign:Card
+                            Margin="2,2,0,0"
+                            Background="{DynamicResource PrimaryHueLightBrush}"
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                            UniformCornerRadius="2">
+                            <ListBox
+                                x:Name="Tbl69FiSpeciessesSubList1"
+                                Width="{Binding ElementName=PageWidthText, Path=Text}"
+                                Height="Auto"
+                                Margin="0"
+                                HorizontalAlignment="Left"
+                                ItemsSource="{Binding Tbl69FiSpeciessesSubList}"
+                                Visibility="{Binding ElementName=Tbl69FiSpeciessesSubList, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="320,0,0,0" Orientation="Horizontal">
+                                            <TextBlock>
+                                                <Hyperlink Click="HyperlinkFiSpecies_Click" Tag="{Binding (models:Tbl69FiSpecies.FiSpeciesID)}">
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat=" {0} {1} {2} {3} ">
+                                                                <Binding Path="(models:Tbl69FiSpecies.Tbl66Genusses).GenusName" />
+                                                                <Binding Path="(models:Tbl69FiSpecies.FiSpeciesName)" />
+                                                                <Binding Path="(models:Tbl69FiSpecies.Subspecies)" />
+                                                                <Binding Path="(models:Tbl69FiSpecies.Divers)" />
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Hyperlink>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </materialDesign:Card>
+
+                        <!--  Tbl69FiSpecies Children  -->
+
+                        <materialDesign:Card
+                            Margin="2,2,0,0"
+                            Background="{DynamicResource PrimaryHueLightBrush}"
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                            UniformCornerRadius="2">
+                            <TextBlock
+                                Width="{Binding ElementName=PageWidthText, Path=Text}"
+                                Margin="20,0,0,0"
+                                FontWeight="Bold"
+                                Text="{DynamicResource Report-DirectChild}" />
+                        </materialDesign:Card>
+                        <!--          <materialDesign:Card
+                            Margin="2,2,0,0"
+                            Background="{DynamicResource PrimaryHueLightBrush}"
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                            UniformCornerRadius="2">
+                            <ListBox
+                                x:Name="Tbl69FiSpeciessesSubList"
+                                Width="{Binding ElementName=PageWidthText, Path=Text}"
+                                Height="Auto"
+                                Margin="0"
+                                HorizontalAlignment="Left"
+                                ItemsSource="{Binding Tbl69FiSpeciessesSubList}"
+                                Visibility="{Binding ElementName=Tbl69FiSpeciessesSubList, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="188,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="140" Text="{DynamicResource Tbl69FiSpecies-Subspecies}" />
+                                            <TextBlock>
+                                                <Hyperlink Click="HyperlinkFiSpecies_Click" Tag="{Binding (models:Tbl69FiSpecies.FiSpeciesID)}">
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat=" {0} {1} {2} {3} ">
+                                                                <Binding Path="(models:Tbl69FiSpecies.Tbl66Genusses).GenusName" />
+                                                                <Binding Path="(models:Tbl69FiSpecies.FiSpeciesName)" />
+                                                                <Binding Path="(models:Tbl69FiSpecies.Subspecies)" />
+                                                                <Binding Path="(models:Tbl69FiSpecies.Divers)" />
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Hyperlink>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </materialDesign:Card>
+                        -->
                   </Paragraph>
               </Section>  ]]>   
 
@@ -15275,22 +15984,24 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl03Regnum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -15321,22 +16032,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl06Phylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -15367,22 +16080,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl09Division.DivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl09Division.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -15413,22 +16128,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl12Subphylum.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -15459,22 +16176,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl15Subdivision.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -15505,22 +16224,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl18Superclass.SuperclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl18Superclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -15551,22 +16272,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl21Class.ClassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl21Class.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -15597,22 +16320,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl24Subclass.SubclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl24Subclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -15643,22 +16368,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl27Infraclass.InfraclassName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl27Infraclass.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -15689,22 +16416,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl30Legio.LegioName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl30Legio.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -15735,22 +16464,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl33Ordo.OrdoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl33Ordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -15781,22 +16512,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl36Subordo.SubordoName)}" />
                                              </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl36Subordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -15827,22 +16560,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl39Infraordo.InfraordoName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl39Infraordo.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -15873,22 +16608,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl42Superfamily.SuperfamilyName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl42Superfamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -15919,22 +16656,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl45Family.FamilyName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl45Family.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -15965,22 +16704,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl48Subfamily.SubfamilyName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl48Subfamily.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -16011,22 +16752,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl54Supertribus.SupertribusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl54Supertribus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -16057,22 +16800,24 @@
                                                 <TextBlock  Text="{Binding (models:Tbl57Tribus.TribusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl57Tribus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -16103,22 +16848,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl60Subtribus.SubtribusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl60Subtribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl60Subtribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl60Subtribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl60Subtribus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -16149,22 +16896,24 @@
                                                 <TextBlock Text="{Binding (models:Tbl63Infratribus.InfratribusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl63Infratribus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl63Infratribus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl63Infratribus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl63Infratribus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -16195,79 +16944,171 @@
                                                 <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl66Genus.GenusName)}" />
                                             </Hyperlink> 
                                         </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl66Genus.Author)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl66Genus.AuthorYear)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl66Genus.GerName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl66Genus.EngName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl66Genus.FraName)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl66Genus.PorName)}" />
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource NameConverter}">
+                                                        <Binding Path="GerName" />
+                                                        <Binding Path="EngName" />
+                                                        <Binding Path="FraName" />
+                                                        <Binding Path="PorName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
                       </materialDesign:Card>
 
-            <!--   Tbl72PlSpecies  -->
+                        <!--  Tbl72PlSpecies  -->
 
                         <materialDesign:Card
                             Margin="2,0,0,0"
                             Background="{DynamicResource PrimaryHueLightBrush}"
                             Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
                             UniformCornerRadius="2">
-                        <ListBox
-                            x:Name="Tbl72PlSpeciessesList"
-                            Width="{Binding ElementName=PageWidthText, Path=Text}"
-                            Height="Auto"
-                            Margin="0"
-                            HorizontalAlignment="Left"
-                            ItemsSource="{Binding Tbl72PlSpeciessesList}"
-                            Visibility="{Binding ElementName=Tbl72PlSpeciessesList, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Margin="180,0,0,0" Orientation="Horizontal">
-                                        <TextBlock Width="140" Text="{DynamicResource Tbl72PlSpecies-PlSpecies}" />
-                                                <TextBlock FontWeight="Bold">
-                                                    <TextBlock.Text>
-			        <MultiBinding StringFormat=" {0} {1} {2} {3} ">
-                                                            <Binding Path="(models:Tbl72PlSpecies.Tbl66Genusses).GenusName" />
-                                                            <Binding Path="(models:Tbl72PlSpecies.PlSpeciesName)" />
-                                                            <Binding Path="(models:Tbl72PlSpecies.Subspecies)" />
-                                                            <Binding Path="(models:Tbl72PlSpecies.Divers)" />
-                                                        </MultiBinding>
-                                                    </TextBlock.Text>
-                                                </TextBlock>
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl72PlSpecies.Author)}" />
-                                        <TextBlock
-                                            Width="Auto"
-                                            Margin="2,0,0,0"
-                                            Text="{Binding (models:Tbl72PlSpecies.AuthorYear)}" />
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                      </materialDesign:Card>
-                  </Paragraph>
+                            <ListBox
+                                x:Name="Tbl72PlSpeciessesPlSpeciesNameList"
+                                Width="{Binding ElementName=PageWidthText, Path=Text}"
+                                Height="Auto"
+                                Margin="0"
+                                HorizontalAlignment="Left"
+                                ItemsSource="{Binding Tbl72PlSpeciessesPlSpeciesNameList}"
+                                Visibility="{Binding ElementName=Tbl72PlSpeciessesPlSpeciesNameList, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="180,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="140" Text="{DynamicResource Tbl72PlSpecies-PlSpecies}" />
+                                            <TextBlock FontWeight="Bold">
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat=" {0} {1} ">
+                                                        <Binding Path="(models:Tbl72PlSpecies.Tbl66Genusses).GenusName" />
+                                                        <Binding Path="(models:Tbl72PlSpecies.PlSpeciesName)" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Width="Auto" Margin="2,0,0,0">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </materialDesign:Card>
+
+                        <materialDesign:Card
+                            Margin="2,0,0,0"
+                            Background="{DynamicResource PrimaryHueLightBrush}"
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                            UniformCornerRadius="2">
+                            <ListBox
+                                x:Name="Tbl72PlSpeciessesList"
+                                Width="{Binding ElementName=PageWidthText, Path=Text}"
+                                Height="Auto"
+                                Margin="0"
+                                HorizontalAlignment="Left"
+                                ItemsSource="{Binding Tbl72PlSpeciessesList}"
+                                Visibility="{Binding ElementName=Tbl72PlSpeciessesList, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="180,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="140" Text="{DynamicResource Tbl72PlSpecies-PlSpecies}" />
+                                            <TextBlock FontWeight="Bold">
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat=" {0} {1} {2} {3} ">
+                                                        <Binding Path="(models:Tbl72PlSpecies.Tbl66Genusses).GenusName" />
+                                                        <Binding Path="(models:Tbl72PlSpecies.PlSpeciesName)" />
+                                                        <Binding Path="(models:Tbl72PlSpecies.Subspecies)" />
+                                                        <Binding Path="(models:Tbl72PlSpecies.Divers)" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Width="Auto" Margin="2,0,0,0">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </materialDesign:Card>
+
+                        <!--  Tbl72PlSpecies Children  -->
+
+                        <materialDesign:Card
+                            Margin="2,2,0,0"
+                            Background="{DynamicResource PrimaryHueLightBrush}"
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                            UniformCornerRadius="2">
+                            <TextBlock
+                                Width="{Binding ElementName=PageWidthText, Path=Text}"
+                                Margin="20,0,0,0"
+                                FontWeight="Bold"
+                                Text="{DynamicResource Report-DirectChild}" />
+                        </materialDesign:Card>
+                        <materialDesign:Card
+                            Margin="2,2,0,0"
+                            Background="{DynamicResource PrimaryHueLightBrush}"
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                            UniformCornerRadius="2">
+                            <ListBox
+                                x:Name="Tbl72PlSpeciessesSubList"
+                                Width="{Binding ElementName=PageWidthText, Path=Text}"
+                                Height="Auto"
+                                Margin="0"
+                                HorizontalAlignment="Left"
+                                ItemsSource="{Binding Tbl72PlSpeciessesSubList}"
+                                Visibility="{Binding ElementName=Tbl72PlSpeciessesSubList, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="188,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="140" Text="{DynamicResource Tbl72PlSpecies-Subspecies}" />
+                                            <TextBlock>
+                                                <Hyperlink Click="HyperlinkPlSpecies_Click" Tag="{Binding (models:Tbl72PlSpecies.PlSpeciesID)}">
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat=" {0} {1} {2} {3} ">
+                                                                <Binding Path="(models:Tbl72PlSpecies.Tbl66Genusses).GenusName" />
+                                                                <Binding Path="(models:Tbl72PlSpecies.PlSpeciesName)" />
+                                                                <Binding Path="(models:Tbl72PlSpecies.Subspecies)" />
+                                                                <Binding Path="(models:Tbl72PlSpecies.Divers)" />
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Hyperlink>
+                                            </TextBlock>
+                                            <TextBlock Width="Auto" Margin="2,0,0,0">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
+                                                        <Binding Path="Author" />
+                                                        <Binding Path="AuthorYear" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </materialDesign:Card>
+
+                    </Paragraph>
               </Section>  ]]>   
 
 </xsl:when>  

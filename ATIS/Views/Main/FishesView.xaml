@@ -5,17 +5,23 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:d03Regnum="clr-namespace:ATIS.Ui.Views.Database.D03Regnum"
     xmlns:d06Phylum="clr-namespace:ATIS.Ui.Views.Database.D06Phylum"
-    xmlns:d09Division="clr-namespace:ATIS.Ui.Views.Database.D09Division"
     xmlns:d12Subphylum="clr-namespace:ATIS.Ui.Views.Database.D12Subphylum"
-    xmlns:d15Subdivision="clr-namespace:ATIS.Ui.Views.Database.D15Subdivision"
-    xmlns:local="clr-namespace:ATIS.Ui.Views.Main"
+    xmlns:d18Superclass="clr-namespace:ATIS.Ui.Views.Database.D18Superclass"
+    xmlns:d21Class="clr-namespace:ATIS.Ui.Views.Database.D21Class"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
 
-    <UserControl.Resources><DataTemplate DataType="{x:Type d12Subphylum:SubphylumsViewModel}">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type d21Class:ClassesViewModel}">
+            <d21Class:ClassesView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d18Superclass:SuperclassesViewModel}">
+            <d18Superclass:SuperclassesView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d12Subphylum:SubphylumsViewModel}">
             <d12Subphylum:SubphylumsView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type d06Phylum:PhylumsViewModel}">
@@ -84,8 +90,12 @@
                     SelectedIndex="2">
                     <TabItem Content="{Binding Tbl27InfraclassesView}" Header="{DynamicResource Database-MenuInfraclass}" />
                     <TabItem Content="{Binding Tbl24SubclassesView}" Header="{DynamicResource Database-MenuSubclass}" />
-                    <TabItem Content="{Binding Tbl21ClassesView}" Header="{DynamicResource Database-MenuClass}" />
-                    <TabItem Content="{Binding Tbl18SuperclassesView}" Header="{DynamicResource Database-MenuSuperclass}" />
+                    <TabItem Header="{DynamicResource Database-MenuClass}">
+                        <d21Class:ClassesViewModel />
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Database-MenuSuperclass}">
+                        <d18Superclass:SuperclassesViewModel />
+                    </TabItem>
                 </TabControl>
             </TabItem>
             <TabItem Header="{DynamicResource Database-MenuPhylum}">

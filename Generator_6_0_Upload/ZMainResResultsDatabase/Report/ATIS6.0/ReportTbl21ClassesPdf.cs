@@ -9,7 +9,7 @@ using Te.Atis.DomainModel;
 using Te.Atis.Ui.Desktop.BusinessLayer;   
 
     
-         //    ReportTbl21ClassesPdf Skriptdatum:  12.12.2019  18:32    
+         //    ReportTbl21ClassesPdf Skriptdatum:  05.11.2020  18:32    
 
 namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 {     
@@ -47,7 +47,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             reportVm.GetTbl21ClassesById(id, fishId, plantId); 
 
             //From Database Tbl21Classes
-            _class = _businessLayer.SingleListTbl21ClassesByClassId(id);
+            _classe = _businessLayer.SingleListTbl21ClassesByClassId(id);
             _superclass = _businessLayer.SingleListTbl18SuperclassesBySuperclassId(_class.SuperclassID);     
             if (_superclass.SubphylumID == fishId)  //Basis #Subphylum#
             {
@@ -125,10 +125,10 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
             };
             table.SetWidths(new[] { 0.05f, 0.05f, 1.25f, 4.00f });  
       
-            var author = PdfHelper.AuthorViewChangeWithoutString(_class.Author, _class.AuthorYear);
+            var author = PdfHelper.AuthorViewChangeWithoutString(_classe.Author, _classe.AuthorYear);
 
-            table.AddCell(new PdfPCell(new Phrase(_class.ClassName + " " + author, LargeFont)) { Colspan = 4, Border = 0 });  // 1.-4. field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportTaxonomicId + " " + Convert.ToString(_class.CountID), StandardFont)) { Colspan = 4, Border = 0 }); // 1.-4. field
+            table.AddCell(new PdfPCell(new Phrase(_classe.ClassName + " " + author, LargeFont)) { Colspan = 4, Border = 0 });  // 1.-4. field
+            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportTaxonomicId + " " + Convert.ToString(_classe.CountID), StandardFont)) { Colspan = 4, Border = 0 }); // 1.-4. field
             doc.Add(table);
             return doc;
         }  
@@ -160,24 +160,24 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
           
             table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportSynonyms, StandardFont)) { Border = 0 });  // 2. field
-            table.AddCell(new PdfPCell(new Phrase(_class.Synonym, StandardFont)) { Border = 0 });  // 3. field
+            table.AddCell(new PdfPCell(new Phrase(_classe.Synonym, StandardFont)) { Border = 0 });  // 3. field
             table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. fField
             table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportCommonNames, StandardFont)) { Border = 0 });  // 2. field
-            table.AddCell(new PdfPCell(new Phrase(_class.GerName + " " + CultRes.StringsRes.ReportGerman, StandardFont)) { Border = 0 });  // 3. field
+            table.AddCell(new PdfPCell(new Phrase(_classe.GerName + " " + CultRes.StringsRes.ReportGerman, StandardFont)) { Border = 0 });  // 3. field
             table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             table.AddCell(new PdfPCell { Colspan = 2, Border = 0 });  // 1. + 2.  field
-            table.AddCell(new PdfPCell(new Phrase(_class.EngName + " " + CultRes.StringsRes.ReportEnglish, StandardFont)) { Border = 0 });  // 3. field
+            table.AddCell(new PdfPCell(new Phrase(_classe.EngName + " " + CultRes.StringsRes.ReportEnglish, StandardFont)) { Border = 0 });  // 3. field
             table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             table.AddCell(new PdfPCell { Colspan = 2, Border = 0 });  // 1. + 2.  field
-            table.AddCell(new PdfPCell(new Phrase(_class.FraName + " " + CultRes.StringsRes.ReportFrench, StandardFont)) { Border = 0 });  // 3. field
+            table.AddCell(new PdfPCell(new Phrase(_classe.FraName + " " + CultRes.StringsRes.ReportFrench, StandardFont)) { Border = 0 });  // 3. field
             table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             table.AddCell(new PdfPCell { Colspan = 2, Border = 0 });  // 1. + 2.  field
-            table.AddCell(new PdfPCell(new Phrase(_class.PorName + " " + CultRes.StringsRes.ReportPortuguese, StandardFont)) { Border = 0 });  // 3. field
+            table.AddCell(new PdfPCell(new Phrase(_classe.PorName + " " + CultRes.StringsRes.ReportPortuguese, StandardFont)) { Border = 0 });  // 3. field
             table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
@@ -186,7 +186,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportCurrentStand, StandardFont)) { Border = 0 });  // 2. field
-            table.AddCell(new PdfPCell(new Phrase(Convert.ToString(_class.Valid), StandardFont)) { Border = 0 });  // 3. field
+            table.AddCell(new PdfPCell(new Phrase(Convert.ToString(_classe.Valid), StandardFont)) { Border = 0 });  // 3. field
             table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
 
             table.AddCell(new PdfPCell(new Phrase(" ")) { Colspan = 4, Border = 0 });  //Empty row
@@ -205,17 +205,17 @@ namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 
             table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportRecordUpdate, StandardFont)) { Border = 0 });  // 2. field
-            table.AddCell(new PdfPCell(new Phrase(Convert.ToString(_class.UpdaterDate, CultureInfo.InvariantCulture), StandardFont)) { Border = 0 });  // 3. field
+            table.AddCell(new PdfPCell(new Phrase(Convert.ToString(_classe.UpdaterDate, CultureInfo.InvariantCulture), StandardFont)) { Border = 0 });  // 3. field
             table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4. field
 
             table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportInfo, StandardFont)) { Border = 0 });  // 2. field
-            table.AddCell(new PdfPCell(new Phrase(_class.Info, StandardFont)) { Border = 0 });  // 3. field
+            table.AddCell(new PdfPCell(new Phrase(_classe.Info, StandardFont)) { Border = 0 });  // 3. field
             table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4. field
 
             table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
             table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportMemo, StandardFont)) { Border = 0 });  // 2. field
-            table.AddCell(new PdfPCell(new Phrase(_class.Memo, StandardFont)) { Border = 0 });  // 3. field
+            table.AddCell(new PdfPCell(new Phrase(_classe.Memo, StandardFont)) { Border = 0 });  // 3. field
             table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4. field
 
             doc.Add(table);

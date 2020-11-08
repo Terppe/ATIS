@@ -1,7 +1,8 @@
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
+using System.ComponentModel;  
+
+    
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -12,11 +13,10 @@ using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Database.CrudHelper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
 using Microsoft.EntityFrameworkCore;          
-
     
-         //    ClassesViewModel Skriptdatum:  12.12.2019  18:32    
+         //    ClassesViewModel Skriptdatum:  05.11.2020  18:32    
 
-namespace ATIS.Ui.Views.Database.ListDetails
+namespace ATIS.Ui.Views.Database.D21Class
 {     
     
     public class ClassesViewModel : ViewModelBase                     
@@ -93,7 +93,7 @@ namespace ATIS.Ui.Views.Database.ListDetails
         private void ExecuteGetClassesByNameOrId(string searchName)
         {
             Tbl18SuperclassesAllList = _extGet.AllCollection<Tbl18Superclass>("superclass");
-            Tbl21ClassesList = _extGet.SearchNameAndIdReturnCollection<Tbl21Class>(SearchClassName, "class");
+            Tbl21ClassesList = _extGet.SearchNameAndIdReturnCollection<Tbl21Class>(SearchClassName, "classe");
 
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 1;
@@ -157,12 +157,12 @@ namespace ATIS.Ui.Views.Database.ListDetails
             }
             try
             {
-                var class= _uow.Tbl21Classes.GetById(CurrentTbl21Class.ClassId);
-                if (class!= null)
+                var classe= _uow.Tbl21Classes.GetById(CurrentTbl21Class.ClassId);
+                if (classe!= null)
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl21Class.ClassName)) return;
 
-                    _extDelete.DeleteClass(class);
+                    _extDelete.DeleteClass(classe);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl21Class.ClassName);
                 }
@@ -193,23 +193,23 @@ namespace ATIS.Ui.Views.Database.ListDetails
      
             try
             {
-                var class = _uow.Tbl21Classes .GetById(CurrentTbl21Class.ClassId);
+                var classe = _uow.Tbl21Classes .GetById(CurrentTbl21Class.ClassId);
                 //   var phylum = _context.Tbl21Classes.AsNoTracking().FirstOrDefault(a=>a.ClassId == CurrentTbl21Class.ClassId);
-                //          _context.Entry(class).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+                //          _context.Entry(classe).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
 
                 if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl21Class.ClassName))
                     return;
 
                 if (CurrentTbl21Class.ClassId == 0)
-                    class = _extSave.ClassAdd(CurrentTbl21Class);
+                    classe = _extSave.ClassAdd(CurrentTbl21Class);
                 else
-                    class = _extSave.ClassUpdate(class, CurrentTbl21Class);
+                    classe = _extSave.ClassUpdate(classe, CurrentTbl21Class);
 
                 _position = ClassesView.CurrentPosition;
 
                 try
                 {
-                    _extSave.ClassSave(class, CurrentTbl21Class);
+                    _extSave.ClassSave(classe, CurrentTbl21Class);
                 }
                 catch (DbUpdateException e)
                 {
@@ -336,7 +336,7 @@ namespace ATIS.Ui.Views.Database.ListDetails
         private void ExecuteAddSubclass(object o)      
         {
             Tbl24SubclassesList.Insert(0, new Tbl24Subclass  { SubclassName = CultRes.StringsRes.DatasetNew});
-            Tbl21ClassesAllList = _extGet.AllCollection<Tbl21Class>("class");
+            Tbl21ClassesAllList = _extGet.AllCollection<Tbl21Class>("classe");
 
             SubclassesView = CollectionViewSource.GetDefaultView(Tbl24SubclassesList);
             SubclassesView.MoveCurrentToFirst();
@@ -1050,8 +1050,8 @@ namespace ATIS.Ui.Views.Database.ListDetails
 
         private void GetConnectedTablesById(object o)
         {           
-Tbl12SubphylumsAllList =  new ObservableCollection<Tbl12Subphylum>(_businessLayer.ListTbl12Subphylums());
-             Tbl15SubdivisionsAllList =  new ObservableCollection<Tbl15Subdivision>(_businessLayer.ListTbl15Subdivisions());
+Tbl12SubphylumsAllList = _extGet.AllCollection<Tbl12Subphylum>("subphylum");
+            Tbl15SubdivisionsAllList = _extGet.AllCollection<Tbl15Subdivision>("subdivision");
 
             Tbl18SuperclassesList = _extGet.GetSuperclassesCollectionOrderByFromSuperclassId<Tbl18Superclass>(CurrentTbl21Class.SuperclassId);
  
@@ -1087,7 +1087,7 @@ Tbl12SubphylumsAllList =  new ObservableCollection<Tbl12Subphylum>(_businessLaye
                     {
                         Tbl18SuperclassesList = _extGet.GetSuperclassesCollectionOrderByFromSuperclassId<Tbl18Superclass>(CurrentTbl21Class.SuperclassId);
 
-                        Tbl12SubphylumsAllList = _extGet.AllCollection<Tbl12Subphylum>("");
+                        Tbl12SubphylumsAllList = _extGet.AllCollection<Tbl12Subphylum>("subphylum");
 
                         SuperclassesView = CollectionViewSource.GetDefaultView(Tbl18SuperclassesList);
                         SuperclassesView.Refresh();
@@ -1101,7 +1101,7 @@ Tbl12SubphylumsAllList =  new ObservableCollection<Tbl12Subphylum>(_businessLaye
                     {
                         Tbl24SubclassesList = _extGet.GetSubclassesCollectionOrderByFromClassId<Tbl24Subclass>(CurrentTbl21Class.ClassId);
 
-                        Tbl21ClassesAllList = _extGet.AllCollection<Tbl21Class>("class");
+                        Tbl21ClassesAllList = _extGet.AllCollection<Tbl21Class>("classe");
 
                         SubclassesView = CollectionViewSource.GetDefaultView(Tbl24SubclassesList);
                         SubclassesView.Refresh();
@@ -1111,8 +1111,8 @@ Tbl12SubphylumsAllList =  new ObservableCollection<Tbl12Subphylum>(_businessLaye
      
                 if (_selectedMainTabIndex == 2)
                 {
-                    SelectedDetailTabIndex = 3;
-                    SelectedMainSubRefTabIndex = 0;
+                        SelectedDetailTabIndex = 3;
+                        SelectedMainSubRefTabIndex = 0;                  
                 }           
      
                 if (_selectedMainTabIndex == 3)
@@ -1161,7 +1161,7 @@ Tbl12SubphylumsAllList =  new ObservableCollection<Tbl12Subphylum>(_businessLaye
                     {
                         Tbl24SubclassesList = _extGet.GetSubclassesCollectionOrderByFromClassId<Tbl24Subclass>(CurrentTbl21Class.ClassId);
 
-                        Tbl21ClassesAllList = _extGet.AllCollection<Tbl21Class>("class");
+                        Tbl21ClassesAllList = _extGet.AllCollection<Tbl21Class>("classe");
 
                         SubclassesView = CollectionViewSource.GetDefaultView(Tbl24SubclassesList);
                         SubclassesView.Refresh();
@@ -1224,6 +1224,18 @@ Tbl12SubphylumsAllList =  new ObservableCollection<Tbl12Subphylum>(_businessLaye
                         CommentsView.Refresh();
                     }
                     SelectedMainTabIndex = 3;
+                }       
+     
+                if (_selectedDetailTabIndex == 7)
+                {
+                    if (CurrentTbl21Class != null)
+                    {
+                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromClassId<Tbl93Comment>(CurrentTbl21Class.ClassId);
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 4;
                 }       
      
             }

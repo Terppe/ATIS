@@ -6,12 +6,16 @@
     <UseWPF>true</UseWPF>
     <Platforms>AnyCPU;x64</Platforms>
     <StartupObject></StartupObject>
+    <Description>Bilddatenbank der Aquaristik</Description>
+    <Company>Terppe</Company>
+    <Version>6.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="appsettings.json" />
     <None Remove="Asset\Images\Aquarium.jpg" />
     <None Remove="Asset\Images\Aquarium2.jpg" />
+    <None Remove="Asset\Images\AtisSplash.jpg" />
     <None Remove="Asset\Images\Home.jpg" />
     <None Remove="Asset\Images\Nilpferd.jpg" />
     <None Remove="Asset\Images\Privat.jpg" />
@@ -44,7 +48,6 @@
 
   <ItemGroup>
     <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Database\D18Superclass\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
 
@@ -66,6 +69,10 @@
     <Resource Include="Asset\Images\Nilpferd.jpg" />
     <Resource Include="Asset\Images\Privat.jpg" />
     <Resource Include="Asset\Images\Settings.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SplashScreen Include="Asset\Images\AtisSplash.jpg" />
   </ItemGroup>
 
 </Project>

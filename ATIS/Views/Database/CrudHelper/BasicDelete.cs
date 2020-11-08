@@ -147,6 +147,51 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             return collection;
         }
 
+
+        //-----------------------------Class-----------------------------------------
+        public void DeleteClass(Tbl21Class selected)
+        {
+            _uow.Tbl21Classes.Remove(selected);
+            _uow.Complete();
+        }
+        public ObservableCollection<Tbl24Subclass> SearchForConnectedDatasetsWithClassIdInTableSubclass(Tbl21Class selected)
+        {
+            var collection = new ObservableCollection<Tbl24Subclass>(_uow.Tbl24Subclasses.Find(x => x.ClassId == selected.ClassId));
+            return collection;
+        }
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithClassIdInTableReference(Tbl21Class selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.ClassId == selected.ClassId));
+            return collection;
+        }
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithClassIdInTableComment(Tbl21Class selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.ClassId == selected.ClassId));
+            return collection;
+        }
+
+        //------------------------------ Subclass -----------------------------------
+        public void DeleteSubclass(Tbl24Subclass selected)
+        {
+            _uow.Tbl24Subclasses.Remove(selected);
+            _uow.Complete();
+        }
+        public ObservableCollection<Tbl27Infraclass> SearchForConnectedDatasetsWithSubclassIdInTableInfraclass(Tbl24Subclass selected)
+        {
+            var collection = new ObservableCollection<Tbl27Infraclass>(_uow.Tbl27Infraclasses.Find(x => x.SubclassId == selected.SubclassId));
+            return collection;
+        }
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubclassIdInTableReference(Tbl24Subclass selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubclassId == selected.SubclassId));
+            return collection;
+        }
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubclassIdInTableComment(Tbl24Subclass selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubclassId == selected.SubclassId));
+            return collection;
+        }
+
         //-----------------------DeleteReferences, DeleteComments, DeleteReference, DeleteComment-----------------------------------
 
         public void DeleteReferences(ObservableCollection<Tbl90Reference> coll)

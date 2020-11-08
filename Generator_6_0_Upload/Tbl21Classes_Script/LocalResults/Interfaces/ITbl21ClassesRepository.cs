@@ -1,7 +1,7 @@
 using System.Linq;
 using Atis.WpfUi.Model;      
    
-// <!-- Interface Skriptdatum:  12.12.2019  18:32     -->  
+// <!-- Interface Skriptdatum:  05.11.2020  18:32     -->  
 
 namespace Atis.WpfUi.Interfaces     {         
     public interface ITbl21ClassesRepository    {

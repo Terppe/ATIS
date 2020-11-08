@@ -4,9 +4,9 @@ using System;
 using System.Windows.Controls;   
  
 
-      //  Tbl21ClassesView.xaml.cs Skriptdatum:  12.12.2019  18:32     
+      //  Tbl21ClassesView.xaml.cs Skriptdatum:  05.11.2020  18:32     
 
-namespace ATIS.Ui.Views.Database.ListDetails
+namespace ATIS.Ui.Views.Database.D21Class
 {  
 
     /// <summary>

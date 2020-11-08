@@ -1228,10 +1228,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
                 if (_selectedDetailTabIndex == 0)
                 {
-                    if (CurrentTbl03Regnum != null)
-                    {
-                    }
-                    SelectedMainTabIndex = 0;
+                     SelectedMainTabIndex = 0;
                 }
 
                 if (_selectedDetailTabIndex == 1)

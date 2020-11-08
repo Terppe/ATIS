@@ -2,7 +2,7 @@
  <Definition>
   <File>Tbl21Classes</File>
 
-  <DateTime>12.12.2019  18:32</DateTime>  
+  <DateTime>05.11.2020  18:32</DateTime>  
   <Namespace>Atis</Namespace>  
   <ConnString></ConnString> 
   <RegisterContext>ATISEntities</RegisterContext > 
@@ -11,9 +11,9 @@
 
   <LayoutTK3>ListDetails</LayoutTK3>
   <LayoutTK2>ListDetails</LayoutTK2>
-  <LayoutTK1>ListDetails</LayoutTK1>
-  <Layout>ListDetails</Layout>
-  <LayoutFK1>ListDetails</LayoutFK1>
+  <LayoutTK1>D24Subclass</LayoutTK1>
+  <Layout>D21Class</Layout>
+  <LayoutFK1>D18Superclass</LayoutFK1>
   <LayoutFK2>ListDetails</LayoutFK2>
   <LayoutBK1>ListDetails</LayoutBK1>
   <LayoutBK2>ListDetails</LayoutBK2>
@@ -115,9 +115,11 @@
   <BasissBK2>Subdivisions</BasissBK2> 
 
   <BasisSmTK1>subclass</BasisSmTK1> 
-  <BasisSm>class</BasisSm> 
+  <BasisSm>classe</BasisSm> 
   <BasisSmFK1>superclass</BasisSmFK1> 
   <BasisSmFK2>NULL</BasisSmFK2> 
+  <BasisSmBK1>subphylum</BasisSmBK1> 
+  <BasisSmBK2>subdivision</BasisSmBK2> 
 
   <LinqModelTK7>Tbl93Comment</LinqModelTK7> 
   <LinqModelTK6>Tbl90RefAuthor</LinqModelTK6> 

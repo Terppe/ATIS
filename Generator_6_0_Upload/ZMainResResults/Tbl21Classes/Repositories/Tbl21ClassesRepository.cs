@@ -2,7 +2,7 @@ using System.Linq;
 using Atis.WpfUi.Interfaces;
 using Atis.WpfUi.Model;    
 
-// <!-- Repository Skriptdatum:  12.12.2019  18:32    -->  
+// <!-- Repository Skriptdatum:  05.11.2020  18:32    -->  
 
 namespace Atis.WpfUi.Repositories      {  
     public class Tbl21ClassesRepository : ITbl21ClassesRepository    {

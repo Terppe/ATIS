@@ -9,7 +9,7 @@ using Te.Atis.DomainModel;
 using Te.Atis.Ui.Desktop.BusinessLayer;   
 
     
-         //    ReportTbl18SuperclassesPdf Skriptdatum:  12.12.2018  12:32    
+         //    ReportTbl18SuperclassesPdf Skriptdatum:  04.11.2020  12:32    
 
 namespace Te.Atis.Ui.Desktop.Views.Report.PDF
 {     

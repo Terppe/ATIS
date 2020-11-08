@@ -1,7 +1,8 @@
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
+using System.ComponentModel;  
+
+    
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -12,7 +13,6 @@ using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Database.CrudHelper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
 using Microsoft.EntityFrameworkCore;          
-
     
          //    ReferencesViewModel Skriptdatum:  29.11.2018  10:32    
 
@@ -400,8 +400,8 @@ Tbl90RefExpertsList = _extGet.GetRefExpertsCollectionOrderByFromRefExpertId<Tbl9
      
                 if (_selectedMainTabIndex == 2)
                 {
-                    SelectedDetailTabIndex = 3;
-                    SelectedMainSubRefTabIndex = 0;
+                        SelectedDetailTabIndex = 3;
+                        SelectedMainSubRefTabIndex = 0;                  
                 }           
      
                 if (_selectedMainTabIndex == 3)
@@ -513,6 +513,18 @@ Tbl90RefExpertsList = _extGet.GetRefExpertsCollectionOrderByFromRefExpertId<Tbl9
                         CommentsView.Refresh();
                     }
                     SelectedMainTabIndex = 3;
+                }       
+     
+                if (_selectedDetailTabIndex == 7)
+                {
+                    if (CurrentTbl90Reference != null)
+                    {
+                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromReferenceId<Tbl93Comment>(CurrentTbl90Reference.ReferenceId);
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 4;
                 }       
      
             }

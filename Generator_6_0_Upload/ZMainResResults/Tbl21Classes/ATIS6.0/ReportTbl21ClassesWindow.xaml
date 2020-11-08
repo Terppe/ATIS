@@ -20,7 +20,7 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto" >  
 
-        <!-- ReportTbl21ClassesWindow.xaml  Skriptdatum:  12.12.2019  18:32   -->    
+        <!-- ReportTbl21ClassesWindow.xaml  Skriptdatum:  05.11.2020  18:32   -->    
           
     <Window.Resources>
         <ResourceDictionary>

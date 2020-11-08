@@ -12,7 +12,7 @@
           
              xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"                                              
             
-             d:DesignHeight="700" 
+             d:DesignHeight="800" 
              d:DesignWidth="1550"
              mc:Ignorable="d">                                              
                          
@@ -97,7 +97,7 @@
                                             </TextBox> 
                                         </Grid>                                     
              
-                                <Button Template="{StaticResource SearchPlSpeciessButton}" />
+                                <Button Template="{StaticResource SearchPlSpeciessesButton}" />
                                 <Button Template="{StaticResource AddPlSpeciesButton}" />
                             </StackPanel>     
                         </GroupBox>     
@@ -895,7 +895,7 @@
                                                     Path="SelectedItem.(models:Tbl66Genus.GenusName)"
                                                     UpdateSourceTrigger="PropertyChanged"/>
                                 </TextBox.Text>
-                            </TextBox>          
+                            </TextBox>                               
          
                                             <ComboBox
                                                 Width="300"
@@ -1163,7 +1163,7 @@
                                         <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
                                             Width="367"
-                                            Margin="5,0,0,0"
+                                            Margin="5"
                                             materialDesign:HintAssist.Hint="{DynamicResource Shared-EngName}"
                                             materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"
@@ -1183,7 +1183,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="367"
-                                            Margin="25,0,0,0"
+                                            Margin="21,5,5,5"
                                             materialDesign:HintAssist.Hint="{DynamicResource Shared-GerName}"
                                             materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"
@@ -1205,7 +1205,7 @@
                                         <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
                                             Width="367"
-                                            Margin="5,0,0,0"
+                                            Margin="5"
                                             materialDesign:HintAssist.Hint="{DynamicResource Shared-FraName}"
                                             materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"
@@ -1225,7 +1225,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="367"
-                                            Margin="25,0,0,0"
+                                            Margin="21,5,5,5"
                                             materialDesign:HintAssist.Hint="{DynamicResource Shared-SpaName}"
                                             materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"
@@ -1416,7 +1416,7 @@
                                         <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
                                             Width="367"
-                                            Margin="5,0,0,0"
+                                            Margin="5"
                                             materialDesign:HintAssist.Hint="{DynamicResource Shared-EngName}"
                                             materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"
@@ -1436,7 +1436,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="367"
-                                            Margin="25,0,0,0"
+                                            Margin="21,5,5,5"
                                             materialDesign:HintAssist.Hint="{DynamicResource Shared-GerName}"
                                             materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"
@@ -1458,7 +1458,7 @@
                                         <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
                                             Width="367"
-                                            Margin="5,0,0,0"
+                                            Margin="5"
                                             materialDesign:HintAssist.Hint="{DynamicResource Shared-FraName}"
                                             materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"
@@ -1478,7 +1478,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="367"
-                                            Margin="25,0,0,0"
+                                            Margin="21,5,5,5"
                                             materialDesign:HintAssist.Hint="{DynamicResource Shared-SpaName}"
                                             materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"

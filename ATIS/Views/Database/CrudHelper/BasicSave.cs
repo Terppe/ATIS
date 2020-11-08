@@ -1082,7 +1082,6 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             };
             return reference;
         }
-
         public Tbl90Reference ReferenceAuthorSuperclassUpdate(Tbl90Reference reference, Tbl90Reference selected)
         {
             if (reference != null) //update
@@ -1116,36 +1115,6 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             };
             return reference;
         }
-
-        //-------------------Reference-------------------------------------
-        public void ReferenceExpertSave(Tbl90Reference home, Tbl90Reference selected)
-        {
-            if (selected.ReferenceId != 0)   //update
-                _uow.Tbl90References.Update(home);
-            else                                            //add
-                _uow.Tbl90References.Add(home);
-
-            _uow.Complete();
-        }
-        public void ReferenceSourceSave(Tbl90Reference home, Tbl90Reference selected)
-        {
-            if (selected.ReferenceId != 0)   //update
-                _uow.Tbl90References.Update(home);
-            else                                            //add
-                _uow.Tbl90References.Add(home);
-
-            _uow.Complete();
-        }
-        public void ReferenceAuthorSave(Tbl90Reference home, Tbl90Reference selected)
-        {
-            if (selected.ReferenceId != 0)   //update
-                _uow.Tbl90References.Update(home);
-            else                                            //add
-                _uow.Tbl90References.Add(home);
-
-            _uow.Complete();
-        }
-        //-------------------Comment-------------------------------------
         public Tbl93Comment CommentSuperclassUpdate(Tbl93Comment comment, Tbl93Comment selected)
         {
             if (comment != null) //update
@@ -1177,6 +1146,286 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             };
             return comment;
         }
+
+
+        //------------------------Class ------------------------------------
+        public Tbl21Class ClassUpdate(Tbl21Class home, Tbl21Class selected)
+        {
+            if (home != null) //update
+            {
+                home.ClassName = selected.ClassName;
+                home.SuperclassId = selected.SuperclassId;
+                home.Valid = selected.Valid;
+                home.ValidYear = selected.ValidYear;
+                home.Author = selected.Author;
+                home.AuthorYear = selected.AuthorYear;
+                home.Info = selected.Info;
+                home.Synonym = selected.Synonym;
+                home.EngName = selected.EngName;
+                home.GerName = selected.GerName;
+                home.FraName = selected.FraName;
+                home.PorName = selected.PorName;
+                home.Memo = selected.Memo;
+                home.Updater = Environment.UserName;
+                home.UpdaterDate = DateTime.Now;
+            }
+            return home;
+        }
+        public Tbl21Class ClassAdd(Tbl21Class selected)
+        {
+            var home = new Tbl21Class() //add new
+            {
+                ClassName = selected.ClassName,
+                SuperclassId = selected.SuperclassId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Author = selected.Author,
+                AuthorYear = selected.AuthorYear,
+                Info = selected.Info,
+                Synonym = selected.Synonym,
+                EngName = selected.EngName,
+                GerName = selected.GerName,
+                FraName = selected.FraName,
+                PorName = selected.PorName,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now
+            };
+            return home;
+        }
+        public void ClassSave(Tbl21Class home, Tbl21Class selected)
+        {
+            if (selected.SuperclassId != 0) //update
+            {
+                _uow.Tbl21Classes.Update(home);
+            }
+            else                                //add
+                _uow.Tbl21Classes.Add(home);
+            _uow.Complete();
+        }
+        public Tbl90Reference ReferenceExpertClassUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefExpertId = selected.RefExpertId;
+                reference.ClassId = selected.ClassId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceExpertClassAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefExpertId = selected.RefExpertId,
+                ClassId = selected.ClassId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourceClassUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefSourceId = selected.RefSourceId;
+                reference.ClassId = selected.ClassId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourceClassAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefSourceId = selected.RefSourceId,
+                ClassId = selected.ClassId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorClassUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefAuthorId = selected.RefAuthorId;
+                reference.ClassId = selected.ClassId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorClassAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefAuthorId = selected.RefAuthorId,
+                ClassId = selected.ClassId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl93Comment CommentClassUpdate(Tbl93Comment comment, Tbl93Comment selected)
+        {
+            if (comment != null) //update
+            {
+                comment.ClassId = selected.ClassId;
+                comment.Valid = selected.Valid;
+                comment.ValidYear = selected.ValidYear;
+                comment.Info = selected.Info;
+                comment.Updater = Environment.UserName;
+                comment.UpdaterDate = DateTime.Now;
+                comment.Memo = selected.Memo;
+            }
+            return comment;
+        }
+        public Tbl93Comment CommentClassAdd(Tbl93Comment selected)
+        {
+            var comment = new Tbl93Comment //add new
+            {
+                ClassId = selected.ClassId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return comment;
+        }
+
+        //------------------------Subclass ------------------------------------
+        public Tbl24Subclass SubclassUpdate(Tbl24Subclass home, Tbl24Subclass selected)
+        {
+            if (home != null) //update
+            {
+                home.SubclassName = selected.SubclassName;
+                home.ClassId = selected.ClassId;
+                home.Valid = selected.Valid;
+                home.ValidYear = selected.ValidYear;
+                home.Author = selected.Author;
+                home.AuthorYear = selected.AuthorYear;
+                home.Info = selected.Info;
+                home.Synonym = selected.Synonym;
+                home.EngName = selected.EngName;
+                home.GerName = selected.GerName;
+                home.FraName = selected.FraName;
+                home.PorName = selected.PorName;
+                home.Memo = selected.Memo;
+                home.Updater = Environment.UserName;
+                home.UpdaterDate = DateTime.Now;
+            }
+            return home;
+        }
+        public Tbl24Subclass SubclassAdd(Tbl24Subclass selected)
+        {
+            var home = new Tbl24Subclass() //add new
+            {
+                SubclassName = selected.SubclassName,
+                ClassId = selected.ClassId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Author = selected.Author,
+                AuthorYear = selected.AuthorYear,
+                Info = selected.Info,
+                Synonym = selected.Synonym,
+                EngName = selected.EngName,
+                GerName = selected.GerName,
+                FraName = selected.FraName,
+                PorName = selected.PorName,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now
+            };
+            return home;
+        }
+        public void SubclassSave(Tbl24Subclass home, Tbl24Subclass selected)
+        {
+            if (selected.ClassId != 0) //update
+            {
+                _uow.Tbl24Subclasses.Update(home);
+            }
+            else                                //add
+                _uow.Tbl24Subclasses.Add(home);
+            _uow.Complete();
+        }
+
+
+        //-------------------Reference-------------------------------------
+        public void ReferenceExpertSave(Tbl90Reference home, Tbl90Reference selected)
+        {
+            if (selected.ReferenceId != 0)   //update
+                _uow.Tbl90References.Update(home);
+            else                                            //add
+                _uow.Tbl90References.Add(home);
+
+            _uow.Complete();
+        }
+        public void ReferenceSourceSave(Tbl90Reference home, Tbl90Reference selected)
+        {
+            if (selected.ReferenceId != 0)   //update
+                _uow.Tbl90References.Update(home);
+            else                                            //add
+                _uow.Tbl90References.Add(home);
+
+            _uow.Complete();
+        }
+        public void ReferenceAuthorSave(Tbl90Reference home, Tbl90Reference selected)
+        {
+            if (selected.ReferenceId != 0)   //update
+                _uow.Tbl90References.Update(home);
+            else                                            //add
+                _uow.Tbl90References.Add(home);
+
+            _uow.Complete();
+        }
+        //-------------------Comment-------------------------------------
         public void CommentSave(Tbl93Comment home, Tbl93Comment selected)
         {
             if (selected.CommentId != 0)             //update

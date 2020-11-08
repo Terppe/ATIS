@@ -1,7 +1,8 @@
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
+using System.ComponentModel;  
+
+    
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -12,7 +13,6 @@ using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Database.CrudHelper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
 using Microsoft.EntityFrameworkCore;          
-
     
          //    FamiliesViewModel Skriptdatum:  19.06.2018  10:32    
 
@@ -1110,8 +1110,8 @@ Tbl42SuperfamiliesList = _extGet.GetSuperfamiliesCollectionOrderByFromSuperfamil
      
                 if (_selectedMainTabIndex == 2)
                 {
-                    SelectedDetailTabIndex = 3;
-                    SelectedMainSubRefTabIndex = 0;
+                        SelectedDetailTabIndex = 3;
+                        SelectedMainSubRefTabIndex = 0;                  
                 }           
      
                 if (_selectedMainTabIndex == 3)
@@ -1223,6 +1223,18 @@ Tbl42SuperfamiliesList = _extGet.GetSuperfamiliesCollectionOrderByFromSuperfamil
                         CommentsView.Refresh();
                     }
                     SelectedMainTabIndex = 3;
+                }       
+     
+                if (_selectedDetailTabIndex == 7)
+                {
+                    if (CurrentTbl45Family != null)
+                    {
+                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromFamilyId<Tbl93Comment>(CurrentTbl45Family.FamilyId);
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 4;
                 }       
      
             }

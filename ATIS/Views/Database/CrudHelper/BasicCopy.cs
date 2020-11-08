@@ -136,31 +136,80 @@ namespace ATIS.Ui.Views.Database.CrudHelper
         //----------------------------------------------------------
         public ObservableCollection<Tbl18Superclass> CopySuperclass(Tbl18Superclass selected)
         {
-            var datasrt = _uow.Tbl18Superclasses.GetById(selected.SuperclassId);
+            var dataset = _uow.Tbl18Superclasses.GetById(selected.SuperclassId);
             var collection = new ObservableCollection<Tbl18Superclass>();
 
             collection.Insert(0, new Tbl18Superclass
             {
                 SuperclassName = CultRes.StringsRes.DatasetNew,
-                SubphylumId = datasrt.SubphylumId,
-                SubdivisionId = datasrt.SubdivisionId,
-                Valid = datasrt.Valid,
-                ValidYear = datasrt.ValidYear,
-                Synonym = datasrt.Synonym,
-                Author = datasrt.Author,
-                AuthorYear = datasrt.AuthorYear,
-                Info = datasrt.Info,
-                EngName = datasrt.EngName,
-                GerName = datasrt.GerName,
-                FraName = datasrt.FraName,
-                PorName = datasrt.PorName,
-                Memo = datasrt.Memo
+                SubphylumId = dataset.SubphylumId,
+                SubdivisionId = dataset.SubdivisionId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Synonym = dataset.Synonym,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                EngName = dataset.EngName,
+                GerName = dataset.GerName,
+                FraName = dataset.FraName,
+                PorName = dataset.PorName,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
+        //----------------------------------------------------------
+        public ObservableCollection<Tbl21Class> CopyClass(Tbl21Class selected)
+        {
+            var dataset = _uow.Tbl21Classes.GetById(selected.ClassId);
+            var collection = new ObservableCollection<Tbl21Class>();
+
+            collection.Insert(0, new Tbl21Class
+            {
+                ClassName = CultRes.StringsRes.DatasetNew,
+                SuperclassId = dataset.SuperclassId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Synonym = dataset.Synonym,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                EngName = dataset.EngName,
+                GerName = dataset.GerName,
+                FraName = dataset.FraName,
+                PorName = dataset.PorName,
+                Memo = dataset.Memo
             });
 
             return collection;
         }
         //----------------------------------------------------------
 
+        public ObservableCollection<Tbl24Subclass> CopySubclass(Tbl24Subclass selected)
+        {
+            var dataset = _uow.Tbl24Subclasses.GetById(selected.SubclassId);
+            var collection = new ObservableCollection<Tbl24Subclass>();
+
+            collection.Insert(0, new Tbl24Subclass
+            {
+                SubclassName = CultRes.StringsRes.DatasetNew,
+                ClassId = dataset.ClassId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Synonym = dataset.Synonym,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                EngName = dataset.EngName,
+                GerName = dataset.GerName,
+                FraName = dataset.FraName,
+                PorName = dataset.PorName,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
 
 
         public ObservableCollection<Tbl90Reference> CopyReferenceRegnum(Tbl90Reference selected, string refer)
@@ -427,6 +476,52 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             return collection;
         }
         //----------------------------------------------------------
+        public ObservableCollection<Tbl90Reference> CopyReferenceClass(Tbl90Reference selected, string refer)
+        {
+            var dataset = _uow.Tbl90References.GetById(selected.ReferenceId);
+            var collection = new ObservableCollection<Tbl90Reference>();
+            switch (refer)
+            {
+                case "Expert":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        ClassId = dataset.ClassId,
+                        RefExpertId = dataset.RefExpertId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Source":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        ClassId = dataset.ClassId,
+                        RefSourceId = dataset.RefSourceId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Author":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        ClassId = dataset.ClassId,
+                        RefAuthorId = dataset.RefAuthorId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+            }
+
+            return collection;
+        }
+        //----------------------------------------------------------
+
+        
         public ObservableCollection<Tbl93Comment> CopyComment(Tbl93Comment selected, string name)
         {
             var dataset = _uow.Tbl93Comments.GetById(selected.CommentId);

@@ -91,7 +91,7 @@
                mc:Ignorable="d">  ]]>                                            
             </xsl:when>
             <xsl:otherwise>   <![CDATA[ 
-             d:DesignHeight="700" 
+             d:DesignHeight="800" 
              d:DesignWidth="1550"
              mc:Ignorable="d">  ]]>                                            
             </xsl:otherwise>    
@@ -266,7 +266,7 @@
 <xsl:when test="Table ='Grid Part 1 Middle 7 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
 </xsl:when>
 <xsl:otherwise>           <![CDATA[  
-                                <Button Template="{StaticResource Search]]><xsl:value-of select="Basis"/><![CDATA[sButton}" />
+                                <Button Template="{StaticResource Search]]><xsl:value-of select="Basiss"/><![CDATA[Button}" />
                                 <Button Template="{StaticResource Add]]><xsl:value-of select="Basis"/><![CDATA[Button}" />
                             </StackPanel>     
                         </GroupBox>     ]]>
@@ -3239,77 +3239,11 @@
 </xsl:when>
 <xsl:when test="Table ='Grid Part 7  Connect  Basic  TabablzControl TabItem Reference  Comments Bottom 1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
 </xsl:when>
-<xsl:when test="Table ='Tbl68Speciesgroups'">     <![CDATA[   
-                            </dragablz:TabablzControl>
-                            <GridSplitter
-                                Grid.Row="1"
-                                Height="5"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Center"
-                                Background="Black"
-                                ResizeDirection="Rows" />
-                        </Grid>   ]]>       
-</xsl:when>
-<xsl:when test="Table ='Tbl78Names'">       <![CDATA[   
-                            </dragablz:TabablzControl>
-                            <GridSplitter
-                                Grid.Row="1"
-                                Height="5"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Center"
-                                Background="Black"
-                                ResizeDirection="Rows" />
-                        </Grid>   ]]>                
-</xsl:when>
-<xsl:when test="Table ='Tbl81Images'">         <![CDATA[   
-                            </dragablz:TabablzControl>
-                            <GridSplitter
-                                Grid.Row="1"
-                                Height="5"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Center"
-                                Background="Black"
-                                ResizeDirection="Rows" />
-                        </Grid>   ]]>        
-</xsl:when>
-<xsl:when test="Table ='Tbl84Synonyms'">          <![CDATA[   
-                            </dragablz:TabablzControl>
-                            <GridSplitter
-                                Grid.Row="1"
-                                Height="5"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Center"
-                                Background="Black"
-                                ResizeDirection="Rows" />
-                        </Grid>   ]]>       
-</xsl:when>
-<xsl:when test="Table ='Tbl87Geographics'">         <![CDATA[   
-                            </dragablz:TabablzControl>
-                            <GridSplitter
-                                Grid.Row="1"
-                                Height="5"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Center"
-                                Background="Black"
-                                ResizeDirection="Rows" />
-                        </Grid>   ]]>        
-</xsl:when>
 <xsl:when test="Table ='Tbl90RefAuthors'">       
 </xsl:when>
 <xsl:when test="Table ='Tbl90RefSources'">       
 </xsl:when>
 <xsl:when test="Table ='Tbl90RefExperts'">       
-</xsl:when>
-<xsl:when test="Table ='Tbl90References'">        <![CDATA[   
-                            </dragablz:TabablzControl>
-                            <GridSplitter
-                                Grid.Row="1"
-                                Height="5"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Center"
-                                Background="Black"
-                                ResizeDirection="Rows" />
-                        </Grid>   ]]>          
 </xsl:when>
 <xsl:when test="Table ='Tbl93Comments'">       
 </xsl:when>
@@ -3550,7 +3484,7 @@
                                                     Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK1"/><![CDATA[.]]><xsl:value-of select="NameFK1"/><![CDATA[)"
                                                     UpdateSourceTrigger="PropertyChanged"/>
                                 </TextBox.Text>
-                            </TextBox>  ]]>        
+                            </TextBox>                       ]]>        
   </xsl:if>       
 </xsl:otherwise>    
 </xsl:choose>
@@ -3565,6 +3499,38 @@
 <xsl:when test="Table ='Tbl06Phylums'">    
 </xsl:when>  
 <xsl:when test="Table ='Tbl09Divisions'">    
+</xsl:when>  
+<xsl:when test="Table ='Tbl21Classes'">  
+  <xsl:if test="TableFK1 !='NULL'">    <![CDATA[   
+                                            <ComboBox
+                                                Width="250"
+                                                Margin="5"
+                                                VerticalAlignment="Bottom"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
+                                                DisplayMemberPath="]]><xsl:value-of select="NameBK1"/><![CDATA[" 
+                                                IsSynchronizedWithCurrentItem="True"
+                                                ItemsSource="{Binding ]]><xsl:value-of select="TableBK1"/><![CDATA[AllList}"
+                                                SelectedIndex="0"
+                                                SelectedValue="{Binding SelectedItem.(models:]]><xsl:value-of select="LinqModelBK1"/><![CDATA[.]]><xsl:value-of select="BasisBK1"/><![CDATA[Id), ElementName=]]><xsl:value-of select="TableFK1"/><![CDATA[List, Mode=TwoWay}"
+                                                SelectedValuePath="]]><xsl:value-of select="BasisBK1"/><![CDATA[Id"
+                                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                                VirtualizingStackPanel.IsVirtualizing="True" />
+                                            <ComboBox
+                                                Width="250"
+                                                Margin="5"
+                                                VerticalAlignment="Bottom"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
+                                                DisplayMemberPath="]]><xsl:value-of select="NameBK2"/><![CDATA[" 
+                                                IsSynchronizedWithCurrentItem="True"
+                                                ItemsSource="{Binding ]]><xsl:value-of select="TableBK2"/><![CDATA[AllList}"
+                                                SelectedIndex="0"
+                                                SelectedValue="{Binding SelectedItem.(models:]]><xsl:value-of select="LinqModelBK2"/><![CDATA[.]]><xsl:value-of select="BasisBK2"/><![CDATA[Id), ElementName=]]><xsl:value-of select="TableFK1"/><![CDATA[List, Mode=TwoWay}"
+                                                SelectedValuePath="]]><xsl:value-of select="BasisBK2"/><![CDATA[Id"
+                                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                                VirtualizingStackPanel.IsVirtualizing="True" />     ]]> 
+  </xsl:if>            
 </xsl:when>  
 <xsl:otherwise>   
   <xsl:if test="TableFK1 !='NULL'">    <![CDATA[   
@@ -3593,8 +3559,6 @@
 </xsl:when>  
 <xsl:when test="Table ='Tbl03Regnums'">     
 </xsl:when>            
-<xsl:when test="Table ='Tbl21Classes'">      
-</xsl:when>  
 <xsl:when test="Table ='Tbl68Speciesgroups'">      
 </xsl:when>  
 <xsl:when test="Table ='Tbl69FiSpeciesses'">  
@@ -3759,7 +3723,7 @@
                                         </TextBox>     
                                          <TextBox
                                     Width="367"
-                                    Margin="23,5,5,5"
+                                    Margin="21,5,5,5"
                                     HorizontalContentAlignment="Stretch"
                                     mah:TextBoxHelper.IsWaitingForData="True"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -3799,7 +3763,7 @@
                                         </TextBox>     
                                          <TextBox
                                     Width="367"
-                                    Margin="23,5,5,5"
+                                    Margin="21,5,5,5"
                                     HorizontalContentAlignment="Stretch"
                                     mah:TextBoxHelper.IsWaitingForData="True"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -3942,6 +3906,339 @@
 
 
 <xsl:choose>
+<xsl:when test="Table ='Property Part 2.2  HeaderedContentControl Connected   FK2 Top 1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
+</xsl:when>  
+<xsl:when test="Table ='Property Part 2.2  HeaderedContentControl Connected   FK2 Top 1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
+</xsl:when>  
+<xsl:when test="Table ='Property Part 2.2  HeaderedContentControl Connected   FK2 Top 1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
+</xsl:when>  
+<xsl:when test="Table ='Tbl18Superclasses'">  
+  <xsl:if test="TableFK2 !='NULL'">    <![CDATA[   
+                              <TabItem FontWeight="Medium" Header="{DynamicResource ]]><xsl:value-of select="LinqModelFK2"/><![CDATA[-]]><xsl:value-of select="BasisFK2"/><![CDATA[}"  >
+                                 <GroupBox>   
+                                    <StackPanel Margin="1">
+                                        <StackPanel Height="Auto" Orientation="Horizontal">   ]]> 
+  </xsl:if>         
+</xsl:when>  
+<xsl:otherwise>      
+</xsl:otherwise>    
+</xsl:choose>
+
+<xsl:choose>
+<xsl:when test="Table ='Property Part 2.2  HeaderedContentControl Connected   FK2 Middle 1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
+</xsl:when>  
+<xsl:when test="Table ='Property Part 2.2  HeaderedContentControl Connected   FK2 Middle 1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
+</xsl:when> 
+<xsl:when test="Table ='Tbl18Superclasses'">  
+   <xsl:if test="TableFK2 !='NULL'">    <![CDATA[  
+                            <Button Template="{StaticResource Save]]><xsl:value-of select="BasisFK2"/><![CDATA[Button}" />   
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="250"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource  ]]><xsl:value-of select="LinqModelFK2"/><![CDATA[-]]><xsl:value-of select="BasisFK2"/><![CDATA[Name}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                               FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource ]]><xsl:value-of select="LinqModelFK2"/><![CDATA[-]]><xsl:value-of select="BasisFK2"/><![CDATA[Name}">
+                                <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.]]><xsl:value-of select="NameFK2"/><![CDATA[)"
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                </TextBox.Text>
+                            </TextBox>  ]]>        
+  </xsl:if>       
+</xsl:when>  
+<xsl:otherwise>      
+</xsl:otherwise>    
+</xsl:choose>
+
+<xsl:choose>
+<xsl:when test="Table ='Property Part 2.2  HeaderedContentControl Connected   FK2 Middle 4 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
+</xsl:when>  
+<xsl:when test="Table ='Property Part 2.2  HeaderedContentControl Connected   FK2 Middle 4 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
+</xsl:when>  
+<xsl:when test="Table ='Tbl18Superclasses'">  
+  <xsl:if test="TableFK2 !='NULL'">    <![CDATA[   
+                                            <ComboBox
+                                                Width="300"
+                                                Margin="25,5,5,5"
+                                                VerticalAlignment="Bottom"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
+                                                DisplayMemberPath="]]><xsl:value-of select="NameBK2"/><![CDATA[" 
+                                                IsSynchronizedWithCurrentItem="True"
+                                                ItemsSource="{Binding ]]><xsl:value-of select="TableBK2"/><![CDATA[AllList}"
+                                                SelectedIndex="0"
+                                                SelectedValue="{Binding SelectedItem.(models:]]><xsl:value-of select="LinqModelBK2"/><![CDATA[.]]><xsl:value-of select="BasisBK2"/><![CDATA[Id), ElementName=]]><xsl:value-of select="TableFK2"/><![CDATA[List, Mode=TwoWay}"
+                                                SelectedValuePath="]]><xsl:value-of select="BasisBK2"/><![CDATA[Id"
+                                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                                VirtualizingStackPanel.IsVirtualizing="True" /> ]]> 
+  </xsl:if>          
+</xsl:when>  
+<xsl:otherwise>   
+</xsl:otherwise>    
+</xsl:choose>
+
+<xsl:choose>
+<xsl:when test="Table ='Property Part 2.2  HeaderedContentControl Connected   FK2 Middle 4.1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
+</xsl:when>  
+<xsl:when test="Table ='Property Part 2.2  HeaderedContentControl Connected   FK2 Middle 4.1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
+</xsl:when>  
+<xsl:when test="Table ='Tbl18Superclasses'">  
+  <xsl:if test="TableFK2 !='NULL'">    <![CDATA[   
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <CheckBox
+                                                Width="80"
+                                                Margin="5"
+                                                VerticalAlignment="Bottom"
+                                                Content="{DynamicResource Shared-Valid}"
+                                                FontWeight="Normal"
+                                                IsChecked="{Binding SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.Valid), ElementName=]]><xsl:value-of select="TableFK2"/><![CDATA[List, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                Style="{StaticResource MahApps.Styles.CheckBox}" />
+                                        <TextBox
+                                    Width="80"
+                                    Margin="25,5,5,5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-ValidYear}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-ValidYear}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.ValidYear)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                      </StackPanel>
+                                         <StackPanel Height="Auto" Orientation="Horizontal">
+                                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                                    <TextBox
+                                        Height="Auto"
+                                        MinWidth="760"
+                                        MinHeight="75"
+                                        MaxWidth="760"
+                                        MaxHeight="200"
+                                        Margin="5"
+                                        VerticalAlignment="Stretch"
+                                        HorizontalContentAlignment="Stretch"
+                                        mah:TextBoxHelper.IsWaitingForData="True"
+                                        mah:TextBoxHelper.UseFloatingWatermark="True"
+                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-Synonym}"
+                                        mah:TextBoxHelper.WatermarkAlignment="Left"
+                                        AcceptsReturn="True"
+                                        FontWeight="Medium"
+                                        SpellCheck.IsEnabled="True"
+                                               Text="{Binding SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.Synonym), ElementName=]]><xsl:value-of select="TableFK2"/><![CDATA[List, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                               TextWrapping="Wrap"
+                                        ToolTip="{DynamicResource Shared-Synonym}"
+                                               VerticalScrollBarVisibility="Auto"  /> 
+                                            </ScrollViewer>
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox
+                                    Width="600"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    CharacterCasing="Upper"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-Author}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.Author)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                        <TextBox
+                                    Width="130"
+                                    Margin="25,5,5,5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-AuthorYear}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-AuthorYear}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.AuthorYear)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox
+                                    Width="760"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Info}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-Info}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.Info)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                         <TextBox
+                                    Width="367"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-EngName}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-EngName}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.EngName)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                         <TextBox
+                                    Width="367"
+                                    Margin="21,5,5,5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-GerName}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-GerName}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.GerName)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                         <TextBox
+                                    Width="367"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-FraName}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-FraName}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.FraName)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                         <TextBox
+                                    Width="367"
+                                    Margin="21,5,5,5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-SpaName}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-SpaName}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.PorName)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                        </StackPanel> ]]> 
+  </xsl:if>       
+</xsl:when>  
+<xsl:otherwise>     
+</xsl:otherwise>    
+</xsl:choose>
+
+
+
+<xsl:choose>
+<xsl:when test="Table ='Property Part 2.2  HeaderedContentControl Connected   FK2 Bottom 1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
+</xsl:when>  
+<xsl:when test="Table ='Property Part 2.2  HeaderedContentControl Connected   FK2 Bottom 1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
+</xsl:when>  
+<xsl:when test="Table ='Tbl18Superclasses'">  
+  <xsl:if test="TableFK2 !='NULL'">    <![CDATA[   
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                          <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                            <TextBox
+                                    Height="Auto"
+                                    MinWidth="760"
+                                    MinHeight="75"
+                                    MaxWidth="760"
+                                    MaxHeight="200"
+                                    Margin="5"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                AcceptsReturn="True"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                Text="{Binding SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.Memo), ElementName=]]><xsl:value-of select="TableFK2"/><![CDATA[List, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap"
+                                    ToolTip="{DynamicResource Shared-Memo}"
+                                                VerticalScrollBarVisibility="Auto" />
+                                             </ScrollViewer>
+                                       </StackPanel>
+                                    </StackPanel>
+                                    </GroupBox>
+                                </TabItem>  ]]> 
+  </xsl:if>       
+</xsl:when>  
+<xsl:otherwise>     
+</xsl:otherwise>    
+</xsl:choose>       
+
+
+<xsl:choose>
 <xsl:when test="Table ='Property Part 3  HeaderedContentControl Basic   Splitter right Side Top 2 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
 </xsl:when>
 <xsl:otherwise>     <![CDATA[   
@@ -3997,8 +4294,69 @@
                             </StackPanel>  ]]>  
 </xsl:when>
 <xsl:when test="Table ='Tbl18Superclasses'">       <![CDATA[   
- 
- ]]>  
+                                <Button Template="{StaticResource Save]]><xsl:value-of select="Basis"/><![CDATA[Button}" />
+                                <Button Template="{StaticResource Copy]]><xsl:value-of select="Basis"/><![CDATA[Button}" />
+                                <Button Template="{StaticResource Add]]><xsl:value-of select="Basis"/><![CDATA[Button}" />
+                                <Button Template="{StaticResource Delete]]><xsl:value-of select="Basis"/><![CDATA[Button}" /> 
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                <TextBox
+                                    Width="250"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource ]]><xsl:value-of select="LinqModel"/><![CDATA[-]]><xsl:value-of select="Name"/><![CDATA[}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource ]]><xsl:value-of select="LinqModel"/><![CDATA[-]]><xsl:value-of select="Name"/><![CDATA[}">
+                                    <TextBox.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="Custom Item" />
+                                            <Separator />
+                                            <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                            <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                            <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        </ContextMenu>
+                                    </TextBox.ContextMenu> 
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="]]><xsl:value-of select="Table"/><![CDATA[List"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Name"/><![CDATA[)"            
+                                            UpdateSourceTrigger="PropertyChanged"/>
+                                    </TextBox.Text>
+                                </TextBox>  
+                                <ComboBox
+                                    Width="250"
+                                    Margin="5"
+                                    VerticalAlignment="Bottom"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
+                                    DisplayMemberPath="]]><xsl:value-of select="NameFK1"/><![CDATA[" 
+                                    IsSynchronizedWithCurrentItem="True"
+                                    ItemsSource="{Binding ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList}"
+                                    SelectedIndex="0"
+                                    SelectedValue="{Binding SelectedItem.(models:]]><xsl:value-of select="LinqModelFK1"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id), ElementName=]]><xsl:value-of select="Table"/><![CDATA[List, Mode=TwoWay}"
+                                    SelectedValuePath="]]><xsl:value-of select="BasisFK1"/><![CDATA[Id" 
+                                    Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                    VirtualizingStackPanel.IsVirtualizing="True" />
+                                <ComboBox
+                                    Width="250"
+                                    Margin="5"
+                                    VerticalAlignment="Bottom"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
+                                    DisplayMemberPath="]]><xsl:value-of select="NameFK2"/><![CDATA[" 
+                                    IsSynchronizedWithCurrentItem="True"
+                                    ItemsSource="{Binding ]]><xsl:value-of select="TableFK2"/><![CDATA[AllList}"
+                                    SelectedIndex="0"
+                                    SelectedValue="{Binding SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.]]><xsl:value-of select="BasisFK2"/><![CDATA[Id), ElementName=]]><xsl:value-of select="Table"/><![CDATA[List, Mode=TwoWay}"
+                                    SelectedValuePath="]]><xsl:value-of select="BasisFK2"/><![CDATA[Id" 
+                                    Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                    VirtualizingStackPanel.IsVirtualizing="True" />
+                                </StackPanel>  ]]>   
 </xsl:when>
 <xsl:when test="Table ='Tbl68Speciesgroups'">       <![CDATA[   
  
@@ -4312,7 +4670,7 @@
                                     Style="{StaticResource MahApps.Styles.CheckBox}" />
                                 <TextBox
                                     Width="80"
-                                    Margin="5"
+                                    Margin="25,5,5,5"
                                     HorizontalContentAlignment="Stretch"
                                     mah:TextBoxHelper.IsWaitingForData="True"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -4438,7 +4796,7 @@
                                 </TextBox>    
                                 <TextBox
                                     Width="367"
-                                    Margin="23,5,5,5"
+                                    Margin="21,5,5,5"
                                     HorizontalContentAlignment="Stretch"
                                     mah:TextBoxHelper.IsWaitingForData="True"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -4478,7 +4836,7 @@
                                 </TextBox>    
                                 <TextBox
                                     Width="367"
-                                    Margin="23,5,5,5"
+                                    Margin="21,5,5,5"
                                     HorizontalContentAlignment="Stretch"
                                     mah:TextBoxHelper.IsWaitingForData="True"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -4710,14 +5068,8 @@
   ]]>
 </xsl:when>  
 <xsl:when test="Table ='Tbl69FiSpeciesses'">   
-  <xsl:if test="TableTK1 !='NULL'">    <![CDATA[   
-                                          ]]>
-  </xsl:if>          
 </xsl:when>  
 <xsl:when test="Table ='Tbl72PlSpeciesses'">   
-  <xsl:if test="TableTK1 !='NULL'">    <![CDATA[   
-                                          ]]>
-  </xsl:if>          
 </xsl:when>  
 <xsl:when test="Table ='Tbl78Names'">    
 </xsl:when>  
@@ -4734,9 +5086,6 @@
 <xsl:when test="Table ='Tbl90RefSources'">      
 </xsl:when>  
 <xsl:when test="Table ='Tbl90References'">      
-  <xsl:if test="TableTK1 !='NULL'">    <![CDATA[   
-                                              ]]> 
-  </xsl:if>       
 </xsl:when> 
 <xsl:when test="Table ='TblUserProfiles'">      
 </xsl:when>   
@@ -4753,7 +5102,7 @@
                                                 IsChecked="{Binding SelectedItem.(models:]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.Valid), ElementName=]]><xsl:value-of select="TableTK1"/><![CDATA[List, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Style="{StaticResource MahApps.Styles.CheckBox}" />
                                         <TextBox
-                                Width="135"
+                                Width="130"
                                 Margin="25,5,5,5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -4880,7 +5229,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="367"
-                                Margin="23,5,5,5"
+                                Margin="21,5,5,5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -4920,7 +5269,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="367"
-                                Margin="23,5,5,5"
+                                Margin="21,5,5,5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -4971,33 +5320,6 @@
                                     TextWrapping="Wrap"
                                     ToolTip="{DynamicResource Shared-Memo}"
                                     VerticalScrollBarVisibility="Auto" />
-                                                </ScrollViewer>
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </GroupBox>
-                                </TabItem>  ]]> 
-  </xsl:if>       
-</xsl:when>  
-<xsl:when test="Table ='Tbl18Superclasses'">    
-  <xsl:if test="TableTK1 !='NULL'">    <![CDATA[   
-                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                                    <TextBox
-                                                        Height="Auto"
-                                                        MinWidth="760"
-                                                        MinHeight="75"
-                                                        MaxWidth="760"
-                                                        MaxHeight="400"
-                                                Margin="5,0,0,5"
-                                                VerticalAlignment="Stretch"
-                                                materialDesign:HintAssist.Hint="{DynamicResource Shared-Memo}"
-                                                AcceptsReturn="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                             FontWeight="Medium"
-                                               Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                Text="{Binding SelectedItem.(models:]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.Memo), ElementName=]]><xsl:value-of select="TableTK1"/><![CDATA[List}"
-                                                TextWrapping="Wrap"
-                                                VerticalScrollBarVisibility="Auto" />
                                                 </ScrollViewer>
                                             </StackPanel>
                                         </StackPanel>
@@ -5286,7 +5608,7 @@
                                            <StackPanel Height="Auto" Orientation="Horizontal">
                                                 <ComboBox
                                                     Width="250"
-                                                    Margin="5,0,0,0"
+                                                    Margin="5"
                                                     VerticalAlignment="Bottom"
                                                     materialDesign:HintAssist.Hint="{DynamicResource Tbl66Genus-GenusName}"
                                                     DisplayMemberPath="GenusName" 
@@ -5299,7 +5621,7 @@
                                                     VirtualizingStackPanel.IsVirtualizing="True" />
                                                 <ComboBox
                                                     Width="250"
-                                                    Margin="25,0,0,0"
+                                                    Margin="25,5,5,5"
                                                     VerticalAlignment="Bottom"
                                                     materialDesign:HintAssist.Hint="{DynamicResource Tbl68Speciesgroup-SpeciesgroupName}"
                                                     IsSynchronizedWithCurrentItem="True"
@@ -5597,7 +5919,7 @@
                                         <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
                                             Width="367"
-                                            Margin="5,0,0,0"
+                                            Margin="5"
                                             materialDesign:HintAssist.Hint="{DynamicResource Shared-EngName}"
                                             materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"
@@ -5617,7 +5939,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="367"
-                                            Margin="25,0,0,0"
+                                            Margin="21,5,5,5"
                                             materialDesign:HintAssist.Hint="{DynamicResource Shared-GerName}"
                                             materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"
@@ -5639,7 +5961,7 @@
                                         <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
                                             Width="367"
-                                            Margin="5,0,0,0"
+                                            Margin="5"
                                             materialDesign:HintAssist.Hint="{DynamicResource Shared-FraName}"
                                             materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"
@@ -5659,7 +5981,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="367"
-                                            Margin="25,0,0,0"
+                                            Margin="21,5,5,5"
                                             materialDesign:HintAssist.Hint="{DynamicResource Shared-SpaName}"
                                             materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"
@@ -6664,6 +6986,8 @@
                                 <dragablz:TabablzControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedDetailSubTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"> ]]>        
   </xsl:if>        
 </xsl:when>  
+<xsl:when test="Table ='Tbl18Superclasses'">    
+</xsl:when>  
 <xsl:when test="Table ='Tbl18Superclasses'">      
   <xsl:if test="TableFK2 !='NULL'">    <![CDATA[     
                                   <TabItem FontWeight="Medium" Header="{DynamicResource ]]><xsl:value-of select="LinqModelFK2"/><![CDATA[-]]><xsl:value-of select="BasisFK2"/><![CDATA[}"  >
@@ -6683,7 +7007,7 @@
 <xsl:when test="Table ='Tbl68Speciesgroups'">         <![CDATA[     
                             <TabItem FontWeight="Medium" Header="{DynamicResource Shared-Connect}">
                               <GroupBox>
-                               <dragablz:TabablzControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedDetailSubTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"> ]]>        
+                               <TabControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedDetailSubTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"> ]]>        
 </xsl:when>  
 <xsl:when test="Table ='Tbl69FiSpeciesses'">      
   <xsl:if test="TableFK2 !='NULL'">    <![CDATA[     
@@ -6789,116 +7113,11 @@
 <xsl:when test="Table ='Property Part 8.1  HeaderedContentControl Connected   FK2 Middle 1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
 </xsl:when>  
 <xsl:when test="Table ='Tbl06Phylums'">      
-  <xsl:if test="TableFK2 !='NULL'">    <![CDATA[     
-                                        <TextBox
-                                            Width="250"
-                                            Margin="5,10,0,0"
-                                            materialDesign:HintAssist.Hint="{DynamicResource ]]><xsl:value-of select="LinqModelFK2"/><![CDATA[-]]><xsl:value-of select="NameFK2"/><![CDATA[}"
-                                            materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            FontWeight="Medium"
-                                            Style="{StaticResource TextBoxInError}"
-                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    Converter="{StaticResource CapFirst}"
-                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.]]><xsl:value-of select="NameFK2"/><![CDATA[)"
-                                                    UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validationRules:Name200Validator />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox
-                                            Width="250"
-                                            Margin="5,10,0,0"
-                                            materialDesign:HintAssist.Hint="{DynamicResource ]]><xsl:value-of select="LinqModelFK2"/><![CDATA[-Subregnum}"
-                                            materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            FontWeight="Medium"
-                                            Style="{StaticResource TextBoxInError}"
-                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK1"/><![CDATA[.Subregnum)"
-                                                    UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validationRules:Name200Validator />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>    ]]>
-  </xsl:if>        
 </xsl:when>  
 <xsl:when test="Table ='Tbl09Divisions'">      
-  <xsl:if test="TableFK2 !='NULL'">    <![CDATA[     
-                                        <TextBox
-                                            Width="250"
-                                            Margin="5,10,0,0"
-                                            materialDesign:HintAssist.Hint="{DynamicResource ]]><xsl:value-of select="LinqModelFK2"/><![CDATA[-]]><xsl:value-of select="NameFK2"/><![CDATA[}"
-                                            materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            FontWeight="Medium"
-                                            Style="{StaticResource TextBoxInError}"
-                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    Converter="{StaticResource CapFirst}"
-                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.]]><xsl:value-of select="NameFK2"/><![CDATA[)"
-                                                    UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validationRules:Name200Validator />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox
-                                            Width="250"
-                                            Margin="5,10,0,0"
-                                            materialDesign:HintAssist.Hint="{DynamicResource ]]><xsl:value-of select="LinqModelFK2"/><![CDATA[-Subregnum}"
-                                            materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            FontWeight="Medium"
-                                            Style="{StaticResource TextBoxInError}"
-                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.Subregnum)"
-                                                    UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validationRules:Name200Validator />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>    ]]>
-  </xsl:if>        
 </xsl:when>  
-<xsl:when test="Table ='Tbl18Superclasses'">     
-  <xsl:if test="TableFK2 !='NULL'">    <![CDATA[   
-                                                <Button
-                                                    Margin="0,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    Command="{Binding Save]]><xsl:value-of select="BasisFK2"/><![CDATA[Command}"
-                                                    Style="{StaticResource MaterialDesignFlatButton}"
-                                                    ToolTip="{DynamicResource Shared-ButtonSave}">
-                                                    <materialDesign:PackIcon
-                                                        Width="24"
-                                                        Height="24"
-                                                        Margin="0,0,-5,0"
-                                                        Kind="ContentSave"
-                                                        Opacity=".56" />
-                                                </Button>]]> 
-  </xsl:if>        
-</xsl:when>   
+<xsl:when test="Table ='Tbl18Superclasses'">    
+</xsl:when>  
 <xsl:when test="Table ='Tbl68Speciesgroups'">      
 </xsl:when>  
 <xsl:when test="Table ='Tbl78Names'">      
@@ -7001,6 +7220,8 @@
 <xsl:when test="Table ='Property Part 8.1  HeaderedContentControl Connected   FK2 Middle 2 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
 </xsl:when>  
 <xsl:when test="Table ='Tbl03Regnums'">     
+</xsl:when>  
+<xsl:when test="Table ='Tbl18Superclasses'">    
 </xsl:when>  
 <xsl:when test="Table ='Tbl68Speciesgroups'">      
 </xsl:when>  
@@ -7236,97 +7457,6 @@
 </xsl:otherwise>    
 </xsl:choose>
 
-<xsl:choose>
-<xsl:when test="Table ='Property Part 8.1  HeaderedContentControl Connected   FK2 Middle 3 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
-</xsl:when>  
-<xsl:when test="Table ='Property Part 8.1  HeaderedContentControl Connected   FK2 Middle 3 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
-</xsl:when>  
-<xsl:when test="Table ='Tbl03Regnums'">     
-</xsl:when> 
-<xsl:when test="Table ='Tbl18Superclasses'">     
-</xsl:when> 
-<xsl:when test="Table ='Tbl68Speciesgroups'">      
-</xsl:when>  
-<xsl:when test="Table ='Tbl69FiSpeciesses'">      
-</xsl:when>  
-<xsl:when test="Table ='Tbl72PlSpeciesses'">      
-</xsl:when>  
-<xsl:when test="Table ='Tbl78Names'">     
-</xsl:when>  
-<xsl:when test="Table ='Tbl81Images'">     
-</xsl:when>  
-<xsl:when test="Table ='Tbl84Synonyms'">     
-</xsl:when>  
-<xsl:when test="Table ='Tbl87Geographics'">     
-</xsl:when>  
-<xsl:when test="Table ='Tbl90RefAuthors'">      
-</xsl:when>  
-<xsl:when test="Table ='Tbl90References'">      
-</xsl:when>  
-<xsl:when test="Table ='Tbl90RefExperts'">      
-</xsl:when>  
-<xsl:when test="Table ='Tbl90RefSources'">      
-</xsl:when>    
-<xsl:when test="Table ='TblUserProfiles'">      
-</xsl:when>   
-<xsl:otherwise>     
-  <xsl:if test="TableFK2 !='NULL'">    <![CDATA[   
-                                                <Button
-                                                    Margin="0,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    Command="{Binding Save]]><xsl:value-of select="BasisFK2"/><![CDATA[Command}"
-                                                    Style="{StaticResource MaterialDesignFlatButton}"
-                                                    ToolTip="{DynamicResource Shared-ButtonSave}">
-                                                    <materialDesign:PackIcon
-                                                        Width="24"
-                                                        Height="24"
-                                                        Margin="0,0,-5,0"
-                                                        Kind="ContentSave"
-                                                        Opacity=".56" />
-                                                </Button>]]> 
-  </xsl:if>       
-</xsl:otherwise>    
-</xsl:choose>
-
-<xsl:choose>
-<xsl:when test="Table ='Property Part 8.1  HeaderedContentControl Connected   FK2 Middle 3A +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
-</xsl:when>  
-<xsl:when test="Table ='Property Part 8.1  HeaderedContentControl Connected   FK2 Middle 3A +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
-</xsl:when>  
-<xsl:when test="Table ='Tbl03Regnums'">      
-</xsl:when>  
-<xsl:when test="Table ='Tbl18Superclasses'">      
-</xsl:when>  
-<xsl:when test="Table ='Tbl68Speciesgroups'">      
-</xsl:when>  
-<xsl:when test="Table ='Tbl69FiSpeciesses'">  
-</xsl:when>    
-<xsl:when test="Table ='Tbl72PlSpeciesses'">  
-</xsl:when>   
-<xsl:when test="Table ='Tbl78Names'">     
-</xsl:when>  
-<xsl:when test="Table ='Tbl81Images'">     
-</xsl:when>  
-<xsl:when test="Table ='Tbl84Synonyms'">     
-</xsl:when>  
-<xsl:when test="Table ='Tbl87Geographics'">     
-</xsl:when>   
-<xsl:when test="Table ='Tbl90References'">      
-</xsl:when>  
-<xsl:when test="Table ='Tbl90RefAuthors'">      
-</xsl:when>  
-<xsl:when test="Table ='Tbl90RefExperts'">      
-</xsl:when>  
-<xsl:when test="Table ='Tbl90RefSources'">      
-</xsl:when>    
-<xsl:when test="Table ='TblUserProfiles'">      
-</xsl:when>   
-<xsl:otherwise>     
-  <xsl:if test="TableFK2 !='NULL'">    <![CDATA[   
-         ]]> 
-  </xsl:if>       
-</xsl:otherwise>    
-</xsl:choose>
 
 <xsl:choose>
 <xsl:when test="Table ='Property Part 8.1  HeaderedContentControl Connected   FK2 Middle 4 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
@@ -7336,682 +7466,10 @@
 <xsl:when test="Table ='Tbl03Regnums'">     
 </xsl:when>  
 <xsl:when test="Table ='Tbl06Phylums'">
-  <xsl:if test="TableFK2 !='NULL'">    <![CDATA[   
-                                   </StackPanel>
-                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <CheckBox
-                                            Width="80"
-                                            Margin="5,0,0,0"
-                                            VerticalAlignment="Bottom"
-                                            Content="{DynamicResource Shared-Valid}"
-                                            FontWeight="Normal"
-                                            IsChecked="{Binding SelectedItem.(models:Tbl03Regnum.Valid), ElementName=Tbl03RegnumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            Style="{StaticResource MaterialDesignCheckBox}" />
-                                        <TextBox
-                                            Width="50"
-                                            Margin="25,0,0,0"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-ValidYear}"
-                                            materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            FontWeight="Medium"
-                                            Style="{StaticResource TextBoxInError}"
-                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.ValidYear)"
-                                                    UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validationRules:NumberValidator />
-                                                        <validationRules:Year4Validator />
-                                                        <validationRules:DoubleRangeRule Max="2100" Min="1000" />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                      </StackPanel>
-                                         <StackPanel Height="Auto" Orientation="Horizontal">
-                              <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                 <TextBox
-                                                Height="Auto"
-                                                MinWidth="760"
-                                                MinHeight="100"
-                                                MaxWidth="760"
-                                                MaxHeight="400"
-                                            Margin="5,0,0,0"
-                                            VerticalAlignment="Stretch"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-Synonym}"
-                                            AcceptsReturn="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            FontWeight="Medium"
-                                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                            Text="{Binding SelectedItem.(models:Tbl03Regnum.Synonym), ElementName=Tbl03RegnumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CapFirst}}"
-                                            TextWrapping="Wrap"
-                                            VerticalScrollBarVisibility="Auto" />
-                                        </ScrollViewer>
-                                        </StackPanel>
-                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox
-                                            Width="600"
-                                            Margin="5,0,0,0"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-Author}"
-                                            materialDesign:ValidationAssist.UsePopup="True"
-                                            CharacterCasing="Upper"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            Style="{StaticResource TextBoxInError}"
-                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.Author)"
-                                                    UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validationRules:Name100Validator />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox
-                                            Width="135"
-                                            Margin="25,0,0,0"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-AuthorYear}"
-                                            materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            FontWeight="Medium"
-                                            Style="{StaticResource TextBoxInError}"
-                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.AuthorYear)"
-                                                    UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validationRules:NumberValidator />
-                                                        <validationRules:Year4Validator />
-                                                        <validationRules:DoubleRangeRule Max="2100" Min="1000" />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        </StackPanel>
-                                         <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox
-                                            Width="760"
-                                            Margin="5,0,0,0"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-Info}"
-                                            materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            FontWeight="Medium"
-                                            Style="{StaticResource TextBoxInError}"
-                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.Info)"
-                                                    UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validationRules:Name100Validator />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        </StackPanel>
-                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox
-                                            Width="367"
-                                            Margin="5,0,0,0"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-EngName}"
-                                            materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            Style="{StaticResource TextBoxInError}"
-                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.EngName)"
-                                                    UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validationRules:Name200Validator />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox
-                                            Width="367"
-                                            Margin="25,0,0,0"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-GerName}"
-                                            materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            Style="{StaticResource TextBoxInError}"
-                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.GerName)"
-                                                    UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validationRules:Name200Validator />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        </StackPanel>
-                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox
-                                            Width="367"
-                                            Margin="5,0,0,0"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-FraName}"
-                                            materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            Style="{StaticResource TextBoxInError}"
-                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.FraName)"
-                                                    UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validationRules:Name200Validator />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox
-                                            Width="367"
-                                            Margin="25,0,0,0"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-SpaName}"
-                                            materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            Style="{StaticResource TextBoxInError}"
-                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.PorName)"
-                                                    UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validationRules:Name200Validator />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        </StackPanel> ]]> 
-  </xsl:if>            
 </xsl:when>  
 <xsl:when test="Table ='Tbl09Divisions'">    
-  <xsl:if test="TableFK2 !='NULL'">    <![CDATA[   
-                                   </StackPanel>
-                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <CheckBox
-                                            Width="80"
-                                            Margin="5,0,0,0"
-                                            VerticalAlignment="Bottom"
-                                            Content="{DynamicResource Shared-Valid}"
-                                            FontWeight="Normal"
-                                            IsChecked="{Binding SelectedItem.(models:Tbl03Regnum.Valid), ElementName=Tbl03RegnumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            Style="{StaticResource MaterialDesignCheckBox}" />
-                                        <TextBox
-                                            Width="50"
-                                            Margin="25,0,0,0"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-ValidYear}"
-                                            materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            FontWeight="Medium"
-                                            Style="{StaticResource TextBoxInError}"
-                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.ValidYear)"
-                                                    UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validationRules:NumberValidator />
-                                                        <validationRules:Year4Validator />
-                                                        <validationRules:DoubleRangeRule Max="2100" Min="1000" />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                      </StackPanel>
-                                         <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                            <TextBox
-                                                Height="Auto"
-                                                MinWidth="760"
-                                                MinHeight="100"
-                                                MaxWidth="760"
-                                                MaxHeight="400"
-                                            Margin="5,0,0,0"
-                                            VerticalAlignment="Stretch"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-Synonym}"
-                                            AcceptsReturn="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            FontWeight="Medium"
-                                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                            Text="{Binding SelectedItem.(models:Tbl03Regnum.Synonym), ElementName=Tbl03RegnumsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CapFirst}}"
-                                            TextWrapping="Wrap"
-                                            VerticalScrollBarVisibility="Auto" />
-                                        </ScrollViewer>
-                                        </StackPanel>
-                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox
-                                            Width="600"
-                                            Margin="5,0,0,0"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-Author}"
-                                            materialDesign:ValidationAssist.UsePopup="True"
-                                            CharacterCasing="Upper"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            FontWeight="Medium"
-                                            Style="{StaticResource TextBoxInError}"
-                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.Author)"
-                                                    UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validationRules:Name100Validator />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox
-                                            Width="135"
-                                            Margin="25,0,0,0"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-AuthorYear}"
-                                            materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            Style="{StaticResource TextBoxInError}"
-                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.AuthorYear)"
-                                                    UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validationRules:NumberValidator />
-                                                        <validationRules:Year4Validator />
-                                                        <validationRules:DoubleRangeRule Max="2100" Min="1000" />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        </StackPanel>
-                                         <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox
-                                            Width="760"
-                                            Margin="5,0,0,0"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-Info}"
-                                            materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            FontWeight="Medium"
-                                            Style="{StaticResource TextBoxInError}"
-                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.Info)"
-                                                    UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validationRules:Name100Validator />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        </StackPanel>
-                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox
-                                            Width="367"
-                                            Margin="5,0,0,0"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-EngName}"
-                                            materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            Style="{StaticResource TextBoxInError}"
-                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.EngName)"
-                                                    UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validationRules:Name200Validator />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox
-                                            Width="367"
-                                            Margin="25,0,0,0"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-GerName}"
-                                            materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            Style="{StaticResource TextBoxInError}"
-                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.GerName)"
-                                                    UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validationRules:Name200Validator />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        </StackPanel>
-                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox
-                                            Width="367"
-                                            Margin="5,0,0,0"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-FraName}"
-                                            materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            Style="{StaticResource TextBoxInError}"
-                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.FraName)"
-                                                    UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validationRules:Name200Validator />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <TextBox
-                                            Width="367"
-                                            Margin="25,0,0,0"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-SpaName}"
-                                            materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            Style="{StaticResource TextBoxInError}"
-                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                            <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl03RegnumsList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl03Regnum.PorName)"
-                                                    UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validationRules:Name200Validator />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        </StackPanel> ]]> 
-  </xsl:if>         
 </xsl:when>   
 <xsl:when test="Table ='Tbl18Superclasses'">    
-  <xsl:if test="TableFK2 !='NULL'">    <![CDATA[   
-                                             </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <TextBox
-                                                    Width="760"
-                                                    Margin="5,10,25,0"
-                                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl15Subdivision-SubdivisionName}"
-                                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                                    FontWeight="Medium"
-                                                    Style="{StaticResource TextBoxInError}"
-                                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            Converter="{StaticResource CapFirst}"
-                                                            ElementName="Tbl15SubdivisionsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl15Subdivision.SubdivisionName)"
-                                                            UpdateSourceTrigger="PropertyChanged">
-                                                            <Binding.ValidationRules>
-                                                                <validationRules:Name200Validator />
-                                                                <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="False" />
-                                                            </Binding.ValidationRules>
-                                                        </Binding>
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                        </StackPanel>
-                                        <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <CheckBox
-                                                    Width="80"
-                                                    Margin="5,0,0,0"
-                                                    VerticalAlignment="Bottom"
-                                                    Content="{DynamicResource Shared-Valid}"
-                                                    FontWeight="Normal"
-                                                    IsChecked="{Binding SelectedItem.(models:Tbl15Subdivision.Valid), ElementName=Tbl15SubdivisionsList}"
-                                                    Style="{StaticResource MaterialDesignCheckBox}" />
-                                                <TextBox
-                                                    Width="115"
-                                                    Margin="5,10,0,0"
-                                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-ValidYear}"
-                                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                                    FontWeight="Medium"
-                                                    Style="{StaticResource TextBoxInError}"
-                                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl15SubdivisionsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl15Subdivision.ValidYear)"
-                                                            UpdateSourceTrigger="PropertyChanged">
-                                                            <Binding.ValidationRules>
-                                                                <validationRules:NumberValidator />
-                                                                <validationRules:Year4Validator />
-                                                                <validationRules:DoubleRangeRule Max="2100" Min="1000" />
-                                                            </Binding.ValidationRules>
-                                                        </Binding>
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                            </StackPanel>
-                                         <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <ComboBox
-                                                    Width="760"
-                                                    Margin="5,0,0,0"
-                                                    VerticalAlignment="Bottom"
-                                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl09Division-DivisionName}"
-                                                    DisplayMemberPath="DivisionName"
-                                                    IsSynchronizedWithCurrentItem="True"
-                                                    ItemContainerStyle="{StaticResource ComboStyle}"
-                                                    ItemsSource="{Binding Tbl09DivisionsAllList}"
-                                                    SelectedValue="{Binding SelectedItem.(models:Tbl09Division.DivisionID), ElementName=Tbl15SubdivisionsList, Mode=TwoWay}"
-                                                    SelectedValuePath="DivisionID"
-                                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                                    VirtualizingStackPanel.IsVirtualizing="True" />
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                                    <TextBox
-                                                        Height="Auto"
-                                                        MinWidth="760"
-                                                        MinHeight="50"
-                                                        MaxWidth="760"
-                                                        MaxHeight="400"
-                                                        Margin="5,0,0,0"
-                                                        VerticalAlignment="Stretch"
-                                                        materialDesign:HintAssist.Hint="{DynamicResource Shared-Synonym}"
-                                                        AcceptsReturn="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                                        FontWeight="Medium"
-                                                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                        Text="{Binding SelectedItem.(models:Tbl15Subdivision.Synonym), ElementName=Tbl15SubdivisionsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CapFirst}}"
-                                                        TextWrapping="Wrap"
-                                                        VerticalScrollBarVisibility="Auto" />
-                                                </ScrollViewer>
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <TextBox
-                                                    Width="620"
-                                                    Margin="5,10,0,0"
-                                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-Author}"
-                                                    materialDesign:ValidationAssist.UsePopup="True"
-                                                    CharacterCasing="Upper"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                                    FontWeight="Medium"
-                                                    Style="{StaticResource TextBoxInError}"
-                                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl15SubdivisionsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl15Subdivision.Author)"
-                                                            UpdateSourceTrigger="PropertyChanged">
-                                                            <Binding.ValidationRules>
-                                                                <validationRules:Name100Validator />
-                                                            </Binding.ValidationRules>
-                                                        </Binding>
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                                <TextBox
-                                                    Width="115"
-                                                    Margin="25,0,0,0"
-                                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-AuthorYear}"
-                                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                                    FontWeight="Medium"
-                                                    Style="{StaticResource TextBoxInError}"
-                                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl15SubdivisionsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl15Subdivision.AuthorYear)"
-                                                            UpdateSourceTrigger="PropertyChanged">
-                                                            <Binding.ValidationRules>
-                                                                <validationRules:NumberValidator />
-                                                                <validationRules:Year4Validator />
-                                                                <validationRules:DoubleRangeRule Max="2100" Min="1000" />
-                                                            </Binding.ValidationRules>
-                                                        </Binding>
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <TextBox
-                                                    Width="760"
-                                                    Margin="5,0,0,0"
-                                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-Info}"
-                                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                                    FontWeight="Medium"
-                                                    Style="{StaticResource TextBoxInError}"
-                                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl15SubdivisionsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl15Subdivision.Info)"
-                                                            UpdateSourceTrigger="PropertyChanged">
-                                                            <Binding.ValidationRules>
-                                                                <validationRules:Name100Validator />
-                                                            </Binding.ValidationRules>
-                                                        </Binding>
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <TextBox
-                                                    Width="367"
-                                                    Margin="5,0,0,0"
-                                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-EngName}"
-                                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                                    FontWeight="Medium"
-                                                    Style="{StaticResource TextBoxInError}"
-                                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl15SubdivisionsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl15Subdivision.EngName)"
-                                                            UpdateSourceTrigger="PropertyChanged">
-                                                            <Binding.ValidationRules>
-                                                                <validationRules:Name200Validator />
-                                                            </Binding.ValidationRules>
-                                                        </Binding>
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                                <TextBox
-                                                    Width="367"
-                                                    Margin="25,0,0,0"
-                                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-GerName}"
-                                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                                    FontWeight="Medium"
-                                                    Style="{StaticResource TextBoxInError}"
-                                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl15SubdivisionsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl15Subdivision.GerName)"
-                                                            UpdateSourceTrigger="PropertyChanged">
-                                                            <Binding.ValidationRules>
-                                                                <validationRules:Name200Validator />
-                                                            </Binding.ValidationRules>
-                                                        </Binding>
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <TextBox
-                                                    Width="367"
-                                                    Margin="5,0,0,0"
-                                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-FraName}"
-                                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                                    FontWeight="Medium"
-                                                    Style="{StaticResource TextBoxInError}"
-                                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl15SubdivisionsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl15Subdivision.FraName)"
-                                                            UpdateSourceTrigger="PropertyChanged">
-                                                            <Binding.ValidationRules>
-                                                                <validationRules:Name200Validator />
-                                                            </Binding.ValidationRules>
-                                                        </Binding>
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                                <TextBox
-                                                    Width="367"
-                                                    Margin="25,0,0,0"
-                                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-SpaName}"
-                                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                                    FontWeight="Medium"
-                                                    Style="{StaticResource TextBoxInError}"
-                                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl15SubdivisionsList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl15Subdivision.PorName)"
-                                                            UpdateSourceTrigger="PropertyChanged">
-                                                            <Binding.ValidationRules>
-                                                                <validationRules:Name200Validator />
-                                                            </Binding.ValidationRules>
-                                                        </Binding>
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                        </StackPanel> ]]> 
-  </xsl:if>         
 </xsl:when>   
 <xsl:when test="Table ='Tbl68Speciesgroups'">      
 </xsl:when>  
@@ -8034,120 +7492,8 @@
 <xsl:when test="Table ='Tbl90RefExperts'">      
 </xsl:when>    
 <xsl:when test="Table ='Tbl90References'">       <![CDATA[   
-                                        </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <TextBox
-                                                    Width="760"
-                                                    Margin="5,10,0,0"
-                                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl90RefSource-SourceName}"
-                                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                                    FontWeight="Medium"
-                                                    Style="{StaticResource TextBoxInError}"
-                                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl90RefSourcesList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl90RefSource.RefSourceName)"
-                                                            UpdateSourceTrigger="PropertyChanged">
-                                                            <Binding.ValidationRules>
-                                                                <validationRules:Name200Validator />
-                                                            </Binding.ValidationRules>
-                                                        </Binding>
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <TextBox
-                                                    Width="600"
-                                                    Margin="5,0,0,0"
-                                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-Author}"
-                                                    materialDesign:ValidationAssist.UsePopup="True"
-                                                    CharacterCasing="Upper"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                                    FontWeight="Medium"
-                                                    Style="{StaticResource TextBoxInError}"
-                                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl90RefSourcesList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl90RefSource.Author)"
-                                                            UpdateSourceTrigger="PropertyChanged">
-                                                            <Binding.ValidationRules>
-                                                                <validationRules:Name100Validator />
-                                                            </Binding.ValidationRules>
-                                                        </Binding>
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                                <TextBox
-                                                    Width="135"
-                                                    Margin="25,0,0,0"
-                                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-AuthorYear}"
-                                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                                    FontWeight="Medium"
-                                                    Style="{StaticResource TextBoxInError}"
-                                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl90RefSourcesList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl90RefSource.SourceYear)"
-                                                            UpdateSourceTrigger="PropertyChanged">
-                                                            <Binding.ValidationRules>
-                                                                <validationRules:NumberValidator />
-                                                                <validationRules:Year4Validator />
-                                                                <validationRules:DoubleRangeRule Max="2100" Min="1000" />
-                                                            </Binding.ValidationRules>
-                                                        </Binding>
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                            <TextBox
-                                                Height="Auto"
-                                                MinWidth="760"
-                                                MinHeight="100"
-                                                MaxWidth="760"
-                                                MaxHeight="400"
-                                                        Margin="5,0,0,0"
-                                                        VerticalAlignment="Stretch"
-                                                        materialDesign:HintAssist.Hint="{DynamicResource Shared-Notes}"
-                                                        AcceptsReturn="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                                        FontWeight="Medium"
-                                                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                        Text="{Binding SelectedItem.(models:Tbl90RefSource.Notes), ElementName=Tbl90RefSourcesList}"
-                                                        TextWrapping="Wrap"
-                                                        VerticalScrollBarVisibility="Auto" />
-                                                </ScrollViewer>
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <TextBox
-                                                    Width="760"
-                                                    Margin="5,0,0,0"
-                                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-Info}"
-                                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                                    FontWeight="Medium"
-                                                    Style="{StaticResource TextBoxInError}"
-                                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                                    <TextBox.Text>
-                                                        <Binding
-                                                            ElementName="Tbl90RefSourcesList"
-                                                            Mode="TwoWay"
-                                                            Path="SelectedItem.(models:Tbl90RefSource.Info)"
-                                                            UpdateSourceTrigger="PropertyChanged">
-                                                            <Binding.ValidationRules>
-                                                                <validationRules:Name100Validator />
-                                                            </Binding.ValidationRules>
-                                                        </Binding>
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                            </StackPanel>    ]]> 
+ 
+                                             ]]> 
 </xsl:when>   
 <xsl:when test="Table ='TblUserProfiles'">      
 </xsl:when>   
@@ -8270,7 +7616,7 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
                                             Width="760"
-                                            Margin="5,0,0,0"
+                                            Margin="5"
                                             materialDesign:HintAssist.Hint="{DynamicResource Shared-Info}"
                                             materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"
@@ -8293,7 +7639,7 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                          <TextBox
                                             Width="367"
-                                            Margin="5,0,0,0"
+                                            Margin="5"
                                             materialDesign:HintAssist.Hint="{DynamicResource Shared-EngName}"
                                             materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"
@@ -8314,7 +7660,7 @@
                                         </TextBox>     
                                          <TextBox
                                             Width="367"
-                                            Margin="25,0,0,0"
+                                            Margin="21,5,5,5"
                                             materialDesign:HintAssist.Hint="{DynamicResource Shared-GerName}"
                                             materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"
@@ -8337,7 +7683,7 @@
                                         <StackPanel Height="Auto" Orientation="Horizontal">
                                          <TextBox
                                             Width="367"
-                                            Margin="5,0,0,0"
+                                            Margin="5"
                                             materialDesign:HintAssist.Hint="{DynamicResource Shared-FraName}"
                                             materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"
@@ -8358,7 +7704,7 @@
                                         </TextBox>     
                                          <TextBox
                                             Width="367"
-                                            Margin="25,0,0,0"
+                                            Margin="21,5,5,5"
                                             materialDesign:HintAssist.Hint="{DynamicResource Shared-SpaName}"
                                             materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"
@@ -8703,7 +8049,7 @@
                                     </TextBox.Text>
                                 </TextBox>
                                 <TextBox
-                                    Width="135"
+                                    Width="130"
                                     Margin="25,0,0,0"
                                     materialDesign:HintAssist.Hint="{DynamicResource Shared-AuthorYear}"
                                     materialDesign:ValidationAssist.UsePopup="True"
@@ -9305,7 +8651,7 @@
                                         <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
                                             Width="367"
-                                            Margin="5,0,0,0"
+                                            Margin="5"
                                             materialDesign:HintAssist.Hint="{DynamicResource Shared-EngName}"
                                             materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"
@@ -9325,7 +8671,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="367"
-                                            Margin="25,0,0,0"
+                                            Margin="21,5,5,5"
                                             materialDesign:HintAssist.Hint="{DynamicResource Shared-GerName}"
                                             materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"
@@ -9347,7 +8693,7 @@
                                         <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
                                             Width="367"
-                                            Margin="5,0,0,0"
+                                            Margin="5"
                                             materialDesign:HintAssist.Hint="{DynamicResource Shared-FraName}"
                                             materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"
@@ -9367,7 +8713,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="367"
-                                            Margin="25,0,0,0"
+                                            Margin="21,5,5,5"
                                             materialDesign:HintAssist.Hint="{DynamicResource Shared-SpaName}"
                                             materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"
@@ -9396,7 +8742,9 @@
 <xsl:when test="Table ='Property Part 8.1  HeaderedContentControl Connected   FK2 Bottom 1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
 </xsl:when>  
 <xsl:when test="Table ='Tbl03Regnums'">     
-</xsl:when>   
+</xsl:when>  
+<xsl:when test="Table ='Tbl18Superclasses'">    
+</xsl:when>    
 <xsl:when test="Table ='Tbl68Speciesgroups'">      
 </xsl:when>  
 <xsl:when test="Table ='Tbl69FiSpeciesses'">  
@@ -10915,9 +10263,8 @@
                                     mah:TextBoxHelper.Watermark="{DynamicResource Shared-Synonym}"
                                     mah:TextBoxHelper.WatermarkAlignment="Left"
                                                AcceptsReturn="True"
-                                    FontWeight="Medium"
-                                            SpellCheck.IsEnabled="True"
                                              FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
                                                Text="{Binding SelectedItem.(models:]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.Synonym), ElementName=]]><xsl:value-of select="TableTK2"/><![CDATA[List, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 TextWrapping="Wrap"
                                      ToolTip="{DynamicResource Shared-Synonym}"

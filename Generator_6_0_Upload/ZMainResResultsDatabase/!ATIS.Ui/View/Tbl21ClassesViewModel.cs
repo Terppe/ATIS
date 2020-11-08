@@ -14,7 +14,7 @@ using GalaSoft.MvvmLight.Command;
 using MessageBoxImage = System.Windows.MessageBoxImage;
 
     
-         //    Tbl21ClassesViewModel Skriptdatum:  12.12.2019  18:32    
+         //    Tbl21ClassesViewModel Skriptdatum:  05.11.2020  18:32    
 
 namespace WPFUI.Views.Database
 {     
@@ -115,23 +115,23 @@ ClassesView = CollectionViewSource.GetDefaultView(Tbl21ClassesList);
         {
             Tbl21ClassesList = new ObservableCollection<Tbl21Class>();
 
-            var class = _tbl21ClassesRepository.Get(CurrentTbl21Class.ClassID);
+            var classe = _tbl21ClassesRepository.Get(CurrentTbl21Class.ClassID);
 
             Tbl21ClassesList.Insert(0, new Tbl21Class
             {                 
-SuperclassID = class.SuperclassID,              
+SuperclassID = classe.SuperclassID,              
                             ClassName = CultRes.StringsRes.DatasetNew,              
-                            Valid = class.Valid,
-                            ValidYear = class.ValidYear,
-                            Synonym = class.Synonym,
-                            Author = class.Author,
-                            AuthorYear = class.AuthorYear,
-                            Info = class.Info,
-                            EngName = class.EngName,
-                            GerName = class.GerName,
-                            FraName = class.FraName,
-                            PorName = class.PorName,
-                            Memo = class.Memo                    
+                            Valid = classe.Valid,
+                            ValidYear = classe.ValidYear,
+                            Synonym = classe.Synonym,
+                            Author = classe.Author,
+                            AuthorYear = classe.AuthorYear,
+                            Info = classe.Info,
+                            EngName = classe.EngName,
+                            GerName = classe.GerName,
+                            FraName = classe.FraName,
+                            PorName = classe.PorName,
+                            Memo = classe.Memo                    
         
             });
 
@@ -152,13 +152,13 @@ SuperclassID = class.SuperclassID,
         {
             try
             {
-                var class = _tbl21ClassesRepository.Get(CurrentTbl21Class.ClassID);
-                if (class!= null)
+                var classe = _tbl21ClassesRepository.Get(CurrentTbl21Class.ClassID);
+                if (classe!= null)
                 {
                     if (WpfMessageBox.Show(CultRes.StringsRes.DeleteQuestion1, CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl21Class.ClassName,
                          MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes) 
                     return;
-                    _tbl21ClassesRepository.Delete(class);
+                    _tbl21ClassesRepository.Delete(classe);
                     _tbl21ClassesRepository.Save();
 
                     WpfMessageBox.Show(CultRes.StringsRes.DeleteSuccess, CurrentTbl21Class.ClassName, 
@@ -207,7 +207,7 @@ ClassesView = CollectionViewSource.GetDefaultView(Tbl21ClassesList);
         {
             try
             {
-                var class = _tbl21ClassesRepository.Get(CurrentTbl21Class.ClassID);
+                var classe = _tbl21ClassesRepository.Get(CurrentTbl21Class.ClassID);
                 if (CurrentTbl21Class == null)              
                     WpfMessageBox.Show(CultRes.StringsRes.Warning, CultRes.StringsRes.DatasetNotExist, 
                         MessageBoxButton.OK, MessageBoxImage.Warning);               
@@ -215,23 +215,23 @@ ClassesView = CollectionViewSource.GetDefaultView(Tbl21ClassesList);
                 {
                     if (CurrentTbl21Class.ClassID!= 0)
                     {
-                        if (class!= null) //update
+                        if (classe!= null) //update
                         {   
-class.ClassName = CurrentTbl21Class.ClassName;  
-class.SuperclassID = CurrentTbl21Class.SuperclassID;
-                            class.Valid = CurrentTbl21Class.Valid;
-                            class.ValidYear = CurrentTbl21Class.ValidYear;
-                            class.Synonym = CurrentTbl21Class.Synonym;
-                            class.Author = CurrentTbl21Class.Author;
-                            class.AuthorYear = CurrentTbl21Class.AuthorYear;
-                            class.Info = CurrentTbl21Class.Info;
-                            class.EngName = CurrentTbl21Class.EngName;
-                            class.GerName = CurrentTbl21Class.GerName;
-                            class.FraName = CurrentTbl21Class.FraName;
-                            class.PorName = CurrentTbl21Class.PorName;
-                            class.Updater = Environment.UserName;
-                            class.UpdaterDate = DateTime.Now; 
-                            class.Memo = CurrentTbl21Class.Memo;  
+classe.ClassName = CurrentTbl21Class.ClassName;  
+classe.SuperclassID = CurrentTbl21Class.SuperclassID;
+                            classe.Valid = CurrentTbl21Class.Valid;
+                            classe.ValidYear = CurrentTbl21Class.ValidYear;
+                            classe.Synonym = CurrentTbl21Class.Synonym;
+                            classe.Author = CurrentTbl21Class.Author;
+                            classe.AuthorYear = CurrentTbl21Class.AuthorYear;
+                            classe.Info = CurrentTbl21Class.Info;
+                            classe.EngName = CurrentTbl21Class.EngName;
+                            classe.GerName = CurrentTbl21Class.GerName;
+                            classe.FraName = CurrentTbl21Class.FraName;
+                            classe.PorName = CurrentTbl21Class.PorName;
+                            classe.Updater = Environment.UserName;
+                            classe.UpdaterDate = DateTime.Now; 
+                            classe.Memo = CurrentTbl21Class.Memo;  
          
                         }
                     }

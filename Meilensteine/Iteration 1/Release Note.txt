@@ -1,0 +1,9 @@
+TAG: Iteration_1_Fertig
+ART: Internes Entwicklungsrelease
+STATUS: Informell getestet - kann an Tester verteilt werden.
+FUNKTION: 
+		* Datenerfassung von Regnum-Classinplementiert
+		* SearchQuick über alle Tabellen inplementiert
+		* Login und Register teilweise inplementiert
+		* 
+		* Schnelles Starten (einfach die EXE ausführen)

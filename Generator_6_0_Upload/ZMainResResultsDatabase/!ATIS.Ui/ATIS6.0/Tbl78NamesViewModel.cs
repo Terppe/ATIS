@@ -1,7 +1,8 @@
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
+using System.ComponentModel;  
+
+    
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -12,7 +13,6 @@ using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Database.CrudHelper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
 using Microsoft.EntityFrameworkCore;          
-
     
 using System.Collections.Generic;  
     
@@ -298,7 +298,7 @@ NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
 
         #endregion "Public Commands"                  
        
-        private void SaveFiSpecies(string searchName)
+        private void ExecuteSaveFiSpecies(string searchName)
         {
             if (_genFiSpeciesMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl69FiSpecies)) return;
 
@@ -471,8 +471,8 @@ NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
      
                 if (_selectedMainTabIndex == 2)
                 {
-                    SelectedDetailTabIndex = 3;
-                    SelectedMainSubRefTabIndex = 0;
+                        SelectedDetailTabIndex = 3;
+                        SelectedMainSubRefTabIndex = 0;                  
                 }           
      
                 if (_selectedMainTabIndex == 3)
@@ -584,6 +584,18 @@ NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
                         CommentsView.Refresh();
                     }
                     SelectedMainTabIndex = 3;
+                }       
+     
+                if (_selectedDetailTabIndex == 7)
+                {
+                    if (CurrentTbl78Name != null)
+                    {
+                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromNameId<Tbl93Comment>(CurrentTbl78Name.NameId);
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 4;
                 }       
      
             }

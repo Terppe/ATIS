@@ -1,0 +1,213 @@
+User Stories für ATIS
+
+User Story Vorlage: Als <Rolle/Anwendertyp> möchte ich <Ziel/Wunsch/Funktion>, um <Nutzen>
+
+Titel: Softwarestruktur
+Story: Als Entwickler möchte ich den Quellcode sauber strukturieren, um später einfach weitere
+		Funktionalitäten hinzufügen zu können.
+Akzeptanzkriterien:
+	* Das Single Level of Abstraction Prinzip wird eingehalten, oder eine Abweichung ist 
+		begründet und dokumentiert.
+Status:
+•	Offen
+
+************************************
+Titel:	Ziel der Anwendung ATIS
+Story:	ATIS = Aquaristik Taxonomie Informations System mit Bildern und Videos in 4 Sprachen.
+		Auf dem MainWindow soll ein Suchfeld sein, in dem man suchen kann ohne angemeldet zu sein.
+		Um Eingaben in der vorhandenen Datenbank ATIS35, oder Einstellungen zu machen, 
+		muss man sich einloggen als Administrator, Developer, Zoologe oder Biologe.
+		MSSQLSERVER 2019
+		Als User kann man sich auch anmelden, kann aber nicht auf die wichtigen Bereiche zugreifen.
+		Das Ergebnis der Suche holt Daten aus fast allen Tabellen der Datenbank und zeigt sie mit Bildern und Videos an.
+		Dies kann in PDF ausgedruckt werden.
+		Entwurfsmuster MVVM zur Trennung von Darstellung und Logik der UI
+		Ohne MVVM Light ?
+		Weitere Informationen und Links anzeigen über alles Wissenswerte rund um Aquaristik.
+		Moderne Oberfläche ähnlich MaterialDesign von Butcher wie Fluent. Ähnlich UWP.
+		Bilder und Videos werden im Ordner DB_FS_ATIS34 als Filestream gespeichert.
+Akzeptanzkriterien:
+	* Optisch ansprechend und schnelle Suche und Anzeige
+	* 
+Status:
+	•	Offen
+	•	
+	•
+
+***************************************
+Titel: TreeView zum Aufruf der Views über ViewModel
+Story:  
+Akzeptanzkriterien:
+	* Versuch über reines TreeView mit vielen Unter-TreeViews evtl später,
+	da doch sehr aufwändig, da in verschiedenen Ebenen der Button-Down-Event auszulösen ist.
+	Jetzt mit Aufruf des Bereiches und selektierung über TabControl
+	Database ==> TreeView-Button ==> Regnum, Phylum, Division... Genus, Species ==> tabcontrol
+	Mit MahApps verwirklicht. Aber keine Unter-TreeViews
+Status:
+•	Noch nicht entgültig implementiert
+•	
+•	
+
+
+*************************************
+Titel: Datenbank- Anbindung
+Story: Datenbank ATIS35 soll mit ConnectionString eingebunden werden 
+Akzeptanzkriterien:
+	* Versuch mit Dapper Verbindung hergestellt
+	* AtisDbContext 
+	* Version mit Generic und UOW versuchen
+Status:
+•	Bei MainWindow.cs connectionString und Verbindung zur Datenbank hergestellt
+•	"MyDbConnection": "server=.\\SQLEXPRESS;database=ATIS35;trusted_connection=true;" in appsettings.json eingefügt
+•	erfolgreich mit UnitOfWork erledig
+*	Datenbank mit Daten vom Generator je 10 Datensätze gefüllt
+*	Für UOW entschieden. Manchmal AtisDbContext verwendet.
+*	
+
+
+***************************************
+
+Titel: Problem beim Erzeugen eines Datensatzes 
+Story: Wenn ein Datensatz erzeugt wird kann nicht sofort der Name geändert werden. Da der key noch im Zugriff ist
+		* Tracking
+	 
+Status:
+•	EnableSensitiveDataLogging in AtisDbContext eingefügt
+•	Lösung nur möglich Tabelle geschlossen und Datensatz neu gesucht wird
+•	bessere Lösung noch nicht gefunden
+
+***************************************
+
+Titel: TextBox Style ändern
+Story: Bei MaterialDesign gibt es eine TextBox die das Label anzeigt und bei Füllen der textbox das label ganz klein über dem Eingabefeld anzeigt. 
+		Spart Platz und finde ich toll.
+		Akzeptanzkriterien: Bei Core 3.1 nicht mehr vorhanden. Muss anders gelöst werden
+	* Bei MahApps gibs es auch diese TextBox
+Status:
+•	Noch nicht implementiert
+•	
+•	
+
+***************************************
+
+Titel: Versionscontrolle mit AssemblyInfo
+Story:  Version 1.0.*
+Akzeptanzkriterien: Bei Core 3.1 nicht mehr vorhanden. Muss anders gelöst werden
+	* 
+Status:
+•	Noch nicht implementiert
+•	
+•	
+
+***************************************
+
+Titel: SearchTextBox Biliothek eingefügt
+Story:  
+Akzeptanzkriterien:
+	* Versuchen über MahApps zu lösen
+
+Status:
+•	 implementiert mit MahApps TextBox mit Delete x und Button
+•	
+•	
+
+
+***************************************
+Titel: Ersatz für Property settings
+Story:  Generic evtl.
+Akzeptanzkriterien:
+	* 
+Status:
+•	Noch nicht implementiert
+•	
+•	
+
+
+***************************************
+
+Titel: Display mit hamburger menü Fluent Moderne Oberfläche
+Story: Wie UWP mit Windows-Community-Toolkit und Windows-UI-Bibliothek usw
+Akzeptanzkriterien:
+	* Windows-Community-Toolkit Version 6.0 lässt sich nicht bei CORE 3.1 installieren
+	* Mit MahApps vorerst gelöst. Evtl. mit Compact navigation Menu von Meshack Musundi ohne MahApps
+Status:
+•	implementiert mit MahApps
+•	
+•	
+
+
+***************************************
+
+Titel: Culture, DE, ENG,FRA, SPA
+Story:  
+Akzeptanzkriterien:
+	* Als separate DLL ?
+Status:
+•	Erfolgreich implementiert als separate DLL
+•	
+•	
+
+
+***************************************
+Titel: Authentifizierung Register, Login usw.
+Story:  
+Akzeptanzkriterien:Login und Register nach Montin installiert
+	* Login auch aus MainWindowViewModel zu starten
+	* Fehlt Passwort vergessen und 
+Status:
+•	Noch nicht fertig implementiert
+•	
+•	
+
+
+***************************************
+Titel: Search
+Story:  
+Akzeptanzkriterien:
+	* 
+Status:
+•	Noch nicht implementiert
+•	
+•	
+
+
+***************************************
+Titel: PDF
+Story:  
+Akzeptanzkriterien:
+	* 
+Status:
+•	Noch nicht implementiert
+•	
+•	
+
+
+***************************************
+Titel: Umstellen von Core 3.1 in NET 5.0
+Story:  
+Akzeptanzkriterien:
+	* 
+Status:
+•	Noch nicht implementiert
+•	
+•	
+
+
+***************************************
+
+
+
+
+Titel: Starten
+Story: Als Benutzer möchte ich den ATIS schnell aufrufen können, um ohne Anmeldung im header
+einen Suchvorgang auszulösen um ein Suchergebnis schnell zu bekommen.
+Mit Anmelderechten Administrator, Zoologe, Developer kann auf Datenbank zugegriffen werden. Als User nicht.
+Akzeptanzkriterien:
+	* Die Anwendung wird innerhalb von 2 Sekunden auf dem Rechner gestartet
+	* Die Anwendung läuft auf einem Rechner mit Windows 10.
+Status:
+•	Noch nicht implementiert
+•	
+•	
+
+**************************************

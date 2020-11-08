@@ -10,7 +10,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"     
         
-             d:DesignHeight="700" 
+             d:DesignHeight="800" 
              d:DesignWidth="1550"
              mc:Ignorable="d">                                              
                          
@@ -370,15 +370,39 @@
                      <!-- Part 7   -->        
 
         
-                            </dragablz:TabablzControl>
-                            <GridSplitter
-                                Grid.Row="1"
-                                Height="5"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Center"
-                                Background="Black"
-                                ResizeDirection="Rows" />
-                        </Grid>          
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn Width="Auto" Header="{DynamicResource Tbl93Comment-CommentId}">
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock
+                                                                        Width="100"
+                                                                        Text="{Binding (models:Tbl93Comment.CommentId)}"
+                                                                        TextAlignment="Left" />
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn Header="{DynamicResource Shared-Valid}">
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <CheckBox IsChecked="{Binding (models:Tbl93Comment.Valid)}" />
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn
+                                                        Width="700"
+                                                        DisplayMemberBinding="{Binding (models:Tbl93Comment.Info)}"
+                                                        Header="{DynamicResource Shared-Info}" />
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                      </GroupBox>
+                                    </StackPanel>
+                                  </ScrollViewer>
+                                </TabItem>
+                            </TabControl>     
 
 
                      <!-- Part 2 Splitter  -->    
@@ -442,7 +466,7 @@
                                     Style="{StaticResource MahApps.Styles.CheckBox}" />
                                 <TextBox
                                     Width="80"
-                                    Margin="5"
+                                    Margin="25,5,5,5"
                                     HorizontalContentAlignment="Stretch"
                                     mah:TextBoxHelper.IsWaitingForData="True"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -568,7 +592,7 @@
                                 </TextBox>    
                                 <TextBox
                                     Width="367"
-                                    Margin="23,5,5,5"
+                                    Margin="21,5,5,5"
                                     HorizontalContentAlignment="Stretch"
                                     mah:TextBoxHelper.IsWaitingForData="True"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -608,7 +632,7 @@
                                 </TextBox>    
                                 <TextBox
                                     Width="367"
-                                    Margin="23,5,5,5"
+                                    Margin="21,5,5,5"
                                     HorizontalContentAlignment="Stretch"
                                     mah:TextBoxHelper.IsWaitingForData="True"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -694,7 +718,7 @@
                 
                             <TabItem FontWeight="Medium" Header="{DynamicResource Shared-Connect}">
                               <GroupBox>
-                               <dragablz:TabablzControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedDetailSubTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">         
+                               <TabControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedDetailSubTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">         
        
                                         <StackPanel Height="Auto" Orientation="Horizontal">
                                                 <ScrollViewer VerticalScrollBarVisibility="Auto">

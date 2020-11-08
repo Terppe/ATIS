@@ -2,7 +2,7 @@
  <Definition>
   <File>Tbl18Superclasses</File>
 
-  <DateTime>12.12.2018  12:32</DateTime>  
+  <DateTime>04.11.2020  12:32</DateTime>  
   <Namespace>Atis</Namespace>  
   <ConnString></ConnString> 
   <RegisterContext>ATISEntities</RegisterContext > 
@@ -11,10 +11,10 @@
 
   <LayoutTK3>ListDetails</LayoutTK3>
   <LayoutTK2>ListDetails</LayoutTK2>
-  <LayoutTK1>ListDetails</LayoutTK1>
-  <Layout>ListDetails</Layout>
-  <LayoutFK1>ListDetails</LayoutFK1>
-  <LayoutFK2>ListDetails</LayoutFK2>
+  <LayoutTK1>D21Class</LayoutTK1>
+  <Layout>D18Superclass</Layout>
+  <LayoutFK1>D12Subphylum</LayoutFK1>
+  <LayoutFK2>D15Subdivision</LayoutFK2>
   <LayoutBK1>ListDetails</LayoutBK1>
   <LayoutBK2>ListDetails</LayoutBK2>
   <LayoutBK3>ListDetails</LayoutBK3>

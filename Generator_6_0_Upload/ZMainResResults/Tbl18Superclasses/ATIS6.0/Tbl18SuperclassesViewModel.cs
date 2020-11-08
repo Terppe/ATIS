@@ -1,7 +1,10 @@
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
+using System.ComponentModel;  
+
+    
+using System.Linq;  
+    
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -12,17 +15,16 @@ using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Database.CrudHelper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
 using Microsoft.EntityFrameworkCore;          
-
     
-         //    SuperclassesViewModel Skriptdatum:  12.12.2018  12:32    
+         //    SuperclassesViewModel Skriptdatum:  04.11.2020  12:32    
 
-namespace ATIS.Ui.Views.Database.ListDetails
+namespace ATIS.Ui.Views.Database.D18Superclass
 {     
     
     public class SuperclassesViewModel : ViewModelBase                     
     {  
         // Version with Generic Unit Of Work and AtisDbContext for general use   
-         
+    
         #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
@@ -31,6 +33,7 @@ namespace ATIS.Ui.Views.Database.ListDetails
         private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
         private readonly GenericMessageBoxes<Tbl18Superclass> _genSuperclassMessageBoxes = new GenericMessageBoxes<Tbl18Superclass>();
         private readonly GenericMessageBoxes<Tbl12Subphylum> _genSubphylumMessageBoxes = new GenericMessageBoxes<Tbl12Subphylum>();
+        private readonly GenericMessageBoxes<Tbl15Subdivision> _genSubdivisionMessageBoxes = new GenericMessageBoxes<Tbl15Subdivision>();
         private readonly GenericMessageBoxes<Tbl21Class> _genClassMessageBoxes = new GenericMessageBoxes<Tbl21Class>();
         private readonly GenericMessageBoxes<Tbl90Reference> _genExpertMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
@@ -87,12 +90,13 @@ namespace ATIS.Ui.Views.Database.ListDetails
 
         #endregion [Commands Superclass]       
 
-     
+        
         #region [Methods Superclass]
 
         private void ExecuteGetSuperclassesByNameOrId(string searchName)
-        {
+       {
             Tbl12SubphylumsAllList = _extGet.AllCollection<Tbl12Subphylum>("subphylum");
+            Tbl15SubdivisionsAllList = _extGet.AllCollection<Tbl15Subdivision>("subdivision");
             Tbl18SuperclassesList = _extGet.SearchNameAndIdReturnCollection<Tbl18Superclass>(SearchSuperclassName, "superclass");
 
             SelectedMainTabIndex = 0;
@@ -100,7 +104,7 @@ namespace ATIS.Ui.Views.Database.ListDetails
 
             SuperclassesView = CollectionViewSource.GetDefaultView(Tbl18SuperclassesList);
             SuperclassesView.Refresh();
-        }                     
+        }                       
         
         private void ExecuteAddSuperclass(object o)
         {
@@ -320,7 +324,7 @@ namespace ATIS.Ui.Views.Database.ListDetails
 
         //-------------------------------------------------------------------------          
      
-        private void SaveSubdivision(object o)
+        private void ExecuteSaveSubdivision(string searchName)
         {
             if (_genSubdivisionMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl15Subdivision)) return;
 
@@ -1118,9 +1122,12 @@ namespace ATIS.Ui.Views.Database.ListDetails
 Tbl12SubphylumsList = _extGet.GetSubphylumsCollectionOrderByFromSubphylumId<Tbl12Subphylum>(CurrentTbl18Superclass.SubphylumId);
 
             Tbl06PhylumsAllList = _extGet.AllCollection<Tbl06Phylum>("phylum");
-
+   
             SubphylumsView = CollectionViewSource.GetDefaultView(Tbl12SubphylumsList);
-            SubphylumsView.Refresh();     
+            SubphylumsView.Refresh(); 
+
+            SelectedMainTabIndex = 0;
+            SelectedDetailTabIndex = 2;            
      
         }
 
@@ -1158,8 +1165,22 @@ Tbl12SubphylumsList = _extGet.GetSubphylumsCollectionOrderByFromSubphylumId<Tbl1
                     }
                     SelectedDetailTabIndex = 0;
                 }         
-     
-                if (_selectedMainTabIndex == 1)
+       
+                if (_selectedMainTabIndex == 1)             
+                {
+                    if (CurrentTbl18Superclass != null)
+                    {
+                        Tbl15SubdivisionsList = _extGet.GetSubdivisionsCollectionOrderByFromSubdivisionId<Tbl15Subdivision>(CurrentTbl18Superclass.SubdivisionId);
+
+                        Tbl09DivisionsAllList = _extGet.AllCollection<Tbl09Division>("division");
+
+                        SubdivisionsView = CollectionViewSource.GetDefaultView(Tbl15SubdivisionsList);
+                        SubdivisionsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 1;
+                }         
+       
+                if (_selectedMainTabIndex == 2)             
                 {
                     if (CurrentTbl18Superclass != null)
                     {
@@ -1170,16 +1191,16 @@ Tbl12SubphylumsList = _extGet.GetSubphylumsCollectionOrderByFromSubphylumId<Tbl1
                         ClassesView = CollectionViewSource.GetDefaultView(Tbl21ClassesList);
                         ClassesView.Refresh();
                     }
-                    SelectedDetailTabIndex = 2;   
-               }      
-     
-                if (_selectedMainTabIndex == 2)
-                {
                     SelectedDetailTabIndex = 3;
-                    SelectedMainSubRefTabIndex = 0;
-                }           
-     
+                }         
+       
                 if (_selectedMainTabIndex == 3)
+                {
+                        SelectedDetailTabIndex = 4;
+                        SelectedMainSubRefTabIndex = 0;     
+                }           
+       
+                if (_selectedMainTabIndex == 4)
                 {
                     if (CurrentTbl18Superclass != null)
                     {
@@ -1188,8 +1209,8 @@ Tbl12SubphylumsList = _extGet.GetSubphylumsCollectionOrderByFromSubphylumId<Tbl1
                         CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
                         CommentsView.Refresh();
                     }
-                    SelectedDetailTabIndex = 6;
-                }        
+                    SelectedDetailTabIndex = 7;
+                }           
      
             }
         }
@@ -1213,13 +1234,27 @@ Tbl12SubphylumsList = _extGet.GetSubphylumsCollectionOrderByFromSubphylumId<Tbl1
                     }
                     SelectedMainTabIndex = 0;  
                }     
-     
-                if (_selectedDetailTabIndex == 1)                
+       
+                if (_selectedDetailTabIndex == 1)
+                {
+                    if (CurrentTbl18Superclass != null)
+                    {
+                        Tbl15SubdivisionsList = _extGet.GetSubdivisionsCollectionOrderByFromSubdivisionId<Tbl15Subdivision>(CurrentTbl18Superclass.SubdivisionId);
+
+                        Tbl09DivisionsAllList = _extGet.AllCollection<Tbl09Division>("division");
+
+                        SubdivisionsView = CollectionViewSource.GetDefaultView(Tbl15SubdivisionsList);
+                        SubdivisionsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 1;
+                }           
+       
+                if (_selectedDetailTabIndex == 2)                
                 {
                     SelectedMainTabIndex = 0;
                 }    
-     
-                if (_selectedDetailTabIndex == 2)                
+       
+                if (_selectedDetailTabIndex == 3)
                 {
                     if (CurrentTbl18Superclass != null)
                     {
@@ -1230,10 +1265,10 @@ Tbl12SubphylumsList = _extGet.GetSubphylumsCollectionOrderByFromSubphylumId<Tbl1
                         ClassesView = CollectionViewSource.GetDefaultView(Tbl21ClassesList);
                         ClassesView.Refresh();
                     }
-                    SelectedMainTabIndex = 1;
-               }    
-     
-                if (_selectedDetailTabIndex == 3)
+                    SelectedMainTabIndex = 2;
+                }           
+       
+                if (_selectedDetailTabIndex == 4)
                 {
                     if (CurrentTbl18Superclass != null)
                     {
@@ -1244,11 +1279,11 @@ Tbl12SubphylumsList = _extGet.GetSubphylumsCollectionOrderByFromSubphylumId<Tbl1
                         ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
                         ReferenceExpertsView.Refresh();
                     }
-                    SelectedMainTabIndex = 2;
+                    SelectedMainTabIndex = 3;
                     SelectedMainSubRefTabIndex = 0;
-                }        
-     
-                if (_selectedDetailTabIndex == 4)
+                }           
+       
+                if (_selectedDetailTabIndex == 5)
                 {
                     if (CurrentTbl18Superclass != null)
                     {
@@ -1259,11 +1294,11 @@ Tbl12SubphylumsList = _extGet.GetSubphylumsCollectionOrderByFromSubphylumId<Tbl1
                         ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
                         ReferenceSourcesView.Refresh();
                     }
-                    SelectedMainTabIndex = 2;
+                    SelectedMainTabIndex = 3;
                     SelectedMainSubRefTabIndex = 1;
-                }        
-     
-                if (_selectedDetailTabIndex == 5)
+                }           
+       
+                if (_selectedDetailTabIndex == 6)
                 {
                     if (CurrentTbl18Superclass != null)
                     {
@@ -1274,11 +1309,11 @@ Tbl12SubphylumsList = _extGet.GetSubphylumsCollectionOrderByFromSubphylumId<Tbl1
                         ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
                         ReferenceAuthorsView.Refresh();
                     }
-                    SelectedMainTabIndex = 2;
+                    SelectedMainTabIndex = 3;
                     SelectedMainSubRefTabIndex = 2;
-                }       
+                }           
      
-                if (_selectedDetailTabIndex == 6)
+                if (_selectedDetailTabIndex == 7)
                 {
                     if (CurrentTbl18Superclass != null)
                     {
@@ -1287,7 +1322,7 @@ Tbl12SubphylumsList = _extGet.GetSubphylumsCollectionOrderByFromSubphylumId<Tbl1
                         CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
                         CommentsView.Refresh();
                     }
-                    SelectedMainTabIndex = 3;
+                    SelectedMainTabIndex = 4;
                 }       
      
             }
@@ -1300,7 +1335,7 @@ Tbl12SubphylumsList = _extGet.GetSubphylumsCollectionOrderByFromSubphylumId<Tbl1
             {
                 if (value == _selectedMainSubRefTabIndex) return;
                 _selectedMainSubRefTabIndex = value;  RaisePropertyChanged("");     
-     
+       
                 if (_selectedMainSubRefTabIndex == 0)
                 {
                     if (CurrentTbl18Superclass != null)
@@ -1312,10 +1347,10 @@ Tbl12SubphylumsList = _extGet.GetSubphylumsCollectionOrderByFromSubphylumId<Tbl1
                         ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
                         ReferenceExpertsView.Refresh();
                     }
-                    SelectedDetailTabIndex = 3;
-                    SelectedMainTabIndex = 2;
+                    SelectedDetailTabIndex = 4;
+                    SelectedMainTabIndex = 3;
                 }        
-     
+       
                 if (_selectedMainSubRefTabIndex == 1)
                 {
                     if (CurrentTbl18Superclass != null)
@@ -1327,10 +1362,10 @@ Tbl12SubphylumsList = _extGet.GetSubphylumsCollectionOrderByFromSubphylumId<Tbl1
                         ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
                         ReferenceSourcesView.Refresh();
                     }
-                    SelectedDetailTabIndex = 4;
-                    SelectedMainTabIndex = 2;
+                    SelectedDetailTabIndex = 5;
+                    SelectedMainTabIndex = 3;
                 }      
-     
+       
                 if (_selectedMainSubRefTabIndex == 2)
                 {
                     if (CurrentTbl18Superclass != null)
@@ -1342,8 +1377,8 @@ Tbl12SubphylumsList = _extGet.GetSubphylumsCollectionOrderByFromSubphylumId<Tbl1
                         ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
                         ReferenceAuthorsView.Refresh();
                     }
-                    SelectedDetailTabIndex = 5;
-                    SelectedMainTabIndex = 2;
+                    SelectedDetailTabIndex = 6;
+                    SelectedMainTabIndex = 3;
                 }      
                      
             }

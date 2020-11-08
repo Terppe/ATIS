@@ -104,6 +104,27 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         private readonly BasicSave _extSave = new BasicSave();        
         private int _position;  ]]> 
 </xsl:when>  
+<xsl:when test="Table ='Tbl18Superclasses'">   <![CDATA[ 
+        #region [Private Data Members]
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
+        private readonly AtisDbContext _context = new AtisDbContext();
+
+        private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
+        private readonly GenericMessageBoxes<]]><xsl:value-of select="LinqModel"/><![CDATA[> _gen]]><xsl:value-of select="Basis"/><![CDATA[MessageBoxes = new GenericMessageBoxes<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
+        private readonly GenericMessageBoxes<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[> _gen]]><xsl:value-of select="BasisFK1"/><![CDATA[MessageBoxes = new GenericMessageBoxes<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>();
+        private readonly GenericMessageBoxes<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[> _gen]]><xsl:value-of select="BasisFK2"/><![CDATA[MessageBoxes = new GenericMessageBoxes<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>();
+        private readonly GenericMessageBoxes<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[> _gen]]><xsl:value-of select="BasisTK1"/><![CDATA[MessageBoxes = new GenericMessageBoxes<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genExpertMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
+        private readonly BasicGet _extGet = new BasicGet();
+        private readonly BasicCopy _extCopy = new BasicCopy();
+        private readonly BasicDelete _extDelete = new BasicDelete();
+        private readonly BasicSave _extSave = new BasicSave();        
+        private int _position;  ]]> 
+</xsl:when> 
 <xsl:otherwise>        <![CDATA[ 
         #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -313,6 +334,22 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 0;
+
+            ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
+            ]]><xsl:value-of select="Basiss"/><![CDATA[View.Refresh();
+        }                     ]]>  
+</xsl:when>  
+<xsl:when test="Table ='Tbl18Superclasses'">       <![CDATA[ 
+        #region [Methods ]]><xsl:value-of select="Basis"/><![CDATA[]
+
+        private void ExecuteGet]]><xsl:value-of select="Basiss"/><![CDATA[ByNameOrId(string searchName)
+       {
+            ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
+            ]]><xsl:value-of select="TableFK2"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK2"/><![CDATA[");
+            ]]><xsl:value-of select="Table"/><![CDATA[List = _extGet.SearchNameAndIdReturnCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>(Search]]><xsl:value-of select="Basis"/><![CDATA[Name, "]]><xsl:value-of select="BasisSm"/><![CDATA[");
+
+            SelectedMainTabIndex = 0;
+            SelectedDetailTabIndex = 1;
 
             ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
             ]]><xsl:value-of select="Basiss"/><![CDATA[View.Refresh();
@@ -1176,7 +1213,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='TblUserProfiles'">             
 </xsl:when>
 <xsl:otherwise>      <![CDATA[ 
-        private void Save]]><xsl:value-of select="BasisFK1"/><![CDATA[(string searchName)
+        private void ExecuteSave]]><xsl:value-of select="BasisFK1"/><![CDATA[(string searchName)
         {
             if (_gen]]><xsl:value-of select="BasisFK1"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModelFK1"/><![CDATA[)) return;
 
@@ -1489,7 +1526,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='TblUserProfiles'"> 
 </xsl:when>
 <xsl:otherwise>    <![CDATA[ 
-        private void Save]]><xsl:value-of select="BasisFK2"/><![CDATA[(object o)
+        private void ExecuteSave]]><xsl:value-of select="BasisFK2"/><![CDATA[(string searchName)
         {
             if (_gen]]><xsl:value-of select="BasisFK2"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[)) return;
 
@@ -5543,9 +5580,20 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
             ]]><xsl:value-of select="BasissFK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableFK1"/><![CDATA[List);
             ]]><xsl:value-of select="BasissFK1"/><![CDATA[View.Refresh();    ]]> 
 </xsl:when>  
+<xsl:when test="Table ='Tbl18Superclasses'">      <![CDATA[   
+            ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[Id<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
+
+            ]]><xsl:value-of select="TableBK1"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModelBK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmBK1"/><![CDATA[");
+   
+            ]]><xsl:value-of select="BasissFK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableFK1"/><![CDATA[List);
+            ]]><xsl:value-of select="BasissFK1"/><![CDATA[View.Refresh(); 
+
+            SelectedMainTabIndex = 0;
+            SelectedDetailTabIndex = 2;            ]]>
+</xsl:when> 
 <xsl:when test="Table ='Tbl21Classes'">      <![CDATA[   
-             ]]><xsl:value-of select="TableBK1"/><![CDATA[AllList =  new ObservableCollection<]]><xsl:value-of select="LinqModelBK1"/><![CDATA[>(_businessLayer.List]]><xsl:value-of select="TableBK1"/><![CDATA[());
-             ]]><xsl:value-of select="TableBK2"/><![CDATA[AllList =  new ObservableCollection<]]><xsl:value-of select="LinqModelBK2"/><![CDATA[>(_businessLayer.List]]><xsl:value-of select="TableBK2"/><![CDATA[());
+            ]]><xsl:value-of select="TableBK1"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModelBK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmBK1"/><![CDATA[");
+            ]]><xsl:value-of select="TableBK2"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModelBK2"/><![CDATA[>("]]><xsl:value-of select="BasisSmBK2"/><![CDATA[");
 
             ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[Id<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
  
@@ -5768,6 +5816,21 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     SelectedDetailTabIndex = 2;
                 }       ]]>  
 </xsl:when>   
+<xsl:when test="Table ='Tbl18Superclasses'">      <![CDATA[ 
+                if (_selectedMainTabIndex == 1)             
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        ]]><xsl:value-of select="TableFK2"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissFK2"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="BasisFK2"/><![CDATA[Id<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK2"/><![CDATA[Id);
+
+                        ]]><xsl:value-of select="TableBK2"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModelBK2"/><![CDATA[>("]]><xsl:value-of select="BasisSmBK2"/><![CDATA[");
+
+                        ]]><xsl:value-of select="BasissFK2"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableFK2"/><![CDATA[List);
+                        ]]><xsl:value-of select="BasissFK2"/><![CDATA[View.Refresh();
+                    }
+                    SelectedDetailTabIndex = 1;
+                }       ]]>  
+</xsl:when>   
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedMainTabIndex == 1)
                 {
@@ -5789,12 +5852,27 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='++++++Open Detail Items  Top 2 SelectedMainTabIndex 2+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
 </xsl:when>  
 <xsl:when test="Table ='++++++Open Detail Items  Top 2 SelectedMainTabIndex 2+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
-</xsl:when>  
+</xsl:when> 
+<xsl:when test="Table ='Tbl18Superclasses'">      <![CDATA[ 
+                if (_selectedMainTabIndex == 2)             
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+
+                        ]]><xsl:value-of select="Table"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>("]]><xsl:value-of select="BasisSm"/><![CDATA[");
+
+                        ]]><xsl:value-of select="BasissTK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK1"/><![CDATA[List);
+                        ]]><xsl:value-of select="BasissTK1"/><![CDATA[View.Refresh();
+                    }
+                    SelectedDetailTabIndex = 3;
+                }       ]]>  
+</xsl:when>    
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedMainTabIndex == 2)
                 {
-                    SelectedDetailTabIndex = 3;
-                    SelectedMainSubRefTabIndex = 0;
+                        SelectedDetailTabIndex = 3;
+                        SelectedMainSubRefTabIndex = 0;                  
                 }         ]]>  
 </xsl:otherwise>    
 </xsl:choose> 
@@ -5803,7 +5881,14 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='++++++Open Detail Items  Top 2 SelectedMainTabIndex 3+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
 </xsl:when>  
 <xsl:when test="Table ='++++++Open Detail Items  Top 2 SelectedMainTabIndex 3+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
-</xsl:when>  
+</xsl:when> 
+<xsl:when test="Table ='Tbl18Superclasses'">      <![CDATA[ 
+                if (_selectedMainTabIndex == 3)
+                {
+                        SelectedDetailTabIndex = 4;
+                        SelectedMainSubRefTabIndex = 0;     
+                }         ]]>  
+</xsl:when>     
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedMainTabIndex == 3)
                 {
@@ -5816,6 +5901,28 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     }
                     SelectedDetailTabIndex = 6;
                 }      ]]>  
+</xsl:otherwise>    
+</xsl:choose> 
+
+<xsl:choose>
+<xsl:when test="Table ='++++++Open Detail Items  Top 2 SelectedMainTabIndex 4+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when>  
+<xsl:when test="Table ='++++++Open Detail Items  Top 2 SelectedMainTabIndex 4+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when> 
+<xsl:when test="Table ='Tbl18Superclasses'">      <![CDATA[ 
+                if (_selectedMainTabIndex == 4)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<Tbl93Comment>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 7;
+                }         ]]>  
+</xsl:when>     
+<xsl:otherwise> 
 </xsl:otherwise>    
 </xsl:choose> 
 
@@ -5846,11 +5953,8 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl03Regnums'">      <![CDATA[ 
                 if (_selectedDetailTabIndex == 0)
                 {
-                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
-                    {
-                    }
                     SelectedMainTabIndex = 0;  
-               }   ]]>  
+                 }     ]]>  
 </xsl:when> 
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedDetailTabIndex == 0)
@@ -5872,6 +5976,21 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>  
 <xsl:when test="Table ='++++++Open Detail Items  Top 1 SelectedDetailTabIndex 1  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
 </xsl:when>  
+<xsl:when test="Table ='Tbl18Superclasses'">      <![CDATA[ 
+                if (_selectedDetailTabIndex == 1)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        ]]><xsl:value-of select="TableFK2"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissFK2"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="BasisFK2"/><![CDATA[Id<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK2"/><![CDATA[Id);
+
+                        ]]><xsl:value-of select="TableBK2"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModelBK2"/><![CDATA[>("]]><xsl:value-of select="BasisSmBK2"/><![CDATA[");
+
+                        ]]><xsl:value-of select="BasissFK2"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableFK2"/><![CDATA[List);
+                        ]]><xsl:value-of select="BasissFK2"/><![CDATA[View.Refresh();
+                    }
+                    SelectedMainTabIndex = 1;
+                }         ]]>  
+</xsl:when>     
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedDetailTabIndex == 1)                
                 {
@@ -5899,7 +6018,13 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     }
                     SelectedMainTabIndex = 1;
                }  ]]>  
-</xsl:when>   
+</xsl:when>
+<xsl:when test="Table ='Tbl18Superclasses'">      <![CDATA[ 
+                if (_selectedDetailTabIndex == 2)                
+                {
+                    SelectedMainTabIndex = 0;
+                }  ]]>  
+</xsl:when>        
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedDetailTabIndex == 2)                
                 {
@@ -5921,7 +6046,22 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='++++++Open Detail Items  Top 1 SelectedDetailTabIndex 3  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
 </xsl:when>  
 <xsl:when test="Table ='++++++Open Detail Items  Top 1 SelectedDetailTabIndex 3  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
-</xsl:when>  
+</xsl:when> 
+<xsl:when test="Table ='Tbl18Superclasses'">      <![CDATA[ 
+                if (_selectedDetailTabIndex == 3)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+
+                        ]]><xsl:value-of select="Table"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>("]]><xsl:value-of select="BasisSm"/><![CDATA[");
+
+                        ]]><xsl:value-of select="BasissTK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK1"/><![CDATA[List);
+                        ]]><xsl:value-of select="BasissTK1"/><![CDATA[View.Refresh();
+                    }
+                    SelectedMainTabIndex = 2;
+                }         ]]>  
+</xsl:when>      
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedDetailTabIndex == 3)
                 {
@@ -5945,6 +6085,22 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>  
 <xsl:when test="Table ='++++++Open Detail Items  Top 1 SelectedDetailTabIndex 4  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
 </xsl:when>  
+<xsl:when test="Table ='Tbl18Superclasses'">      <![CDATA[ 
+                if (_selectedDetailTabIndex == 4)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+
+                        Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+
+                        ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                        ReferenceExpertsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 3;
+                    SelectedMainSubRefTabIndex = 0;
+                }         ]]>  
+</xsl:when>      
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedDetailTabIndex == 4)
                 {
@@ -5967,7 +6123,23 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='++++++Open Detail Items  Top 1 SelectedDetailTabIndex 5  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
 </xsl:when>  
 <xsl:when test="Table ='++++++Open Detail Items  Top 1 SelectedDetailTabIndex 5  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
-</xsl:when>  
+</xsl:when> 
+<xsl:when test="Table ='Tbl18Superclasses'">      <![CDATA[ 
+                if (_selectedDetailTabIndex == 5)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+
+                        Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+
+                        ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+                        ReferenceSourcesView.Refresh();
+                    }
+                    SelectedMainTabIndex = 3;
+                    SelectedMainSubRefTabIndex = 1;
+                }         ]]>  
+</xsl:when>       
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedDetailTabIndex == 5)
                 {
@@ -5991,6 +6163,22 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>  
 <xsl:when test="Table ='++++++Open Detail Items  Top 1 SelectedDetailTabIndex 6  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
 </xsl:when>  
+<xsl:when test="Table ='Tbl18Superclasses'">      <![CDATA[ 
+                if (_selectedDetailTabIndex == 6)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+
+                        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+
+                        ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
+                        ReferenceAuthorsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 3;
+                    SelectedMainSubRefTabIndex = 2;
+                }         ]]>  
+</xsl:when>       
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedDetailTabIndex == 6)
                 {
@@ -6002,6 +6190,26 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                         CommentsView.Refresh();
                     }
                     SelectedMainTabIndex = 3;
+                }     ]]>  
+</xsl:otherwise>    
+</xsl:choose> 
+
+<xsl:choose>
+<xsl:when test="Table ='++++++Open Detail Items  Top 1 SelectedDetailTabIndex 7  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when>  
+<xsl:when test="Table ='++++++Open Detail Items  Top 1 SelectedDetailTabIndex 7  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when>  
+<xsl:otherwise>    <![CDATA[ 
+                if (_selectedDetailTabIndex == 7)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<Tbl93Comment>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 4;
                 }     ]]>  
 </xsl:otherwise>    
 </xsl:choose> 
@@ -6030,6 +6238,22 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>  
 <xsl:when test="Table ='++++++Open Detail Items  Top 1 SelectedMainSubRefTabIndex 0 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
 </xsl:when>  
+<xsl:when test="Table ='Tbl18Superclasses'">      <![CDATA[ 
+                if (_selectedMainSubRefTabIndex == 0)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+
+                        Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+
+                        ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                        ReferenceExpertsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 4;
+                    SelectedMainTabIndex = 3;
+                }      ]]>  
+</xsl:when>       
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedMainSubRefTabIndex == 0)
                 {
@@ -6053,6 +6277,22 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>  
 <xsl:when test="Table ='++++++Open Detail Items  Top 1 SelectedMainSubRefTabIndex 1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
 </xsl:when>  
+<xsl:when test="Table ='Tbl18Superclasses'">      <![CDATA[ 
+                if (_selectedMainSubRefTabIndex == 1)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+
+                        Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+
+                        ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+                        ReferenceSourcesView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 5;
+                    SelectedMainTabIndex = 3;
+                }    ]]>  
+</xsl:when>       
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedMainSubRefTabIndex == 1)
                 {
@@ -6076,6 +6316,22 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>  
 <xsl:when test="Table ='++++++Open Detail Items  Top 1 SelectedMainSubRefTabIndex 2 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
 </xsl:when>  
+<xsl:when test="Table ='Tbl18Superclasses'">      <![CDATA[ 
+                if (_selectedMainSubRefTabIndex == 2)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+
+                        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+
+                        ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
+                        ReferenceAuthorsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 6;
+                    SelectedMainTabIndex = 3;
+                }    ]]>  
+</xsl:when>       
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedMainSubRefTabIndex == 2)
                 {

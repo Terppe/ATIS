@@ -84,14 +84,14 @@
                 VerticalAlignment="Center"
                 Click="Print_Click"
                 Content="{DynamicResource Shared-ButtonPrint}"
-                Style="{StaticResource ButtonDefault}" />
+                Style="{StaticResource MahApps.Styles.Button}" />
             <Button
                 Width="120"
                 Margin="5,5,10,5"
                 VerticalAlignment="Center"
                 Command="{Binding PdfTbl06PhylumsCommand}"
                 Content="{DynamicResource Report-PrintPdf}"
-                Style="{StaticResource ButtonDefault}" />
+                Style="{StaticResource MahApps.Styles.Button}" />
         </StackPanel>
 
 
