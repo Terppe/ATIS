@@ -3,6 +3,8 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using ATIS.Ui.Views.Report.D03Regnum;
+using ATIS.Ui.Views.Report.D06Phylum;
 
 namespace ATIS.Ui.Views.Search
 {
@@ -32,6 +34,15 @@ namespace ATIS.Ui.Views.Search
                 printDialog.PrintVisual(LayoutRoot, "Landscape broken Grid print");
 
         }
+        //private void Tbl03RegnumsList_DoubleClick(object sender, MouseButtonEventArgs e)
+        //{
+        //    var lvItem = sender as ListViewItem;
+
+        //    if (lvItem == null) return;
+        //    var id = (dynamic)lvItem.Tag;
+        //    var rp = new ReportRegnumWindow(id, "Tbl03Regnums");
+        //    rp.Show();
+        //}
         private void Tbl03RegnumsList_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             var lvItem = sender as ListViewItem;

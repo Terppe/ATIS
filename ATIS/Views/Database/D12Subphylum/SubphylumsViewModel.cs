@@ -5,12 +5,12 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using Common.Logging;
 using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Database.CrudHelper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
+using log4net;
 using Microsoft.EntityFrameworkCore;
 
 

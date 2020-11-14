@@ -5,6 +5,8 @@ using ATIS.Ui.Views.Report.PDF;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using ATIS.Ui.Views.Report.D03Regnum;
+using ATIS.Ui.Views.Report.D06Phylum;
 
 namespace ATIS.Ui.Views.Report
 {
@@ -214,7 +216,6 @@ namespace ATIS.Ui.Views.Report
 
 
         public ObservableCollection<Tbl03Regnum> RegnumsCollection { get; set; }
-
         public ObservableCollection<Tbl06Phylum> PhylumsCollection { get; set; }
         public ObservableCollection<Tbl09Division> DivisionsCollection { get; set; }
         public ObservableCollection<Tbl12Subphylum> SubphylumsCollection { get; set; }

@@ -1,5 +1,6 @@
-﻿using ATIS.Ui.Helper;
-using iText.StyledXmlParser.Jsoup.Nodes;
+﻿using System.Reflection.Metadata;
+using ATIS.Ui.Helper;
+//using iText.StyledXmlParser.Jsoup.Nodes;
 using Microsoft.Win32;
 
 namespace ATIS.Ui.Views.Report.PDF
@@ -15,24 +16,24 @@ namespace ATIS.Ui.Views.Report.PDF
         //private static readonly Font SmallBoldFont = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD, BaseColor.BLACK);
 
 
-        public static Document HeaderMainPdf(SaveFileDialog sfd)
-        {
-            // Initialize the PDF document 
-            // Set up the fonts to be used on the pages 
+     //   public static Document HeaderMainPdf(SaveFileDialog sfd)
+     //   {
+     //       // Initialize the PDF document 
+     //       // Set up the fonts to be used on the pages 
 
-            //var margin = Utilities.MillimetersToPoints(Convert.ToSingle(5));
-            //        var doc = new Document(PageSize.A4, margin, margin, margin, margin);
-            var doc = new Document(20.ToString());
+     //       //var margin = Utilities.MillimetersToPoints(Convert.ToSingle(5));
+     //       //        var doc = new Document(PageSize.A4, margin, margin, margin, margin);
+     // //      var doc = new Document(20.ToString());
 
-            //PdfWriter.GetInstance(doc, new FileStream(sfd.FileName, FileMode.Create));
+     //       //PdfWriter.GetInstance(doc, new FileStream(sfd.FileName, FileMode.Create));
 
-            //// Set the margins and page size
-            //SetStandardPageSize(doc);
+     //       //// Set the margins and page size
+     //       //SetStandardPageSize(doc);
 
-            //// Open the document for writing content 
-            //doc.Open();
-            return doc;
-        }
+     //       //// Open the document for writing content 
+     //       //doc.Open();
+     ////       return doc;
+     //   }
 
 
         // <summary>

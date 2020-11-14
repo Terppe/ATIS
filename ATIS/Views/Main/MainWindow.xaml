@@ -341,7 +341,22 @@
                 Grid.Row="0"
                 Width="32"
                 Height="32"
-                Margin="0,0,75,0"
+                Margin="10,2,75,2"
+                HorizontalAlignment="Right"
+                Click="ShowModal"
+                ToolTip="Flyout">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconBoxIcons
+                        Width="18"
+                        Height="18"
+                        Kind="RegularMenu" />
+                </StackPanel>
+            </Button>
+            <Button
+                Grid.Row="0"
+                Width="32"
+                Height="32"
+                Margin="10,2,10,2"
                 HorizontalAlignment="Right"
                 Click="btnClose_Click"
                 Command="{Binding CancelCommand}"
@@ -353,21 +368,7 @@
                         Kind="DoorLeave" />
                 </StackPanel>
             </Button>
-            <Button
-                Grid.Row="0"
-                Width="32"
-                Height="32"
-                Margin="10,2,10,2"
-                HorizontalAlignment="Right"
-                Click="ShowModal"
-                ToolTip="Flyout">
-                <StackPanel Orientation="Horizontal">
-                    <iconPacks:PackIconBoxIcons
-                        Width="18"
-                        Height="18"
-                        Kind="RegularMenu" />
-                </StackPanel>
-            </Button>
+
             <mah:Flyout
                 Header="Modal"
                 IsModal="False"

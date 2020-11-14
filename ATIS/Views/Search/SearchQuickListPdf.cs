@@ -1,5 +1,5 @@
 ﻿using ATIS.Ui.Helper;
-using iText.StyledXmlParser.Jsoup.Nodes;
+//using iText.StyledXmlParser.Jsoup.Nodes;
 using Microsoft.Win32;
 
 namespace ATIS.Ui.Views.Search
@@ -19,7 +19,7 @@ namespace ATIS.Ui.Views.Search
             var sfd = new SaveFileDialog { Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*" };
             var saveResult = sfd.ShowDialog();
             if (saveResult != true) return;  //exit
-            Document doc = null;
+     //       Document doc = null;
 
             //try
             //{
