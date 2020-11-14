@@ -74,7 +74,12 @@ namespace ATIS.Ui.Views.Report.D03Regnum
      //       var regnumsList = _uow.Tbl03Regnums.GetById(id);
             var regnumsList = _extGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(id).FirstOrDefault();
             var phylumsList = _extGet.GetPhylumsCollectionOrderByFromRegnumId<Tbl06Phylum>(id);
- 
+            var divisionsList = _extGet.GetDivisionsCollectionOrderByFromRegnumId<Tbl09Division>(id);
+            var expertsList = _extGet.GetReferenceExpertsCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
+            var sourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
+            var authorsList = _extGet.GetReferenceAuthorsCollectionOrderByFromRegnumIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
+            var commentsList = _extGet.GetCommentsCollectionOrderByFromRegnumId<Tbl93Comment>(id);
+
 
 
             try
@@ -83,24 +88,25 @@ namespace ATIS.Ui.Views.Report.D03Regnum
                 {
                      AddReportMain(pdf, regnumsList);
                      AddRegnumTaxoNomenList(pdf, regnumsList);
-                     AddHierarchyList(pdf, id, regnumsList);
+                     AddHierarchyList(pdf, regnumsList);
 
                     if (phylumsList.Count != 0)
                         AddPhylumsChildrenList(pdf, phylumsList);
 
-                    //if (reportVm.Tbl09DivisionsList.Count != 0)
-                    //    doc = AddTbl09DivisionsChildrenList(doc, reportVm.Tbl09DivisionsList);
+                    if (divisionsList.Count != 0)
+                        AddDivisionsChildrenList(pdf, divisionsList);
 
                     //PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, LargeFont, new Chunk(CultRes.StringsRes.ReportReferences));
-                    //if (reportVm.Tbl90ExpertsList.Count != 0)
-                    //    doc = PdfHelper.AddRefExpertList(doc, reportVm.Tbl90ExpertsList);
-                    //if (reportVm.Tbl90SourcesList.Count != 0)
-                    //    doc = PdfHelper.AddRefSourceList(doc, reportVm.Tbl90SourcesList);
-                    //if (reportVm.Tbl90AuthorsList.Count != 0)
-                    //    doc = PdfHelper.AddRefAuthorList(doc, reportVm.Tbl90AuthorsList);
+ 
+                    if (expertsList.Count != 0)
+                        AddRefExpertList(pdf, expertsList);
+                    if (sourcesList.Count != 0)
+                        AddRefSourceList(pdf, sourcesList);
+                    if (authorsList.Count != 0)
+                        AddRefAuthorList(pdf, authorsList);
                     //PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, LargeFont, new Chunk(CultRes.StringsRes.ReportComments));
-                    //if (reportVm.Tbl93CommentsList.Count != 0)
-                    //    doc = PdfHelper.AddCommentList(doc, reportVm.Tbl93CommentsList);
+                    if (commentsList.Count != 0)
+                        AddCommentList(pdf, commentsList);
 
 
                     pdf.Save(pathToFile);
@@ -110,36 +116,6 @@ namespace ATIS.Ui.Views.Report.D03Regnum
                     //if (saveResult != true) return; //exit
 
                 }
-
-                //   var pdf = new PdfDocument();
-                //  pdf = HeaderMainPdf(sfd);
-
-
-                // Add pages to the document
-                //PdfHelper.AddReportMain(doc);
-
-                //doc = AddTbl03RegnumsHaeder(doc);
-                //PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, LargeFont, new Chunk(CultRes.StringsRes.ReportTaxoNomen));
-                //doc = AddTbl03RegnumsTaxoNomenList(doc);
-                //PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, LargeFont, new Chunk(CultRes.StringsRes.ReportTaxoHiera));
-
-                //doc = AddHierarchyList(doc);
-
-                //if (reportVm.Tbl06PhylumsList.Count != 0)
-                //    doc = AddTbl06PhylumsChildrenList(doc, reportVm.Tbl06PhylumsList);
-                //if (reportVm.Tbl09DivisionsList.Count != 0)
-                //    doc = AddTbl09DivisionsChildrenList(doc, reportVm.Tbl09DivisionsList);
-
-                //PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, LargeFont, new Chunk(CultRes.StringsRes.ReportReferences));
-                //if (reportVm.Tbl90ExpertsList.Count != 0)
-                //    doc = PdfHelper.AddRefExpertList(doc, reportVm.Tbl90ExpertsList);
-                //if (reportVm.Tbl90SourcesList.Count != 0)
-                //    doc = PdfHelper.AddRefSourceList(doc, reportVm.Tbl90SourcesList);
-                //if (reportVm.Tbl90AuthorsList.Count != 0)
-                //    doc = PdfHelper.AddRefAuthorList(doc, reportVm.Tbl90AuthorsList);
-                //PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, LargeFont, new Chunk(CultRes.StringsRes.ReportComments));
-                //if (reportVm.Tbl93CommentsList.Count != 0)
-                //    doc = PdfHelper.AddCommentList(doc, reportVm.Tbl93CommentsList);
 
             }
             catch (Exception)
@@ -359,7 +335,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
         }
 
-        private static void AddHierarchyList(PdfDocument pdf, int id, Tbl03Regnum regnumList)
+        private static void AddHierarchyList(PdfDocument pdf, Tbl03Regnum regnumList)
         {
             var page = pdf.Pages[0];
 
@@ -385,7 +361,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
         }
 
-        private static void AddPhylumsChildrenList(PdfDocument pdf, ObservableCollection<Tbl06Phylum> observableCollection)
+        private static void AddPhylumsChildrenList(PdfDocument pdf, ObservableCollection<Tbl06Phylum> phylumsList)
         {
             var txtPhylumNameLeft = pdf.Pages[0].AddTextBox("phylumLeft", new PdfPoint(10+3, 475), new PdfSize(200, 15));
             txtPhylumNameLeft.HasBorder = false;
@@ -403,7 +379,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             int z = 1;
             string z1 = z.ToString();
             int z2 = 0;
-            foreach (var t in observableCollection)
+            foreach (var t in phylumsList)
             {
                 var t1 = t.PhylumName;
                 var t2 = t.Author;
@@ -427,6 +403,28 @@ namespace ATIS.Ui.Views.Report.D03Regnum
                 //var names = PdfHelper.NamesViewChange(t.GerName, t.EngName, t.FraName, t.PorName);
             }
         }
+
+        private static void AddDivisionsChildrenList(PdfDocument pdf, ObservableCollection<Tbl09Division> divisionsList)
+        {
+            throw new NotImplementedException();
+        }
+        private static void AddRefExpertList(PdfDocument pdf, ObservableCollection<Tbl90Reference> expertsList)
+        {
+            throw new NotImplementedException();
+        }
+        private static void AddRefSourceList(PdfDocument pdf, ObservableCollection<Tbl90Reference> sourcesList)
+        {
+            throw new NotImplementedException();
+        }
+        private static void AddRefAuthorList(PdfDocument pdf, ObservableCollection<Tbl90Reference> authorsList)
+        {
+            throw new NotImplementedException();
+        }
+        private static void AddCommentList(PdfDocument pdf, ObservableCollection<Tbl93Comment> commentsList)
+        {
+            throw new NotImplementedException();
+        }
+
 
         //private ObservableCollection<Tbl06Phylum> _tbl06PhylumsList;
         //public ObservableCollection<Tbl06Phylum> Tbl06PhylumsList
