@@ -1,7 +1,6 @@
 ﻿using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
-using ATIS.Ui.Views.Report.PDF;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
