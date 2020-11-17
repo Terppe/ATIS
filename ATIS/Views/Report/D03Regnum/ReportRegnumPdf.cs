@@ -46,11 +46,6 @@ namespace ATIS.Ui.Views.Report.D03Regnum
         private static readonly BasicGet _extGet = new BasicGet();
 
         private static readonly PdfHelper _pdfHelper = new PdfHelper();
-        private const double TableWidth = 600.0;
-        private const double RowHeight = 30.0;
-        private static readonly PdfPoint MLeftTableCorner = new PdfPoint(10, 50);
-        private static readonly double[] MColumnWidths = new double[3] { 100, 100, 200 };
-        private const int FitPageIndex = 0;
         private static string _n;
         private static int _z;
         private static string _z1;
@@ -75,9 +70,9 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             _arreySize[0] = 5; //_pdfPointXLeft
             _arreySize[1] = 5; //_pdfPointY
             _arreySize[2] = 150; //_pdfPointXRight
-            _arreySize[3] = 20; //_pdfSizeHeight
+            _arreySize[3] = 15; //_pdfSizeHeight
             _arreySize[4] = 300; //_pdfSizeWidthLeft
-            _arreySize[5] = 400; //_pdfSizeWidthRight
+            _arreySize[5] = 420; //_pdfSizeWidthRight
             _arreySize[6] = 0; //_pageCount
             _arreySize[7] = 3; //_move
 
@@ -97,8 +92,6 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             //if (saveResult != true) return; //exit
             //     PdfDocument doc = null;
 
-            // var tbl03RegnumsList = _extGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(id);
-     //       var regnumsList = _uow.Tbl03Regnums.GetById(id);
             var regnumsList = _extGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(id).FirstOrDefault();
             var phylumsList = _extGet.GetPhylumsCollectionOrderByFromRegnumId<Tbl06Phylum>(id);
             var divisionsList = _extGet.GetDivisionsCollectionOrderByFromRegnumId<Tbl09Division>(id);
@@ -114,12 +107,16 @@ namespace ATIS.Ui.Views.Report.D03Regnum
                 using (PdfDocument pdf = new PdfDocument())
                 {
                     _arreySize = _pdfHelper.AddReportMain(pdf, regnumsList, _arreySize);
+
+                    _arreySize = AddRegnumHaeder(pdf, regnumsList, _arreySize);
                     _arreySize = AddRegnumTaxoNomenList(pdf, regnumsList, _arreySize);
-                    _arreySize = AddHierarchyList(pdf, regnumsList, _arreySize);
+                    _arreySize = AddRegnumHierarchyList(pdf, regnumsList, _arreySize);
+
                      if (phylumsList.Count != 0)
                          _arreySize = AddPhylumsChildrenList(pdf, phylumsList, _arreySize);
                     if (divisionsList.Count != 0)
                         _arreySize = AddDivisionsChildrenList(pdf, divisionsList, _arreySize);
+
                     if (expertsList.Count != 0 || sourcesList.Count != 0 || authorsList.Count != 0)
                         _arreySize = _pdfHelper.AddReferencesHaeder(pdf, _arreySize);
                     if (expertsList.Count != 0)
@@ -128,6 +125,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
                         _arreySize = _pdfHelper.AddRefSourcesList(pdf, sourcesList, _arreySize);
                     if (authorsList.Count != 0)
                         _arreySize = _pdfHelper.AddRefAuthorsList(pdf, authorsList, _arreySize);
+
                     if (commentsList.Count != 0)
                         _arreySize = _pdfHelper.AddCommentsHaeder(pdf, _arreySize);
                     if (commentsList.Count != 0)
@@ -139,9 +137,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
                     //var sfd = new SaveFileDialog { Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*" };
                     //var saveResult = sfd.ShowDialog();
                     //if (saveResult != true) return; //exit
-
                 }
-
             }
             catch (Exception)
             {
@@ -155,47 +151,61 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             }
         }
 
+        private static int[] AddRegnumHaeder(PdfDocument pdf, Tbl03Regnum regnumList, int[] arreySize)
+        {
+            _pdfPointXLeft = arreySize[0];
+            _pdfPointY = arreySize[1];
+            _pdfPointXRight = arreySize[2];
+            _pdfSizeHeight = arreySize[3];
+            _pdfSizeWidthLeft = arreySize[4];
+            _pdfSizeWidthRight = arreySize[5];
+            _pageCount = arreySize[6];
 
-        //private static void AddReportMain(PdfDocument pdf, Tbl03Regnum regnumList)
-        //{
-        //     _page = pdf.Pages[_pageCount];
+            _page = pdf.Pages[_pageCount];
 
-        //    var txtHeader = _page.AddTextBox("header", new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight+24));
-        //    txtHeader.HasBorder = false;
-        //    txtHeader.ReadOnly = true;
-        //    txtHeader.Font.SynthesizedBold = true;
-        //    txtHeader.FontSize = 24;
-        //    txtHeader.Text = "ATIS REPORT";
+            if (regnumList.Author != null)
+            {
+                var txtName = _page.AddTextBox("regnumName", new PdfPoint(_pdfPointXLeft, _pdfPointY), 
+                    new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+                txtName.HasBorder = false;
+                txtName.ReadOnly = true;
+                txtName.Font.SynthesizedBold = false;
+                txtName.FontSize = 16;
+                txtName.Text = regnumList.RegnumName + " " + regnumList.Subregnum + " " + regnumList.Author + "," + regnumList.AuthorYear;
+                _pdfPointY += _pdfSizeHeight;
+            }
+            else
+            {
+                var txtName = _page.AddTextBox("regnumName", new PdfPoint(_pdfPointXLeft, _pdfPointY), 
+                    new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+                txtName.HasBorder = false;
+                txtName.ReadOnly = true;
+                txtName.Font.SynthesizedBold = false;
+                txtName.FontSize = 16;
+                txtName.Text = regnumList.RegnumName + " " + regnumList.Subregnum;
+                _pdfPointY += _pdfSizeHeight;
+            }
 
-        //    _pdfPointY += _pdfSizeHeight;
-        //    if (regnumList.Author != null)
-        //    {
-        //        var txtName = _page.AddTextBox("regnumName", new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight+16));
-        //        txtName.HasBorder = false;
-        //        txtName.ReadOnly = true;
-        //        txtName.Font.SynthesizedBold = false;
-        //        txtName.FontSize = 16;
-        //        txtName.Text = regnumList.RegnumName + " " + regnumList.Subregnum + " " + regnumList.Author + "," + regnumList.AuthorYear;
-        //        _pdfPointY += _pdfSizeHeight;
-        //    }
-        //    else
-        //    {
-        //        var txtName = _page.AddTextBox("regnumName", new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight+16));
-        //        txtName.HasBorder = false;
-        //        txtName.ReadOnly = true;
-        //        txtName.Font.SynthesizedBold = false;
-        //        txtName.FontSize = 16;
-        //        txtName.Text = regnumList.RegnumName + " " + regnumList.Subregnum;
-        //        _pdfPointY += _pdfSizeHeight;
-        //    }
+            var txtCountId = _page.AddTextBox("countId", new PdfPoint(_pdfPointXLeft, _pdfPointY), 
+                new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+            txtCountId.HasBorder = false;
+            txtCountId.ReadOnly = true;
+            txtCountId.FontSize = 10;
+            txtCountId.Text = CultRes.StringsRes.ReportTaxonomicId + regnumList.CountId;
 
-        //    var txtCountId = _page.AddTextBox("countId", new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
-        //    txtCountId.HasBorder = false;
-        //    txtCountId.ReadOnly = true;
-        //    txtCountId.FontSize = 10;
-        //    txtCountId.Text = "Taxonomic Serial No.: " + regnumList.CountId.ToString();
-        //    _pdfPointY += _pdfSizeHeight;
-        //}
+            _pdfPointY += _pdfSizeHeight;
+            _pdfPointY += 15; //Distance to next TextBox
+
+            arreySize[0] = _pdfPointXLeft;
+            arreySize[1] = _pdfPointY;
+            arreySize[2] = _pdfPointXRight;
+            arreySize[3] = _pdfSizeHeight;
+            arreySize[4] = _pdfSizeWidthLeft;
+            arreySize[5] = _pdfSizeWidthRight;
+            arreySize[6] = _pageCount;
+
+            return arreySize;
+        }
         private static int[] AddRegnumTaxoNomenList(PdfDocument pdf, Tbl03Regnum regnumList, int[] arreySize)
         {
             _pdfPointXLeft = arreySize[0];
@@ -209,15 +219,17 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
             _page = pdf.Pages[_pageCount];
 
-            var txtHeader2 = _page.AddTextBox("header2", new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight+20));
+            var txtHeader2 = _page.AddTextBox("header2", new PdfPoint(_pdfPointXLeft, _pdfPointY), 
+                new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
             txtHeader2.HasBorder = false;
             txtHeader2.ReadOnly = true;
             txtHeader2.Font.SynthesizedBold = true;
             txtHeader2.FontSize = 16;
-            txtHeader2.Text = "Taxonomy and Nomenclature";
+            txtHeader2.Text = CultRes.StringsRes.ReportTaxoNomen;
             _pdfPointY += _pdfSizeHeight;
-
-            var txtNameLeft = _page.AddTextBox("kingdomLeft", new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+            //----------------------------------------------------------------
+            var txtNameLeft = _page.AddTextBox("kingdomLeft", new PdfPoint(_pdfPointXLeft, _pdfPointY), 
+                new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
             txtNameLeft.HasBorder = false;
             txtNameLeft.ReadOnly = true;
             txtNameLeft.Font.SynthesizedBold = false;
@@ -225,42 +237,46 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             txtNameLeft.Text = CultRes.StringsRes.Regnum + ":";
          //   _pdfPointY += _pdfSizeHeight;
 
-            var txtNameRight = _page.AddTextBox("kingdomRight", new PdfPoint(_pdfPointXRight, _pdfPointY), new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+            var txtNameRight = _page.AddTextBox("kingdomRight", new PdfPoint(_pdfPointXRight, _pdfPointY), 
+                new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
             txtNameRight.HasBorder = false;
             txtNameRight.ReadOnly = true;
             txtNameRight.FontSize = 10;
             txtNameRight.Text = regnumList.RegnumName + " " + regnumList.Subregnum;
             _pdfPointY += _pdfSizeHeight;
-
-            var txtRankLeft = _page.AddTextBox("rankLeft", new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+            //---------------------------------------------------------------
+            var txtRankLeft = _page.AddTextBox("rankLeft", new PdfPoint(_pdfPointXLeft, _pdfPointY), 
+                new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
             txtRankLeft.HasBorder = false;
             txtRankLeft.ReadOnly = true;
             txtRankLeft.FontSize = 10;
-            txtRankLeft.Text = "Taxonomic Rank:";
+            txtRankLeft.Text = CultRes.StringsRes.ReportTaxoRank;
        //     _pdfPointY += _pdfSizeHeight;
 
-            var txtRankRight = _page.AddTextBox("rankRight", new PdfPoint(_pdfPointXRight, _pdfPointY), new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+            var txtRankRight = _page.AddTextBox("rankRight", new PdfPoint(_pdfPointXRight, _pdfPointY), 
+                new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
             txtRankRight.HasBorder = false;
             txtRankRight.ReadOnly = true;
             txtRankRight.FontSize = 10;
             txtRankRight.Text = CultRes.StringsRes.Regnum;
             _pdfPointY += _pdfSizeHeight;
-
-            var txtSynonymLeft = _page.AddTextBox("synonymLeft", new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+            //------------------------------------------------------
+            var txtSynonymLeft = _page.AddTextBox("synonymLeft", new PdfPoint(_pdfPointXLeft, _pdfPointY), 
+                new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
             txtSynonymLeft.HasBorder = false;
             txtSynonymLeft.ReadOnly = true;
             txtSynonymLeft.FontSize = 10;
-            txtSynonymLeft.Text = "Synonym(s):";
+            txtSynonymLeft.Text = CultRes.StringsRes.ReportSynonyms;
         //    _pdfPointY += _pdfSizeHeight;
 
             if (regnumList.Synonym != null)
             {
-                var txtSynonymRight = _page.AddTextBox("synonymRight", new PdfPoint(_pdfPointXRight, _pdfPointY), new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+                var txtSynonymRight = _page.AddTextBox("synonymRight", new PdfPoint(_pdfPointXRight, _pdfPointY), 
+                    new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
                 txtSynonymRight.HasBorder = false;
                 txtSynonymRight.Multiline = true;
                 txtSynonymRight.ReadOnly = true;
-                txtSynonymRight.Scrollable = true;
-                txtSynonymRight.FontSize = 10;
+                txtSynonymRight.FontSize = 0;
                 txtSynonymRight.Text = regnumList.Synonym;
                 _pdfPointY += _pdfSizeHeight;
             }
@@ -268,60 +284,70 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             {
                 _pdfPointY += _pdfSizeHeight;
             }
-            var txtCommNameLeft = _page.AddTextBox("commNameLeft", new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+            //---------------------------------------------------------------
+            var txtCommNameLeft = _page.AddTextBox("commNameLeft", new PdfPoint(_pdfPointXLeft, _pdfPointY), 
+                new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
             txtCommNameLeft.HasBorder = false;
             txtCommNameLeft.ReadOnly = true;
             txtCommNameLeft.FontSize = 10;
-            txtCommNameLeft.Text = "Common Name(s):";
+            txtCommNameLeft.Text = CultRes.StringsRes.ReportCommonNames;
         //    _pdfPointY += _pdfSizeHeight;
 
-            var txtCommNameGerRight = _page.AddTextBox("commNameGerRight", new PdfPoint(_pdfPointXRight, _pdfPointY), new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+            var txtCommNameGerRight = _page.AddTextBox("commNameGerRight", new PdfPoint(_pdfPointXRight, _pdfPointY), 
+                new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
             txtCommNameGerRight.HasBorder = false;
             txtCommNameGerRight.ReadOnly = true;
             txtCommNameGerRight.FontSize = 10;
-            txtCommNameGerRight.Text = regnumList.GerName + " [German]";
+            txtCommNameGerRight.Text = regnumList.GerName + " " + CultRes.StringsRes.ReportGerman;
             _pdfPointY += _pdfSizeHeight;
 
-            var txtCommNameEngRight = _page.AddTextBox("commNameEngRight", new PdfPoint(_pdfPointXRight, _pdfPointY), new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+            var txtCommNameEngRight = _page.AddTextBox("commNameEngRight", new PdfPoint(_pdfPointXRight, _pdfPointY), 
+                new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
             txtCommNameEngRight.HasBorder = false;
             txtCommNameEngRight.ReadOnly = true;
             txtCommNameEngRight.FontSize = 10;
-            txtCommNameEngRight.Text = regnumList.EngName + " [English]";
+            txtCommNameEngRight.Text = regnumList.EngName + " " + CultRes.StringsRes.ReportEnglish;
             _pdfPointY += _pdfSizeHeight;
 
-            var txtCommNameFraRight = _page.AddTextBox("commNameFraRight", new PdfPoint(_pdfPointXRight, _pdfPointY), new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+            var txtCommNameFraRight = _page.AddTextBox("commNameFraRight", new PdfPoint(_pdfPointXRight, _pdfPointY), 
+                new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
             txtCommNameFraRight.HasBorder = false;
             txtCommNameFraRight.ReadOnly = true;
             txtCommNameFraRight.FontSize = 10;
-            txtCommNameFraRight.Text = regnumList.FraName + " [French]";
+            txtCommNameFraRight.Text = regnumList.FraName + " " + CultRes.StringsRes.ReportFrench;
             _pdfPointY += _pdfSizeHeight;
 
-            var txtCommNameSpaRight = _page.AddTextBox("commNameSpaRight", new PdfPoint(_pdfPointXRight, _pdfPointY), new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+            var txtCommNameSpaRight = _page.AddTextBox("commNameSpaRight", new PdfPoint(_pdfPointXRight, _pdfPointY), 
+                new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
             txtCommNameSpaRight.HasBorder = false;
             txtCommNameSpaRight.ReadOnly = true;
             txtCommNameSpaRight.FontSize = 10;
-            txtCommNameSpaRight.Text = regnumList.PorName + " [Spanish]";
+            txtCommNameSpaRight.Text = regnumList.PorName + " " + CultRes.StringsRes.ReportPortuguese;
             _pdfPointY += _pdfSizeHeight;
+            _pdfPointY += 10; //Distance to next TextBox
 
-            var txtStatus = _page.AddTextBox("status", new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight+15));
+            //-------------------------------------------------------
+            var txtStatus = _page.AddTextBox("status", new PdfPoint(_pdfPointXLeft, _pdfPointY), 
+                new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
             txtStatus.HasBorder = false;
             txtStatus.ReadOnly = true;
             txtStatus.Font.SynthesizedBold = true;
             txtStatus.FontSize = 12;
-            txtStatus.Text = "Taxonomic Status:";
+            txtStatus.Text = CultRes.StringsRes.ReportTaxoStatus;
             _pdfPointY += _pdfSizeHeight;
-
-            var txtCurrStatus = _page.AddTextBox("currStatus", new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-            txtCurrStatus.HasBorder = false;
-            txtCurrStatus.ReadOnly = true;
-            txtCurrStatus.Font.SynthesizedBold = false;
-            txtCurrStatus.FontSize = 10;
-            txtCurrStatus.Text = "Current Standing:";
+            //---------------------------------------------------------
+            var txtCurrStatusLeft = _page.AddTextBox("currStatusLeft", new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+            txtCurrStatusLeft.HasBorder = false;
+            txtCurrStatusLeft.ReadOnly = true;
+            txtCurrStatusLeft.Font.SynthesizedBold = false;
+            txtCurrStatusLeft.FontSize = 10;
+            txtCurrStatusLeft.Text = CultRes.StringsRes.ReportCurrentStand;
         //    _pdfPointY += _pdfSizeHeight;
 
             if (regnumList.Valid != null)
             {
-                var txtCurrStatusRight = _page.AddTextBox("currStatusRight", new PdfPoint(_pdfPointXRight, _pdfPointY), new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+                var txtCurrStatusRight = _page.AddTextBox("currStatusRight", new PdfPoint(_pdfPointXRight, _pdfPointY), 
+                    new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
                 txtCurrStatusRight.HasBorder = false;
                 txtCurrStatusRight.ReadOnly = true;
                 txtCurrStatusRight.FontSize = 10;
@@ -332,48 +358,53 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             {
                 _pdfPointY += _pdfSizeHeight;
             }
+            _pdfPointY += 10; //Distance to next TextBox
 
-            var txtQuali = _page.AddTextBox("quali", new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight+15));
+            //-----------------------------------------------------------
+            var txtQuali = _page.AddTextBox("quali", new PdfPoint(_pdfPointXLeft, _pdfPointY), 
+                new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
             txtQuali.HasBorder = false;
+            txtQuali.Font.SynthesizedBold = true;
             txtQuali.ReadOnly = true;
             txtQuali.FontSize = 12;
-            txtQuali.Text = "Daten Qualität Indikatoren:";
+            txtQuali.Text = CultRes.StringsRes.ReportDataQualiIndicator;
+            _pdfPointY += _pdfSizeHeight;
+            //---------------------------------------------------------
+            var txtRecordLeft = _page.AddTextBox("recordLeft", new PdfPoint(_pdfPointXLeft, _pdfPointY), 
+                new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+            txtRecordLeft.HasBorder = false;
+            txtRecordLeft.Font.SynthesizedBold = false;
+            txtRecordLeft.ReadOnly = true;
+            txtRecordLeft.FontSize = 10;
+            txtRecordLeft.Text = CultRes.StringsRes.ReportRecordUpdate;
+            //      _pdfPointY += _pdfSizeHeight;
+
+            var txtRecordRight = _page.AddTextBox("recordRight", new PdfPoint(_pdfPointXRight, _pdfPointY),
+                new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+            txtRecordRight.HasBorder = false;
+            txtRecordRight.ReadOnly = true;
+            txtRecordRight.FontSize = 10;
+            txtRecordRight.Text = Convert.ToString(regnumList.UpdaterDate, CultureInfo.InvariantCulture);
             _pdfPointY += _pdfSizeHeight;
 
-            var txtRecord = _page.AddTextBox("record", new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-            txtRecord.HasBorder = false;
-            txtRecord.ReadOnly = true;
-            txtRecord.FontSize = 10;
-            txtRecord.Text = "Latest Record Review:";
-      //      _pdfPointY += _pdfSizeHeight;
+            _pdfPointY += 10; //Distance to next TextBox
 
-            if (regnumList.ValidYear != null)
-            {
-                var txtRecordRight = _page.AddTextBox("recordRight", new PdfPoint(_pdfPointXRight, _pdfPointY), new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
-                txtRecordRight.HasBorder = false;
-                txtRecordRight.ReadOnly = true;
-                txtRecordRight.FontSize = 10;
-                txtRecordRight.Text = regnumList.UpdaterDate.ToLongDateString();
-                _pdfPointY += _pdfSizeHeight;
-            }
-            else
-            {
-                _pdfPointY += _pdfSizeHeight;
-            }
-            var txtInfo = _page.AddTextBox("info", new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-            txtInfo.HasBorder = false;
-            txtInfo.ReadOnly = true;
-            txtInfo.FontSize = 10;
-            txtInfo.Text = "Information:";
+            //-------------------------------------------------------------
+            var txtInfoLeft = _page.AddTextBox("infoLeft", new PdfPoint(_pdfPointXLeft, _pdfPointY), 
+                new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+            txtInfoLeft.HasBorder = false;
+            txtInfoLeft.ReadOnly = true;
+            txtInfoLeft.FontSize = 10;
+            txtInfoLeft.Text = CultRes.StringsRes.ReportInfo;
          //   _pdfPointY += _pdfSizeHeight;
 
             if (regnumList.Info != null)
             {
-                var txtInfoRight = _page.AddTextBox("infoRight", new PdfPoint(_pdfPointXRight, _pdfPointY), new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+                var txtInfoRight = _page.AddTextBox("infoRight", new PdfPoint(_pdfPointXRight, _pdfPointY), 
+                    new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight+10));
                 txtInfoRight.HasBorder = false;
                 txtInfoRight.Multiline = true;
                 txtInfoRight.ReadOnly = true;
-                txtInfoRight.Scrollable = true;
                 txtInfoRight.FontSize = 10;
                 txtInfoRight.Text = regnumList.Info;
                 _pdfPointY += _pdfSizeHeight;
@@ -382,20 +413,24 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             {
                 _pdfPointY += _pdfSizeHeight;
             }
-            var txtMemo = _page.AddTextBox("memo", new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-            txtMemo.HasBorder = false;
-            txtMemo.ReadOnly = true;
-            txtMemo.FontSize = 10;
-            txtMemo.Text = "Memo:";
+            _pdfPointY += 10; //Distance to next TextBox
+
+            //-------------------------------------------------------
+            var txtMemoLeft = _page.AddTextBox("memoLeft", new PdfPoint(_pdfPointXLeft, _pdfPointY), 
+                new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+            txtMemoLeft.HasBorder = false;
+            txtMemoLeft.ReadOnly = true;
+            txtMemoLeft.FontSize = 10;
+            txtMemoLeft.Text = CultRes.StringsRes.ReportMemo;
       //      _pdfPointY += _pdfSizeHeight;
 
             if (regnumList.Info != null)
             {
-                var txtMemoRight = _page.AddTextBox("memoRight", new PdfPoint(_pdfPointXRight, _pdfPointY), new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+                var txtMemoRight = _page.AddTextBox("memoRight", new PdfPoint(_pdfPointXRight, _pdfPointY), 
+                    new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight+10));
                 txtMemoRight.HasBorder = false;
                 txtMemoRight.Multiline = true;
                 txtMemoRight.ReadOnly = true;
-                txtMemoRight.Scrollable = true;
                 txtMemoRight.FontSize = 10;
                 txtMemoRight.Text = regnumList.Memo;
                 _pdfPointY += _pdfSizeHeight;
@@ -404,6 +439,8 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             {
                 _pdfPointY += _pdfSizeHeight;
             }
+            //------------------------------------------------------------
+            _pdfPointY += 15; //Distance to next TextBox
 
             arreySize[0] = _pdfPointXLeft;
             arreySize[1] = _pdfPointY;
@@ -416,8 +453,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
             return arreySize;
         }
-
-        private static int[] AddHierarchyList(PdfDocument pdf, Tbl03Regnum regnumList, int[] arreySize)
+        private static int[] AddRegnumHierarchyList(PdfDocument pdf, Tbl03Regnum regnumList, int[] arreySize)
         {
             _pdfPointXLeft = arreySize[0];
             _pdfPointY = arreySize[1];
@@ -426,32 +462,37 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             _pdfSizeWidthLeft = arreySize[4];
             _pdfSizeWidthRight = arreySize[5];
             _pageCount = arreySize[6];
-            _move = arreySize[7];
 
             _page = pdf.Pages[_pageCount];
 
-            var txtHeader3 = _page.AddTextBox("header3", new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight+16));
+            var txtHeader3 = _page.AddTextBox("header3", new PdfPoint(_pdfPointXLeft, _pdfPointY), 
+                new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
             txtHeader3.HasBorder = false;
             txtHeader3.ReadOnly = true;
             txtHeader3.Font.SynthesizedBold = true;
             txtHeader3.FontSize = 16;
-            txtHeader3.Text = "Taxonomic Hierarchy";
+            txtHeader3.Text = CultRes.StringsRes.ReportTaxoHiera;
             _pdfPointY += _pdfSizeHeight;
-
-            var txtRegnumNameLeft = _page.AddTextBox("regnumLeft", new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+            //---------------------------------------------------------------
+            var txtRegnumNameLeft = _page.AddTextBox("regnumLeft", new PdfPoint(_pdfPointXLeft, _pdfPointY), 
+                new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
             txtRegnumNameLeft.HasBorder = false;
             txtRegnumNameLeft.ReadOnly = true;
             txtRegnumNameLeft.Font.SynthesizedBold = false;
             txtRegnumNameLeft.FontSize = 10;
-            txtRegnumNameLeft.Text = CultRes.StringsRes.Regnum + ":";
+            txtRegnumNameLeft.Text = CultRes.StringsRes.Regnum;
          //   _pdfPointY += _pdfSizeHeight;
 
-            var txtRegnumNameRight = _page.AddTextBox("regnumRight", new PdfPoint(_pdfPointXRight, _pdfPointY), new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+            var txtRegnumNameRight = _page.AddTextBox("regnumRight", new PdfPoint(_pdfPointXRight, _pdfPointY), 
+                new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
             txtRegnumNameRight.HasBorder = false;
             txtRegnumNameRight.ReadOnly = true;
+            txtRegnumNameRight.Multiline = true;
             txtRegnumNameRight.FontSize = 10;
             txtRegnumNameRight.Text = regnumList.RegnumName + " " + regnumList.Subregnum + " " + regnumList.Author + ", " + regnumList.AuthorYear + "-" + regnumList.GerName + " " + regnumList.EngName + " " + regnumList.FraName + " " + regnumList.PorName;
             _pdfPointY += _pdfSizeHeight;
+
+            _pdfPointY += 10; //Distance to next TextBox
 
             arreySize[0] = _pdfPointXLeft;
             arreySize[1] = _pdfPointY;
@@ -460,13 +501,9 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             arreySize[4] = _pdfSizeWidthLeft;
             arreySize[5] = _pdfSizeWidthRight;
             arreySize[6] = _pageCount;
-            arreySize[7] = _move; //_move
 
             return arreySize;
-
-
         }
-
         private static int[] AddPhylumsChildrenList(PdfDocument pdf, ObservableCollection<Tbl06Phylum> phylumsList, int[] arreySize)
         {
             _pdfPointXLeft = arreySize[0];
@@ -480,49 +517,62 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
             _page = pdf.Pages[_pageCount];
 
-            var txtChildren = _page.AddTextBox("children", new PdfPoint(_pdfPointXRight, _pdfPointY), new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight+12));
+            var txtChildren = _page.AddTextBox("childrenPhylum", new PdfPoint(_pdfPointXRight, _pdfPointY), 
+                new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
             txtChildren.HasBorder = false;
             txtChildren.ReadOnly = true;
             txtChildren.Font.SynthesizedBold = true;
             txtChildren.FontSize = 12;
-            txtChildren.Text = "Direct Children: ";
+            txtChildren.Text = CultRes.StringsRes.ReportDirectChild;
             _pdfPointY += _pdfSizeHeight;
 
-            var txtPhylumNameLeft = _page.AddTextBox("phylumLeft", new PdfPoint(_pdfPointXLeft + _move, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-            txtPhylumNameLeft.HasBorder = false;
-            txtPhylumNameLeft.ReadOnly = true;
-            txtPhylumNameLeft.Font.SynthesizedBold = false;
-            txtPhylumNameLeft.FontSize = 10;
-            txtPhylumNameLeft.Text = CultRes.StringsRes.Phylum + ":";
-     //       _pdfPointY += _pdfSizeHeight;
+            _pdfPointY += 5; //Distance to next TextBox
 
-            _n = "child";
+            //------------------------------------------------------------------
+
+            _n = "childPhylum";
             _z = 1;
             _z1 = _n + _z;
             foreach (var t in phylumsList)
             {
+                var txtPhylumNameLeft = _page.AddTextBox("phylumLeft" + _z1, new PdfPoint(_pdfPointXLeft + _move, _pdfPointY),
+                    new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+                txtPhylumNameLeft.HasBorder = false;
+                txtPhylumNameLeft.ReadOnly = true;
+                txtPhylumNameLeft.Font.SynthesizedBold = false;
+                txtPhylumNameLeft.FontSize = 10;
+                txtPhylumNameLeft.Text = CultRes.StringsRes.Phylum;
+                //       _pdfPointY += _pdfSizeHeight;
+
                 var t1 = t.PhylumName;
                 var t2 = t.Author;
                 var t3 = t.AuthorYear;
-                //var t4 = t.GerName;
-                //var t5 = t.EngName;
-                //var t6 = t.FraName;
-                //var t7 = t.PorName;
+                var t4 = t.GerName;
+                var t5 = t.EngName;
+                var t6 = t.FraName;
+                var t7 = t.PorName;
 
-                var txtPhylumNameRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY), new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+
+                var txtPhylumNameRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY), 
+                    new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight+10));
                 txtPhylumNameRight.HasBorder = false;
                 txtPhylumNameRight.ReadOnly = true;
+                txtPhylumNameRight.Multiline = true;
                 txtPhylumNameRight.Font.SynthesizedBold = false;
                 txtPhylumNameRight.FontSize = 10;
-                txtPhylumNameRight.Text = t1 + " " + t2 + ", " + t3 ;
+                txtPhylumNameRight.Text = t1 + "-" + t2 + ", " + t3 + "-" + t4 + " " + t5 + " " + t6 + " " + t7;
                 _pdfPointY += _pdfSizeHeight;
+
+                _pdfPointY += 10; //Distance to next TextBox
 
                 _z += 1;
                 _z1 = _n + _z;
-            //    _v2 += 15;
                 //var author = PdfHelper.AuthorViewChangeWithString(t.Author, t.AuthorYear);
                 //var names = PdfHelper.NamesViewChange(t.GerName, t.EngName, t.FraName, t.PorName);
             }
+
+            _pdfPointY += 15; //Distance to next TextBox
+
             arreySize[0] = _pdfPointXLeft;
             arreySize[1] = _pdfPointY;
             arreySize[2] = _pdfPointXRight;
@@ -534,7 +584,6 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
             return arreySize;
         }
-
         private static int[] AddDivisionsChildrenList(PdfDocument pdf, ObservableCollection<Tbl09Division> divisionsList, int[] arreySize)
         {
             _pdfPointXLeft = arreySize[0];
@@ -546,6 +595,63 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             _pageCount = arreySize[6];
             _move = arreySize[7];
 
+            _page = pdf.Pages[_pageCount];
+
+            var txtChildren = _page.AddTextBox("childrenDivision", new PdfPoint(_pdfPointXRight, _pdfPointY),
+                new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+            txtChildren.HasBorder = false;
+            txtChildren.ReadOnly = true;
+            txtChildren.Font.SynthesizedBold = true;
+            txtChildren.FontSize = 12;
+            txtChildren.Text = CultRes.StringsRes.ReportDirectChild;
+            _pdfPointY += _pdfSizeHeight;
+
+            _pdfPointY += 5; //Distance to next TextBox
+
+            //------------------------------------------------------------------
+
+            _n = "childDivision";
+            _z = 1;
+            _z1 = _n + _z;
+            foreach (var t in divisionsList)
+            {
+                var txtDivisionNameLeft = _page.AddTextBox("divisionLeft" + _z1, new PdfPoint(_pdfPointXLeft + _move, _pdfPointY),
+                    new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+                txtDivisionNameLeft.HasBorder = false;
+                txtDivisionNameLeft.ReadOnly = true;
+                txtDivisionNameLeft.Font.SynthesizedBold = false;
+                txtDivisionNameLeft.FontSize = 10;
+                txtDivisionNameLeft.Text = CultRes.StringsRes.Division;
+                //       _pdfPointY += _pdfSizeHeight;
+
+                var t1 = t.DivisionName;
+                var t2 = t.Author;
+                var t3 = t.AuthorYear;
+                var t4 = t.GerName;
+                var t5 = t.EngName;
+                var t6 = t.FraName;
+                var t7 = t.PorName;
+
+
+                var txtDivisionNameRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
+                    new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight + 10));
+                txtDivisionNameRight.HasBorder = false;
+                txtDivisionNameRight.ReadOnly = true;
+                txtDivisionNameRight.Multiline = true;
+                txtDivisionNameRight.Font.SynthesizedBold = false;
+                txtDivisionNameRight.FontSize = 10;
+                txtDivisionNameRight.Text = t1 + "-" + t2 + ", " + t3 + "-" + t4 + " " + t5 + " " + t6 + " " + t7;
+                _pdfPointY += _pdfSizeHeight;
+
+                _pdfPointY += 10; //Distance to next TextBox
+
+                _z += 1;
+                _z1 = _n + _z;
+                //var author = PdfHelper.AuthorViewChangeWithString(t.Author, t.AuthorYear);
+                //var names = PdfHelper.NamesViewChange(t.GerName, t.EngName, t.FraName, t.PorName);
+            }
+
+            _pdfPointY += 15; //Distance to next TextBox
 
             arreySize[0] = _pdfPointXLeft;
             arreySize[1] = _pdfPointY;
@@ -558,6 +664,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
             return arreySize;
         }
+
         //private static void AddReferencesHaeder(PdfDocument pdf)
         //{
         //    pdf.AddPage();
@@ -585,274 +692,274 @@ namespace ATIS.Ui.Views.Report.D03Regnum
         //    }
         //}
 
-      //  private static int[] AddRefSourceList(PdfDocument pdf, ObservableCollection<Tbl90Reference> sourcesList, int[] arreySize)
-      //  {
-      //      if (sourcesList.Count >= 3)
-      //      {
-      //          pdf.AddPage();
-      //          _page = pdf.Pages[_pageCount + 1];
-      //          _pdfPointY = 5;
-      //      }
-      //      var txtExpertNameLeft = _page.AddTextBox("experts", new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-      //      txtExpertNameLeft.HasBorder = false;
-      //      txtExpertNameLeft.ReadOnly = true;
-      //      txtExpertNameLeft.Font.SynthesizedBold = false;
-      //      txtExpertNameLeft.FontSize = 10;
-      //      txtExpertNameLeft.Text = "Andere Quelle(n)"; 
-      //      _pdfPointY += _pdfSizeHeight;
+        //  private static int[] AddRefSourceList(PdfDocument pdf, ObservableCollection<Tbl90Reference> sourcesList, int[] arreySize)
+        //  {
+        //      if (sourcesList.Count >= 3)
+        //      {
+        //          pdf.AddPage();
+        //          _page = pdf.Pages[_pageCount + 1];
+        //          _pdfPointY = 5;
+        //      }
+        //      var txtExpertNameLeft = _page.AddTextBox("experts", new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+        //      txtExpertNameLeft.HasBorder = false;
+        //      txtExpertNameLeft.ReadOnly = true;
+        //      txtExpertNameLeft.Font.SynthesizedBold = false;
+        //      txtExpertNameLeft.FontSize = 10;
+        //      txtExpertNameLeft.Text = "Andere Quelle(n)"; 
+        //      _pdfPointY += _pdfSizeHeight;
 
 
-      //      _n = "source";
-      //      _z = 1;
-      //      _z1 = _n + _z;
-      ////      _v2 = 0;
-      //      foreach (var t in sourcesList)
-      //      {
-      //          var t1 = t.Tbl90RefSources.RefSourceName;
-      //          var t2 = t.Tbl90RefSources.SourceYear;
-      //          var t3 = t.Tbl90RefSources.Notes;
-      //          var t4 = t.Tbl90RefSources.Author;
-      //          var t5 = t.Tbl90RefSources.Memo;
-      //          var t6 = t.Valid;
-      //          var t7 = t.ValidYear;
-      //          var t8 = t.Info;
-      //          var t9 = t.Memo;
+        //      _n = "source";
+        //      _z = 1;
+        //      _z1 = _n + _z;
+        ////      _v2 = 0;
+        //      foreach (var t in sourcesList)
+        //      {
+        //          var t1 = t.Tbl90RefSources.RefSourceName;
+        //          var t2 = t.Tbl90RefSources.SourceYear;
+        //          var t3 = t.Tbl90RefSources.Notes;
+        //          var t4 = t.Tbl90RefSources.Author;
+        //          var t5 = t.Tbl90RefSources.Memo;
+        //          var t6 = t.Valid;
+        //          var t7 = t.ValidYear;
+        //          var t8 = t.Info;
+        //          var t9 = t.Memo;
 
-      //          var txtExperLeft = _page.AddTextBox("expert"+_z1, new PdfPoint(_pdfPointXLeft, _pdfPointY), 
-      //              new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-      //          txtExperLeft.HasBorder = false;
-      //          txtExperLeft.ReadOnly = true;
-      //          txtExperLeft.Font.SynthesizedBold = false;
-      //          txtExperLeft.FontSize = 10;
-      //          txtExperLeft.Text = "Quelle";
-      //          //   _pdfPointY += _pdfSizeHeight;
+        //          var txtExperLeft = _page.AddTextBox("expert"+_z1, new PdfPoint(_pdfPointXLeft, _pdfPointY), 
+        //              new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+        //          txtExperLeft.HasBorder = false;
+        //          txtExperLeft.ReadOnly = true;
+        //          txtExperLeft.Font.SynthesizedBold = false;
+        //          txtExperLeft.FontSize = 10;
+        //          txtExperLeft.Text = "Quelle";
+        //          //   _pdfPointY += _pdfSizeHeight;
 
-      //          if (t1 != null)
-      //          {
-      //              var txtSourceRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
-      //                  new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight+30));
-      //              txtSourceRight.HasBorder = false;
-      //              txtSourceRight.ReadOnly = true;
-      //              txtSourceRight.Multiline = true;
-      //              txtSourceRight.FontSize = 10;
-      //              txtSourceRight.Text = t1;
-      //              _pdfPointY += _pdfSizeHeight;
-      //          }
-      //          else
-      //          {
-      //              _pdfPointY += _pdfSizeHeight;
-      //          }
+        //          if (t1 != null)
+        //          {
+        //              var txtSourceRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
+        //                  new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight+30));
+        //              txtSourceRight.HasBorder = false;
+        //              txtSourceRight.ReadOnly = true;
+        //              txtSourceRight.Multiline = true;
+        //              txtSourceRight.FontSize = 10;
+        //              txtSourceRight.Text = t1;
+        //              _pdfPointY += _pdfSizeHeight;
+        //          }
+        //          else
+        //          {
+        //              _pdfPointY += _pdfSizeHeight;
+        //          }
 
-      //          _z += 1;
-      //          _z1 = _n + _z;
+        //          _z += 1;
+        //          _z1 = _n + _z;
 
-      //          var txtErfasstLeft = _page.AddTextBox("erfasst" + _z1, new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-      //          txtErfasstLeft.HasBorder = false;
-      //          txtErfasstLeft.ReadOnly = true;
-      //          txtErfasstLeft.Font.SynthesizedBold = false;
-      //          txtErfasstLeft.FontSize = 10;
-      //          txtErfasstLeft.Text = "Erfasst";
-      //          //   _pdfPointY += _pdfSizeHeight;
+        //          var txtErfasstLeft = _page.AddTextBox("erfasst" + _z1, new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+        //          txtErfasstLeft.HasBorder = false;
+        //          txtErfasstLeft.ReadOnly = true;
+        //          txtErfasstLeft.Font.SynthesizedBold = false;
+        //          txtErfasstLeft.FontSize = 10;
+        //          txtErfasstLeft.Text = "Erfasst";
+        //          //   _pdfPointY += _pdfSizeHeight;
 
-      //          if (t2 != null)
-      //          {
-      //              var txtErfasstRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
-      //                  new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
-      //              txtErfasstRight.HasBorder = false;
-      //              txtErfasstRight.ReadOnly = true;
-      //              txtErfasstRight.FontSize = 10;
-      //              txtErfasstRight.Text = t2;
-      //              _pdfPointY += _pdfSizeHeight;
-      //          }
-      //          else
-      //          {
-      //              _pdfPointY += _pdfSizeHeight;
-      //          }
-      //          _z += 1;
-      //          _z1 = _n + _z;
+        //          if (t2 != null)
+        //          {
+        //              var txtErfasstRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
+        //                  new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+        //              txtErfasstRight.HasBorder = false;
+        //              txtErfasstRight.ReadOnly = true;
+        //              txtErfasstRight.FontSize = 10;
+        //              txtErfasstRight.Text = t2;
+        //              _pdfPointY += _pdfSizeHeight;
+        //          }
+        //          else
+        //          {
+        //              _pdfPointY += _pdfSizeHeight;
+        //          }
+        //          _z += 1;
+        //          _z1 = _n + _z;
 
-      //          var txtNotesLeft = _page.AddTextBox("notes" + _z1, new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-      //          txtNotesLeft.HasBorder = false;
-      //          txtNotesLeft.ReadOnly = true;
-      //          txtNotesLeft.Font.SynthesizedBold = false;
-      //          txtNotesLeft.FontSize = 10;
-      //          txtNotesLeft.Text = "Berichte";
-      //          //   _pdfPointY += _pdfSizeHeight;
+        //          var txtNotesLeft = _page.AddTextBox("notes" + _z1, new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+        //          txtNotesLeft.HasBorder = false;
+        //          txtNotesLeft.ReadOnly = true;
+        //          txtNotesLeft.Font.SynthesizedBold = false;
+        //          txtNotesLeft.FontSize = 10;
+        //          txtNotesLeft.Text = "Berichte";
+        //          //   _pdfPointY += _pdfSizeHeight;
 
-      //          if (t3 != null)
-      //          {
+        //          if (t3 != null)
+        //          {
 
-      //              var txtNoteRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
-      //                  new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight+30));
-      //              txtNoteRight.HasBorder = false;
-      //              txtNoteRight.ReadOnly = true;
-      //              txtNoteRight.Multiline = true;
-      //              txtNoteRight.FontSize = 10;
-      //              txtNoteRight.Text = t3;
-      //              _pdfPointY += _pdfSizeHeight;
-      //          }
-      //          else
-      //          {
-      //              _pdfPointY += _pdfSizeHeight;
-      //          }
+        //              var txtNoteRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
+        //                  new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight+30));
+        //              txtNoteRight.HasBorder = false;
+        //              txtNoteRight.ReadOnly = true;
+        //              txtNoteRight.Multiline = true;
+        //              txtNoteRight.FontSize = 10;
+        //              txtNoteRight.Text = t3;
+        //              _pdfPointY += _pdfSizeHeight;
+        //          }
+        //          else
+        //          {
+        //              _pdfPointY += _pdfSizeHeight;
+        //          }
 
-      //          _z += 1;
-      //          _z1 = _n + _z;
+        //          _z += 1;
+        //          _z1 = _n + _z;
 
-      //          var txtAuthorLeft = _page.AddTextBox("author" + _z1, new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-      //          txtAuthorLeft.HasBorder = false;
-      //          txtAuthorLeft.ReadOnly = true;
-      //          txtAuthorLeft.Font.SynthesizedBold = false;
-      //          txtAuthorLeft.FontSize = 10;
-      //          txtAuthorLeft.Text = "Autor";
-      //          //   _pdfPointY += _pdfSizeHeight;
+        //          var txtAuthorLeft = _page.AddTextBox("author" + _z1, new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+        //          txtAuthorLeft.HasBorder = false;
+        //          txtAuthorLeft.ReadOnly = true;
+        //          txtAuthorLeft.Font.SynthesizedBold = false;
+        //          txtAuthorLeft.FontSize = 10;
+        //          txtAuthorLeft.Text = "Autor";
+        //          //   _pdfPointY += _pdfSizeHeight;
 
-      //          if (t4 != null)
-      //          {
-      //              var txtAuthorRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY), new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
-      //              txtAuthorRight.HasBorder = false;
-      //              txtAuthorRight.ReadOnly = true;
-      //              txtAuthorRight.FontSize = 10;
-      //              txtAuthorRight.Text = t4;
-      //              _pdfPointY += _pdfSizeHeight;
-      //          }
-      //          else
-      //          {
-      //              _pdfPointY += _pdfSizeHeight;
-      //          }
-      //          _z += 1;
-      //          _z1 = _n + _z;
+        //          if (t4 != null)
+        //          {
+        //              var txtAuthorRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY), new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+        //              txtAuthorRight.HasBorder = false;
+        //              txtAuthorRight.ReadOnly = true;
+        //              txtAuthorRight.FontSize = 10;
+        //              txtAuthorRight.Text = t4;
+        //              _pdfPointY += _pdfSizeHeight;
+        //          }
+        //          else
+        //          {
+        //              _pdfPointY += _pdfSizeHeight;
+        //          }
+        //          _z += 1;
+        //          _z1 = _n + _z;
 
-      //          var txtMemoLeft = _page.AddTextBox("memo" + _z1, new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-      //          txtMemoLeft.HasBorder = false;
-      //          txtMemoLeft.ReadOnly = true;
-      //          txtMemoLeft.Font.SynthesizedBold = false;
-      //          txtMemoLeft.FontSize = 10;
-      //          txtMemoLeft.Text = "Memo";
-      //          //   _pdfPointY += _pdfSizeHeight;
+        //          var txtMemoLeft = _page.AddTextBox("memo" + _z1, new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+        //          txtMemoLeft.HasBorder = false;
+        //          txtMemoLeft.ReadOnly = true;
+        //          txtMemoLeft.Font.SynthesizedBold = false;
+        //          txtMemoLeft.FontSize = 10;
+        //          txtMemoLeft.Text = "Memo";
+        //          //   _pdfPointY += _pdfSizeHeight;
 
-      //          if (t5 != null)
-      //          {
-      //              var txtMemoRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY), 
-      //                  new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight+30));
-      //              txtMemoRight.HasBorder = false;
-      //              txtMemoRight.ReadOnly = true;
-      //              txtMemoRight.Multiline = true;
-      //              txtMemoRight.FontSize = 10;
-      //              txtMemoRight.Text = t5;
-      //              _pdfPointY += _pdfSizeHeight;
-      //          }
-      //          else
-      //          {
-      //              _pdfPointY += _pdfSizeHeight;
-      //          }
-      //          _z += 1;
-      //          _z1 = _n + _z;
+        //          if (t5 != null)
+        //          {
+        //              var txtMemoRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY), 
+        //                  new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight+30));
+        //              txtMemoRight.HasBorder = false;
+        //              txtMemoRight.ReadOnly = true;
+        //              txtMemoRight.Multiline = true;
+        //              txtMemoRight.FontSize = 10;
+        //              txtMemoRight.Text = t5;
+        //              _pdfPointY += _pdfSizeHeight;
+        //          }
+        //          else
+        //          {
+        //              _pdfPointY += _pdfSizeHeight;
+        //          }
+        //          _z += 1;
+        //          _z1 = _n + _z;
 
-      //          var txtValidLeft = _page.AddTextBox("Valid" + _z1, new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-      //          txtValidLeft.HasBorder = false;
-      //          txtValidLeft.ReadOnly = true;
-      //          txtValidLeft.Font.SynthesizedBold = false;
-      //          txtValidLeft.FontSize = 10;
-      //          txtValidLeft.Text = "Gültig";
-      //          //   _pdfPointY += _pdfSizeHeight;
+        //          var txtValidLeft = _page.AddTextBox("Valid" + _z1, new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+        //          txtValidLeft.HasBorder = false;
+        //          txtValidLeft.ReadOnly = true;
+        //          txtValidLeft.Font.SynthesizedBold = false;
+        //          txtValidLeft.FontSize = 10;
+        //          txtValidLeft.Text = "Gültig";
+        //          //   _pdfPointY += _pdfSizeHeight;
 
-      //          if (t6 != null)
-      //          {
-      //              var txtValidRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY), new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
-      //              txtValidRight.HasBorder = false;
-      //              txtValidRight.ReadOnly = true;
-      //              txtValidRight.FontSize = 10;
-      //              txtValidRight.Text = t6.ToString();
-      //              _pdfPointY += _pdfSizeHeight;
-      //          }
-      //          else
-      //          {
-      //              _pdfPointY += _pdfSizeHeight;
-      //          }
-      //          _z += 1;
-      //          _z1 = _n + _z;
+        //          if (t6 != null)
+        //          {
+        //              var txtValidRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY), new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+        //              txtValidRight.HasBorder = false;
+        //              txtValidRight.ReadOnly = true;
+        //              txtValidRight.FontSize = 10;
+        //              txtValidRight.Text = t6.ToString();
+        //              _pdfPointY += _pdfSizeHeight;
+        //          }
+        //          else
+        //          {
+        //              _pdfPointY += _pdfSizeHeight;
+        //          }
+        //          _z += 1;
+        //          _z1 = _n + _z;
 
-      //          var txtValidYearLeft = _page.AddTextBox("ValidYear" + _z1, new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-      //          txtValidYearLeft.HasBorder = false;
-      //          txtValidYearLeft.ReadOnly = true;
-      //          txtValidYearLeft.Font.SynthesizedBold = false;
-      //          txtValidYearLeft.FontSize = 10;
-      //          txtValidYearLeft.Text = "Year";
-      //          //   _pdfPointY += _pdfSizeHeight;
+        //          var txtValidYearLeft = _page.AddTextBox("ValidYear" + _z1, new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+        //          txtValidYearLeft.HasBorder = false;
+        //          txtValidYearLeft.ReadOnly = true;
+        //          txtValidYearLeft.Font.SynthesizedBold = false;
+        //          txtValidYearLeft.FontSize = 10;
+        //          txtValidYearLeft.Text = "Year";
+        //          //   _pdfPointY += _pdfSizeHeight;
 
-      //          if (t7 != null)
-      //          {
-      //              var txtValidYearRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
-      //                  new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
-      //              txtValidYearRight.HasBorder = false;
-      //              txtValidYearRight.ReadOnly = true;
-      //              txtValidYearRight.FontSize = 10;
-      //              txtValidYearRight.Text = t7;
-      //              _pdfPointY += _pdfSizeHeight;
-      //          }
-      //          else
-      //          {
-      //              _pdfPointY += _pdfSizeHeight;
-      //          }
-      //          _z += 1;
-      //          _z1 = _n + _z;
+        //          if (t7 != null)
+        //          {
+        //              var txtValidYearRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
+        //                  new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+        //              txtValidYearRight.HasBorder = false;
+        //              txtValidYearRight.ReadOnly = true;
+        //              txtValidYearRight.FontSize = 10;
+        //              txtValidYearRight.Text = t7;
+        //              _pdfPointY += _pdfSizeHeight;
+        //          }
+        //          else
+        //          {
+        //              _pdfPointY += _pdfSizeHeight;
+        //          }
+        //          _z += 1;
+        //          _z1 = _n + _z;
 
-      //          var txtBezugLeft = _page.AddTextBox("bezug" + _z1, new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-      //          txtBezugLeft.HasBorder = false;
-      //          txtBezugLeft.ReadOnly = true;
-      //          txtBezugLeft.Font.SynthesizedBold = false;
-      //          txtBezugLeft.FontSize = 10;
-      //          txtBezugLeft.Text = "Bezug auf";
-      //          //   _pdfPointY += _pdfSizeHeight;
+        //          var txtBezugLeft = _page.AddTextBox("bezug" + _z1, new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+        //          txtBezugLeft.HasBorder = false;
+        //          txtBezugLeft.ReadOnly = true;
+        //          txtBezugLeft.Font.SynthesizedBold = false;
+        //          txtBezugLeft.FontSize = 10;
+        //          txtBezugLeft.Text = "Bezug auf";
+        //          //   _pdfPointY += _pdfSizeHeight;
 
-      //          if (t8 != null)
-      //          {
-      //              var txtBezugRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
-      //                  new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
-      //              txtBezugRight.HasBorder = false;
-      //              txtBezugRight.ReadOnly = true;
-      //              txtBezugRight.FontSize = 10;
-      //              txtBezugRight.Text = t8;
-      //              _pdfPointY += _pdfSizeHeight;
-      //          }
-      //          else
-      //          {
-      //              _pdfPointY += _pdfSizeHeight;
-      //          }
-      //          _z += 1;
-      //          _z1 = _n + _z;
+        //          if (t8 != null)
+        //          {
+        //              var txtBezugRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
+        //                  new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+        //              txtBezugRight.HasBorder = false;
+        //              txtBezugRight.ReadOnly = true;
+        //              txtBezugRight.FontSize = 10;
+        //              txtBezugRight.Text = t8;
+        //              _pdfPointY += _pdfSizeHeight;
+        //          }
+        //          else
+        //          {
+        //              _pdfPointY += _pdfSizeHeight;
+        //          }
+        //          _z += 1;
+        //          _z1 = _n + _z;
 
-      //          var txtSourceMemoLeft = _page.AddTextBox("sourceMemo" + _z1, new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-      //          txtSourceMemoLeft.HasBorder = false;
-      //          txtSourceMemoLeft.ReadOnly = true;
-      //          txtSourceMemoLeft.Font.SynthesizedBold = false;
-      //          txtSourceMemoLeft.FontSize = 10;
-      //          txtSourceMemoLeft.Text = "Memo";
-      //          //   _pdfPointY += _pdfSizeHeight;
+        //          var txtSourceMemoLeft = _page.AddTextBox("sourceMemo" + _z1, new PdfPoint(_pdfPointXLeft, _pdfPointY), new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+        //          txtSourceMemoLeft.HasBorder = false;
+        //          txtSourceMemoLeft.ReadOnly = true;
+        //          txtSourceMemoLeft.Font.SynthesizedBold = false;
+        //          txtSourceMemoLeft.FontSize = 10;
+        //          txtSourceMemoLeft.Text = "Memo";
+        //          //   _pdfPointY += _pdfSizeHeight;
 
-      //          if (t9 != null)
-      //          {
-      //              var txtSourceMemoRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
-      //                  new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight+30));
-      //              txtSourceMemoRight.HasBorder = false;
-      //              txtSourceMemoRight.ReadOnly = true;
-      //              txtSourceMemoRight.Multiline = true;
-      //              txtSourceMemoRight.FontSize = 10;
-      //              txtSourceMemoRight.Text = t9;
-      //              _pdfPointY += _pdfSizeHeight;
-      //          }
-      //          else
-      //          {
-      //              _pdfPointY += _pdfSizeHeight;
-      //          }
-      //          _z += 1;
-      //          _z1 = _n + _z;
+        //          if (t9 != null)
+        //          {
+        //              var txtSourceMemoRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
+        //                  new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight+30));
+        //              txtSourceMemoRight.HasBorder = false;
+        //              txtSourceMemoRight.ReadOnly = true;
+        //              txtSourceMemoRight.Multiline = true;
+        //              txtSourceMemoRight.FontSize = 10;
+        //              txtSourceMemoRight.Text = t9;
+        //              _pdfPointY += _pdfSizeHeight;
+        //          }
+        //          else
+        //          {
+        //              _pdfPointY += _pdfSizeHeight;
+        //          }
+        //          _z += 1;
+        //          _z1 = _n + _z;
 
-      //          //var author = PdfHelper.AuthorViewChangeWithString(t.Author, t.AuthorYear);
-      //          //var names = PdfHelper.NamesViewChange(t.GerName, t.EngName, t.FraName, t.PorName);
-      //      }
-      //  }
+        //          //var author = PdfHelper.AuthorViewChangeWithString(t.Author, t.AuthorYear);
+        //          //var names = PdfHelper.NamesViewChange(t.GerName, t.EngName, t.FraName, t.PorName);
+        //      }
+        //  }
         //private static void AddRefAuthorList(PdfDocument pdf, ObservableCollection<Tbl90Reference> authorsList, int[] arreySize)
         //{
         //    if (authorsList.Count >= 3)
