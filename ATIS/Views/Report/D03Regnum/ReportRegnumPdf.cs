@@ -55,16 +55,16 @@ namespace ATIS.Ui.Views.Report.D03Regnum
         private static int _z;
         private static string _z1;
 
-        private static int _pdfPointXLeft = 5;
-        private static int _pdfPointY = 5;
-        private static int _pdfPointXRight = 150;
-        private static int _pdfSizeHeight = 20;
-        private static int _pdfSizeWidthLeft = 300;
-        private static int _pdfSizeWidthRight = 450;
-        private static int _pageCount = 0;
-        private static int _move = 3;
+        private static int _pdfPointXLeft;
+        private static int _pdfPointY;
+        private static int _pdfPointXRight;
+        private static int _pdfSizeHeight;
+        private static int _pdfSizeWidthLeft;
+        private static int _pdfSizeWidthRight;
+        private static int _pageCount;
+        private static int _move;
 
-        private static int[] ArreySize = new int[8];
+        private static int[] _arreySize = new int[8];
  
         private static PdfPage _page;
 
@@ -72,14 +72,14 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
         public static void CreateMainPdf(int id)
         {
-            ArreySize[0] = 5; //_pdfPointXLeft
-            ArreySize[1] = 5; //_pdfPointY
-            ArreySize[2] = 150; //_pdfPointXRight
-            ArreySize[3] = 20; //_pdfSizeHeight
-            ArreySize[4] = 300; //_pdfSizeWidthLeft
-            ArreySize[5] = 450; //_pdfSizeWidthRight
-            ArreySize[6] = 0; //_pageCount
-            ArreySize[7] = 3; //_move
+            _arreySize[0] = 5; //_pdfPointXLeft
+            _arreySize[1] = 5; //_pdfPointY
+            _arreySize[2] = 150; //_pdfPointXRight
+            _arreySize[3] = 20; //_pdfSizeHeight
+            _arreySize[4] = 300; //_pdfSizeWidthLeft
+            _arreySize[5] = 400; //_pdfSizeWidthRight
+            _arreySize[6] = 0; //_pageCount
+            _arreySize[7] = 3; //_move
 
             // NOTE: 
             // When used in trial mode, the library imposes some restrictions.
@@ -113,25 +113,25 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             {
                 using (PdfDocument pdf = new PdfDocument())
                 {
-                    ArreySize = _pdfHelper.AddReportMain(pdf, regnumsList, ArreySize);
-                    ArreySize = AddRegnumTaxoNomenList(pdf, regnumsList, ArreySize);
-                    ArreySize = AddHierarchyList(pdf, regnumsList, ArreySize);
+                    _arreySize = _pdfHelper.AddReportMain(pdf, regnumsList, _arreySize);
+                    _arreySize = AddRegnumTaxoNomenList(pdf, regnumsList, _arreySize);
+                    _arreySize = AddHierarchyList(pdf, regnumsList, _arreySize);
                      if (phylumsList.Count != 0)
-                         ArreySize = AddPhylumsChildrenList(pdf, phylumsList, ArreySize);
+                         _arreySize = AddPhylumsChildrenList(pdf, phylumsList, _arreySize);
                     if (divisionsList.Count != 0)
-                        ArreySize = AddDivisionsChildrenList(pdf, divisionsList, ArreySize);
+                        _arreySize = AddDivisionsChildrenList(pdf, divisionsList, _arreySize);
                     if (expertsList.Count != 0 || sourcesList.Count != 0 || authorsList.Count != 0)
-                        _pdfHelper.AddReferencesHaeder(pdf, ArreySize);
+                        _arreySize = _pdfHelper.AddReferencesHaeder(pdf, _arreySize);
                     if (expertsList.Count != 0)
-                        _pdfHelper.AddRefExpertList(pdf, expertsList, ArreySize);
+                        _arreySize = _pdfHelper.AddRefExpertsList(pdf, expertsList, _arreySize);
                     if (sourcesList.Count != 0)
-                        _pdfHelper.AddRefSourceList(pdf, sourcesList, ArreySize);
+                        _arreySize = _pdfHelper.AddRefSourcesList(pdf, sourcesList, _arreySize);
                     if (authorsList.Count != 0)
-                        _pdfHelper.AddRefAuthorList(pdf, authorsList, ArreySize);
+                        _arreySize = _pdfHelper.AddRefAuthorsList(pdf, authorsList, _arreySize);
                     if (commentsList.Count != 0)
-                        _pdfHelper.AddCommentsHaeder(pdf, ArreySize);
+                        _arreySize = _pdfHelper.AddCommentsHaeder(pdf, _arreySize);
                     if (commentsList.Count != 0)
-                        _pdfHelper.AddCommentList(pdf, commentsList, ArreySize);
+                        _arreySize = _pdfHelper.AddCommentsList(pdf, commentsList, _arreySize);
 
                     pdf.Save(pathToFile);
                
