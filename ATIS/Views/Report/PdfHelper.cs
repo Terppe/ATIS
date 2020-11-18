@@ -39,11 +39,11 @@ namespace ATIS.Ui.Views.Report
             txtHeader.HasBorder = false;
             txtHeader.ReadOnly = true;
             txtHeader.Font.SynthesizedBold = true;
-            txtHeader.FontSize = 24;
+            txtHeader.FontSize = 16;
             txtHeader.Text = CultRes.StringsRes.Report;
 
             _pdfPointY += _pdfSizeHeight;
-            _pdfPointY += 15; //Distance to next TextBox
+            _pdfPointY += 10; //Distance to next TextBox
 
             arreySize[0] = _pdfPointXLeft; 
             arreySize[1] = _pdfPointY; 
@@ -388,13 +388,14 @@ namespace ATIS.Ui.Views.Report
                 if (u9 != " ")
                 {
                     var txtInfo1Right = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
-                        new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+                        new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight+10));
                     txtInfo1Right.HasBorder = false;
                     txtInfo1Right.ReadOnly = true;
                     txtInfo1Right.Multiline = true;
                     txtInfo1Right.FontSize = 0;
                     txtInfo1Right.Text = u9;
                     _pdfPointY += _pdfSizeHeight;
+                    _pdfPointY += 10; //Distance to next TextBox
                 }
                 else
                 {
