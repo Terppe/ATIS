@@ -40,10 +40,11 @@ namespace ATIS.Ui.Views.Report
             txtHeader.ReadOnly = true;
             txtHeader.Font.SynthesizedBold = true;
             txtHeader.FontSize = 16;
+            txtHeader.Height = 20;
             txtHeader.Text = CultRes.StringsRes.Report;
 
             _pdfPointY += _pdfSizeHeight;
-            _pdfPointY += 10; //Distance to next TextBox
+            _pdfPointY += 20; //Distance to next TextBox
 
             arreySize[0] = _pdfPointXLeft; 
             arreySize[1] = _pdfPointY; 
