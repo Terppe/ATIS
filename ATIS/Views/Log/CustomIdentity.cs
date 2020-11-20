@@ -19,7 +19,7 @@ namespace ATIS.Ui.Views.Log
 
         public bool IsAuthenticated => !string.IsNullOrEmpty(Email);
 
-        public string? Name { get; }
+        public string Name { get; }
 
         #endregion
     }
