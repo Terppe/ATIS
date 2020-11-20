@@ -12,10 +12,8 @@ namespace ATIS.Ui.Helper.ValueConverter
             // Do your logic with the properties here.
             //var property1 = values[0].ConvertTo<string>();  //Author
             //var property2 = values[1].ConvertTo<string>();  //AuthorYear
-            if (values[0] != null)
+            if (values[0] != null && values[1] != null)
             {
-
-
                 var property1 = values[0].ToString();  //Author
                 var property2 = values[1].ToString();  //AuthorYear
 
@@ -30,6 +28,25 @@ namespace ATIS.Ui.Helper.ValueConverter
                 else
                 {
                     property1 = "- " + property1 + ", " + property2;
+                }
+                return property1;
+            }
+            if (values[0] != null && values[1] == null)
+            {
+                var property1 = values[0].ToString();  //Author
+             //   var property2 = values[1].ToString();  //AuthorYear
+
+                //        if (property1.IsBlank()) return null;
+                if (property1 == String.Empty) return null;
+
+                if (property1 != null && property1.Contains("("))
+                {
+                    var length = property1.Length;
+                    property1 = "- " + property1.Insert(length - 1, "");
+                }
+                else
+                {
+                    property1 = "- " + property1;
                 }
                 return property1;
             }
@@ -70,7 +87,7 @@ namespace ATIS.Ui.Helper.ValueConverter
             // Do your logic with the properties here.
             //var property1 = values[0].ConvertTo<string>();  //Author
             //var property2 = values[1].ConvertTo<string>();  //AuthorYear
-            if (values[0] != null)
+            if (values[0] != null && values[1] != null)
             {
                 var property1 = values[0].ToString(); //Author
                 var property2 = values[1].ToString(); //AuthorYear
@@ -90,6 +107,26 @@ namespace ATIS.Ui.Helper.ValueConverter
 
                 return property1;
             }
+            if (values[0] != null && values[1] == null)
+            {
+                var property1 = values[0].ToString();  //Author
+                //   var property2 = values[1].ToString();  //AuthorYear
+
+                //        if (property1.IsBlank()) return null;
+                if (property1 == String.Empty) return null;
+
+                if (property1 != null && property1.Contains("("))
+                {
+                    var length = property1.Length;
+                    property1 = "- " + property1.Insert(length - 1, "");
+                }
+                else
+                {
+                    property1 = "- " + property1;
+                }
+                return property1;
+            }
+
 
             return null;
         }

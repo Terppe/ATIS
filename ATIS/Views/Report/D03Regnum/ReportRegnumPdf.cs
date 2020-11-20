@@ -41,8 +41,9 @@ namespace ATIS.Ui.Views.Report.D03Regnum
         private static int _pageCount;
         private static int _move;
         private static int _characterSize;
+        private static int _fontSize;
 
-        private static int[] _arreySize = new int[9];
+        private static int[] _arreySize = new int[10];
  
         private static PdfPage _page;
 
@@ -61,6 +62,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             _arreySize[6] = 0; //_pageCount
             _arreySize[7] = 4; //_move
             _arreySize[8] = 100; //_characterSize
+            _arreySize[9] = 8; //_fontSize
 
             // NOTE: 
             // When used in trial mode, the library imposes some restrictions.
@@ -104,18 +106,45 @@ namespace ATIS.Ui.Views.Report.D03Regnum
                         _arreySize = AddDivisionsChildrenList(pdf, divisionsList, _arreySize);
 
                     if (expertsList.Count != 0 || sourcesList.Count != 0 || authorsList.Count != 0)
+                    {
+                        pdf.AddPage();
+                        _page = pdf.Pages[_pageCount + 1];
+                        //_pdfPointY = 5;
+
                         _arreySize = PdfHelper.AddReferencesHaeder(pdf, _arreySize);
+                    }
+
                     if (expertsList.Count != 0)
                         _arreySize = PdfHelper.AddRefExpertsList(pdf, expertsList, _arreySize);
                     if (sourcesList.Count != 0)
+                    {
+                        pdf.AddPage();
+                        _page = pdf.Pages[_pageCount + 1];
+                        //_pdfPointY = 5;
+
                         _arreySize = PdfHelper.AddRefSourcesList(pdf, sourcesList, _arreySize);
+                    }
+
                     if (authorsList.Count != 0)
+                    {
+                        pdf.AddPage();
+                        _page = pdf.Pages[_pageCount + 1];
+                        //_pdfPointY = 5;
+
                         _arreySize = PdfHelper.AddRefAuthorsList(pdf, authorsList, _arreySize);
+                    }
 
                     if (commentsList.Count != 0)
+                    {
+                        pdf.AddPage();
+                        _page = pdf.Pages[_pageCount + 1];
+                        //_pdfPointY = 5;
+
                         _arreySize = PdfHelper.AddCommentsHaeder(pdf, _arreySize);
-                    if (commentsList.Count != 0)
-                        _arreySize = PdfHelper.AddCommentsList(pdf, commentsList, _arreySize);
+                    }
+
+           //         if (commentsList.Count != 0)
+            //            _arreySize = PdfHelper.AddCommentsList(pdf, commentsList, _arreySize);
 
                     pdf.Save(pathToFile);
                
