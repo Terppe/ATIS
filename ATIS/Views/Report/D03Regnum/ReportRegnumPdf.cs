@@ -1,24 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Drawing;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Reflection.Metadata;
-using System.Windows;
 using ATIS.Dal.Models;
-using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Database.CrudHelper;
 using BitMiracle.Docotic;
 using BitMiracle.Docotic.Pdf;
 using log4net;
-using MaterialDesignColors.Recommended;
-using Microsoft.Win32;
-using FontStyle = System.Drawing.FontStyle;
 
 namespace ATIS.Ui.Views.Report.D03Regnum
 {
@@ -29,7 +19,6 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
         private static readonly PdfHelper PdfHelper = new PdfHelper();
         private static string _n;
-        private static int _z;
         private static string _z1;
 
         private static int _pdfPointXLeft;
@@ -42,8 +31,9 @@ namespace ATIS.Ui.Views.Report.D03Regnum
         private static int _move;
         private static int _characterSize;
         private static int _fontSize;
+        private static int _z;
 
-        private static int[] _arreySize = new int[10];
+        private static int[] _arrayInts = new int[11];
  
         private static PdfPage _page;
 
@@ -53,16 +43,17 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
         public static void CreateMainPdf(int id)
         {
-            _arreySize[0] = 20; //_pdfPointXLeft
-            _arreySize[1] = 5; //_pdfPointY
-            _arreySize[2] = 150; //_pdfPointXRight
-            _arreySize[3] = 8; //_pdfSizeHeight
-            _arreySize[4] = 300; //_pdfSizeWidthLeft
-            _arreySize[5] = 430; //_pdfSizeWidthRight
-            _arreySize[6] = 0; //_pageCount
-            _arreySize[7] = 4; //_move
-            _arreySize[8] = 95; //_characterSize
-            _arreySize[9] = 8; //_fontSize
+            _arrayInts[0] = 20; //_pdfPointXLeft
+            _arrayInts[1] = 5; //_pdfPointY
+            _arrayInts[2] = 150; //_pdfPointXRight
+            _arrayInts[3] = 8; //_pdfSizeHeight
+            _arrayInts[4] = 300; //_pdfSizeWidthLeft
+            _arrayInts[5] = 430; //_pdfSizeWidthRight
+            _arrayInts[6] = 0; //_pageCount
+            _arrayInts[7] = 4; //_move
+            _arrayInts[8] = 95; //_characterSize
+            _arrayInts[9] = 8; //_fontSize
+            _arrayInts[10] = 0; //_z
 
             // NOTE: 
             // When used in trial mode, the library imposes some restrictions.
@@ -80,7 +71,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             //if (saveResult != true) return; //exit
             //     PdfDocument doc = null;
 
-            var regnumsList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(id).FirstOrDefault();
+            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(id).FirstOrDefault();
             var phylumsList = ExtGet.GetPhylumsCollectionOrderByFromRegnumId<Tbl06Phylum>(id);
             var divisionsList = ExtGet.GetDivisionsCollectionOrderByFromRegnumId<Tbl09Division>(id);
             var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
@@ -88,22 +79,20 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             var authorsList = ExtGet.GetReferenceAuthorsCollectionOrderByFromRegnumIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
             var commentsList = ExtGet.GetCommentsCollectionOrderByFromRegnumId<Tbl93Comment>(id);
 
-
-
             try
             {
                 using (PdfDocument pdf = new PdfDocument())
                 {
-                    _arreySize = PdfHelper.AddReportMain(pdf, regnumsList, _arreySize);
+                    _arrayInts = PdfHelper.AddReportMain(pdf, regnumList, _arrayInts);
 
-                    _arreySize = AddRegnumHaeder(pdf, regnumsList, _arreySize);
-                    _arreySize = AddRegnumTaxoNomenList(pdf, regnumsList, _arreySize);
-                    _arreySize = AddRegnumHierarchyList(pdf, regnumsList, _arreySize);
+                    _arrayInts = AddRegnumHaeder(pdf, regnumList, _arrayInts);
+                    _arrayInts = AddRegnumTaxoNomenList(pdf, regnumList, _arrayInts);
+                    _arrayInts = AddRegnumHierarchyList(pdf, regnumList, _arrayInts);
 
                      if (phylumsList.Count != 0)
-                         _arreySize = AddPhylumsChildrenList(pdf, phylumsList, _arreySize);
+                         _arrayInts = AddPhylumsChildrenList(pdf, phylumsList, _arrayInts);
                     if (divisionsList.Count != 0)
-                        _arreySize = AddDivisionsChildrenList(pdf, divisionsList, _arreySize);
+                        _arrayInts = AddDivisionsChildrenList(pdf, divisionsList, _arrayInts);
 
                     if (expertsList.Count != 0 || sourcesList.Count != 0 || authorsList.Count != 0)
                     {
@@ -111,18 +100,18 @@ namespace ATIS.Ui.Views.Report.D03Regnum
                         _page = pdf.Pages[_pageCount + 1];
                         //_pdfPointY = 5;
 
-                        _arreySize = PdfHelper.AddReferencesHaeder(pdf, _arreySize);
+                        _arrayInts = PdfHelper.AddReferencesHaeder(pdf, _arrayInts);
                     }
 
                     if (expertsList.Count != 0)
-                        _arreySize = PdfHelper.AddRefExpertsList(pdf, expertsList, _arreySize);
+                        _arrayInts = PdfHelper.AddRefExpertsList(pdf, expertsList, _arrayInts);
                     if (sourcesList.Count != 0)
                     {
                         pdf.AddPage();
                         _page = pdf.Pages[_pageCount + 1];
                         //_pdfPointY = 5;
 
-                        _arreySize = PdfHelper.AddRefSourcesList(pdf, sourcesList, _arreySize);
+                        _arrayInts = PdfHelper.AddRefSourcesList(pdf, sourcesList, _arrayInts);
                     }
 
                     if (authorsList.Count != 0)
@@ -131,7 +120,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
                         _page = pdf.Pages[_pageCount + 1];
                         //_pdfPointY = 5;
 
-                        _arreySize = PdfHelper.AddRefAuthorsList(pdf, authorsList, _arreySize);
+                        _arrayInts = PdfHelper.AddRefAuthorsList(pdf, authorsList, _arrayInts);
                     }
 
                     if (commentsList.Count != 0)
@@ -140,11 +129,11 @@ namespace ATIS.Ui.Views.Report.D03Regnum
                         _page = pdf.Pages[_pageCount + 1];
                         //_pdfPointY = 5;
 
-                        _arreySize = PdfHelper.AddCommentsHaeder(pdf, _arreySize);
+                        _arrayInts = PdfHelper.AddCommentsHaeder(pdf, _arrayInts);
                     }
 
                     if (commentsList.Count != 0)
-                        _arreySize = PdfHelper.AddCommentsList(pdf, commentsList, _arreySize);
+                        _arrayInts = PdfHelper.AddCommentsList(pdf, commentsList, _arrayInts);
 
                     pdf.Save(pathToFile);
                
@@ -166,15 +155,19 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             }
         }
 
-        private static int[] AddRegnumHaeder(PdfDocument pdf, Tbl03Regnum regnumList, int[] arreySize)
+        private static int[] AddRegnumHaeder(PdfDocument pdf, Tbl03Regnum regnumList, int[] arrayInts)
         {
-            _pdfPointXLeft = arreySize[0];
-            _pdfPointY = arreySize[1];
-            _pdfPointXRight = arreySize[2];
-            _pdfSizeHeight = arreySize[3];
-            _pdfSizeWidthLeft = arreySize[4];
-            _pdfSizeWidthRight = arreySize[5];
-            _pageCount = arreySize[6];
+            _pdfPointXLeft = arrayInts[0];
+            _pdfPointY = arrayInts[1];
+            _pdfPointXRight = arrayInts[2];
+            _pdfSizeHeight = arrayInts[3];
+            _pdfSizeWidthLeft = arrayInts[4];
+            _pdfSizeWidthRight = arrayInts[5];
+            _pageCount = arrayInts[6];
+            _move = arrayInts[7];
+            _characterSize = arrayInts[8];
+            _fontSize = arrayInts[9]; 
+            _z = arrayInts[10];
 
             _page = pdf.Pages[_pageCount];
 
@@ -212,26 +205,33 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             _pdfPointY += _pdfSizeHeight;
             _pdfPointY += 5; //Distance to next TextBox
 
-            arreySize[0] = _pdfPointXLeft;
-            arreySize[1] = _pdfPointY;
-            arreySize[2] = _pdfPointXRight;
-            arreySize[3] = _pdfSizeHeight;
-            arreySize[4] = _pdfSizeWidthLeft;
-            arreySize[5] = _pdfSizeWidthRight;
-            arreySize[6] = _pageCount;
+            arrayInts[0] = _pdfPointXLeft;
+            arrayInts[1] = _pdfPointY;
+            arrayInts[2] = _pdfPointXRight;
+            arrayInts[3] = _pdfSizeHeight;
+            arrayInts[4] = _pdfSizeWidthLeft;
+            arrayInts[5] = _pdfSizeWidthRight;
+            arrayInts[6] = _pageCount;
+            arrayInts[7] = _move;
+            arrayInts[8] = _characterSize;
+            arrayInts[9] = _fontSize;
+            arrayInts[10] = _z;
 
-            return arreySize;
+            return arrayInts;
         }
-        private static int[] AddRegnumTaxoNomenList(PdfDocument pdf, Tbl03Regnum regnumList, int[] arreySize)
+        private static int[] AddRegnumTaxoNomenList(PdfDocument pdf, Tbl03Regnum regnumList, int[] arrayInts)
         {
-            _pdfPointXLeft = arreySize[0];
-            _pdfPointY = arreySize[1];
-            _pdfPointXRight = arreySize[2];
-            _pdfSizeHeight = arreySize[3];
-            _pdfSizeWidthLeft = arreySize[4];
-            _pdfSizeWidthRight = arreySize[5];
-            _pageCount = arreySize[6];
-            _move = arreySize[7]; 
+            _pdfPointXLeft = arrayInts[0];
+            _pdfPointY = arrayInts[1];
+            _pdfPointXRight = arrayInts[2];
+            _pdfSizeHeight = arrayInts[3];
+            _pdfSizeWidthLeft = arrayInts[4];
+            _pdfSizeWidthRight = arrayInts[5];
+            _pageCount = arrayInts[6];
+            _move = _arrayInts[7];
+            _characterSize = _arrayInts[8];
+            _fontSize = _arrayInts[9];
+            _z = _arrayInts[10];
 
             _page = pdf.Pages[_pageCount];
 
@@ -478,27 +478,30 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             //------------------------------------------------------------
             _pdfPointY += 8; //Distance to next TextBox
 
-            arreySize[0] = _pdfPointXLeft;
-            arreySize[1] = _pdfPointY;
-            arreySize[2] = _pdfPointXRight;
-            arreySize[3] = _pdfSizeHeight;
-            arreySize[4] = _pdfSizeWidthLeft;
-            arreySize[5] = _pdfSizeWidthRight;
-            arreySize[6] = _pageCount; 
-            arreySize[7] = _move; //_move
+            arrayInts[0] = _pdfPointXLeft;
+            arrayInts[1] = _pdfPointY;
+            arrayInts[2] = _pdfPointXRight;
+            arrayInts[3] = _pdfSizeHeight;
+            arrayInts[4] = _pdfSizeWidthLeft;
+            arrayInts[5] = _pdfSizeWidthRight;
+            arrayInts[6] = _pageCount; 
+            arrayInts[7] = _move; //_move
 
-            return arreySize;
+            return arrayInts;
         }
-        private static int[] AddRegnumHierarchyList(PdfDocument pdf, Tbl03Regnum regnumList, int[] arreySize)
+        private static int[] AddRegnumHierarchyList(PdfDocument pdf, Tbl03Regnum regnumList, int[] arrayInts)
         {
-            _pdfPointXLeft = arreySize[0];
-            _pdfPointY = arreySize[1];
-            _pdfPointXRight = arreySize[2];
-            _pdfSizeHeight = arreySize[3];
-            _pdfSizeWidthLeft = arreySize[4];
-            _pdfSizeWidthRight = arreySize[5];
-            _pageCount = arreySize[6];
-            _move = arreySize[7];
+            _pdfPointXLeft = arrayInts[0];
+            _pdfPointY = arrayInts[1];
+            _pdfPointXRight = arrayInts[2];
+            _pdfSizeHeight = arrayInts[3];
+            _pdfSizeWidthLeft = arrayInts[4];
+            _pdfSizeWidthRight = arrayInts[5];
+            _pageCount = arrayInts[6];
+            _move = _arrayInts[7];
+            _characterSize = _arrayInts[8];
+            _fontSize = _arrayInts[9];
+            _z = _arrayInts[10];
 
             _page = pdf.Pages[_pageCount];
 
@@ -533,26 +536,29 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
             _pdfPointY += 4; //Distance to next TextBox
 
-            arreySize[0] = _pdfPointXLeft;
-            arreySize[1] = _pdfPointY;
-            arreySize[2] = _pdfPointXRight;
-            arreySize[3] = _pdfSizeHeight;
-            arreySize[4] = _pdfSizeWidthLeft;
-            arreySize[5] = _pdfSizeWidthRight;
-            arreySize[6] = _pageCount;
-            arreySize[7] = _move;
-            return arreySize;
+            arrayInts[0] = _pdfPointXLeft;
+            arrayInts[1] = _pdfPointY;
+            arrayInts[2] = _pdfPointXRight;
+            arrayInts[3] = _pdfSizeHeight;
+            arrayInts[4] = _pdfSizeWidthLeft;
+            arrayInts[5] = _pdfSizeWidthRight;
+            arrayInts[6] = _pageCount;
+            arrayInts[7] = _move;
+            return arrayInts;
         }
-        private static int[] AddPhylumsChildrenList(PdfDocument pdf, ObservableCollection<Tbl06Phylum> phylumsList, int[] arreySize)
+        private static int[] AddPhylumsChildrenList(PdfDocument pdf, ObservableCollection<Tbl06Phylum> phylumsList, int[] arrayInts)
         {
-            _pdfPointXLeft = arreySize[0];
-            _pdfPointY = arreySize[1];
-            _pdfPointXRight = arreySize[2];
-            _pdfSizeHeight = arreySize[3];
-            _pdfSizeWidthLeft = arreySize[4];
-            _pdfSizeWidthRight = arreySize[5];
-            _pageCount = arreySize[6];
-            _move = arreySize[7];
+            _pdfPointXLeft = arrayInts[0];
+            _pdfPointY = arrayInts[1];
+            _pdfPointXRight = arrayInts[2];
+            _pdfSizeHeight = arrayInts[3];
+            _pdfSizeWidthLeft = arrayInts[4];
+            _pdfSizeWidthRight = arrayInts[5];
+            _pageCount = arrayInts[6];
+            _move = _arrayInts[7];
+            _characterSize = _arrayInts[8];
+            _fontSize = _arrayInts[9];
+            _z = _arrayInts[10];
 
             _page = pdf.Pages[_pageCount];
 
@@ -637,27 +643,30 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
             _pdfPointY += 5; //Distance to next TextBox
 
-            arreySize[0] = _pdfPointXLeft;
-            arreySize[1] = _pdfPointY;
-            arreySize[2] = _pdfPointXRight;
-            arreySize[3] = _pdfSizeHeight;
-            arreySize[4] = _pdfSizeWidthLeft;
-            arreySize[5] = _pdfSizeWidthRight;
-            arreySize[6] = _pageCount;
-            arreySize[7] = _move; 
+            arrayInts[0] = _pdfPointXLeft;
+            arrayInts[1] = _pdfPointY;
+            arrayInts[2] = _pdfPointXRight;
+            arrayInts[3] = _pdfSizeHeight;
+            arrayInts[4] = _pdfSizeWidthLeft;
+            arrayInts[5] = _pdfSizeWidthRight;
+            arrayInts[6] = _pageCount;
+            arrayInts[7] = _move; 
 
-            return arreySize;
+            return arrayInts;
         }
-        private static int[] AddDivisionsChildrenList(PdfDocument pdf, ObservableCollection<Tbl09Division> divisionsList, int[] arreySize)
+        private static int[] AddDivisionsChildrenList(PdfDocument pdf, ObservableCollection<Tbl09Division> divisionsList, int[] arrayInts)
         {
-            _pdfPointXLeft = arreySize[0];
-            _pdfPointY = arreySize[1];
-            _pdfPointXRight = arreySize[2];
-            _pdfSizeHeight = arreySize[3];
-            _pdfSizeWidthLeft = arreySize[4];
-            _pdfSizeWidthRight = arreySize[5];
-            _pageCount = arreySize[6];
-            _move = arreySize[7];
+            _pdfPointXLeft = arrayInts[0];
+            _pdfPointY = arrayInts[1];
+            _pdfPointXRight = arrayInts[2];
+            _pdfSizeHeight = arrayInts[3];
+            _pdfSizeWidthLeft = arrayInts[4];
+            _pdfSizeWidthRight = arrayInts[5];
+            _pageCount = arrayInts[6];
+            _move = _arrayInts[7];
+            _characterSize = _arrayInts[8];
+            _fontSize = _arrayInts[9];
+            _z = _arrayInts[10];
 
             _page = pdf.Pages[_pageCount];
 
@@ -742,16 +751,16 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
             _pdfPointY += 5; //Distance to next TextBox
 
-            arreySize[0] = _pdfPointXLeft;
-            arreySize[1] = _pdfPointY;
-            arreySize[2] = _pdfPointXRight;
-            arreySize[3] = _pdfSizeHeight;
-            arreySize[4] = _pdfSizeWidthLeft;
-            arreySize[5] = _pdfSizeWidthRight;
-            arreySize[6] = _pageCount;
-            arreySize[7] = _move;
+            arrayInts[0] = _pdfPointXLeft;
+            arrayInts[1] = _pdfPointY;
+            arrayInts[2] = _pdfPointXRight;
+            arrayInts[3] = _pdfSizeHeight;
+            arrayInts[4] = _pdfSizeWidthLeft;
+            arrayInts[5] = _pdfSizeWidthRight;
+            arrayInts[6] = _pageCount;
+            arrayInts[7] = _move;
 
-            return arreySize;
+            return arrayInts;
         }
 
         //private static void AddReferencesHaeder(PdfDocument pdf)
@@ -781,7 +790,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
         //    }
         //}
 
-        //private static int[] AddRefSourceList(PdfDocument pdf, ObservableCollection<Tbl90Reference> sourcesList, int[] arreySize)
+        //private static int[] AddRefSourceList(PdfDocument pdf, ObservableCollection<Tbl90Reference> sourcesList, int[] _arrayInts)
         //{
         //    if (sourcesList.Count >= 3)
         //    {
@@ -1049,7 +1058,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
         //        //var names = PdfHelper.NamesViewChange(t.GerName, t.EngName, t.FraName, t.PorName);
         //    }
         //}
-        //private static void AddRefAuthorList(PdfDocument pdf, ObservableCollection<Tbl90Reference> authorsList, int[] arreySize)
+        //private static void AddRefAuthorList(PdfDocument pdf, ObservableCollection<Tbl90Reference> authorsList, int[] _arrayInts)
         //{
         //    if (authorsList.Count >= 3)
         //    {

@@ -10,7 +10,6 @@ namespace ATIS.Ui.Views.Report
     public class PdfHelper : ViewModelBase
     {
         private static string _n;
-        private static int _z;
         private static string _z1;
 
         private static int _pdfPointXLeft;
@@ -23,18 +22,23 @@ namespace ATIS.Ui.Views.Report
         private static int _move;
         private static int _characterSize;
         private static int _fontSize;
+        private static int _z;
 
         private static PdfPage _page;
 
-        public int[] AddReportMain(PdfDocument pdf, Tbl03Regnum regnumList, int[] arreySize)
+        public int[] AddReportMain(PdfDocument pdf, Tbl03Regnum regnumList, int[] arrayInts)
         {
-            _pdfPointXLeft = arreySize[0];
-            _pdfPointY = arreySize[1];
-            _pdfPointXRight = arreySize[2];
-            _pdfSizeHeight = arreySize[3];
-            _pdfSizeWidthLeft = arreySize[4];
-            _pdfSizeWidthRight = arreySize[5];
-            _pageCount = arreySize[6];
+            _pdfPointXLeft = arrayInts[0];
+            _pdfPointY = arrayInts[1];
+            _pdfPointXRight = arrayInts[2];
+            _pdfSizeHeight = arrayInts[3];
+            _pdfSizeWidthLeft = arrayInts[4];
+            _pdfSizeWidthRight = arrayInts[5];
+            _pageCount = arrayInts[6];
+            _move = arrayInts[7];
+            _characterSize = arrayInts[8];
+            _fontSize = arrayInts[9];
+            _z = arrayInts[10];
 
             _page = pdf.Pages[_pageCount];
 
@@ -50,26 +54,34 @@ namespace ATIS.Ui.Views.Report
             _pdfPointY += _pdfSizeHeight;
             _pdfPointY += 20; //Distance to next TextBox
 
-            arreySize[0] = _pdfPointXLeft; 
-            arreySize[1] = _pdfPointY; 
-            arreySize[2] = _pdfPointXRight; 
-            arreySize[3] = _pdfSizeHeight; 
-            arreySize[4] = _pdfSizeWidthLeft; 
-            arreySize[5] = _pdfSizeWidthRight;
-            arreySize[6] = _pageCount; 
+            arrayInts[0] = _pdfPointXLeft;
+            arrayInts[1] = _pdfPointY;
+            arrayInts[2] = _pdfPointXRight;
+            arrayInts[3] = _pdfSizeHeight;
+            arrayInts[4] = _pdfSizeWidthLeft;
+            arrayInts[5] = _pdfSizeWidthRight;
+            arrayInts[6] = _pageCount;
+            arrayInts[7] = _move;
+            arrayInts[8] = _characterSize;
+            arrayInts[9] = _fontSize;
+            arrayInts[10] = _z;
 
-            return arreySize;
+            return arrayInts;
         }
 
-        public int[] AddReferencesHaeder(PdfDocument pdf, int[] arreySize)
+        public int[] AddReferencesHaeder(PdfDocument pdf, int[] arrayInts)
         {
-            _pdfPointXLeft = arreySize[0];
-            _pdfPointY = arreySize[1];
-            _pdfPointXRight = arreySize[2];
-            _pdfSizeHeight = arreySize[3];
-            _pdfSizeWidthLeft = arreySize[4];
-            _pdfSizeWidthRight = arreySize[5];
-            _pageCount = arreySize[6];
+            _pdfPointXLeft = arrayInts[0];
+            _pdfPointY = arrayInts[1];
+            _pdfPointXRight = arrayInts[2];
+            _pdfSizeHeight = arrayInts[3];
+            _pdfSizeWidthLeft = arrayInts[4];
+            _pdfSizeWidthRight = arrayInts[5];
+            _pageCount = arrayInts[6];
+            _move = arrayInts[7];
+            _characterSize = arrayInts[8];
+            _fontSize = arrayInts[9];
+            _z = arrayInts[10];
 
             _page = pdf.Pages[_pageCount];
 
@@ -88,29 +100,34 @@ namespace ATIS.Ui.Views.Report
 
             _pdfPointY += 5; //Distance to next TextBox
 
-            arreySize[0] = _pdfPointXLeft;
-            arreySize[1] = _pdfPointY;
-            arreySize[2] = _pdfPointXRight;
-            arreySize[3] = _pdfSizeHeight;
-            arreySize[4] = _pdfSizeWidthLeft;
-            arreySize[5] = _pdfSizeWidthRight;
-            arreySize[6] = _pageCount;
+            arrayInts[0] = _pdfPointXLeft;
+            arrayInts[1] = _pdfPointY;
+            arrayInts[2] = _pdfPointXRight;
+            arrayInts[3] = _pdfSizeHeight;
+            arrayInts[4] = _pdfSizeWidthLeft;
+            arrayInts[5] = _pdfSizeWidthRight;
+            arrayInts[6] = _pageCount;
+            arrayInts[7] = _move;
+            arrayInts[8] = _characterSize;
+            arrayInts[9] = _fontSize;
+            arrayInts[10] = _z;
 
-            return arreySize;
+            return arrayInts;
         }
 
-        public int[] AddRefExpertsList(PdfDocument pdf, ObservableCollection<Tbl90Reference> expertsList, int[] arreySize)
+        public int[] AddRefExpertsList(PdfDocument pdf, ObservableCollection<Tbl90Reference> expertsList, int[] arrayInts)
         {
-            _pdfPointXLeft = arreySize[0];
-            _pdfPointY = arreySize[1];
-            _pdfPointXRight = arreySize[2];
-            _pdfSizeHeight = arreySize[3];
-            _pdfSizeWidthLeft = arreySize[4];
-            _pdfSizeWidthRight = arreySize[5];
-            _pageCount = arreySize[6];
-            _move = arreySize[7];
-            _characterSize = arreySize[8];
-            _fontSize = arreySize[9];
+            _pdfPointXLeft = arrayInts[0];
+            _pdfPointY = arrayInts[1];
+            _pdfPointXRight = arrayInts[2];
+            _pdfSizeHeight = arrayInts[3];
+            _pdfSizeWidthLeft = arrayInts[4];
+            _pdfSizeWidthRight = arrayInts[5];
+            _pageCount = arrayInts[6];
+            _move = arrayInts[7];
+            _characterSize = arrayInts[8];
+            _fontSize = arrayInts[9];
+            _z = arrayInts[10];
 
             _page = pdf.Pages[_pageCount];
 
@@ -175,38 +192,41 @@ namespace ATIS.Ui.Views.Report
                 
             }
 
-            arreySize[0] = _pdfPointXLeft;
-            arreySize[1] = _pdfPointY;
-            arreySize[2] = _pdfPointXRight;
-            arreySize[3] = _pdfSizeHeight;
-            arreySize[4] = _pdfSizeWidthLeft;
-            arreySize[5] = _pdfSizeWidthRight;
-            arreySize[6] = _pageCount;
-            arreySize[7] = _move;
-            arreySize[8] = _characterSize;
-            arreySize[9] = _fontSize;
+            arrayInts[0] = _pdfPointXLeft;
+            arrayInts[1] = _pdfPointY;
+            arrayInts[2] = _pdfPointXRight;
+            arrayInts[3] = _pdfSizeHeight;
+            arrayInts[4] = _pdfSizeWidthLeft;
+            arrayInts[5] = _pdfSizeWidthRight;
+            arrayInts[6] = _pageCount;
+            arrayInts[7] = _move;
+            arrayInts[8] = _characterSize;
+            arrayInts[9] = _fontSize;
+            arrayInts[10] = _z;
 
-            return arreySize;
+            return arrayInts;
         }
 
-        public int[] AddRefSourcesList(PdfDocument pdf, ObservableCollection<Tbl90Reference> sourcesList, int[] arreySize)
+        public int[] AddRefSourcesList(PdfDocument pdf, ObservableCollection<Tbl90Reference> sourcesList, int[] arrayInts)
         {
-            _pdfPointXLeft = arreySize[0];
-            _pdfPointY = arreySize[1];
-            _pdfPointXRight = arreySize[2];
-            _pdfSizeHeight = arreySize[3];
-            _pdfSizeWidthLeft = arreySize[4];
-            _pdfSizeWidthRight = arreySize[5];
-            _pageCount = arreySize[6];
-            _move = arreySize[7];
-            _characterSize = arreySize[8];
-            _fontSize = arreySize[9];
+            _pdfPointXLeft = arrayInts[0];
+            _pdfPointY = arrayInts[1];
+            _pdfPointXRight = arrayInts[2];
+            _pdfSizeHeight = arrayInts[3];
+            _pdfSizeWidthLeft = arrayInts[4];
+            _pdfSizeWidthRight = arrayInts[5];
+            _pageCount = arrayInts[6];
+            _move = arrayInts[7];
+            _characterSize = arrayInts[8];
+            _fontSize = arrayInts[9];
+            _z = arrayInts[10];
 
-            _page = pdf.Pages[_pageCount];
+          //  _page = pdf.Pages[_pageCount];
 
-            //pdf.AddPage();
-            //_page = pdf.Pages[_pageCount + 1];
-            //_pdfPointY = 5;
+            pdf.AddPage();
+            _page = pdf.Pages[_pageCount + 1];
+            _pageCount += 1;
+            _pdfPointY = 5;
 
             var txtSourceNameLeft = _page.AddTextBox("sources", new PdfPoint(_pdfPointXLeft + _move, _pdfPointY), 
                 new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
@@ -266,38 +286,41 @@ namespace ATIS.Ui.Views.Report
 
                 //var author = PdfHelper.AuthorViewChangeWithString(t.Author, t.AuthorYear);
             }
-            arreySize[0] = _pdfPointXLeft;
-            arreySize[1] = _pdfPointY;
-            arreySize[2] = _pdfPointXRight;
-            arreySize[3] = _pdfSizeHeight;
-            arreySize[4] = _pdfSizeWidthLeft;
-            arreySize[5] = _pdfSizeWidthRight;
-            arreySize[6] = _pageCount;
-            arreySize[7] = _move;
-            arreySize[8] = _characterSize;
-            arreySize[9] = _fontSize;
+            arrayInts[0] = _pdfPointXLeft;
+            arrayInts[1] = _pdfPointY;
+            arrayInts[2] = _pdfPointXRight;
+            arrayInts[3] = _pdfSizeHeight;
+            arrayInts[4] = _pdfSizeWidthLeft;
+            arrayInts[5] = _pdfSizeWidthRight;
+            arrayInts[6] = _pageCount;
+            arrayInts[7] = _move;
+            arrayInts[8] = _characterSize;
+            arrayInts[9] = _fontSize;
+            arrayInts[10] = _z;
 
-            return arreySize;
+            return arrayInts;
         }
 
-        public int[] AddRefAuthorsList(PdfDocument pdf, ObservableCollection<Tbl90Reference> authorsList, int[] arreySize)
+        public int[] AddRefAuthorsList(PdfDocument pdf, ObservableCollection<Tbl90Reference> authorsList, int[] arrayInts)
         {
-            _pdfPointXLeft = arreySize[0];
-            _pdfPointY = arreySize[1];
-            _pdfPointXRight = arreySize[2];
-            _pdfSizeHeight = arreySize[3];
-            _pdfSizeWidthLeft = arreySize[4];
-            _pdfSizeWidthRight = arreySize[5];
-            _pageCount = arreySize[6];
-            _move = arreySize[7];
-            _characterSize = arreySize[8];
-            _fontSize = arreySize[9];
+            _pdfPointXLeft = arrayInts[0];
+            _pdfPointY = arrayInts[1];
+            _pdfPointXRight = arrayInts[2];
+            _pdfSizeHeight = arrayInts[3];
+            _pdfSizeWidthLeft = arrayInts[4];
+            _pdfSizeWidthRight = arrayInts[5];
+            _pageCount = arrayInts[6];
+            _move = arrayInts[7];
+            _characterSize = arrayInts[8];
+            _fontSize = arrayInts[9];
+            _z = arrayInts[10];
 
-            _page = pdf.Pages[_pageCount];
+         //   _page = pdf.Pages[_pageCount];
 
-            //pdf.AddPage();
-            //_page = pdf.Pages[_pageCount + 1];
-            //_pdfPointY = 5;
+            pdf.AddPage();
+            _page = pdf.Pages[_pageCount + 1];
+            _pageCount += 1;
+            _pdfPointY = 5;
 
             var txtAuthorNameLeft = _page.AddTextBox("authors", new PdfPoint(_pdfPointXLeft + _move, _pdfPointY),
                 new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
@@ -352,32 +375,34 @@ namespace ATIS.Ui.Views.Report
                 //var author = PdfHelper.AuthorViewChangeWithString(t.Author, t.AuthorYear);
 
             }
-            arreySize[0] = _pdfPointXLeft;
-            arreySize[1] = _pdfPointY;
-            arreySize[2] = _pdfPointXRight;
-            arreySize[3] = _pdfSizeHeight;
-            arreySize[4] = _pdfSizeWidthLeft;
-            arreySize[5] = _pdfSizeWidthRight;
-            arreySize[6] = _pageCount;
-            arreySize[7] = _move;
-            arreySize[8] = _characterSize;
-            arreySize[9] = _fontSize;
+            arrayInts[0] = _pdfPointXLeft;
+            arrayInts[1] = _pdfPointY;
+            arrayInts[2] = _pdfPointXRight;
+            arrayInts[3] = _pdfSizeHeight;
+            arrayInts[4] = _pdfSizeWidthLeft;
+            arrayInts[5] = _pdfSizeWidthRight;
+            arrayInts[6] = _pageCount;
+            arrayInts[7] = _move;
+            arrayInts[8] = _characterSize;
+            arrayInts[9] = _fontSize;
+            arrayInts[10] = _z;
 
-            return arreySize;
+            return arrayInts;
         }
 
-        public int[] AddCommentsHaeder(PdfDocument pdf, int[] arreySize)
+        public int[] AddCommentsHaeder(PdfDocument pdf, int[] arrayInts)
         {
-            _pdfPointXLeft = arreySize[0];
-            _pdfPointY = arreySize[1];
-            _pdfPointXRight = arreySize[2];
-            _pdfSizeHeight = arreySize[3];
-            _pdfSizeWidthLeft = arreySize[4];
-            _pdfSizeWidthRight = arreySize[5];
-            _pageCount = arreySize[6];
-            _move = arreySize[7];
-            _characterSize = arreySize[8];
-            _fontSize = arreySize[9];
+            _pdfPointXLeft = arrayInts[0];
+            _pdfPointY = arrayInts[1];
+            _pdfPointXRight = arrayInts[2];
+            _pdfSizeHeight = arrayInts[3];
+            _pdfSizeWidthLeft = arrayInts[4];
+            _pdfSizeWidthRight = arrayInts[5];
+            _pageCount = arrayInts[6];
+            _move = arrayInts[7];
+            _characterSize = arrayInts[8];
+            _fontSize = arrayInts[9];
+            _z = arrayInts[10];
 
             _page = pdf.Pages[_pageCount];
 
@@ -397,30 +422,33 @@ namespace ATIS.Ui.Views.Report
 
             _pdfPointY += 5; //Distance to next TextBox
 
-            arreySize[0] = _pdfPointXLeft;
-            arreySize[1] = _pdfPointY;
-            arreySize[2] = _pdfPointXRight;
-            arreySize[3] = _pdfSizeHeight;
-            arreySize[4] = _pdfSizeWidthLeft;
-            arreySize[5] = _pdfSizeWidthRight;
-            arreySize[6] = _pageCount;
-                 arreySize[7] = _move; //_move
+            arrayInts[0] = _pdfPointXLeft;
+            arrayInts[1] = _pdfPointY;
+            arrayInts[2] = _pdfPointXRight;
+            arrayInts[3] = _pdfSizeHeight;
+            arrayInts[4] = _pdfSizeWidthLeft;
+            arrayInts[5] = _pdfSizeWidthRight;
+            arrayInts[6] = _pageCount;
+            arrayInts[7] = _move;
+            arrayInts[8] = _characterSize;
+            arrayInts[9] = _fontSize;
+            arrayInts[10] = _z;
 
-            return arreySize;
+            return arrayInts;
         }
 
-        public int[] AddCommentsList(PdfDocument pdf, ObservableCollection<Tbl93Comment> commentsList, int[] arreySize)
+        public int[] AddCommentsList(PdfDocument pdf, ObservableCollection<Tbl93Comment> commentsList, int[] arrayInts)
         {
-            _pdfPointXLeft = arreySize[0];
-            _pdfPointY = arreySize[1];
-            _pdfPointXRight = arreySize[2];
-            _pdfSizeHeight = arreySize[3];
-            _pdfSizeWidthLeft = arreySize[4];
-            _pdfSizeWidthRight = arreySize[5];
-            _pageCount = arreySize[6];
-            _move = arreySize[7];
-            _characterSize = arreySize[8];
-            _fontSize = arreySize[9];
+            _pdfPointXLeft = arrayInts[0];
+            _pdfPointY = arrayInts[1];
+            _pdfPointXRight = arrayInts[2];
+            _pdfSizeHeight = arrayInts[3];
+            _pdfSizeWidthLeft = arrayInts[4];
+            _pdfSizeWidthRight = arrayInts[5];
+            _pageCount = arrayInts[6];
+            _move = arrayInts[7];
+            _characterSize = arrayInts[8];
+            _fontSize = arrayInts[9];
 
             _page = pdf.Pages[_pageCount];
 
@@ -472,19 +500,20 @@ namespace ATIS.Ui.Views.Report
 
             //var author = PdfHelper.AuthorViewChangeWithString(t.Author, t.AuthorYear);
 
-        }
-        arreySize[0] = _pdfPointXLeft;
-        arreySize[1] = _pdfPointY;
-        arreySize[2] = _pdfPointXRight;
-        arreySize[3] = _pdfSizeHeight;
-        arreySize[4] = _pdfSizeWidthLeft;
-        arreySize[5] = _pdfSizeWidthRight;
-        arreySize[6] = _pageCount;
-        arreySize[7] = _move;
-        arreySize[8] = _characterSize;
-        arreySize[9] = _fontSize;
+            }
+            arrayInts[0] = _pdfPointXLeft;
+            arrayInts[1] = _pdfPointY;
+            arrayInts[2] = _pdfPointXRight;
+            arrayInts[3] = _pdfSizeHeight;
+            arrayInts[4] = _pdfSizeWidthLeft;
+            arrayInts[5] = _pdfSizeWidthRight;
+            arrayInts[6] = _pageCount;
+            arrayInts[7] = _move;
+            arrayInts[8] = _characterSize;
+            arrayInts[9] = _fontSize;
+            arrayInts[10] = _z;
 
-        return arreySize;
+            return arrayInts;
         }
 
 
