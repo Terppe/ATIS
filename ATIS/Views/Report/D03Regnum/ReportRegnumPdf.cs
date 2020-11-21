@@ -55,13 +55,13 @@ namespace ATIS.Ui.Views.Report.D03Regnum
         {
             _arreySize[0] = 20; //_pdfPointXLeft
             _arreySize[1] = 5; //_pdfPointY
-            _arreySize[2] = 160; //_pdfPointXRight
+            _arreySize[2] = 150; //_pdfPointXRight
             _arreySize[3] = 8; //_pdfSizeHeight
             _arreySize[4] = 300; //_pdfSizeWidthLeft
-            _arreySize[5] = 420; //_pdfSizeWidthRight
+            _arreySize[5] = 430; //_pdfSizeWidthRight
             _arreySize[6] = 0; //_pageCount
             _arreySize[7] = 4; //_move
-            _arreySize[8] = 100; //_characterSize
+            _arreySize[8] = 95; //_characterSize
             _arreySize[9] = 8; //_fontSize
 
             // NOTE: 
@@ -143,8 +143,8 @@ namespace ATIS.Ui.Views.Report.D03Regnum
                         _arreySize = PdfHelper.AddCommentsHaeder(pdf, _arreySize);
                     }
 
-           //         if (commentsList.Count != 0)
-            //            _arreySize = PdfHelper.AddCommentsList(pdf, commentsList, _arreySize);
+                    if (commentsList.Count != 0)
+                        _arreySize = PdfHelper.AddCommentsList(pdf, commentsList, _arreySize);
 
                     pdf.Save(pathToFile);
                

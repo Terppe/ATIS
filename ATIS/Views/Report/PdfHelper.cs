@@ -77,7 +77,7 @@ namespace ATIS.Ui.Views.Report
             //_page = pdf.Pages[_pageCount + 1];
             //_pdfPointY = 5;
 
-            var txtRefHeader = _page.AddTextBox("references", new PdfPoint(_pdfPointXLeft, _pdfPointY),
+            var txtRefHeader = _page.AddTextBox("referencesHeader", new PdfPoint(_pdfPointXLeft, _pdfPointY),
                 new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
             txtRefHeader.HasBorder = false;
             txtRefHeader.ReadOnly = true;
@@ -142,20 +142,20 @@ namespace ATIS.Ui.Views.Report
                 var u7 = u.Info;
                 var u8 = u.Memo;
 
-                var txtSourceLeft = _page.AddTextBox("expert" + _z1, new PdfPoint(_pdfPointXLeft + _move, _pdfPointY),
+                var txtExpertLeft = _page.AddTextBox("expert" + _z1, new PdfPoint(_pdfPointXLeft + _move, _pdfPointY),
                     new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-                txtSourceLeft.HasBorder = false;
-                txtSourceLeft.ReadOnly = true;
-                txtSourceLeft.Font.SynthesizedBold = false;
-                txtSourceLeft.FontSize = _fontSize;
-                txtSourceLeft.Text = CultRes.StringsRes.ReportExpert;
+                txtExpertLeft.HasBorder = false;
+                txtExpertLeft.ReadOnly = true;
+                txtExpertLeft.Font.SynthesizedBold = false;
+                txtExpertLeft.FontSize = _fontSize;
+                txtExpertLeft.Text = CultRes.StringsRes.ReportExpert;
 
-                var txtSourceRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
+                var txtExpertRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
                     new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
-                txtSourceRight.HasBorder = false;
-                txtSourceRight.ReadOnly = true;
-                txtSourceRight.FontSize = _fontSize;
-                txtSourceRight.Text = u1;
+                txtExpertRight.HasBorder = false;
+                txtExpertRight.ReadOnly = true;
+                txtExpertRight.FontSize = _fontSize;
+                txtExpertRight.Text = u1;
                 _pdfPointY += _pdfSizeHeight;
 
                 _z += 1;
@@ -208,13 +208,13 @@ namespace ATIS.Ui.Views.Report
             //_page = pdf.Pages[_pageCount + 1];
             //_pdfPointY = 5;
 
-            var txtExpertNameLeft = _page.AddTextBox("sources", new PdfPoint(_pdfPointXLeft + _move, _pdfPointY), 
+            var txtSourceNameLeft = _page.AddTextBox("sources", new PdfPoint(_pdfPointXLeft + _move, _pdfPointY), 
                 new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-            txtExpertNameLeft.HasBorder = false;
-            txtExpertNameLeft.ReadOnly = true;
-            txtExpertNameLeft.Font.SynthesizedBold = true;
-            txtExpertNameLeft.FontSize = _fontSize;
-            txtExpertNameLeft.Text = CultRes.StringsRes.ReportOtherSources;
+            txtSourceNameLeft.HasBorder = false;
+            txtSourceNameLeft.ReadOnly = true;
+            txtSourceNameLeft.Font.SynthesizedBold = true;
+            txtSourceNameLeft.FontSize = _fontSize;
+            txtSourceNameLeft.Text = CultRes.StringsRes.ReportOtherSources;
             _pdfPointY += _pdfSizeHeight;
 
             _n = "source";
@@ -299,13 +299,13 @@ namespace ATIS.Ui.Views.Report
             //_page = pdf.Pages[_pageCount + 1];
             //_pdfPointY = 5;
 
-            var txtExpertNameLeft = _page.AddTextBox("authors", new PdfPoint(_pdfPointXLeft + _move, _pdfPointY),
+            var txtAuthorNameLeft = _page.AddTextBox("authors", new PdfPoint(_pdfPointXLeft + _move, _pdfPointY),
                 new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-            txtExpertNameLeft.HasBorder = false;
-            txtExpertNameLeft.ReadOnly = true;
-            txtExpertNameLeft.Font.SynthesizedBold = true;
-            txtExpertNameLeft.FontSize = _fontSize;
-            txtExpertNameLeft.Text = CultRes.StringsRes.ReportPublications;
+            txtAuthorNameLeft.HasBorder = false;
+            txtAuthorNameLeft.ReadOnly = true;
+            txtAuthorNameLeft.Font.SynthesizedBold = true;
+            txtAuthorNameLeft.FontSize = _fontSize;
+            txtAuthorNameLeft.Text = CultRes.StringsRes.ReportPublications;
             _pdfPointY += _pdfSizeHeight;
 
             _n = "author";
@@ -330,27 +330,9 @@ namespace ATIS.Ui.Views.Report
                 var t14 = t.Info;
                 var t15 = t.Memo;
 
-
-                var txtSourceLeft = _page.AddTextBox("authors" + _z1, new PdfPoint(_pdfPointXLeft + _move, _pdfPointY),
-                    new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-                txtSourceLeft.HasBorder = false;
-                txtSourceLeft.ReadOnly = true;
-                txtSourceLeft.Font.SynthesizedBold = false;
-                txtSourceLeft.FontSize = _fontSize;
-                txtSourceLeft.Text = CultRes.StringsRes.ReportAuthorsEditors;
-
-                var txtSourceRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
-                    new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
-                txtSourceRight.HasBorder = false;
-                txtSourceRight.ReadOnly = true;
-                txtSourceRight.FontSize = _fontSize;
-                txtSourceRight.Text = t1;
-                _pdfPointY += _pdfSizeHeight;
-
-                _z += 1;
-                _z1 = _n + _z;
                 //--------------------------------------------------
-
+ 
+                ReportIfLeftRightTextBox(CultRes.StringsRes.ReportAuthorsEditors, t1);
                 ReportLeftIfRightTextBox(CultRes.StringsRes.ReportPublicationDate, t2);
                 ReportLeftIfRightTextBox(CultRes.StringsRes.ReportArticleTitle, t3);
                 ReportLeftIfRightTextBox(CultRes.StringsRes.ReportBookName, t4);
@@ -393,23 +375,27 @@ namespace ATIS.Ui.Views.Report
             _pdfSizeWidthLeft = arreySize[4];
             _pdfSizeWidthRight = arreySize[5];
             _pageCount = arreySize[6];
-                 _move = arreySize[7];
+            _move = arreySize[7];
+            _characterSize = arreySize[8];
+            _fontSize = arreySize[9];
 
-                 _page = pdf.Pages[_pageCount];
+            _page = pdf.Pages[_pageCount];
 
             //pdf.AddPage();
             //_page = pdf.Pages[_pageCount + 1];
             //_pdfPointY = 5;
 
 
-            var txtCommHeader = _page.AddTextBox("comments", new PdfPoint(_pdfPointXLeft, _pdfPointY),
-                new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight + 16));
+            var txtCommHeader = _page.AddTextBox("commentsHeader", new PdfPoint(_pdfPointXLeft, _pdfPointY),
+                new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
             txtCommHeader.HasBorder = false;
             txtCommHeader.ReadOnly = true;
             txtCommHeader.Font.SynthesizedBold = true;
-            txtCommHeader.FontSize = 16;
+            txtCommHeader.FontSize = 10;
             txtCommHeader.Text = CultRes.StringsRes.ReportComments;
             _pdfPointY += _pdfSizeHeight;
+
+            _pdfPointY += 5; //Distance to next TextBox
 
             arreySize[0] = _pdfPointXLeft;
             arreySize[1] = _pdfPointY;
@@ -421,7 +407,6 @@ namespace ATIS.Ui.Views.Report
                  arreySize[7] = _move; //_move
 
             return arreySize;
-
         }
 
         public int[] AddCommentsList(PdfDocument pdf, ObservableCollection<Tbl93Comment> commentsList, int[] arreySize)
@@ -443,14 +428,14 @@ namespace ATIS.Ui.Views.Report
             //_page = pdf.Pages[_pageCount + 1];
             //_pdfPointY = 5;
 
-            var txtExpertNameLeft = _page.AddTextBox("comments", new PdfPoint(_pdfPointXLeft + _move, _pdfPointY),
-                new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-            txtExpertNameLeft.HasBorder = false;
-            txtExpertNameLeft.ReadOnly = true;
-            txtExpertNameLeft.Font.SynthesizedBold = true;
-            txtExpertNameLeft.FontSize = _fontSize;
-            txtExpertNameLeft.Text = CultRes.StringsRes.ReportComments;
-            _pdfPointY += _pdfSizeHeight;
+            //var txtCommentHaeder = _page.AddTextBox("comments", new PdfPoint(_pdfPointXLeft + _move, _pdfPointY),
+            //    new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+            //txtCommentHaeder.HasBorder = false;
+            //txtCommentHaeder.ReadOnly = true;
+            //txtCommentHaeder.Font.SynthesizedBold = true;
+            //txtCommentHaeder.FontSize = _fontSize;
+            //txtCommentHaeder.Text = CultRes.StringsRes.ReportComments;
+            //_pdfPointY += _pdfSizeHeight;
 
             _n = "comment";
             _z = 1;
@@ -462,20 +447,20 @@ namespace ATIS.Ui.Views.Report
                 var t2 = t.Memo;
 
             
-            var txtSourceLeft = _page.AddTextBox("comment" + _z1, new PdfPoint(_pdfPointXLeft + _move, _pdfPointY),
+            var txtCommentLeft = _page.AddTextBox("comment" + _z1, new PdfPoint(_pdfPointXLeft + _move, _pdfPointY),
                 new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-            txtSourceLeft.HasBorder = false;
-            txtSourceLeft.ReadOnly = true;
-            txtSourceLeft.Font.SynthesizedBold = false;
-            txtSourceLeft.FontSize = _fontSize;
-            txtSourceLeft.Text = CultRes.StringsRes.ReportInfo;
+            txtCommentLeft.HasBorder = false;
+            txtCommentLeft.ReadOnly = true;
+            txtCommentLeft.Font.SynthesizedBold = false;
+            txtCommentLeft.FontSize = _fontSize;
+            txtCommentLeft.Text = CultRes.StringsRes.ReportInfo;
 
-            var txtSourceRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
+            var txtCommentRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
                 new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
-            txtSourceRight.HasBorder = false;
-            txtSourceRight.ReadOnly = true;
-            txtSourceRight.FontSize = _fontSize;
-            txtSourceRight.Text = t1;
+            txtCommentRight.HasBorder = false;
+            txtCommentRight.ReadOnly = true;
+            txtCommentRight.FontSize = _fontSize;
+            txtCommentRight.Text = t1;
             _pdfPointY += _pdfSizeHeight;
 
             _z += 1;
