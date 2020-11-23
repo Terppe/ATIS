@@ -839,7 +839,8 @@ namespace ATIS.Ui.Views.Report.D03Regnum
                 //var names = PdfHelper.NamesViewChange(t.GerName, t.EngName, t.FraName, t.PorName);
             }
 
-            _pdfPointY += 5; //Distance to next TextBox
+      //      _pdfPointY += 5; //Distance to next TextBox
+            _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
 
             //arrayInts[0] = _pdfPointXLeft;
             //arrayInts[1] = _pdfPointY;
