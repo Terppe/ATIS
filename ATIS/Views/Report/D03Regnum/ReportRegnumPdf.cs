@@ -92,8 +92,8 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
                     if (phylumsList.Count != 0)
                         AddPhylumsChildrenList(pdf, phylumsList);
-                    //if (divisionsList.Count != 0)
-                    //    _arrInts = AddDivisionsChildrenList(pdf, divisionsList, _arrInts);
+                    if (divisionsList.Count != 0)
+                        AddDivisionsChildrenList(pdf, divisionsList);
 
                     //if (expertsList.Count != 0 || sourcesList.Count != 0 || authorsList.Count != 0)
                     //{
@@ -643,16 +643,16 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
             _page = pdf.Pages[_arrInts[6]];
 
-            _arrInts = PdfTbBoldLeft("childrenPhylum", _arrInts, CultRes.StringsRes.ReportDirectChild, 1);
+       //     _arrInts = PdfTbBoldLeft("childrenPhylum", _arrInts, CultRes.StringsRes.ReportDirectChild, 1);
 
-            //var txtChildren = _page.AddTextBox("childrenPhylum", new PdfPoint(_pdfPointXRight, _pdfPointY), 
-            //    new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
-            //txtChildren.HasBorder = false;
-            //txtChildren.ReadOnly = true;
-            //txtChildren.Font.SynthesizedBold = true;
-            //txtChildren.FontSize = 9;
-            //txtChildren.Text = CultRes.StringsRes.ReportDirectChild;
-            //_pdfPointY += _pdfSizeHeight;
+            var txtChildren = _page.AddTextBox("childrenPhylum", new PdfPoint(_arrInts[2], _arrInts[1]),
+                new PdfSize(_arrInts[5], _arrInts[3]));
+            txtChildren.HasBorder = false;
+            txtChildren.ReadOnly = true;
+            txtChildren.Font.SynthesizedBold = true;
+            txtChildren.FontSize = _arrInts[9] + 1;
+            txtChildren.Text = CultRes.StringsRes.ReportDirectChild;
+            _arrInts[1] += _arrInts[3];
 
             _arrInts[1] += _arrInts[9] - 4; //Distance to next TextBox
 
@@ -740,39 +740,41 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
             //return arrayInts;
         }
-        private static int[] AddDivisionsChildrenList(PdfDocument pdf, ObservableCollection<Tbl09Division> divisionsList, int[] arrayInts)
+        private static void AddDivisionsChildrenList(PdfDocument pdf, ObservableCollection<Tbl09Division> divisionsList)
         {
-            _pdfPointXLeft = arrayInts[0];
-            _pdfPointY = arrayInts[1];
-            _pdfPointXRight = arrayInts[2];
-            _pdfSizeHeight = arrayInts[3];
-            _pdfSizeWidthLeft = arrayInts[4];
-            _pdfSizeWidthRight = arrayInts[5];
-            _pageCount = arrayInts[6];
-            _move = _arrInts[7];
-            _characterSize = _arrInts[8];
-            _fontSize = _arrInts[9];
-            _z = _arrInts[10];
+            //_pdfPointXLeft = arrayInts[0];
+            //_pdfPointY = arrayInts[1];
+            //_pdfPointXRight = arrayInts[2];
+            //_pdfSizeHeight = arrayInts[3];
+            //_pdfSizeWidthLeft = arrayInts[4];
+            //_pdfSizeWidthRight = arrayInts[5];
+            //_pageCount = arrayInts[6];
+            //_move = _arrInts[7];
+            //_characterSize = _arrInts[8];
+            //_fontSize = _arrInts[9];
+            //_z = _arrInts[10];
 
-            _page = pdf.Pages[_pageCount];
+            _page = pdf.Pages[_arrInts[6]];
 
-            var txtChildren = _page.AddTextBox("childrenDivision", new PdfPoint(_pdfPointXRight, _pdfPointY),
-                new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+         //   _arrInts = PdfTbBoldLeft("childrenDivision", _arrInts, CultRes.StringsRes.ReportDirectChild, 1);
+
+            var txtChildren = _page.AddTextBox("childrenDivision", new PdfPoint(_arrInts[2], _arrInts[1]),
+                new PdfSize(_arrInts[5], _arrInts[3]));
             txtChildren.HasBorder = false;
             txtChildren.ReadOnly = true;
             txtChildren.Font.SynthesizedBold = true;
-            txtChildren.FontSize = 9;
+            txtChildren.FontSize = _arrInts[9] + 1;
             txtChildren.Text = CultRes.StringsRes.ReportDirectChild;
-            _pdfPointY += _pdfSizeHeight;
+            _arrInts[1] += _arrInts[3];
 
-            _pdfPointY += 4; //Distance to next TextBox
+            _arrInts[1] += _arrInts[9] - 4; //Distance to next TextBox
 
             //------------------------------------------------------------------
 
             _n = "childDivision";
             _z = 1;
             _z1 = _n + _z;
-            _move += +_move;   // 4+4
+            _arrInts[7] += +_arrInts[7];   // move 4+4
 
             foreach (var t in divisionsList)
             {
@@ -793,40 +795,42 @@ namespace ATIS.Ui.Views.Report.D03Regnum
                 var t7 = t.PorName;
                 if (t7 != null) tAllLength += t7.Length;
 
-                var txtDivisionNameLeft = _page.AddTextBox("divisionLeft" + _z1, new PdfPoint(_pdfPointXLeft + _move, _pdfPointY),
-                    new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-                txtDivisionNameLeft.HasBorder = false;
-                txtDivisionNameLeft.ReadOnly = true;
-                txtDivisionNameLeft.Font.SynthesizedBold = false;
-                txtDivisionNameLeft.FontSize = 8;
-                txtDivisionNameLeft.Text = CultRes.StringsRes.Division;
+                _arrInts = PdfTbLeft("divisionLeft" + _z1, _arrInts, CultRes.StringsRes.Division);
+
+                //var txtDivisionNameLeft = _page.AddTextBox("divisionLeft" + _z1, new PdfPoint(_pdfPointXLeft + _move, _pdfPointY),
+                //    new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+                //txtDivisionNameLeft.HasBorder = false;
+                //txtDivisionNameLeft.ReadOnly = true;
+                //txtDivisionNameLeft.Font.SynthesizedBold = false;
+                //txtDivisionNameLeft.FontSize = 8;
+                //txtDivisionNameLeft.Text = CultRes.StringsRes.Division;
 
                 var divisionAll = 0;
-                for (int i = 100; i < tAllLength; i += 100)
+                for (int i = _arrInts[8]; i < tAllLength; i += _arrInts[8])
                 {
-                    divisionAll += 16;
+                    divisionAll += _arrInts[9] + _arrInts[9];
                 }
 
-                if (tAllLength >= 100)
+                if (tAllLength >= _arrInts[8])
                 {
-                    var txtDivisionNameRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
-                        new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight + divisionAll));
+                    var txtDivisionNameRight = _page.AddTextBox(_z1, new PdfPoint(_arrInts[2], _arrInts[1]),
+                        new PdfSize(_arrInts[5], _arrInts[3] + divisionAll));
                     txtDivisionNameRight.HasBorder = false;
                     txtDivisionNameRight.ReadOnly = true;
                     txtDivisionNameRight.Multiline = true;
-                    txtDivisionNameRight.FontSize = 8;
+                    txtDivisionNameRight.FontSize = _arrInts[9];
                     txtDivisionNameRight.Text = t1 + " - " + t2 + ", " + t3 + " - " + t4 + " " + t5 + " " + t6 + " " + t7;
-                    _pdfPointY += _pdfSizeHeight + divisionAll - 4;  // -8 Leerzeile
+                    _arrInts[1] += _arrInts[3] + divisionAll - 4;  // -8 Leerzeile
                 }
                 else
                 {
-                    var txtDivissionNameRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
-                        new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
-                    txtDivissionNameRight.HasBorder = false;
-                    txtDivissionNameRight.ReadOnly = true;
-                    txtDivissionNameRight.FontSize = 8;
-                    txtDivissionNameRight.Text = t1 + " - " + t2 + ", " + t3 + " - " + t4 + " " + t5 + " " + t6 + " " + t7;
-                    _pdfPointY += _pdfSizeHeight;
+                    var txtDivisionNameRight = _page.AddTextBox(_z1, new PdfPoint(_arrInts[2], _arrInts[1]),
+                        new PdfSize(_arrInts[5], _arrInts[3]));
+                    txtDivisionNameRight.HasBorder = false;
+                    txtDivisionNameRight.ReadOnly = true;
+                    txtDivisionNameRight.FontSize = _arrInts[9];
+                    txtDivisionNameRight.Text = t1 + " - " + t2 + ", " + t3 + " - " + t4 + " " + t5 + " " + t6 + " " + t7;
+                    _arrInts[1] += _arrInts[3];
                 }
 
                 _z += 1;
@@ -837,16 +841,16 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
             _pdfPointY += 5; //Distance to next TextBox
 
-            arrayInts[0] = _pdfPointXLeft;
-            arrayInts[1] = _pdfPointY;
-            arrayInts[2] = _pdfPointXRight;
-            arrayInts[3] = _pdfSizeHeight;
-            arrayInts[4] = _pdfSizeWidthLeft;
-            arrayInts[5] = _pdfSizeWidthRight;
-            arrayInts[6] = _pageCount;
-            arrayInts[7] = _move;
+            //arrayInts[0] = _pdfPointXLeft;
+            //arrayInts[1] = _pdfPointY;
+            //arrayInts[2] = _pdfPointXRight;
+            //arrayInts[3] = _pdfSizeHeight;
+            //arrayInts[4] = _pdfSizeWidthLeft;
+            //arrayInts[5] = _pdfSizeWidthRight;
+            //arrayInts[6] = _pageCount;
+            //arrayInts[7] = _move;
 
-            return arrayInts;
+            //return arrayInts;
         }
 
 
