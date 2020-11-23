@@ -665,65 +665,65 @@ namespace ATIS.Ui.Views.Report
         /// <summary>
         /// Change View of Author - (xxx, 1111) or - xxx, 2222
         /// </summary>
-        /// <param name="author"></param>
-        /// <param name="authorYear"></param>
+        /// <param name = "author" ></ param >
+        /// < param name="authorYear"></param>
         /// <returns></returns>
-        //public static string AuthorViewChangeWithString(string author, string authorYear)
-        //{
-        //    if (author.IsBlank()) return "";
-        //    if (author.Contains("("))
-        //    {
-        //        var length = author.Length;
-        //        author = "- " + author.Insert(length - 1, ", " + authorYear);
-        //    }
-        //    else
-        //        author = "- " + author + ", " + authorYear;
+        public static string AuthorViewChangeWithString(string author, string authorYear)
+        {
+            if (string.IsNullOrEmpty(author)) return "";
+            if (author.Contains("("))
+            {
+                var length = author.Length;
+                author = "- " + author.Insert(length - 1, ", " + authorYear);
+            }
+            else
+                author = "- " + author + ", " + authorYear;
 
-        //    return author.Trim();
-        //}
+            return author.Trim();
+        }
 
-        //public static string NamesViewChange(string gerName, string engName, string fraName, string porName)
-        //{
-        //    var names = "";
-        //    if (gerName.IsBlank() && engName.IsBlank() && fraName.IsBlank() && porName.IsBlank()) return names;
-        //    //------------
-        //    if (!gerName.IsBlank() && engName.IsBlank() && fraName.IsBlank() && porName.IsBlank())
-        //        names = "- " + gerName;
-        //    if (!gerName.IsBlank() && !engName.IsBlank() && fraName.IsBlank() && porName.IsBlank())
-        //        names = "- " + gerName + ", " + engName;
-        //    if (!gerName.IsBlank() && !engName.IsBlank() && !fraName.IsBlank() && porName.IsBlank())
-        //        names = "- " + gerName + ", " + engName + ", " + fraName;
-        //    if (!gerName.IsBlank() && !engName.IsBlank() && !fraName.IsBlank() && !porName.IsBlank())
-        //        names = "- " + gerName + ", " + engName + ", " + fraName + ", " + porName;
-        //    //------------
-        //    if (!gerName.IsBlank() && engName.IsBlank() && !fraName.IsBlank() && porName.IsBlank())
-        //        names = "- " + gerName + ", " + fraName;
-        //    if (!gerName.IsBlank() && engName.IsBlank() && !fraName.IsBlank() && !porName.IsBlank())
-        //        names = "- " + gerName + ", " + fraName + ", " + porName;
-        //    //------------
-        //    if (!gerName.IsBlank() && engName.IsBlank() && fraName.IsBlank() && !porName.IsBlank())
-        //        names = "- " + gerName + ", " + porName;
-        //    //------------
+        public static string NamesViewChange(string gerName, string engName, string fraName, string porName)  
+        {
+            var names = "";
+            if (string.IsNullOrEmpty(gerName) && string.IsNullOrEmpty(engName) && string.IsNullOrEmpty(fraName) && string.IsNullOrEmpty(porName)) return names;
+            //------------
+            if (!string.IsNullOrEmpty(gerName) && string.IsNullOrEmpty(engName) && string.IsNullOrEmpty(fraName) && string.IsNullOrEmpty(porName))
+                names = "- " + gerName;
+            if (!string.IsNullOrEmpty(gerName) && !string.IsNullOrEmpty(engName) && string.IsNullOrEmpty(fraName) && string.IsNullOrEmpty(porName))
+                names = "- " + gerName + ", " + engName;
+            if (!string.IsNullOrEmpty(gerName) && !string.IsNullOrEmpty(engName) && !string.IsNullOrEmpty(fraName) && string.IsNullOrEmpty(porName))
+                names = "- " + gerName + ", " + engName + ", " + fraName;
+            if (!string.IsNullOrEmpty(gerName) && !string.IsNullOrEmpty(engName) && !string.IsNullOrEmpty(fraName) && !string.IsNullOrEmpty(porName))
+                names = "- " + gerName + ", " + engName + ", " + fraName + ", " + porName;
+            //------------
+            if (!string.IsNullOrEmpty(gerName) && string.IsNullOrEmpty(engName) && !string.IsNullOrEmpty(fraName) && string.IsNullOrEmpty(porName))
+                names = "- " + gerName + ", " + fraName;
+            if (!string.IsNullOrEmpty(gerName) && string.IsNullOrEmpty(engName) && !string.IsNullOrEmpty(fraName) && !string.IsNullOrEmpty(porName))
+                names = "- " + gerName + ", " + fraName + ", " + porName;
+            //------------
+            if (!string.IsNullOrEmpty(gerName) && string.IsNullOrEmpty(engName) && string.IsNullOrEmpty(fraName) && !string.IsNullOrEmpty(porName))
+                names = "- " + gerName + ", " + porName;
+            //------------
 
-        //    if (gerName.IsBlank() && !engName.IsBlank() && fraName.IsBlank() && porName.IsBlank())
-        //        names = "- " + engName;
-        //    if (gerName.IsBlank() && !engName.IsBlank() && !fraName.IsBlank() && porName.IsBlank())
-        //        names = "- " + engName + ", " + fraName;
-        //    if (gerName.IsBlank() && !engName.IsBlank() && !fraName.IsBlank() && !porName.IsBlank())
-        //        names = "- " + engName + ", " + fraName + ", " + porName;
-        //    //------------
-        //    if (gerName.IsBlank() && engName.IsBlank() && !fraName.IsBlank() && porName.IsBlank())
-        //        names = "- " + fraName;
-        //    if (gerName.IsBlank() && engName.IsBlank() && !fraName.IsBlank() && !porName.IsBlank())
-        //        names = "- " + fraName + ", " + porName;
-        //    //------------
-        //    if (gerName.IsBlank() && engName.IsBlank() && fraName.IsBlank() && !porName.IsBlank())
-        //        names = "- " + porName;
-        //    //------------
+            if (string.IsNullOrEmpty(gerName) && !string.IsNullOrEmpty(engName) && string.IsNullOrEmpty(fraName) && string.IsNullOrEmpty(porName))
+                names = "- " + engName;
+            if (string.IsNullOrEmpty(gerName) && !string.IsNullOrEmpty(engName) && !string.IsNullOrEmpty(fraName) && string.IsNullOrEmpty(porName))
+                names = "- " + engName + ", " + fraName;
+            if (string.IsNullOrEmpty(gerName) && !string.IsNullOrEmpty(engName) && !string.IsNullOrEmpty(fraName) && !string.IsNullOrEmpty(porName))
+                names = "- " + engName + ", " + fraName + ", " + porName;
+            //------------
+            if (string.IsNullOrEmpty(gerName) && string.IsNullOrEmpty(engName) && !string.IsNullOrEmpty(fraName) && string.IsNullOrEmpty(porName))
+                names = "- " + fraName;
+            if (string.IsNullOrEmpty(gerName) && string.IsNullOrEmpty(engName) && !string.IsNullOrEmpty(fraName) && !string.IsNullOrEmpty(porName))
+                names = "- " + fraName + ", " + porName;
+            //------------
+            if (string.IsNullOrEmpty(gerName) && string.IsNullOrEmpty(engName) && string.IsNullOrEmpty(fraName) && !string.IsNullOrEmpty(porName))
+                names = "- " + porName;
+            //------------
 
 
-        //    return names.Trim();
-        //}
+            return names.Trim();
+        }
 
         // Set up the fonts to be used on the pages
 
@@ -835,7 +835,7 @@ namespace ATIS.Ui.Views.Report
         //}
 
 
- 
+
 
 
         /// <summary>
@@ -858,7 +858,7 @@ namespace ATIS.Ui.Views.Report
         //    return author;
         //}
 
- 
 
-     }
+
+    }
 }

@@ -88,7 +88,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
                     AddRegnumHaeder(pdf, regnumList);
                     AddRegnumTaxoNomenList(pdf, regnumList);
-                    //_arrInts = AddRegnumHierarchyList(pdf, regnumList, _arrInts);
+                    AddRegnumHierarchyList(pdf, regnumList);
 
                     // if (phylumsList.Count != 0)
                     //     _arrInts = AddPhylumsChildrenList(pdf, phylumsList, _arrInts);
@@ -172,28 +172,39 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
             _page = pdf.Pages[_arrInts[6]];
 
-            if (regnumList.Author != null)
-            {
-                var txtName = _page.AddTextBox("regnumName", new PdfPoint(_arrInts[0], _arrInts[1]), 
-                    new PdfSize(_arrInts[5], _arrInts[3]));
-                txtName.HasBorder = false;
-                txtName.ReadOnly = true;
-                txtName.Font.SynthesizedBold = true;
-                txtName.FontSize = _arrInts[9] + 2;
-                txtName.Text = regnumList.RegnumName + " " + regnumList.Subregnum + " " + regnumList.Author + "," + regnumList.AuthorYear;
-                _arrInts[1] += _arrInts[3];
-            }
-            else
-            {
-                var txtName = _page.AddTextBox("regnumName", new PdfPoint(_arrInts[0], _arrInts[1]), 
-                    new PdfSize(_arrInts[5], _arrInts[3]));
-                txtName.HasBorder = false;
-                txtName.ReadOnly = true;
-                txtName.Font.SynthesizedBold = true;
-                txtName.FontSize = _arrInts[9] + 2;
-                txtName.Text = regnumList.RegnumName + " " + regnumList.Subregnum;
-                _arrInts[1] += _arrInts[3];
-            }
+            var textAusgabeAuthor = PdfHelper.AuthorViewChangeWithString(regnumList.Author, regnumList.AuthorYear);
+
+            var txtName = _page.AddTextBox("regnumName", new PdfPoint(_arrInts[0], _arrInts[1]),
+                new PdfSize(_arrInts[5], _arrInts[3]));
+            txtName.HasBorder = false;
+            txtName.ReadOnly = true;
+            txtName.Font.SynthesizedBold = true;
+            txtName.FontSize = _arrInts[9] + 2;
+            txtName.Text = regnumList.RegnumName + " " + regnumList.Subregnum + " " + textAusgabeAuthor;
+            _arrInts[1] += _arrInts[3];
+
+            //if (regnumList.Author != null)
+            //{
+            //    var txtName = _page.AddTextBox("regnumName", new PdfPoint(_arrInts[0], _arrInts[1]), 
+            //        new PdfSize(_arrInts[5], _arrInts[3]));
+            //    txtName.HasBorder = false;
+            //    txtName.ReadOnly = true;
+            //    txtName.Font.SynthesizedBold = true;
+            //    txtName.FontSize = _arrInts[9] + 2;
+            //    txtName.Text = regnumList.RegnumName + " " + regnumList.Subregnum + " " + regnumList.Author + "," + regnumList.AuthorYear;
+            //    _arrInts[1] += _arrInts[3];
+            //}
+            //else
+            //{
+            //    var txtName = _page.AddTextBox("regnumName", new PdfPoint(_arrInts[0], _arrInts[1]), 
+            //        new PdfSize(_arrInts[5], _arrInts[3]));
+            //    txtName.HasBorder = false;
+            //    txtName.ReadOnly = true;
+            //    txtName.Font.SynthesizedBold = true;
+            //    txtName.FontSize = _arrInts[9] + 2;
+            //    txtName.Text = regnumList.RegnumName + " " + regnumList.Subregnum;
+            //    _arrInts[1] += _arrInts[3];
+            //}
             _arrInts[1] += _arrInts[9] - 6; //Distance to next TextBox
 
             var txtCountId = _page.AddTextBox("countId", new PdfPoint(_arrInts[0], _arrInts[1]), 
@@ -204,8 +215,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             txtCountId.FontSize = _arrInts[9] - 1;
             txtCountId.Text = CultRes.StringsRes.ReportTaxonomicId + regnumList.CountId;
 
-            _arrInts[1] += _arrInts[3];
-            _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
+            _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
 
             //arrayInts[0] = _pdfPointXLeft;
             //arrayInts[1] = _pdfPointY;
@@ -221,7 +231,6 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
            // return _arrInts;
         }
-
         private static void AddRegnumTaxoNomenList(PdfDocument pdf, Tbl03Regnum regnumList)
         {
             //_pdfPointXLeft = arrayInts[0];
@@ -327,7 +336,10 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             //else
             //{
             //    _arrInts[1] += _arrInts[3];
-            //}
+            //}            _arrInts[1] += 5; //Distance to next TextBox
+
+            _arrInts[1] += 8; //Distance to next TextBox
+
             //---------------------------------------------------------------
             _arrInts = PdfTbLeft("commNameLeft", _arrInts, CultRes.StringsRes.ReportCommonNames);
 
@@ -542,62 +554,78 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
           //  return _arrInts;
         }
-        private static int[] AddRegnumHierarchyList(PdfDocument pdf, Tbl03Regnum regnumList, int[] arrayInts)
+        private static void AddRegnumHierarchyList(PdfDocument pdf, Tbl03Regnum regnumList)
         {
-            _pdfPointXLeft = arrayInts[0];
-            _pdfPointY = arrayInts[1];
-            _pdfPointXRight = arrayInts[2];
-            _pdfSizeHeight = arrayInts[3];
-            _pdfSizeWidthLeft = arrayInts[4];
-            _pdfSizeWidthRight = arrayInts[5];
-            _pageCount = arrayInts[6];
-            _move = _arrInts[7];
-            _characterSize = _arrInts[8];
-            _fontSize = _arrInts[9];
-            _z = _arrInts[10];
+            //_pdfPointXLeft = arrayInts[0];
+            //_pdfPointY = arrayInts[1];
+            //_pdfPointXRight = arrayInts[2];
+            //_pdfSizeHeight = arrayInts[3];
+            //_pdfSizeWidthLeft = arrayInts[4];
+            //_pdfSizeWidthRight = arrayInts[5];
+            //_pageCount = arrayInts[6];
+            //_move = _arrInts[7];
+            //_characterSize = _arrInts[8];
+            //_fontSize = _arrInts[9];
+            //_z = _arrInts[10];
 
-            _page = pdf.Pages[_pageCount];
+            _page = pdf.Pages[_arrInts[6]];
 
-            var txtHeader3 = _page.AddTextBox("header3", new PdfPoint(_pdfPointXLeft, _pdfPointY), 
-                new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-            txtHeader3.HasBorder = false;
-            txtHeader3.ReadOnly = true;
-            txtHeader3.Font.SynthesizedBold = true;
-            txtHeader3.FontSize = 10;
-            txtHeader3.Text = CultRes.StringsRes.ReportTaxoHiera;
-            _pdfPointY += _pdfSizeHeight;
-            _pdfPointY += 5; //Distance to next TextBox
+            _arrInts = PdfTbBoldLeft("header3", _arrInts, CultRes.StringsRes.ReportTaxoHiera, 2);
+
+            //var txtHeader3 = _page.AddTextBox("header3", new PdfPoint(_pdfPointXLeft, _pdfPointY), 
+            //    new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+            //txtHeader3.HasBorder = false;
+            //txtHeader3.ReadOnly = true;
+            //txtHeader3.Font.SynthesizedBold = true;
+            //txtHeader3.FontSize = 10;
+            //txtHeader3.Text = CultRes.StringsRes.ReportTaxoHiera;
+            //_pdfPointY += _pdfSizeHeight;
+
+            _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
 
             //---------------------------------------------------------------
-            var txtRegnumNameLeft = _page.AddTextBox("regnumLeft", new PdfPoint(_pdfPointXLeft + _move, _pdfPointY), 
-                new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-            txtRegnumNameLeft.HasBorder = false;
-            txtRegnumNameLeft.ReadOnly = true;
-            txtRegnumNameLeft.Font.SynthesizedBold = false;
-            txtRegnumNameLeft.FontSize = 8;
-            txtRegnumNameLeft.Text = CultRes.StringsRes.Regnum;
-         //   _pdfPointY += _pdfSizeHeight;
+            _arrInts = PdfTbLeft("regnumLeft", _arrInts, CultRes.StringsRes.Regnum);
 
-            var txtRegnumNameRight = _page.AddTextBox("regnumRight", new PdfPoint(_pdfPointXRight, _pdfPointY), 
-                new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
-            txtRegnumNameRight.HasBorder = false;
-            txtRegnumNameRight.ReadOnly = true;
-            txtRegnumNameRight.Multiline = true;
-            txtRegnumNameRight.FontSize = 8;
-            txtRegnumNameRight.Text = regnumList.RegnumName + " " + regnumList.Subregnum + " - " + regnumList.Author + ", " + regnumList.AuthorYear + " - " + regnumList.GerName + " " + regnumList.EngName + " " + regnumList.FraName + " " + regnumList.PorName;
-            _pdfPointY += _pdfSizeHeight;
+            var textAusgabeAuthor = PdfHelper.AuthorViewChangeWithString(regnumList.Author, regnumList.AuthorYear);
+            var textAusgabeName = PdfHelper.NamesViewChange(regnumList.GerName, regnumList.EngName, regnumList.FraName, regnumList.PorName);
 
-            _pdfPointY += 4; //Distance to next TextBox
+            var textShow = regnumList.RegnumName + " " + regnumList.Subregnum + " " +
+                           textAusgabeAuthor +
+                           textAusgabeName;
+            //var textShow = regnumList.RegnumName + " " + regnumList.Subregnum + " " +
+            //                             regnumList.Author + ", " + regnumList.AuthorYear + " - " +
+            //                 regnumList.GerName + " " + regnumList.EngName + " " + regnumList.FraName + " " + regnumList.PorName;
+// methode schreiben für Name und Author 
+            _arrInts = PdfTbRight("regnumRight", _arrInts, textShow);
 
-            arrayInts[0] = _pdfPointXLeft;
-            arrayInts[1] = _pdfPointY;
-            arrayInts[2] = _pdfPointXRight;
-            arrayInts[3] = _pdfSizeHeight;
-            arrayInts[4] = _pdfSizeWidthLeft;
-            arrayInts[5] = _pdfSizeWidthRight;
-            arrayInts[6] = _pageCount;
-            arrayInts[7] = _move;
-            return arrayInts;
+            //var txtRegnumNameLeft = _page.AddTextBox("regnumLeft", new PdfPoint(_pdfPointXLeft + _move, _pdfPointY), 
+            //    new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+            //txtRegnumNameLeft.HasBorder = false;
+            //txtRegnumNameLeft.ReadOnly = true;
+            //txtRegnumNameLeft.Font.SynthesizedBold = false;
+            //txtRegnumNameLeft.FontSize = 8;
+            //txtRegnumNameLeft.Text = CultRes.StringsRes.Regnum;
+
+            //var txtRegnumNameRight = _page.AddTextBox("regnumRight", new PdfPoint(_pdfPointXRight, _pdfPointY), 
+            //    new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+            //txtRegnumNameRight.HasBorder = false;
+            //txtRegnumNameRight.ReadOnly = true;
+            //txtRegnumNameRight.Multiline = true;
+            //txtRegnumNameRight.FontSize = 8;
+            //txtRegnumNameRight.Text = regnumList.RegnumName + " " + regnumList.Subregnum + " - " + regnumList.Author + ", " + regnumList.AuthorYear + " - " + regnumList.GerName + " " + regnumList.EngName + " " + regnumList.FraName + " " + regnumList.PorName;
+            //_pdfPointY += _pdfSizeHeight;
+
+            _arrInts[1] += _arrInts[9] - 4; //Distance to next TextBox
+
+            //arrayInts[0] = _pdfPointXLeft;
+            //arrayInts[1] = _pdfPointY;
+            //arrayInts[2] = _pdfPointXRight;
+            //arrayInts[3] = _pdfSizeHeight;
+            //arrayInts[4] = _pdfSizeWidthLeft;
+            //arrayInts[5] = _pdfSizeWidthRight;
+            //arrayInts[6] = _pageCount;
+            //arrayInts[7] = _move;
+            //return arrayInts;
         }
         private static int[] AddPhylumsChildrenList(PdfDocument pdf, ObservableCollection<Tbl06Phylum> phylumsList, int[] arrayInts)
         {
@@ -855,7 +883,6 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
             return arrInts;
         }
-
         private static int[] PdfTbRight(string tbName, int[] arrInts, string text)
         {
             var txtRight = _page.AddTextBox(tbName, new PdfPoint(arrInts[2], arrInts[1]),
