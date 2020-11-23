@@ -90,8 +90,8 @@ namespace ATIS.Ui.Views.Report.D03Regnum
                     AddRegnumTaxoNomenList(pdf, regnumList);
                     AddRegnumHierarchyList(pdf, regnumList);
 
-                    // if (phylumsList.Count != 0)
-                    //     _arrInts = AddPhylumsChildrenList(pdf, phylumsList, _arrInts);
+                    if (phylumsList.Count != 0)
+                        AddPhylumsChildrenList(pdf, phylumsList);
                     //if (divisionsList.Count != 0)
                     //    _arrInts = AddDivisionsChildrenList(pdf, divisionsList, _arrInts);
 
@@ -627,39 +627,41 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             //arrayInts[7] = _move;
             //return arrayInts;
         }
-        private static int[] AddPhylumsChildrenList(PdfDocument pdf, ObservableCollection<Tbl06Phylum> phylumsList, int[] arrayInts)
+        private static void AddPhylumsChildrenList(PdfDocument pdf, ObservableCollection<Tbl06Phylum> phylumsList)
         {
-            _pdfPointXLeft = arrayInts[0];
-            _pdfPointY = arrayInts[1];
-            _pdfPointXRight = arrayInts[2];
-            _pdfSizeHeight = arrayInts[3];
-            _pdfSizeWidthLeft = arrayInts[4];
-            _pdfSizeWidthRight = arrayInts[5];
-            _pageCount = arrayInts[6];
-            _move = _arrInts[7];
-            _characterSize = _arrInts[8];
-            _fontSize = _arrInts[9];
-            _z = _arrInts[10];
+            //_pdfPointXLeft = arrayInts[0];
+            //_pdfPointY = arrayInts[1];
+            //_pdfPointXRight = arrayInts[2];
+            //_pdfSizeHeight = arrayInts[3];
+            //_pdfSizeWidthLeft = arrayInts[4];
+            //_pdfSizeWidthRight = arrayInts[5];
+            //_pageCount = arrayInts[6];
+            //_move = _arrInts[7];
+            //_characterSize = _arrInts[8];
+            //_fontSize = _arrInts[9];
+            //_z = _arrInts[10];
 
-            _page = pdf.Pages[_pageCount];
+            _page = pdf.Pages[_arrInts[6]];
 
-            var txtChildren = _page.AddTextBox("childrenPhylum", new PdfPoint(_pdfPointXRight, _pdfPointY), 
-                new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
-            txtChildren.HasBorder = false;
-            txtChildren.ReadOnly = true;
-            txtChildren.Font.SynthesizedBold = true;
-            txtChildren.FontSize = 9;
-            txtChildren.Text = CultRes.StringsRes.ReportDirectChild;
-            _pdfPointY += _pdfSizeHeight;
+            _arrInts = PdfTbBoldLeft("childrenPhylum", _arrInts, CultRes.StringsRes.ReportDirectChild, 1);
 
-            _pdfPointY += 4; //Distance to next TextBox
+            //var txtChildren = _page.AddTextBox("childrenPhylum", new PdfPoint(_pdfPointXRight, _pdfPointY), 
+            //    new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+            //txtChildren.HasBorder = false;
+            //txtChildren.ReadOnly = true;
+            //txtChildren.Font.SynthesizedBold = true;
+            //txtChildren.FontSize = 9;
+            //txtChildren.Text = CultRes.StringsRes.ReportDirectChild;
+            //_pdfPointY += _pdfSizeHeight;
+
+            _arrInts[1] += _arrInts[9] - 4; //Distance to next TextBox
 
             //------------------------------------------------------------------
 
             _n = "childPhylum";
             _z = 1;
             _z1 = _n + _z;
-            _move += +_move;   // 4+4
+            _arrInts[7] += +_arrInts[7];   // move 4+4
 
             foreach (var t in phylumsList)
             {
@@ -680,40 +682,42 @@ namespace ATIS.Ui.Views.Report.D03Regnum
                 var t7 = t.PorName;
                 if (t7 != null) tAllLength += t7.Length;
 
-                var txtPhylumNameLeft = _page.AddTextBox("phylumLeft" + _z1, new PdfPoint(_pdfPointXLeft + _move, _pdfPointY),
-                    new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-                txtPhylumNameLeft.HasBorder = false;
-                txtPhylumNameLeft.ReadOnly = true;
-                txtPhylumNameLeft.Font.SynthesizedBold = false;
-                txtPhylumNameLeft.FontSize = 8;
-                txtPhylumNameLeft.Text = CultRes.StringsRes.Phylum;
+                _arrInts = PdfTbLeft("phylumLeft" + _z1, _arrInts, CultRes.StringsRes.Phylum);
+
+                //var txtPhylumNameLeft = _page.AddTextBox("phylumLeft" + _z1, new PdfPoint(_pdfPointXLeft + _move, _pdfPointY),
+                //    new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+                //txtPhylumNameLeft.HasBorder = false;
+                //txtPhylumNameLeft.ReadOnly = true;
+                //txtPhylumNameLeft.Font.SynthesizedBold = false;
+                //txtPhylumNameLeft.FontSize = 8;
+                //txtPhylumNameLeft.Text = CultRes.StringsRes.Phylum;
 
                 var phylumAll = 0;
-                for (int i = 100; i < tAllLength; i += 100)
+                for (int i = _arrInts[8]; i < tAllLength; i += _arrInts[8])
                 {
-                    phylumAll += 16;
+                    phylumAll += _arrInts[9] + _arrInts[9];
                 }
 
-                if (tAllLength >= 100)
+                if (tAllLength >= _arrInts[8])
                 {
-                    var txtPhylumNameRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
-                        new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight + phylumAll));
+                    var txtPhylumNameRight = _page.AddTextBox(_z1, new PdfPoint(_arrInts[2], _arrInts[1]),
+                        new PdfSize(_arrInts[5], _arrInts[3] + phylumAll));
                     txtPhylumNameRight.HasBorder = false;
                     txtPhylumNameRight.ReadOnly = true;
                     txtPhylumNameRight.Multiline = true;
-                    txtPhylumNameRight.FontSize = 8;
+                    txtPhylumNameRight.FontSize = _arrInts[9];
                     txtPhylumNameRight.Text = t1 + " - " + t2 + ", " + t3 + " - " + t4 + " " + t5 + " " + t6 + " " + t7;
-                    _pdfPointY += _pdfSizeHeight + phylumAll -4 ;  // -8 Leerzeile
+                    _arrInts[1] += _arrInts[3] + phylumAll -4 ;  // -8 Leerzeile
                 }
                 else
                 {
-                    var txtPhylumNameRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
-                        new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
+                    var txtPhylumNameRight = _page.AddTextBox(_z1, new PdfPoint(_arrInts[2], _arrInts[1]),
+                        new PdfSize(_arrInts[5], _arrInts[3]));
                     txtPhylumNameRight.HasBorder = false;
                     txtPhylumNameRight.ReadOnly = true;
-                    txtPhylumNameRight.FontSize = 8;
+                    txtPhylumNameRight.FontSize = _arrInts[9];
                     txtPhylumNameRight.Text = t1 + " - " + t2 + ", " + t3 + " - " + t4 + " " + t5 + " " + t6 + " " + t7;
-                    _pdfPointY += _pdfSizeHeight;
+                    _arrInts[1] += _arrInts[3];
                 }
 
                 _z += 1;
@@ -722,18 +726,19 @@ namespace ATIS.Ui.Views.Report.D03Regnum
                 //var names = PdfHelper.NamesViewChange(t.GerName, t.EngName, t.FraName, t.PorName);
             }
 
-            _pdfPointY += 5; //Distance to next TextBox
+        //    _pdfPointY += 5; //Distance to next TextBox
+            _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
 
-            arrayInts[0] = _pdfPointXLeft;
-            arrayInts[1] = _pdfPointY;
-            arrayInts[2] = _pdfPointXRight;
-            arrayInts[3] = _pdfSizeHeight;
-            arrayInts[4] = _pdfSizeWidthLeft;
-            arrayInts[5] = _pdfSizeWidthRight;
-            arrayInts[6] = _pageCount;
-            arrayInts[7] = _move; 
+            //arrayInts[0] = _pdfPointXLeft;
+            //arrayInts[1] = _pdfPointY;
+            //arrayInts[2] = _pdfPointXRight;
+            //arrayInts[3] = _pdfSizeHeight;
+            //arrayInts[4] = _pdfSizeWidthLeft;
+            //arrayInts[5] = _pdfSizeWidthRight;
+            //arrayInts[6] = _pageCount;
+            //arrayInts[7] = _move; 
 
-            return arrayInts;
+            //return arrayInts;
         }
         private static int[] AddDivisionsChildrenList(PdfDocument pdf, ObservableCollection<Tbl09Division> divisionsList, int[] arrayInts)
         {
