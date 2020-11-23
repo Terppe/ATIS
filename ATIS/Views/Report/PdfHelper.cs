@@ -9,6 +9,8 @@ namespace ATIS.Ui.Views.Report
 {
     public class PdfHelper : ViewModelBase
     {
+        private static readonly int[] ArrHelperInts = new int[11];
+
         private static string _n;
         private static string _z1;
 
@@ -26,47 +28,62 @@ namespace ATIS.Ui.Views.Report
 
         private static PdfPage _page;
 
-        public int[] AddReportMain(PdfDocument pdf, Tbl03Regnum regnumList, int[] arrayInts)
+        public PdfHelper()
         {
-            _pdfPointXLeft = arrayInts[0];
-            _pdfPointY = arrayInts[1];
-            _pdfPointXRight = arrayInts[2];
-            _pdfSizeHeight = arrayInts[3];
-            _pdfSizeWidthLeft = arrayInts[4];
-            _pdfSizeWidthRight = arrayInts[5];
-            _pageCount = arrayInts[6];
-            _move = arrayInts[7];
-            _characterSize = arrayInts[8];
-            _fontSize = arrayInts[9];
-            _z = arrayInts[10];
+        }
 
-            _page = pdf.Pages[_pageCount];
+        public int[] AddReportMain(PdfDocument pdf, Tbl03Regnum regnumList)
+        {
+            //_pdfPointXLeft = arrayInts[0];
+            //_pdfPointY = arrayInts[1];
+            //_pdfPointXRight = arrayInts[2];
+            //_pdfSizeHeight = arrayInts[3];
+            //_pdfSizeWidthLeft = arrayInts[4];
+            //_pdfSizeWidthRight = arrayInts[5];
+            //_pageCount = arrayInts[6];
+            //_move = arrayInts[7];
+            //_characterSize = arrayInts[8];
+            //_fontSize = arrayInts[9];
+            //_z = arrayInts[10];
+            ArrHelperInts[0] = 20; //_pdfPointXLeft
+            ArrHelperInts[1] = 5; //_pdfPointY
+            ArrHelperInts[2] = 150; //_pdfPointXRight
+            ArrHelperInts[3] = 8; //_pdfSizeHeight
+            ArrHelperInts[4] = 300; //_pdfSizeWidthLeft
+            ArrHelperInts[5] = 430; //_pdfSizeWidthRight
+            ArrHelperInts[6] = 0; //_pageCount
+            ArrHelperInts[7] = 4; //_moveIn
+            ArrHelperInts[8] = 95; //_characterSize
+            ArrHelperInts[9] = 8; //_fontSize
+            ArrHelperInts[10] = 0; //_z counter
 
-            var txtHeader = _page.AddTextBox("header", new PdfPoint(_pdfPointXLeft, _pdfPointY), 
-                new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
+            _page = pdf.Pages[ArrHelperInts[6]];
+
+            var txtHeader = _page.AddTextBox("header", new PdfPoint(ArrHelperInts[0], ArrHelperInts[1]), 
+                new PdfSize(ArrHelperInts[4], ArrHelperInts[3]));
             txtHeader.HasBorder = false;
             txtHeader.ReadOnly = true;
             txtHeader.Font.SynthesizedBold = true;
-            txtHeader.FontSize = 16;
-            txtHeader.Height = 20;
+            txtHeader.FontSize = ArrHelperInts[9] + 8;
+            txtHeader.Height = ArrHelperInts[9] + 12;
             txtHeader.Text = CultRes.StringsRes.Report;
 
-            _pdfPointY += _pdfSizeHeight;
-            _pdfPointY += 20; //Distance to next TextBox
+            ArrHelperInts[1] += ArrHelperInts[3];
+            ArrHelperInts[1] += ArrHelperInts[3] +12; //Distance to next TextBox
 
-            arrayInts[0] = _pdfPointXLeft;
-            arrayInts[1] = _pdfPointY;
-            arrayInts[2] = _pdfPointXRight;
-            arrayInts[3] = _pdfSizeHeight;
-            arrayInts[4] = _pdfSizeWidthLeft;
-            arrayInts[5] = _pdfSizeWidthRight;
-            arrayInts[6] = _pageCount;
-            arrayInts[7] = _move;
-            arrayInts[8] = _characterSize;
-            arrayInts[9] = _fontSize;
-            arrayInts[10] = _z;
+            //arrayInts[0] = _pdfPointXLeft;
+            //arrayInts[1] = _pdfPointY;
+            //arrayInts[2] = _pdfPointXRight;
+            //arrayInts[3] = _pdfSizeHeight;
+            //arrayInts[4] = _pdfSizeWidthLeft;
+            //arrayInts[5] = _pdfSizeWidthRight;
+            //arrayInts[6] = _pageCount;
+            //arrayInts[7] = _move;
+            //arrayInts[8] = _characterSize;
+            //arrayInts[9] = _fontSize;
+            //arrayInts[10] = _z;
 
-            return arrayInts;
+            return ArrHelperInts;
         }
 
         public int[] AddReferencesHaeder(PdfDocument pdf, int[] arrayInts)
