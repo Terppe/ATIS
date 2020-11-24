@@ -21,20 +21,20 @@ namespace ATIS.Ui.Views.Report.D03Regnum
         private static string _n;
         private static string _z1;
 
-        private static int _pdfPointXLeft;
-        private static int _pdfPointY;
-        private static int _pdfPointXRight;
-        private static int _pdfSizeHeight;
-        private static int _pdfSizeWidthLeft;
-        private static int _pdfSizeWidthRight;
-        private static int _pageCount;
-        private static int _move;
-        private static int _characterSize;
-        private static int _fontSize;
+        //private static int _pdfPointXLeft;
+        //private static int _pdfPointY;
+        //private static int _pdfPointXRight;
+        //private static int _pdfSizeHeight;
+        //private static int _pdfSizeWidthLeft;
+        //private static int _pdfSizeWidthRight;
+        //private static int _pageCount;
+        //private static int _move;
+        //private static int _characterSize;
+        //private static int _fontSize;
         private static int _z;
 
         private static int[] _arrInts = new int[11];
-        private static int[] _arrHelperInts = new int[11];
+   //     private static int[] _arrHelperInts = new int[11];
 
         private static PdfPage _page;
 
@@ -97,44 +97,44 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
                     if (expertsList.Count != 0 || sourcesList.Count != 0 || authorsList.Count != 0)
                     {
-                        pdf.AddPage();
-                        _page = pdf.Pages[_pageCount + 1];
-                        //_pdfPointY = 5;
+                 //       pdf.AddPage();
+                 //       _page = pdf.Pages[_arrInts[6] + 1];
+                 ////       _arrInts[1] = _arrInts[9] - 3;
 
                         _arrInts = PdfHelper.AddReferencesHaeder(pdf, _arrInts);
                     }
 
                     if (expertsList.Count != 0)
                         _arrInts = PdfHelper.AddRefExpertsList(pdf, expertsList, _arrInts);
-                    //if (sourcesList.Count != 0)
-                    //{
-                    //    pdf.AddPage();
-                    //    _page = pdf.Pages[_pageCount + 1];
-                    //    //_pdfPointY = 5;
+                    if (sourcesList.Count != 0)
+                    {
+               //         pdf.AddPage();
+               //         _page = pdf.Pages[_arrInts[6] + 1];
+               ////         _arrInts[1] = _arrInts[9] - 3;
 
-                    //    _arrInts = PdfHelper.AddRefSourcesList(pdf, sourcesList, _arrInts);
-                    //}
+                        _arrInts = PdfHelper.AddRefSourcesList(pdf, sourcesList, _arrInts);
+                    }
 
-                    //if (authorsList.Count != 0)
-                    //{
-                    //    pdf.AddPage();
-                    //    _page = pdf.Pages[_pageCount + 1];
-                    //    //_pdfPointY = 5;
+                    if (authorsList.Count != 0)
+                    {
+                        //pdf.AddPage();
+                        //_page = pdf.Pages[_arrInts[6] + 1];
+                        //_arrInts[1] = _arrInts[9] - 3;
 
-                    //    _arrInts = PdfHelper.AddRefAuthorsList(pdf, authorsList, _arrInts);
-                    //}
+                        _arrInts = PdfHelper.AddRefAuthorsList(pdf, authorsList, _arrInts);
+                    }
 
-                    //if (commentsList.Count != 0)
-                    //{
-                    //    pdf.AddPage();
-                    //    _page = pdf.Pages[_pageCount + 1];
-                    //    //_pdfPointY = 5;
+                    if (commentsList.Count != 0)
+                    {
+                        pdf.AddPage();
+                        _page = pdf.Pages[_arrInts[6] + 1];
+                        //_pdfPointY = 5;
 
-                    //    _arrInts = PdfHelper.AddCommentsHaeder(pdf, _arrInts);
-                    //}
+                        _arrInts = PdfHelper.AddCommentsHaeder(pdf, _arrInts);
+                    }
 
-                    //if (commentsList.Count != 0)
-                    //    _arrInts = PdfHelper.AddCommentsList(pdf, commentsList, _arrInts);
+                    if (commentsList.Count != 0)
+                        _arrInts = PdfHelper.AddCommentsList(pdf, commentsList, _arrInts);
 
                     pdf.Save(pathToFile);
                
@@ -500,7 +500,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             //    {
             //        _pdfPointY += _pdfSizeHeight;
             //    }
-                _pdfPointY += 5; //Distance to next TextBox
+            _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
 
             //    //-------------------------------------------------------
             _arrInts = PdfHelper.PdfTbLeft("memoLeft", _arrInts, CultRes.StringsRes.ReportMemo);
@@ -661,7 +661,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             _n = "childPhylum";
             _z = 1;
             _z1 = _n + _z;
-            _arrInts[7] += +_arrInts[7];   // move 4+4
+            _arrInts[7] += + _arrInts[7];   // move 4+4
 
             foreach (var t in phylumsList)
             {
