@@ -126,9 +126,9 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
                     if (commentsList.Count != 0)
                     {
-                        pdf.AddPage();
-                        _page = pdf.Pages[_arrInts[6] + 1];
-                        //_pdfPointY = 5;
+                        //pdf.AddPage();
+                        //_page = pdf.Pages[_arrInts[6] + 1];
+                        ////_pdfPointY = 5;
 
                         _arrInts = PdfHelper.AddCommentsHaeder(pdf, _arrInts);
                     }

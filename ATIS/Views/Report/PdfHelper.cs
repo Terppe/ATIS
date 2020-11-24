@@ -103,9 +103,10 @@ namespace ATIS.Ui.Views.Report
 
             _page = pdf.Pages[_arrHelperInts[6]];
 
-            //pdf.AddPage();
-            //_page = pdf.Pages[_pageCount + 1];
-            //_pdfPointY = 5;
+            pdf.AddPage();
+            _arrHelperInts[6] +=  1;
+            _page = pdf.Pages[_arrHelperInts[6]];
+            _arrHelperInts[1] = 5;
 
             PdfTbBoldLeft("referencesHeader", _arrHelperInts, CultRes.StringsRes.ReportReferences, 2);
 
@@ -449,9 +450,10 @@ namespace ATIS.Ui.Views.Report
 
             _page = pdf.Pages[_arrHelperInts[6]];
 
-            //pdf.AddPage();
-            //_page = pdf.Pages[_pageCount + 1];
-            //_pdfPointY = 5;
+            pdf.AddPage();
+            _arrHelperInts[6] +=  1;
+            _page = pdf.Pages[_arrHelperInts[6]];
+            _arrHelperInts[1] = 5;
 
             PdfTbBoldLeft("commentsHeader", _arrHelperInts, CultRes.StringsRes.ReportComments, 2);
 
