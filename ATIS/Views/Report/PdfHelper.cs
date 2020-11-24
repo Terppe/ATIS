@@ -13,17 +13,6 @@ namespace ATIS.Ui.Views.Report
 
         private static string _n;
         private static string _z1;
-
-        //private static int _pdfPointXLeft;
-        //private static int _pdfPointY;
-        //private static int _pdfPointXRight;
-        //private static int _pdfSizeHeight;
-        //private static int _pdfSizeWidthLeft;
-        //private static int _pdfSizeWidthRight;
-        //private static int _pageCount;
-        //private static int _move;
-        //private static int _characterSize;
-        //private static int _fontSize;
         private static int _z;
 
         private static PdfPage _page;
@@ -32,19 +21,8 @@ namespace ATIS.Ui.Views.Report
         {
         }
 
-        public int[] AddReportMain(PdfDocument pdf, Tbl03Regnum regnumList)
+        public int[] AddReportMain(PdfDocument pdf)
         {
-            //_pdfPointXLeft = arrayInts[0];
-            //_pdfPointY = arrayInts[1];
-            //_pdfPointXRight = arrayInts[2];
-            //_pdfSizeHeight = arrayInts[3];
-            //_pdfSizeWidthLeft = arrayInts[4];
-            //_pdfSizeWidthRight = arrayInts[5];
-            //_pageCount = arrayInts[6];
-            //_move = arrayInts[7];
-            //_characterSize = arrayInts[8];
-            //_fontSize = arrayInts[9];
-            //_z = arrayInts[10];
             _arrHelperInts[0] = 20; //_pdfPointXLeft
             _arrHelperInts[1] = 5; //_pdfPointY
             _arrHelperInts[2] = 150; //_pdfPointXRight
@@ -71,37 +49,12 @@ namespace ATIS.Ui.Views.Report
             _arrHelperInts[1] += _arrHelperInts[3];
             _arrHelperInts[1] += _arrHelperInts[3] +12; //Distance to next TextBox
 
-            //arrayInts[0] = _pdfPointXLeft;
-            //arrayInts[1] = _pdfPointY;
-            //arrayInts[2] = _pdfPointXRight;
-            //arrayInts[3] = _pdfSizeHeight;
-            //arrayInts[4] = _pdfSizeWidthLeft;
-            //arrayInts[5] = _pdfSizeWidthRight;
-            //arrayInts[6] = _pageCount;
-            //arrayInts[7] = _move;
-            //arrayInts[8] = _characterSize;
-            //arrayInts[9] = _fontSize;
-            //arrayInts[10] = _z;
-
             return _arrHelperInts;
         }
 
         public int[] AddReferencesHaeder(PdfDocument pdf, int[] arrayInts)
         {
             _arrHelperInts = arrayInts;
-            //_pdfPointXLeft = arrayInts[0];
-            //_pdfPointY = arrayInts[1];
-            //_pdfPointXRight = arrayInts[2];
-            //_pdfSizeHeight = arrayInts[3];
-            //_pdfSizeWidthLeft = arrayInts[4];
-            //_pdfSizeWidthRight = arrayInts[5];
-            //_pageCount = arrayInts[6];
-            //_move = arrayInts[7];
-            //_characterSize = arrayInts[8];
-            //_fontSize = arrayInts[9];
-            //_z = arrayInts[10];
-
-            _page = pdf.Pages[_arrHelperInts[6]];
 
             pdf.AddPage();
             _arrHelperInts[6] +=  1;
@@ -110,28 +63,7 @@ namespace ATIS.Ui.Views.Report
 
             PdfTbBoldLeft("referencesHeader", _arrHelperInts, CultRes.StringsRes.ReportReferences, 2);
 
-            //var txtRefHeader = _page.AddTextBox("referencesHeader", new PdfPoint(ArrHelperInts[0], ArrHelperInts[1]),
-            //    new PdfSize(ArrHelperInts[4], ArrHelperInts[3]));
-            //txtRefHeader.HasBorder = false;
-            //txtRefHeader.ReadOnly = true;
-            //txtRefHeader.Font.SynthesizedBold = true;
-            //txtRefHeader.FontSize = ArrHelperInts[9] + 2;
-            //txtRefHeader.Text = CultRes.StringsRes.ReportReferences;
-            //ArrHelperInts[1] += ArrHelperInts[3];
-
             _arrHelperInts[1] += _arrHelperInts[9] - 3; //Distance to next TextBox
-
-            //arrayInts[0] = _pdfPointXLeft;
-            //arrayInts[1] = _pdfPointY;
-            //arrayInts[2] = _pdfPointXRight;
-            //arrayInts[3] = _pdfSizeHeight;
-            //arrayInts[4] = _pdfSizeWidthLeft;
-            //arrayInts[5] = _pdfSizeWidthRight;
-            //arrayInts[6] = _pageCount;
-            //arrayInts[7] = _move;
-            //arrayInts[8] = _characterSize;
-            //arrayInts[9] = _fontSize;
-            //arrayInts[10] = _z;
 
             return _arrHelperInts;
         }
@@ -139,34 +71,10 @@ namespace ATIS.Ui.Views.Report
         public int[] AddRefExpertsList(PdfDocument pdf, ObservableCollection<Tbl90Reference> expertsList, int[] arrayInts)
         {
             _arrHelperInts = arrayInts;
-            //_pdfPointXLeft = arrayInts[0];
-            //_pdfPointY = arrayInts[1];
-            //_pdfPointXRight = arrayInts[2];
-            //_pdfSizeHeight = arrayInts[3];
-            //_pdfSizeWidthLeft = arrayInts[4];
-            //_pdfSizeWidthRight = arrayInts[5];
-            //_pageCount = arrayInts[6];
-            //_move = arrayInts[7];
-            //_characterSize = arrayInts[8];
-            //_fontSize = arrayInts[9];
-            //_z = arrayInts[10];
 
-            _page = pdf.Pages[_arrHelperInts[6]];
-
-            //pdf.AddPage();
-            //_page = pdf.Pages[_arrHelperInts[6] + 1];
             _arrHelperInts[1] += 5;
 
             PdfTbBoldMoveLeft("experts", _arrHelperInts, CultRes.StringsRes.ReportExperts, 0);
-
-            //var txtExpertNameLeft = _page.AddTextBox("experts", new PdfPoint(_pdfPointXLeft + _move, _pdfPointY),
-            //    new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-            //txtExpertNameLeft.HasBorder = false;
-            //txtExpertNameLeft.ReadOnly = true;
-            //txtExpertNameLeft.Font.SynthesizedBold = true;
-            //txtExpertNameLeft.FontSize = _fontSize;
-            //txtExpertNameLeft.Text = CultRes.StringsRes.ReportExperts;
-            //_pdfPointY += _pdfSizeHeight;
 
              _n = "expert";
             _z = 1;
@@ -186,22 +94,6 @@ namespace ATIS.Ui.Views.Report
                 _arrHelperInts = PdfHelper.PdfTbLeft("expert" + _z1, _arrHelperInts, CultRes.StringsRes.ReportExpert);
                 _arrHelperInts = PdfHelper.PdfTbRight(_z1, _arrHelperInts, u1);
 
-                //var txtExpertLeft = _page.AddTextBox("expert" + _z1, new PdfPoint(ArrHelperInts[0] + ArrHelperInts[7], ArrHelperInts[1]),
-                //    new PdfSize(ArrHelperInts[4], ArrHelperInts[3]));
-                //txtExpertLeft.HasBorder = false;
-                //txtExpertLeft.ReadOnly = true;
-                //txtExpertLeft.Font.SynthesizedBold = false;
-                //txtExpertLeft.FontSize = ArrHelperInts[9];
-                //txtExpertLeft.Text = CultRes.StringsRes.ReportExpert;
-
-                //var txtExpertRight = _page.AddTextBox(_z1, new PdfPoint(ArrHelperInts[2], ArrHelperInts[1]),
-                //    new PdfSize(ArrHelperInts[5], ArrHelperInts[3]));
-                //txtExpertRight.HasBorder = false;
-                //txtExpertRight.ReadOnly = true;
-                //txtExpertRight.FontSize = ArrHelperInts[9];
-                //txtExpertRight.Text = u1;
-                //ArrHelperInts[1] += ArrHelperInts[3];
-
                 _z += 1;
                 _z1 = _n + _z;
                 //--------------------------------------------------
@@ -215,22 +107,7 @@ namespace ATIS.Ui.Views.Report
                 _arrHelperInts[1] += _arrHelperInts[6] + 2; //Abstand zum nächsten Datensatz
 
                 //var author = PdfHelper.AuthorViewChangeWithString(t.Author, t.AuthorYear);
-
-                
             }
-
-            //arrayInts[0] = _pdfPointXLeft;
-            //arrayInts[1] = _pdfPointY;
-            //arrayInts[2] = _pdfPointXRight;
-            //arrayInts[3] = _pdfSizeHeight;
-            //arrayInts[4] = _pdfSizeWidthLeft;
-            //arrayInts[5] = _pdfSizeWidthRight;
-            //arrayInts[6] = _pageCount;
-            //arrayInts[7] = _move;
-            //arrayInts[8] = _characterSize;
-            //arrayInts[9] = _fontSize;
-            //arrayInts[10] = _z;
-
             return _arrHelperInts;
         }
 
@@ -238,35 +115,11 @@ namespace ATIS.Ui.Views.Report
         {
             _arrHelperInts = arrayInts;
 
-            //_pdfPointXLeft = arrayInts[0];
-            //_pdfPointY = arrayInts[1];
-            //_pdfPointXRight = arrayInts[2];
-            //_pdfSizeHeight = arrayInts[3];
-            //_pdfSizeWidthLeft = arrayInts[4];
-            //_pdfSizeWidthRight = arrayInts[5];
-            //_pageCount = arrayInts[6];
-            //_move = arrayInts[7];
-            //_characterSize = arrayInts[8];
-            //_fontSize = arrayInts[9];
-            //_z = arrayInts[10];
-
             _page = pdf.Pages[_arrHelperInts[6]];
 
-            //pdf.AddPage();
-            //_page = pdf.Pages[_arrHelperInts[6] + 1];
-            //_arrHelperInts[6] += 1;
             _arrHelperInts[1] += 5;
 
             PdfTbBoldMoveLeft("sources", _arrHelperInts, CultRes.StringsRes.ReportOtherSources, 0);
-
-            //var txtSourceNameLeft = _page.AddTextBox("sources", new PdfPoint(_pdfPointXLeft + _move, _pdfPointY), 
-            //    new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-            //txtSourceNameLeft.HasBorder = false;
-            //txtSourceNameLeft.ReadOnly = true;
-            //txtSourceNameLeft.Font.SynthesizedBold = true;
-            //txtSourceNameLeft.FontSize = _fontSize;
-            //txtSourceNameLeft.Text = CultRes.StringsRes.ReportOtherSources;
-            //_pdfPointY += _pdfSizeHeight;
 
             _n = "source";
             _z = 1;
@@ -288,22 +141,6 @@ namespace ATIS.Ui.Views.Report
                 _arrHelperInts = PdfHelper.PdfTbLeft("source" + _z1, _arrHelperInts, CultRes.StringsRes.ReportSource);
                 _arrHelperInts = PdfHelper.PdfTbRight(_z1, _arrHelperInts, u1);
 
-                //var txtSourceLeft = _page.AddTextBox("source" + _z1, new PdfPoint(_pdfPointXLeft + _move, _pdfPointY),
-                //    new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-                //txtSourceLeft.HasBorder = false;
-                //txtSourceLeft.ReadOnly = true;
-                //txtSourceLeft.Font.SynthesizedBold = false;
-                //txtSourceLeft.FontSize = _fontSize;
-                //txtSourceLeft.Text = CultRes.StringsRes.ReportSource;
-
-                //var txtSourceRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
-                //    new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
-                //txtSourceRight.HasBorder = false;
-                //txtSourceRight.ReadOnly = true;
-                //txtSourceRight.FontSize = _fontSize;
-                //txtSourceRight.Text = u1;
-                //_pdfPointY += _pdfSizeHeight;
-
                 _z += 1;
                 _z1 = _n + _z;
                 //--------------------------------------------------
@@ -316,23 +153,10 @@ namespace ATIS.Ui.Views.Report
                 ReportLeftIfRightTextBox(CultRes.StringsRes.ReportRefFor, u9);
                 ReportIfLeftRightTextBox(CultRes.StringsRes.ReportMemo, u10);
 
-         //       _pdfPointY += 10; //Abstand zum nächsten Datensatz
                 _arrHelperInts[1] += _arrHelperInts[6] + 2; //Abstand zum nächsten Datensatz
 
                 //var author = PdfHelper.AuthorViewChangeWithString(t.Author, t.AuthorYear);
             }
-            //arrayInts[0] = _pdfPointXLeft;
-            //arrayInts[1] = _pdfPointY;
-            //arrayInts[2] = _pdfPointXRight;
-            //arrayInts[3] = _pdfSizeHeight;
-            //arrayInts[4] = _pdfSizeWidthLeft;
-            //arrayInts[5] = _pdfSizeWidthRight;
-            //arrayInts[6] = _pageCount;
-            //arrayInts[7] = _move;
-            //arrayInts[8] = _characterSize;
-            //arrayInts[9] = _fontSize;
-            //arrayInts[10] = _z;
-
             return _arrHelperInts;
         }
 
@@ -340,35 +164,11 @@ namespace ATIS.Ui.Views.Report
         {
             _arrHelperInts = arrayInts;
 
-            //_pdfPointXLeft = arrayInts[0];
-            //_pdfPointY = arrayInts[1];
-            //_pdfPointXRight = arrayInts[2];
-            //_pdfSizeHeight = arrayInts[3];
-            //_pdfSizeWidthLeft = arrayInts[4];
-            //_pdfSizeWidthRight = arrayInts[5];
-            //_pageCount = arrayInts[6];
-            //_move = arrayInts[7];
-            //_characterSize = arrayInts[8];
-            //_fontSize = arrayInts[9];
-            //_z = arrayInts[10];
-
             _page = pdf.Pages[_arrHelperInts[6]];
 
-            //pdf.AddPage();
-            //_page = pdf.Pages[_arrHelperInts[6] + 1];
-            //_arrHelperInts[6] += 1;
             _arrHelperInts[1] += 5;
 
             PdfTbBoldMoveLeft("authors", _arrHelperInts, CultRes.StringsRes.ReportPublications, 0);
-
-            //var txtAuthorNameLeft = _page.AddTextBox("authors", new PdfPoint(_pdfPointXLeft + _move, _pdfPointY),
-            //    new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-            //txtAuthorNameLeft.HasBorder = false;
-            //txtAuthorNameLeft.ReadOnly = true;
-            //txtAuthorNameLeft.Font.SynthesizedBold = true;
-            //txtAuthorNameLeft.FontSize = _fontSize;
-            //txtAuthorNameLeft.Text = CultRes.StringsRes.ReportPublications;
-            //_pdfPointY += _pdfSizeHeight;
 
             _n = "author";
             _z = 1;
@@ -392,9 +192,6 @@ namespace ATIS.Ui.Views.Report
                 var t14 = t.Info;
                 var t15 = t.Memo;
 
-                //_arrHelperInts = PdfHelper.PdfTbLeft("author" + _z1, _arrHelperInts, CultRes.StringsRes.ReportAuthorsEditors);
-                //_arrHelperInts = PdfHelper.PdfTbRight(_z1, _arrHelperInts, t1);
-
                 //--------------------------------------------------
 
                 ReportIfLeftRightTextBox(CultRes.StringsRes.ReportAuthorsEditors, t1);
@@ -417,36 +214,12 @@ namespace ATIS.Ui.Views.Report
                 //var author = PdfHelper.AuthorViewChangeWithString(t.Author, t.AuthorYear);
 
             }
-            //arrayInts[0] = _pdfPointXLeft;
-            //arrayInts[1] = _pdfPointY;
-            //arrayInts[2] = _pdfPointXRight;
-            //arrayInts[3] = _pdfSizeHeight;
-            //arrayInts[4] = _pdfSizeWidthLeft;
-            //arrayInts[5] = _pdfSizeWidthRight;
-            //arrayInts[6] = _pageCount;
-            //arrayInts[7] = _move;
-            //arrayInts[8] = _characterSize;
-            //arrayInts[9] = _fontSize;
-            //arrayInts[10] = _z;
-
             return _arrHelperInts;
         }
 
         public int[] AddCommentsHaeder(PdfDocument pdf, int[] arrayInts)
         {
             _arrHelperInts = arrayInts;
-
-            //_pdfPointXLeft = arrayInts[0];
-            //_pdfPointY = arrayInts[1];
-            //_pdfPointXRight = arrayInts[2];
-            //_pdfSizeHeight = arrayInts[3];
-            //_pdfSizeWidthLeft = arrayInts[4];
-            //_pdfSizeWidthRight = arrayInts[5];
-            //_pageCount = arrayInts[6];
-            //_move = arrayInts[7];
-            //_characterSize = arrayInts[8];
-            //_fontSize = arrayInts[9];
-            //_z = arrayInts[10];
 
             _page = pdf.Pages[_arrHelperInts[6]];
 
@@ -457,28 +230,7 @@ namespace ATIS.Ui.Views.Report
 
             PdfTbBoldLeft("commentsHeader", _arrHelperInts, CultRes.StringsRes.ReportComments, 2);
 
-            //var txtCommHeader = _page.AddTextBox("commentsHeader", new PdfPoint(_pdfPointXLeft, _pdfPointY),
-            //    new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-            //txtCommHeader.HasBorder = false;
-            //txtCommHeader.ReadOnly = true;
-            //txtCommHeader.Font.SynthesizedBold = true;
-            //txtCommHeader.FontSize = 10;
-            //txtCommHeader.Text = CultRes.StringsRes.ReportComments;
-            //_pdfPointY += _pdfSizeHeight;
-
             _arrHelperInts[1] += _arrHelperInts[9] - 3; //Distance to next TextBox
-
-            //arrayInts[0] = _pdfPointXLeft;
-            //arrayInts[1] = _pdfPointY;
-            //arrayInts[2] = _pdfPointXRight;
-            //arrayInts[3] = _pdfSizeHeight;
-            //arrayInts[4] = _pdfSizeWidthLeft;
-            //arrayInts[5] = _pdfSizeWidthRight;
-            //arrayInts[6] = _pageCount;
-            //arrayInts[7] = _move;
-            //arrayInts[8] = _characterSize;
-            //arrayInts[9] = _fontSize;
-            //arrayInts[10] = _z;
 
             return _arrHelperInts;
         }
@@ -487,32 +239,9 @@ namespace ATIS.Ui.Views.Report
         {
             _arrHelperInts = arrayInts;
 
-            //_pdfPointXLeft = arrayInts[0];
-            //_pdfPointY = arrayInts[1];
-            //_pdfPointXRight = arrayInts[2];
-            //_pdfSizeHeight = arrayInts[3];
-            //_pdfSizeWidthLeft = arrayInts[4];
-            //_pdfSizeWidthRight = arrayInts[5];
-            //_pageCount = arrayInts[6];
-            //_move = arrayInts[7];
-            //_characterSize = arrayInts[8];
-            //_fontSize = arrayInts[9];
-            //_z = arrayInts[10];
-
             _page = pdf.Pages[_arrHelperInts[6]];
 
-            //pdf.AddPage();
-            //_page = pdf.Pages[_pageCount + 1];
-            //_pdfPointY = 5;
-
-            //var txtCommentHaeder = _page.AddTextBox("comments", new PdfPoint(_pdfPointXLeft + _move, _pdfPointY),
-            //    new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-            //txtCommentHaeder.HasBorder = false;
-            //txtCommentHaeder.ReadOnly = true;
-            //txtCommentHaeder.Font.SynthesizedBold = true;
-            //txtCommentHaeder.FontSize = _fontSize;
-            //txtCommentHaeder.Text = CultRes.StringsRes.ReportComments;
-            //_pdfPointY += _pdfSizeHeight;
+            _arrHelperInts[1] += 5;
 
             _n = "comment";
             _z = 1;
@@ -526,22 +255,6 @@ namespace ATIS.Ui.Views.Report
                 _arrHelperInts = PdfHelper.PdfTbLeft("comment" + _z1, _arrHelperInts, CultRes.StringsRes.ReportInfo);
                 _arrHelperInts = PdfHelper.PdfTbRight(_z1, _arrHelperInts, t1);
 
-            //    var txtCommentLeft = _page.AddTextBox("comment" + _z1, new PdfPoint(_pdfPointXLeft + _move, _pdfPointY),
-            //    new PdfSize(_pdfSizeWidthLeft, _pdfSizeHeight));
-            //txtCommentLeft.HasBorder = false;
-            //txtCommentLeft.ReadOnly = true;
-            //txtCommentLeft.Font.SynthesizedBold = false;
-            //txtCommentLeft.FontSize = _fontSize;
-            //txtCommentLeft.Text = CultRes.StringsRes.ReportInfo;
-
-            //var txtCommentRight = _page.AddTextBox(_z1, new PdfPoint(_pdfPointXRight, _pdfPointY),
-            //    new PdfSize(_pdfSizeWidthRight, _pdfSizeHeight));
-            //txtCommentRight.HasBorder = false;
-            //txtCommentRight.ReadOnly = true;
-            //txtCommentRight.FontSize = _fontSize;
-            //txtCommentRight.Text = t1;
-            //_pdfPointY += _pdfSizeHeight;
-
             _z += 1;
             _z1 = _n + _z;
             //---------------------------------------------------------
@@ -550,20 +263,7 @@ namespace ATIS.Ui.Views.Report
             _arrHelperInts[1] += _arrHelperInts[9] - 3; //Distance to next TextBox
 
                 //var author = PdfHelper.AuthorViewChangeWithString(t.Author, t.AuthorYear);
-
             }
-            //arrayInts[0] = _pdfPointXLeft;
-            //arrayInts[1] = _pdfPointY;
-            //arrayInts[2] = _pdfPointXRight;
-            //arrayInts[3] = _pdfSizeHeight;
-            //arrayInts[4] = _pdfSizeWidthLeft;
-            //arrayInts[5] = _pdfSizeWidthRight;
-            //arrayInts[6] = _pageCount;
-            //arrayInts[7] = _move;
-            //arrayInts[8] = _characterSize;
-            //arrayInts[9] = _fontSize;
-            //arrayInts[10] = _z;
-
             return _arrHelperInts;
         }
 
@@ -837,6 +537,72 @@ namespace ATIS.Ui.Views.Report
                 names = "- " + porName;
             //------------
 
+            return names.Trim();
+        }
+
+        public static string NamesAuthorsForeignNamesViewChange(string name, string author, string authorYear, string gerName, string engName, string fraName, string porName)
+        {
+
+            var names = "";
+
+            if (string.IsNullOrEmpty(name)) //return names;
+            //------------------------------------------
+            names = name;
+            if (string.IsNullOrEmpty(author)) //return "";
+            {
+                names = name;
+            }
+            else
+            {
+                if (author.Contains("("))
+                {
+                    var length = author.Length;
+                    author = " - " + author.Insert(length - 1, ", " + authorYear);
+                }
+                else
+                {
+                    author = " - " + author + ", " + authorYear;
+                }
+
+            }
+
+            names = name + author;
+            //----------------------------------------------------------
+            if (string.IsNullOrEmpty(gerName) && string.IsNullOrEmpty(engName) && string.IsNullOrEmpty(fraName) && string.IsNullOrEmpty(porName)) return names;
+            //------------
+            if (!string.IsNullOrEmpty(gerName) && string.IsNullOrEmpty(engName) && string.IsNullOrEmpty(fraName) && string.IsNullOrEmpty(porName))
+                names += " - " + gerName;
+            if (!string.IsNullOrEmpty(gerName) && !string.IsNullOrEmpty(engName) && string.IsNullOrEmpty(fraName) && string.IsNullOrEmpty(porName))
+                names += " - " + gerName + ", " + engName;
+            if (!string.IsNullOrEmpty(gerName) && !string.IsNullOrEmpty(engName) && !string.IsNullOrEmpty(fraName) && string.IsNullOrEmpty(porName))
+                names += "- " + gerName + ", " + engName + ", " + fraName;
+            if (!string.IsNullOrEmpty(gerName) && !string.IsNullOrEmpty(engName) && !string.IsNullOrEmpty(fraName) && !string.IsNullOrEmpty(porName))
+                names += " - " + gerName + ", " + engName + ", " + fraName + ", " + porName;
+            //------------
+            if (!string.IsNullOrEmpty(gerName) && string.IsNullOrEmpty(engName) && !string.IsNullOrEmpty(fraName) && string.IsNullOrEmpty(porName))
+                names += " - " + gerName + ", " + fraName;
+            if (!string.IsNullOrEmpty(gerName) && string.IsNullOrEmpty(engName) && !string.IsNullOrEmpty(fraName) && !string.IsNullOrEmpty(porName))
+                names += " - " + gerName + ", " + fraName + ", " + porName;
+            //------------
+            if (!string.IsNullOrEmpty(gerName) && string.IsNullOrEmpty(engName) && string.IsNullOrEmpty(fraName) && !string.IsNullOrEmpty(porName))
+                names += " - " + gerName + ", " + porName;
+            //------------
+
+            if (string.IsNullOrEmpty(gerName) && !string.IsNullOrEmpty(engName) && string.IsNullOrEmpty(fraName) && string.IsNullOrEmpty(porName))
+                names += " - " + engName;
+            if (string.IsNullOrEmpty(gerName) && !string.IsNullOrEmpty(engName) && !string.IsNullOrEmpty(fraName) && string.IsNullOrEmpty(porName))
+                names += " - " + engName + ", " + fraName;
+            if (string.IsNullOrEmpty(gerName) && !string.IsNullOrEmpty(engName) && !string.IsNullOrEmpty(fraName) && !string.IsNullOrEmpty(porName))
+                names += " - " + engName + ", " + fraName + ", " + porName;
+            //------------
+            if (string.IsNullOrEmpty(gerName) && string.IsNullOrEmpty(engName) && !string.IsNullOrEmpty(fraName) && string.IsNullOrEmpty(porName))
+                names += " - " + fraName;
+            if (string.IsNullOrEmpty(gerName) && string.IsNullOrEmpty(engName) && !string.IsNullOrEmpty(fraName) && !string.IsNullOrEmpty(porName))
+                names += " - " + fraName + ", " + porName;
+            //------------
+            if (string.IsNullOrEmpty(gerName) && string.IsNullOrEmpty(engName) && string.IsNullOrEmpty(fraName) && !string.IsNullOrEmpty(porName))
+                names += " - " + porName;
+            //------------
 
             return names.Trim();
         }
