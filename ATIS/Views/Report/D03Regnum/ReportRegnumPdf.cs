@@ -118,25 +118,12 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             _page = pdf.Pages[_arrInts[6]];
 
             var textAusgabeAuthor = PdfHelper.AuthorViewChangeWithString(regnumList.Author, regnumList.AuthorYear);
+            var textAusgabeNameAuthor = regnumList.RegnumName + " " + regnumList.Subregnum + " " + textAusgabeAuthor;
+            _arrInts = PdfHelper.PdfTbBoldLeft("regnumName", _arrInts, true,textAusgabeNameAuthor, 2);
 
-            var txtName = _page.AddTextBox("regnumName", new PdfPoint(_arrInts[0], _arrInts[1]),
-                new PdfSize(_arrInts[5], _arrInts[3]));
-            txtName.HasBorder = false;
-            txtName.ReadOnly = true;
-            txtName.Font.SynthesizedBold = true;
-            txtName.FontSize = _arrInts[9] + 2;
-            txtName.Text = regnumList.RegnumName + " " + regnumList.Subregnum + " " + textAusgabeAuthor;
-            _arrInts[1] += _arrInts[3];
+            _arrInts[1] += _arrInts[9] ; //Distance to next TextBox
 
-            _arrInts[1] += _arrInts[9] - 6; //Distance to next TextBox
-
-            var txtCountId = _page.AddTextBox("countId", new PdfPoint(_arrInts[0], _arrInts[1]), 
-                new PdfSize(_arrInts[5], _arrInts[3]));
-            txtCountId.HasBorder = false;
-            txtCountId.ReadOnly = true;
-            txtCountId.Font.SynthesizedBold = false;
-            txtCountId.FontSize = _arrInts[9] - 1;
-            txtCountId.Text = CultRes.StringsRes.ReportTaxonomicId + regnumList.CountId;
+            _arrInts = PdfHelper.PdfTbBoldLeft("countId", _arrInts,false,CultRes.StringsRes.ReportTaxonomicId + regnumList.CountId, 0);
 
             _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
         }
@@ -144,60 +131,60 @@ namespace ATIS.Ui.Views.Report.D03Regnum
         { 
             _page = pdf.Pages[_arrInts[6]];
 
-            _arrInts = PdfHelper.PdfTbBoldLeft("header2", _arrInts, CultRes.StringsRes.ReportTaxoNomen, 2);
+            _arrInts = PdfHelper.PdfTbBoldLeft("header2", _arrInts, true,CultRes.StringsRes.ReportTaxoNomen, 2);
 
-            _arrInts[1] += _arrInts[9] - 6; //Distance to next TextBox
+            _arrInts[1] += _arrInts[9]; //Distance to next TextBox
 
             //----------------------------------------------------------------
-            _arrInts = PdfHelper.PdfTbLeft("kingdomLeft", _arrInts, CultRes.StringsRes.Regnum + ":");
-            _arrInts = PdfHelper.PdfTbRight("kingdomRight", _arrInts, regnumList.RegnumName + " " + regnumList.Subregnum);
+            _arrInts = PdfHelper.PdfTbMoveLeft("kingdomLeft", _arrInts, false, CultRes.StringsRes.Regnum + ":",0);
+            _arrInts = PdfHelper.PdfTbRight("kingdomRight", _arrInts, false, regnumList.RegnumName + " " + regnumList.Subregnum,0);
             //---------------------------------------------------------------
-            _arrInts = PdfHelper.PdfTbLeft("rankLeft", _arrInts, CultRes.StringsRes.ReportTaxoRank); 
-            _arrInts = PdfHelper.PdfTbRight("rankRight", _arrInts, CultRes.StringsRes.Regnum);
+            _arrInts = PdfHelper.PdfTbMoveLeft("rankLeft", _arrInts, false, CultRes.StringsRes.ReportTaxoRank, 0); 
+            _arrInts = PdfHelper.PdfTbRight("rankRight", _arrInts, false, CultRes.StringsRes.Regnum,0);
             //------------------------------------------------------
-            _arrInts = PdfHelper.PdfTbLeft("synonymLeft", _arrInts, CultRes.StringsRes.ReportSynonyms);
+            _arrInts = PdfHelper.PdfTbMoveLeft("synonymLeft", _arrInts, false, CultRes.StringsRes.ReportSynonyms, 0);
             //------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMtRight("synonymRight", _arrInts, regnumList.Synonym);
 
-            _arrInts[1] += 8; //Distance to next TextBox
+            _arrInts[1] += _arrInts[9] ; //Distance to next TextBox
 
             //---------------------------------------------------------------
-            _arrInts = PdfHelper.PdfTbLeft("commNameLeft", _arrInts, CultRes.StringsRes.ReportCommonNames);
+            _arrInts = PdfHelper.PdfTbMoveLeft("commNameLeft", _arrInts, false, CultRes.StringsRes.ReportCommonNames, 0);
             //---------------------------------------------------------------
-            _arrInts = PdfHelper.PdfTbRight("commNameGerRight", _arrInts, regnumList.GerName + " " + CultRes.StringsRes.ReportGerman);
-            _arrInts = PdfHelper.PdfTbRight("commNameEngRight", _arrInts, regnumList.EngName + " " + CultRes.StringsRes.ReportEnglish);
-            _arrInts = PdfHelper.PdfTbRight("commNameFraRight", _arrInts, regnumList.FraName + " " + CultRes.StringsRes.ReportFrench);
-            _arrInts = PdfHelper.PdfTbRight("commNameSpaRight", _arrInts, regnumList.PorName + " " + CultRes.StringsRes.ReportPortuguese);
+            _arrInts = PdfHelper.PdfTbRight("commNameGerRight", _arrInts, false, regnumList.GerName + " " + CultRes.StringsRes.ReportGerman,0);
+            _arrInts = PdfHelper.PdfTbRight("commNameEngRight", _arrInts, false, regnumList.EngName + " " + CultRes.StringsRes.ReportEnglish,0);
+            _arrInts = PdfHelper.PdfTbRight("commNameFraRight", _arrInts, false, regnumList.FraName + " " + CultRes.StringsRes.ReportFrench,0);
+            _arrInts = PdfHelper.PdfTbRight("commNameSpaRight", _arrInts, false, regnumList.PorName + " " + CultRes.StringsRes.ReportPortuguese,0);
 
-            _arrInts[1] += 5; //Distance to next TextBox
+            _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
 
             //-------------------------------------------------------
-            _arrInts = PdfHelper.PdfTbBoldMoveLeft("status", _arrInts, CultRes.StringsRes.ReportTaxoStatus, 1);
+            _arrInts = PdfHelper.PdfTbBoldMoveLeft("status", _arrInts, CultRes.StringsRes.ReportTaxoStatus, 0);
             //---------------------------------------------------------
-            _arrInts = PdfHelper.PdfTbLeft("currStatusLeft", _arrInts, CultRes.StringsRes.ReportCurrentStand);
+            _arrInts = PdfHelper.PdfTbMoveLeft("currStatusLeft", _arrInts, false, CultRes.StringsRes.ReportCurrentStand, 0);
 
-            _arrInts = PdfHelper.PdfTbRight("currStatusRight", _arrInts, regnumList.Valid.ToString());
+            _arrInts = PdfHelper.PdfTbRight("currStatusRight", _arrInts, false, regnumList.Valid.ToString(),0);
 
-            _arrInts[1] += _arrInts[9] - 6; //Distance to next TextBox
+            _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
 
             //-----------------------------------------------------------
-            _arrInts = PdfHelper.PdfTbBoldMoveLeft("quali", _arrInts, CultRes.StringsRes.ReportDataQualiIndicator, 1);
+            _arrInts = PdfHelper.PdfTbBoldMoveLeft("quali", _arrInts,CultRes.StringsRes.ReportDataQualiIndicator, 0);
             //---------------------------------------------------------
-            _arrInts = PdfHelper.PdfTbLeft("recordLeft", _arrInts, CultRes.StringsRes.ReportRecordUpdate);
+            _arrInts = PdfHelper.PdfTbMoveLeft("recordLeft", _arrInts, false, CultRes.StringsRes.ReportRecordUpdate, 0);
 
-            _arrInts = PdfHelper.PdfTbRight("recordRight", _arrInts, Convert.ToString(regnumList.UpdaterDate, CultureInfo.InvariantCulture));
+            _arrInts = PdfHelper.PdfTbRight("recordRight", _arrInts, false, Convert.ToString(regnumList.UpdaterDate, CultureInfo.InvariantCulture),0);
 
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
 
             //-------------------------------------------------------------
-            _arrInts = PdfHelper.PdfTbLeft("infoLeft", _arrInts, CultRes.StringsRes.ReportInfo);
+            _arrInts = PdfHelper.PdfTbMoveLeft("infoLeft", _arrInts, false, CultRes.StringsRes.ReportInfo, 0);
 
             _arrInts = PdfHelper.PdfTbMtRight("infoRight", _arrInts, regnumList.Info);
 
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
 
             //-------------------------------------------------------
-            _arrInts = PdfHelper.PdfTbLeft("memoLeft", _arrInts, CultRes.StringsRes.ReportMemo);
+            _arrInts = PdfHelper.PdfTbMoveLeft("memoLeft", _arrInts, false, CultRes.StringsRes.ReportMemo, 0);
 
             _arrInts = PdfHelper.PdfTbMtRight("memoRight", _arrInts, regnumList.Memo);
 
@@ -207,19 +194,18 @@ namespace ATIS.Ui.Views.Report.D03Regnum
         {
             _page = pdf.Pages[_arrInts[6]];
 
-            _arrInts = PdfHelper.PdfTbBoldLeft("header3", _arrInts, CultRes.StringsRes.ReportTaxoHiera, 2);
+            _arrInts = PdfHelper.PdfTbBoldLeft("header3", _arrInts, true,CultRes.StringsRes.ReportTaxoHiera, 2);
 
-            _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
+            _arrInts[1] += _arrInts[9]; //Distance to next TextBox
 
             //---------------------------------------------------------------
-            _arrInts = PdfHelper.PdfTbLeft("regnumLeft", _arrInts, CultRes.StringsRes.Regnum);
+            _arrInts = PdfHelper.PdfTbMoveLeft("regnumLeft", _arrInts, false, CultRes.StringsRes.Regnum, 0);
 
             var txtNameAndSub = regnumList.RegnumName + " " + regnumList.Subregnum;
             var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtNameAndSub, regnumList.Author,
                 regnumList.AuthorYear, regnumList.GerName, regnumList.EngName, regnumList.FraName, regnumList.PorName);
 
-             _arrInts = PdfHelper.PdfTbRight("regnumRight", _arrInts, textResult);
-
+             _arrInts = PdfHelper.PdfTbRight("regnumRight", _arrInts, false, textResult,0);
 
             _arrInts[1] += _arrInts[9] - 4; //Distance to next TextBox
         }
@@ -227,14 +213,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
         {
             _page = pdf.Pages[_arrInts[6]];
 
-            var txtChildren = _page.AddTextBox("childrenPhylum", new PdfPoint(_arrInts[2], _arrInts[1]),
-                new PdfSize(_arrInts[5], _arrInts[3]));
-            txtChildren.HasBorder = false;
-            txtChildren.ReadOnly = true;
-            txtChildren.Font.SynthesizedBold = true;
-            txtChildren.FontSize = _arrInts[9] + 1;
-            txtChildren.Text = CultRes.StringsRes.ReportDirectChild;
-            _arrInts[1] += _arrInts[3];
+            _arrInts = PdfHelper.PdfTbRight("childrenPhylum", _arrInts, true, CultRes.StringsRes.ReportDirectChild, 1);
 
             _arrInts[1] += _arrInts[9] - 4; //Distance to next TextBox
 
@@ -264,38 +243,20 @@ namespace ATIS.Ui.Views.Report.D03Regnum
                 var t7 = t.PorName;
                 if (t7 != null) tAllLength += t7.Length;
 
-                _arrInts = PdfHelper.PdfTbLeft("phylumLeft" + _z1, _arrInts, CultRes.StringsRes.Phylum);
-
-                var phylumAll = 0;
-                for (int i = _arrInts[8]; i < tAllLength; i += _arrInts[8])
-                {
-                    phylumAll += _arrInts[9] + _arrInts[9];
-                }
+                _arrInts = PdfHelper.PdfTbMoveLeft("phylumLeft" + _z1, _arrInts, false, CultRes.StringsRes.Phylum, 0);
 
                 var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(t1, t2, t3, t4, t5, t6, t7);
 
                 if (tAllLength >= _arrInts[8])
                 {
-                    var txtPhylumNameRight = _page.AddTextBox(_z1, new PdfPoint(_arrInts[2], _arrInts[1]),
-                        new PdfSize(_arrInts[5], _arrInts[3] + phylumAll));
-                    txtPhylumNameRight.HasBorder = false;
-                    txtPhylumNameRight.ReadOnly = true;
-                    txtPhylumNameRight.Multiline = true;
-                    txtPhylumNameRight.FontSize = _arrInts[9];
-           //         txtPhylumNameRight.Text = t1 + " - " + t2 + ", " + t3 + " - " + t4 + " " + t5 + " " + t6 + " " + t7;
-                    txtPhylumNameRight.Text = textResult;
-                    _arrInts[1] += _arrInts[3] + phylumAll -4 ;  // -8 Leerzeile
+
+                    _arrInts = PdfHelper.PdfTbMtRight(_z1, _arrInts, textResult);
+
+                    _arrInts[1] += _arrInts[3]/2;  // 1/2 Fontheight Leerzeile
                 }
                 else
                 {
-                    var txtPhylumNameRight = _page.AddTextBox(_z1, new PdfPoint(_arrInts[2], _arrInts[1]),
-                        new PdfSize(_arrInts[5], _arrInts[3]));
-                    txtPhylumNameRight.HasBorder = false;
-                    txtPhylumNameRight.ReadOnly = true;
-                    txtPhylumNameRight.FontSize = _arrInts[9];
-        //            txtPhylumNameRight.Text = t1 + " - " + t2 + ", " + t3 + " - " + t4 + " " + t5 + " " + t6 + " " + t7;
-                    txtPhylumNameRight.Text = textResult;
-                    _arrInts[1] += _arrInts[3];
+                    _arrInts = PdfHelper.PdfTbRight(_z1, _arrInts, false, textResult,0);
                 }
 
                 _z += 1;
@@ -307,15 +268,9 @@ namespace ATIS.Ui.Views.Report.D03Regnum
         {
             _page = pdf.Pages[_arrInts[6]];
 
-            var txtChildren = _page.AddTextBox("childrenDivision", new PdfPoint(_arrInts[2], _arrInts[1]),
-                new PdfSize(_arrInts[5], _arrInts[3]));
-            txtChildren.HasBorder = false;
-            txtChildren.ReadOnly = true;
-            txtChildren.Font.SynthesizedBold = true;
-            txtChildren.FontSize = _arrInts[9] + 1;
-            txtChildren.Text = CultRes.StringsRes.ReportDirectChild;
-            _arrInts[1] += _arrInts[3];
+            _arrInts = PdfHelper.PdfTbRight("childrenDivision", _arrInts, true, CultRes.StringsRes.ReportDirectChild, 1);
 
+ 
             _arrInts[1] += _arrInts[9] - 4; //Distance to next TextBox
 
             //------------------------------------------------------------------
@@ -344,38 +299,19 @@ namespace ATIS.Ui.Views.Report.D03Regnum
                 var t7 = t.PorName;
                 if (t7 != null) tAllLength += t7.Length;
 
-                _arrInts = PdfHelper.PdfTbLeft("divisionLeft" + _z1, _arrInts, CultRes.StringsRes.Division);
-
-                var divisionAll = 0;
-                for (int i = _arrInts[8]; i < tAllLength; i += _arrInts[8])
-                {
-                    divisionAll += _arrInts[9] + _arrInts[9];
-                }
+                _arrInts = PdfHelper.PdfTbMoveLeft("divisionLeft" + _z1, _arrInts, false, CultRes.StringsRes.Division, 0);
 
                 var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(t1, t2, t3, t4, t5, t6, t7);
 
                 if (tAllLength >= _arrInts[8])
                 {
-                    var txtDivisionNameRight = _page.AddTextBox(_z1, new PdfPoint(_arrInts[2], _arrInts[1]),
-                        new PdfSize(_arrInts[5], _arrInts[3] + divisionAll));
-                    txtDivisionNameRight.HasBorder = false;
-                    txtDivisionNameRight.ReadOnly = true;
-                    txtDivisionNameRight.Multiline = true;
-                    txtDivisionNameRight.FontSize = _arrInts[9];
-      //              txtDivisionNameRight.Text = t1 + " - " + t2 + ", " + t3 + " - " + t4 + " " + t5 + " " + t6 + " " + t7;
-                    txtDivisionNameRight.Text = textResult;
-                    _arrInts[1] += _arrInts[3] + divisionAll - 4;  // -8 Leerzeile
+                    _arrInts = PdfHelper.PdfTbMtRight(_z1, _arrInts, textResult);
+
+                    _arrInts[1] += _arrInts[3] / 2;  // 1/2 Fontheight Leerzeile
                 }
                 else
                 {
-                    var txtDivisionNameRight = _page.AddTextBox(_z1, new PdfPoint(_arrInts[2], _arrInts[1]),
-                        new PdfSize(_arrInts[5], _arrInts[3]));
-                    txtDivisionNameRight.HasBorder = false;
-                    txtDivisionNameRight.ReadOnly = true;
-                    txtDivisionNameRight.FontSize = _arrInts[9];
-         //           txtDivisionNameRight.Text = t1 + " - " + t2 + ", " + t3 + " - " + t4 + " " + t5 + " " + t6 + " " + t7;
-                    txtDivisionNameRight.Text = textResult;
-                    _arrInts[1] += _arrInts[3];
+                    _arrInts = PdfHelper.PdfTbRight(_z1, _arrInts, false, textResult,0);
                 }
 
                 _z += 1;
