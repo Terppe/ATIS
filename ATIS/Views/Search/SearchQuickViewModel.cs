@@ -22,7 +22,6 @@ namespace ATIS.Ui.Views.Search
 
         }
 
-        //------------------------------------------------------------------
 
         //------------------------------------------------------------------
         private RelayCommand _searchQuickByNameCommand;

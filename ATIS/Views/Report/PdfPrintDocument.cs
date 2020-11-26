@@ -10,7 +10,7 @@ namespace ATIS.Ui.Views.Report
         ActualSize
     }
 
-    class PdfPrintDocument : IDisposable
+     class PdfPrintDocument : IDisposable
     {
         private readonly PrintDocument m_printDocument;
         private readonly PrintSize m_printSize;

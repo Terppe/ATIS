@@ -142,8 +142,15 @@
                 Width="120"
                 Margin="5,5,10,5"
                 VerticalAlignment="Center"
-                Command="{Binding PdfTbl03RegnumsCommand}"
+                Command="{Binding PdfRegnumPrintCommand}"
                 Content="{DynamicResource Report-PrintPdf}"
+                Style="{StaticResource MahApps.Styles.Button}" />
+            <Button
+                Width="120"
+                Margin="5,5,10,5"
+                VerticalAlignment="Center"
+                Command="{Binding PdfRegnumSaveCommand}"
+                Content="{DynamicResource Report-SavePdf}"
                 Style="{StaticResource MahApps.Styles.Button}" />
         </StackPanel>
 

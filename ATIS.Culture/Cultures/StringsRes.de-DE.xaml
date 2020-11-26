@@ -680,7 +680,8 @@
     <system:String x:Key="Report-French">[Französisch]</system:String>
     <system:String x:Key="Report-Portuguese">[Portuguesisch]</system:String>
     <system:String x:Key="Report-Spanish">[Spanisch]</system:String>
-    <system:String x:Key="Report-PrintPdf">Drucken PDF</system:String>
+    <system:String x:Key="Report-PrintPdf">Drucken als PDF</system:String>
+    <system:String x:Key="Report-SavePdf">Speichern als PDF</system:String>
     <system:String x:Key="Report-DataQualiIndicator">Daten Qualität Indikatoren</system:String>
     <system:String x:Key="Report-RecordCrediRate">Datensatz Glaubhaftigkeit</system:String>
     <system:String x:Key="Report-RecordUpdate">Letzter Datensatz Abgleich</system:String>

@@ -6,15 +6,13 @@ using System.Linq;
 using System.Windows.Input;
 using ATIS.Ui.Views.Report.D03Regnum;
 using ATIS.Ui.Views.Report.D06Phylum;
+using BitMiracle.Docotic;
 
 namespace ATIS.Ui.Views.Report
 {
     public class ReportViewModel : ViewModelBase
     {
         #region "Private Data Members"
-        //private static IBusinessLayer _businessLayer;
-        //private static DbEntityException _entityException;
-        //	private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly AtisDbContext _context = new AtisDbContext();
         private readonly ReportBasicGet _extReportBasicGet = new ReportBasicGet();
 
@@ -26,6 +24,9 @@ namespace ATIS.Ui.Views.Report
 
         public ReportViewModel(int id, string tab)
         {
+            LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
+            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
+
             //  Search for SubdivisionID of name Plantae#Regnum# 
             //         var plantaeRegnum = _businessLayer.SingleListTbl15SubdivisionsBySubdivisionName("Plantae#Regnum#");
             var plantaeRegnum = _context.Tbl15Subdivisions.FirstOrDefault(e => e.SubdivisionName == "Plantae#Regnum#");
@@ -154,17 +155,32 @@ namespace ATIS.Ui.Views.Report
 
             CommentsCollection = _extReportBasicGet.CollCommentsByRegnumId(id);
         }
-        private RelayCommand _pdfTbl03RegnumsCommand;
-        public ICommand PdfTbl03RegnumsCommand
+        //------------------------------------------------------------------------------
+
+        private RelayCommand _pdfRegnumPrintCommand;
+        public ICommand PdfRegnumPrintCommand
         {
-            get { return _pdfTbl03RegnumsCommand ??= new RelayCommand(delegate { CreatePdfTbl03Regnums(_mainId); }); }
+            get { return _pdfRegnumPrintCommand ??= new RelayCommand(delegate { CreatePdfRegnumPrint(_mainId); }); }
         }
 
-        private static void CreatePdfTbl03Regnums(int id)
+        private static void CreatePdfRegnumPrint(int id)
         {
-            ReportRegnumPdf.CreateMainPdf(id);
+            const string use = "print";
+            ReportRegnumPdf.CreateMainPdf(id, use);
         }
         //------------------------------------------------------------------------------
+        private RelayCommand _pdfRegnumSaveCommand;
+        public ICommand PdfRegnumSaveCommand
+        {
+            get { return _pdfRegnumSaveCommand ??= new RelayCommand(delegate { CreatePdfRegnumSave(_mainId); }); }
+        }
+
+        private static void CreatePdfRegnumSave(int id)
+        {
+            const string use = "save";
+            ReportRegnumPdf.CreateMainPdf(id, use);
+        }
+
         //------------------------------------------------------------------------------  		   
         public void GetTbl06PhylumsById(int id)
         {

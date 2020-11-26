@@ -679,6 +679,7 @@
     <system:String x:Key="Report-Portuguese">[Portuguese]</system:String>
     <system:String x:Key="Report-Spanish">[Spanish]</system:String>
     <system:String x:Key="Report-PrintPdf">Print PDF</system:String>
+    <system:String x:Key="Report-SavePdf">Save PDF</system:String>
     <system:String x:Key="Report-DataQualiIndicator">Data Quality Indicators</system:String>
     <system:String x:Key="Report-RecordCrediRate">Record Credibility Rating</system:String>
     <system:String x:Key="Report-RecordUpdate">Latest Record Review</system:String>

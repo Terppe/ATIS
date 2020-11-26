@@ -918,4 +918,7 @@
   <data name="ReportNames" xml:space="preserve">
     <value>Name(s)</value>
   </data>
+  <data name="ReportSpanish" xml:space="preserve">
+    <value>[Spanish]</value>
+  </data>
 </root>

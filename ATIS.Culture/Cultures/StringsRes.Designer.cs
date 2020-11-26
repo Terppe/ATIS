@@ -1600,6 +1600,15 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die [Spanish] ähnelt.
+        /// </summary>
+        public static string ReportSpanish {
+            get {
+                return ResourceManager.GetString("ReportSpanish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Synonym(s) ähnelt.
         /// </summary>
         public static string ReportSynonyms {

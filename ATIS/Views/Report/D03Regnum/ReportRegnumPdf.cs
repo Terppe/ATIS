@@ -8,6 +8,7 @@ using ATIS.Ui.Views.Database.CrudHelper;
 using BitMiracle.Docotic;
 using BitMiracle.Docotic.Pdf;
 using log4net;
+using Microsoft.Win32;
 
 namespace ATIS.Ui.Views.Report.D03Regnum
 {
@@ -23,24 +24,18 @@ namespace ATIS.Ui.Views.Report.D03Regnum
         private static PdfPage _page;
 
         //    Part 1    
-
-        public static void CreateMainPdf(int id)
+         public static void CreateMainPdf(int id, string use)
         {
             // NOTE: 
             // When used in trial mode, the library imposes some restrictions.
             // Please visit http://bitmiracle.com/pdf-library/trial-restrictions.aspx
             // for more information.
+          
+            //log4net.Config.XmlConfigurator.Configure();
 
 
-            LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
+          //  LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
             //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
-
-            const string pathToFile = @"..\..\..\..\..\..\..\..\RudiPDFTest.pdf";
-
-            //var sfd = new SaveFileDialog {Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*"};
-            //var saveResult = sfd.ShowDialog();
-            //if (saveResult != true) return; //exit
-            //     PdfDocument doc = null;
 
             var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(id).FirstOrDefault();
             var phylumsList = ExtGet.GetPhylumsCollectionOrderByFromRegnumId<Tbl06Phylum>(id);
@@ -52,9 +47,9 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
             try
             {
-                using (PdfDocument pdf = new PdfDocument())
+                using (var pdf = new PdfDocument())
                 {
-                    _arrInts = PdfHelper.AddReportMain(pdf);
+                     _arrInts = PdfHelper.AddReportMain(pdf);
 
                     AddRegnumHaeder(pdf, regnumList);
                     AddRegnumTaxoNomenList(pdf, regnumList);
@@ -66,36 +61,43 @@ namespace ATIS.Ui.Views.Report.D03Regnum
                         AddDivisionsChildrenList(pdf, divisionsList);
 
                     if (expertsList.Count != 0 || sourcesList.Count != 0 || authorsList.Count != 0)
-                    {
-                         _arrInts = PdfHelper.AddReferencesHaeder(pdf, _arrInts);
-                    }
+                        _arrInts = PdfHelper.AddReferencesHaeder(pdf, _arrInts);
 
                     if (expertsList.Count != 0)
                         _arrInts = PdfHelper.AddRefExpertsList(pdf, expertsList, _arrInts);
                     if (sourcesList.Count != 0)
-                    {
-                         _arrInts = PdfHelper.AddRefSourcesList(pdf, sourcesList, _arrInts);
-                    }
-
+                        _arrInts = PdfHelper.AddRefSourcesList(pdf, sourcesList, _arrInts);
                     if (authorsList.Count != 0)
-                    {
-                         _arrInts = PdfHelper.AddRefAuthorsList(pdf, authorsList, _arrInts);
-                    }
-
+                        _arrInts = PdfHelper.AddRefAuthorsList(pdf, authorsList, _arrInts);
+                    
                     if (commentsList.Count != 0)
-                    {
-                         _arrInts = PdfHelper.AddCommentsHaeder(pdf, _arrInts);
-                    }
-
+                        _arrInts = PdfHelper.AddCommentsHaeder(pdf, _arrInts);
+                    
                     if (commentsList.Count != 0)
                         _arrInts = PdfHelper.AddCommentsList(pdf, commentsList, _arrInts);
 
-                    pdf.Save(pathToFile);
-               
-
-                    //var sfd = new SaveFileDialog { Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*" };
-                    //var saveResult = sfd.ShowDialog();
-                    //if (saveResult != true) return; //exit
+                    switch (use)
+                    {
+                        case "save":
+                        {
+                            var sfd = new SaveFileDialog {Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*"};
+                            sfd.DefaultExt = ".pdf"; // Default file extension
+                            sfd.InitialDirectory = @"C:\";
+                            var saveResult = sfd.ShowDialog();
+                            // Process save file dialog box results
+                            if (saveResult != true) return;
+                            // Save document
+                            var filename = sfd.FileName;
+                            pdf.Save(filename);
+                            break;
+                        }
+                        case "print":
+                        {
+                            var pr = new PdfPrintDocument(pdf, PrintSize.FitPage);
+                            pr.PrintDocument.Print();
+                            break;
+                        }
+                    }
                 }
             }
             catch (Exception e)
@@ -106,10 +108,9 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             finally
             {
                 // Clean up
-                //        if (doc != null) doc.Dispose();
+                //        if (pdf != null) pdf.Dispose();
                 //     doc = null;
                 Log.Error("Fehler");
-
             }
         }
 
@@ -154,7 +155,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             _arrInts = PdfHelper.PdfTbRight("commNameGerRight", _arrInts, false, regnumList.GerName + " " + CultRes.StringsRes.ReportGerman,0);
             _arrInts = PdfHelper.PdfTbRight("commNameEngRight", _arrInts, false, regnumList.EngName + " " + CultRes.StringsRes.ReportEnglish,0);
             _arrInts = PdfHelper.PdfTbRight("commNameFraRight", _arrInts, false, regnumList.FraName + " " + CultRes.StringsRes.ReportFrench,0);
-            _arrInts = PdfHelper.PdfTbRight("commNameSpaRight", _arrInts, false, regnumList.PorName + " " + CultRes.StringsRes.ReportPortuguese,0);
+            _arrInts = PdfHelper.PdfTbRight("commNameSpaRight", _arrInts, false, regnumList.PorName + " " + CultRes.StringsRes.ReportSpanish,0);
 
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
 
@@ -207,7 +208,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
              _arrInts = PdfHelper.PdfTbRight("regnumRight", _arrInts, false, textResult,0);
 
-            _arrInts[1] += _arrInts[9] - 4; //Distance to next TextBox
+            _arrInts[1] += _arrInts[9] / 2; //Distance to next TextBox
         }
         private static void AddPhylumsChildrenList(PdfDocument pdf, ObservableCollection<Tbl06Phylum> phylumsList)
         {
@@ -215,7 +216,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
             _arrInts = PdfHelper.PdfTbRight("childrenPhylum", _arrInts, true, CultRes.StringsRes.ReportDirectChild, 1);
 
-            _arrInts[1] += _arrInts[9] - 4; //Distance to next TextBox
+            _arrInts[1] += _arrInts[9] / 2; //Distance to next TextBox
 
             //------------------------------------------------------------------
 
