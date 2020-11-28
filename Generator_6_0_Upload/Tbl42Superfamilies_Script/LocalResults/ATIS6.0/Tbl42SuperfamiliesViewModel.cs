@@ -6,12 +6,12 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using Common.Logging;
 using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Database.CrudHelper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
+using log4net;
 using Microsoft.EntityFrameworkCore;          
     
          //    SuperfamiliesViewModel Skriptdatum:  08.11.2018  10:32    
@@ -24,7 +24,7 @@ namespace ATIS.Ui.Views.Database.ListDetails
         // Version with Generic Unit Of Work and AtisDbContext for general use   
          
         #region [Private Data Members]
-        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(typeof(SuperfamiliesViewModel));
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly AtisDbContext _context = new AtisDbContext();
 

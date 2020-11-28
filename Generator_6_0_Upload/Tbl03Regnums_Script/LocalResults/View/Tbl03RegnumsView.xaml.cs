@@ -7,7 +7,7 @@ using System.Windows.Input;
 using System.Windows.Threading;   
  
 
-      //  Tbl03RegnumsView.xaml.cs Skriptdatum:  01.11.2020  12:32       
+      //  Tbl03RegnumsView.xaml.cs Skriptdatum:  27.11.2020  12:32       
 
 namespace WPFUI.Views.Database
 {  

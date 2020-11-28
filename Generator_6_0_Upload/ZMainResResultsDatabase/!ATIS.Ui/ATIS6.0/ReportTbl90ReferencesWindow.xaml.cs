@@ -2,28 +2,33 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using Te.Atis.Ui.Desktop.Properties;
+using ATIS.Ui.Views.Report.D03Regnum;
+using ATIS.Ui.Views.Report.D06Phylum;
+using MahApps.Metro.Controls;
 
-   //  ReportTbl90ReferencesWindow.xaml.cs Skriptdatum:  29.11.2018  10:32     
+   //  ReportReferenceWindow.xaml.cs Skriptdatum:  29.11.2018  10:32     
 
-namespace Te.Atis.Ui.Desktop.Views.Report 
+namespace ATIS.Ui.Views.Report.ListDetails
 {  
 
     /// <summary>
-    /// Interactionslogic for ReportTbl90ReferencesWindow.xaml
+    /// Interactionslogic for ReportReferenceWindow.xaml
     /// </summary>
-    public partial class ReportTbl90ReferencesWindow : Window
+    public partial class ReportReferenceWindow : MetroWindow
    {
 
-        public ReportTbl90ReferencesWindow(int un, string tab)
+        public ReportReferenceWindow(int un, string tab)
        {         
+            //      Mouse.OverrideCursor = Cursors.Wait;
+
             DataContext = new ReportViewModel(un, tab);
             InitializeComponent();   
 
-            WindowStartupLocation = WindowStartupLocation.Manual;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            //    WindowStartupLocation = WindowStartupLocation.Manuel;
 
-            Left = Settings.Default.Left + (Settings.Default.Width / 2) - (Width / 2);
-            Top = Settings.Default.Top + (Settings.Default.Height / 2) - (Height / 2);
+            //       Left = Settings.Default.Left + (Settings.Default.Width / 2) - (Width / 2);
+            //       Top = Settings.Default.Top + (Settings.Default.Height / 2) - (Height / 2);
         }   
 
         private void Print_Click(object sender, RoutedEventArgs e)
@@ -38,7 +43,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report
 
         private void Reader_LostFocus(object sender, RoutedEventArgs e)
         {
-            Width = Reader.Width + 10;
+            Width = Reader.Width + 20;
         }
 
 

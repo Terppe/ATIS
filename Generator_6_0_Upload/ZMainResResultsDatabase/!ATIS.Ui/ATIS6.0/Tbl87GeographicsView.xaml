@@ -594,7 +594,7 @@
                                 <StackPanel Margin="0,0,5,0">
                            <StackPanel Height="Auto" Orientation="Horizontal">
                                 <TextBox
-                                    Width="760"
+                                    Width="700"
                                     Margin="5,0,0,0"
                                     materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-TradeName}"
                                     materialDesign:ValidationAssist.UsePopup="True"
@@ -808,8 +808,8 @@
                                     </TextBox.Text>
                                 </TextBox>
                                 <TextBox
-                                    Width="135"
-                                    Margin="25,0,0,0"
+                                    Width="90"
+                                    Margin="5"
                                     materialDesign:HintAssist.Hint="{DynamicResource Shared-AuthorYear}"
                                     materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"
@@ -854,8 +854,8 @@
                                     </TextBox.Text>
                                 </TextBox>
                                 <TextBox
-                                    Width="135"
-                                    Margin="25,0,0,0"
+                                    Width="90"
+                                    Margin="5"
                                     materialDesign:HintAssist.Hint="{DynamicResource Shared-AuthorYear}"
                                     materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"
@@ -881,9 +881,9 @@
                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <TextBox
                                                 Height="Auto"
-                                                MinWidth="760"
+                                                MinWidth="700"
                                                 MinHeight="50"
-                                                MaxWidth="760"
+                                                MaxWidth="700"
                                                 MaxHeight="400"
                                     Margin="5,0,0,0"
                                     VerticalAlignment="Stretch"
@@ -946,9 +946,9 @@
                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                                             <TextBox
                                                 Height="Auto"
-                                                MinWidth="760"
+                                                MinWidth="700"
                                                 MinHeight="100"
-                                                MaxWidth="760"
+                                                MaxWidth="700"
                                                 MaxHeight="400"
                                     Margin="5,0,0,0"
                                     VerticalAlignment="Stretch"
@@ -1033,9 +1033,9 @@
                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <TextBox
                                                 Height="Auto"
-                                                MinWidth="760"
+                                                MinWidth="700"
                                                 MinHeight="50"
-                                                MaxWidth="760"
+                                                MaxWidth="700"
                                                 MaxHeight="400"
                                     Margin="5,0,0,0"
                                     VerticalAlignment="Stretch"
@@ -1224,9 +1224,9 @@
                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <TextBox
                                                 Height="Auto"
-                                                MinWidth="760"
+                                                MinWidth="700"
                                                 MinHeight="50"
-                                                MaxWidth="760"
+                                                MaxWidth="700"
                                                 MaxHeight="400"
                                     Margin="5,2,0,0"
                                     VerticalAlignment="Stretch"
@@ -1249,9 +1249,9 @@
                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                                             <TextBox
                                                 Height="Auto"
-                                                MinWidth="760"
+                                                MinWidth="700"
                                                 MinHeight="200"
-                                                MaxWidth="760"
+                                                MaxWidth="700"
                                                 MaxHeight="400"
                                     Margin="5,2,0,0"
                                     VerticalAlignment="Stretch"
@@ -1274,9 +1274,9 @@
                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                                             <TextBox
                                                 Height="Auto"
-                                                MinWidth="760"
+                                                MinWidth="700"
                                                 MinHeight="200"
-                                                MaxWidth="760"
+                                                MaxWidth="700"
                                                 MaxHeight="400"
                                     Margin="5,2,0,0"
                                     VerticalAlignment="Stretch"
@@ -1299,9 +1299,9 @@
                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                                             <TextBox
                                                 Height="Auto"
-                                                MinWidth="760"
+                                                MinWidth="700"
                                                 MinHeight="50"
-                                                MaxWidth="760"
+                                                MaxWidth="700"
                                                 MaxHeight="400"
                                     Margin="5,2,0,0"
                                     VerticalAlignment="Stretch"
@@ -1318,9 +1318,9 @@
                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                                             <TextBox
                                                 Height="Auto"
-                                                MinWidth="760"
+                                                MinWidth="700"
                                                 MinHeight="50"
-                                                MaxWidth="760"
+                                                MaxWidth="700"
                                                 MaxHeight="400"
                                     Margin="5,2,0,0"
                                     VerticalAlignment="Stretch"
@@ -1337,9 +1337,9 @@
                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                                             <TextBox
                                                 Height="Auto"
-                                                MinWidth="760"
+                                                MinWidth="700"
                                                 MinHeight="50"
-                                                MaxWidth="760"
+                                                MaxWidth="700"
                                                 MaxHeight="400"
                                     Margin="5,2,0,0"
                                     VerticalAlignment="Stretch"
@@ -1356,9 +1356,9 @@
                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                                             <TextBox
                                                 Height="Auto"
-                                                MinWidth="760"
+                                                MinWidth="700"
                                                 MinHeight="50"
-                                                MaxWidth="760"
+                                                MaxWidth="700"
                                                 MaxHeight="400"
                                     Margin="5,2,0,0"
                                     VerticalAlignment="Stretch"
@@ -1381,9 +1381,9 @@
                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                                             <TextBox
                                                 Height="Auto"
-                                                MinWidth="760"
+                                                MinWidth="700"
                                                 MinHeight="200"
-                                                MaxWidth="760"
+                                                MaxWidth="700"
                                                 MaxHeight="400"
                                                 Margin="5,2,0,0"
                                                 VerticalAlignment="Stretch"
@@ -1539,7 +1539,7 @@
                                 <StackPanel Margin="0,0,5,0">
                            <StackPanel Height="Auto" Orientation="Horizontal">
                                 <TextBox
-                                    Width="760"
+                                    Width="700"
                                     Margin="5,0,0,0"
                                     materialDesign:HintAssist.Hint="{DynamicResource Tbl72PlSpecies-TradeName}"
                                     materialDesign:ValidationAssist.UsePopup="True"
@@ -1660,8 +1660,8 @@
                                     </TextBox.Text>
                                 </TextBox>
                                 <TextBox
-                                    Width="135"
-                                    Margin="25,0,0,0"
+                                    Width="90"
+                                    Margin="5"
                                     materialDesign:HintAssist.Hint="{DynamicResource Shared-AuthorYear}"
                                     materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"
@@ -1705,8 +1705,8 @@
                                     </TextBox.Text>
                                 </TextBox>
                                 <TextBox
-                                    Width="130"
-                                    Margin="25,0,0,0"
+                                    Width="90"
+                                    Margin="5"
                                     materialDesign:HintAssist.Hint="{DynamicResource Shared-AuthorYear}"
                                     materialDesign:ValidationAssist.UsePopup="True"
                                             ContextMenu="{StaticResource MenuEdit}"
@@ -1731,9 +1731,9 @@
                                          <ScrollViewer VerticalScrollBarVisibility="Auto">
                                <TextBox
                                                 Height="Auto"
-                                                MinWidth="760"
+                                                MinWidth="700"
                                                 MinHeight="100"
-                                                MaxWidth="760"
+                                                MaxWidth="700"
                                                 MaxHeight="400"
                                     Margin="5,0,0,0"
                                     VerticalAlignment="Stretch"
@@ -1964,9 +1964,9 @@
                               <ScrollViewer VerticalScrollBarVisibility="Auto">
                                  <TextBox
                                                 Height="Auto"
-                                                MinWidth="760"
+                                                MinWidth="700"
                                                 MinHeight="100"
-                                                MaxWidth="760"
+                                                MaxWidth="700"
                                                 MaxHeight="400"
                                     Margin="5,2,0,0"
                                     VerticalAlignment="Stretch"
@@ -1989,9 +1989,9 @@
                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                                             <TextBox
                                                 Height="Auto"
-                                                MinWidth="760"
+                                                MinWidth="700"
                                                 MinHeight="200"
-                                                MaxWidth="760"
+                                                MaxWidth="700"
                                                 MaxHeight="400"
                                     Margin="5,2,0,0"
                                     VerticalAlignment="Stretch"
@@ -2014,9 +2014,9 @@
                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                                             <TextBox
                                                 Height="Auto"
-                                                MinWidth="760"
+                                                MinWidth="700"
                                                 MinHeight="200"
-                                                MaxWidth="760"
+                                                MaxWidth="700"
                                                 MaxHeight="400"
                                     Margin="5,2,0,0"
                                     VerticalAlignment="Stretch"
@@ -2039,9 +2039,9 @@
                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                  <TextBox
                                                 Height="Auto"
-                                                MinWidth="760"
+                                                MinWidth="700"
                                                 MinHeight="100"
-                                                MaxWidth="760"
+                                                MaxWidth="700"
                                                 MaxHeight="400"
                                     Margin="5,2,0,0"
                                     VerticalAlignment="Stretch"
@@ -2058,9 +2058,9 @@
                                <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <TextBox
                                                 Height="Auto"
-                                                MinWidth="760"
+                                                MinWidth="700"
                                                 MinHeight="100"
-                                                MaxWidth="760"
+                                                MaxWidth="700"
                                                 MaxHeight="400"
                                     Margin="5,2,0,0"
                                     VerticalAlignment="Stretch"
@@ -2083,9 +2083,9 @@
                               <ScrollViewer VerticalScrollBarVisibility="Auto">
                                  <TextBox
                                                 Height="Auto"
-                                                MinWidth="760"
+                                                MinWidth="700"
                                                 MinHeight="200"
-                                                MaxWidth="760"
+                                                MaxWidth="700"
                                                 MaxHeight="400"
                                 Margin="5,2,0,0"
                                 VerticalAlignment="Stretch"

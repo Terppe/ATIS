@@ -1,7 +1,7 @@
 using System.Linq;
 using Atis.WpfUi.Model;      
    
-// <!-- Interface Skriptdatum:  01.11.2020  12:32       -->  
+// <!-- Interface Skriptdatum:  27.11.2020  12:32       -->  
 
 namespace Atis.WpfUi.Interfaces     {         
     public interface ITbl03RegnumsRepository    {
@@ -12,8 +12,8 @@ namespace Atis.WpfUi.Interfaces     {
 Tbl03Regnum Get(int id);   
         
 
-        void Add(Tbl03Regnum tbl03Regnum);
-        void Delete(Tbl03Regnum tbl03Regnum);
+        void Add(Tbl03Regnum regnum);
+        void Delete(Tbl03Regnum regnum);
         void Save( );               
      }
 }   

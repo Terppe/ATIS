@@ -471,9 +471,9 @@
                                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                                     <TextBox
                                                         Height="Auto"
-                                                        MinWidth="760"
+                                                        MinWidth="700"
                                                         MinHeight="100"
-                                                        MaxWidth="760"
+                                                        MaxWidth="700"
                                                         MaxHeight="400"
                                                         Margin="5,0,0,0"
                                                         VerticalAlignment="Stretch"
@@ -551,9 +551,9 @@
                                           <ScrollViewer VerticalScrollBarVisibility="Auto">
                                             <TextBox
                                                         Height="Auto"
-                                                        MinWidth="760"
+                                                        MinWidth="700"
                                                         MinHeight="100"
-                                                        MaxWidth="760"
+                                                        MaxWidth="700"
                                                         MaxHeight="400"
                                                 Margin="5,0,0,0"
                                                 VerticalAlignment="Stretch"

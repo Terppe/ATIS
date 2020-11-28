@@ -17,7 +17,7 @@
     <UserControl.Resources />                                        
 
 
-        <!-- Tbl03RegnumsView.xaml  Skriptdatum:  01.11.2020  12:32     -->    
+        <!-- Tbl03RegnumsView.xaml  Skriptdatum:  27.11.2020  12:32     -->    
               
              
     <Grid>
@@ -703,9 +703,9 @@
                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                                             <TextBox
                                         Height="Auto"
-                                        MinWidth="760"
+                                        MinWidth="700"
                                         MinHeight="75"
-                                        MaxWidth="760"
+                                        MaxWidth="700"
                                         MaxHeight="200"
                                         Margin="5"
                                         VerticalAlignment="Stretch"
@@ -745,8 +745,8 @@
                                     </TextBox.Text>
                                 </TextBox>    
                                 <TextBox
-                                    Width="130"
-                                    Margin="25,5,5,5"
+                                    Width="90"
+                                    Margin="5,5,5,5"
                                     HorizontalContentAlignment="Stretch"
                                     mah:TextBoxHelper.IsWaitingForData="True"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -766,7 +766,7 @@
                             </StackPanel>
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <TextBox
-                                    Width="760"
+                                    Width="700"
                                     Margin="5"
                                     HorizontalContentAlignment="Stretch"
                                     mah:TextBoxHelper.IsWaitingForData="True"
@@ -787,7 +787,7 @@
                             </StackPanel>
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <TextBox
-                                    Width="367"
+                                    Width="337"
                                     Margin="5"
                                     HorizontalContentAlignment="Stretch"
                                     mah:TextBoxHelper.IsWaitingForData="True"
@@ -806,7 +806,7 @@
                                     </TextBox.Text>
                                 </TextBox>    
                                 <TextBox
-                                    Width="367"
+                                    Width="337"
                                     Margin="21,5,5,5"
                                     HorizontalContentAlignment="Stretch"
                                     mah:TextBoxHelper.IsWaitingForData="True"
@@ -827,7 +827,7 @@
                             </StackPanel>
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <TextBox
-                                    Width="367"
+                                    Width="337"
                                     Margin="5"
                                     HorizontalContentAlignment="Stretch"
                                     mah:TextBoxHelper.IsWaitingForData="True"
@@ -846,7 +846,7 @@
                                     </TextBox.Text>
                                 </TextBox>    
                                 <TextBox
-                                    Width="367"
+                                    Width="337"
                                     Margin="21,5,5,5"
                                     HorizontalContentAlignment="Stretch"
                                     mah:TextBoxHelper.IsWaitingForData="True"
@@ -870,9 +870,9 @@
                               <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <TextBox
                                         Height="Auto"
-                                        MinWidth="760"
+                                        MinWidth="700"
                                         MinHeight="75"
-                                        MaxWidth="760"
+                                        MaxWidth="700"
                                         MaxHeight="200"
                                         Margin="5"
                                         VerticalAlignment="Stretch"
@@ -979,9 +979,9 @@
                                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                                     <TextBox
                                     Height="Auto"
-                                    MinWidth="760"
+                                    MinWidth="700"
                                     MinHeight="75"
-                                    MaxWidth="760"
+                                    MaxWidth="700"
                                     MaxHeight="200"
                                     Margin="5"
                                     VerticalAlignment="Stretch"
@@ -1021,8 +1021,8 @@
                                             </TextBox.Text>
                                         </TextBox>
                                         <TextBox
-                                Width="130"
-                                Margin="25,5,5,5"
+                                Width="90"
+                                Margin="5,5,5,5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1042,7 +1042,7 @@
                                         </StackPanel>
                                          <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
-                                            Width="760"
+                                            Width="700"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -1063,7 +1063,7 @@
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
-                                            Width="367"
+                                            Width="337"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -1082,7 +1082,7 @@
                                             </TextBox.Text>
                                         </TextBox>
                                         <TextBox
-                                            Width="367"
+                                            Width="337"
                                 Margin="21,5,5,5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -1103,7 +1103,7 @@
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
-                                Width="367"
+                                Width="337"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -1122,7 +1122,7 @@
                                             </TextBox.Text>
                                         </TextBox>
                                         <TextBox
-                                            Width="367"
+                                            Width="337"
                                 Margin="21,5,5,5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -1146,9 +1146,9 @@
                                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                                     <TextBox
                                     Height="Auto"
-                                    MinWidth="760"
+                                    MinWidth="700"
                                     MinHeight="75"
-                                    MaxWidth="760"
+                                    MaxWidth="700"
                                     MaxHeight="200"
                                     Margin="5"
                                     VerticalAlignment="Stretch"
@@ -1253,9 +1253,9 @@
                                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                                     <TextBox
                                     Height="Auto"
-                                    MinWidth="760"
+                                    MinWidth="700"
                                     MinHeight="75"
-                                    MaxWidth="760"
+                                    MaxWidth="700"
                                     MaxHeight="200"
                                     Margin="5"
                                     VerticalAlignment="Stretch"
@@ -1295,8 +1295,8 @@
                                             </TextBox.Text>
                                         </TextBox>
                                         <TextBox
-                                Width="130"
-                                Margin="25,5,5,5"
+                                Width="90"
+                                Margin="5,5,5,5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1316,7 +1316,7 @@
                                         </StackPanel>
                                          <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
-                                            Width="760"
+                                            Width="700"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -1337,7 +1337,7 @@
                                         </StackPanel>
                                         <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
-                                Width="367"
+                                Width="337"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -1356,8 +1356,8 @@
                                             </TextBox.Text>
                                         </TextBox>
                                         <TextBox
-                                            Width="367"
-                                Margin="23,5,5,5"
+                                            Width="337"
+                                Margin="21,5,5,5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1377,7 +1377,7 @@
                                         </StackPanel>
                                         <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
-                                Width="367"
+                                Width="337"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -1396,8 +1396,8 @@
                                             </TextBox.Text>
                                         </TextBox>
                                         <TextBox
-                                            Width="367"
-                                Margin="23,5,5,5"
+                                            Width="337"
+                                Margin="21,5,5,5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1420,9 +1420,9 @@
                                          <ScrollViewer VerticalScrollBarVisibility="Auto">
                                             <TextBox
                                     Height="Auto"
-                                    MinWidth="760"
+                                    MinWidth="700"
                                     MinHeight="75"
-                                    MaxWidth="760"
+                                    MaxWidth="700"
                                     MaxHeight="200"
                                     Margin="5"
                                     VerticalAlignment="Stretch"
@@ -1498,7 +1498,7 @@
                                             </StackPanel>
                                            <StackPanel Height="Auto" Orientation="Horizontal">
                                                 <TextBox
-                                                    Width="760"
+                                                    Width="700"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -1522,9 +1522,9 @@
                                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                                     <TextBox
                                     Height="Auto"
-                                    MinWidth="760"
+                                    MinWidth="700"
                                     MinHeight="100"
-                                    MaxWidth="760"
+                                    MaxWidth="700"
                                     MaxHeight="400"
                                     Margin="5"
                                     VerticalAlignment="Stretch"
@@ -1557,7 +1557,7 @@
                                                     </StackPanel>
                                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                                         <ComboBox
-                                Width="760"
+                                Width="700"
                                 Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1609,7 +1609,7 @@
                                             </StackPanel>
                                             <StackPanel Height="Auto" Orientation="Horizontal">
                                                 <TextBox
-                                Width="760"
+                                Width="700"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -1633,9 +1633,9 @@
                                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                                     <TextBox
                                                         Height="Auto"
-                                                        MinWidth="760"
+                                                        MinWidth="700"
                                                         MinHeight="100"
-                                                        MaxWidth="760"
+                                                        MaxWidth="700"
                                                         MaxHeight="400"
                                     Margin="5"
                                     VerticalAlignment="Stretch"
@@ -1668,7 +1668,7 @@
                                                     </StackPanel>
                                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                                             <ComboBox
-                                Width="760"
+                                Width="700"
                                 Margin="5"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                     mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
@@ -1722,7 +1722,7 @@
                                               </StackPanel>
                                             <StackPanel Height="Auto" Orientation="Horizontal">
                                                 <TextBox
-                                Width="760"
+                                Width="700"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -1746,9 +1746,9 @@
                                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                                     <TextBox
                                                         Height="Auto"
-                                                        MinWidth="760"
+                                                        MinWidth="700"
                                                         MinHeight="100"
-                                                        MaxWidth="760"
+                                                        MaxWidth="700"
                                                         MaxHeight="400"
                                     Margin="5"
                                     VerticalAlignment="Stretch"
@@ -1794,7 +1794,7 @@
                                             </StackPanel>
                                             <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
-                                Width="760"
+                                Width="700"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -1818,9 +1818,9 @@
                                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                                     <TextBox
                                                         Height="Auto"
-                                                        MinWidth="760"
+                                                        MinWidth="700"
                                                         MinHeight="100"
-                                                        MaxWidth="760"
+                                                        MaxWidth="700"
                                                         MaxHeight="620"
                                     Margin="5"
                                     VerticalAlignment="Stretch"

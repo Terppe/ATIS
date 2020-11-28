@@ -60,15 +60,17 @@
 	</resheader>
     
     
-    <data name="Create" xml:space="preserve"><value>Create Phylum </value></data>  
-    <data name="Delete" xml:space="preserve"><value>Delete Phylum  </value></data>  
-    <data name="Details" xml:space="preserve"><value>Details Phylum : </value></data>  
-    <data name="Edit" xml:space="preserve"><value>Edit Phylum </value></data>  
-    <data name="Index" xml:space="preserve"><value>List of Tbl06Phylums </value></data>  
-    <data name="PhylumId" xml:space="preserve"><value>PhylumId </value></data>  
+    <data name="Create" xml:space="preserve"><value>Create Regnum </value></data>  
+    <data name="Delete" xml:space="preserve"><value>Delete Regnum  </value></data>  
+    <data name="Details" xml:space="preserve"><value>Details Regnum : </value></data>  
+    <data name="Edit" xml:space="preserve"><value>Edit Regnum </value></data>  
+    <data name="Index" xml:space="preserve"><value>List of Tbl03Regnums </value></data>  
+    <data name="RegnumID" xml:space="preserve"><value>RegnumID </value></data>  
   
   
-    <data name="PhylumName" xml:space="preserve"><value>PhylumName</value></data>  
+    <data name="RegnumName" xml:space="preserve"><value>RegnumName</value></data>  
+      
+    <data name="Subregnum" xml:space="preserve"><value>Subregnum</value></data>  
 
           
 

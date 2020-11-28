@@ -1,237 +1,343 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using GalaSoft.MvvmLight;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using Microsoft.Win32;
-using Te.Atis.DomainModel;
-using Te.Atis.Ui.Desktop.BusinessLayer;   
+using System.Linq;
+using ATIS.Dal.Models;
+using ATIS.Ui.Helper;
+using ATIS.Ui.Views.Database.CrudHelper;
+using BitMiracle.Docotic;
+using BitMiracle.Docotic.Pdf;
+using log4net;
+using Microsoft.Win32;  
 
     
-         //    ReportTbl93CommentsPdf Skriptdatum:  29.11.2018  10:32    
+         //    ReportCommentPdf Skriptdatum:  29.11.2018  10:32    
 
-namespace Te.Atis.Ui.Desktop.Views.Report.PDF
+namespace ATIS.Ui.Views.Report.ListDetails
 {     
     
-    public class ReportTbl93CommentsPdf : ViewModelBase
+    public class ReportCommentPdf : ViewModelBase
     {     
          
-        // Set up the fonts to be used on the pages
-        private static readonly Font LargeFont = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD, BaseColor.BLACK);
-        private static readonly Font StandardFont = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL, BaseColor.BLACK);
-        private static readonly Font StandardBoldFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.BLACK);
-        private static readonly Font SmallFont = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL, BaseColor.BLACK);
-        private static readonly Font SmallBoldFont = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD, BaseColor.BLACK);   
-        private static IBusinessLayer _businessLayer;
-        private static DbEntityException _entityException;  
+        private static readonly ILog Log = LogManager.GetLogger(typeof(ReportCommentPdf));
+        private static readonly BasicGet ExtGet = new BasicGet();
+        private static readonly PdfHelper PdfHelper = new PdfHelper();
+        private static string _n;
+        private static string _z1;
+        private static int _z;
+        private static int[] _arrInts = new int[11];
+        private static PdfPage _page;  
  
 
  //    Part 1    
 
-             
-        public static void CreateMainPdf(int id)
+         
+        public static void CreateMainPdf(int id, string use)
         {
-            _businessLayer = new BusinessLayer.BusinessLayer();
-            _entityException = new DbEntityException();
+            // NOTE: 
+            // When used in trial mode, the library imposes some restrictions.
+            // Please visit http://bitmiracle.com/pdf-library/trial-restrictions.aspx
+            // for more information.
 
-           var reportVm = new ReportViewModel();
-            reportVm.GetTbl93CommentsById(id); 
-  
+            log4net.Config.XmlConfigurator.Configure();
+
+
+            //  LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
+            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
+
+            var commentList = ExtGet.GetCommentsCollectionOrderByFromCommentId<Tbl93Comment>(id).FirstOrDefault();    
+        
+            var NULLsList = ExtGet.GetNULLsCollectionOrderByFromCommentId<NULL>(id);           
              
-
-            var sfd = new SaveFileDialog { Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*" };
-            var saveResult = sfd.ShowDialog();
-            if (saveResult != true) return;  //exit
-            Document doc = null; 
+            var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
+            var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
+            var authorsList = ExtGet.GetReferenceAuthorsCollectionOrderByFromRegnumIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
+            var commentsList = ExtGet.GetCommentsCollectionOrderByFromRegnumId<Tbl93Comment>(id);   
 
             try
             { 
-             
-                doc = PdfHelper.HeaderMainPdf(sfd);
-                // Add pages to the document
-                PdfHelper.AddReportMain(doc);
+         
+                using (var pdf = new PdfDocument())
+                {
+                    _arrInts = PdfHelper.AddReportMain(pdf); 
 
-                doc = AddTbl93CommentsHaeder(doc);
-                PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, LargeFont, new Chunk(CultRes.StringsRes.ReportTaxoNomen));
-                doc = AddTbl93CommentsTaxoNomenList(doc);
-                PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, LargeFont, new Chunk(CultRes.StringsRes.ReportTaxoHiera));
+                    AddCommentHaeder(pdf, commentList);
+                    AddCommentTaxoNomenList(pdf, commentList);
+                    AddCommentHierarchyList(pdf, commentList);       
+          
+                    if (expertsList.Count != 0 || sourcesList.Count != 0 || authorsList.Count != 0)
+                        _arrInts = PdfHelper.AddReferencesHaeder(pdf, _arrInts);
 
-                doc = AddHierarchyList(doc); 
-             
-                if (reportVm.NULLList.Count != 0)
-                    doc = AddNULLChildrenList(doc, reportVm.NULLList); 
+                    if (expertsList.Count != 0)
+                        _arrInts = PdfHelper.AddRefExpertsList(pdf, expertsList, _arrInts);
+                    if (sourcesList.Count != 0)
+                        _arrInts = PdfHelper.AddRefSourcesList(pdf, sourcesList, _arrInts);
+                    if (authorsList.Count != 0)
+                        _arrInts = PdfHelper.AddRefAuthorsList(pdf, authorsList, _arrInts);
+
+                    if (commentsList.Count != 0)
+                        _arrInts = PdfHelper.AddCommentsHaeder(pdf, _arrInts);
+
+                    if (commentsList.Count != 0)
+                        _arrInts = PdfHelper.AddCommentsList(pdf, commentsList, _arrInts); 
           
-                PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, LargeFont, new Chunk(CultRes.StringsRes.ReportReferences));
-                if (reportVm.Tbl90ExpertsList.Count != 0)
-                    doc = PdfHelper.AddRefExpertList(doc, reportVm.Tbl90ExpertsList);
-                if (reportVm.Tbl90SourcesList.Count != 0)
-                    doc = PdfHelper.AddRefSourceList(doc, reportVm.Tbl90SourcesList);
-                if (reportVm.Tbl90AuthorsList.Count != 0)
-                    doc = PdfHelper.AddRefAuthorList(doc, reportVm.Tbl90AuthorsList);
-                PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, LargeFont, new Chunk(CultRes.StringsRes.ReportComments));
-                if (reportVm.Tbl93CommentsList.Count != 0)
-                    doc = PdfHelper.AddCommentList(doc, reportVm.Tbl93CommentsList); 
-          
+                    switch (use)
+                    {
+                        case "save":
+                            {
+                                var sfd = new SaveFileDialog { Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*" };
+                                sfd.DefaultExt = ".pdf"; // Default file extension
+                                sfd.InitialDirectory = @"C:\";
+                                var saveResult = sfd.ShowDialog();
+                                // Process save file dialog box results
+                                if (saveResult != true) return;
+                                // Save document
+                                var filename = sfd.FileName;
+                                pdf.Save(filename);
+                                break;
+                            }
+                        case "print":
+                            {
+                                var pr = new PdfPrintDocument(pdf, PrintSize.FitPage);
+                                pr.PrintDocument.Print();
+                                break;
+                            }
+                    }
+                }
             }
-            catch (DocumentException)
+            catch (Exception e)
             {
-                // Handle iTextSharp errors
+                // Handle  errors
+                Log.Error(e);
             }
             finally
             {
                 // Clean up
-                doc?.Close();
-                doc = null;
+                //        if (pdf != null) pdf.Dispose();
+                //     doc = null;
+                Log.Error("Fehler");
             }
         }  
-          
-        private static Document AddTbl93CommentsHaeder(Document doc)       
+             
+        private static void AddCommentHaeder(PdfDocument pdf, Tbl93Comment tbl93CommentList)
         {
-            // Add a new page to the document
-            doc.NewPage();
+            _page = pdf.Pages[_arrInts[6]];
 
-            var table = new PdfPTable(4)
-            {
-                TotalWidth = 792f, //actual width of table in points
-                LockedWidth = true,
-                WidthPercentage = 100,
-                HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-                SpacingBefore = 10f,
-                SpacingAfter = 10f   //fix the absolute width of the table
-            };
-            table.SetWidths(new[] { 0.05f, 0.05f, 1.25f, 4.00f });  
+            var textAusgabeAuthor = PdfHelper.AuthorViewChangeWithString(commentList.Author, commentList.AuthorYear);    
+          
+            var textAusgabeNameAuthor = commentList.CommentName + " " + textAusgabeAuthor;  
       
-            var author = PdfHelper.AuthorViewChangeWithoutString(_comment.Author, _comment.AuthorYear);
+            _arrInts = PdfHelper.PdfTbBoldLeft("regnumName", _arrInts, true, textAusgabeNameAuthor, 2);
 
-            table.AddCell(new PdfPCell(new Phrase(_comment.CommentName + " " + author, LargeFont)) { Colspan = 4, Border = 0 });  // 1.-4. field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportTaxonomicId + " " + Convert.ToString(_comment.CountID), StandardFont)) { Colspan = 4, Border = 0 }); // 1.-4. field
-            doc.Add(table);
-            return doc;
-        }  
+            _arrInts[1] += _arrInts[9]; //Distance to next TextBox
+
+            _arrInts = PdfHelper.PdfTbBoldLeft("countId", _arrInts, false, CultRes.StringsRes.ReportTaxonomicId + commentList.CountId, 0);
+
+            _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
+        } 
           
-        private static Document AddTbl93CommentsTaxoNomenList(Document doc)           
+        private static void AddCommentTaxoNomenList(PdfDocument pdf, Tbl93Comment tbl93CommentList)         
           
         {
-            var table = new PdfPTable(4)
-            {
-                TotalWidth = 792f, //actual width of table in points
-                LockedWidth = true,
-                WidthPercentage = 100,
-                HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-                SpacingBefore = 10f,
-                SpacingAfter = 10f   //fix the absolute width of the table
-            };
-            table.SetWidths(new[] { 0.05f, 1.25f, 2.50f, 1.50f });  
+            _page = pdf.Pages[_arrInts[6]];
+
+            _arrInts = PdfHelper.PdfTbBoldLeft("header2", _arrInts, true, CultRes.StringsRes.ReportTaxoNomen, 2);
+
+            _arrInts[1] += _arrInts[9]; //Distance to next TextBox
+            //----------------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMoveLeft("kingdomLeft", _arrInts, false, CultRes.StringsRes.Comment + ":", 0);  
           
-            table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, StandardFont)) { Border = 0 });  // 2. field
-            table.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " +_regnum.Subregnum, StandardFont)) { Border = 0 });  // 3. field  
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field     
+            _arrInts = PdfHelper.PdfTbRight("kingdomRight", _arrInts, false, commentList.CommentName, 0);     
           
-            table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportTaxoRank, StandardBoldFont)) { Border = 0 });  // 2. field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Comment, StandardFont)) { Border = 0 });  // 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-  
+            //---------------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMoveLeft("rankLeft", _arrInts, false, CultRes.StringsRes.ReportTaxoRank, 0);
+            _arrInts = PdfHelper.PdfTbRight("rankRight", _arrInts, false, CultRes.StringsRes.Regnum, 0);
+            //------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMoveLeft("synonymLeft", _arrInts, false, CultRes.StringsRes.ReportSynonyms, 0);
+            //------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMtRight("synonymRight", _arrInts, regnumList.Synonym);
+
+            _arrInts[1] += _arrInts[9]; //Distance to next TextBox
+
+            //---------------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMoveLeft("commNameLeft", _arrInts, false, CultRes.StringsRes.ReportCommonNames, 0);
+            //---------------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbRight("commNameGerRight", _arrInts, false, commentList.GerName + " " + CultRes.StringsRes.ReportGerman, 0);
+            _arrInts = PdfHelper.PdfTbRight("commNameEngRight", _arrInts, false, commentList.EngName + " " + CultRes.StringsRes.ReportEnglish, 0);
+            _arrInts = PdfHelper.PdfTbRight("commNameFraRight", _arrInts, false, commentList.FraName + " " + CultRes.StringsRes.ReportFrench, 0);
+            _arrInts = PdfHelper.PdfTbRight("commNameSpaRight", _arrInts, false, commentList.PorName + " " + CultRes.StringsRes.ReportSpanish, 0);
+
+            _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox 
+            //-------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbBoldMoveLeft("status", _arrInts, CultRes.StringsRes.ReportTaxoStatus, 0);
+            //---------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMoveLeft("currStatusLeft", _arrInts, false, CultRes.StringsRes.ReportCurrentStand, 0);
+
+            _arrInts = PdfHelper.PdfTbRight("currStatusRight", _arrInts, false, commentList.Valid.ToString(), 0);
+
+            _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
+
+            //-----------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbBoldMoveLeft("quali", _arrInts, CultRes.StringsRes.ReportDataQualiIndicator, 0);
+            //---------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMoveLeft("recordLeft", _arrInts, false, CultRes.StringsRes.ReportRecordUpdate, 0);
+
+            _arrInts = PdfHelper.PdfTbRight("recordRight", _arrInts, false, Convert.ToString(commentList.UpdaterDate, CultureInfo.InvariantCulture), 0);
+
+            _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
+
+            //-------------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMoveLeft("infoLeft", _arrInts, false, CultRes.StringsRes.ReportInfo, 0);
+
+            _arrInts = PdfHelper.PdfTbMtRight("infoRight", _arrInts, commentList.Info);
+
+            _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
+
+            //-------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMoveLeft("memoLeft", _arrInts, false, CultRes.StringsRes.ReportMemo, 0);
+
+            _arrInts = PdfHelper.PdfTbMtRight("memoRight", _arrInts, commentList.Memo);
+
+            _arrInts[1] += _arrInts[9]; //Distance to next TextBox
+       }       
           
-            table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportSynonyms, StandardFont)) { Border = 0 });  // 2. field
-            table.AddCell(new PdfPCell(new Phrase(_comment.Synonym, StandardFont)) { Border = 0 });  // 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. fField
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportCommonNames, StandardFont)) { Border = 0 });  // 2. field
-            table.AddCell(new PdfPCell(new Phrase(_comment.GerName + " " + CultRes.StringsRes.ReportGerman, StandardFont)) { Border = 0 });  // 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            table.AddCell(new PdfPCell { Colspan = 2, Border = 0 });  // 1. + 2.  field
-            table.AddCell(new PdfPCell(new Phrase(_comment.EngName + " " + CultRes.StringsRes.ReportEnglish, StandardFont)) { Border = 0 });  // 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            table.AddCell(new PdfPCell { Colspan = 2, Border = 0 });  // 1. + 2.  field
-            table.AddCell(new PdfPCell(new Phrase(_comment.FraName + " " + CultRes.StringsRes.ReportFrench, StandardFont)) { Border = 0 });  // 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            table.AddCell(new PdfPCell { Colspan = 2, Border = 0 });  // 1. + 2.  field
-            table.AddCell(new PdfPCell(new Phrase(_comment.PorName + " " + CultRes.StringsRes.ReportPortuguese, StandardFont)) { Border = 0 });  // 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportTaxoStatus, StandardBoldFont)) { Colspan = 2, Border = 0 });  // 2.- 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportCurrentStand, StandardFont)) { Border = 0 });  // 2. field
-            table.AddCell(new PdfPCell(new Phrase(Convert.ToString(_comment.Valid), StandardFont)) { Border = 0 });  // 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Colspan = 4, Border = 0 });  //Empty row
-
-            table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportDataQualiIndicator, StandardBoldFont)) { Colspan = 2, Border = 0 });  // 2.- 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportRecordCrediRate, StandardFont)) { Colspan = 2, Border = 0 });  // 2. - 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4. field
-
-            table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportGlobalSpecComp, StandardFont)) { Colspan = 2, Border = 0 });  // 2. - 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4. field
-
-            table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportRecordUpdate, StandardFont)) { Border = 0 });  // 2. field
-            table.AddCell(new PdfPCell(new Phrase(Convert.ToString(_comment.UpdaterDate, CultureInfo.InvariantCulture), StandardFont)) { Border = 0 });  // 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4. field
-
-            table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportInfo, StandardFont)) { Border = 0 });  // 2. field
-            table.AddCell(new PdfPCell(new Phrase(_comment.Info, StandardFont)) { Border = 0 });  // 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4. field
-
-            table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportMemo, StandardFont)) { Border = 0 });  // 2. field
-            table.AddCell(new PdfPCell(new Phrase(_comment.Memo, StandardFont)) { Border = 0 });  // 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4. field
-
-            doc.Add(table);
-
-            return doc;
-        }  
-             
-        private static Document AddNULLChildrenList(Document doc, ObservableCollection<NULL> NULLList)        
+        private static void AddCommentHierarchyList(PdfDocument pdf, Tbl93Comment tbl93CommentList)
         {
-            var table = new PdfPTable(4)
-            {
-                TotalWidth = 792f, //actual width of table in points
-                LockedWidth = true,
-                WidthPercentage = 100,
-                HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-                SpacingBefore = 0f,
-                SpacingAfter = 10f   //fix the absolute width of the table
-            };   
+            _page = pdf.Pages[_arrInts[6]];
+
+            _arrInts = PdfHelper.PdfTbBoldLeft("header3", _arrInts, true, CultRes.StringsRes.ReportTaxoHiera, 2);
+
+            _arrInts[1] += _arrInts[9]; //Distance to next TextBox
+
+            //---------------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMoveLeft("commentLeft", _arrInts, false, CultRes.StringsRes.Comment, 0);     
+          
+            var txtName = commentList.CommentName;        
+          
+            var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, commentList.Author,
+                commentList.AuthorYear, commentList.GerName, commentList.EngName, commentList.FraName, commentList.PorName);
+
+            //      _arrInts = PdfHelper.PdfTbRight("commentRight", _arrInts, false, textResult, 0);
+            _arrInts = PdfHelper.PdfTbMtRight("commentRight", _arrInts, textResult);
+
+            _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
+        }      
              
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Colspan = 2, Border = 0 });  // 1. -2. field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportDirectChild, SmallBoldFont)) { Border = 0 }); //   3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
+        private static void AddNULLsChildrenList(PdfDocument pdf, ObservableCollection<NULL> NULLsList)
+        {
+            _page = pdf.Pages[_arrInts[6]];
 
-            foreach (var t in NULLList)   
+            _arrInts = PdfHelper.PdfTbRight("childrenNULL", _arrInts, true, CultRes.StringsRes.ReportDirectChild, 1);
+
+            _arrInts[1] += _arrInts[9] / 2; //Distance to next TextBox
+
+            //------------------------------------------------------------------
+
+            _n = "childNULL";
+            _z = 1;
+            _z1 = _n + _z;
+            _arrInts[7] += _arrInts[7];   // move 4+4
+
+            foreach (var t in NULLsList)
             {
-                var t1 = t.NULL;     
+                var t1 = t.NULLName;
+                var tAllLength = 0;
 
-                var author = PdfHelper.AuthorViewChangeWithString(t.Author, t.AuthorYear);
-                var names = PdfHelper.NamesViewChange(t.GerName, t.EngName, t.FraName, t.PorName);
+                if (t1 != null) tAllLength = t1.Length;
+                var t2 = t.Author;
+                if (t2 != null) tAllLength += t2.Length;
+                var t3 = t.AuthorYear;
+                if (t3 != null) tAllLength += t3.Length;
+                var t4 = t.GerName;
+                if (t4 != null) tAllLength += t4.Length;
+                var t5 = t.EngName;
+                if (t5 != null) tAllLength += t5.Length;
+                var t6 = t.FraName;
+                if (t6 != null) tAllLength += t6.Length;
+                var t7 = t.PorName;
+                if (t7 != null) tAllLength += t7.Length;
 
-                table.AddCell(new PdfPCell(new Phrase(" ")) { Colspan = 1, Border = 0 });  // 1.   field
-                table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.NULL, SmallFont)) { Border = 0 });  // 2. field
-                table.AddCell(new PdfPCell(new Phrase(t1 + " " + author+ " " + names, SmallFont)) { Border = 0 });   // 3. field
-                table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
+                _arrInts = PdfHelper.PdfTbMoveLeft("NULLLeft" + _z1, _arrInts, false, CultRes.StringsRes.NULL, 0);
+
+                var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(t1, t2, t3, t4, t5, t6, t7);
+
+                if (tAllLength >= _arrInts[8])
+                {
+
+                    _arrInts = PdfHelper.PdfTbMtRight(_z1, _arrInts, textResult);
+
+                    _arrInts[1] += _arrInts[3] / 2;  // 1/2 Fontheight Leerzeile
+                }
+                else
+                {
+                    _arrInts = PdfHelper.PdfTbRight(_z1, _arrInts, false, textResult, 0);
+                }
+
+                _z += 1;
+                _z1 = _n + _z;
             }
-            doc.Add(table);
+            _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
+        }   
+             
+        private static void AddNULLsChildrenList(PdfDocument pdf, ObservableCollection<NULL> NULLsList)
+        {
+            _page = pdf.Pages[_arrInts[6]];
 
-            return doc;
+            _arrInts = PdfHelper.PdfTbRight("childrenNULL", _arrInts, true, CultRes.StringsRes.ReportDirectChild, 1);
+
+            _arrInts[1] += _arrInts[9] / 2; //Distance to next TextBox
+
+            //------------------------------------------------------------------
+
+            _n = "childNULL";
+            _z = 1;
+            _z1 = _n + _z;
+            _arrInts[7] += _arrInts[7];   // move 4+4
+
+            foreach (var t in NULLsList)
+            {
+                var t1 = t.NULLName;
+                var tAllLength = 0;
+
+                if (t1 != null) tAllLength = t1.Length;
+                var t2 = t.Author;
+                if (t2 != null) tAllLength += t2.Length;
+                var t3 = t.AuthorYear;
+                if (t3 != null) tAllLength += t3.Length;
+                var t4 = t.GerName;
+                if (t4 != null) tAllLength += t4.Length;
+                var t5 = t.EngName;
+                if (t5 != null) tAllLength += t5.Length;
+                var t6 = t.FraName;
+                if (t6 != null) tAllLength += t6.Length;
+                var t7 = t.PorName;
+                if (t7 != null) tAllLength += t7.Length;
+
+                _arrInts = PdfHelper.PdfTbMoveLeft("NULLLeft" + _z1, _arrInts, false, CultRes.StringsRes.NULL, 0);
+
+                var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(t1, t2, t3, t4, t5, t6, t7);
+
+                if (tAllLength >= _arrInts[8])
+                {
+
+                    _arrInts = PdfHelper.PdfTbMtRight(_z1, _arrInts, textResult);
+
+                    _arrInts[1] += _arrInts[3] / 2;  // 1/2 Fontheight Leerzeile
+                }
+                else
+                {
+                    _arrInts = PdfHelper.PdfTbRight(_z1, _arrInts, false, textResult, 0);
+                }
+
+                _z += 1;
+                _z1 = _n + _z;
+            }
+            _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
         }   
  
+
+
+
+
    }
 }   

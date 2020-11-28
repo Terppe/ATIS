@@ -2,7 +2,7 @@
  <Definition>
   <File>Tbl03Regnums</File>
 
-  <DateTime>01.11.2020  12:32  </DateTime>  
+  <DateTime>27.11.2020  12:32  </DateTime>  
   <Namespace>Atis</Namespace>  
   <ConnString></ConnString> 
   <RegisterContext>ATISEntities</RegisterContext > 
@@ -185,8 +185,9 @@
   <EntitysFK1>NULL</EntitysFK1> 
   <EntitysFK2>NULL</EntitysFK2> 
 
-  <EntityAblTK1>Tbl06Phylum tbl06Phylum</EntityAblTK1> 
-  <EntityAbl>Tbl03Regnum tbl03Regnum</EntityAbl> 
+  <EntityAblTK2>Tbl09Division division</EntityAblTK2> 
+  <EntityAblTK1>Tbl06Phylum phylum</EntityAblTK1> 
+  <EntityAbl>Tbl03Regnum regnum</EntityAbl> 
   <EntityAblFK1>NULL</EntityAblFK1> 
 
    <Fields>

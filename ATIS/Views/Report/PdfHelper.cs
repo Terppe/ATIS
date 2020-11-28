@@ -25,21 +25,21 @@ namespace ATIS.Ui.Views.Report
         {
             _arrHelperInts[0] = 20; //_pdfPointXLeft
             _arrHelperInts[1] = 5; //_pdfPointY
-            _arrHelperInts[2] = 150; //_pdfPointXRight
-            _arrHelperInts[3] = 8; //_pdfSizeHeight
-            _arrHelperInts[4] = 300; //_pdfSizeWidthLeft
-            _arrHelperInts[5] = 430; //_pdfSizeWidthRight
+            _arrHelperInts[2] = 140; //_pdfPointXRight
+            _arrHelperInts[3] = 7; //_pdfSizeHeight
+            _arrHelperInts[4] = 580; //_pdfSizeWidthLeft
+            _arrHelperInts[5] = 455; //_pdfSizeWidthRight
             _arrHelperInts[6] = 0; //_pageCount
             _arrHelperInts[7] = 4; //_moveIn
             _arrHelperInts[8] = 95; //_characterSize
-            _arrHelperInts[9] = 8; //_fontSize
+            _arrHelperInts[9] = 7; //_fontSize
             _arrHelperInts[10] = 0; //_z counter
 
             _page = pdf.Pages[_arrHelperInts[6]];
 
             PdfTbBoldHightLeft("mainHeader", _arrHelperInts, CultRes.StringsRes.Report, 8, 12);
-            
-            _arrHelperInts[1] += _arrHelperInts[3] +12; //Distance to next TextBox
+
+            _arrHelperInts[1] += _arrHelperInts[3] + 12; //Distance to next TextBox
 
             return _arrHelperInts;
         }
@@ -49,13 +49,13 @@ namespace ATIS.Ui.Views.Report
             _arrHelperInts = arrayInts;
 
             pdf.AddPage();
-            _arrHelperInts[6] +=  1;
+            _arrHelperInts[6] += 1;
             _page = pdf.Pages[_arrHelperInts[6]];
             _arrHelperInts[1] = 5;
 
-            PdfTbBoldLeft("referencesHeader", _arrHelperInts, true,CultRes.StringsRes.ReportReferences, 2);
+            PdfTbBoldLeft("referencesHeader", _arrHelperInts, true, CultRes.StringsRes.ReportReferences, 2);
 
-            _arrHelperInts[1] += _arrHelperInts[9] ; //Distance to next TextBox
+            _arrHelperInts[1] += _arrHelperInts[9]; //Distance to next TextBox
 
             return _arrHelperInts;
         }
@@ -68,7 +68,7 @@ namespace ATIS.Ui.Views.Report
 
             PdfTbBoldMoveLeft("experts", _arrHelperInts, CultRes.StringsRes.ReportExperts, 0);
 
-             _n = "expert";
+            _n = "expert";
             _z = 1;
             _z1 = _n + _z;
 
@@ -84,7 +84,7 @@ namespace ATIS.Ui.Views.Report
                 var u8 = u.Memo;
 
                 _arrHelperInts = PdfHelper.PdfTbMoveLeft("expert" + _z1, _arrHelperInts, false, CultRes.StringsRes.ReportExpert, 0);
-                _arrHelperInts = PdfHelper.PdfTbRight(_z1, _arrHelperInts, false, u1,0);
+                _arrHelperInts = PdfHelper.PdfTbRight(_z1, _arrHelperInts, false, u1, 0);
 
                 _z += 1;
                 _z1 = _n + _z;
@@ -129,7 +129,7 @@ namespace ATIS.Ui.Views.Report
                 var u10 = u.Memo;
 
                 _arrHelperInts = PdfHelper.PdfTbMoveLeft("source" + _z1, _arrHelperInts, false, CultRes.StringsRes.ReportSource, 0);
-                _arrHelperInts = PdfHelper.PdfTbRight(_z1, _arrHelperInts, false, u1,0);
+                _arrHelperInts = PdfHelper.PdfTbRight(_z1, _arrHelperInts, false, u1, 0);
 
                 _z += 1;
                 _z1 = _n + _z;
@@ -138,7 +138,7 @@ namespace ATIS.Ui.Views.Report
                 ReportLeftIfRightTextBox(CultRes.StringsRes.ReportNotes, u3);
                 ReportIfLeftRightTextBox(CultRes.StringsRes.ReportAuthor, u4);
                 ReportIfLeftRightTextBox(CultRes.StringsRes.ReportInfo, u5);
-                ReportIfLeftRightTextBox(CultRes.StringsRes.ReportMemo, u6); 
+                ReportIfLeftRightTextBox(CultRes.StringsRes.ReportMemo, u6);
                 ReportValidTextBox(CultRes.StringsRes.ReportValid, CultRes.StringsRes.ReportValidYear, u7, u8);
                 ReportLeftIfRightTextBox(CultRes.StringsRes.ReportRefFor, u9);
                 ReportIfLeftRightTextBox(CultRes.StringsRes.ReportMemo, u10);
@@ -209,11 +209,11 @@ namespace ATIS.Ui.Views.Report
             _page = pdf.Pages[_arrHelperInts[6]];
 
             pdf.AddPage();
-            _arrHelperInts[6] +=  1;
+            _arrHelperInts[6] += 1;
             _page = pdf.Pages[_arrHelperInts[6]];
             _arrHelperInts[1] = 5;
 
-            PdfTbBoldLeft("commentsHeader", _arrHelperInts, true,CultRes.StringsRes.ReportComments, 2);
+            PdfTbBoldLeft("commentsHeader", _arrHelperInts, true, CultRes.StringsRes.ReportComments, 2);
 
             _arrHelperInts[1] += _arrHelperInts[9]; //Distance to next TextBox
 
@@ -238,14 +238,14 @@ namespace ATIS.Ui.Views.Report
                 var t2 = t.Memo;
 
                 _arrHelperInts = PdfHelper.PdfTbMoveLeft("comment" + _z1, _arrHelperInts, false, CultRes.StringsRes.ReportInfo, 0);
-                _arrHelperInts = PdfHelper.PdfTbRight(_z1, _arrHelperInts, false, t1,0);
+                _arrHelperInts = PdfHelper.PdfTbRight(_z1, _arrHelperInts, false, t1, 0);
 
-            _z += 1;
-            _z1 = _n + _z;
-            //---------------------------------------------------------
-            ReportIfLeftRightTextBox(CultRes.StringsRes.ReportMemo, t2);
+                _z += 1;
+                _z1 = _n + _z;
+                //---------------------------------------------------------
+                ReportIfLeftRightTextBox(CultRes.StringsRes.ReportMemo, t2);
 
-            _arrHelperInts[1] += _arrHelperInts[9] - 3; //Distance to next TextBox
+                _arrHelperInts[1] += _arrHelperInts[9] - 3; //Distance to next TextBox
             }
             return _arrHelperInts;
         }
@@ -277,7 +277,7 @@ namespace ATIS.Ui.Views.Report
 
             return arrInts;
         }
-        public static int[] PdfTbBoldLeft(string tbName, int[] arrInts, bool bold, string text, int fontPlus )
+        public static int[] PdfTbBoldLeft(string tbName, int[] arrInts, bool bold, string text, int fontPlus)
         {
             var txtLeft = _page.AddTextBox(tbName, new PdfPoint(arrInts[0], arrInts[1]),
                 new PdfSize(arrInts[4], arrInts[3]));
@@ -317,7 +317,6 @@ namespace ATIS.Ui.Views.Report
         }
         public static int[] PdfTbMtRight(string tbName, int[] arrInts, string text)
         {
-
             if (text != null)
             {
                 var fontHeight = 0;
@@ -334,7 +333,7 @@ namespace ATIS.Ui.Views.Report
                 txtRight.Font.SynthesizedBold = false;
                 txtRight.FontSize = arrInts[9];
                 txtRight.Text = text;
-                arrInts[1] += arrInts[3] + fontHeight - 8;  // -8 Leerzeile
+                arrInts[1] += fontHeight; 
             }
             else
             {
@@ -356,7 +355,7 @@ namespace ATIS.Ui.Views.Report
                 _z1 = _n + _z;
                 return;
             }
-            
+
             if (textRightSite != " ")
             {
                 _arrHelperInts = PdfTbMtRight(_z1, _arrHelperInts, textRightSite);
@@ -400,7 +399,7 @@ namespace ATIS.Ui.Views.Report
             {
                 _arrHelperInts = PdfTbMoveLeft("basic1" + _z1, _arrHelperInts, false, textLeftSide1 + " / " + textLeftSide2, 0);
 
-                _arrHelperInts = PdfTbRight(_z1, _arrHelperInts, false,textRightSite1 + " " + textRightSite2,0);
+                _arrHelperInts = PdfTbRight(_z1, _arrHelperInts, false, textRightSite1 + " " + textRightSite2, 0);
             }
 
             _arrHelperInts[1] += _arrHelperInts[3];
@@ -436,7 +435,7 @@ namespace ATIS.Ui.Views.Report
         /// <param name="fraName"></param>
         /// <param name="porName"></param>
         /// <returns></returns>
-        public static string NamesViewChange(string gerName, string engName, string fraName, string porName)  
+        public static string NamesViewChange(string gerName, string engName, string fraName, string porName)
         {
             var names = "";
             if (string.IsNullOrEmpty(gerName) && string.IsNullOrEmpty(engName) && string.IsNullOrEmpty(fraName) && string.IsNullOrEmpty(porName)) return names;
@@ -484,8 +483,8 @@ namespace ATIS.Ui.Views.Report
             var names = "";
 
             if (string.IsNullOrEmpty(name)) //return names;
-            //------------------------------------------
-            names = name;
+                                            //------------------------------------------
+                names = name;
             if (string.IsNullOrEmpty(author)) //return "";
             {
                 names = name;

@@ -2,28 +2,33 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using Te.Atis.Ui.Desktop.Properties;
+using ATIS.Ui.Views.Report.D03Regnum;
+using ATIS.Ui.Views.Report.D06Phylum;
+using MahApps.Metro.Controls;
 
-   //  ReportTbl12SubphylumsWindow.xaml.cs Skriptdatum:  30.10.2020  12:32     
+   //  ReportSubphylumWindow.xaml.cs Skriptdatum:  30.10.2020  12:32     
 
-namespace Te.Atis.Ui.Desktop.Views.Report 
+namespace ATIS.Ui.Views.Report.D12Subphylum
 {  
 
     /// <summary>
-    /// Interactionslogic for ReportTbl12SubphylumsWindow.xaml
+    /// Interactionslogic for ReportSubphylumWindow.xaml
     /// </summary>
-    public partial class ReportTbl12SubphylumsWindow : Window
+    public partial class ReportSubphylumWindow : MetroWindow
    {
 
-        public ReportTbl12SubphylumsWindow(int un, string tab)
+        public ReportSubphylumWindow(int un, string tab)
        {         
+            //      Mouse.OverrideCursor = Cursors.Wait;
+
             DataContext = new ReportViewModel(un, tab);
             InitializeComponent();   
 
-            WindowStartupLocation = WindowStartupLocation.Manual;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            //    WindowStartupLocation = WindowStartupLocation.Manuel;
 
-            Left = Settings.Default.Left + (Settings.Default.Width / 2) - (Width / 2);
-            Top = Settings.Default.Top + (Settings.Default.Height / 2) - (Height / 2);
+            //       Left = Settings.Default.Left + (Settings.Default.Width / 2) - (Width / 2);
+            //       Top = Settings.Default.Top + (Settings.Default.Height / 2) - (Height / 2);
         }   
 
         private void Print_Click(object sender, RoutedEventArgs e)
@@ -38,7 +43,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report
 
         private void Reader_LostFocus(object sender, RoutedEventArgs e)
         {
-            Width = Reader.Width + 10;
+            Width = Reader.Width + 20;
         }
 
     
@@ -47,7 +52,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report
         {
             var tagValue = ((Hyperlink)sender).Tag;
             var id = Convert.ToInt32(tagValue);
-            var rp = new ReportTbl03RegnumsWindow(id, "Tbl03Regnums");
+            var rp = new ReportRegnumWindow(id, "Tbl03Regnums");
             rp.Show();
         }
 
@@ -56,7 +61,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report
         {
             var tagValue = ((Hyperlink)sender).Tag;
             var id= Convert.ToInt32(tagValue);
-            var rp = new ReportTbl06PhylumsWindow(id, "Tbl06Phylums");
+            var rp = new ReportPhylumWindow(id, "Tbl06Phylums");
             rp.Show();
         }
 
@@ -65,7 +70,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report
         {
             var tagValue = ((Hyperlink)sender).Tag;
             var id= Convert.ToInt32(tagValue);
-            var rp = new ReportTbl12SubphylumsWindow(id, "Tbl12Subphylums");
+            var rp = new ReportSubphylumWindow(id, "Tbl12Subphylums");
             rp.Show();
         }
                    // Tbl18Superclasses  -->
@@ -73,7 +78,7 @@ namespace Te.Atis.Ui.Desktop.Views.Report
         {
             var tagValue = ((Hyperlink)sender).Tag;
             var id= Convert.ToInt32(tagValue);
-            var rp = new ReportTbl18SuperclassesWindow(id, "Tbl18Superclasses");
+            var rp = new ReportSuperclassWindow(id, "Tbl18Superclasses");
             rp.Show();
         }
      

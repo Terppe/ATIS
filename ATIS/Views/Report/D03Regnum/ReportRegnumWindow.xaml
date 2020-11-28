@@ -7,9 +7,11 @@
     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
     xmlns:valueConverter="clr-namespace:ATIS.Ui.Helper.ValueConverter"
     Title="{DynamicResource Report-Title}"
-    Width="1050"
+    Width="1250"
     Height="600"
     ResizeMode="CanResizeWithGrip">
+
+    <!--  ReportTbl03RegnumsWindow.xaml  Skriptdatum:  27.11.2020  12:32  -->
 
     <mah:MetroWindow.Resources>
         <ResourceDictionary>
@@ -55,11 +57,6 @@
             Grid.Row="0"
             DockPanel.Dock="Top"
             Orientation="Horizontal">
-            <!--<TextBox
-                x:Name="Reader1"
-                Margin="10,0,10,0"
-                LostFocus="Reader_LostFocus"
-                Text="1000" />-->
             <TextBox
                 x:Name="Reader"
                 Margin="10,0,10,0"
@@ -74,10 +71,6 @@
                 Text="1050"
                 ToolTip="Reader" />
 
-            <!--<TextBox
-                x:Name="PageWidthText1"
-                Margin="10,0,10,0"
-                Text="1000" />-->
             <TextBox
                 x:Name="PageWidthText"
                 Margin="10,0,10,0"
@@ -88,13 +81,9 @@
                 mah:TextBoxHelper.WatermarkAlignment="Left"
                 FontWeight="Medium"
                 SpellCheck.IsEnabled="True"
-                Text="1000"
+                Text="1200"
                 ToolTip="PageWidthText" />
 
-            <!--<TextBox
-                x:Name="PagePaddingText1"
-                Margin="10,0,10,0"
-                Text="28" />-->
             <TextBox
                 x:Name="PagePaddingText"
                 Margin="10,0,10,0"
@@ -108,10 +97,6 @@
                 Text="28"
                 ToolTip="PagePaddingText" />
 
-            <!--<TextBox
-                x:Name="ColumnWidthText1"
-                Margin="10,0,10,0"
-                Text="800" />-->
             <TextBox
                 x:Name="ColumnWidthText"
                 Margin="10,0,10,0"
@@ -272,7 +257,7 @@
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Synonyms}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl03Regnum.Synonym)}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl03Regnum.Synonym)}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-CommonNames}" />
@@ -346,12 +331,12 @@
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Shared-Info}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl03Regnum.Info)}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl03Regnum.Info)}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Shared-Memo}" />
                                                 <TextBlock
-                                                    Width="500"
+                                                    Width="700"
                                                     Text="{Binding (models:Tbl03Regnum.Memo)}"
                                                     TextWrapping="Wrap" />
                                             </StackPanel>
@@ -554,12 +539,12 @@
                                         <StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Expert}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefExperts).RefExpertName}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefExperts).RefExpertName}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Notes}" />
                                                 <TextBlock
-                                                    Width="500"
+                                                    Width="700"
                                                     Text="{Binding (models:Tbl90Reference.Tbl90RefExperts).Notes}"
                                                     TextWrapping="Wrap" />
                                             </StackPanel>
@@ -586,27 +571,27 @@
                                         <StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Source}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefSources).RefSourceName}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefSources).RefSourceName}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Acquired}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefSources).SourceYear}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefSources).SourceYear}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Shared-Author}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefSources).Author}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefSources).Author}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Shared-Info}" />
                                                 <TextBlock
-                                                    Width="500"
+                                                    Width="700"
                                                     Text="{Binding (models:Tbl90Reference.Tbl90RefSources).Info}"
                                                     TextWrapping="Wrap" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Shared-Notes}" />
                                                 <TextBlock
-                                                    Width="500"
+                                                    Width="700"
                                                     Text="{Binding (models:Tbl90Reference.Tbl90RefSources).Notes}"
                                                     TextWrapping="Wrap" />
                                             </StackPanel>
@@ -633,44 +618,44 @@
                                         <StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-AuthorsEditors}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).RefAuthorName}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).RefAuthorName}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-PublicationDate}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).PublicationYear}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).PublicationYear}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-ArticleTitle}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).ArticelTitle}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).ArticelTitle}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-BookName}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).BookName}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).BookName}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Pages}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).Page1}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).Page1}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Publisher}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).Publisher}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).Publisher}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-PublicationPlace}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).PublicationPlace}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).PublicationPlace}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Isbn}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).ISBN}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).ISBN}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Infos}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).Info}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).Info}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Notes}" />
                                                 <TextBlock
-                                                    Width="500"
+                                                    Width="700"
                                                     Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).Notes}"
                                                     TextWrapping="Wrap" />
                                             </StackPanel>
@@ -719,7 +704,7 @@
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Shared-Info}" />
                                                 <TextBlock
-                                                    Width="500"
+                                                    Width="700"
                                                     Text="{Binding (models:Tbl93Comment.Info)}"
                                                     TextWrapping="Wrap" />
                                             </StackPanel>
@@ -728,7 +713,10 @@
                                                     Width="300"
                                                     FontWeight="Bold"
                                                     Text="{DynamicResource Report-Comment}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl93Comment.Memo)}" />
+                                                <TextBlock
+                                                    Width="700"
+                                                    Text="{Binding (models:Tbl93Comment.Memo)}"
+                                                    TextWrapping="Wrap" />
                                             </StackPanel>
                                         </StackPanel>
                                     </DataTemplate>

@@ -6,10 +6,12 @@ using ATIS.Ui.Views.Report.D03Regnum;
 using ATIS.Ui.Views.Report.D06Phylum;
 using MahApps.Metro.Controls;
 
+//  ReportRegnumWindow.xaml.cs Skriptdatum:  27.11.2020  12:32       
+
 namespace ATIS.Ui.Views.Report.D03Regnum
 {
     /// <summary>
-    /// Interaktionslogik für ReportRegnumWindow.xaml
+    /// Interactionslogic for ReportRegnumWindow.xaml
     /// </summary>
     public partial class ReportRegnumWindow : MetroWindow
     {
@@ -21,7 +23,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             InitializeComponent();
 
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            //    WindowStartupLocation = WindowStartupLocation.Manuel;
+          //  WindowStartupLocation = WindowStartupLocation.Manual;
 
             //       Left = Settings.Default.Left + (Settings.Default.Width / 2) - (Width / 2);
             //       Top = Settings.Default.Top + (Settings.Default.Height / 2) - (Height / 2);

@@ -28,12 +28,12 @@ using System.Linq;  ]]>
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using Common.Logging;
 using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Database.CrudHelper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
+using log4net;
 using Microsoft.EntityFrameworkCore;    ]]>      
 </xsl:otherwise>    
 </xsl:choose> 
@@ -108,7 +108,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when> 
 <xsl:when test="Table ='Tbl03Regnums'">      <![CDATA[ 
         #region [Private Data Members]
-        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(typeof(]]><xsl:value-of select="Basiss"/><![CDATA[ViewModel));
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly AtisDbContext _context = new AtisDbContext();
 
@@ -128,7 +128,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>  
 <xsl:when test="Table ='Tbl18Superclasses'">   <![CDATA[ 
         #region [Private Data Members]
-        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(typeof(]]><xsl:value-of select="Basiss"/><![CDATA[ViewModel));
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly AtisDbContext _context = new AtisDbContext();
 
@@ -149,7 +149,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when> 
 <xsl:otherwise>        <![CDATA[ 
         #region [Private Data Members]
-        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(typeof(]]><xsl:value-of select="Basiss"/><![CDATA[ViewModel));
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly AtisDbContext _context = new AtisDbContext();
 

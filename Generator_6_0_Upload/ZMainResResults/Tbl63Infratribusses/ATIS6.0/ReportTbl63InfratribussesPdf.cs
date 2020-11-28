@@ -1,805 +1,343 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using GalaSoft.MvvmLight;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using Microsoft.Win32;
-using Te.Atis.DomainModel;
-using Te.Atis.Ui.Desktop.BusinessLayer;   
+using System.Linq;
+using ATIS.Dal.Models;
+using ATIS.Ui.Helper;
+using ATIS.Ui.Views.Database.CrudHelper;
+using BitMiracle.Docotic;
+using BitMiracle.Docotic.Pdf;
+using log4net;
+using Microsoft.Win32;  
 
     
-         //    ReportTbl63InfratribussesPdf Skriptdatum:  08.11.2018  10:32    
+         //    ReportInfratribusPdf Skriptdatum:  08.11.2018  10:32    
 
-namespace Te.Atis.Ui.Desktop.Views.Report.PDF
+namespace ATIS.Ui.Views.Report.ListDetails
 {     
     
-    public class ReportTbl63InfratribussesPdf : ViewModelBase
+    public class ReportInfratribusPdf : ViewModelBase
     {     
          
-        // Set up the fonts to be used on the pages
-        private static readonly Font LargeFont = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD, BaseColor.BLACK);
-        private static readonly Font StandardFont = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL, BaseColor.BLACK);
-        private static readonly Font StandardBoldFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.BLACK);
-        private static readonly Font SmallFont = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL, BaseColor.BLACK);
-        private static readonly Font SmallBoldFont = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD, BaseColor.BLACK);   
-        private static IBusinessLayer _businessLayer;
-        private static DbEntityException _entityException;  
-        
-        private static Tbl03Regnum _regnum;
-        private static Tbl06Phylum _phylum;
-        private static Tbl09Division _division;
-        private static Tbl12Subphylum _subphylum;
-        private static Tbl15Subdivision _subdivision;
-        private static Tbl18Superclass _superclass; 
-        private static Tbl21Class _class;   
-        private static Tbl24Subclass _subclass;  
-        private static Tbl27Infraclass _infraclass; 
-        private static Tbl30Legio _legio;  
-        private static Tbl33Ordo _ordo;   
-        private static Tbl36Subordo _subordo;   
-        private static Tbl39Infraordo _infraordo;  
-        private static Tbl42Superfamily _superfamily;  
-        private static Tbl45Family _family;  
-        private static Tbl48Subfamily _subfamily;  
-        private static Tbl51Infrafamily _infrafamily;  
-        private static Tbl54Supertribus _supertribus;  
-        private static Tbl57Tribus _tribus;  
-        private static Tbl60Subtribus _subtribus;  
-        private static Tbl63Infratribus _infratribus;   
+        private static readonly ILog Log = LogManager.GetLogger(typeof(ReportInfratribusPdf));
+        private static readonly BasicGet ExtGet = new BasicGet();
+        private static readonly PdfHelper PdfHelper = new PdfHelper();
+        private static string _n;
+        private static string _z1;
+        private static int _z;
+        private static int[] _arrInts = new int[11];
+        private static PdfPage _page;  
  
 
  //    Part 1    
 
-        
-        public static void CreateMainPdf(int id, int fishId, int plantId )
+         
+        public static void CreateMainPdf(int id, string use)
         {
-            _businessLayer = new BusinessLayer.BusinessLayer();
-            _entityException = new DbEntityException();
+            // NOTE: 
+            // When used in trial mode, the library imposes some restrictions.
+            // Please visit http://bitmiracle.com/pdf-library/trial-restrictions.aspx
+            // for more information.
 
-           var reportVm = new ReportViewModel();
-            reportVm.GetTbl63InfratribussesById(id, fishId, plantId); 
+            log4net.Config.XmlConfigurator.Configure();
 
-            //From Database Tbl63Infratribusses
-            _infratribus = _businessLayer.SingleListTbl63InfratribussesByInfratribusId(id);
-            _subtribus = _businessLayer.SingleListTbl60SubtribussesBySubtribusId(_infratribus.SubtribusID);     
-            _tribus = _businessLayer.SingleListTbl57TribussesByTribusId(_subtribus.TribusID);     
-            _supertribus = _businessLayer.SingleListTbl54SupertribussesBySupertribusId(_tribus.SupertribusID);     
-            _infrafamily = _businessLayer.SingleListTbl51InfrafamiliesByInfrafamilyId(_supertribus.InfrafamilyID);     
-            _subfamily = _businessLayer.SingleListTbl48SubfamiliesBySubfamilyId(_infrafamily.SubfamilyID);     
-            _family = _businessLayer.SingleListTbl45FamiliesByFamilyId(_subfamily.FamilyID);     
-            _superfamily = _businessLayer.SingleListTbl42SuperfamiliesBySuperfamilyId(_family.SuperfamilyID);     
-            _infraordo = _businessLayer.SingleListTbl39InfraordosByInfraordoId(_superfamily.InfraordoID);     
-            _subordo = _businessLayer.SingleListTbl36SubordosBySubordoId(_infraordo.SubordoID);     
-            _ordo = _businessLayer.SingleListTbl33OrdosByOrdoId(_subordo.OrdoID);     
-            _legio = _businessLayer.SingleListTbl30LegiosByLegioId(_ordo.LegioID);     
-            _infraclass = _businessLayer.SingleListTbl27InfraclassesByInfraclassId(_legio.InfraclassID);     
-            _subclass = _businessLayer.SingleListTbl24SubclassesBySubclassId(_infraclass.SubclassID);     
-            _class = _businessLayer.SingleListTbl21ClassesByClassId(_subclass.ClassID);     
-            _superclass = _businessLayer.SingleListTbl18SuperclassesBySuperclassId(_class.SuperclassID);     
-            if (_superclass.SubphylumID == fishId)  //Basis #Subphylum#
-            {
-                _subdivision = _businessLayer.SingleListTbl15SubdivisionsBySubdivisionId(_superclass.SubdivisionID);     
-                _division = _businessLayer.SingleListTbl09DivisionsByDivisionId(_subdivision.DivisionID);     
-                _regnum = _businessLayer.SingleListTbl03RegnumsByRegnumId(_division.RegnumID);     
-            }
-            if (_superclass.SubdivisionID == plantId)  //Basis #Subdivision#
-            {
-                _subphylum = _businessLayer.SingleListTbl12SubphylumsBySubphylumId(_superclass.SubphylumID);     
-                _phylum = _businessLayer.SingleListTbl06PhylumsByPhylumId(_subphylum.PhylumID);     
-                _regnum = _businessLayer.SingleListTbl03RegnumsByRegnumId(_phylum.RegnumID);     
-            }   
+
+            //  LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
+            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
+
+            var infratribusList = ExtGet.GetInfratribussCollectionOrderByFromInfratribusId<Tbl63Infratribus>(id).FirstOrDefault();    
+        
+            var genussList = ExtGet.GetGenussCollectionOrderByFromInfratribusId<Tbl66Genus>(id);           
              
-
-            var sfd = new SaveFileDialog { Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*" };
-            var saveResult = sfd.ShowDialog();
-            if (saveResult != true) return;  //exit
-            Document doc = null; 
+            var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
+            var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
+            var authorsList = ExtGet.GetReferenceAuthorsCollectionOrderByFromRegnumIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
+            var commentsList = ExtGet.GetCommentsCollectionOrderByFromRegnumId<Tbl93Comment>(id);   
 
             try
             { 
-             
-                doc = PdfHelper.HeaderMainPdf(sfd);
-                // Add pages to the document
-                PdfHelper.AddReportMain(doc);
+         
+                using (var pdf = new PdfDocument())
+                {
+                    _arrInts = PdfHelper.AddReportMain(pdf); 
 
-                doc = AddTbl63InfratribussesHaeder(doc);
-                PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, LargeFont, new Chunk(CultRes.StringsRes.ReportTaxoNomen));
-                doc = AddTbl63InfratribussesTaxoNomenList(doc);
-                PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, LargeFont, new Chunk(CultRes.StringsRes.ReportTaxoHiera));
+                    AddInfratribusHaeder(pdf, infratribusList);
+                    AddInfratribusTaxoNomenList(pdf, infratribusList);
+                    AddInfratribusHierarchyList(pdf, infratribusList);       
+          
+                    if (expertsList.Count != 0 || sourcesList.Count != 0 || authorsList.Count != 0)
+                        _arrInts = PdfHelper.AddReferencesHaeder(pdf, _arrInts);
 
-                doc = AddHierarchyList(doc); 
-             
-                if (reportVm.Tbl66GenussesList.Count != 0)
-                    doc = AddTbl66GenussesChildrenList(doc, reportVm.Tbl66GenussesList); 
+                    if (expertsList.Count != 0)
+                        _arrInts = PdfHelper.AddRefExpertsList(pdf, expertsList, _arrInts);
+                    if (sourcesList.Count != 0)
+                        _arrInts = PdfHelper.AddRefSourcesList(pdf, sourcesList, _arrInts);
+                    if (authorsList.Count != 0)
+                        _arrInts = PdfHelper.AddRefAuthorsList(pdf, authorsList, _arrInts);
+
+                    if (commentsList.Count != 0)
+                        _arrInts = PdfHelper.AddCommentsHaeder(pdf, _arrInts);
+
+                    if (commentsList.Count != 0)
+                        _arrInts = PdfHelper.AddCommentsList(pdf, commentsList, _arrInts); 
           
-                PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, LargeFont, new Chunk(CultRes.StringsRes.ReportReferences));
-                if (reportVm.Tbl90ExpertsList.Count != 0)
-                    doc = PdfHelper.AddRefExpertList(doc, reportVm.Tbl90ExpertsList);
-                if (reportVm.Tbl90SourcesList.Count != 0)
-                    doc = PdfHelper.AddRefSourceList(doc, reportVm.Tbl90SourcesList);
-                if (reportVm.Tbl90AuthorsList.Count != 0)
-                    doc = PdfHelper.AddRefAuthorList(doc, reportVm.Tbl90AuthorsList);
-                PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, LargeFont, new Chunk(CultRes.StringsRes.ReportComments));
-                if (reportVm.Tbl93CommentsList.Count != 0)
-                    doc = PdfHelper.AddCommentList(doc, reportVm.Tbl93CommentsList); 
-          
+                    switch (use)
+                    {
+                        case "save":
+                            {
+                                var sfd = new SaveFileDialog { Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*" };
+                                sfd.DefaultExt = ".pdf"; // Default file extension
+                                sfd.InitialDirectory = @"C:\";
+                                var saveResult = sfd.ShowDialog();
+                                // Process save file dialog box results
+                                if (saveResult != true) return;
+                                // Save document
+                                var filename = sfd.FileName;
+                                pdf.Save(filename);
+                                break;
+                            }
+                        case "print":
+                            {
+                                var pr = new PdfPrintDocument(pdf, PrintSize.FitPage);
+                                pr.PrintDocument.Print();
+                                break;
+                            }
+                    }
+                }
             }
-            catch (DocumentException)
+            catch (Exception e)
             {
-                // Handle iTextSharp errors
+                // Handle  errors
+                Log.Error(e);
             }
             finally
             {
                 // Clean up
-                doc?.Close();
-                doc = null;
+                //        if (pdf != null) pdf.Dispose();
+                //     doc = null;
+                Log.Error("Fehler");
             }
         }  
-          
-        private static Document AddTbl63InfratribussesHaeder(Document doc)       
+             
+        private static void AddInfratribusHaeder(PdfDocument pdf, Tbl63Infratribus tbl63InfratribusList)
         {
-            // Add a new page to the document
-            doc.NewPage();
+            _page = pdf.Pages[_arrInts[6]];
 
-            var table = new PdfPTable(4)
-            {
-                TotalWidth = 792f, //actual width of table in points
-                LockedWidth = true,
-                WidthPercentage = 100,
-                HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-                SpacingBefore = 10f,
-                SpacingAfter = 10f   //fix the absolute width of the table
-            };
-            table.SetWidths(new[] { 0.05f, 0.05f, 1.25f, 4.00f });  
+            var textAusgabeAuthor = PdfHelper.AuthorViewChangeWithString(infratribusList.Author, infratribusList.AuthorYear);    
+          
+            var textAusgabeNameAuthor = infratribusList.InfratribusName + " " + textAusgabeAuthor;  
       
-            var author = PdfHelper.AuthorViewChangeWithoutString(_infratribus.Author, _infratribus.AuthorYear);
+            _arrInts = PdfHelper.PdfTbBoldLeft("regnumName", _arrInts, true, textAusgabeNameAuthor, 2);
 
-            table.AddCell(new PdfPCell(new Phrase(_infratribus.InfratribusName + " " + author, LargeFont)) { Colspan = 4, Border = 0 });  // 1.-4. field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportTaxonomicId + " " + Convert.ToString(_infratribus.CountID), StandardFont)) { Colspan = 4, Border = 0 }); // 1.-4. field
-            doc.Add(table);
-            return doc;
-        }  
+            _arrInts[1] += _arrInts[9]; //Distance to next TextBox
+
+            _arrInts = PdfHelper.PdfTbBoldLeft("countId", _arrInts, false, CultRes.StringsRes.ReportTaxonomicId + infratribusList.CountId, 0);
+
+            _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
+        } 
           
-        private static Document AddTbl63InfratribussesTaxoNomenList(Document doc)           
+        private static void AddInfratribusTaxoNomenList(PdfDocument pdf, Tbl63Infratribus tbl63InfratribusList)         
           
         {
-            var table = new PdfPTable(4)
-            {
-                TotalWidth = 792f, //actual width of table in points
-                LockedWidth = true,
-                WidthPercentage = 100,
-                HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-                SpacingBefore = 10f,
-                SpacingAfter = 10f   //fix the absolute width of the table
-            };
-            table.SetWidths(new[] { 0.05f, 1.25f, 2.50f, 1.50f });  
+            _page = pdf.Pages[_arrInts[6]];
+
+            _arrInts = PdfHelper.PdfTbBoldLeft("header2", _arrInts, true, CultRes.StringsRes.ReportTaxoNomen, 2);
+
+            _arrInts[1] += _arrInts[9]; //Distance to next TextBox
+            //----------------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMoveLeft("kingdomLeft", _arrInts, false, CultRes.StringsRes.Infratribus + ":", 0);  
           
-            table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, StandardFont)) { Border = 0 });  // 2. field
-            table.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " +_regnum.Subregnum, StandardFont)) { Border = 0 });  // 3. field  
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field     
+            _arrInts = PdfHelper.PdfTbRight("kingdomRight", _arrInts, false, infratribusList.InfratribusName, 0);     
           
-            table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportTaxoRank, StandardBoldFont)) { Border = 0 });  // 2. field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infratribus, StandardFont)) { Border = 0 });  // 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-  
+            //---------------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMoveLeft("rankLeft", _arrInts, false, CultRes.StringsRes.ReportTaxoRank, 0);
+            _arrInts = PdfHelper.PdfTbRight("rankRight", _arrInts, false, CultRes.StringsRes.Regnum, 0);
+            //------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMoveLeft("synonymLeft", _arrInts, false, CultRes.StringsRes.ReportSynonyms, 0);
+            //------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMtRight("synonymRight", _arrInts, regnumList.Synonym);
+
+            _arrInts[1] += _arrInts[9]; //Distance to next TextBox
+
+            //---------------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMoveLeft("commNameLeft", _arrInts, false, CultRes.StringsRes.ReportCommonNames, 0);
+            //---------------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbRight("commNameGerRight", _arrInts, false, infratribusList.GerName + " " + CultRes.StringsRes.ReportGerman, 0);
+            _arrInts = PdfHelper.PdfTbRight("commNameEngRight", _arrInts, false, infratribusList.EngName + " " + CultRes.StringsRes.ReportEnglish, 0);
+            _arrInts = PdfHelper.PdfTbRight("commNameFraRight", _arrInts, false, infratribusList.FraName + " " + CultRes.StringsRes.ReportFrench, 0);
+            _arrInts = PdfHelper.PdfTbRight("commNameSpaRight", _arrInts, false, infratribusList.PorName + " " + CultRes.StringsRes.ReportSpanish, 0);
+
+            _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox 
+            //-------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbBoldMoveLeft("status", _arrInts, CultRes.StringsRes.ReportTaxoStatus, 0);
+            //---------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMoveLeft("currStatusLeft", _arrInts, false, CultRes.StringsRes.ReportCurrentStand, 0);
+
+            _arrInts = PdfHelper.PdfTbRight("currStatusRight", _arrInts, false, infratribusList.Valid.ToString(), 0);
+
+            _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
+
+            //-----------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbBoldMoveLeft("quali", _arrInts, CultRes.StringsRes.ReportDataQualiIndicator, 0);
+            //---------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMoveLeft("recordLeft", _arrInts, false, CultRes.StringsRes.ReportRecordUpdate, 0);
+
+            _arrInts = PdfHelper.PdfTbRight("recordRight", _arrInts, false, Convert.ToString(infratribusList.UpdaterDate, CultureInfo.InvariantCulture), 0);
+
+            _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
+
+            //-------------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMoveLeft("infoLeft", _arrInts, false, CultRes.StringsRes.ReportInfo, 0);
+
+            _arrInts = PdfHelper.PdfTbMtRight("infoRight", _arrInts, infratribusList.Info);
+
+            _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
+
+            //-------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMoveLeft("memoLeft", _arrInts, false, CultRes.StringsRes.ReportMemo, 0);
+
+            _arrInts = PdfHelper.PdfTbMtRight("memoRight", _arrInts, infratribusList.Memo);
+
+            _arrInts[1] += _arrInts[9]; //Distance to next TextBox
+       }       
           
-            table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportSynonyms, StandardFont)) { Border = 0 });  // 2. field
-            table.AddCell(new PdfPCell(new Phrase(_infratribus.Synonym, StandardFont)) { Border = 0 });  // 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. fField
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportCommonNames, StandardFont)) { Border = 0 });  // 2. field
-            table.AddCell(new PdfPCell(new Phrase(_infratribus.GerName + " " + CultRes.StringsRes.ReportGerman, StandardFont)) { Border = 0 });  // 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            table.AddCell(new PdfPCell { Colspan = 2, Border = 0 });  // 1. + 2.  field
-            table.AddCell(new PdfPCell(new Phrase(_infratribus.EngName + " " + CultRes.StringsRes.ReportEnglish, StandardFont)) { Border = 0 });  // 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            table.AddCell(new PdfPCell { Colspan = 2, Border = 0 });  // 1. + 2.  field
-            table.AddCell(new PdfPCell(new Phrase(_infratribus.FraName + " " + CultRes.StringsRes.ReportFrench, StandardFont)) { Border = 0 });  // 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            table.AddCell(new PdfPCell { Colspan = 2, Border = 0 });  // 1. + 2.  field
-            table.AddCell(new PdfPCell(new Phrase(_infratribus.PorName + " " + CultRes.StringsRes.ReportPortuguese, StandardFont)) { Border = 0 });  // 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportTaxoStatus, StandardBoldFont)) { Colspan = 2, Border = 0 });  // 2.- 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportCurrentStand, StandardFont)) { Border = 0 });  // 2. field
-            table.AddCell(new PdfPCell(new Phrase(Convert.ToString(_infratribus.Valid), StandardFont)) { Border = 0 });  // 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Colspan = 4, Border = 0 });  //Empty row
-
-            table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportDataQualiIndicator, StandardBoldFont)) { Colspan = 2, Border = 0 });  // 2.- 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportRecordCrediRate, StandardFont)) { Colspan = 2, Border = 0 });  // 2. - 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4. field
-
-            table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportGlobalSpecComp, StandardFont)) { Colspan = 2, Border = 0 });  // 2. - 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4. field
-
-            table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportRecordUpdate, StandardFont)) { Border = 0 });  // 2. field
-            table.AddCell(new PdfPCell(new Phrase(Convert.ToString(_infratribus.UpdaterDate, CultureInfo.InvariantCulture), StandardFont)) { Border = 0 });  // 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4. field
-
-            table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportInfo, StandardFont)) { Border = 0 });  // 2. field
-            table.AddCell(new PdfPCell(new Phrase(_infratribus.Info, StandardFont)) { Border = 0 });  // 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4. field
-
-            table.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportMemo, StandardFont)) { Border = 0 });  // 2. field
-            table.AddCell(new PdfPCell(new Phrase(_infratribus.Memo, StandardFont)) { Border = 0 });  // 3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4. field
-
-            doc.Add(table);
-
-            return doc;
-        }  
-                
-        private static Document AddHierarchyList(Document doc)
+        private static void AddInfratribusHierarchyList(PdfDocument pdf, Tbl63Infratribus tbl63InfratribusList)
         {
-            if (_regnum.RegnumName.Contains("#") == false)
-            {
-            var tableRegnum = new PdfPTable(4)
-            {
-                TotalWidth = 792f, //actual width of table in points
-                LockedWidth = true,   //fix the absolute width of the table
-                WidthPercentage = 100,
-                HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-                SpacingBefore = 10f,
-                SpacingAfter = 0f   
-            };
-            tableRegnum.SetWidths(new[] { 0.05f, 1.25f, 2.50f, 1.50f });
+            _page = pdf.Pages[_arrInts[6]];
 
-            var author = PdfHelper.AuthorViewChangeWithString(_regnum.Author, _regnum.AuthorYear);
-            var names = PdfHelper.NamesViewChange(_regnum.GerName, _regnum.EngName, _regnum.FraName, _regnum.PorName);
+            _arrInts = PdfHelper.PdfTbBoldLeft("header3", _arrInts, true, CultRes.StringsRes.ReportTaxoHiera, 2);
 
-            tableRegnum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Regnum, SmallFont)) { Border = 0 });  // 2. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(_regnum.RegnumName + " " + _regnum.Subregnum + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
-            tableRegnum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
+            _arrInts[1] += _arrInts[9]; //Distance to next TextBox
 
-            doc.Add(tableRegnum);
-            }
-            if (_superclass.SubphylumID == 10)  //Basis #Subphylum#
-            {
-                //-----------------------------------------------------
-            if (_division.DivisionName.Contains("#") == false)
-            {
-                var tableDivision = new PdfPTable(4)
-                {
-                    TotalWidth = 792f, //actual width of table in points
-                    LockedWidth = true, //fix the absolute width of the table
-                    WidthPercentage = 100,
-                    HorizontalAlignment = 0, //0=Left aLign, 1=Center
-                    SpacingBefore = 0f,
-                    SpacingAfter = 0f
-                };
-                tableDivision.SetWidths(new[] { 0.08f, 1.22f, 2.50f, 1.50f });
+            //---------------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMoveLeft("infratribusLeft", _arrInts, false, CultRes.StringsRes.Infratribus, 0);     
+          
+            var txtName = infratribusList.InfratribusName;        
+          
+            var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, infratribusList.Author,
+                infratribusList.AuthorYear, infratribusList.GerName, infratribusList.EngName, infratribusList.FraName, infratribusList.PorName);
 
-            var author = PdfHelper.AuthorViewChangeWithString(_division.Author, _division.AuthorYear);
-            var names = PdfHelper.NamesViewChange(_division.GerName, _division.EngName, _division.FraName, _division.PorName);
+            //      _arrInts = PdfHelper.PdfTbRight("infratribusRight", _arrInts, false, textResult, 0);
+            _arrInts = PdfHelper.PdfTbMtRight("infratribusRight", _arrInts, textResult);
 
-            tableDivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
-            tableDivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Division, SmallFont)) { Border = 0 });  // 2. field
-            tableDivision.AddCell(new PdfPCell(new Phrase(_division.DivisionName + " " + author+ " " + names, SmallFont)) { Border = 0 });  // 3. field
-            tableDivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-                doc.Add(tableDivision);
-                }
-                //-----------------------------------------------------
-            if (_subdivision.SubdivisionName.Contains("#") == false)
-            {
-                var tableSubdivision = new PdfPTable(4)
-                {
-                    TotalWidth = 792f, //actual width of table in points
-                    LockedWidth = true, //fix the absolute width of the table
-                    WidthPercentage = 100,
-                    HorizontalAlignment = 0, //0=Left aLign, 1=Center
-                    SpacingBefore = 0f,
-                    SpacingAfter = 0f
-                };
-                tableSubdivision.SetWidths(new[] { 0.11f, 1.19f, 2.50f, 1.50f });
-
-            var author = PdfHelper.AuthorViewChangeWithString(_subdivision.Author, _subdivision.AuthorYear);
-            var names = PdfHelper.NamesViewChange(_subdivision.GerName, _subdivision.EngName, _subdivision.FraName, _division.PorName);
-
-            tableSubdivision.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            tableSubdivision.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subdivision, SmallFont)) { Border = 0 });  // 2. field
-            tableSubdivision.AddCell(new PdfPCell(new Phrase(_subdivision.SubdivisionName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
-            tableSubdivision.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-                doc.Add(tableSubdivision);
-                }
-                //-----------------------------------------------------
-            }
-            if (_superclass.SubdivisionID == 1)  //Basis #Subdivision#
-            {
-                //-----------------------------------------------------
-                if (_phylum.PhylumName.Contains("#") == false)
-                {
-                var tablePhylum = new PdfPTable(4)
-                {
-                    TotalWidth = 792f, //actual width of table in points
-                    LockedWidth = true, //fix the absolute width of the table
-                    WidthPercentage = 100,
-                    HorizontalAlignment = 0, //0=Left aLign, 1=Center
-                    SpacingBefore = 0f,
-                    SpacingAfter = 0f
-                };
-                tablePhylum.SetWidths(new[] { 0.08f, 1.22f, 2.50f, 1.50f });
-
-            var author = PdfHelper.AuthorViewChangeWithString(_phylum.Author, _phylum.AuthorYear);
-            var names = PdfHelper.NamesViewChange(_phylum.GerName, _phylum.EngName, _phylum.FraName, _phylum.PorName);
-
-            tablePhylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            tablePhylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Phylum, SmallFont)) { Border = 0 });  // 2. field
-            tablePhylum.AddCell(new PdfPCell(new Phrase(_phylum.PhylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
-            tablePhylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-                doc.Add(tablePhylum);
-                }
-                //-----------------------------------------------------
-            if (_subphylum.SubphylumName.Contains("#") == false)
-            {
-                var tableSubphylum = new PdfPTable(4)
-                {
-                    TotalWidth = 792f, //actual width of table in points
-                    LockedWidth = true, //fix the absolute width of the table
-                    WidthPercentage = 100,
-                    HorizontalAlignment = 0, //0=Left aLign, 1=Center
-                    SpacingBefore = 0f,
-                    SpacingAfter = 0f
-                };
-                tableSubphylum.SetWidths(new[] { 0.11f, 1.19f, 2.50f, 1.50f });
-
-            var author = PdfHelper.AuthorViewChangeWithString(_subphylum.Author, _subphylum.AuthorYear);
-            var names = PdfHelper.NamesViewChange(_subphylum.GerName, _subphylum.EngName, _subphylum.FraName, _subphylum.PorName);
-
-            tableSubphylum.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1. . field
-            tableSubphylum.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subphylum, SmallFont)) { Border = 0 });  // 2. field
-            tableSubphylum.AddCell(new PdfPCell(new Phrase(_subphylum.SubphylumName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
-            tableSubphylum.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-                doc.Add(tableSubphylum);
-                }
-            }
-            //-----------------------------------------------------
-            if (_superclass.SuperclassName.Contains("#") == false)
-            {
-            var tableSuperclass = new PdfPTable(4)
-            {
-                TotalWidth = 792f, //actual width of table in points
-                LockedWidth = true,   //fix the absolute width of the table
-                WidthPercentage = 100,
-                HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-                SpacingBefore = 0f,
-                SpacingAfter = 0f
-            };
-            tableSuperclass.SetWidths(new[] { 0.14f, 1.16f, 2.50f, 1.50f });
-
-            var author = PdfHelper.AuthorViewChangeWithString(_superclass.Author, _superclass.AuthorYear);
-            var names = PdfHelper.NamesViewChange(_superclass.GerName, _superclass.EngName, _superclass.FraName, _superclass.PorName);
-
-            tableSuperclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            tableSuperclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperclass.AddCell(new PdfPCell(new Phrase(_superclass.SuperclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
-            tableSuperclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            doc.Add(tableSuperclass);
-            }
-            //-----------------------------------------------------
-            if (_class.ClassName.Contains("#") == false)
-            {
-            var tableClass = new PdfPTable(4)
-            {
-                TotalWidth = 792f, //actual width of table in points
-                LockedWidth = true,   //fix the absolute width of the table
-                WidthPercentage = 100,
-                HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-                SpacingBefore = 0f,
-                SpacingAfter = 0f
-            };
-            tableClass.SetWidths(new[] { 0.17f, 1.13f, 2.50f, 1.50f });
-
-            var author = PdfHelper.AuthorViewChangeWithString(_class.Author, _class.AuthorYear);
-            var names = PdfHelper.NamesViewChange(_class.GerName, _class.EngName, _class.FraName, _class.PorName);
-
-            tableClass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            tableClass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Class, SmallFont)) { Border = 0 });  // 2. field
-            tableClass.AddCell(new PdfPCell(new Phrase(_class.ClassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
-            tableClass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            doc.Add(tableClass);
-            }
-            //-----------------------------------------------------
-            if (_subclass.SubclassName.Contains("#") == false)
-            {
-            var tableSubclass = new PdfPTable(4)
-            {
-                TotalWidth = 792f, //actual width of table in points
-                LockedWidth = true,   //fix the absolute width of the table
-                WidthPercentage = 100,
-                HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-                SpacingBefore = 0f,
-                SpacingAfter = 0f
-            };
-            tableSubclass.SetWidths(new[] { 0.20f, 1.10f, 2.50f, 1.50f });
-
-            var author = PdfHelper.AuthorViewChangeWithString(_subclass.Author, _subclass.AuthorYear);
-            var names = PdfHelper.NamesViewChange(_subclass.GerName, _subclass.EngName, _subclass.FraName, _subclass.PorName);
-
-            tableSubclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            tableSubclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subclass, SmallFont)) { Border = 0 });  // 2. field
-            tableSubclass.AddCell(new PdfPCell(new Phrase(_subclass.SubclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
-            tableSubclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            doc.Add(tableSubclass);
-             }
-            //-----------------------------------------------------
-            if (_infraclass.InfraclassName.Contains("#") == false)
-            {
-            var tableInfraclass = new PdfPTable(4)
-            {
-                TotalWidth = 792f, //actual width of table in points
-                LockedWidth = true,   //fix the absolute width of the table
-                WidthPercentage = 100,
-                HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-                SpacingBefore = 0f,
-                SpacingAfter = 0f
-            };
-            tableInfraclass.SetWidths(new[] { 0.23f, 1.07f, 2.50f, 1.50f });
-
-            var author = PdfHelper.AuthorViewChangeWithString(_infraclass.Author, _infraclass.AuthorYear);
-            var names = PdfHelper.NamesViewChange(_infraclass.GerName, _infraclass.EngName, _infraclass.FraName, _infraclass.PorName);
-
-            tableInfraclass.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            tableInfraclass.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraclass, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraclass.AddCell(new PdfPCell(new Phrase(_infraclass.InfraclassName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
-            tableInfraclass.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            doc.Add(tableInfraclass);
-            }
-            //-----------------------------------------------------
-            if (_legio.LegioName.Contains("#") == false)
-            {
-            var tableLegio = new PdfPTable(4)
-            {
-                TotalWidth = 792f, //actual width of table in points
-                LockedWidth = true,   //fix the absolute width of the table
-                WidthPercentage = 100,
-                HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-                SpacingBefore = 0f,
-                SpacingAfter = 0f
-            };
-            tableLegio.SetWidths(new[] { 0.26f, 1.04f, 2.50f, 1.50f });
-
-            var author = PdfHelper.AuthorViewChangeWithString(_legio.Author, _legio.AuthorYear);
-            var names = PdfHelper.NamesViewChange(_legio.GerName, _legio.EngName, _legio.FraName, _legio.PorName);
-
-            tableLegio.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            tableLegio.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Legio, SmallFont)) { Border = 0 });  // 2. field
-            tableLegio.AddCell(new PdfPCell(new Phrase(_legio.LegioName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
-            tableLegio.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            doc.Add(tableLegio);
-            }
-            //-----------------------------------------------------
-            if (_ordo.OrdoName.Contains("#") == false)
-            {
-            var tableOrdo = new PdfPTable(4)
-            {
-                TotalWidth = 792f, //actual width of table in points
-                LockedWidth = true,   //fix the absolute width of the table
-                WidthPercentage = 100,
-                HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-                SpacingBefore = 0f,
-                SpacingAfter = 0f
-            };
-            tableOrdo.SetWidths(new[] { 0.29f, 1.01f, 2.50f, 1.50f });
-
-            var author = PdfHelper.AuthorViewChangeWithString(_ordo.Author, _ordo.AuthorYear);
-            var names = PdfHelper.NamesViewChange(_ordo.GerName, _ordo.EngName, _ordo.FraName, _ordo.PorName);
-
-            tableOrdo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            tableOrdo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Ordo, SmallFont)) { Border = 0 });  // 2. field
-            tableOrdo.AddCell(new PdfPCell(new Phrase(_ordo.OrdoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
-            tableOrdo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            doc.Add(tableOrdo);
-            }
-            //-----------------------------------------------------
-            if (_subordo.SubordoName.Contains("#") == false)
-            {
-            var tableSubordo = new PdfPTable(4)
-            {
-                TotalWidth = 792f, //actual width of table in points
-                LockedWidth = true,   //fix the absolute width of the table
-                WidthPercentage = 100,
-                HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-                SpacingBefore = 0f,
-                SpacingAfter = 0f
-            };
-            tableSubordo.SetWidths(new[] { 0.32f, 0.98f, 2.50f, 1.50f });
-
-            var author = PdfHelper.AuthorViewChangeWithString(_subordo.Author, _subordo.AuthorYear);
-            var names = PdfHelper.NamesViewChange(_subordo.GerName, _subordo.EngName, _subordo.FraName, _subordo.PorName);
-
-            tableSubordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            tableSubordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subordo, SmallFont)) { Border = 0 });  // 2. field
-            tableSubordo.AddCell(new PdfPCell(new Phrase(_subordo.SubordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
-            tableSubordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            doc.Add(tableSubordo);
-            }
-            //-----------------------------------------------------
-            if (_infraordo.InfraordoName.Contains("#") == false)
-            {
-            var tableInfraordo = new PdfPTable(4)
-            {
-                TotalWidth = 792f, //actual width of table in points
-                LockedWidth = true,   //fix the absolute width of the table
-                WidthPercentage = 100,
-                HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-                SpacingBefore = 0f,
-                SpacingAfter = 0f
-            };
-            tableInfraordo.SetWidths(new[] { 0.35f, 0.95f, 2.50f, 1.50f });
-
-            var author = PdfHelper.AuthorViewChangeWithString(_infraordo.Author, _infraordo.AuthorYear);
-            var names = PdfHelper.NamesViewChange(_infraordo.GerName, _infraordo.EngName, _infraordo.FraName, _infraordo.PorName);
-
-            tableInfraordo.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            tableInfraordo.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infraordo, SmallFont)) { Border = 0 });  // 2. field
-            tableInfraordo.AddCell(new PdfPCell(new Phrase(_infraordo.InfraordoName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
-            tableInfraordo.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            doc.Add(tableInfraordo);
-            }
-            //-----------------------------------------------------
-            if (_superfamily.SuperfamilyName.Contains("#") == false)
-            {
-            var tableSuperfamily = new PdfPTable(4)
-            {
-                TotalWidth = 792f, //actual width of table in points
-                LockedWidth = true,   //fix the absolute width of the table
-                WidthPercentage = 100,
-                HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-                SpacingBefore = 0f,
-                SpacingAfter = 0f
-            };
-            tableSuperfamily.SetWidths(new[] { 0.38f, 0.92f, 2.50f, 1.50f });
-
-            var author = PdfHelper.AuthorViewChangeWithString(_superfamily.Author, _superfamily.AuthorYear);
-            var names = PdfHelper.NamesViewChange(_superfamily.GerName, _superfamily.EngName, _superfamily.FraName, _superfamily.PorName);
-
-            tableSuperfamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            tableSuperfamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Superfamily, SmallFont)) { Border = 0 });  // 2. field
-            tableSuperfamily.AddCell(new PdfPCell(new Phrase(_superfamily.SuperfamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
-            tableSuperfamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            doc.Add(tableSuperfamily);
-            }
-            //-----------------------------------------------------
-            if (_family.FamilyName.Contains("#") == false)
-            {
-            var tableFamily = new PdfPTable(4)
-            {
-                TotalWidth = 792f, //actual width of table in points
-                LockedWidth = true,   //fix the absolute width of the table
-                WidthPercentage = 100,
-                HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-                SpacingBefore = 0f,
-                SpacingAfter = 0f
-            };
-            tableFamily.SetWidths(new[] { 0.41f, 0.89f, 2.50f, 1.50f });
-
-            var author = PdfHelper.AuthorViewChangeWithString(_family.Author, _family.AuthorYear);
-            var names = PdfHelper.NamesViewChange(_family.GerName, _family.EngName, _family.FraName, _family.PorName);
-
-            tableFamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            tableFamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Family, SmallFont)) { Border = 0 });  // 2. field
-            tableFamily.AddCell(new PdfPCell(new Phrase(_family.FamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
-            tableFamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            doc.Add(tableFamily);
-            }
-            //-----------------------------------------------------
-            if (_subfamily.SubfamilyName.Contains("#") == false)
-            {
-            var tableSubfamily = new PdfPTable(4)
-            {
-                TotalWidth = 792f, //actual width of table in points
-                LockedWidth = true,   //fix the absolute width of the table
-                WidthPercentage = 100,
-                HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-                SpacingBefore = 0f,
-                SpacingAfter = 0f
-            };
-            tableSubfamily.SetWidths(new[] { 0.44f, 0.86f, 2.50f, 1.50f });
-
-            var author = PdfHelper.AuthorViewChangeWithString(_subfamily.Author, _subfamily.AuthorYear);
-            var names = PdfHelper.NamesViewChange(_subfamily.GerName, _subfamily.EngName, _subfamily.FraName, _subfamily.PorName);
-
-            tableSubfamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            tableSubfamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subfamily, SmallFont)) { Border = 0 });  // 2. field
-            tableSubfamily.AddCell(new PdfPCell(new Phrase(_subfamily.SubfamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
-            tableSubfamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            doc.Add(tableSubfamily);
-            }
-            //-----------------------------------------------------
-            if (_infrafamily.InfrafamilyName.Contains("#") == false)
-            {
-            var tableInfrafamily = new PdfPTable(4)
-            {
-                TotalWidth = 792f, //actual width of table in points
-                LockedWidth = true,   //fix the absolute width of the table
-                WidthPercentage = 100,
-                HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-                SpacingBefore = 0f,
-                SpacingAfter = 0f
-            };
-            tableInfrafamily.SetWidths(new[] { 0.47f, 0.83f, 2.50f, 1.50f });
-
-            var author = PdfHelper.AuthorViewChangeWithString(_infrafamily.Author, _infrafamily.AuthorYear);
-            var names = PdfHelper.NamesViewChange(_infrafamily.GerName, _infrafamily.EngName, _infrafamily.FraName, _infrafamily.PorName);
-
-            tableInfrafamily.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            tableInfrafamily.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infrafamily, SmallFont)) { Border = 0 });  // 2. field
-            tableInfrafamily.AddCell(new PdfPCell(new Phrase(_infrafamily.InfrafamilyName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
-            tableInfrafamily.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            doc.Add(tableInfrafamily);
-            }
-            //-----------------------------------------------------
-            if (_supertribus.SupertribusName.Contains("#") == false)
-            {
-            var tableSupertribus = new PdfPTable(4)
-            {
-                TotalWidth = 792f, //actual width of table in points
-                LockedWidth = true,   //fix the absolute width of the table
-                WidthPercentage = 100,
-                HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-                SpacingBefore = 0f,
-                SpacingAfter = 0f
-            };
-            tableSupertribus.SetWidths(new[] { 0.50f, 0.80f, 2.50f, 1.50f });
-
-            var author = PdfHelper.AuthorViewChangeWithString(_supertribus.Author, _supertribus.AuthorYear);
-            var names = PdfHelper.NamesViewChange(_supertribus.GerName, _supertribus.EngName, _supertribus.FraName, _supertribus.PorName);
-
-            tableSupertribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            tableSupertribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Supertribus, SmallFont)) { Border = 0 });  // 2. field
-            tableSupertribus.AddCell(new PdfPCell(new Phrase(_supertribus.SupertribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
-            tableSupertribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            doc.Add(tableSupertribus);
-            }
-            //-----------------------------------------------------
-            if (_tribus.TribusName.Contains("#") == false)
-            {
-            var tabletribus = new PdfPTable(4)
-            {
-                TotalWidth = 792f, //actual width of table in points
-                LockedWidth = true,   //fix the absolute width of the table
-                WidthPercentage = 100,
-                HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-                SpacingBefore = 0f,
-                SpacingAfter = 0f
-            };
-            tabletribus.SetWidths(new[] { 0.53f, 0.77f, 2.50f, 1.50f });
-
-            var author = PdfHelper.AuthorViewChangeWithString(_tribus.Author, _tribus.AuthorYear);
-            var names = PdfHelper.NamesViewChange(_tribus.GerName, _tribus.EngName, _tribus.FraName, _tribus.PorName);
-
-            tabletribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            tabletribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Tribus, SmallFont)) { Border = 0 });  // 2. field
-            tabletribus.AddCell(new PdfPCell(new Phrase(_tribus.TribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
-            tabletribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            doc.Add(tabletribus);
-            }
-            //-----------------------------------------------------
-            if (_subtribus.SubtribusName.Contains("#") == false)
-            {
-            var tablesubtribus = new PdfPTable(4)
-            {
-                TotalWidth = 792f, //actual width of table in points
-                LockedWidth = true,   //fix the absolute width of the table
-                WidthPercentage = 100,
-                HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-                SpacingBefore = 0f,
-                SpacingAfter = 0f
-            };
-            tablesubtribus.SetWidths(new[] { 0.56f, 0.74f, 2.50f, 1.50f });
-
-            var author = PdfHelper.AuthorViewChangeWithString(_subtribus.Author, _subtribus.AuthorYear);
-            var names = PdfHelper.NamesViewChange(_subtribus.GerName, _subtribus.EngName, _subtribus.FraName, _subtribus.PorName);
-
-            tablesubtribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            tablesubtribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Subtribus, SmallFont)) { Border = 0 });  // 2. field
-            tablesubtribus.AddCell(new PdfPCell(new Phrase(_subtribus.SubtribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
-            tablesubtribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            doc.Add(tablesubtribus);
-            }
-            //-----------------------------------------------------
-            if (_infratribus.InfratribusName.Contains("#") == false)
-            {
-            var tableInfratribus = new PdfPTable(4)
-            {
-                TotalWidth = 792f, //actual width of table in points
-                LockedWidth = true,   //fix the absolute width of the table
-                WidthPercentage = 100,
-                HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-                SpacingBefore = 0f,
-                SpacingAfter = 10f
-            };
-            tableInfratribus.SetWidths(new[] { 0.59f, 0.71f, 2.50f, 1.50f });
-
-            var author = PdfHelper.AuthorViewChangeWithString(_infratribus.Author, _infratribus.AuthorYear);
-            var names = PdfHelper.NamesViewChange(_infratribus.GerName, _infratribus.EngName, _infratribus.FraName, _infratribus.PorName);
-
-            tableInfratribus.AddCell(new PdfPCell { Colspan = 1, Border = 0 });  // 1.  field
-            tableInfratribus.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Infratribus, SmallFont)) { Border = 0 });  // 2. field
-            tableInfratribus.AddCell(new PdfPCell(new Phrase(_infratribus.InfratribusName + " " + author + " " + names, SmallFont)) { Border = 0 });  // 3. field
-            tableInfratribus.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
-
-            doc.Add(tableInfratribus);
-            }
-            return doc;
-        }       
+            _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
+        }      
              
-        private static Document AddTbl66GenussesChildrenList(Document doc, ObservableCollection<Tbl66Genus> tbl66GenussesList)        
+        private static void AddGenussChildrenList(PdfDocument pdf, ObservableCollection<Tbl66Genus> genussList)
         {
-            var table = new PdfPTable(4)
+            _page = pdf.Pages[_arrInts[6]];
+
+            _arrInts = PdfHelper.PdfTbRight("childrenGenus", _arrInts, true, CultRes.StringsRes.ReportDirectChild, 1);
+
+            _arrInts[1] += _arrInts[9] / 2; //Distance to next TextBox
+
+            //------------------------------------------------------------------
+
+            _n = "childGenus";
+            _z = 1;
+            _z1 = _n + _z;
+            _arrInts[7] += _arrInts[7];   // move 4+4
+
+            foreach (var t in genussList)
             {
-                TotalWidth = 792f, //actual width of table in points
-                LockedWidth = true,
-                WidthPercentage = 100,
-                HorizontalAlignment = 0,  //0=Left aLign, 1=Center
-                SpacingBefore = 0f,
-                SpacingAfter = 10f   //fix the absolute width of the table
-            };   
-            
-            table.SetWidths(new[] { 0.62f, 0.68f, 2.50f, 1.50f });     
-             
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Colspan = 2, Border = 0 });  // 1. -2. field
-            table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.ReportDirectChild, SmallBoldFont)) { Border = 0 }); //   3. field
-            table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
+                var t1 = t.GenusName;
+                var tAllLength = 0;
 
-            foreach (var t in tbl66GenussesList)   
-            {
-                var t1 = t.GenusName;     
+                if (t1 != null) tAllLength = t1.Length;
+                var t2 = t.Author;
+                if (t2 != null) tAllLength += t2.Length;
+                var t3 = t.AuthorYear;
+                if (t3 != null) tAllLength += t3.Length;
+                var t4 = t.GerName;
+                if (t4 != null) tAllLength += t4.Length;
+                var t5 = t.EngName;
+                if (t5 != null) tAllLength += t5.Length;
+                var t6 = t.FraName;
+                if (t6 != null) tAllLength += t6.Length;
+                var t7 = t.PorName;
+                if (t7 != null) tAllLength += t7.Length;
 
-                var author = PdfHelper.AuthorViewChangeWithString(t.Author, t.AuthorYear);
-                var names = PdfHelper.NamesViewChange(t.GerName, t.EngName, t.FraName, t.PorName);
+                _arrInts = PdfHelper.PdfTbMoveLeft("genusLeft" + _z1, _arrInts, false, CultRes.StringsRes.Genus, 0);
 
-                table.AddCell(new PdfPCell(new Phrase(" ")) { Colspan = 1, Border = 0 });  // 1.   field
-                table.AddCell(new PdfPCell(new Phrase(CultRes.StringsRes.Genus, SmallFont)) { Border = 0 });  // 2. field
-                table.AddCell(new PdfPCell(new Phrase(t1 + " " + author+ " " + names, SmallFont)) { Border = 0 });   // 3. field
-                table.AddCell(new PdfPCell(new Phrase(" ")) { Border = 0 });  // 4.  field
+                var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(t1, t2, t3, t4, t5, t6, t7);
+
+                if (tAllLength >= _arrInts[8])
+                {
+
+                    _arrInts = PdfHelper.PdfTbMtRight(_z1, _arrInts, textResult);
+
+                    _arrInts[1] += _arrInts[3] / 2;  // 1/2 Fontheight Leerzeile
+                }
+                else
+                {
+                    _arrInts = PdfHelper.PdfTbRight(_z1, _arrInts, false, textResult, 0);
+                }
+
+                _z += 1;
+                _z1 = _n + _z;
             }
-            doc.Add(table);
+            _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
+        }   
+             
+        private static void AddFiSpeciessChildrenList(PdfDocument pdf, ObservableCollection<Tbl69FiSpecies> sList)
+        {
+            _page = pdf.Pages[_arrInts[6]];
 
-            return doc;
+            _arrInts = PdfHelper.PdfTbRight("childrenFiSpecies", _arrInts, true, CultRes.StringsRes.ReportDirectChild, 1);
+
+            _arrInts[1] += _arrInts[9] / 2; //Distance to next TextBox
+
+            //------------------------------------------------------------------
+
+            _n = "childFiSpecies";
+            _z = 1;
+            _z1 = _n + _z;
+            _arrInts[7] += _arrInts[7];   // move 4+4
+
+            foreach (var t in sList)
+            {
+                var t1 = t.FiSpeciesName;
+                var tAllLength = 0;
+
+                if (t1 != null) tAllLength = t1.Length;
+                var t2 = t.Author;
+                if (t2 != null) tAllLength += t2.Length;
+                var t3 = t.AuthorYear;
+                if (t3 != null) tAllLength += t3.Length;
+                var t4 = t.GerName;
+                if (t4 != null) tAllLength += t4.Length;
+                var t5 = t.EngName;
+                if (t5 != null) tAllLength += t5.Length;
+                var t6 = t.FraName;
+                if (t6 != null) tAllLength += t6.Length;
+                var t7 = t.PorName;
+                if (t7 != null) tAllLength += t7.Length;
+
+                _arrInts = PdfHelper.PdfTbMoveLeft("Left" + _z1, _arrInts, false, CultRes.StringsRes.FiSpecies, 0);
+
+                var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(t1, t2, t3, t4, t5, t6, t7);
+
+                if (tAllLength >= _arrInts[8])
+                {
+
+                    _arrInts = PdfHelper.PdfTbMtRight(_z1, _arrInts, textResult);
+
+                    _arrInts[1] += _arrInts[3] / 2;  // 1/2 Fontheight Leerzeile
+                }
+                else
+                {
+                    _arrInts = PdfHelper.PdfTbRight(_z1, _arrInts, false, textResult, 0);
+                }
+
+                _z += 1;
+                _z1 = _n + _z;
+            }
+            _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
         }   
  
+
+
+
+
    }
 }   

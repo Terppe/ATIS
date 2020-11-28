@@ -2,7 +2,7 @@ using System.Linq;
 using Atis.WpfUi.Interfaces;
 using Atis.WpfUi.Model;    
 
-// <!-- Repository Skriptdatum:  01.11.2020  12:32      -->  
+// <!-- Repository Skriptdatum:  27.11.2020  12:32      -->  
 
 namespace Atis.WpfUi.Repositories      {  
     public class Tbl03RegnumsRepository : ITbl03RegnumsRepository    {
@@ -32,11 +32,11 @@ namespace Atis.WpfUi.Repositories      {
          //-------------------------------------------------------------------------------------------------------------
 
         //  Insert/Delete Methods
-        public void Add(Tbl03Regnum tbl03Regnum)    {
+        public void Add(Tbl03Regnum regnum)    {
             _entities.Tbl03Regnums.Add(tbl03Regnum);           
         }
 
-        public void Delete(Tbl03Regnum tbl03Regnum)    {
+        public void Delete(Tbl03Regnum regnum)    {
             _entities.Tbl03Regnums.Remove(tbl03Regnum);
         } 
         //-----------------------------------------------------------------------------------------------------------
