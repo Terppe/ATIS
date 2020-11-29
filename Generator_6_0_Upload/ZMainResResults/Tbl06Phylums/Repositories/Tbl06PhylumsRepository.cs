@@ -2,7 +2,7 @@ using System.Linq;
 using Atis.WpfUi.Interfaces;
 using Atis.WpfUi.Model;    
 
-// <!-- Repository Skriptdatum:  27.10.2020  12:32    -->  
+// <!-- Repository Skriptdatum:  28.11.2020  12:32    -->  
 
 namespace Atis.WpfUi.Repositories      {  
     public class Tbl06PhylumsRepository : ITbl06PhylumsRepository    {
@@ -32,11 +32,11 @@ namespace Atis.WpfUi.Repositories      {
          //-------------------------------------------------------------------------------------------------------------
 
         //  Insert/Delete Methods
-        public void Add(Tbl06Phylum tbl06Phylum)    {
+        public void Add(Tbl06Phylum phylum)    {
             _entities.Tbl06Phylums.Add(tbl06Phylum);           
         }
 
-        public void Delete(Tbl06Phylum tbl06Phylum)    {
+        public void Delete(Tbl06Phylum phylum)    {
             _entities.Tbl06Phylums.Remove(tbl06Phylum);
         } 
         //-----------------------------------------------------------------------------------------------------------

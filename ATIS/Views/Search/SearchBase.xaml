@@ -9,7 +9,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"
-    d:DesignHeight="550"
+    d:DesignHeight="650"
     d:DesignWidth="1500"
     mc:Ignorable="d">
 
@@ -2024,7 +2024,6 @@
                                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                         ScrollViewer.IsDeferredScrollingEnabled="True"
                                         ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                        Tag="{Binding PhylumId}"
                                         VirtualizingStackPanel.IsVirtualizing="True"
                                         VirtualizingStackPanel.VirtualizationMode="Recycling">
 
@@ -2035,6 +2034,7 @@
                                             </Style>
                                         </ListView.ItemContainerStyle>
 
+
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Width="Auto" Header="{DynamicResource Shared-CountId}">
@@ -2044,6 +2044,7 @@
                                                                 Width="100"
                                                                 Text="{Binding (models:Tbl06Phylum.CountId)}"
                                                                 TextAlignment="Left" />
+
                                                         </DataTemplate>
                                                     </GridViewColumn.CellTemplate>
                                                 </GridViewColumn>

@@ -14,7 +14,7 @@ using ATIS.Ui.Views.Database.DatabaseHelper;
 using log4net;
 using Microsoft.EntityFrameworkCore;          
     
-         //    PhylumsViewModel Skriptdatum:  27.10.2020  12:32    
+         //    PhylumsViewModel Skriptdatum:  28.11.2020  12:32    
 
 namespace ATIS.Ui.Views.Database.D06Phylum
 {     

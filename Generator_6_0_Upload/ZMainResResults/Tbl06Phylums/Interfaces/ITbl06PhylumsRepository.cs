@@ -1,7 +1,7 @@
 using System.Linq;
 using Atis.WpfUi.Model;      
    
-// <!-- Interface Skriptdatum:  27.10.2020  12:32     -->  
+// <!-- Interface Skriptdatum:  28.11.2020  12:32     -->  
 
 namespace Atis.WpfUi.Interfaces     {         
     public interface ITbl06PhylumsRepository    {
@@ -12,8 +12,8 @@ namespace Atis.WpfUi.Interfaces     {
 Tbl06Phylum Get(int id);   
         
 
-        void Add(Tbl06Phylum tbl06Phylum);
-        void Delete(Tbl06Phylum tbl06Phylum);
+        void Add(Tbl06Phylum phylum);
+        void Delete(Tbl06Phylum phylum);
         void Save( );               
      }
 }   

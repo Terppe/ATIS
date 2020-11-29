@@ -1158,9 +1158,10 @@
               </Section>  ]]>   
 </xsl:when>  
 <xsl:when test="Table ='Tbl06Phylums'">   <![CDATA[ 
-        <Paragraph>
-            <!--   Tbl03Regnums  -->
 
+                        <!--   Tbl03Regnums  -->
+
+                     <Paragraph>
                         <TextBlock
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
                             Margin="2,0,0,10"
@@ -1168,11 +1169,7 @@
                             FontWeight="Bold"
                             Foreground="{DynamicResource ValidationErrorBrush}"
                             Text="{DynamicResource Report-TaxoHiera}" />
-                        <materialDesign:Card
-                            Margin="2,0,0,0"
-                            Background="{DynamicResource PrimaryHueLightBrush}"
-                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                            UniformCornerRadius="2">
+                      <GroupBox>
                         <ListBox
                             x:Name="Tbl03RegnumsList"
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
@@ -1186,7 +1183,7 @@
                                     <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="300" Text="{DynamicResource Tbl03Regnum-Regnum}" />
                                         <TextBlock>
-                                            <Hyperlink Click="HyperlinkRegnum_Click" Tag="{Binding (models:Tbl03Regnum.RegnumID)}">
+                                            <Hyperlink Click="HyperlinkRegnum_Click" Tag="{Binding (models:Tbl03Regnum.RegnumId)}">
                                                 <TextBlock>
                                                     <TextBlock.Text>
                                                         <MultiBinding StringFormat=" {0} {1} ">
@@ -1197,7 +1194,7 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                            <TextBlock Margin="2,0,0,0" >
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource AuthorConverter}">
                                                         <Binding Path="Author" />
@@ -1205,7 +1202,7 @@
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
-                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                            <TextBlock Margin="2,0,0,0" >
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource NameConverter}">
                                                         <Binding Path="GerName" />
@@ -1219,15 +1216,11 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                      </materialDesign:Card>
+                      </GroupBox>
 
                         <!--   Tbl06Phylums  -->
 
-                        <materialDesign:Card
-                            Margin="2,0,0,0"
-                            Background="{DynamicResource PrimaryHueLightBrush}"
-                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                            UniformCornerRadius="2">
+                      <GroupBox>
                         <ListBox
                             x:Name="Tbl06PhylumsList"
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
@@ -1241,7 +1234,7 @@
                                     <StackPanel Margin="28,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="292" Text="{DynamicResource Tbl06Phylum-Phylum}" />
                                         <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
-                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                            <TextBlock Margin="2,0,0,0" >
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource AuthorConverter}">
                                                         <Binding Path="Author" />
@@ -1249,7 +1242,7 @@
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
-                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                            <TextBlock Margin="2,0,0,0" >
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource NameConverter}">
                                                         <Binding Path="GerName" />
@@ -1263,26 +1256,16 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                     </materialDesign:Card>
+                      </GroupBox>
 
                         <!--   Tbl12Subphylums Children -->
 
-                        <materialDesign:Card
-                            Margin="2,2,0,0"
-                            Background="{DynamicResource PrimaryHueLightBrush}"
-                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                            UniformCornerRadius="2">
                         <TextBlock
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
                             Margin="20,0,0,0"
                             FontWeight="Bold"
                             Text="{DynamicResource Report-DirectChild}" />
-                        </materialDesign:Card>
-                        <materialDesign:Card
-                            Margin="2,2,0,0"
-                            Background="{DynamicResource PrimaryHueLightBrush}"
-                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                            UniformCornerRadius="2">
+                      <GroupBox>
                         <ListBox
                             x:Name="Tbl12SubphylumsList"
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
@@ -1296,11 +1279,11 @@
                                     <StackPanel Margin="36,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="284" Text="{DynamicResource Tbl12Subphylum-Subphylum}" />
                                         <TextBlock>
-                                            <Hyperlink Click="HyperlinkSubphylum_Click" Tag="{Binding (models:Tbl12Subphylum.SubphylumID)}">
+                                            <Hyperlink Click="HyperlinkSubphylum_Click" Tag="{Binding (models:Tbl12Subphylum.SubphylumId)}">
                                                 <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                            <TextBlock Margin="2,0,0,0" >
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource AuthorConverter}">
                                                         <Binding Path="Author" />
@@ -1308,7 +1291,7 @@
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
-                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                            <TextBlock Margin="2,0,0,0" >
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource NameConverter}">
                                                         <Binding Path="GerName" />
@@ -1322,14 +1305,15 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                      </materialDesign:Card>
+                      </GroupBox>
                   </Paragraph>
               </Section>  ]]>   
 </xsl:when>  
 <xsl:when test="Table ='Tbl09Divisions'">   <![CDATA[ 
-        <Paragraph>
 
-            <!--   Tbl03Regnums  -->
+                        <!--   Tbl03Regnums  -->
+
+                     <Paragraph>
                         <TextBlock
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
                             Margin="2,0,0,10"
@@ -1337,11 +1321,7 @@
                             FontWeight="Bold"
                             Foreground="{DynamicResource ValidationErrorBrush}"
                             Text="{DynamicResource Report-TaxoHiera}" />
-                        <materialDesign:Card
-                            Margin="2,0,0,0"
-                            Background="{DynamicResource PrimaryHueLightBrush}"
-                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                            UniformCornerRadius="2">
+                      <GroupBox>
                         <ListBox
                             x:Name="Tbl03RegnumsList"
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
@@ -1355,7 +1335,7 @@
                                     <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="300" Text="{DynamicResource Tbl03Regnum-Regnum}" />
                                         <TextBlock>
-                                            <Hyperlink Click="HyperlinkRegnum_Click" Tag="{Binding (models:Tbl03Regnum.RegnumID)}">
+                                            <Hyperlink Click="HyperlinkRegnum_Click" Tag="{Binding (models:Tbl03Regnum.RegnumId)}">
                                                 <TextBlock>
                                                     <TextBlock.Text>
                                                         <MultiBinding StringFormat=" {0} {1} ">
@@ -1366,7 +1346,7 @@
                                                 </TextBlock>
                                             </Hyperlink>
                                         </TextBlock>
-                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                            <TextBlock Margin="2,0,0,0" >
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource AuthorConverter}">
                                                         <Binding Path="Author" />
@@ -1374,7 +1354,7 @@
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
-                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                            <TextBlock Margin="2,0,0,0" >
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource NameConverter}">
                                                         <Binding Path="GerName" />
@@ -1388,15 +1368,11 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                      </materialDesign:Card>
+                      </GroupBox>
 
                         <!--   Tbl09Divisions  -->
 
-                        <materialDesign:Card
-                            Margin="2,0,0,0"
-                            Background="{DynamicResource PrimaryHueLightBrush}"
-                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                            UniformCornerRadius="2">
+                      <GroupBox>
                         <ListBox
                             x:Name="Tbl09DivisionsList"
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
@@ -1410,7 +1386,7 @@
                                     <StackPanel Margin="28,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="292" Text="{DynamicResource Tbl09Division-Division}" />
                                         <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl09Division.DivisionName)}" />
-                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                            <TextBlock Margin="2,0,0,0" >
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource AuthorConverter}">
                                                         <Binding Path="Author" />
@@ -1418,7 +1394,7 @@
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
-                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                            <TextBlock Margin="2,0,0,0" >
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource NameConverter}">
                                                         <Binding Path="GerName" />
@@ -1432,26 +1408,16 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                     </materialDesign:Card>
+                      </GroupBox>
 
                         <!--   Tbl15Subdivisions Children -->
 
-                        <materialDesign:Card
-                            Margin="2,2,0,0"
-                            Background="{DynamicResource PrimaryHueLightBrush}"
-                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                            UniformCornerRadius="2">
                         <TextBlock
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
                             Margin="20,0,0,0"
                             FontWeight="Bold"
                             Text="{DynamicResource Report-DirectChild}" />
-                        </materialDesign:Card>
-                        <materialDesign:Card
-                            Margin="2,2,0,0"
-                            Background="{DynamicResource PrimaryHueLightBrush}"
-                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                            UniformCornerRadius="2">
+                      <GroupBox>
                         <ListBox
                             x:Name="Tbl15SubdivisionsList"
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
@@ -1469,7 +1435,7 @@
                                                 <TextBlock Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
                                             </Hyperlink>
                                         </TextBlock>
-                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                            <TextBlock Margin="2,0,0,0" >
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource AuthorConverter}">
                                                         <Binding Path="Author" />
@@ -1477,7 +1443,7 @@
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
-                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                            <TextBlock Margin="2,0,0,0" >
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource NameConverter}">
                                                         <Binding Path="GerName" />
@@ -1491,7 +1457,7 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                      </materialDesign:Card>
+                      </GroupBox>
                   </Paragraph>
               </Section>  ]]>   
 </xsl:when>  

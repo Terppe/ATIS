@@ -181,6 +181,7 @@ namespace ATIS.Ui.Views.Report
             ReportRegnumPdf.CreateMainPdf(id, use);
         }
 
+        //------------------------------------------------------------------------------
         //------------------------------------------------------------------------------  		   
         public void GetTbl06PhylumsById(int id)
         {
@@ -209,17 +210,32 @@ namespace ATIS.Ui.Views.Report
 
             CommentsCollection = _extReportBasicGet.CollCommentsByPhylumId(id);
         }
-        private RelayCommand _pdfTbl06PhylumsCommand;
-        public ICommand PdfTbl06PhylumsCommand
+        //------------------------------------------------------------------------------
+
+        private RelayCommand _pdfPhylumPrintCommand;
+        public ICommand PdfPhylumPrintCommand
         {
-            get { return _pdfTbl06PhylumsCommand ??= new RelayCommand(delegate { CreatePdfTbl06Phylums(_mainId); }); }
+            get { return _pdfPhylumPrintCommand ??= new RelayCommand(delegate { CreatePdfPhylumPrint(_mainId); }); }
         }
 
-        private static void CreatePdfTbl06Phylums(int id)
+        private static void CreatePdfPhylumPrint(int id)
         {
-            ReportPhylumPdf.CreateMainPdf(id);
+            const string use = "print";
+            ReportPhylumPdf.CreateMainPdf(id, use);
         }
         //------------------------------------------------------------------------------
+        private RelayCommand _pdfPhylumSaveCommand;
+        public ICommand PdfPhylumSaveCommand
+        {
+            get { return _pdfPhylumSaveCommand ??= new RelayCommand(delegate { CreatePdfPhylumSave(_mainId); }); }
+        }
+
+        private static void CreatePdfPhylumSave(int id)
+        {
+            const string use = "save";
+            ReportPhylumPdf.CreateMainPdf(id, use);
+        }
+
         //------------------------------------------------------------------------------  		   
 
         //------------Direct Children-------------------------------------

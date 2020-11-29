@@ -11,7 +11,7 @@ using log4net;
 using Microsoft.Win32;  
 
     
-         //    ReportPhylumPdf Skriptdatum:  27.10.2020  12:32    
+         //    ReportPhylumPdf Skriptdatum:  28.11.2020  12:32    
 
 namespace ATIS.Ui.Views.Report.D06Phylum
 {     
@@ -64,6 +64,9 @@ namespace ATIS.Ui.Views.Report.D06Phylum
                     AddPhylumHaeder(pdf, phylumList);
                     AddPhylumTaxoNomenList(pdf, phylumList);
                     AddPhylumHierarchyList(pdf, phylumList);       
+          
+                        if (subphylumsList.Count != 0)
+                        AddSubphylumsChildrenList(pdf, subphylumsList);      
           
                     if (expertsList.Count != 0 || sourcesList.Count != 0 || authorsList.Count != 0)
                         _arrInts = PdfHelper.AddReferencesHaeder(pdf, _arrInts);
@@ -119,7 +122,7 @@ namespace ATIS.Ui.Views.Report.D06Phylum
             }
         }  
              
-        private static void AddPhylumHaeder(PdfDocument pdf, Tbl06Phylum tbl06PhylumList)
+        private static void AddPhylumHaeder(PdfDocument pdf, Tbl06Phylum phylumList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
@@ -136,7 +139,7 @@ namespace ATIS.Ui.Views.Report.D06Phylum
             _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
         } 
           
-        private static void AddPhylumTaxoNomenList(PdfDocument pdf, Tbl06Phylum tbl06PhylumList)         
+        private static void AddPhylumTaxoNomenList(PdfDocument pdf, Tbl06Phylum phylumList)         
           
         {
             _page = pdf.Pages[_arrInts[6]];
@@ -155,7 +158,7 @@ namespace ATIS.Ui.Views.Report.D06Phylum
             //------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("synonymLeft", _arrInts, false, CultRes.StringsRes.ReportSynonyms, 0);
             //------------------------------------------------------
-            _arrInts = PdfHelper.PdfTbMtRight("synonymRight", _arrInts, regnumList.Synonym);
+            _arrInts = PdfHelper.PdfTbMtRight("synonymRight", _arrInts, phylumList.Synonym);
 
             _arrInts[1] += _arrInts[9]; //Distance to next TextBox
 
@@ -201,7 +204,7 @@ namespace ATIS.Ui.Views.Report.D06Phylum
             _arrInts[1] += _arrInts[9]; //Distance to next TextBox
        }       
           
-        private static void AddPhylumHierarchyList(PdfDocument pdf, Tbl06Phylum tbl06PhylumList)
+        private static void AddPhylumHierarchyList(PdfDocument pdf, Tbl06Phylum phylumList)
         {
             _page = pdf.Pages[_arrInts[6]];
 

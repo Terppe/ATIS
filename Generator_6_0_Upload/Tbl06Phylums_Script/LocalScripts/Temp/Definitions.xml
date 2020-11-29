@@ -2,7 +2,7 @@
  <Definition>
   <File>Tbl06Phylums</File>
 
-  <DateTime>27.10.2020  12:32</DateTime>  
+  <DateTime>28.11.2020  12:32</DateTime>  
   <Namespace>Atis</Namespace>  
   <ConnString></ConnString> 
   <RegisterContext>ATISEntities</RegisterContext > 
@@ -166,9 +166,9 @@
   <Entitys>_tbl06Phylums</Entitys> 
   <EntitysFK1>_tbl03Regnums</EntitysFK1> 
 
-  <EntityAblTK1>Tbl12Subphylum tbl12Subphylum</EntityAblTK1> 
-  <EntityAbl>Tbl06Phylum tbl06Phylum</EntityAbl> 
-  <EntityAblFK1>Tbl03Regnum tbl03Regnum</EntityAblFK1> 
+  <EntityAblTK1>Tbl12Subphylum subphylum</EntityAblTK1> 
+  <EntityAbl>Tbl06Phylum phylum</EntityAbl> 
+  <EntityAblFK1>Tbl03Regnum regnum</EntityAblFK1> 
 
    <Fields>
     <Field><Name>PhylumID</Name> <Type>int</Type>  <NotNull>IDENTITY(1,1) NOT NULL</NotNull> </Field>

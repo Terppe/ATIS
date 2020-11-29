@@ -16,7 +16,6 @@ namespace ATIS.Ui.Views.Search
         public SearchBase()
         {
             DataContext = new SearchQuickViewModel();
-
             InitializeComponent();
         }
         public SearchBase(string un)
@@ -34,15 +33,6 @@ namespace ATIS.Ui.Views.Search
                 printDialog.PrintVisual(LayoutRoot, "Landscape broken Grid print");
 
         }
-        //private void Tbl03RegnumsList_DoubleClick(object sender, MouseButtonEventArgs e)
-        //{
-        //    var lvItem = sender as ListViewItem;
-
-        //    if (lvItem == null) return;
-        //    var id = (dynamic)lvItem.Tag;
-        //    var rp = new ReportRegnumWindow(id, "Tbl03Regnums");
-        //    rp.Show();
-        //}
         private void Tbl03RegnumsList_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             var lvItem = sender as ListViewItem;
@@ -58,8 +48,8 @@ namespace ATIS.Ui.Views.Search
 
             if (lvItem == null) return;
             var id = (dynamic)lvItem.Tag;
-            var rp = new ReportPhylumWindow(id, "Tbl06Phylums");
-            rp.Show();
+                 var rp1 = new ReportPhylumWindow(id, "Tbl06Phylums");
+            rp1.Show();
         }
         private void Tbl12SubphylumsList_DoubleClick(object sender, MouseButtonEventArgs e)
         {

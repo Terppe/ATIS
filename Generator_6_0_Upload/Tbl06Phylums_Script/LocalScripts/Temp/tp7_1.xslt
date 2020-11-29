@@ -3,18 +3,40 @@
 <xsl:output method="text" version="1.0" encoding="UTF-8" indent="yes"/>
 <xsl:template match="Definition"><![CDATA[using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
+using System.ComponentModel;  ]]>
+
+<xsl:choose>
+<xsl:when test="Table ='using++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when> 
+<xsl:when test="Table ='Tbl12Subphylums'">   <![CDATA[ 
+using System.Linq;  ]]>
+</xsl:when>   
+<xsl:when test="Table ='Tbl15Subdivisions'">   <![CDATA[ 
+using System.Linq;  ]]>
+</xsl:when>   
+<xsl:when test="Table ='Tbl18Superclasses'">   <![CDATA[ 
+using System.Linq;  ]]>
+</xsl:when>   
+<xsl:otherwise>  
+</xsl:otherwise>    
+</xsl:choose> 
+
+<xsl:choose>
+<xsl:when test="Table ='using++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when> 
+<xsl:otherwise>   <![CDATA[ 
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using Common.Logging;
 using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Database.CrudHelper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
+using log4net;
 using Microsoft.EntityFrameworkCore;    ]]>      
+</xsl:otherwise>    
+</xsl:choose> 
 
 <xsl:choose>
 <xsl:when test="Table ='Header++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
@@ -86,7 +108,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when> 
 <xsl:when test="Table ='Tbl03Regnums'">      <![CDATA[ 
         #region [Private Data Members]
-        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(typeof(]]><xsl:value-of select="Basiss"/><![CDATA[ViewModel));
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly AtisDbContext _context = new AtisDbContext();
 
@@ -106,7 +128,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>  
 <xsl:when test="Table ='Tbl18Superclasses'">   <![CDATA[ 
         #region [Private Data Members]
-        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(typeof(]]><xsl:value-of select="Basiss"/><![CDATA[ViewModel));
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly AtisDbContext _context = new AtisDbContext();
 
@@ -127,7 +149,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when> 
 <xsl:otherwise>        <![CDATA[ 
         #region [Private Data Members]
-        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(typeof(]]><xsl:value-of select="Basiss"/><![CDATA[ViewModel));
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly AtisDbContext _context = new AtisDbContext();
 
@@ -6200,6 +6222,14 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='++++++Open Detail Items  Top 1 SelectedDetailTabIndex 7  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
 </xsl:when>  
 <xsl:when test="Table ='Tbl03Regnums'">     
+</xsl:when>       
+<xsl:when test="Table ='Tbl06Phylums'">     
+</xsl:when>       
+<xsl:when test="Table ='Tbl09Divisions'">     
+</xsl:when>       
+<xsl:when test="Table ='Tbl12Subphylums'">     
+</xsl:when>       
+<xsl:when test="Table ='Tbl15Subdivisions'">     
 </xsl:when>       
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedDetailTabIndex == 7)

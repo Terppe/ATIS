@@ -182,6 +182,8 @@ namespace ATIS.Ui.Views.Database.CrudHelper
 
             return collection;
         }
+
+
         public ObservableCollection<T> GetReferenceExpertsCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<T>(int id)
         {
             ObservableCollection<T> collection;

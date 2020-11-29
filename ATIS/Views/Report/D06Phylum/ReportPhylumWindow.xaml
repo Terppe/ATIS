@@ -7,9 +7,11 @@
     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
     xmlns:valueConverter="clr-namespace:ATIS.Ui.Helper.ValueConverter"
     Title="{DynamicResource Report-Title}"
-    Width="1000"
+    Width="1250"
     Height="600"
     ResizeMode="CanResizeWithGrip">
+
+    <!--  ReportTbl03RegnumsWindow.xaml  Skriptdatum:  27.11.2020  12:32  -->
 
     <mah:MetroWindow.Resources>
         <ResourceDictionary>
@@ -30,7 +32,6 @@
         </ResourceDictionary>
     </mah:MetroWindow.Resources>
 
-    <!--  ReportTbl06PhylumsWindow.xaml  Skriptdatum:  12.12.2019  12:32  -->
 
     <Grid x:Name="LayoutRoot">
         <Grid.Resources>
@@ -59,25 +60,62 @@
             <TextBox
                 x:Name="Reader"
                 Margin="10,0,10,0"
+                HorizontalContentAlignment="Stretch"
+                mah:TextBoxHelper.IsWaitingForData="True"
+                mah:TextBoxHelper.UseFloatingWatermark="True"
+                mah:TextBoxHelper.Watermark="Reader"
+                mah:TextBoxHelper.WatermarkAlignment="Left"
+                FontWeight="Medium"
                 LostFocus="Reader_LostFocus"
-                Text="1000" />
+                SpellCheck.IsEnabled="True"
+                Text="1050"
+                ToolTip="Reader" />
+
             <TextBox
                 x:Name="PageWidthText"
                 Margin="10,0,10,0"
-                Text="1000" />
+                HorizontalContentAlignment="Stretch"
+                mah:TextBoxHelper.IsWaitingForData="True"
+                mah:TextBoxHelper.UseFloatingWatermark="True"
+                mah:TextBoxHelper.Watermark="PageWidthText"
+                mah:TextBoxHelper.WatermarkAlignment="Left"
+                FontWeight="Medium"
+                SpellCheck.IsEnabled="True"
+                Text="1200"
+                ToolTip="PageWidthText" />
+
             <TextBox
                 x:Name="PagePaddingText"
                 Margin="10,0,10,0"
-                Text="28" />
+                HorizontalContentAlignment="Stretch"
+                mah:TextBoxHelper.IsWaitingForData="True"
+                mah:TextBoxHelper.UseFloatingWatermark="True"
+                mah:TextBoxHelper.Watermark="PagePaddingText"
+                mah:TextBoxHelper.WatermarkAlignment="Left"
+                FontWeight="Medium"
+                SpellCheck.IsEnabled="True"
+                Text="28"
+                ToolTip="PagePaddingText" />
+
             <TextBox
                 x:Name="ColumnWidthText"
                 Margin="10,0,10,0"
-                Text="800" />
+                HorizontalContentAlignment="Stretch"
+                mah:TextBoxHelper.IsWaitingForData="True"
+                mah:TextBoxHelper.UseFloatingWatermark="True"
+                mah:TextBoxHelper.Watermark="ColumnWidthText"
+                mah:TextBoxHelper.WatermarkAlignment="Left"
+                FontWeight="Medium"
+                SpellCheck.IsEnabled="True"
+                Text="800"
+                ToolTip="ColumnWidthText" />
+
             <CheckBox
                 x:Name="FlexibleChecked"
                 VerticalAlignment="Center"
                 Content="{DynamicResource ReportFlow-ColumnWidthFlex}"
-                IsChecked="True" />
+                IsChecked="True"
+                Style="{StaticResource MahApps.Styles.CheckBox}" />
             <Button
                 Width="100"
                 Margin="100,5,10,5"
@@ -89,8 +127,15 @@
                 Width="120"
                 Margin="5,5,10,5"
                 VerticalAlignment="Center"
-                Command="{Binding PdfTbl06PhylumsCommand}"
+                Command="{Binding PdfPhylumPrintCommand}"
                 Content="{DynamicResource Report-PrintPdf}"
+                Style="{StaticResource MahApps.Styles.Button}" />
+            <Button
+                Width="120"
+                Margin="5,5,10,5"
+                VerticalAlignment="Center"
+                Command="{Binding PdfPhylumSaveCommand}"
+                Content="{DynamicResource Report-SavePdf}"
                 Style="{StaticResource MahApps.Styles.Button}" />
         </StackPanel>
 
@@ -142,6 +187,7 @@
                                         <StackPanel>
                                             <StackPanel Margin="2,0,0,0" Orientation="Horizontal">
                                                 <TextBlock
+                                                    x:Name="tbName"
                                                     Width="Auto"
                                                     FontSize="18"
                                                     FontWeight="Bold"
@@ -205,7 +251,7 @@
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Synonyms}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl06Phylum.Synonym)}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl06Phylum.Synonym)}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-CommonNames}" />
@@ -279,12 +325,12 @@
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Shared-Info}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl06Phylum.Info)}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl06Phylum.Info)}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Shared-Memo}" />
                                                 <TextBlock
-                                                    Width="500"
+                                                    Width="700"
                                                     Text="{Binding (models:Tbl06Phylum.Memo)}"
                                                     TextWrapping="Wrap" />
                                             </StackPanel>
@@ -322,19 +368,15 @@
                                     <DataTemplate>
                                         <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                             <TextBlock Width="300" Text="{DynamicResource Tbl03Regnum-Regnum}" />
-                                            <TextBlock>
-                                                <Hyperlink Click="HyperlinkRegnum_Click" Tag="{Binding (models:Tbl03Regnum.RegnumId)}">
-                                                    <TextBlock>
-                                                        <TextBlock.Text>
-                                                            <MultiBinding StringFormat=" {0} {1} ">
-                                                                <Binding Path="(models:Tbl03Regnum.RegnumName)" />
-                                                                <Binding Path="(models:Tbl03Regnum.Subregnum)" />
-                                                            </MultiBinding>
-                                                        </TextBlock.Text>
-                                                    </TextBlock>
-                                                </Hyperlink>
+                                            <TextBlock FontWeight="Bold">
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat=" {0} {1} ">
+                                                        <Binding Path="(models:Tbl03Regnum.RegnumName)" />
+                                                        <Binding Path="(models:Tbl03Regnum.Subregnum)" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
                                             </TextBlock>
-                                            <TextBlock Width="Auto" Margin="2,0,0,0">
+                                            <TextBlock Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource AuthorConverter}">
                                                         <Binding Path="Author" />
@@ -342,7 +384,7 @@
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
-                                            <TextBlock Width="Auto" Margin="2,0,0,0">
+                                            <TextBlock Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource NameConverter}">
                                                         <Binding Path="GerName" />
@@ -357,9 +399,8 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </GroupBox>
-
                         <!--  Tbl06Phylums  -->
-                        <GroupBox>
+                         <GroupBox>
                             <ListBox
                                 x:Name="Tbl06PhylumsList"
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
@@ -370,10 +411,16 @@
                                 Visibility="{Binding ElementName=Tbl06PhylumsList, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <StackPanel Margin="28,0,0,0" Orientation="Horizontal">
-                                            <TextBlock Width="292" Text="{DynamicResource Tbl06Phylum-Phylum}" />
-                                            <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
-                                            <TextBlock Width="Auto" Margin="2,0,0,0">
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Phylum}" />
+                                            <TextBlock FontWeight="Bold">
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat=" {0} {1} ">
+                                                        <Binding Path="(models:Tbl06Phylum.PhylumName)" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource AuthorConverter}">
                                                         <Binding Path="Author" />
@@ -381,7 +428,7 @@
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
-                                            <TextBlock Width="Auto" Margin="2,0,0,0">
+                                            <TextBlock Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource NameConverter}">
                                                         <Binding Path="GerName" />
@@ -396,15 +443,15 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </GroupBox>
-                        <!--  Tbl12Subphylums Children  -->
 
-                        <GroupBox>
-                            <TextBlock
-                                Width="{Binding ElementName=PageWidthText, Path=Text}"
-                                Margin="20,0,0,0"
-                                FontWeight="Bold"
-                                Text="{DynamicResource Report-DirectChild}" />
-                        </GroupBox>
+                        <!--  Direct Children  -->
+                        <!--  Tbl12Subphylums  -->
+
+                        <TextBlock
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Margin="20,0,0,0"
+                            FontWeight="Bold"
+                            Text="{DynamicResource Report-DirectChild}" />
                         <GroupBox>
                             <ListBox
                                 x:Name="Tbl12SubphylumsList"
@@ -416,14 +463,14 @@
                                 Visibility="{Binding ElementName=Tbl12SubphylumsList, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <StackPanel Margin="36,0,0,0" Orientation="Horizontal">
-                                            <TextBlock Width="284" Text="{DynamicResource Tbl12Subphylum-Subphylum}" />
+                                        <StackPanel Margin="28,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="292" Text="{DynamicResource Tbl12Subphylum-Subphylum}" />
                                             <TextBlock>
                                                 <Hyperlink Click="HyperlinkSubphylum_Click" Tag="{Binding (models:Tbl12Subphylum.SubphylumId)}">
                                                     <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
                                                 </Hyperlink>
                                             </TextBlock>
-                                            <TextBlock Width="Auto" Margin="2,0,0,0">
+                                            <TextBlock Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource AuthorConverter}">
                                                         <Binding Path="Author" />
@@ -431,7 +478,7 @@
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
-                                            <TextBlock Width="Auto" Margin="2,0,0,0">
+                                            <TextBlock Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource NameConverter}">
                                                         <Binding Path="GerName" />
@@ -446,6 +493,8 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </GroupBox>
+
+ 
                     </Paragraph>
                 </Section>
 
@@ -462,13 +511,11 @@
                             FontWeight="Bold"
                             Foreground="{DynamicResource ValidationErrorBrush}"
                             Text="{DynamicResource Report-References}" />
-                        <GroupBox>
-                            <TextBlock
-                                Width="{Binding ElementName=PageWidthText, Path=Text}"
-                                Margin="20,0,0,0"
-                                FontWeight="Bold"
-                                Text="{DynamicResource Report-Experts}" />
-                        </GroupBox>
+                        <TextBlock
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Margin="20,0,0,0"
+                            FontWeight="Bold"
+                            Text="{DynamicResource Report-Experts}" />
                         <GroupBox>
                             <ListBox
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
@@ -481,12 +528,12 @@
                                         <StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Expert}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefExperts).RefExpertName}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefExperts).RefExpertName}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Notes}" />
                                                 <TextBlock
-                                                    Width="500"
+                                                    Width="700"
                                                     Text="{Binding (models:Tbl90Reference.Tbl90RefExperts).Notes}"
                                                     TextWrapping="Wrap" />
                                             </StackPanel>
@@ -495,13 +542,12 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </GroupBox>
-                        <GroupBox>
-                            <TextBlock
-                                Width="{Binding ElementName=PageWidthText, Path=Text}"
-                                Margin="20,0,0,0"
-                                FontWeight="Bold"
-                                Text="{DynamicResource Report-OtherSources}" />
-                        </GroupBox>
+
+                        <TextBlock
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Margin="20,0,0,0"
+                            FontWeight="Bold"
+                            Text="{DynamicResource Report-OtherSources}" />
                         <GroupBox>
                             <ListBox
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
@@ -514,27 +560,27 @@
                                         <StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Source}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefSources).RefSourceName}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefSources).RefSourceName}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Acquired}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefSources).SourceYear}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefSources).SourceYear}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Shared-Author}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefSources).Author}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefSources).Author}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Shared-Info}" />
                                                 <TextBlock
-                                                    Width="500"
+                                                    Width="700"
                                                     Text="{Binding (models:Tbl90Reference.Tbl90RefSources).Info}"
                                                     TextWrapping="Wrap" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Shared-Notes}" />
                                                 <TextBlock
-                                                    Width="500"
+                                                    Width="700"
                                                     Text="{Binding (models:Tbl90Reference.Tbl90RefSources).Notes}"
                                                     TextWrapping="Wrap" />
                                             </StackPanel>
@@ -543,13 +589,12 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </GroupBox>
-                        <GroupBox>
-                            <TextBlock
-                                Width="{Binding ElementName=PageWidthText, Path=Text}"
-                                Margin="20,0,0,0"
-                                FontWeight="Bold"
-                                Text="{DynamicResource Report-Publications}" />
-                        </GroupBox>
+
+                        <TextBlock
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Margin="20,0,0,0"
+                            FontWeight="Bold"
+                            Text="{DynamicResource Report-Publications}" />
                         <GroupBox>
                             <ListBox
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
@@ -562,44 +607,44 @@
                                         <StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-AuthorsEditors}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).RefAuthorName}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).RefAuthorName}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-PublicationDate}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).PublicationYear}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).PublicationYear}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-ArticleTitle}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).ArticelTitle}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).ArticelTitle}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-BookName}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).BookName}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).BookName}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Pages}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).Page1}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).Page1}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Publisher}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).Publisher}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).Publisher}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-PublicationPlace}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).PublicationPlace}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).PublicationPlace}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Isbn}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).ISBN}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).ISBN}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Infos}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).Info}" />
+                                                <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).Info}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Notes}" />
                                                 <TextBlock
-                                                    Width="500"
+                                                    Width="700"
                                                     Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).Notes}"
                                                     TextWrapping="Wrap" />
                                             </StackPanel>
@@ -648,7 +693,7 @@
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Shared-Info}" />
                                                 <TextBlock
-                                                    Width="500"
+                                                    Width="700"
                                                     Text="{Binding (models:Tbl93Comment.Info)}"
                                                     TextWrapping="Wrap" />
                                             </StackPanel>
@@ -657,7 +702,10 @@
                                                     Width="300"
                                                     FontWeight="Bold"
                                                     Text="{DynamicResource Report-Comment}" />
-                                                <TextBlock Width="500" Text="{Binding (models:Tbl93Comment.Memo)}" />
+                                                <TextBlock
+                                                    Width="700"
+                                                    Text="{Binding (models:Tbl93Comment.Memo)}"
+                                                    TextWrapping="Wrap" />
                                             </StackPanel>
                                         </StackPanel>
                                     </DataTemplate>

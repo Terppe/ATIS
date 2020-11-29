@@ -46,13 +46,13 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
 
         // Tbl03Regnums  -->
-        private void HyperlinkRegnum_Click(object sender, RoutedEventArgs e)
-        {
-            var tagValue = ((Hyperlink)sender).Tag;
-            var id = Convert.ToInt32(tagValue);
-            var rp = new ReportRegnumWindow(id, "Tbl03Regnums");
-            rp.Show();
-        }
+        //private void HyperlinkRegnum_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var tagValue = ((Hyperlink)sender).Tag;
+        //    var id = Convert.ToInt32(tagValue);
+        //    var rp = new ReportRegnumWindow(id, "Tbl03Regnums");
+        //    rp.Show();
+        //}
 
         //Tbl06Phylums  -->
         private void HyperlinkPhylum_Click(object sender, RoutedEventArgs e)
