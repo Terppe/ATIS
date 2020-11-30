@@ -21,6 +21,7 @@ namespace ATIS.Ui.Views.Report.D06Phylum
          
         private static readonly ILog Log = LogManager.GetLogger(typeof(ReportPhylumPdf));
         private static readonly BasicGet ExtGet = new BasicGet();
+        private static readonly ReportBasicGet ExtReportBasicGet = new ReportBasicGet();
         private static readonly PdfHelper PdfHelper = new PdfHelper();
         private static string _n;
         private static string _z1;
@@ -43,8 +44,13 @@ namespace ATIS.Ui.Views.Report.D06Phylum
 
 
             //  LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
-            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
-
+            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");           
+        
+            //-----------------------------------------------------------------------------
+            //ForeignKeyTable
+            var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(id);
+            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();       
+        
             var phylumList = ExtGet.GetPhylumsCollectionOrderByFromPhylumId<Tbl06Phylum>(id).FirstOrDefault();    
         
             var subphylumsList = ExtGet.GetSubphylumsCollectionOrderByFromPhylumId<Tbl12Subphylum>(id);           
@@ -62,8 +68,10 @@ namespace ATIS.Ui.Views.Report.D06Phylum
                     _arrInts = PdfHelper.AddReportMain(pdf); 
 
                     AddPhylumHaeder(pdf, phylumList);
-                    AddPhylumTaxoNomenList(pdf, phylumList);
-                    AddPhylumHierarchyList(pdf, phylumList);       
+                    AddPhylumTaxoNomenList(pdf, phylumList);   
+            
+                    AddRegnumHierarchyList(pdf, regnumList);
+                    AddPhylumHierarchyList(pdf, phylumList); 
           
                         if (subphylumsList.Count != 0)
                         AddSubphylumsChildrenList(pdf, subphylumsList);      
@@ -203,6 +211,28 @@ namespace ATIS.Ui.Views.Report.D06Phylum
 
             _arrInts[1] += _arrInts[9]; //Distance to next TextBox
        }       
+             
+        private static void AddRegnumHierarchyList(PdfDocument pdf, Tbl03Regnum regnumList)
+        {
+            _page = pdf.Pages[_arrInts[6]];
+
+            _arrInts = PdfHelper.PdfTbBoldLeft("header3", _arrInts, true, CultRes.StringsRes.ReportTaxoHiera, 2);
+
+            _arrInts[1] += _arrInts[9]; //Distance to next TextBox
+
+            //---------------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMoveLeft("Left", _arrInts, false, CultRes.StringsRes.Regnum, 0);
+
+            var txtName = regnumList.RegnumName + " " + regnumList.Subregnum;
+
+            var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, regnumList.Author,
+                regnumList.AuthorYear, regnumList.GerName, regnumList.EngName, regnumList.FraName, regnumList.PorName);
+
+            //      _arrInts = PdfHelper.PdfTbRight("phylumRight", _arrInts, false, textResult, 0);
+            _arrInts = PdfHelper.PdfTbMtRight("Right", _arrInts, textResult);
+
+            _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
+        }    
           
         private static void AddPhylumHierarchyList(PdfDocument pdf, Tbl06Phylum phylumList)
         {

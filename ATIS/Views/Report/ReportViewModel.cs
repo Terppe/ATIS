@@ -237,6 +237,60 @@ namespace ATIS.Ui.Views.Report
         }
 
         //------------------------------------------------------------------------------  		   
+        public void GetTbl09DivisionsById(int id)
+        {
+            DivisionsCollection = _extReportBasicGet.CollDivisionsByDivisionId(id);
+
+            //direct children
+            SubdivisionsCollection = _extReportBasicGet.CollSubdivisionsByDivisionIdAndHash(id);
+
+            //------------------------------------------------------------------------------
+            //Function
+            var regnumId = _extReportBasicGet.RegnumIdFromDivisionsCollectionSelect(id);
+
+            //-----------------------------------------------------------------------------
+            //ForeignKeyTable
+            RegnumsCollection = _extReportBasicGet.CollRegnumsByRegnumIdAndHash(regnumId);
+
+            //------------------------------------------------------------------------------
+
+            ExpertsCollection = _extReportBasicGet.CollExpertsByDivisionId(id);
+
+            SourcesCollection = _extReportBasicGet.CollSourcesByDivisionId(id);
+
+            AuthorsCollection = _extReportBasicGet.CollAuthorsByDivisionId(id);
+
+            //------------------------------------------------------------------------------
+
+            CommentsCollection = _extReportBasicGet.CollCommentsByDivisionId(id);
+        }
+        //------------------------------------------------------------------------------
+
+        private RelayCommand _pdfDivisionPrintCommand;
+        public ICommand PdfDivisionPrintCommand
+        {
+            get { return _pdfDivisionPrintCommand ??= new RelayCommand(delegate { CreatePdfDivisionPrint(_mainId); }); }
+        }
+
+        private static void CreatePdfDivisionPrint(int id)
+        {
+            const string use = "print";
+            ReportDivisionPdf.CreateMainPdf(id, use);
+        }
+        //------------------------------------------------------------------------------
+        private RelayCommand _pdfDivisionSaveCommand;
+        public ICommand PdfDivisionSaveCommand
+        {
+            get { return _pdfDivisionSaveCommand ??= new RelayCommand(delegate { CreatePdfDivisionSave(_mainId); }); }
+        }
+
+        private static void CreatePdfDivisionSave(int id)
+        {
+            const string use = "save";
+            ReportDivisionPdf.CreateMainPdf(id, use);
+        }
+
+        //------------------------------------------------------------------------------  
 
         //------------Direct Children-------------------------------------
 
@@ -250,6 +304,7 @@ namespace ATIS.Ui.Views.Report
         public ObservableCollection<Tbl06Phylum> PhylumsCollection { get; set; }
         public ObservableCollection<Tbl09Division> DivisionsCollection { get; set; }
         public ObservableCollection<Tbl12Subphylum> SubphylumsCollection { get; set; }
+        public ObservableCollection<Tbl15Subdivision> SubdivisionsCollection { get; set; }
 
 
         #endregion "Public Properties Tbl93Comment"

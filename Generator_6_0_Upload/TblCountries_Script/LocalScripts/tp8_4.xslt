@@ -138,7 +138,9 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">     
 </xsl:when>
-<xsl:otherwise>   
+<xsl:otherwise>      <![CDATA[    
+                        if (]]><xsl:value-of select="BasisSmTK1"/><![CDATA[sList.Count != 0)
+                        Add]]><xsl:value-of select="BasisTK1"/><![CDATA[sChildrenList(pdf, ]]><xsl:value-of select="BasisSmTK1"/><![CDATA[sList);     ]]> 
 </xsl:otherwise>    
 </xsl:choose> 
 
@@ -382,7 +384,7 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
             //------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("synonymLeft", _arrInts, false, CultRes.StringsRes.ReportSynonyms, 0);
             //------------------------------------------------------
-            _arrInts = PdfHelper.PdfTbMtRight("synonymRight", _arrInts, regnumList.Synonym);
+            _arrInts = PdfHelper.PdfTbMtRight("synonymRight", _arrInts, ]]><xsl:value-of select="BasisSm"/><![CDATA[List.Synonym);
 
             _arrInts[1] += _arrInts[9]; //Distance to next TextBox
 

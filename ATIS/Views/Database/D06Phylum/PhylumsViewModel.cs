@@ -13,7 +13,7 @@ using log4net;
 using Microsoft.EntityFrameworkCore;
 
 
- //    PhylumsViewModel Skriptdatum:  27.10.2020  12:32    
+//    PhylumsViewModel Skriptdatum:  28.11.2020  12:32    
 
 namespace ATIS.Ui.Views.Database.D06Phylum
 {
@@ -23,7 +23,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         // Version with Generic Unit Of Work and AtisDbContext for general use   
 
         #region [Private Data Members]
-        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(typeof(PhylumsViewModel));
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly AtisDbContext _context = new AtisDbContext();
 

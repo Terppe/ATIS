@@ -56,15 +56,6 @@ namespace ATIS.Ui.Views.Report.D06Phylum
             rp.Show();
         }
 
-        //Tbl06Phylums  -->
-        //private void HyperlinkPhylum_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var tagValue = ((Hyperlink)sender).Tag;
-        //    var id = Convert.ToInt32(tagValue);
-        //    var rp = new ReportPhylumWindow(id, "Tbl06Phylums");
-        //    rp.Show();
-        //}
-
         //Tbl12Subphylums  -->
         private void HyperlinkSubphylum_Click(object sender, RoutedEventArgs e)
         {

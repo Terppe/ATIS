@@ -11,7 +11,7 @@
     Height="600"
     ResizeMode="CanResizeWithGrip">
 
-    <!--  ReportTbl03RegnumsWindow.xaml  Skriptdatum:  27.11.2020  12:32  -->
+    <!--  ReportTbl06PhylumsWindow.xaml  Skriptdatum:  28.11.2020  12:32  -->
 
     <mah:MetroWindow.Resources>
         <ResourceDictionary>
@@ -187,7 +187,6 @@
                                         <StackPanel>
                                             <StackPanel Margin="2,0,0,0" Orientation="Horizontal">
                                                 <TextBlock
-                                                    x:Name="tbName"
                                                     Width="Auto"
                                                     FontSize="18"
                                                     FontWeight="Bold"
@@ -199,8 +198,8 @@
                                                     FontWeight="Bold">
                                                     <TextBlock.Text>
                                                         <MultiBinding Converter="{StaticResource AuthorWithoutStringConverter}">
-                                                            <Binding Path="Author" />
-                                                            <Binding Path="AuthorYear" />
+                                                            <Binding Path="(models:Tbl06Phylum.Author)" />
+                                                            <Binding Path="(models:Tbl06Phylum.AuthorYear)" />
                                                         </MultiBinding>
                                                     </TextBlock.Text>
                                                 </TextBlock>
@@ -232,7 +231,30 @@
                             Text="{DynamicResource Report-TaxoNomen}" />
                     </Paragraph>
                     <Paragraph>
-                        <GroupBox>
+                        <StackPanel>
+                            <ListBox
+                                x:Name="Tbl03Regnums1List"
+                                Width="{Binding ElementName=PageWidthText, Path=Text}"
+                                Height="Auto"
+                                Margin="0"
+                                HorizontalAlignment="Left"
+                                ItemsSource="{Binding RegnumsCollection}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Tbl03Regnum-Regnum}" />
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat=" {0} {1} ">
+                                                        <Binding Path="(models:Tbl03Regnum.RegnumName)" />
+                                                        <Binding Path="(models:Tbl03Regnum.Subregnum)" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
                             <ListBox
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
                                 Height="Auto"
@@ -243,10 +265,7 @@
                                     <DataTemplate>
                                         <StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
-                                                <TextBlock
-                                                    Width="300"
-                                                    FontWeight="Bold"
-                                                    Text="{DynamicResource Report-TaxoRank}" />
+                                                <TextBlock Width="300" Text="{DynamicResource Report-TaxoRank}" />
                                                 <TextBlock Width="130" Text="{DynamicResource Tbl06Phylum-Phylum}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
@@ -338,16 +357,15 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                        </GroupBox>
+                        </StackPanel>
                     </Paragraph>
 
 
 
                     <!--  Part 3  -->
 
-
+                    <!--  Tbl03Regnums  -->
                     <Paragraph>
-                        <!--  Tbl03Regnums  -->
                         <TextBlock
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
                             Margin="2,0,0,10"
@@ -355,7 +373,7 @@
                             FontWeight="Bold"
                             Foreground="{DynamicResource ValidationErrorBrush}"
                             Text="{DynamicResource Report-TaxoHiera}" />
-                        <GroupBox>
+                        <StackPanel>
                             <ListBox
                                 x:Name="Tbl03RegnumsList"
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
@@ -368,29 +386,33 @@
                                     <DataTemplate>
                                         <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                             <TextBlock Width="300" Text="{DynamicResource Tbl03Regnum-Regnum}" />
-                                            <TextBlock FontWeight="Bold">
-                                                <TextBlock.Text>
-                                                    <MultiBinding StringFormat=" {0} {1} ">
-                                                        <Binding Path="(models:Tbl03Regnum.RegnumName)" />
-                                                        <Binding Path="(models:Tbl03Regnum.Subregnum)" />
-                                                    </MultiBinding>
-                                                </TextBlock.Text>
+                                            <TextBlock>
+                                                <Hyperlink Click="HyperlinkRegnum_Click" Tag="{Binding (models:Tbl03Regnum.RegnumId)}">
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat=" {0} {1} ">
+                                                                <Binding Path="(models:Tbl03Regnum.RegnumName)" />
+                                                                <Binding Path="(models:Tbl03Regnum.Subregnum)" />
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Hyperlink>
                                             </TextBlock>
                                             <TextBlock Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource AuthorConverter}">
-                                                        <Binding Path="Author" />
-                                                        <Binding Path="AuthorYear" />
+                                                        <Binding Path="(models:Tbl03Regnum.Author)" />
+                                                        <Binding Path="(models:Tbl03Regnum.AuthorYear)" />
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
                                             <TextBlock Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource NameConverter}">
-                                                        <Binding Path="GerName" />
-                                                        <Binding Path="EngName" />
-                                                        <Binding Path="FraName" />
-                                                        <Binding Path="PorName" />
+                                                        <Binding Path="(models:Tbl03Regnum.GerName)" />
+                                                        <Binding Path="(models:Tbl03Regnum.EngName)" />
+                                                        <Binding Path="(models:Tbl03Regnum.FraName)" />
+                                                        <Binding Path="(models:Tbl03Regnum.PorName)" />
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
@@ -398,9 +420,9 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                        </GroupBox>
+                        </StackPanel>
                         <!--  Tbl06Phylums  -->
-                         <GroupBox>
+                        <StackPanel>
                             <ListBox
                                 x:Name="Tbl06PhylumsList"
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
@@ -411,30 +433,24 @@
                                 Visibility="{Binding ElementName=Tbl06PhylumsList, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
-                                            <TextBlock Width="300" Text="{DynamicResource Phylum}" />
-                                            <TextBlock FontWeight="Bold">
-                                                <TextBlock.Text>
-                                                    <MultiBinding StringFormat=" {0} {1} ">
-                                                        <Binding Path="(models:Tbl06Phylum.PhylumName)" />
-                                                    </MultiBinding>
-                                                </TextBlock.Text>
-                                            </TextBlock>
+                                        <StackPanel Margin="24,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="296" Text="{DynamicResource Tbl06Phylum-Phylum}" />
+                                            <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
                                             <TextBlock Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource AuthorConverter}">
-                                                        <Binding Path="Author" />
-                                                        <Binding Path="AuthorYear" />
+                                                        <Binding Path="(models:Tbl06Phylum.Author)" />
+                                                        <Binding Path="(models:Tbl06Phylum.AuthorYear)" />
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
                                             <TextBlock Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource NameConverter}">
-                                                        <Binding Path="GerName" />
-                                                        <Binding Path="EngName" />
-                                                        <Binding Path="FraName" />
-                                                        <Binding Path="PorName" />
+                                                        <Binding Path="(models:Tbl06Phylum.GerName)" />
+                                                        <Binding Path="(models:Tbl06Phylum.EngName)" />
+                                                        <Binding Path="(models:Tbl06Phylum.FraName)" />
+                                                        <Binding Path="(models:Tbl06Phylum.PorName)" />
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
@@ -442,17 +458,17 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                        </GroupBox>
+                        </StackPanel>
 
                         <!--  Direct Children  -->
                         <!--  Tbl12Subphylums  -->
 
                         <TextBlock
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
-                            Margin="20,0,0,0"
+                            Margin="300,0,0,0"
                             FontWeight="Bold"
                             Text="{DynamicResource Report-DirectChild}" />
-                        <GroupBox>
+                        <StackPanel>
                             <ListBox
                                 x:Name="Tbl12SubphylumsList"
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
@@ -473,18 +489,18 @@
                                             <TextBlock Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource AuthorConverter}">
-                                                        <Binding Path="Author" />
-                                                        <Binding Path="AuthorYear" />
+                                                        <Binding Path="(models:Tbl12Subphylum.Author)" />
+                                                        <Binding Path="(models:Tbl12Subphylum.AuthorYear)" />
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
                                             <TextBlock Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource NameConverter}">
-                                                        <Binding Path="GerName" />
-                                                        <Binding Path="EngName" />
-                                                        <Binding Path="FraName" />
-                                                        <Binding Path="PorName" />
+                                                        <Binding Path="(models:Tbl12Subphylum.GerName)" />
+                                                        <Binding Path="(models:Tbl12Subphylum.EngName)" />
+                                                        <Binding Path="(models:Tbl12Subphylum.FraName)" />
+                                                        <Binding Path="(models:Tbl12Subphylum.PorName)" />
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
@@ -492,9 +508,7 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                        </GroupBox>
-
- 
+                        </StackPanel>
                     </Paragraph>
                 </Section>
 
@@ -516,7 +530,7 @@
                             Margin="20,0,0,0"
                             FontWeight="Bold"
                             Text="{DynamicResource Report-Experts}" />
-                        <GroupBox>
+                        <StackPanel>
                             <ListBox
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
                                 Height="Auto"
@@ -541,14 +555,14 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                        </GroupBox>
+                        </StackPanel>
 
                         <TextBlock
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
                             Margin="20,0,0,0"
                             FontWeight="Bold"
                             Text="{DynamicResource Report-OtherSources}" />
-                        <GroupBox>
+                        <StackPanel>
                             <ListBox
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
                                 Height="Auto"
@@ -588,14 +602,14 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                        </GroupBox>
+                        </StackPanel>
 
                         <TextBlock
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
                             Margin="20,0,0,0"
                             FontWeight="Bold"
                             Text="{DynamicResource Report-Publications}" />
-                        <GroupBox>
+                        <StackPanel>
                             <ListBox
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
                                 Height="Auto"
@@ -652,7 +666,7 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                        </GroupBox>
+                        </StackPanel>
                     </Paragraph>
                 </Section>
 
@@ -680,7 +694,7 @@
                             FontWeight="Bold"
                             Foreground="{DynamicResource ValidationErrorBrush}"
                             Text="{DynamicResource Report-Comments}" />
-                        <GroupBox>
+                        <StackPanel>
                             <ListBox
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
                                 Height="Auto"
@@ -711,7 +725,7 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                        </GroupBox>
+                        </StackPanel>
                     </Paragraph>
                 </Section>
 

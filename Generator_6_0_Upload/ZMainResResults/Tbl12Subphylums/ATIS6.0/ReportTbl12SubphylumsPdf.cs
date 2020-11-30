@@ -65,6 +65,9 @@ namespace ATIS.Ui.Views.Report.D12Subphylum
                     AddSubphylumTaxoNomenList(pdf, subphylumList);
                     AddSubphylumHierarchyList(pdf, subphylumList);       
           
+                        if (superclasssList.Count != 0)
+                        AddSuperclasssChildrenList(pdf, superclasssList);      
+          
                     if (expertsList.Count != 0 || sourcesList.Count != 0 || authorsList.Count != 0)
                         _arrInts = PdfHelper.AddReferencesHaeder(pdf, _arrInts);
 
@@ -155,7 +158,7 @@ namespace ATIS.Ui.Views.Report.D12Subphylum
             //------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("synonymLeft", _arrInts, false, CultRes.StringsRes.ReportSynonyms, 0);
             //------------------------------------------------------
-            _arrInts = PdfHelper.PdfTbMtRight("synonymRight", _arrInts, regnumList.Synonym);
+            _arrInts = PdfHelper.PdfTbMtRight("synonymRight", _arrInts, subphylumList.Synonym);
 
             _arrInts[1] += _arrInts[9]; //Distance to next TextBox
 

@@ -198,8 +198,8 @@
                                                     FontWeight="Bold">
                                                     <TextBlock.Text>
                                                         <MultiBinding Converter="{StaticResource AuthorWithoutStringConverter}">
-                                                            <Binding Path="Author" />
-                                                            <Binding Path="AuthorYear" />
+                                                            <Binding Path="(models:Tbl33Ordo.Author)" />
+                                                            <Binding Path="(models:Tbl33Ordo.AuthorYear)" />
                                                         </MultiBinding>
                                                     </TextBlock.Text>
                                                 </TextBlock>
@@ -231,7 +231,23 @@
                             Text="{DynamicResource Report-TaxoNomen}" />
                     </Paragraph>
                     <Paragraph>
-                        <GroupBox>
+                        <StackPanel>
+                            <ListBox
+                                x:Name="Tbl30Legios1List"
+                                Width="{Binding ElementName=PageWidthText, Path=Text}"
+                                Height="Auto"
+                                Margin="0"
+                                HorizontalAlignment="Left"
+                                ItemsSource="{Binding LegiosCollection}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Tbl30Legio-Legio}" />
+                                            <TextBlock Width="700" Text="{DynamicResource Tbl30Legio-LegioName}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
                         <ListBox
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
                             Height="Auto"
@@ -242,10 +258,7 @@
 	                <DataTemplate>
                                     <StackPanel>
                                         <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
-                                            <TextBlock
-                                                Width="300"
-                                                FontWeight="Bold"
-                                                Text="{DynamicResource Report-TaxoRank}" />
+                                            <TextBlock Width="300" Text="{DynamicResource Report-TaxoRank}" />
                                             <TextBlock Width="130" Text="{DynamicResource Tbl33Ordo-Ordo}" />          
                                         </StackPanel>
                                         <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
@@ -337,7 +350,7 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                        </GroupBox>
+                        </StackPanel>
                   </Paragraph>   
 
              
@@ -964,7 +977,7 @@
                             Margin="20,0,0,0"
                             FontWeight="Bold"
                             Text="{DynamicResource Report-Experts}" />
-                        <GroupBox>
+                        <StackPanel>
                         <ListBox
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
                             Height="Auto"
@@ -989,13 +1002,13 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                        </GroupBox>
+                        </StackPanel>
                         <TextBlock
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
                             Margin="20,0,0,0"
                             FontWeight="Bold"
                             Text="{DynamicResource Report-OtherSources}" />
-                        <GroupBox>
+                        <StackPanel>
                         <ListBox
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
                             Height="Auto"
@@ -1035,13 +1048,13 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                        </GroupBox>
+                        </StackPanel>
                         <TextBlock
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
                             Margin="20,0,0,0"
                             FontWeight="Bold"
                             Text="{DynamicResource Report-Publications}" />
-                        <GroupBox>
+                        <StackPanel>
                         <ListBox
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
                             Height="Auto"
@@ -1098,7 +1111,7 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                      </GroupBox>
+                      </StackPanel>
                   </Paragraph>
               </Section>   
 
@@ -1126,7 +1139,7 @@
                             FontWeight="Bold"
                             Foreground="{DynamicResource ValidationErrorBrush}"
                             Text="{DynamicResource Report-Comments}" />
-                        <GroupBox>
+                        <StackPanel>
                         <ListBox
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
                             Height="Auto"
@@ -1157,7 +1170,7 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                        </GroupBox>
+                        </StackPanel>
                   </Paragraph>
               </Section>   
  

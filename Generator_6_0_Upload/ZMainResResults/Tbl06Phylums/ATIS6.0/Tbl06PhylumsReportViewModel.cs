@@ -1,17 +1,161 @@
    
-       //------------------------------------------------------------------------------
-       private RelayCommand _pdfTbl06PhylumsCommand;
-	public ICommand PdfTbl06PhylumsCommand
-	{
-		get { return _pdfTbl06PhylumsCommand ?? (_pdfTbl06PhylumsCommand = new RelayCommand(delegate { CreatePdfTbl06Phylums(_mainId); })); }
-	}
+        public void GetTbl03RegnumsById(int id)
+        {
+            RegnumsCollection = _extReportBasicGet.CollRegnumsByRegnumId(id);
 
-	private static void CreatePdfTbl06Phylums(int id)
-	{
-		ReportTbl06PhylumsPdf.CreateMainPdf(id);
-	}   
-       //------------------------------------------------------------------------------
-       //------------------------------------------------------------------------------  
+            //direct children
+            PhylumsCollection = _extReportBasicGet.CollPhylumsByRegnumIdAndHash(id);
+
+            DivisionsCollection = _extReportBasicGet.CollDivisionsByRegnumIdAndHash(id);
+
+            //------------------------------------------------------------------------------
+
+            ExpertsCollection = _extReportBasicGet.CollExpertsByRegnumId(id);
+
+            SourcesCollection = _extReportBasicGet.CollSourcesByRegnumId(id);
+
+            AuthorsCollection = _extReportBasicGet.CollAuthorsByRegnumId(id);
+
+            //------------------------------------------------------------------------------
+
+            CommentsCollection = _extReportBasicGet.CollCommentsByRegnumId(id);
+        }
+        //------------------------------------------------------------------------------
+
+        private RelayCommand _pdfRegnumPrintCommand;
+        public ICommand PdfRegnumPrintCommand
+        {
+            get { return _pdfRegnumPrintCommand ??= new RelayCommand(delegate { CreatePdfRegnumPrint(_mainId); }); }
+        }
+
+        private static void CreatePdfRegnumPrint(int id)
+        {
+            const string use = "print";
+            ReportRegnumPdf.CreateMainPdf(id, use);
+        }
+        //------------------------------------------------------------------------------
+        private RelayCommand _pdfRegnumSaveCommand;
+        public ICommand PdfRegnumSaveCommand
+        {
+            get { return _pdfRegnumSaveCommand ??= new RelayCommand(delegate { CreatePdfRegnumSave(_mainId); }); }
+        }
+
+        private static void CreatePdfRegnumSave(int id)
+        {
+            const string use = "save";
+            ReportRegnumPdf.CreateMainPdf(id, use);
+        }
+
+        //------------------------------------------------------------------------------
+
+        public void GetTbl06PhylumsById(int id)
+        {
+            PhylumsCollection = _extReportBasicGet.CollPhylumsByPhylumId(id);
+
+            //direct children
+            SubphylumsCollection = _extReportBasicGet.CollSubphylumsByPhylumIdAndHash(id);
+
+            //------------------------------------------------------------------------------
+            //Function
+            var regnumId = _extReportBasicGet.RegnumIdFromPhylumsCollectionSelect(id);
+
+            //-----------------------------------------------------------------------------
+            //ForeignKeyTable
+            RegnumsCollection = _extReportBasicGet.CollRegnumsByRegnumIdAndHash(regnumId);
+
+            //------------------------------------------------------------------------------
+
+            ExpertsCollection = _extReportBasicGet.CollExpertsByPhylumId(id);
+
+            SourcesCollection = _extReportBasicGet.CollSourcesByPhylumId(id);
+
+            AuthorsCollection = _extReportBasicGet.CollAuthorsByPhylumId(id);
+
+            //------------------------------------------------------------------------------
+
+            CommentsCollection = _extReportBasicGet.CollCommentsByPhylumId(id);
+        }
+        //------------------------------------------------------------------------------
+
+        private RelayCommand _pdfPhylumPrintCommand;
+        public ICommand PdfPhylumPrintCommand
+        {
+            get { return _pdfPhylumPrintCommand ??= new RelayCommand(delegate { CreatePdfPhylumPrint(_mainId); }); }
+        }
+
+        private static void CreatePdfPhylumPrint(int id)
+        {
+            const string use = "print";
+            ReportPhylumPdf.CreateMainPdf(id, use);
+        }
+        //------------------------------------------------------------------------------
+        private RelayCommand _pdfPhylumSaveCommand;
+        public ICommand PdfPhylumSaveCommand
+        {
+            get { return _pdfPhylumSaveCommand ??= new RelayCommand(delegate { CreatePdfPhylumSave(_mainId); }); }
+        }
+
+        private static void CreatePdfPhylumSave(int id)
+        {
+            const string use = "save";
+            ReportPhylumPdf.CreateMainPdf(id, use);
+        }
+
+        //------------------------------------------------------------------------------  
+        public void GetTbl09DivisionsById(int id)
+        {
+            DivisionsCollection = _extReportBasicGet.CollDivisionsByDivisionId(id);
+
+            //direct children
+            SubdivisionsCollection = _extReportBasicGet.CollSubdivisionsByDivisionIdAndHash(id);
+
+            //------------------------------------------------------------------------------
+            //Function
+            var regnumId = _extReportBasicGet.RegnumIdFromDivisionsCollectionSelect(id);
+
+            //-----------------------------------------------------------------------------
+            //ForeignKeyTable
+            RegnumsCollection = _extReportBasicGet.CollRegnumsByRegnumIdAndHash(regnumId);
+
+            //------------------------------------------------------------------------------
+
+            ExpertsCollection = _extReportBasicGet.CollExpertsByDivisionId(id);
+
+            SourcesCollection = _extReportBasicGet.CollSourcesByDivisionId(id);
+
+            AuthorsCollection = _extReportBasicGet.CollAuthorsByDivisionId(id);
+
+            //------------------------------------------------------------------------------
+
+            CommentsCollection = _extReportBasicGet.CollCommentsByDivisionId(id);
+        }
+        //------------------------------------------------------------------------------
+
+        private RelayCommand _pdfDivisionPrintCommand;
+        public ICommand PdfDivisionPrintCommand
+        {
+            get { return _pdfDivisionPrintCommand ??= new RelayCommand(delegate { CreatePdfDivisionPrint(_mainId); }); }
+        }
+
+        private static void CreatePdfDivisionPrint(int id)
+        {
+            const string use = "print";
+            ReportDivisionPdf.CreateMainPdf(id, use);
+        }
+        //------------------------------------------------------------------------------
+        private RelayCommand _pdfDivisionSaveCommand;
+        public ICommand PdfDivisionSaveCommand
+        {
+            get { return _pdfDivisionSaveCommand ??= new RelayCommand(delegate { CreatePdfDivisionSave(_mainId); }); }
+        }
+
+        private static void CreatePdfDivisionSave(int id)
+        {
+            const string use = "save";
+            ReportDivisionPdf.CreateMainPdf(id, use);
+        }
+
+        //------------------------------------------------------------------------------  
    
         public ObservableCollection< Tbl06Phylum> GetValueTbl06PhylumsList(int currentId)
         {

@@ -65,6 +65,9 @@ namespace ATIS.Ui.Views.Report.ListDetails
                     AddInfraclassTaxoNomenList(pdf, infraclassList);
                     AddInfraclassHierarchyList(pdf, infraclassList);       
           
+                        if (legiosList.Count != 0)
+                        AddLegiosChildrenList(pdf, legiosList);      
+          
                     if (expertsList.Count != 0 || sourcesList.Count != 0 || authorsList.Count != 0)
                         _arrInts = PdfHelper.AddReferencesHaeder(pdf, _arrInts);
 
@@ -155,7 +158,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             //------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("synonymLeft", _arrInts, false, CultRes.StringsRes.ReportSynonyms, 0);
             //------------------------------------------------------
-            _arrInts = PdfHelper.PdfTbMtRight("synonymRight", _arrInts, regnumList.Synonym);
+            _arrInts = PdfHelper.PdfTbMtRight("synonymRight", _arrInts, infraclassList.Synonym);
 
             _arrInts[1] += _arrInts[9]; //Distance to next TextBox
 

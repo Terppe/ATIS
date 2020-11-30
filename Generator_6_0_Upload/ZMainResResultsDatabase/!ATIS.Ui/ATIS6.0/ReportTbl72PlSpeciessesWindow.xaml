@@ -1620,7 +1620,7 @@
                             Margin="20,0,0,0"
                             FontWeight="Bold"
                             Text="{DynamicResource Report-Experts}" />
-                        <GroupBox>
+                        <StackPanel>
                         <ListBox
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
                             Height="Auto"
@@ -1645,13 +1645,13 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                        </GroupBox>
+                        </StackPanel>
                         <TextBlock
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
                             Margin="20,0,0,0"
                             FontWeight="Bold"
                             Text="{DynamicResource Report-OtherSources}" />
-                        <GroupBox>
+                        <StackPanel>
                         <ListBox
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
                             Height="Auto"
@@ -1691,13 +1691,13 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                        </GroupBox>
+                        </StackPanel>
                         <TextBlock
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
                             Margin="20,0,0,0"
                             FontWeight="Bold"
                             Text="{DynamicResource Report-Publications}" />
-                        <GroupBox>
+                        <StackPanel>
                         <ListBox
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
                             Height="Auto"
@@ -1754,7 +1754,7 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                      </GroupBox>
+                      </StackPanel>
                   </Paragraph>
               </Section>   
 

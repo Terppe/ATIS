@@ -14,19 +14,6 @@ using log4net;
 using Microsoft.Win32;  ]]>
 
 <xsl:choose>
-<xsl:when test="Table ='Tyrrrz++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
-</xsl:when> 
-<xsl:when test="Table ='Tbl69FiSpeciesses'">       <![CDATA[ 
-        using Tyrrrz.Extensions;  ]]> 
-</xsl:when>   
-<xsl:when test="Table ='Tbl72PlSpeciesses'">       <![CDATA[ 
-        using Tyrrrz.Extensions;  ]]> 
-</xsl:when>   
-<xsl:otherwise> 
-</xsl:otherwise>    
-</xsl:choose> 
-
-<xsl:choose>
 <xsl:when test="Table ='namespace++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
 </xsl:when>  
 <xsl:otherwise>   <![CDATA[ 
@@ -52,6 +39,7 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:otherwise>        <![CDATA[ 
         private static readonly ILog Log = LogManager.GetLogger(typeof(Report]]><xsl:value-of select="Basis"/><![CDATA[Pdf));
         private static readonly BasicGet ExtGet = new BasicGet();
+        private static readonly ReportBasicGet ExtReportBasicGet = new ReportBasicGet();
         private static readonly PdfHelper PdfHelper = new PdfHelper();
         private static string _n;
         private static string _z1;
@@ -78,11 +66,53 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 
 
             //  LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
-            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
+            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");          ]]> 
+</xsl:otherwise>    
+</xsl:choose> 
 
+<xsl:choose>
+<xsl:when test="Table ='Data Members Top 2+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when> 
+<xsl:when test="Table ='Tbl06Phylums'">       <![CDATA[ 
+            //-----------------------------------------------------------------------------
+            //ForeignKeyTable
+            var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(id);
+            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();      ]]> 
+</xsl:when>  
+<xsl:when test="Table ='Tbl09Divisions'">       <![CDATA[ 
+            //-----------------------------------------------------------------------------
+            //ForeignKeyTable
+            var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(id);
+            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();      ]]> 
+</xsl:when>  
+<xsl:when test="Table ='Tbl12Subphylums'">       <![CDATA[ 
+            //-----------------------------------------------------------------------------
+            //ForeignKeyTable
+            var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(id);
+            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();  
+            var phylumId = ExtReportBasicGet.PhylumIdFromSubphylumsCollectionSelect(id);
+            var phylumList = ExtGet.GetPhylumsCollectionOrderByFromPhylumId<Tbl06Phylum>(phylumId).FirstOrDefault();    ]]> 
+</xsl:when>  
+<xsl:when test="Table ='Tbl12Subphylums'">       <![CDATA[ 
+            //-----------------------------------------------------------------------------
+            //ForeignKeyTable
+            var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(id);
+            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();      
+            var divisionId = ExtReportBasicGet.PhylumIdFromSubphylumsCollectionSelect(id);
+            var divisionList = ExtGet.GetDivisionsCollectionOrderByFromDivisionId<Tbl09Division>(divisionId).FirstOrDefault();    ]]> 
+</xsl:when>  
+<xsl:otherwise>     
+</xsl:otherwise>    
+</xsl:choose> 
+
+<xsl:choose>
+<xsl:when test="Table ='Data Members Top 11+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when> 
+<xsl:otherwise>       <![CDATA[ 
             var ]]><xsl:value-of select="BasisSm"/><![CDATA[List = ExtGet.Get]]><xsl:value-of select="Basis"/><![CDATA[sCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModel"/><![CDATA[>(id).FirstOrDefault();   ]]> 
 </xsl:otherwise>    
 </xsl:choose> 
+
 
 <xsl:choose>
 <xsl:when test="Table ='Data Members Top 2+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
@@ -119,8 +149,40 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
                     _arrInts = PdfHelper.AddReportMain(pdf); 
 
                     Add]]><xsl:value-of select="Basis"/><![CDATA[Haeder(pdf, ]]><xsl:value-of select="BasisSm"/><![CDATA[List);
-                    Add]]><xsl:value-of select="Basis"/><![CDATA[TaxoNomenList(pdf, ]]><xsl:value-of select="BasisSm"/><![CDATA[List);
-                    Add]]><xsl:value-of select="Basis"/><![CDATA[HierarchyList(pdf, ]]><xsl:value-of select="BasisSm"/><![CDATA[List);      ]]> 
+                    Add]]><xsl:value-of select="Basis"/><![CDATA[TaxoNomenList(pdf, ]]><xsl:value-of select="BasisSm"/><![CDATA[List);  ]]> 
+</xsl:otherwise>    
+</xsl:choose> 
+
+<xsl:choose>
+<xsl:when test="Table ='Data Members Top 44+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when> 
+<xsl:when test="Table ='Tbl06Phylums'">        <![CDATA[    
+                    AddRegnumHierarchyList(pdf, regnumList);
+                    AddPhylumHierarchyList(pdf, phylumList); ]]>
+</xsl:when>
+<xsl:when test="Table ='Tbl09Divisions'">        <![CDATA[    
+                    AddRegnumHierarchyList(pdf, regnumList); 
+                    AddDivisionHierarchyList(pdf, divisionList);  ]]>
+</xsl:when>
+<xsl:when test="Table ='Tbl12Subphylums'">        <![CDATA[    
+                    AddRegnumHierarchyList(pdf, regnumList); 
+                    AddPhylumHierarchyList(pdf, phylumList);
+                    AddSubphylumHierarchyList(pdf, subphylumList);  ]]>
+</xsl:when>
+<xsl:when test="Table ='Tbl15Subdivisions'">        <![CDATA[    
+                    AddRegnumHierarchyList(pdf, regnumList); 
+                    AddDivisionHierarchyList(pdf, divisionList);  
+                    AddSubdivisionHierarchyList(pdf, subdivisionList);  ]]>
+</xsl:when>
+<xsl:when test="Table ='Tbl18Superclasses'">        <![CDATA[    
+                    AddRegnumHierarchyList(pdf, regnumList); 
+                    AddPhylumHierarchyList(pdf, phylumList); 
+                    AddDivisionHierarchyList(pdf, divisionList); 
+                    AddSubphylumHierarchyList(pdf, subphylumList); 
+                    AddSubdivisionHierarchyList(pdf, subdivisionList); 
+                    AddSuperclassHierarchyList(pdf, superclassList); ]]>
+</xsl:when>
+<xsl:otherwise>     
 </xsl:otherwise>    
 </xsl:choose> 
 
@@ -429,6 +491,59 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 
             _arrInts[1] += _arrInts[9]; //Distance to next TextBox
        }       ]]>
+</xsl:otherwise>    
+</xsl:choose> 
+
+<xsl:choose>
+<xsl:when test="Table ='Public Commands 1  AddHierarchyList Top 1 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when>
+<xsl:when test="Table ='Tbl06Phylums'">        <![CDATA[     
+        private static void AddRegnumHierarchyList(PdfDocument pdf, Tbl03Regnum regnumList)
+        {
+            _page = pdf.Pages[_arrInts[6]];
+
+            _arrInts = PdfHelper.PdfTbBoldLeft("header3", _arrInts, true, CultRes.StringsRes.ReportTaxoHiera, 2);
+
+            _arrInts[1] += _arrInts[9]; //Distance to next TextBox
+
+            //---------------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMoveLeft("Left", _arrInts, false, CultRes.StringsRes.Regnum, 0);
+
+            var txtName = regnumList.RegnumName + " " + regnumList.Subregnum;
+
+            var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, regnumList.Author,
+                regnumList.AuthorYear, regnumList.GerName, regnumList.EngName, regnumList.FraName, regnumList.PorName);
+
+            //      _arrInts = PdfHelper.PdfTbRight("phylumRight", _arrInts, false, textResult, 0);
+            _arrInts = PdfHelper.PdfTbMtRight("Right", _arrInts, textResult);
+
+            _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
+        } ]]>   
+</xsl:when>
+<xsl:when test="Table ='Tbl09Divisions'">        <![CDATA[        
+        private static void AddRegnumHierarchyList(PdfDocument pdf, Tbl03Regnum regnumList)
+        {
+            _page = pdf.Pages[_arrInts[6]];
+
+            _arrInts = PdfHelper.PdfTbBoldLeft("header3", _arrInts, true, CultRes.StringsRes.ReportTaxoHiera, 2);
+
+            _arrInts[1] += _arrInts[9]; //Distance to next TextBox
+
+            //---------------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMoveLeft("Left", _arrInts, false, CultRes.StringsRes.Regnum, 0);
+
+            var txtName = regnumList.RegnumName + " " + regnumList.Subregnum;
+
+            var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, regnumList.Author,
+                regnumList.AuthorYear, regnumList.GerName, regnumList.EngName, regnumList.FraName, regnumList.PorName);
+
+            //      _arrInts = PdfHelper.PdfTbRight("phylumRight", _arrInts, false, textResult, 0);
+            _arrInts = PdfHelper.PdfTbMtRight("Right", _arrInts, textResult);
+
+            _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
+        } ]]>   
+</xsl:when>
+<xsl:otherwise>  
 </xsl:otherwise>    
 </xsl:choose> 
 
