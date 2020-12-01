@@ -215,14 +215,6 @@ namespace ATIS.Ui.Views.Report.ListDetails
             var rp = new ReportTbl60SubtribussesWindow(id, "Tbl60Subtribusses");
             rp.Show();
         }
-                   // Tbl63Infratribusses
-        private void HyperlinkInfratribus_Click(object sender, RoutedEventArgs e)
-        {
-            var tagValue = ((Hyperlink)sender).Tag;
-            var id= Convert.ToInt32(tagValue);
-            var rp = new ReportTbl63InfratribussesWindow(id, "Tbl63Infratribusses");
-            rp.Show();
-        }
                    // Tbl66Genusses
         private void HyperlinkGenus_Click(object sender, RoutedEventArgs e)
         {

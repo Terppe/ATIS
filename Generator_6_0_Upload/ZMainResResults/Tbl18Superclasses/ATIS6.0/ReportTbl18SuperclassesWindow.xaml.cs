@@ -92,14 +92,6 @@ namespace ATIS.Ui.Views.Report.D18Superclass
             rp.Show();
         }
 
-                   // Tbl18Superclasses  -->
-        private void HyperlinkSuperclass_Click(object sender, RoutedEventArgs e)
-        {
-            var tagValue = ((Hyperlink)sender).Tag;
-            var id= Convert.ToInt32(tagValue);
-            var rp = new ReportSuperclassWindow(id, "Tbl18Superclasses");
-            rp.Show();
-        }
                    // Tbl21Classes  -->
         private void HyperlinkClass_Click(object sender, RoutedEventArgs e)
         {

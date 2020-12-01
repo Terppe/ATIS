@@ -65,14 +65,6 @@ namespace ATIS.Ui.Views.Report.D15Subdivision
             rp.Show();
         }
 
-                   // Tbl15Subdivisions  -->
-        private void HyperlinkSubdivision_Click(object sender, RoutedEventArgs e)
-        {
-            var tagValue = ((Hyperlink)sender).Tag;
-            var id= Convert.ToInt32(tagValue);
-            var rp = new ReportSubdivisionWindow(id, "Tbl09Divisions");
-            rp.Show();
-        }
                    // Tbl18Superclasses  -->
         private void HyperlinkSuperclass_Click(object sender, RoutedEventArgs e)
         {

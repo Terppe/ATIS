@@ -143,14 +143,6 @@ namespace ATIS.Ui.Views.Report.ListDetails
             var rp = new ReportTbl33OrdosWindow(id, "Tbl33Ordos");
             rp.Show();
         }
-                   // Tbl36Subordos  -->
-        private void HyperlinkSubordo_Click(object sender, RoutedEventArgs e)
-        {
-            var tagValue = ((Hyperlink)sender).Tag;
-            var id= Convert.ToInt32(tagValue);
-            var rp = new ReportTbl36SubordosWindow(id, "Tbl36Subordos");
-            rp.Show();
-        }
                    // Tbl39Infraordos  -->
         private void HyperlinkInfraordo_Click(object sender, RoutedEventArgs e)
         {

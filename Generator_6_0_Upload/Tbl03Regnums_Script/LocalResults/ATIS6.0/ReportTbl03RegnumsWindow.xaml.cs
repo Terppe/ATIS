@@ -25,7 +25,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             InitializeComponent();   
 
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            //    WindowStartupLocation = WindowStartupLocation.Manuel;
+            //    WindowStartupLocation = WindowStartupLocation.Manual;
 
             //       Left = Settings.Default.Left + (Settings.Default.Width / 2) - (Width / 2);
             //       Top = Settings.Default.Top + (Settings.Default.Height / 2) - (Height / 2);
@@ -47,14 +47,6 @@ namespace ATIS.Ui.Views.Report.D03Regnum
         }
 
     
-                  // Tbl03Regnums  -->
-        private void HyperlinkRegnum_Click(object sender, RoutedEventArgs e)
-        {
-            var tagValue = ((Hyperlink)sender).Tag;
-            var id = Convert.ToInt32(tagValue);
-            var rp = new ReportRegnumWindow(id, "Tbl03Regnums");
-            rp.Show();
-        }
                   //Tbl06Phylums  -->
         private void HyperlinkPhylum_Click(object sender, RoutedEventArgs e)
         {

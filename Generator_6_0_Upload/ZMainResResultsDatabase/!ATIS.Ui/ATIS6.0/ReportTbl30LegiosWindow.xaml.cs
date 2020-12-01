@@ -127,14 +127,6 @@ namespace ATIS.Ui.Views.Report.ListDetails
             var rp = new ReportTbl27InfraclassesWindow(id, "Tbl27Infraclasses");
             rp.Show();
         }
-                   // Tbl30Legios  -->
-        private void HyperlinkLegio_Click(object sender, RoutedEventArgs e)
-        {
-            var tagValue = ((Hyperlink)sender).Tag;
-            var id= Convert.ToInt32(tagValue);
-            var rp = new ReportTbl30LegiosWindow(id, "Tbl30Legios");
-            rp.Show();
-        }
                    // Tbl33Ordos  -->
         private void HyperlinkOrdo_Click(object sender, RoutedEventArgs e)
         {

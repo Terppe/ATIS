@@ -1,111 +1,362 @@
+     
+using ATIS.Dal.Models;
+using ATIS.Ui.Core;
+using ATIS.Ui.Helper;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Input;
+using ATIS.Ui.Views.Report.D03Regnum;
+using ATIS.Ui.Views.Report.D06Phylum;
+using BitMiracle.Docotic;
+
+namespace ATIS.Ui.Views.Report
+{
+    public class ReportViewModel : ViewModelBase
+    {
+        #region "Private Data Members"
+        private readonly AtisDbContext _context = new AtisDbContext();
+        private readonly ReportBasicGet _extReportBasicGet = new ReportBasicGet();
+
+        private readonly int _mainId;
+        private readonly int _fishId;
+        private readonly int _plantId;
+
+        #endregion "Private Data Members"
+
+        public ReportViewModel(int id, string tab)
+        {
+            LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
+            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
+
+            //  Search for SubdivisionID of name Plantae#Regnum# 
+            //         var plantaeRegnum = _businessLayer.SingleListTbl15SubdivisionsBySubdivisionName("Plantae#Regnum#");
+            var plantaeRegnum = _context.Tbl15Subdivisions.FirstOrDefault(e => e.SubdivisionName == "Plantae#Regnum#");
+            if (plantaeRegnum != null) _plantId = plantaeRegnum.SubdivisionId;
+
+            //Search for SubphylumID of name Anaimalia#Regnum# 
+            //    var animaliaRegnum = _businessLayer.SingleListTbl12SubphylumsBySubphylumName("Animalia#Regnum#");
+            var animaliaRegnum = _context.Tbl12Subphylums.FirstOrDefault(e => e.SubphylumName == "Animalia#Regnum#");
+
+            if (animaliaRegnum != null) _fishId = animaliaRegnum.SubphylumId;
+
+            _mainId = id;
+
+            switch (tab)
+            {
+                case "Tbl03Regnums":
+                    GetTbl03RegnumsById(id);
+                    break;
+                case "Tbl06Phylums":
+                    GetTbl06PhylumsById(id);
+                    break;
+                    //    case "Tbl09Divisions":
+                    //        GetTbl09DivisionsById(id);
+                    //        break;
+                    //    case "Tbl12Subphylums":
+                    //        GetTbl12SubphylumsById(id);
+                    //        break;
+                    //    case "Tbl15Subdivisions":
+                    //        GetTbl15SubdivisionsById(id);
+                    //        break;
+                    //    case "Tbl18Superclasses":
+                    //        GetTbl18SuperclassesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl21Classes":
+                    //        GetTbl21ClassesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl24Subclasses":
+                    //        GetTbl24SubclassesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl27Infraclasses":
+                    //        GetTbl27InfraclassesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl30legios":
+                    //        GetTbl30LegiosById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl33Ordos":
+                    //        GetTbl33OrdosById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl36Subordos":
+                    //        GetTbl36SubordosById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl39Infraordos":
+                    //        GetTbl39InfraordosById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl42Superfamilies":
+                    //        GetTbl42SuperfamiliesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl45Families":
+                    //        GetTbl45FamiliesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl48Subfamilies":
+                    //        GetTbl48SubfamiliesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl51Infrafamilies":
+                    //        GetTbl51InfrafamiliesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl54Supertribusses":
+                    //        GetTbl54SupertribussesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl57Tribusses":
+                    //        GetTbl57TribussesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl60Subtribusses":
+                    //        GetTbl60SubtribussesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl63Infratribusses":
+                    //        GetTbl63InfratribussesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl66Genusses":
+                    //        GetTbl66GenussesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl68Speciesgroups":
+                    //        GetTbl68SpeciesgroupsById(id);
+                    //        break;
+                    //    case "Tbl69FiSpeciesses":
+                    //        GetTbl69FiSpeciessesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl72PlSpeciesses":
+                    //        GetTbl72PlSpeciessesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl78Names":
+                    //        GetTbl78NamesById(id);
+                    //        break;
+                    //    case "Tbl84Synonyms":
+                    //        GetTbl84SynonymsById(id);
+                    //        break;
+
+            }
+        }
+
+        public ReportViewModel()
+        {
+
+        }
+
+        //		#region Methods  
    
-       //------------------------------------------------------------------------------
-       private RelayCommand _pdfTbl90RefAuthorsCommand;
-	public ICommand PdfTbl90RefAuthorsCommand
-	{
-		get { return _pdfTbl90RefAuthorsCommand ?? (_pdfTbl90RefAuthorsCommand = new RelayCommand(delegate { CreatePdfTbl90RefAuthors(_mainId); })); }
-	}
+        public void GetTbl03RegnumsById(int id)
+        {
+            RegnumsCollection = _extReportBasicGet.CollRegnumsByRegnumId(id);
+            //direct children
+            PhylumsCollection = _extReportBasicGet.CollPhylumsByRegnumIdAndHash(id);
+            DivisionsCollection = _extReportBasicGet.CollDivisionsByRegnumIdAndHash(id);
+            //------------------------------------------------------------------------------
+            ExpertsCollection = _extReportBasicGet.CollExpertsByRegnumId(id);
+            SourcesCollection = _extReportBasicGet.CollSourcesByRegnumId(id);
+            AuthorsCollection = _extReportBasicGet.CollAuthorsByRegnumId(id);
+            //------------------------------------------------------------------------------
+            CommentsCollection = _extReportBasicGet.CollCommentsByRegnumId(id);
+        }
+        //------------------------------------------------------------------------------
 
-	private static void CreatePdfTbl90RefAuthors(int id)
-	{
-		ReportTbl90RefAuthorsPdf.CreateMainPdf(id);
-	}   
-       //------------------------------------------------------------------------------
-       //------------------------------------------------------------------------------  
-      
-        public ObservableCollection<Tbl90References> GetValueTbl90RefAuthorsList(int currentId)
+        private RelayCommand _pdfRegnumPrintCommand;
+        public ICommand PdfRegnumPrintCommand
         {
-            Tbl90RefAuthorsList = new ObservableCollection<Tbl90References>
-                (from y in _tbl90ReferencesRepository.GetAll()
-                 where y.ReferenceID == currentId
-                        && y.Tbl90RefExperts == null
-                        && y.Tbl90RefSources == null  
-      
-                 orderby y.Tbl90RefAuthors.RefAuthorName, y.Tbl90RefAuthors.BookName, y.Tbl90RefAuthors.Page1  
-   
-                   select y);
-            return Tbl90RefAuthorsList;
-        } 
-      
-        public ObservableCollection<Tbl90References> GetValueTbl90RefAuthorsList()
-        {
-            Tbl90RefAuthorsList = new ObservableCollection<Tbl90References>
-                { new ObservableCollection<Tbl90References>
-                    (from x in _tbl90ReferencesRepository.GetAll()  select x).LastOrDefault()
-                };
-            return Tbl90RefAuthorsList;
+            get { return _pdfRegnumPrintCommand ??= new RelayCommand(delegate { CreatePdfRegnumPrint(_mainId); }); }
         }
 
-        #endregion  
-      
-        #region Tbl90Authors  ---------------------------------------
-
-        public ObservableCollection<Tbl90RefAuthors> GetValueTbl90AuthorsList(string searchRefAuthorName)
+        private static void CreatePdfRegnumPrint(int id)
         {
-            Tbl90AuthorsList = new ObservableCollection<Tbl90RefAuthors>
-               (from x in _tbl90RefAuthorsRepository.GetAll()
-                where x.RefAuthorName.StartsWith(searchRefAuthorName)
-                orderby x.RefAuthorName, x.BookName, x.Page1
-                select x);
-            return Tbl90AuthorsList;
+            const string use = "print";
+            ReportRegnumPdf.CreateMainPdf(id, use);
+        }
+        private RelayCommand _pdfRegnumSaveCommand;
+        public ICommand PdfRegnumSaveCommand
+        {
+            get { return _pdfRegnumSaveCommand ??= new RelayCommand(delegate { CreatePdfRegnumSave(_mainId); }); }
         }
 
-
-        public ObservableCollection<Tbl90RefAuthors> GetValueTbl90AuthorsAllList()
+        private static void CreatePdfRegnumSave(int id)
         {
-            Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthors>
-                (from z in _tbl90RefAuthorsRepository.GetAll()
-                 orderby z.RefAuthorName, z.BookName, z.Page1
-                 select z);
-            return Tbl90AuthorsAllList;
+            const string use = "save";
+            ReportRegnumPdf.CreateMainPdf(id, use);
+        }
+        //------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------
+        public void GetTbl06PhylumsById(int id)
+        {
+            PhylumsCollection = _extReportBasicGet.CollPhylumsByPhylumId(id);
+            //direct children
+            SubphylumsCollection = _extReportBasicGet.CollSubphylumsByPhylumIdAndHash(id);
+            //------------------------------------------------------------------------------
+            //Function
+            var regnumId = _extReportBasicGet.RegnumIdFromPhylumsCollectionSelect(id);
+            //-----------------------------------------------------------------------------
+            //ForeignKeyTable
+            RegnumsCollection = _extReportBasicGet.CollRegnumsByRegnumIdAndHash(regnumId);
+            //------------------------------------------------------------------------------
+            ExpertsCollection = _extReportBasicGet.CollExpertsByPhylumId(id);
+            SourcesCollection = _extReportBasicGet.CollSourcesByPhylumId(id);
+            AuthorsCollection = _extReportBasicGet.CollAuthorsByPhylumId(id);
+            //------------------------------------------------------------------------------
+            CommentsCollection = _extReportBasicGet.CollCommentsByPhylumId(id);
+        }
+        //------------------------------------------------------------------------------
+
+        private RelayCommand _pdfPhylumPrintCommand;
+        public ICommand PdfPhylumPrintCommand
+        {
+            get { return _pdfPhylumPrintCommand ??= new RelayCommand(delegate { CreatePdfPhylumPrint(_mainId); }); }
         }
 
-        public ObservableCollection<Tbl90RefAuthors> GetValueTbl90AuthorsList(int currentId)
+        private static void CreatePdfPhylumPrint(int id)
         {
-            Tbl90AuthorsList = new ObservableCollection<Tbl90RefAuthors>
-                 (from y in _tbl90RefAuthorsRepository.GetAll()
-                  where y.RefAuthorID == currentId
-                  orderby y.RefAuthorName, y.BookName, y.Page1
-                  select y);
-            return Tbl90AuthorsList;
+            const string use = "print";
+            ReportPhylumPdf.CreateMainPdf(id, use);
+        }
+        private RelayCommand _pdfPhylumSaveCommand;
+        public ICommand PdfPhylumSaveCommand
+        {
+            get { return _pdfPhylumSaveCommand ??= new RelayCommand(delegate { CreatePdfPhylumSave(_mainId); }); }
         }
 
-        public ObservableCollection<Tbl90RefAuthors> GetValueTbl90AuthorsList()
+        private static void CreatePdfPhylumSave(int id)
         {
-            Tbl90AuthorsList = new ObservableCollection<Tbl90RefAuthors>
-                { new ObservableCollection<Tbl90RefAuthors>
-                    (from x in _tbl90RefAuthorsRepository.GetAll()  select x).LastOrDefault()
-                };
-            return Tbl90AuthorsList;
+            const string use = "save";
+            ReportPhylumPdf.CreateMainPdf(id, use);
+        }
+        //------------------------------------------------------------------------------  
+        //------------------------------------------------------------------------------  
+        public void GetTbl09DivisionsById(int id)
+        {
+            DivisionsCollection = _extReportBasicGet.CollDivisionsByDivisionId(id);
+            //direct children
+            SubdivisionsCollection = _extReportBasicGet.CollSubdivisionsByDivisionIdAndHash(id);
+            //------------------------------------------------------------------------------
+            //Function
+            var regnumId = _extReportBasicGet.RegnumIdFromDivisionsCollectionSelect(id);
+            //-----------------------------------------------------------------------------
+            //ForeignKeyTable
+            RegnumsCollection = _extReportBasicGet.CollRegnumsByRegnumIdAndHash(regnumId);
+            //------------------------------------------------------------------------------
+            ExpertsCollection = _extReportBasicGet.CollExpertsByDivisionId(id);
+            SourcesCollection = _extReportBasicGet.CollSourcesByDivisionId(id);
+            AuthorsCollection = _extReportBasicGet.CollAuthorsByDivisionId(id);
+            //------------------------------------------------------------------------------
+            CommentsCollection = _extReportBasicGet.CollCommentsByDivisionId(id);
+        }
+        //------------------------------------------------------------------------------
+
+        private RelayCommand _pdfDivisionPrintCommand;
+        public ICommand PdfDivisionPrintCommand
+        {
+            get { return _pdfDivisionPrintCommand ??= new RelayCommand(delegate { CreatePdfDivisionPrint(_mainId); }); }
         }
 
-        #endregion     
-      
-        #region "Public Property  Tbl90RefAuthor"
-
-        private ObservableCollection< Tbl90Reference>  _tbl90RefAuthorsList;
-        public ObservableCollection< Tbl90Reference>  Tbl90RefAuthorsList
+        private static void CreatePdfDivisionPrint(int id)
         {
-            get { return  _tbl90RefAuthorsList; }
-            set {  _tbl90RefAuthorsList = value; RaisePropertyChanged(); }
+            const string use = "print";
+            ReportDivisionPdf.CreateMainPdf(id, use);
+        }
+        private RelayCommand _pdfDivisionSaveCommand;
+        public ICommand PdfDivisionSaveCommand
+        {
+            get { return _pdfDivisionSaveCommand ??= new RelayCommand(delegate { CreatePdfDivisionSave(_mainId); }); }
         }
 
-        #endregion "Public Properties"     
-      
+        private static void CreatePdfDivisionSave(int id)
+        {
+            const string use = "save";
+            ReportDivisionPdf.CreateMainPdf(id, use);
+        }
+
+        //------------------------------------------------------------------------------  
+    
+        public void GetTbl90RefAuthorsById(int id)
+        {
+            RefAuthorsCollection = _extReportBasicGet.CollRefAuthorsByRefAuthorId(id);
+            //direct children
+            Collection = _extReportBasicGet.CollByRefAuthorIdAndHash(id);
+            //------------------------------------------------------------------------------
+            //Function
+            var NULLId = _extReportBasicGet.NULLIdFromRefAuthorsCollectionSelect(id);
+            //-----------------------------------------------------------------------------
+            //ForeignKeyTable
+            Collection = _extReportBasicGet.CollByRegnumIdAndHash(NULLId);
+            //------------------------------------------------------------------------------
+            ExpertsCollection = _extReportBasicGet.CollExpertsByRefAuthorId(id);
+            SourcesCollection = _extReportBasicGet.CollSourcesByRefAuthorId(id);
+            AuthorsCollection = _extReportBasicGet.CollAuthorsByRefAuthorId(id);
+            //------------------------------------------------------------------------------
+            CommentsCollection = _extReportBasicGet.CollCommentsByRefAuthorId(id);
+        }
+        //------------------------------------------------------------------------------
+
+        private RelayCommand _pdfRefAuthorPrintCommand;
+        public ICommand PdfRefAuthorPrintCommand
+        {
+            get { return _pdfRefAuthorPrintCommand ??= new RelayCommand(delegate { CreatePdfRefAuthorPrint(_mainId); }); }
+        }
+
+        private static void CreatePdfRefAuthorPrint(int id)
+        {
+            const string use = "print";
+            ReportRefAuthorPdf.CreateMainPdf(id, use);
+        }
+        private RelayCommand _pdfRefAuthorSaveCommand;
+        public ICommand PdfRefAuthorSaveCommand
+        {
+            get { return _pdfRefAuthorSaveCommand ??= new RelayCommand(delegate { CreatePdfRefAuthorSave(_mainId); }); }
+        }
+
+        private static void CreatePdfRefAuthorSave(int id)
+        {
+            const string use = "save";
+            ReportRefAuthorPdf.CreateMainPdf(id, use);
+        }
+        //------------------------------------------------------------------------------  
+        //------------------------------------------------------------------------------  
+        
+    
+        #region "Private Properties"
+        public string FilterText { get; set; }
+
+        public int Id { get; set; }
+
+
+        public ObservableCollection<Tbl03Regnum> RegnumsCollection { get; set; }
+        public ObservableCollection<Tbl06Phylum> PhylumsCollection { get; set; }
+        public ObservableCollection<Tbl09Division> DivisionsCollection { get; set; }
+        public ObservableCollection<Tbl12Subphylum> SubphylumsCollection { get; set; }
+        public ObservableCollection<Tbl15Subdivision> SubdivisionsCollection { get; set; }
+        public ObservableCollection<Tbl18Superclass> SuperclassesCollection { get; set; }
+
+
+        #endregion "Public Properties Tbl93Comment"
+
         #region "Public Properties Tbl90Author"
+        public ObservableCollection<Tbl90Reference> AuthorsCollection { get; set; }
 
-        private ObservableCollection<Tbl90RefAuthor> _tbl90AuthorsList;
-        public ObservableCollection<Tbl90RefAuthor> Tbl90AuthorsList
-        {
-            get { return _tbl90AuthorsList; }
-            set { _tbl90AuthorsList = value; RaisePropertyChanged(); }
-        }
+        public ObservableCollection<Tbl90Reference> Tbl90RefAuthorsList { get; set; }
 
-        private ObservableCollection<Tbl90RefAuthor> _tbl90AuthorsAllList;
-        public ObservableCollection<Tbl90RefAuthor> Tbl90AuthorsAllList
-        {
-            get { return _tbl90AuthorsAllList; }
-            set { _tbl90AuthorsAllList = value; RaisePropertyChanged(); }
-        }
+        #endregion "Public Properties Tbl90Author"
 
-        #endregion     
+        #region "Public Properties Tbl90Source"
+        public ObservableCollection<Tbl90Reference> SourcesCollection { get; set; }
+
+        public ObservableCollection<Tbl90Reference> Tbl90RefSourcesList { get; set; }
+
+
+        #endregion "Public Properties Tbl90Source"
+
+        #region "Public Properties Tbl90Expert"
+        public ObservableCollection<Tbl90Reference> ExpertsCollection { get; set; }
+
+
+        public ObservableCollection<Tbl90Reference> Tbl90RefExpertsList { get; set; }
+
+
+        #endregion "Public Properties Tbl90Expert"
+
+        #region "Public Properties Tbl93Comment"
+        public ObservableCollection<Tbl93Comment> CommentsCollection { get; set; }
+
+
+        #endregion "Public Properties Tbl93Comment"
+    }
+
+    #region Item Properties
+
+    #endregion
+}     

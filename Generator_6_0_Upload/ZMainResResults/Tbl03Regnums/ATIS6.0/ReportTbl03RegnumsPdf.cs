@@ -18,7 +18,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
     
     public class ReportRegnumPdf : ViewModelBase
     {     
-         
+        
         private static readonly ILog Log = LogManager.GetLogger(typeof(ReportRegnumPdf));
         private static readonly BasicGet ExtGet = new BasicGet();
         private static readonly PdfHelper PdfHelper = new PdfHelper();
@@ -43,8 +43,8 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
 
             //  LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
-            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
-
+            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");           
+        
             var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(id).FirstOrDefault();    
         
             var phylumsList = ExtGet.GetPhylumsCollectionOrderByFromRegnumId<Tbl06Phylum>(id);
@@ -63,8 +63,9 @@ namespace ATIS.Ui.Views.Report.D03Regnum
                     _arrInts = PdfHelper.AddReportMain(pdf); 
 
                     AddRegnumHaeder(pdf, regnumList);
-                    AddRegnumTaxoNomenList(pdf, regnumList);
-                    AddRegnumHierarchyList(pdf, regnumList);       
+                    AddRegnumTaxoNomenList(pdf, regnumList);   
+            
+                    AddRegnumHierarchyList(pdf, regnumList);  
             
                         if (phylumsList.Count != 0)
                         AddPhylumsChildrenList(pdf, phylumsList);
@@ -206,28 +207,27 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
             _arrInts[1] += _arrInts[9]; //Distance to next TextBox
        }       
-          
+               
         private static void AddRegnumHierarchyList(PdfDocument pdf, Tbl03Regnum regnumList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
-            _arrInts = PdfHelper.PdfTbBoldLeft("header3", _arrInts, true, CultRes.StringsRes.ReportTaxoHiera, 2);
+            _arrInts = PdfHelper.PdfTbBoldLeft("regnumHeader", _arrInts, true, CultRes.StringsRes.ReportTaxoHiera, 2);
 
             _arrInts[1] += _arrInts[9]; //Distance to next TextBox
 
             //---------------------------------------------------------------
-            _arrInts = PdfHelper.PdfTbMoveLeft("regnumLeft", _arrInts, false, CultRes.StringsRes.Regnum, 0);     
-                
-            var txtName = regnumList.RegnumName + " " + regnumList.Subregnum;    
-          
+            _arrInts = PdfHelper.PdfTbMoveLeft("regnumLeft", _arrInts, false, CultRes.StringsRes.Regnum, 0);
+
+            var txtName = regnumList.RegnumName + " " + regnumList.Subregnum;
+
             var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, regnumList.Author,
                 regnumList.AuthorYear, regnumList.GerName, regnumList.EngName, regnumList.FraName, regnumList.PorName);
 
-            //      _arrInts = PdfHelper.PdfTbRight("regnumRight", _arrInts, false, textResult, 0);
             _arrInts = PdfHelper.PdfTbMtRight("regnumRight", _arrInts, textResult);
 
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
-        }      
+        }    
              
         private static void AddPhylumsChildrenList(PdfDocument pdf, ObservableCollection<Tbl06Phylum> phylumsList)
         {
@@ -284,7 +284,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             }
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
         }   
-             
+              
         private static void AddDivisionsChildrenList(PdfDocument pdf, ObservableCollection<Tbl09Division> divisionsList)
         {
             _page = pdf.Pages[_arrInts[6]];
@@ -341,9 +341,5 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
         }   
  
-
-
-
-
    }
 }   

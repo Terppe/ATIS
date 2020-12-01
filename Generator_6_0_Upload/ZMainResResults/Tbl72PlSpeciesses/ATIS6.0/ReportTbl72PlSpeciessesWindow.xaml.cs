@@ -230,14 +230,6 @@ namespace ATIS.Ui.Views.Report.ListDetails
             var id= Convert.ToInt32(tagValue);
             var rp = new ReportTbl66GenussesWindow(id, "Tbl66Genusses");
             rp.Show();
-        }
-                   // Tbl72PlSpeciesses
-        private void HyperlinkPlSpecies_Click(object sender, RoutedEventArgs e)
-        {
-            var tagValue = ((Hyperlink)sender).Tag;
-            var id= Convert.ToInt32(tagValue);
-            var rp = new ReportTbl72PlSpeciessesWindow(id, "Tbl72PlSpeciesses");
-            rp.Show();
         }      
 
              

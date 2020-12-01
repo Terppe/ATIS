@@ -65,14 +65,6 @@ namespace ATIS.Ui.Views.Report.D12Subphylum
             rp.Show();
         }
 
-                   //Tbl12Subphylums  -->
-        private void HyperlinkSubphylum_Click(object sender, RoutedEventArgs e)
-        {
-            var tagValue = ((Hyperlink)sender).Tag;
-            var id= Convert.ToInt32(tagValue);
-            var rp = new ReportSubphylumWindow(id, "Tbl12Subphylums");
-            rp.Show();
-        }
                    // Tbl18Superclasses  -->
         private void HyperlinkSuperclass_Click(object sender, RoutedEventArgs e)
         {

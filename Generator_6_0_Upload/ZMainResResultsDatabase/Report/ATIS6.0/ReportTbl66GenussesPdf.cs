@@ -21,6 +21,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
          
         private static readonly ILog Log = LogManager.GetLogger(typeof(ReportGenusPdf));
         private static readonly BasicGet ExtGet = new BasicGet();
+        private static readonly ReportBasicGet ExtReportBasicGet = new ReportBasicGet();
         private static readonly PdfHelper PdfHelper = new PdfHelper();
         private static string _n;
         private static string _z1;
@@ -43,16 +44,16 @@ namespace ATIS.Ui.Views.Report.ListDetails
 
 
             //  LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
-            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
-
+            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");           
+        
             var genusList = ExtGet.GetGenussCollectionOrderByFromGenusId<Tbl66Genus>(id).FirstOrDefault();    
         
             var fispeciessList = ExtGet.GetFiSpeciessCollectionOrderByFromGenusId<Tbl69FiSpecies>(id);           
              
-            var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
-            var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
-            var authorsList = ExtGet.GetReferenceAuthorsCollectionOrderByFromRegnumIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
-            var commentsList = ExtGet.GetCommentsCollectionOrderByFromRegnumId<Tbl93Comment>(id);   
+            var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromGenusIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
+            var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromGenusIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
+            var authorsList = ExtGet.GetReferenceAuthorsCollectionOrderByFromGenusIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
+            var commentsList = ExtGet.GetCommentsCollectionOrderByFromGenusId<Tbl93Comment>(id);   
 
             try
             { 
@@ -62,8 +63,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
                     _arrInts = PdfHelper.AddReportMain(pdf); 
 
                     AddGenusHaeder(pdf, genusList);
-                    AddGenusTaxoNomenList(pdf, genusList);
-                    AddGenusHierarchyList(pdf, genusList);       
+                    AddGenusTaxoNomenList(pdf, genusList);   
           
                         if (fispeciessList.Count != 0)
                         AddFiSpeciessChildrenList(pdf, fispeciessList);      
@@ -203,16 +203,32 @@ namespace ATIS.Ui.Views.Report.ListDetails
 
             _arrInts[1] += _arrInts[9]; //Distance to next TextBox
        }       
+               
+        private static void AddRegnumHierarchyList(PdfDocument pdf, Tbl03Regnum regnumList)
+        {
+            _page = pdf.Pages[_arrInts[6]];
+
+            _arrInts = PdfHelper.PdfTbBoldLeft("regnumHeader", _arrInts, true, CultRes.StringsRes.ReportTaxoHiera, 2);
+
+            _arrInts[1] += _arrInts[9]; //Distance to next TextBox
+
+            //---------------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMoveLeft("regnumLeft", _arrInts, false, CultRes.StringsRes.Regnum, 0);
+
+            var txtName = regnumList.RegnumName + " " + regnumList.Subregnum;
+
+            var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, regnumList.Author,
+                regnumList.AuthorYear, regnumList.GerName, regnumList.EngName, regnumList.FraName, regnumList.PorName);
+
+            _arrInts = PdfHelper.PdfTbMtRight("regnumRight", _arrInts, textResult);
+
+            _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
+        }    
           
         private static void AddGenusHierarchyList(PdfDocument pdf, Tbl66Genus tbl66GenusList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
-            _arrInts = PdfHelper.PdfTbBoldLeft("header3", _arrInts, true, CultRes.StringsRes.ReportTaxoHiera, 2);
-
-            _arrInts[1] += _arrInts[9]; //Distance to next TextBox
-
-            //---------------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("genusLeft", _arrInts, false, CultRes.StringsRes.Genus, 0);     
           
             var txtName = genusList.GenusName;        
@@ -220,7 +236,6 @@ namespace ATIS.Ui.Views.Report.ListDetails
             var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, genusList.Author,
                 genusList.AuthorYear, genusList.GerName, genusList.EngName, genusList.FraName, genusList.PorName);
 
-            //      _arrInts = PdfHelper.PdfTbRight("genusRight", _arrInts, false, textResult, 0);
             _arrInts = PdfHelper.PdfTbMtRight("genusRight", _arrInts, textResult);
 
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox

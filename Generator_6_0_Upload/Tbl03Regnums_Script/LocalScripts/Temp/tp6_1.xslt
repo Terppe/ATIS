@@ -465,7 +465,7 @@
 </xsl:otherwise>    
 </xsl:choose>
              
-<![CDATA[   <!--   Part 2  --->     ]]>
+<![CDATA[   <!--   Part 2  -->     ]]>
                     
 <xsl:choose>
 <xsl:when test="Table ='Taxonomy and Nomenclature ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'"> 
@@ -1433,7 +1433,7 @@
                             FontWeight="Bold"
                             Foreground="{DynamicResource ValidationErrorBrush}"
                             Text="{DynamicResource Report-TaxoHiera}" />
-                        <GroupBox>
+                        <StackPanel>
                         <ListBox
                              x:Name="Tbl03RegnumsList"
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
@@ -1476,7 +1476,7 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                        </GroupBox>
+                        </StackPanel>
 
                     <!--   Direct Children  -->
                     <!--   Tbl06Phylums  -->
@@ -1486,7 +1486,7 @@
                             Margin="20,0,0,0"
                             FontWeight="Bold"
                             Text="{DynamicResource Report-DirectChild}" />
-                        <GroupBox>
+                        <StackPanel>
                         <ListBox
                             x:Name="Tbl06PhylumsList"
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
@@ -1526,7 +1526,7 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                      </GroupBox>
+                      </StackPanel>
 
                     <!--   Direct Children  -->
                     <!--   Tbl09Division -->
@@ -1536,7 +1536,7 @@
                             Margin="20,0,0,0"
                             FontWeight="Bold"
                             Text="{DynamicResource Report-DirectChild}" />
-                        <GroupBox>
+                        <StackPanel>
                         <ListBox
                             x:Name="Tbl09DivisionsList"
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
@@ -1576,7 +1576,7 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                      </GroupBox>
+                      </StackPanel>
                     </Paragraph>
               </Section>  ]]>   
 </xsl:when>  

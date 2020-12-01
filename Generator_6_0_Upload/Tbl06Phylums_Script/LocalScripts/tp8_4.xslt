@@ -118,8 +118,8 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Data Members Top 2+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
 </xsl:when> 
 <xsl:when test="Table ='Tbl03Regnums'">       <![CDATA[ 
-            var ]]><xsl:value-of select="BasisSmTK1"/><![CDATA[sList = ExtGet.Get]]><xsl:value-of select="BasisTK1"/><![CDATA[sCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(id);
-            var ]]><xsl:value-of select="BasisSmTK2"/><![CDATA[sList = ExtGet.Get]]><xsl:value-of select="BasisTK2"/><![CDATA[sCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>(id);  ]]> 
+            var ]]><xsl:value-of select="BasisSmTK1"/><![CDATA[sList = ExtGet.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(id);
+            var ]]><xsl:value-of select="BasisSmTK2"/><![CDATA[sList = ExtGet.Get]]><xsl:value-of select="BasissTK2"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>(id);  ]]> 
 </xsl:when>  
 <xsl:otherwise>       <![CDATA[ 
             var ]]><xsl:value-of select="BasisSmTK1"/><![CDATA[sList = ExtGet.Get]]><xsl:value-of select="BasisTK1"/><![CDATA[sCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(id);   ]]>        
@@ -130,10 +130,10 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Public Commands 1  Haeder CreateMainPdf  Top  2a ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
 </xsl:when>
 <xsl:otherwise>       <![CDATA[      
-            var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
-            var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
-            var authorsList = ExtGet.GetReferenceAuthorsCollectionOrderByFromRegnumIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
-            var commentsList = ExtGet.GetCommentsCollectionOrderByFromRegnumId<Tbl93Comment>(id);   
+            var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
+            var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
+            var authorsList = ExtGet.GetReferenceAuthorsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
+            var commentsList = ExtGet.GetCommentsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<Tbl93Comment>(id);   
 
             try
             { ]]>
@@ -497,53 +497,27 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:choose>
 <xsl:when test="Table ='Public Commands 1  AddHierarchyList Top 1 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
 </xsl:when>
-<xsl:when test="Table ='Tbl06Phylums'">        <![CDATA[     
+<xsl:otherwise>       <![CDATA[        
         private static void AddRegnumHierarchyList(PdfDocument pdf, Tbl03Regnum regnumList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
-            _arrInts = PdfHelper.PdfTbBoldLeft("header3", _arrInts, true, CultRes.StringsRes.ReportTaxoHiera, 2);
+            _arrInts = PdfHelper.PdfTbBoldLeft("regnumHeader", _arrInts, true, CultRes.StringsRes.ReportTaxoHiera, 2);
 
             _arrInts[1] += _arrInts[9]; //Distance to next TextBox
 
             //---------------------------------------------------------------
-            _arrInts = PdfHelper.PdfTbMoveLeft("Left", _arrInts, false, CultRes.StringsRes.Regnum, 0);
+            _arrInts = PdfHelper.PdfTbMoveLeft("regnumLeft", _arrInts, false, CultRes.StringsRes.Regnum, 0);
 
             var txtName = regnumList.RegnumName + " " + regnumList.Subregnum;
 
             var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, regnumList.Author,
                 regnumList.AuthorYear, regnumList.GerName, regnumList.EngName, regnumList.FraName, regnumList.PorName);
 
-            //      _arrInts = PdfHelper.PdfTbRight("phylumRight", _arrInts, false, textResult, 0);
-            _arrInts = PdfHelper.PdfTbMtRight("Right", _arrInts, textResult);
+            _arrInts = PdfHelper.PdfTbMtRight("regnumRight", _arrInts, textResult);
 
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         } ]]>   
-</xsl:when>
-<xsl:when test="Table ='Tbl09Divisions'">        <![CDATA[        
-        private static void AddRegnumHierarchyList(PdfDocument pdf, Tbl03Regnum regnumList)
-        {
-            _page = pdf.Pages[_arrInts[6]];
-
-            _arrInts = PdfHelper.PdfTbBoldLeft("header3", _arrInts, true, CultRes.StringsRes.ReportTaxoHiera, 2);
-
-            _arrInts[1] += _arrInts[9]; //Distance to next TextBox
-
-            //---------------------------------------------------------------
-            _arrInts = PdfHelper.PdfTbMoveLeft("Left", _arrInts, false, CultRes.StringsRes.Regnum, 0);
-
-            var txtName = regnumList.RegnumName + " " + regnumList.Subregnum;
-
-            var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, regnumList.Author,
-                regnumList.AuthorYear, regnumList.GerName, regnumList.EngName, regnumList.FraName, regnumList.PorName);
-
-            //      _arrInts = PdfHelper.PdfTbRight("phylumRight", _arrInts, false, textResult, 0);
-            _arrInts = PdfHelper.PdfTbMtRight("Right", _arrInts, textResult);
-
-            _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
-        } ]]>   
-</xsl:when>
-<xsl:otherwise>  
 </xsl:otherwise>    
 </xsl:choose> 
 
@@ -555,11 +529,6 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
         {
             _page = pdf.Pages[_arrInts[6]];
 
-            _arrInts = PdfHelper.PdfTbBoldLeft("header3", _arrInts, true, CultRes.StringsRes.ReportTaxoHiera, 2);
-
-            _arrInts[1] += _arrInts[9]; //Distance to next TextBox
-
-            //---------------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("]]><xsl:value-of select="BasisSm"/><![CDATA[Left", _arrInts, false, CultRes.StringsRes.]]><xsl:value-of select="Basis"/><![CDATA[, 0);  ]]>   
 </xsl:otherwise>    
 </xsl:choose> 
@@ -582,7 +551,6 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
             var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, ]]><xsl:value-of select="BasisSm"/><![CDATA[List.Author,
                 ]]><xsl:value-of select="BasisSm"/><![CDATA[List.AuthorYear, ]]><xsl:value-of select="BasisSm"/><![CDATA[List.GerName, ]]><xsl:value-of select="BasisSm"/><![CDATA[List.EngName, ]]><xsl:value-of select="BasisSm"/><![CDATA[List.FraName, ]]><xsl:value-of select="BasisSm"/><![CDATA[List.PorName);
 
-            //      _arrInts = PdfHelper.PdfTbRight("]]><xsl:value-of select="BasisSm"/><![CDATA[Right", _arrInts, false, textResult, 0);
             _arrInts = PdfHelper.PdfTbMtRight("]]><xsl:value-of select="BasisSm"/><![CDATA[Right", _arrInts, textResult);
 
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
@@ -661,13 +629,7 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:choose>
 <xsl:when test="Table ='Public Commands 1  AddTbl.. TK2 ChildrenList Top 1  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
 </xsl:when>
-<xsl:when test="Table ='Tbl66Genusses'">   
-</xsl:when>
-<xsl:when test="Table ='Tbl69FiSpeciesses'">   
-</xsl:when>
-<xsl:when test="Table ='Tbl72PlSpeciesses'">   
-</xsl:when>
-<xsl:otherwise>       <![CDATA[      
+<xsl:when test="Table ='Tbl03Regnums'">        <![CDATA[      
         private static void Add]]><xsl:value-of select="BasisTK2"/><![CDATA[sChildrenList(PdfDocument pdf, ObservableCollection<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[> ]]><xsl:value-of select="BasisSmTK2"/><![CDATA[sList)
         {
             _page = pdf.Pages[_arrInts[6]];
@@ -723,6 +685,12 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
             }
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
         }  ]]> 
+</xsl:when>
+<xsl:when test="Table ='Tbl69FiSpeciesses'">   
+</xsl:when>
+<xsl:when test="Table ='Tbl72PlSpeciesses'">   
+</xsl:when>
+<xsl:otherwise>   
 </xsl:otherwise>    
 </xsl:choose> 
 

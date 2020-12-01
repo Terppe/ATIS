@@ -10,8 +10,6 @@ using BitMiracle.Docotic.Pdf;
 using log4net;
 using Microsoft.Win32;  
 
-        
-        using Tyrrrz.Extensions;   
     
          //    ReportFiSpeciesPdf Skriptdatum:  15.12.2019  10:32    
 
@@ -23,6 +21,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
          
         private static readonly ILog Log = LogManager.GetLogger(typeof(ReportFiSpeciesPdf));
         private static readonly BasicGet ExtGet = new BasicGet();
+        private static readonly ReportBasicGet ExtReportBasicGet = new ReportBasicGet();
         private static readonly PdfHelper PdfHelper = new PdfHelper();
         private static string _n;
         private static string _z1;
@@ -45,16 +44,16 @@ namespace ATIS.Ui.Views.Report.ListDetails
 
 
             //  LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
-            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
-
+            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");           
+        
             var fispeciesList = ExtGet.GetFiSpeciessCollectionOrderByFromFiSpeciesId<Tbl69FiSpecies>(id).FirstOrDefault();    
         
             var namesList = ExtGet.GetNamesCollectionOrderByFromFiSpeciesId<Tbl78Name>(id);           
              
-            var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
-            var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
-            var authorsList = ExtGet.GetReferenceAuthorsCollectionOrderByFromRegnumIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
-            var commentsList = ExtGet.GetCommentsCollectionOrderByFromRegnumId<Tbl93Comment>(id);   
+            var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromFiSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
+            var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromFiSpeciesIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
+            var authorsList = ExtGet.GetReferenceAuthorsCollectionOrderByFromFiSpeciesIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
+            var commentsList = ExtGet.GetCommentsCollectionOrderByFromFiSpeciesId<Tbl93Comment>(id);   
 
             try
             { 
@@ -64,8 +63,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
                     _arrInts = PdfHelper.AddReportMain(pdf); 
 
                     AddFiSpeciesHaeder(pdf, fispeciesList);
-                    AddFiSpeciesTaxoNomenList(pdf, fispeciesList);
-                    AddFiSpeciesHierarchyList(pdf, fispeciesList);       
+                    AddFiSpeciesTaxoNomenList(pdf, fispeciesList);   
             
                 PdfHelper.AddParagraph(doc, Element.ALIGN_LEFT, LargeFont, new Chunk(CultRes.StringsRes.ReportGeographics));
                 if (reportVm.Tbl87GeographicsList.Count != 0)
@@ -157,16 +155,32 @@ namespace ATIS.Ui.Views.Report.ListDetails
 
             return doc;
         }       
+               
+        private static void AddRegnumHierarchyList(PdfDocument pdf, Tbl03Regnum regnumList)
+        {
+            _page = pdf.Pages[_arrInts[6]];
+
+            _arrInts = PdfHelper.PdfTbBoldLeft("regnumHeader", _arrInts, true, CultRes.StringsRes.ReportTaxoHiera, 2);
+
+            _arrInts[1] += _arrInts[9]; //Distance to next TextBox
+
+            //---------------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMoveLeft("regnumLeft", _arrInts, false, CultRes.StringsRes.Regnum, 0);
+
+            var txtName = regnumList.RegnumName + " " + regnumList.Subregnum;
+
+            var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, regnumList.Author,
+                regnumList.AuthorYear, regnumList.GerName, regnumList.EngName, regnumList.FraName, regnumList.PorName);
+
+            _arrInts = PdfHelper.PdfTbMtRight("regnumRight", _arrInts, textResult);
+
+            _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
+        }    
           
         private static void AddFiSpeciesHierarchyList(PdfDocument pdf, Tbl69FiSpecies tbl69FiSpeciesList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
-            _arrInts = PdfHelper.PdfTbBoldLeft("header3", _arrInts, true, CultRes.StringsRes.ReportTaxoHiera, 2);
-
-            _arrInts[1] += _arrInts[9]; //Distance to next TextBox
-
-            //---------------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("fispeciesLeft", _arrInts, false, CultRes.StringsRes.FiSpecies, 0);     
           
             var txtName = fispeciesList.FiSpeciesName;        
@@ -174,7 +188,6 @@ namespace ATIS.Ui.Views.Report.ListDetails
             var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, fispeciesList.Author,
                 fispeciesList.AuthorYear, fispeciesList.GerName, fispeciesList.EngName, fispeciesList.FraName, fispeciesList.PorName);
 
-            //      _arrInts = PdfHelper.PdfTbRight("fispeciesRight", _arrInts, false, textResult, 0);
             _arrInts = PdfHelper.PdfTbMtRight("fispeciesRight", _arrInts, textResult);
 
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox

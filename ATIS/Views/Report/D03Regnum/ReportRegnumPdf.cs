@@ -198,7 +198,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
         {
             _page = pdf.Pages[_arrInts[6]];
 
-            _arrInts = PdfHelper.PdfTbBoldLeft("header3", _arrInts, true, CultRes.StringsRes.ReportTaxoHiera, 2);
+            _arrInts = PdfHelper.PdfTbBoldLeft("regnumHeader", _arrInts, true, CultRes.StringsRes.ReportTaxoHiera, 2);
 
             _arrInts[1] += _arrInts[9]; //Distance to next TextBox
 
@@ -209,7 +209,6 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, regnumList.Author,
                 regnumList.AuthorYear, regnumList.GerName, regnumList.EngName, regnumList.FraName, regnumList.PorName);
 
-            //      _arrInts = PdfHelper.PdfTbRight("regnumRight", _arrInts, false, textResult, 0);
             _arrInts = PdfHelper.PdfTbMtRight("regnumRight", _arrInts, textResult);
 
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox

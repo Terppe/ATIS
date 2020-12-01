@@ -21,6 +21,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
          
         private static readonly ILog Log = LogManager.GetLogger(typeof(ReportSubordoPdf));
         private static readonly BasicGet ExtGet = new BasicGet();
+        private static readonly ReportBasicGet ExtReportBasicGet = new ReportBasicGet();
         private static readonly PdfHelper PdfHelper = new PdfHelper();
         private static string _n;
         private static string _z1;
@@ -43,16 +44,16 @@ namespace ATIS.Ui.Views.Report.ListDetails
 
 
             //  LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
-            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
-
+            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");           
+        
             var subordoList = ExtGet.GetSubordosCollectionOrderByFromSubordoId<Tbl36Subordo>(id).FirstOrDefault();    
         
             var infraordosList = ExtGet.GetInfraordosCollectionOrderByFromSubordoId<Tbl39Infraordo>(id);           
              
-            var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
-            var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
-            var authorsList = ExtGet.GetReferenceAuthorsCollectionOrderByFromRegnumIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
-            var commentsList = ExtGet.GetCommentsCollectionOrderByFromRegnumId<Tbl93Comment>(id);   
+            var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromSubordoIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
+            var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromSubordoIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
+            var authorsList = ExtGet.GetReferenceAuthorsCollectionOrderByFromSubordoIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
+            var commentsList = ExtGet.GetCommentsCollectionOrderByFromSubordoId<Tbl93Comment>(id);   
 
             try
             { 
@@ -62,8 +63,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
                     _arrInts = PdfHelper.AddReportMain(pdf); 
 
                     AddSubordoHaeder(pdf, subordoList);
-                    AddSubordoTaxoNomenList(pdf, subordoList);
-                    AddSubordoHierarchyList(pdf, subordoList);       
+                    AddSubordoTaxoNomenList(pdf, subordoList);   
           
                         if (infraordosList.Count != 0)
                         AddInfraordosChildrenList(pdf, infraordosList);      
@@ -203,16 +203,32 @@ namespace ATIS.Ui.Views.Report.ListDetails
 
             _arrInts[1] += _arrInts[9]; //Distance to next TextBox
        }       
+               
+        private static void AddRegnumHierarchyList(PdfDocument pdf, Tbl03Regnum regnumList)
+        {
+            _page = pdf.Pages[_arrInts[6]];
+
+            _arrInts = PdfHelper.PdfTbBoldLeft("regnumHeader", _arrInts, true, CultRes.StringsRes.ReportTaxoHiera, 2);
+
+            _arrInts[1] += _arrInts[9]; //Distance to next TextBox
+
+            //---------------------------------------------------------------
+            _arrInts = PdfHelper.PdfTbMoveLeft("regnumLeft", _arrInts, false, CultRes.StringsRes.Regnum, 0);
+
+            var txtName = regnumList.RegnumName + " " + regnumList.Subregnum;
+
+            var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, regnumList.Author,
+                regnumList.AuthorYear, regnumList.GerName, regnumList.EngName, regnumList.FraName, regnumList.PorName);
+
+            _arrInts = PdfHelper.PdfTbMtRight("regnumRight", _arrInts, textResult);
+
+            _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
+        }    
           
         private static void AddSubordoHierarchyList(PdfDocument pdf, Tbl36Subordo tbl36SubordoList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
-            _arrInts = PdfHelper.PdfTbBoldLeft("header3", _arrInts, true, CultRes.StringsRes.ReportTaxoHiera, 2);
-
-            _arrInts[1] += _arrInts[9]; //Distance to next TextBox
-
-            //---------------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("subordoLeft", _arrInts, false, CultRes.StringsRes.Subordo, 0);     
           
             var txtName = subordoList.SubordoName;        
@@ -220,7 +236,6 @@ namespace ATIS.Ui.Views.Report.ListDetails
             var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, subordoList.Author,
                 subordoList.AuthorYear, subordoList.GerName, subordoList.EngName, subordoList.FraName, subordoList.PorName);
 
-            //      _arrInts = PdfHelper.PdfTbRight("subordoRight", _arrInts, false, textResult, 0);
             _arrInts = PdfHelper.PdfTbMtRight("subordoRight", _arrInts, textResult);
 
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
@@ -261,62 +276,6 @@ namespace ATIS.Ui.Views.Report.ListDetails
                 if (t7 != null) tAllLength += t7.Length;
 
                 _arrInts = PdfHelper.PdfTbMoveLeft("infraordoLeft" + _z1, _arrInts, false, CultRes.StringsRes.Infraordo, 0);
-
-                var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(t1, t2, t3, t4, t5, t6, t7);
-
-                if (tAllLength >= _arrInts[8])
-                {
-
-                    _arrInts = PdfHelper.PdfTbMtRight(_z1, _arrInts, textResult);
-
-                    _arrInts[1] += _arrInts[3] / 2;  // 1/2 Fontheight Leerzeile
-                }
-                else
-                {
-                    _arrInts = PdfHelper.PdfTbRight(_z1, _arrInts, false, textResult, 0);
-                }
-
-                _z += 1;
-                _z1 = _n + _z;
-            }
-            _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
-        }   
-             
-        private static void AddSuperfamilysChildrenList(PdfDocument pdf, ObservableCollection<Tbl42Superfamily> sList)
-        {
-            _page = pdf.Pages[_arrInts[6]];
-
-            _arrInts = PdfHelper.PdfTbRight("childrenSuperfamily", _arrInts, true, CultRes.StringsRes.ReportDirectChild, 1);
-
-            _arrInts[1] += _arrInts[9] / 2; //Distance to next TextBox
-
-            //------------------------------------------------------------------
-
-            _n = "childSuperfamily";
-            _z = 1;
-            _z1 = _n + _z;
-            _arrInts[7] += _arrInts[7];   // move 4+4
-
-            foreach (var t in sList)
-            {
-                var t1 = t.SuperfamilyName;
-                var tAllLength = 0;
-
-                if (t1 != null) tAllLength = t1.Length;
-                var t2 = t.Author;
-                if (t2 != null) tAllLength += t2.Length;
-                var t3 = t.AuthorYear;
-                if (t3 != null) tAllLength += t3.Length;
-                var t4 = t.GerName;
-                if (t4 != null) tAllLength += t4.Length;
-                var t5 = t.EngName;
-                if (t5 != null) tAllLength += t5.Length;
-                var t6 = t.FraName;
-                if (t6 != null) tAllLength += t6.Length;
-                var t7 = t.PorName;
-                if (t7 != null) tAllLength += t7.Length;
-
-                _arrInts = PdfHelper.PdfTbMoveLeft("Left" + _z1, _arrInts, false, CultRes.StringsRes.Superfamily, 0);
 
                 var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(t1, t2, t3, t4, t5, t6, t7);
 

@@ -110,14 +110,6 @@ namespace ATIS.Ui.Views.Report.ListDetails
             rp.Show();
         }
 
-                   // Tbl24Subclasses  -->
-        private void HyperlinkSubclass_Click(object sender, RoutedEventArgs e)
-        {
-            var tagValue = ((Hyperlink)sender).Tag;
-            var id= Convert.ToInt32(tagValue);
-            var rp = new ReportTbl24SubclassesWindow(id, "Tbl24Subclasses");
-            rp.Show();
-        }
                    // Tbl27Infraclasses  -->
         private void HyperlinkInfraclass_Click(object sender, RoutedEventArgs e)
         {

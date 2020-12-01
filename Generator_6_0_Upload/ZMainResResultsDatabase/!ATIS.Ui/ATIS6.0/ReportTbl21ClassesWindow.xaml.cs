@@ -101,14 +101,6 @@ namespace ATIS.Ui.Views.Report.D21Class
             rp.Show();
         }
 
-                   // Tbl21Classes  -->
-        private void HyperlinkClass_Click(object sender, RoutedEventArgs e)
-        {
-            var tagValue = ((Hyperlink)sender).Tag;
-            var id= Convert.ToInt32(tagValue);
-            var rp = new ReportTbl21ClassesWindow(id, "Tbl21Classes");
-            rp.Show();
-        }
                    // Tbl24Subclasses  -->
         private void HyperlinkSubclass_Click(object sender, RoutedEventArgs e)
         {

@@ -48,6 +48,10 @@
 
   <ItemGroup>
     <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Report\D09Division\" />
+    <Folder Include="Views\Report\D12Subphylum\" />
+    <Folder Include="Views\Report\D15Subdivision\" />
+    <Folder Include="Views\Report\D18Superclass\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
 

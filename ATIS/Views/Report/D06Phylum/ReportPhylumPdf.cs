@@ -56,10 +56,10 @@ namespace ATIS.Ui.Views.Report.D06Phylum
 
             var subphylumsList = ExtGet.GetSubphylumsCollectionOrderByFromPhylumId<Tbl12Subphylum>(id);
 
-            var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
-            var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
-            var authorsList = ExtGet.GetReferenceAuthorsCollectionOrderByFromRegnumIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
-            var commentsList = ExtGet.GetCommentsCollectionOrderByFromRegnumId<Tbl93Comment>(id);
+            var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromPhylumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
+            var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromPhylumIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
+            var authorsList = ExtGet.GetReferenceAuthorsCollectionOrderByFromPhylumIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
+            var commentsList = ExtGet.GetCommentsCollectionOrderByFromPhylumId<Tbl93Comment>(id);
 
             try
             {
@@ -218,20 +218,19 @@ namespace ATIS.Ui.Views.Report.D06Phylum
         {
             _page = pdf.Pages[_arrInts[6]];
 
-            _arrInts = PdfHelper.PdfTbBoldLeft("header3", _arrInts, true, CultRes.StringsRes.ReportTaxoHiera, 2);
+            _arrInts = PdfHelper.PdfTbBoldLeft("regnumHeader", _arrInts, true, CultRes.StringsRes.ReportTaxoHiera, 2);
 
             _arrInts[1] += _arrInts[9]; //Distance to next TextBox
 
             //---------------------------------------------------------------
-            _arrInts = PdfHelper.PdfTbMoveLeft("Left", _arrInts, false, CultRes.StringsRes.Regnum, 0);
+            _arrInts = PdfHelper.PdfTbMoveLeft("regnumLeft", _arrInts, false, CultRes.StringsRes.Regnum, 0);
 
             var txtName = regnumList.RegnumName + " " + regnumList.Subregnum;
 
             var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, regnumList.Author,
                 regnumList.AuthorYear, regnumList.GerName, regnumList.EngName, regnumList.FraName, regnumList.PorName);
 
-            //      _arrInts = PdfHelper.PdfTbRight("phylumRight", _arrInts, false, textResult, 0);
-            _arrInts = PdfHelper.PdfTbMtRight("Right", _arrInts, textResult);
+            _arrInts = PdfHelper.PdfTbMtRight("regnumRight", _arrInts, textResult);
 
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }
@@ -240,11 +239,6 @@ namespace ATIS.Ui.Views.Report.D06Phylum
         {
             _page = pdf.Pages[_arrInts[6]];
 
-            _arrInts = PdfHelper.PdfTbBoldLeft("header3", _arrInts, true, CultRes.StringsRes.ReportTaxoHiera, 2);
-
-            _arrInts[1] += _arrInts[9]; //Distance to next TextBox
-
-            //---------------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("phylumLeft", _arrInts, false, CultRes.StringsRes.Phylum, 0);
 
             var txtName = phylumList.PhylumName;
@@ -252,7 +246,6 @@ namespace ATIS.Ui.Views.Report.D06Phylum
             var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, phylumList.Author,
                 phylumList.AuthorYear, phylumList.GerName, phylumList.EngName, phylumList.FraName, phylumList.PorName);
 
-            //      _arrInts = PdfHelper.PdfTbRight("phylumRight", _arrInts, false, textResult, 0);
             _arrInts = PdfHelper.PdfTbMtRight("phylumRight", _arrInts, textResult);
 
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
@@ -313,66 +306,5 @@ namespace ATIS.Ui.Views.Report.D06Phylum
             }
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
         }
-
-        private static void AddSuperclasssChildrenList(PdfDocument pdf, ObservableCollection<Tbl18Superclass> superclasssList)
-        {
-            _page = pdf.Pages[_arrInts[6]];
-
-            _arrInts = PdfHelper.PdfTbRight("childrenSuperclass", _arrInts, true, CultRes.StringsRes.ReportDirectChild, 1);
-
-            _arrInts[1] += _arrInts[9] / 2; //Distance to next TextBox
-
-            //------------------------------------------------------------------
-
-            _n = "childSuperclass";
-            _z = 1;
-            _z1 = _n + _z;
-            _arrInts[7] += _arrInts[7];   // move 4+4
-
-            foreach (var t in superclasssList)
-            {
-                var t1 = t.SuperclassName;
-                var tAllLength = 0;
-
-                if (t1 != null) tAllLength = t1.Length;
-                var t2 = t.Author;
-                if (t2 != null) tAllLength += t2.Length;
-                var t3 = t.AuthorYear;
-                if (t3 != null) tAllLength += t3.Length;
-                var t4 = t.GerName;
-                if (t4 != null) tAllLength += t4.Length;
-                var t5 = t.EngName;
-                if (t5 != null) tAllLength += t5.Length;
-                var t6 = t.FraName;
-                if (t6 != null) tAllLength += t6.Length;
-                var t7 = t.PorName;
-                if (t7 != null) tAllLength += t7.Length;
-
-                _arrInts = PdfHelper.PdfTbMoveLeft("superclassLeft" + _z1, _arrInts, false, CultRes.StringsRes.Superclass, 0);
-
-                var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(t1, t2, t3, t4, t5, t6, t7);
-
-                if (tAllLength >= _arrInts[8])
-                {
-
-                    _arrInts = PdfHelper.PdfTbMtRight(_z1, _arrInts, textResult);
-
-                    _arrInts[1] += _arrInts[3] / 2;  // 1/2 Fontheight Leerzeile
-                }
-                else
-                {
-                    _arrInts = PdfHelper.PdfTbRight(_z1, _arrInts, false, textResult, 0);
-                }
-
-                _z += 1;
-                _z1 = _n + _z;
-            }
-            _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
-        }
-
-
-
-
-
     }
 }

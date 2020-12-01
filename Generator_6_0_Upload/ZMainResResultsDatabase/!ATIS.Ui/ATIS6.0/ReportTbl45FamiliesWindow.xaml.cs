@@ -167,14 +167,6 @@ namespace ATIS.Ui.Views.Report.ListDetails
             var rp = new ReportTbl42SuperfamiliesWindow(id, "Tbl42Superfamilies");
             rp.Show();
         }
-                   // Tbl45Families  -->
-        private void HyperlinkFamily_Click(object sender, RoutedEventArgs e)
-        {
-            var tagValue = ((Hyperlink)sender).Tag;
-            var id= Convert.ToInt32(tagValue);
-            var rp = new ReportTbl45FamiliesWindow(id, "Tbl45Families");
-            rp.Show();
-        }
                    // Tbl48Subfamilies  -->
         private void HyperlinkSubfamily_Click(object sender, RoutedEventArgs e)
         {
