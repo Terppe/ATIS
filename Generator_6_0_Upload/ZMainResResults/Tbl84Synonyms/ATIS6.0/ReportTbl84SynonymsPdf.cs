@@ -48,7 +48,8 @@ namespace ATIS.Ui.Views.Report.ListDetails
         
             var synonymList = ExtGet.GetSynonymsCollectionOrderByFromSynonymId<Tbl84Synonym>(id).FirstOrDefault();    
         
-            var NULLsList = ExtGet.GetNamesCollectionOrderByFromSynonymId<Tbl68Speciesgroup>(id);           
+            //Child
+            var NULLsList = ExtGet.GetNULLCollectionOrderByFromSynonymId<Tbl68Speciesgroup>(id);           
              
             var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromSynonymIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
             var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromSynonymIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
@@ -297,9 +298,5 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
         }   
  
-
-
-
-
    }
 }   

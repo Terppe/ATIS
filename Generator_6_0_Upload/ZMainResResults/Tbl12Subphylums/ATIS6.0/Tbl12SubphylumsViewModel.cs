@@ -16,7 +16,7 @@ using ATIS.Ui.Views.Database.DatabaseHelper;
 using log4net;
 using Microsoft.EntityFrameworkCore;          
     
-         //    SubphylumsViewModel Skriptdatum:  30.10.2020  12:32    
+         //    SubphylumsViewModel Skriptdatum:  01.12.2020  12:32    
 
 namespace ATIS.Ui.Views.Database.D12Subphylum
 {     

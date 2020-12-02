@@ -2,7 +2,7 @@ using System.Linq;
 using Atis.WpfUi.Interfaces;
 using Atis.WpfUi.Model;    
 
-// <!-- Repository Skriptdatum:  30.10.2020  12:32    -->  
+// <!-- Repository Skriptdatum:  01.12.2020  12:32    -->  
 
 namespace Atis.WpfUi.Repositories      {  
     public class Tbl12SubphylumsRepository : ITbl12SubphylumsRepository    {
@@ -32,11 +32,11 @@ namespace Atis.WpfUi.Repositories      {
          //-------------------------------------------------------------------------------------------------------------
 
         //  Insert/Delete Methods
-        public void Add(Tbl12Subphylum tbl12Subphylum)    {
+        public void Add(Tbl12Subphylum subphylum)    {
             _entities.Tbl12Subphylums.Add(tbl12Subphylum);           
         }
 
-        public void Delete(Tbl12Subphylum tbl12Subphylum)    {
+        public void Delete(Tbl12Subphylum subphylum)    {
             _entities.Tbl12Subphylums.Remove(tbl12Subphylum);
         } 
         //-----------------------------------------------------------------------------------------------------------

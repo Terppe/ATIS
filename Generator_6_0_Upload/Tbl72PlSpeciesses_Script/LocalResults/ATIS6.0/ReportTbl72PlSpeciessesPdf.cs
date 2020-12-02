@@ -48,6 +48,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
         
             var plspeciesList = ExtGet.GetPlSpeciessCollectionOrderByFromPlSpeciesId<Tbl72PlSpecies>(id).FirstOrDefault();    
         
+            //Child
             var namesList = ExtGet.GetNamesCollectionOrderByFromPlSpeciesId<Tbl78Name>(id);           
              
             var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromPlSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
@@ -191,9 +192,5 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }      
  
-
-
-
-
    }
 }   

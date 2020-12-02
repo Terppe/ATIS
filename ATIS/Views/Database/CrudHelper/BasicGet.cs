@@ -149,6 +149,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             return collection;
         }
 
+        #region Regnum
 
         //--------------------------------Regnum -------------------------
         private ObservableCollection<T> RegnumAllCollection<T>()
@@ -219,6 +220,9 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 .OrderBy(e => e.Info));
             return collection;
         }
+        #endregion
+
+        #region Phylum
 
         //--------------------------------Phylum------------------------
         private ObservableCollection<T> PhylumAllCollection<T>()
@@ -289,7 +293,9 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 .OrderBy(k => k.Info));
             return collection;
         }
+        #endregion
 
+        #region Subphylum
         //----------------------------------Subphylum----------------------
         private ObservableCollection<T> SubphylumAllCollection<T>()
         {
@@ -316,6 +322,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
 
             return collection;
         }
+ 
         public ObservableCollection<T> GetSubphylumsCollectionOrderByFromPhylumId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -324,6 +331,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 .OrderBy(k => k.SubphylumName));
             return collection;
         }
+
         public ObservableCollection<T> GetReferenceExpertsCollectionOrderByFromSubphylumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -359,6 +367,9 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 .OrderBy(k => k.Info));
             return collection;
         }
+        #endregion
+
+        #region Division
 
         //---------------------------------Division-------------------------
         private ObservableCollection<T> DivisionAllCollection<T>()
@@ -429,6 +440,9 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 .OrderBy(k => k.Info));
             return collection;
         }
+        #endregion
+
+        #region Subdivision
 
         //----------------------------------Subdivision-------------------------
         private ObservableCollection<T> SubdivisionAllCollection<T>()
@@ -499,6 +513,10 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 .OrderBy(k => k.Info));
             return collection;
         }
+        #endregion
+
+        #region Superclass
+
         //----------------------------------Superclass----------------------------
         private ObservableCollection<T> GetSuperclassCollectionAllOrderBy<T>()
         {
@@ -525,6 +543,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 .OrderBy(k => k.SuperclassName));
             return collection;
         }
+ 
         public ObservableCollection<T> GetSuperclassesCollectionOrderByFromSubphylumId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -576,6 +595,10 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 .OrderBy(k => k.Info));
             return collection;
         }
+        #endregion
+
+        #region Class
+
         //------------------------------------ Class  -------------------------
         private ObservableCollection<T> GetClassesCollectionAllOrderBy<T>()
         {
@@ -637,6 +660,10 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 .OrderBy(k => k.Info));
             return collection;
         }
+        #endregion
+
+        #region Subclass
+
         //----------------------------------Subclass------------------------------
         public ObservableCollection<T> GetSubclassesCollectionOrderByFromClassId<T>(int id)
         {
@@ -647,6 +674,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             return collection;
         }
 
+        #endregion
 
         //-----------------------Reference--------------------------------
         private ObservableCollection<T> ReferenceAllCollection<T>()

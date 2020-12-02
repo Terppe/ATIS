@@ -6,7 +6,7 @@ using ATIS.Ui.Views.Report.D03Regnum;
 using ATIS.Ui.Views.Report.D06Phylum;
 using MahApps.Metro.Controls;
 
-   //  ReportSubphylumWindow.xaml.cs Skriptdatum:  30.10.2020  12:32     
+   //  ReportSubphylumWindow.xaml.cs Skriptdatum:  01.12.2020  12:32     
 
 namespace ATIS.Ui.Views.Report.D12Subphylum
 {  
@@ -25,7 +25,7 @@ namespace ATIS.Ui.Views.Report.D12Subphylum
             InitializeComponent();   
 
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            //    WindowStartupLocation = WindowStartupLocation.Manuel;
+            //    WindowStartupLocation = WindowStartupLocation.Manual;
 
             //       Left = Settings.Default.Left + (Settings.Default.Width / 2) - (Width / 2);
             //       Top = Settings.Default.Top + (Settings.Default.Height / 2) - (Height / 2);

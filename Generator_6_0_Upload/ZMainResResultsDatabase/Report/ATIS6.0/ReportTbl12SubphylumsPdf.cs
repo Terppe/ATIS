@@ -11,7 +11,7 @@ using log4net;
 using Microsoft.Win32;  
 
     
-         //    ReportSubphylumPdf Skriptdatum:  30.10.2020  12:32    
+         //    ReportSubphylumPdf Skriptdatum:  01.12.2020  12:32    
 
 namespace ATIS.Ui.Views.Report.D12Subphylum
 {     
@@ -47,15 +47,19 @@ namespace ATIS.Ui.Views.Report.D12Subphylum
             //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");           
         
             //-----------------------------------------------------------------------------
-            //ForeignKeyTable
-            var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(id);
-            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();  
+            //Function
             var phylumId = ExtReportBasicGet.PhylumIdFromSubphylumsCollectionSelect(id);
-            var phylumList = ExtGet.GetPhylumsCollectionOrderByFromPhylumId<Tbl06Phylum>(phylumId).FirstOrDefault();     
+            //ForeignKeyTable
+            var phylumList = ExtGet.GetPhylumsCollectionOrderByFromPhylumId<Tbl06Phylum>(phylumId).FirstOrDefault();
+            //Function
+            var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(phylumId);
+            //ForeignKeyTable
+            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();   
         
             var subphylumList = ExtGet.GetSubphylumsCollectionOrderByFromSubphylumId<Tbl12Subphylum>(id).FirstOrDefault();    
         
-            var superclasssList = ExtGet.GetSuperclasssCollectionOrderByFromSubphylumId<Tbl18Superclass>(id);           
+            //Child
+            var superclasssList = ExtGet.GetSuperclassesCollectionOrderByFromSubphylumId<Tbl18Superclass>(id);           
              
             var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromSubphylumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
             var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromSubphylumIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
@@ -72,8 +76,10 @@ namespace ATIS.Ui.Views.Report.D12Subphylum
                     AddSubphylumHaeder(pdf, subphylumList);
                     AddSubphylumTaxoNomenList(pdf, subphylumList);   
             
-                    AddRegnumHierarchyList(pdf, regnumList); 
-                    AddPhylumHierarchyList(pdf, phylumList);
+                    if (regnumList != null)
+                        AddRegnumHierarchyList(pdf, regnumList);
+                    if (phylumList != null)
+                        AddPhylumHierarchyList(pdf, phylumList);
                     AddSubphylumHierarchyList(pdf, subphylumList);  
           
                         if (superclasssList.Count != 0)
@@ -133,7 +139,7 @@ namespace ATIS.Ui.Views.Report.D12Subphylum
             }
         }  
              
-        private static void AddSubphylumHaeder(PdfDocument pdf, Tbl12Subphylum tbl12SubphylumList)
+        private static void AddSubphylumHaeder(PdfDocument pdf, Tbl12Subphylum subphylumList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
@@ -150,7 +156,7 @@ namespace ATIS.Ui.Views.Report.D12Subphylum
             _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
         } 
           
-        private static void AddSubphylumTaxoNomenList(PdfDocument pdf, Tbl12Subphylum tbl12SubphylumList)         
+        private static void AddSubphylumTaxoNomenList(PdfDocument pdf, Tbl12Subphylum subphylumList)         
           
         {
             _page = pdf.Pages[_arrInts[6]];
@@ -235,8 +241,24 @@ namespace ATIS.Ui.Views.Report.D12Subphylum
 
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }    
+            
+        private static void AddPhylumHierarchyList(PdfDocument pdf, Tbl06Phylum phylumList)
+        {
+            _page = pdf.Pages[_arrInts[6]];
+
+            _arrInts = PdfHelper.PdfTbMoveLeft("phylumLeft", _arrInts, false, CultRes.StringsRes.Phylum, 0);
+
+            var txtName = phylumList.PhylumName;
+
+            var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, phylumList.Author,
+                phylumList.AuthorYear, phylumList.GerName, phylumList.EngName, phylumList.FraName, phylumList.PorName);
+
+            _arrInts = PdfHelper.PdfTbMtRight("phylumRight", _arrInts, textResult);
+
+            _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
+        }      
           
-        private static void AddSubphylumHierarchyList(PdfDocument pdf, Tbl12Subphylum tbl12SubphylumList)
+        private static void AddSubphylumHierarchyList(PdfDocument pdf, Tbl12Subphylum subphylumList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
@@ -308,9 +330,5 @@ namespace ATIS.Ui.Views.Report.D12Subphylum
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
         }   
  
-
-
-
-
    }
 }   

@@ -254,8 +254,94 @@ namespace ATIS.Ui.Views.Report
         }
 
         #endregion
-        //-----------------------Subphylum---------------------------------
-        //--------------------------------------------------------------
+
+        #region Subphylum
+
+        public ObservableCollection<Tbl12Subphylum> CollSubphylumsBySubphylumId(int id)
+        {
+            var collection = new ObservableCollection<Tbl12Subphylum>(_uow.Tbl12Subphylums
+                .Find(e => e.SubphylumId == id));
+            return collection;
+        }
+
+
+        //direct children
+        public ObservableCollection<Tbl18Superclass> CollSuperclassesBySubphylumIdAndHash(int id)
+        {
+            var collection = new ObservableCollection<Tbl18Superclass>(_uow.Tbl18Superclasses
+                .Find(e => e.SubphylumId == id &&
+                           e.SuperclassName.Contains("#") == false));
+            return collection;
+        }
+        //Function
+        public int PhylumIdFromSubphylumsCollectionSelect(int id)
+        {
+            var phylumIdFromSubphylumsColl = _context.Tbl12Subphylums
+                .SingleOrDefault(p => p.SubphylumId == id);
+
+            if (phylumIdFromSubphylumsColl == null) return 0;
+            return phylumIdFromSubphylumsColl.PhylumId;
+        }
+
+        // ForeignKey
+        public ObservableCollection<Tbl06Phylum> CollPhylumsByPhylumIdAndHash(int id)
+        {
+            var collection = new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums
+                .Find(e => e.PhylumId == id &&
+                           e.PhylumName.Contains("#") == false));
+            return collection;
+        }
+
+        // References
+        public ObservableCollection<Tbl90Reference> CollExpertsBySubphylumId(int id)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_context.Tbl90References
+            .Include(a => a.Tbl90RefExperts)
+            .Where(e => e.RefExpertId == e.Tbl90RefExperts.RefExpertId &&
+            e.SubphylumId == id &&
+            e.RefAuthorId.HasValue == false &&
+            e.RefSourceId.HasValue == false)
+            .OrderBy(a => a.Tbl90RefExperts.RefExpertName));
+            return collection;
+        }
+        public ObservableCollection<Tbl90Reference> CollSourcesBySubphylumId(int id)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_context.Tbl90References
+            .Include(a => a.Tbl90RefSources)
+            .Where(e => e.RefSourceId == e.Tbl90RefSources.RefSourceId &&
+            e.SubphylumId == id &&
+            e.RefAuthorId.HasValue == false &&
+            e.RefExpertId.HasValue == false)
+            .OrderBy(a => a.Tbl90RefSources.RefSourceName)
+                .ThenBy(a => a.Tbl90RefSources.SourceYear));
+            return collection;
+        }
+        public ObservableCollection<Tbl90Reference> CollAuthorsBySubphylumId(int id)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_context.Tbl90References
+            .Include(a => a.Tbl90RefAuthors)
+            .Where(e => e.RefAuthorId == e.Tbl90RefAuthors.RefAuthorId &&
+            e.SubphylumId == id &&
+            e.RefSourceId.HasValue == false &&
+            e.RefExpertId.HasValue == false)
+            .OrderBy(e => e.Tbl90RefAuthors.RefAuthorName)
+                .ThenBy(e => e.Tbl90RefAuthors.ArticelTitle)
+                .ThenBy(e => e.Tbl90RefAuthors.BookName)
+                .ThenBy(e => e.Tbl90RefAuthors.Page1)
+                .ThenBy(e => e.Tbl90RefAuthors.Publisher));
+            return collection;
+        }
+
+        // Comments
+        public ObservableCollection<Tbl93Comment> CollCommentsBySubphylumId(int id)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
+                .Find(e => e.SubphylumId == id));
+            return collection;
+        }
+
+
+        #endregion
 
         //-----------------------Subdivision---------------------------------
         //--------------------------------------------------------------

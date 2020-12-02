@@ -1,7 +1,7 @@
 using System.Linq;
 using Atis.WpfUi.Model;      
    
-// <!-- Interface Skriptdatum:  30.10.2020  12:32     -->  
+// <!-- Interface Skriptdatum:  01.12.2020  12:32     -->  
 
 namespace Atis.WpfUi.Interfaces     {         
     public interface ITbl12SubphylumsRepository    {
@@ -12,8 +12,8 @@ namespace Atis.WpfUi.Interfaces     {
 Tbl12Subphylum Get(int id);   
         
 
-        void Add(Tbl12Subphylum tbl12Subphylum);
-        void Delete(Tbl12Subphylum tbl12Subphylum);
+        void Add(Tbl12Subphylum subphylum);
+        void Delete(Tbl12Subphylum subphylum);
         void Save( );               
      }
 }   

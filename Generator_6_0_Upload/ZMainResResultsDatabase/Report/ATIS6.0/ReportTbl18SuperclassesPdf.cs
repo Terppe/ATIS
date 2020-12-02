@@ -48,7 +48,8 @@ namespace ATIS.Ui.Views.Report.D18Superclass
         
             var superclassList = ExtGet.GetSuperclasssCollectionOrderByFromSuperclassId<Tbl18Superclass>(id).FirstOrDefault();    
         
-            var classesList = ExtGet.GetClasssCollectionOrderByFromSuperclassId<Tbl21Class>(id);           
+            //Child
+            var classesList = ExtGet.GetClassesCollectionOrderByFromSuperclassId<Tbl21Class>(id);           
              
             var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromSuperclassIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
             var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromSuperclassIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
@@ -65,11 +66,16 @@ namespace ATIS.Ui.Views.Report.D18Superclass
                     AddSuperclassHaeder(pdf, superclassList);
                     AddSuperclassTaxoNomenList(pdf, superclassList);   
             
-                    AddRegnumHierarchyList(pdf, regnumList); 
-                    AddPhylumHierarchyList(pdf, phylumList); 
-                    AddDivisionHierarchyList(pdf, divisionList); 
-                    AddSubphylumHierarchyList(pdf, subphylumList); 
-                    AddSubdivisionHierarchyList(pdf, subdivisionList); 
+                    if (regnumList != null)
+                        AddRegnumHierarchyList(pdf, regnumList);
+                    if (phylumList != null)
+                        AddPhylumHierarchyList(pdf, phylumList);
+                    if (divisionList != null)
+                        AddDivisionHierarchyList(pdf, divisionList);
+                    if (subphylumList != null)
+                        AddSubdivisionHierarchyList(pdf, subphylumList);
+                    if (subdivisionList!= null)
+                        AddSubdivisionHierarchyList(pdf, subdivisionList);
                     AddSuperclassHierarchyList(pdf, superclassList); 
           
                         if (classesList.Count != 0)
@@ -304,9 +310,5 @@ namespace ATIS.Ui.Views.Report.D18Superclass
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
         }   
  
-
-
-
-
    }
 }   

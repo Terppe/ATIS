@@ -48,7 +48,8 @@ namespace ATIS.Ui.Views.Report.ListDetails
         
             var subclassList = ExtGet.GetSubclasssCollectionOrderByFromSubclassId<Tbl24Subclass>(id).FirstOrDefault();    
         
-            var infraclasssList = ExtGet.GetInfraclasssCollectionOrderByFromSubclassId<Tbl27Infraclass>(id);           
+            //Child
+            var infraclasssList = ExtGet.GetInfraclassesCollectionOrderByFromSubclassId<Tbl27Infraclass>(id);           
              
             var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromSubclassIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
             var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromSubclassIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
@@ -297,9 +298,5 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
         }   
  
-
-
-
-
    }
 }   

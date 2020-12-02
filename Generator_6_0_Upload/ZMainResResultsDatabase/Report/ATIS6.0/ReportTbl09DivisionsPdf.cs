@@ -53,6 +53,7 @@ namespace ATIS.Ui.Views.Report.D09Division
         
             var divisionList = ExtGet.GetDivisionsCollectionOrderByFromDivisionId<Tbl09Division>(id).FirstOrDefault();    
         
+            //Child
             var subdivisionsList = ExtGet.GetSubdivisionsCollectionOrderByFromDivisionId<Tbl15Subdivision>(id);           
              
             var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromDivisionIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
@@ -69,9 +70,10 @@ namespace ATIS.Ui.Views.Report.D09Division
 
                     AddDivisionHaeder(pdf, divisionList);
                     AddDivisionTaxoNomenList(pdf, divisionList);   
-            
-                    AddRegnumHierarchyList(pdf, regnumList); 
-                    AddDivisionHierarchyList(pdf, divisionList);  
+          
+                    if (regnumList != null)
+                        AddRegnumHierarchyList(pdf, regnumList);
+                      AddDivisionHierarchyList(pdf, divisionList);  
           
                         if (subdivisionsList.Count != 0)
                         AddSubdivisionsChildrenList(pdf, subdivisionsList);      
@@ -130,7 +132,7 @@ namespace ATIS.Ui.Views.Report.D09Division
             }
         }  
              
-        private static void AddDivisionHaeder(PdfDocument pdf, Tbl09Division tbl09DivisionList)
+        private static void AddDivisionHaeder(PdfDocument pdf, Tbl09Division divisionList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
@@ -147,7 +149,7 @@ namespace ATIS.Ui.Views.Report.D09Division
             _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
         } 
           
-        private static void AddDivisionTaxoNomenList(PdfDocument pdf, Tbl09Division tbl09DivisionList)         
+        private static void AddDivisionTaxoNomenList(PdfDocument pdf, Tbl09Division divisionList)         
           
         {
             _page = pdf.Pages[_arrInts[6]];
@@ -233,7 +235,7 @@ namespace ATIS.Ui.Views.Report.D09Division
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }    
           
-        private static void AddDivisionHierarchyList(PdfDocument pdf, Tbl09Division tbl09DivisionList)
+        private static void AddDivisionHierarchyList(PdfDocument pdf, Tbl09Division divisionList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
@@ -305,9 +307,5 @@ namespace ATIS.Ui.Views.Report.D09Division
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
         }   
  
-
-
-
-
    }
 }   

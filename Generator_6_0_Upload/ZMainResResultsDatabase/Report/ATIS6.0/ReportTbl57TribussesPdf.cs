@@ -48,7 +48,8 @@ namespace ATIS.Ui.Views.Report.ListDetails
         
             var tribusList = ExtGet.GetTribussCollectionOrderByFromTribusId<Tbl57Tribus>(id).FirstOrDefault();    
         
-            var subtribussList = ExtGet.GetSubtribussCollectionOrderByFromTribusId<Tbl60Subtribus>(id);           
+            //Child
+            var subtribussList = ExtGet.GetSubtribussesCollectionOrderByFromTribusId<Tbl60Subtribus>(id);           
              
             var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromTribusIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
             var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromTribusIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
@@ -297,9 +298,5 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
         }   
  
-
-
-
-
    }
 }   

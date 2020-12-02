@@ -48,13 +48,15 @@ namespace ATIS.Ui.Views.Report.D06Phylum
 
 
             //-----------------------------------------------------------------------------
-            //ForeignKeyTable
+            var phylumList = ExtGet.GetPhylumsCollectionOrderByFromPhylumId<Tbl06Phylum>(id).FirstOrDefault();
+            //Child
+            var subphylumsList = ExtGet.GetSubphylumsCollectionOrderByFromPhylumId<Tbl12Subphylum>(id);
+
+            //Funktion
             var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(id);
+            //ForeignKeyTable
             var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();
 
-            var phylumList = ExtGet.GetPhylumsCollectionOrderByFromPhylumId<Tbl06Phylum>(id).FirstOrDefault();
-
-            var subphylumsList = ExtGet.GetSubphylumsCollectionOrderByFromPhylumId<Tbl12Subphylum>(id);
 
             var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromPhylumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
             var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromPhylumIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);

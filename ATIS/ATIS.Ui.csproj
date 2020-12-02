@@ -31,7 +31,7 @@
   <ItemGroup>
     <PackageReference Include="BitMiracle.Docotic.Pdf" Version="7.3.11044" />
     <PackageReference Include="log4net" Version="2.0.12" />
-    <PackageReference Include="MahApps.Metro" Version="2.3.4" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.1" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.8.0" />
     <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
@@ -48,8 +48,6 @@
 
   <ItemGroup>
     <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Report\D09Division\" />
-    <Folder Include="Views\Report\D12Subphylum\" />
     <Folder Include="Views\Report\D15Subdivision\" />
     <Folder Include="Views\Report\D18Superclass\" />
     <Folder Include="Views\User\" />

@@ -48,7 +48,8 @@ namespace ATIS.Ui.Views.Report.ListDetails
         
             var speciesgroupList = ExtGet.GetSpeciesgroupsCollectionOrderByFromSpeciesgroupId<Tbl68Speciesgroup>(id).FirstOrDefault();    
         
-            var fispeciessList = ExtGet.GetFiSpeciessCollectionOrderByFromSpeciesgroupId<Tbl69FiSpecies>(id);           
+            //Child
+            var fispeciessList = ExtGet.GetFiSpeciessesCollectionOrderByFromSpeciesgroupId<Tbl69FiSpecies>(id);           
              
             var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromSpeciesgroupIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
             var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromSpeciesgroupIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
@@ -297,9 +298,5 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
         }   
  
-
-
-
-
    }
 }   

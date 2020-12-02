@@ -25,7 +25,7 @@ namespace ATIS.Ui.Views.Report.D15Subdivision
             InitializeComponent();   
 
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            //    WindowStartupLocation = WindowStartupLocation.Manuel;
+            //    WindowStartupLocation = WindowStartupLocation.Manual;
 
             //       Left = Settings.Default.Left + (Settings.Default.Width / 2) - (Width / 2);
             //       Top = Settings.Default.Top + (Settings.Default.Height / 2) - (Height / 2);

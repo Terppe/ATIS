@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Input;
 using ATIS.Ui.Views.Report.D03Regnum;
 using ATIS.Ui.Views.Report.D06Phylum;
+using ATIS.Ui.Views.Report.D09Division;
 using BitMiracle.Docotic;
 
 namespace ATIS.Ui.Views.Report
@@ -48,12 +49,12 @@ namespace ATIS.Ui.Views.Report
                 case "Tbl06Phylums":
                     GetTbl06PhylumsById(id);
                     break;
-                    //    case "Tbl09Divisions":
-                    //        GetTbl09DivisionsById(id);
-                    //        break;
-                    //    case "Tbl12Subphylums":
-                    //        GetTbl12SubphylumsById(id);
-                    //        break;
+                case "Tbl09Divisions":
+                    GetTbl09DivisionsById(id);
+                    break;
+                case "Tbl12Subphylums":
+                    GetTbl12SubphylumsById(id);
+                    break;
                     //    case "Tbl15Subdivisions":
                     //        GetTbl15SubdivisionsById(id);
                     //        break;
@@ -178,10 +179,8 @@ namespace ATIS.Ui.Views.Report
             PhylumsCollection = _extReportBasicGet.CollPhylumsByPhylumId(id);
             //direct children
             SubphylumsCollection = _extReportBasicGet.CollSubphylumsByPhylumIdAndHash(id);
-            //------------------------------------------------------------------------------
             //Function
             var regnumId = _extReportBasicGet.RegnumIdFromPhylumsCollectionSelect(id);
-            //-----------------------------------------------------------------------------
             //ForeignKeyTable
             RegnumsCollection = _extReportBasicGet.CollRegnumsByRegnumIdAndHash(regnumId);
             //------------------------------------------------------------------------------
@@ -216,17 +215,13 @@ namespace ATIS.Ui.Views.Report
 
         #region Division
 
-        //------------------------------------------------------------------------------  		   
-        //------------------------------------------------------------------------------  		   
         public void GetTbl09DivisionsById(int id)
         {
             DivisionsCollection = _extReportBasicGet.CollDivisionsByDivisionId(id);
             //direct children
             SubdivisionsCollection = _extReportBasicGet.CollSubdivisionsByDivisionIdAndHash(id);
-            //------------------------------------------------------------------------------
             //Function
             var regnumId = _extReportBasicGet.RegnumIdFromDivisionsCollectionSelect(id);
-            //-----------------------------------------------------------------------------
             //ForeignKeyTable
             RegnumsCollection = _extReportBasicGet.CollRegnumsByRegnumIdAndHash(regnumId);
             //------------------------------------------------------------------------------
@@ -244,7 +239,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfDivisionPrint(int id)
         {
             const string use = "print";
-//            ReportDivisionPdf.CreateMainPdf(id, use);
+            ReportDivisionPdf.CreateMainPdf(id, use);
         }
         private RelayCommand _pdfDivisionSaveCommand;
         public ICommand PdfDivisionSaveCommand
@@ -255,10 +250,54 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfDivisionSave(int id)
         {
             const string use = "save";
- //           ReportDivisionPdf.CreateMainPdf(id, use);
+            ReportDivisionPdf.CreateMainPdf(id, use);
         }
         #endregion
 
+        #region Subphylum
+
+        public void GetTbl12SubphylumsById(int id)
+        {
+            SubphylumsCollection = _extReportBasicGet.CollSubphylumsBySubphylumId(id);
+            //direct children
+            SuperclassesCollection = _extReportBasicGet.CollSuperclassesBySubphylumIdAndHash(id);
+            //Function
+            var phylumId = _extReportBasicGet.PhylumIdFromSubphylumsCollectionSelect(id);
+            //ForeignKeyTable
+            PhylumsCollection = _extReportBasicGet.CollPhylumsByPhylumIdAndHash(phylumId);
+            //Function
+            var regnumId = _extReportBasicGet.RegnumIdFromPhylumsCollectionSelect(phylumId);
+            //ForeignKeyTable
+            RegnumsCollection = _extReportBasicGet.CollRegnumsByRegnumIdAndHash(regnumId);
+            //-----------------------------------------------------------------------------
+            ExpertsCollection = _extReportBasicGet.CollExpertsBySubphylumId(id);
+            SourcesCollection = _extReportBasicGet.CollSourcesBySubphylumId(id);
+            AuthorsCollection = _extReportBasicGet.CollAuthorsBySubphylumId(id);
+            //------------------------------------------------------------------------------
+            CommentsCollection = _extReportBasicGet.CollCommentsBySubphylumId(id);
+        }
+        //------------------------------------------------------------------------------
+        private RelayCommand _pdfSubphylumPrintCommand;
+        public ICommand PdfSubphylumPrintCommand
+        {
+            get { return _pdfSubphylumPrintCommand ??= new RelayCommand(delegate { CreatePdfSubphylumPrint(_mainId); }); }
+        }
+        private static void CreatePdfSubphylumPrint(int id)
+        {
+            const string use = "print";
+            ReportPhylumPdf.CreateMainPdf(id, use);
+        }
+        private RelayCommand _pdfSubphylumSaveCommand;
+        public ICommand PdfSubphylumSaveCommand
+        {
+            get { return _pdfSubphylumSaveCommand ??= new RelayCommand(delegate { CreatePdfSubphylumSave(_mainId); }); }
+        }
+        private static void CreatePdfSubphylumSave(int id)
+        {
+            const string use = "save";
+            ReportPhylumPdf.CreateMainPdf(id, use);
+        }
+        #endregion
 
 
         #region "Private Properties"

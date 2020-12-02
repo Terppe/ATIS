@@ -157,9 +157,9 @@
   <Entitys>_tbl09Divisions</Entitys> 
   <EntitysFK1>_tbl03Regnums</EntitysFK1> 
 
-  <EntityAblTK1>Tbl15Subdivision tbl15Subdivision</EntityAblTK1> 
-  <EntityAbl>Tbl09Division tbl09Division</EntityAbl> 
-  <EntityAblFK1>Tbl03Regnum tbl03Regnum</EntityAblFK1> 
+  <EntityAblTK1>Tbl15Subdivision subdivision</EntityAblTK1> 
+  <EntityAbl>Tbl09Division division</EntityAbl> 
+  <EntityAblFK1>Tbl03Regnum regnum</EntityAblFK1> 
 
    <Fields>
     <Field><Name>DivisionID</Name> <Type>int</Type>  <NotNull>IDENTITY(1,1) NOT NULL</NotNull> </Field>

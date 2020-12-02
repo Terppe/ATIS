@@ -97,19 +97,25 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>  
 <xsl:when test="Table ='Tbl12Subphylums'">       <![CDATA[ 
             //-----------------------------------------------------------------------------
-            //ForeignKeyTable
-            var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(id);
-            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();  
+            //Function
             var phylumId = ExtReportBasicGet.PhylumIdFromSubphylumsCollectionSelect(id);
-            var phylumList = ExtGet.GetPhylumsCollectionOrderByFromPhylumId<Tbl06Phylum>(phylumId).FirstOrDefault();    ]]> 
-</xsl:when>  
-<xsl:when test="Table ='Tbl12Subphylums'">       <![CDATA[ 
-            //-----------------------------------------------------------------------------
             //ForeignKeyTable
-            var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(id);
-            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();      
-            var divisionId = ExtReportBasicGet.PhylumIdFromSubphylumsCollectionSelect(id);
-            var divisionList = ExtGet.GetDivisionsCollectionOrderByFromDivisionId<Tbl09Division>(divisionId).FirstOrDefault();    ]]> 
+            var phylumList = ExtGet.GetPhylumsCollectionOrderByFromPhylumId<Tbl06Phylum>(phylumId).FirstOrDefault();
+            //Function
+            var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(phylumId);
+            //ForeignKeyTable
+            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();  ]]> 
+</xsl:when>  
+<xsl:when test="Table ='Tbl15Subdivisions'">       <![CDATA[ 
+            //-----------------------------------------------------------------------------
+            //Function
+            var divisionId = ExtReportBasicGet.DivisionIdFromSubdivisionsCollectionSelect(id);
+            //ForeignKeyTable
+            var divisionList = ExtGet.GetDivisionsCollectionOrderByFromDivisionId<Tbl06Phylum>(divisionId).FirstOrDefault();
+            //Function
+            var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(divisionId);
+            //ForeignKeyTable
+            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();  ]]> 
 </xsl:when>  
 <xsl:otherwise>     
 </xsl:otherwise>    
@@ -128,11 +134,13 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Data Members Top 2+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
 </xsl:when> 
 <xsl:when test="Table ='Tbl03Regnums'">       <![CDATA[ 
+            //Children
             var ]]><xsl:value-of select="BasisSmTK1"/><![CDATA[sList = ExtGet.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(id);
             var ]]><xsl:value-of select="BasisSmTK2"/><![CDATA[sList = ExtGet.Get]]><xsl:value-of select="BasissTK2"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>(id);  ]]> 
 </xsl:when>  
 <xsl:otherwise>       <![CDATA[ 
-            var ]]><xsl:value-of select="BasisSmTK1"/><![CDATA[sList = ExtGet.Get]]><xsl:value-of select="BasisTK1"/><![CDATA[sCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(id);   ]]>        
+            //Child
+            var ]]><xsl:value-of select="BasisSmTK1"/><![CDATA[sList = ExtGet.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(id);   ]]>        
 </xsl:otherwise>    
 </xsl:choose> 
 
@@ -169,31 +177,57 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl03Regnums'">        <![CDATA[    
                     AddRegnumHierarchyList(pdf, regnumList);  ]]>
 </xsl:when>
-<xsl:when test="Table ='Tbl06Phylums'">        <![CDATA[    
-                    AddRegnumHierarchyList(pdf, regnumList);
-                    AddPhylumHierarchyList(pdf, phylumList); ]]>
+<xsl:when test="Table ='Tbl06Phylums'">        <![CDATA[   
+                    if (regnumList != null)
+                        AddRegnumHierarchyList(pdf, regnumList);
+                     AddPhylumHierarchyList(pdf, phylumList); ]]>
 </xsl:when>
-<xsl:when test="Table ='Tbl09Divisions'">        <![CDATA[    
-                    AddRegnumHierarchyList(pdf, regnumList); 
-                    AddDivisionHierarchyList(pdf, divisionList);  ]]>
+<xsl:when test="Table ='Tbl09Divisions'">        <![CDATA[  
+                    if (regnumList != null)
+                        AddRegnumHierarchyList(pdf, regnumList);
+                      AddDivisionHierarchyList(pdf, divisionList);  ]]>
 </xsl:when>
 <xsl:when test="Table ='Tbl12Subphylums'">        <![CDATA[    
-                    AddRegnumHierarchyList(pdf, regnumList); 
-                    AddPhylumHierarchyList(pdf, phylumList);
+                    if (regnumList != null)
+                        AddRegnumHierarchyList(pdf, regnumList);
+                    if (phylumList != null)
+                        AddPhylumHierarchyList(pdf, phylumList);
                     AddSubphylumHierarchyList(pdf, subphylumList);  ]]>
 </xsl:when>
 <xsl:when test="Table ='Tbl15Subdivisions'">        <![CDATA[    
-                    AddRegnumHierarchyList(pdf, regnumList); 
-                    AddDivisionHierarchyList(pdf, divisionList);  
+                    if (regnumList != null)
+                        AddRegnumHierarchyList(pdf, regnumList);
+                    if (divisionList != null)
+                        AddDivisionHierarchyList(pdf, divisionList);
                     AddSubdivisionHierarchyList(pdf, subdivisionList);  ]]>
 </xsl:when>
 <xsl:when test="Table ='Tbl18Superclasses'">        <![CDATA[    
-                    AddRegnumHierarchyList(pdf, regnumList); 
-                    AddPhylumHierarchyList(pdf, phylumList); 
-                    AddDivisionHierarchyList(pdf, divisionList); 
-                    AddSubphylumHierarchyList(pdf, subphylumList); 
-                    AddSubdivisionHierarchyList(pdf, subdivisionList); 
+                    if (regnumList != null)
+                        AddRegnumHierarchyList(pdf, regnumList);
+                    if (phylumList != null)
+                        AddPhylumHierarchyList(pdf, phylumList);
+                    if (divisionList != null)
+                        AddDivisionHierarchyList(pdf, divisionList);
+                    if (subphylumList != null)
+                        AddSubdivisionHierarchyList(pdf, subphylumList);
+                    if (subdivisionList!= null)
+                        AddSubdivisionHierarchyList(pdf, subdivisionList);
                     AddSuperclassHierarchyList(pdf, superclassList); ]]>
+</xsl:when>
+<xsl:when test="Table ='Tbl21Classes'">        <![CDATA[    
+                    if (regnumList != null)
+                        AddRegnumHierarchyList(pdf, regnumList);
+                    if (phylumList != null)
+                        AddPhylumHierarchyList(pdf, phylumList);
+                    if (divisionList != null)
+                        AddDivisionHierarchyList(pdf, divisionList);
+                    if (subphylumList != null)
+                        AddSubdivisionHierarchyList(pdf, subphylumList);
+                    if (subdivisionList!= null)
+                        AddSubdivisionHierarchyList(pdf, subdivisionList);
+                    if (superclassList != null)
+                        AddSuperclassHierarchyList(pdf, superclassList);
+                    AddClassHierarchyList(pdf, ClassList); ]]>
 </xsl:when>
 <xsl:otherwise>     
 </xsl:otherwise>    
@@ -531,6 +565,53 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         } ]]>   
+</xsl:otherwise>    
+</xsl:choose> 
+
+<xsl:choose>
+<xsl:when test="Table ='Public Commands 1  AddHierarchyList Top 1 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when>
+<xsl:when test="Table ='Tbl03Regnums'">     
+</xsl:when>
+<xsl:when test="Table ='Tbl06Phylums'">     
+</xsl:when>
+<xsl:when test="Table ='Tbl09Divisions'">     
+</xsl:when>
+<xsl:when test="Table ='Tbl12Subphylums'">    <![CDATA[        
+        private static void AddPhylumHierarchyList(PdfDocument pdf, Tbl06Phylum phylumList)
+        {
+            _page = pdf.Pages[_arrInts[6]];
+
+            _arrInts = PdfHelper.PdfTbMoveLeft("phylumLeft", _arrInts, false, CultRes.StringsRes.Phylum, 0);
+
+            var txtName = phylumList.PhylumName;
+
+            var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, phylumList.Author,
+                phylumList.AuthorYear, phylumList.GerName, phylumList.EngName, phylumList.FraName, phylumList.PorName);
+
+            _arrInts = PdfHelper.PdfTbMtRight("phylumRight", _arrInts, textResult);
+
+            _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
+        }    ]]>  
+</xsl:when>
+<xsl:when test="Table ='Tbl15Subdivisions'">     <![CDATA[  
+        private static void AddDivisionHierarchyList(PdfDocument pdf, Tbl09Division divisionList)
+        {
+            _page = pdf.Pages[_arrInts[6]];
+
+            _arrInts = PdfHelper.PdfTbMoveLeft("divisionLeft", _arrInts, false, CultRes.StringsRes.Division, 0);
+
+            var txtName = divisionList.DivisionName;
+
+            var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, divisionList.Author,
+                divisionList.AuthorYear, divisionList.GerName, divisionList.EngName, divisionList.FraName, divisionList.PorName);
+
+            _arrInts = PdfHelper.PdfTbMtRight("divisionRight", _arrInts, textResult);
+
+            _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
+        }    ]]> 
+</xsl:when>
+<xsl:otherwise>    
 </xsl:otherwise>    
 </xsl:choose> 
 

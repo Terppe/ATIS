@@ -48,7 +48,8 @@ namespace ATIS.Ui.Views.Report.ListDetails
         
             var imageList = ExtGet.GetImagesCollectionOrderByFromImageId<Tbl81Image>(id).FirstOrDefault();    
         
-            var NULLsList = ExtGet.GetNamesCollectionOrderByFromImageId<Tbl68Speciesgroup>(id);           
+            //Child
+            var NULLsList = ExtGet.GetNULLCollectionOrderByFromImageId<Tbl68Speciesgroup>(id);           
              
             var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromImageIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
             var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromImageIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
@@ -297,9 +298,5 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
         }   
  
-
-
-
-
    }
 }   

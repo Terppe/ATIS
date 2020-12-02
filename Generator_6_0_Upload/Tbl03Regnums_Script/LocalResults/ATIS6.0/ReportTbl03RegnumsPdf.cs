@@ -47,6 +47,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
         
             var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(id).FirstOrDefault();    
         
+            //Children
             var phylumsList = ExtGet.GetPhylumsCollectionOrderByFromRegnumId<Tbl06Phylum>(id);
             var divisionsList = ExtGet.GetDivisionsCollectionOrderByFromRegnumId<Tbl09Division>(id);   
              

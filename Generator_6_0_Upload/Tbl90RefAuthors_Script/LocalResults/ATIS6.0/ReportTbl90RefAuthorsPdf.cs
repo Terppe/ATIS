@@ -48,7 +48,8 @@ namespace ATIS.Ui.Views.Report.ListDetails
         
             var refAuthorList = ExtGet.GetRefAuthorsCollectionOrderByFromRefAuthorId<Tbl90RefAuthor>(id).FirstOrDefault();    
         
-            var NULLsList = ExtGet.GetFiSpeciessCollectionOrderByFromRefAuthorId<NULL>(id);           
+            //Child
+            var NULLsList = ExtGet.GetCollectionOrderByFromRefAuthorId<NULL>(id);           
              
             var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromRefAuthorIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
             var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromRefAuthorIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
@@ -297,9 +298,5 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
         }   
  
-
-
-
-
    }
 }   

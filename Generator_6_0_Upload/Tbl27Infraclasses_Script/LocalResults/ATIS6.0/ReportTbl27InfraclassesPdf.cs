@@ -48,6 +48,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
         
             var infraclassList = ExtGet.GetInfraclasssCollectionOrderByFromInfraclassId<Tbl27Infraclass>(id).FirstOrDefault();    
         
+            //Child
             var legiosList = ExtGet.GetLegiosCollectionOrderByFromInfraclassId<Tbl30Legio>(id);           
              
             var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromInfraclassIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
@@ -297,9 +298,5 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
         }   
  
-
-
-
-
    }
 }   

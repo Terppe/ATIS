@@ -46,9 +46,20 @@ namespace ATIS.Ui.Views.Report.D15Subdivision
             //  LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
             //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");           
         
+            //-----------------------------------------------------------------------------
+            //Function
+            var divisionId = ExtReportBasicGet.DivisionIdFromSubdivisionsCollectionSelect(id);
+            //ForeignKeyTable
+            var divisionList = ExtGet.GetDivisionsCollectionOrderByFromDivisionId<Tbl06Phylum>(divisionId).FirstOrDefault();
+            //Function
+            var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(divisionId);
+            //ForeignKeyTable
+            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();   
+        
             var subdivisionList = ExtGet.GetSubdivisionsCollectionOrderByFromSubdivisionId<Tbl15Subdivision>(id).FirstOrDefault();    
         
-            var superclasssList = ExtGet.GetSuperclasssCollectionOrderByFromSubdivisionId<Tbl18Superclass>(id);           
+            //Child
+            var superclasssList = ExtGet.GetSuperclassesCollectionOrderByFromSubdivisionId<Tbl18Superclass>(id);           
              
             var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromSubdivisionIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
             var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromSubdivisionIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
@@ -65,8 +76,10 @@ namespace ATIS.Ui.Views.Report.D15Subdivision
                     AddSubdivisionHaeder(pdf, subdivisionList);
                     AddSubdivisionTaxoNomenList(pdf, subdivisionList);   
             
-                    AddRegnumHierarchyList(pdf, regnumList); 
-                    AddDivisionHierarchyList(pdf, divisionList);  
+                    if (regnumList != null)
+                        AddRegnumHierarchyList(pdf, regnumList);
+                    if (divisionList != null)
+                        AddDivisionHierarchyList(pdf, divisionList);
                     AddSubdivisionHierarchyList(pdf, subdivisionList);  
           
                         if (superclasssList.Count != 0)
@@ -228,6 +241,22 @@ namespace ATIS.Ui.Views.Report.D15Subdivision
 
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }    
+       
+        private static void AddDivisionHierarchyList(PdfDocument pdf, Tbl09Division divisionList)
+        {
+            _page = pdf.Pages[_arrInts[6]];
+
+            _arrInts = PdfHelper.PdfTbMoveLeft("divisionLeft", _arrInts, false, CultRes.StringsRes.Division, 0);
+
+            var txtName = divisionList.DivisionName;
+
+            var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, divisionList.Author,
+                divisionList.AuthorYear, divisionList.GerName, divisionList.EngName, divisionList.FraName, divisionList.PorName);
+
+            _arrInts = PdfHelper.PdfTbMtRight("divisionRight", _arrInts, textResult);
+
+            _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
+        }     
           
         private static void AddSubdivisionHierarchyList(PdfDocument pdf, Tbl15Subdivision tbl15SubdivisionList)
         {
@@ -301,9 +330,5 @@ namespace ATIS.Ui.Views.Report.D15Subdivision
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
         }   
  
-
-
-
-
    }
 }   

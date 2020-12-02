@@ -48,7 +48,8 @@ namespace ATIS.Ui.Views.Report.D21Class
         
             var classeList = ExtGet.GetClasssCollectionOrderByFromClassId<Tbl21Class>(id).FirstOrDefault();    
         
-            var subclasssList = ExtGet.GetSubclasssCollectionOrderByFromClassId<Tbl24Subclass>(id);           
+            //Child
+            var subclasssList = ExtGet.GetSubclassesCollectionOrderByFromClassId<Tbl24Subclass>(id);           
              
             var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromClassIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
             var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromClassIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
@@ -64,6 +65,20 @@ namespace ATIS.Ui.Views.Report.D21Class
 
                     AddClassHaeder(pdf, classeList);
                     AddClassTaxoNomenList(pdf, classeList);   
+            
+                    if (regnumList != null)
+                        AddRegnumHierarchyList(pdf, regnumList);
+                    if (phylumList != null)
+                        AddPhylumHierarchyList(pdf, phylumList);
+                    if (divisionList != null)
+                        AddDivisionHierarchyList(pdf, divisionList);
+                    if (subphylumList != null)
+                        AddSubdivisionHierarchyList(pdf, subphylumList);
+                    if (subdivisionList!= null)
+                        AddSubdivisionHierarchyList(pdf, subdivisionList);
+                    if (superclassList != null)
+                        AddSuperclassHierarchyList(pdf, superclassList);
+                    AddClassHierarchyList(pdf, ClassList); 
           
                         if (subclasssList.Count != 0)
                         AddSubclasssChildrenList(pdf, subclasssList);      
@@ -297,9 +312,5 @@ namespace ATIS.Ui.Views.Report.D21Class
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
         }   
  
-
-
-
-
    }
 }   

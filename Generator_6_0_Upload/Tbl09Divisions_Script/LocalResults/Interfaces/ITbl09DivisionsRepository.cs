@@ -12,8 +12,8 @@ namespace Atis.WpfUi.Interfaces     {
 Tbl09Division Get(int id);   
         
 
-        void Add(Tbl09Division tbl09Division);
-        void Delete(Tbl09Division tbl09Division);
+        void Add(Tbl09Division division);
+        void Delete(Tbl09Division division);
         void Save( );               
      }
 }   

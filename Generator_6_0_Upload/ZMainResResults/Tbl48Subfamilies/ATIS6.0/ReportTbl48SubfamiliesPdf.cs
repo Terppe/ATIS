@@ -48,7 +48,8 @@ namespace ATIS.Ui.Views.Report.ListDetails
         
             var subfamilyList = ExtGet.GetSubfamilysCollectionOrderByFromSubfamilyId<Tbl48Subfamily>(id).FirstOrDefault();    
         
-            var infrafamilysList = ExtGet.GetInfrafamilysCollectionOrderByFromSubfamilyId<Tbl51Infrafamily>(id);           
+            //Child
+            var infrafamilysList = ExtGet.GetInfrafamiliesCollectionOrderByFromSubfamilyId<Tbl51Infrafamily>(id);           
              
             var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromSubfamilyIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
             var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromSubfamilyIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
@@ -297,9 +298,5 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
         }   
  
-
-
-
-
    }
 }   

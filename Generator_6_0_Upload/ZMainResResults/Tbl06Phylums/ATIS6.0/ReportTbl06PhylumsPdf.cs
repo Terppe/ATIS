@@ -53,6 +53,7 @@ namespace ATIS.Ui.Views.Report.D06Phylum
         
             var phylumList = ExtGet.GetPhylumsCollectionOrderByFromPhylumId<Tbl06Phylum>(id).FirstOrDefault();    
         
+            //Child
             var subphylumsList = ExtGet.GetSubphylumsCollectionOrderByFromPhylumId<Tbl12Subphylum>(id);           
              
             var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromPhylumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
@@ -69,9 +70,10 @@ namespace ATIS.Ui.Views.Report.D06Phylum
 
                     AddPhylumHaeder(pdf, phylumList);
                     AddPhylumTaxoNomenList(pdf, phylumList);   
-            
-                    AddRegnumHierarchyList(pdf, regnumList);
-                    AddPhylumHierarchyList(pdf, phylumList); 
+           
+                    if (regnumList != null)
+                        AddRegnumHierarchyList(pdf, regnumList);
+                     AddPhylumHierarchyList(pdf, phylumList); 
           
                         if (subphylumsList.Count != 0)
                         AddSubphylumsChildrenList(pdf, subphylumsList);      
@@ -305,9 +307,5 @@ namespace ATIS.Ui.Views.Report.D06Phylum
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
         }   
  
-
-
-
-
    }
 }   

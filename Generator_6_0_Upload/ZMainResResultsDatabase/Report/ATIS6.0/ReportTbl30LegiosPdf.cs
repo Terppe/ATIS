@@ -48,6 +48,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
         
             var legioList = ExtGet.GetLegiosCollectionOrderByFromLegioId<Tbl30Legio>(id).FirstOrDefault();    
         
+            //Child
             var ordosList = ExtGet.GetOrdosCollectionOrderByFromLegioId<Tbl33Ordo>(id);           
              
             var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromLegioIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
@@ -297,9 +298,5 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
         }   
  
-
-
-
-
    }
 }   

@@ -12,7 +12,7 @@
     Height="600"
     ResizeMode="CanResizeWithGrip">  
 
-        <!-- ReportTbl45FamiliesWindow.xaml  Skriptdatum:  19.06.2018  10:32   -->    
+        <!-- ReportFamilyWindow.xaml  Skriptdatum:  19.06.2018  10:32   -->    
           
     <mah:MetroWindow.Resources>
         <ResourceDictionary>
@@ -233,17 +233,24 @@
                     <Paragraph>
                         <StackPanel>
                             <ListBox
-                                x:Name="Tbl42Superfamilies1List"
+                                x:Name="Tbl03Regnums1List"
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
                                 Height="Auto"
                                 Margin="0"
                                 HorizontalAlignment="Left"
-                                ItemsSource="{Binding SuperfamiliesCollection}">
+                                ItemsSource="{Binding RegnumsCollection}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
-                                            <TextBlock Width="300" Text="{DynamicResource Tbl42Superfamily-Superfamily}" />
-                                            <TextBlock Width="700" Text="{DynamicResource Tbl42Superfamily-SuperfamilyName}" />
+                                            <TextBlock Width="300" Text="{DynamicResource Tbl03Regnum-Regnum}" />
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat=" {0} {1} ">
+                                                        <Binding Path="(models:Tbl03Regnum.RegnumName)" />
+                                                        <Binding Path="(models:Tbl03Regnum.Subregnum)" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                         </StackPanel>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>

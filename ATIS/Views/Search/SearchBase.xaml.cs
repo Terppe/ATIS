@@ -5,6 +5,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using ATIS.Ui.Views.Report.D03Regnum;
 using ATIS.Ui.Views.Report.D06Phylum;
+using ATIS.Ui.Views.Report.D09Division;
+using ATIS.Ui.Views.Report.D12Subphylum;
 
 namespace ATIS.Ui.Views.Search
 {
@@ -57,8 +59,8 @@ namespace ATIS.Ui.Views.Search
 
             if (lvItem == null) return;
             var id = (dynamic)lvItem.Tag;
-            //      var rp = new ReportSubphylumWindow(id, "Tbl12Subphylums");
-            //      rp.Show();
+            var rp = new ReportSubphylumWindow(id, "Tbl12Subphylums");
+            rp.Show();
         }
         private void Tbl09DivisionsList_DoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -66,8 +68,8 @@ namespace ATIS.Ui.Views.Search
 
             if (lvItem == null) return;
             var id = (dynamic)lvItem.Tag;
-            //      var rp = new ReportDivisionWindow(id, "Tbl09Divisions");
-            //      rp.Show();
+            var rp = new ReportDivisionWindow(id, "Tbl09Divisions");
+            rp.Show();
         }
         private void Tbl15SubdivisionsList_DoubleClick(object sender, MouseButtonEventArgs e)
         {

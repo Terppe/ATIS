@@ -12,7 +12,7 @@
     Height="600"
     ResizeMode="CanResizeWithGrip">  
 
-        <!-- ReportTbl09DivisionsWindow.xaml  Skriptdatum:  04.11.2020  12:32   -->    
+        <!-- ReportDivisionWindow.xaml  Skriptdatum:  04.11.2020  12:32   -->    
           
     <mah:MetroWindow.Resources>
         <ResourceDictionary>
@@ -365,7 +365,6 @@
    <!--   Part 3  -->     
                     
     
-
                     <!--  Tbl03Regnums  -->
                     <Paragraph>
                         <TextBlock
@@ -425,6 +424,7 @@
                         </StackPanel>
 
                         <!--  Tbl09Divisions  -->
+
                         <StackPanel>
                             <ListBox
                                 x:Name="Tbl09DivisionsList"
@@ -433,7 +433,7 @@
                                 Margin="0"
                                 HorizontalAlignment="Left"
                                 ItemsSource="{Binding DivisionsCollection}"
-                                Visibility="{Binding ElementName=Tbl06PhylumsList, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                Visibility="{Binding ElementName=Tbl09DivisionsList, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Margin="24,0,0,0" Orientation="Horizontal">
@@ -485,7 +485,7 @@
                                         <StackPanel Margin="28,0,0,0" Orientation="Horizontal">
                                             <TextBlock Width="292" Text="{DynamicResource Tbl15Subdivision-Subdivision}" />
                                             <TextBlock>
-                                                <Hyperlink Click="HyperlinkSubphylum_Click" Tag="{Binding (models:Tbl15Subdivision.SubdivisionId)}">
+                                                <Hyperlink Click="HyperlinkSubdivision_Click" Tag="{Binding (models:Tbl15Subdivision.SubdivisionId)}">
                                                     <TextBlock Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
                                                 </Hyperlink>
                                             </TextBlock>

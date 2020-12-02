@@ -48,7 +48,8 @@ namespace ATIS.Ui.Views.Report.ListDetails
         
             var geographicList = ExtGet.GetGeographicsCollectionOrderByFromGeographicId<Tbl87Geographic>(id).FirstOrDefault();    
         
-            var NULLsList = ExtGet.GetNamesCollectionOrderByFromGeographicId<Tbl68Speciesgroup>(id);           
+            //Child
+            var NULLsList = ExtGet.GetNULLCollectionOrderByFromGeographicId<Tbl68Speciesgroup>(id);           
              
             var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromGeographicIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
             var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromGeographicIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
@@ -297,9 +298,5 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
         }   
  
-
-
-
-
    }
 }   
