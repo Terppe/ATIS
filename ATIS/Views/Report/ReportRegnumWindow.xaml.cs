@@ -1,15 +1,13 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using MahApps.Metro.Controls;
 
-//  ReportRegnumWindow.xaml.cs Skriptdatum:  27.11.2020  12:32       
-
-namespace ATIS.Ui.Views.Report.D03Regnum
+namespace ATIS.Ui.Views.Report
 {
     /// <summary>
-    /// Interactionslogic for ReportRegnumWindow.xaml
+    /// Interaktionslogik für ReportRegnumWindow.xaml
     /// </summary>
     public partial class ReportRegnumWindow : MetroWindow
     {
@@ -21,7 +19,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             InitializeComponent();
 
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-          //  WindowStartupLocation = WindowStartupLocation.Manual;
+            //    WindowStartupLocation = WindowStartupLocation.Manuel;
 
             //       Left = Settings.Default.Left + (Settings.Default.Width / 2) - (Width / 2);
             //       Top = Settings.Default.Top + (Settings.Default.Height / 2) - (Height / 2);
@@ -39,9 +37,18 @@ namespace ATIS.Ui.Views.Report.D03Regnum
 
         private void Reader_LostFocus(object sender, RoutedEventArgs e)
         {
-            Width = Reader.Width + 20;
+            Width = Reader.Width + 10;
         }
 
+
+        // Tbl03Regnums  -->
+        private void HyperlinkRegnum_Click(object sender, RoutedEventArgs e)
+        {
+            var tagValue = ((Hyperlink)sender).Tag;
+            var id = Convert.ToInt32(tagValue);
+            var rp = new ReportRegnumWindow(id, "Tbl03Regnums");
+            rp.Show();
+        }
 
         //Tbl06Phylums  -->
         private void HyperlinkPhylum_Click(object sender, RoutedEventArgs e)

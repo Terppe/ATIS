@@ -73,7 +73,9 @@ namespace ATIS.Ui.Views.Report.D06Phylum
                     AddPhylumHaeder(pdf, phylumList);
                     AddPhylumTaxoNomenList(pdf, phylumList);
 
-                    AddRegnumHierarchyList(pdf, regnumList);
+                    if (regnumList != null)
+                        AddRegnumHierarchyList(pdf, regnumList);
+
                     AddPhylumHierarchyList(pdf, phylumList);
 
                     if (subphylumsList.Count != 0)

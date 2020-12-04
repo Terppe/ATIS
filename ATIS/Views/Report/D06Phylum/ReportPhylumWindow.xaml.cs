@@ -2,8 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using ATIS.Ui.Views.Report.D03Regnum;
-using ATIS.Ui.Views.Report.D06Phylum;
+using ATIS.Ui.Views.Report.D12Subphylum;
 using MahApps.Metro.Controls;
 
 //  ReportPhylumWindow.xaml.cs Skriptdatum:  28.11.2020  12:32     
@@ -61,8 +60,8 @@ namespace ATIS.Ui.Views.Report.D06Phylum
         {
             var tagValue = ((Hyperlink)sender).Tag;
             var id = Convert.ToInt32(tagValue);
-          //       var rp = new ReportSubphylumWindow(id, "Tbl12Subphylums");
-          //       rp.Show();
+                 var rp = new ReportSubphylumWindow(id, "Tbl12Subphylums");
+                 rp.Show();
         }
 
 

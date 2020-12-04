@@ -3,10 +3,6 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using ATIS.Ui.Views.Report.D03Regnum;
-using ATIS.Ui.Views.Report.D06Phylum;
-using ATIS.Ui.Views.Report.D09Division;
-using ATIS.Ui.Views.Report.D12Subphylum;
 
 namespace ATIS.Ui.Views.Search
 {
@@ -41,7 +37,7 @@ namespace ATIS.Ui.Views.Search
 
             if (lvItem == null) return;
             var id = (dynamic)lvItem.Tag;
-            var rp = new ReportRegnumWindow(id, "Tbl03Regnums");
+            var rp = new Report.D03Regnum.ReportRegnumWindow(id, "Tbl03Regnums");
             rp.Show();
         }
         private void Tbl06PhylumsList_DoubleClick(object sender, MouseButtonEventArgs e)
@@ -50,7 +46,7 @@ namespace ATIS.Ui.Views.Search
 
             if (lvItem == null) return;
             var id = (dynamic)lvItem.Tag;
-                 var rp1 = new ReportPhylumWindow(id, "Tbl06Phylums");
+                 var rp1 = new Report.D06Phylum.ReportPhylumWindow(id, "Tbl06Phylums");
             rp1.Show();
         }
         private void Tbl12SubphylumsList_DoubleClick(object sender, MouseButtonEventArgs e)
@@ -59,7 +55,7 @@ namespace ATIS.Ui.Views.Search
 
             if (lvItem == null) return;
             var id = (dynamic)lvItem.Tag;
-            var rp = new ReportSubphylumWindow(id, "Tbl12Subphylums");
+            var rp = new Report.D12Subphylum.ReportSubphylumWindow(id, "Tbl12Subphylums");
             rp.Show();
         }
         private void Tbl09DivisionsList_DoubleClick(object sender, MouseButtonEventArgs e)
@@ -68,7 +64,7 @@ namespace ATIS.Ui.Views.Search
 
             if (lvItem == null) return;
             var id = (dynamic)lvItem.Tag;
-            var rp = new ReportDivisionWindow(id, "Tbl09Divisions");
+            var rp = new Report.D09Division.ReportDivisionWindow(id, "Tbl09Divisions");
             rp.Show();
         }
         private void Tbl15SubdivisionsList_DoubleClick(object sender, MouseButtonEventArgs e)
