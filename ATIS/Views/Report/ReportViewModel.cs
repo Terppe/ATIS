@@ -55,9 +55,9 @@ namespace ATIS.Ui.Views.Report
                 case "Tbl12Subphylums":
                     GetTbl12SubphylumsById(id);
                     break;
-                    //    case "Tbl15Subdivisions":
-                    //        GetTbl15SubdivisionsById(id);
-                    //        break;
+                case "Tbl15Subdivisions":
+                    GetTbl15SubdivisionsById(id);
+                    break;
                     //    case "Tbl18Superclasses":
                     //        GetTbl18SuperclassesById(id, _fishId, _plantId);
                     //        break;
@@ -299,6 +299,52 @@ namespace ATIS.Ui.Views.Report
         }
         #endregion
 
+        #region Subdivision
+
+        public void GetTbl15SubdivisionsById(int id)
+        {
+            SubdivisionsCollection = _extReportBasicGet.CollSubdivisionsBySubdivisionId(id);
+            //direct children
+            SuperclassesCollection = _extReportBasicGet.CollSuperclassesBySubdivisionIdAndHash(id);
+            //Function
+            var divisionId = _extReportBasicGet.DivisionIdFromSubdivisionsCollectionSelect(id);
+            //ForeignKeyTable
+            DivisionsCollection = _extReportBasicGet.CollDivisionsByDivisionIdAndHash(divisionId);
+            //Function
+            var regnumId = _extReportBasicGet.RegnumIdFromDivisionsCollectionSelect(divisionId);
+            //ForeignKeyTable
+            RegnumsCollection = _extReportBasicGet.CollRegnumsByRegnumIdAndHash(regnumId);
+            //-----------------------------------------------------------------------------
+            ExpertsCollection = _extReportBasicGet.CollExpertsBySubphylumId(id);
+            SourcesCollection = _extReportBasicGet.CollSourcesBySubphylumId(id);
+            AuthorsCollection = _extReportBasicGet.CollAuthorsBySubphylumId(id);
+            //------------------------------------------------------------------------------
+            CommentsCollection = _extReportBasicGet.CollCommentsBySubphylumId(id);
+        }
+        //------------------------------------------------------------------------------
+        private RelayCommand _pdfSubdivisionPrintCommand;
+        public ICommand PdfSubdivisionPrintCommand
+        {
+            get { return _pdfSubdivisionPrintCommand ??= new RelayCommand(delegate { CreatePdfSubdivisionPrint(_mainId); }); }
+        }
+        private static void CreatePdfSubdivisionPrint(int id)
+        {
+            const string use = "print";
+            ReportPhylumPdf.CreateMainPdf(id, use);
+        }
+        private RelayCommand _pdfSubdivisionSaveCommand;
+        public ICommand PdfSubdivisionSaveCommand
+        {
+            get { return _pdfSubdivisionSaveCommand ??= new RelayCommand(delegate { CreatePdfSubdivisionSave(_mainId); }); }
+        }
+        private static void CreatePdfSubdivisionSave(int id)
+        {
+            const string use = "save";
+            ReportPhylumPdf.CreateMainPdf(id, use);
+        }
+
+
+        #endregion
 
         #region "Private Properties"
         public string FilterText { get; set; }

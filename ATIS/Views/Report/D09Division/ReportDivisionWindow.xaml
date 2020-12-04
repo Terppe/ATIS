@@ -232,7 +232,7 @@
                     <Paragraph>
                         <StackPanel>
                             <ListBox
-                                x:Name="Tbl03Regnums2List"
+                                x:Name="Tbl03Regnums1List"
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
                                 Height="Auto"
                                 Margin="0"

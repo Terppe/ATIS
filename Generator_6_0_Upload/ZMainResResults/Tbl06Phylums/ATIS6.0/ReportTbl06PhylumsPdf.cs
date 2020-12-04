@@ -44,17 +44,18 @@ namespace ATIS.Ui.Views.Report.D06Phylum
 
 
             //  LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
-            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");           
-        
-            //-----------------------------------------------------------------------------
-            //ForeignKeyTable
-            var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(id);
-            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();       
+            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");      
+            //-----------------------------------------------------------------------------     
         
             var phylumList = ExtGet.GetPhylumsCollectionOrderByFromPhylumId<Tbl06Phylum>(id).FirstOrDefault();    
         
             //Child
             var subphylumsList = ExtGet.GetSubphylumsCollectionOrderByFromPhylumId<Tbl12Subphylum>(id);           
+        
+            //Funktion
+            var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(id);
+            //ForeignKeyTable
+            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();      
              
             var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromPhylumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
             var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromPhylumIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);

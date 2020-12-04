@@ -44,7 +44,8 @@ namespace ATIS.Ui.Views.Report.ListDetails
 
 
             //  LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
-            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");           
+            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");      
+            //-----------------------------------------------------------------------------     
         
             var referenceList = ExtGet.GetReferencesCollectionOrderByFromReferenceId<Tbl90Reference>(id).FirstOrDefault();    
         

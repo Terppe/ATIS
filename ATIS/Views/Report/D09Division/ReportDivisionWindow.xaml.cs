@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using ATIS.Ui.Views.Report.D15Subdivision;
+
 using MahApps.Metro.Controls;
 
 //  ReportDivisionWindow.xaml.cs Skriptdatum:  04.11.2020  12:32     
@@ -59,8 +61,8 @@ namespace ATIS.Ui.Views.Report.D09Division
         {
             var tagValue = ((Hyperlink)sender).Tag;
             var id = Convert.ToInt32(tagValue);
-      //      var rp = new ReportSubdivisionWindow(id, "Tbl09Divisions");
-      //      rp.Show();
+            var rp = new ReportSubdivisionWindow(id, "Tbl09Divisions");
+            rp.Show();
         }
 
 

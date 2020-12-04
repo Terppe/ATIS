@@ -11,7 +11,7 @@
     Height="600"
     ResizeMode="CanResizeWithGrip">
 
-    <!--  ReportTbl03RegnumsWindow.xaml  Skriptdatum:  27.11.2020  12:32  -->
+    <!--  ReportRegnumWindow.xaml  Skriptdatum:  27.11.2020  12:32  -->
 
     <mah:MetroWindow.Resources>
         <ResourceDictionary>

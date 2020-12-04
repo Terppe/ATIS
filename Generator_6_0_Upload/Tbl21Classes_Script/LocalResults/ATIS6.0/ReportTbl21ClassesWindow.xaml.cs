@@ -1,16 +1,17 @@
 using System; 
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using ATIS.Ui.Views.Report.D03Regnum;
-using ATIS.Ui.Views.Report.D06Phylum;
+using System.Windows.Documents;  
+
+   
+using ATIS.Ui.Views.Report.D24Subclass;       
+    
 using MahApps.Metro.Controls;
 
-   //  ReportClassWindow.xaml.cs Skriptdatum:  05.11.2020  18:32     
+   //  ReportClassWindow.xaml.cs Skriptdatum:  05.11.2020  18:32      
 
 namespace ATIS.Ui.Views.Report.D21Class
 {  
-
     /// <summary>
     /// Interactionslogic for ReportClassWindow.xaml
     /// </summary>
@@ -44,8 +45,7 @@ namespace ATIS.Ui.Views.Report.D21Class
         private void Reader_LostFocus(object sender, RoutedEventArgs e)
         {
             Width = Reader.Width + 20;
-        }
-
+        }      
     
                   //  Tbl03Regnums  -->
         private void HyperlinkRegnum_Click(object sender, RoutedEventArgs e)
@@ -108,8 +108,7 @@ namespace ATIS.Ui.Views.Report.D21Class
             var id= Convert.ToInt32(tagValue);
             var rp = new ReportTbl24SubclassesWindow(id, "Tbl24Subclasses");
             rp.Show();
-        }
-     
+        }     
 
              
      }

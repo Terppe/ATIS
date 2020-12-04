@@ -44,16 +44,18 @@ namespace ATIS.Ui.Views.Report.D09Division
 
 
             //  LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
-            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");           
-
-            //-----------------------------------------------------------------------------
-            //ForeignKeyTable
-            var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(id);
-            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();
+            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");      
+            //-----------------------------------------------------------------------------     
 
             var divisionList = ExtGet.GetDivisionsCollectionOrderByFromDivisionId<Tbl09Division>(id).FirstOrDefault();
 
+            //Child
             var subdivisionsList = ExtGet.GetSubdivisionsCollectionOrderByFromDivisionId<Tbl15Subdivision>(id);
+
+            //Funktion
+            var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(id);
+            //ForeignKeyTable
+            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();
 
             var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromDivisionIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
             var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromDivisionIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
@@ -70,7 +72,8 @@ namespace ATIS.Ui.Views.Report.D09Division
                     AddDivisionHaeder(pdf, divisionList);
                     AddDivisionTaxoNomenList(pdf, divisionList);
 
-                    AddRegnumHierarchyList(pdf, regnumList);
+                    if (regnumList != null)
+                        AddRegnumHierarchyList(pdf, regnumList);
                     AddDivisionHierarchyList(pdf, divisionList);
 
                     if (subdivisionsList.Count != 0)

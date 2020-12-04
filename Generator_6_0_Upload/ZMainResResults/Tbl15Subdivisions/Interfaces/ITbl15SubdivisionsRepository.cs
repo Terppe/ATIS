@@ -12,8 +12,8 @@ namespace Atis.WpfUi.Interfaces     {
 Tbl15Subdivision Get(int id);   
         
 
-        void Add(Tbl15Subdivision tbl15Subdivision);
-        void Delete(Tbl15Subdivision tbl15Subdivision);
+        void Add(Tbl15Subdivision subdivision);
+        void Delete(Tbl15Subdivision subdivision);
         void Save( );               
      }
 }   

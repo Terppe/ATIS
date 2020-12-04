@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using ATIS.Ui.Views.Report.D06Phylum;
+using ATIS.Ui.Views.Report.D09Division;
 using MahApps.Metro.Controls;
 
 //  ReportRegnumWindow.xaml.cs Skriptdatum:  27.11.2020  12:32       
@@ -57,8 +59,8 @@ namespace ATIS.Ui.Views.Report.D03Regnum
         {
             var tagValue = ((Hyperlink)sender).Tag;
             var id = Convert.ToInt32(tagValue);
-            //     var rp = new ReportDivisionWindow(id, "Tbl09Divisions");
-            //      rp.Show();
+            var rp = new ReportDivisionWindow(id, "Tbl09Divisions");
+            rp.Show();
         }
     }
 }

@@ -1,16 +1,17 @@
 using System; 
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using ATIS.Ui.Views.Report.D03Regnum;
-using ATIS.Ui.Views.Report.D06Phylum;
+using System.Windows.Documents;  
+
+   
+using ATIS.Ui.Views.Report.D18Superclass;       
+    
 using MahApps.Metro.Controls;
 
-   //  ReportSubphylumWindow.xaml.cs Skriptdatum:  01.12.2020  12:32     
+   //  ReportSubphylumWindow.xaml.cs Skriptdatum:  01.12.2020  12:32      
 
 namespace ATIS.Ui.Views.Report.D12Subphylum
 {  
-
     /// <summary>
     /// Interactionslogic for ReportSubphylumWindow.xaml
     /// </summary>
@@ -44,8 +45,7 @@ namespace ATIS.Ui.Views.Report.D12Subphylum
         private void Reader_LostFocus(object sender, RoutedEventArgs e)
         {
             Width = Reader.Width + 20;
-        }
-
+        }      
     
                    //Tbl03Regnums  -->
         private void HyperlinkRegnum_Click(object sender, RoutedEventArgs e)

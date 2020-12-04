@@ -76,48 +76,8 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 
 
             //  LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
-            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");          ]]> 
-</xsl:otherwise>    
-</xsl:choose> 
-
-<xsl:choose>
-<xsl:when test="Table ='Data Members Top 2+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
-</xsl:when> 
-<xsl:when test="Table ='Tbl06Phylums'">       <![CDATA[ 
-            //-----------------------------------------------------------------------------
-            //ForeignKeyTable
-            var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(id);
-            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();      ]]> 
-</xsl:when>  
-<xsl:when test="Table ='Tbl09Divisions'">       <![CDATA[ 
-            //-----------------------------------------------------------------------------
-            //ForeignKeyTable
-            var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(id);
-            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();      ]]> 
-</xsl:when>  
-<xsl:when test="Table ='Tbl12Subphylums'">       <![CDATA[ 
-            //-----------------------------------------------------------------------------
-            //Function
-            var phylumId = ExtReportBasicGet.PhylumIdFromSubphylumsCollectionSelect(id);
-            //ForeignKeyTable
-            var phylumList = ExtGet.GetPhylumsCollectionOrderByFromPhylumId<Tbl06Phylum>(phylumId).FirstOrDefault();
-            //Function
-            var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(phylumId);
-            //ForeignKeyTable
-            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();  ]]> 
-</xsl:when>  
-<xsl:when test="Table ='Tbl15Subdivisions'">       <![CDATA[ 
-            //-----------------------------------------------------------------------------
-            //Function
-            var divisionId = ExtReportBasicGet.DivisionIdFromSubdivisionsCollectionSelect(id);
-            //ForeignKeyTable
-            var divisionList = ExtGet.GetDivisionsCollectionOrderByFromDivisionId<Tbl06Phylum>(divisionId).FirstOrDefault();
-            //Function
-            var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(divisionId);
-            //ForeignKeyTable
-            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();  ]]> 
-</xsl:when>  
-<xsl:otherwise>     
+            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");      
+            //-----------------------------------------------------------------------------    ]]> 
 </xsl:otherwise>    
 </xsl:choose> 
 
@@ -128,7 +88,6 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
             var ]]><xsl:value-of select="BasisSm"/><![CDATA[List = ExtGet.Get]]><xsl:value-of select="Basis"/><![CDATA[sCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModel"/><![CDATA[>(id).FirstOrDefault();   ]]> 
 </xsl:otherwise>    
 </xsl:choose> 
-
 
 <xsl:choose>
 <xsl:when test="Table ='Data Members Top 2+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
@@ -141,6 +100,103 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:otherwise>       <![CDATA[ 
             //Child
             var ]]><xsl:value-of select="BasisSmTK1"/><![CDATA[sList = ExtGet.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(id);   ]]>        
+</xsl:otherwise>    
+</xsl:choose> 
+
+<xsl:choose>
+<xsl:when test="Table ='Data Members Top 2+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when> 
+<xsl:when test="Table ='Tbl06Phylums'">       <![CDATA[ 
+            //Funktion
+            var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(id);
+            //ForeignKeyTable
+            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();     ]]> 
+</xsl:when>  
+<xsl:when test="Table ='Tbl09Divisions'">       <![CDATA[ 
+            //Funktion
+            var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(id);
+            //ForeignKeyTable
+            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();      ]]> 
+</xsl:when>  
+<xsl:when test="Table ='Tbl12Subphylums'">       <![CDATA[ 
+            //Function
+            var phylumId = ExtReportBasicGet.PhylumIdFromSubphylumsCollectionSelect(id);
+            //ForeignKeyTable
+            var phylumList = ExtGet.GetPhylumsCollectionOrderByFromPhylumId<Tbl06Phylum>(phylumId).FirstOrDefault();
+            //Function
+            var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(phylumId);
+            //ForeignKeyTable
+            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();  ]]> 
+</xsl:when>  
+<xsl:when test="Table ='Tbl15Subdivisions'">       <![CDATA[ 
+            //Function
+            var divisionId = ExtReportBasicGet.DivisionIdFromSubdivisionsCollectionSelect(id);
+            //ForeignKeyTable
+            var divisionList = ExtGet.GetDivisionsCollectionOrderByFromDivisionId<Tbl06Phylum>(divisionId).FirstOrDefault();
+            //Function
+            var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(divisionId);
+            //ForeignKeyTable
+            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();  ]]> 
+</xsl:when>  
+<xsl:when test="Table ='Tbl18Superclasses'">       <![CDATA[ 
+            //Function
+            var subphylumId = ExtReportBasicGet.SubphylumIdFromSuperclassesCollectionSelect(id);
+            //ForeignKeyTable
+            var subphylumList = ExtGet.GetSubphylumsCollectionOrderByFromSubphylumId<Tbl12Subphylum>(subphylumId).FirstOrDefault();
+            //Function
+            var phylumId = ExtReportBasicGet.PhylumIdFromSubphylumsCollectionSelect(subphylumId);
+            //ForeignKeyTable
+            var phylumList = ExtGet.GetPhylumsCollectionOrderByFromPhylumId<Tbl06Phylum>(phylumId).FirstOrDefault();
+            //Function
+            var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(phylumId);
+
+            //Function
+            var subdivisionId = ExtReportBasicGet.SubdivisionIdFromSuperclassesCollectionSelect(id);
+            //ForeignKeyTable
+            var subdivisionList = ExtGet.GetSubdivisionsCollectionOrderByFromSubdivisionId<Tbl15Subdivision>(subdivisionId).FirstOrDefault();
+            //Function
+            var divisionId = ExtReportBasicGet.DivisionIdFromSubdivisionsCollectionSelect(subdivisionId);
+            //ForeignKeyTable
+            var divisionList = ExtGet.GetDivisionsCollectionOrderByFromDivisionId<Tbl09Division>(divisionId).FirstOrDefault();
+            //Function
+            var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(divisionId);
+
+            //ForeignKeyTable
+            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();  ]]> 
+</xsl:when>  
+<xsl:when test="Table ='Tbl21Classes'">       <![CDATA[ 
+            //Function
+            var superclassId = ExtReportBasicGet.SuperclassIdFromClassesCollectionSelect(id);
+            //ForeignKeyTable
+            var superclassList = ExtGet.GetSuperclassesCollectionOrderByFromSuperclassId<Tbl18Superclass>(superclassId).FirstOrDefault();
+
+            //Function
+            var subphylumId = ExtReportBasicGet.SubphylumIdFromSuperclassesCollectionSelect(id);
+            //ForeignKeyTable
+            var subphylumList = ExtGet.GetSubphylumsCollectionOrderByFromSubphylumId<Tbl12Subphylum>(subphylumId).FirstOrDefault();
+            //Function
+            var phylumId = ExtReportBasicGet.PhylumIdFromSubphylumsCollectionSelect(subphylumId);
+            //ForeignKeyTable
+            var phylumList = ExtGet.GetPhylumsCollectionOrderByFromPhylumId<Tbl06Phylum>(phylumId).FirstOrDefault();
+            //Function
+            var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(phylumId);
+
+            //Function
+            var subdivisionId = ExtReportBasicGet.SubdivisionIdFromSuperclassesCollectionSelect(id);
+            //ForeignKeyTable
+            var subdivisionList = ExtGet.GetSubdivisionsCollectionOrderByFromSubdivisionId<Tbl15Subdivision>(subdivisionId).FirstOrDefault();
+            //Function
+            var divisionId = ExtReportBasicGet.DivisionIdFromSubdivisionsCollectionSelect(subdivisionId);
+            //ForeignKeyTable
+            var divisionList = ExtGet.GetDivisionsCollectionOrderByFromDivisionId<Tbl09Division>(divisionId).FirstOrDefault();
+            //Function
+            var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(divisionId);
+
+            //ForeignKeyTable
+            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();  ]]> 
+</xsl:when>  
+
+<xsl:otherwise>     
 </xsl:otherwise>    
 </xsl:choose> 
 

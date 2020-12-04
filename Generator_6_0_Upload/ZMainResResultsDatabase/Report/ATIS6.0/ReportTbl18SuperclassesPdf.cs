@@ -44,12 +44,38 @@ namespace ATIS.Ui.Views.Report.D18Superclass
 
 
             //  LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
-            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");           
+            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");      
+            //-----------------------------------------------------------------------------     
         
             var superclassList = ExtGet.GetSuperclasssCollectionOrderByFromSuperclassId<Tbl18Superclass>(id).FirstOrDefault();    
         
             //Child
             var classesList = ExtGet.GetClassesCollectionOrderByFromSuperclassId<Tbl21Class>(id);           
+        
+            //Function
+            var subphylumId = ExtReportBasicGet.SubphylumIdFromSuperclassesCollectionSelect(id);
+            //ForeignKeyTable
+            var subphylumList = ExtGet.GetSubphylumsCollectionOrderByFromSubphylumId<Tbl12Subphylum>(subphylumId).FirstOrDefault();
+            //Function
+            var phylumId = ExtReportBasicGet.PhylumIdFromSubphylumsCollectionSelect(subphylumId);
+            //ForeignKeyTable
+            var phylumList = ExtGet.GetPhylumsCollectionOrderByFromPhylumId<Tbl06Phylum>(phylumId).FirstOrDefault();
+            //Function
+            var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(phylumId);
+
+            //Function
+            var subdivisionId = ExtReportBasicGet.SubdivisionIdFromSuperclassesCollectionSelect(id);
+            //ForeignKeyTable
+            var subdivisionList = ExtGet.GetSubdivisionsCollectionOrderByFromSubdivisionId<Tbl15Subdivision>(subdivisionId).FirstOrDefault();
+            //Function
+            var divisionId = ExtReportBasicGet.DivisionIdFromSubdivisionsCollectionSelect(subdivisionId);
+            //ForeignKeyTable
+            var divisionList = ExtGet.GetDivisionsCollectionOrderByFromDivisionId<Tbl09Division>(divisionId).FirstOrDefault();
+            //Function
+            var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(divisionId);
+
+            //ForeignKeyTable
+            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();   
              
             var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromSuperclassIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
             var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromSuperclassIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);

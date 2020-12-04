@@ -2181,19 +2181,14 @@
                         </StackPanel>
 
             <!--   Tbl15Subdivisions  -->
-
-                        <materialDesign:Card
-                            Margin="2,0,0,0"
-                            Background="{DynamicResource PrimaryHueLightBrush}"
-                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                            UniformCornerRadius="2">
+                      <StackPanel>
                         <ListBox
                             x:Name="Tbl15SubdivisionsList"
                             Width="{Binding ElementName=PageWidthText, Path=Text}"
                             Height="Auto"
                             Margin="0"
                             HorizontalAlignment="Left"
-                            ItemsSource="{Binding Tbl15SubdivisionsList}"
+                            ItemsSource="{Binding SubdivisionsCollection}"
                             Visibility="{Binding ElementName=Tbl15SubdivisionsList, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
@@ -2203,18 +2198,18 @@
                                             <TextBlock Margin="2,0,0,0" Width="Auto">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource AuthorConverter}">
-                                                        <Binding Path="Author" />
-                                                        <Binding Path="AuthorYear" />
+                                                        <Binding Path="(models:Tbl15Subdivision.Author)" />
+                                                        <Binding Path="(models:Tbl15Subdivision.AuthorYear)" />
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
                                             <TextBlock Margin="2,0,0,0" Width="Auto">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource NameConverter}">
-                                                        <Binding Path="GerName" />
-                                                        <Binding Path="EngName" />
-                                                        <Binding Path="FraName" />
-                                                        <Binding Path="PorName" />
+                                                        <Binding Path="(models:Tbl15Subdivision.GerName)" />
+                                                        <Binding Path="(models:Tbl15Subdivision.EngName)" />
+                                                        <Binding Path="(models:Tbl15Subdivision.FraName)" />
+                                                        <Binding Path="(models:Tbl15Subdivision.PorName)" />
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
@@ -2222,7 +2217,7 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                      </materialDesign:Card>
+                      </StackPanel>
 
             <!--   Tbl18Superclasses Children -->
 

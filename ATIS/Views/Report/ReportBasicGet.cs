@@ -343,7 +343,91 @@ namespace ATIS.Ui.Views.Report
 
         #endregion
 
-        //-----------------------Subdivision---------------------------------
+        #region Subdivision
+
+        public ObservableCollection<Tbl15Subdivision> CollSubdivisionsBySubdivisionId(int id)
+        {
+            var collection = new ObservableCollection<Tbl15Subdivision>(_uow.Tbl15Subdivisions
+                .Find(e => e.SubdivisionId == id));
+            return collection;
+        }
+
+        //direct children
+        public ObservableCollection<Tbl18Superclass> CollSuperclassesBySubdivisionIdAndHash(int id)
+        {
+            var collection = new ObservableCollection<Tbl18Superclass>(_uow.Tbl18Superclasses
+                .Find(e => e.SubdivisionId == id &&
+                           e.SuperclassName.Contains("#") == false));
+            return collection;
+        }
+        //Function
+        public int DivisionIdFromSubdivisionsCollectionSelect(int id)
+        {
+            var divisionIdFromSubdivisionsColl = _context.Tbl15Subdivisions
+                .SingleOrDefault(p => p.SubdivisionId == id);
+
+            if (divisionIdFromSubdivisionsColl == null) return 0;
+            return divisionIdFromSubdivisionsColl.DivisionId;
+        }
+
+        // ForeignKey
+        public ObservableCollection<Tbl09Division> CollDivisionsByDivisionIdAndHash(int id)
+        {
+            var collection = new ObservableCollection<Tbl09Division>(_uow.Tbl09Divisions
+                .Find(e => e.DivisionId == id &&
+                           e.DivisionName.Contains("#") == false));
+            return collection;
+        }
+
+        // References
+        public ObservableCollection<Tbl90Reference> CollExpertsBySubdivisionId(int id)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_context.Tbl90References
+            .Include(a => a.Tbl90RefExperts)
+            .Where(e => e.RefExpertId == e.Tbl90RefExperts.RefExpertId &&
+            e.SubdivisionId == id &&
+            e.RefAuthorId.HasValue == false &&
+            e.RefSourceId.HasValue == false)
+            .OrderBy(a => a.Tbl90RefExperts.RefExpertName));
+            return collection;
+        }
+        public ObservableCollection<Tbl90Reference> CollSourcesBySubdivisionId(int id)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_context.Tbl90References
+            .Include(a => a.Tbl90RefSources)
+            .Where(e => e.RefSourceId == e.Tbl90RefSources.RefSourceId &&
+            e.SubdivisionId == id &&
+            e.RefAuthorId.HasValue == false &&
+            e.RefExpertId.HasValue == false)
+            .OrderBy(a => a.Tbl90RefSources.RefSourceName)
+                .ThenBy(a => a.Tbl90RefSources.SourceYear));
+            return collection;
+        }
+        public ObservableCollection<Tbl90Reference> CollAuthorsBySubdivisionId(int id)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_context.Tbl90References
+            .Include(a => a.Tbl90RefAuthors)
+            .Where(e => e.RefAuthorId == e.Tbl90RefAuthors.RefAuthorId &&
+            e.SubdivisionId == id &&
+            e.RefSourceId.HasValue == false &&
+            e.RefExpertId.HasValue == false)
+            .OrderBy(e => e.Tbl90RefAuthors.RefAuthorName)
+                .ThenBy(e => e.Tbl90RefAuthors.ArticelTitle)
+                .ThenBy(e => e.Tbl90RefAuthors.BookName)
+                .ThenBy(e => e.Tbl90RefAuthors.Page1)
+                .ThenBy(e => e.Tbl90RefAuthors.Publisher));
+            return collection;
+        }
+
+        // Comments
+        public ObservableCollection<Tbl93Comment> CollCommentsBySubdivisionId(int id)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
+                .Find(e => e.SubdivisionId == id));
+            return collection;
+        }
+        #endregion
+
         //--------------------------------------------------------------
 
         //-----------------------Supoerclass---------------------------------
