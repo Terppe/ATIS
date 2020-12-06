@@ -220,6 +220,16 @@ namespace ATIS.Ui.Views.Search
             //      var rp = new ReportInfratribusWindow(id, "Tbl63Infratribusses");
             //      rp.Show();
         }
+        private void Tbl66GenussesList_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var lvItem = sender as ListViewItem;
+
+            if (lvItem == null) return;
+            var id = (dynamic)lvItem.Tag;
+            //      var rp = new ReportGenusWindow(id, "Tbl66Genusses");
+            //      rp.Show();
+        }
+
         private void Tbl72PlSpeciessesList_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             var lvItem = sender as ListViewItem;
@@ -236,15 +246,6 @@ namespace ATIS.Ui.Views.Search
             if (lvItem == null) return;
             var id = (dynamic)lvItem.Tag;
             //      var rp = new ReportFiSpeciesWindow(id, "Tbl69FiSpeciesses");
-            //      rp.Show();
-        }
-        private void Tbl66GenussesList_DoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            var lvItem = sender as ListViewItem;
-
-            if (lvItem == null) return;
-            var id = (dynamic)lvItem.Tag;
-            //      var rp = new ReportGenusWindow(id, "Tbl66Genusses");
             //      rp.Show();
         }
 

@@ -64,58 +64,55 @@ namespace ATIS.Ui.Views.Report.D09Division
 
             try
             {
+                using var pdf = new PdfDocument();
+                _arrInts = PdfHelper.AddReportMain(pdf);
 
-                using (var pdf = new PdfDocument())
+                AddDivisionHaeder(pdf, divisionList);
+                AddDivisionTaxoNomenList(pdf, divisionList);
+
+                if (regnumList != null)
+                    AddRegnumHierarchyList(pdf, regnumList);
+                AddDivisionHierarchyList(pdf, divisionList);
+
+                if (subdivisionsList.Count != 0)
+                    AddSubdivisionsChildrenList(pdf, subdivisionsList);
+
+                if (expertsList.Count != 0 || sourcesList.Count != 0 || authorsList.Count != 0)
+                    _arrInts = PdfHelper.AddReferencesHaeder(pdf, _arrInts);
+
+                if (expertsList.Count != 0)
+                    _arrInts = PdfHelper.AddRefExpertsList(pdf, expertsList, _arrInts);
+                if (sourcesList.Count != 0)
+                    _arrInts = PdfHelper.AddRefSourcesList(pdf, sourcesList, _arrInts);
+                if (authorsList.Count != 0)
+                    _arrInts = PdfHelper.AddRefAuthorsList(pdf, authorsList, _arrInts);
+
+                if (commentsList.Count != 0)
+                    _arrInts = PdfHelper.AddCommentsHaeder(pdf, _arrInts);
+
+                if (commentsList.Count != 0)
+                    _arrInts = PdfHelper.AddCommentsList(pdf, commentsList, _arrInts);
+
+                switch (use)
                 {
-                    _arrInts = PdfHelper.AddReportMain(pdf);
-
-                    AddDivisionHaeder(pdf, divisionList);
-                    AddDivisionTaxoNomenList(pdf, divisionList);
-
-                    if (regnumList != null)
-                        AddRegnumHierarchyList(pdf, regnumList);
-                    AddDivisionHierarchyList(pdf, divisionList);
-
-                    if (subdivisionsList.Count != 0)
-                        AddSubdivisionsChildrenList(pdf, subdivisionsList);
-
-                    if (expertsList.Count != 0 || sourcesList.Count != 0 || authorsList.Count != 0)
-                        _arrInts = PdfHelper.AddReferencesHaeder(pdf, _arrInts);
-
-                    if (expertsList.Count != 0)
-                        _arrInts = PdfHelper.AddRefExpertsList(pdf, expertsList, _arrInts);
-                    if (sourcesList.Count != 0)
-                        _arrInts = PdfHelper.AddRefSourcesList(pdf, sourcesList, _arrInts);
-                    if (authorsList.Count != 0)
-                        _arrInts = PdfHelper.AddRefAuthorsList(pdf, authorsList, _arrInts);
-
-                    if (commentsList.Count != 0)
-                        _arrInts = PdfHelper.AddCommentsHaeder(pdf, _arrInts);
-
-                    if (commentsList.Count != 0)
-                        _arrInts = PdfHelper.AddCommentsList(pdf, commentsList, _arrInts);
-
-                    switch (use)
+                    case "save":
                     {
-                        case "save":
-                            {
-                                var sfd = new SaveFileDialog { Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*" };
-                                sfd.DefaultExt = ".pdf"; // Default file extension
-                                sfd.InitialDirectory = @"C:\";
-                                var saveResult = sfd.ShowDialog();
-                                // Process save file dialog box results
-                                if (saveResult != true) return;
-                                // Save document
-                                var filename = sfd.FileName;
-                                pdf.Save(filename);
-                                break;
-                            }
-                        case "print":
-                            {
-                                var pr = new PdfPrintDocument(pdf, PrintSize.FitPage);
-                                pr.PrintDocument.Print();
-                                break;
-                            }
+                        var sfd = new SaveFileDialog { Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*" };
+                        sfd.DefaultExt = ".pdf"; // Default file extension
+                        sfd.InitialDirectory = @"C:\";
+                        var saveResult = sfd.ShowDialog();
+                        // Process save file dialog box results
+                        if (saveResult != true) return;
+                        // Save document
+                        var filename = sfd.FileName;
+                        pdf.Save(filename);
+                        break;
+                    }
+                    case "print":
+                    {
+                        var pr = new PdfPrintDocument(pdf, PrintSize.FitPage);
+                        pr.PrintDocument.Print();
+                        break;
                     }
                 }
             }

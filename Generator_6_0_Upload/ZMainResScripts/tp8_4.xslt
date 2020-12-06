@@ -132,7 +132,7 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
             //Function
             var divisionId = ExtReportBasicGet.DivisionIdFromSubdivisionsCollectionSelect(id);
             //ForeignKeyTable
-            var divisionList = ExtGet.GetDivisionsCollectionOrderByFromDivisionId<Tbl09Division>(divisionId).FirstOrDefault();
+            var divisionList = ExtGet.GetDivisionsCollectionOrderByFromDivisionId<Tbl06Phylum>(divisionId).FirstOrDefault();
             //Function
             var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(divisionId);
             //ForeignKeyTable

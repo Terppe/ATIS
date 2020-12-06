@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using ATIS.Ui.Views.Report.D03Regnum;
+using ATIS.Ui.Views.Report.D06Phylum;
 using MahApps.Metro.Controls;
 
 //  ReportSubphylumWindow.xaml.cs Skriptdatum:  01.12.2020  12:32     
