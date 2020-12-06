@@ -69,8 +69,7 @@ namespace ATIS.Ui.Views.Report.D15Subdivision
             try
             { 
          
-                using (var pdf = new PdfDocument())
-                {
+                    using var pdf = new PdfDocument();
                     _arrInts = PdfHelper.AddReportMain(pdf); 
 
                     AddSubdivisionHaeder(pdf, subdivisionList);
@@ -122,7 +121,6 @@ namespace ATIS.Ui.Views.Report.D15Subdivision
                                 pr.PrintDocument.Print();
                                 break;
                             }
-                    }
                 }
             }
             catch (Exception e)

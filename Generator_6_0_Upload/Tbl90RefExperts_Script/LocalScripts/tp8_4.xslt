@@ -132,7 +132,7 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
             //Function
             var divisionId = ExtReportBasicGet.DivisionIdFromSubdivisionsCollectionSelect(id);
             //ForeignKeyTable
-            var divisionList = ExtGet.GetDivisionsCollectionOrderByFromDivisionId<Tbl06Phylum>(divisionId).FirstOrDefault();
+            var divisionList = ExtGet.GetDivisionsCollectionOrderByFromDivisionId<Tbl09Division>(divisionId).FirstOrDefault();
             //Function
             var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(divisionId);
             //ForeignKeyTable
@@ -218,8 +218,7 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Data Members Top 4+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
 </xsl:when> 
 <xsl:otherwise>        <![CDATA[ 
-                using (var pdf = new PdfDocument())
-                {
+                    using var pdf = new PdfDocument();
                     _arrInts = PdfHelper.AddReportMain(pdf); 
 
                     Add]]><xsl:value-of select="Basis"/><![CDATA[Haeder(pdf, ]]><xsl:value-of select="BasisSm"/><![CDATA[List);
@@ -397,7 +396,6 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
                                 pr.PrintDocument.Print();
                                 break;
                             }
-                    }
                 }
             }
             catch (Exception e)

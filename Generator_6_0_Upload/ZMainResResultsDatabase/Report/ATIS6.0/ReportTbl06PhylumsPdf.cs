@@ -65,8 +65,7 @@ namespace ATIS.Ui.Views.Report.D06Phylum
             try
             { 
          
-                using (var pdf = new PdfDocument())
-                {
+                    using var pdf = new PdfDocument();
                     _arrInts = PdfHelper.AddReportMain(pdf); 
 
                     AddPhylumHaeder(pdf, phylumList);
@@ -116,7 +115,6 @@ namespace ATIS.Ui.Views.Report.D06Phylum
                                 pr.PrintDocument.Print();
                                 break;
                             }
-                    }
                 }
             }
             catch (Exception e)

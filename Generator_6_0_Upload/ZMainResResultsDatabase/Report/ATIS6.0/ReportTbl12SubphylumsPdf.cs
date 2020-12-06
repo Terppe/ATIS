@@ -69,8 +69,7 @@ namespace ATIS.Ui.Views.Report.D12Subphylum
             try
             { 
          
-                using (var pdf = new PdfDocument())
-                {
+                    using var pdf = new PdfDocument();
                     _arrInts = PdfHelper.AddReportMain(pdf); 
 
                     AddSubphylumHaeder(pdf, subphylumList);
@@ -122,7 +121,6 @@ namespace ATIS.Ui.Views.Report.D12Subphylum
                                 pr.PrintDocument.Print();
                                 break;
                             }
-                    }
                 }
             }
             catch (Exception e)

@@ -60,8 +60,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             try
             { 
          
-                using (var pdf = new PdfDocument())
-                {
+                    using var pdf = new PdfDocument();
                     _arrInts = PdfHelper.AddReportMain(pdf); 
 
                     AddRegnumHaeder(pdf, regnumList);
@@ -111,7 +110,6 @@ namespace ATIS.Ui.Views.Report.D03Regnum
                                 pr.PrintDocument.Print();
                                 break;
                             }
-                    }
                 }
             }
             catch (Exception e)

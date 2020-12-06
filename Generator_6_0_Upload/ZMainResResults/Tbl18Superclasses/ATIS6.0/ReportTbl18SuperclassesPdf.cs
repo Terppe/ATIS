@@ -85,8 +85,7 @@ namespace ATIS.Ui.Views.Report.D18Superclass
             try
             { 
          
-                using (var pdf = new PdfDocument())
-                {
+                    using var pdf = new PdfDocument();
                     _arrInts = PdfHelper.AddReportMain(pdf); 
 
                     AddSuperclassHaeder(pdf, superclassList);
@@ -144,7 +143,6 @@ namespace ATIS.Ui.Views.Report.D18Superclass
                                 pr.PrintDocument.Print();
                                 break;
                             }
-                    }
                 }
             }
             catch (Exception e)

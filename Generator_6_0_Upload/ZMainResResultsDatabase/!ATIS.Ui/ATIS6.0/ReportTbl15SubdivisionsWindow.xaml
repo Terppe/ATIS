@@ -478,7 +478,7 @@
                                     <StackPanel Margin="28,0,0,0" Orientation="Horizontal">
                                         <TextBlock Width="292" Text="{DynamicResource Tbl15Subdivision-Subdivision}" />
                                         <TextBlock FontWeight="Bold" Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
-                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                            <TextBlock Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource AuthorConverter}">
                                                         <Binding Path="(models:Tbl15Subdivision.Author)" />
@@ -486,7 +486,7 @@
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
-                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                            <TextBlock Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource NameConverter}">
                                                         <Binding Path="(models:Tbl15Subdivision.GerName)" />

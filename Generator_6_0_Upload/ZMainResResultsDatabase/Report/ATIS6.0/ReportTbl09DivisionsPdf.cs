@@ -65,8 +65,7 @@ namespace ATIS.Ui.Views.Report.D09Division
             try
             { 
          
-                using (var pdf = new PdfDocument())
-                {
+                    using var pdf = new PdfDocument();
                     _arrInts = PdfHelper.AddReportMain(pdf); 
 
                     AddDivisionHaeder(pdf, divisionList);
@@ -116,7 +115,6 @@ namespace ATIS.Ui.Views.Report.D09Division
                                 pr.PrintDocument.Print();
                                 break;
                             }
-                    }
                 }
             }
             catch (Exception e)

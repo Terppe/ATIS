@@ -60,8 +60,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             try
             { 
          
-                using (var pdf = new PdfDocument())
-                {
+                    using var pdf = new PdfDocument();
                     _arrInts = PdfHelper.AddReportMain(pdf); 
 
                     AddSpeciesgroupHaeder(pdf, speciesgroupList);
@@ -107,7 +106,6 @@ namespace ATIS.Ui.Views.Report.ListDetails
                                 pr.PrintDocument.Print();
                                 break;
                             }
-                    }
                 }
             }
             catch (Exception e)
