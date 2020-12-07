@@ -21,6 +21,7 @@ namespace ATIS.Ui.Views.Report.D06Phylum
 
         private static readonly ILog Log = LogManager.GetLogger(typeof(ReportPhylumPdf));
         private static readonly BasicGet ExtGet = new BasicGet();
+        private static readonly CrudFunctions ExtCrud = new CrudFunctions();
         private static readonly ReportBasicGet ExtReportBasicGet = new ReportBasicGet();
         private static readonly PdfHelper PdfHelper = new PdfHelper();
         private static string _n;
@@ -53,9 +54,10 @@ namespace ATIS.Ui.Views.Report.D06Phylum
             var subphylumsList = ExtGet.GetSubphylumsCollectionOrderByFromPhylumId<Tbl12Subphylum>(id);
 
             //Funktion
-            var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(id);
+       //     var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(id);
+            var regnumId = ExtCrud.GetRegnumIdFromPhylumsCollectionSelect(id);
             //ForeignKeyTable
-            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();
+            var regnumList = ExtCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(regnumId).FirstOrDefault();
 
 
             var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromPhylumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);

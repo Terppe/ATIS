@@ -39,6 +39,7 @@ namespace ATIS.Ui.Views.Database.D09Division
         private readonly BasicCopy _extCopy = new BasicCopy();
         private readonly BasicDelete _extDelete = new BasicDelete();
         private readonly BasicSave _extSave = new BasicSave();
+        private readonly CrudFunctions _extCrud = new CrudFunctions();
         private int _position;
 
         #endregion [Private Data Members]               
@@ -1049,7 +1050,7 @@ namespace ATIS.Ui.Views.Database.D09Division
 
         private void GetConnectedTablesById(object o)
         {
-            Tbl03RegnumsList = _extGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(CurrentTbl09Division.RegnumId);
+            Tbl03RegnumsList = _extCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(CurrentTbl09Division.RegnumId);
 
             RegnumsView = CollectionViewSource.GetDefaultView(Tbl03RegnumsList);
             RegnumsView.Refresh();
@@ -1081,7 +1082,7 @@ namespace ATIS.Ui.Views.Database.D09Division
                 {
                     if (CurrentTbl09Division != null)
                     {
-                        Tbl03RegnumsList = _extGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(CurrentTbl09Division.RegnumId);
+                        Tbl03RegnumsList = _extCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(CurrentTbl09Division.RegnumId);
 
                         RegnumsView = CollectionViewSource.GetDefaultView(Tbl03RegnumsList);
                         RegnumsView.Refresh();
@@ -1136,7 +1137,7 @@ namespace ATIS.Ui.Views.Database.D09Division
                 {
                     if (CurrentTbl09Division != null)
                     {
-                        Tbl03RegnumsList = _extGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(CurrentTbl09Division.RegnumId);
+                        Tbl03RegnumsList = _extCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(CurrentTbl09Division.RegnumId);
 
                         RegnumsView = CollectionViewSource.GetDefaultView(Tbl03RegnumsList);
                         RegnumsView.Refresh();

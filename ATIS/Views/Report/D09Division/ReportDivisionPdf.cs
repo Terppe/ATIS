@@ -21,6 +21,7 @@ namespace ATIS.Ui.Views.Report.D09Division
 
         private static readonly ILog Log = LogManager.GetLogger(typeof(ReportDivisionPdf));
         private static readonly BasicGet ExtGet = new BasicGet();
+        private static readonly CrudFunctions ExtCrud = new CrudFunctions();
         private static readonly ReportBasicGet ExtReportBasicGet = new ReportBasicGet();
         private static readonly PdfHelper PdfHelper = new PdfHelper();
         private static string _n;
@@ -53,9 +54,10 @@ namespace ATIS.Ui.Views.Report.D09Division
             var subdivisionsList = ExtGet.GetSubdivisionsCollectionOrderByFromDivisionId<Tbl15Subdivision>(id);
 
             //Funktion
-            var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(id);
+         //   var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(id);
+            var regnumId = ExtCrud.GetRegnumIdFromPhylumsCollectionSelect(id);
             //ForeignKeyTable
-            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();
+            var regnumList = ExtCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(regnumId).FirstOrDefault();
 
             var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromDivisionIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
             var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromDivisionIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);

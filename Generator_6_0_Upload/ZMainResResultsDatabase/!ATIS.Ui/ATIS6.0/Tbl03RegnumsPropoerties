@@ -1,0 +1,321 @@
+           
+                 ------- ControlTemplateButtons---------------
+    <!--  Phylum-->
+    <ControlTemplate x:Key="SearchPhylumsButton" TargetType="Button">   
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding GetPhylumsByNameOrIdCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Loop" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="AddPhylumButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding AddPhylumCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="CopyPhylumButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding CopyPhylumCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="SavePhylumButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding SavePhylumCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="DeletePhylumButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding DeletePhylumCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+	   
+  
+
+
+
+ //    Part 11    
+
+
+     
+        #region "Public Properties Tbl03Regnum"
+
+        private string _searchRegnumName;
+        public string SearchRegnumName
+        {
+            get => _searchRegnumName; 
+            set { _searchRegnumName = value; OnPropertyChanged(); }
+        }
+
+        public ICollectionView RegnumsView;
+        public Tbl03Regnum CurrentTbl03Regnum => RegnumsView?.CurrentItem as Tbl03Regnum;           
+
+        private ObservableCollection<Tbl03Regnum> _tbl03RegnumsList;
+        public ObservableCollection<Tbl03Regnum> Tbl03RegnumsList
+        {
+            get => _tbl03RegnumsList; 
+            set { _tbl03RegnumsList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl03Regnum> _tbl03RegnumsAllList;
+        public ObservableCollection<Tbl03Regnum> Tbl03RegnumsAllList
+        {
+            get => _tbl03RegnumsAllList; 
+            set { _tbl03RegnumsAllList = value; OnPropertyChanged(); }       
+        }
+
+        #endregion "Public Properties"
+   
+
+       
+        #region "Public Properties Tbl06Phylum"
+
+        private string _searchPhylumName;
+        public string SearchPhylumName
+        {
+            get => _searchPhylumName; 
+            set { _searchPhylumName = value; OnPropertyChanged(); }
+        }
+
+        public ICollectionView PhylumsView;
+        public Tbl06Phylum CurrentTbl06Phylum => PhylumsView?.CurrentItem as Tbl06Phylum;           
+
+        private ObservableCollection<Tbl06Phylum> _tbl06PhylumsList;
+        public ObservableCollection<Tbl06Phylum> Tbl06PhylumsList
+        {
+            get => _tbl06PhylumsList; 
+            set { _tbl06PhylumsList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl06Phylum> _tbl06PhylumsAllList;
+        public ObservableCollection<Tbl06Phylum> Tbl06PhylumsAllList
+        {
+            get => _tbl06PhylumsAllList; 
+            set { _tbl06PhylumsAllList = value; OnPropertyChanged(); }       
+        }
+
+        #endregion "Public Properties"
+   
+  
+       
+        #region "Public Properties Tbl09Division"
+
+        private string _searchDivisionName;
+        public string SearchDivisionName
+        {
+            get => _searchDivisionName; 
+            set { _searchDivisionName = value; OnPropertyChanged(); }
+        }
+
+        public ICollectionView DivisionsView;
+        public Tbl09Division CurrentTbl09Division => DivisionsView?.CurrentItem as Tbl09Division;           
+
+        private ObservableCollection<Tbl09Division> _tbl09DivisionsList;
+        public ObservableCollection<Tbl09Division> Tbl09DivisionsList
+        {
+            get => _tbl09DivisionsList; 
+            set { _tbl09DivisionsList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl09Division> _tbl09DivisionsAllList;
+        public ObservableCollection<Tbl09Division> Tbl09DivisionsAllList
+        {
+            get => _tbl09DivisionsAllList; 
+            set { _tbl09DivisionsAllList = value; OnPropertyChanged(); }       
+        }
+
+        #endregion "Public Properties"
+   
+  
+     
+        #region "Public Properties Tbl90Author"
+
+        private ObservableCollection<Tbl90RefAuthor> _tbl90AuthorsAllList;
+        public ObservableCollection<Tbl90RefAuthor> Tbl90AuthorsAllList
+        {
+            get => _tbl90AuthorsAllList; 
+            set { _tbl90AuthorsAllList = value; OnPropertyChanged(); }
+        }
+
+        #endregion "Public Properties "
+
+        #region "Public Properties Tbl90Source"
+
+        private ObservableCollection<Tbl90RefSource> _tbl90SourcesAllList;
+        public ObservableCollection<Tbl90RefSource> Tbl90SourcesAllList
+        {
+            get => _tbl90SourcesAllList; 
+            set { _tbl90SourcesAllList = value; OnPropertyChanged(); }
+        }
+
+        #endregion "Public Properties "
+
+        #region "Public Properties Tbl90Expert"
+
+        private ObservableCollection<Tbl90RefExpert> _tbl90ExpertsAllList;
+        public ObservableCollection<Tbl90RefExpert> Tbl90ExpertsAllList
+        {
+            get => _tbl90ExpertsAllList; 
+            set { _tbl90ExpertsAllList = value; OnPropertyChanged(); }
+        }
+
+        #endregion "Public Properties "
+
+        #region "Public Properties Tbl90RefAuthor"
+
+        private string _searchRefAuthorName;
+        public string SearchRefAuthorName
+        {
+            get => _searchRefAuthorName; 
+            set { _searchRefAuthorName = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl90Reference> _tbl90RefAuthorsList;
+        public ObservableCollection<Tbl90Reference> Tbl90RefAuthorsList
+        {
+            get => _tbl90RefAuthorsList; 
+            set { _tbl90RefAuthorsList = value; OnPropertyChanged(); }
+        }
+
+        public ICollectionView RefAuthorsView;
+        public Tbl90Reference CurrentTbl90RefAuthor => RefAuthorsView?.CurrentItem as Tbl90Reference;
+
+        #endregion "Public Properties"
+
+        #region "Public Properties Tbl90RefSource"
+
+        private string _searchRefSourceName;
+        public string SearchRefSourceName
+        {
+            get => _searchRefSourceName; 
+            set { _searchRefSourceName = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl90Reference> _tbl90RefSourcesList;
+        public ObservableCollection<Tbl90Reference> Tbl90RefSourcesList
+        {
+            get => _tbl90RefSourcesList; 
+            set { _tbl90RefSourcesList = value; OnPropertyChanged(); }
+        }
+
+        public ICollectionView RefSourcesView;
+        public Tbl90Reference CurrentTbl90RefSource => RefSourcesView?.CurrentItem as Tbl90Reference;
+
+        #endregion "Public Properties"
+
+        #region "Public Properties Tbl90RefExpert"
+
+        private string _searchRefExpertName;
+        public string SearchRefExpertName
+        {
+            get => _searchRefExpertName; 
+            set { _searchRefExpertName = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl90Reference> _tbl90RefExpertsList;
+        public ObservableCollection<Tbl90Reference> Tbl90RefExpertsList
+        {
+            get => _tbl90RefExpertsList; 
+            set { _tbl90RefExpertsList = value; OnPropertyChanged(); }
+        }
+
+        public ICollectionView RefExpertsView;
+        public Tbl90Reference CurrentTbl90RefExpert => RefExpertsView?.CurrentItem as Tbl90Reference;
+
+        #endregion "Public Properties"
+   
+
+     
+        #region "Public Properties Tbl93Comment"
+
+        private string _searchCommentInfo;
+        public string SearchCommentInfo
+        {
+            get => _searchCommentInfo; 
+            set { _searchCommentInfo = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl93Comment> _tbl93CommentsList;
+        public ObservableCollection<Tbl93Comment> Tbl93CommentsList
+        {
+            get => _tbl93CommentsList; 
+            set { _tbl93CommentsList = value; OnPropertyChanged(); }
+        }
+
+        public ICollectionView CommentsView;
+        public Tbl93Comment CurrentTbl93Comment => CommentsView?.CurrentItem as Tbl93Comment;
+
+        #endregion "Public Properties"
+   
+ 
+
+ //    Part 12    
+

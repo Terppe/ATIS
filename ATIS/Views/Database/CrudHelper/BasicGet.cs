@@ -24,10 +24,10 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                     switch (name)
                     {
                         case "regnum":
-                            collection = RegnumAllCollection<T>();
+                            collection = GetRegnumCollectionAllOrderBy<T>();
                             break;
                         case "phylum":
-                            collection = PhylumAllCollection<T>();
+                            collection = GetPhylumCollectionAllOrderBy<T>();
                             break;
                         case "division":
                             collection = DivisionAllCollection<T>();
@@ -45,13 +45,13 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                             collection = GetClassesCollectionAllOrderBy<T>();
                             break;
                         case "expert":
-                            collection = ReferenceExpertAllCollection<T>();
+                            collection = GetReferenceExpertsCollectionAllOrderBy<T>();
                             break;
                         case "source":
-                            collection = ReferenceSourceAllCollection<T>();
+                            collection = GetReferenceSourcesCollectionAllOrderBy<T>();
                             break;
                         case "author":
-                            collection = ReferenceAuthorAllCollection<T>();
+                            collection = GetReferenceAuthorsCollectionAllOrderBy<T>();
                             break;
                         case "reference":
                             collection = ReferenceAllCollection<T>();
@@ -110,10 +110,10 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             switch (name)
             {
                 case "regnum":
-                    collection = RegnumAllCollection<T>();
+                    collection = GetRegnumCollectionAllOrderBy<T>();
                     break;
                 case "phylum":
-                    collection = PhylumAllCollection<T>();
+                    collection = GetPhylumCollectionAllOrderBy<T>();
                     break;
                 case "subphylum":
                     collection = SubphylumAllCollection<T>();
@@ -131,13 +131,13 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                     collection = GetClassesCollectionAllOrderBy<T>();
                     break;
                 case "expert": 
-                    collection = ReferenceExpertAllCollection<T>();
+                    collection = GetReferenceExpertsCollectionAllOrderBy<T>();
                     break;
                 case "source":
-                    collection = ReferenceSourceAllCollection<T>();
+                    collection = GetReferenceSourcesCollectionAllOrderBy<T>();
                     break;
                 case "author":
-                    collection = ReferenceAuthorAllCollection<T>();
+                    collection = GetReferenceAuthorsCollectionAllOrderBy<T>();
                     break;
                 case "reference":
                     collection = ReferenceAllCollection<T>();
@@ -152,7 +152,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
         #region Regnum
 
         //--------------------------------Regnum -------------------------
-        private ObservableCollection<T> RegnumAllCollection<T>()
+        private ObservableCollection<T> GetRegnumCollectionAllOrderBy<T>()
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl03Regnums
@@ -173,7 +173,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 );
             return collection;
         }
-        public ObservableCollection<T> GetRegnumsCollectionOrderByFromRegnumId<T>(int id)
+        public ObservableCollection<T> GetRegnumsCollectionFromRegnumIdOrderBy<T>(int id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl03Regnums
@@ -185,7 +185,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
         }
 
 
-        public ObservableCollection<T> GetReferenceExpertsCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<T>(int id)
+        public ObservableCollection<T> GetReferenceExpertsCollectionFromRegnumIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<T>(int id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
@@ -194,7 +194,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 .OrderBy(k => k.Info));
             return collection;
         }
-        public ObservableCollection<T> GetReferenceSourcesCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<T>(int id)
+        public ObservableCollection<T> GetReferenceSourcesCollectionFromRegnumIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<T>(int id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
@@ -203,7 +203,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 .OrderBy(k => k.Info));
             return collection;
         }
-        public ObservableCollection<T> GetReferenceAuthorsCollectionOrderByFromRegnumIdAndRefSourceIdIsNullAndRefExpertIdIsNull<T>(int id)
+        public ObservableCollection<T> GetReferenceAuthorsCollectionFromRegnumIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<T>(int id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
@@ -212,7 +212,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 .OrderBy(k => k.Info));
             return collection;
         }
-        public ObservableCollection<T> GetCommentsCollectionOrderByFromRegnumId<T>(int? id)
+        public ObservableCollection<T> GetCommentsCollectionFromRegnumIdOrderBy<T>(int? id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
@@ -225,7 +225,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
         #region Phylum
 
         //--------------------------------Phylum------------------------
-        private ObservableCollection<T> PhylumAllCollection<T>()
+        private ObservableCollection<T> GetPhylumCollectionAllOrderBy<T>()
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl06Phylums
@@ -844,7 +844,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             collection = new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl90References.GetAll());
             return collection;
         }
-        private ObservableCollection<T> ReferenceExpertAllCollection<T>()
+        private ObservableCollection<T> GetReferenceExpertsCollectionAllOrderBy<T>()
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90RefExperts
@@ -862,7 +862,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 );
             return collection;
         }
-        private ObservableCollection<T> ReferenceAuthorAllCollection<T>()
+        private ObservableCollection<T> GetReferenceAuthorsCollectionAllOrderBy<T>()
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90RefAuthors
@@ -883,7 +883,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
                 );
             return collection;
         }
-        private ObservableCollection<T> ReferenceSourceAllCollection<T>()
+        private ObservableCollection<T> GetReferenceSourcesCollectionAllOrderBy<T>()
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90RefSources

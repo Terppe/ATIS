@@ -25,7 +25,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(typeof(PhylumsViewModel));
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
-        private readonly AtisDbContext _context = new AtisDbContext();
 
         private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
         private readonly GenericMessageBoxes<Tbl06Phylum> _genPhylumMessageBoxes = new GenericMessageBoxes<Tbl06Phylum>();
@@ -39,6 +38,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         private readonly BasicCopy _extCopy = new BasicCopy();
         private readonly BasicDelete _extDelete = new BasicDelete();
         private readonly BasicSave _extSave = new BasicSave();
+        private readonly CrudFunctions _extCrud = new CrudFunctions();
         private int _position;
 
         #endregion [Private Data Members]               
@@ -1047,7 +1047,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void GetConnectedTablesById(object o)
         {
-            Tbl03RegnumsList = _extGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(CurrentTbl06Phylum.RegnumId);
+            Tbl03RegnumsList = _extCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(CurrentTbl06Phylum.RegnumId);
 
             RegnumsView = CollectionViewSource.GetDefaultView(Tbl03RegnumsList);
             RegnumsView.Refresh();
@@ -1079,7 +1079,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 {
                     if (CurrentTbl06Phylum != null)
                     {
-                        Tbl03RegnumsList = _extGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(CurrentTbl06Phylum.RegnumId);
+                        Tbl03RegnumsList = _extCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(CurrentTbl06Phylum.RegnumId);
 
                         RegnumsView = CollectionViewSource.GetDefaultView(Tbl03RegnumsList);
                         RegnumsView.Refresh();
@@ -1134,7 +1134,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 {
                     if (CurrentTbl06Phylum != null)
                     {
-                        Tbl03RegnumsList = _extGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(CurrentTbl06Phylum.RegnumId);
+                        Tbl03RegnumsList = _extCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(CurrentTbl06Phylum.RegnumId);
 
                         RegnumsView = CollectionViewSource.GetDefaultView(Tbl03RegnumsList);
                         RegnumsView.Refresh();
