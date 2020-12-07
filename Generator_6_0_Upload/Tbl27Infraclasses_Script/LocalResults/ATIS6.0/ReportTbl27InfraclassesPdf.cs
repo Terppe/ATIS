@@ -11,9 +11,9 @@ using log4net;
 using Microsoft.Win32;  
 
     
-         //    ReportInfraclassPdf Skriptdatum:  08.11.2018  18:32    
+         //    ReportInfraclassPdf Skriptdatum:  06.12.2020   18:32    
 
-namespace ATIS.Ui.Views.Report.ListDetails
+namespace ATIS.Ui.Views.Report.D27Infraclass
 {     
     
     public class ReportInfraclassPdf : ViewModelBase

@@ -9,9 +9,9 @@
             _uow.Tbl60Subtribusses.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl27Infraclass> SearchForConnectedDatasetsWithSubtribusIdInTableInfratribus(Tbl60Subtribus selected)
+        public ObservableCollection<Tbl63Infratribus> SearchForConnectedDatasetsWithSubtribusIdInTableInfratribus(Tbl60Subtribus selected)
         {
-            var collection = new ObservableCollection<Tbl63Infratribus>(_uow.Tbl63Infratribusses.Find(x => x.SubtribusId == selected.SubtribusId));
+            var collection = new ObservableCollection<Tbl63Infratribus>(_uow.Tbl63Infratribusses.Find(x => x.InfratribusId == selected.SubtribusId));
             return collection;
         }
         public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubtribusIdInTableReference(Tbl60Subtribus selected)
@@ -290,7 +290,34 @@
             return comment;
         }
 
-        //--------------------------Copy Subtribus --------------------------------
+        //--------------------------Copy Tribus --------------------------------
+
+        public ObservableCollection<Tbl60Subtribus> CopySubtribus(Tbl60Subtribus selected)  
+        {
+            var dataset = _uow.Tbl60Subtribusses.GetById(selected.SubtribusId);
+            var collection = new ObservableCollection<Tbl60Subtribus>();
+
+            collection.Insert(0, new Tbl60Subtribus
+            {
+                SubtribusName = CultRes.StringsRes.DatasetNew,
+                TribusId = dataset.TribusId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Synonym = dataset.Synonym,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                EngName = dataset.EngName,
+                GerName = dataset.GerName,
+                FraName = dataset.FraName,
+                PorName = dataset.PorName,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
+
+
 
         public ObservableCollection<Tbl90Reference> CopyReferenceTribus(Tbl90Reference selected, string refer)
         {
@@ -336,12 +363,17 @@
             return collection;
         }
 
+        //----------------------------------------------------------
+        //----------------------------------------------------------
+        //--------------------------search Subtribus --------------------------------
+
         public ObservableCollection<Tbl60Subtribus> SearchForConnectedDatasetsWithTribusIdInTableSubtribus(Tbl57Tribus selected)
         {
             var collection = new ObservableCollection<Tbl60Subtribus>(_uow.Tbl60Subtribusses.Find(x => x.TribusId == selected.TribusId));
             return collection;
         }
 
+        //--------------------------Delete Dataset Tribus --------------------------------
 
         public ObservableCollection<Tbl90Reference> DeleteDatasetsWithTribusIdInTableReference(Tbl57Tribus selected)
         {
@@ -361,6 +393,8 @@
             _uow.Complete();
         }
 
+        //--------------------------Get  Supertribus --------------------------------
+
         public ObservableCollection<T> GetSupertribussesCollectionOrderByFromSupertribusId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -371,6 +405,8 @@
             return collection;
         }
 
+        //--------------------------Get  Tribus --------------------------------
+
         public ObservableCollection<T> GetTribussesCollectionOrderByFromTribusId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -380,6 +416,8 @@
             return collection;
         }
 
+        //--------------------------Get  Subtribus --------------------------------
+
         public ObservableCollection<T> GetSubtribussesCollectionOrderByFromSubphylumId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -388,6 +426,8 @@
                 .OrderBy(k => k.SubtribusName));
             return collection;
         }
+
+        //--------------------------Get Reference  Tribus --------------------------------
 
         public ObservableCollection<T> GetReferenceExpertsCollectionOrderByFromTribusIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<T>(int id)
         {
@@ -419,7 +459,9 @@
             return collection;
         }
 
-        public ObservableCollection<T> GetCommentsCollectionOrderByFromSubphylumId<T>(int id)
+        //--------------------------Get Comment  Tribus --------------------------------
+
+        public ObservableCollection<T> GetCommentsCollectionOrderByFromTribusId<T>(int id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
@@ -429,7 +471,7 @@
         }
 
                  ------- ControlTemplateButtons---------------
-    <!--  Subclass  -->
+    <!--  Subtribus-->
     <ControlTemplate x:Key="SearchSubtribussesButton" TargetType="Button">   
         <Button
             Width="36"

@@ -9,9 +9,9 @@
             _uow.Tbl48Subfamilies.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl27Infraclass> SearchForConnectedDatasetsWithSubfamilyIdInTableInfrafamily(Tbl48Subfamily selected)
+        public ObservableCollection<Tbl51Infrafamily> SearchForConnectedDatasetsWithSubfamilyIdInTableInfrafamily(Tbl48Subfamily selected)
         {
-            var collection = new ObservableCollection<Tbl51Infrafamily>(_uow.Tbl51Infrafamilies.Find(x => x.SubfamilyId == selected.SubfamilyId));
+            var collection = new ObservableCollection<Tbl51Infrafamily>(_uow.Tbl51Infrafamilies.Find(x => x.InfrafamilyId == selected.SubfamilyId));
             return collection;
         }
         public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubfamilyIdInTableReference(Tbl48Subfamily selected)
@@ -290,7 +290,34 @@
             return comment;
         }
 
-        //--------------------------Copy Subfamily --------------------------------
+        //--------------------------Copy Family --------------------------------
+
+        public ObservableCollection<Tbl48Subfamily> CopySubfamily(Tbl48Subfamily selected)  
+        {
+            var dataset = _uow.Tbl48Subfamilies.GetById(selected.SubfamilyId);
+            var collection = new ObservableCollection<Tbl48Subfamily>();
+
+            collection.Insert(0, new Tbl48Subfamily
+            {
+                SubfamilyName = CultRes.StringsRes.DatasetNew,
+                FamilyId = dataset.FamilyId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Synonym = dataset.Synonym,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                EngName = dataset.EngName,
+                GerName = dataset.GerName,
+                FraName = dataset.FraName,
+                PorName = dataset.PorName,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
+
+
 
         public ObservableCollection<Tbl90Reference> CopyReferenceFamily(Tbl90Reference selected, string refer)
         {
@@ -336,12 +363,17 @@
             return collection;
         }
 
+        //----------------------------------------------------------
+        //----------------------------------------------------------
+        //--------------------------search Subfamily --------------------------------
+
         public ObservableCollection<Tbl48Subfamily> SearchForConnectedDatasetsWithFamilyIdInTableSubfamily(Tbl45Family selected)
         {
             var collection = new ObservableCollection<Tbl48Subfamily>(_uow.Tbl48Subfamilies.Find(x => x.FamilyId == selected.FamilyId));
             return collection;
         }
 
+        //--------------------------Delete Dataset Family --------------------------------
 
         public ObservableCollection<Tbl90Reference> DeleteDatasetsWithFamilyIdInTableReference(Tbl45Family selected)
         {
@@ -361,6 +393,8 @@
             _uow.Complete();
         }
 
+        //--------------------------Get  Superfamily --------------------------------
+
         public ObservableCollection<T> GetSuperfamiliesCollectionOrderByFromSuperfamilyId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -371,6 +405,8 @@
             return collection;
         }
 
+        //--------------------------Get  Family --------------------------------
+
         public ObservableCollection<T> GetFamiliesCollectionOrderByFromFamilyId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -380,6 +416,8 @@
             return collection;
         }
 
+        //--------------------------Get  Subfamily --------------------------------
+
         public ObservableCollection<T> GetSubfamiliesCollectionOrderByFromSubphylumId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -388,6 +426,8 @@
                 .OrderBy(k => k.SubfamilyName));
             return collection;
         }
+
+        //--------------------------Get Reference  Family --------------------------------
 
         public ObservableCollection<T> GetReferenceExpertsCollectionOrderByFromFamilyIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<T>(int id)
         {
@@ -419,7 +459,9 @@
             return collection;
         }
 
-        public ObservableCollection<T> GetCommentsCollectionOrderByFromSubphylumId<T>(int id)
+        //--------------------------Get Comment  Family --------------------------------
+
+        public ObservableCollection<T> GetCommentsCollectionOrderByFromFamilyId<T>(int id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
@@ -429,7 +471,7 @@
         }
 
                  ------- ControlTemplateButtons---------------
-    <!--  Subclass  -->
+    <!--  Subfamily-->
     <ControlTemplate x:Key="SearchSubfamiliesButton" TargetType="Button">   
         <Button
             Width="36"

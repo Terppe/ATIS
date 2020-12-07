@@ -159,7 +159,7 @@ namespace ATIS.Ui.Views.Report.D18Superclass
             }
         }  
              
-        private static void AddSuperclassHaeder(PdfDocument pdf, Tbl18Superclasstbl18SuperclassList)
+        private static void AddSuperclassHaeder(PdfDocument pdf, Tbl18Superclass  superclassList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
@@ -176,7 +176,7 @@ namespace ATIS.Ui.Views.Report.D18Superclass
             _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
         } 
           
-        private static void AddSuperclassTaxoNomenList(PdfDocument pdf, Tbl18Superclasstbl18SuperclassList)         
+        private static void AddSuperclassTaxoNomenList(PdfDocument pdf, Tbl18Superclass  superclassList)         
           
         {
             _page = pdf.Pages[_arrInts[6]];
@@ -262,7 +262,7 @@ namespace ATIS.Ui.Views.Report.D18Superclass
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }    
           
-        private static void AddSuperclassHierarchyList(PdfDocument pdf, Tbl18Superclasstbl18SuperclassList)
+        private static void AddSuperclassHierarchyList(PdfDocument pdf, Tbl18Superclass  superclassList)
         {
             _page = pdf.Pages[_arrInts[6]];
 

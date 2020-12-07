@@ -9,9 +9,9 @@
             _uow.Tbl39Infraordos.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl27Infraclass> SearchForConnectedDatasetsWithInfraordoIdInTableSuperfamily(Tbl39Infraordo selected)
+        public ObservableCollection<Tbl42Superfamily> SearchForConnectedDatasetsWithInfraordoIdInTableSuperfamily(Tbl39Infraordo selected)
         {
-            var collection = new ObservableCollection<Tbl42Superfamily>(_uow.Tbl42Superfamilies.Find(x => x.InfraordoId == selected.InfraordoId));
+            var collection = new ObservableCollection<Tbl42Superfamily>(_uow.Tbl42Superfamilies.Find(x => x.SuperfamilyId == selected.InfraordoId));
             return collection;
         }
         public ObservableCollection<Tbl90Reference> DeleteDatasetsWithInfraordoIdInTableReference(Tbl39Infraordo selected)
@@ -290,7 +290,34 @@
             return comment;
         }
 
-        //--------------------------Copy Infraordo --------------------------------
+        //--------------------------Copy Subordo --------------------------------
+
+        public ObservableCollection<Tbl39Infraordo> CopyInfraordo(Tbl39Infraordo selected)  
+        {
+            var dataset = _uow.Tbl39Infraordos.GetById(selected.InfraordoId);
+            var collection = new ObservableCollection<Tbl39Infraordo>();
+
+            collection.Insert(0, new Tbl39Infraordo
+            {
+                InfraordoName = CultRes.StringsRes.DatasetNew,
+                SubordoId = dataset.SubordoId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Synonym = dataset.Synonym,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                EngName = dataset.EngName,
+                GerName = dataset.GerName,
+                FraName = dataset.FraName,
+                PorName = dataset.PorName,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
+
+
 
         public ObservableCollection<Tbl90Reference> CopyReferenceSubordo(Tbl90Reference selected, string refer)
         {
@@ -336,12 +363,17 @@
             return collection;
         }
 
+        //----------------------------------------------------------
+        //----------------------------------------------------------
+        //--------------------------search Infraordo --------------------------------
+
         public ObservableCollection<Tbl39Infraordo> SearchForConnectedDatasetsWithSubordoIdInTableInfraordo(Tbl36Subordo selected)
         {
             var collection = new ObservableCollection<Tbl39Infraordo>(_uow.Tbl39Infraordos.Find(x => x.SubordoId == selected.SubordoId));
             return collection;
         }
 
+        //--------------------------Delete Dataset Subordo --------------------------------
 
         public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubordoIdInTableReference(Tbl36Subordo selected)
         {
@@ -361,6 +393,8 @@
             _uow.Complete();
         }
 
+        //--------------------------Get  Ordo --------------------------------
+
         public ObservableCollection<T> GetOrdosCollectionOrderByFromOrdoId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -371,6 +405,8 @@
             return collection;
         }
 
+        //--------------------------Get  Subordo --------------------------------
+
         public ObservableCollection<T> GetSubordosCollectionOrderByFromSubordoId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -380,6 +416,8 @@
             return collection;
         }
 
+        //--------------------------Get  Infraordo --------------------------------
+
         public ObservableCollection<T> GetInfraordosCollectionOrderByFromSubphylumId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -388,6 +426,8 @@
                 .OrderBy(k => k.InfraordoName));
             return collection;
         }
+
+        //--------------------------Get Reference  Subordo --------------------------------
 
         public ObservableCollection<T> GetReferenceExpertsCollectionOrderByFromSubordoIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<T>(int id)
         {
@@ -419,7 +459,9 @@
             return collection;
         }
 
-        public ObservableCollection<T> GetCommentsCollectionOrderByFromSubphylumId<T>(int id)
+        //--------------------------Get Comment  Subordo --------------------------------
+
+        public ObservableCollection<T> GetCommentsCollectionOrderByFromSubordoId<T>(int id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
@@ -429,7 +471,7 @@
         }
 
                  ------- ControlTemplateButtons---------------
-    <!--  Subclass  -->
+    <!--  Infraordo-->
     <ControlTemplate x:Key="SearchInfraordosButton" TargetType="Button">   
         <Button
             Width="36"

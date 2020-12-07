@@ -11,9 +11,9 @@
 
   <LayoutTK3>ListDetails</LayoutTK3>
   <LayoutTK2>ListDetails</LayoutTK2>
-  <LayoutTK1>ListDetails</LayoutTK1>
-  <Layout>ListDetails</Layout>
-  <LayoutFK1>ListDetails</LayoutFK1>
+  <LayoutTK1>D27Infraclass</LayoutTK1>
+  <Layout>D24Subclass</Layout>
+  <LayoutFK1>D21Class</LayoutFK1>
   <LayoutFK2>ListDetails</LayoutFK2>
   <LayoutBK1>ListDetails</LayoutBK1>
   <LayoutBK2>ListDetails</LayoutBK2>
@@ -174,9 +174,9 @@
   <EntitysBK1>_tbl18Superclasses</EntitysBK1> 
   <EntitysBK2>NULL</EntitysBK2> 
 
-  <EntityAblTK1>Tbl27Infraclass tbl27Infraclass</EntityAblTK1> 
-  <EntityAbl>Tbl24Subclass tbl24Subclass</EntityAbl> 
-  <EntityAblFK1>Tbl21Class tbl21Class</EntityAblFK1> 
+  <EntityAblTK1>Tbl27Infraclass infraclass</EntityAblTK1> 
+  <EntityAbl>Tbl24Subclass subclass</EntityAbl> 
+  <EntityAblFK1>Tbl21Class class</EntityAblFK1> 
   <EntityAblFK2>NULL</EntityAblFK2> 
 
    <Fields>

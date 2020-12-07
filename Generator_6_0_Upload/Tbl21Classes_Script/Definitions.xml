@@ -161,9 +161,9 @@
   <EntitysBK1>_tbl12Subphylums</EntitysBK1> 
   <EntitysBK2>_tbl15Subdivisions</EntitysBK2> 
 
-  <EntityAblTK1>Tbl24Subclass tbl24Subclass</EntityAblTK1> 
-  <EntityAbl>Tbl21Class tbl21Class</EntityAbl> 
-  <EntityAblFK1>Tbl18Superclass tbl18Superclass</EntityAblFK1> 
+  <EntityAblTK1>Tbl24Subclass subclass</EntityAblTK1> 
+  <EntityAbl>Tbl21Class class</EntityAbl> 
+  <EntityAblFK1>Tbl18Superclass superclass</EntityAblFK1> 
   <EntityAblFK2>NULL</EntityAblFK2> 
 
    <Fields>

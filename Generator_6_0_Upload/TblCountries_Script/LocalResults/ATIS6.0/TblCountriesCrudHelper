@@ -9,9 +9,9 @@
             _uow.NULL.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl27Infraclass> SearchForConnectedDatasetsWithNULLIdInTable(NULL selected)
+        public ObservableCollection<> SearchForConnectedDatasetsWithNULLIdInTable(NULL selected)
         {
-            var collection = new ObservableCollection<>(_uow..Find(x => x.NULLId == selected.NULLId));
+            var collection = new ObservableCollection<>(_uow..Find(x => x.Id == selected.NULLId));
             return collection;
         }
         public ObservableCollection<Tbl90Reference> DeleteDatasetsWithNULLIdInTableReference(NULL selected)
@@ -290,7 +290,34 @@
             return comment;
         }
 
-        //--------------------------Copy NULL --------------------------------
+        //--------------------------Copy Country --------------------------------
+
+        public ObservableCollection<NULL> CopyNULL(NULL selected)  
+        {
+            var dataset = _uow.NULL.GetById(selected.NULLId);
+            var collection = new ObservableCollection<NULL>();
+
+            collection.Insert(0, new NULL
+            {
+                NULLName = CultRes.StringsRes.DatasetNew,
+                CountryId = dataset.CountryId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Synonym = dataset.Synonym,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                EngName = dataset.EngName,
+                GerName = dataset.GerName,
+                FraName = dataset.FraName,
+                PorName = dataset.PorName,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
+
+
 
         public ObservableCollection<Tbl90Reference> CopyReferenceCountry(Tbl90Reference selected, string refer)
         {
@@ -336,12 +363,17 @@
             return collection;
         }
 
+        //----------------------------------------------------------
+        //----------------------------------------------------------
+        //--------------------------search NULL --------------------------------
+
         public ObservableCollection<NULL> SearchForConnectedDatasetsWithCountryIdInTableNULL(TblCountry selected)
         {
             var collection = new ObservableCollection<NULL>(_uow.NULL.Find(x => x.CountryId == selected.CountryId));
             return collection;
         }
 
+        //--------------------------Delete Dataset Country --------------------------------
 
         public ObservableCollection<Tbl90Reference> DeleteDatasetsWithCountryIdInTableReference(TblCountry selected)
         {
@@ -361,6 +393,8 @@
             _uow.Complete();
         }
 
+        //--------------------------Get  NULL --------------------------------
+
         public ObservableCollection<T> GetCollectionOrderByFromNULLId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -371,6 +405,8 @@
             return collection;
         }
 
+        //--------------------------Get  Country --------------------------------
+
         public ObservableCollection<T> GetCountriesCollectionOrderByFromCountryId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -380,6 +416,8 @@
             return collection;
         }
 
+        //--------------------------Get  NULL --------------------------------
+
         public ObservableCollection<T> GetCollectionOrderByFromSubphylumId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -388,6 +426,8 @@
                 .OrderBy(k => k.NULLName));
             return collection;
         }
+
+        //--------------------------Get Reference  Country --------------------------------
 
         public ObservableCollection<T> GetReferenceExpertsCollectionOrderByFromCountryIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<T>(int id)
         {
@@ -419,7 +459,9 @@
             return collection;
         }
 
-        public ObservableCollection<T> GetCommentsCollectionOrderByFromSubphylumId<T>(int id)
+        //--------------------------Get Comment  Country --------------------------------
+
+        public ObservableCollection<T> GetCommentsCollectionOrderByFromCountryId<T>(int id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
@@ -429,7 +471,7 @@
         }
 
                  ------- ControlTemplateButtons---------------
-    <!--  Subclass  -->
+    <!--  NULL-->
     <ControlTemplate x:Key="SearchButton" TargetType="Button">   
         <Button
             Width="36"

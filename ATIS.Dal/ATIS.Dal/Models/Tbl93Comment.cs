@@ -23,7 +23,7 @@ namespace ATIS.Dal.Models
         public int? OrdoId { get; set; }
         public int? LegioId { get; set; }
         public int? InfraclassId { get; set; }
-        public int? SubclassId { get; set; }
+        public int SubclassId { get; set; }
         public int? ClassId { get; set; }
         public int? SuperclassId { get; set; }
         public int? SubdivisionId { get; set; }

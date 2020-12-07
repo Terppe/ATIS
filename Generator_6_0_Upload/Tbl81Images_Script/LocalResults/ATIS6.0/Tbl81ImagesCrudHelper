@@ -9,9 +9,9 @@
             _uow.NULL.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl27Infraclass> SearchForConnectedDatasetsWithNameIdInTableSynonym(Tbl68Speciesgroup selected)
+        public ObservableCollection<NULL> SearchForConnectedDatasetsWithNameIdInTableSynonym(Tbl68Speciesgroup selected)
         {
-            var collection = new ObservableCollection<NULL>(_uow.NULL.Find(x => x.NameId == selected.NameId));
+            var collection = new ObservableCollection<NULL>(_uow.NULL.Find(x => x.SynonymId == selected.NameId));
             return collection;
         }
         public ObservableCollection<Tbl90Reference> DeleteDatasetsWithNameIdInTableReference(Tbl68Speciesgroup selected)
@@ -290,7 +290,34 @@
             return comment;
         }
 
-        //--------------------------Copy Name --------------------------------
+        //--------------------------Copy Image --------------------------------
+
+        public ObservableCollection<Tbl68Speciesgroup> CopyName(Tbl68Speciesgroup selected)  
+        {
+            var dataset = _uow.NULL.GetById(selected.NameId);
+            var collection = new ObservableCollection<Tbl68Speciesgroup>();
+
+            collection.Insert(0, new Tbl68Speciesgroup
+            {
+                NameName = CultRes.StringsRes.DatasetNew,
+                ImageId = dataset.ImageId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Synonym = dataset.Synonym,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                EngName = dataset.EngName,
+                GerName = dataset.GerName,
+                FraName = dataset.FraName,
+                PorName = dataset.PorName,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
+
+
 
         public ObservableCollection<Tbl90Reference> CopyReferenceImage(Tbl90Reference selected, string refer)
         {
@@ -336,12 +363,17 @@
             return collection;
         }
 
+        //----------------------------------------------------------
+        //----------------------------------------------------------
+        //--------------------------search Name --------------------------------
+
         public ObservableCollection<Tbl68Speciesgroup> SearchForConnectedDatasetsWithImageIdInTableName(Tbl81Image selected)
         {
             var collection = new ObservableCollection<Tbl68Speciesgroup>(_uow.NULL.Find(x => x.ImageId == selected.ImageId));
             return collection;
         }
 
+        //--------------------------Delete Dataset Image --------------------------------
 
         public ObservableCollection<Tbl90Reference> DeleteDatasetsWithImageIdInTableReference(Tbl81Image selected)
         {
@@ -361,6 +393,8 @@
             _uow.Complete();
         }
 
+        //--------------------------Get  FiSpecies --------------------------------
+
         public ObservableCollection<T> GetFiSpeciessesCollectionOrderByFromFiSpeciesId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -371,6 +405,8 @@
             return collection;
         }
 
+        //--------------------------Get  Image --------------------------------
+
         public ObservableCollection<T> GetImagesCollectionOrderByFromImageId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -380,6 +416,8 @@
             return collection;
         }
 
+        //--------------------------Get  Name --------------------------------
+
         public ObservableCollection<T> GetNULLCollectionOrderByFromSubphylumId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -388,6 +426,8 @@
                 .OrderBy(k => k.NameName));
             return collection;
         }
+
+        //--------------------------Get Reference  Image --------------------------------
 
         public ObservableCollection<T> GetReferenceExpertsCollectionOrderByFromImageIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<T>(int id)
         {
@@ -419,7 +459,9 @@
             return collection;
         }
 
-        public ObservableCollection<T> GetCommentsCollectionOrderByFromSubphylumId<T>(int id)
+        //--------------------------Get Comment  Image --------------------------------
+
+        public ObservableCollection<T> GetCommentsCollectionOrderByFromImageId<T>(int id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
@@ -429,7 +471,7 @@
         }
 
                  ------- ControlTemplateButtons---------------
-    <!--  Subclass  -->
+    <!--  Name-->
     <ControlTemplate x:Key="SearchNULLButton" TargetType="Button">   
         <Button
             Width="36"

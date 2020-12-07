@@ -176,6 +176,7 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             _uow.Tbl24Subclasses.Remove(selected);
             _uow.Complete();
         }
+
         public ObservableCollection<Tbl27Infraclass> SearchForConnectedDatasetsWithSubclassIdInTableInfraclass(Tbl24Subclass selected)
         {
             var collection = new ObservableCollection<Tbl27Infraclass>(_uow.Tbl27Infraclasses.Find(x => x.SubclassId == selected.SubclassId));
@@ -192,6 +193,52 @@ namespace ATIS.Ui.Views.Database.CrudHelper
             return collection;
         }
 
+        //------------------------------Delete Infraclass -----------------------------------
+        public void DeleteInfraclass(Tbl27Infraclass selected)
+        {
+            _uow.Tbl27Infraclasses.Remove(selected);
+            _uow.Complete();
+        }
+        public ObservableCollection<Tbl30Legio> SearchForConnectedDatasetsWithInfraclassIdInTableLegio(Tbl27Infraclass selected)
+        {
+            var collection = new ObservableCollection<Tbl30Legio>(_uow.Tbl30Legios.Find(x => x.InfraclassId == selected.InfraclassId));
+            return collection;
+        }
+
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithInfraclassIdInTableReference(Tbl27Infraclass selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.InfraclassId == selected.InfraclassId));
+            return collection;
+        }
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithInfraclassIdInTableComment(Tbl27Infraclass selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.InfraclassId == selected.InfraclassId));
+            return collection;
+        }
+ 
+        //--------------------------------Delete Legio---------------------------------------
+        public void DeleteLegio(Tbl30Legio selected)
+        {
+            _uow.Tbl30Legios.Remove(selected);
+            _uow.Complete();
+        }
+        public ObservableCollection<Tbl33Ordo> SearchForConnectedDatasetsWithLegioIdInTableOrdo(Tbl30Legio selected)
+        {
+            var collection = new ObservableCollection<Tbl33Ordo>(_uow.Tbl33Ordos.Find(x => x.OrdoId == selected.LegioId));
+            return collection;
+        }
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithLegioIdInTableReference(Tbl30Legio selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.LegioId == selected.LegioId));
+            return collection;
+        }
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithLegioIdInTableComment(Tbl30Legio selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.LegioId == selected.LegioId));
+            return collection;
+        }
+
+        //----------------------------------------------------------------------------------------
         //-----------------------DeleteReferences, DeleteComments, DeleteReference, DeleteComment-----------------------------------
 
         public void DeleteReferences(ObservableCollection<Tbl90Reference> coll)

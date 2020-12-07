@@ -163,10 +163,10 @@
   <EntitysBK2>_tbl09Divisions</EntitysBK2> 
   <EntitysBK3>_tbl03Regnums</EntitysBK3> 
 
-  <EntityAblTK1>Tbl21Classtbl21Class</EntityAblTK1> 
-  <EntityAbl>Tbl18Superclasstbl18Superclass</EntityAbl> 
-  <EntityAblFK1>Tbl12Subphylumtbl12Subphylum</EntityAblFK1> 
-  <EntityAblFK2>Tbl15Subdivisiontbl15Subdivision</EntityAblFK2> 
+  <EntityAblTK1>Tbl21Class  class</EntityAblTK1> 
+  <EntityAbl>Tbl18Superclass  superclass</EntityAbl> 
+  <EntityAblFK1>Tbl12Subphylum  subphylum</EntityAblFK1> 
+  <EntityAblFK2>Tbl15Subdivision  subdivision</EntityAblFK2> 
 
    <Fields>
     <Field><Name>SuperclassID</Name> <Type>int</Type>  <NotNull>IDENTITY(1,1) NOT NULL</NotNull> </Field>

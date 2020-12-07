@@ -12,8 +12,8 @@ namespace Atis.WpfUi.Interfaces     {
 Tbl18Superclass Get(int id);   
         
 
-        void Add(Tbl18Superclasstbl18Superclass);
-        void Delete(Tbl18Superclasstbl18Superclass);
+        void Add(Tbl18Superclass  superclass);
+        void Delete(Tbl18Superclass  superclass);
         void Save( );               
      }
 }   

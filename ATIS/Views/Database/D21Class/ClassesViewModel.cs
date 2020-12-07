@@ -19,11 +19,11 @@ namespace ATIS.Ui.Views.Database.D21Class
 {
 
     public class ClassesViewModel : ViewModelBase                     
-    {  
+    {
         // Version with Generic Unit Of Work and AtisDbContext for general use   
-         
+
         #region [Private Data Members]
-        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(typeof(ClassesViewModel));
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly AtisDbContext _context = new AtisDbContext();
 

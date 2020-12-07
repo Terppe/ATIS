@@ -9,9 +9,9 @@
             _uow.Tbl21Classes.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl27Infraclass> SearchForConnectedDatasetsWithClassIdInTableSubclass(Tbl21Class selected)
+        public ObservableCollection<Tbl24Subclass> SearchForConnectedDatasetsWithClassIdInTableSubclass(Tbl21Class selected)
         {
-            var collection = new ObservableCollection<Tbl24Subclass>(_uow.Tbl24Subclasses.Find(x => x.ClassId == selected.ClassId));
+            var collection = new ObservableCollection<Tbl24Subclass>(_uow.Tbl24Subclasses.Find(x => x.SubclassId == selected.ClassId));
             return collection;
         }
         public ObservableCollection<Tbl90Reference> DeleteDatasetsWithClassIdInTableReference(Tbl21Class selected)
@@ -290,7 +290,34 @@
             return comment;
         }
 
-        //--------------------------Copy Class --------------------------------
+        //--------------------------Copy Superclass --------------------------------
+
+        public ObservableCollection<Tbl21Class> CopyClass(Tbl21Class selected)  
+        {
+            var dataset = _uow.Tbl21Classes.GetById(selected.ClassId);
+            var collection = new ObservableCollection<Tbl21Class>();
+
+            collection.Insert(0, new Tbl21Class
+            {
+                ClassName = CultRes.StringsRes.DatasetNew,
+                SuperclassId = dataset.SuperclassId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Synonym = dataset.Synonym,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                EngName = dataset.EngName,
+                GerName = dataset.GerName,
+                FraName = dataset.FraName,
+                PorName = dataset.PorName,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
+
+
 
         public ObservableCollection<Tbl90Reference> CopyReferenceSuperclass(Tbl90Reference selected, string refer)
         {
@@ -336,12 +363,17 @@
             return collection;
         }
 
+        //----------------------------------------------------------
+        //----------------------------------------------------------
+        //--------------------------search Class --------------------------------
+
         public ObservableCollection<Tbl21Class> SearchForConnectedDatasetsWithSuperclassIdInTableClass(Tbl18Superclass selected)
         {
             var collection = new ObservableCollection<Tbl21Class>(_uow.Tbl21Classes.Find(x => x.SuperclassId == selected.SuperclassId));
             return collection;
         }
 
+        //--------------------------Delete Dataset Superclass --------------------------------
 
         public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSuperclassIdInTableReference(Tbl18Superclass selected)
         {
@@ -361,6 +393,8 @@
             _uow.Complete();
         }
 
+        //--------------------------Get  Subphylum --------------------------------
+
         public ObservableCollection<T> GetSubphylumsCollectionOrderByFromSubphylumId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -371,6 +405,8 @@
             return collection;
         }
 
+        //--------------------------Get  Superclass --------------------------------
+
         public ObservableCollection<T> GetSuperclassesCollectionOrderByFromSuperclassId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -380,6 +416,8 @@
             return collection;
         }
 
+        //--------------------------Get  Class --------------------------------
+
         public ObservableCollection<T> GetClassesCollectionOrderByFromSubphylumId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -388,6 +426,8 @@
                 .OrderBy(k => k.ClassName));
             return collection;
         }
+
+        //--------------------------Get Reference  Superclass --------------------------------
 
         public ObservableCollection<T> GetReferenceExpertsCollectionOrderByFromSuperclassIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<T>(int id)
         {
@@ -419,7 +459,9 @@
             return collection;
         }
 
-        public ObservableCollection<T> GetCommentsCollectionOrderByFromSubphylumId<T>(int id)
+        //--------------------------Get Comment  Superclass --------------------------------
+
+        public ObservableCollection<T> GetCommentsCollectionOrderByFromSuperclassId<T>(int id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
@@ -429,7 +471,7 @@
         }
 
                  ------- ControlTemplateButtons---------------
-    <!--  Subclass  -->
+    <!--  Class-->
     <ControlTemplate x:Key="SearchClassesButton" TargetType="Button">   
         <Button
             Width="36"

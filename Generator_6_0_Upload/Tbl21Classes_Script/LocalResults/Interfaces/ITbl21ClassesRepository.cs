@@ -12,8 +12,8 @@ namespace Atis.WpfUi.Interfaces     {
 Tbl21Class Get(int id);   
         
 
-        void Add(Tbl21Class tbl21Class);
-        void Delete(Tbl21Class tbl21Class);
+        void Add(Tbl21Class class);
+        void Delete(Tbl21Class class);
         void Save( );               
      }
 }   

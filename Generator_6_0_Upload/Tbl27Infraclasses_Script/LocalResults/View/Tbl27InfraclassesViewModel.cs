@@ -14,7 +14,7 @@ using GalaSoft.MvvmLight.Command;
 using MessageBoxImage = System.Windows.MessageBoxImage;
 
     
-         //    Tbl27InfraclassesViewModel Skriptdatum:  08.11.2018  18:32    
+         //    Tbl27InfraclassesViewModel Skriptdatum:  06.12.2020   18:32    
 
 namespace WPFUI.Views.Database
 {     

@@ -9,9 +9,9 @@
             _uow.Tbl06Phylums.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl27Infraclass> SearchForConnectedDatasetsWithPhylumIdInTableDivision(Tbl06Phylum selected)
+        public ObservableCollection<Tbl09Division> SearchForConnectedDatasetsWithPhylumIdInTableDivision(Tbl06Phylum selected)
         {
-            var collection = new ObservableCollection<Tbl09Division>(_uow.Tbl09Divisions.Find(x => x.PhylumId == selected.PhylumId));
+            var collection = new ObservableCollection<Tbl09Division>(_uow.Tbl09Divisions.Find(x => x.DivisionId == selected.PhylumId));
             return collection;
         }
         public ObservableCollection<Tbl90Reference> DeleteDatasetsWithPhylumIdInTableReference(Tbl06Phylum selected)
@@ -290,7 +290,34 @@
             return comment;
         }
 
-        //--------------------------Copy Phylum --------------------------------
+        //--------------------------Copy Regnum --------------------------------
+
+        public ObservableCollection<Tbl06Phylum> CopyPhylum(Tbl06Phylum selected)  
+        {
+            var dataset = _uow.Tbl06Phylums.GetById(selected.PhylumId);
+            var collection = new ObservableCollection<Tbl06Phylum>();
+
+            collection.Insert(0, new Tbl06Phylum
+            {
+                PhylumName = CultRes.StringsRes.DatasetNew,
+                RegnumId = dataset.RegnumId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Synonym = dataset.Synonym,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                EngName = dataset.EngName,
+                GerName = dataset.GerName,
+                FraName = dataset.FraName,
+                PorName = dataset.PorName,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
+
+
 
         public ObservableCollection<Tbl90Reference> CopyReferenceRegnum(Tbl90Reference selected, string refer)
         {
@@ -336,12 +363,17 @@
             return collection;
         }
 
+        //----------------------------------------------------------
+        //----------------------------------------------------------
+        //--------------------------search Phylum --------------------------------
+
         public ObservableCollection<Tbl06Phylum> SearchForConnectedDatasetsWithRegnumIdInTablePhylum(Tbl03Regnum selected)
         {
             var collection = new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums.Find(x => x.RegnumId == selected.RegnumId));
             return collection;
         }
 
+        //--------------------------Delete Dataset Regnum --------------------------------
 
         public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl03Regnum selected)
         {
@@ -361,6 +393,8 @@
             _uow.Complete();
         }
 
+        //--------------------------Get  NULL --------------------------------
+
         public ObservableCollection<T> GetNULLCollectionOrderByFromNULLId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -371,6 +405,8 @@
             return collection;
         }
 
+        //--------------------------Get  Regnum --------------------------------
+
         public ObservableCollection<T> GetRegnumsCollectionOrderByFromRegnumId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -380,6 +416,8 @@
             return collection;
         }
 
+        //--------------------------Get  Phylum --------------------------------
+
         public ObservableCollection<T> GetPhylumsCollectionOrderByFromSubphylumId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -388,6 +426,8 @@
                 .OrderBy(k => k.PhylumName));
             return collection;
         }
+
+        //--------------------------Get Reference  Regnum --------------------------------
 
         public ObservableCollection<T> GetReferenceExpertsCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<T>(int id)
         {
@@ -419,7 +459,9 @@
             return collection;
         }
 
-        public ObservableCollection<T> GetCommentsCollectionOrderByFromSubphylumId<T>(int id)
+        //--------------------------Get Comment  Regnum --------------------------------
+
+        public ObservableCollection<T> GetCommentsCollectionOrderByFromRegnumId<T>(int id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
@@ -429,7 +471,7 @@
         }
 
                  ------- ControlTemplateButtons---------------
-    <!--  Subclass  -->
+    <!--  Phylum-->
     <ControlTemplate x:Key="SearchPhylumsButton" TargetType="Button">   
         <Button
             Width="36"

@@ -10,11 +10,15 @@
     xmlns:d21Class="clr-namespace:ATIS.Ui.Views.Database.D21Class"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d24Subclass="clr-namespace:ATIS.Ui.Views.Database.D24Subclass"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
 
     <UserControl.Resources>
+        <DataTemplate DataType="{x:Type d24Subclass:SubclassesViewModel}">
+            <d24Subclass:SubclassesView />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type d21Class:ClassesViewModel}">
             <d21Class:ClassesView />
         </DataTemplate>
@@ -89,7 +93,9 @@
                     mah:TabControlHelper.Underlined="TabItems"
                     SelectedIndex="2">
                     <TabItem Content="{Binding Tbl27InfraclassesView}" Header="{DynamicResource Database-MenuInfraclass}" />
-                    <TabItem Content="{Binding Tbl24SubclassesView}" Header="{DynamicResource Database-MenuSubclass}" />
+                    <TabItem Header="{DynamicResource Database-MenuSubclass}">
+                        <d24Subclass:SubclassesViewModel />
+                    </TabItem>
                     <TabItem Header="{DynamicResource Database-MenuClass}">
                         <d21Class:ClassesViewModel />
                     </TabItem>

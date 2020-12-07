@@ -166,7 +166,7 @@ namespace ATIS.Ui.Views.Report.D21Class
             }
         }  
              
-        private static void AddClassHaeder(PdfDocument pdf, Tbl21Class tbl21ClassList)
+        private static void AddClassHaeder(PdfDocument pdf, Tbl21Class classList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
@@ -183,7 +183,7 @@ namespace ATIS.Ui.Views.Report.D21Class
             _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
         } 
           
-        private static void AddClassTaxoNomenList(PdfDocument pdf, Tbl21Class tbl21ClassList)         
+        private static void AddClassTaxoNomenList(PdfDocument pdf, Tbl21Class classList)         
           
         {
             _page = pdf.Pages[_arrInts[6]];
@@ -269,7 +269,7 @@ namespace ATIS.Ui.Views.Report.D21Class
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }    
           
-        private static void AddClassHierarchyList(PdfDocument pdf, Tbl21Class tbl21ClassList)
+        private static void AddClassHierarchyList(PdfDocument pdf, Tbl21Class classList)
         {
             _page = pdf.Pages[_arrInts[6]];
 

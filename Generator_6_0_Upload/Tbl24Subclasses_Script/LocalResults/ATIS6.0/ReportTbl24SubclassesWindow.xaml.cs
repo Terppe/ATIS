@@ -4,13 +4,13 @@ using System.Windows.Controls;
 using System.Windows.Documents;  
 
    
-using ATIS.Ui.Views.Report.ListDetails;       
+using ATIS.Ui.Views.Report.D27Infraclass;       
     
 using MahApps.Metro.Controls;
 
    //  ReportSubclassWindow.xaml.cs Skriptdatum:  13.12.2019  18:32      
 
-namespace ATIS.Ui.Views.Report.ListDetails
+namespace ATIS.Ui.Views.Report.D24Subclass
 {  
     /// <summary>
     /// Interactionslogic for ReportSubclassWindow.xaml
