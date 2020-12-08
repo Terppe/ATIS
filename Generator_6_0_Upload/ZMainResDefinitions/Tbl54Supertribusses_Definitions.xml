@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+ <Definition>
+  <File>Tbl54Supertribusses</File>
+
+  <DateTime>08.11.2018  10:32</DateTime>  
+  <Namespace>Atis</Namespace>  
+  <ConnString></ConnString> 
+  <RegisterContext>ATISEntities</RegisterContext > 
+  <Version>ATIS34</Version>
+  <Database>Atis</Database> 
+
+  <LayoutTK3>ListDetails</LayoutTK3>
+  <LayoutTK2>ListDetails</LayoutTK2>
+  <LayoutTK1>ListDetails</LayoutTK1>
+  <Layout>ListDetails</Layout>
+  <LayoutFK1>ListDetails</LayoutFK1>
+  <LayoutFK2>ListDetails</LayoutFK2>
+  <LayoutBK1>ListDetails</LayoutBK1>
+  <LayoutBK2>ListDetails</LayoutBK2>
+  <LayoutBK3>ListDetails</LayoutBK3>
+  <LayoutBK4>ListDetails</LayoutBK4>
+
+  <TableTK9>Tbl93Comments</TableTK9> 
+  <TableTK8>Tbl90RefAuthors</TableTK8> 
+  <TableTK7>Tbl90RefExperts</TableTK7> 
+  <TableTK6>Tbl90RefSources</TableTK6> 
+  <TableTK5>Tbl90References</TableTK5> 
+  <TableTK4>NULL</TableTK4>       
+  <TableTK3>NULL</TableTK3>       
+  <TableTK2>Tbl60Subtribusses</TableTK2>       
+  <TableTK1>Tbl57Tribusses</TableTK1>       
+  <Table>Tbl54Supertribusses</Table> 
+  <TableFK1>Tbl51Infrafamilies</TableFK1> 
+  <TableFK2>NULL</TableFK2> 
+  <TableBK1>Tbl48Subfamilies</TableBK1>      
+  <TableBK2>NULL</TableBK2>      
+  <TableBK3>Tbl42Superfamilies</TableBK3>      
+  <TableBK4>Tbl39Infraordos</TableBK4>      
+  <TableBK5>Tbl36Subordos</TableBK5>      
+  <TableBK6>Tbl33Ordos</TableBK6>      
+  <TableBK7>Tbl30Legios</TableBK7>      
+  <TableBK8>Tbl27Infraclasses</TableBK8>      
+  <TableBK9>Tbl24Subclasses</TableBK9>      
+  <TableBK10>Tbl21Classes</TableBK10>      
+  <TableBK11>Tbl18Superclasses</TableBK11>      
+  <TableBK12>Tbl15Subdivisions</TableBK12> 
+  <TableBK13>Tbl12Subphylums</TableBK13> 
+  <TableBK14>Tbl09Divisions</TableBK14> 
+  <TableBK15>Tbl06Phylums</TableBK15> 
+  <TableBK16>Tbl03Regnums</TableBK16> 
+
+  <Primary>[SupertribusID] ASC</Primary> 
+  <Unique1>[SupertribusName] ASC, [InfrafamilyID] ASC, [Author] ASC</Unique1> 
+  <Unique2>[CountID] ASC</Unique2> 
+  <Foreign1>InfrafamilyID</Foreign1> 
+  <Foreign2>NULL</Foreign2> 
+  <Default1>NULL</Default1> 
+  <Default2>NULL</Default2> 
+
+  <KeyPK>PK_Tbl54Supertribusses</KeyPK> 
+  <KeyIX1>IX_Tbl54Supertribusses_SupertribusName</KeyIX1> 
+  <KeyIX2>IX_Tbl54Supertribusses_CountID</KeyIX2> 
+  <KeyFK1>FK_Tbl54Supertribusses_Tbl51Infrafamilies</KeyFK1> 
+  <KeyFK2>NULL</KeyFK2> 
+  <KeyDF1>NULL</KeyDF1> 
+  <KeyDF2>NULL</KeyDF2> 
+
+  <FolderTK3>NULL</FolderTK3> 
+  <FolderTK2>NULL</FolderTK2> 
+  <FolderTK1>Tbl57Tribusses</FolderTK1> 
+  <Folder>Tbl54Supertribusses</Folder> 
+  <FolderFK1>Tbl51Infrafamilies</FolderFK1> 
+  <FolderFK2>NULL</FolderFK2> 
+  <FolderBK1>NULL</FolderBK1> 
+  <FolderBK2>NULL</FolderBK2> 
+  <FolderBK3>NULL</FolderBK3> 
+  <FolderBK4>NULL</FolderBK4> 
+
+  <IDTK9>CommentID</IDTK9> 
+  <IDTK8>RefAuthorID</IDTK8> 
+  <IDTK7>RefExpertID</IDTK7> 
+  <IDTK6>RefSourceID</IDTK6> 
+  <IDTK5>ReferenceID</IDTK5> 
+  <IDTK4>GenusID</IDTK4> 
+  <IDTK3>InfratribusID</IDTK3> 
+  <IDTK2>SubtribusID</IDTK2> 
+  <IDTK1>TribusID</IDTK1> 
+  <ID>SupertribusID</ID> 
+  <IDFK1>InfrafamilyID</IDFK1> 
+  <IDFK2>NULL</IDFK2> 
+  <IDBK1>SubfamilyID</IDBK1> 
+  <IDBK2>NULL</IDBK2> 
+  <IDBK3>SuperfamilyID</IDBK3> 
+  <IDBK4>InfraordoID</IDBK4> 
+  <IDBK5>SubordoID</IDBK5> 
+  <IDBK6>OrdoID</IDBK6> 
+  <IDBK7>LegioID</IDBK7> 
+  <IDBK8>InfraclassID</IDBK8> 
+  <IDBK9>SubclassID</IDBK9> 
+  <IDBK10>ClassID</IDBK10> 
+  <IDBK11>SuperclassID</IDBK11> 
+  <IDBK12>SubdivisionID</IDBK12> 
+  <IDBK13>SubphylumID</IDBK13> 
+  <IDBK14>Division</IDBK14> 
+  <IDBK15>Phylum</IDBK15> 
+  <IDBK16>Regnum</IDBK16> 
+
+  <NameTK9>CommentName</NameTK9> 
+  <NameTK8>RefAuthorName</NameTK8> 
+  <NameTK7>RefExpertName</NameTK7> 
+  <NameTK6>RefSourceName</NameTK6> 
+  <NameTK5>ReferenceName</NameTK5> 
+  <NameTK4>GenusName</NameTK4> 
+  <NameTK3>InfratribusName</NameTK3> 
+  <NameTK2>SubtribusName</NameTK2> 
+  <NameTK1>TribusName</NameTK1> 
+  <Name>SupertribusName</Name> 
+  <NameFK1>InfrafamilyName</NameFK1> 
+  <NameFK2>NULL</NameFK2> 
+  <NameBK1>SubfamilyName</NameBK1> 
+  <NameBK2>NULL</NameBK2> 
+  <NameBK3>SuperfamilyName</NameBK3> 
+  <NameBK4>InfraordoName</NameBK4> 
+  <NameBK5>SubordoName</NameBK5> 
+  <NameBK6>OrdoName</NameBK6> 
+  <NameBK7>LegioName</NameBK7> 
+  <NameBK8>InfraclassName</NameBK8> 
+  <NameBK9>SubclassName</NameBK9> 
+  <NameBK10>ClassName</NameBK10> 
+  <NameBK11>SuperclassName</NameBK11> 
+  <NameBK12>SubdivisionName</NameBK12> 
+  <NameBK13>SubphylumName</NameBK13> 
+  <NameBK14>DivisionName</NameBK14> 
+  <NameBK15>PhylumName</NameBK15> 
+  <NameBK16>RegnumName</NameBK16> 
+
+  <BasisTK3>NULL</BasisTK3> 
+  <BasisTK2>Subtribus</BasisTK2> 
+  <BasisTK1>Tribus</BasisTK1> 
+  <Basis>Supertribus</Basis> 
+  <BasisFK1>Infrafamily</BasisFK1> 
+  <BasisFK2>NULL</BasisFK2> 
+  <BasisBK1>Subfamily</BasisBK1> 
+  <BasisBK2>NULL</BasisBK2> 
+  <BasisBK3>NULL</BasisBK3> 
+  <BasisBK4>NULL</BasisBK4> 
+
+  <BasissTK2>Subtribusses</BasissTK2> 
+  <BasissTK1>Tribusses</BasissTK1> 
+  <Basiss>Supertribusses</Basiss> 
+  <BasissFK1>Infrafamilies</BasissFK1> 
+  <BasissFK2>NULL</BasissFK2> 
+  <BasissBK1>Subfamilies</BasissBK1> 
+  <BasissBK2>NULL</BasissBK2> 
+
+  <BasisSmTK1>tribus</BasisSmTK1> 
+  <BasisSm>supertribus</BasisSm> 
+  <BasisSmFK1>infrafamily</BasisSmFK1> 
+  <BasisSmFK2>NULL</BasisSmFK2> 
+
+  <LinqModelTK9>Tbl93Comment</LinqModelTK9> 
+  <LinqModelTK8>Tbl90RefAuthor</LinqModelTK8> 
+  <LinqModelTK7>Tbl90RefExpert</LinqModelTK7> 
+  <LinqModelTK6>Tbl90RefSource</LinqModelTK6> 
+  <LinqModelTK5>Tbl90Reference</LinqModelTK5> 
+  <LinqModelTK4>Tbl66Genus</LinqModelTK4> 
+  <LinqModelTK3>Tbl63Infratribus</LinqModelTK3> 
+  <LinqModelTK2>Tbl60Subtribus</LinqModelTK2> 
+  <LinqModelTK1>Tbl57Tribus</LinqModelTK1> 
+  <LinqModel>Tbl54Supertribus</LinqModel> 
+  <LinqModelFK1>Tbl51Infrafamily</LinqModelFK1> 
+  <LinqModelFK2>NULL</LinqModelFK2> 
+  <LinqModelBK1>Tbl48Subfamily</LinqModelBK1> 
+  <LinqModelBK2>NULL</LinqModelBK2> 
+  <LinqModelBK3>Tbl42Superfamily</LinqModelBK3> 
+  <LinqModelBK4>Tbl39Infraordo</LinqModelBK4> 
+  <LinqModelBK5>Tbl36Subordo</LinqModelBK5> 
+  <LinqModelBK6>Tbl33Ordo</LinqModelBK6> 
+  <LinqModelBK7>Tbl30Legio</LinqModelBK7> 
+  <LinqModelBK8>Tbl27Infraclass</LinqModelBK8> 
+  <LinqModelBK9>Tbl24Subclass</LinqModelBK9> 
+  <LinqModelBK10>Tbl21Class</LinqModelBK10> 
+  <LinqModelBK11>Tbl18Superclass</LinqModelBK11> 
+  <LinqModelBK12>Tbl15Subdivision</LinqModelBK12> 
+  <LinqModelBK13>Tbl12Subphylum</LinqModelBK13> 
+  <LinqModelBK14>Tbl09Division</LinqModelBK14> 
+  <LinqModelBK15>Tbl06Phylum</LinqModelBK15> 
+  <LinqModelBK16>Tbl03Regnum</LinqModelBK16> 
+
+  <TranslateTK2>NULL</TranslateTK2> 
+  <TranslateTK1>tbl57Tribusses</TranslateTK1> 
+  <Translate>tbl54Supertribusses</Translate> 
+  <TranslateFK1>tbl51Infrafamilies</TranslateFK1> 
+  <TranslateFK2>NULL</TranslateFK2> 
+  <TranslateBK1>tbl48Subfamilies</TranslateBK1> 
+  <TranslateBK2>NULL</TranslateBK2> 
+  <TranslateBK3>tbl06Phylums</TranslateBK3> 
+
+  <EntityTK2>tbl60Subtribus</EntityTK2> 
+  <EntityTK1>tbl57Tribus</EntityTK1> 
+  <Entity>tbl54Supertribus</Entity> 
+  <EntityFK1>tbl51Infrafamily</EntityFK1> 
+  <EntityFK2>NULL</EntityFK2> 
+
+  <EntitysTK2>_tbl60Subtribusses</EntitysTK2> 
+  <EntitysTK1>_tbl57Tribusses</EntitysTK1> 
+  <Entitys>_tbl54Supertribusses</Entitys> 
+  <EntitysFK1>_tbl51Infrafamilies</EntitysFK1> 
+  <EntitysFK2>NULL</EntitysFK2> 
+  <EntitysBK1>_tbl48Subfamilies</EntitysBK1> 
+
+  <EntityAblTK1>Tbl57Tribus tbl57Tribus</EntityAblTK1> 
+  <EntityAbl>Tbl54Supertribus tbl54Supertribus</EntityAbl> 
+  <EntityAblFK1>Tbl51Infrafamily tbl51Infrafamily</EntityAblFK1> 
+  <EntityAblFK2>NULL</EntityAblFK2> 
+
+   <Fields>
+    <Field><Name>SupertribusID</Name> <Type>int</Type>  <NotNull>IDENTITY(1,1) NOT NULL</NotNull> </Field>
+    <Field><Name>SupertribusName</Name> <Type>nvarchar</Type> <Length>100</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>InfrafamilyID</Name> <Type>int</Type>  <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>CountID</Name> <Type>int</Type> <NotNull> NOT NULL</NotNull> </Field>
+    <Field><Name>Valid</Name> <Type>bit</Type> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>ValidYear</Name> <Type>nvarchar</Type> <Length>4</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>Synonym</Name> <Type>nvarchar</Type> <Length>MAX</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>Author</Name> <Type>nvarchar</Type> <Length>60</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>AuthorYear</Name> <Type>nvarchar</Type> <Length>4</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>Info</Name> <Type>nvarchar</Type> <Length>100</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>EngName</Name> <Type>nvarchar</Type> <Length>200</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>GerName</Name> <Type>nvarchar</Type> <Length>200</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>FraName</Name> <Type>nvarchar</Type> <Length>200</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>PorName</Name> <Type>nvarchar</Type> <Length>200</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>Writer</Name> <Type>nvarchar</Type> <Length>50</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>WriterDate</Name> <Type>datetime</Type> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>Updater</Name> <Type>nvarchar</Type> <Length>50</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>UpdaterDate</Name> <Type>datetime</Type> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>Memo</Name> <Type>nvarchar</Type> <Length>MAX</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>RowVersion</Name> <Type>timestamp</Type> <NotNull>NULL</NotNull> </Field>
+ </Fields>
+</Definition>

@@ -30,6 +30,11 @@ namespace ATIS.Ui.Helper
                     {
                         "regnum" => GetRegnumsCollectionAllOrderBy<T>(),
                         "phylum" => GetPhylumsCollectionAllOrderBy<T>(),
+                        "division" => GetDivisionsCollectionAllOrderBy<T>(),
+                        "subphylum" => GetSubphylumsCollectionAllOrderBy<T>(),
+                        "subdivision" => GetSubdivisionsCollectionAllOrderBy<T>(),
+                        "superclass" => GetSuperclassesCollectionAllOrderBy<T>(),
+                        "class" => GetClassesCollectionAllOrderBy<T>(),
                         _ => collection
                     };
                     break;
@@ -39,6 +44,11 @@ namespace ATIS.Ui.Helper
                     {
                         "regnum" => GetRegnumsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
                         "phylum" => GetPhylumsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                        "division" => GetDivisionsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                        "subphylum" => GetSubphylumsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                        "subdivision" => GetSubdivisionsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                        "superclass" => GetSuperclassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                        "class" => GetClassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
                         _ => collection
                     };
                 }
@@ -59,6 +69,21 @@ namespace ATIS.Ui.Helper
                 case "phylum":
                     collection = GetPhylumsCollectionAllOrderBy<T>();
                     break;
+                case "division":
+                    collection = GetDivisionsCollectionAllOrderBy<T>();
+                    break;
+                case "subphylum":
+                    collection = GetSubphylumsCollectionAllOrderBy<T>();
+                    break;
+                case "subdivision":
+                    collection = GetSubdivisionsCollectionAllOrderBy<T>();
+                    break;
+                case "superclass":
+                    collection = GetSuperclassesCollectionAllOrderBy<T>();
+                    break;
+                case "class":
+                    collection = GetClassesCollectionAllOrderBy<T>();
+                    break;
                 case "expert":
                     collection = GetReferenceExpertsCollectionAllOrderBy<T>();
                     break;
@@ -76,7 +101,8 @@ namespace ATIS.Ui.Helper
 
 
         #region Regnum
-        #region Get Regnum
+
+          #region Get Regnum
 
         // ----------------------------------------   Regnum   ------------------------
         private ObservableCollection<T> GetRegnumsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -172,7 +198,7 @@ namespace ATIS.Ui.Helper
         }
 
         //Function
-        public int GetRegnumIdFromPhylumsCollectionSelect(int id)
+        public int RegnumIdFromPhylumsCollectionSelect(int id)
         {
             var coll = _context.Tbl06Phylums
                 .SingleOrDefault(p => p.PhylumId == id);
@@ -181,7 +207,7 @@ namespace ATIS.Ui.Helper
             return coll.RegnumId;
         }
         //Function
-        public int GetRegnumIdFromDivisionsCollectionSelect(int id)
+        public int RegnumIdFromDivisionsCollectionSelect(int id)
         {
             var coll = _context.Tbl09Divisions
                 .SingleOrDefault(p => p.DivisionId == id);
@@ -192,7 +218,7 @@ namespace ATIS.Ui.Helper
 
         #endregion     
 
-        #region Copy Regnum    
+          #region Copy Regnum    
         // ----------------------------------------   Regnum   ------------------------
         public ObservableCollection<Tbl03Regnum> CopyRegnum(Tbl03Regnum selected)
         {
@@ -316,7 +342,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-        #region Delete Regnum
+          #region Delete Regnum
 
         //------------------------------ Regnum   --------------------------------------------------------------------------------------------
         public void DeleteRegnum(Tbl03Regnum selected)
@@ -415,7 +441,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-        #region Save Regnum
+          #region Save Regnum
         public Tbl03Regnum RegnumUpdate(Tbl03Regnum home, Tbl03Regnum selected)
         {
             if (home != null) //update
@@ -726,18 +752,21 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-
-
-
         #region Phylum
 
+          #region Get Phylum
+
+        //----------------------------------------   Phylum   ------------------------
         private ObservableCollection<T> GetPhylumsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
                 ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl06Phylums
                     .Find(e => e.PhylumId == id))
-                : new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl06Phylums.ListTbl06PhylumsOnlyAnimaliaOrderBy(searchName));
+                : new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl06Phylums
+                    .Find(e => e.PhylumName.StartsWith(searchName))
+                    .OrderBy(a => a.PhylumName)
+                );
             return collection;
         }
 
@@ -748,9 +777,2434 @@ namespace ATIS.Ui.Helper
                 .OrderBy(a => a.PhylumName));
             return collection;
         }
+        public ObservableCollection<T> GetPhylumsCollectionFromPhylumIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl06Phylums
+                .Where(e => e.PhylumId == id)
+                .OrderBy(k => k.PhylumName));
+
+            return collection;
+        }
+
+        //-------------------------------------- Subphylum   -------------------------
+        public ObservableCollection<T> GetSubphylumsCollectionFromPhylumIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl12Subphylums
+                .Where(e => e.PhylumId == id)
+                .OrderBy(k => k.SubphylumName));
+            return collection;
+        }
+
+        //-------------------------------------- Reference Experts   -------------------------
+        public ObservableCollection<T> GetReferenceExpertsCollectionFromPhylumIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefExperts)
+                .Where(e => e.PhylumId == id && e.RefAuthorId == null && e.RefSourceId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Reference Sources   -------------------------
+        public ObservableCollection<T> GetReferenceSourcesCollectionFromPhylumIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefSources)
+                .Where(e => e.PhylumId == id && e.RefAuthorId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Reference Authors   -------------------------
+        public ObservableCollection<T> GetReferenceAuthorsCollectionFromPhylumIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.PhylumId == id && e.RefSourceId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Comments   -------------------------
+        public ObservableCollection<T> GetCommentsCollectionFromPhylumIdOrderBy<T>(int? id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
+                .Where(e => e.PhylumId == id)
+                .OrderBy(e => e.Info));
+            return collection;
+        }
+
+        //Function
+        public int PhylumIdFromSubphylumsCollectionSelect(int id)
+        {
+            var coll = _context.Tbl12Subphylums
+                .SingleOrDefault(p => p.SubphylumId == id);
+
+            if (coll == null) return 0;
+            return coll.PhylumId;
+        }
+
+        #endregion
+
+          #region Copy Phylum
+
+        // ----------------------------------------   Subphylum  ------------------------
+        public ObservableCollection<Tbl12Subphylum> CopySubphylum(Tbl12Subphylum selected)
+        {
+            var dataset = _uow.Tbl12Subphylums.GetById(selected.SubphylumId);
+            var collection = new ObservableCollection<Tbl12Subphylum>();
+
+            collection.Insert(0, new Tbl12Subphylum
+            {
+                SubphylumName = CultRes.StringsRes.DatasetNew,
+                PhylumId = dataset.PhylumId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Synonym = dataset.Synonym,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                EngName = dataset.EngName,
+                GerName = dataset.GerName,
+                FraName = dataset.FraName,
+                PorName = dataset.PorName,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
+
+        public ObservableCollection<Tbl90Reference> CopyReferencePhylum(Tbl90Reference selected, string refer)
+        {
+            var dataset = _uow.Tbl90References.GetById(selected.ReferenceId);
+            var collection = new ObservableCollection<Tbl90Reference>();
+            switch (refer)
+            {
+                case "Expert":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        PhylumId = dataset.PhylumId,
+                        RefExpertId = dataset.RefExpertId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Source":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        PhylumId = dataset.PhylumId,
+                        RefSourceId = dataset.RefSourceId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Author":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        PhylumId = dataset.PhylumId,
+                        RefAuthorId = dataset.RefAuthorId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+            }
+
+            return collection;
+        }
 
 
         #endregion
+
+          #region Delete Phylum
+
+        //------------------------------ Phylum --------------------------------------------------------------------------------------------
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl06Phylum selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.PhylumId == selected.PhylumId));
+            return collection;
+        }
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl06Phylum selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.PhylumId == selected.PhylumId));
+            return collection;
+        }
+
+        //------------------------------ Subphylum --------------------------------------------------------------------------------------------
+        public void DeleteSubphylum(Tbl12Subphylum selected)
+        {
+            _uow.Tbl12Subphylums.Remove(selected);
+            _uow.Complete();
+        }
+        public ObservableCollection<Tbl18Superclass> SearchForConnectedDatasetsWithSubphylumIdInTableSuperclass(Tbl12Subphylum selected)
+        {
+            var collection = new ObservableCollection<Tbl18Superclass>(_uow.Tbl18Superclasses.Find(x => x.SubphylumId == selected.SubphylumId));
+            return collection;
+        }
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubphylumIdInTableReference(Tbl12Subphylum selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubphylumId == selected.SubphylumId));
+            return collection;
+        }
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubphylumIdInTableComment(Tbl12Subphylum selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubphylumId == selected.SubphylumId));
+            return collection;
+        }
+
+
+        #endregion
+
+        #region Save Phylum 
+
+        //------------------ Subphylum ---------------------------------------
+        public Tbl12Subphylum SubphylumUpdate(Tbl12Subphylum home, Tbl12Subphylum selected)
+        {
+            if (home != null) //update
+            {
+                home.SubphylumName = selected.SubphylumName;
+                home.PhylumId = selected.PhylumId;
+                home.Valid = selected.Valid;
+                home.ValidYear = selected.ValidYear;
+                home.Author = selected.Author;
+                home.AuthorYear = selected.AuthorYear;
+                home.Info = selected.Info;
+                home.Synonym = selected.Synonym;
+                home.EngName = selected.EngName;
+                home.GerName = selected.GerName;
+                home.FraName = selected.FraName;
+                home.PorName = selected.PorName;
+                home.Memo = selected.Memo;
+                home.Updater = Environment.UserName;
+                home.UpdaterDate = DateTime.Now;
+            }
+            return home;
+        }
+        public Tbl12Subphylum SubphylumAdd(Tbl12Subphylum selected)
+        {
+            var home = new Tbl12Subphylum() //add new
+            {
+                SubphylumName = selected.SubphylumName,
+                PhylumId = selected.PhylumId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Author = selected.Author,
+                AuthorYear = selected.AuthorYear,
+                Info = selected.Info,
+                Synonym = selected.Synonym,
+                EngName = selected.EngName,
+                GerName = selected.GerName,
+                FraName = selected.FraName,
+                PorName = selected.PorName,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now
+            };
+            return home;
+        }
+        public void SubphylumSave(Tbl12Subphylum home, Tbl12Subphylum selected)
+        {
+
+            if (selected.SubphylumId != 0) //update
+            {
+                _uow.Tbl12Subphylums.Update(home);
+            }
+            else                                //add
+                _uow.Tbl12Subphylums.Add(home);
+            _uow.Complete();
+        }
+
+
+        public Tbl90Reference ReferenceExpertPhylumUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefExpertId = selected.RefExpertId;
+                reference.PhylumId = selected.PhylumId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceExpertPhylumAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefExpertId = selected.RefExpertId,
+                PhylumId = selected.PhylumId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourcePhylumUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefSourceId = selected.RefSourceId;
+                reference.PhylumId = selected.PhylumId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourcePhylumAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefSourceId = selected.RefSourceId,
+                PhylumId = selected.PhylumId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorPhylumUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefAuthorId = selected.RefAuthorId;
+                reference.PhylumId = selected.PhylumId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorPhylumAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefAuthorId = selected.RefAuthorId,
+                PhylumId = selected.PhylumId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl93Comment CommentPhylumUpdate(Tbl93Comment comment, Tbl93Comment selected)
+        {
+            if (comment != null) //update
+            {
+                comment.PhylumId = selected.PhylumId;
+                comment.Valid = selected.Valid;
+                comment.ValidYear = selected.ValidYear;
+                comment.Info = selected.Info;
+                comment.Updater = Environment.UserName;
+                comment.UpdaterDate = DateTime.Now;
+                comment.Memo = selected.Memo;
+            }
+            return comment;
+        }
+        public Tbl93Comment CommentPhylumAdd(Tbl93Comment selected)
+        {
+            var comment = new Tbl93Comment //add new
+            {
+                PhylumId = selected.PhylumId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return comment;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Division
+
+          #region Get Division
+
+        //----------------------------------------   Division   ------------------------
+        private ObservableCollection<T> GetDivisionsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        {
+            ObservableCollection<T> collection;
+            collection = int.TryParse(searchName, out var id)
+                ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl09Divisions
+                    .Find(e => e.DivisionId == id))
+                : new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl09Divisions
+                    .Find(e => e.DivisionName.StartsWith(searchName))
+                    .OrderBy(a => a.DivisionName)
+                );
+            return collection;
+        }
+
+        private ObservableCollection<T> GetDivisionsCollectionAllOrderBy<T>()
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl09Divisions
+                .OrderBy(a => a.DivisionName));
+            return collection;
+        }
+        public ObservableCollection<T> GetDivisionsCollectionFromDivisionIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl09Divisions
+                .Where(e => e.DivisionId == id)
+                .OrderBy(k => k.DivisionName));
+
+            return collection;
+        }
+
+        //-------------------------------------- Subdivision   -------------------------
+        public ObservableCollection<T> GetSubdivisionsCollectionFromDivisionIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl15Subdivisions
+                .Where(e => e.DivisionId == id)
+                .OrderBy(k => k.SubdivisionName));
+            return collection;
+        }
+
+        //-------------------------------------- Reference Experts   -------------------------
+        public ObservableCollection<T> GetReferenceExpertsCollectionFromDivisionIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefExperts)
+                .Where(e => e.DivisionId == id && e.RefAuthorId == null && e.RefSourceId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Reference Sources   -------------------------
+        public ObservableCollection<T> GetReferenceSourcesCollectionFromDivisionIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefSources)
+                .Where(e => e.DivisionId == id && e.RefAuthorId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Reference Authors   -------------------------
+        public ObservableCollection<T> GetReferenceAuthorsCollectionFromDivisionIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.DivisionId == id && e.RefSourceId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Comments   -------------------------
+        public ObservableCollection<T> GetCommentsCollectionFromDivisionIdOrderBy<T>(int? id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
+                .Where(e => e.DivisionId == id)
+                .OrderBy(e => e.Info));
+            return collection;
+        }
+
+        //Function
+        public int GetDivisionIdFromSubdivisionsCollectionSelect(int id)
+        {
+            var coll = _context.Tbl15Subdivisions
+                .SingleOrDefault(p => p.SubdivisionId == id);
+
+            if (coll == null) return 0;
+            return coll.DivisionId;
+        }
+
+        #endregion
+
+          #region Copy Division
+
+        // ----------------------------------------   Subdivision  ------------------------
+        public ObservableCollection<Tbl15Subdivision> CopySubdivision(Tbl15Subdivision selected)
+        {
+            var dataset = _uow.Tbl15Subdivisions.GetById(selected.SubdivisionId);
+            var collection = new ObservableCollection<Tbl15Subdivision>();
+
+            collection.Insert(0, new Tbl15Subdivision
+            {
+                SubdivisionName = CultRes.StringsRes.DatasetNew,
+                DivisionId = dataset.DivisionId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Synonym = dataset.Synonym,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                EngName = dataset.EngName,
+                GerName = dataset.GerName,
+                FraName = dataset.FraName,
+                PorName = dataset.PorName,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
+
+        public ObservableCollection<Tbl90Reference> CopyReferenceDivision(Tbl90Reference selected, string refer)
+        {
+            var dataset = _uow.Tbl90References.GetById(selected.ReferenceId);
+            var collection = new ObservableCollection<Tbl90Reference>();
+            switch (refer)
+            {
+                case "Expert":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        DivisionId = dataset.DivisionId,
+                        RefExpertId = dataset.RefExpertId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Source":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        DivisionId = dataset.DivisionId,
+                        RefSourceId = dataset.RefSourceId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Author":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        DivisionId = dataset.DivisionId,
+                        RefAuthorId = dataset.RefAuthorId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+            }
+
+            return collection;
+        }
+
+
+        #endregion
+
+          #region Delete Division
+
+        //------------------------------ Division --------------------------------------------------------------------------------------------
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl09Division selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.DivisionId == selected.DivisionId));
+            return collection;
+        }
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl09Division selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.DivisionId == selected.DivisionId));
+            return collection;
+        }
+
+        //------------------------------ Subdivision --------------------------------------------------------------------------------------------
+        public void DeleteSubdivision(Tbl15Subdivision selected)
+        {
+            _uow.Tbl15Subdivisions.Remove(selected);
+            _uow.Complete();
+        }
+        public ObservableCollection<Tbl18Superclass> SearchForConnectedDatasetsWithSubdivisionIdInTableSuperclass(Tbl15Subdivision selected)
+        {
+            var collection = new ObservableCollection<Tbl18Superclass>(_uow.Tbl18Superclasses.Find(x => x.SubdivisionId == selected.SubdivisionId));
+            return collection;
+        }
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubdivisionIdInTableReference(Tbl15Subdivision selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubdivisionId == selected.SubdivisionId));
+            return collection;
+        }
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubdivisionIdInTableComment(Tbl15Subdivision selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubdivisionId == selected.SubdivisionId));
+            return collection;
+        }
+
+
+        #endregion
+
+          #region Save Division 
+
+        //------------------ Subdivision ---------------------------------------
+        public Tbl15Subdivision SubdivisionUpdate(Tbl15Subdivision home, Tbl15Subdivision selected)
+        {
+            if (home != null) //update
+            {
+                home.SubdivisionName = selected.SubdivisionName;
+                home.DivisionId = selected.DivisionId;
+                home.Valid = selected.Valid;
+                home.ValidYear = selected.ValidYear;
+                home.Author = selected.Author;
+                home.AuthorYear = selected.AuthorYear;
+                home.Info = selected.Info;
+                home.Synonym = selected.Synonym;
+                home.EngName = selected.EngName;
+                home.GerName = selected.GerName;
+                home.FraName = selected.FraName;
+                home.PorName = selected.PorName;
+                home.Memo = selected.Memo;
+                home.Updater = Environment.UserName;
+                home.UpdaterDate = DateTime.Now;
+            }
+            return home;
+        }
+        public Tbl15Subdivision SubdivisionAdd(Tbl15Subdivision selected)
+        {
+            var home = new Tbl15Subdivision() //add new
+            {
+                SubdivisionName = selected.SubdivisionName,
+                DivisionId = selected.DivisionId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Author = selected.Author,
+                AuthorYear = selected.AuthorYear,
+                Info = selected.Info,
+                Synonym = selected.Synonym,
+                EngName = selected.EngName,
+                GerName = selected.GerName,
+                FraName = selected.FraName,
+                PorName = selected.PorName,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now
+            };
+            return home;
+        }
+        public void SubdivisionSave(Tbl15Subdivision home, Tbl15Subdivision selected)
+        {
+
+            if (selected.SubdivisionId != 0) //update
+            {
+                _uow.Tbl15Subdivisions.Update(home);
+            }
+            else                                //add
+                _uow.Tbl15Subdivisions.Add(home);
+            _uow.Complete();
+        }
+
+        public Tbl90Reference ReferenceExpertDivisionUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefExpertId = selected.RefExpertId;
+                reference.DivisionId = selected.DivisionId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceExpertDivisionAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefExpertId = selected.RefExpertId,
+                DivisionId = selected.DivisionId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourceDivisionUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefSourceId = selected.RefSourceId;
+                reference.DivisionId = selected.DivisionId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourceDivisionAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefSourceId = selected.RefSourceId,
+                DivisionId = selected.DivisionId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorDivisionUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefAuthorId = selected.RefAuthorId;
+                reference.DivisionId = selected.DivisionId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorDivisionAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefAuthorId = selected.RefAuthorId,
+                DivisionId = selected.DivisionId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl93Comment CommentDivisionUpdate(Tbl93Comment comment, Tbl93Comment selected)
+        {
+            if (comment != null) //update
+            {
+                comment.DivisionId = selected.DivisionId;
+                comment.Valid = selected.Valid;
+                comment.ValidYear = selected.ValidYear;
+                comment.Info = selected.Info;
+                comment.Updater = Environment.UserName;
+                comment.UpdaterDate = DateTime.Now;
+                comment.Memo = selected.Memo;
+            }
+            return comment;
+        }
+        public Tbl93Comment CommentDivisionAdd(Tbl93Comment selected)
+        {
+            var comment = new Tbl93Comment //add new
+            {
+                DivisionId = selected.DivisionId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return comment;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Subphylum
+
+        #region Get Subphylum
+
+        //----------------------------------------   Subphylum   ------------------------
+        private ObservableCollection<T> GetSubphylumsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        {
+            ObservableCollection<T> collection;
+            collection = int.TryParse(searchName, out var id)
+                ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl12Subphylums
+                    .Find(e => e.SubphylumId == id))
+                : new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl12Subphylums
+                    .Find(e => e.SubphylumName.StartsWith(searchName))
+                    .OrderBy(a => a.SubphylumName)
+                );
+            return collection;
+        }
+
+        private ObservableCollection<T> GetSubphylumsCollectionAllOrderBy<T>()
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl12Subphylums
+                .OrderBy(a => a.SubphylumName));
+            return collection;
+        }
+        public ObservableCollection<T> GetSubphylumsCollectionFromSubphylumIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl12Subphylums
+                .Where(e => e.SubphylumId == id)
+                .OrderBy(k => k.SubphylumName));
+
+            return collection;
+        }
+
+        //-------------------------------------- Superclass   -------------------------
+        public ObservableCollection<T> GetSuperclassesCollectionFromSubphylumIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl18Superclasses
+                .Where(e => e.SubphylumId == id)
+                .OrderBy(k => k.SuperclassName));
+            return collection;
+        }
+
+        //-------------------------------------- Reference Experts   -------------------------
+        public ObservableCollection<T> GetReferenceExpertsCollectionFromSubphylumIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefExperts)
+                .Where(e => e.SubphylumId == id && e.RefAuthorId == null && e.RefSourceId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Reference Sources   -------------------------
+        public ObservableCollection<T> GetReferenceSourcesCollectionFromSubphylumIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefSources)
+                .Where(e => e.SubphylumId == id && e.RefAuthorId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Reference Authors   -------------------------
+        public ObservableCollection<T> GetReferenceAuthorsCollectionFromSubphylumIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.SubphylumId == id && e.RefSourceId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Comments   -------------------------
+        public ObservableCollection<T> GetCommentsCollectionFromSubphylumIdOrderBy<T>(int? id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
+                .Where(e => e.SubphylumId == id)
+                .OrderBy(e => e.Info));
+            return collection;
+        }
+
+        //Function
+        public int GetSubphylumIdFromSuperclassesCollectionSelect(int id)
+        {
+            var coll = _context.Tbl18Superclasses
+                .SingleOrDefault(p => p.SuperclassId == id);
+
+            if (coll == null) return 0;
+            return coll.SubphylumId;
+        }
+
+        #endregion
+
+        #region Copy Subphylum
+
+        // ----------------------------------------   Superclass  ------------------------
+        public ObservableCollection<Tbl18Superclass> CopySuperclass(Tbl18Superclass selected)
+        {
+            var dataset = _uow.Tbl18Superclasses.GetById(selected.SuperclassId);
+            var collection = new ObservableCollection<Tbl18Superclass>();
+
+            collection.Insert(0, new Tbl18Superclass
+            {
+                SuperclassName = CultRes.StringsRes.DatasetNew,
+                SubphylumId = dataset.SubphylumId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Synonym = dataset.Synonym,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                EngName = dataset.EngName,
+                GerName = dataset.GerName,
+                FraName = dataset.FraName,
+                PorName = dataset.PorName,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
+
+        public ObservableCollection<Tbl90Reference> CopyReferenceSubphylum(Tbl90Reference selected, string refer)
+        {
+            var dataset = _uow.Tbl90References.GetById(selected.ReferenceId);
+            var collection = new ObservableCollection<Tbl90Reference>();
+            switch (refer)
+            {
+                case "Expert":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        SubphylumId = dataset.SubphylumId,
+                        RefExpertId = dataset.RefExpertId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Source":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        SubphylumId = dataset.SubphylumId,
+                        RefSourceId = dataset.RefSourceId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Author":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        SubphylumId = dataset.SubphylumId,
+                        RefAuthorId = dataset.RefAuthorId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+            }
+
+            return collection;
+        }
+
+
+        #endregion
+
+        #region Delete Subphylum
+
+        //------------------------------ Subphylum --------------------------------------------------------------------------------------------
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl12Subphylum selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubphylumId == selected.SubphylumId));
+            return collection;
+        }
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl12Subphylum selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubphylumId == selected.SubphylumId));
+            return collection;
+        }
+
+        //------------------------------ Superclass --------------------------------------------------------------------------------------------
+        public void DeleteSuperclass(Tbl18Superclass selected)
+        {
+            _uow.Tbl18Superclasses.Remove(selected);
+            _uow.Complete();
+        }
+        public ObservableCollection<Tbl21Class> SearchForConnectedDatasetsWithSuperclassIdInTableClass(Tbl18Superclass selected)
+        {
+            var collection = new ObservableCollection<Tbl21Class>(_uow.Tbl21Classes.Find(x => x.SuperclassId == selected.SuperclassId));
+            return collection;
+        }
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSuperclassIdInTableReference(Tbl18Superclass selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SuperclassId == selected.SuperclassId));
+            return collection;
+        }
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSuperclassIdInTableComment(Tbl18Superclass selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SuperclassId == selected.SuperclassId));
+            return collection;
+        }
+
+
+        #endregion
+
+        #region Save Subphylum 
+
+        //------------------ Superclass ---------------------------------------
+        public Tbl18Superclass SuperclassUpdate(Tbl18Superclass home, Tbl18Superclass selected)
+        {
+            if (home != null) //update
+            {
+                home.SuperclassName = selected.SuperclassName;
+                home.SubphylumId = selected.SubphylumId;
+                home.Valid = selected.Valid;
+                home.ValidYear = selected.ValidYear;
+                home.Author = selected.Author;
+                home.AuthorYear = selected.AuthorYear;
+                home.Info = selected.Info;
+                home.Synonym = selected.Synonym;
+                home.EngName = selected.EngName;
+                home.GerName = selected.GerName;
+                home.FraName = selected.FraName;
+                home.PorName = selected.PorName;
+                home.Memo = selected.Memo;
+                home.Updater = Environment.UserName;
+                home.UpdaterDate = DateTime.Now;
+            }
+            return home;
+        }
+        public Tbl18Superclass SuperclassAdd(Tbl18Superclass selected)
+        {
+            var home = new Tbl18Superclass() //add new
+            {
+                SuperclassName = selected.SuperclassName,
+                SubphylumId = selected.SubphylumId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Author = selected.Author,
+                AuthorYear = selected.AuthorYear,
+                Info = selected.Info,
+                Synonym = selected.Synonym,
+                EngName = selected.EngName,
+                GerName = selected.GerName,
+                FraName = selected.FraName,
+                PorName = selected.PorName,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now
+            };
+            return home;
+        }
+        public void SuperclassSave(Tbl18Superclass home, Tbl18Superclass selected)
+        {
+
+            if (selected.SuperclassId != 0) //update
+            {
+                _uow.Tbl18Superclasses.Update(home);
+            }
+            else                                //add
+                _uow.Tbl18Superclasses.Add(home);
+            _uow.Complete();
+        }
+
+        public Tbl90Reference ReferenceExpertSubphylumUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefExpertId = selected.RefExpertId;
+                reference.SubphylumId = selected.SubphylumId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceExpertSubphylumAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefExpertId = selected.RefExpertId,
+                SubphylumId = selected.SubphylumId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourceSubphylumUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefSourceId = selected.RefSourceId;
+                reference.SubphylumId = selected.SubphylumId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourceSubphylumAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefSourceId = selected.RefSourceId,
+                SubphylumId = selected.SubphylumId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorSubphylumUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefAuthorId = selected.RefAuthorId;
+                reference.SubphylumId = selected.SubphylumId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorSubphylumAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefAuthorId = selected.RefAuthorId,
+                SubphylumId = selected.SubphylumId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl93Comment CommentSubphylumUpdate(Tbl93Comment comment, Tbl93Comment selected)
+        {
+            if (comment != null) //update
+            {
+                comment.SubphylumId = selected.SubphylumId;
+                comment.Valid = selected.Valid;
+                comment.ValidYear = selected.ValidYear;
+                comment.Info = selected.Info;
+                comment.Updater = Environment.UserName;
+                comment.UpdaterDate = DateTime.Now;
+                comment.Memo = selected.Memo;
+            }
+            return comment;
+        }
+        public Tbl93Comment CommentSubphylumAdd(Tbl93Comment selected)
+        {
+            var comment = new Tbl93Comment //add new
+            {
+                SubphylumId = selected.SubphylumId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return comment;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Subdivision
+
+          #region Get Subdivision
+
+        //----------------------------------------   Subdivision   ------------------------
+        private ObservableCollection<T> GetSubdivisionsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        {
+            ObservableCollection<T> collection;
+            collection = int.TryParse(searchName, out var id)
+                ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl15Subdivisions
+                    .Find(e => e.SubdivisionId == id))
+                : new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl15Subdivisions
+                    .Find(e => e.SubdivisionName.StartsWith(searchName))
+                    .OrderBy(a => a.SubdivisionName)
+                );
+            return collection;
+        }
+
+        private ObservableCollection<T> GetSubdivisionsCollectionAllOrderBy<T>()
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl15Subdivisions
+                .OrderBy(a => a.SubdivisionName));
+            return collection;
+        }
+        public ObservableCollection<T> GetSubdivisionsCollectionFromSubdivisionIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl15Subdivisions
+                .Where(e => e.SubdivisionId == id)
+                .OrderBy(k => k.SubdivisionName));
+
+            return collection;
+        }
+
+        //-------------------------------------- Superclass   -------------------------
+        public ObservableCollection<T> GetSuperclassesCollectionFromSubdivisionIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl18Superclasses
+                .Where(e => e.SubdivisionId == id)
+                .OrderBy(k => k.SuperclassName));
+            return collection;
+        }
+
+        //-------------------------------------- Reference Experts   -------------------------
+        public ObservableCollection<T> GetReferenceExpertsCollectionFromSubdivisionIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefExperts)
+                .Where(e => e.SubdivisionId == id && e.RefAuthorId == null && e.RefSourceId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Reference Sources   -------------------------
+        public ObservableCollection<T> GetReferenceSourcesCollectionFromSubdivisionIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefSources)
+                .Where(e => e.SubdivisionId == id && e.RefAuthorId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Reference Authors   -------------------------
+        public ObservableCollection<T> GetReferenceAuthorsCollectionFromSubdivisionIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.SubdivisionId == id && e.RefSourceId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Comments   -------------------------
+        public ObservableCollection<T> GetCommentsCollectionFromSubdivisionIdOrderBy<T>(int? id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
+                .Where(e => e.SubdivisionId == id)
+                .OrderBy(e => e.Info));
+            return collection;
+        }
+
+        //Function
+        public int GetSubdivisionIdFromSuperclassesCollectionSelect(int id)
+        {
+            var coll = _context.Tbl18Superclasses
+                .SingleOrDefault(p => p.SuperclassId == id);
+
+            if (coll == null) return 0;
+            return coll.SubdivisionId;
+        }
+
+        #endregion
+
+          #region Copy Subdivision
+
+        // ----------------------------------------   Superclass  ------------------------
+        //public ObservableCollection<Tbl18Superclass> CopySuperclass(Tbl18Superclass selected)
+        //{
+        //    var dataset = _uow.Tbl18Superclasses.GetById(selected.SuperclassId);
+        //    var collection = new ObservableCollection<Tbl18Superclass>();
+
+        //    collection.Insert(0, new Tbl18Superclass
+        //    {
+        //        SuperclassName = CultRes.StringsRes.DatasetNew,
+        //        SubdivisionId = dataset.SubdivisionId,
+        //        Valid = dataset.Valid,
+        //        ValidYear = dataset.ValidYear,
+        //        Synonym = dataset.Synonym,
+        //        Author = dataset.Author,
+        //        AuthorYear = dataset.AuthorYear,
+        //        Info = dataset.Info,
+        //        EngName = dataset.EngName,
+        //        GerName = dataset.GerName,
+        //        FraName = dataset.FraName,
+        //        PorName = dataset.PorName,
+        //        Memo = dataset.Memo
+        //    });
+
+        //    return collection;
+        //}
+
+        public ObservableCollection<Tbl90Reference> CopyReferenceSubdivision(Tbl90Reference selected, string refer)
+        {
+            var dataset = _uow.Tbl90References.GetById(selected.ReferenceId);
+            var collection = new ObservableCollection<Tbl90Reference>();
+            switch (refer)
+            {
+                case "Expert":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        SubdivisionId = dataset.SubdivisionId,
+                        RefExpertId = dataset.RefExpertId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Source":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        SubdivisionId = dataset.SubdivisionId,
+                        RefSourceId = dataset.RefSourceId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Author":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        SubdivisionId = dataset.SubdivisionId,
+                        RefAuthorId = dataset.RefAuthorId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+            }
+
+            return collection;
+        }
+
+
+        #endregion
+
+          #region Delete Subdivision
+
+        //------------------------------ Subdivision --------------------------------------------------------------------------------------------
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl15Subdivision selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubdivisionId == selected.SubdivisionId));
+            return collection;
+        }
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl15Subdivision selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubdivisionId == selected.SubdivisionId));
+            return collection;
+        }
+
+        ////------------------------------ Superclass --------------------------------------------------------------------------------------------
+        //public void DeleteSuperclass(Tbl18Superclass selected)
+        //{
+        //    _uow.Tbl18Superclasses.Remove(selected);
+        //    _uow.Complete();
+        //}
+        //public ObservableCollection<Tbl21Class> SearchForConnectedDatasetsWithSuperclassIdInTableClass(Tbl18Superclass selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl21Class>(_uow.Tbl21Classes.Find(x => x.SuperclassId == selected.SuperclassId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSuperclassIdInTableReference(Tbl18Superclass selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SuperclassId == selected.SuperclassId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSuperclassIdInTableComment(Tbl18Superclass selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SuperclassId == selected.SuperclassId));
+        //    return collection;
+        //}
+
+
+        #endregion
+
+          #region Save Subdivision 
+
+        //------------------ Superclass ---------------------------------------
+        //public Tbl18Superclass SuperclassUpdate(Tbl18Superclass home, Tbl18Superclass selected)
+        //{
+        //    if (home != null) //update
+        //    {
+        //        home.SuperclassName = selected.SuperclassName;
+        //        home.SubdivisionId = selected.SubdivisionId;
+        //        home.Valid = selected.Valid;
+        //        home.ValidYear = selected.ValidYear;
+        //        home.Author = selected.Author;
+        //        home.AuthorYear = selected.AuthorYear;
+        //        home.Info = selected.Info;
+        //        home.Synonym = selected.Synonym;
+        //        home.EngName = selected.EngName;
+        //        home.GerName = selected.GerName;
+        //        home.FraName = selected.FraName;
+        //        home.PorName = selected.PorName;
+        //        home.Memo = selected.Memo;
+        //        home.Updater = Environment.UserName;
+        //        home.UpdaterDate = DateTime.Now;
+        //    }
+        //    return home;
+        //}
+        //public Tbl18Superclass SuperclassAdd(Tbl18Superclass selected)
+        //{
+        //    var home = new Tbl18Superclass() //add new
+        //    {
+        //        SuperclassName = selected.SuperclassName,
+        //        SubdivisionId = selected.SubdivisionId,
+        //        CountId = RandomHelper.Randomnumber(),
+        //        Valid = selected.Valid,
+        //        ValidYear = selected.ValidYear,
+        //        Author = selected.Author,
+        //        AuthorYear = selected.AuthorYear,
+        //        Info = selected.Info,
+        //        Synonym = selected.Synonym,
+        //        EngName = selected.EngName,
+        //        GerName = selected.GerName,
+        //        FraName = selected.FraName,
+        //        PorName = selected.PorName,
+        //        Memo = selected.Memo,
+        //        Writer = Environment.UserName,
+        //        WriterDate = DateTime.Now,
+        //        Updater = Environment.UserName,
+        //        UpdaterDate = DateTime.Now
+        //    };
+        //    return home;
+        //}
+        //public void SuperclassSave(Tbl18Superclass home, Tbl18Superclass selected)
+        //{
+
+        //    if (selected.SuperclassId != 0) //update
+        //    {
+        //        _uow.Tbl18Superclasses.Update(home);
+        //    }
+        //    else                                //add
+        //        _uow.Tbl18Superclasses.Add(home);
+        //    _uow.Complete();
+        //}
+
+        public Tbl90Reference ReferenceExpertSubdivisionUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefExpertId = selected.RefExpertId;
+                reference.SubdivisionId = selected.SubdivisionId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceExpertSubdivisionAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefExpertId = selected.RefExpertId,
+                SubdivisionId = selected.SubdivisionId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourceSubdivisionUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefSourceId = selected.RefSourceId;
+                reference.SubdivisionId = selected.SubdivisionId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourceSubdivisionAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefSourceId = selected.RefSourceId,
+                SubdivisionId = selected.SubdivisionId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorSubdivisionUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefAuthorId = selected.RefAuthorId;
+                reference.SubdivisionId = selected.SubdivisionId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorSubdivisionAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefAuthorId = selected.RefAuthorId,
+                SubdivisionId = selected.SubdivisionId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl93Comment CommentSubdivisionUpdate(Tbl93Comment comment, Tbl93Comment selected)
+        {
+            if (comment != null) //update
+            {
+                comment.SubdivisionId = selected.SubdivisionId;
+                comment.Valid = selected.Valid;
+                comment.ValidYear = selected.ValidYear;
+                comment.Info = selected.Info;
+                comment.Updater = Environment.UserName;
+                comment.UpdaterDate = DateTime.Now;
+                comment.Memo = selected.Memo;
+            }
+            return comment;
+        }
+        public Tbl93Comment CommentSubdivisionAdd(Tbl93Comment selected)
+        {
+            var comment = new Tbl93Comment //add new
+            {
+                SubdivisionId = selected.SubdivisionId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return comment;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Superclass
+
+          #region Get Superclass
+
+        //----------------------------------------   Superclass   ------------------------
+        private ObservableCollection<T> GetSuperclassesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        {
+            ObservableCollection<T> collection;
+            collection = int.TryParse(searchName, out var id)
+                ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl18Superclasses
+                    .Find(e => e.SuperclassId == id))
+                : new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl18Superclasses
+                    .Find(e => e.SuperclassName.StartsWith(searchName))
+                    .OrderBy(a => a.SuperclassName)
+                );
+            return collection;
+        }
+
+        private ObservableCollection<T> GetSuperclassesCollectionAllOrderBy<T>()
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl18Superclasses
+                .OrderBy(a => a.SuperclassName));
+            return collection;
+        }
+        public ObservableCollection<T> GetSuperclassesCollectionFromSuperclassIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl18Superclasses
+                .Where(e => e.SuperclassId == id)
+                .OrderBy(k => k.SuperclassName));
+
+            return collection;
+        }
+
+        //-------------------------------------- Class   -------------------------
+        public ObservableCollection<T> GetClassesCollectionFromSuperclassIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl21Classes
+                .Where(e => e.SuperclassId == id)
+                .OrderBy(k => k.ClassName));
+            return collection;
+        }
+
+        //-------------------------------------- Reference Experts   -------------------------
+        public ObservableCollection<T> GetReferenceExpertsCollectionFromSuperclassIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefExperts)
+                .Where(e => e.SuperclassId == id && e.RefAuthorId == null && e.RefSourceId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Reference Sources   -------------------------
+        public ObservableCollection<T> GetReferenceSourcesCollectionFromSuperclassIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefSources)
+                .Where(e => e.SuperclassId == id && e.RefAuthorId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Reference Authors   -------------------------
+        public ObservableCollection<T> GetReferenceAuthorsCollectionFromSuperclassIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.SuperclassId == id && e.RefSourceId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Comments   -------------------------
+        public ObservableCollection<T> GetCommentsCollectionFromSuperclassIdOrderBy<T>(int? id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
+                .Where(e => e.SuperclassId == id)
+                .OrderBy(e => e.Info));
+            return collection;
+        }
+
+        //Function
+        public int GetSuperclassIdFromClassesCollectionSelect(int id)
+        {
+            var coll = _context.Tbl21Classes
+                .SingleOrDefault(p => p.ClassId == id);
+
+            if (coll == null) return 0;
+            return coll.SuperclassId;
+        }
+
+        #endregion
+
+          #region Copy Superclass
+
+        // ----------------------------------------   Class  ------------------------
+        public ObservableCollection<Tbl21Class> CopyClass(Tbl21Class selected)
+        {
+            var dataset = _uow.Tbl21Classes.GetById(selected.ClassId);
+            var collection = new ObservableCollection<Tbl21Class>();
+
+            collection.Insert(0, new Tbl21Class
+            {
+                ClassName = CultRes.StringsRes.DatasetNew,
+                SuperclassId = dataset.SuperclassId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Synonym = dataset.Synonym,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                EngName = dataset.EngName,
+                GerName = dataset.GerName,
+                FraName = dataset.FraName,
+                PorName = dataset.PorName,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
+
+        public ObservableCollection<Tbl90Reference> CopyReferenceSuperclass(Tbl90Reference selected, string refer)
+        {
+            var dataset = _uow.Tbl90References.GetById(selected.ReferenceId);
+            var collection = new ObservableCollection<Tbl90Reference>();
+            switch (refer)
+            {
+                case "Expert":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        SuperclassId = dataset.SuperclassId,
+                        RefExpertId = dataset.RefExpertId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Source":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        SuperclassId = dataset.SuperclassId,
+                        RefSourceId = dataset.RefSourceId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Author":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        SuperclassId = dataset.SuperclassId,
+                        RefAuthorId = dataset.RefAuthorId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+            }
+
+            return collection;
+        }
+
+
+        #endregion
+
+          #region Delete Superclass
+
+        //------------------------------ Superclass --------------------------------------------------------------------------------------------
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl18Superclass selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SuperclassId == selected.SuperclassId));
+            return collection;
+        }
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl18Superclass selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SuperclassId == selected.SuperclassId));
+            return collection;
+        }
+
+        //------------------------------ Class --------------------------------------------------------------------------------------------
+        public void DeleteClass(Tbl21Class selected)
+        {
+            _uow.Tbl21Classes.Remove(selected);
+            _uow.Complete();
+        }
+        public ObservableCollection<Tbl24Subclass> SearchForConnectedDatasetsWithClassIdInTableSubclass(Tbl21Class selected)
+        {
+            var collection = new ObservableCollection<Tbl24Subclass>(_uow.Tbl24Subclasses.Find(x => x.ClassId == selected.ClassId));
+            return collection;
+        }
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithClassIdInTableReference(Tbl21Class selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.ClassId == selected.ClassId));
+            return collection;
+        }
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithClassIdInTableComment(Tbl21Class selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.ClassId == selected.ClassId));
+            return collection;
+        }
+
+
+        #endregion
+
+          #region Save Superclass 
+
+        //------------------ Class ---------------------------------------
+        public Tbl21Class ClassUpdate(Tbl21Class home, Tbl21Class selected)
+        {
+            if (home != null) //update
+            {
+                home.ClassName = selected.ClassName;
+                home.SuperclassId = selected.SuperclassId;
+                home.Valid = selected.Valid;
+                home.ValidYear = selected.ValidYear;
+                home.Author = selected.Author;
+                home.AuthorYear = selected.AuthorYear;
+                home.Info = selected.Info;
+                home.Synonym = selected.Synonym;
+                home.EngName = selected.EngName;
+                home.GerName = selected.GerName;
+                home.FraName = selected.FraName;
+                home.PorName = selected.PorName;
+                home.Memo = selected.Memo;
+                home.Updater = Environment.UserName;
+                home.UpdaterDate = DateTime.Now;
+            }
+            return home;
+        }
+        public Tbl21Class ClassAdd(Tbl21Class selected)
+        {
+            var home = new Tbl21Class() //add new
+            {
+                ClassName = selected.ClassName,
+                SuperclassId = selected.SuperclassId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Author = selected.Author,
+                AuthorYear = selected.AuthorYear,
+                Info = selected.Info,
+                Synonym = selected.Synonym,
+                EngName = selected.EngName,
+                GerName = selected.GerName,
+                FraName = selected.FraName,
+                PorName = selected.PorName,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now
+            };
+            return home;
+        }
+        public void ClassSave(Tbl21Class home, Tbl21Class selected)
+        {
+
+            if (selected.ClassId != 0) //update
+            {
+                _uow.Tbl21Classes.Update(home);
+            }
+            else                                //add
+                _uow.Tbl21Classes.Add(home);
+            _uow.Complete();
+        }
+
+        public Tbl90Reference ReferenceExpertSuperclassUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefExpertId = selected.RefExpertId;
+                reference.SuperclassId = selected.SuperclassId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceExpertSuperclassAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefExpertId = selected.RefExpertId,
+                SuperclassId = selected.SuperclassId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourceSuperclassUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefSourceId = selected.RefSourceId;
+                reference.SuperclassId = selected.SuperclassId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourceSuperclassAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefSourceId = selected.RefSourceId,
+                SuperclassId = selected.SuperclassId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorSuperclassUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefAuthorId = selected.RefAuthorId;
+                reference.SuperclassId = selected.SuperclassId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorSuperclassAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefAuthorId = selected.RefAuthorId,
+                SuperclassId = selected.SuperclassId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl93Comment CommentSuperclassUpdate(Tbl93Comment comment, Tbl93Comment selected)
+        {
+            if (comment != null) //update
+            {
+                comment.SuperclassId = selected.SuperclassId;
+                comment.Valid = selected.Valid;
+                comment.ValidYear = selected.ValidYear;
+                comment.Info = selected.Info;
+                comment.Updater = Environment.UserName;
+                comment.UpdaterDate = DateTime.Now;
+                comment.Memo = selected.Memo;
+            }
+            return comment;
+        }
+        public Tbl93Comment CommentSuperclassAdd(Tbl93Comment selected)
+        {
+            var comment = new Tbl93Comment //add new
+            {
+                SuperclassId = selected.SuperclassId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return comment;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Class
+
+          #region Get Class
+
+        //----------------------------------------   Class   ------------------------
+        private ObservableCollection<T> GetClassesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        {
+            ObservableCollection<T> collection;
+            collection = int.TryParse(searchName, out var id)
+                ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl21Classes
+                    .Find(e => e.ClassId == id))
+                : new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl21Classes
+                    .Find(e => e.ClassName.StartsWith(searchName))
+                    .OrderBy(a => a.ClassName)
+                );
+            return collection;
+        }
+
+        private ObservableCollection<T> GetClassesCollectionAllOrderBy<T>()
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl21Classes
+                .OrderBy(a => a.ClassName));
+            return collection;
+        }
+        public ObservableCollection<T> GetClassesCollectionFromClassIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl21Classes
+                .Where(e => e.ClassId == id)
+                .OrderBy(k => k.ClassName));
+
+            return collection;
+        }
+
+        //-------------------------------------- Subclass   -------------------------
+        public ObservableCollection<T> GetSubclassesCollectionFromClassIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl24Subclasses
+                .Where(e => e.ClassId == id)
+                .OrderBy(k => k.SubclassName));
+            return collection;
+        }
+
+        //-------------------------------------- Reference Experts   -------------------------
+        public ObservableCollection<T> GetReferenceExpertsCollectionFromClassIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefExperts)
+                .Where(e => e.ClassId == id && e.RefAuthorId == null && e.RefSourceId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Reference Sources   -------------------------
+        public ObservableCollection<T> GetReferenceSourcesCollectionFromClassIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefSources)
+                .Where(e => e.ClassId == id && e.RefAuthorId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Reference Authors   -------------------------
+        public ObservableCollection<T> GetReferenceAuthorsCollectionFromClassIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.ClassId == id && e.RefSourceId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Comments   -------------------------
+        public ObservableCollection<T> GetCommentsCollectionFromClassIdOrderBy<T>(int? id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
+                .Where(e => e.ClassId == id)
+                .OrderBy(e => e.Info));
+            return collection;
+        }
+
+        //Function
+        public int GetClassIdFromSubclassesCollectionSelect(int id)
+        {
+            var coll = _context.Tbl24Subclasses
+                .SingleOrDefault(p => p.SubclassId == id);
+
+            if (coll == null) return 0;
+            return coll.ClassId;
+        }
+
+        #endregion
+
+          #region Copy Class
+
+        // ----------------------------------------   Subclass  ------------------------
+        public ObservableCollection<Tbl24Subclass> CopySubclass(Tbl24Subclass selected)
+        {
+            var dataset = _uow.Tbl24Subclasses.GetById(selected.SubclassId);
+            var collection = new ObservableCollection<Tbl24Subclass>();
+
+            collection.Insert(0, new Tbl24Subclass
+            {
+                SubclassName = CultRes.StringsRes.DatasetNew,
+                ClassId = dataset.ClassId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Synonym = dataset.Synonym,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                EngName = dataset.EngName,
+                GerName = dataset.GerName,
+                FraName = dataset.FraName,
+                PorName = dataset.PorName,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
+
+        public ObservableCollection<Tbl90Reference> CopyReferenceClass(Tbl90Reference selected, string refer)
+        {
+            var dataset = _uow.Tbl90References.GetById(selected.ReferenceId);
+            var collection = new ObservableCollection<Tbl90Reference>();
+            switch (refer)
+            {
+                case "Expert":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        ClassId = dataset.ClassId,
+                        RefExpertId = dataset.RefExpertId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Source":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        ClassId = dataset.ClassId,
+                        RefSourceId = dataset.RefSourceId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Author":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        ClassId = dataset.ClassId,
+                        RefAuthorId = dataset.RefAuthorId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+            }
+
+            return collection;
+        }
+
+
+        #endregion
+
+          #region Delete Class
+
+        //------------------------------ Class --------------------------------------------------------------------------------------------
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl21Class selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.ClassId == selected.ClassId));
+            return collection;
+        }
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl21Class selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.ClassId == selected.ClassId));
+            return collection;
+        }
+
+        //------------------------------ Subclass --------------------------------------------------------------------------------------------
+        public void DeleteSubclass(Tbl24Subclass selected)
+        {
+            _uow.Tbl24Subclasses.Remove(selected);
+            _uow.Complete();
+        }
+        public ObservableCollection<Tbl27Infraclass> SearchForConnectedDatasetsWithSubclassIdInTableInfraclass(Tbl24Subclass selected)
+        {
+            var collection = new ObservableCollection<Tbl27Infraclass>(_uow.Tbl27Infraclasses.Find(x => x.SubclassId == selected.SubclassId));
+            return collection;
+        }
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubclassIdInTableReference(Tbl24Subclass selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubclassId == selected.SubclassId));
+            return collection;
+        }
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubclassIdInTableComment(Tbl24Subclass selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubclassId == selected.SubclassId));
+            return collection;
+        }
+
+
+        #endregion
+
+          #region Save Class 
+
+        //------------------ Subclass ---------------------------------------
+        public Tbl24Subclass SubclassUpdate(Tbl24Subclass home, Tbl24Subclass selected)
+        {
+            if (home != null) //update
+            {
+                home.SubclassName = selected.SubclassName;
+                home.ClassId = selected.ClassId;
+                home.Valid = selected.Valid;
+                home.ValidYear = selected.ValidYear;
+                home.Author = selected.Author;
+                home.AuthorYear = selected.AuthorYear;
+                home.Info = selected.Info;
+                home.Synonym = selected.Synonym;
+                home.EngName = selected.EngName;
+                home.GerName = selected.GerName;
+                home.FraName = selected.FraName;
+                home.PorName = selected.PorName;
+                home.Memo = selected.Memo;
+                home.Updater = Environment.UserName;
+                home.UpdaterDate = DateTime.Now;
+            }
+            return home;
+        }
+        public Tbl24Subclass SubclassAdd(Tbl24Subclass selected)
+        {
+            var home = new Tbl24Subclass() //add new
+            {
+                SubclassName = selected.SubclassName,
+                ClassId = selected.ClassId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Author = selected.Author,
+                AuthorYear = selected.AuthorYear,
+                Info = selected.Info,
+                Synonym = selected.Synonym,
+                EngName = selected.EngName,
+                GerName = selected.GerName,
+                FraName = selected.FraName,
+                PorName = selected.PorName,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now
+            };
+            return home;
+        }
+        public void SubclassSave(Tbl24Subclass home, Tbl24Subclass selected)
+        {
+
+            if (selected.SubclassId != 0) //update
+            {
+                _uow.Tbl24Subclasses.Update(home);
+            }
+            else                                //add
+                _uow.Tbl24Subclasses.Add(home);
+            _uow.Complete();
+        }
+
+        public Tbl90Reference ReferenceExpertClassUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefExpertId = selected.RefExpertId;
+                reference.ClassId = selected.ClassId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceExpertClassAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefExpertId = selected.RefExpertId,
+                ClassId = selected.ClassId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourceClassUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefSourceId = selected.RefSourceId;
+                reference.ClassId = selected.ClassId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourceClassAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefSourceId = selected.RefSourceId,
+                ClassId = selected.ClassId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorClassUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefAuthorId = selected.RefAuthorId;
+                reference.ClassId = selected.ClassId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorClassAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefAuthorId = selected.RefAuthorId,
+                ClassId = selected.ClassId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl93Comment CommentClassUpdate(Tbl93Comment comment, Tbl93Comment selected)
+        {
+            if (comment != null) //update
+            {
+                comment.ClassId = selected.ClassId;
+                comment.Valid = selected.Valid;
+                comment.ValidYear = selected.ValidYear;
+                comment.Info = selected.Info;
+                comment.Updater = Environment.UserName;
+                comment.UpdaterDate = DateTime.Now;
+                comment.Memo = selected.Memo;
+            }
+            return comment;
+        }
+        public Tbl93Comment CommentClassAdd(Tbl93Comment selected)
+        {
+            var comment = new Tbl93Comment //add new
+            {
+                ClassId = selected.ClassId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return comment;
+        }
+
+        #endregion
+
+        #endregion
+
+
+
+
+
 
         #region References
 
@@ -881,10 +3335,21 @@ namespace ATIS.Ui.Helper
                         Memo = dataset.Memo
                     });
                     break;
+                case "Class":
+                    collection.Insert(0, new Tbl93Comment
+                    {
+                        ClassId = dataset.ClassId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
             }
 
             return collection;
         }
+
         //-------------------Comment-------------------------------------
         public void CommentSave(Tbl93Comment home, Tbl93Comment selected)
         {
@@ -898,6 +3363,5 @@ namespace ATIS.Ui.Helper
 
 
         #endregion
-
     }
 }

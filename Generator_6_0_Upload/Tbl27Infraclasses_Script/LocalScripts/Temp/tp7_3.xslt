@@ -66,19 +66,22 @@ using Te.Atis.Ui.Desktop.Maps;
 using Te.Atis.Ui.Desktop.Properties;  ]]>
 </xsl:when>
 <xsl:otherwise>   <![CDATA[ 
-using System.Windows.Controls;   ]]>
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Threading;   ]]>
 </xsl:otherwise>    
 </xsl:choose> 
 
   <![CDATA[    //  ]]><xsl:value-of select="Table"/><![CDATA[View.xaml.cs Skriptdatum: ]]> <xsl:value-of select="DateTime"/>  <![CDATA[   
 
-namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
+namespace Te.Atis.Ui.Desktop.Views.Database
 {  
 
     /// <summary>
-    /// Interactionslogic for ]]><xsl:value-of select="Basiss"/><![CDATA[View.xaml
+    /// Interactionslogic for ]]><xsl:value-of select="Table"/><![CDATA[View.xaml
     /// </summary>
-    public partial class ]]><xsl:value-of select="Basiss"/><![CDATA[View : UserControl
+    public partial class ]]><xsl:value-of select="Table"/><![CDATA[View : UserControl
    {      ]]>
 
 <xsl:choose>
@@ -98,9 +101,11 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         private Location _center;
         private MapPolygon _currentShape;
 
-        public ]]><xsl:value-of select="Basiss"/><![CDATA[View()
+        public ]]><xsl:value-of select="Table"/><![CDATA[View()
         {       
-            DataContext = new ]]><xsl:value-of select="Basiss"/><![CDATA[ViewModel();  
+            _businessLayer = new BusinessLayer.BusinessLayer();
+            _entityException = new DbEntityException();
+  
             InitializeComponent();   
             IsVisibleChanged += UserControl_IsVisibleChanged;
             //Video
@@ -1029,12 +1034,32 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         }   ]]>
 </xsl:when>  
 <xsl:otherwise>   <![CDATA[
-        public ]]><xsl:value-of select="Basiss"/><![CDATA[View()
-        {  
-            DataContext = new ]]><xsl:value-of select="Basiss"/><![CDATA[ViewModel();  
-       
+        public ]]><xsl:value-of select="Table"/><![CDATA[View()
+        {         
             InitializeComponent();   
-        }      ]]>
+            IsVisibleChanged += UserControl_IsVisibleChanged;
+        }
+
+        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue)
+            {
+                Dispatcher.BeginInvoke(
+                DispatcherPriority.ContextIdle,
+                new Action(delegate
+                {
+                    TbSearch]]><xsl:value-of select="Basis"/><![CDATA[.Focus();
+                }));
+            }
+        }
+        private void TbSearch]]><xsl:value-of select="Basis"/><![CDATA[_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+            {
+                BtnGet.Focus();
+                e.Handled = true;
+            }
+        }   ]]>
 </xsl:otherwise>    
 </xsl:choose> 
 

@@ -18,7 +18,7 @@
                     <iconPacks:PackIconModern
                         Width="20"
                         Height="20"
-                        Kind="Loop" />
+                        Kind="PageSearch" />
                 </DataTemplate>
             </Button.ContentTemplate>
         </Button>
@@ -116,7 +116,7 @@
                     <iconPacks:PackIconModern
                         Width="20"
                         Height="20"
-                        Kind="Loop" />
+                        Kind="PageSearch" />
                 </DataTemplate>
             </Button.ContentTemplate>
         </Button>
@@ -214,7 +214,7 @@
                     <iconPacks:PackIconModern
                         Width="20"
                         Height="20"
-                        Kind="Loop" />
+                        Kind="PageSearch" />
                 </DataTemplate>
             </Button.ContentTemplate>
         </Button>
@@ -312,7 +312,7 @@
                     <iconPacks:PackIconModern
                         Width="20"
                         Height="20"
-                        Kind="Loop" />
+                        Kind="PageSearch" />
                 </DataTemplate>
             </Button.ContentTemplate>
         </Button>
@@ -410,7 +410,7 @@
                     <iconPacks:PackIconModern
                         Width="20"
                         Height="20"
-                        Kind="Loop" />
+                        Kind="PageSearch" />
                 </DataTemplate>
             </Button.ContentTemplate>
         </Button>
@@ -508,7 +508,7 @@
                     <iconPacks:PackIconModern
                         Width="20"
                         Height="20"
-                        Kind="Loop" />
+                        Kind="PageSearch" />
                 </DataTemplate>
             </Button.ContentTemplate>
         </Button>
@@ -606,7 +606,7 @@
                     <iconPacks:PackIconModern
                         Width="20"
                         Height="20"
-                        Kind="Loop" />
+                        Kind="PageSearch" />
                 </DataTemplate>
             </Button.ContentTemplate>
         </Button>
@@ -704,7 +704,7 @@
                     <iconPacks:PackIconModern
                         Width="20"
                         Height="20"
-                        Kind="Loop" />
+                        Kind="PageSearch" />
                 </DataTemplate>
             </Button.ContentTemplate>
         </Button>
@@ -802,7 +802,7 @@
                     <iconPacks:PackIconModern
                         Width="20"
                         Height="20"
-                        Kind="Loop" />
+                        Kind="PageSearch" />
                 </DataTemplate>
             </Button.ContentTemplate>
         </Button>
@@ -900,7 +900,7 @@
                     <iconPacks:PackIconModern
                         Width="20"
                         Height="20"
-                        Kind="Loop" />
+                        Kind="PageSearch" />
                 </DataTemplate>
             </Button.ContentTemplate>
         </Button>

@@ -1,31 +1,31 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+
+
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
-using ATIS.Ui.Views.Database.CrudHelper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
 using log4net;
 using Microsoft.EntityFrameworkCore;
-
 
 //    ClassesViewModel Skriptdatum:  05.11.2020  18:32    
 
 namespace ATIS.Ui.Views.Database.D21Class
 {
 
-    public class ClassesViewModel : ViewModelBase                     
+    public class ClassesViewModel : ViewModelBase
     {
         // Version with Generic Unit Of Work and AtisDbContext for general use   
 
         #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(typeof(ClassesViewModel));
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
-        private readonly AtisDbContext _context = new AtisDbContext();
+        private readonly CrudFunctions _extCrud = new CrudFunctions();
 
         private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
         private readonly GenericMessageBoxes<Tbl21Class> _genClassMessageBoxes = new GenericMessageBoxes<Tbl21Class>();
@@ -35,14 +35,10 @@ namespace ATIS.Ui.Views.Database.D21Class
         private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
-        private readonly BasicGet _extGet = new BasicGet();
-        private readonly BasicCopy _extCopy = new BasicCopy();
-        private readonly BasicDelete _extDelete = new BasicDelete();
-        private readonly BasicSave _extSave = new BasicSave();        
-        private int _position;   
-         
+        private int _position;
+
         #endregion [Private Data Members]               
-      
+
         #region [Constructor]
 
         public ClassesViewModel()
@@ -52,116 +48,116 @@ namespace ATIS.Ui.Views.Database.D21Class
                 // Code runs in Blend --> create design time data.
             }
             else
-            {          
-        
+            {
+
                 // Code runs "for real" 
-                Tbl21ClassesList = new ObservableCollection<Tbl21Class>();    
+                Tbl21ClassesList = new ObservableCollection<Tbl21Class>();
             }
-        }     
+        }
         public bool IsInDesignMode { get; set; }
 
         #endregion [Constructor]         
- 
 
- //    Part 1    
 
-         
+        //    Part 1    
+
+
 
         #region [Commands Class]
 
         private RelayCommand _getClassesByNameOrIdCommand;
-        public ICommand GetClassesByNameOrIdCommand => _getClassesByNameOrIdCommand ??= new RelayCommand(delegate {ExecuteGetClassesByNameOrId(SearchClassName); });    
-             
+        public ICommand GetClassesByNameOrIdCommand => _getClassesByNameOrIdCommand ??= new RelayCommand(delegate { ExecuteGetClassesByNameOrId(SearchClassName); });
+
         private RelayCommand _addClassCommand;
         public ICommand AddClassCommand => _addClassCommand ??= new RelayCommand(delegate { ExecuteAddClass(null); });
 
         private RelayCommand _copyClassCommand;
-        public ICommand CopyClassCommand => _copyClassCommand ??= new RelayCommand(delegate { ExecuteCopyClass(null); });      
-             
+        public ICommand CopyClassCommand => _copyClassCommand ??= new RelayCommand(delegate { ExecuteCopyClass(null); });
+
         private RelayCommand _deleteClassCommand;
-        public ICommand DeleteClassCommand => _deleteClassCommand ??= new RelayCommand(delegate { ExecuteDeleteClass(SearchClassName); });    
-             
+        public ICommand DeleteClassCommand => _deleteClassCommand ??= new RelayCommand(delegate { ExecuteDeleteClass(SearchClassName); });
+
         private RelayCommand _saveClassCommand;
-        public ICommand SaveClassCommand => _saveClassCommand ??= new RelayCommand(delegate { ExecuteSaveClass(SearchClassName); });    
+        public ICommand SaveClassCommand => _saveClassCommand ??= new RelayCommand(delegate { ExecuteSaveClass(SearchClassName); });
 
         #endregion [Commands Class]       
 
-     
+
         #region [Methods Class]
 
         private void ExecuteGetClassesByNameOrId(string searchName)
         {
-            Tbl18SuperclassesAllList = _extGet.AllCollection<Tbl18Superclass>("superclass");
-            Tbl21ClassesList = _extGet.SearchNameAndIdReturnCollection<Tbl21Class>(SearchClassName, "classe");
+            Tbl18SuperclassesAllList = _extCrud.GetCollectionAllOrderBy<Tbl18Superclass>("superclass");
+            Tbl21ClassesList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl21Class>(SearchClassName, "classe");
 
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 1;
 
             ClassesView = CollectionViewSource.GetDefaultView(Tbl21ClassesList);
             ClassesView.Refresh();
-        }                     
-     
+        }
+
         private void ExecuteAddClass(object o)
         {
-            Tbl21ClassesList.Insert(0, new Tbl21Class   {   ClassName = CultRes.StringsRes.DatasetNew  }  );
-            Tbl18SuperclassesAllList = _extGet.AllCollection<Tbl18Superclass>("superclass");
+            Tbl21ClassesList.Insert(0, new Tbl21Class { ClassName = CultRes.StringsRes.DatasetNew });
+            Tbl18SuperclassesAllList = _extCrud.GetCollectionAllOrderBy<Tbl18Superclass>("superclass");
 
             ClassesView = CollectionViewSource.GetDefaultView(Tbl21ClassesList);
             ClassesView.MoveCurrentToFirst();
-        }                       
-     
+        }
+
         private void ExecuteCopyClass(object o)
         {
             if (_genClassMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl21Class)) return;
 
-            Tbl21ClassesList = _extCopy.CopyClass(CurrentTbl21Class);
+            Tbl21ClassesList = _extCrud.CopyClass(CurrentTbl21Class);
 
             // evtl verbundene tabellen-Datensätze auch kopieren Expert, Source, Author und Comment
 
             ClassesView = CollectionViewSource.GetDefaultView(Tbl21ClassesList);
             ClassesView.MoveCurrentToFirst();
-        }                         
-     
+        }
+
         private void ExecuteDeleteClass(string searchName)
         {
-            if (_genClassMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl21Class)) return;               
- 
-    
+            if (_genClassMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl21Class)) return;
+
+
             //check if in Tbl24Subclasses connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
 
-            Tbl24SubclassesList = _extDelete.SearchForConnectedDatasetsWithClassIdInTableSubclass(CurrentTbl21Class);     
-     
+            Tbl24SubclassesList = _extCrud.SearchForConnectedDatasetsWithClassIdInTableSubclass(CurrentTbl21Class);
+
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl24SubclassesList.Count, "Subclass")) return;
 
             //Delete all References Experts, Sources, Authors  ----------------------------------------------------
-            Tbl90ReferencesList = _extDelete.DeleteDatasetsWithClassIdInTableReference(CurrentTbl21Class);
+            Tbl90ReferencesList = _extCrud.DeleteDatasetsWithClassIdInTableReference(CurrentTbl21Class);
             if (Tbl90ReferencesList.Count > 0)
             {
                 if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
-                _extDelete.DeleteReferences(Tbl90ReferencesList);
+                _extCrud.DeleteReferences(Tbl90ReferencesList);
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
             }
 
             //Delete all Comments  ----------------------------------------------------
-            Tbl93CommentsList = _extDelete.DeleteDatasetsWithClassIdInTableComment(CurrentTbl21Class);
+            Tbl93CommentsList = _extCrud.DeleteDatasetsWithClassIdInTableComment(CurrentTbl21Class);
             if (Tbl93CommentsList.Count > 0)
             {
                 if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
 
-                _extDelete.DeleteComments(Tbl93CommentsList);
+                _extCrud.DeleteComments(Tbl93CommentsList);
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
             }
             try
             {
-                var classe= _uow.Tbl21Classes.GetById(CurrentTbl21Class.ClassId);
-                if (classe!= null)
+                var classe = _uow.Tbl21Classes.GetById(CurrentTbl21Class.ClassId);
+                if (classe != null)
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl21Class.ClassName)) return;
 
-                    _extDelete.DeleteClass(classe);
+                    _extCrud.DeleteClass(classe);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl21Class.ClassName);
                 }
@@ -176,23 +172,23 @@ namespace ATIS.Ui.Views.Database.D21Class
             ExecuteGetClassesByNameOrId(searchName);
 
             ClassesView.MoveCurrentToFirst();
-        }                
-     
+        }
+
         private void ExecuteSaveClass(string searchName)
         {
-            if (_genClassMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl21Class)) return;      
-       
+            if (_genClassMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl21Class)) return;
+
             //Combobox select SuperclassID  may be not 0
             if (CurrentTbl21Class.SuperclassId == 0)
             {
                 MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
-            }     
-     
+            }
+
             try
             {
-                var classe = _uow.Tbl21Classes .GetById(CurrentTbl21Class.ClassId);
+                var classe = _uow.Tbl21Classes.GetById(CurrentTbl21Class.ClassId);
                 //   var phylum = _context.Tbl21Classes.AsNoTracking().FirstOrDefault(a=>a.ClassId == CurrentTbl21Class.ClassId);
                 //          _context.Entry(classe).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
 
@@ -200,27 +196,27 @@ namespace ATIS.Ui.Views.Database.D21Class
                     return;
 
                 if (CurrentTbl21Class.ClassId == 0)
-                    classe = _extSave.ClassAdd(CurrentTbl21Class);
+                    classe = _extCrud.ClassAdd(CurrentTbl21Class);
                 else
-                    classe = _extSave.ClassUpdate(classe, CurrentTbl21Class);
+                    classe = _extCrud.ClassUpdate(classe, CurrentTbl21Class);
 
                 _position = ClassesView.CurrentPosition;
 
                 try
                 {
-                    _extSave.ClassSave(classe, CurrentTbl21Class);
+                    _extCrud.ClassSave(classe, CurrentTbl21Class);
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave); 
+                            CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
                     return;
                 }
                 catch (Exception e)
                 {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error); 
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
                     Log.Error(e);
                     return;
                 }
@@ -231,23 +227,21 @@ namespace ATIS.Ui.Views.Database.D21Class
             }
             catch (Exception e)
             {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error); 
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
             ExecuteGetClassesByNameOrId(searchName);
             ClassesView.MoveCurrentToPosition(_position);
         }
-
         #endregion [Methods Class]                
- 
 
-        
 
- //    Part 2    
 
-           
+        //    Part 2    
+
+
         #region "Public Commands Connect <== Tbl18Superclass"                 
-        
+
 
         private RelayCommand _saveSuperclassCommand;
 
@@ -262,9 +256,9 @@ namespace ATIS.Ui.Views.Database.D21Class
                 var superclass = _uow.Tbl18Superclasses.GetById(CurrentTbl18Superclass.SuperclassId);
 
                 if (CurrentTbl18Superclass.SuperclassId == 0)
-                    superclass = _extSave.SuperclassAdd(CurrentTbl18Superclass);
+                    superclass = _extCrud.SuperclassAdd(CurrentTbl18Superclass);
                 else
-                    superclass = _extSave.SuperclassUpdate(superclass, CurrentTbl18Superclass);
+                    superclass = _extCrud.SuperclassUpdate(superclass, CurrentTbl18Superclass);
 
                 _position = ClassesView.CurrentPosition;
 
@@ -273,7 +267,7 @@ namespace ATIS.Ui.Views.Database.D21Class
 
                 try
                 {
-                    _extSave.SuperclassSave(superclass, CurrentTbl18Superclass);
+                    _extCrud.SuperclassSave(superclass, CurrentTbl18Superclass);
                 }
                 catch (DbUpdateException e)
                 {
@@ -337,7 +331,7 @@ namespace ATIS.Ui.Views.Database.D21Class
         private void ExecuteAddSubclass(object o)
         {
             Tbl24SubclassesList.Insert(0, new Tbl24Subclass { SubclassName = CultRes.StringsRes.DatasetNew });
-            Tbl21ClassesAllList = _extGet.AllCollection<Tbl21Class>("classe");
+            Tbl21ClassesAllList = _extCrud.GetCollectionAllOrderBy<Tbl21Class>("classe");
 
             SubclassesView = CollectionViewSource.GetDefaultView(Tbl24SubclassesList);
             SubclassesView.MoveCurrentToFirst();
@@ -347,7 +341,7 @@ namespace ATIS.Ui.Views.Database.D21Class
         {
             if (_genSubclassMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl24Subclass)) return;
 
-            Tbl24SubclassesList = _extCopy.CopySubclass(CurrentTbl24Subclass);
+            Tbl24SubclassesList = _extCrud.CopySubclass(CurrentTbl24Subclass);
 
             // evtl verbundene tabellen-Datensätze auch kopieren Expert, Source, Author und Comment
 
@@ -360,27 +354,27 @@ namespace ATIS.Ui.Views.Database.D21Class
             if (_genSubclassMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl24Subclass)) return;
 
             //check if in Tbl27Infraclasses connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-            Tbl27InfraclassesList = _extDelete.SearchForConnectedDatasetsWithSubclassIdInTableInfraclass(CurrentTbl24Subclass);
+            Tbl27InfraclassesList = _extCrud.SearchForConnectedDatasetsWithSubclassIdInTableInfraclass(CurrentTbl24Subclass);
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl27InfraclassesList.Count, "Infraclass")) return;
 
             //Delete all References Experts, Sources, Authors  ----------------------------------------------------
-            Tbl90ReferencesList = _extDelete.DeleteDatasetsWithSubclassIdInTableReference(CurrentTbl24Subclass);
+            Tbl90ReferencesList = _extCrud.DeleteDatasetsWithSubclassIdInTableReference(CurrentTbl24Subclass);
             if (Tbl90ReferencesList.Count > 0)
             {
                 if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
-                _extDelete.DeleteReferences(Tbl90ReferencesList);
+                _extCrud.DeleteReferences(Tbl90ReferencesList);
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
             }
 
             //Delete all Comments  ----------------------------------------------------
-            Tbl93CommentsList = _extDelete.DeleteDatasetsWithSubclassIdInTableComment(CurrentTbl24Subclass);
+            Tbl93CommentsList = _extCrud.DeleteDatasetsWithSubclassIdInTableComment(CurrentTbl24Subclass);
             if (Tbl93CommentsList.Count > 0)
             {
                 if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
 
-                _extDelete.DeleteComments(Tbl93CommentsList);
+                _extCrud.DeleteComments(Tbl93CommentsList);
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
             }
@@ -392,7 +386,7 @@ namespace ATIS.Ui.Views.Database.D21Class
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl24Subclass.SubclassName)) return;
 
-                    _extDelete.DeleteSubclass(subclass);
+                    _extCrud.DeleteSubclass(subclass);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl24Subclass.SubclassName);
                 }
@@ -404,7 +398,7 @@ namespace ATIS.Ui.Views.Database.D21Class
                 Log.Error(e);
             }
 
-            Tbl24SubclassesList = _extGet.GetSubclassesCollectionOrderByFromClassId<Tbl24Subclass>(CurrentTbl24Subclass.ClassId);
+            Tbl24SubclassesList = _extCrud.GetSubclassesCollectionFromClassIdOrderBy<Tbl24Subclass>(CurrentTbl24Subclass.ClassId);
 
             SubclassesView = CollectionViewSource.GetDefaultView(Tbl24SubclassesList);
             SubclassesView.MoveCurrentToFirst();
@@ -421,9 +415,9 @@ namespace ATIS.Ui.Views.Database.D21Class
                 var subclass = _uow.Tbl24Subclasses.GetById(CurrentTbl24Subclass.SubclassId);
 
                 if (CurrentTbl24Subclass.SubclassId == 0)
-                    subclass = _extSave.SubclassAdd(CurrentTbl24Subclass);
+                    subclass = _extCrud.SubclassAdd(CurrentTbl24Subclass);
                 else
-                    subclass = _extSave.SubclassUpdate(subclass, CurrentTbl24Subclass);
+                    subclass = _extCrud.SubclassUpdate(subclass, CurrentTbl24Subclass);
 
                 //  _position = SubclassesView.CurrentPosition;
 
@@ -431,7 +425,7 @@ namespace ATIS.Ui.Views.Database.D21Class
 
                 try
                 {
-                    _extSave.SubclassSave(subclass, CurrentTbl24Subclass);
+                    _extCrud.SubclassSave(subclass, CurrentTbl24Subclass);
                 }
                 catch (DbUpdateException e)
                 {
@@ -458,7 +452,7 @@ namespace ATIS.Ui.Views.Database.D21Class
                 Log.Error(e);
             }
 
-            Tbl24SubclassesList = _extGet.GetSubclassesCollectionOrderByFromClassId<Tbl24Subclass>(CurrentTbl24Subclass.ClassId);
+            Tbl24SubclassesList = _extCrud.GetSubclassesCollectionFromClassIdOrderBy<Tbl24Subclass>(CurrentTbl24Subclass.ClassId);
 
             SubclassesView = CollectionViewSource.GetDefaultView(Tbl24SubclassesList);
             SubclassesView.MoveCurrentToFirst();
@@ -510,7 +504,7 @@ namespace ATIS.Ui.Views.Database.D21Class
         {
             Tbl90ReferenceAuthorsList ??= new ObservableCollection<Tbl90Reference>();
 
-            Tbl90AuthorsAllList = _extGet.AllCollection<Tbl90RefAuthor>("author");
+            Tbl90AuthorsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefAuthor>("author");
             Tbl90ReferenceAuthorsList.Insert(0, new Tbl90Reference { Info = CultRes.StringsRes.DatasetNew });
 
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
@@ -521,7 +515,7 @@ namespace ATIS.Ui.Views.Database.D21Class
         {
             if (_genAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceAuthor)) return;
 
-            Tbl90ReferenceAuthorsList = _extCopy.CopyReferenceClass(CurrentTbl90ReferenceAuthor, "Author");
+            Tbl90ReferenceAuthorsList = _extCrud.CopyReferenceClass(CurrentTbl90ReferenceAuthor, "Author");
 
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
             ReferenceAuthorsView.MoveCurrentToFirst();
@@ -538,7 +532,7 @@ namespace ATIS.Ui.Views.Database.D21Class
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceAuthor.Info)) return;
 
-                    _extDelete.DeleteReference(reference);
+                    _extCrud.DeleteReference(reference);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceAuthor.Info);
                 }
@@ -576,10 +570,10 @@ namespace ATIS.Ui.Views.Database.D21Class
 
 
                 if (CurrentTbl90ReferenceAuthor.ReferenceId == 0)
-                    reference = _extSave.ReferenceAuthorClassAdd(CurrentTbl90ReferenceAuthor);
+                    reference = _extCrud.ReferenceAuthorClassAdd(CurrentTbl90ReferenceAuthor);
 
                 else
-                    reference = _extSave.ReferenceAuthorClassUpdate(reference, CurrentTbl90ReferenceAuthor);
+                    reference = _extCrud.ReferenceAuthorClassUpdate(reference, CurrentTbl90ReferenceAuthor);
 
                 //    _position = ClassesView.CurrentPosition;
 
@@ -587,7 +581,7 @@ namespace ATIS.Ui.Views.Database.D21Class
 
                 try
                 {
-                    _extSave.ReferenceAuthorSave(reference, CurrentTbl90ReferenceAuthor);
+                    _extCrud.ReferenceAuthorSave(reference, CurrentTbl90ReferenceAuthor);
                 }
                 catch (DbUpdateException e)
                 {
@@ -613,7 +607,7 @@ namespace ATIS.Ui.Views.Database.D21Class
                 _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
-            Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFromClassIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl21Class.ClassId);
+            Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFromClassIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl21Class.ClassId);
 
 
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
@@ -648,7 +642,7 @@ namespace ATIS.Ui.Views.Database.D21Class
         {
             Tbl90ReferenceSourcesList ??= new ObservableCollection<Tbl90Reference>();
 
-            Tbl90SourcesAllList = _extGet.AllCollection<Tbl90RefSource>("source");
+            Tbl90SourcesAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefSource>("source");
 
             Tbl90ReferenceSourcesList.Insert(0, new Tbl90Reference { Info = CultRes.StringsRes.DatasetNew });
 
@@ -660,7 +654,7 @@ namespace ATIS.Ui.Views.Database.D21Class
         {
             if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
 
-            Tbl90ReferenceAuthorsList = _extCopy.CopyReferenceClass(CurrentTbl90ReferenceSource, "Source");
+            Tbl90ReferenceAuthorsList = _extCrud.CopyReferenceClass(CurrentTbl90ReferenceSource, "Source");
 
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
             ReferenceSourcesView.MoveCurrentToFirst();
@@ -677,7 +671,7 @@ namespace ATIS.Ui.Views.Database.D21Class
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceSource.Info)) return;
 
-                    _extDelete.DeleteReference(reference);
+                    _extCrud.DeleteReference(reference);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceSource.Info);
                 }
@@ -689,7 +683,7 @@ namespace ATIS.Ui.Views.Database.D21Class
                 Log.Error(e);
             }
 
-            Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromClassIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl21Class.ClassId);
+            Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromClassIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl21Class.ClassId);
 
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
             ReferenceSourcesView.MoveCurrentToFirst();
@@ -717,9 +711,9 @@ namespace ATIS.Ui.Views.Database.D21Class
 
 
                 if (CurrentTbl90ReferenceSource.ReferenceId == 0)
-                    reference = _extSave.ReferenceSourceClassAdd(CurrentTbl90ReferenceSource);
+                    reference = _extCrud.ReferenceSourceClassAdd(CurrentTbl90ReferenceSource);
                 else
-                    reference = _extSave.ReferenceSourceClassUpdate(reference, CurrentTbl90ReferenceSource);
+                    reference = _extCrud.ReferenceSourceClassUpdate(reference, CurrentTbl90ReferenceSource);
 
                 //        _position = ClassesView.CurrentPosition;
 
@@ -727,7 +721,7 @@ namespace ATIS.Ui.Views.Database.D21Class
 
                 try
                 {
-                    _extSave.ReferenceSourceSave(reference, CurrentTbl90ReferenceSource);
+                    _extCrud.ReferenceSourceSave(reference, CurrentTbl90ReferenceSource);
 
                 }
                 catch (DbUpdateException e)
@@ -755,7 +749,7 @@ namespace ATIS.Ui.Views.Database.D21Class
                 Log.Error(e);
             }
 
-            Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromClassIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl21Class.ClassId);
+            Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromClassIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl21Class.ClassId);
 
 
 
@@ -790,7 +784,7 @@ namespace ATIS.Ui.Views.Database.D21Class
         {
             Tbl90ReferenceExpertsList ??= new ObservableCollection<Tbl90Reference>();
 
-            Tbl90ExpertsAllList = _extGet.AllCollection<Tbl90RefExpert>("expert");
+            Tbl90ExpertsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefExpert>("expert");
             Tbl90ReferenceExpertsList.Insert(0, new Tbl90Reference { Info = CultRes.StringsRes.DatasetNew });
 
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
@@ -801,7 +795,7 @@ namespace ATIS.Ui.Views.Database.D21Class
         {
             if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
 
-            Tbl90ReferenceExpertsList = _extCopy.CopyReferenceClass(CurrentTbl90ReferenceExpert, "Expert");
+            Tbl90ReferenceExpertsList = _extCrud.CopyReferenceClass(CurrentTbl90ReferenceExpert, "Expert");
 
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
             ReferenceExpertsView.MoveCurrentToFirst();
@@ -818,7 +812,7 @@ namespace ATIS.Ui.Views.Database.D21Class
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceExpert.Info)) return;
 
-                    _extDelete.DeleteReference(reference);
+                    _extCrud.DeleteReference(reference);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceExpert.Info);
                 }
@@ -830,7 +824,7 @@ namespace ATIS.Ui.Views.Database.D21Class
                 Log.Error(e);
             }
 
-            Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFromClassIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTbl21Class.ClassId);
+            Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFromClassIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl21Class.ClassId);
 
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
             ReferenceExpertsView.Refresh();
@@ -858,9 +852,9 @@ namespace ATIS.Ui.Views.Database.D21Class
 
 
                 if (CurrentTbl90ReferenceExpert.ReferenceId == 0)
-                    reference = _extSave.ReferenceExpertClassAdd(CurrentTbl90ReferenceExpert);
+                    reference = _extCrud.ReferenceExpertClassAdd(CurrentTbl90ReferenceExpert);
                 else
-                    reference = _extSave.ReferenceExpertClassUpdate(reference, CurrentTbl90ReferenceExpert);
+                    reference = _extCrud.ReferenceExpertClassUpdate(reference, CurrentTbl90ReferenceExpert);
 
                 //        _position = PhylumsView.CurrentPosition;
 
@@ -868,7 +862,7 @@ namespace ATIS.Ui.Views.Database.D21Class
 
                 try
                 {
-                    _extSave.ReferenceExpertSave(reference, CurrentTbl90ReferenceExpert);
+                    _extCrud.ReferenceExpertSave(reference, CurrentTbl90ReferenceExpert);
                 }
                 catch (DbUpdateException e)
                 {
@@ -895,7 +889,7 @@ namespace ATIS.Ui.Views.Database.D21Class
                 Log.Error(e);
             }
 
-            Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFromClassIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTbl21Class.ClassId);
+            Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFromClassIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl21Class.ClassId);
 
 
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
@@ -942,7 +936,7 @@ namespace ATIS.Ui.Views.Database.D21Class
 
             if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
 
-            Tbl93CommentsList = _extCopy.CopyComment(CurrentTbl93Comment, "Comment");
+            Tbl93CommentsList = _extCrud.CopyComment(CurrentTbl93Comment, "Comment");
 
             CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
             CommentsView.MoveCurrentToFirst();
@@ -959,7 +953,7 @@ namespace ATIS.Ui.Views.Database.D21Class
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl93Comment.Info)) return;
 
-                    _extDelete.DeleteComment(comment);
+                    _extCrud.DeleteComment(comment);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl93Comment.Info);
                 }
@@ -971,7 +965,7 @@ namespace ATIS.Ui.Views.Database.D21Class
                 Log.Error(e);
             }
 
-            Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromClassId<Tbl93Comment>(CurrentTbl93Comment.ClassId);
+            Tbl93CommentsList = _extCrud.GetCommentsCollectionFromClassIdOrderBy<Tbl93Comment>(CurrentTbl93Comment.ClassId);
 
             CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
             CommentsView.Refresh();
@@ -989,9 +983,9 @@ namespace ATIS.Ui.Views.Database.D21Class
 
 
                 if (CurrentTbl93Comment.CommentId == 0)
-                    comment = _extSave.CommentClassAdd(CurrentTbl93Comment);
+                    comment = _extCrud.CommentClassAdd(CurrentTbl93Comment);
                 else
-                    comment = _extSave.CommentClassUpdate(comment, CurrentTbl93Comment);
+                    comment = _extCrud.CommentClassUpdate(comment, CurrentTbl93Comment);
 
                 //        _position = ClassesView.CurrentPosition;
 
@@ -1000,7 +994,7 @@ namespace ATIS.Ui.Views.Database.D21Class
 
                 try
                 {
-                    _extSave.CommentSave(comment, CurrentTbl93Comment);
+                    _extCrud.CommentSave(comment, CurrentTbl93Comment);
                 }
                 catch (DbUpdateException e)
                 {
@@ -1027,7 +1021,7 @@ namespace ATIS.Ui.Views.Database.D21Class
                 Log.Error(e);
             }
 
-            Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromClassId<Tbl93Comment>(CurrentTbl93Comment.ClassId);
+            Tbl93CommentsList = _extCrud.GetCommentsCollectionFromClassIdOrderBy<Tbl93Comment>(CurrentTbl93Comment.ClassId);
 
 
             CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
@@ -1051,10 +1045,10 @@ namespace ATIS.Ui.Views.Database.D21Class
 
         private void GetConnectedTablesById(object o)
         {
-            Tbl12SubphylumsAllList = _extGet.AllCollection<Tbl12Subphylum>("subphylum");
-            Tbl15SubdivisionsAllList = _extGet.AllCollection<Tbl15Subdivision>("subdivision");
+            Tbl12SubphylumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl12Subphylum>("subphylum");
+            Tbl15SubdivisionsAllList = _extCrud.GetCollectionAllOrderBy<Tbl15Subdivision>("subdivision");
 
-            Tbl18SuperclassesList = _extGet.GetSuperclassesCollectionOrderByFromSuperclassId<Tbl18Superclass>(CurrentTbl21Class.SuperclassId);
+            Tbl18SuperclassesList = _extCrud.GetSuperclassesCollectionFromSuperclassIdOrderBy<Tbl18Superclass>(CurrentTbl21Class.SuperclassId);
 
             SuperclassesView = CollectionViewSource.GetDefaultView(Tbl18SuperclassesList);
             SuperclassesView.Refresh();
@@ -1086,9 +1080,9 @@ namespace ATIS.Ui.Views.Database.D21Class
                 {
                     if (CurrentTbl21Class != null)
                     {
-                        Tbl18SuperclassesList = _extGet.GetSuperclassesCollectionOrderByFromSuperclassId<Tbl18Superclass>(CurrentTbl21Class.SuperclassId);
+                        Tbl18SuperclassesList = _extCrud.GetSuperclassesCollectionFromSuperclassIdOrderBy<Tbl18Superclass>(CurrentTbl21Class.SuperclassId);
 
-                        Tbl12SubphylumsAllList = _extGet.AllCollection<Tbl12Subphylum>("subphylum");
+                        Tbl12SubphylumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl12Subphylum>("subphylum");
 
                         SuperclassesView = CollectionViewSource.GetDefaultView(Tbl18SuperclassesList);
                         SuperclassesView.Refresh();
@@ -1100,9 +1094,9 @@ namespace ATIS.Ui.Views.Database.D21Class
                 {
                     if (CurrentTbl21Class != null)
                     {
-                        Tbl24SubclassesList = _extGet.GetSubclassesCollectionOrderByFromClassId<Tbl24Subclass>(CurrentTbl21Class.ClassId);
+                        Tbl24SubclassesList = _extCrud.GetSubclassesCollectionFromClassIdOrderBy<Tbl24Subclass>(CurrentTbl21Class.ClassId);
 
-                        Tbl21ClassesAllList = _extGet.AllCollection<Tbl21Class>("classe");
+                        Tbl21ClassesAllList = _extCrud.GetCollectionAllOrderBy<Tbl21Class>("classe");
 
                         SubclassesView = CollectionViewSource.GetDefaultView(Tbl24SubclassesList);
                         SubclassesView.Refresh();
@@ -1120,7 +1114,7 @@ namespace ATIS.Ui.Views.Database.D21Class
                 {
                     if (CurrentTbl21Class != null)
                     {
-                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromClassId<Tbl93Comment>(CurrentTbl21Class.ClassId);
+                        Tbl93CommentsList = _extCrud.GetCommentsCollectionFromClassIdOrderBy<Tbl93Comment>(CurrentTbl21Class.ClassId);
 
                         CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
                         CommentsView.Refresh();
@@ -1143,7 +1137,7 @@ namespace ATIS.Ui.Views.Database.D21Class
                 {
                     if (CurrentTbl21Class != null)
                     {
-                        Tbl18SuperclassesList = _extGet.GetSuperclassesCollectionOrderByFromSuperclassId<Tbl18Superclass>(CurrentTbl21Class.SuperclassId);
+                        Tbl18SuperclassesList = _extCrud.GetSuperclassesCollectionFromSuperclassIdOrderBy<Tbl18Superclass>(CurrentTbl21Class.SuperclassId);
 
                         SuperclassesView = CollectionViewSource.GetDefaultView(Tbl18SuperclassesList);
                         SuperclassesView.Refresh();
@@ -1160,9 +1154,9 @@ namespace ATIS.Ui.Views.Database.D21Class
                 {
                     if (CurrentTbl21Class != null)
                     {
-                        Tbl24SubclassesList = _extGet.GetSubclassesCollectionOrderByFromClassId<Tbl24Subclass>(CurrentTbl21Class.ClassId);
+                        Tbl24SubclassesList = _extCrud.GetSubclassesCollectionFromClassIdOrderBy<Tbl24Subclass>(CurrentTbl21Class.ClassId);
 
-                        Tbl21ClassesAllList = _extGet.AllCollection<Tbl21Class>("classe");
+                        Tbl21ClassesAllList = _extCrud.GetCollectionAllOrderBy<Tbl21Class>("classe");
 
                         SubclassesView = CollectionViewSource.GetDefaultView(Tbl24SubclassesList);
                         SubclassesView.Refresh();
@@ -1176,7 +1170,7 @@ namespace ATIS.Ui.Views.Database.D21Class
                     {
                         Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
 
-                        Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFromClassIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTbl21Class.ClassId);
+                        Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFromClassIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl21Class.ClassId);
 
                         ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
                         ReferenceExpertsView.Refresh();
@@ -1191,7 +1185,7 @@ namespace ATIS.Ui.Views.Database.D21Class
                     {
                         Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
 
-                        Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromClassIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl21Class.ClassId);
+                        Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromClassIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl21Class.ClassId);
 
                         ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
                         ReferenceSourcesView.Refresh();
@@ -1206,7 +1200,7 @@ namespace ATIS.Ui.Views.Database.D21Class
                     {
                         Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
 
-                        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFromClassIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl21Class.ClassId);
+                        Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFromClassIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl21Class.ClassId);
 
                         ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
                         ReferenceAuthorsView.Refresh();
@@ -1219,7 +1213,7 @@ namespace ATIS.Ui.Views.Database.D21Class
                 {
                     if (CurrentTbl21Class != null)
                     {
-                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromClassId<Tbl93Comment>(CurrentTbl21Class.ClassId);
+                        Tbl93CommentsList = _extCrud.GetCommentsCollectionFromClassIdOrderBy<Tbl93Comment>(CurrentTbl21Class.ClassId);
 
                         CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
                         CommentsView.Refresh();
@@ -1231,7 +1225,7 @@ namespace ATIS.Ui.Views.Database.D21Class
                 {
                     if (CurrentTbl21Class != null)
                     {
-                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromClassId<Tbl93Comment>(CurrentTbl21Class.ClassId);
+                        Tbl93CommentsList = _extCrud.GetCommentsCollectionFromClassIdOrderBy<Tbl93Comment>(CurrentTbl21Class.ClassId);
 
                         CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
                         CommentsView.Refresh();
@@ -1256,7 +1250,7 @@ namespace ATIS.Ui.Views.Database.D21Class
                     {
                         Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
 
-                        Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFromClassIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTbl21Class.ClassId);
+                        Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFromClassIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl21Class.ClassId);
 
                         ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
                         ReferenceExpertsView.Refresh();
@@ -1271,7 +1265,7 @@ namespace ATIS.Ui.Views.Database.D21Class
                     {
                         Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
 
-                        Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromClassIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl21Class.ClassId);
+                        Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromClassIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl21Class.ClassId);
 
                         ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
                         ReferenceSourcesView.Refresh();
@@ -1286,7 +1280,7 @@ namespace ATIS.Ui.Views.Database.D21Class
                     {
                         Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
 
-                        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFromClassIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl21Class.ClassId);
+                        Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFromClassIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl21Class.ClassId);
 
                         ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
                         ReferenceAuthorsView.Refresh();
@@ -1301,6 +1295,7 @@ namespace ATIS.Ui.Views.Database.D21Class
 
 
         //    Part 11    
+
 
         #region "Public Properties Tbl21Class"
 
@@ -1337,25 +1332,24 @@ namespace ATIS.Ui.Views.Database.D21Class
 
         #endregion "Public Properties"   
 
-
         #region "Public Properties Tbl18Superclass"
 
         public ICollectionView SuperclassesView;
-private Tbl18Superclass CurrentTbl18Superclass => SuperclassesView?.CurrentItem as Tbl18Superclass;
+        private Tbl18Superclass CurrentTbl18Superclass => SuperclassesView?.CurrentItem as Tbl18Superclass;
 
-private ObservableCollection<Tbl18Superclass> _tbl18SuperclassesList;
-public ObservableCollection<Tbl18Superclass> Tbl18SuperclassesList
-{
-    get => _tbl18SuperclassesList;
-    set { _tbl18SuperclassesList = value; RaisePropertyChanged(""); }
-}
+        private ObservableCollection<Tbl18Superclass> _tbl18SuperclassesList;
+        public ObservableCollection<Tbl18Superclass> Tbl18SuperclassesList
+        {
+            get => _tbl18SuperclassesList;
+            set { _tbl18SuperclassesList = value; RaisePropertyChanged(""); }
+        }
 
-private ObservableCollection<Tbl18Superclass> _tbl18SuperclassesAllList;
-public ObservableCollection<Tbl18Superclass> Tbl18SuperclassesAllList
-{
-    get => _tbl18SuperclassesAllList;
-    set { _tbl18SuperclassesAllList = value; RaisePropertyChanged(""); }
-}
+        private ObservableCollection<Tbl18Superclass> _tbl18SuperclassesAllList;
+        public ObservableCollection<Tbl18Superclass> Tbl18SuperclassesAllList
+        {
+            get => _tbl18SuperclassesAllList;
+            set { _tbl18SuperclassesAllList = value; RaisePropertyChanged(""); }
+        }
 
         #endregion "Public Properties"   
 
@@ -1508,5 +1502,6 @@ public ObservableCollection<Tbl18Superclass> Tbl18SuperclassesAllList
 
         #endregion "Public Properties"     
 
+
     }
-}   
+}

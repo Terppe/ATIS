@@ -10,7 +10,7 @@
   <Database>Atis</Database> 
 
   <LayoutTK3>ListDetails</LayoutTK3>
-  <LayoutTK2>D09Division</LayoutTK2>
+  <LayoutTK2>ListDetails</LayoutTK2>
   <LayoutTK1>D06Phylum</LayoutTK1>
   <Layout>D03Regnum</Layout>
   <LayoutFK1>NULL</LayoutFK1>

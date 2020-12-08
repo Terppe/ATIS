@@ -58,9 +58,9 @@ namespace ATIS.Ui.Views.Report
                 case "Tbl15Subdivisions":
                     GetTbl15SubdivisionsById(id);
                     break;
-                    //    case "Tbl18Superclasses":
-                    //        GetTbl18SuperclassesById(id, _fishId, _plantId);
-                    //        break;
+                //case "Tbl18Superclasses":
+                //    GetTbl18SuperclassesById(id, _fishId, _plantId);
+                //    break;
                     //    case "Tbl21Classes":
                     //        GetTbl21ClassesById(id, _fishId, _plantId);
                     //        break;

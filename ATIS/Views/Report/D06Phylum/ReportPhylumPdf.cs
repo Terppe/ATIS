@@ -20,9 +20,7 @@ namespace ATIS.Ui.Views.Report.D06Phylum
     {
 
         private static readonly ILog Log = LogManager.GetLogger(typeof(ReportPhylumPdf));
-        private static readonly BasicGet ExtGet = new BasicGet();
         private static readonly CrudFunctions ExtCrud = new CrudFunctions();
-        private static readonly ReportBasicGet ExtReportBasicGet = new ReportBasicGet();
         private static readonly PdfHelper PdfHelper = new PdfHelper();
         private static string _n;
         private static string _z1;
@@ -49,21 +47,20 @@ namespace ATIS.Ui.Views.Report.D06Phylum
 
 
             //-----------------------------------------------------------------------------
-            var phylumList = ExtGet.GetPhylumsCollectionOrderByFromPhylumId<Tbl06Phylum>(id).FirstOrDefault();
+            var phylumList = ExtCrud.GetPhylumsCollectionFromPhylumIdOrderBy<Tbl06Phylum>(id).FirstOrDefault();
             //Child
-            var subphylumsList = ExtGet.GetSubphylumsCollectionOrderByFromPhylumId<Tbl12Subphylum>(id);
+            var subphylumsList = ExtCrud.GetSubphylumsCollectionFromPhylumIdOrderBy<Tbl12Subphylum>(id);
 
             //Funktion
-       //     var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(id);
-            var regnumId = ExtCrud.GetRegnumIdFromPhylumsCollectionSelect(id);
+            var regnumId = ExtCrud.RegnumIdFromPhylumsCollectionSelect(id);
             //ForeignKeyTable
             var regnumList = ExtCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(regnumId).FirstOrDefault();
 
 
-            var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromPhylumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
-            var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromPhylumIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
-            var authorsList = ExtGet.GetReferenceAuthorsCollectionOrderByFromPhylumIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
-            var commentsList = ExtGet.GetCommentsCollectionOrderByFromPhylumId<Tbl93Comment>(id);
+            var expertsList = ExtCrud.GetReferenceExpertsCollectionFromPhylumIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(id);
+            var sourcesList = ExtCrud.GetReferenceSourcesCollectionFromPhylumIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(id);
+            var authorsList = ExtCrud.GetReferenceAuthorsCollectionFromPhylumIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(id);
+            var commentsList = ExtCrud.GetCommentsCollectionFromPhylumIdOrderBy<Tbl93Comment>(id);
 
             try
             {

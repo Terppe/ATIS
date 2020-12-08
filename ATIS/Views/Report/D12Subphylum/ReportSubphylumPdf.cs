@@ -20,7 +20,6 @@ namespace ATIS.Ui.Views.Report.D12Subphylum
     {
 
         private static readonly ILog Log = LogManager.GetLogger(typeof(ReportSubphylumPdf));
-        private static readonly BasicGet ExtGet = new BasicGet();
         private static readonly CrudFunctions ExtCrud = new CrudFunctions();
         private static readonly ReportBasicGet ExtReportBasicGet = new ReportBasicGet();
         private static readonly PdfHelper PdfHelper = new PdfHelper();
@@ -45,32 +44,31 @@ namespace ATIS.Ui.Views.Report.D12Subphylum
 
 
             //  LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
-            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");           
+            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");      
+            //-----------------------------------------------------------------------------     
 
-            //-----------------------------------------------------------------------------
+            var subphylumList = ExtCrud.GetSubphylumsCollectionFromSubphylumIdOrderBy<Tbl12Subphylum>(id).FirstOrDefault();
+
+            //Child
+            var superclasssList = ExtCrud.GetSuperclassesCollectionFromSubphylumIdOrderBy<Tbl18Superclass>(id);
+
             //Function
-            var phylumId = ExtReportBasicGet.PhylumIdFromSubphylumsCollectionSelect(id);
+            var phylumId = ExtCrud.PhylumIdFromSubphylumsCollectionSelect(id);
             //ForeignKeyTable
-            var phylumList = ExtGet.GetPhylumsCollectionOrderByFromPhylumId<Tbl06Phylum>(phylumId).FirstOrDefault();
+            var phylumList = ExtCrud.GetPhylumsCollectionFromPhylumIdOrderBy<Tbl06Phylum>(phylumId).FirstOrDefault();
             //Function
-         //   var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(phylumId);
-            var regnumId = ExtCrud.GetRegnumIdFromPhylumsCollectionSelect(phylumId);
+            var regnumId = ExtCrud.RegnumIdFromPhylumsCollectionSelect(phylumId);
             //ForeignKeyTable
             var regnumList = ExtCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(regnumId).FirstOrDefault();
 
-            var subphylumList = ExtGet.GetSubphylumsCollectionOrderByFromSubphylumId<Tbl12Subphylum>(id).FirstOrDefault();
-
-            //Child
-            var superclasssList = ExtGet.GetSuperclassesCollectionOrderByFromSubphylumId<Tbl18Superclass>(id);
-
-
-            var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromSubphylumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
-            var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromSubphylumIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
-            var authorsList = ExtGet.GetReferenceAuthorsCollectionOrderByFromSubphylumIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
-            var commentsList = ExtGet.GetCommentsCollectionOrderByFromSubphylumId<Tbl93Comment>(id);
+            var expertsList = ExtCrud.GetReferenceExpertsCollectionFromSubphylumIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(id);
+            var sourcesList = ExtCrud.GetReferenceSourcesCollectionFromSubphylumIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(id);
+            var authorsList = ExtCrud.GetReferenceAuthorsCollectionFromSubphylumIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(id);
+            var commentsList = ExtCrud.GetCommentsCollectionFromSubphylumIdOrderBy<Tbl93Comment>(id);
 
             try
             {
+
                 using var pdf = new PdfDocument();
                 _arrInts = PdfHelper.AddReportMain(pdf);
 
@@ -81,7 +79,6 @@ namespace ATIS.Ui.Views.Report.D12Subphylum
                     AddRegnumHierarchyList(pdf, regnumList);
                 if (phylumList != null)
                     AddPhylumHierarchyList(pdf, phylumList);
-
                 AddSubphylumHierarchyList(pdf, subphylumList);
 
                 if (superclasssList.Count != 0)
@@ -106,24 +103,24 @@ namespace ATIS.Ui.Views.Report.D12Subphylum
                 switch (use)
                 {
                     case "save":
-                    {
-                        var sfd = new SaveFileDialog { Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*" };
-                        sfd.DefaultExt = ".pdf"; // Default file extension
-                        sfd.InitialDirectory = @"C:\";
-                        var saveResult = sfd.ShowDialog();
-                        // Process save file dialog box results
-                        if (saveResult != true) return;
-                        // Save document
-                        var filename = sfd.FileName;
-                        pdf.Save(filename);
-                        break;
-                    }
+                        {
+                            var sfd = new SaveFileDialog { Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*" };
+                            sfd.DefaultExt = ".pdf"; // Default file extension
+                            sfd.InitialDirectory = @"C:\";
+                            var saveResult = sfd.ShowDialog();
+                            // Process save file dialog box results
+                            if (saveResult != true) return;
+                            // Save document
+                            var filename = sfd.FileName;
+                            pdf.Save(filename);
+                            break;
+                        }
                     case "print":
-                    {
-                        var pr = new PdfPrintDocument(pdf, PrintSize.FitPage);
-                        pr.PrintDocument.Print();
-                        break;
-                    }
+                        {
+                            var pr = new PdfPrintDocument(pdf, PrintSize.FitPage);
+                            pr.PrintDocument.Print();
+                            break;
+                        }
                 }
             }
             catch (Exception e)
@@ -242,6 +239,7 @@ namespace ATIS.Ui.Views.Report.D12Subphylum
 
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }
+
         private static void AddPhylumHierarchyList(PdfDocument pdf, Tbl06Phylum phylumList)
         {
             _page = pdf.Pages[_arrInts[6]];

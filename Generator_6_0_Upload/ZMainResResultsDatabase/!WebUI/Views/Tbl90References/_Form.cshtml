@@ -1,0 +1,292 @@
+@model Atis.Domain.Models.Tbl90Reference  
+
+<script type="text/javascript"> 
+$(function()   {
+    $('#FiSpeciesID').focus();
+});
+</script> 
+      
+ 
+          <!-- _Form.cshtml  Skriptdatum: 15.03.2012  10:32    -->     
+  
+        @using (Html.BeginForm()) {
+        <div class="pagination">
+            <p><input type="submit" value="@SharedRes.StringsRes.ButtonSave" />  
+                @Html.ActionLink(SharedRes.StringsRes.ActionLnkBack, "Index", null, new { style = "font-weight:bold" })  
+                @Html.ActionLink(SharedRes.StringsRes.ActionLnkClear, "Create", null, null)  
+            </p> 
+        </div>
+
+        @Html.ValidationSummary() 
+            <fieldset><legend>@SharedRes.StringsRes.Fields </legend>  
+
+              <table>                                             
+                     <tr>
+                         <td style="width:8em"><strong>@Tbl90ReferencesRes.StringsRes.DDLFiSpeciesName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.FiSpeciesID, ViewData["FiSpeciesNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.FiSpeciesID) </td>
+                                           
+    
+                     
+                         <td style="width:8em"><strong>@Tbl90ReferencesRes.StringsRes.DDLPlSpeciesName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.PlSpeciesID, ViewData["PlSpeciesNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.PlSpeciesID) </td>
+                            
+    
+                     
+                         <td style="width:8em"><strong>@Tbl90ReferencesRes.StringsRes.DDLGenusName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.GenusID, ViewData["GenusNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.GenusID) </td>
+                     </tr>        
+              </table>                                                           
+    
+              <table>                                             
+                     <tr>
+                         <td style="width:8em">@Tbl90ReferencesRes.StringsRes.DDLInfratribusName </td>
+                         <td>@Html.DropDownListFor(m => m.InfratribusID, ViewData["InfratribusNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.InfratribusID) </td>
+                                           
+    
+                     
+                         <td style="width:8em">@Tbl90ReferencesRes.StringsRes.DDLSubtribusName </td>
+                         <td>@Html.DropDownListFor(m => m.SubtribusID, ViewData["SubtribusNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.SubtribusID) </td>
+                            
+    
+                     
+                         <td style="width:8em"><strong>@Tbl90ReferencesRes.StringsRes.DDLTribusName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.TribusID, ViewData["TribusNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.TribusID) </td>
+                              
+    
+                     
+                         <td style="width:8em">@Tbl90ReferencesRes.StringsRes.DDLSupertribusName </td>
+                         <td>@Html.DropDownListFor(m => m.SupertribusID, ViewData["SupertribusNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.SupertribusID) </td>
+                     </tr>        
+              </table>                                                           
+    
+              <table>                                             
+                     <tr>
+                         <td style="width:8em">@Tbl90ReferencesRes.StringsRes.DDLInfrafamilyName </td>
+                         <td>@Html.DropDownListFor(m => m.InfrafamilyID, ViewData["InfrafamilyNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.InfrafamilyID) </td>
+                                           
+    
+                     
+                         <td style="width:8em">@Tbl90ReferencesRes.StringsRes.DDLSubfamilyName </td>
+                         <td>@Html.DropDownListFor(m => m.SubfamilyID, ViewData["SubfamilyNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.SubfamilyID) </td>
+                            
+    
+                     
+                         <td style="width:8em"><strong>@Tbl90ReferencesRes.StringsRes.DDLFamilyName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.FamilyID, ViewData["FamilyNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.FamilyID) </td>
+                              
+    
+                     
+                         <td style="width:8em">@Tbl90ReferencesRes.StringsRes.DDLSuperfamilyName </td>
+                         <td>@Html.DropDownListFor(m => m.SuperfamilyID, ViewData["SuperfamilyNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.SuperfamilyID) </td>
+                     </tr>        
+              </table>                                                           
+    
+              <table>                                             
+                     <tr>
+                         <td style="width:8em">@Tbl90ReferencesRes.StringsRes.DDLInfraordoName </td>
+                         <td>@Html.DropDownListFor(m => m.InfraordoID, ViewData["InfraordoNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.InfraordoID) </td>
+                                           
+    
+                     
+                         <td style="width:8em">@Tbl90ReferencesRes.StringsRes.DDLSubordoName </td>
+                         <td>@Html.DropDownListFor(m => m.SubordoID, ViewData["SubordoNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.SubordoID) </td>
+                            
+    
+                     
+                         <td style="width:8em"><strong>@Tbl90ReferencesRes.StringsRes.DDLOrdoName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.OrdoID, ViewData["OrdoNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.OrdoID) </td>
+                              
+    
+                     
+                         <td style="width:8em">@Tbl90ReferencesRes.StringsRes.DDLLegioName </td>
+                         <td>@Html.DropDownListFor(m => m.LegioID, ViewData["LegioNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.LegioID) </td>
+                     </tr>        
+              </table>                                                           
+    
+              <table>                                             
+                     <tr>
+                         <td style="width:8em">@Tbl90ReferencesRes.StringsRes.DDLInfraclassName </td>
+                         <td>@Html.DropDownListFor(m => m.InfraclassID, ViewData["InfraclassNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.InfraclassID) </td>
+                                           
+    
+                     
+                         <td style="width:8em">@Tbl90ReferencesRes.StringsRes.DDLSubclassName </td>
+                         <td>@Html.DropDownListFor(m => m.SubclassID, ViewData["SubclassNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.SubclassID) </td>
+                            
+    
+                     
+                         <td style="width:8em"><strong>@Tbl90ReferencesRes.StringsRes.DDLClassName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.ClassID, ViewData["ClassNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.ClassID) </td>
+                              
+    
+                     
+                         <td style="width:8em">@Tbl90ReferencesRes.StringsRes.DDLSuperclassName </td>
+                         <td>@Html.DropDownListFor(m => m.SuperclassID, ViewData["SuperclassNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.SuperclassID) </td>
+                     </tr>        
+              </table>                                                           
+    
+              <table>                                             
+                     <tr>
+                         <td style="width:25em">@Html.Hidden("Dummy", new { style = "width: 15em;" })</td>
+                         <td style="width:8em">@Tbl90ReferencesRes.StringsRes.DDLSubdivisionName </td>
+                         <td>@Html.DropDownListFor(m => m.SubdivisionID, ViewData["SubdivisionNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.SubdivisionID) </td>
+                                           
+    
+                     
+                         <td style="width:8em"><strong>@Tbl90ReferencesRes.StringsRes.DDLDivisionName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.DivisionID, ViewData["DivisionNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.DivisionID) </td>
+                     </tr>        
+              </table>                                                           
+    
+              <table>                                             
+                     <tr>
+                         <td style="width:25em">@Html.Hidden("Dummy", new { style = "width: 15em;" })</td>
+                         <td style="width:8em">@Tbl90ReferencesRes.StringsRes.DDLSubphylumName </td>
+                         <td>@Html.DropDownListFor(m => m.SubphylumID, ViewData["SubphylumNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.SubphylumID) </td>
+                                           
+    
+                     
+                         <td style="width:8em"><strong>@Tbl90ReferencesRes.StringsRes.DDLPhylumName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.PhylumID, ViewData["PhylumNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.PhylumID) </td>
+                     </tr>       
+              </table>                                                           
+    
+              <table>                                             
+                     <tr>
+                         <td style="width:50.35em">@Html.Hidden("Dummy", new { style = "width: 15em;" })</td>           
+                         <td style="width:8em"><strong>@Tbl90ReferencesRes.StringsRes.DDLRegnumName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.RegnumID, ViewData["RegnumNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.RegnumID) </td>
+                     </tr>        
+              </table>         
+              <table><colgroup style="width:8em" span="2"></colgroup>                                                                                               
+      
+                    <tr>
+                        <td>@SharedRes.StringsRes.Valid_Year </td>
+                        <td>@Html.EditorFor(m => m.Valid) 
+                        @Html.ValidationMessageFor(m => m.Valid)                                    
+                        @Html.TextBoxFor(m => m.ValidYear, new { @class = "textbox3" }) 
+                        @Html.ValidationMessageFor(m => m.ValidYear) </td>
+                    </tr>   
+    
+                     <tr>
+                         <td><strong>@Tbl90ReferencesRes.StringsRes.RefExpert </strong></td>
+                         <td>@Html.DropDownListFor(m => m.RefExpertID, ViewData["RefExpertNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl80" })           
+                         @Html.ValidationMessageFor(m => m.RefExpertID) </td>
+                     </tr>                      
+    
+                     <tr>
+                         <td><strong>@Tbl90ReferencesRes.StringsRes.RefSource </strong></td>
+                         <td>@Html.DropDownListFor(m => m.RefSourceID, ViewData["RefSourceNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl80" })           
+                         @Html.ValidationMessageFor(m => m.RefSourceID) </td>
+                     </tr>                      
+    
+                     <tr>
+                         <td><strong>@Tbl90ReferencesRes.StringsRes.RefAuthor </strong></td>
+                         <td>@Html.DropDownListFor(m => m.RefAuthorID, ViewData["RefAuthorNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl80" })           
+                         @Html.ValidationMessageFor(m => m.RefAuthorID) </td>
+                     </tr>                      
+       
+                    <tr>
+                        <td>@SharedRes.StringsRes.Info </td>
+                        <td>@Html.TextBoxFor(m => m.Info, new { @class = "textbox108" }) 
+                        @Html.ValidationMessageFor(m => m.Info) </td>
+                    </tr>        
+ 
+                    <tr>
+                        <td>@SharedRes.StringsRes.Memo </td>
+                        <td>@Html.TextAreaFor(m => m.Memo, 6, 108, new { @class = "textbox" }) 
+                        @Html.ValidationMessageFor(m => m.Memo) </td>
+                    </tr>        
+        
+                   </table> 
+        <p></p>            
+        <div class="pagination">
+            <p><input type="submit" value="@SharedRes.StringsRes.ButtonSave" />  
+                @Html.ActionLink(SharedRes.StringsRes.ActionLnkBack, "Index", null, new { style = "font-weight:bold" })  
+            </p>  
+        </div>  
+
+        <ul id="nav-one" class="dropmenu css-only">      
+ 
+                            
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkCommentCreateRight, "Create", "Tbl93Comments",     
+  
+       new { regnumId = 0,                        
+  
+            phylumId = 0,                        
+  
+            divisionId = 0,                        
+  
+            subphylumId = 0,                        
+  
+            subdivisionId = 0,                        
+  
+            superclassId = 0,                        
+  
+            classId = 0,                        
+  
+            subclassId = 0,                        
+  
+            infraclassId = 0,                        
+  
+            legioId = 0,                        
+  
+            ordoId = 0,                        
+  
+            subordoId = 0,                        
+  
+            infraordoId = 0,                        
+  
+            superfamilyId = 0,                        
+  
+            familyId = 0,                        
+  
+            subfamilyId = 0,                        
+  
+            infrafamilyId = 0,                        
+  
+            supertribusId = 0,                        
+  
+            tribusId = 0,                        
+  
+            subtribusId = 0,                        
+  
+            infratribusId = 0,                        
+  
+            genusId = 0,                        
+  
+            fispeciesId = 0,                        
+  
+            plspeciesId = 0                        
+        
+         }, null)</li>               
+ 
+
+     </ul> 
+</fieldset>
+}   
+   

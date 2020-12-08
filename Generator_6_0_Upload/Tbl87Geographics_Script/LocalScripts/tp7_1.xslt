@@ -31,7 +31,6 @@ using System.Windows.Input;
 using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
-using ATIS.Ui.Views.Database.CrudHelper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
 using log4net;
 using Microsoft.EntityFrameworkCore;    ]]>      
@@ -110,7 +109,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(typeof(]]><xsl:value-of select="Basiss"/><![CDATA[ViewModel));
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
-        private readonly AtisDbContext _context = new AtisDbContext();
+        private readonly CrudFunctions _extCrud = new CrudFunctions();
 
         private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
         private readonly GenericMessageBoxes<]]><xsl:value-of select="LinqModel"/><![CDATA[> _gen]]><xsl:value-of select="Basis"/><![CDATA[MessageBoxes = new GenericMessageBoxes<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
@@ -120,17 +119,13 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
-        private readonly BasicGet _extGet = new BasicGet();
-        private readonly BasicCopy _extCopy = new BasicCopy();
-        private readonly BasicDelete _extDelete = new BasicDelete();
-        private readonly BasicSave _extSave = new BasicSave();        
         private int _position;  ]]> 
 </xsl:when>  
 <xsl:when test="Table ='Tbl18Superclasses'">   <![CDATA[ 
         #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(typeof(]]><xsl:value-of select="Basiss"/><![CDATA[ViewModel));
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
-        private readonly AtisDbContext _context = new AtisDbContext();
+        private readonly CrudFunctions _extCrud = new CrudFunctions();
 
         private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
         private readonly GenericMessageBoxes<]]><xsl:value-of select="LinqModel"/><![CDATA[> _gen]]><xsl:value-of select="Basis"/><![CDATA[MessageBoxes = new GenericMessageBoxes<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
@@ -141,17 +136,13 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
-        private readonly BasicGet _extGet = new BasicGet();
-        private readonly BasicCopy _extCopy = new BasicCopy();
-        private readonly BasicDelete _extDelete = new BasicDelete();
-        private readonly BasicSave _extSave = new BasicSave();        
         private int _position;  ]]> 
 </xsl:when> 
 <xsl:otherwise>        <![CDATA[ 
         #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(typeof(]]><xsl:value-of select="Basiss"/><![CDATA[ViewModel));
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
-        private readonly AtisDbContext _context = new AtisDbContext();
+        private readonly CrudFunctions _extCrud = new CrudFunctions();
 
         private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
         private readonly GenericMessageBoxes<]]><xsl:value-of select="LinqModel"/><![CDATA[> _gen]]><xsl:value-of select="Basis"/><![CDATA[MessageBoxes = new GenericMessageBoxes<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
@@ -161,10 +152,6 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
-        private readonly BasicGet _extGet = new BasicGet();
-        private readonly BasicCopy _extCopy = new BasicCopy();
-        private readonly BasicDelete _extDelete = new BasicDelete();
-        private readonly BasicSave _extSave = new BasicSave();        
         private int _position;  ]]> 
 </xsl:otherwise>    
 </xsl:choose> 
@@ -352,7 +339,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
         private void ExecuteGet]]><xsl:value-of select="Basiss"/><![CDATA[ByNameOrId(string searchName)
        {
-            ]]><xsl:value-of select="Table"/><![CDATA[List = _extGet.SearchNameAndIdReturnCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>(Search]]><xsl:value-of select="Basis"/><![CDATA[Name, "]]><xsl:value-of select="BasisSm"/><![CDATA[");
+            ]]><xsl:value-of select="Table"/><![CDATA[List = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<]]><xsl:value-of select="LinqModel"/><![CDATA[>(Search]]><xsl:value-of select="Basis"/><![CDATA[Name, "]]><xsl:value-of select="BasisSm"/><![CDATA[");
 
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 0;
@@ -366,9 +353,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
         private void ExecuteGet]]><xsl:value-of select="Basiss"/><![CDATA[ByNameOrId(string searchName)
        {
-            ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
-            ]]><xsl:value-of select="TableFK2"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK2"/><![CDATA[");
-            ]]><xsl:value-of select="Table"/><![CDATA[List = _extGet.SearchNameAndIdReturnCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>(Search]]><xsl:value-of select="Basis"/><![CDATA[Name, "]]><xsl:value-of select="BasisSm"/><![CDATA[");
+            ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
+            ]]><xsl:value-of select="TableFK2"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK2"/><![CDATA[");
+            ]]><xsl:value-of select="Table"/><![CDATA[List = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<]]><xsl:value-of select="LinqModel"/><![CDATA[>(Search]]><xsl:value-of select="Basis"/><![CDATA[Name, "]]><xsl:value-of select="BasisSm"/><![CDATA[");
 
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 1;
@@ -459,8 +446,8 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
         private void ExecuteGet]]><xsl:value-of select="Basiss"/><![CDATA[ByNameOrId(string searchName)
         {
-            ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
-            ]]><xsl:value-of select="Table"/><![CDATA[List = _extGet.SearchNameAndIdReturnCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>(Search]]><xsl:value-of select="Basis"/><![CDATA[Name, "]]><xsl:value-of select="BasisSm"/><![CDATA[");
+            ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
+            ]]><xsl:value-of select="Table"/><![CDATA[List = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<]]><xsl:value-of select="LinqModel"/><![CDATA[>(Search]]><xsl:value-of select="Basis"/><![CDATA[Name, "]]><xsl:value-of select="BasisSm"/><![CDATA[");
 
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 1;
@@ -490,8 +477,8 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         {
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[   {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew  }  );
 
-            ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
-            ]]><xsl:value-of select="TableFK2"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK2"/><![CDATA[");
+            ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
+            ]]><xsl:value-of select="TableFK2"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK2"/><![CDATA[");
 
             ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
             ]]><xsl:value-of select="Basiss"/><![CDATA[View.MoveCurrentToFirst();
@@ -515,8 +502,8 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         {
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[   {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew  }  );
 
-                ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = new ObservableCollection<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(_businessLayer.List]]><xsl:value-of select="TableFK1"/><![CDATA[());
-                ]]><xsl:value-of select="TableFK2"/><![CDATA[AllList = new ObservableCollection<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>(_businessLayer.List]]><xsl:value-of select="TableFK2"/><![CDATA[());
+            ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
+            ]]><xsl:value-of select="TableFK2"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK2"/><![CDATA[");
 
             ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
             ]]><xsl:value-of select="Basiss"/><![CDATA[View.MoveCurrentToFirst();
@@ -528,8 +515,8 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         {
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[   {   Info = CultRes.StringsRes.DatasetNew  }  );
 
-                ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = new ObservableCollection<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(_businessLayer.List]]><xsl:value-of select="TableFK1"/><![CDATA[());
-                ]]><xsl:value-of select="TableFK2"/><![CDATA[AllList = new ObservableCollection<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>(_businessLayer.List]]><xsl:value-of select="TableFK2"/><![CDATA[());
+            ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
+            ]]><xsl:value-of select="TableFK2"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK2"/><![CDATA[");
 
             ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
             ]]><xsl:value-of select="Basiss"/><![CDATA[View.MoveCurrentToFirst();
@@ -541,8 +528,8 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         {
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[   {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew  }  );
 
-                ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = new ObservableCollection<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(_businessLayer.List]]><xsl:value-of select="TableFK1"/><![CDATA[());
-                ]]><xsl:value-of select="TableFK2"/><![CDATA[AllList = new ObservableCollection<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>(_businessLayer.List]]><xsl:value-of select="TableFK2"/><![CDATA[());
+            ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
+            ]]><xsl:value-of select="TableFK2"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK2"/><![CDATA[");
 
             ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
             ]]><xsl:value-of select="Basiss"/><![CDATA[View.MoveCurrentToFirst();
@@ -555,8 +542,8 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[   {   Info = CultRes.StringsRes.DatasetNew  }  );
 
                 TblCountriesAllList = new ObservableCollection<TblCountry>(_businessLayer.ListTblCountries());
-                ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = new ObservableCollection<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(_businessLayer.List]]><xsl:value-of select="TableFK1"/><![CDATA[());
-                ]]><xsl:value-of select="TableFK2"/><![CDATA[AllList = new ObservableCollection<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>(_businessLayer.List]]><xsl:value-of select="TableFK2"/><![CDATA[());
+            ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
+            ]]><xsl:value-of select="TableFK2"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK2"/><![CDATA[");
 
             ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
             ]]><xsl:value-of select="Basiss"/><![CDATA[View.MoveCurrentToFirst();
@@ -692,7 +679,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[   {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew  }  );
-            ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
+            ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
 
             ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
             ]]><xsl:value-of select="Basiss"/><![CDATA[View.MoveCurrentToFirst();
@@ -710,7 +697,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         {
             if (_gen]]><xsl:value-of select="Basis"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModel"/><![CDATA[)) return;
 
-            ]]><xsl:value-of select="Table"/><![CDATA[List = _extCopy.Copy]]><xsl:value-of select="Basis"/><![CDATA[(Current]]><xsl:value-of select="LinqModel"/><![CDATA[);
+            ]]><xsl:value-of select="Table"/><![CDATA[List = _extCrud.Copy]]><xsl:value-of select="Basis"/><![CDATA[(Current]]><xsl:value-of select="LinqModel"/><![CDATA[);
 
             // evtl verbundene tabellen-Datensätze auch kopieren Expert, Source, Author und Comment
 
@@ -738,14 +725,14 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl03Regnums'">       <![CDATA[ 
             //check if in ]]><xsl:value-of select="TableTK1"/><![CDATA[ connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
 
-            ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extDelete.SearchForConnectedDatasetsWith]]><xsl:value-of select="Basis"/><![CDATA[IdInTable]]><xsl:value-of select="BasisTK1"/><![CDATA[(Current]]><xsl:value-of select="LinqModel"/><![CDATA[);
-            ]]><xsl:value-of select="TableTK2"/><![CDATA[List = _extDelete.SearchForConnectedDatasetsWith]]><xsl:value-of select="Basis"/><![CDATA[IdInTable]]><xsl:value-of select="BasisTK2"/><![CDATA[(Current]]><xsl:value-of select="LinqModel"/><![CDATA[);    ]]>  
+            ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extCrud.SearchForConnectedDatasetsWith]]><xsl:value-of select="Basis"/><![CDATA[IdInTable]]><xsl:value-of select="BasisTK1"/><![CDATA[(Current]]><xsl:value-of select="LinqModel"/><![CDATA[);
+            ]]><xsl:value-of select="TableTK2"/><![CDATA[List = _extCrud.SearchForConnectedDatasetsWith]]><xsl:value-of select="Basis"/><![CDATA[IdInTable]]><xsl:value-of select="BasisTK2"/><![CDATA[(Current]]><xsl:value-of select="LinqModel"/><![CDATA[);    ]]>  
 </xsl:when>  
 <xsl:otherwise> 
    <![CDATA[ 
             //check if in ]]><xsl:value-of select="TableTK1"/><![CDATA[ connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
 
-            ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extDelete.SearchForConnectedDatasetsWith]]><xsl:value-of select="Basis"/><![CDATA[IdInTable]]><xsl:value-of select="BasisTK1"/><![CDATA[(Current]]><xsl:value-of select="LinqModel"/><![CDATA[);   ]]>  
+            ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extCrud.SearchForConnectedDatasetsWith]]><xsl:value-of select="Basis"/><![CDATA[IdInTable]]><xsl:value-of select="BasisTK1"/><![CDATA[(Current]]><xsl:value-of select="LinqModel"/><![CDATA[);   ]]>  
 </xsl:otherwise>    
 </xsl:choose> 
 
@@ -758,23 +745,23 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(]]><xsl:value-of select="TableTK1"/><![CDATA[List.Count, "]]><xsl:value-of select="BasisTK1"/><![CDATA[")) return;
 
             //Delete all References Experts, Sources, Authors  ----------------------------------------------------
-            Tbl90ReferencesList = _extDelete.DeleteDatasetsWith]]><xsl:value-of select="Basis"/><![CDATA[IdInTableReference(Current]]><xsl:value-of select="LinqModel"/><![CDATA[);
+            Tbl90ReferencesList = _extCrud.DeleteDatasetsWith]]><xsl:value-of select="Basis"/><![CDATA[IdInTableReference(Current]]><xsl:value-of select="LinqModel"/><![CDATA[);
             if (Tbl90ReferencesList.Count > 0)
             {
                 if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
-                _extDelete.DeleteReferences(Tbl90ReferencesList);
+                _extCrud.DeleteReferences(Tbl90ReferencesList);
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
             }
 
             //Delete all Comments  ----------------------------------------------------
-            Tbl93CommentsList = _extDelete.DeleteDatasetsWith]]><xsl:value-of select="Basis"/><![CDATA[IdInTableComment(Current]]><xsl:value-of select="LinqModel"/><![CDATA[);
+            Tbl93CommentsList = _extCrud.DeleteDatasetsWith]]><xsl:value-of select="Basis"/><![CDATA[IdInTableComment(Current]]><xsl:value-of select="LinqModel"/><![CDATA[);
             if (Tbl93CommentsList.Count > 0)
             {
                 if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
 
-                _extDelete.DeleteComments(Tbl93CommentsList);
+                _extCrud.DeleteComments(Tbl93CommentsList);
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
             }
@@ -785,7 +772,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Name)) return;
 
-                    _extDelete.Delete]]><xsl:value-of select="Basis"/><![CDATA[(]]><xsl:value-of select="BasisSm"/><![CDATA[);
+                    _extCrud.Delete]]><xsl:value-of select="Basis"/><![CDATA[(]]><xsl:value-of select="BasisSm"/><![CDATA[);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Name);
                 }
@@ -916,15 +903,15 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     return;
 
                 if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id == 0)
-                    ]]><xsl:value-of select="BasisSm"/><![CDATA[ = _extSave.]]><xsl:value-of select="Basis"/><![CDATA[Add(Current]]><xsl:value-of select="LinqModel"/><![CDATA[);
+                    ]]><xsl:value-of select="BasisSm"/><![CDATA[ = _extCrud.]]><xsl:value-of select="Basis"/><![CDATA[Add(Current]]><xsl:value-of select="LinqModel"/><![CDATA[);
                 else
-                    ]]><xsl:value-of select="BasisSm"/><![CDATA[ = _extSave.]]><xsl:value-of select="Basis"/><![CDATA[Update(]]><xsl:value-of select="BasisSm"/><![CDATA[, Current]]><xsl:value-of select="LinqModel"/><![CDATA[);
+                    ]]><xsl:value-of select="BasisSm"/><![CDATA[ = _extCrud.]]><xsl:value-of select="Basis"/><![CDATA[Update(]]><xsl:value-of select="BasisSm"/><![CDATA[, Current]]><xsl:value-of select="LinqModel"/><![CDATA[);
 
                 _position = ]]><xsl:value-of select="Basiss"/><![CDATA[View.CurrentPosition;
 
                 try
                 {
-                    _extSave.]]><xsl:value-of select="Basis"/><![CDATA[Save(]]><xsl:value-of select="BasisSm"/><![CDATA[, Current]]><xsl:value-of select="LinqModel"/><![CDATA[);
+                    _extCrud.]]><xsl:value-of select="Basis"/><![CDATA[Save(]]><xsl:value-of select="BasisSm"/><![CDATA[, Current]]><xsl:value-of select="LinqModel"/><![CDATA[);
                 }
                 catch (DbUpdateException e)
                 {
@@ -1022,9 +1009,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 var ]]><xsl:value-of select="BasisSmFK1"/><![CDATA[ = _uow.]]><xsl:value-of select="TableFK1"/><![CDATA[.GetById(Current]]><xsl:value-of select="LinqModelFK1"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
 
                 if (Current]]><xsl:value-of select="LinqModelFK1"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id == 0)
-                    ]]><xsl:value-of select="BasisSmFK1"/><![CDATA[ = _extSave.]]><xsl:value-of select="BasisFK1"/><![CDATA[Add(Current]]><xsl:value-of select="LinqModelFK1"/><![CDATA[);
+                    ]]><xsl:value-of select="BasisSmFK1"/><![CDATA[ = _extCrud.]]><xsl:value-of select="BasisFK1"/><![CDATA[Add(Current]]><xsl:value-of select="LinqModelFK1"/><![CDATA[);
                 else
-                    ]]><xsl:value-of select="BasisSmFK1"/><![CDATA[ = _extSave.]]><xsl:value-of select="BasisFK1"/><![CDATA[Update(]]><xsl:value-of select="BasisSmFK1"/><![CDATA[, Current]]><xsl:value-of select="LinqModelFK1"/><![CDATA[);
+                    ]]><xsl:value-of select="BasisSmFK1"/><![CDATA[ = _extCrud.]]><xsl:value-of select="BasisFK1"/><![CDATA[Update(]]><xsl:value-of select="BasisSmFK1"/><![CDATA[, Current]]><xsl:value-of select="LinqModelFK1"/><![CDATA[);
 
                 _position = ]]><xsl:value-of select="Basiss"/><![CDATA[View.CurrentPosition;   ]]>
 </xsl:otherwise>    
@@ -1085,7 +1072,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:otherwise>      <![CDATA[ 
                 try
                 {
-                    _extSave.]]><xsl:value-of select="BasisFK1"/><![CDATA[Save(]]><xsl:value-of select="BasisSmFK1"/><![CDATA[, Current]]><xsl:value-of select="LinqModelFK1"/><![CDATA[);
+                    _extCrud.]]><xsl:value-of select="BasisFK1"/><![CDATA[Save(]]><xsl:value-of select="BasisSmFK1"/><![CDATA[, Current]]><xsl:value-of select="LinqModelFK1"/><![CDATA[);
                 }
                 catch (DbUpdateException e)
                 {
@@ -1244,9 +1231,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 var ]]><xsl:value-of select="BasisSmFK1"/><![CDATA[ = _uow.]]><xsl:value-of select="TableFK1"/><![CDATA[.GetById(Current]]><xsl:value-of select="LinqModelFK1"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
 
                 if (Current]]><xsl:value-of select="LinqModelFK1"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id == 0)
-                    ]]><xsl:value-of select="BasisSmFK1"/><![CDATA[ = _extSave.]]><xsl:value-of select="BasisFK1"/><![CDATA[Add(Current]]><xsl:value-of select="LinqModelFK1"/><![CDATA[);
+                    ]]><xsl:value-of select="BasisSmFK1"/><![CDATA[ = _extCrud.]]><xsl:value-of select="BasisFK1"/><![CDATA[Add(Current]]><xsl:value-of select="LinqModelFK1"/><![CDATA[);
                 else
-                    ]]><xsl:value-of select="BasisSmFK1"/><![CDATA[ = _extSave.]]><xsl:value-of select="BasisFK1"/><![CDATA[Update(]]><xsl:value-of select="BasisSmFK1"/><![CDATA[, Current]]><xsl:value-of select="LinqModelFK1"/><![CDATA[);
+                    ]]><xsl:value-of select="BasisSmFK1"/><![CDATA[ = _extCrud.]]><xsl:value-of select="BasisFK1"/><![CDATA[Update(]]><xsl:value-of select="BasisSmFK1"/><![CDATA[, Current]]><xsl:value-of select="LinqModelFK1"/><![CDATA[);
 
                 _position = ]]><xsl:value-of select="Basiss"/><![CDATA[View.CurrentPosition;
 
@@ -1255,7 +1242,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
                 try
                 {
-                    _extSave.]]><xsl:value-of select="BasisFK1"/><![CDATA[Save(]]><xsl:value-of select="BasisSmFK1"/><![CDATA[, Current]]><xsl:value-of select="LinqModelFK1"/><![CDATA[);
+                    _extCrud.]]><xsl:value-of select="BasisFK1"/><![CDATA[Save(]]><xsl:value-of select="BasisSmFK1"/><![CDATA[, Current]]><xsl:value-of select="LinqModelFK1"/><![CDATA[);
                 }
                 catch (DbUpdateException e)
                 {
@@ -1425,9 +1412,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 var ]]><xsl:value-of select="BasisSmFK2"/><![CDATA[ = _uow.]]><xsl:value-of select="TableFK2"/><![CDATA[.GetById(Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.]]><xsl:value-of select="BasisFK2"/><![CDATA[Id);
 
                 if (Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.]]><xsl:value-of select="BasisFK2"/><![CDATA[Id == 0)
-                    ]]><xsl:value-of select="BasisSmFK2"/><![CDATA[ = _extSave.]]><xsl:value-of select="BasisFK2"/><![CDATA[Add(Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[);
+                    ]]><xsl:value-of select="BasisSmFK2"/><![CDATA[ = _extCrud.]]><xsl:value-of select="BasisFK2"/><![CDATA[Add(Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[);
                 else
-                    ]]><xsl:value-of select="BasisSmFK2"/><![CDATA[ = _extSave.]]><xsl:value-of select="BasisFK2"/><![CDATA[Update(]]><xsl:value-of select="BasisSmFK2"/><![CDATA[, Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[);
+                    ]]><xsl:value-of select="BasisSmFK2"/><![CDATA[ = _extCrud.]]><xsl:value-of select="BasisFK2"/><![CDATA[Update(]]><xsl:value-of select="BasisSmFK2"/><![CDATA[, Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[);
 
                 _position = ]]><xsl:value-of select="Basiss"/><![CDATA[View.CurrentPosition;
 
@@ -1436,7 +1423,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
                 try
                 {
-                    _extSave.]]><xsl:value-of select="BasisFK2"/><![CDATA[Save(]]><xsl:value-of select="BasisSmFK2"/><![CDATA[, Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[);
+                    _extCrud.]]><xsl:value-of select="BasisFK2"/><![CDATA[Save(]]><xsl:value-of select="BasisSmFK2"/><![CDATA[, Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[);
                 }
                 catch (DbUpdateException e)
                 {
@@ -1480,9 +1467,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 var ]]><xsl:value-of select="BasisSmFK2"/><![CDATA[ = _uow.]]><xsl:value-of select="TableFK2"/><![CDATA[.GetById(Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.]]><xsl:value-of select="BasisFK2"/><![CDATA[Id);
 
                 if (Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.]]><xsl:value-of select="BasisFK2"/><![CDATA[Id == 0)
-                    ]]><xsl:value-of select="BasisSmFK2"/><![CDATA[ = _extSave.]]><xsl:value-of select="BasisFK2"/><![CDATA[Add(Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[);
+                    ]]><xsl:value-of select="BasisSmFK2"/><![CDATA[ = _extCrud.]]><xsl:value-of select="BasisFK2"/><![CDATA[Add(Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[);
                 else
-                    ]]><xsl:value-of select="BasisSmFK2"/><![CDATA[ = _extSave.]]><xsl:value-of select="BasisFK2"/><![CDATA[Update(]]><xsl:value-of select="BasisSmFK2"/><![CDATA[, Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[);
+                    ]]><xsl:value-of select="BasisSmFK2"/><![CDATA[ = _extCrud.]]><xsl:value-of select="BasisFK2"/><![CDATA[Update(]]><xsl:value-of select="BasisSmFK2"/><![CDATA[, Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[);
 
                 _position = ]]><xsl:value-of select="Basiss"/><![CDATA[View.CurrentPosition;
 
@@ -1491,7 +1478,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
                 try
                 {
-                    _extSave.]]><xsl:value-of select="BasisFK2"/><![CDATA[Save(]]><xsl:value-of select="BasisSmFK2"/><![CDATA[, Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[);
+                    _extCrud.]]><xsl:value-of select="BasisFK2"/><![CDATA[Save(]]><xsl:value-of select="BasisSmFK2"/><![CDATA[, Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[);
                 }
                 catch (DbUpdateException e)
                 {
@@ -1557,9 +1544,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 var ]]><xsl:value-of select="BasisSmFK2"/><![CDATA[ = _uow.]]><xsl:value-of select="TableFK2"/><![CDATA[.GetById(Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.]]><xsl:value-of select="BasisFK2"/><![CDATA[Id);
 
                 if (Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.]]><xsl:value-of select="BasisFK2"/><![CDATA[Id == 0)
-                    ]]><xsl:value-of select="BasisSmFK2"/><![CDATA[ = _extSave.]]><xsl:value-of select="BasisFK2"/><![CDATA[Add(Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[);
+                    ]]><xsl:value-of select="BasisSmFK2"/><![CDATA[ = _extCrud.]]><xsl:value-of select="BasisFK2"/><![CDATA[Add(Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[);
                 else
-                    ]]><xsl:value-of select="BasisSmFK2"/><![CDATA[ = _extSave.]]><xsl:value-of select="BasisFK2"/><![CDATA[Update(]]><xsl:value-of select="BasisSmFK2"/><![CDATA[, Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[);
+                    ]]><xsl:value-of select="BasisSmFK2"/><![CDATA[ = _extCrud.]]><xsl:value-of select="BasisFK2"/><![CDATA[Update(]]><xsl:value-of select="BasisSmFK2"/><![CDATA[, Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[);
 
                 _position = ]]><xsl:value-of select="Basiss"/><![CDATA[View.CurrentPosition;
 
@@ -1568,7 +1555,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
                 try
                 {
-                    _extSave.]]><xsl:value-of select="BasisFK2"/><![CDATA[Save(]]><xsl:value-of select="BasisSmFK2"/><![CDATA[, Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[);
+                    _extCrud.]]><xsl:value-of select="BasisFK2"/><![CDATA[Save(]]><xsl:value-of select="BasisSmFK2"/><![CDATA[, Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[);
                 }
                 catch (DbUpdateException e)
                 {
@@ -1798,7 +1785,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         private void ExecuteAdd]]><xsl:value-of select="BasisTK1"/><![CDATA[(object o)      
         {
             ]]><xsl:value-of select="TableTK1"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModelTK1"/><![CDATA[  { ]]><xsl:value-of select="NameTK1"/><![CDATA[ = CultRes.StringsRes.DatasetNew});
-            ]]><xsl:value-of select="Table"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>("]]><xsl:value-of select="BasisSm"/><![CDATA[");
+            ]]><xsl:value-of select="Table"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModel"/><![CDATA[>("]]><xsl:value-of select="BasisSm"/><![CDATA[");
 
             ]]><xsl:value-of select="BasissTK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK1"/><![CDATA[List);
             ]]><xsl:value-of select="BasissTK1"/><![CDATA[View.MoveCurrentToFirst();
@@ -1870,7 +1857,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         {
             if (_gen]]><xsl:value-of select="BasisTK1"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[)) return;
 
-            ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extCopy.Copy]]><xsl:value-of select="BasisTK1"/><![CDATA[(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[);
+            ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extCrud.Copy]]><xsl:value-of select="BasisTK1"/><![CDATA[(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[);
 
             // evtl verbundene tabellen-Datensätze auch kopieren Expert, Source, Author und Comment
 
@@ -1891,7 +1878,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
              if (_gen]]><xsl:value-of select="BasisTK1"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[)) return;
 
             //check if in ]]><xsl:value-of select="TableTK3"/><![CDATA[ connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-            ]]><xsl:value-of select="TableTK3"/><![CDATA[List = _extDelete.SearchForConnectedDatasetsWith]]><xsl:value-of select="BasisTK1"/><![CDATA[IdInTable]]><xsl:value-of select="BasisTK3"/><![CDATA[(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[);
+            ]]><xsl:value-of select="TableTK3"/><![CDATA[List = _extCrud.SearchForConnectedDatasetsWith]]><xsl:value-of select="BasisTK1"/><![CDATA[IdInTable]]><xsl:value-of select="BasisTK3"/><![CDATA[(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[);
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(]]><xsl:value-of select="TableTK3"/><![CDATA[List.Count, "]]><xsl:value-of select="BasisTK3"/><![CDATA[")) return;     ]]>                                                                                                              
 </xsl:when>
 <xsl:when test="Table ='Tbl69FiSpeciesses'">       
@@ -1926,7 +1913,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
              if (_gen]]><xsl:value-of select="BasisTK1"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[)) return;
 
             //check if in ]]><xsl:value-of select="TableTK2"/><![CDATA[ connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-            ]]><xsl:value-of select="TableTK2"/><![CDATA[List = _extDelete.SearchForConnectedDatasetsWith]]><xsl:value-of select="BasisTK1"/><![CDATA[IdInTable]]><xsl:value-of select="BasisTK2"/><![CDATA[(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[);
+            ]]><xsl:value-of select="TableTK2"/><![CDATA[List = _extCrud.SearchForConnectedDatasetsWith]]><xsl:value-of select="BasisTK1"/><![CDATA[IdInTable]]><xsl:value-of select="BasisTK2"/><![CDATA[(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[);
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(]]><xsl:value-of select="TableTK2"/><![CDATA[List.Count, "]]><xsl:value-of select="BasisTK2"/><![CDATA[")) return;     ]]>                                                                                                              
 </xsl:otherwise>    
 </xsl:choose>                                                          
@@ -1969,23 +1956,23 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>
 <xsl:otherwise>      <![CDATA[     
             //Delete all References Experts, Sources, Authors  ----------------------------------------------------
-            Tbl90ReferencesList = _extDelete.DeleteDatasetsWith]]><xsl:value-of select="BasisTK1"/><![CDATA[IdInTableReference(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[);
+            Tbl90ReferencesList = _extCrud.DeleteDatasetsWith]]><xsl:value-of select="BasisTK1"/><![CDATA[IdInTableReference(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[);
             if (Tbl90ReferencesList.Count > 0)
             {
                 if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
-                _extDelete.DeleteReferences(Tbl90ReferencesList);
+                _extCrud.DeleteReferences(Tbl90ReferencesList);
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
             }
 
             //Delete all Comments  ----------------------------------------------------
-            Tbl93CommentsList = _extDelete.DeleteDatasetsWith]]><xsl:value-of select="BasisTK1"/><![CDATA[IdInTableComment(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[);
+            Tbl93CommentsList = _extCrud.DeleteDatasetsWith]]><xsl:value-of select="BasisTK1"/><![CDATA[IdInTableComment(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[);
             if (Tbl93CommentsList.Count > 0)
             {
                 if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
 
-                _extDelete.DeleteComments(Tbl93CommentsList);
+                _extCrud.DeleteComments(Tbl93CommentsList);
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
             }
@@ -1997,7 +1984,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="BasisTK1"/><![CDATA[Name)) return;
 
-                    _extDelete.Delete]]><xsl:value-of select="BasisTK1"/><![CDATA[(]]><xsl:value-of select="BasisSmTK1"/><![CDATA[);
+                    _extCrud.Delete]]><xsl:value-of select="BasisTK1"/><![CDATA[(]]><xsl:value-of select="BasisSmTK1"/><![CDATA[);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="BasisTK1"/><![CDATA[Name);
                 }
@@ -2009,7 +1996,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 Log.Error(e);
             }
 
-            ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+            ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
             ]]><xsl:value-of select="BasissTK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK1"/><![CDATA[List);
             ]]><xsl:value-of select="BasissTK1"/><![CDATA[View.MoveCurrentToFirst();
@@ -2141,9 +2128,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 var ]]><xsl:value-of select="BasisSmTK1"/><![CDATA[ = _uow.]]><xsl:value-of select="TableTK1"/><![CDATA[.GetById(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="BasisTK1"/><![CDATA[Id);
 
                 if (Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="BasisTK1"/><![CDATA[Id == 0)
-                    ]]><xsl:value-of select="BasisSmTK1"/><![CDATA[ = _extSave.]]><xsl:value-of select="BasisTK1"/><![CDATA[Add(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[);
+                    ]]><xsl:value-of select="BasisSmTK1"/><![CDATA[ = _extCrud.]]><xsl:value-of select="BasisTK1"/><![CDATA[Add(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[);
                 else
-                    ]]><xsl:value-of select="BasisSmTK1"/><![CDATA[ = _extSave.]]><xsl:value-of select="BasisTK1"/><![CDATA[Update(]]><xsl:value-of select="BasisSmTK1"/><![CDATA[, Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[);
+                    ]]><xsl:value-of select="BasisSmTK1"/><![CDATA[ = _extCrud.]]><xsl:value-of select="BasisTK1"/><![CDATA[Update(]]><xsl:value-of select="BasisSmTK1"/><![CDATA[, Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[);
 
               //  _position = ]]><xsl:value-of select="BasissTK1"/><![CDATA[View.CurrentPosition;
 
@@ -2151,7 +2138,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
                 try
                 {
-                    _extSave.]]><xsl:value-of select="BasisTK1"/><![CDATA[Save(]]><xsl:value-of select="BasisSmTK1"/><![CDATA[, Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[);
+                    _extCrud.]]><xsl:value-of select="BasisTK1"/><![CDATA[Save(]]><xsl:value-of select="BasisSmTK1"/><![CDATA[, Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[);
                 }
                 catch (DbUpdateException e)
                 {
@@ -2178,7 +2165,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 Log.Error(e);
             }
 
-            ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+            ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
             ]]><xsl:value-of select="BasissTK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK1"/><![CDATA[List);
             ]]><xsl:value-of select="BasissTK1"/><![CDATA[View.MoveCurrentToFirst();
@@ -2462,7 +2449,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         {
             ]]><xsl:value-of select="TableTK2"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModelTK2"/><![CDATA[  { ]]><xsl:value-of select="NameTK2"/><![CDATA[ = CultRes.StringsRes.DatasetNew });
 
-            ]]><xsl:value-of select="Table"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>("]]><xsl:value-of select="BasisSm"/><![CDATA[");
+            ]]><xsl:value-of select="Table"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModel"/><![CDATA[>("]]><xsl:value-of select="BasisSm"/><![CDATA[");
 
             ]]><xsl:value-of select="BasissTK2"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK2"/><![CDATA[List);
             ]]><xsl:value-of select="BasissTK2"/><![CDATA[View.MoveCurrentToFirst();
@@ -2535,7 +2522,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         {
             if (_gen]]><xsl:value-of select="BasisTK2"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[)) return;
 
-            ]]><xsl:value-of select="TableTK2"/><![CDATA[List = _extCopy.Copy]]><xsl:value-of select="BasisTK2"/><![CDATA[(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[);
+            ]]><xsl:value-of select="TableTK2"/><![CDATA[List = _extCrud.Copy]]><xsl:value-of select="BasisTK2"/><![CDATA[(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[);
 
             // evtl verbundene tabellen-Datensätze auch kopieren Expert, Source, Author und Comment
 
@@ -2592,27 +2579,27 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
              if (_gen]]><xsl:value-of select="BasisTK2"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[)) return;
 
             //check if in ]]><xsl:value-of select="TableTK4"/><![CDATA[ connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-            ]]><xsl:value-of select="TableTK4"/><![CDATA[List = _extDelete.SearchForConnectedDatasetsWith]]><xsl:value-of select="BasisTK2"/><![CDATA[IdInTable]]><xsl:value-of select="BasisTK4"/><![CDATA[(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[);
+            ]]><xsl:value-of select="TableTK4"/><![CDATA[List = _extCrud.SearchForConnectedDatasetsWith]]><xsl:value-of select="BasisTK2"/><![CDATA[IdInTable]]><xsl:value-of select="BasisTK4"/><![CDATA[(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[);
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(]]><xsl:value-of select="TableTK4"/><![CDATA[List.Count, "]]><xsl:value-of select="BasisTK4"/><![CDATA[")) return;
 
             //Delete all References Experts, Sources, Authors  ----------------------------------------------------
-            Tbl90ReferencesList = _extDelete.DeleteDatasetsWith]]><xsl:value-of select="BasisTK2"/><![CDATA[IdInTableReference(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[);
+            Tbl90ReferencesList = _extCrud.DeleteDatasetsWith]]><xsl:value-of select="BasisTK2"/><![CDATA[IdInTableReference(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[);
             if (Tbl90ReferencesList.Count > 0)
             {
                 if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
-                _extDelete.DeleteReferences(Tbl90ReferencesList);
+                _extCrud.DeleteReferences(Tbl90ReferencesList);
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
             }
 
             //Delete all Comments  ----------------------------------------------------
-            Tbl93CommentsList = _extDelete.DeleteDatasetsWith]]><xsl:value-of select="BasisTK2"/><![CDATA[IdInTableComment(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[);
+            Tbl93CommentsList = _extCrud.DeleteDatasetsWith]]><xsl:value-of select="BasisTK2"/><![CDATA[IdInTableComment(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[);
             if (Tbl93CommentsList.Count > 0)
             {
                 if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
 
-                _extDelete.DeleteComments(Tbl93CommentsList);
+                _extCrud.DeleteComments(Tbl93CommentsList);
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
             }
@@ -2624,7 +2611,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="BasisTK2"/><![CDATA[Name)) return;
 
-                    _extDelete.Delete]]><xsl:value-of select="BasisTK2"/><![CDATA[(]]><xsl:value-of select="BasisSmTK2"/><![CDATA[);
+                    _extCrud.Delete]]><xsl:value-of select="BasisTK2"/><![CDATA[(]]><xsl:value-of select="BasisSmTK2"/><![CDATA[);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="BasisTK2"/><![CDATA[Name);
                 }
@@ -2636,7 +2623,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 Log.Error(e);
             }
 
-            ]]><xsl:value-of select="TableTK2"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissTK2"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+            ]]><xsl:value-of select="TableTK2"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissTK2"/><![CDATA[CollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
             ]]><xsl:value-of select="BasissTK2"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK2"/><![CDATA[List);
             ]]><xsl:value-of select="BasissTK2"/><![CDATA[View.MoveCurrentToFirst();
@@ -2755,9 +2742,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 var ]]><xsl:value-of select="BasisSmTK2"/><![CDATA[ = _uow.]]><xsl:value-of select="TableTK2"/><![CDATA[.GetById(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="BasisTK2"/><![CDATA[Id);
 
                 if (Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="BasisTK2"/><![CDATA[Id == 0)
-                    ]]><xsl:value-of select="BasisSmTK2"/><![CDATA[ = _extSave.]]><xsl:value-of select="BasisTK2"/><![CDATA[Add(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[);
+                    ]]><xsl:value-of select="BasisSmTK2"/><![CDATA[ = _extCrud.]]><xsl:value-of select="BasisTK2"/><![CDATA[Add(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[);
                 else
-                    ]]><xsl:value-of select="BasisSmTK2"/><![CDATA[ = _extSave.]]><xsl:value-of select="BasisTK2"/><![CDATA[Update(]]><xsl:value-of select="BasisSmTK2"/><![CDATA[, Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[);
+                    ]]><xsl:value-of select="BasisSmTK2"/><![CDATA[ = _extCrud.]]><xsl:value-of select="BasisTK2"/><![CDATA[Update(]]><xsl:value-of select="BasisSmTK2"/><![CDATA[, Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[);
 
               //  _position = ]]><xsl:value-of select="BasissTK2"/><![CDATA[View.CurrentPosition;
 
@@ -2765,7 +2752,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
                 try
                 {
-                    _extSave.]]><xsl:value-of select="BasisTK2"/><![CDATA[Save(]]><xsl:value-of select="BasisSmTK2"/><![CDATA[, Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[);
+                    _extCrud.]]><xsl:value-of select="BasisTK2"/><![CDATA[Save(]]><xsl:value-of select="BasisSmTK2"/><![CDATA[, Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[);
                 }
                 catch (DbUpdateException e)
                 {
@@ -2792,7 +2779,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 Log.Error(e);
             }
 
-            ]]><xsl:value-of select="TableTK2"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissTK2"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+            ]]><xsl:value-of select="TableTK2"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissTK2"/><![CDATA[CollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
         
             SelectedMainTabIndex = 2;
             ]]><xsl:value-of select="BasissTK2"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK2"/><![CDATA[List);
@@ -4233,7 +4220,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         {
             Tbl90ReferenceAuthorsList ??= new ObservableCollection<Tbl90Reference>();
 
-            Tbl90AuthorsAllList = _extGet.AllCollection<Tbl90RefAuthor>("author");
+            Tbl90AuthorsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefAuthor>("author");
             Tbl90ReferenceAuthorsList.Insert(0, new Tbl90Reference   { Info = CultRes.StringsRes.DatasetNew });
 
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
@@ -4276,7 +4263,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         {
             if (_genAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceAuthor)) return;
 
-            Tbl90ReferenceAuthorsList = _extCopy.CopyReference]]><xsl:value-of select="Basis"/><![CDATA[(CurrentTbl90ReferenceAuthor, "Author");
+            Tbl90ReferenceAuthorsList = _extCrud.CopyReference]]><xsl:value-of select="Basis"/><![CDATA[(CurrentTbl90ReferenceAuthor, "Author");
 
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
             ReferenceAuthorsView.MoveCurrentToFirst();
@@ -4325,7 +4312,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceAuthor.Info)) return;
 
-                    _extDelete.DeleteReference(reference);
+                    _extCrud.DeleteReference(reference);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceAuthor.Info);
                 }
@@ -4395,10 +4382,10 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
 
                 if (CurrentTbl90ReferenceAuthor.ReferenceId == 0)
-                    reference = _extSave.ReferenceAuthor]]><xsl:value-of select="Basis"/><![CDATA[Add(CurrentTbl90ReferenceAuthor);
+                    reference = _extCrud.ReferenceAuthor]]><xsl:value-of select="Basis"/><![CDATA[Add(CurrentTbl90ReferenceAuthor);
 
                 else
-                    reference = _extSave.ReferenceAuthor]]><xsl:value-of select="Basis"/><![CDATA[Update(reference, CurrentTbl90ReferenceAuthor);
+                    reference = _extCrud.ReferenceAuthor]]><xsl:value-of select="Basis"/><![CDATA[Update(reference, CurrentTbl90ReferenceAuthor);
 
                 //    _position = ]]><xsl:value-of select="Basiss"/><![CDATA[View.CurrentPosition;
 
@@ -4406,7 +4393,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
                 try
                 {
-                    _extSave.ReferenceAuthorSave(reference, CurrentTbl90ReferenceAuthor);
+                    _extCrud.ReferenceAuthorSave(reference, CurrentTbl90ReferenceAuthor);
                 }
                 catch (DbUpdateException e)
                 {
@@ -4432,7 +4419,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
-           Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);          ]]>  
+           Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);          ]]>  
 </xsl:otherwise>    
 </xsl:choose> 
            
@@ -4588,7 +4575,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         {
             Tbl90ReferenceSourcesList ??= new ObservableCollection<Tbl90Reference>();
 
-            Tbl90SourcesAllList = _extGet.AllCollection<Tbl90RefSource>("source");
+            Tbl90SourcesAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefSource>("source");
 
             Tbl90ReferenceSourcesList .Insert(0, new Tbl90Reference  { Info = CultRes.StringsRes.DatasetNew });
 
@@ -4632,7 +4619,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         {
             if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
 
-            Tbl90ReferenceAuthorsList = _extCopy.CopyReference]]><xsl:value-of select="Basis"/><![CDATA[(CurrentTbl90ReferenceSource, "Source");
+            Tbl90ReferenceAuthorsList = _extCrud.CopyReference]]><xsl:value-of select="Basis"/><![CDATA[(CurrentTbl90ReferenceSource, "Source");
 
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
             ReferenceSourcesView.MoveCurrentToFirst();
@@ -4681,7 +4668,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceSource.Info)) return;
 
-                    _extDelete.DeleteReference(reference);
+                    _extCrud.DeleteReference(reference);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceSource.Info);
                 }
@@ -4693,7 +4680,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 Log.Error(e);
             }
 
-           Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);          
+           Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);          
 
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
             ReferenceSourcesView.MoveCurrentToFirst();
@@ -4753,9 +4740,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
 
                 if (CurrentTbl90ReferenceSource.ReferenceId == 0)
-                    reference = _extSave.ReferenceSource]]><xsl:value-of select="Basis"/><![CDATA[Add(CurrentTbl90ReferenceSource);
+                    reference = _extCrud.ReferenceSource]]><xsl:value-of select="Basis"/><![CDATA[Add(CurrentTbl90ReferenceSource);
                 else
-                    reference = _extSave.ReferenceSource]]><xsl:value-of select="Basis"/><![CDATA[Update(reference, CurrentTbl90ReferenceSource);
+                    reference = _extCrud.ReferenceSource]]><xsl:value-of select="Basis"/><![CDATA[Update(reference, CurrentTbl90ReferenceSource);
 
         //        _position = ]]><xsl:value-of select="Basiss"/><![CDATA[View.CurrentPosition;
 
@@ -4763,7 +4750,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
                 try
                 {
-                    _extSave.ReferenceSourceSave(reference, CurrentTbl90ReferenceSource);
+                    _extCrud.ReferenceSourceSave(reference, CurrentTbl90ReferenceSource);
 
                 }
                 catch (DbUpdateException e)
@@ -4791,7 +4778,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 Log.Error(e);
             }
 
-           Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);          ]]>  
+           Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);          ]]>  
 
 </xsl:otherwise>    
 </xsl:choose> 
@@ -4944,7 +4931,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         {
             Tbl90ReferenceExpertsList ??= new ObservableCollection<Tbl90Reference>();
 
-            Tbl90ExpertsAllList = _extGet.AllCollection<Tbl90RefExpert>("expert");
+            Tbl90ExpertsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefExpert>("expert");
             Tbl90ReferenceExpertsList .Insert(0, new Tbl90Reference   { Info = CultRes.StringsRes.DatasetNew });
 
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
@@ -4987,7 +4974,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         {
             if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
 
-            Tbl90ReferenceExpertsList = _extCopy.CopyReference]]><xsl:value-of select="Basis"/><![CDATA[(CurrentTbl90ReferenceExpert, "Expert");
+            Tbl90ReferenceExpertsList = _extCrud.CopyReference]]><xsl:value-of select="Basis"/><![CDATA[(CurrentTbl90ReferenceExpert, "Expert");
 
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
             ReferenceExpertsView.MoveCurrentToFirst();
@@ -5036,7 +5023,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceExpert.Info)) return;
 
-                    _extDelete.DeleteReference(reference);
+                    _extCrud.DeleteReference(reference);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceExpert.Info);
                 }
@@ -5048,7 +5035,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 Log.Error(e);
             }
 
-           Tbl90ReferenceExpertsList= _extGet.GetReferenceExpertsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);           
+           Tbl90ReferenceExpertsList= _extCrud.GetReferenceExpertsCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);           
 
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
             ReferenceExpertsView.Refresh();
@@ -5108,9 +5095,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
 
                 if (CurrentTbl90ReferenceExpert.ReferenceId == 0)
-                    reference = _extSave.ReferenceExpert]]><xsl:value-of select="Basis"/><![CDATA[Add(CurrentTbl90ReferenceExpert);
+                    reference = _extCrud.ReferenceExpert]]><xsl:value-of select="Basis"/><![CDATA[Add(CurrentTbl90ReferenceExpert);
                 else
-                    reference = _extSave.ReferenceExpert]]><xsl:value-of select="Basis"/><![CDATA[Update(reference, CurrentTbl90ReferenceExpert);
+                    reference = _extCrud.ReferenceExpert]]><xsl:value-of select="Basis"/><![CDATA[Update(reference, CurrentTbl90ReferenceExpert);
 
                 //        _position = PhylumsView.CurrentPosition;
 
@@ -5118,7 +5105,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
                 try
                 {
-                    _extSave.ReferenceExpertSave(reference, CurrentTbl90ReferenceExpert);
+                    _extCrud.ReferenceExpertSave(reference, CurrentTbl90ReferenceExpert);
                 }
                 catch (DbUpdateException e)
                 {
@@ -5145,7 +5132,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 Log.Error(e);
             }
 
-           Tbl90ReferenceExpertsList= _extGet.GetReferenceExpertsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);                   ]]>  
+           Tbl90ReferenceExpertsList= _extCrud.GetReferenceExpertsCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);                   ]]>  
 </xsl:otherwise>    
 </xsl:choose> 
             
@@ -5342,7 +5329,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
             if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
 
-            Tbl93CommentsList = _extCopy.CopyComment(CurrentTbl93Comment, "Comment");
+            Tbl93CommentsList = _extCrud.CopyComment(CurrentTbl93Comment, "Comment");
 
             CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
             CommentsView.MoveCurrentToFirst();
@@ -5391,7 +5378,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl93Comment.Info)) return;
 
-                    _extDelete.DeleteComment(comment);
+                    _extCrud.DeleteComment(comment);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl93Comment.Info);
                 }
@@ -5403,7 +5390,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 Log.Error(e);
             }
 
-            Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<Tbl93Comment>(CurrentTbl93Comment.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+            Tbl93CommentsList = _extCrud.GetCommentsCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<Tbl93Comment>(CurrentTbl93Comment.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
             CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
             CommentsView.Refresh();
@@ -5453,9 +5440,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
 
                 if (CurrentTbl93Comment.CommentId == 0)
-                    comment = _extSave.Comment]]><xsl:value-of select="Basis"/><![CDATA[Add(CurrentTbl93Comment);
+                    comment = _extCrud.Comment]]><xsl:value-of select="Basis"/><![CDATA[Add(CurrentTbl93Comment);
                 else
-                    comment = _extSave.Comment]]><xsl:value-of select="Basis"/><![CDATA[Update(comment, CurrentTbl93Comment);
+                    comment = _extCrud.Comment]]><xsl:value-of select="Basis"/><![CDATA[Update(comment, CurrentTbl93Comment);
 
                 //        _position = ]]><xsl:value-of select="Basiss"/><![CDATA[View.CurrentPosition;
 
@@ -5464,7 +5451,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
                 try
                 {
-                    _extSave.CommentSave(comment, CurrentTbl93Comment);
+                    _extCrud.CommentSave(comment, CurrentTbl93Comment);
                 }
                 catch (DbUpdateException e)
                 {
@@ -5491,7 +5478,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 Log.Error(e);
             }
 
-            Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<Tbl93Comment>(CurrentTbl93Comment.]]><xsl:value-of select="Basis"/><![CDATA[Id);               ]]>  
+            Tbl93CommentsList = _extCrud.GetCommentsCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<Tbl93Comment>(CurrentTbl93Comment.]]><xsl:value-of select="Basis"/><![CDATA[Id);               ]]>  
 </xsl:otherwise>    
 </xsl:choose> 
            
@@ -5580,9 +5567,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='++++++DoubleClick Header 2++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
 </xsl:when>  
 <xsl:when test="Table ='Tbl03Regnums'">   <![CDATA[  
-            ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+            ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
-            ]]><xsl:value-of select="Table"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>("]]><xsl:value-of select="BasisSm"/><![CDATA[");
+            ]]><xsl:value-of select="Table"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModel"/><![CDATA[>("]]><xsl:value-of select="BasisSm"/><![CDATA[");
 
             ]]><xsl:value-of select="BasissTK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK1"/><![CDATA[List);
             ]]><xsl:value-of select="BasissTK1"/><![CDATA[View.Refresh();    
@@ -5591,21 +5578,21 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
             SelectedDetailTabIndex = 1;            ]]>
 </xsl:when>  
 <xsl:when test="Table ='Tbl06Phylums'">   <![CDATA[  
-            ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[Id<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
+            ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
 
             ]]><xsl:value-of select="BasissFK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableFK1"/><![CDATA[List);
             ]]><xsl:value-of select="BasissFK1"/><![CDATA[View.Refresh();    ]]> 
 </xsl:when>  
 <xsl:when test="Table ='Tbl09Divisions'">   <![CDATA[  
-            ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[Id<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
+            ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
 
             ]]><xsl:value-of select="BasissFK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableFK1"/><![CDATA[List);
             ]]><xsl:value-of select="BasissFK1"/><![CDATA[View.Refresh();    ]]> 
 </xsl:when>  
 <xsl:when test="Table ='Tbl18Superclasses'">      <![CDATA[   
-            ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[Id<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
+            ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
 
-            ]]><xsl:value-of select="TableBK1"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModelBK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmBK1"/><![CDATA[");
+            ]]><xsl:value-of select="TableBK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelBK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmBK1"/><![CDATA[");
    
             ]]><xsl:value-of select="BasissFK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableFK1"/><![CDATA[List);
             ]]><xsl:value-of select="BasissFK1"/><![CDATA[View.Refresh(); 
@@ -5614,10 +5601,10 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
             SelectedDetailTabIndex = 2;            ]]>
 </xsl:when> 
 <xsl:when test="Table ='Tbl21Classes'">      <![CDATA[   
-            ]]><xsl:value-of select="TableBK1"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModelBK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmBK1"/><![CDATA[");
-            ]]><xsl:value-of select="TableBK2"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModelBK2"/><![CDATA[>("]]><xsl:value-of select="BasisSmBK2"/><![CDATA[");
+            ]]><xsl:value-of select="TableBK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelBK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmBK1"/><![CDATA[");
+            ]]><xsl:value-of select="TableBK2"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelBK2"/><![CDATA[>("]]><xsl:value-of select="BasisSmBK2"/><![CDATA[");
 
-            ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[Id<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
+            ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
  
             ]]><xsl:value-of select="BasissFK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableFK1"/><![CDATA[List);
             ]]><xsl:value-of select="BasissFK1"/><![CDATA[View.Refresh();    ]]>
@@ -5709,9 +5696,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='TblUserProfiles'"> 
 </xsl:when>
 <xsl:otherwise>    <![CDATA[ 
-            ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[Id<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
+            ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
 
-            ]]><xsl:value-of select="TableBK1"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModelBK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmBK1"/><![CDATA[");
+            ]]><xsl:value-of select="TableBK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelBK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmBK1"/><![CDATA[");
 
             ]]><xsl:value-of select="BasissFK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableFK1"/><![CDATA[List);
             ]]><xsl:value-of select="BasissFK1"/><![CDATA[View.Refresh();    ]]> 
@@ -5765,9 +5752,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+                        ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
-                        ]]><xsl:value-of select="Table"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>("]]><xsl:value-of select="BasisSm"/><![CDATA[");
+                        ]]><xsl:value-of select="Table"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModel"/><![CDATA[>("]]><xsl:value-of select="BasisSm"/><![CDATA[");
 
                         ]]><xsl:value-of select="BasissTK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK1"/><![CDATA[List);
                         ]]><xsl:value-of select="BasissTK1"/><![CDATA[View.Refresh();
@@ -5780,7 +5767,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[Id<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
+                        ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
 
                         ]]><xsl:value-of select="BasissFK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableFK1"/><![CDATA[List);
                         ]]><xsl:value-of select="BasissFK1"/><![CDATA[View.Refresh();
@@ -5793,7 +5780,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[Id<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
+                        ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
 
                         ]]><xsl:value-of select="BasissFK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableFK1"/><![CDATA[List);
                         ]]><xsl:value-of select="BasissFK1"/><![CDATA[View.Refresh();
@@ -5806,9 +5793,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[Id<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
+                        ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
 
-                        ]]><xsl:value-of select="TableBK1"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModelBK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmBK1"/><![CDATA[");
+                        ]]><xsl:value-of select="TableBK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelBK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmBK1"/><![CDATA[");
 
                         ]]><xsl:value-of select="BasissFK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableFK1"/><![CDATA[List);
                         ]]><xsl:value-of select="BasissFK1"/><![CDATA[View.Refresh();
@@ -5828,9 +5815,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        ]]><xsl:value-of select="TableTK2"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissTK2"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+                        ]]><xsl:value-of select="TableTK2"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissTK2"/><![CDATA[CollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
-                        ]]><xsl:value-of select="Table"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>("]]><xsl:value-of select="BasisSm"/><![CDATA[");
+                        ]]><xsl:value-of select="Table"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModel"/><![CDATA[>("]]><xsl:value-of select="BasisSm"/><![CDATA[");
 
                         ]]><xsl:value-of select="BasissTK2"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK2"/><![CDATA[List);
                         ]]><xsl:value-of select="BasissTK2"/><![CDATA[View.Refresh();
@@ -5843,9 +5830,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        ]]><xsl:value-of select="TableFK2"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissFK2"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="BasisFK2"/><![CDATA[Id<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK2"/><![CDATA[Id);
+                        ]]><xsl:value-of select="TableFK2"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissFK2"/><![CDATA[CollectionFrom]]><xsl:value-of select="BasisFK2"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK2"/><![CDATA[Id);
 
-                        ]]><xsl:value-of select="TableBK2"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModelBK2"/><![CDATA[>("]]><xsl:value-of select="BasisSmBK2"/><![CDATA[");
+                        ]]><xsl:value-of select="TableBK2"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelBK2"/><![CDATA[>("]]><xsl:value-of select="BasisSmBK2"/><![CDATA[");
 
                         ]]><xsl:value-of select="BasissFK2"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableFK2"/><![CDATA[List);
                         ]]><xsl:value-of select="BasissFK2"/><![CDATA[View.Refresh();
@@ -5858,9 +5845,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+                        ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
-                        ]]><xsl:value-of select="Table"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>("]]><xsl:value-of select="BasisSm"/><![CDATA[");
+                        ]]><xsl:value-of select="Table"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModel"/><![CDATA[>("]]><xsl:value-of select="BasisSm"/><![CDATA[");
 
                         ]]><xsl:value-of select="BasissTK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK1"/><![CDATA[List);
                         ]]><xsl:value-of select="BasissTK1"/><![CDATA[View.Refresh();
@@ -5880,9 +5867,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+                        ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
-                        ]]><xsl:value-of select="Table"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>("]]><xsl:value-of select="BasisSm"/><![CDATA[");
+                        ]]><xsl:value-of select="Table"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModel"/><![CDATA[>("]]><xsl:value-of select="BasisSm"/><![CDATA[");
 
                         ]]><xsl:value-of select="BasissTK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK1"/><![CDATA[List);
                         ]]><xsl:value-of select="BasissTK1"/><![CDATA[View.Refresh();
@@ -5916,7 +5903,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<Tbl93Comment>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+                        Tbl93CommentsList = _extCrud.GetCommentsCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<Tbl93Comment>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
                         CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
                         CommentsView.Refresh();
@@ -5936,7 +5923,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<Tbl93Comment>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+                        Tbl93CommentsList = _extCrud.GetCommentsCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<Tbl93Comment>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
                         CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
                         CommentsView.Refresh();
@@ -5983,7 +5970,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[Id<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
+                        ]]><xsl:value-of select="TableFK1"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id);
 
                         ]]><xsl:value-of select="BasissFK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableFK1"/><![CDATA[List);
                         ]]><xsl:value-of select="BasissFK1"/><![CDATA[View.Refresh();
@@ -6003,9 +5990,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        ]]><xsl:value-of select="TableFK2"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissFK2"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="BasisFK2"/><![CDATA[Id<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK2"/><![CDATA[Id);
+                        ]]><xsl:value-of select="TableFK2"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissFK2"/><![CDATA[CollectionFrom]]><xsl:value-of select="BasisFK2"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="BasisFK2"/><![CDATA[Id);
 
-                        ]]><xsl:value-of select="TableBK2"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModelBK2"/><![CDATA[>("]]><xsl:value-of select="BasisSmBK2"/><![CDATA[");
+                        ]]><xsl:value-of select="TableBK2"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelBK2"/><![CDATA[>("]]><xsl:value-of select="BasisSmBK2"/><![CDATA[");
 
                         ]]><xsl:value-of select="BasissFK2"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableFK2"/><![CDATA[List);
                         ]]><xsl:value-of select="BasissFK2"/><![CDATA[View.Refresh();
@@ -6031,9 +6018,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        ]]><xsl:value-of select="TableTK2"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissTK2"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+                        ]]><xsl:value-of select="TableTK2"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissTK2"/><![CDATA[CollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
-                        ]]><xsl:value-of select="Table"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>("]]><xsl:value-of select="BasisSm"/><![CDATA[");
+                        ]]><xsl:value-of select="Table"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModel"/><![CDATA[>("]]><xsl:value-of select="BasisSm"/><![CDATA[");
 
                         ]]><xsl:value-of select="BasissTK2"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK2"/><![CDATA[List);
                         ]]><xsl:value-of select="BasissTK2"/><![CDATA[View.Refresh();
@@ -6052,9 +6039,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+                        ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
-                        ]]><xsl:value-of select="Table"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>("]]><xsl:value-of select="BasisSm"/><![CDATA[");
+                        ]]><xsl:value-of select="Table"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModel"/><![CDATA[>("]]><xsl:value-of select="BasisSm"/><![CDATA[");
 
                         ]]><xsl:value-of select="BasissTK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK1"/><![CDATA[List);
                         ]]><xsl:value-of select="BasissTK1"/><![CDATA[View.Refresh();
@@ -6074,9 +6061,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extGet.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+                        ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
-                        ]]><xsl:value-of select="Table"/><![CDATA[AllList = _extGet.AllCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>("]]><xsl:value-of select="BasisSm"/><![CDATA[");
+                        ]]><xsl:value-of select="Table"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModel"/><![CDATA[>("]]><xsl:value-of select="BasisSm"/><![CDATA[");
 
                         ]]><xsl:value-of select="BasissTK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK1"/><![CDATA[List);
                         ]]><xsl:value-of select="BasissTK1"/><![CDATA[View.Refresh();
@@ -6091,7 +6078,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     {
                         Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
 
-                        Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+                        Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
                         ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
                         ReferenceExpertsView.Refresh();
@@ -6114,7 +6101,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     {
                         Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
 
-                        Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+                        Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
                         ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
                         ReferenceExpertsView.Refresh();
@@ -6130,7 +6117,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     {
                         Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
 
-                        Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+                        Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
                         ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
                         ReferenceSourcesView.Refresh();
@@ -6153,7 +6140,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     {
                         Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
 
-                        Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+                        Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
                         ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
                         ReferenceSourcesView.Refresh();
@@ -6169,7 +6156,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     {
                         Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
 
-                        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+                        Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
                         ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
                         ReferenceAuthorsView.Refresh();
@@ -6192,7 +6179,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     {
                         Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
 
-                        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+                        Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
                         ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
                         ReferenceAuthorsView.Refresh();
@@ -6206,7 +6193,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<Tbl93Comment>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+                        Tbl93CommentsList = _extCrud.GetCommentsCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<Tbl93Comment>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
                         CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
                         CommentsView.Refresh();
@@ -6236,7 +6223,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<Tbl93Comment>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+                        Tbl93CommentsList = _extCrud.GetCommentsCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<Tbl93Comment>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
                         CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
                         CommentsView.Refresh();
@@ -6277,7 +6264,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     {
                         Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
 
-                        Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+                        Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
                         ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
                         ReferenceExpertsView.Refresh();
@@ -6293,7 +6280,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     {
                         Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
 
-                        Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+                        Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
                         ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
                         ReferenceExpertsView.Refresh();
@@ -6316,7 +6303,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     {
                         Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
 
-                        Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+                        Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
                         ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
                         ReferenceSourcesView.Refresh();
@@ -6332,7 +6319,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     {
                         Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
 
-                        Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+                        Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
                         ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
                         ReferenceSourcesView.Refresh();
@@ -6355,7 +6342,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     {
                         Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
 
-                        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+                        Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
                         ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
                         ReferenceAuthorsView.Refresh();
@@ -6371,7 +6358,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     {
                         Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
 
-                        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+                        Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
                         ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
                         ReferenceAuthorsView.Refresh();
@@ -8878,6 +8865,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 }]]>   
 </xsl:template>
 </xsl:stylesheet>
+
 
 
 

@@ -1,0 +1,55 @@
+@model Atis.Domain.Models.AspnetApplication 
+
+<script type="text/javascript">
+$(function()   {
+    $('#ApplicationId').focus();    
+});
+</script>
+
+ 
+          <!-- _Form.cshtml  Skriptdatum: 23.03.2012  10:32    -->     
+  
+        @using (Html.BeginForm()) {
+        <div class="pagination">
+            <p><input type="submit" value="@SharedRes.StringsRes.ButtonSave" />  
+                @Html.ActionLink(SharedRes.StringsRes.ActionLnkBack, "Index", null, new { style = "font-weight:bold" })  
+                @Html.ActionLink(SharedRes.StringsRes.ActionLnkClear, "Create", null, null)  
+            </p> 
+        </div>
+
+        @Html.ValidationSummary() 
+            <fieldset><legend>@SharedRes.StringsRes.Fields </legend>  
+  
+              <table><colgroup style="width:12em" span="2"></colgroup>                                             
+  
+                     <tr>
+                        <td>@AspnetApplicationsRes.StringsRes.ApplicationName </td>
+                        <td>@Html.TextBoxFor(m => m.ApplicationName, new { @class = "textbox72" }) 
+                        @Html.ValidationMessageFor(m => m.ApplicationName) </td>
+                    </tr>    
+                    <tr>
+                        <td>@AspnetApplicationsRes.StringsRes.LoweredApplicationName </td>
+                        <td>@Html.TextBoxFor(m => m.LoweredApplicationName, new { @class = "textbox72" }) 
+                        @Html.ValidationMessageFor(m => m.LoweredApplicationName) </td>
+                    </tr>   
+                    <tr>
+                        <td>@AspnetApplicationsRes.StringsRes.Description </td>
+                        <td>@Html.TextBoxFor(m => m.Description, new { @class = "textbox72" }) 
+                        @Html.ValidationMessageFor(m => m.Description) </td>
+                    </tr>   
+        
+                   </table> 
+        <p></p>            
+        <div class="pagination">
+            <p><input type="submit" value="@SharedRes.StringsRes.ButtonSave" />  
+                @Html.ActionLink(SharedRes.StringsRes.ActionLnkBack, "Index", null, new { style = "font-weight:bold" })  
+            </p>  
+        </div>  
+
+        <ul id="nav-one" class="dropmenu css-only">      
+ 
+
+     </ul> 
+</fieldset>
+}   
+   

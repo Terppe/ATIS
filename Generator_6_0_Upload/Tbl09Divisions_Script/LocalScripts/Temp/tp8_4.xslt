@@ -76,30 +76,7 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 
 
             //  LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
-            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");      
-            //-----------------------------------------------------------------------------    ]]> 
-</xsl:otherwise>    
-</xsl:choose> 
-
-<xsl:choose>
-<xsl:when test="Table ='Data Members Top 11+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
-</xsl:when> 
-<xsl:otherwise>       <![CDATA[ 
-            var ]]><xsl:value-of select="BasisSm"/><![CDATA[List = ExtGet.Get]]><xsl:value-of select="Basis"/><![CDATA[sCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModel"/><![CDATA[>(id).FirstOrDefault();   ]]> 
-</xsl:otherwise>    
-</xsl:choose> 
-
-<xsl:choose>
-<xsl:when test="Table ='Data Members Top 2+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
-</xsl:when> 
-<xsl:when test="Table ='Tbl03Regnums'">       <![CDATA[ 
-            //Children
-            var ]]><xsl:value-of select="BasisSmTK1"/><![CDATA[sList = ExtGet.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(id);
-            var ]]><xsl:value-of select="BasisSmTK2"/><![CDATA[sList = ExtGet.Get]]><xsl:value-of select="BasissTK2"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>(id);  ]]> 
-</xsl:when>  
-<xsl:otherwise>       <![CDATA[ 
-            //Child
-            var ]]><xsl:value-of select="BasisSmTK1"/><![CDATA[sList = ExtGet.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(id);   ]]>        
+            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");          ]]> 
 </xsl:otherwise>    
 </xsl:choose> 
 
@@ -107,15 +84,15 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Data Members Top 2+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
 </xsl:when> 
 <xsl:when test="Table ='Tbl06Phylums'">       <![CDATA[ 
-            //Funktion
-            var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(id);
+            //-----------------------------------------------------------------------------
             //ForeignKeyTable
-            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();     ]]> 
+            var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(id);
+            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();      ]]> 
 </xsl:when>  
 <xsl:when test="Table ='Tbl09Divisions'">       <![CDATA[ 
-            //Funktion
-            var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(id);
+            //-----------------------------------------------------------------------------
             //ForeignKeyTable
+            var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(id);
             var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();      ]]> 
 </xsl:when>  
 <xsl:when test="Table ='Tbl12Subphylums'">       <![CDATA[ 
@@ -141,6 +118,29 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
             var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();  ]]> 
 </xsl:when>  
 <xsl:otherwise>     
+</xsl:otherwise>    
+</xsl:choose> 
+
+<xsl:choose>
+<xsl:when test="Table ='Data Members Top 11+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when> 
+<xsl:otherwise>       <![CDATA[ 
+            var ]]><xsl:value-of select="BasisSm"/><![CDATA[List = ExtGet.Get]]><xsl:value-of select="Basis"/><![CDATA[sCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModel"/><![CDATA[>(id).FirstOrDefault();   ]]> 
+</xsl:otherwise>    
+</xsl:choose> 
+
+
+<xsl:choose>
+<xsl:when test="Table ='Data Members Top 2+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when> 
+<xsl:when test="Table ='Tbl03Regnums'">       <![CDATA[ 
+            //Children
+            var ]]><xsl:value-of select="BasisSmTK1"/><![CDATA[sList = ExtGet.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(id);
+            var ]]><xsl:value-of select="BasisSmTK2"/><![CDATA[sList = ExtGet.Get]]><xsl:value-of select="BasissTK2"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>(id);  ]]> 
+</xsl:when>  
+<xsl:otherwise>       <![CDATA[ 
+            //Child
+            var ]]><xsl:value-of select="BasisSmTK1"/><![CDATA[sList = ExtGet.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(id);   ]]>        
 </xsl:otherwise>    
 </xsl:choose> 
 

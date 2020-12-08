@@ -4,30 +4,16 @@
 <xsl:template match="Definition"><![CDATA[using System; 
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;  ]]>
-
-<xsl:choose>
-<xsl:when test="Table ='namespace++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
-</xsl:when>  
-<xsl:when test="Table ='Tbl03Regnums'">  <![CDATA[ 
-using ATIS.Ui.Views.Report.]]><xsl:value-of select="LayoutTK1"/><![CDATA[;       
-using ATIS.Ui.Views.Report.]]><xsl:value-of select="LayoutTK2"/><![CDATA[;    ]]>   
-</xsl:when>  
-<xsl:otherwise>  <![CDATA[ 
-using ATIS.Ui.Views.Report.]]><xsl:value-of select="LayoutTK1"/><![CDATA[;    ]]>   
-</xsl:otherwise>    
-</xsl:choose> 
-
-<xsl:choose>
-<xsl:when test="Table ='namespace++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
-</xsl:when>  
-<xsl:otherwise>   <![CDATA[ 
+using System.Windows.Documents;
+using ATIS.Ui.Views.Report.D03Regnum;
+using ATIS.Ui.Views.Report.D06Phylum;
 using MahApps.Metro.Controls;
 
-   //  Report]]><xsl:value-of select="Basis"/><![CDATA[Window.xaml.cs Skriptdatum: ]]> <xsl:value-of select="DateTime"/><![CDATA[      
+   //  Report]]><xsl:value-of select="Basis"/><![CDATA[Window.xaml.cs Skriptdatum: ]]> <xsl:value-of select="DateTime"/>  <![CDATA[   
 
 namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 {  
+
     /// <summary>
     /// Interactionslogic for Report]]><xsl:value-of select="Basis"/><![CDATA[Window.xaml
     /// </summary>
@@ -61,12 +47,10 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
         private void Reader_LostFocus(object sender, RoutedEventArgs e)
         {
             Width = Reader.Width + 20;
-        }   ]]>   
-</xsl:otherwise>    
-</xsl:choose> 
-
+        }
+]]>
 <xsl:choose>
-<xsl:when test="Table ='Main Header ++++++++++++++++'"> 
+<xsl:when test="Table ='Taxonomic and Hierarchy ++++++++++++++++'"> 
 </xsl:when>
 <xsl:when test="Table ='Tbl03Regnums'">   <![CDATA[ 
                   //Tbl06Phylums  -->
@@ -84,7 +68,8 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
             var id= Convert.ToInt32(tagValue);
             var rp = new ReportDivisionWindow(id, "Tbl09Divisions");
             rp.Show();
-        }  ]]>   
+        }
+  ]]>   
 </xsl:when>  
 <xsl:when test="Table ='Tbl06Phylums'">   <![CDATA[ 
                    //Tbl03Regnums  -->
@@ -181,7 +166,8 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
             var id= Convert.ToInt32(tagValue);
             var rp = new ReportSuperclassWindow(id, "Tbl18Superclasses");
             rp.Show();
-        }  ]]>   
+        }
+  ]]>   
 </xsl:when>  
 
 <xsl:when test="Table ='Tbl18Superclasses'">   <![CDATA[ 
@@ -237,7 +223,8 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
             var id= Convert.ToInt32(tagValue);
             var rp = new ReportClassWindow(id, "Tbl21Classes");
             rp.Show();
-        }  ]]>   
+        }
+  ]]>   
 </xsl:when>  
 
 <xsl:when test="Table ='Tbl21Classes'">   <![CDATA[ 
@@ -302,7 +289,8 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
             var id= Convert.ToInt32(tagValue);
             var rp = new ReportTbl24SubclassesWindow(id, "Tbl24Subclasses");
             rp.Show();
-        }  ]]>   
+        }
+  ]]>   
 </xsl:when>  
 <xsl:when test="Table ='Tbl24Subclasses'">   <![CDATA[ 
                   //  Tbl03Regnums  -->

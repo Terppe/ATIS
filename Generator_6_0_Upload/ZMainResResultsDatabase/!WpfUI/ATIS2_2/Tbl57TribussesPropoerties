@@ -1,0 +1,109 @@
+    
+
+
+ //    Part 11    
+
+     
+        #region "Public Properties Tbl57Tribus"
+
+        private string _searchTribusName;
+        public  string SearchTribusName
+        {
+            get => _searchTribusName; 
+            set { _searchTribusName = value; OnPropertyChanged();  }
+        }
+
+        public  ICollectionView TribussesView;
+        public  Tbl57Tribus CurrentTbl57Tribus => TribussesView?.CurrentItem as Tbl57Tribus;
+
+        private ObservableCollection<Tbl57Tribus> _tbl57TribussesList;
+        public  ObservableCollection<Tbl57Tribus> Tbl57TribussesList
+        {
+            get => _tbl57TribussesList; 
+            set {  _tbl57TribussesList = value; OnPropertyChanged();   }
+        }
+
+        private ObservableCollection<Tbl57Tribus> _tbl57TribussesAllList;
+        public  ObservableCollection<Tbl57Tribus> Tbl57TribussesAllList
+        {
+            get => _tbl57TribussesAllList; 
+            set { _tbl57TribussesAllList = value; OnPropertyChanged(); }
+        }
+
+        #endregion "Public Properties"   
+       
+        #region "Public Properties Tbl54Supertribus"
+
+        private string _searchSupertribusName;
+        public string SearchSupertribusName
+        {
+            get  => _searchSupertribusName; 
+            set { _searchSupertribusName = value; OnPropertyChanged(); }
+        }
+
+        public ICollectionView SupertribussesView;
+        public Tbl54Supertribus CurrentTbl54Supertribus => SupertribussesView?.CurrentItem as Tbl54Supertribus;           
+
+        private ObservableCollection<Tbl54Supertribus> _tbl54SupertribussesList;
+        public ObservableCollection<Tbl54Supertribus> Tbl54SupertribussesList
+        {
+            get => _tbl54SupertribussesList; 
+            set { _tbl54SupertribussesList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl54Supertribus> _tbl54SupertribussesAllList;
+        public ObservableCollection<Tbl54Supertribus> Tbl54SupertribussesAllList
+        {
+            get => _tbl54SupertribussesAllList; 
+            set { _tbl54SupertribussesAllList = value; OnPropertyChanged(); }       
+        }
+
+        #endregion "Public Properties"
+   
+  
+       
+        #region "Public Properties Tbl60Subtribus"
+
+        private string _searchSubtribusName;
+        public string SearchSubtribusName
+        {
+            get => _searchSubtribusName; 
+            set { _searchSubtribusName = value; OnPropertyChanged(); }
+        }
+
+        public ICollectionView SubtribussesView;
+        public Tbl60Subtribus CurrentTbl60Subtribus => SubtribussesView?.CurrentItem as Tbl60Subtribus;           
+
+        private ObservableCollection<Tbl60Subtribus> _tbl60SubtribussesList;
+        public ObservableCollection<Tbl60Subtribus> Tbl60SubtribussesList
+        {
+            get => _tbl60SubtribussesList; 
+            set { _tbl60SubtribussesList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl60Subtribus> _tbl60SubtribussesAllList;
+        public ObservableCollection<Tbl60Subtribus> Tbl60SubtribussesAllList
+        {
+            get => _tbl60SubtribussesAllList; 
+            set { _tbl60SubtribussesAllList = value; OnPropertyChanged(); }       
+        }
+
+        #endregion "Public Properties"
+   
+  
+       
+        #region "Public Properties Tbl51Infrafamily"
+
+        private ObservableCollection<Tbl51Infrafamily> _tbl51InfrafamiliesAllList;
+        public  new ObservableCollection<Tbl51Infrafamily> Tbl51InfrafamiliesAllList
+        {
+            get => _tbl51InfrafamiliesAllList; 
+            set { _tbl51InfrafamiliesAllList = value; OnPropertyChanged(); }
+        }
+
+        #endregion "Public Properties"
+   
+   
+
+ //    Part 12    
+

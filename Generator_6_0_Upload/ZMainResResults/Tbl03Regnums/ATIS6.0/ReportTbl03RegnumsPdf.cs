@@ -20,7 +20,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
     {     
         
         private static readonly ILog Log = LogManager.GetLogger(typeof(ReportRegnumPdf));
-        private static readonly BasicGet ExtGet = new BasicGet();
+        private static readonly CrudFunctions ExtCrud = new CrudFunctions();
         private static readonly PdfHelper PdfHelper = new PdfHelper();
         private static string _n;
         private static string _z1;
@@ -46,16 +46,16 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");      
             //-----------------------------------------------------------------------------     
         
-            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(id).FirstOrDefault();    
+            var regnumList = ExtCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(id).FirstOrDefault();    
         
             //Children
-            var phylumsList = ExtGet.GetPhylumsCollectionOrderByFromRegnumId<Tbl06Phylum>(id);
-            var divisionsList = ExtGet.GetDivisionsCollectionOrderByFromRegnumId<Tbl09Division>(id);   
+            var phylumsList = ExtCrud.GetPhylumsCollectionFromRegnumIdOrderBy<Tbl06Phylum>(id);
+            var divisionsList = ExtCrud.GetDivisionsCollectionFromRegnumIdOrderBy<Tbl09Division>(id);   
              
-            var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
-            var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
-            var authorsList = ExtGet.GetReferenceAuthorsCollectionOrderByFromRegnumIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
-            var commentsList = ExtGet.GetCommentsCollectionOrderByFromRegnumId<Tbl93Comment>(id);   
+            var expertsList = ExtCrud.GetReferenceExpertsCollectionFromRegnumIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(id);
+            var sourcesList = ExtCrud.GetReferenceSourcesCollectionFromRegnumIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(id);
+            var authorsList = ExtCrud.GetReferenceAuthorsCollectionFromRegnumIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(id);
+            var commentsList = ExtCrud.GetCommentsCollectionFromRegnumIdOrderBy<Tbl93Comment>(id);   
 
             try
             { 

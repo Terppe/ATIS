@@ -20,7 +20,6 @@ namespace ATIS.Ui.Views.Report.D09Division
     {
 
         private static readonly ILog Log = LogManager.GetLogger(typeof(ReportDivisionPdf));
-        private static readonly BasicGet ExtGet = new BasicGet();
         private static readonly CrudFunctions ExtCrud = new CrudFunctions();
         private static readonly ReportBasicGet ExtReportBasicGet = new ReportBasicGet();
         private static readonly PdfHelper PdfHelper = new PdfHelper();
@@ -48,24 +47,24 @@ namespace ATIS.Ui.Views.Report.D09Division
             //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");      
             //-----------------------------------------------------------------------------     
 
-            var divisionList = ExtGet.GetDivisionsCollectionOrderByFromDivisionId<Tbl09Division>(id).FirstOrDefault();
+            var divisionList = ExtCrud.GetDivisionsCollectionFromDivisionIdOrderBy<Tbl09Division>(id).FirstOrDefault();
 
             //Child
-            var subdivisionsList = ExtGet.GetSubdivisionsCollectionOrderByFromDivisionId<Tbl15Subdivision>(id);
+            var subdivisionsList = ExtCrud.GetSubdivisionsCollectionFromDivisionIdOrderBy<Tbl15Subdivision>(id);
 
             //Funktion
-         //   var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(id);
-            var regnumId = ExtCrud.GetRegnumIdFromPhylumsCollectionSelect(id);
+            var regnumId = ExtCrud.RegnumIdFromDivisionsCollectionSelect(id);
             //ForeignKeyTable
             var regnumList = ExtCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(regnumId).FirstOrDefault();
 
-            var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromDivisionIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
-            var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromDivisionIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
-            var authorsList = ExtGet.GetReferenceAuthorsCollectionOrderByFromDivisionIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
-            var commentsList = ExtGet.GetCommentsCollectionOrderByFromDivisionId<Tbl93Comment>(id);
+            var expertsList = ExtCrud.GetReferenceExpertsCollectionFromDivisionIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(id);
+            var sourcesList = ExtCrud.GetReferenceSourcesCollectionFromDivisionIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(id);
+            var authorsList = ExtCrud.GetReferenceAuthorsCollectionFromDivisionIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(id);
+            var commentsList = ExtCrud.GetCommentsCollectionFromDivisionIdOrderBy<Tbl93Comment>(id);
 
             try
             {
+
                 using var pdf = new PdfDocument();
                 _arrInts = PdfHelper.AddReportMain(pdf);
 
@@ -98,24 +97,24 @@ namespace ATIS.Ui.Views.Report.D09Division
                 switch (use)
                 {
                     case "save":
-                    {
-                        var sfd = new SaveFileDialog { Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*" };
-                        sfd.DefaultExt = ".pdf"; // Default file extension
-                        sfd.InitialDirectory = @"C:\";
-                        var saveResult = sfd.ShowDialog();
-                        // Process save file dialog box results
-                        if (saveResult != true) return;
-                        // Save document
-                        var filename = sfd.FileName;
-                        pdf.Save(filename);
-                        break;
-                    }
+                        {
+                            var sfd = new SaveFileDialog { Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*" };
+                            sfd.DefaultExt = ".pdf"; // Default file extension
+                            sfd.InitialDirectory = @"C:\";
+                            var saveResult = sfd.ShowDialog();
+                            // Process save file dialog box results
+                            if (saveResult != true) return;
+                            // Save document
+                            var filename = sfd.FileName;
+                            pdf.Save(filename);
+                            break;
+                        }
                     case "print":
-                    {
-                        var pr = new PdfPrintDocument(pdf, PrintSize.FitPage);
-                        pr.PrintDocument.Print();
-                        break;
-                    }
+                        {
+                            var pr = new PdfPrintDocument(pdf, PrintSize.FitPage);
+                            pr.PrintDocument.Print();
+                            break;
+                        }
                 }
             }
             catch (Exception e)

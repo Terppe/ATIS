@@ -96,7 +96,7 @@
         }
 
         //Function
-        public int GetRegnumIdFromPhylumsCollectionSelect(int id)
+        public int RegnumIdFromPhylumsCollectionSelect(int id)
         {
             var coll = _context.Tbl06Phylums
                 .SingleOrDefault(p => p.PhylumId == id);
@@ -105,7 +105,7 @@
             return coll.RegnumId;
         }
         //Function
-        public int GetRegnumIdFromDivisionsCollectionSelect(int id)
+        public int RegnumIdFromDivisionsCollectionSelect(int id)
         {
             var coll = _context.Tbl09Divisions
                 .SingleOrDefault(p => p.DivisionId == id);

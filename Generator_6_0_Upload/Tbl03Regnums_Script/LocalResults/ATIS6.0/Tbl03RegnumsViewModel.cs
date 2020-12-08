@@ -9,7 +9,6 @@ using System.Windows.Input;
 using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
-using ATIS.Ui.Views.Database.CrudHelper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
 using log4net;
 using Microsoft.EntityFrameworkCore;          
@@ -26,7 +25,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(typeof(RegnumsViewModel));
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
-        private readonly AtisDbContext _context = new AtisDbContext();
+        private readonly CrudFunctions _extCrud = new CrudFunctions();
 
         private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
         private readonly GenericMessageBoxes<Tbl03Regnum> _genRegnumMessageBoxes = new GenericMessageBoxes<Tbl03Regnum>();
@@ -36,10 +35,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
-        private readonly BasicGet _extGet = new BasicGet();
-        private readonly BasicCopy _extCopy = new BasicCopy();
-        private readonly BasicDelete _extDelete = new BasicDelete();
-        private readonly BasicSave _extSave = new BasicSave();        
         private int _position;   
          
         #endregion [Private Data Members]               
@@ -92,7 +87,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteGetRegnumsByNameOrId(string searchName)
        {
-            Tbl03RegnumsList = _extGet.SearchNameAndIdReturnCollection<Tbl03Regnum>(SearchRegnumName, "regnum");
+            Tbl03RegnumsList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl03Regnum>(SearchRegnumName, "regnum");
 
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 0;
@@ -113,7 +108,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         {
             if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl03Regnum)) return;
 
-            Tbl03RegnumsList = _extCopy.CopyRegnum(CurrentTbl03Regnum);
+            Tbl03RegnumsList = _extCrud.CopyRegnum(CurrentTbl03Regnum);
 
             // evtl verbundene tabellen-Datensätze auch kopieren Expert, Source, Author und Comment
 
@@ -127,29 +122,29 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         
             //check if in Tbl06Phylums connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
 
-            Tbl06PhylumsList = _extDelete.SearchForConnectedDatasetsWithRegnumIdInTablePhylum(CurrentTbl03Regnum);
-            Tbl09DivisionsList = _extDelete.SearchForConnectedDatasetsWithRegnumIdInTableDivision(CurrentTbl03Regnum);      
+            Tbl06PhylumsList = _extCrud.SearchForConnectedDatasetsWithRegnumIdInTablePhylum(CurrentTbl03Regnum);
+            Tbl09DivisionsList = _extCrud.SearchForConnectedDatasetsWithRegnumIdInTableDivision(CurrentTbl03Regnum);      
      
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl06PhylumsList.Count, "Phylum")) return;
 
             //Delete all References Experts, Sources, Authors  ----------------------------------------------------
-            Tbl90ReferencesList = _extDelete.DeleteDatasetsWithRegnumIdInTableReference(CurrentTbl03Regnum);
+            Tbl90ReferencesList = _extCrud.DeleteDatasetsWithRegnumIdInTableReference(CurrentTbl03Regnum);
             if (Tbl90ReferencesList.Count > 0)
             {
                 if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
-                _extDelete.DeleteReferences(Tbl90ReferencesList);
+                _extCrud.DeleteReferences(Tbl90ReferencesList);
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
             }
 
             //Delete all Comments  ----------------------------------------------------
-            Tbl93CommentsList = _extDelete.DeleteDatasetsWithRegnumIdInTableComment(CurrentTbl03Regnum);
+            Tbl93CommentsList = _extCrud.DeleteDatasetsWithRegnumIdInTableComment(CurrentTbl03Regnum);
             if (Tbl93CommentsList.Count > 0)
             {
                 if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
 
-                _extDelete.DeleteComments(Tbl93CommentsList);
+                _extCrud.DeleteComments(Tbl93CommentsList);
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
             }
@@ -160,7 +155,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl03Regnum.RegnumName)) return;
 
-                    _extDelete.DeleteRegnum(regnum);
+                    _extCrud.DeleteRegnum(regnum);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl03Regnum.RegnumName);
                 }
@@ -191,15 +186,15 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                     return;
 
                 if (CurrentTbl03Regnum.RegnumId == 0)
-                    regnum = _extSave.RegnumAdd(CurrentTbl03Regnum);
+                    regnum = _extCrud.RegnumAdd(CurrentTbl03Regnum);
                 else
-                    regnum = _extSave.RegnumUpdate(regnum, CurrentTbl03Regnum);
+                    regnum = _extCrud.RegnumUpdate(regnum, CurrentTbl03Regnum);
 
                 _position = RegnumsView.CurrentPosition;
 
                 try
                 {
-                    _extSave.RegnumSave(regnum, CurrentTbl03Regnum);
+                    _extCrud.RegnumSave(regnum, CurrentTbl03Regnum);
                 }
                 catch (DbUpdateException e)
                 {
@@ -266,7 +261,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         private void ExecuteAddPhylum(object o)      
         {
             Tbl06PhylumsList.Insert(0, new Tbl06Phylum  { PhylumName = CultRes.StringsRes.DatasetNew});
-            Tbl03RegnumsAllList = _extGet.AllCollection<Tbl03Regnum>("regnum");
+            Tbl03RegnumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl03Regnum>("regnum");
 
             PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
             PhylumsView.MoveCurrentToFirst();
@@ -276,7 +271,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         {
             if (_genPhylumMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl06Phylum)) return;
 
-            Tbl06PhylumsList = _extCopy.CopyPhylum(CurrentTbl06Phylum);
+            Tbl06PhylumsList = _extCrud.CopyPhylum(CurrentTbl06Phylum);
 
             // evtl verbundene tabellen-Datensätze auch kopieren Expert, Source, Author und Comment
 
@@ -289,27 +284,27 @@ namespace ATIS.Ui.Views.Database.D03Regnum
              if (_genPhylumMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl06Phylum)) return;
 
             //check if in Tbl12Subphylums connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-            Tbl12SubphylumsList = _extDelete.SearchForConnectedDatasetsWithPhylumIdInTableSubphylum(CurrentTbl06Phylum);
+            Tbl12SubphylumsList = _extCrud.SearchForConnectedDatasetsWithPhylumIdInTableSubphylum(CurrentTbl06Phylum);
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl12SubphylumsList.Count, "Subphylum")) return;                                                                                                                   
            
             //Delete all References Experts, Sources, Authors  ----------------------------------------------------
-            Tbl90ReferencesList = _extDelete.DeleteDatasetsWithPhylumIdInTableReference(CurrentTbl06Phylum);
+            Tbl90ReferencesList = _extCrud.DeleteDatasetsWithPhylumIdInTableReference(CurrentTbl06Phylum);
             if (Tbl90ReferencesList.Count > 0)
             {
                 if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
-                _extDelete.DeleteReferences(Tbl90ReferencesList);
+                _extCrud.DeleteReferences(Tbl90ReferencesList);
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
             }
 
             //Delete all Comments  ----------------------------------------------------
-            Tbl93CommentsList = _extDelete.DeleteDatasetsWithPhylumIdInTableComment(CurrentTbl06Phylum);
+            Tbl93CommentsList = _extCrud.DeleteDatasetsWithPhylumIdInTableComment(CurrentTbl06Phylum);
             if (Tbl93CommentsList.Count > 0)
             {
                 if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
 
-                _extDelete.DeleteComments(Tbl93CommentsList);
+                _extCrud.DeleteComments(Tbl93CommentsList);
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
             }
@@ -321,7 +316,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl06Phylum.PhylumName)) return;
 
-                    _extDelete.DeletePhylum(phylum);
+                    _extCrud.DeletePhylum(phylum);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl06Phylum.PhylumName);
                 }
@@ -333,7 +328,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 Log.Error(e);
             }
 
-            Tbl06PhylumsList = _extGet.GetPhylumsCollectionOrderByFromRegnumId<Tbl06Phylum>(CurrentTbl06Phylum.RegnumId);
+            Tbl06PhylumsList = _extCrud.GetPhylumsCollectionFromRegnumIdOrderBy<Tbl06Phylum>(CurrentTbl06Phylum.RegnumId);
 
             PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
             PhylumsView.MoveCurrentToFirst();
@@ -350,9 +345,9 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 var phylum = _uow.Tbl06Phylums.GetById(CurrentTbl06Phylum.PhylumId);
 
                 if (CurrentTbl06Phylum.PhylumId == 0)
-                    phylum = _extSave.PhylumAdd(CurrentTbl06Phylum);
+                    phylum = _extCrud.PhylumAdd(CurrentTbl06Phylum);
                 else
-                    phylum = _extSave.PhylumUpdate(phylum, CurrentTbl06Phylum);
+                    phylum = _extCrud.PhylumUpdate(phylum, CurrentTbl06Phylum);
 
               //  _position = PhylumsView.CurrentPosition;
 
@@ -360,7 +355,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
                 try
                 {
-                    _extSave.PhylumSave(phylum, CurrentTbl06Phylum);
+                    _extCrud.PhylumSave(phylum, CurrentTbl06Phylum);
                 }
                 catch (DbUpdateException e)
                 {
@@ -387,7 +382,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 Log.Error(e);
             }
 
-            Tbl06PhylumsList = _extGet.GetPhylumsCollectionOrderByFromRegnumId<Tbl06Phylum>(CurrentTbl06Phylum.RegnumId);
+            Tbl06PhylumsList = _extCrud.GetPhylumsCollectionFromRegnumIdOrderBy<Tbl06Phylum>(CurrentTbl06Phylum.RegnumId);
 
             PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
             PhylumsView.MoveCurrentToFirst();
@@ -427,7 +422,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         {
             Tbl09DivisionsList.Insert(0, new Tbl09Division  { DivisionName = CultRes.StringsRes.DatasetNew });
 
-            Tbl03RegnumsAllList = _extGet.AllCollection<Tbl03Regnum>("regnum");
+            Tbl03RegnumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl03Regnum>("regnum");
 
             DivisionsView = CollectionViewSource.GetDefaultView(Tbl09DivisionsList);
             DivisionsView.MoveCurrentToFirst();
@@ -437,7 +432,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         {
             if (_genDivisionMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl09Division)) return;
 
-            Tbl09DivisionsList = _extCopy.CopyDivision(CurrentTbl09Division);
+            Tbl09DivisionsList = _extCrud.CopyDivision(CurrentTbl09Division);
 
             // evtl verbundene tabellen-Datensätze auch kopieren Expert, Source, Author und Comment
 
@@ -450,27 +445,27 @@ namespace ATIS.Ui.Views.Database.D03Regnum
              if (_genDivisionMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl09Division)) return;
 
             //check if in Tbl15Subdivisions connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-            Tbl15SubdivisionsList = _extDelete.SearchForConnectedDatasetsWithDivisionIdInTableSubdivision(CurrentTbl09Division);
+            Tbl15SubdivisionsList = _extCrud.SearchForConnectedDatasetsWithDivisionIdInTableSubdivision(CurrentTbl09Division);
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl15SubdivisionsList.Count, "Subdivision")) return;
 
             //Delete all References Experts, Sources, Authors  ----------------------------------------------------
-            Tbl90ReferencesList = _extDelete.DeleteDatasetsWithDivisionIdInTableReference(CurrentTbl09Division);
+            Tbl90ReferencesList = _extCrud.DeleteDatasetsWithDivisionIdInTableReference(CurrentTbl09Division);
             if (Tbl90ReferencesList.Count > 0)
             {
                 if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
-                _extDelete.DeleteReferences(Tbl90ReferencesList);
+                _extCrud.DeleteReferences(Tbl90ReferencesList);
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
             }
 
             //Delete all Comments  ----------------------------------------------------
-            Tbl93CommentsList = _extDelete.DeleteDatasetsWithDivisionIdInTableComment(CurrentTbl09Division);
+            Tbl93CommentsList = _extCrud.DeleteDatasetsWithDivisionIdInTableComment(CurrentTbl09Division);
             if (Tbl93CommentsList.Count > 0)
             {
                 if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
 
-                _extDelete.DeleteComments(Tbl93CommentsList);
+                _extCrud.DeleteComments(Tbl93CommentsList);
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
             }
@@ -482,7 +477,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl09Division.DivisionName)) return;
 
-                    _extDelete.DeleteDivision(division);
+                    _extCrud.DeleteDivision(division);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl09Division.DivisionName);
                 }
@@ -494,7 +489,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 Log.Error(e);
             }
 
-            Tbl09DivisionsList = _extGet.GetDivisionsCollectionOrderByFromRegnumId<Tbl09Division>(CurrentTbl09Division.RegnumId);
+            Tbl09DivisionsList = _extCrud.GetDivisionsCollectionFromRegnumIdOrderBy<Tbl09Division>(CurrentTbl09Division.RegnumId);
 
             DivisionsView = CollectionViewSource.GetDefaultView(Tbl09DivisionsList);
             DivisionsView.MoveCurrentToFirst();
@@ -511,9 +506,9 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 var division = _uow.Tbl09Divisions.GetById(CurrentTbl09Division.DivisionId);
 
                 if (CurrentTbl09Division.DivisionId == 0)
-                    division = _extSave.DivisionAdd(CurrentTbl09Division);
+                    division = _extCrud.DivisionAdd(CurrentTbl09Division);
                 else
-                    division = _extSave.DivisionUpdate(division, CurrentTbl09Division);
+                    division = _extCrud.DivisionUpdate(division, CurrentTbl09Division);
 
               //  _position = DivisionsView.CurrentPosition;
 
@@ -521,7 +516,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
                 try
                 {
-                    _extSave.DivisionSave(division, CurrentTbl09Division);
+                    _extCrud.DivisionSave(division, CurrentTbl09Division);
                 }
                 catch (DbUpdateException e)
                 {
@@ -548,7 +543,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 Log.Error(e);
             }
 
-            Tbl09DivisionsList = _extGet.GetDivisionsCollectionOrderByFromRegnumId<Tbl09Division>(CurrentTbl09Division.RegnumId);
+            Tbl09DivisionsList = _extCrud.GetDivisionsCollectionFromRegnumIdOrderBy<Tbl09Division>(CurrentTbl09Division.RegnumId);
         
             SelectedMainTabIndex = 2;
             DivisionsView = CollectionViewSource.GetDefaultView(Tbl09DivisionsList);
@@ -595,7 +590,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         {
             Tbl90ReferenceAuthorsList ??= new ObservableCollection<Tbl90Reference>();
 
-            Tbl90AuthorsAllList = _extGet.AllCollection<Tbl90RefAuthor>("author");
+            Tbl90AuthorsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefAuthor>("author");
             Tbl90ReferenceAuthorsList.Insert(0, new Tbl90Reference   { Info = CultRes.StringsRes.DatasetNew });
 
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
@@ -606,7 +601,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         {
             if (_genAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceAuthor)) return;
 
-            Tbl90ReferenceAuthorsList = _extCopy.CopyReferenceRegnum(CurrentTbl90ReferenceAuthor, "Author");
+            Tbl90ReferenceAuthorsList = _extCrud.CopyReferenceRegnum(CurrentTbl90ReferenceAuthor, "Author");
 
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
             ReferenceAuthorsView.MoveCurrentToFirst();
@@ -623,7 +618,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceAuthor.Info)) return;
 
-                    _extDelete.DeleteReference(reference);
+                    _extCrud.DeleteReference(reference);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceAuthor.Info);
                 }
@@ -661,10 +656,10 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
 
                 if (CurrentTbl90ReferenceAuthor.ReferenceId == 0)
-                    reference = _extSave.ReferenceAuthorRegnumAdd(CurrentTbl90ReferenceAuthor);
+                    reference = _extCrud.ReferenceAuthorRegnumAdd(CurrentTbl90ReferenceAuthor);
 
                 else
-                    reference = _extSave.ReferenceAuthorRegnumUpdate(reference, CurrentTbl90ReferenceAuthor);
+                    reference = _extCrud.ReferenceAuthorRegnumUpdate(reference, CurrentTbl90ReferenceAuthor);
 
                 //    _position = RegnumsView.CurrentPosition;
 
@@ -672,7 +667,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
                 try
                 {
-                    _extSave.ReferenceAuthorSave(reference, CurrentTbl90ReferenceAuthor);
+                    _extCrud.ReferenceAuthorSave(reference, CurrentTbl90ReferenceAuthor);
                 }
                 catch (DbUpdateException e)
                 {
@@ -698,7 +693,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
-           Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFromRegnumIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);            
+           Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFromRegnumIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);            
      
 
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
@@ -733,7 +728,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         {
             Tbl90ReferenceSourcesList ??= new ObservableCollection<Tbl90Reference>();
 
-            Tbl90SourcesAllList = _extGet.AllCollection<Tbl90RefSource>("source");
+            Tbl90SourcesAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefSource>("source");
 
             Tbl90ReferenceSourcesList .Insert(0, new Tbl90Reference  { Info = CultRes.StringsRes.DatasetNew });
 
@@ -745,7 +740,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         {
             if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
 
-            Tbl90ReferenceAuthorsList = _extCopy.CopyReferenceRegnum(CurrentTbl90ReferenceSource, "Source");
+            Tbl90ReferenceAuthorsList = _extCrud.CopyReferenceRegnum(CurrentTbl90ReferenceSource, "Source");
 
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
             ReferenceSourcesView.MoveCurrentToFirst();
@@ -762,7 +757,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceSource.Info)) return;
 
-                    _extDelete.DeleteReference(reference);
+                    _extCrud.DeleteReference(reference);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceSource.Info);
                 }
@@ -774,7 +769,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 Log.Error(e);
             }
 
-           Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);          
+           Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromRegnumIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);          
 
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
             ReferenceSourcesView.MoveCurrentToFirst();
@@ -802,9 +797,9 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
 
                 if (CurrentTbl90ReferenceSource.ReferenceId == 0)
-                    reference = _extSave.ReferenceSourceRegnumAdd(CurrentTbl90ReferenceSource);
+                    reference = _extCrud.ReferenceSourceRegnumAdd(CurrentTbl90ReferenceSource);
                 else
-                    reference = _extSave.ReferenceSourceRegnumUpdate(reference, CurrentTbl90ReferenceSource);
+                    reference = _extCrud.ReferenceSourceRegnumUpdate(reference, CurrentTbl90ReferenceSource);
 
         //        _position = RegnumsView.CurrentPosition;
 
@@ -812,7 +807,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
                 try
                 {
-                    _extSave.ReferenceSourceSave(reference, CurrentTbl90ReferenceSource);
+                    _extCrud.ReferenceSourceSave(reference, CurrentTbl90ReferenceSource);
 
                 }
                 catch (DbUpdateException e)
@@ -840,7 +835,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 Log.Error(e);
             }
 
-           Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);            
+           Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromRegnumIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);            
 
      
 
@@ -875,7 +870,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         {
             Tbl90ReferenceExpertsList ??= new ObservableCollection<Tbl90Reference>();
 
-            Tbl90ExpertsAllList = _extGet.AllCollection<Tbl90RefExpert>("expert");
+            Tbl90ExpertsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefExpert>("expert");
             Tbl90ReferenceExpertsList .Insert(0, new Tbl90Reference   { Info = CultRes.StringsRes.DatasetNew });
 
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
@@ -886,7 +881,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         {
             if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
 
-            Tbl90ReferenceExpertsList = _extCopy.CopyReferenceRegnum(CurrentTbl90ReferenceExpert, "Expert");
+            Tbl90ReferenceExpertsList = _extCrud.CopyReferenceRegnum(CurrentTbl90ReferenceExpert, "Expert");
 
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
             ReferenceExpertsView.MoveCurrentToFirst();
@@ -903,7 +898,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceExpert.Info)) return;
 
-                    _extDelete.DeleteReference(reference);
+                    _extCrud.DeleteReference(reference);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceExpert.Info);
                 }
@@ -915,7 +910,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 Log.Error(e);
             }
 
-           Tbl90ReferenceExpertsList= _extGet.GetReferenceExpertsCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);           
+           Tbl90ReferenceExpertsList= _extCrud.GetReferenceExpertsCollectionFromRegnumIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);           
 
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
             ReferenceExpertsView.Refresh();
@@ -943,9 +938,9 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
 
                 if (CurrentTbl90ReferenceExpert.ReferenceId == 0)
-                    reference = _extSave.ReferenceExpertRegnumAdd(CurrentTbl90ReferenceExpert);
+                    reference = _extCrud.ReferenceExpertRegnumAdd(CurrentTbl90ReferenceExpert);
                 else
-                    reference = _extSave.ReferenceExpertRegnumUpdate(reference, CurrentTbl90ReferenceExpert);
+                    reference = _extCrud.ReferenceExpertRegnumUpdate(reference, CurrentTbl90ReferenceExpert);
 
                 //        _position = PhylumsView.CurrentPosition;
 
@@ -953,7 +948,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
                 try
                 {
-                    _extSave.ReferenceExpertSave(reference, CurrentTbl90ReferenceExpert);
+                    _extCrud.ReferenceExpertSave(reference, CurrentTbl90ReferenceExpert);
                 }
                 catch (DbUpdateException e)
                 {
@@ -980,7 +975,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 Log.Error(e);
             }
 
-           Tbl90ReferenceExpertsList= _extGet.GetReferenceExpertsCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);                     
+           Tbl90ReferenceExpertsList= _extCrud.GetReferenceExpertsCollectionFromRegnumIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);                     
      
 
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
@@ -1027,7 +1022,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
             if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
 
-            Tbl93CommentsList = _extCopy.CopyComment(CurrentTbl93Comment, "Comment");
+            Tbl93CommentsList = _extCrud.CopyComment(CurrentTbl93Comment, "Comment");
 
             CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
             CommentsView.MoveCurrentToFirst();
@@ -1044,7 +1039,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 {
                     if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl93Comment.Info)) return;
 
-                    _extDelete.DeleteComment(comment);
+                    _extCrud.DeleteComment(comment);
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl93Comment.Info);
                 }
@@ -1056,7 +1051,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 Log.Error(e);
             }
 
-            Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromRegnumId<Tbl93Comment>(CurrentTbl93Comment.RegnumId);
+            Tbl93CommentsList = _extCrud.GetCommentsCollectionFromRegnumIdOrderBy<Tbl93Comment>(CurrentTbl93Comment.RegnumId);
 
             CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
             CommentsView.Refresh();
@@ -1074,9 +1069,9 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
 
                 if (CurrentTbl93Comment.CommentId == 0)
-                    comment = _extSave.CommentRegnumAdd(CurrentTbl93Comment);
+                    comment = _extCrud.CommentRegnumAdd(CurrentTbl93Comment);
                 else
-                    comment = _extSave.CommentRegnumUpdate(comment, CurrentTbl93Comment);
+                    comment = _extCrud.CommentRegnumUpdate(comment, CurrentTbl93Comment);
 
                 //        _position = RegnumsView.CurrentPosition;
 
@@ -1085,7 +1080,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
                 try
                 {
-                    _extSave.CommentSave(comment, CurrentTbl93Comment);
+                    _extCrud.CommentSave(comment, CurrentTbl93Comment);
                 }
                 catch (DbUpdateException e)
                 {
@@ -1112,7 +1107,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 Log.Error(e);
             }
 
-            Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromRegnumId<Tbl93Comment>(CurrentTbl93Comment.RegnumId);                 
+            Tbl93CommentsList = _extCrud.GetCommentsCollectionFromRegnumIdOrderBy<Tbl93Comment>(CurrentTbl93Comment.RegnumId);                 
      
 
             CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
@@ -1136,9 +1131,9 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void GetConnectedTablesById(object o)
         {           
-Tbl06PhylumsList = _extGet.GetPhylumsCollectionOrderByFromRegnumId<Tbl06Phylum>(CurrentTbl03Regnum.RegnumId);
+Tbl06PhylumsList = _extCrud.GetPhylumsCollectionFromRegnumIdOrderBy<Tbl06Phylum>(CurrentTbl03Regnum.RegnumId);
 
-            Tbl03RegnumsAllList = _extGet.AllCollection<Tbl03Regnum>("regnum");
+            Tbl03RegnumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl03Regnum>("regnum");
 
             PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
             PhylumsView.Refresh();    
@@ -1173,9 +1168,9 @@ Tbl06PhylumsList = _extGet.GetPhylumsCollectionOrderByFromRegnumId<Tbl06Phylum>(
                 {
                     if (CurrentTbl03Regnum != null)
                     {
-                        Tbl06PhylumsList = _extGet.GetPhylumsCollectionOrderByFromRegnumId<Tbl06Phylum>(CurrentTbl03Regnum.RegnumId);
+                        Tbl06PhylumsList = _extCrud.GetPhylumsCollectionFromRegnumIdOrderBy<Tbl06Phylum>(CurrentTbl03Regnum.RegnumId);
 
-                        Tbl03RegnumsAllList = _extGet.AllCollection<Tbl03Regnum>("regnum");
+                        Tbl03RegnumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl03Regnum>("regnum");
 
                         PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
                         PhylumsView.Refresh();
@@ -1187,9 +1182,9 @@ Tbl06PhylumsList = _extGet.GetPhylumsCollectionOrderByFromRegnumId<Tbl06Phylum>(
                 {
                     if (CurrentTbl03Regnum != null)
                     {
-                        Tbl09DivisionsList = _extGet.GetDivisionsCollectionOrderByFromRegnumId<Tbl09Division>(CurrentTbl03Regnum.RegnumId);
+                        Tbl09DivisionsList = _extCrud.GetDivisionsCollectionFromRegnumIdOrderBy<Tbl09Division>(CurrentTbl03Regnum.RegnumId);
 
-                        Tbl03RegnumsAllList = _extGet.AllCollection<Tbl03Regnum>("regnum");
+                        Tbl03RegnumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl03Regnum>("regnum");
 
                         DivisionsView = CollectionViewSource.GetDefaultView(Tbl09DivisionsList);
                         DivisionsView.Refresh();
@@ -1207,7 +1202,7 @@ Tbl06PhylumsList = _extGet.GetPhylumsCollectionOrderByFromRegnumId<Tbl06Phylum>(
                 {
                     if (CurrentTbl03Regnum != null)
                     {
-                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromRegnumId<Tbl93Comment>(CurrentTbl03Regnum.RegnumId);
+                        Tbl93CommentsList = _extCrud.GetCommentsCollectionFromRegnumIdOrderBy<Tbl93Comment>(CurrentTbl03Regnum.RegnumId);
 
                         CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
                         CommentsView.Refresh();
@@ -1240,9 +1235,9 @@ Tbl06PhylumsList = _extGet.GetPhylumsCollectionOrderByFromRegnumId<Tbl06Phylum>(
                 {
                     if (CurrentTbl03Regnum != null)
                     {
-                        Tbl09DivisionsList = _extGet.GetDivisionsCollectionOrderByFromRegnumId<Tbl09Division>(CurrentTbl03Regnum.RegnumId);
+                        Tbl09DivisionsList = _extCrud.GetDivisionsCollectionFromRegnumIdOrderBy<Tbl09Division>(CurrentTbl03Regnum.RegnumId);
 
-                        Tbl03RegnumsAllList = _extGet.AllCollection<Tbl03Regnum>("regnum");
+                        Tbl03RegnumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl03Regnum>("regnum");
 
                         DivisionsView = CollectionViewSource.GetDefaultView(Tbl09DivisionsList);
                         DivisionsView.Refresh();
@@ -1256,7 +1251,7 @@ Tbl06PhylumsList = _extGet.GetPhylumsCollectionOrderByFromRegnumId<Tbl06Phylum>(
                     {
                         Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
 
-                        Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);
+                        Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFromRegnumIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);
 
                         ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
                         ReferenceExpertsView.Refresh();
@@ -1271,7 +1266,7 @@ Tbl06PhylumsList = _extGet.GetPhylumsCollectionOrderByFromRegnumId<Tbl06Phylum>(
                     {
                         Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
 
-                        Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);
+                        Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromRegnumIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);
 
                         ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
                         ReferenceSourcesView.Refresh();
@@ -1286,7 +1281,7 @@ Tbl06PhylumsList = _extGet.GetPhylumsCollectionOrderByFromRegnumId<Tbl06Phylum>(
                     {
                         Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
 
-                        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFromRegnumIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);
+                        Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFromRegnumIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);
 
                         ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
                         ReferenceAuthorsView.Refresh();
@@ -1299,7 +1294,7 @@ Tbl06PhylumsList = _extGet.GetPhylumsCollectionOrderByFromRegnumId<Tbl06Phylum>(
                 {
                     if (CurrentTbl03Regnum != null)
                     {
-                        Tbl93CommentsList = _extGet.GetCommentsCollectionOrderByFromRegnumId<Tbl93Comment>(CurrentTbl03Regnum.RegnumId);
+                        Tbl93CommentsList = _extCrud.GetCommentsCollectionFromRegnumIdOrderBy<Tbl93Comment>(CurrentTbl03Regnum.RegnumId);
 
                         CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
                         CommentsView.Refresh();
@@ -1324,7 +1319,7 @@ Tbl06PhylumsList = _extGet.GetPhylumsCollectionOrderByFromRegnumId<Tbl06Phylum>(
                     {
                         Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
 
-                        Tbl90ReferenceExpertsList = _extGet.GetReferenceExpertsCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);
+                        Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFromRegnumIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);
 
                         ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
                         ReferenceExpertsView.Refresh();
@@ -1339,7 +1334,7 @@ Tbl06PhylumsList = _extGet.GetPhylumsCollectionOrderByFromRegnumId<Tbl06Phylum>(
                     {
                         Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
 
-                        Tbl90ReferenceSourcesList = _extGet.GetReferenceSourcesCollectionOrderByFromRegnumIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);
+                        Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromRegnumIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);
 
                         ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
                         ReferenceSourcesView.Refresh();
@@ -1354,7 +1349,7 @@ Tbl06PhylumsList = _extGet.GetPhylumsCollectionOrderByFromRegnumId<Tbl06Phylum>(
                     {
                         Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
 
-                        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFromRegnumIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);
+                        Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFromRegnumIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);
 
                         ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
                         ReferenceAuthorsView.Refresh();

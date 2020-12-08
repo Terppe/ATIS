@@ -1,0 +1,27 @@
+@model Atis.Domain.Models.Tbl90RefSource    	
+
+       <!-- Delete  Skriptdatum:  29.12.2011  10:32    -->        
+
+@{
+    ViewBag.Title = Tbl90RefSourcesRes.StringsRes.Delete;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Tbl90RefSourcesRes.StringsRes.Delete</h2>
+
+    <div>
+        <p>@SharedRes.StringsRes.DeleteMessage       
+  
+             <i>@Model.RefSourceID  /  @Model.RefSourceName  ?</i>         
+ 
+         </p>     	   
+    </div>
+@using (Html.BeginForm()) {
+    <p>
+            <input name="confirmButton" type="submit" value="@SharedRes.StringsRes.ButtonDelete" /> 
+        @Html.ActionLink(SharedRes.StringsRes.ActionLnkBack, "Index")
+
+    </p>
+}
+
+    

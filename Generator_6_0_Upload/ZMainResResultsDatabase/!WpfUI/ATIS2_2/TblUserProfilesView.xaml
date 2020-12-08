@@ -1,0 +1,819 @@
+    
+<UserControl 
+             x:Class="WPFUI.Views.Database.TblUserProfilesView"               
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:database="clr-namespace:WPFUI.Views.Database"       
+          
+             xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+             xmlns:helper="clr-namespace:WPFUI.Helper"                                                  
+        
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:models="clr-namespace:DAL.Models;assembly=DAL"
+             xmlns:validationRules="clr-namespace:WPFUI.Helper.ValidationRules"                                              
+            
+             d:DesignHeight="930" 
+             d:DesignWidth="1140"
+             mc:Ignorable="d">                                              
+                   
+    <UserControl.Resources>
+        <helper:ComboBoxEmptyItemConverter x:Key="ComboBoxEmptyItemConverter" />
+        <helper:CapitalizeFirstLetterConverter x:Key="CapFirst" />          
+       
+    </UserControl.Resources>
+
+    <UserControl.DataContext>
+        <database:TblUserProfilesViewModel/>
+    </UserControl.DataContext>                           
+ 
+
+        <!-- TblUserProfilesView.xaml  Skriptdatum:   15.11.2017  10:32   -->    
+
+             
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition
+                Width="1"
+                MinWidth="318"
+                MaxWidth="932" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>                                    
+
+                            <!-- Part 1   Creating Sub-Grid in Column 0  -->              
+             
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.7*" />
+                <RowDefinition Height="Auto" />                                    
+    
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>                                    
+             
+            <dragablz:TabablzControl Margin="1" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderUserProfiles}">                                      
+             
+                    <ScrollViewer
+                        Name="TblUserProfilesListScroll"
+                        HorizontalScrollBarVisibility="Auto"
+                        PreviewMouseWheel="TblUserProfilesListScroll_PreviewMouseWheel"
+                        VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                    <materialDesign:ColorZone
+                                        Width="150"
+                                        Margin="30,10,0,10"
+                                        materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                                        Background="White"
+                                        CornerRadius="1"
+                                        Focusable="True"
+                                        Mode="PrimaryMid">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>                                         
+             
+                                            <TextBox
+                                                x:Name="TbSearchUserProfile"
+                                                Grid.Column="1"
+                                                Grid.ColumnSpan="2"
+                                                Width="150"
+                                                Margin="-5,4"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Center"                                        
+    
+                                                materialDesign:HintAssist.Hint="{DynamicResource Shared-SearchEmail}"                                     
+             
+                                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                                BorderThickness="0"
+                                                Focusable="True"
+                                                Foreground="Gray"                                     
+    
+                                                Text="{Binding SearchEmail, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                ToolTip="{DynamicResource Shared-SearchEmail}"  />                                     
+             
+                                        <Button
+                                            Grid.Column="2"
+                                            Click="ClearUserProfileButton_Click"
+                                            Template="{StaticResource ClearButtonTemplate}" />
+                                    </Grid>
+                                </materialDesign:ColorZone>                                      
+             
+                                <Button Template="{StaticResource GetUserProfileButtonTemplate}" />  
+             
+                                <Button Template="{StaticResource AddUserProfileButtonTemplate}" />
+                            </StackPanel>          
+             
+                            <StackPanel>
+                                <ListView
+                                     x:Name="TblUserProfilesList"   
+             
+                                    IsSynchronizedWithCurrentItem="True"
+                                    ItemsSource="{Binding TblUserProfilesList}" 
+                                    SelectedItem="{Binding SelectedItem}" >  
+             
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Width="Auto" Header="{DynamicResource TblUserProfile-UserProfileId}" >       
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock     
+                                                            Width="120"  
+                                                            Text="{Binding (models:TblUserProfile.UserProfileID)}"
+                                                            TextAlignment="Right" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>   
+            
+                                            <GridViewColumn
+                                                Width="150"
+                                                DisplayMemberBinding="{Binding (models:TblUserProfile.Email)}"
+                                                Header="{DynamicResource TblUserProfile-Email}" />
+                                            <GridViewColumn
+                                                Width="100"
+                                                DisplayMemberBinding="{Binding (models:TblUserProfile.Role)}"
+                                                Header="{DynamicResource TblUserProfile-Role}" />
+                                            <GridViewColumn
+                                                Width="100"
+                                                DisplayMemberBinding="{Binding (models:TblUserProfile.FirstName)}"
+                                                Header="{DynamicResource TblUserProfile-FirstName}" />
+                                            <GridViewColumn
+                                                Width="100"
+                                                DisplayMemberBinding="{Binding (models:TblUserProfile.LastName)}"
+                                                Header="{DynamicResource TblUserProfile-LastName}" />
+                                            <GridViewColumn
+                                                Width="750"
+                                                DisplayMemberBinding="{Binding (models:TblUserProfile.Password)}"
+                                                Header="{DynamicResource TblUserProfile-Password}" />                                                                                              
+             
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+            </dragablz:TabablzControl>                                                                                                                           
+       
+        </Grid>                                                                                                                           
+
+
+                     <!-- Part 2   FK1  aktuell  -->    
+
+                                                          
+
+                     <!-- Part 2  FK2  aktuell  -->    
+             
+                                                            
+        
+                     <!-- Part 2   FK3  aktuell  -->    
+
+   
+             
+                     <!-- Part 2  FK4  aktuell  -->    
+             
+   
+
+                     <!-- Part 4  TK1  aktuell  -->    
+
+  
+
+                     <!-- Part 4   TK2  aktuell  -->    
+     
+  
+       
+                     <!-- Part 4   TK3  aktuell  -->    
+   
+  
+            
+                     <!-- Part 4   TK4  aktuell  -->    
+
+  
+             
+     
+                     <!-- Part 7   -->        
+
+
+
+                     <!-- Part 8 Splitter  -->    
+
+        
+        <!--  Creating Sub-Grid in Column 2  -->
+        <Grid Grid.Row="0" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="9*" />           
+         
+                <RowDefinition Height="15*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="412*" />
+            </Grid.RowDefinitions>           
+           
+            <dragablz:TabablzControl
+                Grid.Row="0"
+                Grid.RowSpan="3"
+                Grid.ColumnSpan="3"
+                Margin="1"
+                Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" >
+                <TabItem FontWeight="Medium" Header="{DynamicResource TblUserProfile-UserProfile}" />           
+         
+            </dragablz:TabablzControl>
+            <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="0,0,5,0">
+                            <StackPanel Height="Auto" Orientation="Horizontal">   
+           
+                            <Button
+                                Margin="560,0,0,0"
+                                HorizontalAlignment="Left"
+                                Command="{Binding SaveUserProfileCommand}"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                ToolTip="{DynamicResource Shared-ButtonSave}">
+                                <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Margin="0,0,-5,0"
+                                Kind="ContentSave"
+                                Opacity=".56" />
+                            </Button>     
+       
+                            <Button Template="{StaticResource CopyUserProfileButtonTemplate}" />  
+                            <Button Template="{StaticResource AddUserProfileButtonTemplate}" />  
+                            <Button Template="{StaticResource DeleteUserProfileButtonTemplate}" />  
+                        </StackPanel>  
+       
+                    <StackPanel Height="Auto" Orientation="Horizontal">
+                        <TextBox
+                            x:Name="TextBoxEmail"
+                            Width="300"
+                            Margin="5,0,0,0"
+                            materialDesign:HintAssist.Hint="{DynamicResource Login-Email}"
+                            materialDesign:ValidationAssist.UsePopup="True"
+                            FontWeight="Medium"
+                            Style="{StaticResource TextBoxInError}"
+                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                            <TextBox.Text>
+                                <Binding
+                                    ElementName="TblUserProfilesList"
+                                    Mode="TwoWay"
+                                    Path="SelectedItem.(models:TblUserProfile.Email)"
+                                    UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validationRules:Name200Validator />
+                                        <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                        <validationRules:EmailValidationRule />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Height="Auto" Orientation="Horizontal">
+                        <TextBox
+                            x:Name="PasswordBox"
+                            Width="760"
+                            Margin="5,0,0,0"
+                            materialDesign:HintAssist.Hint="{DynamicResource Login-Password}"
+                            materialDesign:ValidationAssist.UsePopup="True"
+                            FontWeight="Medium"
+                            Style="{StaticResource TextBoxInError}"
+                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                            <TextBox.Text>
+                                <Binding
+                                    ElementName="TblUserProfilesList"
+                                    Mode="TwoWay"
+                                    Path="SelectedItem.(models:TblUserProfile.Password)"
+                                    UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validationRules:Name200Validator />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Height="Auto" Orientation="Horizontal">
+                        <ComboBox
+                            x:Name="CbRole"
+                            Width="150"
+                            Margin="5,0,0,0"
+                            VerticalAlignment="Bottom"
+                            materialDesign:HintAssist.Hint="{DynamicResource TblUserProfile-Role}"
+                            DisplayMemberPath="Name"
+                            IsSynchronizedWithCurrentItem="True"
+                            ItemsSource="{Binding Roles}"
+                            SelectedItem="{Binding SelectedRole}"
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                            Text="{Binding SelectedItem.(models:TblUserProfile.Role), ElementName=TblUserProfilesList, Mode=TwoWay}" />
+                        <CheckBox
+                            x:Name="ChFlag"
+                            Width="150"
+                            Margin="50,0,0,0"
+                            VerticalAlignment="Bottom"
+                            Content="{DynamicResource TblUserProfile-Flag}"
+                            FontWeight="Normal"
+                            IsChecked="{Binding SelectedItem.(models:TblUserProfile.Flag), ElementName=TblUserProfilesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource MaterialDesignCheckBox}" />
+                    </StackPanel>
+                    <StackPanel Height="Auto" Orientation="Horizontal">
+                        <TextBox
+                            x:Name="TbColour"
+                            Width="760"
+                            Margin="5,0,0,0"
+                            materialDesign:HintAssist.Hint="{DynamicResource TblUserProfile-Colour}"
+                            materialDesign:ValidationAssist.UsePopup="True"
+                            FontWeight="Medium"
+                            Style="{StaticResource TextBoxInError}"
+                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                            <TextBox.Text>
+                                <Binding
+                                    ElementName="TblUserProfilesList"
+                                    Mode="TwoWay"
+                                    Path="SelectedItem.(models:TblUserProfile.Colour)"
+                                    UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validationRules:Name200Validator />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Height="Auto" Orientation="Horizontal">
+                        <ComboBox
+                            x:Name="CbTitle"
+                            Width="150"
+                            Margin="5,0,0,0"
+                            VerticalAlignment="Bottom"
+                            materialDesign:HintAssist.Hint="{DynamicResource TblUserProfile-Title}"
+                            DisplayMemberPath="Name"
+                            IsSynchronizedWithCurrentItem="True"
+                            ItemsSource="{Binding Titles}"
+                            SelectedItem="{Binding SelectedTitle}"
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                            Text="{Binding SelectedItem.(models:TblUserProfile.Title), ElementName=TblUserProfilesList, Mode=TwoWay}" />
+                        <TextBox
+                            x:Name="TbFirstName"
+                            Width="250"
+                            Margin="50,0,0,0"
+                            materialDesign:HintAssist.Hint="{DynamicResource TblUserProfile-FirstName}"
+                            materialDesign:ValidationAssist.UsePopup="True"
+                            FontWeight="Medium"
+                            Style="{StaticResource TextBoxInError}"
+                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                            <TextBox.Text>
+                                <Binding
+                                    Converter="{StaticResource CapFirst}"
+                                    ElementName="TblUserProfilesList"
+                                    Mode="TwoWay"
+                                    Path="SelectedItem.(models:TblUserProfile.FirstName)"
+                                    UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validationRules:Name200Validator />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBox
+                            x:Name="TbLastName"
+                            Width="250"
+                            Margin="60,0,0,0"
+                            materialDesign:HintAssist.Hint="{DynamicResource TblUserProfile-LastName}"
+                            materialDesign:ValidationAssist.UsePopup="True"
+                            FontWeight="Medium"
+                            Style="{StaticResource TextBoxInError}"
+                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                            <TextBox.Text>
+                                <Binding
+                                    Converter="{StaticResource CapFirst}"
+                                    ElementName="TblUserProfilesList"
+                                    Mode="TwoWay"
+                                    Path="SelectedItem.(models:TblUserProfile.LastName)"
+                                    UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validationRules:Name200Validator />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Height="auto" Orientation="Horizontal">
+                        <ComboBox
+                            x:Name="CbGender"
+                            Width="150"
+                            Margin="5,0,0,0"
+                            VerticalAlignment="Bottom"
+                            materialDesign:HintAssist.Hint="{DynamicResource TblUserProfile-Gender}"
+                            DisplayMemberPath="Name"
+                            IsSynchronizedWithCurrentItem="True"
+                            ItemsSource="{Binding Genders}"
+                            SelectedItem="{Binding SelectedGender}"
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                            Text="{Binding SelectedItem.(models:TblUserProfile.Gender), ElementName=TblUserProfilesList, Mode=TwoWay}" />
+                        <DatePicker
+                            x:Name="DpBirthDate"
+                            Width="100"
+                            Margin="50,16,0,0"
+                            HorizontalAlignment="Left"
+                            materialDesign:HintAssist.Hint="{DynamicResource TblUserProfile-BirthDate}"
+                            Text="{Binding SelectedItem.(models:TblUserProfile.BirthDate), ElementName=TblUserProfilesList, Mode=TwoWay}" />
+                    </StackPanel>
+                    <StackPanel Height="Auto" Orientation="Horizontal">
+                        <ComboBox
+                            x:Name="CbCountry"
+                            Width="150"
+                            Margin="5,0,0,0"
+                            VerticalAlignment="Bottom"
+                            materialDesign:HintAssist.Hint="{DynamicResource TblUserProfile-Country}"
+                            IsSynchronizedWithCurrentItem="True"
+                            ItemsSource="{Binding TblCountriesList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                            SelectedValue="{Binding SelectedItem.(models:TblUserProfile.Country), ElementName=TblUserProfilesList, Mode=TwoWay}"
+                            SelectedValuePath="Name"
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding (models:TblCountry.Name)}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <TextBox
+                            x:Name="TbPostcode"
+                            Width="200"
+                            Margin="50,0,0,0"
+                            materialDesign:HintAssist.Hint="{DynamicResource TblUserProfile-Postcode}"
+                            materialDesign:ValidationAssist.UsePopup="True"
+                            FontWeight="Medium"
+                            Style="{StaticResource TextBoxInError}"
+                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                            <TextBox.Text>
+                                <Binding
+                                    ElementName="TblUserProfilesList"
+                                    Mode="TwoWay"
+                                    Path="SelectedItem.(models:TblUserProfile.Postcode)"
+                                    UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validationRules:Name200Validator />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBox
+                            x:Name="TbCity"
+                            Width="300"
+                            Margin="60,0,0,0"
+                            materialDesign:HintAssist.Hint="{DynamicResource TblUserProfile-City}"
+                            materialDesign:ValidationAssist.UsePopup="True"
+                            FontWeight="Medium"
+                            Style="{StaticResource TextBoxInError}"
+                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                            <TextBox.Text>
+                                <Binding
+                                    Converter="{StaticResource CapFirst}"
+                                    ElementName="TblUserProfilesList"
+                                    Mode="TwoWay"
+                                    Path="SelectedItem.(models:TblUserProfile.City)"
+                                    UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validationRules:Name200Validator />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Height="Auto" Orientation="Horizontal">
+                        <TextBox
+                            x:Name="TbStreet1"
+                            Width="350"
+                            Margin="5,0,0,0"
+                            materialDesign:HintAssist.Hint="{DynamicResource TblUserProfile-Street1}"
+                            materialDesign:ValidationAssist.UsePopup="True"
+                            FontWeight="Medium"
+                            Style="{StaticResource TextBoxInError}"
+                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                            <TextBox.Text>
+                                <Binding
+                                   Converter="{StaticResource CapFirst}"
+                                   ElementName="TblUserProfilesList"
+                                    Mode="TwoWay"
+                                    Path="SelectedItem.(models:TblUserProfile.Street1)"
+                                    UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validationRules:Name200Validator />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBox
+                            x:Name="TbStreet2"
+                            Width="350"
+                            Margin="60,0,0,0"
+                            materialDesign:HintAssist.Hint="{DynamicResource TblUserProfile-Street2}"
+                            materialDesign:ValidationAssist.UsePopup="True"
+                            FontWeight="Medium"
+                            Style="{StaticResource TextBoxInError}"
+                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                            <TextBox.Text>
+                                <Binding
+                                   Converter="{StaticResource CapFirst}"
+                                    ElementName="TblUserProfilesList"
+                                    Mode="TwoWay"
+                                    Path="SelectedItem.(models:TblUserProfile.Street2)"
+                                    UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validationRules:Name200Validator />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Height="Auto" Orientation="Horizontal">
+                        <TextBox
+                            x:Name="TbTel"
+                            Width="220"
+                            Margin="5,0,0,0"
+                            materialDesign:HintAssist.Hint="{DynamicResource TblUserProfile-Tel}"
+                            materialDesign:ValidationAssist.UsePopup="True"
+                            FontWeight="Medium"
+                            Style="{StaticResource TextBoxInError}"
+                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                            <TextBox.Text>
+                                <Binding
+                                    ElementName="TblUserProfilesList"
+                                    Mode="TwoWay"
+                                    Path="SelectedItem.(models:TblUserProfile.Tel)"
+                                    UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validationRules:NumberValidator />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBox
+                            x:Name="TbMobil"
+                            Width="220"
+                            Margin="50,0,0,0"
+                            materialDesign:HintAssist.Hint="{DynamicResource TblUserProfile-Mobil}"
+                            materialDesign:ValidationAssist.UsePopup="True"
+                            FontWeight="Medium"
+                            Style="{StaticResource TextBoxInError}"
+                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                            <TextBox.Text>
+                                <Binding
+                                    ElementName="TblUserProfilesList"
+                                    Mode="TwoWay"
+                                    Path="SelectedItem.(models:TblUserProfile.Mobil)"
+                                    UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validationRules:NumberValidator />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBox
+                            x:Name="TbFax"
+                            Width="220"
+                            Margin="50,0,0,0"
+                            materialDesign:HintAssist.Hint="{DynamicResource TblUserProfile-Fax}"
+                            materialDesign:ValidationAssist.UsePopup="True"
+                            FontWeight="Medium"
+                            Style="{StaticResource TextBoxInError}"
+                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                            <TextBox.Text>
+                                <Binding
+                                    ElementName="TblUserProfilesList"
+                                    Mode="TwoWay"
+                                    Path="SelectedItem.(models:TblUserProfile.Fax)"
+                                    UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validationRules:NumberValidator />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Height="Auto" Orientation="Horizontal">
+                        <TextBox
+                            x:Name="TbUrl"
+                            Width="350"
+                            Margin="5,0,0,0"
+                            materialDesign:HintAssist.Hint="{DynamicResource TblUserProfile-HomePageUrl}"
+                            materialDesign:ValidationAssist.UsePopup="True"
+                            FontWeight="Medium"
+                            Style="{StaticResource TextBoxInError}"
+                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                            <TextBox.Text>
+                                <Binding
+                                    ElementName="TblUserProfilesList"
+                                    Mode="TwoWay"
+                                    Path="SelectedItem.(models:TblUserProfile.HomePageURL)"
+                                    UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validationRules:Name200Validator />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBox
+                            x:Name="TbBusiness"
+                            Width="350"
+                            Margin="60,0,0,0"
+                            materialDesign:HintAssist.Hint="{DynamicResource TblUserProfile-Business}"
+                            materialDesign:ValidationAssist.UsePopup="True"
+                            FontWeight="Medium"
+                            Style="{StaticResource TextBoxInError}"
+                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                            <TextBox.Text>
+                                <Binding
+                                    ElementName="TblUserProfilesList"
+                                    Mode="TwoWay"
+                                    Path="SelectedItem.(models:TblUserProfile.Business)"
+                                    UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validationRules:Name200Validator />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Height="Auto" Orientation="Horizontal">
+                        <TextBox
+                            x:Name="TbCompany"
+                            Width="200"
+                            Margin="5,0,0,0"
+                            materialDesign:HintAssist.Hint="{DynamicResource TblUserProfile-Company}"
+                            materialDesign:ValidationAssist.UsePopup="True"
+                            FontWeight="Medium"
+                            Style="{StaticResource TextBoxInError}"
+                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                            <TextBox.Text>
+                                <Binding
+                                    Converter="{StaticResource CapFirst}"
+                                   ElementName="TblUserProfilesList"
+                                    Mode="TwoWay"
+                                    Path="SelectedItem.(models:TblUserProfile.Company)"
+                                    UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validationRules:Name200Validator />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBox
+                            x:Name="TbSignature"
+                            Width="200"
+                            Margin="60,0,0,0"
+                            materialDesign:HintAssist.Hint="{DynamicResource TblUserProfile-Signature}"
+                            materialDesign:ValidationAssist.UsePopup="True"
+                            FontWeight="Medium"
+                            Style="{StaticResource TextBoxInError}"
+                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                            <TextBox.Text>
+                                <Binding
+                                    ElementName="TblUserProfilesList"
+                                    Mode="TwoWay"
+                                    Path="SelectedItem.(models:TblUserProfile.Signature)"
+                                    UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validationRules:Name200Validator />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Height="Auto" Orientation="Horizontal">
+                        <TextBox
+                            x:Name="TbMimeType"
+                            Width="200"
+                            Margin="5,0,0,0"
+                            materialDesign:HintAssist.Hint="{DynamicResource TblUserProfile-ImageMimeType}"
+                            materialDesign:ValidationAssist.UsePopup="True"
+                            FontWeight="Medium"
+                            Style="{StaticResource TextBoxInError}"
+                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                            <TextBox.Text>
+                                <Binding
+                                    ElementName="TblUserProfilesList"
+                                    Mode="TwoWay"
+                                    Path="SelectedItem.(models:TblUserProfile.ImageMimeType)"
+                                    UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validationRules:Name200Validator />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBox
+                            x:Name="TbFileStreamId"
+                            Width="500"
+                            Margin="60,0,0,0"
+                            materialDesign:HintAssist.Hint="{DynamicResource TblUserProfile-FilestreamId}"
+                            materialDesign:ValidationAssist.UsePopup="True"
+                            FontWeight="Medium"
+                            Style="{StaticResource TextBoxInError}"
+                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                            <TextBox.Text>
+                                <Binding
+                                    ElementName="TblUserProfilesList"
+                                    Mode="TwoWay"
+                                    Path="SelectedItem.(models:TblUserProfile.FilestreamID)"
+                                    UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validationRules:Name200Validator />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Height="Auto" Orientation="Horizontal">
+                        <CheckBox
+                            x:Name="ChNewsletter"
+                            Width="150"
+                            Margin="5,10,0,0"
+                            VerticalAlignment="Center"
+                            Content="{DynamicResource TblUserProfile-MailNewsletter}"
+                            FontWeight="Medium"
+                            IsChecked="{Binding SelectedItem.(models:TblUserProfile.MailNewsletter), ElementName=TblUserProfilesList}"
+                            Style="{StaticResource MaterialDesignCheckBox}" />
+                        <CheckBox
+                            x:Name="ChMaul"
+                            Width="150"
+                            Margin="100,10,0,0"
+                            VerticalAlignment="Center"
+                            Content="{DynamicResource TblUserProfile-MaulHtml}"
+                            FontWeight="Normal"
+                            IsChecked="{Binding SelectedItem.(models:TblUserProfile.MaulHTML), ElementName=TblUserProfilesList}"
+                            Style="{StaticResource MaterialDesignCheckBox}" />
+                    </StackPanel>
+                    <StackPanel Height="Auto" Orientation="Horizontal">
+                        <TextBox
+                            x:Name="TbMemo"
+                            Height="345"
+                            MinWidth="760"
+                            MaxWidth="760"
+                            Margin="2,5,0,0"
+                            VerticalAlignment="Stretch"
+                            materialDesign:HintAssist.Hint="{DynamicResource Shared-Memo}"
+                            AcceptsReturn="True"
+                            FontWeight="Medium"
+                            Text="{Binding SelectedItem.(models:TblUserProfile.Memo), ElementName=TblUserProfilesList}"
+                            TextWrapping="Wrap"
+                            VerticalScrollBarVisibility="Auto" />
+                      </StackPanel>                    
+
+
+                     <!-- Part 8.1 FK1 - FK4 Connected -->         
+
+
+
+
+  
+             <!--  Part 8.2 TK1 Connected -->  
+
+
+                                                                                                                                                                                                                                                                                                                      
+                     <!-- Part 8.3  TK2  Connected-->           
+
+
+     
+                     <!-- Part 8.3   TK3 Connected -->           
+
+
+     
+                     <!-- Part 8.3   TK4  Connected  -->           
+
+
+
+
+                     <!-- Part 11  -->                
+
+                     <!-- Part 12  -->                
+
+                     <!-- Part 13  -->                
+
+            
+                </StackPanel>
+            </ScrollViewer>     
+        
+      </Grid>
+        <GridSplitter
+            Grid.Row="0"
+            Grid.RowSpan="3"
+            Grid.Column="1"
+            Width="4"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Stretch"
+            Background="Black"
+            ResizeDirection="Columns"
+            ShowsPreview="False" />
+  </Grid>
+</UserControl>
+            

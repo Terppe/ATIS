@@ -4301,7 +4301,7 @@
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                                 <TextBox
-                                    Width="200"
+                                    Width="250"
                                     Margin="5"
                                     HorizontalContentAlignment="Stretch"
                                     mah:TextBoxHelper.IsWaitingForData="True"
@@ -4329,7 +4329,7 @@
                                     </TextBox.Text>
                                 </TextBox>  
                                 <ComboBox
-                                    Width="240"
+                                    Width="250"
                                     Margin="5"
                                     VerticalAlignment="Bottom"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -4343,7 +4343,7 @@
                                     Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                     VirtualizingStackPanel.IsVirtualizing="True" />
                                 <ComboBox
-                                    Width="240"
+                                    Width="250"
                                     Margin="5"
                                     VerticalAlignment="Bottom"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"

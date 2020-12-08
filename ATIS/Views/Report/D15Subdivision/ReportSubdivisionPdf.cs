@@ -58,8 +58,7 @@ namespace ATIS.Ui.Views.Report.D15Subdivision
             //ForeignKeyTable
             var divisionList = ExtGet.GetDivisionsCollectionOrderByFromDivisionId<Tbl09Division>(divisionId).FirstOrDefault();
             //Function
-         //   var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(divisionId);
-            var regnumId = ExtCrud.GetRegnumIdFromDivisionsCollectionSelect(divisionId);
+            var regnumId = ExtCrud.RegnumIdFromDivisionsCollectionSelect(divisionId);
             //ForeignKeyTable
             var regnumList = ExtCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(regnumId).FirstOrDefault();
 

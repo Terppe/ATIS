@@ -25,6 +25,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(typeof(RegnumsViewModel));
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
+        private readonly CrudFunctions _extCrud = new CrudFunctions();
 
         private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
         private readonly GenericMessageBoxes<Tbl03Regnum> _genRegnumMessageBoxes = new GenericMessageBoxes<Tbl03Regnum>();
@@ -34,11 +35,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
-   //     private readonly BasicGet _extGet = new BasicGet();
-   //     private readonly BasicCopy _extCopy = new BasicCopy();
-   //     private readonly BasicDelete _extDelete = new BasicDelete();
-   //     private readonly BasicSave _extSave = new BasicSave();
-        private readonly CrudFunctions _extCrud = new CrudFunctions();
         private int _position;
 
         #endregion [Private Data Members]               
@@ -92,7 +88,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         private void ExecuteGetRegnumsByNameOrId(string searchName)
         {
             Tbl03RegnumsList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl03Regnum>(SearchRegnumName, "regnum");
-     //       Tbl03RegnumsList = _extGet.SearchNameAndIdReturnCollection<Tbl03Regnum>(SearchRegnumName, "regnum");
 
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 0;
@@ -267,7 +262,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         {
             Tbl06PhylumsList.Insert(0, new Tbl06Phylum { PhylumName = CultRes.StringsRes.DatasetNew });
             Tbl03RegnumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl03Regnum>("regnum");
-        //    Tbl03RegnumsAllList = _extGet.AllCollection<Tbl03Regnum>("regnum");
 
             PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
             PhylumsView.MoveCurrentToFirst();
@@ -596,7 +590,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         {
             Tbl90ReferenceAuthorsList ??= new ObservableCollection<Tbl90Reference>();
 
-        //    Tbl90AuthorsAllList = _extGet.AllCollection<Tbl90RefAuthor>("author");
             Tbl90AuthorsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefAuthor>("author");
             Tbl90ReferenceAuthorsList.Insert(0, new Tbl90Reference { Info = CultRes.StringsRes.DatasetNew });
 
@@ -700,7 +693,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
-    //        Tbl90ReferenceAuthorsList = _extGet.GetReferenceAuthorsCollectionOrderByFromRegnumIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);
             Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFromRegnumIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);
 
 

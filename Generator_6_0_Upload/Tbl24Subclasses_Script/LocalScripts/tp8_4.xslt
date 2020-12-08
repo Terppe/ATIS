@@ -38,7 +38,7 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when> 
 <xsl:when test="Table ='Tbl03Regnums'">       <![CDATA[ 
         private static readonly ILog Log = LogManager.GetLogger(typeof(Report]]><xsl:value-of select="Basis"/><![CDATA[Pdf));
-        private static readonly BasicGet ExtGet = new BasicGet();
+        private static readonly CrudFunctions ExtCrud = new CrudFunctions();
         private static readonly PdfHelper PdfHelper = new PdfHelper();
         private static string _n;
         private static string _z1;
@@ -48,8 +48,7 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>  
 <xsl:otherwise>        <![CDATA[ 
         private static readonly ILog Log = LogManager.GetLogger(typeof(Report]]><xsl:value-of select="Basis"/><![CDATA[Pdf));
-        private static readonly BasicGet ExtGet = new BasicGet();
-        private static readonly ReportBasicGet ExtReportBasicGet = new ReportBasicGet();
+        private static readonly CrudFunctions ExtCrud = new CrudFunctions();
         private static readonly PdfHelper PdfHelper = new PdfHelper();
         private static string _n;
         private static string _z1;
@@ -85,7 +84,7 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Data Members Top 11+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
 </xsl:when> 
 <xsl:otherwise>       <![CDATA[ 
-            var ]]><xsl:value-of select="BasisSm"/><![CDATA[List = ExtGet.Get]]><xsl:value-of select="Basis"/><![CDATA[sCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModel"/><![CDATA[>(id).FirstOrDefault();   ]]> 
+            var ]]><xsl:value-of select="BasisSm"/><![CDATA[List = ExtCrud.Get]]><xsl:value-of select="Basiss"/><![CDATA[CollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModel"/><![CDATA[>(id).FirstOrDefault();   ]]> 
 </xsl:otherwise>    
 </xsl:choose> 
 
@@ -94,12 +93,12 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when> 
 <xsl:when test="Table ='Tbl03Regnums'">       <![CDATA[ 
             //Children
-            var ]]><xsl:value-of select="BasisSmTK1"/><![CDATA[sList = ExtGet.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(id);
-            var ]]><xsl:value-of select="BasisSmTK2"/><![CDATA[sList = ExtGet.Get]]><xsl:value-of select="BasissTK2"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>(id);  ]]> 
+            var ]]><xsl:value-of select="BasisSmTK1"/><![CDATA[sList = ExtCrud.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(id);
+            var ]]><xsl:value-of select="BasisSmTK2"/><![CDATA[sList = ExtCrud.Get]]><xsl:value-of select="BasissTK2"/><![CDATA[CollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>(id);  ]]> 
 </xsl:when>  
 <xsl:otherwise>       <![CDATA[ 
             //Child
-            var ]]><xsl:value-of select="BasisSmTK1"/><![CDATA[sList = ExtGet.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(id);   ]]>        
+            var ]]><xsl:value-of select="BasisSmTK1"/><![CDATA[sList = ExtCrud.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(id);   ]]>        
 </xsl:otherwise>    
 </xsl:choose> 
 
@@ -108,92 +107,92 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when> 
 <xsl:when test="Table ='Tbl06Phylums'">       <![CDATA[ 
             //Funktion
-            var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(id);
+            var regnumId = ExtCrud.RegnumIdFromPhylumsCollectionSelect(id);
             //ForeignKeyTable
-            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();     ]]> 
+            var regnumList = ExtCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(regnumId).FirstOrDefault();     ]]> 
 </xsl:when>  
 <xsl:when test="Table ='Tbl09Divisions'">       <![CDATA[ 
             //Funktion
-            var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(id);
+            var regnumId = ExtCrud.RegnumIdFromDivisionsCollectionSelect(id);
             //ForeignKeyTable
-            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();      ]]> 
+            var regnumList = ExtCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(regnumId).FirstOrDefault();      ]]> 
 </xsl:when>  
 <xsl:when test="Table ='Tbl12Subphylums'">       <![CDATA[ 
             //Function
-            var phylumId = ExtReportBasicGet.PhylumIdFromSubphylumsCollectionSelect(id);
+            var phylumId = ExtCrud.PhylumIdFromSubphylumsCollectionSelect(id);
             //ForeignKeyTable
-            var phylumList = ExtGet.GetPhylumsCollectionOrderByFromPhylumId<Tbl06Phylum>(phylumId).FirstOrDefault();
+            var phylumList = ExtCrud.GetPhylumsCollectionFromPhylumIdOrderBy<Tbl06Phylum>(phylumId).FirstOrDefault();
             //Function
-            var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(phylumId);
+            var regnumId = ExtCrud.RegnumIdFromPhylumsCollectionSelect(phylumId);
             //ForeignKeyTable
-            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();  ]]> 
+            var regnumList = ExtCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(regnumId).FirstOrDefault();  ]]> 
 </xsl:when>  
 <xsl:when test="Table ='Tbl15Subdivisions'">       <![CDATA[ 
             //Function
-            var divisionId = ExtReportBasicGet.DivisionIdFromSubdivisionsCollectionSelect(id);
+            var divisionId = ExtCrud.DivisionIdFromSubdivisionsCollectionSelect(id);
             //ForeignKeyTable
-            var divisionList = ExtGet.GetDivisionsCollectionOrderByFromDivisionId<Tbl09Division>(divisionId).FirstOrDefault();
+            var divisionList = ExtCrud.GetDivisionsCollectionFromDivisionIdOrderBy<Tbl09Division>(divisionId).FirstOrDefault();
             //Function
-            var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(divisionId);
+            var regnumId = ExtCrud.RegnumIdFromDivisionsCollectionSelect(divisionId);
             //ForeignKeyTable
-            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();  ]]> 
+            var regnumList = ExtCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(regnumId).FirstOrDefault();  ]]> 
 </xsl:when>  
 <xsl:when test="Table ='Tbl18Superclasses'">       <![CDATA[ 
             //Function
-            var subphylumId = ExtReportBasicGet.SubphylumIdFromSuperclassesCollectionSelect(id);
+            var subphylumId = ExtCrud.SubphylumIdFromSuperclassesCollectionSelect(id);
             //ForeignKeyTable
-            var subphylumList = ExtGet.GetSubphylumsCollectionOrderByFromSubphylumId<Tbl12Subphylum>(subphylumId).FirstOrDefault();
+            var subphylumList = ExtCrud.GetSubphylumsCollectionFromSubphylumIdOrderBy<Tbl12Subphylum>(subphylumId).FirstOrDefault();
             //Function
-            var phylumId = ExtReportBasicGet.PhylumIdFromSubphylumsCollectionSelect(subphylumId);
+            var phylumId = ExtCrud.PhylumIdFromSubphylumsCollectionSelect(subphylumId);
             //ForeignKeyTable
-            var phylumList = ExtGet.GetPhylumsCollectionOrderByFromPhylumId<Tbl06Phylum>(phylumId).FirstOrDefault();
+            var phylumList = ExtCrud.GetPhylumsCollectionFromPhylumIdOrderBy<Tbl06Phylum>(phylumId).FirstOrDefault();
             //Function
-            var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(phylumId);
+            var regnumId = ExtCrud.RegnumIdFromPhylumsCollectionSelect(phylumId);
 
             //Function
-            var subdivisionId = ExtReportBasicGet.SubdivisionIdFromSuperclassesCollectionSelect(id);
+            var subdivisionId = ExtCrud.SubdivisionIdFromSuperclassesCollectionSelect(id);
             //ForeignKeyTable
-            var subdivisionList = ExtGet.GetSubdivisionsCollectionOrderByFromSubdivisionId<Tbl15Subdivision>(subdivisionId).FirstOrDefault();
+            var subdivisionList = ExtCrud.GetSubdivisionsCollectionFromSubdivisionIdOrderBy<Tbl15Subdivision>(subdivisionId).FirstOrDefault();
             //Function
-            var divisionId = ExtReportBasicGet.DivisionIdFromSubdivisionsCollectionSelect(subdivisionId);
+            var divisionId = ExtCrud.DivisionIdFromSubdivisionsCollectionSelect(subdivisionId);
             //ForeignKeyTable
-            var divisionList = ExtGet.GetDivisionsCollectionOrderByFromDivisionId<Tbl09Division>(divisionId).FirstOrDefault();
+            var divisionList = ExtCrud.GetDivisionsCollectionFromDivisionIdOrderBy<Tbl09Division>(divisionId).FirstOrDefault();
             //Function
-            var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(divisionId);
+            var regnumId = ExtCrud.RegnumIdFromDivisionsCollectionSelect(divisionId);
 
             //ForeignKeyTable
-            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();  ]]> 
+            var regnumList = ExtCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(regnumId).FirstOrDefault();  ]]> 
 </xsl:when>  
 <xsl:when test="Table ='Tbl21Classes'">       <![CDATA[ 
             //Function
-            var superclassId = ExtReportBasicGet.SuperclassIdFromClassesCollectionSelect(id);
+            var superclassId = ExtCrud.SuperclassIdFromClassesCollectionSelect(id);
             //ForeignKeyTable
-            var superclassList = ExtGet.GetSuperclassesCollectionOrderByFromSuperclassId<Tbl18Superclass>(superclassId).FirstOrDefault();
+            var superclassList = ExtCrud.GetSuperclassesCollectionFromSuperclassIdOrderBy<Tbl18Superclass>(superclassId).FirstOrDefault();
 
             //Function
-            var subphylumId = ExtReportBasicGet.SubphylumIdFromSuperclassesCollectionSelect(id);
+            var subphylumId = ExtCrud.SubphylumIdFromSuperclassesCollectionSelect(id);
             //ForeignKeyTable
-            var subphylumList = ExtGet.GetSubphylumsCollectionOrderByFromSubphylumId<Tbl12Subphylum>(subphylumId).FirstOrDefault();
+            var subphylumList = ExtCrud.GetSubphylumsCollectionFromSubphylumIdOrderBy<Tbl12Subphylum>(subphylumId).FirstOrDefault();
             //Function
-            var phylumId = ExtReportBasicGet.PhylumIdFromSubphylumsCollectionSelect(subphylumId);
+            var phylumId = ExtCrud.PhylumIdFromSubphylumsCollectionSelect(subphylumId);
             //ForeignKeyTable
-            var phylumList = ExtGet.GetPhylumsCollectionOrderByFromPhylumId<Tbl06Phylum>(phylumId).FirstOrDefault();
+            var phylumList = ExtCrud.GetPhylumsCollectionFromPhylumIdOrderBy<Tbl06Phylum>(phylumId).FirstOrDefault();
             //Function
-            var regnumId = ExtReportBasicGet.RegnumIdFromPhylumsCollectionSelect(phylumId);
+            var regnumId = ExtCrud.RegnumIdFromPhylumsCollectionSelect(phylumId);
 
             //Function
-            var subdivisionId = ExtReportBasicGet.SubdivisionIdFromSuperclassesCollectionSelect(id);
+            var subdivisionId = ExtCrud.SubdivisionIdFromSuperclassesCollectionSelect(id);
             //ForeignKeyTable
-            var subdivisionList = ExtGet.GetSubdivisionsCollectionOrderByFromSubdivisionId<Tbl15Subdivision>(subdivisionId).FirstOrDefault();
+            var subdivisionList = ExtGet.GetSubdivisionsCollectionFromSubdivisionIdOrderBy<Tbl15Subdivision>(subdivisionId).FirstOrDefault();
             //Function
-            var divisionId = ExtReportBasicGet.DivisionIdFromSubdivisionsCollectionSelect(subdivisionId);
+            var divisionId = ExtCrud.DivisionIdFromSubdivisionsCollectionSelect(subdivisionId);
             //ForeignKeyTable
-            var divisionList = ExtGet.GetDivisionsCollectionOrderByFromDivisionId<Tbl09Division>(divisionId).FirstOrDefault();
+            var divisionList = ExtCrud.GetDivisionsCollectionFromDivisionIdOrderBy<Tbl09Division>(divisionId).FirstOrDefault();
             //Function
-            var regnumId = ExtReportBasicGet.RegnumIdFromDivisionsCollectionSelect(divisionId);
+            var regnumId = ExtCrud.RegnumIdFromDivisionsCollectionSelect(divisionId);
 
             //ForeignKeyTable
-            var regnumList = ExtGet.GetRegnumsCollectionOrderByFromRegnumId<Tbl03Regnum>(regnumId).FirstOrDefault();  ]]> 
+            var regnumList = ExtCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(regnumId).FirstOrDefault();  ]]> 
 </xsl:when>  
 
 <xsl:otherwise>     
@@ -204,10 +203,10 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Public Commands 1  Haeder CreateMainPdf  Top  2a ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
 </xsl:when>
 <xsl:otherwise>       <![CDATA[      
-            var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
-            var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
-            var authorsList = ExtGet.GetReferenceAuthorsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
-            var commentsList = ExtGet.GetCommentsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<Tbl93Comment>(id);   
+            var expertsList = ExtCrud.GetReferenceExpertsCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(id);
+            var sourcesList = ExtCrud.GetReferenceSourcesCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(id);
+            var authorsList = ExtCrud.GetReferenceAuthorsCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(id);
+            var commentsList = ExtCrud.GetCommentsCollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<Tbl93Comment>(id);   
 
             try
             { ]]>
@@ -848,6 +847,7 @@ namespace ATIS.Ui.Views.Report.]]><xsl:value-of select="Layout"/><![CDATA[
 }]]>   
 </xsl:template>
 </xsl:stylesheet>
+
 
 
 

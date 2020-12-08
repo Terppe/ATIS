@@ -155,9 +155,9 @@
   <EntitysFK1>_tbl09Divisions</EntitysFK1> 
   <EntitysBK1>_tbl03Regnums</EntitysBK1> 
 
-  <EntityAblTK1>Tbl18Superclass superclass</EntityAblTK1> 
-  <EntityAbl>Tbl15Subdivision subdivision</EntityAbl> 
-  <EntityAblFK1>Tbl09Division division</EntityAblFK1> 
+  <EntityAblTK1>Tbl18Superclass tbl18Superclass</EntityAblTK1> 
+  <EntityAbl>Tbl15Subdivision tbl15Subdivision</EntityAbl> 
+  <EntityAblFK1>Tbl09Division tbl09Division</EntityAblFK1> 
 
    <Fields>
     <Field><Name>SubdivisionID</Name> <Type>int</Type>  <NotNull>IDENTITY(1,1) NOT NULL</NotNull> </Field>

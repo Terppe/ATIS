@@ -1,0 +1,20 @@
+using System.Windows.Controls; 
+
+   //  Tbl93CommentsView.xaml.cs Skriptdatum:  14.06.2014  10:32     
+
+namespace Atis.WpfUi.View 
+{  
+
+    /// <summary>
+    /// Interactionslogic for Tbl93CommentsView.xaml
+    /// </summary>
+    public partial class Tbl93CommentsView : UserControl
+   {
+
+        public Tbl93CommentsView()
+       {         
+            InitializeComponent();   
+        }                                                                                                                                                                 
+  }
+}   
+

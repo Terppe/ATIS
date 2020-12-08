@@ -18,9 +18,9 @@
             _uow.]]><xsl:value-of select="TableTK1"/><![CDATA[.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[> SearchForConnectedDatasetsWith]]><xsl:value-of select="BasisTK1"/><![CDATA[IdInTable]]><xsl:value-of select="BasisTK2"/><![CDATA[(]]><xsl:value-of select="LinqModelTK1"/><![CDATA[ selected)
+        public ObservableCollection<Tbl27Infraclass> SearchForConnectedDatasetsWith]]><xsl:value-of select="BasisTK1"/><![CDATA[IdInTable]]><xsl:value-of select="BasisTK2"/><![CDATA[(]]><xsl:value-of select="LinqModelTK1"/><![CDATA[ selected)
         {
-            var collection = new ObservableCollection<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>(_uow.]]><xsl:value-of select="TableTK2"/><![CDATA[.Find(x => x.]]><xsl:value-of select="BasisTK2"/><![CDATA[Id == selected.]]><xsl:value-of select="BasisTK1"/><![CDATA[Id));
+            var collection = new ObservableCollection<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>(_uow.]]><xsl:value-of select="TableTK2"/><![CDATA[.Find(x => x.]]><xsl:value-of select="BasisTK1"/><![CDATA[Id == selected.]]><xsl:value-of select="BasisTK1"/><![CDATA[Id));
             return collection;
         }
         public ObservableCollection<Tbl90Reference> DeleteDatasetsWith]]><xsl:value-of select="BasisTK1"/><![CDATA[IdInTableReference(]]><xsl:value-of select="LinqModelTK1"/><![CDATA[ selected)
@@ -299,34 +299,7 @@
             return comment;
         }
 
-        //--------------------------Copy ]]><xsl:value-of select="Basis"/><![CDATA[ --------------------------------
-
-        public ObservableCollection<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[> Copy]]><xsl:value-of select="BasisTK1"/><![CDATA[(]]><xsl:value-of select="LinqModelTK1"/><![CDATA[ selected)  
-        {
-            var dataset = _uow.]]><xsl:value-of select="TableTK1"/><![CDATA[.GetById(selected.]]><xsl:value-of select="BasisTK1"/><![CDATA[Id);
-            var collection = new ObservableCollection<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>();
-
-            collection.Insert(0, new ]]><xsl:value-of select="LinqModelTK1"/><![CDATA[
-            {
-                ]]><xsl:value-of select="BasisTK1"/><![CDATA[Name = CultRes.StringsRes.DatasetNew,
-                ]]><xsl:value-of select="Basis"/><![CDATA[Id = dataset.]]><xsl:value-of select="Basis"/><![CDATA[Id,
-                Valid = dataset.Valid,
-                ValidYear = dataset.ValidYear,
-                Synonym = dataset.Synonym,
-                Author = dataset.Author,
-                AuthorYear = dataset.AuthorYear,
-                Info = dataset.Info,
-                EngName = dataset.EngName,
-                GerName = dataset.GerName,
-                FraName = dataset.FraName,
-                PorName = dataset.PorName,
-                Memo = dataset.Memo
-            });
-
-            return collection;
-        }
-
-
+        //--------------------------Copy ]]><xsl:value-of select="BasisTK1"/><![CDATA[ --------------------------------
 
         public ObservableCollection<Tbl90Reference> CopyReference]]><xsl:value-of select="Basis"/><![CDATA[(Tbl90Reference selected, string refer)
         {
@@ -372,17 +345,12 @@
             return collection;
         }
 
-        //----------------------------------------------------------
-        //----------------------------------------------------------
-        //--------------------------search ]]><xsl:value-of select="BasisTK1"/><![CDATA[ --------------------------------
-
         public ObservableCollection<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[> SearchForConnectedDatasetsWith]]><xsl:value-of select="Basis"/><![CDATA[IdInTable]]><xsl:value-of select="BasisTK1"/><![CDATA[(]]><xsl:value-of select="LinqModel"/><![CDATA[ selected)
         {
             var collection = new ObservableCollection<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(_uow.]]><xsl:value-of select="TableTK1"/><![CDATA[.Find(x => x.]]><xsl:value-of select="Basis"/><![CDATA[Id == selected.]]><xsl:value-of select="Basis"/><![CDATA[Id));
             return collection;
         }
 
-        //--------------------------Delete Dataset ]]><xsl:value-of select="Basis"/><![CDATA[ --------------------------------
 
         public ObservableCollection<Tbl90Reference> DeleteDatasetsWith]]><xsl:value-of select="Basis"/><![CDATA[IdInTableReference(]]><xsl:value-of select="LinqModel"/><![CDATA[ selected)
         {
@@ -402,8 +370,6 @@
             _uow.Complete();
         }
 
-        //--------------------------Get  ]]><xsl:value-of select="BasisFK1"/><![CDATA[ --------------------------------
-
         public ObservableCollection<T> Get]]><xsl:value-of select="BasissFK1"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="BasisFK1"/><![CDATA[Id<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -414,8 +380,6 @@
             return collection;
         }
 
-        //--------------------------Get  ]]><xsl:value-of select="Basis"/><![CDATA[ --------------------------------
-
         public ObservableCollection<T> Get]]><xsl:value-of select="Basiss"/><![CDATA[CollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -425,8 +389,6 @@
             return collection;
         }
 
-        //--------------------------Get  ]]><xsl:value-of select="BasisTK1"/><![CDATA[ --------------------------------
-
         public ObservableCollection<T> Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionOrderByFromSubphylumId<T>(int id)
         {
             ObservableCollection<T> collection;
@@ -435,8 +397,6 @@
                 .OrderBy(k => k.]]><xsl:value-of select="BasisTK1"/><![CDATA[Name));
             return collection;
         }
-
-        //--------------------------Get Reference  ]]><xsl:value-of select="Basis"/><![CDATA[ --------------------------------
 
         public ObservableCollection<T> GetReferenceExpertsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[IdAndRefAuthorIdIsNullAndRefSourceIdIsNull<T>(int id)
         {
@@ -468,9 +428,7 @@
             return collection;
         }
 
-        //--------------------------Get Comment  ]]><xsl:value-of select="Basis"/><![CDATA[ --------------------------------
-
-        public ObservableCollection<T> GetCommentsCollectionOrderByFrom]]><xsl:value-of select="Basis"/><![CDATA[Id<T>(int id)
+        public ObservableCollection<T> GetCommentsCollectionOrderByFromSubphylumId<T>(int id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
@@ -480,7 +438,7 @@
         }
 
                  ------- ControlTemplateButtons---------------
-    <!--  ]]><xsl:value-of select="BasisTK1"/><![CDATA[-->
+    <!--  Subclass  -->
     <ControlTemplate x:Key="Search]]><xsl:value-of select="BasissTK1"/><![CDATA[Button" TargetType="Button">   
         <Button
             Width="36"
