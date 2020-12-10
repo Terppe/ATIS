@@ -2,7 +2,7 @@ using System.Linq;
 using Atis.WpfUi.Interfaces;
 using Atis.WpfUi.Model;    
 
-// <!-- Repository Skriptdatum:  08.11.2018  10:32    -->  
+// <!-- Repository Skriptdatum:  10.12.2020  10:32    -->  
 
 namespace Atis.WpfUi.Repositories      {  
     public class Tbl39InfraordosRepository : ITbl39InfraordosRepository    {
@@ -32,11 +32,11 @@ namespace Atis.WpfUi.Repositories      {
          //-------------------------------------------------------------------------------------------------------------
 
         //  Insert/Delete Methods
-        public void Add(Tbl39Infraordo tbl39Infraordo)    {
+        public void Add(Tbl39Infraordo infraordo)    {
             _entities.Tbl39Infraordos.Add(tbl39Infraordo);           
         }
 
-        public void Delete(Tbl39Infraordo tbl39Infraordo)    {
+        public void Delete(Tbl39Infraordo infraordo)    {
             _entities.Tbl39Infraordos.Remove(tbl39Infraordo);
         } 
         //-----------------------------------------------------------------------------------------------------------

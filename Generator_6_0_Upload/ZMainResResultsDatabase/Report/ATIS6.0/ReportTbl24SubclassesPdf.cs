@@ -13,7 +13,7 @@ using Microsoft.Win32;
     
          //    ReportSubclassPdf Skriptdatum:  13.12.2019  18:32    
 
-namespace ATIS.Ui.Views.Report.ListDetails
+namespace ATIS.Ui.Views.Report.D24Subclass
 {     
     
     public class ReportSubclassPdf : ViewModelBase
@@ -121,7 +121,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             }
         }  
              
-        private static void AddSubclassHaeder(PdfDocument pdf, Tbl24Subclass tbl24SubclassList)
+        private static void AddSubclassHaeder(PdfDocument pdf, Tbl24Subclass subclassList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
@@ -138,7 +138,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
         } 
           
-        private static void AddSubclassTaxoNomenList(PdfDocument pdf, Tbl24Subclass tbl24SubclassList)         
+        private static void AddSubclassTaxoNomenList(PdfDocument pdf, Tbl24Subclass subclassList)         
           
         {
             _page = pdf.Pages[_arrInts[6]];
@@ -224,7 +224,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }    
           
-        private static void AddSubclassHierarchyList(PdfDocument pdf, Tbl24Subclass tbl24SubclassList)
+        private static void AddSubclassHierarchyList(PdfDocument pdf, Tbl24Subclass subclassList)
         {
             _page = pdf.Pages[_arrInts[6]];
 

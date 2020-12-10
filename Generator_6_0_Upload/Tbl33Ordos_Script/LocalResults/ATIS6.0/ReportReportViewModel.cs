@@ -7,23 +7,29 @@ using Te.Atis.BusinessLayer;
 using Te.Atis.DomainModel;
 using Te.Atis.Ui.Desktop.Views.Report.PDF;    
 
-// <!-- Interface Skriptdatum:  08.11.2018  18:32     -->  
+// <!-- Interface Skriptdatum:  10.12.2020  10:32     -->  
 
 namespace Te.Atis.Ui.Desktop.Views.Report   
 {       
 
            
-     public void GetTbl27InfraclassesById(int id)
+     public void GetTbl33OrdosById(int id)
     {
-        Tbl27InfraclassesList = new ObservableCollection<Tbl27Infraclass>(_businessLayer.ListTbl27InfraclassesByInfraclassId(id));		   
+        Tbl33OrdosList = new ObservableCollection<Tbl33Ordo>(_businessLayer.ListTbl33OrdosByOrdoId(id));		   
         
         //direct children
-        Tbl30LegiosList = new ObservableCollection<Tbl30Legio>(_businessLayer.ListTbl30LegiosByInfraclassIdAndHash(id));
+        Tbl36SubordosList = new ObservableCollection<Tbl36Subordo>(_businessLayer.ListTbl36SubordosByOrdoIdAndHash(id));
 
         //------------------------------------------------------------------------------
 
-         var subclassInfraclassId = SubclassIdTbl27InfraclassesSelect(id);	
-        Tbl24SubclassesList = new ObservableCollection<Tbl24Subclass>(_businessLayer.ListTbl24SubclassesBySubclassIdAndHash(subclassInfraclassId));		
+         var legioOrdoId = LegioIdTbl33OrdosSelect(id);	
+        Tbl30LegiosList = new ObservableCollection<Tbl30Legio>(_businessLayer.ListTbl30LegiosByLegioIdAndHash(legioOrdoId));		
+
+         var infraclassLegioId = InfraclassIdTbl30LegiosSelect(legioOrdoId);
+         Tbl27InfraclassesList = new ObservableCollection<Tbl27Infraclass>(_businessLayer.ListTbl27InfraclassesByInfraclassIdAndHash(infraclassLegioId));
+
+         var subclassInfraclassId = SubclassIdTbl27InfraclassesSelect(infraclassLegioId);
+         Tbl24SubclassesList = new ObservableCollection<Tbl24Subclass>(_businessLayer.ListTbl24SubclassesBySubclassIdAndHash(subclassInfraclassId));
 
          var classSubclassId = ClassIdTbl24SubclassesSelect(subclassInfraclassId);
          Tbl21ClassesList = new ObservableCollection<Tbl21Class>(_businessLayer.ListTbl21ClassesByClassIdAndHash(classSubclassId));
@@ -55,118 +61,118 @@ namespace Te.Atis.Ui.Desktop.Views.Report
       }       
            
         //------------------------------------------------------------------------------
-        Tbl90RefExpertsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90RefExpertsByInfraclassId(id));
+        Tbl90RefExpertsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90RefExpertsByOrdoId(id));
 
-        Tbl90RefSourcesList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90RefSourcesByInfraclassId(id));
+        Tbl90RefSourcesList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90RefSourcesByOrdoId(id));
 
-        Tbl90RefAuthorsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90RefAuthorsByInfraclassId(id));
+        Tbl90RefAuthorsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90RefAuthorsByOrdoId(id));
 
-        Tbl90ExpertsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90ExpertsByInfraclassId(id));
+        Tbl90ExpertsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90ExpertsByOrdoId(id));
 
-        Tbl90SourcesList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90SourcesByInfraclassId(id));
+        Tbl90SourcesList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90SourcesByOrdoId(id));
 
-        Tbl90AuthorsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90AuthorsByInfraclassId(id));
+        Tbl90AuthorsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90AuthorsByOrdoId(id));
 
-        Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_businessLayer.ListTbl93CommentsByInfraclassId(id));
+        Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_businessLayer.ListTbl93CommentsByOrdoId(id));
     } 
-    private RelayCommand _pdfTbl27InfraclassesCommand;
-    public ICommand PdfTbl27InfraclassesCommand
+    private RelayCommand _pdfTbl33OrdosCommand;
+    public ICommand PdfTbl33OrdosCommand
     {
-        get { return _pdfTbl27InfraclassesCommand ?? (_pdfTbl27InfraclassesCommand = new RelayCommand(delegate { CreatePdfTbl27Infraclasses(_mainId); })); }
+        get { return _pdfTbl33OrdosCommand ?? (_pdfTbl33OrdosCommand = new RelayCommand(delegate { CreatePdfTbl33Ordos(_mainId); })); }
     }
 
-    private static void CreatePdfTbl27Infraclasses(int id)
+    private static void CreatePdfTbl33Ordos(int id)
     {
-        ReportTbl27InfraclassesPdf.CreateMainPdf(id);
+        ReportTbl33OrdosPdf.CreateMainPdf(id);
     }
     //------------------------------------------------------------------------------
     //------------------------------------------------------------------------------  		   
            
-        IList<Tbl27Infraclass> ListTbl27InfraclassesByInfraclassId(int infraclassId);
+        IList<Tbl33Ordo> ListTbl33OrdosByOrdoId(int ordoId);
 
-        IList<Tbl30Legio> ListTbl30LegiosByInfraclassIdAndHash(int infraclassId);
+        IList<Tbl36Subordo> ListTbl36SubordosByOrdoIdAndHash(int ordoId);
 
-        IList<Tbl90Reference> ListTbl90AuthorsByInfraclassId(int infraclassId);
-        IList<Tbl90Reference> ListTbl90SourcesByInfraclassId(int infraclassId);
-        IList<Tbl90Reference> ListTbl90ExpertsByInfraclassId(int infraclassId);
+        IList<Tbl90Reference> ListTbl90AuthorsByOrdoId(int ordoId);
+        IList<Tbl90Reference> ListTbl90SourcesByOrdoId(int ordoId);
+        IList<Tbl90Reference> ListTbl90ExpertsByOrdoId(int ordoId);
 
-        IList<Tbl93Comment> ListTbl93CommentsByInfraclassId(int infraclassId);	   
+        IList<Tbl93Comment> ListTbl93CommentsByOrdoId(int ordoId);	   
            
-		public IList<Tbl27Infraclass> ListTbl27InfraclassesByInfraclassId(int infraclassId)
+		public IList<Tbl33Ordo> ListTbl33OrdosByOrdoId(int ordoId)
 		{
-			return _tbl27InfraclassesRepository.ListWhereOrderByInclude(
-				e => e.InfraclassID == infraclassId,
-				_tbl27InfraclassesRepository.OrderBy(r => r.InfraclassName + r.Subregnum),
-				p => p.Tbl30Legios, k => k.Tbl33Ordos);
+			return _tbl33OrdosRepository.ListWhereOrderByInclude(
+				e => e.OrdoID == ordoId,
+				_tbl33OrdosRepository.OrderBy(r => r.OrdoName + r.Subregnum),
+				p => p.Tbl36Subordos, k => k.Tbl39Infraordos);
 		}
 
-		public IList<Tbl30Legio> ListTbl30LegiosByInfraclassIdAndHash(int infraclassId)
+		public IList<Tbl36Subordo> ListTbl36SubordosByOrdoIdAndHash(int ordoId)
 		{
-			return _tbl30LegiosRepository.ListWhereOrderByInclude(
-				e => e.InfraclassID == infraclassId &&
-				e.LegioName.Contains("#") == false,
-				_tbl30LegiosRepository.OrderBy(r => r.LegioName),
-				p => p.NULL, k => k.Tbl27Infraclasses);
+			return _tbl36SubordosRepository.ListWhereOrderByInclude(
+				e => e.OrdoID == ordoId &&
+				e.SubordoName.Contains("#") == false,
+				_tbl36SubordosRepository.OrderBy(r => r.SubordoName),
+				p => p.NULL, k => k.Tbl33Ordos);
 		}
 
 	               //------------------------------------------------
 
-		public IList<Tbl90Reference> ListTbl90AuthorsByInfraclassId(int infraclassId)
+		public IList<Tbl90Reference> ListTbl90AuthorsByOrdoId(int ordoId)
 		{
 			return _tbl90ReferencesRepository.ListWhereOrderByInclude(
-				e => e.RefAuthorID == e.Tbl90RefAuthors.RefAuthorID && e.InfraclassID == infraclassId,
+				e => e.RefAuthorID == e.Tbl90RefAuthors.RefAuthorID && e.OrdoID == ordoId,
 				_tbl90ReferencesRepository.OrderBy(r => r.Tbl90RefAuthors.RefAuthorName + r.Tbl90RefAuthors.ArticelTitle + r.Tbl90RefAuthors.BookName + r.Tbl90RefAuthors.Page1 + r.Tbl90RefAuthors.Publisher),
 				p => p.Tbl90RefAuthors);
 		}
 
-		public IList<Tbl90Reference> ListTbl90SourcesByInfraclassId(int infraclassId)
+		public IList<Tbl90Reference> ListTbl90SourcesByOrdoId(int ordoId)
 		{
 			return _tbl90ReferencesRepository.ListWhereOrderByInclude(
-				e => e.RefSourceID == e.Tbl90RefSources.RefSourceID && e.InfraclassID == infraclassId,
+				e => e.RefSourceID == e.Tbl90RefSources.RefSourceID && e.OrdoID == ordoId,
 				_tbl90ReferencesRepository.OrderBy(r => r.Tbl90RefSources.RefSourceName + r.Tbl90RefSources.SourceYear),
 				p => p.Tbl90RefSources);
 		}
 
-		public IList<Tbl90Reference> ListTbl90ExpertsByInfraclassId(int infraclassId)
+		public IList<Tbl90Reference> ListTbl90ExpertsByOrdoId(int ordoId)
 		{
 			return _tbl90ReferencesRepository.ListWhereOrderByInclude(
-				e => e.RefExpertID == e.Tbl90RefExperts.RefExpertID && e.InfraclassID == infraclassId,
+				e => e.RefExpertID == e.Tbl90RefExperts.RefExpertID && e.OrdoID == ordoId,
 				_tbl90ReferencesRepository.OrderBy(r => r.Tbl90RefExperts.RefExpertName),
 				p => p.Tbl90RefExperts);
 		}
 
-		public IList<Tbl90Reference> ListTbl90RefAuthorsByInfraclassId(int infraclassId)
+		public IList<Tbl90Reference> ListTbl90RefAuthorsByOrdoId(int ordoId)
 		{
 			return _tbl90ReferencesRepository.ListWhereOrderByInclude(
-				e => e.RefAuthorID == e.Tbl90RefAuthors.RefAuthorID && e.InfraclassID == infraclassId,
+				e => e.RefAuthorID == e.Tbl90RefAuthors.RefAuthorID && e.OrdoID == ordoId,
 				_tbl90ReferencesRepository.OrderBy(r => r.Tbl90RefAuthors.RefAuthorName + r.Tbl90RefAuthors.ArticelTitle + r.Tbl90RefAuthors.BookName + r.Tbl90RefAuthors.Page1 + r.Tbl90RefAuthors.Publisher),
 				p => p.Tbl90RefAuthors);
 		}
 
-		public IList<Tbl90Reference> ListTbl90RefSourcesByInfraclassId(int infraclassId)
+		public IList<Tbl90Reference> ListTbl90RefSourcesByOrdoId(int ordoId)
 		{
 			return _tbl90ReferencesRepository.ListWhereOrderByInclude(
-				e => e.RefSourceID == e.Tbl90RefSources.RefSourceID && e.InfraclassID == infraclassId,
+				e => e.RefSourceID == e.Tbl90RefSources.RefSourceID && e.OrdoID == ordoId,
 				_tbl90ReferencesRepository.OrderBy(r => r.Tbl90RefSources.RefSourceName + r.Tbl90RefSources.SourceYear),
 				p => p.Tbl90RefSources);
 		}
 
-		public IList<Tbl90Reference> ListTbl90RefExpertsByInfraclassId(int infraclassId)
+		public IList<Tbl90Reference> ListTbl90RefExpertsByOrdoId(int ordoId)
 		{
 			return _tbl90ReferencesRepository.ListWhereOrderByInclude(
-				e => e.RefExpertID == e.Tbl90RefExperts.RefExpertID && e.InfraclassID == infraclassId,
+				e => e.RefExpertID == e.Tbl90RefExperts.RefExpertID && e.OrdoID == ordoId,
 				_tbl90ReferencesRepository.OrderBy(r => r.Tbl90RefExperts.RefExpertName),
 				p => p.Tbl90RefExperts);
 		}
 
 	               //------------------------------------------------
  
-		public IList<Tbl93Comment> ListTbl93CommentsByInfraclassId(int infraclassId)
+		public IList<Tbl93Comment> ListTbl93CommentsByOrdoId(int ordoId)
 		{
 			return _tbl93CommentsRepository.ListWhereOrderByInclude(
-				e => e.InfraclassID == infraclassId,
+				e => e.OrdoID == ordoId,
 				_tbl93CommentsRepository.OrderBy(r => r.Info),
-				p => p.Tbl30Legios);
+				p => p.Tbl36Subordos);
 		}      
   
 

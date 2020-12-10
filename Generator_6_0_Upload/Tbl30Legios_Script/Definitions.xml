@@ -2,7 +2,7 @@
  <Definition>
   <File>Tbl30Legios</File>
 
-  <DateTime>08.11.20201817  10:32</DateTime>  
+  <DateTime>10.12.2020  10:32</DateTime>  
   <Namespace>Atis</Namespace>  
   <ConnString></ConnString> 
   <RegisterContext>ATISEntities</RegisterContext > 
@@ -11,9 +11,9 @@
 
   <LayoutTK3>ListDetails</LayoutTK3>
   <LayoutTK2>ListDetails</LayoutTK2>
-  <LayoutTK1>ListDetails</LayoutTK1>
-  <Layout>ListDetails</Layout>
-  <LayoutFK1>ListDetails</LayoutFK1>
+  <LayoutTK1>D33Ordo</LayoutTK1>
+  <Layout>D30Legio</Layout>
+  <LayoutFK1>D27Infraclass</LayoutFK1>
   <LayoutFK2>ListDetails</LayoutFK2>
   <LayoutBK1>ListDetails</LayoutBK1>
   <LayoutBK2>ListDetails</LayoutBK2>
@@ -173,9 +173,9 @@
   <EntitysFK2>NULL</EntitysFK2> 
   <EntitysBK1>_tbl24Subclasses</EntitysBK1> 
 
-  <EntityAblTK1>Tbl33Ordo tbl33Ordo</EntityAblTK1> 
-  <EntityAbl>Tbl30Legio tbl30Legio</EntityAbl> 
-  <EntityAblFK1>Tbl27Infraclass tbl27Infraclass</EntityAblFK1> 
+  <EntityAblTK1>Tbl33Ordo ordo</EntityAblTK1> 
+  <EntityAbl>Tbl30Legio legio</EntityAbl> 
+  <EntityAblFK1>Tbl27Infraclass infraclass</EntityAblFK1> 
   <EntityAblFK2>NULL</EntityAblFK2> 
 
    <Fields>

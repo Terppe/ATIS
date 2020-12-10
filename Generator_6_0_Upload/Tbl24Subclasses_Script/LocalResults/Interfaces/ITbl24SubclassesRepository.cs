@@ -12,8 +12,8 @@ namespace Atis.WpfUi.Interfaces     {
 Tbl24Subclass Get(int id);   
         
 
-        void Add(Tbl24Subclass tbl24Subclass);
-        void Delete(Tbl24Subclass tbl24Subclass);
+        void Add(Tbl24Subclass subclass);
+        void Delete(Tbl24Subclass subclass);
         void Save( );               
      }
 }   

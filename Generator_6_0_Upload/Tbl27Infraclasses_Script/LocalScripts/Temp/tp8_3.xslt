@@ -1,543 +1,417 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">
 <xsl:output method="text" version="1.0" encoding="UTF-8" indent="yes"/>
-<xsl:template match="Definition">
+<xsl:template match="Definition"><![CDATA[  ]]>
 
+<xsl:choose>
+<xsl:when test="Table ='using++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when> 
+<xsl:otherwise>    <![CDATA[ 
+using ATIS.Dal.Models;
+using ATIS.Ui.Core;
+using ATIS.Ui.Helper;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Input;
+using ATIS.Ui.Views.Report.D03Regnum;
+using ATIS.Ui.Views.Report.D06Phylum;
+using BitMiracle.Docotic;
+
+namespace ATIS.Ui.Views.Report
+{
+    public class ReportViewModel : ViewModelBase
+    {
+        #region "Private Data Members"
+        private readonly AtisDbContext _context = new AtisDbContext();
+        private readonly ReportBasicGet _extReportBasicGet = new ReportBasicGet();
+
+        private readonly int _mainId;
+        private readonly int _fishId;
+        private readonly int _plantId;
+
+        #endregion "Private Data Members"
+
+        public ReportViewModel(int id, string tab)
+        {
+            LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
+            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
+
+            //  Search for SubdivisionID of name Plantae#Regnum# 
+            //         var plantaeRegnum = _businessLayer.SingleListTbl15SubdivisionsBySubdivisionName("Plantae#Regnum#");
+            var plantaeRegnum = _context.Tbl15Subdivisions.FirstOrDefault(e => e.SubdivisionName == "Plantae#Regnum#");
+            if (plantaeRegnum != null) _plantId = plantaeRegnum.SubdivisionId;
+
+            //Search for SubphylumID of name Anaimalia#Regnum# 
+            //    var animaliaRegnum = _businessLayer.SingleListTbl12SubphylumsBySubphylumName("Animalia#Regnum#");
+            var animaliaRegnum = _context.Tbl12Subphylums.FirstOrDefault(e => e.SubphylumName == "Animalia#Regnum#");
+
+            if (animaliaRegnum != null) _fishId = animaliaRegnum.SubphylumId;
+
+            _mainId = id;
+
+            switch (tab)
+            {
+                case "Tbl03Regnums":
+                    GetTbl03RegnumsById(id);
+                    break;
+                case "Tbl06Phylums":
+                    GetTbl06PhylumsById(id);
+                    break;
+                    //    case "Tbl09Divisions":
+                    //        GetTbl09DivisionsById(id);
+                    //        break;
+                    //    case "Tbl12Subphylums":
+                    //        GetTbl12SubphylumsById(id);
+                    //        break;
+                    //    case "Tbl15Subdivisions":
+                    //        GetTbl15SubdivisionsById(id);
+                    //        break;
+                    //    case "Tbl18Superclasses":
+                    //        GetTbl18SuperclassesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl21Classes":
+                    //        GetTbl21ClassesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl24Subclasses":
+                    //        GetTbl24SubclassesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl27Infraclasses":
+                    //        GetTbl27InfraclassesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl30legios":
+                    //        GetTbl30LegiosById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl33Ordos":
+                    //        GetTbl33OrdosById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl36Subordos":
+                    //        GetTbl36SubordosById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl39Infraordos":
+                    //        GetTbl39InfraordosById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl42Superfamilies":
+                    //        GetTbl42SuperfamiliesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl45Families":
+                    //        GetTbl45FamiliesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl48Subfamilies":
+                    //        GetTbl48SubfamiliesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl51Infrafamilies":
+                    //        GetTbl51InfrafamiliesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl54Supertribusses":
+                    //        GetTbl54SupertribussesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl57Tribusses":
+                    //        GetTbl57TribussesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl60Subtribusses":
+                    //        GetTbl60SubtribussesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl63Infratribusses":
+                    //        GetTbl63InfratribussesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl66Genusses":
+                    //        GetTbl66GenussesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl68Speciesgroups":
+                    //        GetTbl68SpeciesgroupsById(id);
+                    //        break;
+                    //    case "Tbl69FiSpeciesses":
+                    //        GetTbl69FiSpeciessesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl72PlSpeciesses":
+                    //        GetTbl72PlSpeciessesById(id, _fishId, _plantId);
+                    //        break;
+                    //    case "Tbl78Names":
+                    //        GetTbl78NamesById(id);
+                    //        break;
+                    //    case "Tbl84Synonyms":
+                    //        GetTbl84SynonymsById(id);
+                    //        break;
+
+            }
+        }
+
+        public ReportViewModel()
+        {
+
+        }
+
+        //		#region Methods  ]]>
+</xsl:otherwise>    
+</xsl:choose> 
 
 <xsl:choose>
 <xsl:when test="Table ='List Top  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
 </xsl:when>  
 <xsl:otherwise>  <![CDATA[ 
-       //------------------------------------------------------------------------------
-       private RelayCommand _pdf]]><xsl:value-of select="Table"/><![CDATA[Command;
-	public ICommand Pdf]]><xsl:value-of select="Table"/><![CDATA[Command
-	{
-		get { return _pdf]]><xsl:value-of select="Table"/><![CDATA[Command ?? (_pdf]]><xsl:value-of select="Table"/><![CDATA[Command = new RelayCommand(delegate { CreatePdf]]><xsl:value-of select="Table"/><![CDATA[(_mainId); })); }
-	}
+        public void GetTbl03RegnumsById(int id)
+        {
+            RegnumsCollection = _extReportBasicGet.CollRegnumsByRegnumId(id);
+            //direct children
+            PhylumsCollection = _extReportBasicGet.CollPhylumsByRegnumIdAndHash(id);
+            DivisionsCollection = _extReportBasicGet.CollDivisionsByRegnumIdAndHash(id);
+            //------------------------------------------------------------------------------
+            ExpertsCollection = _extReportBasicGet.CollExpertsByRegnumId(id);
+            SourcesCollection = _extReportBasicGet.CollSourcesByRegnumId(id);
+            AuthorsCollection = _extReportBasicGet.CollAuthorsByRegnumId(id);
+            //------------------------------------------------------------------------------
+            CommentsCollection = _extReportBasicGet.CollCommentsByRegnumId(id);
+        }
+        //------------------------------------------------------------------------------
 
-	private static void CreatePdf]]><xsl:value-of select="Table"/><![CDATA[(int id)
-	{
-		Report]]><xsl:value-of select="Table"/><![CDATA[Pdf.CreateMainPdf(id);
-	}   
-       //------------------------------------------------------------------------------
-       //------------------------------------------------------------------------------  ]]>
+        private RelayCommand _pdfRegnumPrintCommand;
+        public ICommand PdfRegnumPrintCommand
+        {
+            get { return _pdfRegnumPrintCommand ??= new RelayCommand(delegate { CreatePdfRegnumPrint(_mainId); }); }
+        }
+
+        private static void CreatePdfRegnumPrint(int id)
+        {
+            const string use = "print";
+            ReportRegnumPdf.CreateMainPdf(id, use);
+        }
+        private RelayCommand _pdfRegnumSaveCommand;
+        public ICommand PdfRegnumSaveCommand
+        {
+            get { return _pdfRegnumSaveCommand ??= new RelayCommand(delegate { CreatePdfRegnumSave(_mainId); }); }
+        }
+
+        private static void CreatePdfRegnumSave(int id)
+        {
+            const string use = "save";
+            ReportRegnumPdf.CreateMainPdf(id, use);
+        }
+        //------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------
+        public void GetTbl06PhylumsById(int id)
+        {
+            PhylumsCollection = _extReportBasicGet.CollPhylumsByPhylumId(id);
+            //direct children
+            SubphylumsCollection = _extReportBasicGet.CollSubphylumsByPhylumIdAndHash(id);
+            //------------------------------------------------------------------------------
+            //Function
+            var regnumId = _extReportBasicGet.RegnumIdFromPhylumsCollectionSelect(id);
+            //-----------------------------------------------------------------------------
+            //ForeignKeyTable
+            RegnumsCollection = _extReportBasicGet.CollRegnumsByRegnumIdAndHash(regnumId);
+            //------------------------------------------------------------------------------
+            ExpertsCollection = _extReportBasicGet.CollExpertsByPhylumId(id);
+            SourcesCollection = _extReportBasicGet.CollSourcesByPhylumId(id);
+            AuthorsCollection = _extReportBasicGet.CollAuthorsByPhylumId(id);
+            //------------------------------------------------------------------------------
+            CommentsCollection = _extReportBasicGet.CollCommentsByPhylumId(id);
+        }
+        //------------------------------------------------------------------------------
+
+        private RelayCommand _pdfPhylumPrintCommand;
+        public ICommand PdfPhylumPrintCommand
+        {
+            get { return _pdfPhylumPrintCommand ??= new RelayCommand(delegate { CreatePdfPhylumPrint(_mainId); }); }
+        }
+
+        private static void CreatePdfPhylumPrint(int id)
+        {
+            const string use = "print";
+            ReportPhylumPdf.CreateMainPdf(id, use);
+        }
+        private RelayCommand _pdfPhylumSaveCommand;
+        public ICommand PdfPhylumSaveCommand
+        {
+            get { return _pdfPhylumSaveCommand ??= new RelayCommand(delegate { CreatePdfPhylumSave(_mainId); }); }
+        }
+
+        private static void CreatePdfPhylumSave(int id)
+        {
+            const string use = "save";
+            ReportPhylumPdf.CreateMainPdf(id, use);
+        }
+        //------------------------------------------------------------------------------  
+        //------------------------------------------------------------------------------  
+        public void GetTbl09DivisionsById(int id)
+        {
+            DivisionsCollection = _extReportBasicGet.CollDivisionsByDivisionId(id);
+            //direct children
+            SubdivisionsCollection = _extReportBasicGet.CollSubdivisionsByDivisionIdAndHash(id);
+            //------------------------------------------------------------------------------
+            //Function
+            var regnumId = _extReportBasicGet.RegnumIdFromDivisionsCollectionSelect(id);
+            //-----------------------------------------------------------------------------
+            //ForeignKeyTable
+            RegnumsCollection = _extReportBasicGet.CollRegnumsByRegnumIdAndHash(regnumId);
+            //------------------------------------------------------------------------------
+            ExpertsCollection = _extReportBasicGet.CollExpertsByDivisionId(id);
+            SourcesCollection = _extReportBasicGet.CollSourcesByDivisionId(id);
+            AuthorsCollection = _extReportBasicGet.CollAuthorsByDivisionId(id);
+            //------------------------------------------------------------------------------
+            CommentsCollection = _extReportBasicGet.CollCommentsByDivisionId(id);
+        }
+        //------------------------------------------------------------------------------
+
+        private RelayCommand _pdfDivisionPrintCommand;
+        public ICommand PdfDivisionPrintCommand
+        {
+            get { return _pdfDivisionPrintCommand ??= new RelayCommand(delegate { CreatePdfDivisionPrint(_mainId); }); }
+        }
+
+        private static void CreatePdfDivisionPrint(int id)
+        {
+            const string use = "print";
+            ReportDivisionPdf.CreateMainPdf(id, use);
+        }
+        private RelayCommand _pdfDivisionSaveCommand;
+        public ICommand PdfDivisionSaveCommand
+        {
+            get { return _pdfDivisionSaveCommand ??= new RelayCommand(delegate { CreatePdfDivisionSave(_mainId); }); }
+        }
+
+        private static void CreatePdfDivisionSave(int id)
+        {
+            const string use = "save";
+            ReportDivisionPdf.CreateMainPdf(id, use);
+        }
+
+        //------------------------------------------------------------------------------  ]]>
+</xsl:otherwise>    
+</xsl:choose> 
+
+ 
+
+
+<xsl:choose>
+<xsl:when test="Table ='using aktuelle Version pro Table von 09 bis 66    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when> 
+<xsl:otherwise>   <![CDATA[ 
+        public void Get]]><xsl:value-of select="Table"/><![CDATA[ById(int id)
+        {
+            ]]><xsl:value-of select="Basiss"/><![CDATA[Collection = _extReportBasicGet.Coll]]><xsl:value-of select="Basiss"/><![CDATA[By]]><xsl:value-of select="Basis"/><![CDATA[Id(id);
+            //direct children
+            ]]><xsl:value-of select="BasissTK1"/><![CDATA[Collection = _extReportBasicGet.Coll]]><xsl:value-of select="BasissTK1"/><![CDATA[By]]><xsl:value-of select="Basis"/><![CDATA[IdAndHash(id);
+            //------------------------------------------------------------------------------
+            //Function
+            var ]]><xsl:value-of select="BasisSmFK1"/><![CDATA[Id = _extReportBasicGet.]]><xsl:value-of select="BasisFK1"/><![CDATA[IdFrom]]><xsl:value-of select="Basiss"/><![CDATA[CollectionSelect(id);
+            //-----------------------------------------------------------------------------
+            //ForeignKeyTable
+            ]]><xsl:value-of select="BasissFK1"/><![CDATA[Collection = _extReportBasicGet.Coll]]><xsl:value-of select="BasissFK1"/><![CDATA[ByRegnumIdAndHash(]]><xsl:value-of select="BasisSmFK1"/><![CDATA[Id);
+            //------------------------------------------------------------------------------
+            ExpertsCollection = _extReportBasicGet.CollExpertsBy]]><xsl:value-of select="Basis"/><![CDATA[Id(id);
+            SourcesCollection = _extReportBasicGet.CollSourcesBy]]><xsl:value-of select="Basis"/><![CDATA[Id(id);
+            AuthorsCollection = _extReportBasicGet.CollAuthorsBy]]><xsl:value-of select="Basis"/><![CDATA[Id(id);
+            //------------------------------------------------------------------------------
+            CommentsCollection = _extReportBasicGet.CollCommentsBy]]><xsl:value-of select="Basis"/><![CDATA[Id(id);
+        }
+        //------------------------------------------------------------------------------
+
+        private RelayCommand _pdf]]><xsl:value-of select="Basis"/><![CDATA[PrintCommand;
+        public ICommand Pdf]]><xsl:value-of select="Basis"/><![CDATA[PrintCommand
+        {
+            get { return _pdf]]><xsl:value-of select="Basis"/><![CDATA[PrintCommand ??= new RelayCommand(delegate { CreatePdf]]><xsl:value-of select="Basis"/><![CDATA[Print(_mainId); }); }
+        }
+
+        private static void CreatePdf]]><xsl:value-of select="Basis"/><![CDATA[Print(int id)
+        {
+            const string use = "print";
+            Report]]><xsl:value-of select="Basis"/><![CDATA[Pdf.CreateMainPdf(id, use);
+        }
+        private RelayCommand _pdf]]><xsl:value-of select="Basis"/><![CDATA[SaveCommand;
+        public ICommand Pdf]]><xsl:value-of select="Basis"/><![CDATA[SaveCommand
+        {
+            get { return _pdf]]><xsl:value-of select="Basis"/><![CDATA[SaveCommand ??= new RelayCommand(delegate { CreatePdf]]><xsl:value-of select="Basis"/><![CDATA[Save(_mainId); }); }
+        }
+
+        private static void CreatePdf]]><xsl:value-of select="Basis"/><![CDATA[Save(int id)
+        {
+            const string use = "save";
+            Report]]><xsl:value-of select="Basis"/><![CDATA[Pdf.CreateMainPdf(id, use);
+        }
+        //------------------------------------------------------------------------------  
+        //------------------------------------------------------------------------------  
+  ]]>      
 </xsl:otherwise>    
 </xsl:choose> 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <xsl:choose>
-<xsl:when test="Table ='CurrentList Top  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
-</xsl:when>  
-<xsl:when test="Table ='CurrentList Top  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
-</xsl:when>  
-<xsl:when test="Table ='Tbl90RefAuthors'">     <![CDATA[ 
-        public ObservableCollection<Tbl90References> GetValueTbl90RefAuthorsList(int currentId)
-        {
-            Tbl90RefAuthorsList = new ObservableCollection<Tbl90References>
-                (from y in _tbl90ReferencesRepository.GetAll()
-                 where y.ReferenceID == currentId
-                        && y.Tbl90RefExperts == null
-                        && y.Tbl90RefSources == null  ]]>
-</xsl:when>
-<xsl:when test="Table ='Tbl90RefExperts'">     <![CDATA[ 
-        public ObservableCollection<Tbl90References> GetValueTbl90RefExpertsList(int currentId)          
-        {
-            Tbl90RefExpertsList = new ObservableCollection<Tbl90References>
-                (from y in _tbl90ReferencesRepository.GetAll()
-                 where y.ReferenceID == currentId
-                        && y.Tbl90RefAuthors == null
-                        && y.Tbl90RefSources == null  ]]>
-</xsl:when>
-<xsl:when test="Table ='Tbl90RefSources'">     <![CDATA[ 
-        public ObservableCollection<Tbl90References> GetValueTbl90RefSourcesList(int currentId)
-        {
-            Tbl90RefSourcesList = new ObservableCollection<Tbl90References>
-                (from y in _tbl90ReferencesRepository.GetAll()
-                 where y.ReferenceID == currentId
-                        && y.Tbl90RefExperts == null
-                        && y.Tbl90RefAuthors == null  ]]>
-</xsl:when>
-<xsl:when test="Table ='TblCountries'">     <![CDATA[ 
-        public ObservableCollection<TblCountry> GetValueTblCountriesList(int currentId)
-        {
-            TblCountriesList = new ObservableCollection<TblCountry>
-                 (from y in tblCountryRepository.GetAll()
-                  where y.CountryID == currentId  ]]>
-</xsl:when>
-<xsl:otherwise>  <![CDATA[ 
-        public ObservableCollection<]]> <xsl:value-of select="LinqModel"/><![CDATA[> GetValue]]><xsl:value-of select="Table"/><![CDATA[List(int currentId)
-        {
-            ]]> <xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>
-                  (from y in ]]><xsl:value-of select="Entitys"/><![CDATA[Repository.GetAll()
-                   where y.]]><xsl:value-of select="ID"/><![CDATA[ == currentId ]]>
-</xsl:otherwise>    
-</xsl:choose> 
+<xsl:when test="Table ='using++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when> 
+<xsl:otherwise>   <![CDATA[ 
+        #region "Private Properties"
+        public string FilterText { get; set; }
 
-<xsl:choose>
-<xsl:when test="Table ='CurrentList Middle  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
-</xsl:when>  
-<xsl:when test="Table ='Tbl03Regnums'">     <![CDATA[ 
-                 orderby y.]]><xsl:value-of select="Name"/><![CDATA[, y.Subregnum   ]]>     
-</xsl:when>
-<xsl:when test="Table ='Tbl68Speciesgroups'">     <![CDATA[ 
-                 orderby y.]]><xsl:value-of select="Name"/><![CDATA[, y.Subspeciesgroup   ]]>     
-</xsl:when>
-<xsl:when test="Table ='Tbl69FiSpeciesses'">     <![CDATA[ 
-                 orderby y.Tbl66Genusses.GenusName, y.]]><xsl:value-of select="Name"/><![CDATA[, y.Subspecies, y.Divers   ]]>     
-</xsl:when>
-<xsl:when test="Table ='Tbl72PlSpeciesses'">     <![CDATA[ 
-                 orderby y.Tbl66Genusses.GenusName, y.]]><xsl:value-of select="Name"/><![CDATA[, y.Subspecies, y.Divers   ]]>     
-</xsl:when>
-<xsl:when test="Table ='Tbl81Images'">     <![CDATA[ 
-                 orderby y.Info  ]]>
-</xsl:when>
-<xsl:when test="Table ='Tbl87Geographics'">     <![CDATA[ 
-                 orderby y.Info  ]]>
-</xsl:when>
-<xsl:when test="Table ='Tbl90RefAuthors'">     <![CDATA[ 
-                 orderby y.Tbl90RefAuthors.RefAuthorName, y.Tbl90RefAuthors.BookName, y.Tbl90RefAuthors.Page1  ]]>
-</xsl:when>
-<xsl:when test="Table ='Tbl90RefExperts'">     <![CDATA[ 
-                 orderby y.Tbl90RefExperts.RefExpertName, y.Tbl90RefExperts.Info ]]>
-</xsl:when>
-<xsl:when test="Table ='Tbl90RefSources'">     <![CDATA[ 
-                 orderby y.Tbl90RefSources.RefSourceName, y.Tbl90RefSources.Author, y.Tbl90RefSources.SourceYear  ]]>
-</xsl:when>
-<xsl:when test="Table ='Tbl93Comments'">     <![CDATA[ 
-                 orderby y.Info  ]]>
-</xsl:when>
-<xsl:when test="Table ='TblCountries'">     <![CDATA[ 
-                 orderby y.Name  ]]>
-</xsl:when>
-<xsl:otherwise>  <![CDATA[ 
-                   orderby y.]]><xsl:value-of select="Name"/><![CDATA[ ]]>
-</xsl:otherwise>    
-</xsl:choose> 
-<xsl:choose>
-<xsl:when test="Table ='CurrentList Bottom  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
-</xsl:when>  
-<xsl:otherwise>  <![CDATA[ 
-                   select y);
-            return ]]><xsl:value-of select="Table"/><![CDATA[List;
-        } ]]>
-</xsl:otherwise>    
-</xsl:choose> 
-
-<xsl:choose>
-<xsl:when test="Table ='LastList    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
-</xsl:when>  
-<xsl:when test="Table ='LastList    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
-</xsl:when>  
-<xsl:when test="Table ='Tbl90RefAuthors'">     <![CDATA[ 
-        public ObservableCollection<Tbl90References> GetValueTbl90RefAuthorsList()
-        {
-            Tbl90RefAuthorsList = new ObservableCollection<Tbl90References>
-                { new ObservableCollection<Tbl90References>
-                    (from x in _tbl90ReferencesRepository.GetAll()  select x).LastOrDefault()
-                };
-            return Tbl90RefAuthorsList;
-        }
-
-        #endregion  ]]>
-</xsl:when>
-<xsl:when test="Table ='Tbl90RefExperts'">     <![CDATA[ 
-        public ObservableCollection<Tbl90References> GetValueTbl90RefExpertsList()
-        {
-            Tbl90RefExpertsList = new ObservableCollection<Tbl90References>
-                { new ObservableCollection<Tbl90References>
-                    (from x in _tbl90ReferencesRepository.GetAll()  select x).LastOrDefault()
-                };
-            return Tbl90RefExpertsList;
-        }
-
-        #endregion  ]]>
-</xsl:when>
-<xsl:when test="Table ='Tbl90RefSources'">     <![CDATA[ 
-        public ObservableCollection<Tbl90References> GetValueTbl90RefSourcesList()
-        {
-            Tbl90RefSourcesList = new ObservableCollection<Tbl90References>
-                { new ObservableCollection<Tbl90References>
-                    (from x in tbl90ReferencesRepository.GetAll()  select x).LastOrDefault()
-                };
-            return Tbl90RefSourcesList;
-        }
-
-        #endregion  ]]>
-</xsl:when>
-<xsl:when test="Table ='TblCountries'">     <![CDATA[ 
-        public ObservableCollection<TblCountry> GetValueTblCountriesList()
-        {
-            TblCountriesList = new ObservableCollection<TblCountry>
-                { new ObservableCollection<TblCountry>
-                    (from x in _tblCountryRepository.GetAll() select x).LastOrDefault()
-                };
-            return TblCountriesList;
-        }
-
-        #endregion   ]]>
-</xsl:when>
-<xsl:otherwise>  <![CDATA[ 
-        public ObservableCollection<]]> <xsl:value-of select="LinqModel"/><![CDATA[> GetValue]]><xsl:value-of select="Table"/><![CDATA[List()
-        {
-            ]]> <xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>
-                { new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>
-                    (from x in ]]><xsl:value-of select="Entitys"/><![CDATA[Repository.GetAll() select x).LastOrDefault()
-                };
-            return ]]><xsl:value-of select="Table"/><![CDATA[List;
-        }
-
-        #endregion  ]]>
-</xsl:otherwise>    
-</xsl:choose> 
-
-<xsl:choose>
-<xsl:when test="Table ='Tbl90  List+++++++++++++++'">        
-</xsl:when>
-<xsl:when test="Table ='Tbl90RefAuthors'">     <![CDATA[ 
-        #region Tbl90Authors  ---------------------------------------
-
-        public ObservableCollection<Tbl90RefAuthors> GetValueTbl90AuthorsList(string searchRefAuthorName)
-        {
-            Tbl90AuthorsList = new ObservableCollection<Tbl90RefAuthors>
-               (from x in _tbl90RefAuthorsRepository.GetAll()
-                where x.RefAuthorName.StartsWith(searchRefAuthorName)
-                orderby x.RefAuthorName, x.BookName, x.Page1
-                select x);
-            return Tbl90AuthorsList;
-        }
+        public int Id { get; set; }
 
 
-        public ObservableCollection<Tbl90RefAuthors> GetValueTbl90AuthorsAllList()
-        {
-            Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthors>
-                (from z in _tbl90RefAuthorsRepository.GetAll()
-                 orderby z.RefAuthorName, z.BookName, z.Page1
-                 select z);
-            return Tbl90AuthorsAllList;
-        }
-
-        public ObservableCollection<Tbl90RefAuthors> GetValueTbl90AuthorsList(int currentId)
-        {
-            Tbl90AuthorsList = new ObservableCollection<Tbl90RefAuthors>
-                 (from y in _tbl90RefAuthorsRepository.GetAll()
-                  where y.RefAuthorID == currentId
-                  orderby y.RefAuthorName, y.BookName, y.Page1
-                  select y);
-            return Tbl90AuthorsList;
-        }
-
-        public ObservableCollection<Tbl90RefAuthors> GetValueTbl90AuthorsList()
-        {
-            Tbl90AuthorsList = new ObservableCollection<Tbl90RefAuthors>
-                { new ObservableCollection<Tbl90RefAuthors>
-                    (from x in _tbl90RefAuthorsRepository.GetAll()  select x).LastOrDefault()
-                };
-            return Tbl90AuthorsList;
-        }
-
-        #endregion     ]]>
-</xsl:when>
-<xsl:when test="Table ='Tbl90RefExperts'">     <![CDATA[ 
-        #region Tbl90Experts  ---------------------------------------
-
-        public ObservableCollection<Tbl90RefExperts> GetValueTbl90ExpertsList(string searchRefExpertName)
-        {
-            Tbl90ExpertsList = new ObservableCollection<Tbl90RefExperts>
-               (from x in _tbl90RefExpertsRepository.GetAll()
-                where x.RefExpertName.StartsWith(searchRefExpertName)
-                orderby x.RefExpertName, x.Info
-                select x);
-            return Tbl90ExpertsList;
-        }
-
-        public ObservableCollection<Tbl90RefExperts> GetValueTbl90ExpertsAllList()
-        {
-            Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExperts>
-               (from z in _tbl90RefExpertsRepository.GetAll()
-                orderby z.RefExpertName, z.Info
-                select z);
-            return Tbl90ExpertsAllList;
-        }
-
-        public ObservableCollection<Tbl90RefExperts> GetValueTbl90ExpertsList(int currentId)
-        {
-            Tbl90ExpertsList = new ObservableCollection<Tbl90RefExperts>
-                 (from y in _tbl90RefExpertsRepository.GetAll()
-                  where y.RefExpertID == currentId
-                  orderby y.RefExpertName, y.Info
-                  select y);
-            return Tbl90ExpertsList;
-        }
-
-        public ObservableCollection<Tbl90RefExperts> GetValueTbl90ExpertsList()
-        {
-            Tbl90ExpertsList = new ObservableCollection<Tbl90RefExperts>
-                { new ObservableCollection<Tbl90RefExperts>
-                    (from x in _tbl90RefExpertsRepository.GetAll() select x).LastOrDefault()
-                };
-            return Tbl90ExpertsList;
-        }
-
-        #endregion          ]]>
-</xsl:when>
-<xsl:when test="Table ='Tbl90RefSources'">     <![CDATA[ 
-        #region Tbl90Sources  ---------------------------------------
+        public ObservableCollection<Tbl03Regnum> RegnumsCollection { get; set; }
+        public ObservableCollection<Tbl06Phylum> PhylumsCollection { get; set; }
+        public ObservableCollection<Tbl09Division> DivisionsCollection { get; set; }
+        public ObservableCollection<Tbl12Subphylum> SubphylumsCollection { get; set; }
+        public ObservableCollection<Tbl15Subdivision> SubdivisionsCollection { get; set; }
+        public ObservableCollection<Tbl18Superclass> SuperclassesCollection { get; set; }
 
 
-        public ObservableCollection<Tbl90RefSources> GetValueTbl90SourcesList(string searchRefSourceName)
-        {
-            Tbl90SourcesList = new ObservableCollection<Tbl90RefSources>
-               (from x in _tbl90RefSourcesRepository.GetAll()
-                where x.RefSourceName.StartsWith(searchRefSourceName)
-                orderby x.RefSourceName, x.Author, x.SourceYear
-                select x);
-            return Tbl90SourcesList;
-        }
+        #endregion "Public Properties Tbl93Comment"
 
-        public ObservableCollection<Tbl90RefSources> GetValueTbl90SourcesAllList()
-        {
-            Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSources>
-               (from z in _tbl90RefSourcesRepository.GetAll()
-                orderby z.RefSourceName, z.Author, z.SourceYear
-                select z);
-            return Tbl90SourcesAllList;
-        }
-
-        public ObservableCollection<Tbl90RefSources> GetValueTbl90SourcesList(int currentId)
-        {
-            Tbl90SourcesList = new ObservableCollection<Tbl90RefSources>
-                 (from y in _tbl90RefSourcesRepository.GetAll()
-                  where y.RefSourceID == currentId
-                  orderby y.RefSourceName, y.Author, y.SourceYear
-                  select y);
-            return Tbl90SourcesList;
-        }
-
-        public ObservableCollection<Tbl90RefSources> GetValueTbl90SourcesList()
-        {
-            Tbl90SourcesList = new ObservableCollection<Tbl90RefSources>
-                { new ObservableCollection<Tbl90RefSources>
-                    (from x in _tbl90RefSourcesV.GetAll() select x).LastOrDefault()
-                };
-            return Tbl90SourcesList;
-        }
-
-        #endregion    ]]>
-</xsl:when>
-<xsl:otherwise>  
-</xsl:otherwise>    
-</xsl:choose> 
-
-<xsl:choose>
-<xsl:when test="Table ='Property  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
-</xsl:when>  
-<xsl:when test="Table ='Tbl90RefAuthors'">     <![CDATA[ 
-        #region "Public Property  Tbl90RefAuthor"
-
-        private ObservableCollection< Tbl90Reference>  _tbl90RefAuthorsList;
-        public ObservableCollection< Tbl90Reference>  Tbl90RefAuthorsList
-        {
-            get { return  _tbl90RefAuthorsList; }
-            set {  _tbl90RefAuthorsList = value; RaisePropertyChanged(); }
-        }
-
-        #endregion "Public Properties"     ]]>
-</xsl:when>
-<xsl:when test="Table ='Tbl90RefExperts'">     <![CDATA[ 
-        #region "Public Property  Tbl90RefExpert"
-
-        private ObservableCollection<Tbl90Reference> _tbl90RefExpertsList;
-        public ObservableCollection<Tbl90Reference> Tbl90RefExpertsList
-        {
-            get { return _tbl90RefExpertsList; }
-            set { _tbl90RefExpertsList = value; RaisePropertyChanged(); }
-        }
-
-
-        #endregion "Public Properties"    ]]>
-</xsl:when>
-<xsl:when test="Table ='Tbl90RefSources'">     <![CDATA[ 
-        #region "Public Property  Tbl90RefSource"
-
-        private ObservableCollection<Tbl90Reference> _tbl90RefSourcesList;
-        public ObservableCollection<Tbl90Reference> Tbl90RefSourcesList
-        {
-            get { return _tbl90RefSourcesList; }
-            set { _tbl90RefSourcesList = value; RaisePropertyChanged(); }
-        }
-
-
-        #endregion "Public Properties"     ]]>
-</xsl:when>
-<xsl:when test="Table ='TblCountries'">     <![CDATA[ 
-        #region "Public Property  TblCountry"
-
-        private ObservableCollection<TblCountry> _tblCountriesList;
-        public ObservableCollection<TblCountry> TblCountriesList
-        {
-            get { return _tblCountriesList; }
-            set { _tblCountriesList = value; RaisePropertyChanged(); }
-        }
-
-        private ObservableCollection<TblCountry> _tblCountriesAllList;
-        public ObservableCollection<TblCountry> TblCountriesAllList
-        {
-            get { return _tblCountriesAllList; }
-            set { _tblCountriesAllList = value; RaisePropertyChanged(); }
-        }
-
-        #endregion "Public Properties"  ]]>
-</xsl:when>
-<xsl:otherwise>  <![CDATA[ 
-        #region "Public Property ]]> <xsl:value-of select="LinqModel"/><![CDATA["
-
-        private ObservableCollection<]]> <xsl:value-of select="LinqModel"/><![CDATA[> ]]> <xsl:value-of select="Entitys"/><![CDATA[List;
-        public ObservableCollection<]]> <xsl:value-of select="LinqModel"/><![CDATA[> ]]> <xsl:value-of select="Table"/><![CDATA[List
-        {
-            get { return ]]> <xsl:value-of select="Entitys"/><![CDATA[List; }
-            set { ]]> <xsl:value-of select="Entitys"/><![CDATA[List = value; RaisePropertyChanged(); }
-        }
-
-        private ObservableCollection<]]> <xsl:value-of select="LinqModel"/><![CDATA[> ]]> <xsl:value-of select="Entitys"/><![CDATA[AllList;
-        public  ObservableCollection<]]> <xsl:value-of select="LinqModel"/><![CDATA[> ]]> <xsl:value-of select="Table"/><![CDATA[AllList
-        {
-            get { return ]]> <xsl:value-of select="Entitys"/><![CDATA[AllList; }
-            set { ]]> <xsl:value-of select="Entitys"/><![CDATA[AllList = value; RaisePropertyChanged(); }
-        }
-
-        #endregion "Public Properties" ]]>
-</xsl:otherwise>    
-</xsl:choose> 
-
-<xsl:choose>
-<xsl:when test="Table ='Tbl90  Properties+++++++++++++++'">        
-</xsl:when>
-<xsl:when test="Table ='Tbl90RefAuthors'">     <![CDATA[ 
         #region "Public Properties Tbl90Author"
+        public ObservableCollection<Tbl90Reference> AuthorsCollection { get; set; }
 
-        private ObservableCollection<Tbl90RefAuthor> _tbl90AuthorsList;
-        public ObservableCollection<Tbl90RefAuthor> Tbl90AuthorsList
-        {
-            get { return _tbl90AuthorsList; }
-            set { _tbl90AuthorsList = value; RaisePropertyChanged(); }
-        }
+        public ObservableCollection<Tbl90Reference> Tbl90RefAuthorsList { get; set; }
 
-        private ObservableCollection<Tbl90RefAuthor> _tbl90AuthorsAllList;
-        public ObservableCollection<Tbl90RefAuthor> Tbl90AuthorsAllList
-        {
-            get { return _tbl90AuthorsAllList; }
-            set { _tbl90AuthorsAllList = value; RaisePropertyChanged(); }
-        }
+        #endregion "Public Properties Tbl90Author"
 
-        #endregion     ]]>
-</xsl:when>
-<xsl:when test="Table ='Tbl90RefExperts'">     <![CDATA[ 
-        #region "Public Property  Tbl90Expert"
+        #region "Public Properties Tbl90Source"
+        public ObservableCollection<Tbl90Reference> SourcesCollection { get; set; }
 
-        private ObservableCollection<Tbl90RefExpert> _tbl90ExpertsList;
-        public ObservableCollection<Tbl90RefExpert> Tbl90ExpertsList
-        {
-            get { return _tbl90ExpertsList; }
-            set { _tbl90ExpertsList = value; RaisePropertyChanged(); }
-        }
+        public ObservableCollection<Tbl90Reference> Tbl90RefSourcesList { get; set; }
 
-        private ObservableCollection<Tbl90RefExpert> _tbl90ExpertsAllList;
-        public ObservableCollection<Tbl90RefExpert> Tbl90ExpertsAllList
-        {
-            get { return _tbl90ExpertsAllList; }
-            set { _tbl90ExpertsAllList = value; RaisePropertyChanged(); }
-        }
 
-        #endregion "Public Properties"    ]]>
-</xsl:when>
-<xsl:when test="Table ='Tbl90RefSources'">     <![CDATA[ 
-        #region "Public Property  Tbl90RefSource"
+        #endregion "Public Properties Tbl90Source"
 
-        private ObservableCollection<Tbl90RefSource> _tbl90SourcesList;
-        public ObservableCollection<Tbl90RefSource> Tbl90SourcesList
-        {
-            get { return _tbl90SourcesList; }
-            set { _tbl90SourcesList = value; RaisePropertyChanged(); }
-        }
+        #region "Public Properties Tbl90Expert"
+        public ObservableCollection<Tbl90Reference> ExpertsCollection { get; set; }
 
-        private ObservableCollection<Tbl90RefSource> _tbl90SourcesAllList;
-        public ObservableCollection<Tbl90RefSource> Tbl90SourcesAllList
-        {
-            get { return _tbl90SourcesAllList; }
-            set { _tbl90SourcesAllList = value; RaisePropertyChanged(); }
-        }
 
-        #endregion "Public Properties"    ]]>
-</xsl:when>
-<xsl:otherwise>  
+        public ObservableCollection<Tbl90Reference> Tbl90RefExpertsList { get; set; }
+
+
+        #endregion "Public Properties Tbl90Expert"
+
+        #region "Public Properties Tbl93Comment"
+        public ObservableCollection<Tbl93Comment> CommentsCollection { get; set; }
+
+
+        #endregion "Public Properties Tbl93Comment"
+    }
+
+    #region Item Properties
+
+    #endregion
+}     ]]>
 </xsl:otherwise>    
 </xsl:choose> 
 
 
 
 
-<xsl:if test="Table='Tbl03Regnums'">  
-</xsl:if>   
-<xsl:if test="Table='Tbl06Phylums'">
-</xsl:if>   
-<xsl:if test="Table='Tbl16SubphylSubdivs'">
-</xsl:if>   
-<xsl:if test="Table='Tbl22Superclassis'">
-</xsl:if>   
-<xsl:if test="Table='Tbl25Classis'">
-</xsl:if>   
-<xsl:if test="Table='Tbl28Subclassis'">
-</xsl:if>   
-<xsl:if test="Table='Tbl31Infraclassis'">
-</xsl:if> 
-<xsl:if test="Table='Tbl34Legios'">
-</xsl:if> 
-<xsl:if test="Table='Tbl37Ordos'">
-</xsl:if> 
-<xsl:if test="Table='Tbl40Subordos'">
-</xsl:if> 
-<xsl:if test="Table='Tbl43Infraordos'">
-</xsl:if>  
-<xsl:if test="Table='Tbl46Superfamilias'">
-</xsl:if> 
-<xsl:if test="Table='Tbl49Familias'">
-</xsl:if> 
-<xsl:if test="Table='Tbl52Subfamilias'">
-</xsl:if> 
-<xsl:if test="Table='Tbl55Infrafamilias'">
-</xsl:if> 
-<xsl:if test="Table='Tbl58Supertribus'">
-</xsl:if> 
-<xsl:if test="Table='Tbl61Tribus'">
-</xsl:if> 
-<xsl:if test="Table='Tbl64Subtribus'">
-</xsl:if> 
-<xsl:if test="Table='Tbl67Infratribus'">
-</xsl:if> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
 
 </xsl:template>

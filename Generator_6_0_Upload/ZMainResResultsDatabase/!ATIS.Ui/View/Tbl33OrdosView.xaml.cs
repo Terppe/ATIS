@@ -7,7 +7,7 @@ using System.Windows.Input;
 using System.Windows.Threading;   
  
 
-      //  Tbl33OrdosView.xaml.cs Skriptdatum:  29.01.2019  10:32     
+      //  Tbl33OrdosView.xaml.cs Skriptdatum:  10.12.2020  10:32     
 
 namespace WPFUI.Views.Database
 {  

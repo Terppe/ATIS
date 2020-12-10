@@ -11,9 +11,9 @@ using log4net;
 using Microsoft.Win32;  
 
     
-         //    ReportLegioPdf Skriptdatum:  08.11.20201817  10:32    
+         //    ReportLegioPdf Skriptdatum:  10.12.2020  10:32    
 
-namespace ATIS.Ui.Views.Report.ListDetails
+namespace ATIS.Ui.Views.Report.D30Legio
 {     
     
     public class ReportLegioPdf : ViewModelBase
@@ -121,7 +121,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             }
         }  
              
-        private static void AddLegioHaeder(PdfDocument pdf, Tbl30Legio tbl30LegioList)
+        private static void AddLegioHaeder(PdfDocument pdf, Tbl30Legio legioList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
@@ -138,7 +138,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
         } 
           
-        private static void AddLegioTaxoNomenList(PdfDocument pdf, Tbl30Legio tbl30LegioList)         
+        private static void AddLegioTaxoNomenList(PdfDocument pdf, Tbl30Legio legioList)         
           
         {
             _page = pdf.Pages[_arrInts[6]];
@@ -224,7 +224,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }    
           
-        private static void AddLegioHierarchyList(PdfDocument pdf, Tbl30Legio tbl30LegioList)
+        private static void AddLegioHierarchyList(PdfDocument pdf, Tbl30Legio legioList)
         {
             _page = pdf.Pages[_arrInts[6]];
 

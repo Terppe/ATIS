@@ -48,10 +48,6 @@
 
   <ItemGroup>
     <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Database\D30Legio\" />
-    <Folder Include="Views\Database\D33Ordo\" />
-    <Folder Include="Views\Database\D36Subordo\" />
-    <Folder Include="Views\Database\D39Infraordo\" />
     <Folder Include="Views\Database\D42Superfamily\" />
     <Folder Include="Views\Database\D45Family\" />
     <Folder Include="Views\Database\D48Subfamily\" />

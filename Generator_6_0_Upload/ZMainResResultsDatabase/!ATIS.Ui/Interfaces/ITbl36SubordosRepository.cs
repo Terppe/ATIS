@@ -12,8 +12,8 @@ namespace Atis.WpfUi.Interfaces     {
 Tbl36Subordo Get(int id);   
         
 
-        void Add(Tbl36Subordo tbl36Subordo);
-        void Delete(Tbl36Subordo tbl36Subordo);
+        void Add(Tbl36Subordo subordo);
+        void Delete(Tbl36Subordo subordo);
         void Save( );               
      }
 }   

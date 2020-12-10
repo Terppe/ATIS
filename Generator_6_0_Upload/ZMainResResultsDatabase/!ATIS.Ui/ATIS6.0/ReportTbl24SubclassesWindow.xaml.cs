@@ -8,7 +8,7 @@ using MahApps.Metro.Controls;
 
    //  ReportSubclassWindow.xaml.cs Skriptdatum:  13.12.2019  18:32     
 
-namespace ATIS.Ui.Views.Report.ListDetails
+namespace ATIS.Ui.Views.Report.D24Subclass
 {  
 
     /// <summary>

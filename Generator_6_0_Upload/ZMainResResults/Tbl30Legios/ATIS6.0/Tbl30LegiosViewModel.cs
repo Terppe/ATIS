@@ -13,9 +13,9 @@ using ATIS.Ui.Views.Database.DatabaseHelper;
 using log4net;
 using Microsoft.EntityFrameworkCore;          
     
-         //    LegiosViewModel Skriptdatum:  08.11.20201817  10:32    
+         //    LegiosViewModel Skriptdatum:  10.12.2020  10:32    
 
-namespace ATIS.Ui.Views.Database.ListDetails
+namespace ATIS.Ui.Views.Database.D30Legio
 {     
     
     public class LegiosViewModel : ViewModelBase                     

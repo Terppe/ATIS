@@ -6,9 +6,9 @@ using ATIS.Ui.Views.Report.D03Regnum;
 using ATIS.Ui.Views.Report.D06Phylum;
 using MahApps.Metro.Controls;
 
-   //  ReportOrdoWindow.xaml.cs Skriptdatum:  29.01.2019  10:32     
+   //  ReportOrdoWindow.xaml.cs Skriptdatum:  10.12.2020  10:32     
 
-namespace ATIS.Ui.Views.Report.ListDetails
+namespace ATIS.Ui.Views.Report.D33Ordo
 {  
 
     /// <summary>

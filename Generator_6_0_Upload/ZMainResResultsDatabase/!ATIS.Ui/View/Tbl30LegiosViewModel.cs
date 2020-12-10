@@ -14,7 +14,7 @@ using GalaSoft.MvvmLight.Command;
 using MessageBoxImage = System.Windows.MessageBoxImage;
 
     
-         //    Tbl30LegiosViewModel Skriptdatum:  08.11.20201817  10:32    
+         //    Tbl30LegiosViewModel Skriptdatum:  10.12.2020  10:32    
 
 namespace WPFUI.Views.Database
 {     

@@ -7,7 +7,7 @@ using System.Windows.Input;
 using System.Windows.Threading;   
  
 
-      //  Tbl27InfraclassesView.xaml.cs Skriptdatum:  08.11.2018  18:32     
+      //  Tbl27InfraclassesView.xaml.cs Skriptdatum:  10.12.2020  18:32     
 
 namespace WPFUI.Views.Database
 {  

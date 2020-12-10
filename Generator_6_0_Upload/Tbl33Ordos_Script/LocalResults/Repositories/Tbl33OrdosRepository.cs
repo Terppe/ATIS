@@ -2,7 +2,7 @@ using System.Linq;
 using Atis.WpfUi.Interfaces;
 using Atis.WpfUi.Model;    
 
-// <!-- Repository Skriptdatum:  29.01.2019  10:32    -->  
+// <!-- Repository Skriptdatum:  10.12.2020  10:32    -->  
 
 namespace Atis.WpfUi.Repositories      {  
     public class Tbl33OrdosRepository : ITbl33OrdosRepository    {
@@ -32,11 +32,11 @@ namespace Atis.WpfUi.Repositories      {
          //-------------------------------------------------------------------------------------------------------------
 
         //  Insert/Delete Methods
-        public void Add(Tbl33Ordo tbl33Ordo)    {
+        public void Add(Tbl33Ordo ordo)    {
             _entities.Tbl33Ordos.Add(tbl33Ordo);           
         }
 
-        public void Delete(Tbl33Ordo tbl33Ordo)    {
+        public void Delete(Tbl33Ordo ordo)    {
             _entities.Tbl33Ordos.Remove(tbl33Ordo);
         } 
         //-----------------------------------------------------------------------------------------------------------

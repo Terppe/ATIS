@@ -11,9 +11,9 @@ using log4net;
 using Microsoft.Win32;  
 
     
-         //    ReportInfraclassPdf Skriptdatum:  08.11.2018  18:32    
+         //    ReportInfraclassPdf Skriptdatum:  10.12.2020  18:32    
 
-namespace ATIS.Ui.Views.Report.ListDetails
+namespace ATIS.Ui.Views.Report.D27Infraclass
 {     
     
     public class ReportInfraclassPdf : ViewModelBase
@@ -121,7 +121,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             }
         }  
              
-        private static void AddInfraclassHaeder(PdfDocument pdf, Tbl27Infraclass tbl27InfraclassList)
+        private static void AddInfraclassHaeder(PdfDocument pdf, Tbl27Infraclass infraclassList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
@@ -138,7 +138,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
         } 
           
-        private static void AddInfraclassTaxoNomenList(PdfDocument pdf, Tbl27Infraclass tbl27InfraclassList)         
+        private static void AddInfraclassTaxoNomenList(PdfDocument pdf, Tbl27Infraclass infraclassList)         
           
         {
             _page = pdf.Pages[_arrInts[6]];
@@ -224,7 +224,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }    
           
-        private static void AddInfraclassHierarchyList(PdfDocument pdf, Tbl27Infraclass tbl27InfraclassList)
+        private static void AddInfraclassHierarchyList(PdfDocument pdf, Tbl27Infraclass infraclassList)
         {
             _page = pdf.Pages[_arrInts[6]];
 

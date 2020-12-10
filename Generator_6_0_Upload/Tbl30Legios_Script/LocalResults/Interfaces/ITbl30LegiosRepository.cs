@@ -1,7 +1,7 @@
 using System.Linq;
 using Atis.WpfUi.Model;      
    
-// <!-- Interface Skriptdatum:  08.11.20201817  10:32     -->  
+// <!-- Interface Skriptdatum:  10.12.2020  10:32     -->  
 
 namespace Atis.WpfUi.Interfaces     {         
     public interface ITbl30LegiosRepository    {
@@ -12,8 +12,8 @@ namespace Atis.WpfUi.Interfaces     {
 Tbl30Legio Get(int id);   
         
 
-        void Add(Tbl30Legio tbl30Legio);
-        void Delete(Tbl30Legio tbl30Legio);
+        void Add(Tbl30Legio legio);
+        void Delete(Tbl30Legio legio);
         void Save( );               
      }
 }   

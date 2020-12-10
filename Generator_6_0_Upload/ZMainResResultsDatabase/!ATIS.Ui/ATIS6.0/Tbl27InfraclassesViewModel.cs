@@ -13,9 +13,9 @@ using ATIS.Ui.Views.Database.DatabaseHelper;
 using log4net;
 using Microsoft.EntityFrameworkCore;          
     
-         //    InfraclassesViewModel Skriptdatum:  08.11.2018  18:32    
+         //    InfraclassesViewModel Skriptdatum:  10.12.2020  18:32    
 
-namespace ATIS.Ui.Views.Database.ListDetails
+namespace ATIS.Ui.Views.Database.D27Infraclass
 {     
     
     public class InfraclassesViewModel : ViewModelBase                     

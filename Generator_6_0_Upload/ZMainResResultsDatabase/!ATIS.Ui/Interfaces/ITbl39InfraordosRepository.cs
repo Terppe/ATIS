@@ -1,7 +1,7 @@
 using System.Linq;
 using Atis.WpfUi.Model;      
    
-// <!-- Interface Skriptdatum:  08.11.2018  10:32     -->  
+// <!-- Interface Skriptdatum:  10.12.2020  10:32     -->  
 
 namespace Atis.WpfUi.Interfaces     {         
     public interface ITbl39InfraordosRepository    {
@@ -12,8 +12,8 @@ namespace Atis.WpfUi.Interfaces     {
 Tbl39Infraordo Get(int id);   
         
 
-        void Add(Tbl39Infraordo tbl39Infraordo);
-        void Delete(Tbl39Infraordo tbl39Infraordo);
+        void Add(Tbl39Infraordo infraordo);
+        void Delete(Tbl39Infraordo infraordo);
         void Save( );               
      }
 }   

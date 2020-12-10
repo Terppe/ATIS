@@ -11,9 +11,9 @@
 
   <LayoutTK3>ListDetails</LayoutTK3>
   <LayoutTK2>ListDetails</LayoutTK2>
-  <LayoutTK1>ListDetails</LayoutTK1>
-  <Layout>ListDetails</Layout>
-  <LayoutFK1>ListDetails</LayoutFK1>
+  <LayoutTK1>D39InfraOrdo</LayoutTK1>
+  <Layout>D36Subordo</Layout>
+  <LayoutFK1>D33Ordo</LayoutFK1>
   <LayoutFK2>ListDetails</LayoutFK2>
   <LayoutBK1>ListDetails</LayoutBK1>
   <LayoutBK2>ListDetails</LayoutBK2>
@@ -189,9 +189,9 @@
   <EntitysFK2>NULL</EntitysFK2> 
   <EntitysBK1>_tbl30Legios</EntitysBK1> 
 
-  <EntityAblTK1>Tbl39Infraordo tbl39Infraordo</EntityAblTK1> 
-  <EntityAbl>Tbl36Subordo tbl36Subordo</EntityAbl> 
-  <EntityAblFK1>Tbl33Ordo tbl33Ordo</EntityAblFK1> 
+  <EntityAblTK1>Tbl39Infraordo infraordo</EntityAblTK1> 
+  <EntityAbl>Tbl36Subordo subordo</EntityAbl> 
+  <EntityAblFK1>Tbl33Ordo ordo</EntityAblFK1> 
   <EntityAblFK2>NULL</EntityAblFK2> 
 
    <Fields>

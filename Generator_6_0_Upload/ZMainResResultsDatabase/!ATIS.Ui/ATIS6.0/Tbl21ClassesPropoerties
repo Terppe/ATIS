@@ -1,152 +1,100 @@
-    
+           
+                 ------- ControlTemplateButtons---------------
+    <!--  Subclass-->
+    <ControlTemplate x:Key="SearchSubclassesButton" TargetType="Button">   
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding GetSubclassesByNameOrIdCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageSearch" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
 
-
- //    Part 11    
-
-     
-        #region "Public Properties Tbl21Class"
-
-        private string _searchClassName;
-        public  string SearchClassName
-        {
-            get => _searchClassName; 
-            set { _searchClassName = value; OnPropertyChanged();  }
-        }
-
-        public  ICollectionView ClassesView;
-        public  Tbl21Class CurrentTbl21Class => ClassesView?.CurrentItem as Tbl21Class;
-
-        private ObservableCollection<Tbl21Class> _tbl21ClassesList;
-        public  ObservableCollection<Tbl21Class> Tbl21ClassesList
-        {
-            get => _tbl21ClassesList; 
-            set {  _tbl21ClassesList = value; OnPropertyChanged();   }
-        }
-
-        private ObservableCollection<Tbl21Class> _tbl21ClassesAllList;
-        public  ObservableCollection<Tbl21Class> Tbl21ClassesAllList
-        {
-            get => _tbl21ClassesAllList; 
-            set { _tbl21ClassesAllList = value; OnPropertyChanged(); }
-        }
-
-        #endregion "Public Properties"   
-       
-        #region "Public Properties Tbl18Superclass"
-
-        private string _searchSuperclassName;
-        public string SearchSuperclassName
-        {
-            get  => _searchSuperclassName; 
-            set { _searchSuperclassName = value; OnPropertyChanged(); }
-        }
-
-        public ICollectionView SuperclassesView;
-        public Tbl18Superclass CurrentTbl18Superclass => SuperclassesView?.CurrentItem as Tbl18Superclass;           
-
-        private ObservableCollection<Tbl18Superclass> _tbl18SuperclassesList;
-        public ObservableCollection<Tbl18Superclass> Tbl18SuperclassesList
-        {
-            get => _tbl18SuperclassesList; 
-            set { _tbl18SuperclassesList = value; OnPropertyChanged(); }
-        }
-
-        private ObservableCollection<Tbl18Superclass> _tbl18SuperclassesAllList;
-        public ObservableCollection<Tbl18Superclass> Tbl18SuperclassesAllList
-        {
-            get => _tbl18SuperclassesAllList; 
-            set { _tbl18SuperclassesAllList = value; OnPropertyChanged(); }       
-        }
-
-        #endregion "Public Properties"
-   
-  
-       
-        #region "Public Properties Tbl24Subclass"
-
-        private string _searchSubclassName;
-        public string SearchSubclassName
-        {
-            get => _searchSubclassName; 
-            set { _searchSubclassName = value; OnPropertyChanged(); }
-        }
-
-        public ICollectionView SubclassesView;
-        public Tbl24Subclass CurrentTbl24Subclass => SubclassesView?.CurrentItem as Tbl24Subclass;           
-
-        private ObservableCollection<Tbl24Subclass> _tbl24SubclassesList;
-        public ObservableCollection<Tbl24Subclass> Tbl24SubclassesList
-        {
-            get => _tbl24SubclassesList; 
-            set { _tbl24SubclassesList = value; OnPropertyChanged(); }
-        }
-
-        private ObservableCollection<Tbl24Subclass> _tbl24SubclassesAllList;
-        public ObservableCollection<Tbl24Subclass> Tbl24SubclassesAllList
-        {
-            get => _tbl24SubclassesAllList; 
-            set { _tbl24SubclassesAllList = value; OnPropertyChanged(); }       
-        }
-
-        #endregion "Public Properties"
-   
-  
-       
-        #region "Public Properties Tbl27Infraclass"
-
-        private string _searchInfraclassName;
-        public string SearchInfraclassName
-        {
-            get => _searchInfraclassName; 
-            set { _searchInfraclassName = value; OnPropertyChanged(); }
-        }
-
-        public ICollectionView InfraclassesView;
-        public Tbl27Infraclass CurrentTbl27Infraclass => InfraclassesView?.CurrentItem as Tbl27Infraclass;           
-
-        private ObservableCollection<Tbl27Infraclass> _tbl27InfraclassesList;
-        public ObservableCollection<Tbl27Infraclass> Tbl27InfraclassesList
-        {
-            get => _tbl27InfraclassesList; 
-            set { _tbl27InfraclassesList = value; OnPropertyChanged(); }
-        }
-
-        private ObservableCollection<Tbl27Infraclass> _tbl27InfraclassesAllList;
-        public ObservableCollection<Tbl27Infraclass> Tbl27InfraclassesAllList
-        {
-            get => _tbl27InfraclassesAllList; 
-            set { _tbl27InfraclassesAllList = value; OnPropertyChanged(); }       
-        }
-
-        #endregion "Public Properties"
-   
-  
-       
-        #region "Public Properties Tbl12Subphylum"
-
-        private ObservableCollection<Tbl12Subphylum> _tbl12SubphylumsAllList;
-        public  new ObservableCollection<Tbl12Subphylum> Tbl12SubphylumsAllList
-        {
-            get => _tbl12SubphylumsAllList; 
-            set { _tbl12SubphylumsAllList = value; OnPropertyChanged(); }
-        }
-
-        #endregion "Public Properties"
-   
-  
-       
-        #region "Public Properties Tbl15Subdivision"
-
-        private ObservableCollection<Tbl15Subdivision> _tbl15SubdivisionsAllList;
-        public  ObservableCollection<Tbl15Subdivision> Tbl15SubdivisionsAllList
-        {
-            get => _tbl15SubdivisionsAllList; 
-            set { _tbl15SubdivisionsAllList = value; OnPropertyChanged(); }
-        }
-
-        #endregion "Public Properties"
-   
-   
-
- //    Part 12    
-
+    <ControlTemplate x:Key="AddSubclassButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding AddSubclassCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="CopySubclassButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding CopySubclassCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="SaveSubclassButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding SaveSubclassCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="DeleteSubclassButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding DeleteSubclassCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+	   

@@ -2,7 +2,7 @@ using System.Linq;
 using Atis.WpfUi.Interfaces;
 using Atis.WpfUi.Model;    
 
-// <!-- Repository Skriptdatum:  08.11.20201817  10:32    -->  
+// <!-- Repository Skriptdatum:  10.12.2020  10:32    -->  
 
 namespace Atis.WpfUi.Repositories      {  
     public class Tbl30LegiosRepository : ITbl30LegiosRepository    {
@@ -32,11 +32,11 @@ namespace Atis.WpfUi.Repositories      {
          //-------------------------------------------------------------------------------------------------------------
 
         //  Insert/Delete Methods
-        public void Add(Tbl30Legio tbl30Legio)    {
+        public void Add(Tbl30Legio legio)    {
             _entities.Tbl30Legios.Add(tbl30Legio);           
         }
 
-        public void Delete(Tbl30Legio tbl30Legio)    {
+        public void Delete(Tbl30Legio legio)    {
             _entities.Tbl30Legios.Remove(tbl30Legio);
         } 
         //-----------------------------------------------------------------------------------------------------------

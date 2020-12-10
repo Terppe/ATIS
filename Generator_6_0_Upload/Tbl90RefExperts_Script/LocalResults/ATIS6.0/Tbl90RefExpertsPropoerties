@@ -1,39 +1,100 @@
-    
+           
+                 ------- ControlTemplateButtons---------------
+    <!--  FiSpecies-->
+    <ControlTemplate x:Key="SearchButton" TargetType="Button">   
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding GetByNameOrIdCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageSearch" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
 
-
- //    Part 11    
-
-  
-     
-        #region "Public Properties Tbl90RefExpert"
-
-        public ICollectionView ExpertsView;
-        public Tbl90RefExpert CurrentTbl90RefExpert => ExpertsView?.CurrentItem as Tbl90RefExpert;
-        
-        private string _searchRefExpertName;
-        public string SearchRefExpertName
-        {
-            get => _searchRefExpertName; 
-            set { _searchRefExpertName = value; OnPropertyChanged(); }
-        }
-
-        private ObservableCollection<Tbl90RefExpert> _tbl90RefExpertsList;
-        public  ObservableCollection<Tbl90RefExpert> Tbl90RefExpertsList
-        {
-            get => _tbl90RefExpertsList; 
-            set { _tbl90RefExpertsList = value; OnPropertyChanged();  }
-        }
-
-        private ObservableCollection<Tbl90RefExpert> _tbl90RefExpertsAllList;
-        public ObservableCollection<Tbl90RefExpert> Tbl90RefExpertsAllList
-        {
-            get => _tbl90RefExpertsAllList; 
-            set { _tbl90RefExpertsAllList = value; OnPropertyChanged(); }
-        }
-
-        #endregion "Public Properties"
-   
- 
-
- //    Part 12    
-
+    <ControlTemplate x:Key="AddFiSpeciesButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding AddFiSpeciesCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="CopyFiSpeciesButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding CopyFiSpeciesCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="SaveFiSpeciesButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding SaveFiSpeciesCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="DeleteFiSpeciesButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding DeleteFiSpeciesCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+	   

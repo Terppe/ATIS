@@ -1,139 +1,100 @@
-    
+           
+                 ------- ControlTemplateButtons---------------
+    <!--  Legio-->
+    <ControlTemplate x:Key="SearchLegiosButton" TargetType="Button">   
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding GetLegiosByNameOrIdCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageSearch" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
 
-
- //    Part 11    
-
-     
-        #region "Public Properties Tbl27Infraclass"
-
-        private string _searchInfraclassName;
-        public  string SearchInfraclassName
-        {
-            get => _searchInfraclassName; 
-            set { _searchInfraclassName = value; OnPropertyChanged();  }
-        }
-
-        public  ICollectionView InfraclassesView;
-        public  Tbl27Infraclass CurrentTbl27Infraclass => InfraclassesView?.CurrentItem as Tbl27Infraclass;
-
-        private ObservableCollection<Tbl27Infraclass> _tbl27InfraclassesList;
-        public  ObservableCollection<Tbl27Infraclass> Tbl27InfraclassesList
-        {
-            get => _tbl27InfraclassesList; 
-            set {  _tbl27InfraclassesList = value; OnPropertyChanged();   }
-        }
-
-        private ObservableCollection<Tbl27Infraclass> _tbl27InfraclassesAllList;
-        public  ObservableCollection<Tbl27Infraclass> Tbl27InfraclassesAllList
-        {
-            get => _tbl27InfraclassesAllList; 
-            set { _tbl27InfraclassesAllList = value; OnPropertyChanged(); }
-        }
-
-        #endregion "Public Properties"   
-       
-        #region "Public Properties Tbl24Subclass"
-
-        private string _searchSubclassName;
-        public string SearchSubclassName
-        {
-            get  => _searchSubclassName; 
-            set { _searchSubclassName = value; OnPropertyChanged(); }
-        }
-
-        public ICollectionView SubclassesView;
-        public Tbl24Subclass CurrentTbl24Subclass => SubclassesView?.CurrentItem as Tbl24Subclass;           
-
-        private ObservableCollection<Tbl24Subclass> _tbl24SubclassesList;
-        public ObservableCollection<Tbl24Subclass> Tbl24SubclassesList
-        {
-            get => _tbl24SubclassesList; 
-            set { _tbl24SubclassesList = value; OnPropertyChanged(); }
-        }
-
-        private ObservableCollection<Tbl24Subclass> _tbl24SubclassesAllList;
-        public ObservableCollection<Tbl24Subclass> Tbl24SubclassesAllList
-        {
-            get => _tbl24SubclassesAllList; 
-            set { _tbl24SubclassesAllList = value; OnPropertyChanged(); }       
-        }
-
-        #endregion "Public Properties"
-   
-  
-       
-        #region "Public Properties Tbl30Legio"
-
-        private string _searchLegioName;
-        public string SearchLegioName
-        {
-            get => _searchLegioName; 
-            set { _searchLegioName = value; OnPropertyChanged(); }
-        }
-
-        public ICollectionView LegiosView;
-        public Tbl30Legio CurrentTbl30Legio => LegiosView?.CurrentItem as Tbl30Legio;           
-
-        private ObservableCollection<Tbl30Legio> _tbl30LegiosList;
-        public ObservableCollection<Tbl30Legio> Tbl30LegiosList
-        {
-            get => _tbl30LegiosList; 
-            set { _tbl30LegiosList = value; OnPropertyChanged(); }
-        }
-
-        private ObservableCollection<Tbl30Legio> _tbl30LegiosAllList;
-        public ObservableCollection<Tbl30Legio> Tbl30LegiosAllList
-        {
-            get => _tbl30LegiosAllList; 
-            set { _tbl30LegiosAllList = value; OnPropertyChanged(); }       
-        }
-
-        #endregion "Public Properties"
-   
-  
-       
-        #region "Public Properties Tbl33Ordo"
-
-        private string _searchOrdoName;
-        public string SearchOrdoName
-        {
-            get => _searchOrdoName; 
-            set { _searchOrdoName = value; OnPropertyChanged(); }
-        }
-
-        public ICollectionView OrdosView;
-        public Tbl33Ordo CurrentTbl33Ordo => OrdosView?.CurrentItem as Tbl33Ordo;           
-
-        private ObservableCollection<Tbl33Ordo> _tbl33OrdosList;
-        public ObservableCollection<Tbl33Ordo> Tbl33OrdosList
-        {
-            get => _tbl33OrdosList; 
-            set { _tbl33OrdosList = value; OnPropertyChanged(); }
-        }
-
-        private ObservableCollection<Tbl33Ordo> _tbl33OrdosAllList;
-        public ObservableCollection<Tbl33Ordo> Tbl33OrdosAllList
-        {
-            get => _tbl33OrdosAllList; 
-            set { _tbl33OrdosAllList = value; OnPropertyChanged(); }       
-        }
-
-        #endregion "Public Properties"
-   
-  
-       
-        #region "Public Properties Tbl21Class"
-
-        private ObservableCollection<Tbl21Class> _tbl21ClassesAllList;
-        public  new ObservableCollection<Tbl21Class> Tbl21ClassesAllList
-        {
-            get => _tbl21ClassesAllList; 
-            set { _tbl21ClassesAllList = value; OnPropertyChanged(); }
-        }
-
-        #endregion "Public Properties"
-   
-   
-
- //    Part 12    
-
+    <ControlTemplate x:Key="AddLegioButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding AddLegioCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="CopyLegioButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding CopyLegioCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="SaveLegioButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding SaveLegioCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="DeleteLegioButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding DeleteLegioCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+	   

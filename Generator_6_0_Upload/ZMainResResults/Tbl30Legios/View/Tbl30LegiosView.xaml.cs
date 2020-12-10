@@ -7,7 +7,7 @@ using System.Windows.Input;
 using System.Windows.Threading;   
  
 
-      //  Tbl30LegiosView.xaml.cs Skriptdatum:  08.11.20201817  10:32     
+      //  Tbl30LegiosView.xaml.cs Skriptdatum:  10.12.2020  10:32     
 
 namespace WPFUI.Views.Database
 {  

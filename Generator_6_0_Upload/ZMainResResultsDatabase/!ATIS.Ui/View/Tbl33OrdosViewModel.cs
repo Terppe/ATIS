@@ -14,7 +14,7 @@ using GalaSoft.MvvmLight.Command;
 using MessageBoxImage = System.Windows.MessageBoxImage;
 
     
-         //    Tbl33OrdosViewModel Skriptdatum:  29.01.2019  10:32    
+         //    Tbl33OrdosViewModel Skriptdatum:  10.12.2020  10:32    
 
 namespace WPFUI.Views.Database
 {     

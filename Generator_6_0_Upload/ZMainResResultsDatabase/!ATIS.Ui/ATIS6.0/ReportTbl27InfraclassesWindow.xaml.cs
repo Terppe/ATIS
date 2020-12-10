@@ -6,9 +6,9 @@ using ATIS.Ui.Views.Report.D03Regnum;
 using ATIS.Ui.Views.Report.D06Phylum;
 using MahApps.Metro.Controls;
 
-   //  ReportInfraclassWindow.xaml.cs Skriptdatum:  08.11.2018  18:32     
+   //  ReportInfraclassWindow.xaml.cs Skriptdatum:  10.12.2020  18:32     
 
-namespace ATIS.Ui.Views.Report.ListDetails
+namespace ATIS.Ui.Views.Report.D27Infraclass
 {  
 
     /// <summary>

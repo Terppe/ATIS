@@ -6,7 +6,7 @@ using System.Windows.Controls;
 
       //  Tbl24SubclassesView.xaml.cs Skriptdatum:  13.12.2019  18:32     
 
-namespace ATIS.Ui.Views.Database.ListDetails
+namespace ATIS.Ui.Views.Database.D24Subclass
 {  
 
     /// <summary>

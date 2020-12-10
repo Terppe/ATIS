@@ -2,7 +2,7 @@ using System.Linq;
 using Atis.WpfUi.Interfaces;
 using Atis.WpfUi.Model;    
 
-// <!-- Repository Skriptdatum:  08.11.2018  18:32    -->  
+// <!-- Repository Skriptdatum:  10.12.2020  18:32    -->  
 
 namespace Atis.WpfUi.Repositories      {  
     public class Tbl27InfraclassesRepository : ITbl27InfraclassesRepository    {
@@ -32,11 +32,11 @@ namespace Atis.WpfUi.Repositories      {
          //-------------------------------------------------------------------------------------------------------------
 
         //  Insert/Delete Methods
-        public void Add(Tbl27Infraclass tbl27Infraclass)    {
+        public void Add(Tbl27Infraclass infraclass)    {
             _entities.Tbl27Infraclasses.Add(tbl27Infraclass);           
         }
 
-        public void Delete(Tbl27Infraclass tbl27Infraclass)    {
+        public void Delete(Tbl27Infraclass infraclass)    {
             _entities.Tbl27Infraclasses.Remove(tbl27Infraclass);
         } 
         //-----------------------------------------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 using System.Linq;
 using Atis.WpfUi.Model;      
    
-// <!-- Interface Skriptdatum:  08.11.2018  18:32     -->  
+// <!-- Interface Skriptdatum:  10.12.2020  18:32     -->  
 
 namespace Atis.WpfUi.Interfaces     {         
     public interface ITbl27InfraclassesRepository    {
@@ -12,8 +12,8 @@ namespace Atis.WpfUi.Interfaces     {
 Tbl27Infraclass Get(int id);   
         
 
-        void Add(Tbl27Infraclass tbl27Infraclass);
-        void Delete(Tbl27Infraclass tbl27Infraclass);
+        void Add(Tbl27Infraclass infraclass);
+        void Delete(Tbl27Infraclass infraclass);
         void Save( );               
      }
 }   

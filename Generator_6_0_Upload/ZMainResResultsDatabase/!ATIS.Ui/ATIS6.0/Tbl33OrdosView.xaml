@@ -1,6 +1,6 @@
     
 <UserControl 
-             x:Class="ATIS.Ui.Views.Database.ListDetails.OrdosView"               
+             x:Class="ATIS.Ui.Views.Database.D33Ordo.OrdosView"               
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -17,7 +17,7 @@
     <UserControl.Resources />                                        
 
 
-        <!-- Tbl33OrdosView.xaml  Skriptdatum:  29.01.2019  10:32   -->    
+        <!-- Tbl33OrdosView.xaml  Skriptdatum:  10.12.2020  10:32   -->    
               
              
     <Grid>

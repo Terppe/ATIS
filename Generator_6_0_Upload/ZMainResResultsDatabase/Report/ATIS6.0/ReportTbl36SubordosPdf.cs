@@ -13,7 +13,7 @@ using Microsoft.Win32;
     
          //    ReportSubordoPdf Skriptdatum:  15.12.2019  10:32    
 
-namespace ATIS.Ui.Views.Report.ListDetails
+namespace ATIS.Ui.Views.Report.D36Subordo
 {     
     
     public class ReportSubordoPdf : ViewModelBase
@@ -121,7 +121,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             }
         }  
              
-        private static void AddSubordoHaeder(PdfDocument pdf, Tbl36Subordo tbl36SubordoList)
+        private static void AddSubordoHaeder(PdfDocument pdf, Tbl36Subordo subordoList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
@@ -138,7 +138,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
         } 
           
-        private static void AddSubordoTaxoNomenList(PdfDocument pdf, Tbl36Subordo tbl36SubordoList)         
+        private static void AddSubordoTaxoNomenList(PdfDocument pdf, Tbl36Subordo subordoList)         
           
         {
             _page = pdf.Pages[_arrInts[6]];
@@ -224,7 +224,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }    
           
-        private static void AddSubordoHierarchyList(PdfDocument pdf, Tbl36Subordo tbl36SubordoList)
+        private static void AddSubordoHierarchyList(PdfDocument pdf, Tbl36Subordo subordoList)
         {
             _page = pdf.Pages[_arrInts[6]];
 

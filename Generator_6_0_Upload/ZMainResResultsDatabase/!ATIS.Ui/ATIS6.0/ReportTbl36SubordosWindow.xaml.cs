@@ -8,7 +8,7 @@ using MahApps.Metro.Controls;
 
    //  ReportSubordoWindow.xaml.cs Skriptdatum:  15.12.2019  10:32     
 
-namespace ATIS.Ui.Views.Report.ListDetails
+namespace ATIS.Ui.Views.Report.D36Subordo
 {  
 
     /// <summary>

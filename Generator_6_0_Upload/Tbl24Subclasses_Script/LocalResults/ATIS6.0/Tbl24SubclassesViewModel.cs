@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
     
          //    SubclassesViewModel Skriptdatum:  13.12.2019  18:32    
 
-namespace ATIS.Ui.Views.Database.ListDetails
+namespace ATIS.Ui.Views.Database.D24Subclass
 {     
     
     public class SubclassesViewModel : ViewModelBase                     

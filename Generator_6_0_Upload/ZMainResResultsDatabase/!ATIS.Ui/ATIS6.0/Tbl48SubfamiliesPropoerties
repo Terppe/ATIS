@@ -1,139 +1,100 @@
-    
+           
+                 ------- ControlTemplateButtons---------------
+    <!--  Infrafamily-->
+    <ControlTemplate x:Key="SearchInfrafamiliesButton" TargetType="Button">   
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding GetInfrafamiliesByNameOrIdCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageSearch" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
 
-
- //    Part 11    
-
-     
-        #region "Public Properties Tbl48Subfamily"
-
-        private string _searchSubfamilyName;
-        public  string SearchSubfamilyName
-        {
-            get => _searchSubfamilyName; 
-            set { _searchSubfamilyName = value; OnPropertyChanged();  }
-        }
-
-        public  ICollectionView SubfamiliesView;
-        public  Tbl48Subfamily CurrentTbl48Subfamily => SubfamiliesView?.CurrentItem as Tbl48Subfamily;
-
-        private ObservableCollection<Tbl48Subfamily> _tbl48SubfamiliesList;
-        public  ObservableCollection<Tbl48Subfamily> Tbl48SubfamiliesList
-        {
-            get => _tbl48SubfamiliesList; 
-            set {  _tbl48SubfamiliesList = value; OnPropertyChanged();   }
-        }
-
-        private ObservableCollection<Tbl48Subfamily> _tbl48SubfamiliesAllList;
-        public  ObservableCollection<Tbl48Subfamily> Tbl48SubfamiliesAllList
-        {
-            get => _tbl48SubfamiliesAllList; 
-            set { _tbl48SubfamiliesAllList = value; OnPropertyChanged(); }
-        }
-
-        #endregion "Public Properties"   
-       
-        #region "Public Properties Tbl45Family"
-
-        private string _searchFamilyName;
-        public string SearchFamilyName
-        {
-            get  => _searchFamilyName; 
-            set { _searchFamilyName = value; OnPropertyChanged(); }
-        }
-
-        public ICollectionView FamiliesView;
-        public Tbl45Family CurrentTbl45Family => FamiliesView?.CurrentItem as Tbl45Family;           
-
-        private ObservableCollection<Tbl45Family> _tbl45FamiliesList;
-        public ObservableCollection<Tbl45Family> Tbl45FamiliesList
-        {
-            get => _tbl45FamiliesList; 
-            set { _tbl45FamiliesList = value; OnPropertyChanged(); }
-        }
-
-        private ObservableCollection<Tbl45Family> _tbl45FamiliesAllList;
-        public ObservableCollection<Tbl45Family> Tbl45FamiliesAllList
-        {
-            get => _tbl45FamiliesAllList; 
-            set { _tbl45FamiliesAllList = value; OnPropertyChanged(); }       
-        }
-
-        #endregion "Public Properties"
-   
-  
-       
-        #region "Public Properties Tbl51Infrafamily"
-
-        private string _searchInfrafamilyName;
-        public string SearchInfrafamilyName
-        {
-            get => _searchInfrafamilyName; 
-            set { _searchInfrafamilyName = value; OnPropertyChanged(); }
-        }
-
-        public ICollectionView InfrafamiliesView;
-        public Tbl51Infrafamily CurrentTbl51Infrafamily => InfrafamiliesView?.CurrentItem as Tbl51Infrafamily;           
-
-        private ObservableCollection<Tbl51Infrafamily> _tbl51InfrafamiliesList;
-        public ObservableCollection<Tbl51Infrafamily> Tbl51InfrafamiliesList
-        {
-            get => _tbl51InfrafamiliesList; 
-            set { _tbl51InfrafamiliesList = value; OnPropertyChanged(); }
-        }
-
-        private ObservableCollection<Tbl51Infrafamily> _tbl51InfrafamiliesAllList;
-        public ObservableCollection<Tbl51Infrafamily> Tbl51InfrafamiliesAllList
-        {
-            get => _tbl51InfrafamiliesAllList; 
-            set { _tbl51InfrafamiliesAllList = value; OnPropertyChanged(); }       
-        }
-
-        #endregion "Public Properties"
-   
-  
-       
-        #region "Public Properties Tbl54Supertribus"
-
-        private string _searchSupertribusName;
-        public string SearchSupertribusName
-        {
-            get => _searchSupertribusName; 
-            set { _searchSupertribusName = value; OnPropertyChanged(); }
-        }
-
-        public ICollectionView SupertribussesView;
-        public Tbl54Supertribus CurrentTbl54Supertribus => SupertribussesView?.CurrentItem as Tbl54Supertribus;           
-
-        private ObservableCollection<Tbl54Supertribus> _tbl54SupertribussesList;
-        public ObservableCollection<Tbl54Supertribus> Tbl54SupertribussesList
-        {
-            get => _tbl54SupertribussesList; 
-            set { _tbl54SupertribussesList = value; OnPropertyChanged(); }
-        }
-
-        private ObservableCollection<Tbl54Supertribus> _tbl54SupertribussesAllList;
-        public ObservableCollection<Tbl54Supertribus> Tbl54SupertribussesAllList
-        {
-            get => _tbl54SupertribussesAllList; 
-            set { _tbl54SupertribussesAllList = value; OnPropertyChanged(); }       
-        }
-
-        #endregion "Public Properties"
-   
-  
-       
-        #region "Public Properties Tbl42Superfamily"
-
-        private ObservableCollection<Tbl42Superfamily> _tbl42SuperfamiliesAllList;
-        public  new ObservableCollection<Tbl42Superfamily> Tbl42SuperfamiliesAllList
-        {
-            get => _tbl42SuperfamiliesAllList; 
-            set { _tbl42SuperfamiliesAllList = value; OnPropertyChanged(); }
-        }
-
-        #endregion "Public Properties"
-   
-   
-
- //    Part 12    
-
+    <ControlTemplate x:Key="AddInfrafamilyButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding AddInfrafamilyCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="CopyInfrafamilyButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding CopyInfrafamilyCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="SaveInfrafamilyButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding SaveInfrafamilyCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="DeleteInfrafamilyButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding DeleteInfrafamilyCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+	   

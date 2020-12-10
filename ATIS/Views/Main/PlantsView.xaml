@@ -9,12 +9,32 @@
     xmlns:d18Superclass="clr-namespace:ATIS.Ui.Views.Database.D18Superclass"
     xmlns:d21Class="clr-namespace:ATIS.Ui.Views.Database.D21Class"
     xmlns:d24Subclass="clr-namespace:ATIS.Ui.Views.Database.D24Subclass"
+    xmlns:d27Infraclass="clr-namespace:ATIS.Ui.Views.Database.D27Infraclass"
+    xmlns:d30Legio="clr-namespace:ATIS.Ui.Views.Database.D30Legio"
+    xmlns:d33Ordo="clr-namespace:ATIS.Ui.Views.Database.D33Ordo"
+    xmlns:d36Subordo="clr-namespace:ATIS.Ui.Views.Database.D36Subordo"
+    xmlns:d39Infraordo="clr-namespace:ATIS.Ui.Views.Database.D39Infraordo"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <UserControl.Resources>
+        <DataTemplate DataType="{x:Type d39Infraordo:InfraordosViewModel}">
+            <d39Infraordo:InfraordosView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d36Subordo:SubordosViewModel}">
+            <d36Subordo:SubordosView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d33Ordo:OrdosViewModel}">
+            <d33Ordo:OrdosView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d30Legio:LegiosViewModel}">
+            <d30Legio:LegiosView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d27Infraclass:InfraclassesViewModel}">
+            <d27Infraclass:InfraclassesView />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type d24Subclass:SubclassesViewModel}">
             <d24Subclass:SubclassesView />
         </DataTemplate>
@@ -78,10 +98,18 @@
                     mah:HeaderedControlHelper.HeaderFontSize="16"
                     mah:TabControlHelper.Underlined="TabPanel"
                     SelectedIndex="2">
-                    <TabItem Content="{Binding Tbl39InfraordosView}" Header="{DynamicResource Database-MenuInfraordo}" />
-                    <TabItem Content="{Binding Tbl36SubordosView}" Header="{DynamicResource Database-MenuSubordo}" />
-                    <TabItem Content="{Binding Tbl33OrdosView}" Header="{DynamicResource Database-MenuOrdo}" />
-                    <TabItem Content="{Binding Tbl30LegiosView}" Header="{DynamicResource Database-MenuLegio}" />
+                    <TabItem Header="{DynamicResource Database-MenuInfraordo}">
+                        <d39Infraordo:InfraordosViewModel />
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Database-MenuSubordo}">
+                        <d36Subordo:SubordosViewModel />
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Database-MenuOrdo}">
+                        <d33Ordo:OrdosViewModel />
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Database-MenuLegio}">
+                        <d30Legio:LegiosViewModel />
+                    </TabItem>
                 </TabControl>
             </TabItem>
             <TabItem Header="{DynamicResource Database-MenuClass}">
@@ -91,7 +119,9 @@
                     mah:HeaderedControlHelper.HeaderFontSize="16"
                     mah:TabControlHelper.Underlined="TabPanel"
                     SelectedIndex="2">
-                    <TabItem Content="{Binding Tbl27InfraclassesView}" Header="{DynamicResource Database-MenuInfraclass}" />
+                    <TabItem Header="{DynamicResource Database-MenuInfraclass}">
+                        <d27Infraclass:InfraclassesViewModel />
+                    </TabItem>
                     <TabItem Header="{DynamicResource Database-MenuSubclass}">
                         <d24Subclass:SubclassesViewModel />
                     </TabItem>

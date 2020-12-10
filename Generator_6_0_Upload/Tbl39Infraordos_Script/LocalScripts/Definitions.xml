@@ -2,7 +2,7 @@
  <Definition>
   <File>Tbl39Infraordos</File>
 
-  <DateTime>08.11.2018  10:32</DateTime>  
+  <DateTime>10.12.2020  10:32</DateTime>  
   <Namespace>Atis</Namespace>  
   <ConnString></ConnString> 
   <RegisterContext>ATISEntities</RegisterContext > 
@@ -11,9 +11,9 @@
 
   <LayoutTK3>ListDetails</LayoutTK3>
   <LayoutTK2>ListDetails</LayoutTK2>
-  <LayoutTK1>ListDetails</LayoutTK1>
-  <Layout>ListDetails</Layout>
-  <LayoutFK1>ListDetails</LayoutFK1>
+  <LayoutTK1>D42Superfamily</LayoutTK1>
+  <Layout>D39Infraordo</Layout>
+  <LayoutFK1>D36Subordo</LayoutFK1>
   <LayoutFK2>ListDetails</LayoutFK2>
   <LayoutBK1>ListDetails</LayoutBK1>
   <LayoutBK2>ListDetails</LayoutBK2>
@@ -189,9 +189,9 @@
   <EntitysFK2>NULL</EntitysFK2> 
   <EntitysBK1>_tbl33Ordos</EntitysBK1> 
 
-  <EntityAblTK1>Tbl42Superfamily tbl42Superfamily</EntityAblTK1> 
-  <EntityAbl>Tbl39Infraordo tbl39Infraordo</EntityAbl> 
-  <EntityAblFK1>Tbl36Subordo tbl36Subordo</EntityAblFK1> 
+  <EntityAblTK1>Tbl42Superfamily superfamily</EntityAblTK1> 
+  <EntityAbl>Tbl39Infraordo infraordo</EntityAbl> 
+  <EntityAblFK1>Tbl36Subordo subordo</EntityAblFK1> 
   <EntityAblFK2>NULL</EntityAblFK2> 
 
    <Fields>

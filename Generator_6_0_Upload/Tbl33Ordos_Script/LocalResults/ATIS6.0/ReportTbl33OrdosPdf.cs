@@ -11,9 +11,9 @@ using log4net;
 using Microsoft.Win32;  
 
     
-         //    ReportOrdoPdf Skriptdatum:  29.01.2019  10:32    
+         //    ReportOrdoPdf Skriptdatum:  10.12.2020  10:32    
 
-namespace ATIS.Ui.Views.Report.ListDetails
+namespace ATIS.Ui.Views.Report.D33Ordo
 {     
     
     public class ReportOrdoPdf : ViewModelBase
@@ -121,7 +121,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             }
         }  
              
-        private static void AddOrdoHaeder(PdfDocument pdf, Tbl33Ordo tbl33OrdoList)
+        private static void AddOrdoHaeder(PdfDocument pdf, Tbl33Ordo ordoList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
@@ -138,7 +138,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
         } 
           
-        private static void AddOrdoTaxoNomenList(PdfDocument pdf, Tbl33Ordo tbl33OrdoList)         
+        private static void AddOrdoTaxoNomenList(PdfDocument pdf, Tbl33Ordo ordoList)         
           
         {
             _page = pdf.Pages[_arrInts[6]];
@@ -224,7 +224,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }    
           
-        private static void AddOrdoHierarchyList(PdfDocument pdf, Tbl33Ordo tbl33OrdoList)
+        private static void AddOrdoHierarchyList(PdfDocument pdf, Tbl33Ordo ordoList)
         {
             _page = pdf.Pages[_arrInts[6]];
 

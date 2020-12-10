@@ -1,7 +1,7 @@
 using System.Linq;
 using Atis.WpfUi.Model;      
    
-// <!-- Interface Skriptdatum:  29.01.2019  10:32     -->  
+// <!-- Interface Skriptdatum:  10.12.2020  10:32     -->  
 
 namespace Atis.WpfUi.Interfaces     {         
     public interface ITbl33OrdosRepository    {
@@ -12,8 +12,8 @@ namespace Atis.WpfUi.Interfaces     {
 Tbl33Ordo Get(int id);   
         
 
-        void Add(Tbl33Ordo tbl33Ordo);
-        void Delete(Tbl33Ordo tbl33Ordo);
+        void Add(Tbl33Ordo ordo);
+        void Delete(Tbl33Ordo ordo);
         void Save( );               
      }
 }   
