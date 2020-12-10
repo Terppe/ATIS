@@ -1,6 +1,6 @@
     
 <UserControl 
-             x:Class="ATIS.Ui.Views.Database.ListDetails.FamiliesView"               
+             x:Class="ATIS.Ui.Views.Database.D45Family.FamiliesView"               
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -17,7 +17,7 @@
     <UserControl.Resources />                                        
 
 
-        <!-- Tbl45FamiliesView.xaml  Skriptdatum:  19.06.2018  10:32   -->    
+        <!-- Tbl45FamiliesView.xaml  Skriptdatum:  10.12.2020  10:32   -->    
               
              
     <Grid>

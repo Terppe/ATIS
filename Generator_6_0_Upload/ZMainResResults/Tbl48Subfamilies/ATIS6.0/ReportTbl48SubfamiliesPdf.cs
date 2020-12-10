@@ -11,9 +11,9 @@ using log4net;
 using Microsoft.Win32;  
 
     
-         //    ReportSubfamilyPdf Skriptdatum:  08.11.2018  10:32    
+         //    ReportSubfamilyPdf Skriptdatum:  10.12.2020  10:32    
 
-namespace ATIS.Ui.Views.Report.ListDetails
+namespace ATIS.Ui.Views.Report.D48Subfamily
 {     
     
     public class ReportSubfamilyPdf : ViewModelBase
@@ -121,7 +121,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             }
         }  
              
-        private static void AddSubfamilyHaeder(PdfDocument pdf, Tbl48Subfamily tbl48SubfamilyList)
+        private static void AddSubfamilyHaeder(PdfDocument pdf, Tbl48Subfamily subfamilyList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
@@ -138,7 +138,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
         } 
           
-        private static void AddSubfamilyTaxoNomenList(PdfDocument pdf, Tbl48Subfamily tbl48SubfamilyList)         
+        private static void AddSubfamilyTaxoNomenList(PdfDocument pdf, Tbl48Subfamily subfamilyList)         
           
         {
             _page = pdf.Pages[_arrInts[6]];
@@ -224,7 +224,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }    
           
-        private static void AddSubfamilyHierarchyList(PdfDocument pdf, Tbl48Subfamily tbl48SubfamilyList)
+        private static void AddSubfamilyHierarchyList(PdfDocument pdf, Tbl48Subfamily subfamilyList)
         {
             _page = pdf.Pages[_arrInts[6]];
 

@@ -12,8 +12,8 @@ namespace Atis.WpfUi.Interfaces     {
 Tbl51Infrafamily Get(int id);   
         
 
-        void Add(Tbl51Infrafamily tbl51Infrafamily);
-        void Delete(Tbl51Infrafamily tbl51Infrafamily);
+        void Add(Tbl51Infrafamily infrafamily);
+        void Delete(Tbl51Infrafamily infrafamily);
         void Save( );               
      }
 }   

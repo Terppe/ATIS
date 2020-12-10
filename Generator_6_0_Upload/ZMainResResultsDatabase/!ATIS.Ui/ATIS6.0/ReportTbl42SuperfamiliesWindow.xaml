@@ -1,6 +1,6 @@
             
 <mah:MetroWindow
-    x:Class="ATIS.Ui.Views.Report.ListDetails.ReportSuperfamilyWindow"
+    x:Class="ATIS.Ui.Views.Report.D42Superfamily.ReportSuperfamilyWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
@@ -12,7 +12,7 @@
     Height="600"
     ResizeMode="CanResizeWithGrip">  
 
-        <!-- ReportSuperfamilyWindow.xaml  Skriptdatum:  08.11.2018  10:32   -->    
+        <!-- ReportSuperfamilyWindow.xaml  Skriptdatum:  10.12.2020  10:32   -->    
           
     <mah:MetroWindow.Resources>
         <ResourceDictionary>

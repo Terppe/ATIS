@@ -2,7 +2,7 @@ using System.Linq;
 using Atis.WpfUi.Interfaces;
 using Atis.WpfUi.Model;    
 
-// <!-- Repository Skriptdatum:  08.11.2018  10:32    -->  
+// <!-- Repository Skriptdatum:  10.12.2020  10:32    -->  
 
 namespace Atis.WpfUi.Repositories      {  
     public class Tbl48SubfamiliesRepository : ITbl48SubfamiliesRepository    {
@@ -32,11 +32,11 @@ namespace Atis.WpfUi.Repositories      {
          //-------------------------------------------------------------------------------------------------------------
 
         //  Insert/Delete Methods
-        public void Add(Tbl48Subfamily tbl48Subfamily)    {
+        public void Add(Tbl48Subfamily subfamily)    {
             _entities.Tbl48Subfamilies.Add(tbl48Subfamily);           
         }
 
-        public void Delete(Tbl48Subfamily tbl48Subfamily)    {
+        public void Delete(Tbl48Subfamily subfamily)    {
             _entities.Tbl48Subfamilies.Remove(tbl48Subfamily);
         } 
         //-----------------------------------------------------------------------------------------------------------

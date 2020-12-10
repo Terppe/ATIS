@@ -2,7 +2,7 @@ using System.Linq;
 using Atis.WpfUi.Interfaces;
 using Atis.WpfUi.Model;    
 
-// <!-- Repository Skriptdatum:  19.06.2018  10:32    -->  
+// <!-- Repository Skriptdatum:  10.12.2020  10:32    -->  
 
 namespace Atis.WpfUi.Repositories      {  
     public class Tbl45FamiliesRepository : ITbl45FamiliesRepository    {
@@ -32,11 +32,11 @@ namespace Atis.WpfUi.Repositories      {
          //-------------------------------------------------------------------------------------------------------------
 
         //  Insert/Delete Methods
-        public void Add(Tbl45Family tbl45Family)    {
+        public void Add(Tbl45Family family)    {
             _entities.Tbl45Families.Add(tbl45Family);           
         }
 
-        public void Delete(Tbl45Family tbl45Family)    {
+        public void Delete(Tbl45Family family)    {
             _entities.Tbl45Families.Remove(tbl45Family);
         } 
         //-----------------------------------------------------------------------------------------------------------

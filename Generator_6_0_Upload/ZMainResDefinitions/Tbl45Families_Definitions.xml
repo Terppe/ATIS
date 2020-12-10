@@ -2,7 +2,7 @@
  <Definition>
   <File>Tbl45Families</File>
 
-  <DateTime>19.06.2018  10:32</DateTime>  
+  <DateTime>10.12.2020  10:32</DateTime>  
   <Namespace>Atis</Namespace>  
   <ConnString></ConnString> 
   <RegisterContext>ATISEntities</RegisterContext > 
@@ -11,9 +11,9 @@
 
   <LayoutTK3>ListDetails</LayoutTK3>
   <LayoutTK2>ListDetails</LayoutTK2>
-  <LayoutTK1>ListDetails</LayoutTK1>
-  <Layout>ListDetails</Layout>
-  <LayoutFK1>ListDetails</LayoutFK1>
+  <LayoutTK1>D48Subfamily</LayoutTK1>
+  <Layout>D45Family</Layout>
+  <LayoutFK1>D42Superfamily</LayoutFK1>
   <LayoutFK2>ListDetails</LayoutFK2>
   <LayoutBK1>ListDetails</LayoutBK1>
   <LayoutBK2>ListDetails</LayoutBK2>
@@ -189,9 +189,9 @@
   <EntitysFK2>NULL</EntitysFK2> 
   <EntitysBK1>_tbl39Infraordos</EntitysBK1> 
 
-  <EntityAblTK1>Tbl48Subfamily tbl48Subfamily</EntityAblTK1> 
-  <EntityAbl>Tbl45Family tbl45Family</EntityAbl> 
-  <EntityAblFK1>Tbl42Superfamily tbl42Superfamily</EntityAblFK1> 
+  <EntityAblTK1>Tbl48Subfamily subfamily</EntityAblTK1> 
+  <EntityAbl>Tbl45Family family</EntityAbl> 
+  <EntityAblFK1>Tbl42Superfamily superfamily</EntityAblFK1> 
   <EntityAblFK2>NULL</EntityAblFK2> 
 
    <Fields>

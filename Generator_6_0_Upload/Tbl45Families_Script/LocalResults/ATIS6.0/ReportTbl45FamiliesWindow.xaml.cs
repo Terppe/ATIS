@@ -6,9 +6,9 @@ using ATIS.Ui.Views.Report.D03Regnum;
 using ATIS.Ui.Views.Report.D06Phylum;
 using MahApps.Metro.Controls;
 
-   //  ReportFamilyWindow.xaml.cs Skriptdatum:  19.06.2018  10:32     
+   //  ReportFamilyWindow.xaml.cs Skriptdatum:  10.12.2020  10:32     
 
-namespace ATIS.Ui.Views.Report.ListDetails
+namespace ATIS.Ui.Views.Report.D45Family
 {  
 
     /// <summary>

@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
     
          //    InfrafamiliesViewModel Skriptdatum:  08.11.2018  10:32    
 
-namespace ATIS.Ui.Views.Database.ListDetails
+namespace ATIS.Ui.Views.Database.D51Infrafamily
 {     
     
     public class InfrafamiliesViewModel : ViewModelBase                     

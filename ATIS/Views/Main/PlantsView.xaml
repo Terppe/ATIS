@@ -16,10 +16,26 @@
     xmlns:d39Infraordo="clr-namespace:ATIS.Ui.Views.Database.D39Infraordo"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d51Infrafamily="clr-namespace:ATIS.Ui.Views.Database.D51Infrafamily"
+    xmlns:d48Subfamily="clr-namespace:ATIS.Ui.Views.Database.D48Subfamily"
+    xmlns:d45Family="clr-namespace:ATIS.Ui.Views.Database.D45Family"
+    xmlns:d42Superfamily="clr-namespace:ATIS.Ui.Views.Database.D42Superfamily"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <UserControl.Resources>
+        <DataTemplate DataType="{x:Type d51Infrafamily:InfrafamiliesViewModel}">
+            <d51Infrafamily:InfrafamiliesView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d48Subfamily:SubfamiliesViewModel}">
+            <d48Subfamily:SubfamiliesView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d45Family:FamiliesViewModel}">
+            <d45Family:FamiliesView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d42Superfamily:SuperfamiliesViewModel}">
+            <d42Superfamily:SuperfamiliesView />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type d39Infraordo:InfraordosViewModel}">
             <d39Infraordo:InfraordosView />
         </DataTemplate>
@@ -85,10 +101,18 @@
                     mah:HeaderedControlHelper.HeaderFontSize="16"
                     mah:TabControlHelper.Underlined="TabPanel"
                     SelectedIndex="2">
-                    <TabItem Content="{Binding Tbl51InfrafamiliesView}" Header="{DynamicResource Database-MenuInfrafamily}" />
-                    <TabItem Content="{Binding Tbl48SubfamiliesView}" Header="{DynamicResource Database-MenuSubfamily}" />
-                    <TabItem Content="{Binding Tbl45FamiliesView}" Header="{DynamicResource Database-MenuFamily}" />
-                    <TabItem Content="{Binding Tbl42SuperfamiliesView}" Header="{DynamicResource Database-MenuSuperfamily}" />
+                    <TabItem Header="{DynamicResource Database-MenuInfrafamily}">
+                        <d51Infrafamily:InfrafamiliesViewModel />
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Database-MenuSubfamily}">
+                        <d48Subfamily:SubfamiliesViewModel />
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Database-MenuFamily}">
+                        <d45Family:FamiliesViewModel />
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Database-MenuSuperfamily}">
+                        <d42Superfamily:SuperfamiliesViewModel />
+                    </TabItem>
                 </TabControl>
             </TabItem>
             <TabItem Header="{DynamicResource Database-MenuOrdo}">

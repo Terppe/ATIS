@@ -7,7 +7,7 @@ using System.Windows.Input;
 using System.Windows.Threading;   
  
 
-      //  Tbl48SubfamiliesView.xaml.cs Skriptdatum:  08.11.2018  10:32     
+      //  Tbl48SubfamiliesView.xaml.cs Skriptdatum:  10.12.2020  10:32     
 
 namespace WPFUI.Views.Database
 {  

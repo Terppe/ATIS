@@ -1,7 +1,7 @@
 using System.Linq;
 using Atis.WpfUi.Model;      
    
-// <!-- Interface Skriptdatum:  19.06.2018  10:32     -->  
+// <!-- Interface Skriptdatum:  10.12.2020  10:32     -->  
 
 namespace Atis.WpfUi.Interfaces     {         
     public interface ITbl45FamiliesRepository    {
@@ -12,8 +12,8 @@ namespace Atis.WpfUi.Interfaces     {
 Tbl45Family Get(int id);   
         
 
-        void Add(Tbl45Family tbl45Family);
-        void Delete(Tbl45Family tbl45Family);
+        void Add(Tbl45Family family);
+        void Delete(Tbl45Family family);
         void Save( );               
      }
 }   

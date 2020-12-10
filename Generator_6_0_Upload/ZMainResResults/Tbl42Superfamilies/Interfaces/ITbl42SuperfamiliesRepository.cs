@@ -1,7 +1,7 @@
 using System.Linq;
 using Atis.WpfUi.Model;      
    
-// <!-- Interface Skriptdatum:  08.11.2018  10:32     -->  
+// <!-- Interface Skriptdatum:  10.12.2020  10:32     -->  
 
 namespace Atis.WpfUi.Interfaces     {         
     public interface ITbl42SuperfamiliesRepository    {
@@ -12,8 +12,8 @@ namespace Atis.WpfUi.Interfaces     {
 Tbl42Superfamily Get(int id);   
         
 
-        void Add(Tbl42Superfamily tbl42Superfamily);
-        void Delete(Tbl42Superfamily tbl42Superfamily);
+        void Add(Tbl42Superfamily superfamily);
+        void Delete(Tbl42Superfamily superfamily);
         void Save( );               
      }
 }   

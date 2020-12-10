@@ -13,7 +13,7 @@ using Microsoft.Win32;
     
          //    ReportInfrafamilyPdf Skriptdatum:  08.11.2018  10:32    
 
-namespace ATIS.Ui.Views.Report.ListDetails
+namespace ATIS.Ui.Views.Report.D51Infrafamily
 {     
     
     public class ReportInfrafamilyPdf : ViewModelBase
@@ -121,7 +121,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             }
         }  
              
-        private static void AddInfrafamilyHaeder(PdfDocument pdf, Tbl51Infrafamily tbl51InfrafamilyList)
+        private static void AddInfrafamilyHaeder(PdfDocument pdf, Tbl51Infrafamily infrafamilyList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
@@ -138,7 +138,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
         } 
           
-        private static void AddInfrafamilyTaxoNomenList(PdfDocument pdf, Tbl51Infrafamily tbl51InfrafamilyList)         
+        private static void AddInfrafamilyTaxoNomenList(PdfDocument pdf, Tbl51Infrafamily infrafamilyList)         
           
         {
             _page = pdf.Pages[_arrInts[6]];
@@ -224,7 +224,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }    
           
-        private static void AddInfrafamilyHierarchyList(PdfDocument pdf, Tbl51Infrafamily tbl51InfrafamilyList)
+        private static void AddInfrafamilyHierarchyList(PdfDocument pdf, Tbl51Infrafamily infrafamilyList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
