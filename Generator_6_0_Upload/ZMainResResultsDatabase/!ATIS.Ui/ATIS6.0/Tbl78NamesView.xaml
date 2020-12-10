@@ -433,7 +433,7 @@
                                                 Margin="25,5,5,5"
                                                 VerticalAlignment="Bottom"
                                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl66Genus-Genus}"
                                                 DisplayMemberPath="GenusName" 
                                                 IsSynchronizedWithCurrentItem="True"
                                                 ItemsSource="{Binding Tbl66GenussesAllList}"

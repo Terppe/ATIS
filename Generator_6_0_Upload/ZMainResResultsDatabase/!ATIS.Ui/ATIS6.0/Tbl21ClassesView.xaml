@@ -660,7 +660,7 @@
                                                 Margin="5"
                                                 VerticalAlignment="Bottom"
                                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl12Subphylum-Subphylum}"
                                                 DisplayMemberPath="SubphylumName" 
                                                 IsSynchronizedWithCurrentItem="True"
                                                 ItemsSource="{Binding Tbl12SubphylumsAllList}"
@@ -674,7 +674,7 @@
                                                 Margin="5"
                                                 VerticalAlignment="Bottom"
                                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl15Subdivision-Subdivision}"
                                                 DisplayMemberPath="SubdivisionName" 
                                                 IsSynchronizedWithCurrentItem="True"
                                                 ItemsSource="{Binding Tbl15SubdivisionsAllList}"
@@ -682,7 +682,7 @@
                                                 SelectedValue="{Binding SelectedItem.(models:Tbl15Subdivision.SubdivisionId), ElementName=Tbl18SuperclassesList, Mode=TwoWay}"
                                                 SelectedValuePath="SubdivisionId"
                                                 Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
-                                                VirtualizingStackPanel.IsVirtualizing="True" />      
+                                                VirtualizingStackPanel.IsVirtualizing="True" />           
          
                                         </StackPanel>
                                         <StackPanel Height="Auto" Orientation="Horizontal">
@@ -954,7 +954,7 @@
                                     Margin="25,5,5,5"
                                     VerticalAlignment="Bottom"
                                     mah:TextBoxHelper.UseFloatingWatermark="True"
-                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Tbl18Superclass-Superclass}"
                                     DisplayMemberPath="SuperclassName" 
                                     IsSynchronizedWithCurrentItem="True"
                                     ItemsSource="{Binding Tbl18SuperclassesAllList}"
@@ -1488,7 +1488,7 @@
                                 Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Expert}"
                                 DisplayMemberPath="RefExpertName"
                                 IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Tbl90ExpertsAllList}"
@@ -1572,7 +1572,7 @@
                                 Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Source}"
                                 IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Tbl90SourcesAllList}"
                                 SelectedValue="{Binding SelectedItem.(models:Tbl90RefSource.RefSourceId), ElementName=Tbl90ReferenceSourcesList, Mode=TwoWay}"
@@ -1682,7 +1682,7 @@
                                 Width="700"
                                 Margin="5"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
                                 IsEditable="False"
                                 IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Tbl90AuthorsAllList}"

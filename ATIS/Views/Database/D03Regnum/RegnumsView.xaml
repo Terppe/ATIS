@@ -551,6 +551,7 @@
                     VerticalScrollBarVisibility="Auto">
                     <StackPanel>
                         <GroupBox>
+
                             <ListView
                                 x:Name="Tbl93CommentsList"
                                 Height="Auto"
@@ -560,6 +561,7 @@
                                 SelectedItem="{Binding (Selector.SelectedItem)}"
                                 VirtualizingStackPanel.IsVirtualizing="True"
                                 VirtualizingStackPanel.VirtualizationMode="Recycling">
+
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Width="Auto" Header="{DynamicResource Tbl93Comment-CommentId}">
@@ -624,6 +626,7 @@
                     <GroupBox>
                         <StackPanel Margin="1">
                             <StackPanel Height="Auto" Orientation="Horizontal">
+
                                 <Button Template="{StaticResource SaveRegnumButton}" />
                                 <Button Template="{StaticResource CopyRegnumButton}" />
                                 <Button Template="{StaticResource AddRegnumButton}" />
@@ -659,6 +662,7 @@
                                     </TextBox.Text>
                                 </TextBox>
                             </StackPanel>
+
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <CheckBox
                                     Width="80"
@@ -854,6 +858,7 @@
                                     </TextBox.Text>
                                 </TextBox>
                             </StackPanel>
+
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                     <TextBox
@@ -892,6 +897,7 @@
                 <GroupBox>
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
+
                             <Button Template="{StaticResource SavePhylumButton}" />
                             <Button Template="{StaticResource CopyPhylumButton}" />
                             <Button Template="{StaticResource AddPhylumButton}" />
@@ -922,7 +928,7 @@
                                 Margin="25,5,5,5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl03Regnum-Regnum}"
                                 DisplayMemberPath="RegnumName"
                                 IsSynchronizedWithCurrentItem="True"
                                 ItemsSource="{Binding Tbl03RegnumsAllList}"
@@ -931,6 +937,7 @@
                                 SelectedValuePath="RegnumId"
                                 Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                 VirtualizingStackPanel.IsVirtualizing="True" />
+
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <CheckBox
@@ -1127,6 +1134,7 @@
                                 </TextBox.Text>
                             </TextBox>
                         </StackPanel>
+
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <TextBox
@@ -1163,6 +1171,7 @@
                 <GroupBox>
                     <StackPanel Margin="5">
                         <StackPanel Height="Auto" Orientation="Horizontal">
+
                             <Button Template="{StaticResource SaveDivisionButton}" />
                             <Button Template="{StaticResource CopyDivisionButton}" />
                             <Button Template="{StaticResource AddDivisionButton}" />
@@ -1193,7 +1202,7 @@
                                 Margin="25,5,5,5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl03Regnum-Regnum}"
                                 DisplayMemberPath="RegnumName"
                                 IsSynchronizedWithCurrentItem="True"
                                 ItemsSource="{Binding Tbl03RegnumsAllList}"
@@ -1203,6 +1212,7 @@
                                 Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                 VirtualizingStackPanel.IsVirtualizing="True" />
                         </StackPanel>
+
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <CheckBox
                                 Width="80"
@@ -1398,6 +1408,7 @@
                                 </TextBox.Text>
                             </TextBox>
                         </StackPanel>
+
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <TextBox
@@ -1435,6 +1446,7 @@
 
 
 
+
             <!--  Part 11  -->
 
             <!--  Part 12  -->
@@ -1458,7 +1470,7 @@
                                 Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Expert}"
                                 DisplayMemberPath="RefExpertName"
                                 IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Tbl90ExpertsAllList}"
@@ -1542,7 +1554,7 @@
                                 Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Source}"
                                 IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Tbl90SourcesAllList}"
                                 SelectedValue="{Binding SelectedItem.(models:Tbl90RefSource.RefSourceId), ElementName=Tbl90ReferenceSourcesList, Mode=TwoWay}"
@@ -1652,7 +1664,7 @@
                                 Width="700"
                                 Margin="5"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
                                 IsEditable="False"
                                 IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Tbl90AuthorsAllList}"
@@ -1824,7 +1836,6 @@
                                             Path="SelectedItem.(models:Tbl93Comment.Memo)"
                                             UpdateSourceTrigger="PropertyChanged" />
                                     </TextBox.Text>
-
                                 </TextBox>
                             </ScrollViewer>
                         </StackPanel>

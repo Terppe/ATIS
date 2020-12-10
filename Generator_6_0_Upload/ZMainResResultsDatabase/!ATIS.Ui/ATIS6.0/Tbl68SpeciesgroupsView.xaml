@@ -439,7 +439,7 @@
                                                 Margin="25,5,5,5"
                                                 VerticalAlignment="Bottom"
                                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Select}"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource NULL-NULL}"
                                                 DisplayMemberPath="NULL" 
                                                 IsSynchronizedWithCurrentItem="True"
                                                 ItemsSource="{Binding NULLAllList}"
