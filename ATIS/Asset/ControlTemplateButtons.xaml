@@ -1767,6 +1767,595 @@
         </Button>
     </ControlTemplate>
 
+    <!--  Tribus  -->
+    <ControlTemplate x:Key="SearchTribussesButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding GetTribussesByNameOrIdCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageSearch" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="AddTribusButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding AddTribusCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="CopyTribusButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding CopyTribusCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="SaveTribusButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding SaveTribusCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="DeleteTribusButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding DeleteTribusCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+    <!--  Subtribus  -->
+    <ControlTemplate x:Key="SearchSubtribussesButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding GetSubtribussesByNameOrIdCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageSearch" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="AddSubtribusButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding AddSubtribusCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="CopySubtribusButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding CopySubtribusCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="SaveSubtribusButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding SaveSubtribusCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="DeleteSubtribusButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding DeleteSubtribusCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+    <!--  Infratribus  -->
+    <ControlTemplate x:Key="SearchInfratribussesButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding GetInfratribussesByNameOrIdCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageSearch" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="AddInfratribusButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding AddInfratribusCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="CopyInfratribusButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding CopyInfratribusCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="SaveInfratribusButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding SaveInfratribusCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="DeleteInfratribusButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding DeleteInfratribusCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+    <!--  Genus  -->
+    <ControlTemplate x:Key="SearchGenussesButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding GetGenussesByNameOrIdCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageSearch" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="AddGenusButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding AddGenusCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="CopyGenusButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding CopyGenusCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="SaveGenusButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding SaveGenusCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="DeleteGenusButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding DeleteGenusCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+    <!--  FiSpecies  -->
+    <ControlTemplate x:Key="SearchFiSpeciessesButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding GetFiSpeciessesByNameOrIdCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageSearch" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="AddFiSpeciesButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding AddFiSpeciesCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="CopyFiSpeciesButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding CopyFiSpeciesCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="SaveFiSpeciesButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding SaveFiSpeciesCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="DeleteFiSpeciesButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding DeleteFiSpeciesCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+    <!--  PlSpecies  -->
+    <ControlTemplate x:Key="SearchPlSpeciessesButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding GetPlSpeciessesByNameOrIdCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageSearch" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="AddPlSpeciesButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding AddPlSpeciesCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="CopyPlSpeciesButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding CopyPlSpeciesCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="SavePlSpeciesButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding SavePlSpeciesCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="DeletePlSpeciesButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding DeletePlSpeciesCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+
 
     <!--  ReferenceExpert  -->
 

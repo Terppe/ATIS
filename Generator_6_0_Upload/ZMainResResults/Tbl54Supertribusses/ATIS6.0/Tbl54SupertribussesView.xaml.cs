@@ -6,7 +6,7 @@ using System.Windows.Controls;
 
       //  Tbl54SupertribussesView.xaml.cs Skriptdatum:  08.11.2018  10:32     
 
-namespace ATIS.Ui.Views.Database.ListDetails
+namespace ATIS.Ui.Views.Database.D54Supertribus
 {  
 
     /// <summary>

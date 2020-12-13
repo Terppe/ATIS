@@ -1,7 +1,7 @@
 using System.Linq;
 using Atis.WpfUi.Model;      
    
-// <!-- Interface Skriptdatum:  12.12.2019  10:32     -->  
+// <!-- Interface Skriptdatum:  13.12.2020  10:32     -->  
 
 namespace Atis.WpfUi.Interfaces     {         
     public interface ITbl66GenussesRepository    {
@@ -12,8 +12,8 @@ namespace Atis.WpfUi.Interfaces     {
 Tbl66Genus Get(int id);   
         
 
-        void Add(Tbl66Genus tbl66Genus);
-        void Delete(Tbl66Genus tbl66Genus);
+        void Add(Tbl66Genus genus);
+        void Delete(Tbl66Genus genus);
         void Save( );               
      }
 }   

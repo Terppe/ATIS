@@ -7,30 +7,23 @@ using Te.Atis.BusinessLayer;
 using Te.Atis.DomainModel;
 using Te.Atis.Ui.Desktop.Views.Report.PDF;    
 
-// <!-- Interface Skriptdatum:  12.12.2019  10:32     -->  
+// <!-- Interface Skriptdatum:  08.11.2018  10:32     -->  
 
 namespace Te.Atis.Ui.Desktop.Views.Report   
 {       
 
            
-     public void GetTbl66GenussesById(int id)
+     public void GetTbl60SubtribussesById(int id)
     {
-        Tbl66GenussesList = new ObservableCollection<Tbl66Genus>(_businessLayer.ListTbl66GenussesByGenusId(id));		   
+        Tbl60SubtribussesList = new ObservableCollection<Tbl60Subtribus>(_businessLayer.ListTbl60SubtribussesBySubtribusId(id));		   
         
         //direct children
-        Tbl69FiSpeciessesList = new ObservableCollection<Tbl69FiSpecies>(_businessLayer.ListTbl69FiSpeciessesByGenusIdAndHash(id));
+        Tbl63InfratribussesList = new ObservableCollection<Tbl63Infratribus>(_businessLayer.ListTbl63InfratribussesBySubtribusIdAndHash(id));
 
-        Tbl72PlSpeciessesList = new ObservableCollection<Tbl72PlSpecies>(_businessLayer.ListTbl72PlSpeciessesByGenusIdAndHash(id));
         //------------------------------------------------------------------------------
 
-         var infratribusGenusId = InfratribusIdTbl66GenussesSelect(id);	
-        Tbl63InfratribussesList = new ObservableCollection<Tbl63Infratribus>(_businessLayer.ListTbl63InfratribussesByInfratribusIdAndHash(infratribusGenusId));		
-
-        var subtribusInfratribusId = SubtribusIdTbl63InfratribussesSelect(infratribusGenusId);
-        Tbl60SubtribussesList = new ObservableCollection<Tbl60Subtribus>(_businessLayer.ListTbl60SubtribussesBySubtribusIdAndHash(subtribusInfratribusId));
-
-        var tribusSubtribusId = TribusIdTbl60SubtribussesSelect(subtribusInfratribusId);
-        Tbl57TribussesList = new ObservableCollection<Tbl57Tribus>(_businessLayer.ListTbl57TribussesByTribusIdAndHash(tribusSubtribusId));
+         var tribusSubtribusId = TribusIdTbl60SubtribussesSelect(id);	
+        Tbl57TribussesList = new ObservableCollection<Tbl57Tribus>(_businessLayer.ListTbl57TribussesByTribusIdAndHash(tribusSubtribusId));		
 
         var supertribusTribusId = SupertribusIdTbl57TribussesSelect(tribusSubtribusId);
         Tbl54SupertribussesList = new ObservableCollection<Tbl54Supertribus>(_businessLayer.ListTbl54SupertribussesBySupertribusIdAndHash(supertribusTribusId));
@@ -95,127 +88,118 @@ namespace Te.Atis.Ui.Desktop.Views.Report
       }       
            
         //------------------------------------------------------------------------------
-        Tbl90RefExpertsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90RefExpertsByGenusId(id));
+        Tbl90RefExpertsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90RefExpertsBySubtribusId(id));
 
-        Tbl90RefSourcesList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90RefSourcesByGenusId(id));
+        Tbl90RefSourcesList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90RefSourcesBySubtribusId(id));
 
-        Tbl90RefAuthorsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90RefAuthorsByGenusId(id));
+        Tbl90RefAuthorsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90RefAuthorsBySubtribusId(id));
 
-        Tbl90ExpertsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90ExpertsByGenusId(id));
+        Tbl90ExpertsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90ExpertsBySubtribusId(id));
 
-        Tbl90SourcesList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90SourcesByGenusId(id));
+        Tbl90SourcesList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90SourcesBySubtribusId(id));
 
-        Tbl90AuthorsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90AuthorsByGenusId(id));
+        Tbl90AuthorsList = new ObservableCollection<Tbl90Reference>(_businessLayer.ListTbl90AuthorsBySubtribusId(id));
 
-        Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_businessLayer.ListTbl93CommentsByGenusId(id));
+        Tbl93CommentsList = new ObservableCollection<Tbl93Comment>(_businessLayer.ListTbl93CommentsBySubtribusId(id));
     } 
-    private RelayCommand _pdfTbl66GenussesCommand;
-    public ICommand PdfTbl66GenussesCommand
+    private RelayCommand _pdfTbl60SubtribussesCommand;
+    public ICommand PdfTbl60SubtribussesCommand
     {
-        get { return _pdfTbl66GenussesCommand ?? (_pdfTbl66GenussesCommand = new RelayCommand(delegate { CreatePdfTbl66Genusses(_mainId); })); }
+        get { return _pdfTbl60SubtribussesCommand ?? (_pdfTbl60SubtribussesCommand = new RelayCommand(delegate { CreatePdfTbl60Subtribusses(_mainId); })); }
     }
 
-    private static void CreatePdfTbl66Genusses(int id)
+    private static void CreatePdfTbl60Subtribusses(int id)
     {
-        ReportTbl66GenussesPdf.CreateMainPdf(id);
+        ReportTbl60SubtribussesPdf.CreateMainPdf(id);
     }
     //------------------------------------------------------------------------------
     //------------------------------------------------------------------------------  		   
-        
-        IList<Tbl66Genus> ListTbl66GenussesByGenusId(int genusId);
-        IList<Tbl69FiSpecies> ListTbl69FiSpeciessesByGenusIdAndHash(int genusId);
-        IList<Tbl72PlSpecies> ListTbl72PlSpeciessesByGenusIdAndHash(int genusId);
+           
+        IList<Tbl60Subtribus> ListTbl60SubtribussesBySubtribusId(int subtribusId);
 
-        IList<Tbl90Reference> ListTbl90AuthorsByGenusId(int genusId);
-        IList<Tbl90Reference> ListTbl90SourcesByGenusId(int genusId);
-        IList<Tbl90Reference> ListTbl90ExpertsByGenusId(int genusId);
+        IList<Tbl63Infratribus> ListTbl63InfratribussesBySubtribusIdAndHash(int subtribusId);
 
-        IList<Tbl93Comment> ListTbl93CommentsByGenusId(int genusId);   
-        
-		public IList<Tbl66Genus> ListTbl66GenussesByGenusId(int genusId)
+        IList<Tbl90Reference> ListTbl90AuthorsBySubtribusId(int subtribusId);
+        IList<Tbl90Reference> ListTbl90SourcesBySubtribusId(int subtribusId);
+        IList<Tbl90Reference> ListTbl90ExpertsBySubtribusId(int subtribusId);
+
+        IList<Tbl93Comment> ListTbl93CommentsBySubtribusId(int subtribusId);	   
+           
+		public IList<Tbl60Subtribus> ListTbl60SubtribussesBySubtribusId(int subtribusId)
 		{
-			return _tbl66GenussesRepository.ListWhereOrderByInclude(
-				e => e.GenusID == genusId,
-				_tbl66GenussesRepository.OrderBy(r => r.GenusName + r.Subregnum),
-				p => p.Tbl69FiSpeciesses, k => k.Tbl72PlSpeciesses);
+			return _tbl60SubtribussesRepository.ListWhereOrderByInclude(
+				e => e.SubtribusID == subtribusId,
+				_tbl60SubtribussesRepository.OrderBy(r => r.SubtribusName + r.Subregnum),
+				p => p.Tbl63Infratribusses, k => k.Tbl66Genusses);
 		}
 
-		public IList<Tbl69FiSpecies> ListTbl69FiSpeciessesByGenusIdAndHash(int genusId)
+		public IList<Tbl63Infratribus> ListTbl63InfratribussesBySubtribusIdAndHash(int subtribusId)
 		{
-			return _tbl69FiSpeciessesRepository.ListWhereOrderByInclude(
-				e => e.GenusID == genusId &&
-				e.FiSpeciesName.Contains("#") == false,
-				_tbl69FiSpeciessesRepository.OrderBy(r => r.FiSpeciesName),
-				p => p.NULL, k => k.Tbl66Genusses);
-		}
-
-		public IList<Tbl72PlSpecies> ListTbl72PlSpeciessesByGenusIdAndHash(int genusId)
-		{
-			return _tbl72PlSpeciessesRepository.ListWhereOrderByInclude(
-				e => e.GenusID == genusId &&
-				e.PlSpeciesName.Contains("#") == false,
-				_tbl72PlSpeciessesRepository.OrderBy(r => r.PlSpeciesName),
-				p => p.NULL, k => k.Tbl66Genusses);
+			return _tbl63InfratribussesRepository.ListWhereOrderByInclude(
+				e => e.SubtribusID == subtribusId &&
+				e.InfratribusName.Contains("#") == false,
+				_tbl63InfratribussesRepository.OrderBy(r => r.InfratribusName),
+				p => p.NULL, k => k.Tbl60Subtribusses);
 		}
 
 	               //------------------------------------------------
 
-		public IList<Tbl90Reference> ListTbl90AuthorsByGenusId(int genusId)
+		public IList<Tbl90Reference> ListTbl90AuthorsBySubtribusId(int subtribusId)
 		{
 			return _tbl90ReferencesRepository.ListWhereOrderByInclude(
-				e => e.RefAuthorID == e.Tbl90RefAuthors.RefAuthorID && e.GenusID == genusId,
+				e => e.RefAuthorID == e.Tbl90RefAuthors.RefAuthorID && e.SubtribusID == subtribusId,
 				_tbl90ReferencesRepository.OrderBy(r => r.Tbl90RefAuthors.RefAuthorName + r.Tbl90RefAuthors.ArticelTitle + r.Tbl90RefAuthors.BookName + r.Tbl90RefAuthors.Page1 + r.Tbl90RefAuthors.Publisher),
 				p => p.Tbl90RefAuthors);
 		}
 
-		public IList<Tbl90Reference> ListTbl90SourcesByGenusId(int genusId)
+		public IList<Tbl90Reference> ListTbl90SourcesBySubtribusId(int subtribusId)
 		{
 			return _tbl90ReferencesRepository.ListWhereOrderByInclude(
-				e => e.RefSourceID == e.Tbl90RefSources.RefSourceID && e.GenusID == genusId,
+				e => e.RefSourceID == e.Tbl90RefSources.RefSourceID && e.SubtribusID == subtribusId,
 				_tbl90ReferencesRepository.OrderBy(r => r.Tbl90RefSources.RefSourceName + r.Tbl90RefSources.SourceYear),
 				p => p.Tbl90RefSources);
 		}
 
-		public IList<Tbl90Reference> ListTbl90ExpertsByGenusId(int genusId)
+		public IList<Tbl90Reference> ListTbl90ExpertsBySubtribusId(int subtribusId)
 		{
 			return _tbl90ReferencesRepository.ListWhereOrderByInclude(
-				e => e.RefExpertID == e.Tbl90RefExperts.RefExpertID && e.GenusID == genusId,
+				e => e.RefExpertID == e.Tbl90RefExperts.RefExpertID && e.SubtribusID == subtribusId,
 				_tbl90ReferencesRepository.OrderBy(r => r.Tbl90RefExperts.RefExpertName),
 				p => p.Tbl90RefExperts);
 		}
 
-		public IList<Tbl90Reference> ListTbl90RefAuthorsByGenusId(int genusId)
+		public IList<Tbl90Reference> ListTbl90RefAuthorsBySubtribusId(int subtribusId)
 		{
 			return _tbl90ReferencesRepository.ListWhereOrderByInclude(
-				e => e.RefAuthorID == e.Tbl90RefAuthors.RefAuthorID && e.GenusID == genusId,
+				e => e.RefAuthorID == e.Tbl90RefAuthors.RefAuthorID && e.SubtribusID == subtribusId,
 				_tbl90ReferencesRepository.OrderBy(r => r.Tbl90RefAuthors.RefAuthorName + r.Tbl90RefAuthors.ArticelTitle + r.Tbl90RefAuthors.BookName + r.Tbl90RefAuthors.Page1 + r.Tbl90RefAuthors.Publisher),
 				p => p.Tbl90RefAuthors);
 		}
 
-		public IList<Tbl90Reference> ListTbl90RefSourcesByGenusId(int genusId)
+		public IList<Tbl90Reference> ListTbl90RefSourcesBySubtribusId(int subtribusId)
 		{
 			return _tbl90ReferencesRepository.ListWhereOrderByInclude(
-				e => e.RefSourceID == e.Tbl90RefSources.RefSourceID && e.GenusID == genusId,
+				e => e.RefSourceID == e.Tbl90RefSources.RefSourceID && e.SubtribusID == subtribusId,
 				_tbl90ReferencesRepository.OrderBy(r => r.Tbl90RefSources.RefSourceName + r.Tbl90RefSources.SourceYear),
 				p => p.Tbl90RefSources);
 		}
 
-		public IList<Tbl90Reference> ListTbl90RefExpertsByGenusId(int genusId)
+		public IList<Tbl90Reference> ListTbl90RefExpertsBySubtribusId(int subtribusId)
 		{
 			return _tbl90ReferencesRepository.ListWhereOrderByInclude(
-				e => e.RefExpertID == e.Tbl90RefExperts.RefExpertID && e.GenusID == genusId,
+				e => e.RefExpertID == e.Tbl90RefExperts.RefExpertID && e.SubtribusID == subtribusId,
 				_tbl90ReferencesRepository.OrderBy(r => r.Tbl90RefExperts.RefExpertName),
 				p => p.Tbl90RefExperts);
 		}
 
 	               //------------------------------------------------
-
-		public IList<Tbl93Comment> ListTbl93CommentsByGenusId(int genusId)
+ 
+		public IList<Tbl93Comment> ListTbl93CommentsBySubtribusId(int subtribusId)
 		{
 			return _tbl93CommentsRepository.ListWhereOrderByInclude(
-				e => e.GenusID == genusId,
+				e => e.SubtribusID == subtribusId,
 				_tbl93CommentsRepository.OrderBy(r => r.Info),
-				p => p.Tbl69FiSpeciesses, k => k.Tbl72PlSpeciesses);
+				p => p.Tbl63Infratribusses);
 		}      
   
 

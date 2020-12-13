@@ -13,7 +13,7 @@ using Microsoft.Win32;
     
          //    ReportSupertribusPdf Skriptdatum:  08.11.2018  10:32    
 
-namespace ATIS.Ui.Views.Report.ListDetails
+namespace ATIS.Ui.Views.Report.D54Supertribus
 {     
     
     public class ReportSupertribusPdf : ViewModelBase
@@ -121,7 +121,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             }
         }  
              
-        private static void AddSupertribusHaeder(PdfDocument pdf, Tbl54Supertribus tbl54SupertribusList)
+        private static void AddSupertribusHaeder(PdfDocument pdf, Tbl54Supertribus supertribusList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
@@ -138,7 +138,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
         } 
           
-        private static void AddSupertribusTaxoNomenList(PdfDocument pdf, Tbl54Supertribus tbl54SupertribusList)         
+        private static void AddSupertribusTaxoNomenList(PdfDocument pdf, Tbl54Supertribus supertribusList)         
           
         {
             _page = pdf.Pages[_arrInts[6]];
@@ -224,7 +224,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }    
           
-        private static void AddSupertribusHierarchyList(PdfDocument pdf, Tbl54Supertribus tbl54SupertribusList)
+        private static void AddSupertribusHierarchyList(PdfDocument pdf, Tbl54Supertribus supertribusList)
         {
             _page = pdf.Pages[_arrInts[6]];
 

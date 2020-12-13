@@ -14,16 +14,36 @@
     xmlns:d33Ordo="clr-namespace:ATIS.Ui.Views.Database.D33Ordo"
     xmlns:d36Subordo="clr-namespace:ATIS.Ui.Views.Database.D36Subordo"
     xmlns:d39Infraordo="clr-namespace:ATIS.Ui.Views.Database.D39Infraordo"
+    xmlns:d42Superfamily="clr-namespace:ATIS.Ui.Views.Database.D42Superfamily"
+    xmlns:d45Family="clr-namespace:ATIS.Ui.Views.Database.D45Family"
+    xmlns:d48Subfamily="clr-namespace:ATIS.Ui.Views.Database.D48Subfamily"
+    xmlns:d51Infrafamily="clr-namespace:ATIS.Ui.Views.Database.D51Infrafamily"
+    xmlns:d54Supertribus="clr-namespace:ATIS.Ui.Views.Database.D54Supertribus"
+    xmlns:d57Tribus="clr-namespace:ATIS.Ui.Views.Database.D57Tribus"
+    xmlns:d60Subtribus="clr-namespace:ATIS.Ui.Views.Database.D60Subtribus"
+    xmlns:d63Infratribus="clr-namespace:ATIS.Ui.Views.Database.D63Infratribus"
+    xmlns:d66Genus="clr-namespace:ATIS.Ui.Views.Database.D66Genus"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:d51Infrafamily="clr-namespace:ATIS.Ui.Views.Database.D51Infrafamily"
-    xmlns:d48Subfamily="clr-namespace:ATIS.Ui.Views.Database.D48Subfamily"
-    xmlns:d45Family="clr-namespace:ATIS.Ui.Views.Database.D45Family"
-    xmlns:d42Superfamily="clr-namespace:ATIS.Ui.Views.Database.D42Superfamily"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <UserControl.Resources>
+        <DataTemplate DataType="{x:Type d66Genus:GenussesViewModel}">
+            <d66Genus:GenussesView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d63Infratribus:InfratribussesViewModel}">
+            <d63Infratribus:InfratribussesView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d60Subtribus:SubtribussesViewModel}">
+            <d60Subtribus:SubtribussesView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d57Tribus:TribussesViewModel}">
+            <d57Tribus:TribussesView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d54Supertribus:SupertribussesViewModel}">
+            <d54Supertribus:SupertribussesView />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type d51Infrafamily:InfrafamiliesViewModel}">
             <d51Infrafamily:InfrafamiliesView />
         </DataTemplate>
@@ -79,19 +99,29 @@
             mah:TabControlHelper.Underlined="TabPanel"
             SelectedIndex="0">
             <TabItem Content="{Binding Tbl72PlSpeciessesView}" Header="{DynamicResource Database-MenuPlSpecies}" />
-            <TabItem Content="{Binding Tbl66GenussesView}" Header="{DynamicResource Database-MenuGenus}" />
+            <TabItem Header="{DynamicResource Database-MenuGenus}">
+                <d66Genus:GenussesViewModel />
+            </TabItem>
             <TabItem Content="{Binding Tbl68SpeciesgroupsView}" Header="{DynamicResource Database-MenuSpeciesgroup}" />
             <TabItem Header="{DynamicResource Database-MenuTribus}">
                 <TabControl
                     Height="Auto"
                     mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
                     mah:HeaderedControlHelper.HeaderFontSize="16"
-                    mah:TabControlHelper.Underlined="TabPanel"
+                    mah:TabControlHelper.Underlined="TabItems"
                     SelectedIndex="2">
-                    <TabItem Content="{Binding Tbl63InfratribussesView}" Header="{DynamicResource Database-MenuInfratribus}" />
-                    <TabItem Content="{Binding Tbl60SubtribussesView}" Header="{DynamicResource Database-MenuSubtribus}" />
-                    <TabItem Content="{Binding Tbl57TribussesView}" Header="{DynamicResource Database-MenuTribus}" />
-                    <TabItem Content="{Binding Tbl54SupertribussesView}" Header="{DynamicResource Database-MenuSupertribus}" />
+                    <TabItem Header="{DynamicResource Database-MenuInfratribus}">
+                        <d63Infratribus:InfratribussesViewModel />
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Database-MenuSubtribus}">
+                        <d60Subtribus:SubtribussesViewModel />
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Database-MenuTribus}">
+                        <d57Tribus:TribussesViewModel />
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Database-MenuSupertribus}">
+                        <d54Supertribus:SupertribussesViewModel />
+                    </TabItem>
                 </TabControl>
             </TabItem>
             <TabItem Header="{DynamicResource Database-MenuFamily}">

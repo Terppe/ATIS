@@ -7,7 +7,7 @@ using System.Windows.Input;
 using System.Windows.Threading;   
  
 
-      //  Tbl66GenussesView.xaml.cs Skriptdatum:  12.12.2019  10:32     
+      //  Tbl66GenussesView.xaml.cs Skriptdatum:  13.12.2020  10:32     
 
 namespace WPFUI.Views.Database
 {  

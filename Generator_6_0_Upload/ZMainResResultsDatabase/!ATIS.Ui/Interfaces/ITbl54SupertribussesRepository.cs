@@ -12,8 +12,8 @@ namespace Atis.WpfUi.Interfaces     {
 Tbl54Supertribus Get(int id);   
         
 
-        void Add(Tbl54Supertribus tbl54Supertribus);
-        void Delete(Tbl54Supertribus tbl54Supertribus);
+        void Add(Tbl54Supertribus supertribus);
+        void Delete(Tbl54Supertribus supertribus);
         void Save( );               
      }
 }   

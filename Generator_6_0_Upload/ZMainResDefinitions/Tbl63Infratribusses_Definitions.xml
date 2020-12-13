@@ -2,7 +2,7 @@
  <Definition>
   <File>Tbl63Infratribusses</File>
 
-  <DateTime>08.11.2018  10:32</DateTime>  
+  <DateTime>13.12.2020  10:32</DateTime>  
   <Namespace>Atis</Namespace>  
   <ConnString></ConnString> 
   <RegisterContext>ATISEntities</RegisterContext > 
@@ -11,9 +11,9 @@
 
   <LayoutTK3>ListDetails</LayoutTK3>
   <LayoutTK2>ListDetails</LayoutTK2>
-  <LayoutTK1>ListDetails</LayoutTK1>
-  <Layout>ListDetails</Layout>
-  <LayoutFK1>ListDetails</LayoutFK1>
+  <LayoutTK1>D66Genus</LayoutTK1>
+  <Layout>D63Infratribus</Layout>
+  <LayoutFK1>D60Subtribus</LayoutFK1>
   <LayoutFK2>ListDetails</LayoutFK2>
   <LayoutBK1>ListDetails</LayoutBK1>
   <LayoutBK2>ListDetails</LayoutBK2>
@@ -220,9 +220,9 @@
   <EntitysFK2>NULL</EntitysFK2> 
   <EntitysBK1>_tbl57Tribusses</EntitysBK1> 
 
-  <EntityAblTK1>Tbl66Genus tbl66Genus</EntityAblTK1> 
-  <EntityAbl>Tbl63Infratribus tbl63Infratribus</EntityAbl> 
-  <EntityAblFK1>Tbl60Subtribus tbl60Subtribus</EntityAblFK1> 
+  <EntityAblTK1>Tbl66Genus genus</EntityAblTK1> 
+  <EntityAbl>Tbl63Infratribus infratribus</EntityAbl> 
+  <EntityAblFK1>Tbl60Subtribus subtribus</EntityAblFK1> 
   <EntityAblFK2>NULL</EntityAblFK2> 
 
    <Fields>

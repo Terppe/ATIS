@@ -4,9 +4,9 @@ using System;
 using System.Windows.Controls;   
  
 
-      //  Tbl66GenussesView.xaml.cs Skriptdatum:  12.12.2019  10:32     
+      //  Tbl66GenussesView.xaml.cs Skriptdatum:  13.12.2020  10:32     
 
-namespace ATIS.Ui.Views.Database.ListDetails
+namespace ATIS.Ui.Views.Database.D66Genus
 {  
 
     /// <summary>

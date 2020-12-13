@@ -13,7 +13,7 @@ using Microsoft.Win32;
     
          //    ReportTribusPdf Skriptdatum:  13.12.2019  10:32    
 
-namespace ATIS.Ui.Views.Report.ListDetails
+namespace ATIS.Ui.Views.Report.D57Tribus
 {     
     
     public class ReportTribusPdf : ViewModelBase
@@ -121,7 +121,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             }
         }  
              
-        private static void AddTribusHaeder(PdfDocument pdf, Tbl57Tribus tbl57TribusList)
+        private static void AddTribusHaeder(PdfDocument pdf, Tbl57Tribus tribusList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
@@ -138,7 +138,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
         } 
           
-        private static void AddTribusTaxoNomenList(PdfDocument pdf, Tbl57Tribus tbl57TribusList)         
+        private static void AddTribusTaxoNomenList(PdfDocument pdf, Tbl57Tribus tribusList)         
           
         {
             _page = pdf.Pages[_arrInts[6]];
@@ -224,7 +224,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }    
           
-        private static void AddTribusHierarchyList(PdfDocument pdf, Tbl57Tribus tbl57TribusList)
+        private static void AddTribusHierarchyList(PdfDocument pdf, Tbl57Tribus tribusList)
         {
             _page = pdf.Pages[_arrInts[6]];
 

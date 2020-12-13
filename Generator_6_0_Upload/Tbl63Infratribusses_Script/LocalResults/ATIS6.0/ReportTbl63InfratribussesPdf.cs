@@ -11,9 +11,9 @@ using log4net;
 using Microsoft.Win32;  
 
     
-         //    ReportInfratribusPdf Skriptdatum:  08.11.2018  10:32    
+         //    ReportInfratribusPdf Skriptdatum:  13.12.2020  10:32    
 
-namespace ATIS.Ui.Views.Report.ListDetails
+namespace ATIS.Ui.Views.Report.D63Infratribus
 {     
     
     public class ReportInfratribusPdf : ViewModelBase
@@ -121,7 +121,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             }
         }  
              
-        private static void AddInfratribusHaeder(PdfDocument pdf, Tbl63Infratribus tbl63InfratribusList)
+        private static void AddInfratribusHaeder(PdfDocument pdf, Tbl63Infratribus infratribusList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
@@ -138,7 +138,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
         } 
           
-        private static void AddInfratribusTaxoNomenList(PdfDocument pdf, Tbl63Infratribus tbl63InfratribusList)         
+        private static void AddInfratribusTaxoNomenList(PdfDocument pdf, Tbl63Infratribus infratribusList)         
           
         {
             _page = pdf.Pages[_arrInts[6]];
@@ -224,7 +224,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }    
           
-        private static void AddInfratribusHierarchyList(PdfDocument pdf, Tbl63Infratribus tbl63InfratribusList)
+        private static void AddInfratribusHierarchyList(PdfDocument pdf, Tbl63Infratribus infratribusList)
         {
             _page = pdf.Pages[_arrInts[6]];
 

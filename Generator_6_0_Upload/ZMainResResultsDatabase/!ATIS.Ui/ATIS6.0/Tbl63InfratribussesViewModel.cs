@@ -13,9 +13,9 @@ using ATIS.Ui.Views.Database.DatabaseHelper;
 using log4net;
 using Microsoft.EntityFrameworkCore;          
     
-         //    InfratribussesViewModel Skriptdatum:  08.11.2018  10:32    
+         //    InfratribussesViewModel Skriptdatum:  13.12.2020  10:32    
 
-namespace ATIS.Ui.Views.Database.ListDetails
+namespace ATIS.Ui.Views.Database.D63Infratribus
 {     
     
     public class InfratribussesViewModel : ViewModelBase                     

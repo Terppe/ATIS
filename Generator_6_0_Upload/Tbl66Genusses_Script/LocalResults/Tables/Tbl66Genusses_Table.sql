@@ -1,6 +1,6 @@
 USE [ATIS34]
 GO
-/****** Object:  Table [dbo].[Tbl66Genusses]    Script Date:  12.12.2019  10:32   ******/  
+/****** Object:  Table [dbo].[Tbl66Genusses]    Script Date:  13.12.2020  10:32   ******/  
 SET ANSI_NULLS ON
 GO
 

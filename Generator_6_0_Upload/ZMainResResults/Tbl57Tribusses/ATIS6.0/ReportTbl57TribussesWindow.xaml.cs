@@ -8,7 +8,7 @@ using MahApps.Metro.Controls;
 
    //  ReportTribusWindow.xaml.cs Skriptdatum:  13.12.2019  10:32     
 
-namespace ATIS.Ui.Views.Report.ListDetails
+namespace ATIS.Ui.Views.Report.D57Tribus
 {  
 
     /// <summary>

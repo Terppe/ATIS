@@ -13,7 +13,7 @@ using Microsoft.Win32;
     
          //    ReportSubtribusPdf Skriptdatum:  08.11.2018  10:32    
 
-namespace ATIS.Ui.Views.Report.ListDetails
+namespace ATIS.Ui.Views.Report.D60Subtribus
 {     
     
     public class ReportSubtribusPdf : ViewModelBase
@@ -121,7 +121,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             }
         }  
              
-        private static void AddSubtribusHaeder(PdfDocument pdf, Tbl60Subtribus tbl60SubtribusList)
+        private static void AddSubtribusHaeder(PdfDocument pdf, Tbl60Subtribus subtribusList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
@@ -138,7 +138,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
         } 
           
-        private static void AddSubtribusTaxoNomenList(PdfDocument pdf, Tbl60Subtribus tbl60SubtribusList)         
+        private static void AddSubtribusTaxoNomenList(PdfDocument pdf, Tbl60Subtribus subtribusList)         
           
         {
             _page = pdf.Pages[_arrInts[6]];
@@ -224,7 +224,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }    
           
-        private static void AddSubtribusHierarchyList(PdfDocument pdf, Tbl60Subtribus tbl60SubtribusList)
+        private static void AddSubtribusHierarchyList(PdfDocument pdf, Tbl60Subtribus subtribusList)
         {
             _page = pdf.Pages[_arrInts[6]];
 

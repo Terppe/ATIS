@@ -2,7 +2,7 @@ using System.Linq;
 using Atis.WpfUi.Interfaces;
 using Atis.WpfUi.Model;    
 
-// <!-- Repository Skriptdatum:  08.11.2018  10:32    -->  
+// <!-- Repository Skriptdatum:  13.12.2020  10:32    -->  
 
 namespace Atis.WpfUi.Repositories      {  
     public class Tbl63InfratribussesRepository : ITbl63InfratribussesRepository    {
@@ -32,11 +32,11 @@ namespace Atis.WpfUi.Repositories      {
          //-------------------------------------------------------------------------------------------------------------
 
         //  Insert/Delete Methods
-        public void Add(Tbl63Infratribus tbl63Infratribus)    {
+        public void Add(Tbl63Infratribus infratribus)    {
             _entities.Tbl63Infratribusses.Add(tbl63Infratribus);           
         }
 
-        public void Delete(Tbl63Infratribus tbl63Infratribus)    {
+        public void Delete(Tbl63Infratribus infratribus)    {
             _entities.Tbl63Infratribusses.Remove(tbl63Infratribus);
         } 
         //-----------------------------------------------------------------------------------------------------------

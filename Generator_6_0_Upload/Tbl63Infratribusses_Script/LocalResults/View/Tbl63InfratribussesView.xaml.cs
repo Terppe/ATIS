@@ -7,7 +7,7 @@ using System.Windows.Input;
 using System.Windows.Threading;   
  
 
-      //  Tbl63InfratribussesView.xaml.cs Skriptdatum:  08.11.2018  10:32     
+      //  Tbl63InfratribussesView.xaml.cs Skriptdatum:  13.12.2020  10:32     
 
 namespace WPFUI.Views.Database
 {  

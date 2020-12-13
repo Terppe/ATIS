@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
     
          //    SupertribussesViewModel Skriptdatum:  08.11.2018  10:32    
 
-namespace ATIS.Ui.Views.Database.ListDetails
+namespace ATIS.Ui.Views.Database.D54Supertribus
 {     
     
     public class SupertribussesViewModel : ViewModelBase                     

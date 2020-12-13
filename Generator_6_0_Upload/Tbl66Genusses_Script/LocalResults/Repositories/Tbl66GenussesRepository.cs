@@ -2,7 +2,7 @@ using System.Linq;
 using Atis.WpfUi.Interfaces;
 using Atis.WpfUi.Model;    
 
-// <!-- Repository Skriptdatum:  12.12.2019  10:32    -->  
+// <!-- Repository Skriptdatum:  13.12.2020  10:32    -->  
 
 namespace Atis.WpfUi.Repositories      {  
     public class Tbl66GenussesRepository : ITbl66GenussesRepository    {
@@ -32,11 +32,11 @@ namespace Atis.WpfUi.Repositories      {
          //-------------------------------------------------------------------------------------------------------------
 
         //  Insert/Delete Methods
-        public void Add(Tbl66Genus tbl66Genus)    {
+        public void Add(Tbl66Genus genus)    {
             _entities.Tbl66Genusses.Add(tbl66Genus);           
         }
 
-        public void Delete(Tbl66Genus tbl66Genus)    {
+        public void Delete(Tbl66Genus genus)    {
             _entities.Tbl66Genusses.Remove(tbl66Genus);
         } 
         //-----------------------------------------------------------------------------------------------------------

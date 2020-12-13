@@ -2,7 +2,7 @@
  <Definition>
   <File>Tbl66Genusses</File>
 
-  <DateTime>12.12.2019  10:32</DateTime>  
+  <DateTime>13.12.2020  10:32</DateTime>  
   <Namespace>Atis</Namespace>  
   <ConnString></ConnString> 
   <RegisterContext>ATISEntities</RegisterContext > 
@@ -10,10 +10,10 @@
   <Database>Atis</Database> 
 
   <LayoutTK3>ListDetails</LayoutTK3>
-  <LayoutTK2>ListDetails</LayoutTK2>
-  <LayoutTK1>ListDetails</LayoutTK1>
-  <Layout>ListDetails</Layout>
-  <LayoutFK1>ListDetails</LayoutFK1>
+  <LayoutTK2>D72PlSpecies</LayoutTK2>
+  <LayoutTK1>D69FiSpecies</LayoutTK1>
+  <Layout>D66Genus</Layout>
+  <LayoutFK1>D63Infratribus</LayoutFK1>
   <LayoutFK2>ListDetails</LayoutFK2>
   <LayoutBK1>ListDetails</LayoutBK1>
   <LayoutBK2>ListDetails</LayoutBK2>
@@ -235,10 +235,10 @@
   <EntitysFK2>NULL</EntitysFK2> 
   <EntitysBK1>_tbl60Subtribusses</EntitysBK1> 
 
-  <EntityAblTK2>Tbl72PlSpecies tbl72PlSpecies</EntityAblTK2> 
-  <EntityAblTK1>Tbl69FiSpecies tbl69FiSpecies</EntityAblTK1> 
-  <EntityAbl>Tbl66Genus tbl66Genus</EntityAbl> 
-  <EntityAblFK1>Tbl63Infratribus tbl63Infratribus</EntityAblFK1> 
+  <EntityAblTK2>Tbl72PlSpecies plSpecies</EntityAblTK2> 
+  <EntityAblTK1>Tbl69FiSpecies fiSpecies</EntityAblTK1> 
+  <EntityAbl>Tbl66Genus genus</EntityAbl> 
+  <EntityAblFK1>Tbl63Infratribus infratribus</EntityAblFK1> 
   <EntityAblFK2>NULL</EntityAblFK2> 
 
    <Fields>

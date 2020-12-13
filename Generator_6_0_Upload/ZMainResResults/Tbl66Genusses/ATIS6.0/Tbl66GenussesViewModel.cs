@@ -13,9 +13,9 @@ using ATIS.Ui.Views.Database.DatabaseHelper;
 using log4net;
 using Microsoft.EntityFrameworkCore;          
     
-         //    GenussesViewModel Skriptdatum:  12.12.2019  10:32    
+         //    GenussesViewModel Skriptdatum:  13.12.2020  10:32    
 
-namespace ATIS.Ui.Views.Database.ListDetails
+namespace ATIS.Ui.Views.Database.D66Genus
 {     
     
     public class GenussesViewModel : ViewModelBase                     

@@ -11,9 +11,9 @@
 
   <LayoutTK3>ListDetails</LayoutTK3>
   <LayoutTK2>ListDetails</LayoutTK2>
-  <LayoutTK1>ListDetails</LayoutTK1>
-  <Layout>ListDetails</Layout>
-  <LayoutFK1>ListDetails</LayoutFK1>
+  <LayoutTK1>D57Tribus</LayoutTK1>
+  <Layout>D54Supertribus</Layout>
+  <LayoutFK1>D52Infrafamily</LayoutFK1>
   <LayoutFK2>ListDetails</LayoutFK2>
   <LayoutBK1>ListDetails</LayoutBK1>
   <LayoutBK2>ListDetails</LayoutBK2>
@@ -209,9 +209,9 @@
   <EntitysFK2>NULL</EntitysFK2> 
   <EntitysBK1>_tbl48Subfamilies</EntitysBK1> 
 
-  <EntityAblTK1>Tbl57Tribus tbl57Tribus</EntityAblTK1> 
-  <EntityAbl>Tbl54Supertribus tbl54Supertribus</EntityAbl> 
-  <EntityAblFK1>Tbl51Infrafamily tbl51Infrafamily</EntityAblFK1> 
+  <EntityAblTK1>Tbl57Tribus tribus</EntityAblTK1> 
+  <EntityAbl>Tbl54Supertribus supertribus</EntityAbl> 
+  <EntityAblFK1>Tbl51Infrafamily infrafamily</EntityAblFK1> 
   <EntityAblFK2>NULL</EntityAblFK2> 
 
    <Fields>
