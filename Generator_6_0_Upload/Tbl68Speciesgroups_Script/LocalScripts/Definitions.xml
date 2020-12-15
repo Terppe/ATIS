@@ -2,7 +2,7 @@
  <Definition>
   <File>Tbl68Speciesgroups</File>
 
-  <DateTime>09.11.2018  10:32</DateTime>  
+  <DateTime>15.12.2020  10:32</DateTime>  
   <Namespace>Atis</Namespace>  
   <ConnString></ConnString> 
   <RegisterContext>ATISEntities</RegisterContext > 
@@ -10,9 +10,9 @@
   <Database>Atis</Database> 
 
   <LayoutTK3>ListDetails</LayoutTK3>
-  <LayoutTK2>ListDetails</LayoutTK2>
-  <LayoutTK1>ListDetails</LayoutTK1>
-  <Layout>ListDetails</Layout>
+  <LayoutTK2>D72PlSpecies</LayoutTK2>
+  <LayoutTK1>D69FiSpecies</LayoutTK1>
+  <Layout>D68Speciesgroup</Layout>
   <LayoutFK1>ListDetails</LayoutFK1>
   <LayoutFK2>ListDetails</LayoutFK2>
   <LayoutBK1>ListDetails</LayoutBK1>
@@ -138,9 +138,9 @@
   <EntitysFK1>NULL</EntitysFK1> 
   <EntitysFK2>NULL</EntitysFK2> 
 
-  <EntityAblTK2>Tbl72PlSpecies tbl72PlSpecies</EntityAblTK2> 
-  <EntityAblTK1>Tbl69FiSpecies tbl69FiSpecies</EntityAblTK1> 
-  <EntityAbl>Tbl68Speciesgroup tbl68Speciesgroup</EntityAbl> 
+  <EntityAblTK2>Tbl72PlSpecies plspecies</EntityAblTK2> 
+  <EntityAblTK1>Tbl69FiSpecies fispecies</EntityAblTK1> 
+  <EntityAbl>Tbl68Speciesgroup speciesgroup</EntityAbl> 
   <EntityAblFK1>NULL</EntityAblFK1> 
   <EntityAblFK2>NULL</EntityAblFK2> 
 

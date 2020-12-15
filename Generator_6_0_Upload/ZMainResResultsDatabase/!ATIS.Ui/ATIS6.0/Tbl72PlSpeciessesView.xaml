@@ -1268,12 +1268,7 @@
                                         <TextBox
                                             Width="700"
                                             Margin="5,10,25,0"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Tbl68Speciesgroup-SpeciesgroupName}"
-                                            materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            FontWeight="Medium"
-                                            Style="{StaticResource TextBoxInError}"
-                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            FontWeight="Medium">
                                             <TextBox.Text>
                                                 <Binding
                                                     Converter="{StaticResource CapFirst}"
@@ -1281,10 +1276,6 @@
                                                     Mode="TwoWay"
                                                     Path="SelectedItem.(models:Tbl68Speciesgroup.SpeciesgroupName)"             
                                                     UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validationRules:Name200Validator />
-                                                        <validationRules:NotEmptyValidationRule  ValidatesOnTargetUpdated="False" />
-                                                    </Binding.ValidationRules>
                                                 </Binding>
                                             </TextBox.Text>
                                         </TextBox>     
@@ -1528,36 +1519,8 @@
        
                             <TabItem  FontWeight="Medium" Header="{DynamicResource Tbl81Image-Image}"  >
                                  <GroupBox>
-                                  <StackPanel Margin="5">
+                                  <StackPanel Margin="1">
                                     <StackPanel Height="Auto" Orientation="Horizontal">       
-         
-                                        <Button
-                                            Margin="0,0,0,0"
-                                            HorizontalAlignment="Left"
-                                            Command="{Binding OpenCommand}"
-                                            Style="{StaticResource MaterialDesignFlatButton}"
-                                            ToolTip="{DynamicResource Shared-SearchImage}">
-                                            <materialDesign:PackIcon
-                                                Width="24"
-                                                Height="24"
-                                                Margin="0,0,-5,0"
-                                                Kind="ImageAlbum"
-                                                Opacity=".56" />
-                                            </Button> 
-         
-                                                <Button
-                                                    Margin="50,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    Command="{Binding SaveImageCommand}"
-                                                    Style="{StaticResource MaterialDesignFlatButton}"
-                                                    ToolTip="{DynamicResource Shared-ButtonSave}">
-                                                    <materialDesign:PackIcon
-                                                        Width="24"
-                                                        Height="24"
-                                                        Margin="0,0,-5,0"
-                                                        Kind="ContentSave"
-                                                        Opacity=".56" />
-                                                </Button>  
          
                                                 <Button
                                                     Margin="0,0,0,0"
@@ -2875,16 +2838,20 @@
                                                         MinWidth="700"
                                                         MinHeight="100"
                                                         MaxWidth="700"
-                                                        MaxHeight="400"
-                                                            Margin="5,0,0,10"
-                                                            VerticalAlignment="Stretch"
-                                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-Memo}"
-                                                            AcceptsReturn="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Margin="5"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    AcceptsReturn="True"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
                                                             Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferenceAuthorsList}"
                                                             TextWrapping="Wrap"
-                                                            VerticalScrollBarVisibility="Auto" />
+                                                      ToolTip="{DynamicResource Shared-Memo}"
+                                                           VerticalScrollBarVisibility="Auto" />
                                                             </ScrollViewer>
                                                         </StackPanel>
                                                     </StackPanel>

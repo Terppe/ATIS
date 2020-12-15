@@ -48,7 +48,6 @@
 
   <ItemGroup>
     <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Database\D68Speciesgroup\" />
     <Folder Include="Views\Database\D69FiSpecies\" />
     <Folder Include="Views\Database\D72PlSpecies\" />
     <Folder Include="Views\Database\D78Name\" />

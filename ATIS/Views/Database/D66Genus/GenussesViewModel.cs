@@ -31,6 +31,7 @@ namespace ATIS.Ui.Views.Database.D66Genus
         private readonly GenericMessageBoxes<Tbl66Genus> _genGenusMessageBoxes = new GenericMessageBoxes<Tbl66Genus>();
         private readonly GenericMessageBoxes<Tbl63Infratribus> _genInfratribusMessageBoxes = new GenericMessageBoxes<Tbl63Infratribus>();
         private readonly GenericMessageBoxes<Tbl69FiSpecies> _genFiSpeciesMessageBoxes = new GenericMessageBoxes<Tbl69FiSpecies>();
+        private readonly GenericMessageBoxes<Tbl72PlSpecies> _genPlSpeciesMessageBoxes = new GenericMessageBoxes<Tbl72PlSpecies>();
         private readonly GenericMessageBoxes<Tbl90Reference> _genExpertMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
         private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
@@ -339,6 +340,10 @@ namespace ATIS.Ui.Views.Database.D66Genus
 
         private void ExecuteCopyFiSpecies(object o)
         {
+            if (_genFiSpeciesMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl69FiSpecies)) return;
+
+            // evtl verbundene tabellen-Datensätze auch kopieren Names, Images, Synonyms und Geographics
+
             FiSpeciessesView = CollectionViewSource.GetDefaultView(Tbl69FiSpeciessesList);
             FiSpeciessesView.MoveCurrentToFirst();
         }
@@ -453,13 +458,6 @@ namespace ATIS.Ui.Views.Database.D66Genus
         }
 
 
-        private void SaveFiSpecies(object o)
-        {
-            SelectedMainTabIndex = 1;
-            FiSpeciessesView = CollectionViewSource.GetDefaultView(Tbl69FiSpeciessesList);
-            FiSpeciessesView.Refresh();
-        }
-
         #endregion [Public Methods  Connect ==> Tbl69FiSpecies]                                                                                                                                            
 
 
@@ -468,15 +466,147 @@ namespace ATIS.Ui.Views.Database.D66Genus
         //    Part 5    
 
         #region [Public Commands Connect ==> Tbl72PlSpecies]  
-        
+
+        private RelayCommand _addPlSpeciesCommand;
+        public ICommand AddPlSpeciesCommand => _addPlSpeciesCommand ??= new RelayCommand(delegate { ExecuteAddPlSpecies(null); });
+
+        private RelayCommand _copyPlSpeciesCommand;
+        public ICommand CopyPlSpeciesCommand => _copyPlSpeciesCommand ??= new RelayCommand(delegate { ExecuteCopyPlSpecies(null); });
+
+        private RelayCommand _deletePlSpeciesCommand;
+        public ICommand DeletePlSpeciesCommand => _deletePlSpeciesCommand ??= new RelayCommand(delegate { ExecuteDeletePlSpecies(SearchGenusName); });
+
+        private RelayCommand _savePlSpeciesCommand;
+        public ICommand SavePlSpeciesCommand => _savePlSpeciesCommand ??= new RelayCommand(delegate { ExecuteSavePlSpecies(SearchGenusName); });
+
 
         #endregion [Public Commands Connect ==> Tbl72PlSpecies]    
 
         #region [Public Methods Connect ==> Tbl72PlSpecies]
 
-        private void AddPlSpecies(object o)
+        private void ExecuteAddPlSpecies(object o)
         {
             Tbl72PlSpeciessesList.Insert(0, new Tbl72PlSpecies { PlSpeciesName = CultRes.StringsRes.DatasetNew });
+            Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
+
+            PlSpeciessesView = CollectionViewSource.GetDefaultView(Tbl72PlSpeciessesList);
+            PlSpeciessesView.MoveCurrentToFirst();
+        }
+
+        private void ExecuteCopyPlSpecies(object o)
+        {
+            if (_genPlSpeciesMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl72PlSpecies)) return;
+
+            // evtl verbundene tabellen-Datensätze auch kopieren Names, Images, Synonyms und Geographics
+
+            PlSpeciessesView = CollectionViewSource.GetDefaultView(Tbl72PlSpeciessesList);
+            PlSpeciessesView.MoveCurrentToFirst();
+        }
+
+        private void ExecuteDeletePlSpecies(string searchName)
+        {
+            if (_genPlSpeciesMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl72PlSpecies)) return;
+
+            //check if in Tbl72PlSpeciesses connected datasets no delete possible, Names, Images, Synonyms and Geographics delete and than return
+            Tbl72PlSpeciessesList = _extCrud.SearchForConnectedDatasetsWithPlSpeciesIdInTablePlSpecies(CurrentTbl72PlSpecies);
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl72PlSpeciessesList.Count, "FiSpecies")) return;
+
+            //Delete all References Experts, Sources, Authors  ----------------------------------------------------
+            Tbl90ReferencesList = _extCrud.DeleteDatasetsWithPlSpeciesIdInTableReference(CurrentTbl72PlSpecies);
+            if (Tbl90ReferencesList.Count > 0)
+            {
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+
+                _extCrud.DeleteReferences(Tbl90ReferencesList);
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
+            }
+
+            //Delete all Comments  ----------------------------------------------------
+            Tbl93CommentsList = _extCrud.DeleteDatasetsWithPlSpeciesIdInTableComment(CurrentTbl72PlSpecies);
+            if (Tbl93CommentsList.Count > 0)
+            {
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
+
+                _extCrud.DeleteComments(Tbl93CommentsList);
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
+            }
+
+            try
+            {
+                var plspecies = _uow.Tbl72PlSpeciesses.GetById(CurrentTbl72PlSpecies.PlSpeciesId);
+                if (plspecies != null)
+                {
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl72PlSpecies.PlSpeciesName)) return;
+
+                    _extCrud.DeletePlSpecies(plspecies);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl72PlSpecies.PlSpeciesName);
+                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl72PlSpecies.PlSpeciesName + " " + CultRes.StringsRes.DeleteCan1);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+            Tbl72PlSpeciessesList = _extCrud.GetPlSpeciessesCollectionFromGenusIdOrderBy<Tbl72PlSpecies>(CurrentTbl72PlSpecies.GenusId);
+
+            PlSpeciessesView = CollectionViewSource.GetDefaultView(Tbl72PlSpeciessesList);
+            PlSpeciessesView.MoveCurrentToFirst();
+        }
+
+        private void ExecuteSavePlSpecies(string searchName)
+        {
+            if (_genPlSpeciesMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl72PlSpecies)) return;
+
+            CurrentTbl72PlSpecies.GenusId = CurrentTbl66Genus.GenusId;
+
+            try
+            {
+                var plspecies = _uow.Tbl72PlSpeciesses.GetById(CurrentTbl72PlSpecies.PlSpeciesId);
+
+                if (CurrentTbl72PlSpecies.PlSpeciesId == 0)
+                    plspecies = _extCrud.PlSpeciesAdd(CurrentTbl72PlSpecies);
+                else
+                    plspecies = _extCrud.PlSpeciesUpdate(plspecies, CurrentTbl72PlSpecies);
+
+                //  _position = PlSpeciessesView.CurrentPosition;
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl72PlSpecies.PlSpeciesName)) return;
+
+                try
+                {
+                    _extCrud.PlSpeciesSave(plspecies, CurrentTbl72PlSpecies);
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
+                            CultRes.StringsRes.FailedToSave);
+                    Log.Error(e);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                    //         Log.Error(e);
+                    return;
+                }
+
+                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl72PlSpecies.PlSpeciesId == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : CurrentTbl69FiSpecies.FiSpeciesName);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+            Tbl72PlSpeciessesList = _extCrud.GetPlSpeciessesCollectionFromGenusIdOrderBy<Tbl72PlSpecies>(CurrentTbl72PlSpecies.GenusId);
 
             PlSpeciessesView = CollectionViewSource.GetDefaultView(Tbl72PlSpeciessesList);
             PlSpeciessesView.MoveCurrentToFirst();
@@ -1066,7 +1196,7 @@ namespace ATIS.Ui.Views.Database.D66Genus
         {
             Tbl63InfratribussesList = _extCrud.GetInfratribussesCollectionFromInfratribusIdOrderBy<Tbl63Infratribus>(CurrentTbl66Genus.InfratribusId);
 
-            Tbl60SubtribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl60Subtribus>("");
+            Tbl60SubtribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl60Subtribus>("subtribus");
 
             InfratribussesView = CollectionViewSource.GetDefaultView(Tbl63InfratribussesList);
             InfratribussesView.Refresh();
@@ -1124,11 +1254,26 @@ namespace ATIS.Ui.Views.Database.D66Genus
 
                 if (_selectedMainTabIndex == 2)
                 {
+                    if (CurrentTbl66Genus != null)
+                    {
+                        Tbl72PlSpeciessesList = _extCrud.GetPlSpeciessesCollectionFromGenusIdOrderBy<Tbl72PlSpecies>(CurrentTbl66Genus.GenusId);
+
+                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
+
+                        PlSpeciessesView = CollectionViewSource.GetDefaultView(Tbl72PlSpeciessesList);
+                        PlSpeciessesView.Refresh();
+                    }
+
                     SelectedDetailTabIndex = 3;
-                    SelectedMainSubRefTabIndex = 0;
                 }
 
                 if (_selectedMainTabIndex == 3)
+                {
+                    SelectedDetailTabIndex = 4;
+                    SelectedMainSubRefTabIndex = 0;
+                }
+
+                if (_selectedMainTabIndex == 4)
                 {
                     if (CurrentTbl66Genus != null)
                     {
@@ -1137,7 +1282,7 @@ namespace ATIS.Ui.Views.Database.D66Genus
                         CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
                         CommentsView.Refresh();
                     }
-                    SelectedDetailTabIndex = 6;
+                    SelectedDetailTabIndex = 7;
                 }
 
             }
@@ -1172,9 +1317,12 @@ namespace ATIS.Ui.Views.Database.D66Genus
                 {
                     if (CurrentTbl66Genus != null)
                     {
+          //              Tbl69FiSpeciessesList = new ObservableCollection<Tbl69FiSpecies>();
                         Tbl69FiSpeciessesList = _extCrud.GetFiSpeciessesCollectionFromGenusIdOrderBy<Tbl69FiSpecies>(CurrentTbl66Genus.GenusId);
+                        
 
                         Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
+                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("speciesgroup");
 
                         FiSpeciessesView = CollectionViewSource.GetDefaultView(Tbl69FiSpeciessesList);
                         FiSpeciessesView.Refresh();
@@ -1186,18 +1334,34 @@ namespace ATIS.Ui.Views.Database.D66Genus
                 {
                     if (CurrentTbl66Genus != null)
                     {
+                        Tbl72PlSpeciessesList = _extCrud.GetPlSpeciessesCollectionFromGenusIdOrderBy<Tbl72PlSpecies>(CurrentTbl66Genus.GenusId);
+
+                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
+                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("speciesgroup");
+
+                        PlSpeciessesView = CollectionViewSource.GetDefaultView(Tbl72PlSpeciessesList);
+                        PlSpeciessesView.Refresh();
+                    }
+                    SelectedMainTabIndex = 2;
+                }
+
+                if (_selectedDetailTabIndex == 4)
+                {
+                    if (CurrentTbl66Genus != null)
+                    {
                         Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
 
                         Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFromGenusIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl66Genus.GenusId);
 
                         ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
                         ReferenceExpertsView.Refresh();
+
                     }
-                    SelectedMainTabIndex = 2;
+                    SelectedMainTabIndex = 3;
                     SelectedMainSubRefTabIndex = 0;
                 }
 
-                if (_selectedDetailTabIndex == 4)
+                if (_selectedDetailTabIndex == 5)
                 {
                     if (CurrentTbl66Genus != null)
                     {
@@ -1207,12 +1371,13 @@ namespace ATIS.Ui.Views.Database.D66Genus
 
                         ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
                         ReferenceSourcesView.Refresh();
+
                     }
-                    SelectedMainTabIndex = 2;
+                    SelectedMainTabIndex = 3;
                     SelectedMainSubRefTabIndex = 1;
                 }
 
-                if (_selectedDetailTabIndex == 5)
+                if (_selectedDetailTabIndex == 6)
                 {
                     if (CurrentTbl66Genus != null)
                     {
@@ -1223,20 +1388,8 @@ namespace ATIS.Ui.Views.Database.D66Genus
                         ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
                         ReferenceAuthorsView.Refresh();
                     }
-                    SelectedMainTabIndex = 2;
-                    SelectedMainSubRefTabIndex = 2;
-                }
-
-                if (_selectedDetailTabIndex == 6)
-                {
-                    if (CurrentTbl66Genus != null)
-                    {
-                        Tbl93CommentsList = _extCrud.GetCommentsCollectionFromGenusIdOrderBy<Tbl93Comment>(CurrentTbl66Genus.GenusId);
-
-                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
-                        CommentsView.Refresh();
-                    }
                     SelectedMainTabIndex = 3;
+                    SelectedMainSubRefTabIndex = 2;
                 }
 
                 if (_selectedDetailTabIndex == 7)
@@ -1273,8 +1426,8 @@ namespace ATIS.Ui.Views.Database.D66Genus
                         ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
                         ReferenceExpertsView.Refresh();
                     }
-                    SelectedDetailTabIndex = 3;
-                    SelectedMainTabIndex = 2;
+                    SelectedDetailTabIndex = 4;
+                    SelectedMainTabIndex = 3;
                 }
 
                 if (_selectedMainSubRefTabIndex == 1)
@@ -1288,8 +1441,8 @@ namespace ATIS.Ui.Views.Database.D66Genus
                         ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
                         ReferenceSourcesView.Refresh();
                     }
-                    SelectedDetailTabIndex = 4;
-                    SelectedMainTabIndex = 2;
+                    SelectedDetailTabIndex = 5;
+                    SelectedMainTabIndex = 3;
                 }
 
                 if (_selectedMainSubRefTabIndex == 2)
@@ -1303,8 +1456,8 @@ namespace ATIS.Ui.Views.Database.D66Genus
                         ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
                         ReferenceAuthorsView.Refresh();
                     }
-                    SelectedDetailTabIndex = 5;
-                    SelectedMainTabIndex = 2;
+                    SelectedDetailTabIndex = 6;
+                    SelectedMainTabIndex = 3;
                 }
 
             }

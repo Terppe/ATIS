@@ -8,7 +8,7 @@ using MahApps.Metro.Controls;
 
    //  ReportFiSpeciesWindow.xaml.cs Skriptdatum:  15.12.2019  10:32     
 
-namespace ATIS.Ui.Views.Report.ListDetails
+namespace ATIS.Ui.Views.Report.D69FiSpecies
 {  
 
     /// <summary>

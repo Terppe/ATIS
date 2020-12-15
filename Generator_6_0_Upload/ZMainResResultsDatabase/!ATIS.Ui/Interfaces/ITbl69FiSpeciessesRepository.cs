@@ -12,8 +12,8 @@ namespace Atis.WpfUi.Interfaces     {
 Tbl69FiSpecies Get(int id);   
         
 
-        void Add(Tbl69FiSpecies tbl69FiSpecies);
-        void Delete(Tbl69FiSpecies tbl69FiSpecies);
+        void Add(Tbl69FiSpecies fiSpecies);
+        void Delete(Tbl69FiSpecies fiSpecies);
         void Save( );               
      }
 }   

@@ -777,7 +777,6 @@ namespace ATIS.Ui.Views.Database.D63Infratribus
 
         #endregion [Commands Infratribus ==> Tbl90Reference Expert]                    
 
-
         #region [Methods Infratribus ==> Tbl90Reference Expert]                 
 
         public void ExecuteAddReferenceExpert(object o)
@@ -897,6 +896,7 @@ namespace ATIS.Ui.Views.Database.D63Infratribus
         }
         #endregion [Methods Infratribus ==> Tbl90Reference Expert]                               
 
+
         #region [Commands Infratribus ==> Tbl93Comments]        
 
         private RelayCommand _addCommentCommand;
@@ -915,9 +915,7 @@ namespace ATIS.Ui.Views.Database.D63Infratribus
 
         public ICommand SaveCommentCommand => _saveCommentCommand ??= new RelayCommand(delegate { ExecuteSaveComment(null); });
 
-        #endregion [Commands Infratribus ==> Tbl93Comments]        
-
-
+        #endregion [Commands Infratribus ==> Tbl93Comments]
 
         #region [Methods Infratribus ==> Tbl93Comments]        
 

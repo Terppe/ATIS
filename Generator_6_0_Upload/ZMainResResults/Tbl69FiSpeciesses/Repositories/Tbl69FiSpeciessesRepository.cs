@@ -32,11 +32,11 @@ namespace Atis.WpfUi.Repositories      {
          //-------------------------------------------------------------------------------------------------------------
 
         //  Insert/Delete Methods
-        public void Add(Tbl69FiSpecies tbl69FiSpecies)    {
+        public void Add(Tbl69FiSpecies fiSpecies)    {
             _entities.Tbl69FiSpeciesses.Add(tbl69FiSpecies);           
         }
 
-        public void Delete(Tbl69FiSpecies tbl69FiSpecies)    {
+        public void Delete(Tbl69FiSpecies fiSpecies)    {
             _entities.Tbl69FiSpeciesses.Remove(tbl69FiSpecies);
         } 
         //-----------------------------------------------------------------------------------------------------------

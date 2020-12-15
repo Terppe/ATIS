@@ -11,9 +11,9 @@ using log4net;
 using Microsoft.Win32;  
 
     
-         //    ReportSpeciesgroupPdf Skriptdatum:  09.11.2018  10:32    
+         //    ReportSpeciesgroupPdf Skriptdatum:  15.12.2020  10:32    
 
-namespace ATIS.Ui.Views.Report.ListDetails
+namespace ATIS.Ui.Views.Report.D68Speciesgroup
 {     
     
     public class ReportSpeciesgroupPdf : ViewModelBase
@@ -121,7 +121,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             }
         }  
              
-        private static void AddSpeciesgroupHaeder(PdfDocument pdf, Tbl68Speciesgroup tbl68SpeciesgroupList)
+        private static void AddSpeciesgroupHaeder(PdfDocument pdf, Tbl68Speciesgroup speciesgroupList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
@@ -138,7 +138,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
         } 
           
-        private static void AddSpeciesgroupTaxoNomenList(PdfDocument pdf, Tbl68Speciesgroup tbl68SpeciesgroupList)         
+        private static void AddSpeciesgroupTaxoNomenList(PdfDocument pdf, Tbl68Speciesgroup speciesgroupList)         
           
         {
             _page = pdf.Pages[_arrInts[6]];
@@ -224,7 +224,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }    
           
-        private static void AddSpeciesgroupHierarchyList(PdfDocument pdf, Tbl68Speciesgroup tbl68SpeciesgroupList)
+        private static void AddSpeciesgroupHierarchyList(PdfDocument pdf, Tbl68Speciesgroup speciesgroupList)
         {
             _page = pdf.Pages[_arrInts[6]];
 

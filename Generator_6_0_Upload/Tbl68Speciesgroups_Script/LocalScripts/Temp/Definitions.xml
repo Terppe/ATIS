@@ -70,7 +70,7 @@
   <IDBK3>NULL</IDBK3> 
   <IDBK4>NULL</IDBK4> 
 
-  <NameTK3>NULL</NameTK3> 
+  <NameTK3>GenusName</NameTK3> 
   <NameTK2>PlSpeciesName</NameTK2> 
   <NameTK1>FiSpeciesName</NameTK1> 
   <Name>SpeciesgroupName</Name> 
@@ -106,7 +106,7 @@
   <BasisSmFK1>NULL</BasisSmFK1> 
   <BasisSmFK2>NULL</BasisSmFK2> 
 
-  <LinqModelTK3>NULL</LinqModelTK3> 
+  <LinqModelTK3>Tbl66Genus</LinqModelTK3> 
   <LinqModelTK2>Tbl72PlSpecies</LinqModelTK2> 
   <LinqModelTK1>Tbl69FiSpecies</LinqModelTK1> 
   <LinqModel>Tbl68Speciesgroup</LinqModel> 

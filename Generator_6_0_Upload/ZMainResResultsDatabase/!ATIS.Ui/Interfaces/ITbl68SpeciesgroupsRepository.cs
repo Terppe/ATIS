@@ -1,7 +1,7 @@
 using System.Linq;
 using Atis.WpfUi.Model;      
    
-// <!-- Interface Skriptdatum:  09.11.2018  10:32     -->  
+// <!-- Interface Skriptdatum:  15.12.2020  10:32     -->  
 
 namespace Atis.WpfUi.Interfaces     {         
     public interface ITbl68SpeciesgroupsRepository    {
@@ -12,8 +12,8 @@ namespace Atis.WpfUi.Interfaces     {
 Tbl68Speciesgroup Get(int id);   
         
 
-        void Add(Tbl68Speciesgroup tbl68Speciesgroup);
-        void Delete(Tbl68Speciesgroup tbl68Speciesgroup);
+        void Add(Tbl68Speciesgroup speciesgroup);
+        void Delete(Tbl68Speciesgroup speciesgroup);
         void Save( );               
      }
 }   

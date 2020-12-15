@@ -50,6 +50,9 @@ namespace ATIS.Ui.Helper
                         "subtribus" => GetSubtribussesCollectionAllOrderBy<T>(),
                         "infratribus" => GetInfratribussesCollectionAllOrderBy<T>(),
                         "genus" => GetGenussesCollectionAllOrderBy<T>(),
+                        "speciesgroup" => GetSpeciesgroupsCollectionAllOrderBy<T>(),
+                        "fispecies" => GetFiSpeciessesCollectionAllOrderBy<T>(),
+                        //"plspecies" => GetPlSpeciessesCollectionAllOrderBy<T>(),
                         _ => collection
                     };
                     break;
@@ -79,6 +82,9 @@ namespace ATIS.Ui.Helper
                         "subtribus" => GetSubtribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
                         "infratribus" => GetInfratribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
                         "genus" => GetGenussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                        "speciesgroup" => GetSpeciesgroupsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                        "fispecies" => GetFiSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                        //"plspecies" => GetPlSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
                         _ => collection
                     };
                 }
@@ -159,6 +165,15 @@ namespace ATIS.Ui.Helper
                 case "genus":
                     collection = GetGenussesCollectionAllOrderBy<T>();
                     break;
+                case "speciesgroup":
+                    collection = GetSpeciesgroupsCollectionAllOrderBy<T>();
+                    break;
+                case "fispecies":
+                    collection = GetFiSpeciessesCollectionAllOrderBy<T>();
+                    break;
+                //case "plspecies":
+                //    collection = GetPlSpeciessesCollectionAllOrderBy<T>();
+                //    break;
 
                 case "expert":
                     collection = GetReferenceExpertsCollectionAllOrderBy<T>();
@@ -8349,16 +8364,16 @@ namespace ATIS.Ui.Helper
           #region Delete Subtribus
 
         //------------------------------ Subtribus --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl60Subtribus selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubtribusId == selected.SubtribusId));
-            return collection;
-        }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl60Subtribus selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubtribusId == selected.SubtribusId));
-            return collection;
-        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubtribusIdInTableReference(Tbl60Subtribus selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubtribusId == selected.SubtribusId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubtribusIdInTableComment(Tbl60Subtribus selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubtribusId == selected.SubtribusId));
+        //    return collection;
+        //}
 
         //------------------------------ Infratribus --------------------------------------------------------------------------------------------
         public void DeleteInfratribus(Tbl63Infratribus selected)
@@ -8757,16 +8772,16 @@ namespace ATIS.Ui.Helper
           #region Delete Infratribus
 
         //------------------------------ Infratribus --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl63Infratribus selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.InfratribusId == selected.InfratribusId));
-            return collection;
-        }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl63Infratribus selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.InfratribusId == selected.InfratribusId));
-            return collection;
-        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithInfratribusIdInTableReference(Tbl63Infratribus selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.InfratribusId == selected.InfratribusId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithInfratribusIdInTableComment(Tbl63Infratribus selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.InfratribusId == selected.InfratribusId));
+        //    return collection;
+        //}
 
         //------------------------------ Genus --------------------------------------------------------------------------------------------
         public void DeleteGenus(Tbl66Genus selected)
@@ -8990,10 +9005,9 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-
         #region Genus
 
-        #region Get Genus
+          #region Get Genus
 
         //----------------------------------------   Genus   ------------------------
         private ObservableCollection<T> GetGenussesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -9013,8 +9027,8 @@ namespace ATIS.Ui.Helper
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl66Genusses
-                .OrderBy(a => a.GenusName)
-            );
+                .OrderBy(a => a.GenusName));
+
             return collection;
         }
         public ObservableCollection<T> GetGenussesCollectionFromGenusIdOrderBy<T>(int id)
@@ -9022,7 +9036,7 @@ namespace ATIS.Ui.Helper
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl66Genusses
                 .Where(e => e.GenusId == id)
-                .OrderBy(k => k.GenusName));
+                .OrderBy(e => e.GenusName));
 
             return collection;
         }
@@ -9032,10 +9046,24 @@ namespace ATIS.Ui.Helper
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
-                .Where(e => e.GenusId == id)
+                .Where(k => k.GenusId == id)
                 .OrderBy(k => k.FiSpeciesName)
-                .ThenBy(k=>k.Subspecies)
-                .ThenBy(k=>k.Divers));
+                .ThenBy(k => k.Subspecies)
+                .ThenBy(k => k.Divers)
+            );
+            return collection;
+        }
+
+        //-------------------------------------- PlSpecies   -------------------------
+        public ObservableCollection<T> GetPlSpeciessesCollectionFromGenusIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
+                .Where(k => k.GenusId == id)
+                .OrderBy(k => k.PlSpeciesName)
+                .ThenBy(k => k.Subspecies)
+                .ThenBy(k => k.Divers)
+            );
             return collection;
         }
 
@@ -9089,9 +9117,18 @@ namespace ATIS.Ui.Helper
             return coll.GenusId;
         }
 
+        public int GetGenusIdFromPlSpeciessesCollectionSelect(int id)
+        {
+            var coll = _context.Tbl72PlSpeciesses
+                .SingleOrDefault(p => p.PlSpeciesId == id);
+
+            if (coll == null) return 0;
+            return coll.GenusId;
+        }
+
         #endregion
 
-        #region Copy Genus
+          #region Copy Genus
 
         // ----------------------------------------   FiSpecies  ------------------------
         public ObservableCollection<Tbl69FiSpecies> CopyFiSpecies(Tbl69FiSpecies selected)
@@ -9102,18 +9139,98 @@ namespace ATIS.Ui.Helper
             collection.Insert(0, new Tbl69FiSpecies
             {
                 FiSpeciesName = CultRes.StringsRes.DatasetNew,
+                Subspecies = dataset.Subspecies,
+                Divers = dataset.Divers,
                 GenusId = dataset.GenusId,
+                MemoSpecies = dataset.MemoSpecies,
                 Valid = dataset.Valid,
                 ValidYear = dataset.ValidYear,
-         //       Synonym = dataset.Synonym,
                 Author = dataset.Author,
                 AuthorYear = dataset.AuthorYear,
-                //Info = dataset.Info,
-                //EngName = dataset.EngName,
-                //GerName = dataset.GerName,
-                //FraName = dataset.FraName,
-                //PorName = dataset.PorName,
-                //Memo = dataset.Memo
+                TradeName = dataset.TradeName,
+                Importer = dataset.Importer,
+                ImportingYear = dataset.ImportingYear,
+                TypeSpecies = dataset.TypeSpecies,
+                LNumber = dataset.LNumber,
+                LOrigin = dataset.LOrigin,
+                LdaOrigin = dataset.LdaOrigin,
+                LdaNumber = dataset.LdaNumber,
+                BasinLength = dataset.BasinLength,
+                FishLength = dataset.FishLength,
+                Karnivore = dataset.Karnivore,
+                Herbivore = dataset.Herbivore,
+                Limnivore = dataset.Limnivore,
+                Omnivore = dataset.Omnivore,
+                MemoFoods = dataset.MemoFoods,
+                Difficult1 = dataset.Difficult1,
+                Difficult2 = dataset.Difficult2,
+                Difficult3 = dataset.Difficult3,
+                Difficult4 = dataset.Difficult4,
+                RegionTop = dataset.RegionTop,
+                RegionMiddle = dataset.RegionMiddle,
+                RegionBottom = dataset.RegionBottom,
+                MemoRegion = dataset.MemoRegion,
+                MemoTech = dataset.MemoTech,
+                Ph1 = dataset.Ph1,
+                Ph2 = dataset.Ph2,
+                Temp1 = dataset.Temp1,
+                Temp2 = dataset.Temp2,
+                Hardness1 = dataset.Hardness1,
+                Hardness2 = dataset.Hardness2,
+                CarboHardness1 = dataset.CarboHardness1,
+                CarboHardness2 = dataset.CarboHardness2,
+                MemoHusbandry = dataset.MemoHusbandry,
+                MemoBuilt = dataset.MemoBuilt,
+                MemoColor = dataset.MemoColor,
+                MemoSozial = dataset.MemoSozial,
+                MemoDomorphism = dataset.MemoDomorphism,
+                MemoSpecial = dataset.MemoSpecial,
+                MemoBreeding = dataset.MemoBreeding
+            });
+
+            return collection;
+        }
+
+        // ----------------------------------------   PlSpecies  ------------------------
+        public ObservableCollection<Tbl72PlSpecies> CopyPlSpecies(Tbl72PlSpecies selected)
+        {
+            var dataset = _uow.Tbl72PlSpeciesses.GetById(selected.PlSpeciesId);
+            var collection = new ObservableCollection<Tbl72PlSpecies>();
+
+            collection.Insert(0, new Tbl72PlSpecies
+            {
+                PlSpeciesName = CultRes.StringsRes.DatasetNew,
+                Subspecies = dataset.Subspecies,
+                Divers = dataset.Divers,
+                GenusId = dataset.GenusId,
+                MemoSpecies = dataset.MemoSpecies,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                TradeName = dataset.TradeName,
+                Importer = dataset.Importer,
+                ImportingYear = dataset.ImportingYear,
+                BasinHeight = dataset.BasinHeight,
+                PlantLength = dataset.PlantLength,
+                Difficult1 = dataset.Difficult1,
+                Difficult2 = dataset.Difficult2,
+                Difficult3 = dataset.Difficult3,
+                Difficult4 = dataset.Difficult4,
+                MemoTech = dataset.MemoTech,
+                Ph1 = dataset.Ph1,
+                Ph2 = dataset.Ph2,
+                Temp1 = dataset.Temp1,
+                Temp2 = dataset.Temp2,
+                Hardness1 = dataset.Hardness1,
+                Hardness2 = dataset.Hardness2,
+                CarboHardness1 = dataset.CarboHardness1,
+                CarboHardness2 = dataset.CarboHardness2,
+                MemoBuilt = dataset.MemoBuilt,
+                MemoColor = dataset.MemoColor,
+                MemoReproduction = dataset.MemoReproduction,
+                MemoCulture = dataset.MemoCulture,
+                MemoGlobal = dataset.MemoGlobal
             });
 
             return collection;
@@ -9166,7 +9283,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-        #region Delete Genus
+          #region Delete Genus
 
         //------------------------------ Genus --------------------------------------------------------------------------------------------
         public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl66Genus selected)
@@ -9202,10 +9319,32 @@ namespace ATIS.Ui.Helper
             return collection;
         }
 
+        //------------------------------ PlSpecies --------------------------------------------------------------------------------------------
+        public void DeletePlSpecies(Tbl72PlSpecies selected)
+        {
+            _uow.Tbl72PlSpeciesses.Remove(selected);
+            _uow.Complete();
+        }
+        public ObservableCollection<Tbl72PlSpecies> SearchForConnectedDatasetsWithPlSpeciesIdInTablePlSpecies(Tbl72PlSpecies selected)
+        {
+            var collection = new ObservableCollection<Tbl72PlSpecies>(_uow.Tbl72PlSpeciesses.Find(x => x.PlSpeciesId == selected.PlSpeciesId));
+            return collection;
+        }
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithPlSpeciesIdInTableReference(Tbl72PlSpecies selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.PlSpeciesId == selected.PlSpeciesId));
+            return collection;
+        }
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithPlSpeciesIdInTableComment(Tbl72PlSpecies selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.PlSpeciesId == selected.PlSpeciesId));
+            return collection;
+        }
+
 
         #endregion
 
-        #region Save Genus 
+          #region Save Genus 
 
         //------------------ FiSpecies ---------------------------------------
         public Tbl69FiSpecies FiSpeciesUpdate(Tbl69FiSpecies home, Tbl69FiSpecies selected)
@@ -9216,19 +9355,53 @@ namespace ATIS.Ui.Helper
                 home.Subspecies = selected.Subspecies;
                 home.Divers = selected.Divers;
                 home.GenusId = selected.GenusId;
+                home.SpeciesgroupId = selected.SpeciesgroupId;
                 home.Valid = selected.Valid;
                 home.ValidYear = selected.ValidYear;
                 home.Author = selected.Author;
                 home.AuthorYear = selected.AuthorYear;
-                //home.Info = selected.Info;
-                //home.Synonym = selected.Synonym;
-                //home.EngName = selected.EngName;
-                //home.GerName = selected.GerName;
-                //home.FraName = selected.FraName;
-                //home.PorName = selected.PorName;
-                //home.Memo = selected.Memo;
+                home.MemoSpecies = selected.MemoSpecies;
+                home.TradeName = selected.TradeName;
+                home.Importer = selected.Importer;
+                home.ImportingYear = selected.ImportingYear;
+                home.TypeSpecies = selected.TypeSpecies;
+                home.LNumber = selected.LNumber;
+                home.LOrigin = selected.LOrigin;
+                home.LdaOrigin = selected.LdaOrigin;
+                home.LdaNumber = selected.LdaNumber;
+                home.BasinLength = selected.BasinLength;
+                home.FishLength = selected.FishLength;
+                home.Karnivore = selected.Karnivore;
+                home.Herbivore = selected.Herbivore;
+                home.Limnivore = selected.Limnivore;
+                home.Omnivore = selected.Omnivore;
+                home.MemoFoods = selected.MemoFoods;
+                home.Difficult1 = selected.Difficult1;
+                home.Difficult2 = selected.Difficult2;
+                home.Difficult3 = selected.Difficult3;
+                home.Difficult4 = selected.Difficult4;
+                home.RegionTop = selected.RegionTop;
+                home.RegionMiddle = selected.RegionMiddle;
+                home.RegionBottom = selected.RegionBottom;
+                home.MemoRegion = selected.MemoRegion;
+                home.MemoTech = selected.MemoTech;
+                home.Ph1 = selected.Ph1;
+                home.Ph2 = selected.Ph2;
+                home.Temp1 = selected.Temp1;
+                home.Temp2 = selected.Temp2;
+                home.Hardness1 = selected.Hardness1;
+                home.Hardness2 = selected.Hardness2;
+                home.CarboHardness1 = selected.CarboHardness1;
+                home.CarboHardness2 = selected.CarboHardness2;
+                home.MemoHusbandry = selected.MemoHusbandry;
+                home.MemoBuilt = selected.MemoBuilt;
+                home.MemoColor = selected.MemoColor;
+                home.MemoSozial = selected.MemoSozial;
+                home.MemoDomorphism = selected.MemoDomorphism;
+                home.MemoSpecial = selected.MemoSpecial;
                 home.Updater = Environment.UserName;
                 home.UpdaterDate = DateTime.Now;
+                home.MemoBreeding = selected.MemoBreeding;
             }
             return home;
         }
@@ -9240,22 +9413,56 @@ namespace ATIS.Ui.Helper
                 Subspecies = selected.Subspecies,
                 Divers = selected.Divers,
                 GenusId = selected.GenusId,
+                SpeciesgroupId = selected.SpeciesgroupId,
                 CountId = RandomHelper.Randomnumber(),
                 Valid = selected.Valid,
                 ValidYear = selected.ValidYear,
+                MemoSpecies = selected.MemoSpecies,
+                TradeName = selected.TradeName,
                 Author = selected.Author,
                 AuthorYear = selected.AuthorYear,
-                //Info = selected.Info,
-                //Synonym = selected.Synonym,
-                //EngName = selected.EngName,
-                //GerName = selected.GerName,
-                //FraName = selected.FraName,
-                //PorName = selected.PorName,
-                //Memo = selected.Memo,
+                Importer = selected.Importer,
+                ImportingYear = selected.ImportingYear,
+                TypeSpecies = selected.TypeSpecies,
+                LNumber = selected.LNumber,
+                LOrigin = selected.LOrigin,
+                LdaOrigin = selected.LdaOrigin,
+                LdaNumber = selected.LdaNumber,
+                BasinLength = selected.BasinLength,
+                FishLength = selected.FishLength,
+                Karnivore = selected.Karnivore,
+                Herbivore = selected.Herbivore,
+                Limnivore = selected.Limnivore,
+                Omnivore = selected.Omnivore,
+                MemoFoods = selected.MemoFoods,
+                Difficult1 = selected.Difficult1,
+                Difficult2 = selected.Difficult2,
+                Difficult3 = selected.Difficult3,
+                Difficult4 = selected.Difficult4,
+                RegionTop = selected.RegionTop,
+                RegionMiddle = selected.RegionMiddle,
+                RegionBottom = selected.RegionBottom,
+                MemoRegion = selected.MemoRegion,
+                MemoTech = selected.MemoTech,
+                Ph1 = selected.Ph1,
+                Ph2 = selected.Ph2,
+                Temp1 = selected.Temp1,
+                Temp2 = selected.Temp2,
+                Hardness1 = selected.Hardness1,
+                Hardness2 = selected.Hardness2,
+                CarboHardness1 = selected.CarboHardness1,
+                CarboHardness2 = selected.CarboHardness2,
+                MemoHusbandry = selected.MemoHusbandry,
+                MemoBuilt = selected.MemoBuilt,
+                MemoColor = selected.MemoColor,
+                MemoSozial = selected.MemoSozial,
+                MemoDomorphism = selected.MemoDomorphism,
+                MemoSpecial = selected.MemoSpecial,
                 Writer = Environment.UserName,
                 WriterDate = DateTime.Now,
                 Updater = Environment.UserName,
-                UpdaterDate = DateTime.Now
+                UpdaterDate = DateTime.Now,
+                MemoBreeding = selected.MemoBreeding,
             };
             return home;
         }
@@ -9268,6 +9475,97 @@ namespace ATIS.Ui.Helper
             }
             else                                //add
                 _uow.Tbl69FiSpeciesses.Add(home);
+            _uow.Complete();
+        }
+
+        //------------------ PlSpecies ---------------------------------------
+        public Tbl72PlSpecies PlSpeciesUpdate(Tbl72PlSpecies home, Tbl72PlSpecies selected)
+        {
+            if (home != null) //update
+            {
+                home.PlSpeciesName = selected.PlSpeciesName;
+                home.Subspecies = selected.Subspecies;
+                home.Divers = selected.Divers;
+                home.GenusId = selected.GenusId;
+                home.SpeciesgroupId = selected.SpeciesgroupId;
+                home.Valid = selected.Valid;
+                home.ValidYear = selected.ValidYear;
+                home.Author = selected.Author;
+                home.AuthorYear = selected.AuthorYear;
+                home.MemoSpecies = selected.MemoSpecies;
+                home.TradeName = selected.TradeName;
+                home.Importer = selected.Importer;
+                home.ImportingYear = selected.ImportingYear;
+                home.Difficult1 = selected.Difficult1;
+                home.Difficult2 = selected.Difficult2;
+                home.Difficult3 = selected.Difficult3;
+                home.Difficult4 = selected.Difficult4;
+                home.MemoTech = selected.MemoTech;
+                home.Ph1 = selected.Ph1;
+                home.Ph2 = selected.Ph2;
+                home.Temp1 = selected.Temp1;
+                home.Temp2 = selected.Temp2;
+                home.Hardness1 = selected.Hardness1;
+                home.Hardness2 = selected.Hardness2;
+                home.CarboHardness1 = selected.CarboHardness1;
+                home.CarboHardness2 = selected.CarboHardness2;
+                home.MemoBuilt = selected.MemoBuilt;
+                home.MemoColor = selected.MemoColor;
+                home.Updater = Environment.UserName;
+                home.UpdaterDate = DateTime.Now;
+            }
+            return home;
+        }
+        public Tbl72PlSpecies PlSpeciesAdd(Tbl72PlSpecies selected)
+        {
+            var home = new Tbl72PlSpecies() //add new
+            {
+                PlSpeciesName = selected.PlSpeciesName,
+                Subspecies = selected.Subspecies,
+                Divers = selected.Divers,
+                GenusId = selected.GenusId,
+                SpeciesgroupId = selected.SpeciesgroupId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                MemoSpecies = selected.MemoSpecies,
+                TradeName = selected.TradeName,
+                Author = selected.Author,
+                AuthorYear = selected.AuthorYear,
+                Importer = selected.Importer,
+                ImportingYear = selected.ImportingYear,
+                Difficult1 = selected.Difficult1,
+                Difficult2 = selected.Difficult2,
+                Difficult3 = selected.Difficult3,
+                Difficult4 = selected.Difficult4,
+                MemoTech = selected.MemoTech,
+                Ph1 = selected.Ph1,
+                Ph2 = selected.Ph2,
+                Temp1 = selected.Temp1,
+                Temp2 = selected.Temp2,
+                Hardness1 = selected.Hardness1,
+                Hardness2 = selected.Hardness2,
+                CarboHardness1 = selected.CarboHardness1,
+                CarboHardness2 = selected.CarboHardness2,
+                MemoBuilt = selected.MemoBuilt,
+                MemoColor = selected.MemoColor,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return home;
+        }
+
+        public void PlSpeciesSave(Tbl72PlSpecies home, Tbl72PlSpecies selected)
+        {
+
+            if (selected.PlSpeciesId != 0) //update
+            {
+                _uow.Tbl72PlSpeciesses.Update(home);
+            }
+            else                                //add
+                _uow.Tbl72PlSpeciesses.Add(home);
             _uow.Complete();
         }
 
@@ -9406,6 +9704,604 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
+
+        #region Speciesgroup
+
+        #region Get Speciesgroup
+
+        //----------------------------------------   Speciesgroup   ------------------------
+        private ObservableCollection<T> GetSpeciesgroupsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        {
+            ObservableCollection<T> collection;
+            collection = int.TryParse(searchName, out var id)
+                ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl68Speciesgroups
+                    .Find(e => e.SpeciesgroupId == id))
+                : new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl68Speciesgroups
+                    .Find(e => e.SpeciesgroupName.StartsWith(searchName))
+                    .OrderBy(a => a.SpeciesgroupName)
+                );
+            return collection;
+        }
+
+        private ObservableCollection<T> GetSpeciesgroupsCollectionAllOrderBy<T>()
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl68Speciesgroups
+                .OrderBy(a => a.SpeciesgroupName)
+                .ThenBy(a=> a.Subspeciesgroup));
+            return collection;
+        }
+        public ObservableCollection<T> GetSpeciesgroupsCollectionFromSpeciesgroupIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl68Speciesgroups
+                .Where(e => e.SpeciesgroupId == id)
+                .OrderBy(k => k.SpeciesgroupName));
+
+            return collection;
+        }
+
+        //-------------------------------------- FiSpecies   -------------------------
+        public ObservableCollection<T> GetFiSpeciessesCollectionFromSpeciesgroupIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
+                .Where(e => e.SpeciesgroupId == id)
+                .OrderBy(k => k.FiSpeciesName)
+                .ThenBy(k => k.Subspecies)
+                .ThenBy(k => k.Divers));
+            return collection;
+        }
+
+        //-------------------------------------- PlSpecies   -------------------------
+        public ObservableCollection<T> GetPlSpeciessesCollectionFromSpeciesgroupIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
+                .Where(e => e.SpeciesgroupId == id)
+                .OrderBy(k => k.PlSpeciesName)
+                .ThenBy(k => k.Subspecies)
+                .ThenBy(k => k.Divers));
+            return collection;
+        }
+
+
+        #endregion
+
+        #region Copy Speciesgroup
+
+        public ObservableCollection<Tbl68Speciesgroup> CopySpeciesgroup(Tbl68Speciesgroup selected)
+        {
+            var dataset = _uow.Tbl68Speciesgroups.GetById(selected.SpeciesgroupId);
+            var collection = new ObservableCollection<Tbl68Speciesgroup>();
+
+            collection.Insert(0, new Tbl68Speciesgroup
+            {
+                SpeciesgroupName = CultRes.StringsRes.DatasetNew,
+                Subspeciesgroup = dataset.Subspeciesgroup,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Synonym = dataset.Synonym,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                EngName = dataset.EngName,
+                GerName = dataset.GerName,
+                FraName = dataset.FraName,
+                PorName = dataset.PorName,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
+
+
+
+        #endregion
+
+        #region Delete Speciesgroup
+
+        //------------------------------ Speciesgroup --------------------------------------------------------------------------------------------
+        public void DeleteSpeciesgroup(Tbl68Speciesgroup selected)
+        {
+            _uow.Tbl68Speciesgroups.Remove(selected);
+            _uow.Complete();
+        }
+        public ObservableCollection<Tbl69FiSpecies> SearchForConnectedDatasetsWithSpeciesgroupIdInTableFiSpecies(Tbl68Speciesgroup selected)
+        {
+            var collection = new ObservableCollection<Tbl69FiSpecies>(_uow.Tbl69FiSpeciesses.Find(x => x.SpeciesgroupId == selected.SpeciesgroupId));
+            return collection;
+        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSpeciesgroupIdInTableReference(Tbl68Speciesgroup selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SpeciesgroupId == selected.SpeciesgroupId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSpeciesgroupInTableComment(Tbl68Speciesgroup selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SpeciesgroupId == selected.SpeciesgroupId));
+        //    return collection;
+        //}
+
+
+
+
+        #endregion
+
+        #region Save Speciesgroup 
+
+        public Tbl68Speciesgroup SpeciesgroupUpdate(Tbl68Speciesgroup home, Tbl68Speciesgroup selected)
+        {
+            if (home != null) //update
+            {
+                home.SpeciesgroupName = selected.SpeciesgroupName;
+                home.Subspeciesgroup = selected.Subspeciesgroup;
+                home.Valid = selected.Valid;
+                home.ValidYear = selected.ValidYear;
+                home.Author = selected.Author;
+                home.AuthorYear = selected.AuthorYear;
+                home.Info = selected.Info;
+                home.Synonym = selected.Synonym;
+                home.EngName = selected.EngName;
+                home.GerName = selected.GerName;
+                home.FraName = selected.FraName;
+                home.PorName = selected.PorName;
+                home.Memo = selected.Memo;
+                home.Updater = Environment.UserName;
+                home.UpdaterDate = DateTime.Now;
+            }
+            return home;
+        }
+        public Tbl68Speciesgroup SpeciesgroupAdd(Tbl68Speciesgroup selected)
+        {
+            var home = new Tbl68Speciesgroup() //add new
+            {
+                SpeciesgroupName = selected.SpeciesgroupName,
+                Subspeciesgroup = selected.Subspeciesgroup,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Author = selected.Author,
+                AuthorYear = selected.AuthorYear,
+                Info = selected.Info,
+                Synonym = selected.Synonym,
+                EngName = selected.EngName,
+                GerName = selected.GerName,
+                FraName = selected.FraName,
+                PorName = selected.PorName,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now
+            };
+            return home;
+        }
+        public void SpeciesgroupSave(Tbl68Speciesgroup home, Tbl68Speciesgroup selected)
+        {
+
+            if (selected.SpeciesgroupId != 0) //update
+            {
+                _uow.Tbl68Speciesgroups.Update(home);
+            }
+            else                                //add
+                _uow.Tbl68Speciesgroups.Add(home);
+            _uow.Complete();
+        }
+
+        #endregion
+
+        #endregion
+
+
+
+        #region FiSpecies
+
+        #region Get FiSpecies
+
+        //----------------------------------------   FiSpecies   ------------------------
+        private ObservableCollection<T> GetFiSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        {
+            ObservableCollection<T> collection;
+            collection = int.TryParse(searchName, out var id)
+                ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl69FiSpeciesses
+                    .Find(e => e.FiSpeciesId == id))
+                : new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl69FiSpeciesses
+                    .Find(e => e.FiSpeciesName.StartsWith(searchName))
+                    .OrderBy(a => a.FiSpeciesName)
+                );
+            return collection;
+        }
+
+        private ObservableCollection<T> GetFiSpeciessesCollectionAllOrderBy<T>()
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
+                .OrderBy(a => a.FiSpeciesName));
+            return collection;
+        }
+        public ObservableCollection<T> GetFiSpeciessesCollectionFromFiSpeciesIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
+                .Where(e => e.FiSpeciesId == id)
+                .OrderBy(k => k.FiSpeciesName));
+
+            return collection;
+        }
+
+        //-------------------------------------- Name   -------------------------
+        public ObservableCollection<T> GetNamesCollectionFromFiSpeciesIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl78Names
+                .Where(e => e.FiSpeciesId == id)
+                .OrderBy(k => k.NameName));
+            return collection;
+        }
+
+        //-------------------------------------- Reference Experts   -------------------------
+        public ObservableCollection<T> GetReferenceExpertsCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefExperts)
+                .Where(e => e.FiSpeciesId == id && e.RefAuthorId == null && e.RefSourceId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Reference Sources   -------------------------
+        public ObservableCollection<T> GetReferenceSourcesCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefSources)
+                .Where(e => e.FiSpeciesId == id && e.RefAuthorId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Reference Authors   -------------------------
+        public ObservableCollection<T> GetReferenceAuthorsCollectionFromFiSpeciesIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.FiSpeciesId == id && e.RefSourceId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Comments   -------------------------
+        public ObservableCollection<T> GetCommentsCollectionFromFiSpeciesIdOrderBy<T>(int? id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
+                .Where(e => e.FiSpeciesId == id)
+                .OrderBy(e => e.Info));
+            return collection;
+        }
+
+        //Function
+        public int GetFiSpeciesIdFromNamesCollectionSelect(int id)
+        {
+            var coll = _context.Tbl78Names
+                .SingleOrDefault(p => p.NameId == id);
+
+            if (coll == null) return 0;
+            return coll.FiSpeciesId;
+        }
+
+        #endregion
+
+        #region Copy FiSpecies
+
+        // ----------------------------------------   Name  ------------------------
+        public ObservableCollection<Tbl78Name> CopyName(Tbl78Name selected)
+        {
+            var dataset = _uow.Tbl78Names.GetById(selected.NameId);
+            var collection = new ObservableCollection<Tbl78Name>();
+
+            collection.Insert(0, new Tbl78Name
+            {
+                NameName = CultRes.StringsRes.DatasetNew,
+                FiSpeciesId = dataset.FiSpeciesId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                //Synonym = dataset.Synonym,
+                //Author = dataset.Author,
+                //AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                //EngName = dataset.EngName,
+                //GerName = dataset.GerName,
+                //FraName = dataset.FraName,
+                //PorName = dataset.PorName,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
+
+        public ObservableCollection<Tbl90Reference> CopyReferenceFiSpecies(Tbl90Reference selected, string refer)
+        {
+            var dataset = _uow.Tbl90References.GetById(selected.ReferenceId);
+            var collection = new ObservableCollection<Tbl90Reference>();
+            switch (refer)
+            {
+                case "Expert":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        FiSpeciesId = dataset.FiSpeciesId,
+                        RefExpertId = dataset.RefExpertId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Source":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        FiSpeciesId = dataset.FiSpeciesId,
+                        RefSourceId = dataset.RefSourceId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Author":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        FiSpeciesId = dataset.FiSpeciesId,
+                        RefAuthorId = dataset.RefAuthorId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+            }
+
+            return collection;
+        }
+
+
+        #endregion
+
+        #region Delete FiSpecies
+
+        //------------------------------ FiSpecies --------------------------------------------------------------------------------------------
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl69FiSpecies selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
+            return collection;
+        }
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl69FiSpecies selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
+            return collection;
+        }
+
+        //------------------------------ Name --------------------------------------------------------------------------------------------
+        public void DeleteName(Tbl78Name selected)
+        {
+            _uow.Tbl78Names.Remove(selected);
+            _uow.Complete();
+        }
+        public ObservableCollection<Tbl78Name> SearchForConnectedDatasetsWithNameIdInTableImage(Tbl78Name selected)
+        {
+            var collection = new ObservableCollection<Tbl78Name>(_uow.Tbl78Names.Find(x => x.NameId == selected.NameId));
+            return collection;
+        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithNameIdInTableReference(Tbl78Name selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.NameId == selected.NameId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithNameIdInTableComment(Tbl78Name selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.NameId == selected.NameId));
+        //    return collection;
+        //}
+
+
+        #endregion
+
+        #region Save FiSpecies 
+
+        //------------------ Name ---------------------------------------
+        public Tbl78Name NameUpdate(Tbl78Name home, Tbl78Name selected)
+        {
+            if (home != null) //update
+            {
+                home.NameName = selected.NameName;
+                home.FiSpeciesId = selected.FiSpeciesId;
+                home.Valid = selected.Valid;
+                home.ValidYear = selected.ValidYear;
+                //home.Author = selected.Author;
+                //home.AuthorYear = selected.AuthorYear;
+                home.Info = selected.Info;
+                //home.Synonym = selected.Synonym;
+                //home.EngName = selected.EngName;
+                //home.GerName = selected.GerName;
+                //home.FraName = selected.FraName;
+                //home.PorName = selected.PorName;
+                home.Memo = selected.Memo;
+                home.Updater = Environment.UserName;
+                home.UpdaterDate = DateTime.Now;
+            }
+            return home;
+        }
+        public Tbl78Name NameAdd(Tbl78Name selected)
+        {
+            var home = new Tbl78Name() //add new
+            {
+                NameName = selected.NameName,
+                FiSpeciesId = selected.FiSpeciesId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                //Author = selected.Author,
+                //AuthorYear = selected.AuthorYear,
+                Info = selected.Info,
+                //Synonym = selected.Synonym,
+                //EngName = selected.EngName,
+                //GerName = selected.GerName,
+                //FraName = selected.FraName,
+                //PorName = selected.PorName,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now
+            };
+            return home;
+        }
+        public void NameSave(Tbl78Name home, Tbl78Name selected)
+        {
+
+            if (selected.NameId != 0) //update
+            {
+                _uow.Tbl78Names.Update(home);
+            }
+            else                                //add
+                _uow.Tbl78Names.Add(home);
+            _uow.Complete();
+        }
+
+        public Tbl90Reference ReferenceExpertFiSpeciesUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefExpertId = selected.RefExpertId;
+                reference.FiSpeciesId = selected.FiSpeciesId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceExpertFiSpeciesAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefExpertId = selected.RefExpertId,
+                FiSpeciesId = selected.FiSpeciesId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourceFiSpeciesUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefSourceId = selected.RefSourceId;
+                reference.FiSpeciesId = selected.FiSpeciesId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourceFiSpeciesAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefSourceId = selected.RefSourceId,
+                FiSpeciesId = selected.FiSpeciesId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorFiSpeciesUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefAuthorId = selected.RefAuthorId;
+                reference.FiSpeciesId = selected.FiSpeciesId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorFiSpeciesAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefAuthorId = selected.RefAuthorId,
+                FiSpeciesId = selected.FiSpeciesId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl93Comment CommentFiSpeciesUpdate(Tbl93Comment comment, Tbl93Comment selected)
+        {
+            if (comment != null) //update
+            {
+                comment.FiSpeciesId = selected.FiSpeciesId;
+                comment.Valid = selected.Valid;
+                comment.ValidYear = selected.ValidYear;
+                comment.Info = selected.Info;
+                comment.Updater = Environment.UserName;
+                comment.UpdaterDate = DateTime.Now;
+                comment.Memo = selected.Memo;
+            }
+            return comment;
+        }
+        public Tbl93Comment CommentFiSpeciesAdd(Tbl93Comment selected)
+        {
+            var comment = new Tbl93Comment //add new
+            {
+                FiSpeciesId = selected.FiSpeciesId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return comment;
+        }
+
+        #endregion
+
+        #endregion
 
 
 
@@ -9693,6 +10589,26 @@ namespace ATIS.Ui.Helper
                     collection.Insert(0, new Tbl93Comment
                     {
                         GenusId = dataset.GenusId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "FiSpecies":
+                    collection.Insert(0, new Tbl93Comment
+                    {
+                        FiSpeciesId = dataset.FiSpeciesId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "PlSpecies":
+                    collection.Insert(0, new Tbl93Comment
+                    {
+                        PlSpeciesId = dataset.PlSpeciesId,
                         Valid = dataset.Valid,
                         ValidYear = dataset.ValidYear,
                         Info = CultRes.StringsRes.DatasetNew,

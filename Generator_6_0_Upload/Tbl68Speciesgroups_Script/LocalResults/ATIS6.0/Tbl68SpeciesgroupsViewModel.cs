@@ -13,9 +13,9 @@ using ATIS.Ui.Views.Database.DatabaseHelper;
 using log4net;
 using Microsoft.EntityFrameworkCore;          
     
-         //    SpeciesgroupsViewModel Skriptdatum:  09.11.2018  10:32    
+         //    SpeciesgroupsViewModel Skriptdatum:  15.12.2020  10:32    
 
-namespace ATIS.Ui.Views.Database.ListDetails
+namespace ATIS.Ui.Views.Database.D68Speciesgroup
 {     
     
     public class SpeciesgroupsViewModel : ViewModelBase                     

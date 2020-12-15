@@ -9,11 +9,12 @@
   <Version>ATIS34</Version>
   <Database>Atis</Database> 
 
-  <LayoutTK3>ListDetails</LayoutTK3>
-  <LayoutTK2>ListDetails</LayoutTK2>
-  <LayoutTK1>ListDetails</LayoutTK1>
-  <Layout>ListDetails</Layout>
-  <LayoutFK1>ListDetails</LayoutFK1>
+  <LayoutTK4>D87Geographic</LayoutTK4>
+  <LayoutTK3>D84Synonym</LayoutTK3>
+  <LayoutTK2>D81Image</LayoutTK2>
+  <LayoutTK1>D78Name</LayoutTK1>
+  <Layout>D69FiSpecies</Layout>
+  <LayoutFK1>D66Genus</LayoutFK1>
   <LayoutFK2>ListDetails</LayoutFK2>
   <LayoutBK1>ListDetails</LayoutBK1>
   <LayoutBK2>ListDetails</LayoutBK2>
@@ -242,11 +243,13 @@
   <EntitysBK1>_tbl63Infratribusses</EntitysBK1> 
   <EntitysBK2>_tbl60Subtribusses</EntitysBK2> 
 
-  <EntityAblTK2>NULL</EntityAblTK2> 
-  <EntityAblTK1>Tbl78Name tbl78Name</EntityAblTK1> 
-  <EntityAbl>Tbl69FiSpecies tbl69FiSpecies</EntityAbl> 
-  <EntityAblFK1>Tbl66Genus tbl66Genus</EntityAblFK1> 
-  <EntityAblFK2>Tbl68Speciesgroup tbl68Speciesgroup</EntityAblFK2> 
+  <EntityAblTK4>Tbl87Geographic geographic</EntityAblTK4> 
+  <EntityAblTK3>Tbl84Synonym synonym</EntityAblTK3> 
+  <EntityAblTK2>Tbl81Image image</EntityAblTK2> 
+  <EntityAblTK1>Tbl78Name name</EntityAblTK1> 
+  <EntityAbl>Tbl69FiSpecies fiSpecies</EntityAbl> 
+  <EntityAblFK1>Tbl66Genus genus</EntityAblFK1> 
+  <EntityAblFK2>Tbl68Speciesgroup speciesgroup</EntityAblFK2> 
 
    <Fields>
     <Field><Name>FiSpeciesID</Name> <Type>int</Type>  <NotNull>IDENTITY(1,1) NOT NULL</NotNull> </Field>

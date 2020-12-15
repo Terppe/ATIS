@@ -702,7 +702,6 @@
                 <GroupBox>
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
-
                             <Button Template="{StaticResource SaveInfratribusButton}" />
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
@@ -725,7 +724,6 @@
                                         UpdateSourceTrigger="PropertyChanged" />
                                 </TextBox.Text>
                             </TextBox>
-
                             <ComboBox
                                 Width="300"
                                 Margin="25,5,5,5"
@@ -971,7 +969,6 @@
                     <GroupBox>
                         <StackPanel Margin="1">
                             <StackPanel Height="Auto" Orientation="Horizontal">
-
                                 <Button Template="{StaticResource SaveGenusButton}" />
                                 <Button Template="{StaticResource CopyGenusButton}" />
                                 <Button Template="{StaticResource AddGenusButton}" />
@@ -1021,7 +1018,6 @@
                                     Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                     VirtualizingStackPanel.IsVirtualizing="True" />
                             </StackPanel>
-
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <CheckBox
                                     Width="80"
@@ -1217,7 +1213,6 @@
                                     </TextBox.Text>
                                 </TextBox>
                             </StackPanel>
-
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                     <TextBox
@@ -1247,13 +1242,11 @@
                 </StackPanel>
             </TabItem>
 
-
-
             <!--  Part 4.2 TK1 Connected  -->
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl69FiSpecies-FiSpecies}">
                 <GroupBox>
-                    <StackPanel Margin="5">
+                    <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <Button Template="{StaticResource SaveFiSpeciesButton}" />
                             <Button Template="{StaticResource CopyFiSpeciesButton}" />
@@ -1262,13 +1255,17 @@
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ComboBox
-                                Width="250"
-                                Margin="5,0,0,0"
+                                Width="300"
+                                Margin="5"
                                 VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl68Speciesgroup-Speciesgroup}"
                                 IsSynchronizedWithCurrentItem="True"
                                 ItemsSource="{Binding Tbl68SpeciesgroupsAllList}"
+                                SelectedIndex="0"
                                 SelectedValue="{Binding SelectedItem.(models:Tbl68Speciesgroup.SpeciesgroupId), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay}"
                                 SelectedValuePath="SpeciesgroupId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                 VirtualizingStackPanel.IsVirtualizing="True">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
@@ -1280,63 +1277,112 @@
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
                         </StackPanel>
-                        <StackPanel>
-                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                <TextBox
-                                    Width="250"
-                                    Margin="5,10,0,0"
-                                    FontWeight="Medium">
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.FiSpeciesName)"
-                                            UpdateSourceTrigger="PropertyChanged" />
-                                    </TextBox.Text>
-                                </TextBox>
-                                <TextBox
-                                    Width="250"
-                                    Margin="25,0,0,0"
-                                    FontWeight="Medium">
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.Subspecies)"
-                                            UpdateSourceTrigger="PropertyChanged" />
-                                    </TextBox.Text>
-                                </TextBox>
-                                <TextBox
-                                    Width="210"
-                                    Margin="25,0,0,0"
-                                    FontWeight="Medium">
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.Divers)"
-                                            UpdateSourceTrigger="PropertyChanged" />
-                                    </TextBox.Text>
-                                </TextBox>
-                            </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="228"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-FiSpeciesName}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl69FiSpecies-FiSpeciesName}">
+                                <TextBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Custom Item" />
+                                        <Separator />
+                                        <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                    </ContextMenu>
+                                </TextBox.ContextMenu>
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl69FiSpeciessesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl69FiSpecies.FiSpeciesName)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox
+                                Width="228"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-Subspecies}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl69FiSpecies-Subspecies}">
+                                <TextBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Custom Item" />
+                                        <Separator />
+                                        <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                    </ContextMenu>
+                                </TextBox.ContextMenu>
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl69FiSpeciessesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl69FiSpecies.Subspecies)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox
+                                Width="228"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-Divers}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl69FiSpecies-Divers}">
+                                <TextBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Custom Item" />
+                                        <Separator />
+                                        <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                    </ContextMenu>
+                                </TextBox.ContextMenu>
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl69FiSpeciessesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl69FiSpecies.Divers)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
                         </StackPanel>
                         <TabControl
-                            Width="700"
                             Height="Auto"
-                            Margin="0,-1,0,1"
-                            Padding="0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Stretch"
                             Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-                            BorderThickness="0.5"
                             SelectedIndex="{Binding SelectedDetailSubFiSpeciesTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl69FiSpecies-TabItemHeaderSpecification}">
                                 <StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
                                             Width="700"
-                                            Margin="5,0,0,0"
-                                            FontWeight="Medium">
+                                            Margin="5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-TradeName}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl69FiSpecies-TradeName}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl69FiSpeciessesList"
@@ -1349,15 +1395,23 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <CheckBox
                                             Width="80"
-                                            Margin="5,0,0,0"
+                                            Margin="5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Shared-Valid}"
                                             FontWeight="Normal"
-                                            IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.Valid), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.Valid), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Style="{StaticResource MahApps.Styles.CheckBox}" />
                                         <TextBox
-                                            Width="50"
-                                            Margin="25,0,0,0"
-                                            FontWeight="Medium">
+                                            Width="80"
+                                            Margin="25,5,5,5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Shared-ValidYear}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Shared-ValidYear}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl69FiSpeciessesList"
@@ -1366,7 +1420,17 @@
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBox Width="100" Margin="25,0,0,0">
+                                        <TextBox
+                                            Width="100"
+                                            Margin="25,5,5,5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-FishLength}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl69FiSpecies-FishLength}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl69FiSpeciessesList"
@@ -1375,7 +1439,17 @@
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBox Width="100" Margin="25,0,0,0">
+                                        <TextBox
+                                            Width="100"
+                                            Margin="25,5,5,5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-BasinLength}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl69FiSpecies-BasinLength}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl69FiSpeciessesList"
@@ -1388,8 +1462,16 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
                                             Width="600"
-                                            Margin="5,0,0,0"
-                                            FontWeight="Medium">
+                                            Margin="5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            CharacterCasing="Upper"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Shared-Author}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl69FiSpeciessesList"
@@ -1400,8 +1482,15 @@
                                         </TextBox>
                                         <TextBox
                                             Width="90"
-                                            Margin="5,0,0,0"
-                                            FontWeight="Medium">
+                                            Margin="5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Shared-AuthorYear}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Shared-AuthorYear}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl69FiSpeciessesList"
@@ -1412,7 +1501,17 @@
                                         </TextBox>
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox Width="600" Margin="5,0,0,0">
+                                        <TextBox
+                                            Width="600"
+                                            Margin="5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-Importer}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl69FiSpecies-Importer}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl69FiSpeciessesList"
@@ -1421,7 +1520,17 @@
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBox Width="90" Margin="5,0,0,0">
+                                        <TextBox
+                                            Width="90"
+                                            Margin="5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-ImportingYear}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl69FiSpecies-ImportingYear}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl69FiSpeciessesList"
@@ -1439,10 +1548,87 @@
                                                 MinHeight="100"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
-                                                Margin="5,0,0,0"
+                                                Margin="5"
                                                 VerticalAlignment="Stretch"
-                                                Text="{Binding SelectedItem.(models:Tbl69FiSpecies.MemoSpecies), ElementName=Tbl69FiSpeciessesList}"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                AcceptsReturn="True"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                Text="{Binding SelectedItem.(models:Tbl69FiSpecies.MemoSpecies), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 TextWrapping="Wrap"
+                                                ToolTip="{DynamicResource Shared-Memo}"
+                                                VerticalScrollBarVisibility="Auto" />
+                                        </ScrollViewer>
+                                    </StackPanel>
+                                </StackPanel>
+                            </TabItem>
+                            <TabItem FontWeight="Medium" Header="{DynamicResource Tbl69FiSpecies-TabItemHeaderFood}">
+                                <StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <CheckBox
+                                            Width="180"
+                                            Margin="5,10,5,5"
+                                            VerticalAlignment="Bottom"
+                                            Content="{DynamicResource Tbl69FiSpecies-Karnivore}"
+                                            FontWeight="Normal"
+                                            IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.Karnivore), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Style="{StaticResource MahApps.Styles.CheckBox}" />
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <CheckBox
+                                            Width="180"
+                                            Margin="5"
+                                            VerticalAlignment="Bottom"
+                                            Content="{DynamicResource Tbl69FiSpecies-Herbivore}"
+                                            FontWeight="Normal"
+                                            IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.Herbivore), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Style="{StaticResource MahApps.Styles.CheckBox}" />
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <CheckBox
+                                            Width="180"
+                                            Margin="5"
+                                            VerticalAlignment="Bottom"
+                                            Content="{DynamicResource Tbl69FiSpecies-Limnivore}"
+                                            FontWeight="Normal"
+                                            IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.Limnivore), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Style="{StaticResource MahApps.Styles.CheckBox}" />
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <CheckBox
+                                            Width="180"
+                                            Margin="5"
+                                            VerticalAlignment="Bottom"
+                                            Content="{DynamicResource Tbl69FiSpecies-Omnivore}"
+                                            FontWeight="Normal"
+                                            IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.Omnivore), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Style="{StaticResource MahApps.Styles.CheckBox}" />
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                            <TextBox
+                                                Height="Auto"
+                                                MinWidth="700"
+                                                MinHeight="100"
+                                                MaxWidth="700"
+                                                MaxHeight="400"
+                                                Margin="5"
+                                                VerticalAlignment="Stretch"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                AcceptsReturn="True"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                Text="{Binding SelectedItem.(models:Tbl69FiSpecies.MemoFoods), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap"
+                                                ToolTip="{DynamicResource Shared-Memo}"
                                                 VerticalScrollBarVisibility="Auto" />
                                         </ScrollViewer>
                                     </StackPanel>
@@ -1452,8 +1638,8 @@
                                 <StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <CheckBox
-                                            Width="250"
-                                            Margin="5,2,0,0"
+                                            Width="300"
+                                            Margin="5,10,5,5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Difficult1}"
                                             FontWeight="Normal"
@@ -1461,7 +1647,7 @@
                                             Style="{StaticResource MahApps.Styles.CheckBox}" />
                                         <CheckBox
                                             Width="300"
-                                            Margin="5,2,0,0"
+                                            Margin="5,10,5,5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Difficult2}"
                                             FontWeight="Normal"
@@ -1470,8 +1656,8 @@
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <CheckBox
-                                            Width="250"
-                                            Margin="5,2,0,0"
+                                            Width="300"
+                                            Margin="5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Difficult3}"
                                             FontWeight="Normal"
@@ -1479,7 +1665,7 @@
                                             Style="{StaticResource MahApps.Styles.CheckBox}" />
                                         <CheckBox
                                             Width="300"
-                                            Margin="5,2,0,0"
+                                            Margin="5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Difficult4}"
                                             FontWeight="Normal"
@@ -1487,7 +1673,17 @@
                                             Style="{StaticResource MahApps.Styles.CheckBox}" />
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox Width="100" Margin="5,0,0,0">
+                                        <TextBox
+                                            Width="100"
+                                            Margin="5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-Ph1}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl69FiSpecies-Ph1}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl69FiSpeciessesList"
@@ -1496,7 +1692,17 @@
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBox Width="100" Margin="5,0,0,0">
+                                        <TextBox
+                                            Width="100"
+                                            Margin="5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-Ph2}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl69FiSpecies-Ph2}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl69FiSpeciessesList"
@@ -1505,7 +1711,17 @@
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBox Width="100" Margin="55,0,0,0">
+                                        <TextBox
+                                            Width="100"
+                                            Margin="100,5,5,5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-Temp1}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl69FiSpecies-Temp1}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl69FiSpeciessesList"
@@ -1514,7 +1730,17 @@
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBox Width="100" Margin="5,0,0,0">
+                                        <TextBox
+                                            Width="100"
+                                            Margin="5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-Temp2}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl69FiSpecies-Temp2}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl69FiSpeciessesList"
@@ -1525,7 +1751,17 @@
                                         </TextBox>
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox Width="100" Margin="5,0,0,0">
+                                        <TextBox
+                                            Width="100"
+                                            Margin="5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-Hardness1}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl69FiSpecies-Hardness1}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl69FiSpeciessesList"
@@ -1534,7 +1770,17 @@
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBox Width="100" Margin="5,0,0,0">
+                                        <TextBox
+                                            Width="100"
+                                            Margin="5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-Hardness2}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl69FiSpecies-Hardness2}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl69FiSpeciessesList"
@@ -1543,7 +1789,17 @@
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBox Width="100" Margin="55,0,0,0">
+                                        <TextBox
+                                            Width="100"
+                                            Margin="100,5,5,5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-CarboHardness1}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl69FiSpecies-CarboHardness1}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl69FiSpeciessesList"
@@ -1552,7 +1808,17 @@
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBox Width="100" Margin="5,0,0,0">
+                                        <TextBox
+                                            Width="100"
+                                            Margin="5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-CarboHardness2}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl69FiSpecies-CarboHardness2}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl69FiSpeciessesList"
@@ -1570,11 +1836,19 @@
                                                 MinHeight="100"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
-                                                Margin="5,2,0,0"
+                                                Margin="5"
                                                 VerticalAlignment="Stretch"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
                                                 AcceptsReturn="True"
-                                                Text="{Binding SelectedItem.(models:Tbl69FiSpecies.MemoTech), ElementName=Tbl69FiSpeciessesList}"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                Text="{Binding SelectedItem.(models:Tbl69FiSpecies.MemoTech), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 TextWrapping="Wrap"
+                                                ToolTip="{DynamicResource Shared-Memo}"
                                                 VerticalScrollBarVisibility="Auto" />
                                         </ScrollViewer>
                                     </StackPanel>
@@ -1587,13 +1861,22 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="700"
-                                                MinHeight="100"
+                                                MinHeight="200"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
-                                                Margin="5,2,0,0"
+                                                Margin="5"
                                                 VerticalAlignment="Stretch"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                AcceptsReturn="True"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
                                                 Text="{Binding SelectedItem.(models:Tbl69FiSpecies.MemoHusbandry), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 TextWrapping="Wrap"
+                                                ToolTip="{DynamicResource Shared-Memo}"
                                                 VerticalScrollBarVisibility="Auto" />
                                         </ScrollViewer>
                                     </StackPanel>
@@ -1606,13 +1889,22 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="700"
-                                                MinHeight="100"
+                                                MinHeight="200"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
-                                                Margin="5,2,0,0"
+                                                Margin="5"
                                                 VerticalAlignment="Stretch"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                AcceptsReturn="True"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
                                                 Text="{Binding SelectedItem.(models:Tbl69FiSpecies.MemoBreeding), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 TextWrapping="Wrap"
+                                                ToolTip="{DynamicResource Shared-Memo}"
                                                 VerticalScrollBarVisibility="Auto" />
                                         </ScrollViewer>
                                     </StackPanel>
@@ -1625,13 +1917,22 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="700"
-                                                MinHeight="100"
+                                                MinHeight="75"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
-                                                Margin="5,2,0,0"
+                                                Margin="5"
                                                 VerticalAlignment="Stretch"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                AcceptsReturn="True"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
                                                 Text="{Binding SelectedItem.(models:Tbl69FiSpecies.MemoBuilt), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 TextWrapping="Wrap"
+                                                ToolTip="{DynamicResource Shared-Memo}"
                                                 VerticalScrollBarVisibility="Auto" />
                                         </ScrollViewer>
                                     </StackPanel>
@@ -1640,13 +1941,22 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="700"
-                                                MinHeight="100"
+                                                MinHeight="75"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
-                                                Margin="5,2,0,0"
+                                                Margin="5"
                                                 VerticalAlignment="Stretch"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                AcceptsReturn="True"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
                                                 Text="{Binding SelectedItem.(models:Tbl69FiSpecies.MemoColor), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 TextWrapping="Wrap"
+                                                ToolTip="{DynamicResource Shared-Memo}"
                                                 VerticalScrollBarVisibility="Auto" />
                                         </ScrollViewer>
                                     </StackPanel>
@@ -1655,13 +1965,22 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="700"
-                                                MinHeight="100"
+                                                MinHeight="75"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
-                                                Margin="5,2,0,0"
+                                                Margin="5"
                                                 VerticalAlignment="Stretch"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                AcceptsReturn="True"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
                                                 Text="{Binding SelectedItem.(models:Tbl69FiSpecies.MemoSozial), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 TextWrapping="Wrap"
+                                                ToolTip="{DynamicResource Shared-Memo}"
                                                 VerticalScrollBarVisibility="Auto" />
                                         </ScrollViewer>
                                     </StackPanel>
@@ -1670,13 +1989,22 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="700"
-                                                MinHeight="100"
+                                                MinHeight="75"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
-                                                Margin="5,2,0,0"
+                                                Margin="5"
                                                 VerticalAlignment="Stretch"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                AcceptsReturn="True"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
                                                 Text="{Binding SelectedItem.(models:Tbl69FiSpecies.MemoDomorphism), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 TextWrapping="Wrap"
+                                                ToolTip="{DynamicResource Shared-Memo}"
                                                 VerticalScrollBarVisibility="Auto" />
                                         </ScrollViewer>
                                     </StackPanel>
@@ -1688,13 +2016,22 @@
                                         <TextBox
                                             Height="Auto"
                                             MinWidth="700"
-                                            MinHeight="100"
+                                            MinHeight="200"
                                             MaxWidth="700"
                                             MaxHeight="400"
-                                            Margin="5,2,0,0"
+                                            Margin="5"
                                             VerticalAlignment="Stretch"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            AcceptsReturn="True"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
                                             Text="{Binding SelectedItem.(models:Tbl69FiSpecies.MemoSpecial), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             TextWrapping="Wrap"
+                                            ToolTip="{DynamicResource Shared-Memo}"
                                             VerticalScrollBarVisibility="Auto" />
                                     </ScrollViewer>
                                 </StackPanel>
@@ -1704,14 +2041,11 @@
                 </GroupBox>
             </TabItem>
 
-
-
             <!--  Part 8.3  TK2  Connected  -->
-
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl72PlSpecies-PlSpecies}">
                 <GroupBox>
-                    <StackPanel Margin="5">
+                    <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <Button Template="{StaticResource SavePlSpeciesButton}" />
                             <Button Template="{StaticResource CopyPlSpeciesButton}" />
@@ -1720,13 +2054,17 @@
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ComboBox
-                                Width="250"
-                                Margin="5,0,0,0"
+                                Width="300"
+                                Margin="5"
                                 VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl68Speciesgroup-Infratribus}"
                                 IsSynchronizedWithCurrentItem="True"
                                 ItemsSource="{Binding Tbl68SpeciesgroupsAllList}"
+                                SelectedIndex="0"
                                 SelectedValue="{Binding SelectedItem.(models:Tbl68Speciesgroup.SpeciesgroupId), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay}"
                                 SelectedValuePath="SpeciesgroupId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                 VirtualizingStackPanel.IsVirtualizing="True">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
@@ -1738,63 +2076,112 @@
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
                         </StackPanel>
-                        <StackPanel>
-                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                <TextBox
-                                    Width="250"
-                                    Margin="5,10,0,0"
-                                    FontWeight="Medium">
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl72PlSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl72PlSpecies.PlSpeciesName)"
-                                            UpdateSourceTrigger="PropertyChanged" />
-                                    </TextBox.Text>
-                                </TextBox>
-                                <TextBox
-                                    Width="250"
-                                    Margin="25,0,0,0"
-                                    FontWeight="Medium">
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl72PlSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl72PlSpecies.Subspecies)"
-                                            UpdateSourceTrigger="PropertyChanged" />
-                                    </TextBox.Text>
-                                </TextBox>
-                                <TextBox
-                                    Width="210"
-                                    Margin="25,0,0,0"
-                                    FontWeight="Medium">
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl72PlSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl72PlSpecies.Divers)"
-                                            UpdateSourceTrigger="PropertyChanged" />
-                                    </TextBox.Text>
-                                </TextBox>
-                            </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="228"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-PlSpeciesName}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl72PlSpecies-PlSpeciesName}">
+                                <TextBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Custom Item" />
+                                        <Separator />
+                                        <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                    </ContextMenu>
+                                </TextBox.ContextMenu>
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl72PlSpeciessesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl72PlSpecies.PlSpeciesName)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox
+                                Width="228"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-Subspecies}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl72PlSpecies-Subspecies}">
+                                <TextBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Custom Item" />
+                                        <Separator />
+                                        <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                    </ContextMenu>
+                                </TextBox.ContextMenu>
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl72PlSpeciessesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl72PlSpecies.Subspecies)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox
+                                Width="228"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-Divers}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl72PlSpecies-Divers}">
+                                <TextBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Custom Item" />
+                                        <Separator />
+                                        <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                    </ContextMenu>
+                                </TextBox.ContextMenu>
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl72PlSpeciessesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl72PlSpecies.Divers)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
                         </StackPanel>
                         <TabControl
-                            Width="700"
                             Height="Auto"
-                            Margin="0,-1,0,1"
-                            Padding="0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Stretch"
                             Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-                            BorderThickness="0.5"
                             SelectedIndex="{Binding SelectedDetailSubPlSpeciesTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl72PlSpecies-TabItemHeaderSpecification}">
                                 <StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
                                             Width="700"
-                                            Margin="5,0,0,0"
-                                            FontWeight="Medium">
+                                            Margin="5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-TradeName}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl72PlSpecies-TradeName}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl72PlSpeciessesList"
@@ -1807,15 +2194,23 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <CheckBox
                                             Width="80"
-                                            Margin="5,0,0,0"
+                                            Margin="5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Shared-Valid}"
                                             FontWeight="Normal"
-                                            IsChecked="{Binding SelectedItem.(models:Tbl72PlSpecies.Valid), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            IsChecked="{Binding SelectedItem.(models:Tbl72PlSpecies.Valid), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Style="{StaticResource MahApps.Styles.CheckBox}" />
                                         <TextBox
-                                            Width="50"
-                                            Margin="25,0,0,0"
-                                            FontWeight="Medium">
+                                            Width="80"
+                                            Margin="25,5,5,5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Shared-ValidYear}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Shared-ValidYear}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl72PlSpeciessesList"
@@ -1824,7 +2219,17 @@
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBox Width="100" Margin="25,0,0,0">
+                                        <TextBox
+                                            Width="100"
+                                            Margin="25,5,5,5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-PlantLength}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl72PlSpecies-PlantLength}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl72PlSpeciessesList"
@@ -1833,7 +2238,17 @@
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBox Width="100" Margin="25,0,0,0">
+                                        <TextBox
+                                            Width="100"
+                                            Margin="25,5,5,5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-BasinHeight}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl72PlSpecies-BasinHeight}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl72PlSpeciessesList"
@@ -1846,8 +2261,16 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
                                             Width="600"
-                                            Margin="5,0,0,0"
-                                            FontWeight="Medium">
+                                            Margin="5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            CharacterCasing="Upper"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Shared-Author}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl72PlSpeciessesList"
@@ -1858,8 +2281,15 @@
                                         </TextBox>
                                         <TextBox
                                             Width="90"
-                                            Margin="5,0,0,0"
-                                            FontWeight="Medium">
+                                            Margin="5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Shared-AuthorYear}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Shared-AuthorYear}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl72PlSpeciessesList"
@@ -1870,7 +2300,17 @@
                                         </TextBox>
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox Width="600" Margin="5,0,0,0">
+                                        <TextBox
+                                            Width="600"
+                                            Margin="5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-Importer}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl72PlSpecies-Importer}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl72PlSpeciessesList"
@@ -1879,7 +2319,17 @@
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBox Width="90" Margin="5,0,0,0">
+                                        <TextBox
+                                            Width="90"
+                                            Margin="5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-ImportingYear}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl72PlSpecies-ImportingYear}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl72PlSpeciessesList"
@@ -1897,10 +2347,19 @@
                                                 MinHeight="100"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
-                                                Margin="5,0,0,0"
+                                                Margin="5"
                                                 VerticalAlignment="Stretch"
-                                                Text="{Binding SelectedItem.(models:Tbl72PlSpecies.MemoSpecies), ElementName=Tbl72PlSpeciessesList}"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                AcceptsReturn="True"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                Text="{Binding SelectedItem.(models:Tbl72PlSpecies.MemoSpecies), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 TextWrapping="Wrap"
+                                                ToolTip="{DynamicResource Shared-Memo}"
                                                 VerticalScrollBarVisibility="Auto" />
                                         </ScrollViewer>
                                     </StackPanel>
@@ -1910,42 +2369,52 @@
                                 <StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <CheckBox
-                                            Width="250"
-                                            Margin="5,2,0,0"
+                                            Width="300"
+                                            Margin="5,10,5,5"
                                             VerticalAlignment="Bottom"
-                                            Content="{DynamicResource Tbl72PlSpecies-Difficult1}"
+                                            Content="{DynamicResource Tbl69FiSpecies-Difficult1}"
                                             FontWeight="Normal"
-                                            IsChecked="{Binding SelectedItem.(models:Tbl72PlSpecies.Difficult1), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.Difficult1), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             Style="{StaticResource MahApps.Styles.CheckBox}" />
                                         <CheckBox
                                             Width="300"
-                                            Margin="5,2,0,0"
+                                            Margin="5,10,5,5"
                                             VerticalAlignment="Bottom"
-                                            Content="{DynamicResource Tbl72PlSpecies-Difficult2}"
+                                            Content="{DynamicResource Tbl69FiSpecies-Difficult2}"
                                             FontWeight="Normal"
-                                            IsChecked="{Binding SelectedItem.(models:Tbl72PlSpecies.Difficult2), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.Difficult2), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             Style="{StaticResource MahApps.Styles.CheckBox}" />
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <CheckBox
-                                            Width="250"
-                                            Margin="5,2,0,0"
+                                            Width="300"
+                                            Margin="5"
                                             VerticalAlignment="Bottom"
-                                            Content="{DynamicResource Tbl72PlSpecies-Difficult3}"
+                                            Content="{DynamicResource Tbl69FiSpecies-Difficult3}"
                                             FontWeight="Normal"
-                                            IsChecked="{Binding SelectedItem.(models:Tbl72PlSpecies.Difficult3), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.Difficult3), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             Style="{StaticResource MahApps.Styles.CheckBox}" />
                                         <CheckBox
                                             Width="300"
-                                            Margin="5,2,0,0"
+                                            Margin="5"
                                             VerticalAlignment="Bottom"
-                                            Content="{DynamicResource Tbl72PlSpecies-Difficult4}"
+                                            Content="{DynamicResource Tbl69FiSpecies-Difficult4}"
                                             FontWeight="Normal"
-                                            IsChecked="{Binding SelectedItem.(models:Tbl72PlSpecies.Difficult4), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.Difficult4), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             Style="{StaticResource MahApps.Styles.CheckBox}" />
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox Width="100" Margin="5,0,0,0">
+                                        <TextBox
+                                            Width="100"
+                                            Margin="5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-Ph1}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl72PlSpecies-Ph1}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl72PlSpeciessesList"
@@ -1954,7 +2423,17 @@
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBox Width="100" Margin="5,0,0,0">
+                                        <TextBox
+                                            Width="100"
+                                            Margin="5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-Ph2}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl72PlSpecies-Ph2}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl72PlSpeciessesList"
@@ -1963,7 +2442,17 @@
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBox Width="100" Margin="55,0,0,0">
+                                        <TextBox
+                                            Width="100"
+                                            Margin="100,5,5,5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-Temp1}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl72PlSpecies-Temp1}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl72PlSpeciessesList"
@@ -1972,7 +2461,17 @@
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBox Width="100" Margin="5,0,0,0">
+                                        <TextBox
+                                            Width="100"
+                                            Margin="5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-Temp2}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl72PlSpecies-Temp2}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl72PlSpeciessesList"
@@ -1983,7 +2482,17 @@
                                         </TextBox>
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <TextBox Width="100" Margin="5,0,0,0">
+                                        <TextBox
+                                            Width="100"
+                                            Margin="5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-Hardness1}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl72PlSpecies-Hardness1}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl72PlSpeciessesList"
@@ -1992,7 +2501,17 @@
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBox Width="100" Margin="5,0,0,0">
+                                        <TextBox
+                                            Width="100"
+                                            Margin="5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-Hardness2}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl72PlSpecies-Hardness2}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl72PlSpeciessesList"
@@ -2001,7 +2520,17 @@
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBox Width="100" Margin="55,0,0,0">
+                                        <TextBox
+                                            Width="100"
+                                            Margin="100,5,5,5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-CarboHardness1}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl72PlSpecies-CarboHardness1}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl72PlSpeciessesList"
@@ -2010,7 +2539,17 @@
                                                     UpdateSourceTrigger="PropertyChanged" />
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBox Width="100" Margin="5,0,0,0">
+                                        <TextBox
+                                            Width="100"
+                                            Margin="5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-CarboHardness2}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl72PlSpecies-CarboHardness2}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl72PlSpeciessesList"
@@ -2028,11 +2567,19 @@
                                                 MinHeight="100"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
-                                                Margin="5,2,0,0"
+                                                Margin="5"
                                                 VerticalAlignment="Stretch"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
                                                 AcceptsReturn="True"
-                                                Text="{Binding SelectedItem.(models:Tbl72PlSpecies.MemoTech), ElementName=Tbl72PlSpeciessesList}"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                Text="{Binding SelectedItem.(models:Tbl72PlSpecies.MemoTech), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 TextWrapping="Wrap"
+                                                ToolTip="{DynamicResource Shared-Memo}"
                                                 VerticalScrollBarVisibility="Auto" />
                                         </ScrollViewer>
                                     </StackPanel>
@@ -2045,14 +2592,22 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="700"
-                                                MinHeight="100"
+                                                MinHeight="200"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
-                                                Margin="5,2,0,0"
+                                                Margin="5"
                                                 VerticalAlignment="Stretch"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
                                                 AcceptsReturn="True"
-                                                Text="{Binding SelectedItem.(models:Tbl72PlSpecies.MemoCulture), ElementName=Tbl72PlSpeciessesList}"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                Text="{Binding SelectedItem.(models:Tbl72PlSpecies.MemoCulture), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 TextWrapping="Wrap"
+                                                ToolTip="{DynamicResource Shared-Memo}"
                                                 VerticalScrollBarVisibility="Auto" />
                                         </ScrollViewer>
                                     </StackPanel>
@@ -2065,14 +2620,22 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="700"
-                                                MinHeight="100"
+                                                MinHeight="200"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
-                                                Margin="5,2,0,0"
+                                                Margin="5"
                                                 VerticalAlignment="Stretch"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
                                                 AcceptsReturn="True"
-                                                Text="{Binding SelectedItem.(models:Tbl72PlSpecies.MemoReproduction), ElementName=Tbl72PlSpeciessesList}"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                Text="{Binding SelectedItem.(models:Tbl72PlSpecies.MemoReproduction), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 TextWrapping="Wrap"
+                                                ToolTip="{DynamicResource Shared-Memo}"
                                                 VerticalScrollBarVisibility="Auto" />
                                         </ScrollViewer>
                                     </StackPanel>
@@ -2088,11 +2651,19 @@
                                                 MinHeight="100"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
-                                                Margin="5,2,0,0"
+                                                Margin="5"
                                                 VerticalAlignment="Stretch"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
                                                 AcceptsReturn="True"
-                                                Text="{Binding SelectedItem.(models:Tbl72PlSpecies.MemoBuilt), ElementName=Tbl72PlSpeciessesList}"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                Text="{Binding SelectedItem.(models:Tbl72PlSpecies.MemoBuilt), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 TextWrapping="Wrap"
+                                                ToolTip="{DynamicResource Shared-Memo}"
                                                 VerticalScrollBarVisibility="Auto" />
                                         </ScrollViewer>
                                     </StackPanel>
@@ -2104,11 +2675,19 @@
                                                 MinHeight="100"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
-                                                Margin="5,2,0,0"
+                                                Margin="5"
                                                 VerticalAlignment="Stretch"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
                                                 AcceptsReturn="True"
-                                                Text="{Binding SelectedItem.(models:Tbl72PlSpecies.MemoColor), ElementName=Tbl72PlSpeciessesList}"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                Text="{Binding SelectedItem.(models:Tbl72PlSpecies.MemoColor), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 TextWrapping="Wrap"
+                                                ToolTip="{DynamicResource Shared-Memo}"
                                                 VerticalScrollBarVisibility="Auto" />
                                         </ScrollViewer>
                                     </StackPanel>
@@ -2120,14 +2699,22 @@
                                         <TextBox
                                             Height="Auto"
                                             MinWidth="700"
-                                            MinHeight="100"
+                                            MinHeight="200"
                                             MaxWidth="700"
                                             MaxHeight="400"
-                                            Margin="5,2,0,0"
+                                            Margin="5"
                                             VerticalAlignment="Stretch"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
                                             AcceptsReturn="True"
-                                            Text="{Binding SelectedItem.(models:Tbl72PlSpecies.MemoGlobal), ElementName=Tbl72PlSpeciessesList}"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            Text="{Binding SelectedItem.(models:Tbl72PlSpecies.MemoGlobal), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             TextWrapping="Wrap"
+                                            ToolTip="{DynamicResource Shared-Memo}"
                                             VerticalScrollBarVisibility="Auto" />
                                     </ScrollViewer>
                                 </StackPanel>
@@ -2141,10 +2728,7 @@
             <!--  Part 8.3   TK3 Connected  -->
 
 
-
             <!--  Part 8.3   TK4  Connected  -->
-
-
 
 
             <!--  Part 11  -->
@@ -2330,11 +2914,19 @@
                                     MinHeight="100"
                                     MaxWidth="700"
                                     MaxHeight="400"
-                                    Margin="5,0,0,10"
+                                    Margin="5"
                                     VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
                                     AcceptsReturn="True"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
                                     Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferenceSourcesList}"
                                     TextWrapping="Wrap"
+                                    ToolTip="{DynamicResource Shared-Memo}"
                                     VerticalScrollBarVisibility="Auto" />
                             </ScrollViewer>
                         </StackPanel>
@@ -2498,7 +3090,6 @@
                                 </TextBox.Text>
                             </TextBox>
                         </StackPanel>
-
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <TextBox
@@ -2507,11 +3098,19 @@
                                     MinHeight="100"
                                     MaxWidth="700"
                                     MaxHeight="620"
-                                    Margin="5,0,0,10"
+                                    Margin="5"
                                     VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
                                     AcceptsReturn="True"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
                                     Text="{Binding SelectedItem.(models:Tbl93Comment.Memo), ElementName=Tbl93CommentsList}"
                                     TextWrapping="Wrap"
+                                    ToolTip="{DynamicResource Shared-Memo}"
                                     VerticalScrollBarVisibility="Auto" />
                             </ScrollViewer>
                         </StackPanel>
