@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"
     d:DesignHeight="800"
-    d:DesignWidth="1550"
+    d:DesignWidth="1600"
     mc:Ignorable="d">
 
     <UserControl.Resources />
@@ -1242,7 +1242,7 @@
                 </StackPanel>
             </TabItem>
 
-            <!--  Part 4.2 TK1 Connected  -->
+            <!--  Part 8.2 TK1 Connected  -->
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl69FiSpecies-FiSpecies}">
                 <GroupBox>
@@ -1526,11 +1526,11 @@
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
-                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-ImportingYear}"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-ImporterYear}"
                                             mah:TextBoxHelper.WatermarkAlignment="Left"
                                             FontWeight="Medium"
                                             SpellCheck.IsEnabled="True"
-                                            ToolTip="{DynamicResource Tbl69FiSpecies-ImportingYear}">
+                                            ToolTip="{DynamicResource Tbl69FiSpecies-ImporterYear}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl69FiSpeciessesList"
@@ -2058,7 +2058,7 @@
                                 Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl68Speciesgroup-Infratribus}"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl68Speciesgroup-Speciesgroup}"
                                 IsSynchronizedWithCurrentItem="True"
                                 ItemsSource="{Binding Tbl68SpeciesgroupsAllList}"
                                 SelectedIndex="0"
@@ -2325,11 +2325,11 @@
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
-                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-ImportingYear}"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-ImporterYear}"
                                             mah:TextBoxHelper.WatermarkAlignment="Left"
                                             FontWeight="Medium"
                                             SpellCheck.IsEnabled="True"
-                                            ToolTip="{DynamicResource Tbl72PlSpecies-ImportingYear}">
+                                            ToolTip="{DynamicResource Tbl72PlSpecies-ImporterYear}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl72PlSpeciessesList"
@@ -2742,7 +2742,6 @@
                 <GroupBox>
                     <StackPanel Margin="0,8,5,0">
                         <StackPanel Height="Auto" Orientation="Horizontal">
-
                             <Button Template="{StaticResource SaveReferenceExpertButton}" />
                             <Button Template="{StaticResource CopyReferenceExpertButton}" />
                             <Button Template="{StaticResource AddReferenceExpertButton}" />
@@ -2754,7 +2753,7 @@
                                 Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Expert}"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefExpert-Expert}"
                                 DisplayMemberPath="RefExpertName"
                                 IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Tbl90ExpertsAllList}"
@@ -2838,7 +2837,7 @@
                                 Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Source}"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefSource-Source}"
                                 IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Tbl90SourcesAllList}"
                                 SelectedValue="{Binding SelectedItem.(models:Tbl90RefSource.RefSourceId), ElementName=Tbl90ReferenceSourcesList, Mode=TwoWay}"
@@ -2948,7 +2947,7 @@
                                 Width="700"
                                 Margin="5"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefAuthor-Author}"
                                 IsEditable="False"
                                 IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Tbl90AuthorsAllList}"

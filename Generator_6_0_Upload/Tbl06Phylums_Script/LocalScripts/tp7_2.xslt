@@ -92,7 +92,7 @@
             </xsl:when>
             <xsl:otherwise>   <![CDATA[ 
              d:DesignHeight="800" 
-             d:DesignWidth="1550"
+             d:DesignWidth="1600"
              mc:Ignorable="d">  ]]>                                            
             </xsl:otherwise>    
             </xsl:choose>                           
@@ -5019,7 +5019,7 @@
                                 Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl68Speciesgroup-Infratribus}"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl68Speciesgroup-Speciesgroup}"
                                 IsSynchronizedWithCurrentItem="True"
                                 ItemsSource="{Binding Tbl68SpeciesgroupsAllList}"
                                 SelectedIndex="0"
@@ -5097,7 +5097,7 @@
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <TextBox
-                                Width="230"
+                                Width="228"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -5125,7 +5125,7 @@
                                 </TextBox.Text>
                             </TextBox>
                             <TextBox
-                                Width="230"
+                                Width="228"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -5153,7 +5153,7 @@
                                 </TextBox.Text>
                             </TextBox>
                             <TextBox
-                                Width="230"
+                                Width="228"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -6193,897 +6193,7 @@
 </xsl:when>
 <xsl:otherwise>   
   <xsl:if test="TableFK1 !='NULL'">    <![CDATA[   
-                                            </StackPanel>
-                                            <StackPanel
-                                                Height="Auto"
-                                                Margin="0,0,0,5"
-                                                Orientation="Horizontal">
-                                            <TextBox
-                                                Width="250"
-                                                Margin="5,10,0,0"
-                                                materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-FiSpecies}"
-                                                materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                                Style="{StaticResource TextBoxInError}"
-                                                Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                                <TextBox.Text>
-                                                    <Binding
-                                                        ElementName="Tbl69FiSpeciessesList"
-                                                        Mode="TwoWay"
-                                                        Path="SelectedItem.(models:Tbl69FiSpecies.FiSpeciesName)"
-                                                        UpdateSourceTrigger="PropertyChanged">
-                                                        <Binding.ValidationRules>
-                                                            <validationRules:Name200Validator />
-                                                            <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="false" />
-                                                        </Binding.ValidationRules>
-                                                    </Binding>
-                                                </TextBox.Text>
-                                            </TextBox>
-                                            <TextBox
-                                                Width="250"
-                                                Margin="25,0,0,0"
-                                                materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-Subspecies}"
-                                                materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                                Style="{StaticResource TextBoxInError}"
-                                                Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                                <TextBox.Text>
-                                                    <Binding
-                                                        ElementName="Tbl69FiSpeciessesList"
-                                                        Mode="TwoWay"
-                                                        Path="SelectedItem.(models:Tbl69FiSpecies.Subspecies)"
-                                                        UpdateSourceTrigger="PropertyChanged">
-                                                        <Binding.ValidationRules>
-                                                            <validationRules:Name100Validator />
-                                                        </Binding.ValidationRules>
-                                                    </Binding>
-                                                </TextBox.Text>
-                                            </TextBox>
-                                            <TextBox
-                                                Width="210"
-                                                Margin="25,0,0,0"
-                                                materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-Divers}"
-                                                materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                                Style="{StaticResource TextBoxInError}"
-                                                Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                                <TextBox.Text>
-                                                    <Binding
-                                                        ElementName="Tbl69FiSpeciessesList"
-                                                        Mode="TwoWay"
-                                                        Path="SelectedItem.(models:Tbl69FiSpecies.Divers)"
-                                                        UpdateSourceTrigger="PropertyChanged">
-                                                        <Binding.ValidationRules>
-                                                            <validationRules:Name100Validator />
-                                                        </Binding.ValidationRules>
-                                                    </Binding>
-                                                </TextBox.Text>
-                                            </TextBox>
-                                        </StackPanel>
-                                        <dragablz:TabablzControl
-                                        Width="764"
-                                        Height="Auto"
-                                        Margin="0,-1,0,1"
-                                        Padding="0"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Stretch"
-                                        Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-                                        BorderThickness="0.5"
-                                            SelectedIndex="{Binding SelectedDetailSubFiSpeciesTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                        <TabItem FontWeight="Medium" Header="{DynamicResource Tbl69FiSpecies-TabItemHeaderSpecification}">
-                             <GroupBox>
-                                <StackPanel Margin="0,0,5,0">
-                           <StackPanel Height="Auto" Orientation="Horizontal">
-                                <TextBox
-                                    Width="700"
-                                    Margin="5,0,0,0"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-TradeName}"
-                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource TextBoxInError}"
-                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                    <TextBox.Text>
-                                        <Binding
-                                            Converter="{StaticResource CapFirst}"
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.TradeName)"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <validationRules:Name100Validator />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                            </StackPanel>
-                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                <CheckBox
-                                    Width="80"
-                                    Margin="5,0,0,0"
-                                    VerticalAlignment="Bottom"
-                                    Content="{DynamicResource Shared-Valid}"
-                                    FontWeight="Normal"
-                                    IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.Valid), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Style="{StaticResource MaterialDesignCheckBox}" />
-                                <TextBox
-                                    Width="50"
-                                    Margin="25,0,0,0"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-ValidYear}"
-                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    FontWeight="Medium"
-                                    Style="{StaticResource TextBoxInError}"
-                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.ValidYear)"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <validationRules:NumberValidator />
-                                                <validationRules:Year4Validator />
-                                                <validationRules:DoubleRangeRule Max="2100" Min="1000" />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                                <CheckBox
-                                    Width="120"
-                                    Margin="25,0,0,0"
-                                    VerticalAlignment="Bottom"
-                                    Content="{DynamicResource Tbl69FiSpecies-TypeSpecies}"
-                                    FontWeight="Normal"
-                                    IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.TypeSpecies), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Style="{StaticResource MaterialDesignCheckBox}" />
-                                <TextBox
-                                    Width="100"
-                                    Margin="25,0,0,0"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-FishLength}"
-                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource TextBoxInError}"
-                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                    <TextBox.Text>
-                                        <Binding
-                                           Converter="{StaticResource CapFirst}"
-                                           ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.FishLength)"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <validationRules:NumberValidator />
-                                                <validationRules:DoubleRangeRule Max="200.0" Min="0" />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                                <TextBox
-                                    Width="100"
-                                    Margin="25,0,0,0"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-BasinLength}"
-                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource TextBoxInError}"
-                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.BasinLength)"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <validationRules:NumberValidator />
-                                                <validationRules:DoubleRangeRule Max="200" Min="0" />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                            </StackPanel>
-                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                <TextBox
-                                    Width="100"
-                                    Margin="5,0,0,0"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-LNumber}"
-                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource TextBoxInError}"
-                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.LNumber)"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <validationRules:NumberValidator />
-                                                <validationRules:DoubleRangeRule Max="2000" Min="1" />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                                <TextBox
-                                    Width="100"
-                                    Margin="25,0,0,0"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-LOrigin}"
-                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource TextBoxInError}"
-                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.LOrigin)"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <validationRules:NumberValidator />
-                                                <validationRules:DoubleRangeRule Max="2000" Min="1" />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                                <TextBox
-                                    Width="100"
-                                    Margin="25,0,0,0"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-LdaNumber}"
-                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource TextBoxInError}"
-                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.LDANumber)"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <validationRules:NumberValidator />
-                                                <validationRules:DoubleRangeRule Max="2000" Min="1" />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                                <TextBox
-                                    Width="100"
-                                    Margin="25,0,0,0"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-LdaOrigin}"
-                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource TextBoxInError}"
-                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.LDAOrigin)"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <validationRules:NumberValidator />
-                                                <validationRules:DoubleRangeRule Max="2000" Min="1" />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                            </StackPanel>
-                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                <TextBox
-                                    Width="600"
-                                    Margin="5,0,0,0"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-Author}"
-                                    materialDesign:ValidationAssist.UsePopup="True"
-                                    CharacterCasing="Upper"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource TextBoxInError}"
-                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.Author)"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <validationRules:Name100Validator />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                                <TextBox
-                                    Width="90"
-                                    Margin="5"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-AuthorYear}"
-                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    FontWeight="Medium"
-                                    Style="{StaticResource TextBoxInError}"
-                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.AuthorYear)"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <validationRules:NumberValidator />
-                                                <validationRules:Year4Validator />
-                                                <validationRules:DoubleRangeRule Max="2100" Min="1000" />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                            </StackPanel>
-                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                <TextBox
-                                    Width="600"
-                                    Margin="5,0,0,0"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-Importer}"
-                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource TextBoxInError}"
-                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                    <TextBox.Text>
-                                        <Binding
-                                            Converter="{StaticResource CapFirst}"
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.Importer)"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <validationRules:Name100Validator />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                                <TextBox
-                                    Width="90"
-                                    Margin="5"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-AuthorYear}"
-                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    FontWeight="Medium"
-                                    Style="{StaticResource TextBoxInError}"
-                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.ImportingYear)"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <validationRules:NumberValidator />
-                                                <validationRules:Year4Validator />
-                                                <validationRules:DoubleRangeRule Max="2100" Min="1000" />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                            </StackPanel>
-                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                <TextBox
-                                                Height="Auto"
-                                                MinWidth="700"
-                                                MinHeight="50"
-                                                MaxWidth="700"
-                                                MaxHeight="400"
-                                    Margin="5,0,0,0"
-                                    VerticalAlignment="Stretch"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-MemoSpecies}"
-                                    AcceptsReturn="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                    Text="{Binding SelectedItem.(models:Tbl69FiSpecies.MemoSpecies), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    TextWrapping="Wrap"
-                                    VerticalScrollBarVisibility="Auto" />
-                                        </ScrollViewer>
-                                    </StackPanel>
-                                </StackPanel>
-                            </GroupBox>
-                    </TabItem>
-                    <TabItem FontWeight="Medium" Header="{DynamicResource Tbl69FiSpecies-TabItemHeaderFood}">
-                            <GroupBox>
-                                <StackPanel Margin="0,0,5,0">
-                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                <CheckBox
-                                    Width="180"
-                                    Margin="5,10,0,0"
-                                    VerticalAlignment="Bottom"
-                                    Content="{DynamicResource Tbl69FiSpecies-Karnivore}"
-                                    FontWeight="Normal"
-                                    IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.Karnivore), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Style="{StaticResource MaterialDesignCheckBox}" />
-                            </StackPanel>
-                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                <CheckBox
-                                    Width="180"
-                                    Margin="5,0,0,0"
-                                    VerticalAlignment="Bottom"
-                                    Content="{DynamicResource Tbl69FiSpecies-Herbivore}"
-                                    FontWeight="Normal"
-                                    IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.Herbivore), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Style="{StaticResource MaterialDesignCheckBox}" />
-                            </StackPanel>
-                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                <CheckBox
-                                    Width="180"
-                                    Margin="5,0,0,0"
-                                    VerticalAlignment="Bottom"
-                                    Content="{DynamicResource Tbl69FiSpecies-Limnivore}"
-                                    FontWeight="Normal"
-                                    IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.Limnivore), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Style="{StaticResource MaterialDesignCheckBox}" />
-                            </StackPanel>
-                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                <CheckBox
-                                    Width="180"
-                                    Margin="5,0,0,0"
-                                    VerticalAlignment="Bottom"
-                                    Content="{DynamicResource Tbl69FiSpecies-Omnivore}"
-                                    FontWeight="Normal"
-                                    IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.Omnivore), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Style="{StaticResource MaterialDesignCheckBox}" />
-                            </StackPanel>
-                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                            <TextBox
-                                                Height="Auto"
-                                                MinWidth="700"
-                                                MinHeight="100"
-                                                MaxWidth="700"
-                                                MaxHeight="400"
-                                    Margin="5,0,0,0"
-                                    VerticalAlignment="Stretch"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-MemoFoods}"
-                                    AcceptsReturn="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                    Text="{Binding SelectedItem.(models:Tbl69FiSpecies.MemoFoods), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    TextWrapping="Wrap"
-                                    VerticalScrollBarVisibility="Auto" />
-                                        </ScrollViewer>
-                                    </StackPanel>
-                                </StackPanel>
-                            </GroupBox>
-                    </TabItem>
-                    <TabItem FontWeight="Medium" Header="{DynamicResource Tbl69FiSpecies-TabItemHeaderTechnic}">
-                             <GroupBox>
-                                <StackPanel Margin="0,0,5,0">
-                           <StackPanel Height="Auto" Orientation="Horizontal">
-                                <CheckBox
-                                    Width="250"
-                                    Margin="5,2,0,0"
-                                    VerticalAlignment="Bottom"
-                                    Content="{DynamicResource Tbl69FiSpecies-Difficult1}"
-                                    FontWeight="Normal"
-                                    IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.Difficult1), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Style="{StaticResource MaterialDesignCheckBox}" />
-                                <CheckBox
-                                    Width="300"
-                                    Margin="5,2,0,0"
-                                    VerticalAlignment="Bottom"
-                                    Content="{DynamicResource Tbl69FiSpecies-Difficult2}"
-                                    FontWeight="Normal"
-                                    IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.Difficult2), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Style="{StaticResource MaterialDesignCheckBox}" />
-                            </StackPanel>
-                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                <CheckBox
-                                    Width="250"
-                                    Margin="5,2,0,0"
-                                    VerticalAlignment="Bottom"
-                                    Content="{DynamicResource Tbl69FiSpecies-Difficult3}"
-                                    FontWeight="Normal"
-                                    IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.Difficult3), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Style="{StaticResource MaterialDesignCheckBox}" />
-                                <CheckBox
-                                    Width="300"
-                                    Margin="5,2,0,0"
-                                    VerticalAlignment="Bottom"
-                                    Content="{DynamicResource Tbl69FiSpecies-Difficult4}"
-                                    FontWeight="Normal"
-                                    IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.Difficult4), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Style="{StaticResource MaterialDesignCheckBox}" />
-                            </StackPanel>
-                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                <CheckBox
-                                    Width="150"
-                                    Margin="5,2,0,0"
-                                    VerticalAlignment="Bottom"
-                                    Content="{DynamicResource Tbl69FiSpecies-RegionTop}"
-                                    FontWeight="Normal"
-                                    IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.RegionTop), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Style="{StaticResource MaterialDesignCheckBox}" />
-                                <CheckBox
-                                    Width="150"
-                                    Margin="5,2,0,0"
-                                    VerticalAlignment="Bottom"
-                                    Content="{DynamicResource Tbl69FiSpecies-RegionMiddle}"
-                                    FontWeight="Normal"
-                                    IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.RegionMiddle), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Style="{StaticResource MaterialDesignCheckBox}" />
-                                <CheckBox
-                                    Width="150"
-                                    Margin="5,2,0,0"
-                                    VerticalAlignment="Bottom"
-                                    Content="{DynamicResource Tbl69FiSpecies-RegionBottom}"
-                                    FontWeight="Normal"
-                                    IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.RegionBottom), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Style="{StaticResource MaterialDesignCheckBox}" />
-                            </StackPanel>
-                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                <TextBox
-                                                Height="Auto"
-                                                MinWidth="700"
-                                                MinHeight="50"
-                                                MaxWidth="700"
-                                                MaxHeight="400"
-                                    Margin="5,0,0,0"
-                                    VerticalAlignment="Stretch"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-MemoRegion}"
-                                    AcceptsReturn="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                    Text="{Binding SelectedItem.(models:Tbl69FiSpecies.MemoRegion), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    TextWrapping="Wrap"
-                                    VerticalScrollBarVisibility="Auto" />
-                                         </ScrollViewer>
-                           </StackPanel>
-                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                <TextBox
-                                    Width="100"
-                                    Margin="5,0,0,0"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-Ph1}"
-                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource TextBoxInError}"
-                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.Ph1)"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <validationRules:NumberValidator />
-                                                <validationRules:DoubleRangeRule Max="30.0" Min="0.0" />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                                <TextBox
-                                    Width="100"
-                                    Margin="5,0,0,0"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-Ph2}"
-                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource TextBoxInError}"
-                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.Ph2)"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <validationRules:NumberValidator />
-                                                <validationRules:DoubleRangeRule Max="30.0" Min="0.0" />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                                <TextBox
-                                    Width="100"
-                                    Margin="55,0,0,0"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-Temp1}"
-                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource TextBoxInError}"
-                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.Temp1)"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <validationRules:NumberValidator />
-                                                <validationRules:DoubleRangeRule Max="40" Min="0" />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                                <TextBox
-                                    Width="100"
-                                    Margin="5,0,0,0"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-Temp2}"
-                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource TextBoxInError}"
-                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.Temp2)"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <validationRules:NumberValidator />
-                                                <validationRules:DoubleRangeRule Max="40" Min="0" />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                            </StackPanel>
-                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                <TextBox
-                                    Width="100"
-                                    Margin="5,0,0,0"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-Hardness1}"
-                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource TextBoxInError}"
-                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.Hardness1)"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <validationRules:NumberValidator />
-                                                <validationRules:DoubleRangeRule Max="40" Min="0" />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                                <TextBox
-                                    Width="100"
-                                    Margin="5,0,0,0"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-Hardness2}"
-                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource TextBoxInError}"
-                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.Hardness2)"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <validationRules:NumberValidator />
-                                                <validationRules:DoubleRangeRule Max="40" Min="0" />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                                <TextBox
-                                    Width="100"
-                                    Margin="55,0,0,0"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-CarboHardness1}"
-                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource TextBoxInError}"
-                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.CarboHardness1)"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <validationRules:NumberValidator />
-                                                <validationRules:DoubleRangeRule Max="40" Min="0" />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                                <TextBox
-                                    Width="100"
-                                    Margin="5,0,0,0"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-CarboHardness2}"
-                                    materialDesign:ValidationAssist.UsePopup="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource TextBoxInError}"
-                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.CarboHardness2)"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <validationRules:NumberValidator />
-                                                <validationRules:DoubleRangeRule Max="40" Min="0" />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                            </StackPanel>
-                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                <TextBox
-                                                Height="Auto"
-                                                MinWidth="700"
-                                                MinHeight="50"
-                                                MaxWidth="700"
-                                                MaxHeight="400"
-                                    Margin="5,2,0,0"
-                                    VerticalAlignment="Stretch"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-MemoTech}"
-                                    AcceptsReturn="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                    Text="{Binding SelectedItem.(models:Tbl69FiSpecies.MemoTech), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    TextWrapping="Wrap"
-                                    VerticalScrollBarVisibility="Auto" />
-                                        </ScrollViewer>
-                                    </StackPanel>
-                                </StackPanel>
-                            </GroupBox>
-                    </TabItem>
-                    <TabItem FontWeight="Medium" Header="{DynamicResource Tbl69FiSpecies-TabItemHeaderHusbandry}">
-                            <GroupBox>
-                                <StackPanel Margin="0,0,5,0">
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                            <TextBox
-                                                Height="Auto"
-                                                MinWidth="700"
-                                                MinHeight="200"
-                                                MaxWidth="700"
-                                                MaxHeight="400"
-                                    Margin="5,2,0,0"
-                                    VerticalAlignment="Stretch"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-MemoHusbandry}"
-                                    AcceptsReturn="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                    Text="{Binding SelectedItem.(models:Tbl69FiSpecies.MemoHusbandry), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    TextWrapping="Wrap"
-                                    VerticalScrollBarVisibility="Auto" />
-                                        </ScrollViewer>
-                                    </StackPanel>
-                                </StackPanel>
-                            </GroupBox>
-                    </TabItem>
-                    <TabItem FontWeight="Medium" Header="{DynamicResource Tbl69FiSpecies-TabItemHeaderBreeding}">
-                            <GroupBox>
-                                <StackPanel Margin="0,0,5,0">
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                            <TextBox
-                                                Height="Auto"
-                                                MinWidth="700"
-                                                MinHeight="200"
-                                                MaxWidth="700"
-                                                MaxHeight="400"
-                                    Margin="5,2,0,0"
-                                    VerticalAlignment="Stretch"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-MemoBreeding}"
-                                    AcceptsReturn="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                    Text="{Binding SelectedItem.(models:Tbl69FiSpecies.MemoBreeding), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    TextWrapping="Wrap"
-                                    VerticalScrollBarVisibility="Auto" />
-                                        </ScrollViewer>
-                                    </StackPanel>
-                                </StackPanel>
-                            </GroupBox>
-                    </TabItem>
-                    <TabItem FontWeight="Medium" Header="{DynamicResource Tbl69FiSpecies-TabItemHeaderBuilt}">
-                            <GroupBox>
-                                <StackPanel Margin="0,0,5,0">
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                            <TextBox
-                                                Height="Auto"
-                                                MinWidth="700"
-                                                MinHeight="50"
-                                                MaxWidth="700"
-                                                MaxHeight="400"
-                                    Margin="5,2,0,0"
-                                    VerticalAlignment="Stretch"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-MemoBuilt}"
-                                    AcceptsReturn="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                    Text="{Binding SelectedItem.(models:Tbl69FiSpecies.MemoBuilt), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    TextWrapping="Wrap"
-                                    VerticalScrollBarVisibility="Auto" />
-                                        </ScrollViewer>
-                                    </StackPanel>
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                            <TextBox
-                                                Height="Auto"
-                                                MinWidth="700"
-                                                MinHeight="50"
-                                                MaxWidth="700"
-                                                MaxHeight="400"
-                                    Margin="5,2,0,0"
-                                    VerticalAlignment="Stretch"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-MemoColor}"
-                                    AcceptsReturn="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                    Text="{Binding SelectedItem.(models:Tbl69FiSpecies.MemoColor), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    TextWrapping="Wrap"
-                                    VerticalScrollBarVisibility="Auto" />
-                                        </ScrollViewer>
-                                    </StackPanel>
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                            <TextBox
-                                                Height="Auto"
-                                                MinWidth="700"
-                                                MinHeight="50"
-                                                MaxWidth="700"
-                                                MaxHeight="400"
-                                    Margin="5,2,0,0"
-                                    VerticalAlignment="Stretch"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-MemoSozial}"
-                                    AcceptsReturn="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                    Text="{Binding SelectedItem.(models:Tbl69FiSpecies.MemoSozial), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    TextWrapping="Wrap"
-                                    VerticalScrollBarVisibility="Auto" />
-                                        </ScrollViewer>
-                                    </StackPanel>
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                            <TextBox
-                                                Height="Auto"
-                                                MinWidth="700"
-                                                MinHeight="50"
-                                                MaxWidth="700"
-                                                MaxHeight="400"
-                                    Margin="5,2,0,0"
-                                    VerticalAlignment="Stretch"
-                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-MemoDomorphism}"
-                                    AcceptsReturn="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                    Text="{Binding SelectedItem.(models:Tbl69FiSpecies.MemoDomorphism), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    TextWrapping="Wrap"
-                                    VerticalScrollBarVisibility="Auto" />
-                                        </ScrollViewer>
-                                    </StackPanel>
-                                </StackPanel>
-                            </GroupBox>
-                    </TabItem>
-                    <TabItem FontWeight="Medium" Header="{DynamicResource Tbl69FiSpecies-TabItemHeaderSpecial}">
-                            <GroupBox>
-                                <StackPanel Margin="0,0,5,0">
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                            <TextBox
-                                                Height="Auto"
-                                                MinWidth="700"
-                                                MinHeight="200"
-                                                MaxWidth="700"
-                                                MaxHeight="400"
-                                                Margin="5,2,0,0"
-                                                VerticalAlignment="Stretch"
-                                                materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-MemoSpecial}"
-                                                AcceptsReturn="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                Text="{Binding SelectedItem.(models:Tbl69FiSpecies.MemoSpecial), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                TextWrapping="Wrap"
-                                                VerticalScrollBarVisibility="Auto" />
-                                            </ScrollViewer>
-                                        </StackPanel>
-                                    </StackPanel>
-                                </GroupBox>
-                              </TabItem>
-                            </dragablz:TabablzControl>
-                          </StackPanel>
-                        </GroupBox>
-                    </TabItem>  ]]>                 
+                   ]]>                 
   </xsl:if>       
 </xsl:otherwise>    
 </xsl:choose>                                                          
@@ -9095,11 +8205,11 @@
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
-                                            mah:TextBoxHelper.Watermark="{DynamicResource Shared-TradeName}"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-TradeName}"
                                             mah:TextBoxHelper.WatermarkAlignment="Left"
                                             FontWeight="Medium"
                                             SpellCheck.IsEnabled="True"
-                                            ToolTip="{DynamicResource Shared-TradeName}">
+                                            ToolTip="{DynamicResource Tbl69FiSpecies-TradeName}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl69FiSpeciessesList"
@@ -9139,7 +8249,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="100"
-                                            Margin="25,0,0,0"
+                                            Margin="25,5,5,5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -9158,7 +8268,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="100"
-                                            Margin="25,0,0,0"
+                                            Margin="25,5,5,5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -9199,7 +8309,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="90"
-                                            Margin="5,5,5,5"
+                                            Margin="5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -9220,7 +8330,7 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
                                             Width="600"
-                                            Margin="5,0,0,0"
+                                            Margin="5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -9243,11 +8353,11 @@
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
-                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-ImportingYear}"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-ImporterYear}"
                                             mah:TextBoxHelper.WatermarkAlignment="Left"
                                             FontWeight="Medium"
                                             SpellCheck.IsEnabled="True"
-                                            ToolTip="{DynamicResource Tbl69FiSpecies-ImportingYear}">
+                                            ToolTip="{DynamicResource Tbl69FiSpecies-ImporterYear}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl69FiSpeciessesList"
@@ -9288,7 +8398,7 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <CheckBox
                                             Width="180"
-                                            Margin="5,10,0,0"
+                                            Margin="5,10,5,5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Karnivore}"
                                             FontWeight="Normal"
@@ -9298,7 +8408,7 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <CheckBox
                                             Width="180"
-                                            Margin="5,0,0,0"
+                                            Margin="5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Herbivore}"
                                             FontWeight="Normal"
@@ -9308,7 +8418,7 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <CheckBox
                                             Width="180"
-                                            Margin="5,0,0,0"
+                                            Margin="5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Limnivore}"
                                             FontWeight="Normal"
@@ -9318,7 +8428,7 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <CheckBox
                                             Width="180"
-                                            Margin="5,0,0,0"
+                                            Margin="5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Omnivore}"
                                             FontWeight="Normal"
@@ -9329,9 +8439,9 @@
                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                                             <TextBox
                                                 Height="Auto"
-                                                MinWidth="760"
+                                                MinWidth="700"
                                                 MinHeight="100"
-                                                MaxWidth="760"
+                                                MaxWidth="700"
                                                 MaxHeight="400"
                                                 Margin="5"
                                                 VerticalAlignment="Stretch"
@@ -9355,8 +8465,8 @@
                                 <StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <CheckBox
-                                            Width="250"
-                                            Margin="5,2,0,0"
+                                            Width="300"
+                                            Margin="5,10,5,5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Difficult1}"
                                             FontWeight="Normal"
@@ -9364,7 +8474,7 @@
                                             Style="{StaticResource MahApps.Styles.CheckBox}" />
                                         <CheckBox
                                             Width="300"
-                                            Margin="5,2,0,0"
+                                            Margin="5,10,5,5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Difficult2}"
                                             FontWeight="Normal"
@@ -9373,8 +8483,8 @@
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <CheckBox
-                                            Width="250"
-                                            Margin="5,2,0,0"
+                                            Width="300"
+                                            Margin="5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Difficult3}"
                                             FontWeight="Normal"
@@ -9382,7 +8492,7 @@
                                             Style="{StaticResource MahApps.Styles.CheckBox}" />
                                         <CheckBox
                                             Width="300"
-                                            Margin="5,2,0,0"
+                                            Margin="5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Difficult4}"
                                             FontWeight="Normal"
@@ -9392,7 +8502,7 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
                                             Width="100"
-                                            Margin="55,5,5,5"
+                                            Margin="5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -9430,7 +8540,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="100"
-                                            Margin="5"
+                                            Margin="100,5,5,5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -9508,7 +8618,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="100"
-                                            Margin="55,5,5,5"
+                                            Margin="100,5,5,5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -9578,7 +8688,7 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="700"
-                                                MinHeight="100"
+                                                MinHeight="200"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
                                                 Margin="5"
@@ -9606,7 +8716,7 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="700"
-                                                MinHeight="100"
+                                                MinHeight="200"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
                                                 Margin="5"
@@ -9634,7 +8744,7 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="700"
-                                                MinHeight="100"
+                                                MinHeight="75"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
                                                 Margin="5"
@@ -9658,7 +8768,7 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="700"
-                                                MinHeight="100"
+                                                MinHeight="75"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
                                                 Margin="5"
@@ -9682,7 +8792,7 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="700"
-                                                MinHeight="100"
+                                                MinHeight="75"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
                                                 Margin="5"
@@ -9706,7 +8816,7 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="700"
-                                                MinHeight="100"
+                                                MinHeight="75"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
                                                 Margin="5"
@@ -9733,7 +8843,7 @@
                                         <TextBox
                                             Height="Auto"
                                             MinWidth="700"
-                                            MinHeight="100"
+                                            MinHeight="200"
                                             MaxWidth="700"
                                             MaxHeight="400"
                                             Margin="5"
@@ -9755,8 +8865,8 @@
                             </TabItem>
                         </TabControl>
                     </StackPanel>
-                                 </GroupBox>
-                            </TabItem>  ]]> 
+                </GroupBox>
+            </TabItem>  ]]> 
   </xsl:if>       
 </xsl:otherwise>    
 </xsl:choose>                                                          
@@ -10818,15 +9928,15 @@
                             <Button Template="{StaticResource SavePlSpeciesButton}" />
                             <Button Template="{StaticResource CopyPlSpeciesButton}" />
                             <Button Template="{StaticResource AddPlSpeciesButton}" />
-                            <Button Template="{StaticResource DeletePlSpeciesButton}" />        
+                            <Button Template="{StaticResource DeletePlSpeciesButton}" />
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ComboBox
-                                Width="250"
-                                Margin="25,5,5,5"
+                                Width="300"
+                                Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl68Speciesgroup-Infratribus}"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl68Speciesgroup-Speciesgroup}"
                                 IsSynchronizedWithCurrentItem="True"
                                 ItemsSource="{Binding Tbl68SpeciesgroupsAllList}"
                                 SelectedIndex="0"
@@ -10843,8 +9953,10 @@
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
                             <TextBox
-                                Width="250"
+                                Width="228"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -10872,7 +9984,7 @@
                                 </TextBox.Text>
                             </TextBox>
                             <TextBox
-                                Width="250"
+                                Width="228"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -10900,7 +10012,7 @@
                                 </TextBox.Text>
                             </TextBox>
                             <TextBox
-                                Width="250"
+                                Width="228"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -10943,11 +10055,11 @@
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
-                                            mah:TextBoxHelper.Watermark="{DynamicResource Shared-TradeName}"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-TradeName}"
                                             mah:TextBoxHelper.WatermarkAlignment="Left"
                                             FontWeight="Medium"
                                             SpellCheck.IsEnabled="True"
-                                            ToolTip="{DynamicResource Shared-TradeName}">
+                                            ToolTip="{DynamicResource Tbl72PlSpecies-TradeName}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl72PlSpeciessesList"
@@ -10987,7 +10099,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="100"
-                                            Margin="25,0,0,0"
+                                            Margin="25,5,5,5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -11006,7 +10118,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="100"
-                                            Margin="25,0,0,0"
+                                            Margin="25,5,5,5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -11047,7 +10159,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="90"
-                                            Margin="5,5,5,5"
+                                            Margin="5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -11068,7 +10180,7 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
                                             Width="600"
-                                            Margin="5,0,0,0"
+                                            Margin="5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -11091,11 +10203,11 @@
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
-                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-ImportingYear}"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-ImporterYear}"
                                             mah:TextBoxHelper.WatermarkAlignment="Left"
                                             FontWeight="Medium"
                                             SpellCheck.IsEnabled="True"
-                                            ToolTip="{DynamicResource Tbl72PlSpecies-ImportingYear}">
+                                            ToolTip="{DynamicResource Tbl72PlSpecies-ImporterYear}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl72PlSpeciessesList"
@@ -11135,8 +10247,8 @@
                                 <StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <CheckBox
-                                            Width="250"
-                                            Margin="5,2,0,0"
+                                            Width="300"
+                                            Margin="5,10,5,5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Difficult1}"
                                             FontWeight="Normal"
@@ -11144,7 +10256,7 @@
                                             Style="{StaticResource MahApps.Styles.CheckBox}" />
                                         <CheckBox
                                             Width="300"
-                                            Margin="5,2,0,0"
+                                            Margin="5,10,5,5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Difficult2}"
                                             FontWeight="Normal"
@@ -11153,8 +10265,8 @@
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <CheckBox
-                                            Width="250"
-                                            Margin="5,2,0,0"
+                                            Width="300"
+                                            Margin="5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Difficult3}"
                                             FontWeight="Normal"
@@ -11162,7 +10274,7 @@
                                             Style="{StaticResource MahApps.Styles.CheckBox}" />
                                         <CheckBox
                                             Width="300"
-                                            Margin="5,2,0,0"
+                                            Margin="5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Difficult4}"
                                             FontWeight="Normal"
@@ -11172,7 +10284,7 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
                                             Width="100"
-                                            Margin="55,5,5,5"
+                                            Margin="5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -11210,7 +10322,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="100"
-                                            Margin="5"
+                                            Margin="100,5,5,5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -11288,7 +10400,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="100"
-                                            Margin="55,5,5,5"
+                                            Margin="100,5,5,5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -11358,7 +10470,7 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="700"
-                                                MinHeight="100"
+                                                MinHeight="200"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
                                                 Margin="5"
@@ -11386,7 +10498,7 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="700"
-                                                MinHeight="100"
+                                                MinHeight="200"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
                                                 Margin="5"
@@ -11465,7 +10577,7 @@
                                         <TextBox
                                             Height="Auto"
                                             MinWidth="700"
-                                            MinHeight="100"
+                                            MinHeight="200"
                                             MaxWidth="700"
                                             MaxHeight="400"
                                             Margin="5"
@@ -13742,7 +12854,7 @@
                                 Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Expert}"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefExpert-Expert}"
                                 DisplayMemberPath="RefExpertName"
                                 IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Tbl90ExpertsAllList}"
@@ -14119,7 +13231,7 @@
                                 Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Source}"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefSource-Source}"
                                 IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Tbl90SourcesAllList}"
                                 SelectedValue="{Binding SelectedItem.(models:Tbl90RefSource.RefSourceId), ElementName=Tbl90ReferenceSourcesList, Mode=TwoWay}"
@@ -14581,7 +13693,7 @@
                                 Width="700"
                                 Margin="5"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefAuthor-Author}"
                                 IsEditable="False"
                                 IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Tbl90AuthorsAllList}"

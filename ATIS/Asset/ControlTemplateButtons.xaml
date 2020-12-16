@@ -2159,6 +2159,104 @@
         </Button>
     </ControlTemplate>
 
+    <!--  Speciesgroup  -->
+    <ControlTemplate x:Key="SearchSpeciesgroupsButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding GetSpeciesgroupsByNameOrIdCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageSearch" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="AddSpeciesgroupButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding AddSpeciesgroupCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="CopySpeciesgroupButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding CopySpeciesgroupCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="SaveSpeciesgroupButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding SaveSpeciesgroupCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="DeleteSpeciesgroupButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding DeleteSpeciesgroupCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
     <!--  FiSpecies  -->
     <ControlTemplate x:Key="SearchFiSpeciessesButton" TargetType="Button">
         <Button
@@ -2355,7 +2453,7 @@
         </Button>
     </ControlTemplate>
 
-    <!--  Name-->
+    <!--  Name  -->
     <ControlTemplate x:Key="SearchNamesButton" TargetType="Button">
         <Button
             Width="36"

@@ -11,7 +11,7 @@
              xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"     
         
              d:DesignHeight="800" 
-             d:DesignWidth="1550"
+             d:DesignWidth="1600"
              mc:Ignorable="d">                                              
                          
     <UserControl.Resources />                                        
@@ -1822,7 +1822,7 @@
                                 Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Expert}"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefExpert-Expert}"
                                 DisplayMemberPath="RefExpertName"
                                 IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Tbl90ExpertsAllList}"
@@ -1906,7 +1906,7 @@
                                 Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Source}"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefSource-Source}"
                                 IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Tbl90SourcesAllList}"
                                 SelectedValue="{Binding SelectedItem.(models:Tbl90RefSource.RefSourceId), ElementName=Tbl90ReferenceSourcesList, Mode=TwoWay}"
@@ -2016,7 +2016,7 @@
                                 Width="700"
                                 Margin="5"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefAuthor-Author}"
                                 IsEditable="False"
                                 IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Tbl90AuthorsAllList}"

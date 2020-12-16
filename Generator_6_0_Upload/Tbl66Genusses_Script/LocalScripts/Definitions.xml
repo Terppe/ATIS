@@ -180,6 +180,7 @@
   <BasisSm>genus</BasisSm> 
   <BasisSmFK1>infratribus</BasisSmFK1> 
   <BasisSmFK2>NULL</BasisSmFK2> 
+  <BasisSmBK1>subtribus</BasisSmBK1> 
 
   <LinqModelTK7>Tbl93Comment</LinqModelTK7> 
   <LinqModelTK6>Tbl90RefAuthor</LinqModelTK6> 

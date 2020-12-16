@@ -11,7 +11,7 @@
              xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"     
         
              d:DesignHeight="800" 
-             d:DesignWidth="1550"
+             d:DesignWidth="1600"
              mc:Ignorable="d">                                              
                          
     <UserControl.Resources />                                        
@@ -369,40 +369,8 @@
      
                      <!-- Part 7   -->        
 
-        
-                                            <ListView.View>
-                                                <GridView>
-                                                    <GridViewColumn Width="Auto" Header="{DynamicResource Tbl93Comment-CommentId}">
-                                                        <GridViewColumn.CellTemplate>
-                                                            <DataTemplate>
-                                                                <TextBlock
-                                                                        Width="100"
-                                                                        Text="{Binding (models:Tbl93Comment.CommentId)}"
-                                                                        TextAlignment="Left" />
-                                                            </DataTemplate>
-                                                        </GridViewColumn.CellTemplate>
-                                                    </GridViewColumn>
-                                                    <GridViewColumn Header="{DynamicResource Shared-Valid}">
-                                                        <GridViewColumn.CellTemplate>
-                                                            <DataTemplate>
-                                                                <StackPanel Orientation="Horizontal">
-                                                                    <CheckBox IsChecked="{Binding (models:Tbl93Comment.Valid)}" />
-                                                                </StackPanel>
-                                                            </DataTemplate>
-                                                        </GridViewColumn.CellTemplate>
-                                                    </GridViewColumn>
-                                                    <GridViewColumn
-                                                        Width="700"
-                                                        DisplayMemberBinding="{Binding (models:Tbl93Comment.Info)}"
-                                                        Header="{DynamicResource Shared-Info}" />
-                                                </GridView>
-                                            </ListView.View>
-                                        </ListView>
-                                      </GroupBox>
-                                    </StackPanel>
-                                  </ScrollViewer>
-                                </TabItem>
-                            </TabControl>     
+               
+        </TabControl>         
 
 
                      <!-- Part 2 Splitter  -->    
@@ -428,32 +396,58 @@
             Grid.ColumnSpan="3"
             Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
             SelectedIndex="{Binding SelectedDetailTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">               
-       
-                              <TabItem FontWeight="Medium" Header="{DynamicResource Tbl66Genus-Genus}"  >
-                                 <GroupBox>   
-                                    <StackPanel Margin="1">
-                                        <StackPanel Height="Auto" Orientation="Horizontal">    
-         
-                                            <ComboBox
-                                                Width="300"
-                                                Margin="25,5,5,5"
-                                                VerticalAlignment="Bottom"
-                                                mah:TextBoxHelper.UseFloatingWatermark="True"
-                                                mah:TextBoxHelper.Watermark="{DynamicResource NULL-NULL}"
-                                                DisplayMemberPath="NULL" 
-                                                IsSynchronizedWithCurrentItem="True"
-                                                ItemsSource="{Binding NULLAllList}"
-                                                SelectedIndex="0"
-                                                SelectedValue="{Binding SelectedItem.(models:NULL.NULLId), ElementName=Tbl66GenussesList, Mode=TwoWay}"
-                                                SelectedValuePath="NULLId"
-                                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
-                                                VirtualizingStackPanel.IsVirtualizing="True" />  
-          
+        
                 <TabItem FontWeight="Medium" Header="{DynamicResource Tbl68Speciesgroup-Speciesgroup}" >  
                     <StackPanel>
                         <GroupBox>
                             <StackPanel Margin="1">
                                 <StackPanel Height="Auto" Orientation="Horizontal">           
+          
+                                <Button Template="{StaticResource SaveSpeciesgroupButton}" />
+                                <Button Template="{StaticResource CopySpeciesgroupButton}" />
+                                <Button Template="{StaticResource AddSpeciesgroupButton}" />
+                                <Button Template="{StaticResource DeleteSpeciesgroupButton}" />
+                            </StackPanel>
+                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                <TextBox
+                                    Width="250"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Tbl68Speciesgroup-SpeciesgroupName}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Tbl68Speciesgroup-SpeciesgroupName}">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl68SpeciesgroupsList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl68Speciesgroup.SpeciesgroupName)"
+                                            UpdateSourceTrigger="PropertyChanged" />
+                                    </TextBox.Text>
+                                </TextBox>
+                                <TextBox
+                                    Width="250"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Tbl68Speciesgroup-Subspeciesgroup}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Tbl68Speciesgroup-Subspeciesgroup}">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl68SpeciesgroupsList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl68Speciesgroup.Subspeciesgroup)"
+                                            UpdateSourceTrigger="PropertyChanged" />
+                                    </TextBox.Text>
+                                </TextBox>
+                            </StackPanel>    
        
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <CheckBox
@@ -682,7 +676,7 @@
  
 
 
-             <!--  Part 4.2 TK1 Connected -->  
+             <!--  Part 8.2 TK1 Connected -->  
 
        
                             <TabItem  FontWeight="Medium" Header="{DynamicResource Tbl69FiSpecies-FiSpecies}"  >
@@ -696,30 +690,116 @@
                             <Button Template="{StaticResource DeleteFiSpeciesButton}" />
                     </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
-                            <TextBox
+                            <ComboBox
                                 Width="300"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl68Speciesgroup-Speciesgroup}"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl68SpeciesgroupsAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl68Speciesgroup.SpeciesgroupId), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay}"
+                                SelectedValuePath="SpeciesgroupId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding (models:Tbl68Speciesgroup.SpeciesgroupName)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl68Speciesgroup.Subspeciesgroup)}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox> 
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="228"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource  Tbl69FiSpecies-FiSpeciesName}"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-FiSpeciesName}"
                                 mah:TextBoxHelper.WatermarkAlignment="Left"
-                               FontWeight="Medium"
+                                FontWeight="Medium"
                                 SpellCheck.IsEnabled="True"
                                 ToolTip="{DynamicResource Tbl69FiSpecies-FiSpeciesName}">
+                                <TextBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Custom Item" />
+                                        <Separator />
+                                        <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                    </ContextMenu>
+                                </TextBox.ContextMenu>
                                 <TextBox.Text>
-                                                <Binding
-                                                    ElementName="Tbl69FiSpeciessesList"
-                                                    Mode="TwoWay"
-                                                    Path="SelectedItem.(models:Tbl69FiSpecies.FiSpeciesName)"
-                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                    <Binding
+                                        ElementName="Tbl69FiSpeciessesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl69FiSpecies.FiSpeciesName)"
+                                        UpdateSourceTrigger="PropertyChanged" />
                                 </TextBox.Text>
-                            </TextBox>         
-                
-                            <TabItem FontWeight="Medium" Header="{DynamicResource Shared-Connect}">
-                              <GroupBox>
-                               <TabControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedDetailSubTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">         
-       
+                            </TextBox>
+                            <TextBox
+                                Width="228"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-Subspecies}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl69FiSpecies-Subspecies}">
+                                <TextBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Custom Item" />
+                                        <Separator />
+                                        <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                    </ContextMenu>
+                                </TextBox.ContextMenu>
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl69FiSpeciessesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl69FiSpecies.Subspecies)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox
+                                Width="228"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-Divers}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl69FiSpecies-Divers}">
+                                <TextBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Custom Item" />
+                                        <Separator />
+                                        <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                    </ContextMenu>
+                                </TextBox.ContextMenu>
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl69FiSpeciessesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl69FiSpecies.Divers)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>      
+         
                         <TabControl
                             Height="Auto"
                             HorizontalAlignment="Left"
@@ -735,11 +815,11 @@
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
-                                            mah:TextBoxHelper.Watermark="{DynamicResource Shared-TradeName}"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-TradeName}"
                                             mah:TextBoxHelper.WatermarkAlignment="Left"
                                             FontWeight="Medium"
                                             SpellCheck.IsEnabled="True"
-                                            ToolTip="{DynamicResource Shared-TradeName}">
+                                            ToolTip="{DynamicResource Tbl69FiSpecies-TradeName}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl69FiSpeciessesList"
@@ -779,7 +859,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="100"
-                                            Margin="25,0,0,0"
+                                            Margin="25,5,5,5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -798,7 +878,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="100"
-                                            Margin="25,0,0,0"
+                                            Margin="25,5,5,5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -839,7 +919,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="90"
-                                            Margin="5,5,5,5"
+                                            Margin="5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -860,7 +940,7 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
                                             Width="600"
-                                            Margin="5,0,0,0"
+                                            Margin="5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -883,11 +963,11 @@
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
-                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-ImportingYear}"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-ImporterYear}"
                                             mah:TextBoxHelper.WatermarkAlignment="Left"
                                             FontWeight="Medium"
                                             SpellCheck.IsEnabled="True"
-                                            ToolTip="{DynamicResource Tbl69FiSpecies-ImportingYear}">
+                                            ToolTip="{DynamicResource Tbl69FiSpecies-ImporterYear}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl69FiSpeciessesList"
@@ -928,7 +1008,7 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <CheckBox
                                             Width="180"
-                                            Margin="5,10,0,0"
+                                            Margin="5,10,5,5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Karnivore}"
                                             FontWeight="Normal"
@@ -938,7 +1018,7 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <CheckBox
                                             Width="180"
-                                            Margin="5,0,0,0"
+                                            Margin="5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Herbivore}"
                                             FontWeight="Normal"
@@ -948,7 +1028,7 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <CheckBox
                                             Width="180"
-                                            Margin="5,0,0,0"
+                                            Margin="5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Limnivore}"
                                             FontWeight="Normal"
@@ -958,7 +1038,7 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <CheckBox
                                             Width="180"
-                                            Margin="5,0,0,0"
+                                            Margin="5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Omnivore}"
                                             FontWeight="Normal"
@@ -969,9 +1049,9 @@
                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                                             <TextBox
                                                 Height="Auto"
-                                                MinWidth="760"
+                                                MinWidth="700"
                                                 MinHeight="100"
-                                                MaxWidth="760"
+                                                MaxWidth="700"
                                                 MaxHeight="400"
                                                 Margin="5"
                                                 VerticalAlignment="Stretch"
@@ -995,8 +1075,8 @@
                                 <StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <CheckBox
-                                            Width="250"
-                                            Margin="5,2,0,0"
+                                            Width="300"
+                                            Margin="5,10,5,5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Difficult1}"
                                             FontWeight="Normal"
@@ -1004,7 +1084,7 @@
                                             Style="{StaticResource MahApps.Styles.CheckBox}" />
                                         <CheckBox
                                             Width="300"
-                                            Margin="5,2,0,0"
+                                            Margin="5,10,5,5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Difficult2}"
                                             FontWeight="Normal"
@@ -1013,8 +1093,8 @@
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <CheckBox
-                                            Width="250"
-                                            Margin="5,2,0,0"
+                                            Width="300"
+                                            Margin="5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Difficult3}"
                                             FontWeight="Normal"
@@ -1022,7 +1102,7 @@
                                             Style="{StaticResource MahApps.Styles.CheckBox}" />
                                         <CheckBox
                                             Width="300"
-                                            Margin="5,2,0,0"
+                                            Margin="5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Difficult4}"
                                             FontWeight="Normal"
@@ -1032,7 +1112,7 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
                                             Width="100"
-                                            Margin="55,5,5,5"
+                                            Margin="5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1070,7 +1150,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="100"
-                                            Margin="5"
+                                            Margin="100,5,5,5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1148,7 +1228,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="100"
-                                            Margin="55,5,5,5"
+                                            Margin="100,5,5,5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1218,7 +1298,7 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="700"
-                                                MinHeight="100"
+                                                MinHeight="200"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
                                                 Margin="5"
@@ -1246,7 +1326,7 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="700"
-                                                MinHeight="100"
+                                                MinHeight="200"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
                                                 Margin="5"
@@ -1274,7 +1354,7 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="700"
-                                                MinHeight="100"
+                                                MinHeight="75"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
                                                 Margin="5"
@@ -1298,7 +1378,7 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="700"
-                                                MinHeight="100"
+                                                MinHeight="75"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
                                                 Margin="5"
@@ -1322,7 +1402,7 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="700"
-                                                MinHeight="100"
+                                                MinHeight="75"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
                                                 Margin="5"
@@ -1346,7 +1426,7 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="700"
-                                                MinHeight="100"
+                                                MinHeight="75"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
                                                 Margin="5"
@@ -1373,7 +1453,7 @@
                                         <TextBox
                                             Height="Auto"
                                             MinWidth="700"
-                                            MinHeight="100"
+                                            MinHeight="200"
                                             MaxWidth="700"
                                             MaxHeight="400"
                                             Margin="5"
@@ -1395,8 +1475,8 @@
                             </TabItem>
                         </TabControl>
                     </StackPanel>
-                                 </GroupBox>
-                            </TabItem>   
+                </GroupBox>
+            </TabItem>   
                                                             
                                                                                                                                                                                                                                                                                                   
                      <!-- Part 8.3  TK2  Connected-->           
@@ -1407,75 +1487,18 @@
                                   <StackPanel Margin="1">
                                     <StackPanel Height="Auto" Orientation="Horizontal">       
          
-                                                <Button
-                                                    Margin="0,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    Command="{Binding CopyPlSpeciesCommand}"
-                                                    Style="{StaticResource MaterialDesignFlatButton}"
-                                                    ToolTip="{DynamicResource Shared-ActionLnkCopy}">
-                                                    <materialDesign:PackIcon
-                                                        Width="24"
-                                                        Height="24"
-                                                        Margin="0,0,-5,0"
-                                                        Kind="ContentCopy"
-                                                        Opacity=".56" />
-                                                </Button>
-                                                <Button
-                                                    Margin="0,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    Command="{Binding AddPlSpeciesCommand}"
-                                                    Style="{StaticResource MaterialDesignFlatButton}"
-                                                    ToolTip="{DynamicResource Shared-ActionLnkCreate}">
-                                                    <materialDesign:PackIcon
-                                                        Width="24"
-                                                        Height="24"
-                                                        Margin="0,0,-5,0"
-                                                        Kind="Plus"
-                                                        Opacity=".56" />
-                                                </Button>
-                                                <Button
-                                                    Margin="0,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    Command="{Binding DeletePlSpeciesCommand}"
-                                                    Style="{StaticResource MaterialDesignFlatButton}"
-                                                    ToolTip="{DynamicResource Shared-ActionLnkDelete}">
-                                                    <materialDesign:PackIcon
-                                                        Width="24"
-                                                        Height="24"
-                                                        Margin="0,0,-5,0"
-                                                        Kind="Delete"
-                                                        Opacity=".56" />
-                                                </Button>   
-          
-                                              </StackPanel>
-                                              <StackPanel Height="Auto" Orientation="Horizontal">
-                                                 <ComboBox
-                                                    Width="450"
-                                                    Margin="5,0,0,0"
-                                                    VerticalAlignment="Bottom"
-                                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl66Genus-GenusName}"
-                                                    DisplayMemberPath="GenusName"
-                                                    IsSynchronizedWithCurrentItem="True"
-                                                    ItemContainerStyle="{StaticResource ComboStyle}"
-                                                    ItemsSource="{Binding Tbl66GenussesAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
-                                                    SelectedValue="{Binding SelectedItem.(models:Tbl66Genus.GenusID), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay}"
-                                                    SelectedValuePath="GenusID"
-                                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                                    VirtualizingStackPanel.IsVirtualizing="True" />
-                                            </StackPanel>        
-       
                             <Button Template="{StaticResource SavePlSpeciesButton}" />
                             <Button Template="{StaticResource CopyPlSpeciesButton}" />
                             <Button Template="{StaticResource AddPlSpeciesButton}" />
-                            <Button Template="{StaticResource DeletePlSpeciesButton}" />        
+                            <Button Template="{StaticResource DeletePlSpeciesButton}" />
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ComboBox
-                                Width="250"
-                                Margin="25,5,5,5"
+                                Width="300"
+                                Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl68Speciesgroup-Infratribus}"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl68Speciesgroup-Speciesgroup}"
                                 IsSynchronizedWithCurrentItem="True"
                                 ItemsSource="{Binding Tbl68SpeciesgroupsAllList}"
                                 SelectedIndex="0"
@@ -1492,8 +1515,10 @@
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
                             <TextBox
-                                Width="250"
+                                Width="228"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -1521,7 +1546,7 @@
                                 </TextBox.Text>
                             </TextBox>
                             <TextBox
-                                Width="250"
+                                Width="228"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -1549,7 +1574,7 @@
                                 </TextBox.Text>
                             </TextBox>
                             <TextBox
-                                Width="250"
+                                Width="228"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -1592,11 +1617,11 @@
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
-                                            mah:TextBoxHelper.Watermark="{DynamicResource Shared-TradeName}"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-TradeName}"
                                             mah:TextBoxHelper.WatermarkAlignment="Left"
                                             FontWeight="Medium"
                                             SpellCheck.IsEnabled="True"
-                                            ToolTip="{DynamicResource Shared-TradeName}">
+                                            ToolTip="{DynamicResource Tbl72PlSpecies-TradeName}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl72PlSpeciessesList"
@@ -1636,7 +1661,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="100"
-                                            Margin="25,0,0,0"
+                                            Margin="25,5,5,5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1655,7 +1680,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="100"
-                                            Margin="25,0,0,0"
+                                            Margin="25,5,5,5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1696,7 +1721,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="90"
-                                            Margin="5,5,5,5"
+                                            Margin="5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1717,7 +1742,7 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
                                             Width="600"
-                                            Margin="5,0,0,0"
+                                            Margin="5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1740,11 +1765,11 @@
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
-                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-ImportingYear}"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-ImporterYear}"
                                             mah:TextBoxHelper.WatermarkAlignment="Left"
                                             FontWeight="Medium"
                                             SpellCheck.IsEnabled="True"
-                                            ToolTip="{DynamicResource Tbl72PlSpecies-ImportingYear}">
+                                            ToolTip="{DynamicResource Tbl72PlSpecies-ImporterYear}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl72PlSpeciessesList"
@@ -1784,8 +1809,8 @@
                                 <StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <CheckBox
-                                            Width="250"
-                                            Margin="5,2,0,0"
+                                            Width="300"
+                                            Margin="5,10,5,5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Difficult1}"
                                             FontWeight="Normal"
@@ -1793,7 +1818,7 @@
                                             Style="{StaticResource MahApps.Styles.CheckBox}" />
                                         <CheckBox
                                             Width="300"
-                                            Margin="5,2,0,0"
+                                            Margin="5,10,5,5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Difficult2}"
                                             FontWeight="Normal"
@@ -1802,8 +1827,8 @@
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <CheckBox
-                                            Width="250"
-                                            Margin="5,2,0,0"
+                                            Width="300"
+                                            Margin="5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Difficult3}"
                                             FontWeight="Normal"
@@ -1811,7 +1836,7 @@
                                             Style="{StaticResource MahApps.Styles.CheckBox}" />
                                         <CheckBox
                                             Width="300"
-                                            Margin="5,2,0,0"
+                                            Margin="5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Tbl69FiSpecies-Difficult4}"
                                             FontWeight="Normal"
@@ -1821,7 +1846,7 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
                                             Width="100"
-                                            Margin="55,5,5,5"
+                                            Margin="5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1859,7 +1884,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="100"
-                                            Margin="5"
+                                            Margin="100,5,5,5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1937,7 +1962,7 @@
                                         </TextBox>
                                         <TextBox
                                             Width="100"
-                                            Margin="55,5,5,5"
+                                            Margin="100,5,5,5"
                                             HorizontalContentAlignment="Stretch"
                                             mah:TextBoxHelper.IsWaitingForData="True"
                                             mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -2007,7 +2032,7 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="700"
-                                                MinHeight="100"
+                                                MinHeight="200"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
                                                 Margin="5"
@@ -2035,7 +2060,7 @@
                                             <TextBox
                                                 Height="Auto"
                                                 MinWidth="700"
-                                                MinHeight="100"
+                                                MinHeight="200"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
                                                 Margin="5"
@@ -2114,7 +2139,7 @@
                                         <TextBox
                                             Height="Auto"
                                             MinWidth="700"
-                                            MinHeight="100"
+                                            MinHeight="200"
                                             MaxWidth="700"
                                             MaxHeight="400"
                                             Margin="5"
@@ -2138,10 +2163,7 @@
          
                                         </StackPanel>
                                     </GroupBox>
-                                </TabItem>
-                            </dragablz:TabablzControl>
-                        </GroupBox>
-                    </TabItem>  
+                             </TabItem>  
   
      
                      <!-- Part 8.3   TK3 Connected -->           
@@ -2160,9 +2182,7 @@
                      <!-- Part 13  -->                
 
           
-                </dragablz:TabablzControl>
-            </Grid>
-        </ScrollViewer>               
+                </TabControl>               
         
   </Grid>
 </UserControl>

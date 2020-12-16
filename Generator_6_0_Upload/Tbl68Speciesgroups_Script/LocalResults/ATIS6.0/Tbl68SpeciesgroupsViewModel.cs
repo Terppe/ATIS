@@ -290,12 +290,16 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
         }
         //----------------------------------------------------------------------              
              
-        private void CopyFiSpecies(object o)
+        private void ExecuteCopyFiSpecies(object o)
         {
+            if (_genFiSpeciesMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl69FiSpecies)) return;
+            if (_genPlSpeciesMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl72PlSpecies)) return;
+
+            // evtl verbundene tabellen-Datensätze auch kopieren Names, Images, Synonyms und Geographics
+
             FiSpeciessesView = CollectionViewSource.GetDefaultView(Tbl69FiSpeciessesList);
             FiSpeciessesView.MoveCurrentToFirst();
-        }
-        //----------------------------------------------------------------------            
+        }        
                   
         private void ExecuteDeleteFiSpecies(string searchName)
         {
@@ -407,14 +411,6 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
         }
 
         #endregion [Public Methods  Connect ==> Tbl69FiSpecies]                                                                                                                                            
-                  
-        private void SaveFiSpecies(object o)
-        {
-            SelectedMainTabIndex = 1;
-            FiSpeciessesView = CollectionViewSource.GetDefaultView(Tbl69FiSpeciessesList);
-            FiSpeciessesView.Refresh();
-        }
-        #endregion "Public Commands"                                                                                                                              
                                                           
 
 

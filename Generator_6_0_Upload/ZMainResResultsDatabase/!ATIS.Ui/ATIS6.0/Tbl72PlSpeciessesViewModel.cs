@@ -411,14 +411,53 @@ namespace ATIS.Ui.Views.Database.ListDetails
             NamesView.MoveCurrentToFirst();
         }
         //----------------------------------------------------------------------            
-             
-        private void DeleteName(object o)
-        {
+           
+            //Delete all References Experts, Sources, Authors  ----------------------------------------------------
+            Tbl90ReferencesList = _extCrud.DeleteDatasetsWithNameIdInTableReference(CurrentTbl78Name);
+            if (Tbl90ReferencesList.Count > 0)
+            {
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+
+                _extCrud.DeleteReferences(Tbl90ReferencesList);
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
+            }
+
+            //Delete all Comments  ----------------------------------------------------
+            Tbl93CommentsList = _extCrud.DeleteDatasetsWithNameIdInTableComment(CurrentTbl78Name);
+            if (Tbl93CommentsList.Count > 0)
+            {
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
+
+                _extCrud.DeleteComments(Tbl93CommentsList);
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
+            }
+
+            try 
+            {
+                var name = _uow.Tbl78Names.GetById(CurrentTbl78Name.NameId);
+                if (name != null)
+                {
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl78Name.NameName)) return;
+
+                    _extCrud.DeleteName(name);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl78Name.NameName);
+                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl78Name.NameName + " " + CultRes.StringsRes.DeleteCan1);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+            Tbl78NamesList = _extCrud.GetNamesCollectionFromPlSpeciesIdOrderBy<Tbl78Name>(CurrentTbl78Name.PlSpeciesId);
 
             NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
-            NamesView.Refresh();
-        }
-        //-------------------------------------------------------------------------------------------------                    
+            NamesView.MoveCurrentToFirst();
+        }                 
       
     
         private void SaveName(object o)
@@ -444,8 +483,8 @@ namespace ATIS.Ui.Views.Database.ListDetails
  //    Part 5    
 
                        
-        #region "Public Commands Connect ==> Tbl81Image"                 
-        //-------------------------------------------------------------------------
+        #region [Public Commands Connect ==> Tbl81Image]                 
+        
         private RelayCommand _addImageCommand;
 
         public ICommand AddImageCommand => _addImageCommand ??= new RelayCommand(delegate { ExecuteAddImage(null); });
@@ -460,9 +499,10 @@ namespace ATIS.Ui.Views.Database.ListDetails
 
         private RelayCommand _saveImageCommand;
 
-        public ICommand SaveImageCommand => _saveImageCommand ??= new RelayCommand(delegate { ExecuteSaveImage(null); });
+        public ICommand SaveImageCommand => _saveImageCommand ??= new RelayCommand(delegate { ExecuteSaveImage(null); });        
+        #endregion [Public Commands Connect ==> Tbl81Image]                
 
-        //-------------------------------------------------------------------------          
+        #region [Public Methods Connect ==> Tbl81Image]                        
            
         private void AddImage(object o)      
         {

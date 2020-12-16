@@ -25,11 +25,15 @@
     xmlns:d66Genus="clr-namespace:ATIS.Ui.Views.Database.D66Genus"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d68Speciesgroup="clr-namespace:ATIS.Ui.Views.Database.D68Speciesgroup"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
 
     <UserControl.Resources>
+        <DataTemplate DataType="{x:Type d68Speciesgroup:SpeciesgroupsViewModel}">
+            <d68Speciesgroup:SpeciesgroupsView />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type d66Genus:GenussesViewModel}">
             <d66Genus:GenussesView />
         </DataTemplate>
@@ -103,7 +107,9 @@
             <TabItem Header="{DynamicResource Database-MenuGenus}">
                 <d66Genus:GenussesViewModel />
             </TabItem>
-            <TabItem Content="{Binding Tbl68SpeciesgroupsView}" Header="{DynamicResource Database-MenuSpeciesgroup}" />
+            <TabItem Header="{DynamicResource Database-MenuSpeciesgroup}">
+                <d68Speciesgroup:SpeciesgroupsViewModel />
+            </TabItem>
             <TabItem Header="{DynamicResource Database-MenuTribus}">
                 <TabControl
                     Height="Auto"

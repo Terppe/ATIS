@@ -14,7 +14,7 @@
              xmlns:helper="clr-namespace:Te.Atis.Ui.Desktop.Domain.Helper"                                              
         
              d:DesignHeight="800" 
-             d:DesignWidth="1550"
+             d:DesignWidth="1600"
              mc:Ignorable="d">                                              
                          
     <UserControl.Resources />                                        
