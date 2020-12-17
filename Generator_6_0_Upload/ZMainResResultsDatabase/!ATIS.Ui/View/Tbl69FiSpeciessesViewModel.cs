@@ -19,7 +19,7 @@ using System.IO;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;  
     
-         //    Tbl69FiSpeciessesViewModel Skriptdatum:  15.12.2019  10:32    
+         //    Tbl69FiSpeciessesViewModel Skriptdatum:  17.12.2020  10:32    
 
 namespace WPFUI.Views.Database
 {     

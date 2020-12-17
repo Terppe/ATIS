@@ -2,7 +2,7 @@
  <Definition>
   <File>Tbl69FiSpeciesses</File>
 
-  <DateTime>15.12.2019  10:32</DateTime>  
+  <DateTime>17.12.2020  10:32</DateTime>  
   <Namespace>Atis</Namespace>  
   <ConnString></ConnString> 
   <RegisterContext>ATISEntities</RegisterContext > 
@@ -15,7 +15,7 @@
   <LayoutTK1>D78Name</LayoutTK1>
   <Layout>D69FiSpecies</Layout>
   <LayoutFK1>D66Genus</LayoutFK1>
-  <LayoutFK2>ListDetails</LayoutFK2>
+  <LayoutFK2>D68Speciesgroup</LayoutFK2>
   <LayoutBK1>ListDetails</LayoutBK1>
   <LayoutBK2>ListDetails</LayoutBK2>
   <LayoutBK3>ListDetails</LayoutBK3>

@@ -195,12 +195,12 @@
           #region Delete FiSpecies
 
                 //------------------------------ FiSpecies --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl69FiSpecies selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithFiSpeciesIdInTableReference(Tbl69FiSpecies selected)
         {
             var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl69FiSpecies selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithFiSpeciesIdInTableComment(Tbl69FiSpecies selected)
         {
             var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
             return collection;

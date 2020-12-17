@@ -1018,16 +1018,16 @@ namespace ATIS.Ui.Helper
           #region Delete Phylum
 
         //------------------------------ Phylum --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl06Phylum selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.PhylumId == selected.PhylumId));
-            return collection;
-        }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl06Phylum selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.PhylumId == selected.PhylumId));
-            return collection;
-        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithPhylumIdInTableReference(Tbl06Phylum selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.PhylumId == selected.PhylumId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithPhylumIdInTableComment(Tbl06Phylum selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.PhylumId == selected.PhylumId));
+        //    return collection;
+        //}
 
         //------------------------------ Subphylum --------------------------------------------------------------------------------------------
         public void DeleteSubphylum(Tbl12Subphylum selected)
@@ -1054,7 +1054,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-        #region Save Phylum 
+          #region Save Phylum 
 
         //------------------ Subphylum ---------------------------------------
         public Tbl12Subphylum SubphylumUpdate(Tbl12Subphylum home, Tbl12Subphylum selected)
@@ -1427,16 +1427,16 @@ namespace ATIS.Ui.Helper
           #region Delete Division
 
         //------------------------------ Division --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl09Division selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.DivisionId == selected.DivisionId));
-            return collection;
-        }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl09Division selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.DivisionId == selected.DivisionId));
-            return collection;
-        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithDivisionIdInTableReference(Tbl09Division selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.DivisionId == selected.DivisionId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithDivisionIdInTableComment(Tbl09Division selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.DivisionId == selected.DivisionId));
+        //    return collection;
+        //}
 
         //------------------------------ Subdivision --------------------------------------------------------------------------------------------
         public void DeleteSubdivision(Tbl15Subdivision selected)
@@ -1662,7 +1662,7 @@ namespace ATIS.Ui.Helper
 
         #region Subphylum
 
-        #region Get Subphylum
+          #region Get Subphylum
 
         //----------------------------------------   Subphylum   ------------------------
         private ObservableCollection<T> GetSubphylumsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -1757,7 +1757,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-        #region Copy Subphylum
+          #region Copy Subphylum
 
         // ----------------------------------------   Superclass  ------------------------
         public ObservableCollection<Tbl18Superclass> CopySuperclass(Tbl18Superclass selected)
@@ -1832,19 +1832,19 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-        #region Delete Subphylum
+          #region Delete Subphylum
 
         //------------------------------ Subphylum --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl12Subphylum selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubphylumId == selected.SubphylumId));
-            return collection;
-        }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl12Subphylum selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubphylumId == selected.SubphylumId));
-            return collection;
-        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubphylumIdInTableReference(Tbl12Subphylum selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubphylumId == selected.SubphylumId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubphylumIdInTableComment(Tbl12Subphylum selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubphylumId == selected.SubphylumId));
+        //    return collection;
+        //}
 
         //------------------------------ Superclass --------------------------------------------------------------------------------------------
         public void DeleteSuperclass(Tbl18Superclass selected)
@@ -1871,7 +1871,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-        #region Save Subphylum 
+          #region Save Subphylum 
 
         //------------------ Superclass ---------------------------------------
         public Tbl18Superclass SuperclassUpdate(Tbl18Superclass home, Tbl18Superclass selected)
@@ -2243,16 +2243,16 @@ namespace ATIS.Ui.Helper
           #region Delete Subdivision
 
         //------------------------------ Subdivision --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl15Subdivision selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubdivisionId == selected.SubdivisionId));
-            return collection;
-        }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl15Subdivision selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubdivisionId == selected.SubdivisionId));
-            return collection;
-        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubdivisionIdInTableReference(Tbl15Subdivision selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubdivisionId == selected.SubdivisionId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubdivisionIdInTableComment(Tbl15Subdivision selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubdivisionId == selected.SubdivisionId));
+        //    return collection;
+        //}
 
         ////------------------------------ Superclass --------------------------------------------------------------------------------------------
         //public void DeleteSuperclass(Tbl18Superclass selected)
@@ -2651,16 +2651,16 @@ namespace ATIS.Ui.Helper
           #region Delete Superclass
 
         //------------------------------ Superclass --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl18Superclass selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SuperclassId == selected.SuperclassId));
-            return collection;
-        }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl18Superclass selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SuperclassId == selected.SuperclassId));
-            return collection;
-        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSuperclassIdInTableReference(Tbl18Superclass selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SuperclassId == selected.SuperclassId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSuperclassIdInTableComment(Tbl18Superclass selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SuperclassId == selected.SuperclassId));
+        //    return collection;
+        //}
 
         //------------------------------ Class --------------------------------------------------------------------------------------------
         public void DeleteClass(Tbl21Class selected)
@@ -3059,16 +3059,16 @@ namespace ATIS.Ui.Helper
           #region Delete Class
 
         //------------------------------ Class --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl21Class selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.ClassId == selected.ClassId));
-            return collection;
-        }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl21Class selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.ClassId == selected.ClassId));
-            return collection;
-        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithClassIdInTableReference(Tbl21Class selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.ClassId == selected.ClassId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithClassIdInTableComment(Tbl21Class selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.ClassId == selected.ClassId));
+        //    return collection;
+        //}
 
         //------------------------------ Subclass --------------------------------------------------------------------------------------------
         public void DeleteSubclass(Tbl24Subclass selected)
@@ -3467,16 +3467,16 @@ namespace ATIS.Ui.Helper
           #region Delete Subclass
 
         //------------------------------ Subclass --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl24Subclass selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubclassId == selected.SubclassId));
-            return collection;
-        }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl24Subclass selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubclassId == selected.SubclassId));
-            return collection;
-        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubclassIdInTableReference(Tbl24Subclass selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubclassId == selected.SubclassId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubclassIdInTableComment(Tbl24Subclass selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubclassId == selected.SubclassId));
+        //    return collection;
+        //}
 
         //------------------------------ Infraclass --------------------------------------------------------------------------------------------
         public void DeleteInfraclass(Tbl27Infraclass selected)
@@ -3876,16 +3876,16 @@ namespace ATIS.Ui.Helper
           #region Delete Infraclass
 
         //------------------------------ Infraclass --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl27Infraclass selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.InfraclassId == selected.InfraclassId));
-            return collection;
-        }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl27Infraclass selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.InfraclassId == selected.InfraclassId));
-            return collection;
-        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithInfraclassIdInTableReference(Tbl27Infraclass selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.InfraclassId == selected.InfraclassId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithInfraclassIdInTableComment(Tbl27Infraclass selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.InfraclassId == selected.InfraclassId));
+        //    return collection;
+        //}
 
         //------------------------------ Legio --------------------------------------------------------------------------------------------
         public void DeleteLegio(Tbl30Legio selected)
@@ -4284,16 +4284,16 @@ namespace ATIS.Ui.Helper
           #region Delete Legio
 
         //------------------------------ Legio --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl30Legio selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.LegioId == selected.LegioId));
-            return collection;
-        }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl30Legio selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.LegioId == selected.LegioId));
-            return collection;
-        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithLegioIdInTableReference(Tbl30Legio selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.LegioId == selected.LegioId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithLegioIdInTableComment(Tbl30Legio selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.LegioId == selected.LegioId));
+        //    return collection;
+        //}
 
         //------------------------------ Ordo --------------------------------------------------------------------------------------------
         public void DeleteOrdo(Tbl33Ordo selected)
@@ -4692,16 +4692,16 @@ namespace ATIS.Ui.Helper
           #region Delete Ordo
 
         //------------------------------ Ordo --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl33Ordo selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.OrdoId == selected.OrdoId));
-            return collection;
-        }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl33Ordo selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.OrdoId == selected.OrdoId));
-            return collection;
-        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithOrdoIdInTableReference(Tbl33Ordo selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.OrdoId == selected.OrdoId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithOrdoIdInTableComment(Tbl33Ordo selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.OrdoId == selected.OrdoId));
+        //    return collection;
+        //}
 
         //------------------------------ Subordo --------------------------------------------------------------------------------------------
         public void DeleteSubordo(Tbl36Subordo selected)
@@ -5100,16 +5100,16 @@ namespace ATIS.Ui.Helper
           #region Delete Subordo
 
         //------------------------------ Subordo --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl36Subordo selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubordoId == selected.SubordoId));
-            return collection;
-        }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl36Subordo selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubordoId == selected.SubordoId));
-            return collection;
-        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubordoIdInTableReference(Tbl36Subordo selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubordoId == selected.SubordoId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubordoIdInTableComment(Tbl36Subordo selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubordoId == selected.SubordoId));
+        //    return collection;
+        //}
 
         //------------------------------ Infraordo --------------------------------------------------------------------------------------------
         public void DeleteInfraordo(Tbl39Infraordo selected)
@@ -5508,16 +5508,16 @@ namespace ATIS.Ui.Helper
           #region Delete Infraordo
 
         //------------------------------ Infraordo --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl39Infraordo selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.InfraordoId == selected.InfraordoId));
-            return collection;
-        }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl39Infraordo selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.InfraordoId == selected.InfraordoId));
-            return collection;
-        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithInfraordoIdInTableReference(Tbl39Infraordo selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.InfraordoId == selected.InfraordoId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithInfraordoIdInTableComment(Tbl39Infraordo selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.InfraordoId == selected.InfraordoId));
+        //    return collection;
+        //}
 
         //------------------------------ Superfamily --------------------------------------------------------------------------------------------
         public void DeleteSuperfamily(Tbl42Superfamily selected)
@@ -5916,16 +5916,16 @@ namespace ATIS.Ui.Helper
           #region Delete Superfamily
 
         //------------------------------ Superfamily --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl42Superfamily selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SuperfamilyId == selected.SuperfamilyId));
-            return collection;
-        }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl42Superfamily selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SuperfamilyId == selected.SuperfamilyId));
-            return collection;
-        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSuperfamilyIdInTableReference(Tbl42Superfamily selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SuperfamilyId == selected.SuperfamilyId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSuperfamilyIdInTableComment(Tbl42Superfamily selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SuperfamilyId == selected.SuperfamilyId));
+        //    return collection;
+        //}
 
         //------------------------------ Family --------------------------------------------------------------------------------------------
         public void DeleteFamily(Tbl45Family selected)
@@ -6324,16 +6324,16 @@ namespace ATIS.Ui.Helper
           #region Delete Family
 
         //------------------------------ Family --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl45Family selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.FamilyId == selected.FamilyId));
-            return collection;
-        }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl45Family selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.FamilyId == selected.FamilyId));
-            return collection;
-        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithFamilyIdInTableReference(Tbl45Family selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.FamilyId == selected.FamilyId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithFamilyIdInTableComment(Tbl45Family selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.FamilyId == selected.FamilyId));
+        //    return collection;
+        //}
 
         //------------------------------ Subfamily --------------------------------------------------------------------------------------------
         public void DeleteSubfamily(Tbl48Subfamily selected)
@@ -6732,16 +6732,16 @@ namespace ATIS.Ui.Helper
           #region Delete Subfamily
 
         //------------------------------ Subfamily --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl48Subfamily selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubfamilyId == selected.SubfamilyId));
-            return collection;
-        }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl48Subfamily selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubfamilyId == selected.SubfamilyId));
-            return collection;
-        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubfamilyIdInTableReference(Tbl48Subfamily selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubfamilyId == selected.SubfamilyId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubfamilyIdInTableComment(Tbl48Subfamily selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubfamilyId == selected.SubfamilyId));
+        //    return collection;
+        //}
 
         //------------------------------ Infrafamily --------------------------------------------------------------------------------------------
         public void DeleteInfrafamily(Tbl51Infrafamily selected)
@@ -7140,16 +7140,16 @@ namespace ATIS.Ui.Helper
           #region Delete Infrafamily
 
         //------------------------------ Infrafamily --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl51Infrafamily selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.InfrafamilyId == selected.InfrafamilyId));
-            return collection;
-        }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl51Infrafamily selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.InfrafamilyId == selected.InfrafamilyId));
-            return collection;
-        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithInfrafamilyIdInTableReference(Tbl51Infrafamily selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.InfrafamilyId == selected.InfrafamilyId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithInfrafamilyIdInTableComment(Tbl51Infrafamily selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.InfrafamilyId == selected.InfrafamilyId));
+        //    return collection;
+        //}
 
         //------------------------------ Supertribus --------------------------------------------------------------------------------------------
         public void DeleteSupertribus(Tbl54Supertribus selected)
@@ -7548,16 +7548,16 @@ namespace ATIS.Ui.Helper
           #region Delete Supertribus
 
         //------------------------------ Supertribus --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl54Supertribus selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SupertribusId == selected.SupertribusId));
-            return collection;
-        }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl54Supertribus selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SupertribusId == selected.SupertribusId));
-            return collection;
-        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSupertribusIdInTableReference(Tbl54Supertribus selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SupertribusId == selected.SupertribusId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSupertribusIdInTableComment(Tbl54Supertribus selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SupertribusId == selected.SupertribusId));
+        //    return collection;
+        //}
 
         //------------------------------ Tribus --------------------------------------------------------------------------------------------
         public void DeleteTribus(Tbl57Tribus selected)
@@ -7956,16 +7956,16 @@ namespace ATIS.Ui.Helper
           #region Delete Tribus
 
         //------------------------------ Tribus --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl57Tribus selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.TribusId == selected.TribusId));
-            return collection;
-        }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl57Tribus selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.TribusId == selected.TribusId));
-            return collection;
-        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithTribusIdInTableReference(Tbl57Tribus selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.TribusId == selected.TribusId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithTribusIdInTableComment(Tbl57Tribus selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.TribusId == selected.TribusId));
+        //    return collection;
+        //}
 
         //------------------------------ Subtribus --------------------------------------------------------------------------------------------
         public void DeleteSubtribus(Tbl60Subtribus selected)
@@ -9286,16 +9286,16 @@ namespace ATIS.Ui.Helper
           #region Delete Genus
 
         //------------------------------ Genus --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl66Genus selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.GenusId == selected.GenusId));
-            return collection;
-        }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl66Genus selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.GenusId == selected.GenusId));
-            return collection;
-        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithGenusIdInTableReference(Tbl66Genus selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.GenusId == selected.GenusId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithGenusIdInTableComment(Tbl66Genus selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.GenusId == selected.GenusId));
+        //    return collection;
+        //}
 
         //------------------------------ FiSpecies --------------------------------------------------------------------------------------------
         public void DeleteFiSpecies(Tbl69FiSpecies selected)
@@ -9704,10 +9704,9 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-
         #region Speciesgroup
 
-        #region Get Speciesgroup
+          #region Get Speciesgroup
 
         //----------------------------------------   Speciesgroup   ------------------------
         private ObservableCollection<T> GetSpeciesgroupsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -9768,7 +9767,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-        #region Copy Speciesgroup
+          #region Copy Speciesgroup
 
         public ObservableCollection<Tbl68Speciesgroup> CopySpeciesgroup(Tbl68Speciesgroup selected)
         {
@@ -9799,7 +9798,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-        #region Delete Speciesgroup
+          #region Delete Speciesgroup
 
         //------------------------------ Speciesgroup --------------------------------------------------------------------------------------------
         public void DeleteSpeciesgroup(Tbl68Speciesgroup selected)
@@ -9828,7 +9827,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-        #region Save Speciesgroup 
+          #region Save Speciesgroup 
 
         public Tbl68Speciesgroup SpeciesgroupUpdate(Tbl68Speciesgroup home, Tbl68Speciesgroup selected)
         {
@@ -9895,6 +9894,7 @@ namespace ATIS.Ui.Helper
 
 
 
+
         #region FiSpecies
 
         #region Get FiSpecies
@@ -9917,7 +9917,9 @@ namespace ATIS.Ui.Helper
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
-                .OrderBy(a => a.FiSpeciesName));
+                .OrderBy(a => a.FiSpeciesName)
+                .ThenBy(a => a.Subspecies)
+                .ThenBy(a => a.Divers));
             return collection;
         }
         public ObservableCollection<T> GetFiSpeciessesCollectionFromFiSpeciesIdOrderBy<T>(int id)
@@ -9925,7 +9927,9 @@ namespace ATIS.Ui.Helper
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
                 .Where(e => e.FiSpeciesId == id)
-                .OrderBy(k => k.FiSpeciesName));
+                .OrderBy(a => a.FiSpeciesName)
+                .ThenBy(a => a.Subspecies)
+                .ThenBy(a => a.Divers));
 
             return collection;
         }
@@ -10070,16 +10074,16 @@ namespace ATIS.Ui.Helper
         #region Delete FiSpecies
 
         //------------------------------ FiSpecies --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl69FiSpecies selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
-            return collection;
-        }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl69FiSpecies selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
-            return collection;
-        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithFiSpeciesIdInTableReference(Tbl69FiSpecies selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithFiSpeciesIdInTableComment(Tbl69FiSpecies selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
+        //    return collection;
+        //}
 
         //------------------------------ Name --------------------------------------------------------------------------------------------
         public void DeleteName(Tbl78Name selected)
@@ -10087,11 +10091,11 @@ namespace ATIS.Ui.Helper
             _uow.Tbl78Names.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl78Name> SearchForConnectedDatasetsWithNameIdInTableImage(Tbl78Name selected)
-        {
-            var collection = new ObservableCollection<Tbl78Name>(_uow.Tbl78Names.Find(x => x.NameId == selected.NameId));
-            return collection;
-        }
+        //public ObservableCollection<Tbl81Image> SearchForConnectedDatasetsWithNameIdInTableImage(Tbl78Name selected)
+        //{
+        //    var collection = new ObservableCollection<Tbl81Image>(_uow.Tbl81Images.Find(x => x.NameId == selected.NameId));
+        //    return collection;
+        //}
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithNameIdInTableReference(Tbl78Name selected)
         //{
         //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.NameId == selected.NameId));
@@ -10302,6 +10306,7 @@ namespace ATIS.Ui.Helper
         #endregion
 
         #endregion
+
 
 
 

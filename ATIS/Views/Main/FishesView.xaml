@@ -26,11 +26,15 @@
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d68Speciesgroup="clr-namespace:ATIS.Ui.Views.Database.D68Speciesgroup"
+    xmlns:d69FiSpecies="clr-namespace:ATIS.Ui.Views.Database.D69FiSpecies"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
 
     <UserControl.Resources>
+        <DataTemplate DataType="{x:Type d69FiSpecies:FiSpeciessesViewModel}">
+            <d69FiSpecies:FiSpeciessesView />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type d68Speciesgroup:SpeciesgroupsViewModel}">
             <d68Speciesgroup:SpeciesgroupsView />
         </DataTemplate>
@@ -103,7 +107,9 @@
             mah:HeaderedControlHelper.HeaderFontSize="17"
             mah:TabControlHelper.Underlined="TabItems"
             SelectedIndex="0">
-            <TabItem Content="{Binding Tbl69FiSpeciessesView}" Header="{DynamicResource Database-MenuFiSpecies}" />
+            <TabItem Header="{DynamicResource Database-MenuFiSpecies}">
+                <d69FiSpecies:FiSpeciessesViewModel />
+            </TabItem>
             <TabItem Header="{DynamicResource Database-MenuGenus}">
                 <d66Genus:GenussesViewModel />
             </TabItem>

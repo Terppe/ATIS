@@ -19,7 +19,7 @@ using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 using UserControl = System.Windows.Controls.UserControl; 
  
 
-      //  Tbl69FiSpeciessesView.xaml.cs Skriptdatum:  15.12.2019  10:32     
+      //  Tbl69FiSpeciessesView.xaml.cs Skriptdatum:  17.12.2020  10:32     
 
 namespace ATIS.Ui.Views.Database.D69FiSpecies
 {  

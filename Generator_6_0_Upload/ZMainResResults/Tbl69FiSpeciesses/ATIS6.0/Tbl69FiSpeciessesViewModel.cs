@@ -18,7 +18,7 @@ using System.IO;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;   
     
-         //    FiSpeciessesViewModel Skriptdatum:  15.12.2019  10:32    
+         //    FiSpeciessesViewModel Skriptdatum:  17.12.2020  10:32    
 
 namespace ATIS.Ui.Views.Database.D69FiSpecies
 {     

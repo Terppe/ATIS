@@ -637,7 +637,6 @@
                                     </TextBox.Text>
                                 </TextBox>
                             </StackPanel>
-
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                     <TextBox
