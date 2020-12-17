@@ -486,7 +486,7 @@
  
 
 
-             <!--  Part 4.2 TK1 Connected -->  
+             <!--  Part 8.2 TK1 Connected -->  
 
        
                                              <StackPanel Height="Auto" Orientation="Horizontal">
@@ -1270,7 +1270,7 @@
                         </GroupBox>
                     </TabItem>                   
            
-                </dragablz:TabablzControl>
+                </TabControl>
             </Grid>
         </ScrollViewer>               
         

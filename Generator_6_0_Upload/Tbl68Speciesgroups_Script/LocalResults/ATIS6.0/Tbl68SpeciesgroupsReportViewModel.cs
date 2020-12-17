@@ -270,10 +270,10 @@ namespace ATIS.Ui.Views.Report
             FiSpeciessesCollection = _extReportBasicGet.CollFiSpeciessesBySpeciesgroupIdAndHash(id);
             //------------------------------------------------------------------------------
             //Function
-            var NULLId = _extReportBasicGet.GenusIdFromSpeciesgroupsCollectionSelect(id);
+            var genusId = _extReportBasicGet.GenusIdFromSpeciesgroupsCollectionSelect(id);
             //-----------------------------------------------------------------------------
             //ForeignKeyTable
-            NULLCollection = _extReportBasicGet.CollNULLByRegnumIdAndHash(NULLId);
+            NULLCollection = _extReportBasicGet.CollNULLByRegnumIdAndHash(genusId);
             //------------------------------------------------------------------------------
             ExpertsCollection = _extReportBasicGet.CollExpertsBySpeciesgroupId(id);
             SourcesCollection = _extReportBasicGet.CollSourcesBySpeciesgroupId(id);

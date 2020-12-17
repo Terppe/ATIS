@@ -48,19 +48,6 @@
 
   <ItemGroup>
     <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Database\D69FiSpecies\" />
-    <Folder Include="Views\Database\D72PlSpecies\" />
-    <Folder Include="Views\Database\D78Name\" />
-    <Folder Include="Views\Database\D81Image\" />
-    <Folder Include="Views\Database\D84Synonym\" />
-    <Folder Include="Views\Database\D87Geographic\" />
-    <Folder Include="Views\Database\D90Reference\" />
-    <Folder Include="Views\Database\D93Comment\" />
-    <Folder Include="Views\Database\DCountry\" />
-    <Folder Include="Views\Database\DUserprofile\" />
-    <Folder Include="Views\Database\D90RefAuthor\" />
-    <Folder Include="Views\Database\D90RefExpert\" />
-    <Folder Include="Views\Database\D90RefSource\" />
     <Folder Include="Views\Report\D24Subclass\" />
     <Folder Include="Views\Report\D27Infraclass\" />
     <Folder Include="Views\Report\D30Legio\" />

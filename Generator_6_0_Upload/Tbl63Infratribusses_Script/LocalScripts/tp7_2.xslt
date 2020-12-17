@@ -3239,6 +3239,9 @@
 </xsl:when>
 <xsl:when test="Table ='Grid Part 7  Connect  Basic  TabablzControl TabItem Reference  Comments Bottom 1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
 </xsl:when>
+<xsl:when test="Table ='Tbl68Speciesgroups'">             <![CDATA[  
+        </TabControl>  ]]>       
+</xsl:when>
 <xsl:when test="Table ='Tbl90RefAuthors'">       
 </xsl:when>
 <xsl:when test="Table ='Tbl90RefSources'">       
@@ -3334,6 +3337,8 @@
 </xsl:when>  
 <xsl:when test="Table ='Tbl03Regnums'">    
 </xsl:when>  
+<xsl:when test="Table ='Tbl68Speciesgroups'"> 
+</xsl:when>
 <xsl:otherwise>      
   <xsl:if test="TableFK1 !='NULL'">    <![CDATA[   
                               <TabItem FontWeight="Medium" Header="{DynamicResource ]]><xsl:value-of select="LinqModelFK1"/><![CDATA[-]]><xsl:value-of select="BasisFK1"/><![CDATA[}"  >
@@ -3532,6 +3537,8 @@
                                                 VirtualizingStackPanel.IsVirtualizing="True" />     ]]>      
   </xsl:if>            
 </xsl:when>  
+<xsl:when test="Table ='Tbl68Speciesgroups'">     
+</xsl:when>
 <xsl:otherwise>   
   <xsl:if test="TableFK1 !='NULL'">    <![CDATA[   
                                             <ComboBox
@@ -3865,9 +3872,6 @@
 <xsl:when test="Table ='Tbl90RefSources'">      
 </xsl:when>   
 <xsl:when test="Table ='Tbl90References'">   
-  <xsl:if test="TableFK1 !='NULL'">    <![CDATA[   
-                            ]]> 
-  </xsl:if>          
 </xsl:when>   
 <xsl:when test="Table ='TblUserProfiles'">      
 </xsl:when>  
@@ -4359,8 +4363,51 @@
                                 </StackPanel>  ]]>   
 </xsl:when>
 <xsl:when test="Table ='Tbl68Speciesgroups'">       <![CDATA[   
- 
-  ]]>  
+                                <Button Template="{StaticResource SaveSpeciesgroupButton}" />
+                                <Button Template="{StaticResource CopySpeciesgroupButton}" />
+                                <Button Template="{StaticResource AddSpeciesgroupButton}" />
+                                <Button Template="{StaticResource DeleteSpeciesgroupButton}" />
+                            </StackPanel>
+                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                <TextBox
+                                    Width="250"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Tbl68Speciesgroup-SpeciesgroupName}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Tbl68Speciesgroup-SpeciesgroupName}">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl68SpeciesgroupsList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl68Speciesgroup.SpeciesgroupName)"
+                                            UpdateSourceTrigger="PropertyChanged" />
+                                    </TextBox.Text>
+                                </TextBox>
+                                <TextBox
+                                    Width="250"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Tbl68Speciesgroup-Subspeciesgroup}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Tbl68Speciesgroup-Subspeciesgroup}">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl68SpeciesgroupsList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl68Speciesgroup.Subspeciesgroup)"
+                                            UpdateSourceTrigger="PropertyChanged" />
+                                    </TextBox.Text>
+                                </TextBox>
+                            </StackPanel>  ]]>  
 </xsl:when>
 <xsl:when test="Table ='Tbl69FiSpeciesses'">       <![CDATA[   
                                 <Button Template="{StaticResource Copy]]><xsl:value-of select="Basis"/><![CDATA[Button}" />
@@ -4919,14 +4966,14 @@
 </xsl:choose> 
 
 
-<![CDATA[             <!--  Part 4.2 TK1 Connected -->  ]]>
+<![CDATA[             <!--  Part 8.2 TK1 Connected -->  ]]>
 
 <xsl:choose>
-<xsl:when test="Table ='Property Part 4.2  HeaderedContentControl Connected   TK1  Top 1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
+<xsl:when test="Table ='Property Part 8.2  HeaderedContentControl Connected   TK1  Top 1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
 </xsl:when>  
-<xsl:when test="Table ='Property Part 4.2  HeaderedContentControl Connected   TK1  Top 1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
+<xsl:when test="Table ='Property Part 8.2  HeaderedContentControl Connected   TK1  Top 1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
 </xsl:when>  
-<xsl:when test="Table ='Property Part 4.2  HeaderedContentControl Connected   TK1  Top 1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
+<xsl:when test="Table ='Property Part 8.2  HeaderedContentControl Connected   TK1  Top 1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
 </xsl:when>  
 <xsl:when test="Table ='Tbl78Names'">    
 </xsl:when>  
@@ -4959,9 +5006,9 @@
 
         
 <xsl:choose>
-<xsl:when test="Table ='Property Part 4.2  HeaderedContentControl Connected   TK1  Middle 3A +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
+<xsl:when test="Table ='Property Part 8.2  HeaderedContentControl Connected   TK1  Middle 3A +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
 </xsl:when>  
-<xsl:when test="Table ='Property Part 4.2  HeaderedContentControl Connected   TK1  Middle 3A +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
+<xsl:when test="Table ='Property Part 8.2  HeaderedContentControl Connected   TK1  Middle 3A +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
 </xsl:when>  
 <xsl:when test="Table ='Tbl03Regnums'">    
   <xsl:if test="TableTK1 !='NULL'">    <![CDATA[   
@@ -5036,6 +5083,125 @@
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>   ]]>    
+  </xsl:if>        
+</xsl:when>  
+<xsl:when test="Table ='Tbl68Speciesgroups'">   
+  <xsl:if test="TableTK1 !='NULL'">    <![CDATA[   
+                            <Button Template="{StaticResource Save]]><xsl:value-of select="BasisTK1"/><![CDATA[Button}" />   
+                            <Button Template="{StaticResource Copy]]><xsl:value-of select="BasisTK1"/><![CDATA[Button}" />
+                            <Button Template="{StaticResource Add]]><xsl:value-of select="BasisTK1"/><![CDATA[Button}" />
+                            <Button Template="{StaticResource Delete]]><xsl:value-of select="BasisTK1"/><![CDATA[Button}" />
+                    </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ComboBox
+                                Width="300"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl68Speciesgroup-Speciesgroup}"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl68SpeciesgroupsAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl68Speciesgroup.SpeciesgroupId), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay}"
+                                SelectedValuePath="SpeciesgroupId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding (models:Tbl68Speciesgroup.SpeciesgroupName)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl68Speciesgroup.Subspeciesgroup)}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox> 
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="228"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-FiSpeciesName}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl69FiSpecies-FiSpeciesName}">
+                                <TextBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Custom Item" />
+                                        <Separator />
+                                        <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                    </ContextMenu>
+                                </TextBox.ContextMenu>
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl69FiSpeciessesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl69FiSpecies.FiSpeciesName)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox
+                                Width="228"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-Subspecies}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl69FiSpecies-Subspecies}">
+                                <TextBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Custom Item" />
+                                        <Separator />
+                                        <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                    </ContextMenu>
+                                </TextBox.ContextMenu>
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl69FiSpeciessesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl69FiSpecies.Subspecies)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox
+                                Width="228"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-Divers}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl69FiSpecies-Divers}">
+                                <TextBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Custom Item" />
+                                        <Separator />
+                                        <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                    </ContextMenu>
+                                </TextBox.ContextMenu>
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl69FiSpeciessesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl69FiSpecies.Divers)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>  ]]>    
   </xsl:if>        
 </xsl:when>  
 <xsl:when test="Table ='Tbl78Names'">    
@@ -6231,11 +6397,6 @@
                                         <StackPanel Margin="0,0,5,0">
                                             <StackPanel Height="Auto" Orientation="Horizontal">   ]]> 
   </xsl:if>        
-</xsl:when>  
-<xsl:when test="Table ='Tbl68Speciesgroups'">         <![CDATA[     
-                            <TabItem FontWeight="Medium" Header="{DynamicResource Shared-Connect}">
-                              <GroupBox>
-                               <TabControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedDetailSubTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"> ]]>        
 </xsl:when>  
 <xsl:when test="Table ='Tbl69FiSpeciesses'">      
   <xsl:if test="TableFK2 !='NULL'">    <![CDATA[     
@@ -9150,6 +9311,8 @@
 </xsl:when>
 <xsl:when test="Table ='Tbl66Genusses'">             
 </xsl:when>
+<xsl:when test="Table ='Tbl68Speciesgroups'">             
+</xsl:when>
 <xsl:when test="Table ='Tbl90RefAuthors'">      
 </xsl:when>  
 <xsl:when test="Table ='Tbl90RefExperts'">      
@@ -9296,24 +9459,8 @@
 </xsl:when>
 <xsl:when test="Table ='Tbl66Genusses'">   
 </xsl:when>
-<xsl:when test="Table ='Tbl68Speciesgroups'">      <![CDATA[  
-                                              </StackPanel>
-                                              <StackPanel Height="Auto" Orientation="Horizontal">
-                                                 <ComboBox
-                                                    Width="450"
-                                                    Margin="5,0,0,0"
-                                                    VerticalAlignment="Bottom"
-                                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl66Genus-GenusName}"
-                                                    DisplayMemberPath="GenusName"
-                                                    IsSynchronizedWithCurrentItem="True"
-                                                    ItemContainerStyle="{StaticResource ComboStyle}"
-                                                    ItemsSource="{Binding Tbl66GenussesAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
-                                                    SelectedValue="{Binding SelectedItem.(models:Tbl66Genus.GenusID), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay}"
-                                                    SelectedValuePath="GenusID"
-                                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                                    VirtualizingStackPanel.IsVirtualizing="True" />
-                                            </StackPanel>        ]]>
-</xsl:when>
+<xsl:when test="Table ='Tbl68Speciesgroups'">      
+</xsl:when>  
 <xsl:when test="Table ='Tbl69FiSpeciesses'">      
   <xsl:if test="TableTK2 !='NULL'">    <![CDATA[  
                                             </StackPanel>
@@ -10658,10 +10805,7 @@
   <xsl:if test="TableTK2 !='NULL'">    <![CDATA[   
                                         </StackPanel>
                                     </GroupBox>
-                                </TabItem>
-                            </dragablz:TabablzControl>
-                        </GroupBox>
-                    </TabItem> ]]> 
+                             </TabItem> ]]> 
   </xsl:if>       
 </xsl:when>  
 <xsl:when test="Table ='Tbl69FiSpeciesses'">          
@@ -14541,27 +14685,25 @@
 <xsl:when test="Table ='Property Part 14  HeaderedContentControl Connected  Comment  Bottom 2 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
 </xsl:when>  
 <xsl:when test="Table ='Tbl68Speciesgroups'">       <![CDATA[   
-                </dragablz:TabablzControl>
-            </Grid>
-        </ScrollViewer>   ]]>            
+                </TabControl>   ]]>            
 </xsl:when>  
 <xsl:when test="Table ='Tbl78Names'">       <![CDATA[   
-                </dragablz:TabablzControl>
+                </TabControl>
             </Grid>
         </ScrollViewer>   ]]>            
 </xsl:when>  
 <xsl:when test="Table ='Tbl81Images'">        <![CDATA[   
-                </dragablz:TabablzControl>
+                </TabControl>
             </Grid>
         </ScrollViewer>   ]]>            
 </xsl:when>
 <xsl:when test="Table ='Tbl84Synonyms'">        <![CDATA[   
-                </dragablz:TabablzControl>
+                </TabControl>
             </Grid>
         </ScrollViewer>   ]]>            
 </xsl:when>
 <xsl:when test="Table ='Tbl87Geographics'">        <![CDATA[   
-                </dragablz:TabablzControl>
+                </TabControl>
             </Grid>
         </ScrollViewer>   ]]>            
 </xsl:when>

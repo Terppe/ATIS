@@ -402,8 +402,7 @@ namespace ATIS.Ui.Views.Database.ListDetails
 
             NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
             NamesView.MoveCurrentToFirst();
-        }
-        //----------------------------------------------------------------------              
+        }             
              
         private void CopyName(object o)
         {

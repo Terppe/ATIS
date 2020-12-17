@@ -13,7 +13,7 @@
   <LayoutTK2>D72PlSpecies</LayoutTK2>
   <LayoutTK1>D69FiSpecies</LayoutTK1>
   <Layout>D68Speciesgroup</Layout>
-  <LayoutFK1>ListDetails</LayoutFK1>
+  <LayoutFK1>D66Genus</LayoutFK1>
   <LayoutFK2>ListDetails</LayoutFK2>
   <LayoutBK1>ListDetails</LayoutBK1>
   <LayoutBK2>ListDetails</LayoutBK2>
@@ -103,7 +103,7 @@
   <BasisSmTK2>plspecies</BasisSmTK2> 
   <BasisSmTK1>fispecies</BasisSmTK1> 
   <BasisSm>speciesgroup</BasisSm> 
-  <BasisSmFK1>NULL</BasisSmFK1> 
+  <BasisSmFK1>genus</BasisSmFK1> 
   <BasisSmFK2>NULL</BasisSmFK2> 
 
   <LinqModelTK3>Tbl66Genus</LinqModelTK3> 
