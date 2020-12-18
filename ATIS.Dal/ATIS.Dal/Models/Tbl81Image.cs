@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ATIS.Dal.Models
 {
@@ -26,7 +27,10 @@ namespace ATIS.Dal.Models
         public Guid FilestreamId { get; set; }
         //     public byte[] RowVersion { get; set; }
 
+        [ForeignKey("FiSpeciesId")]
         public virtual Tbl69FiSpecies Tbl69FiSpeciesses { get; set; }
+
+        [ForeignKey("PlSpeciesId")]
         public virtual Tbl72PlSpecies Tbl72PlSpeciesses { get; set; }
 
 

@@ -9031,7 +9031,7 @@ namespace ATIS.Ui.Helper
 
             return collection;
         }
-        public ObservableCollection<T> GetGenussesCollectionFromGenusIdOrderBy<T>(int id)
+        public ObservableCollection<T> GetGenussesCollectionFromGenusIdOrderBy<T>(int? id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl66Genusses
@@ -9042,7 +9042,7 @@ namespace ATIS.Ui.Helper
         }
 
         //-------------------------------------- FiSpecies   -------------------------
-        public ObservableCollection<T> GetFiSpeciessesCollectionFromGenusIdOrderBy<T>(int id)
+        public ObservableCollection<T> GetFiSpeciessesCollectionFromGenusIdOrderBy<T>(int? id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
@@ -9108,7 +9108,7 @@ namespace ATIS.Ui.Helper
         }
 
         //Function
-        public int GetGenusIdFromFiSpeciessesCollectionSelect(int id)
+        public int? GetGenusIdFromFiSpeciessesCollectionSelect(int id)
         {
             var coll = _context.Tbl69FiSpeciesses
                 .SingleOrDefault(p => p.FiSpeciesId == id);
@@ -9741,7 +9741,7 @@ namespace ATIS.Ui.Helper
         }
 
         //-------------------------------------- FiSpecies   -------------------------
-        public ObservableCollection<T> GetFiSpeciessesCollectionFromSpeciesgroupIdOrderBy<T>(int id)
+        public ObservableCollection<T> GetFiSpeciessesCollectionFromSpeciesgroupIdOrderBy<T>(int? id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
@@ -9899,17 +9899,6 @@ namespace ATIS.Ui.Helper
         #region Get FiSpecies
 
         //----------------------------------------   FiSpecies   ------------------------
-        //public ObservableCollection<T> GetFiSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
-        //{
-        //    ObservableCollection<T> collection;
-        //    collection = int.TryParse(searchName, out var id)
-        //        ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl69FiSpeciesses
-        //            .Find(e => e.FiSpeciesId == id))
-        //        : new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
-        //     .Where(e => e.FiSpeciesName.StartsWith(searchName))
-        //        );
-        //    return collection;
-        //}
 
         public ObservableCollection<T> GetFiSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
@@ -9920,7 +9909,6 @@ namespace ATIS.Ui.Helper
                 : new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
                     .Include(a => a.Tbl66Genusses)
                     .Where(a => a.Tbl66Genusses.GenusName.StartsWith(searchName))
-            //        .Find(e => e.FiSpeciesName.StartsWith(searchName))
                     .OrderBy(a => a.Tbl66Genusses.GenusName)
                     .ThenBy(a => a.FiSpeciesName)
                     .ThenBy(a => a.Subspecies)
@@ -9928,14 +9916,6 @@ namespace ATIS.Ui.Helper
             return collection;
         }
 
-        //public IList<Tbl69FiSpecies> ListTbl69FiSpeciessesByFiSpeciesName(string fiSpeciesName)
-        //{
-        //    return _tbl69FiSpeciessesRepository.ListWhereOrderByInclude(
-        //        //   e => e.FiSpeciesName.StartsWith(fiSpeciesName),
-        //        e => e.Tbl66Genusses.GenusName.StartsWith(fiSpeciesName),
-        //        _tbl69FiSpeciessesRepository.OrderBy(r => r.Tbl66Genusses.GenusName + r.FiSpeciesName + r.Subspecies + r.Divers),
-        //        p => p.Tbl78Names, k => k.Tbl81Images, k => k.Tbl84Synonyms, k => k.Tbl87Geographics, k => k.Tbl66Genusses);
-        //}
 
         public ObservableCollection<T> GetFiSpeciessesCollectionAllOrderBy<T>()
         {
@@ -9951,6 +9931,45 @@ namespace ATIS.Ui.Helper
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
                 .Where(e => e.FiSpeciesId == id)
+                .OrderBy(a => a.FiSpeciesName)
+                .ThenBy(a => a.Subspecies)
+                .ThenBy(a => a.Divers));
+
+            return collection;
+        }
+        //----------------------------------------   PlSpecies   ------------------------
+
+        public ObservableCollection<T> GetPlSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        {
+            ObservableCollection<T> collection;
+            collection = int.TryParse(searchName, out var id)
+                ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl72PlSpeciesses
+                    .Find(e => e.PlSpeciesId == id))
+                : new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
+                    .Include(a => a.Tbl66Genusses)
+                    .Where(a => a.Tbl66Genusses.GenusName.StartsWith(searchName))
+                    .OrderBy(a => a.Tbl66Genusses.GenusName)
+                    .ThenBy(a => a.PlSpeciesName)
+                    .ThenBy(a => a.Subspecies)
+                    .ThenBy(a => a.Divers));
+            return collection;
+        }
+
+
+        public ObservableCollection<T> GetPlSpeciessesCollectionAllOrderBy<T>()
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
+                .OrderBy(a => a.PlSpeciesName)
+                .ThenBy(a => a.Subspecies)
+                .ThenBy(a => a.Divers));
+            return collection;
+        }
+        public ObservableCollection<T> GetPlSpeciessesCollectionFromFiSpeciesIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
+                .Where(e => e.PlSpeciesId == id)
                 .OrderBy(a => a.FiSpeciesName)
                 .ThenBy(a => a.Subspecies)
                 .ThenBy(a => a.Divers));

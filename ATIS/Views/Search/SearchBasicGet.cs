@@ -88,7 +88,7 @@ namespace ATIS.Ui.Views.Search
                     collection = FiSpeciessesFilterCollection<T>(searchName);
                     break;
                 case "plspecies":
-                    collection = PlSpeciessesFilterCollection<T>(searchName);
+       //             collection = PlSpeciessesFilterCollection<T>(searchName);
                     break;
                 case "name":
                     collection = NamesFilterCollection<T>(searchName);
@@ -457,6 +457,16 @@ namespace ATIS.Ui.Views.Search
         }
         //-----------------------FiSpecies---------------------------------
 
+        //public ObservableCollection<T> FiSpeciessesFilterCollection<T>(string filterText)
+        //{
+        //    var collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
+        //        .Where(e => e.FiSpeciesName.StartsWith(filterText) 
+        //        )
+        //     );
+
+        //    return collection;
+        //}
+
         public ObservableCollection<T> FiSpeciessesFilterCollection<T>(string filterText)
         {
             var collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
@@ -480,26 +490,26 @@ namespace ATIS.Ui.Views.Search
 
         //-----------------------PlSpecies---------------------------------
 
-        public ObservableCollection<T> PlSpeciessesFilterCollection<T>(string filterText)
-        {
-            var collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
-                .Include(a => a.Tbl66Genusses)
-                .Where(e => e.PlSpeciesName.StartsWith(filterText) &&
-                           e.PlSpeciesName.Contains("#") == false ||
-                           e.Tbl66Genusses.GenusName.Contains(filterText) ||
-                           e.Subspecies.Contains(filterText) ||
-                           e.Divers.Contains(filterText) ||
-                           e.TradeName.Contains(filterText) ||
-                           e.Author.Contains(filterText)
-                )
-                .OrderBy(a => a.Tbl66Genusses.GenusName)
-                .ThenBy(a => a.PlSpeciesName)
-                .ThenBy(a => a.Subspecies)
-                .ThenBy(a => a.Divers)
-            );
+        //public ObservableCollection<T> PlSpeciessesFilterCollection<T>(string filterText)
+        //{
+        //    var collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
+        //        .Include(a => a.Tbl66Genusses)
+        //        .Where(e => e.PlSpeciesName.StartsWith(filterText) &&
+        //                   e.PlSpeciesName.Contains("#") == false ||
+        //                   e.Tbl66Genusses.GenusName.Contains(filterText) ||
+        //                   e.Subspecies.Contains(filterText) ||
+        //                   e.Divers.Contains(filterText) ||
+        //                   e.TradeName.Contains(filterText) ||
+        //                   e.Author.Contains(filterText)
+        //        )
+        //        .OrderBy(a => a.Tbl66Genusses.GenusName)
+        //        .ThenBy(a => a.PlSpeciesName)
+        //        .ThenBy(a => a.Subspecies)
+        //        .ThenBy(a => a.Divers)
+        //    );
 
-            return collection;
-        }
+        //    return collection;
+        //}
         //-----------------------Name---------------------------------
 
         public ObservableCollection<T> NamesFilterCollection<T>(string filterText)
