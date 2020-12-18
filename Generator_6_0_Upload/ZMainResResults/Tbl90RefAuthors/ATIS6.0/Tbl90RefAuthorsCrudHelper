@@ -195,12 +195,12 @@
           #region Delete RefAuthor
 
                 //------------------------------ RefAuthor --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl90RefAuthor selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRefAuthorIdInTableReference(Tbl90RefAuthor selected)
         {
             var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.RefAuthorId == selected.RefAuthorId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl90RefAuthor selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRefAuthorIdInTableComment(Tbl90RefAuthor selected)
         {
             var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.RefAuthorId == selected.RefAuthorId));
             return collection;

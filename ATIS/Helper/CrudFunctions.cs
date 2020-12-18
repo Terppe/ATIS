@@ -9007,10 +9007,10 @@ namespace ATIS.Ui.Helper
 
         #region Genus
 
-          #region Get Genus
+        #region Get Genus
 
         //----------------------------------------   Genus   ------------------------
-        private ObservableCollection<T> GetGenussesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        public ObservableCollection<T> GetGenussesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
@@ -9023,7 +9023,7 @@ namespace ATIS.Ui.Helper
             return collection;
         }
 
-        private ObservableCollection<T> GetGenussesCollectionAllOrderBy<T>()
+        public ObservableCollection<T> GetGenussesCollectionAllOrderBy<T>()
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl66Genusses
@@ -9706,10 +9706,10 @@ namespace ATIS.Ui.Helper
 
         #region Speciesgroup
 
-          #region Get Speciesgroup
+        #region Get Speciesgroup
 
         //----------------------------------------   Speciesgroup   ------------------------
-        private ObservableCollection<T> GetSpeciesgroupsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        public ObservableCollection<T> GetSpeciesgroupsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
@@ -9722,7 +9722,7 @@ namespace ATIS.Ui.Helper
             return collection;
         }
 
-        private ObservableCollection<T> GetSpeciesgroupsCollectionAllOrderBy<T>()
+        public ObservableCollection<T> GetSpeciesgroupsCollectionAllOrderBy<T>()
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl68Speciesgroups
@@ -9894,26 +9894,50 @@ namespace ATIS.Ui.Helper
 
 
 
-
         #region FiSpecies
 
         #region Get FiSpecies
 
         //----------------------------------------   FiSpecies   ------------------------
-        private ObservableCollection<T> GetFiSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        //public ObservableCollection<T> GetFiSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        //{
+        //    ObservableCollection<T> collection;
+        //    collection = int.TryParse(searchName, out var id)
+        //        ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl69FiSpeciesses
+        //            .Find(e => e.FiSpeciesId == id))
+        //        : new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
+        //     .Where(e => e.FiSpeciesName.StartsWith(searchName))
+        //        );
+        //    return collection;
+        //}
+
+        public ObservableCollection<T> GetFiSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
                 ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl69FiSpeciesses
                     .Find(e => e.FiSpeciesId == id))
-                : new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl69FiSpeciesses
-                    .Find(e => e.FiSpeciesName.StartsWith(searchName))
-                    .OrderBy(a => a.FiSpeciesName)
-                );
+                : new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
+                    .Include(a => a.Tbl66Genusses)
+                    .Where(a => a.Tbl66Genusses.GenusName.StartsWith(searchName))
+            //        .Find(e => e.FiSpeciesName.StartsWith(searchName))
+                    .OrderBy(a => a.Tbl66Genusses.GenusName)
+                    .ThenBy(a => a.FiSpeciesName)
+                    .ThenBy(a => a.Subspecies)
+                    .ThenBy(a => a.Divers));
             return collection;
         }
 
-        private ObservableCollection<T> GetFiSpeciessesCollectionAllOrderBy<T>()
+        //public IList<Tbl69FiSpecies> ListTbl69FiSpeciessesByFiSpeciesName(string fiSpeciesName)
+        //{
+        //    return _tbl69FiSpeciessesRepository.ListWhereOrderByInclude(
+        //        //   e => e.FiSpeciesName.StartsWith(fiSpeciesName),
+        //        e => e.Tbl66Genusses.GenusName.StartsWith(fiSpeciesName),
+        //        _tbl69FiSpeciessesRepository.OrderBy(r => r.Tbl66Genusses.GenusName + r.FiSpeciesName + r.Subspecies + r.Divers),
+        //        p => p.Tbl78Names, k => k.Tbl81Images, k => k.Tbl84Synonyms, k => k.Tbl87Geographics, k => k.Tbl66Genusses);
+        //}
+
+        public ObservableCollection<T> GetFiSpeciessesCollectionAllOrderBy<T>()
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
@@ -9941,6 +9965,35 @@ namespace ATIS.Ui.Helper
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl78Names
                 .Where(e => e.FiSpeciesId == id)
                 .OrderBy(k => k.NameName));
+            return collection;
+        }
+
+        //-------------------------------------- Image   -------------------------
+        public ObservableCollection<T> GetImagesCollectionFromFiSpeciesIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl81Images
+                .Where(e => e.FiSpeciesId == id)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Synonym   -------------------------
+        public ObservableCollection<T> GetSynonymsCollectionFromFiSpeciesIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl84Synonyms
+                .Where(e => e.FiSpeciesId == id)
+                .OrderBy(k => k.SynonymName));
+            return collection;
+        }
+
+        //-------------------------------------- Geographic   -------------------------
+        public ObservableCollection<T> GetGeographicsCollectionFromFiSpeciesIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl87Geographics
+                .Where(e => e.FiSpeciesId == id)
+                .OrderBy(k => k.Info));
             return collection;
         }
 

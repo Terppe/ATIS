@@ -195,12 +195,12 @@
           #region Delete UserProfile
 
                 //------------------------------ UserProfile --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(TblUserProfile selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithUserProfileIdInTableReference(TblUserProfile selected)
         {
             var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.UserProfileId == selected.UserProfileId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(TblUserProfile selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithUserProfileIdInTableComment(TblUserProfile selected)
         {
             var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.UserProfileId == selected.UserProfileId));
             return collection;

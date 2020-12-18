@@ -477,6 +477,7 @@ namespace ATIS.Ui.Views.Search
 
             return collection;
         }
+
         //-----------------------PlSpecies---------------------------------
 
         public ObservableCollection<T> PlSpeciessesFilterCollection<T>(string filterText)

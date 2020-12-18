@@ -195,12 +195,12 @@
           #region Delete Country
 
                 //------------------------------ Country --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(TblCountry selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithCountryIdInTableReference(TblCountry selected)
         {
             var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.CountryId == selected.CountryId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(TblCountry selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithCountryIdInTableComment(TblCountry selected)
         {
             var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.CountryId == selected.CountryId));
             return collection;

@@ -878,12 +878,12 @@
           #region Delete ]]><xsl:value-of select="Basis"/><![CDATA[
 
                 //------------------------------ ]]><xsl:value-of select="Basis"/><![CDATA[ --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(]]><xsl:value-of select="LinqModel"/><![CDATA[ selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWith]]><xsl:value-of select="Basis"/><![CDATA[IdInTableReference(]]><xsl:value-of select="LinqModel"/><![CDATA[ selected)
         {
             var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.]]><xsl:value-of select="Basis"/><![CDATA[Id == selected.]]><xsl:value-of select="Basis"/><![CDATA[Id));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(]]><xsl:value-of select="LinqModel"/><![CDATA[ selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWith]]><xsl:value-of select="Basis"/><![CDATA[IdInTableComment(]]><xsl:value-of select="LinqModel"/><![CDATA[ selected)
         {
             var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.]]><xsl:value-of select="Basis"/><![CDATA[Id == selected.]]><xsl:value-of select="Basis"/><![CDATA[Id));
             return collection;

@@ -195,12 +195,12 @@
           #region Delete Geographic
 
                 //------------------------------ Geographic --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl87Geographic selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithGeographicIdInTableReference(Tbl87Geographic selected)
         {
             var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.GeographicId == selected.GeographicId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl87Geographic selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithGeographicIdInTableComment(Tbl87Geographic selected)
         {
             var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.GeographicId == selected.GeographicId));
             return collection;

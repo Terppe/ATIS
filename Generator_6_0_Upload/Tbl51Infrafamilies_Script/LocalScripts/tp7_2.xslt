@@ -1776,28 +1776,6 @@
 </xsl:when>
 <xsl:when test="Table ='Tbl63Infratribusses'">             
 </xsl:when>
-<xsl:when test="Table ='Tbl69FiSpeciesses'">       <![CDATA[           
-                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeader]]><xsl:value-of select="BasissTK2"/><![CDATA[}" >            
-                    <ScrollViewer
-                        helper:AutoScrollBehavior.TopMouseScrollPriority="True"
-                        HorizontalScrollBarVisibility="Auto"
-                        VerticalScrollBarVisibility="Auto">
-                        <StackPanel>
-                             <GroupBox>
-                                <ListView
-                                    x:Name="]]><xsl:value-of select="TableTK2"/><![CDATA[List"         ]]>                                                                                                                                  
-</xsl:when>
-<xsl:when test="Table ='Tbl72PlSpeciesses'">       <![CDATA[           
-                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeader]]><xsl:value-of select="BasissTK2"/><![CDATA[}" >            
-                    <ScrollViewer
-                        helper:AutoScrollBehavior.TopMouseScrollPriority="True"
-                        HorizontalScrollBarVisibility="Auto"
-                        VerticalScrollBarVisibility="Auto">
-                        <StackPanel>
-                            <GroupBox>
-                                <ListView
-                                    x:Name="]]><xsl:value-of select="TableTK2"/><![CDATA[List"         ]]>                                                                                                                                  
-</xsl:when>
 <xsl:when test="Table ='Tbl78Names'">                                                                                                               
 </xsl:when>
 <xsl:when test="Table ='Tbl81Images'">                                                                                                              
@@ -3568,10 +3546,6 @@
 </xsl:when>            
 <xsl:when test="Table ='Tbl68Speciesgroups'">      
 </xsl:when>  
-<xsl:when test="Table ='Tbl69FiSpeciesses'">  
-</xsl:when>    
-<xsl:when test="Table ='Tbl72PlSpeciesses'">  
-</xsl:when>    
 <xsl:when test="Table ='Tbl78Names'">    
 </xsl:when>    
 <xsl:when test="Table ='Tbl81Images'">  
@@ -3803,60 +3777,6 @@
 </xsl:when>   
 <xsl:when test="Table ='Tbl68Speciesgroups'">      
 </xsl:when>  
-<xsl:when test="Table ='Tbl69FiSpeciesses'">  
-  <xsl:if test="TableFK1 !='NULL'">    <![CDATA[   
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                          <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                        <TextBox
-                                                Height="Auto"
-                                                MinWidth="700"
-                                                MinHeight="75"
-                                                MaxWidth="700"
-                                                MaxHeight="400"
-                                            Margin="5,0,0,5"
-                                            VerticalAlignment="Stretch"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-Memo}"
-                                            AcceptsReturn="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            FontWeight="Medium"
-                                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                            Text="{Binding SelectedItem.(models:Tbl66Genus.Memo), ElementName=Tbl66GenussesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            TextWrapping="Wrap"
-                                            VerticalScrollBarVisibility="Auto" />
-                                             </ScrollViewer>
-                                      </StackPanel>
-                                    </StackPanel>
-                                     </GroupBox>
-                               </TabItem>  ]]> 
-  </xsl:if>           
-</xsl:when>  
-<xsl:when test="Table ='Tbl72PlSpeciesses'">  
-  <xsl:if test="TableFK1 !='NULL'">    <![CDATA[   
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                          <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                        <TextBox
-                                                Height="Auto"
-                                                MinWidth="700"
-                                                MinHeight="75"
-                                                MaxWidth="700"
-                                                MaxHeight="400"
-                                            Margin="5,0,0,5"
-                                            VerticalAlignment="Stretch"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-Memo}"
-                                            AcceptsReturn="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            FontWeight="Medium"
-                                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                            Text="{Binding SelectedItem.(models:Tbl66Genus.Memo), ElementName=Tbl66GenussesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            TextWrapping="Wrap"
-                                            VerticalScrollBarVisibility="Auto" />
-                                          </ScrollViewer>
-                                     </StackPanel>
-                                    </StackPanel>
-                                     </GroupBox>
-                               </TabItem>  ]]> 
-  </xsl:if>           
-</xsl:when>  
 <xsl:when test="Table ='Tbl78Names'">     
 </xsl:when>   
 <xsl:when test="Table ='Tbl81Images'">     
@@ -3924,7 +3844,23 @@
                                         <StackPanel Height="Auto" Orientation="Horizontal">   ]]> 
   </xsl:if>         
 </xsl:when>  
-<xsl:otherwise>      
+<xsl:when test="Table ='Tbl69FiSpeciesses'">  
+  <xsl:if test="TableFK2 !='NULL'">    <![CDATA[   
+                              <TabItem FontWeight="Medium" Header="{DynamicResource ]]><xsl:value-of select="LinqModelFK2"/><![CDATA[-]]><xsl:value-of select="BasisFK2"/><![CDATA[}"  >
+                                 <GroupBox>   
+                                    <StackPanel Margin="1">
+                                        <StackPanel Height="Auto" Orientation="Horizontal">   ]]> 
+  </xsl:if>         
+</xsl:when>  
+<xsl:when test="Table ='Tbl72PlSpeciesses'">  
+  <xsl:if test="TableFK2 !='NULL'">    <![CDATA[   
+                              <TabItem FontWeight="Medium" Header="{DynamicResource ]]><xsl:value-of select="LinqModelFK2"/><![CDATA[-]]><xsl:value-of select="BasisFK2"/><![CDATA[}"  >
+                                 <GroupBox>   
+                                    <StackPanel Margin="1">
+                                        <StackPanel Height="Auto" Orientation="Horizontal">   ]]> 
+  </xsl:if>         
+</xsl:when>  
+<xsl:otherwise>    
 </xsl:otherwise>    
 </xsl:choose>
 
@@ -3954,6 +3890,96 @@
                                                     ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
                                                     Mode="TwoWay"
                                                     Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.]]><xsl:value-of select="NameFK2"/><![CDATA[)"
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                </TextBox.Text>
+                            </TextBox>  ]]>        
+  </xsl:if>       
+</xsl:when>  
+<xsl:when test="Table ='Tbl69FiSpeciesses'">  
+   <xsl:if test="TableFK2 !='NULL'">    <![CDATA[  
+                            <Button Template="{StaticResource Save]]><xsl:value-of select="BasisFK2"/><![CDATA[Button}" />   
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="250"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource  ]]><xsl:value-of select="LinqModelFK2"/><![CDATA[-]]><xsl:value-of select="BasisFK2"/><![CDATA[Name}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                               FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource ]]><xsl:value-of select="LinqModelFK2"/><![CDATA[-]]><xsl:value-of select="BasisFK2"/><![CDATA[Name}">
+                                <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.]]><xsl:value-of select="NameFK2"/><![CDATA[)"
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                </TextBox.Text>
+                            </TextBox> 
+                            <TextBox
+                                Width="250"
+                                Margin="25,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource  ]]><xsl:value-of select="LinqModelFK2"/><![CDATA[-Subspeciesgroup}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                               FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource ]]><xsl:value-of select="LinqModelFK2"/><![CDATA[-Subspeciesgroup}">
+                                <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.Subspeciesgroup)"
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                </TextBox.Text>
+                            </TextBox>  ]]>        
+  </xsl:if>       
+</xsl:when>  
+<xsl:when test="Table ='Tbl72PlSpeciesses'">  
+   <xsl:if test="TableFK2 !='NULL'">    <![CDATA[  
+                            <Button Template="{StaticResource Save]]><xsl:value-of select="BasisFK2"/><![CDATA[Button}" />   
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="250"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource  ]]><xsl:value-of select="LinqModelFK2"/><![CDATA[-]]><xsl:value-of select="BasisFK2"/><![CDATA[Name}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                               FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource ]]><xsl:value-of select="LinqModelFK2"/><![CDATA[-]]><xsl:value-of select="BasisFK2"/><![CDATA[Name}">
+                                <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.]]><xsl:value-of select="NameFK2"/><![CDATA[)"
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                </TextBox.Text>
+                            </TextBox> 
+                            <TextBox
+                                Width="250"
+                                Margin="25,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource  ]]><xsl:value-of select="LinqModelFK2"/><![CDATA[-Subspeciesgroup}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                               FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource ]]><xsl:value-of select="LinqModelFK2"/><![CDATA[-Subspeciesgroup}">
+                                <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.Subspeciesgroup)"
                                                     UpdateSourceTrigger="PropertyChanged"/>
                                 </TextBox.Text>
                             </TextBox>  ]]>        
@@ -4195,11 +4221,409 @@
                                         </StackPanel> ]]> 
   </xsl:if>       
 </xsl:when>  
+<xsl:when test="Table ='Tbl69FiSpeciesses'">  
+  <xsl:if test="TableFK2 !='NULL'">    <![CDATA[   
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <CheckBox
+                                                Width="80"
+                                                Margin="5"
+                                                VerticalAlignment="Bottom"
+                                                Content="{DynamicResource Shared-Valid}"
+                                                FontWeight="Normal"
+                                                IsChecked="{Binding SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.Valid), ElementName=]]><xsl:value-of select="TableFK2"/><![CDATA[List, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                Style="{StaticResource MahApps.Styles.CheckBox}" />
+                                        <TextBox
+                                    Width="80"
+                                    Margin="25,5,5,5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-ValidYear}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-ValidYear}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.ValidYear)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                      </StackPanel>
+                                         <StackPanel Height="Auto" Orientation="Horizontal">
+                                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                                    <TextBox
+                                        Height="Auto"
+                                        MinWidth="700"
+                                        MinHeight="75"
+                                        MaxWidth="700"
+                                        MaxHeight="200"
+                                        Margin="5"
+                                        VerticalAlignment="Stretch"
+                                        HorizontalContentAlignment="Stretch"
+                                        mah:TextBoxHelper.IsWaitingForData="True"
+                                        mah:TextBoxHelper.UseFloatingWatermark="True"
+                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-Synonym}"
+                                        mah:TextBoxHelper.WatermarkAlignment="Left"
+                                        AcceptsReturn="True"
+                                        FontWeight="Medium"
+                                        SpellCheck.IsEnabled="True"
+                                               Text="{Binding SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.Synonym), ElementName=]]><xsl:value-of select="TableFK2"/><![CDATA[List, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                               TextWrapping="Wrap"
+                                        ToolTip="{DynamicResource Shared-Synonym}"
+                                               VerticalScrollBarVisibility="Auto"  /> 
+                                            </ScrollViewer>
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox
+                                    Width="600"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    CharacterCasing="Upper"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-Author}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.Author)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                        <TextBox
+                                    Width="90"
+                                    Margin="5,5,5,5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-AuthorYear}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-AuthorYear}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.AuthorYear)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox
+                                    Width="700"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Info}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-Info}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.Info)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                         <TextBox
+                                    Width="337"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-EngName}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-EngName}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.EngName)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                         <TextBox
+                                    Width="337"
+                                    Margin="21,5,5,5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-GerName}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-GerName}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.GerName)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                         <TextBox
+                                    Width="337"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-FraName}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-FraName}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.FraName)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                         <TextBox
+                                    Width="337"
+                                    Margin="21,5,5,5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-SpaName}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-SpaName}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.PorName)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                        </StackPanel> ]]> 
+  </xsl:if>       
+</xsl:when>  
+<xsl:when test="Table ='Tbl72PlSpeciesses'">  
+  <xsl:if test="TableFK2 !='NULL'">    <![CDATA[   
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <CheckBox
+                                                Width="80"
+                                                Margin="5"
+                                                VerticalAlignment="Bottom"
+                                                Content="{DynamicResource Shared-Valid}"
+                                                FontWeight="Normal"
+                                                IsChecked="{Binding SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.Valid), ElementName=]]><xsl:value-of select="TableFK2"/><![CDATA[List, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                Style="{StaticResource MahApps.Styles.CheckBox}" />
+                                        <TextBox
+                                    Width="80"
+                                    Margin="25,5,5,5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-ValidYear}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-ValidYear}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.ValidYear)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                      </StackPanel>
+                                         <StackPanel Height="Auto" Orientation="Horizontal">
+                                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                                    <TextBox
+                                        Height="Auto"
+                                        MinWidth="700"
+                                        MinHeight="75"
+                                        MaxWidth="700"
+                                        MaxHeight="200"
+                                        Margin="5"
+                                        VerticalAlignment="Stretch"
+                                        HorizontalContentAlignment="Stretch"
+                                        mah:TextBoxHelper.IsWaitingForData="True"
+                                        mah:TextBoxHelper.UseFloatingWatermark="True"
+                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-Synonym}"
+                                        mah:TextBoxHelper.WatermarkAlignment="Left"
+                                        AcceptsReturn="True"
+                                        FontWeight="Medium"
+                                        SpellCheck.IsEnabled="True"
+                                               Text="{Binding SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.Synonym), ElementName=]]><xsl:value-of select="TableFK2"/><![CDATA[List, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                               TextWrapping="Wrap"
+                                        ToolTip="{DynamicResource Shared-Synonym}"
+                                               VerticalScrollBarVisibility="Auto"  /> 
+                                            </ScrollViewer>
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox
+                                    Width="600"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    CharacterCasing="Upper"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-Author}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.Author)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                        <TextBox
+                                    Width="90"
+                                    Margin="5,5,5,5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-AuthorYear}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-AuthorYear}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.AuthorYear)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox
+                                    Width="700"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Info}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-Info}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.Info)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                    </StackPanel>
+                                    <StackPanel Height="Auto" Orientation="Horizontal">
+                                         <TextBox
+                                    Width="337"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-EngName}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-EngName}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.EngName)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                         <TextBox
+                                    Width="337"
+                                    Margin="21,5,5,5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-GerName}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-GerName}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.GerName)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                         <TextBox
+                                    Width="337"
+                                    Margin="5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-FraName}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-FraName}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.FraName)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                         <TextBox
+                                    Width="337"
+                                    Margin="21,5,5,5"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-SpaName}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    ToolTip="{DynamicResource Shared-SpaName}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="]]><xsl:value-of select="TableFK2"/><![CDATA[List"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.PorName)"             
+                                                    UpdateSourceTrigger="PropertyChanged"/>
+                                            </TextBox.Text>
+                                        </TextBox>     
+                                        </StackPanel> ]]> 
+  </xsl:if>       
+</xsl:when>  
 <xsl:otherwise>     
 </xsl:otherwise>    
 </xsl:choose>
-
-
 
 <xsl:choose>
 <xsl:when test="Table ='Property Part 2.2  HeaderedContentControl Connected   FK2 Bottom 1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
@@ -4207,6 +4631,68 @@
 <xsl:when test="Table ='Property Part 2.2  HeaderedContentControl Connected   FK2 Bottom 1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
 </xsl:when>  
 <xsl:when test="Table ='Tbl18Superclasses'">  
+  <xsl:if test="TableFK2 !='NULL'">    <![CDATA[   
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                          <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                            <TextBox
+                                    Height="Auto"
+                                    MinWidth="700"
+                                    MinHeight="75"
+                                    MaxWidth="700"
+                                    MaxHeight="200"
+                                    Margin="5"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                AcceptsReturn="True"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                Text="{Binding SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.Memo), ElementName=]]><xsl:value-of select="TableFK2"/><![CDATA[List, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap"
+                                    ToolTip="{DynamicResource Shared-Memo}"
+                                                VerticalScrollBarVisibility="Auto" />
+                                             </ScrollViewer>
+                                       </StackPanel>
+                                    </StackPanel>
+                                    </GroupBox>
+                                </TabItem>  ]]> 
+  </xsl:if>       
+</xsl:when>  
+<xsl:when test="Table ='Tbl69FiSpeciesses'">  
+  <xsl:if test="TableFK2 !='NULL'">    <![CDATA[   
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                          <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                            <TextBox
+                                    Height="Auto"
+                                    MinWidth="700"
+                                    MinHeight="75"
+                                    MaxWidth="700"
+                                    MaxHeight="200"
+                                    Margin="5"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                AcceptsReturn="True"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                Text="{Binding SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.Memo), ElementName=]]><xsl:value-of select="TableFK2"/><![CDATA[List, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap"
+                                    ToolTip="{DynamicResource Shared-Memo}"
+                                                VerticalScrollBarVisibility="Auto" />
+                                             </ScrollViewer>
+                                       </StackPanel>
+                                    </StackPanel>
+                                    </GroupBox>
+                                </TabItem>  ]]> 
+  </xsl:if>       
+</xsl:when>  
+<xsl:when test="Table ='Tbl72PlSpeciesses'">  
   <xsl:if test="TableFK2 !='NULL'">    <![CDATA[   
                                         <StackPanel Height="Auto" Orientation="Horizontal">
                                           <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -4410,39 +4896,49 @@
                             </StackPanel>  ]]>  
 </xsl:when>
 <xsl:when test="Table ='Tbl69FiSpeciesses'">       <![CDATA[   
+                                <Button Template="{StaticResource Save]]><xsl:value-of select="Basis"/><![CDATA[Button}" />
                                 <Button Template="{StaticResource Copy]]><xsl:value-of select="Basis"/><![CDATA[Button}" />
                                 <Button Template="{StaticResource Add]]><xsl:value-of select="Basis"/><![CDATA[Button}" />
                                 <Button Template="{StaticResource Delete]]><xsl:value-of select="Basis"/><![CDATA[Button}" /> 
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <ComboBox
-                                            Width="250"
-                                            Margin="5,0,0,0"
-                                            VerticalAlignment="Bottom"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Tbl66Genus-GenusName}"
-                                            DisplayMemberPath="GenusName"
-                                            IsSynchronizedWithCurrentItem="True"
-                                            ItemContainerStyle="{StaticResource ComboStyle}"
-                                            ItemsSource="{Binding Tbl66GenussesAllList}"
-                                            SelectedValue="{Binding SelectedItem.(models:Tbl66Genus.GenusId), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay}"
-                                            SelectedValuePath="GenusId"
-                                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                            VirtualizingStackPanel.IsVirtualizing="True" />
-                                        <ComboBox
-                                            Name="cbSpeciesgroup"
-                                            Width="250"
-                                            Margin="25,0,0,0"
-                                            VerticalAlignment="Bottom"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Tbl68Speciesgroup-SpeciesgroupName}"
-                                            DisplayMemberPath="SpeciesgroupName"
-                                            IsSynchronizedWithCurrentItem="True"
-                                            ItemContainerStyle="{StaticResource ComboStyle}"
-                                            ItemsSource="{Binding Tbl68SpeciesgroupsAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
-                                            SelectedValue="{Binding SelectedItem.(models:Tbl68Speciesgroup.SpeciesgroupId), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay}"
-                                            SelectedValuePath="SpeciesgroupId"
-                                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                            VirtualizingStackPanel.IsVirtualizing="True" />
-                            </StackPanel>  ]]>  
+                                <ComboBox
+                                    Width="250"
+                                    Margin="5"
+                                    VerticalAlignment="Bottom"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource ]]><xsl:value-of select="LinqModelFK1"/><![CDATA[-]]><xsl:value-of select="BasisFK1"/><![CDATA[}"
+                                    DisplayMemberPath="]]><xsl:value-of select="NameFK1"/><![CDATA[" 
+                                    IsSynchronizedWithCurrentItem="True"
+                                    ItemsSource="{Binding ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList}"
+                                    SelectedIndex="0"
+                                    SelectedValue="{Binding SelectedItem.(models:]]><xsl:value-of select="LinqModelFK1"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id), ElementName=]]><xsl:value-of select="Table"/><![CDATA[List, Mode=TwoWay}"
+                                    SelectedValuePath="]]><xsl:value-of select="BasisFK1"/><![CDATA[Id" 
+                                    Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                    VirtualizingStackPanel.IsVirtualizing="True" />
+                                <ComboBox
+                                    Width="250"
+                                    Margin="25,5,5,5"
+                                    VerticalAlignment="Bottom"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource ]]><xsl:value-of select="LinqModelFK2"/><![CDATA[-]]><xsl:value-of select="BasisFK2"/><![CDATA[}"
+                                    IsSynchronizedWithCurrentItem="True"
+                                    ItemsSource="{Binding ]]><xsl:value-of select="TableFK2"/><![CDATA[AllList}"
+                                    SelectedIndex="0"
+                                    SelectedValue="{Binding SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.]]><xsl:value-of select="BasisFK2"/><![CDATA[Id), ElementName=]]><xsl:value-of select="Table"/><![CDATA[List, Mode=TwoWay}"
+                                    SelectedValuePath="]]><xsl:value-of select="BasisFK2"/><![CDATA[Id" 
+                                    Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                    VirtualizingStackPanel.IsVirtualizing="True" >
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding (models:Tbl68Speciesgroup.SpeciesgroupName)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl68Speciesgroup.Subspeciesgroup)}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                                </StackPanel>  ]]>    
 </xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">       <![CDATA[   
                                 <Button Template="{StaticResource Copy]]><xsl:value-of select="Basis"/><![CDATA[Button}" />
@@ -4450,34 +4946,43 @@
                                 <Button Template="{StaticResource Delete]]><xsl:value-of select="Basis"/><![CDATA[Button}" /> 
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
-                                        <ComboBox
-                                            Width="250"
-                                            Margin="5,0,0,0"
-                                            VerticalAlignment="Bottom"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Tbl66Genus-GenusName}"
-                                            DisplayMemberPath="GenusName"
-                                            IsSynchronizedWithCurrentItem="True"
-                                            ItemContainerStyle="{StaticResource ComboStyle}"
-                                            ItemsSource="{Binding Tbl66GenussesAllList}"
-                                            SelectedValue="{Binding SelectedItem.(models:Tbl66Genus.GenusId), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay}"
-                                            SelectedValuePath="GenusId"
-                                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                            VirtualizingStackPanel.IsVirtualizing="True" />
-                                        <ComboBox
-                                            Name="cbSpeciesgroup"
-                                            Width="250"
-                                            Margin="25,0,0,0"
-                                            VerticalAlignment="Bottom"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Tbl68Speciesgroup-SpeciesgroupName}"
-                                            DisplayMemberPath="SpeciesgroupName"
-                                            IsSynchronizedWithCurrentItem="True"
-                                            ItemContainerStyle="{StaticResource ComboStyle}"
-                                            ItemsSource="{Binding Tbl68SpeciesgroupsAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
-                                            SelectedValue="{Binding SelectedItem.(models:Tbl68Speciesgroup.SpeciesgroupId), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay}"
-                                            SelectedValuePath="SpeciesgroupId"
-                                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                            VirtualizingStackPanel.IsVirtualizing="True" />
-                            </StackPanel>  ]]>  
+                                <ComboBox
+                                    Width="250"
+                                    Margin="5"
+                                    VerticalAlignment="Bottom"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource ]]><xsl:value-of select="LinqModelFK1"/><![CDATA[-]]><xsl:value-of select="BasisFK1"/><![CDATA[}"
+                                    DisplayMemberPath="]]><xsl:value-of select="NameFK1"/><![CDATA[" 
+                                    IsSynchronizedWithCurrentItem="True"
+                                    ItemsSource="{Binding ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList}"
+                                    SelectedIndex="0"
+                                    SelectedValue="{Binding SelectedItem.(models:]]><xsl:value-of select="LinqModelFK1"/><![CDATA[.]]><xsl:value-of select="BasisFK1"/><![CDATA[Id), ElementName=]]><xsl:value-of select="Table"/><![CDATA[List, Mode=TwoWay}"
+                                    SelectedValuePath="]]><xsl:value-of select="BasisFK1"/><![CDATA[Id" 
+                                    Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                    VirtualizingStackPanel.IsVirtualizing="True" />
+                                <ComboBox
+                                    Width="250"
+                                    Margin="25,5,5,5"
+                                    VerticalAlignment="Bottom"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource ]]><xsl:value-of select="LinqModelFK2"/><![CDATA[-]]><xsl:value-of select="BasisFK2"/><![CDATA[}"
+                                    IsSynchronizedWithCurrentItem="True"
+                                    ItemsSource="{Binding ]]><xsl:value-of select="TableFK2"/><![CDATA[AllList}"
+                                    SelectedIndex="0"
+                                    SelectedValue="{Binding SelectedItem.(models:]]><xsl:value-of select="LinqModelFK2"/><![CDATA[.]]><xsl:value-of select="BasisFK2"/><![CDATA[Id), ElementName=]]><xsl:value-of select="Table"/><![CDATA[List, Mode=TwoWay}"
+                                    SelectedValuePath="]]><xsl:value-of select="BasisFK2"/><![CDATA[Id" 
+                                    Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                    VirtualizingStackPanel.IsVirtualizing="True" >
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding (models:Tbl68Speciesgroup.SpeciesgroupName)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl68Speciesgroup.Subspeciesgroup)}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                                </StackPanel>  ]]>   
 </xsl:when>
 <xsl:when test="Table ='Tbl78Names'">      <![CDATA[   
                                 <Button Template="{StaticResource Copy]]><xsl:value-of select="Basis"/><![CDATA[Button}" />

@@ -40,7 +40,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
         private bool _mediaPlayerIsPlaying;
         private bool _userIsDraggingSlider;
         //Geographic
-        private bool _isDrawing = false;
+    //    private bool _isDrawing = false;
         //private Location _center;
         //private MapPolygon _currentShape;
 
@@ -296,12 +296,12 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
 
         private void MenuItem_Click_StartDraw(object sender, RoutedEventArgs e)
         {
-            StartStopDraw.IsChecked = true;
+    //        StartStopDraw.IsChecked = true;
         }
 
         private void MenuItem_Click_StopDraw(object sender, RoutedEventArgs e)
         {
-            StartStopDraw.IsChecked = false;
+    //        StartStopDraw.IsChecked = false;
         }
 
         //private void MenuItem_Click_ClearStrokeArea(object sender, RoutedEventArgs e)

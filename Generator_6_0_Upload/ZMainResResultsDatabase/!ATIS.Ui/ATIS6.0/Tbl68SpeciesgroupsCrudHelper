@@ -195,12 +195,12 @@
           #region Delete Speciesgroup
 
                 //------------------------------ Speciesgroup --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl68Speciesgroup selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSpeciesgroupIdInTableReference(Tbl68Speciesgroup selected)
         {
             var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SpeciesgroupId == selected.SpeciesgroupId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl68Speciesgroup selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSpeciesgroupIdInTableComment(Tbl68Speciesgroup selected)
         {
             var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SpeciesgroupId == selected.SpeciesgroupId));
             return collection;

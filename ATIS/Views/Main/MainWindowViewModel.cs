@@ -28,7 +28,7 @@ namespace ATIS.Ui.Views.Main
         }
 
         private readonly IDialogCoordinator _dialogCoordinator;
-        private readonly IDisposable _disposable;
+   //     private readonly IDisposable _disposable;
         private readonly AtisDbContext _context = new AtisDbContext();
         private readonly SearchBasicGet _extSearchGet = new SearchBasicGet();
 
@@ -229,7 +229,7 @@ namespace ATIS.Ui.Views.Main
         public void Dispose()
         {
             //  HotkeyManager.Current.Remove("demo");
-            if (_disposable != null) _disposable.Dispose();
+      //      if (_disposable != null) _disposable.Dispose();
         }
 
 

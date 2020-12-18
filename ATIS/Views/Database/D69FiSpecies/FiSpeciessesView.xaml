@@ -64,14 +64,14 @@
                                         mah:TextBoxHelper.ClearTextButton="True"
                                         mah:TextBoxHelper.IsWaitingForData="True"
                                         mah:TextBoxHelper.UseFloatingWatermark="True"
-                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-SearchNameOrId}"
+                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-SearchGenus}"
                                         mah:TextBoxHelper.WatermarkAlignment="Left"
                                         ContextMenu="{x:Null}"
                                         FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
                                         FontWeight="Medium"
                                         SpellCheck.IsEnabled="True"
                                         Text="{Binding SearchFiSpeciesName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                        ToolTip="{DynamicResource Shared-SearchNameOrId}">
+                                        ToolTip="{DynamicResource Shared-SearchGenus}">
                                         <TextBox.InputBindings>
                                             <KeyBinding
                                                 Key="Return"
@@ -479,7 +479,7 @@
                                             <DataTemplate>
                                                 <TextBlock
                                                     Width="100"
-                                                    Text="{Binding (models:Tbl84Synonym.SynonymID)}"
+                                                    Text="{Binding (models:Tbl84Synonym.SynonymId)}"
                                                     TextAlignment="Left" />
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
@@ -543,7 +543,7 @@
                                             <DataTemplate>
                                                 <TextBlock
                                                     Width="100"
-                                                    Text="{Binding (models:Tbl87Geographic.GeographicID)}"
+                                                    Text="{Binding (models:Tbl87Geographic.GeographicId)}"
                                                     TextAlignment="Right" />
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
@@ -1391,6 +1391,7 @@
                 </GroupBox>
             </TabItem>
 
+
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl69FiSpecies-FiSpecies}">
                 <StackPanel>
                     <GroupBox>
@@ -2212,7 +2213,6 @@
                 <GroupBox>
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
-
                             <Button Template="{StaticResource SaveNameButton}" />
                             <Button Template="{StaticResource CopyNameButton}" />
                             <Button Template="{StaticResource AddNameButton}" />
@@ -2238,21 +2238,27 @@
                                         UpdateSourceTrigger="PropertyChanged" />
                                 </TextBox.Text>
                             </TextBox>
-
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                     <TextBox
                                         Height="Auto"
                                         MinWidth="700"
-                                        MinHeight="100"
+                                        MinHeight="75"
                                         MaxWidth="700"
-                                        MaxHeight="400"
-                                        Margin="5,0,0,10"
+                                        MaxHeight="200"
+                                        Margin="5"
                                         VerticalAlignment="Stretch"
+                                        HorizontalContentAlignment="Stretch"
+                                        mah:TextBoxHelper.IsWaitingForData="True"
+                                        mah:TextBoxHelper.UseFloatingWatermark="True"
+                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                        mah:TextBoxHelper.WatermarkAlignment="Left"
                                         AcceptsReturn="True"
                                         FontWeight="Medium"
+                                        SpellCheck.IsEnabled="True"
                                         Text="{Binding SelectedItem.(models:Tbl78Name.Memo), ElementName=Tbl78NamesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         TextWrapping="Wrap"
+                                        ToolTip="{DynamicResource Shared-Memo}"
                                         VerticalScrollBarVisibility="Auto" />
                                 </ScrollViewer>
                             </StackPanel>
@@ -2268,23 +2274,10 @@
                 <GroupBox>
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
-
-                            <Button
-                                Margin="0,0,0,0"
-                                HorizontalAlignment="Left"
-                                Command="{Binding CopyImageCommand}"
-                                ToolTip="{DynamicResource Shared-ActionLnkCopy}" />
-                            <Button
-                                Margin="0,0,0,0"
-                                HorizontalAlignment="Left"
-                                Command="{Binding AddImageCommand}"
-                                ToolTip="{DynamicResource Shared-ActionLnkCreate}" />
-                            <Button
-                                Margin="0,0,0,0"
-                                HorizontalAlignment="Left"
-                                Command="{Binding DeleteImageCommand}"
-                                ToolTip="{DynamicResource Shared-ActionLnkDelete}" />
-
+                            <Button Template="{StaticResource SaveImageButton}" />
+                            <Button Template="{StaticResource CopyImageButton}" />
+                            <Button Template="{StaticResource AddImageButton}" />
+                            <Button Template="{StaticResource DeleteImageButton}" />
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ComboBox
@@ -2500,32 +2493,14 @@
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl84Synonym-Synonym}">
                 <GroupBox>
-                    <StackPanel Margin="0,0,5,0">
+                    <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
-
-                            <Button
-                                Margin="0,0,0,0"
-                                HorizontalAlignment="Left"
-                                Command="{Binding SaveSynonymCommand}"
-                                ToolTip="{DynamicResource Shared-ButtonSave}" />
-                            <Button
-                                Margin="0,0,0,0"
-                                HorizontalAlignment="Left"
-                                Command="{Binding CopySynonymCommand}"
-                                ToolTip="{DynamicResource Shared-ActionLnkCopy}" />
-                            <Button
-                                Margin="0,0,0,0"
-                                HorizontalAlignment="Left"
-                                Command="{Binding AddSynonymCommand}"
-                                ToolTip="{DynamicResource Shared-ActionLnkCreate}" />
-                            <Button
-                                Margin="0,0,0,0"
-                                HorizontalAlignment="Left"
-                                Command="{Binding DeleteSynonymCommand}"
-                                ToolTip="{DynamicResource Shared-ActionLnkDelete}" />
+                            <Button Template="{StaticResource SaveSynonymButton}" />
+                            <Button Template="{StaticResource CopySynonymButton}" />
+                            <Button Template="{StaticResource AddSynonymButton}" />
+                            <Button Template="{StaticResource DeleteSynonymButton}" />
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
-
                             <TextBox
                                 Width="700"
                                 Margin="5,0,0,0"
@@ -2616,44 +2591,12 @@
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl87Geographic-Geographic}">
                 <GroupBox>
-                    <StackPanel Margin="0,0,5,0">
+                    <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
-
-                            <Button
-                                Margin="0,0,0,0"
-                                HorizontalAlignment="Left"
-                                ToolTip="Paint Saved Stroke Area" />
-                            <Button
-                                Margin="0,0,0,0"
-                                HorizontalAlignment="Left"
-                                ToolTip="Clear Stroke Area" />
-                            <ToggleButton
-                                x:Name="StartStopDraw"
-                                Margin="0,0,0,0"
-                                Checked="StartDrawing"
-                                IsChecked="{Binding Path=_isDrawing, Mode=TwoWay, ElementName=Tbl69FiSpeciessesView}"
-                                ToolTip="{DynamicResource Tbl87Geographic-StartPaint}"
-                                Unchecked="StopDrawing" />
-                            <Button
-                                Margin="0,0,0,0"
-                                HorizontalAlignment="Left"
-                                Command="{Binding SaveGeographicCommand}"
-                                ToolTip="{DynamicResource Shared-ButtonSave}" />
-                            <Button
-                                Margin="0,0,0,0"
-                                HorizontalAlignment="Left"
-                                Command="{Binding CopyGeographicCommand}"
-                                ToolTip="{DynamicResource Shared-ActionLnkCopy}" />
-                            <Button
-                                Margin="0,0,0,0"
-                                HorizontalAlignment="Left"
-                                Command="{Binding AddGeographicCommand}"
-                                ToolTip="{DynamicResource Shared-ActionLnkCreate}" />
-                            <Button
-                                Margin="0,0,0,0"
-                                HorizontalAlignment="Left"
-                                Command="{Binding DeleteGeographicCommand}"
-                                ToolTip="{DynamicResource Shared-ActionLnkDelete}" />
+                            <Button Template="{StaticResource SaveGeographicButton}" />
+                            <Button Template="{StaticResource CopyGeographicButton}" />
+                            <Button Template="{StaticResource AddGeographicButton}" />
+                            <Button Template="{StaticResource DeleteGeographicButton}" />
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <TextBox

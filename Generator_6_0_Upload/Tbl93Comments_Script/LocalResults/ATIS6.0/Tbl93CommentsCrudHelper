@@ -195,12 +195,12 @@
           #region Delete Comment
 
                 //------------------------------ Comment --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl93Comment selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithCommentIdInTableReference(Tbl93Comment selected)
         {
             var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.CommentId == selected.CommentId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl93Comment selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithCommentIdInTableComment(Tbl93Comment selected)
         {
             var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.CommentId == selected.CommentId));
             return collection;

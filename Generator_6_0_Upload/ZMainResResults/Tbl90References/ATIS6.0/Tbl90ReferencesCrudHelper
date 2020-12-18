@@ -195,12 +195,12 @@
           #region Delete Reference
 
                 //------------------------------ Reference --------------------------------------------------------------------------------------------
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl90Reference selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithReferenceIdInTableReference(Tbl90Reference selected)
         {
             var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.ReferenceId == selected.ReferenceId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl90Reference selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithReferenceIdInTableComment(Tbl90Reference selected)
         {
             var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.ReferenceId == selected.ReferenceId));
             return collection;
