@@ -171,9 +171,9 @@ namespace ATIS.Ui.Helper
                 case "fispecies":
                     collection = GetFiSpeciessesCollectionAllOrderBy<T>();
                     break;
-                //case "plspecies":
-                //    collection = GetPlSpeciessesCollectionAllOrderBy<T>();
-                //    break;
+                case "plspecies":
+                    collection = GetPlSpeciessesCollectionAllOrderBy<T>();
+                    break;
 
                 case "expert":
                     collection = GetReferenceExpertsCollectionAllOrderBy<T>();
@@ -9970,7 +9970,7 @@ namespace ATIS.Ui.Helper
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
                 .Where(e => e.PlSpeciesId == id)
-                .OrderBy(a => a.FiSpeciesName)
+                .OrderBy(a => a.PlSpeciesName)
                 .ThenBy(a => a.Subspecies)
                 .ThenBy(a => a.Divers));
 
