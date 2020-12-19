@@ -16,9 +16,10 @@
 
 
     <!--  Tbl69FiSpeciessesView.xaml  Skriptdatum:  17.12.2020  10:32  -->
+    <!--xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"-->
 
 
-    <Grid>
+<Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="750" />
             <ColumnDefinition Width="Auto" />

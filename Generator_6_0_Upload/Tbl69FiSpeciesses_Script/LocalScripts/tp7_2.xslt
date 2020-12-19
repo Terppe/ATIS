@@ -8012,6 +8012,10 @@
 </xsl:when>
 <xsl:when test="Table ='Tbl68Speciesgroups'">       
 </xsl:when>
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      
+</xsl:when>  
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      
+</xsl:when>  
 <xsl:when test="Table ='Tbl78Names'">  
 </xsl:when>
 <xsl:when test="Table ='Tbl81Images'">  
@@ -8355,51 +8359,9 @@
                                             <StackPanel Height="Auto" Orientation="Horizontal">   ]]> 
   </xsl:if>        
 </xsl:when>  
-<xsl:when test="Table ='Tbl69FiSpeciesses'">      
-  <xsl:if test="TableFK2 !='NULL'">    <![CDATA[     
-                                   <TabItem FontWeight="Medium" Header="{DynamicResource ]]><xsl:value-of select="LinqModelFK2"/><![CDATA[-]]><xsl:value-of select="BasisFK2"/><![CDATA[}"  >
-                                    <GroupBox ContextMenu="{StaticResource MenuSpeciesgroup}">
-                                        <StackPanel Margin="0,0,5,0">
-                                            <StackPanel Height="Auto" Orientation="Horizontal"> 
-                                                <Button
-                                                    Margin="0,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    Command="{Binding SaveSpeciesgroupCommand}"
-                                                    Style="{StaticResource MaterialDesignFlatButton}"
-                                                    ToolTip="{DynamicResource Shared-ButtonSave}">
-                                                    <materialDesign:PackIcon
-                                                        Width="24"
-                                                        Height="24"
-                                                        Margin="0,0,-5,0"
-                                                        Kind="ContentSave"
-                                                        Opacity=".56" />
-                                                </Button>
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">  ]]> 
-  </xsl:if>        
+ <xsl:when test="Table ='Tbl69FiSpeciesses'">      
 </xsl:when>  
 <xsl:when test="Table ='Tbl72PlSpeciesses'">      
-  <xsl:if test="TableFK2 !='NULL'">    <![CDATA[     
-                                    <TabItem FontWeight="Medium" Header="{DynamicResource ]]><xsl:value-of select="LinqModelFK2"/><![CDATA[-]]><xsl:value-of select="BasisFK2"/><![CDATA[}"  >
-                                    <GroupBox ContextMenu="{StaticResource MenuSpeciesgroup}">
-                                        <StackPanel Margin="0,0,5,0">                          
-                                           <StackPanel Height="Auto" Orientation="Horizontal"> 
-                                                <Button
-                                                    Margin="0,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    Command="{Binding SaveSpeciesgroupCommand}"
-                                                    Style="{StaticResource MaterialDesignFlatButton}"
-                                                    ToolTip="{DynamicResource Shared-ButtonSave}">
-                                                    <materialDesign:PackIcon
-                                                        Width="24"
-                                                        Height="24"
-                                                        Margin="0,0,-5,0"
-                                                        Kind="ContentSave"
-                                                        Opacity=".56" />
-                                                </Button>
-                                            </StackPanel>
-                                            <StackPanel Height="Auto" Orientation="Horizontal">  ]]> 
- </xsl:if>        
 </xsl:when>  
 <xsl:when test="Table ='Tbl78Names'">      
   <xsl:if test="TableFK2 !='NULL'">    <![CDATA[     
@@ -8465,6 +8427,10 @@
 <xsl:when test="Table ='Tbl18Superclasses'">    
 </xsl:when>  
 <xsl:when test="Table ='Tbl68Speciesgroups'">      
+</xsl:when>  
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      
+</xsl:when>  
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      
 </xsl:when>  
 <xsl:when test="Table ='Tbl78Names'">      
 </xsl:when>  
@@ -9836,6 +9802,10 @@
 </xsl:when>
 <xsl:when test="Table ='Tbl68Speciesgroups'">       
 </xsl:when>
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      
+</xsl:when>  
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      
+</xsl:when>  
 <xsl:when test="Table ='Tbl78Names'">  
 </xsl:when>
 <xsl:when test="Table ='Tbl81Images'">  
@@ -10082,59 +10052,9 @@
 </xsl:when>    
 <xsl:when test="Table ='Tbl68Speciesgroups'">      
 </xsl:when>  
-<xsl:when test="Table ='Tbl69FiSpeciesses'">  
-  <xsl:if test="TableFK2 !='NULL'">    <![CDATA[   
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                          <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                        <TextBox
-                                                        Height="Auto"
-                                                        MinWidth="700"
-                                                        MinHeight="75"
-                                                        MaxWidth="700"
-                                                        MaxHeight="400"
-                                            Margin="5,0,0,5"
-                                            VerticalAlignment="Stretch"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-Memo}"
-                                            AcceptsReturn="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            FontWeight="Medium"
-                                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                            Text="{Binding SelectedItem.(models:Tbl68Speciesgroup.Memo), ElementName=Tbl68SpeciesgroupsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            TextWrapping="Wrap"
-                                            VerticalScrollBarVisibility="Auto" />
-                                             </ScrollViewer>
-                                      </StackPanel>
-                                    </StackPanel>
-                                     </GroupBox>
-                               </TabItem>  ]]> 
-  </xsl:if>           
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      
 </xsl:when>  
-<xsl:when test="Table ='Tbl72PlSpeciesses'">  
-  <xsl:if test="TableFK2 !='NULL'">    <![CDATA[   
-                                    <StackPanel Height="Auto" Orientation="Horizontal">
-                                          <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                        <TextBox
-                                                        Height="Auto"
-                                                        MinWidth="700"
-                                                        MinHeight="75"
-                                                        MaxWidth="700"
-                                                        MaxHeight="400"
-                                            Margin="5,0,0,5"
-                                            VerticalAlignment="Stretch"
-                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-Memo}"
-                                            AcceptsReturn="True"
-                                            ContextMenu="{StaticResource MenuEdit}"
-                                            FontWeight="Medium"
-                                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                            Text="{Binding SelectedItem.(models:Tbl68Speciesgroup.Memo), ElementName=Tbl68SpeciesgroupsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            TextWrapping="Wrap"
-                                            VerticalScrollBarVisibility="Auto" />
-                                          </ScrollViewer>
-                                     </StackPanel>
-                                    </StackPanel>
-                                     </GroupBox>
-                               </TabItem>  ]]> 
-  </xsl:if>           
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      
 </xsl:when>  
 <xsl:when test="Table ='Tbl78Names'">     
   <xsl:if test="TableFK2 !='NULL'">    <![CDATA[   

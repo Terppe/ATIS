@@ -462,56 +462,7 @@
 
              <!--  Part 8.2 TK1 Connected -->  
 
-       
-                                           <StackPanel Height="Auto" Orientation="Horizontal">
-                                                <ComboBox
-                                                    Width="250"
-                                                    Margin="5,0,0,0"
-                                                    VerticalAlignment="Bottom"
-                                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl66Genus-GenusName}"
-                                                    DisplayMemberPath="GenusName" 
-                                                    IsSynchronizedWithCurrentItem="True"
-                                                    ItemContainerStyle="{StaticResource ComboStyle}"
-                                                    ItemsSource="{Binding Tbl66GenussesAllList}"
-                                                                    SelectedValue="{Binding SelectedItem.(models:Tbl66Genus.GenusID), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay}"
-                                                                    SelectedValuePath="GenusID"
-                                                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                                                  VirtualizingStackPanel.IsVirtualizing="True" />
-                                                <ComboBox
-                                                    Width="250"
-                                                    Margin="25,0,0,0"
-                                                    VerticalAlignment="Bottom"
-                                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl68Speciesgroup-SpeciesgroupName}"
-                                                   IsSynchronizedWithCurrentItem="True"
-                                                     ItemContainerStyle="{StaticResource ComboStyle}"
-                                                    ItemsSource="{Binding Tbl68SpeciesgroupsAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
-                                                                    SelectedValue="{Binding SelectedItem.(models:Tbl68Speciesgroup.SpeciesgroupID), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay}"
-                                                                    SelectedValuePath="SpeciesgroupID"
-                                                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                                                   VirtualizingStackPanel.IsVirtualizing="True">
-                                                                 <ComboBox.ItemTemplate>
-                                                                        <DataTemplate>
-                                                                            <StackPanel Orientation="Horizontal">
-                                                                                <TextBlock Text="{Binding (models:Tbl68Speciesgroup.SpeciesgroupName)}" />
-                                                                                <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl68Speciesgroup.Subspeciesgroup)}" />
-                                                            </StackPanel>
-                                                        </DataTemplate>
-                                                    </ComboBox.ItemTemplate>
-                                                </ComboBox>  
-                                                <Button
-                                                    Margin="50,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    Command="{Binding SaveFiSpeciesCommand}"
-                                                    Style="{StaticResource MaterialDesignFlatButton}"
-                                                    ToolTip="{DynamicResource Shared-ButtonSave}">
-                                                    <materialDesign:PackIcon
-                                                        Width="24"
-                                                        Height="24"
-                                                        Margin="0,0,-5,0"
-                                                        Kind="ContentSave"
-                                                        Opacity=".56" />
-                                                </Button>     
-           
+         
                                     <TabItem FontWeight="Medium" Header="{DynamicResource Tbl72PlSpecies-PlSpecies}"  >
                                     <GroupBox ContextMenu="{StaticResource MenuPlSpecies}">
                                        <StackPanel Margin="0,0,5,0">   
