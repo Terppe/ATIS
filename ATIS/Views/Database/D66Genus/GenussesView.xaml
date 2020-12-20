@@ -738,7 +738,6 @@
                                 SelectedValuePath="SubtribusId"
                                 Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                 VirtualizingStackPanel.IsVirtualizing="True" />
-
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <CheckBox

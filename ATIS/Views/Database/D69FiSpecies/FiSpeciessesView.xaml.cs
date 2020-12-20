@@ -267,32 +267,32 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
         //    sel.SelectCountry(MyMap, CbCountry.Text);
         //}
 
-        //private void MenuItem_Click_DrawSavedArea(object sender, RoutedEventArgs e)
-        //{
-        //    MyMap.Children.Clear();
+        private void MenuItem_Click_DrawSavedArea(object sender, RoutedEventArgs e)
+        {
+            //MyMap.Children.Clear();
 
-        //    var geographic = _businessLayer.SingleListTbl87GeographicsByGeographicId(Convert.ToInt16(TbGeographicId.Text));
-        //    var startLoc = new Location(geographic.Latitude, geographic.Longitude, geographic.ZoomLevel);
-        //    var startLoc1 = new Location(geographic.Latitude1, geographic.Longitude1, geographic.ZoomLevel);
-        //    var startLoc2 = new Location(geographic.Latitude2, geographic.Longitude2, geographic.ZoomLevel);
-        //    var startLoc3 = new Location(geographic.Latitude3, geographic.Longitude3, geographic.ZoomLevel);
+            //var geographic = _businessLayer.SingleListTbl87GeographicsByGeographicId(Convert.ToInt16(TbGeographicId.Text));
+            //var startLoc = new Location(geographic.Latitude, geographic.Longitude, geographic.ZoomLevel);
+            //var startLoc1 = new Location(geographic.Latitude1, geographic.Longitude1, geographic.ZoomLevel);
+            //var startLoc2 = new Location(geographic.Latitude2, geographic.Longitude2, geographic.ZoomLevel);
+            //var startLoc3 = new Location(geographic.Latitude3, geographic.Longitude3, geographic.ZoomLevel);
 
-        //    //Create a polygon that has four corners, all of which are the starting location.
-        //    _currentShape = new MapPolygon()
-        //    {
-        //        Locations = new LocationCollection()
-        //        {
-        //            startLoc,
-        //            startLoc1,
-        //            startLoc2,
-        //            startLoc3
-        //        },
-        //        Fill = new SolidColorBrush(Colors.Transparent),
-        //        Stroke = new SolidColorBrush(Colors.Red),
-        //        StrokeThickness = 2
-        //    };
-        //    MyMap.Children.Add(_currentShape);
-        //}
+            ////Create a polygon that has four corners, all of which are the starting location.
+            //_currentShape = new MapPolygon()
+            //{
+            //    Locations = new LocationCollection()
+            //    {
+            //        startLoc,
+            //        startLoc1,
+            //        startLoc2,
+            //        startLoc3
+            //    },
+            //    Fill = new SolidColorBrush(Colors.Transparent),
+            //    Stroke = new SolidColorBrush(Colors.Red),
+            //    StrokeThickness = 2
+            //};
+            //MyMap.Children.Add(_currentShape);
+        }
 
         private void MenuItem_Click_StartDraw(object sender, RoutedEventArgs e)
         {
@@ -304,20 +304,20 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
     //        StartStopDraw.IsChecked = false;
         }
 
-        //private void MenuItem_Click_ClearStrokeArea(object sender, RoutedEventArgs e)
-        //{
-        //    MyMap.Children.Clear();
+        private void MenuItem_Click_ClearStrokeArea(object sender, RoutedEventArgs e)
+        {
+    //        MyMap.Children.Clear();
 
-        //    TbLatitude.Text = "";
-        //    TbLongitude.Text = "";
-        //    TbLatitude1.Text = "";
-        //    TbLongitude1.Text = "";
-        //    TbLatitude2.Text = "";
-        //    TbLongitude2.Text = "";
-        //    TbLatitude3.Text = "";
-        //    TbLongitude3.Text = "";
-        //    TbZoomLevel.Text = "";
-        //}
+            TbLatitude.Text = "";
+            TbLongitude.Text = "";
+            TbLatitude1.Text = "";
+            TbLongitude1.Text = "";
+            TbLatitude2.Text = "";
+            TbLongitude2.Text = "";
+            TbLatitude3.Text = "";
+            TbLongitude3.Text = "";
+            TbZoomLevel.Text = "";
+        }
         //private void MenuItem_Click_Africa(object sender, RoutedEventArgs e)
         //{
         //    MyMap.Center = new Location(-0.50872, 15.79149, 4.0);

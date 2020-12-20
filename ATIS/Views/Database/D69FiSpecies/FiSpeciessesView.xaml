@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helper="clr-namespace:ATIS.Ui.Helper"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"
@@ -16,12 +17,12 @@
 
 
     <!--  Tbl69FiSpeciessesView.xaml  Skriptdatum:  17.12.2020  10:32  -->
-    <!--xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"-->
+    <!--  xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"  -->
 
 
-<Grid>
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="750" />
+            <ColumnDefinition Width="650" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="50*" />
         </Grid.ColumnDefinitions>
@@ -2239,30 +2240,75 @@
                                         UpdateSourceTrigger="PropertyChanged" />
                                 </TextBox.Text>
                             </TextBox>
-                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                    <TextBox
-                                        Height="Auto"
-                                        MinWidth="700"
-                                        MinHeight="75"
-                                        MaxWidth="700"
-                                        MaxHeight="200"
-                                        Margin="5"
-                                        VerticalAlignment="Stretch"
-                                        HorizontalContentAlignment="Stretch"
-                                        mah:TextBoxHelper.IsWaitingForData="True"
-                                        mah:TextBoxHelper.UseFloatingWatermark="True"
-                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
-                                        mah:TextBoxHelper.WatermarkAlignment="Left"
-                                        AcceptsReturn="True"
-                                        FontWeight="Medium"
-                                        SpellCheck.IsEnabled="True"
-                                        Text="{Binding SelectedItem.(models:Tbl78Name.Memo), ElementName=Tbl78NamesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        TextWrapping="Wrap"
-                                        ToolTip="{DynamicResource Shared-Memo}"
-                                        VerticalScrollBarVisibility="Auto" />
-                                </ScrollViewer>
-                            </StackPanel>
+                            <ComboBox
+                                x:Name="CbLanguage"
+                                Width="100"
+                                Margin="25,5,5,5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl78Name-Language}"
+                                DisplayMemberPath="Name"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Languages}"
+                                SelectedItem="{Binding SelectedLanguage}"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                Text="{Binding SelectedItem.(models:Tbl78Name.Language), ElementName=Tbl78NamesList, Mode=TwoWay}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <CheckBox
+                                Width="80"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                Content="{DynamicResource Shared-Valid}"
+                                FontWeight="Normal"
+                                IsChecked="{Binding SelectedItem.(models:Tbl78Name.Valid), ElementName=Tbl78NamesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Style="{StaticResource MahApps.Styles.CheckBox}" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="700"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Info}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-Info}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl78NamesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl78Name.Info)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <TextBox
+                                    Height="Auto"
+                                    MinWidth="700"
+                                    MinHeight="75"
+                                    MaxWidth="700"
+                                    MaxHeight="200"
+                                    Margin="5"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    AcceptsReturn="True"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    Text="{Binding SelectedItem.(models:Tbl78Name.Memo), ElementName=Tbl78NamesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    TextWrapping="Wrap"
+                                    ToolTip="{DynamicResource Shared-Memo}"
+                                    VerticalScrollBarVisibility="Auto" />
+                            </ScrollViewer>
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>
@@ -2284,18 +2330,29 @@
                             <ComboBox
                                 x:Name="CbMimeType1"
                                 Width="115"
-                                Margin="5,0,0,0"
+                                Margin="5"
                                 VerticalAlignment="Bottom"
                                 DisplayMemberPath="Name"
                                 IsSynchronizedWithCurrentItem="True"
                                 ItemsSource="{Binding MimeTypes}"
                                 SelectedItem="{Binding SelectedMimeType}"
-                                Text="{Binding SelectedItem.(models:Tbl81Image.ImageMimeType), ElementName=Tbl81ImagesList, Mode=TwoWay}" />
+                                Text="{Binding SelectedItem.(models:Tbl81Image.ImageMimeType), ElementName=Tbl81ImagesList, Mode=TwoWay}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
                             <TextBox
                                 x:Name="TbPath"
-                                Width="635"
-                                Margin="20,0,0,5"
-                                Text="{Binding SelectedPath}" />
+                                Width="700"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl81Image-Path}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                Text="{Binding SelectedPath}"
+                                ToolTip="{DynamicResource Tbl81Image-Path}" />
                         </StackPanel>
                         <TabControl
                             Width="776"
@@ -2311,7 +2368,7 @@
                                     <Border Name="Border1">
                                         <Image
                                             Name="Image1"
-                                            Width="760"
+                                            Width="700"
                                             Height="Auto"
                                             Opacity="1"
                                             RenderOptions.BitmapScalingMode="HighQuality"
@@ -2323,18 +2380,25 @@
                             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl81Image-ImageData}">
                                 <StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
-
                                         <CheckBox
                                             Width="80"
-                                            Margin="5,0,0,0"
+                                            Margin="5"
                                             VerticalAlignment="Bottom"
                                             Content="{DynamicResource Shared-Valid}"
                                             FontWeight="Normal"
-                                            IsChecked="{Binding SelectedItem.(models:Tbl81Image.Valid), ElementName=Tbl81ImagesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            IsChecked="{Binding SelectedItem.(models:Tbl81Image.Valid), ElementName=Tbl81ImagesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Style="{StaticResource MahApps.Styles.CheckBox}" />
                                         <TextBox
-                                            Width="50"
-                                            Margin="25,0,0,0"
-                                            FontWeight="Medium">
+                                            Width="80"
+                                            Margin="25,5,5,5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Shared-ValidYear}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Shared-ValidYear}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl81ImagesList"
@@ -2353,8 +2417,15 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
                                             Width="700"
-                                            Margin="5,0,0,0"
-                                            FontWeight="Medium">
+                                            Margin="5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Shared-Info}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Shared-Info}">
                                             <TextBox.Text>
                                                 <Binding
                                                     ElementName="Tbl81ImagesList"
@@ -2367,10 +2438,24 @@
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <TextBox
                                             Width="700"
-                                            Margin="5,0,0,0"
-                                            Text="{Binding SelectedItem.(models:Tbl81Image.FilestreamId), ElementName=Tbl81ImagesList}" />
+                                            Margin="5"
+                                            HorizontalContentAlignment="Stretch"
+                                            mah:TextBoxHelper.IsWaitingForData="True"
+                                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                                            mah:TextBoxHelper.Watermark="{DynamicResource Tbl81Image-FilestreamId}"
+                                            mah:TextBoxHelper.WatermarkAlignment="Left"
+                                            FontWeight="Medium"
+                                            SpellCheck.IsEnabled="True"
+                                            ToolTip="{DynamicResource Tbl81Image-FilestreamId}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl81ImagesList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl81Image.FilestreamId)"
+                                                    UpdateSourceTrigger="PropertyChanged" />
+                                            </TextBox.Text>
+                                        </TextBox>
                                     </StackPanel>
-
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                                             <TextBox
@@ -2379,7 +2464,7 @@
                                                 MinHeight="100"
                                                 MaxWidth="700"
                                                 MaxHeight="400"
-                                                Margin="5,0,0,10"
+                                                Margin="5"
                                                 VerticalAlignment="Stretch"
                                                 AcceptsReturn="True"
                                                 FontWeight="Medium"
@@ -2504,8 +2589,15 @@
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <TextBox
                                 Width="700"
-                                Margin="5,0,0,0"
-                                FontWeight="Medium">
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Synonym}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-Synonym}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl84SynonymsList"
@@ -2518,17 +2610,25 @@
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <CheckBox
                                 Width="80"
-                                Margin="5,25,0,0"
+                                Margin="5"
                                 VerticalAlignment="Bottom"
                                 Content="{DynamicResource Shared-Valid}"
                                 FontWeight="Normal"
-                                IsChecked="{Binding SelectedItem.(models:Tbl84Synonym.Valid), ElementName=Tbl84SynonymsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                IsChecked="{Binding SelectedItem.(models:Tbl84Synonym.Valid), ElementName=Tbl84SynonymsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Style="{StaticResource MahApps.Styles.CheckBox}" />
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <TextBox
                                 Width="600"
-                                Margin="5,0,0,0"
-                                FontWeight="Medium">
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-Author}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl84SynonymsList"
@@ -2539,8 +2639,15 @@
                             </TextBox>
                             <TextBox
                                 Width="90"
-                                Margin="5,0,0,0"
-                                FontWeight="Medium">
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-AuthorYear}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-AuthorYear}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl84SynonymsList"
@@ -2553,8 +2660,15 @@
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <TextBox
                                 Width="700"
-                                Margin="5,0,0,0"
-                                FontWeight="Medium">
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Info}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-Info}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl84SynonymsList"
@@ -2564,7 +2678,6 @@
                                 </TextBox.Text>
                             </TextBox>
                         </StackPanel>
-
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <TextBox
@@ -2572,13 +2685,20 @@
                                     MinWidth="700"
                                     MinHeight="100"
                                     MaxWidth="700"
-                                    MaxHeight="400"
-                                    Margin="5,0,0,10"
+                                    MaxHeight="200"
+                                    Margin="5"
                                     VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
                                     AcceptsReturn="True"
                                     FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
                                     Text="{Binding SelectedItem.(models:Tbl84Synonym.Memo), ElementName=Tbl84SynonymsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     TextWrapping="Wrap"
+                                    ToolTip="{DynamicResource Shared-Memo}"
                                     VerticalScrollBarVisibility="Auto" />
                             </ScrollViewer>
                         </StackPanel>
@@ -2594,6 +2714,24 @@
                 <GroupBox>
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
+                            <Button
+                                Margin="5"
+                                HorizontalAlignment="Left"
+                                Click="MenuItem_Click_DrawSavedArea"
+                                ToolTip="Paint Saved Stroke Area" />
+                            <Button
+                                Margin="5"
+                                HorizontalAlignment="Left"
+                                Click="MenuItem_Click_ClearStrokeArea"
+                                ToolTip="Clear Stroke Area" />
+                            <ToggleButton
+                                x:Name="StartStopDraw"
+                                Margin="5"
+                                Checked="StartDrawing"
+                                IsChecked="{Binding Path=_isDrawing, Mode=TwoWay, ElementName=Tbl69FiSpeciessesView}"
+                                ToolTip="{DynamicResource Tbl87Geographic-StartPaint}"
+                                Unchecked="StopDrawing" />
+
                             <Button Template="{StaticResource SaveGeographicButton}" />
                             <Button Template="{StaticResource CopyGeographicButton}" />
                             <Button Template="{StaticResource AddGeographicButton}" />
@@ -2602,8 +2740,16 @@
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <TextBox
                                 x:Name="TbGeographicId"
-                                Width="85"
-                                Margin="5,0,0,0">
+                                Width="100"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl87Geographic-GeographicId}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl87Geographic-GeographicId}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl87GeographicsList"
@@ -2615,31 +2761,45 @@
                             <ComboBox
                                 x:Name="CbContinent"
                                 Width="250"
-                                Margin="15,0,0,0"
+                                Margin="15,5,5,5"
                                 VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl87Geographic-Continent}"
                                 DisplayMemberPath="Name"
                                 IsSynchronizedWithCurrentItem="True"
                                 ItemsSource="{Binding Continents}"
                                 SelectedItem="{Binding SelectedContinent}"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                 Text="{Binding SelectedItem.(models:Tbl87Geographic.Continent), ElementName=Tbl87GeographicsList, Mode=TwoWay}"
                                 VirtualizingStackPanel.IsVirtualizing="True" />
                             <ComboBox
                                 x:Name="CbCountry"
                                 Width="250"
-                                Margin="25,0,0,0"
+                                Margin="25,5,5,5"
                                 VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl87Geographic-Country}"
                                 DisplayMemberPath="Name"
                                 IsSynchronizedWithCurrentItem="True"
                                 ItemsSource="{Binding TblCountriesAllList}"
                                 SelectedValue="{Binding SelectedItem.(models:Tbl87Geographic.Country), ElementName=Tbl87GeographicsList, Mode=TwoWay}"
                                 SelectedValuePath="Name"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                 VirtualizingStackPanel.IsVirtualizing="True" />
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <TextBox
                                 x:Name="TbAddress"
                                 Width="700"
-                                Margin="5,0,0,5">
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl87Geographic-Address}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl87Geographic-Address}">
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl87GeographicsList"
@@ -2670,24 +2830,30 @@
                                                             ZoomLevel="2" />-->
                                 </StackPanel>
                             </TabItem>
-
                             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl87Geographic-Geographic}">
                                 <GroupBox>
                                     <StackPanel>
                                         <StackPanel Height="Auto" Orientation="Horizontal">
                                             <CheckBox
-                                                x:Name="CbValid"
                                                 Width="80"
-                                                Margin="5,0,0,0"
+                                                Margin="5"
                                                 VerticalAlignment="Bottom"
                                                 Content="{DynamicResource Shared-Valid}"
                                                 FontWeight="Normal"
-                                                IsChecked="{Binding SelectedItem.(models:Tbl87Geographic.Valid), ElementName=Tbl87GeographicsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                IsChecked="{Binding SelectedItem.(models:Tbl87Geographic.Valid), ElementName=Tbl87GeographicsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                Style="{StaticResource MahApps.Styles.CheckBox}" />
                                             <TextBox
-                                                x:Name="TbAuthor"
-                                                Width="535"
-                                                Margin="25,0,0,0"
-                                                CharacterCasing="Upper">
+                                                Width="505"
+                                                Margin="5"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                CharacterCasing="Upper"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                ToolTip="{DynamicResource Shared-Author}">
                                                 <TextBox.Text>
                                                     <Binding
                                                         ElementName="Tbl87GeographicsList"
@@ -2697,9 +2863,16 @@
                                                 </TextBox.Text>
                                             </TextBox>
                                             <TextBox
-                                                x:Name="TbAuthorYear"
-                                                Width="85"
-                                                Margin="25,0,0,0">
+                                                Width="80"
+                                                Margin="5"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-AuthorYear}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                ToolTip="{DynamicResource Shared-AuthorYear}">
                                                 <TextBox.Text>
                                                     <Binding
                                                         ElementName="Tbl87GeographicsList"
@@ -2711,9 +2884,16 @@
                                         </StackPanel>
                                         <StackPanel Height="Auto" Orientation="Horizontal">
                                             <TextBox
-                                                x:Name="TbHttp"
                                                 Width="700"
-                                                Margin="5,0,0,5">
+                                                Margin="5"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl87Geographic-Http}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                ToolTip="{DynamicResource Tbl87Geographic-Http}">
                                                 <TextBox.Text>
                                                     <Binding
                                                         ElementName="Tbl87GeographicsList"
@@ -2725,9 +2905,16 @@
                                         </StackPanel>
                                         <StackPanel Height="Auto" Orientation="Horizontal">
                                             <TextBox
-                                                x:Name="TbInfo"
                                                 Width="700"
-                                                Margin="5,0,0,0">
+                                                Margin="5"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Info}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                ToolTip="{DynamicResource Shared-Info}">
                                                 <TextBox.Text>
                                                     <Binding
                                                         ElementName="Tbl87GeographicsList"
@@ -2740,17 +2927,24 @@
                                         <StackPanel Height="Auto" Orientation="Horizontal">
                                             <ScrollViewer VerticalScrollBarVisibility="Auto">
                                                 <TextBox
-                                                    x:Name="TbMemo"
                                                     Height="Auto"
                                                     MinWidth="700"
                                                     MinHeight="100"
                                                     MaxWidth="700"
-                                                    MaxHeight="400"
-                                                    Margin="5,0,0,5"
+                                                    MaxHeight="200"
+                                                    Margin="5"
                                                     VerticalAlignment="Stretch"
+                                                    HorizontalContentAlignment="Stretch"
+                                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                                    mah:TextBoxHelper.WatermarkAlignment="Left"
                                                     AcceptsReturn="True"
+                                                    FontWeight="Medium"
+                                                    SpellCheck.IsEnabled="True"
                                                     Text="{Binding SelectedItem.(models:Tbl87Geographic.Memo), ElementName=Tbl87GeographicsList}"
                                                     TextWrapping="Wrap"
+                                                    ToolTip="{DynamicResource Shared-Memo}"
                                                     VerticalScrollBarVisibility="Auto" />
                                             </ScrollViewer>
                                         </StackPanel>
@@ -2764,56 +2958,191 @@
                                             <TextBox
                                                 x:Name="TbZoomLevel"
                                                 Width="250"
-                                                Margin="5,0,0,0"
-                                                Text="{Binding SelectedItem.(models:Tbl87Geographic.ZoomLevel), ElementName=Tbl87GeographicsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                Margin="5"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl87Geographic-ZoomLevel}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                ToolTip="{DynamicResource Tbl87Geographic-ZoomLevel}">
+                                                <TextBox.Text>
+                                                    <Binding
+                                                        ElementName="Tbl87GeographicsList"
+                                                        Mode="TwoWay"
+                                                        Path="SelectedItem.(models:Tbl87Geographic.ZoomLevel)"
+                                                        UpdateSourceTrigger="PropertyChanged" />
+                                                </TextBox.Text>
+                                            </TextBox>
                                         </StackPanel>
                                         <StackPanel Height="Auto" Orientation="Horizontal">
                                             <TextBox
                                                 x:Name="TbLatitude"
                                                 Width="250"
-                                                Margin="5,0,0,0"
-                                                Text="{Binding SelectedItem.(models:Tbl87Geographic.Latitude), ElementName=Tbl87GeographicsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                Margin="5"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl87Geographic-Latitude}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                ToolTip="{DynamicResource Tbl87Geographic-Latitude}">
+                                                <TextBox.Text>
+                                                    <Binding
+                                                        ElementName="Tbl87GeographicsList"
+                                                        Mode="TwoWay"
+                                                        Path="SelectedItem.(models:Tbl87Geographic.Latitude)"
+                                                        UpdateSourceTrigger="PropertyChanged" />
+                                                </TextBox.Text>
+                                            </TextBox>
                                             <TextBox
                                                 x:Name="TbLongitude"
                                                 Width="250"
-                                                Margin="25,0,0,0"
-                                                Text="{Binding SelectedItem.(models:Tbl87Geographic.Longitude), ElementName=Tbl87GeographicsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                Margin="25,5,5,5"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl87Geographic-Longitude}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                ToolTip="{DynamicResource Tbl87Geographic-Longitude}">
+                                                <TextBox.Text>
+                                                    <Binding
+                                                        ElementName="Tbl87GeographicsList"
+                                                        Mode="TwoWay"
+                                                        Path="SelectedItem.(models:Tbl87Geographic.Longitude)"
+                                                        UpdateSourceTrigger="PropertyChanged" />
+                                                </TextBox.Text>
+                                            </TextBox>
                                         </StackPanel>
                                         <StackPanel Height="Auto" Orientation="Horizontal">
                                             <TextBox
                                                 x:Name="TbLatitude1"
                                                 Width="250"
-                                                Margin="5,0,0,0"
-                                                Text="{Binding SelectedItem.(models:Tbl87Geographic.Latitude1), ElementName=Tbl87GeographicsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                Margin="5"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl87Geographic-Latitude}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                ToolTip="{DynamicResource Tbl87Geographic-Latitude}">
+                                                <TextBox.Text>
+                                                    <Binding
+                                                        ElementName="Tbl87GeographicsList"
+                                                        Mode="TwoWay"
+                                                        Path="SelectedItem.(models:Tbl87Geographic.Latitude1)"
+                                                        UpdateSourceTrigger="PropertyChanged" />
+                                                </TextBox.Text>
+                                            </TextBox>
                                             <TextBox
                                                 x:Name="TbLongitude1"
                                                 Width="250"
-                                                Margin="25,0,0,0"
-                                                Text="{Binding SelectedItem.(models:Tbl87Geographic.Longitude1), ElementName=Tbl87GeographicsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                Margin="25,5,5,5"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl87Geographic-Longitude}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                ToolTip="{DynamicResource Tbl87Geographic-Longitude}">
+                                                <TextBox.Text>
+                                                    <Binding
+                                                        ElementName="Tbl87GeographicsList"
+                                                        Mode="TwoWay"
+                                                        Path="SelectedItem.(models:Tbl87Geographic.Longitude1)"
+                                                        UpdateSourceTrigger="PropertyChanged" />
+                                                </TextBox.Text>
+                                            </TextBox>
                                         </StackPanel>
                                         <StackPanel Height="Auto" Orientation="Horizontal">
                                             <TextBox
                                                 x:Name="TbLatitude2"
                                                 Width="250"
-                                                Margin="5,0,0,0"
-                                                Text="{Binding SelectedItem.(models:Tbl87Geographic.Latitude2), ElementName=Tbl87GeographicsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                Margin="5"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl87Geographic-Latitude}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                ToolTip="{DynamicResource Tbl87Geographic-Latitude}">
+                                                <TextBox.Text>
+                                                    <Binding
+                                                        ElementName="Tbl87GeographicsList"
+                                                        Mode="TwoWay"
+                                                        Path="SelectedItem.(models:Tbl87Geographic.Latitude2)"
+                                                        UpdateSourceTrigger="PropertyChanged" />
+                                                </TextBox.Text>
+                                            </TextBox>
                                             <TextBox
                                                 x:Name="TbLongitude2"
                                                 Width="250"
-                                                Margin="25,0,0,0"
-                                                Text="{Binding SelectedItem.(models:Tbl87Geographic.Longitude2), ElementName=Tbl87GeographicsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                Margin="25,5,5,5"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl87Geographic-Longitude}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                ToolTip="{DynamicResource Tbl87Geographic-Longitude}">
+                                                <TextBox.Text>
+                                                    <Binding
+                                                        ElementName="Tbl87GeographicsList"
+                                                        Mode="TwoWay"
+                                                        Path="SelectedItem.(models:Tbl87Geographic.Longitude2)"
+                                                        UpdateSourceTrigger="PropertyChanged" />
+                                                </TextBox.Text>
+                                            </TextBox>
                                         </StackPanel>
                                         <StackPanel Height="Auto" Orientation="Horizontal">
                                             <TextBox
                                                 x:Name="TbLatitude3"
                                                 Width="250"
-                                                Margin="5,0,0,0"
-                                                Text="{Binding SelectedItem.(models:Tbl87Geographic.Latitude3), ElementName=Tbl87GeographicsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                Margin="5"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl87Geographic-Latitude}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                ToolTip="{DynamicResource Tbl87Geographic-Latitude}">
+                                                <TextBox.Text>
+                                                    <Binding
+                                                        ElementName="Tbl87GeographicsList"
+                                                        Mode="TwoWay"
+                                                        Path="SelectedItem.(models:Tbl87Geographic.Latitude3)"
+                                                        UpdateSourceTrigger="PropertyChanged" />
+                                                </TextBox.Text>
+                                            </TextBox>
                                             <TextBox
                                                 x:Name="TbLongitude3"
                                                 Width="250"
-                                                Margin="25,0,0,0"
-                                                Text="{Binding SelectedItem.(models:Tbl87Geographic.Longitude3), ElementName=Tbl87GeographicsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                Margin="25,5,5,5"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl87Geographic-Longitude}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                                FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
+                                                ToolTip="{DynamicResource Tbl87Geographic-Longitude}">
+                                                <TextBox.Text>
+                                                    <Binding
+                                                        ElementName="Tbl87GeographicsList"
+                                                        Mode="TwoWay"
+                                                        Path="SelectedItem.(models:Tbl87Geographic.Longitude3)"
+                                                        UpdateSourceTrigger="PropertyChanged" />
+                                                </TextBox.Text>
+                                            </TextBox>
                                         </StackPanel>
                                     </StackPanel>
                                 </GroupBox>
@@ -3020,6 +3349,7 @@
                                                 AcceptsReturn="True"
                                                 FontWeight="Medium"
                                                 SpellCheck.IsEnabled="True"
+                                                Style="{StaticResource MahApps.Styles.TextBox}"
                                                 Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferenceSourcesList}"
                                                 TextWrapping="Wrap"
                                                 ToolTip="{DynamicResource Shared-Memo}"
@@ -3207,10 +3537,18 @@
                                     AcceptsReturn="True"
                                     FontWeight="Medium"
                                     SpellCheck.IsEnabled="True"
-                                    Text="{Binding SelectedItem.(models:Tbl93Comment.Memo), ElementName=Tbl93CommentsList}"
+                                    Style="{StaticResource MahApps.Styles.TextBox}"
                                     TextWrapping="Wrap"
                                     ToolTip="{DynamicResource Shared-Memo}"
-                                    VerticalScrollBarVisibility="Auto" />
+                                    VerticalScrollBarVisibility="Auto">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl93CommentsList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl93Comment.Memo)"
+                                            UpdateSourceTrigger="PropertyChanged" />
+                                    </TextBox.Text>
+                                </TextBox>
                             </ScrollViewer>
                         </StackPanel>
                     </StackPanel>

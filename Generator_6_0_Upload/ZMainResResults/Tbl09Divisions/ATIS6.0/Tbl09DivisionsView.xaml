@@ -75,7 +75,8 @@
                                                 SpellCheck.IsEnabled="True"                                    
              
                                                 Text="{Binding SearchDivisionName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                                ToolTip="{DynamicResource Shared-SearchNameOrId}"  > 
+                                                ToolTip="{DynamicResource Shared-SearchNameOrId}"  >                                        
+             
                                                 <TextBox.InputBindings>
                                                     <KeyBinding
                                                         Key="Return"
@@ -1652,6 +1653,7 @@
                                     AcceptsReturn="True"
                                     FontWeight="Medium"
                                     SpellCheck.IsEnabled="True"
+                                    Style="{StaticResource MahApps.Styles.TextBox}"
                                     Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferenceSourcesList}"
                                     TextWrapping="Wrap"
                                     ToolTip="{DynamicResource Shared-Memo}"

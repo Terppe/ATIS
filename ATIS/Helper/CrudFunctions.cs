@@ -9730,7 +9730,7 @@ namespace ATIS.Ui.Helper
                 .ThenBy(a=> a.Subspeciesgroup));
             return collection;
         }
-        public ObservableCollection<T> GetSpeciesgroupsCollectionFromSpeciesgroupIdOrderBy<T>(int id)
+        public ObservableCollection<T> GetSpeciesgroupsCollectionFromSpeciesgroupIdOrderBy<T>(int? id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl68Speciesgroups
@@ -9739,7 +9739,7 @@ namespace ATIS.Ui.Helper
 
             return collection;
         }
-
+         
         //-------------------------------------- FiSpecies   -------------------------
         public ObservableCollection<T> GetFiSpeciessesCollectionFromSpeciesgroupIdOrderBy<T>(int? id)
         {

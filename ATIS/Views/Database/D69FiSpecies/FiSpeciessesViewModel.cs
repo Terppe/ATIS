@@ -1623,6 +1623,8 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
             GenussesView = CollectionViewSource.GetDefaultView(Tbl66GenussesList);
             GenussesView.Refresh();
 
+            SelectedMainTabIndex = 0;
+            SelectedDetailTabIndex = 2;
         }
 
         #endregion "Public Method Connected Tables by DoubleClick"
@@ -1637,6 +1639,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+        private int _selectedDetailSubRefTabIndex;
 
         public int SelectedMainTabIndex
         {
@@ -1653,7 +1656,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
                     {
                         Tbl66GenussesList = _extCrud.GetGenussesCollectionFromGenusIdOrderBy<Tbl66Genus>(CurrentTbl69FiSpecies.GenusId);
 
-                        Tbl63InfratribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl63Infratribus>("");
+                        Tbl63InfratribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl63Infratribus>("infratribus");
 
                         GenussesView = CollectionViewSource.GetDefaultView(Tbl66GenussesList);
                         GenussesView.Refresh();
@@ -1666,6 +1669,26 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
                 {
                     if (CurrentTbl69FiSpecies != null)
                     {
+                        Tbl68SpeciesgroupsList = _extCrud.GetSpeciesgroupsCollectionFromSpeciesgroupIdOrderBy<Tbl68Speciesgroup>(CurrentTbl69FiSpecies.SpeciesgroupId);
+
+                        SpeciesgroupsView = CollectionViewSource.GetDefaultView(Tbl68SpeciesgroupsList);
+                        SpeciesgroupsView.Refresh();
+
+                        //Tbl78NamesList = _extCrud.GetNamesCollectionFromFiSpeciesIdOrderBy<Tbl78Name>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        //Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+
+                        //NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
+                        //NamesView.Refresh();
+                    }
+
+                    SelectedDetailTabIndex = 1;
+                }
+
+                if (_selectedMainTabIndex == 2)
+                {
+                    if (CurrentTbl69FiSpecies != null)
+                    {
                         Tbl78NamesList = _extCrud.GetNamesCollectionFromFiSpeciesIdOrderBy<Tbl78Name>(CurrentTbl69FiSpecies.FiSpeciesId);
 
                         Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
@@ -1674,16 +1697,62 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
                         NamesView.Refresh();
                     }
 
-                    SelectedDetailTabIndex = 2;
-                }
-
-                if (_selectedMainTabIndex == 2)
-                {
                     SelectedDetailTabIndex = 3;
-                    SelectedMainSubRefTabIndex = 0;
+                 //   SelectedMainSubRefTabIndex = 0;
                 }
 
                 if (_selectedMainTabIndex == 3)
+                {
+                    if (CurrentTbl69FiSpecies != null)
+                    {
+                        Tbl81ImagesList = _extCrud.GetImagesCollectionFromFiSpeciesIdOrderBy<Tbl81Image>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+
+                        ImagesView = CollectionViewSource.GetDefaultView(Tbl81ImagesList);
+                        ImagesView.Refresh();
+                    }
+
+                    SelectedDetailTabIndex = 4;
+                }
+                if (_selectedMainTabIndex == 4)
+                {
+                    if (CurrentTbl69FiSpecies != null)
+                    {
+                        Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromFiSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+
+                        SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
+                        SynonymsView.Refresh();
+                    }
+
+                    SelectedDetailTabIndex = 5;
+                }
+                if (_selectedMainTabIndex == 5)
+                {
+                    if (CurrentTbl69FiSpecies != null)
+                    {
+                        Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromFiSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+
+                        GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
+                        GeographicsView.Refresh();
+                    }
+
+                    SelectedDetailTabIndex = 6;
+                }
+                if (_selectedMainTabIndex == 6)
+                {
+                    if (CurrentTbl69FiSpecies != null)
+                    {
+                    }
+
+                    SelectedDetailTabIndex = 7;
+                    SelectedMainSubRefTabIndex = 0;
+                }
+                if (_selectedMainTabIndex == 7)
                 {
                     if (CurrentTbl69FiSpecies != null)
                     {
@@ -1693,8 +1762,20 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
                         CommentsView.Refresh();
                     }
 
-                    SelectedDetailTabIndex = 6;
+                    SelectedDetailTabIndex = 8;
                 }
+                //if (_selectedMainTabIndex == 8)
+                //{
+                //    if (CurrentTbl69FiSpecies != null)
+                //    {
+                //        Tbl93CommentsList = _extCrud.GetCommentsCollectionFromFiSpeciesIdOrderBy<Tbl93Comment>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                //        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                //        CommentsView.Refresh();
+                //    }
+
+                //    SelectedDetailTabIndex = 7;
+                //}
 
             }
         }
@@ -1725,16 +1806,32 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
                 {
                     if (CurrentTbl69FiSpecies != null)
                     {
-              //          Tbl68SpeciesgroupsList = _extCrud.GetSpeciesgroupsCollectionFromFiSpeciesIdOrderBy<Tbl68Speciesgroup>(CurrentTbl69FiSpecies.FiSpeciesId);
+                        Tbl68SpeciesgroupsList = _extCrud.GetSpeciesgroupsCollectionFromSpeciesgroupIdOrderBy<Tbl68Speciesgroup>(CurrentTbl69FiSpecies.SpeciesgroupId);
 
-                        GenussesView = CollectionViewSource.GetDefaultView(Tbl66GenussesList);
-                        GenussesView.Refresh();
+                        SpeciesgroupsView = CollectionViewSource.GetDefaultView(Tbl68SpeciesgroupsList);
+                        SpeciesgroupsView.Refresh();
                     }
 
-                    SelectedMainTabIndex = 0;
+                    SelectedMainTabIndex = 1;
                 }
 
                 if (_selectedDetailTabIndex == 2)
+                {
+                    if (CurrentTbl69FiSpecies != null)
+                    {
+                        //Tbl69FiSpeciessesList = _extCrud.GetFiSpeciessesCollectionFromFiSpeciesIdOrderBy<Tbl69FiSpecies>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        //Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
+
+                        //GenussesView = CollectionViewSource.GetDefaultView(Tbl66GenussesList);
+                        //GenussesView.Refresh();
+
+                    }
+
+                    //  SelectedMainTabIndex = 3;
+                }
+
+                if (_selectedDetailTabIndex == 3)
                 {
                     if (CurrentTbl69FiSpecies != null)
                     {
@@ -1744,21 +1841,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
 
                         NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
                         NamesView.Refresh();
-                    }
 
-                    SelectedMainTabIndex = 1;
-                }
-
-                if (_selectedDetailTabIndex == 3)
-                {
-                    if (CurrentTbl69FiSpecies != null)
-                    {
-                        Tbl81ImagesList = _extCrud.GetImagesCollectionFromFiSpeciesIdOrderBy<Tbl81Image>(CurrentTbl69FiSpecies.FiSpeciesId);
-
-                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
-
-                        ImagesView = CollectionViewSource.GetDefaultView(Tbl81ImagesList);
-                        ImagesView.Refresh();
 
                         //Tbl90ExpertsAllList =
                         //    new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
@@ -1773,19 +1856,21 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
                     }
 
                     SelectedMainTabIndex = 2;
-            //        SelectedMainSubRefTabIndex = 0;
+                    SelectedMainSubRefTabIndex = 0;
+                    
                 }
 
                 if (_selectedDetailTabIndex == 4)
                 {
                     if (CurrentTbl69FiSpecies != null)
-                    { 
-                        Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromFiSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl69FiSpecies.FiSpeciesId);
+                    {
+                        Tbl81ImagesList = _extCrud.GetImagesCollectionFromFiSpeciesIdOrderBy<Tbl81Image>(CurrentTbl69FiSpecies.FiSpeciesId);
 
                         Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
 
                         ImagesView = CollectionViewSource.GetDefaultView(Tbl81ImagesList);
                         ImagesView.Refresh();
+
 
                         //Tbl90SourcesAllList =
                         //    new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
@@ -1807,12 +1892,13 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
                 {
                     if (CurrentTbl69FiSpecies != null)
                     {
-                                 Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromFiSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl69FiSpecies.FiSpeciesId);
+                        Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromFiSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl69FiSpecies.FiSpeciesId);
 
                         Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
 
-                        ImagesView = CollectionViewSource.GetDefaultView(Tbl81ImagesList);
-                        ImagesView.Refresh();
+                        SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
+                        SynonymsView.Refresh();
+
 
                         //Tbl90AuthorsAllList =
                         //    new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
@@ -1834,23 +1920,34 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
                 {
                     if (CurrentTbl69FiSpecies != null)
                     {
-                        Tbl90ExpertsAllList =
-                            new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+                        Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromFiSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl69FiSpecies.FiSpeciesId);
 
-                        Tbl90ReferenceExpertsList =
-                            _extCrud
-                                .GetReferenceExpertsCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy
-                                    <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
 
-                        ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
-                        ReferenceExpertsView.Refresh();
+                        GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
+                        GeographicsView.Refresh();
                     }
 
-                    SelectedMainSubRefTabIndex = 0;
                     SelectedMainTabIndex = 5;
                 }
 
                 if (_selectedDetailTabIndex == 7)
+                {
+                    if (CurrentTbl69FiSpecies != null)
+                    {
+                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+
+                        Tbl90ReferenceExpertsList = _extCrud
+                            .GetReferenceExpertsCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy
+                                <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                        ReferenceExpertsView.Refresh();
+                    }
+                    SelectedMainSubRefTabIndex = 0;
+                    SelectedMainTabIndex = 6;
+                }
+                if (_selectedDetailTabIndex == 8)
                 {
                     if (CurrentTbl69FiSpecies != null)
                     {
@@ -1860,7 +1957,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
                         CommentsView.Refresh();
                     }
 
-                    SelectedMainTabIndex = 6;
+                    SelectedMainTabIndex = 7;
                 }
 
             }
@@ -1882,8 +1979,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
                         Tbl90ExpertsAllList =
                             new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
 
-                        Tbl90ReferenceExpertsList =
-                            _extCrud
+                        Tbl90ReferenceExpertsList = _extCrud
                                 .GetReferenceExpertsCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy
                                     <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
 
@@ -1891,8 +1987,9 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
                         ReferenceExpertsView.Refresh();
                     }
 
-                    SelectedDetailTabIndex = 3;
-                    SelectedMainTabIndex = 2;
+                    SelectedDetailTabIndex = 7;
+                    SelectedMainTabIndex = 6;
+                    SelectedDetailSubRefTabIndex = 0;
                 }
 
                 if (_selectedMainSubRefTabIndex == 1)
@@ -1911,8 +2008,9 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
                         ReferenceSourcesView.Refresh();
                     }
 
-                    SelectedDetailTabIndex = 4;
-                    SelectedMainTabIndex = 2;
+                    SelectedDetailTabIndex = 7;
+                    SelectedMainTabIndex = 6;
+                    SelectedDetailSubRefTabIndex = 1;
                 }
 
                 if (_selectedMainSubRefTabIndex == 2)
@@ -1931,10 +2029,66 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
                         ReferenceAuthorsView.Refresh();
                     }
 
-                    SelectedDetailTabIndex = 5;
-                    SelectedMainTabIndex = 2;
+                    SelectedDetailTabIndex = 7;
+                    SelectedMainTabIndex = 6;
+                    SelectedDetailSubRefTabIndex = 2;
                 }
 
+            }
+        }
+
+        public int SelectedDetailSubRefTabIndex
+        {
+            get => _selectedDetailSubRefTabIndex;
+            set
+            {
+                if (value == _selectedDetailSubRefTabIndex) return;
+                _selectedDetailSubRefTabIndex = value; RaisePropertyChanged("");
+                if (_selectedDetailSubRefTabIndex == 0)
+                {
+                    Tbl90ExpertsAllList =
+                        new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+
+                    Tbl90ReferenceExpertsList =
+                        _extCrud
+                            .GetReferenceExpertsCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy
+                                <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                    ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                    ReferenceExpertsView.Refresh();
+
+                    SelectedMainSubRefTabIndex = 0;
+                }
+                if (_selectedDetailSubRefTabIndex == 1)
+                {
+                    Tbl90SourcesAllList =
+                        new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+
+                    Tbl90ReferenceSourcesList =
+                        _extCrud
+                            .GetReferenceSourcesCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy
+                                <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                    ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+                    ReferenceSourcesView.Refresh();
+
+                    SelectedMainSubRefTabIndex = 1;
+                }
+                if (_selectedDetailSubRefTabIndex == 2)
+                {
+                    Tbl90AuthorsAllList =
+                        new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+
+                    Tbl90ReferenceAuthorsList =
+                        _extCrud
+                            .GetReferenceAuthorsCollectionFromFiSpeciesIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy
+                                <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                    ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
+                    ReferenceAuthorsView.Refresh();
+
+                    SelectedMainSubRefTabIndex = 2;
+                }
             }
         }
 

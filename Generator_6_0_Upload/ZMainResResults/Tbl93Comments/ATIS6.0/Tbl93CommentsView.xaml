@@ -78,7 +78,8 @@
                                                 SpellCheck.IsEnabled="True"                                    
              
                                                 Text="{Binding SearchCommentName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                                ToolTip="{DynamicResource Shared-SearchNameOrId}"  > 
+                                                ToolTip="{DynamicResource Shared-SearchNameOrId}"  >                                        
+             
                                                 <TextBox.InputBindings>
                                                     <KeyBinding
                                                         Key="Return"

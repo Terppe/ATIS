@@ -76,7 +76,8 @@
                                                 SpellCheck.IsEnabled="True"                                    
              
                                                 Text="{Binding SearchImageName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                                ToolTip="{DynamicResource Shared-SearchNameOrId}"  > 
+                                                ToolTip="{DynamicResource Shared-SearchNameOrId}"  >                                        
+             
                                                 <TextBox.InputBindings>
                                                     <KeyBinding
                                                         Key="Return"
