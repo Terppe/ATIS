@@ -135,7 +135,8 @@ namespace ATIS.Ui.Views.Database.D12Subphylum
             Tbl90ReferencesList = _extCrud.DeleteDatasetsWithSubphylumIdInTableReference(CurrentTbl12Subphylum);
             if (Tbl90ReferencesList.Count > 0)
             {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + 
+                                              CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
                 _extCrud.DeleteReferences(Tbl90ReferencesList);
 
@@ -157,13 +158,18 @@ namespace ATIS.Ui.Views.Database.D12Subphylum
                 var subphylum= _uow.Tbl12Subphylums.GetById(CurrentTbl12Subphylum.SubphylumId);
                 if (subphylum!= null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl12Subphylum.SubphylumName)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + 
+                                          CurrentTbl12Subphylum.SubphylumName)) return;
 
                     _extCrud.DeleteSubphylum(subphylum);
 
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl12Subphylum.SubphylumName);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, 
+                                         CurrentTbl12Subphylum.SubphylumName);
                 }
-                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl12Subphylum.SubphylumName + " " + CultRes.StringsRes.DeleteCan1);
+                else 
+                        _allMessageBoxes.InfoMessageBox("Not To Delete", 
+                                         CultRes.StringsRes.DeleteCan + " " + CurrentTbl12Subphylum.SubphylumName + " " + 
+                                         CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -247,7 +253,8 @@ namespace ATIS.Ui.Views.Database.D12Subphylum
 
         private RelayCommand _savePhylumCommand;
 
-        public ICommand SavePhylumCommand => _savePhylumCommand ??= new RelayCommand(delegate { ExecuteSavePhylum(null); });        
+        public ICommand SavePhylumCommand => 
+                                      _savePhylumCommand ??= new RelayCommand(delegate { ExecuteSavePhylum(null); });        
            
         private void ExecuteSavePhylum(string searchName)
         {
@@ -1073,6 +1080,7 @@ Tbl06PhylumsList = _extCrud.GetPhylumsCollectionFromPhylumIdOrderBy<Tbl06Phylum>
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+        private int _selectedDetailSubRefTabIndex;
 
         public  int SelectedMainTabIndex
         {

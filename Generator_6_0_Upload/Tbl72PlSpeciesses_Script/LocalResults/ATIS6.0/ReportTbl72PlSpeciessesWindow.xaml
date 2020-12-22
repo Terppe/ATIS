@@ -1,6 +1,6 @@
             
 <mah:MetroWindow
-    x:Class="ATIS.Ui.Views.Report.ListDetails.ReportPlSpeciesWindow"
+    x:Class="ATIS.Ui.Views.Report.D72PlSpecies.ReportPlSpeciesWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"

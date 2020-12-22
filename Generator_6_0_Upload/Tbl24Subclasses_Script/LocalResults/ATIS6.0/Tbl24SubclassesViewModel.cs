@@ -133,7 +133,8 @@ namespace ATIS.Ui.Views.Database.D24Subclass
             Tbl90ReferencesList = _extCrud.DeleteDatasetsWithSubclassIdInTableReference(CurrentTbl24Subclass);
             if (Tbl90ReferencesList.Count > 0)
             {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + 
+                                              CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
                 _extCrud.DeleteReferences(Tbl90ReferencesList);
 
@@ -155,13 +156,18 @@ namespace ATIS.Ui.Views.Database.D24Subclass
                 var subclass= _uow.Tbl24Subclasses.GetById(CurrentTbl24Subclass.SubclassId);
                 if (subclass!= null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl24Subclass.SubclassName)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + 
+                                          CurrentTbl24Subclass.SubclassName)) return;
 
                     _extCrud.DeleteSubclass(subclass);
 
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl24Subclass.SubclassName);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, 
+                                         CurrentTbl24Subclass.SubclassName);
                 }
-                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl24Subclass.SubclassName + " " + CultRes.StringsRes.DeleteCan1);
+                else 
+                        _allMessageBoxes.InfoMessageBox("Not To Delete", 
+                                         CultRes.StringsRes.DeleteCan + " " + CurrentTbl24Subclass.SubclassName + " " + 
+                                         CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -245,7 +251,8 @@ namespace ATIS.Ui.Views.Database.D24Subclass
 
         private RelayCommand _saveClassCommand;
 
-        public ICommand SaveClassCommand => _saveClassCommand ??= new RelayCommand(delegate { ExecuteSaveClass(null); });        
+        public ICommand SaveClassCommand => 
+                                      _saveClassCommand ??= new RelayCommand(delegate { ExecuteSaveClass(null); });        
            
         private void ExecuteSaveClass(string searchName)
         {
@@ -1066,6 +1073,7 @@ Tbl21ClassesList = _extCrud.GetClassesCollectionFromClassIdOrderBy<Tbl21Class>(C
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+        private int _selectedDetailSubRefTabIndex;
 
         public  int SelectedMainTabIndex
         {

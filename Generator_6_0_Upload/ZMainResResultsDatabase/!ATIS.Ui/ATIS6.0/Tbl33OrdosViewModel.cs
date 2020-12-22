@@ -133,7 +133,8 @@ namespace ATIS.Ui.Views.Database.D33Ordo
             Tbl90ReferencesList = _extCrud.DeleteDatasetsWithOrdoIdInTableReference(CurrentTbl33Ordo);
             if (Tbl90ReferencesList.Count > 0)
             {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + 
+                                              CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
                 _extCrud.DeleteReferences(Tbl90ReferencesList);
 
@@ -155,13 +156,18 @@ namespace ATIS.Ui.Views.Database.D33Ordo
                 var ordo= _uow.Tbl33Ordos.GetById(CurrentTbl33Ordo.OrdoId);
                 if (ordo!= null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl33Ordo.OrdoName)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + 
+                                          CurrentTbl33Ordo.OrdoName)) return;
 
                     _extCrud.DeleteOrdo(ordo);
 
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl33Ordo.OrdoName);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, 
+                                         CurrentTbl33Ordo.OrdoName);
                 }
-                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl33Ordo.OrdoName + " " + CultRes.StringsRes.DeleteCan1);
+                else 
+                        _allMessageBoxes.InfoMessageBox("Not To Delete", 
+                                         CultRes.StringsRes.DeleteCan + " " + CurrentTbl33Ordo.OrdoName + " " + 
+                                         CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -245,7 +251,8 @@ namespace ATIS.Ui.Views.Database.D33Ordo
 
         private RelayCommand _saveLegioCommand;
 
-        public ICommand SaveLegioCommand => _saveLegioCommand ??= new RelayCommand(delegate { ExecuteSaveLegio(null); });        
+        public ICommand SaveLegioCommand => 
+                                      _saveLegioCommand ??= new RelayCommand(delegate { ExecuteSaveLegio(null); });        
            
         private void ExecuteSaveLegio(string searchName)
         {
@@ -1066,6 +1073,7 @@ Tbl30LegiosList = _extCrud.GetLegiosCollectionFromLegioIdOrderBy<Tbl30Legio>(Cur
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+        private int _selectedDetailSubRefTabIndex;
 
         public  int SelectedMainTabIndex
         {

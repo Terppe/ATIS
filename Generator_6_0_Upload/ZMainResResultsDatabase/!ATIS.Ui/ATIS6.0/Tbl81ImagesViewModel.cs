@@ -90,9 +90,10 @@ namespace ATIS.Ui.Views.Database.ListDetails
                 DownloadClosedCaptionTrackCommand = new RelayCommand<ClosedCaptionTrackInfo>(
                     DownloadClosedCaptionTrack, _ => !IsBusy);
 
-                _entityException = new DbEntityException();
             }
         }   
+        public bool IsInDesignMode { get; set; }
+
         #endregion "Constructor"                        
  
 
@@ -163,7 +164,8 @@ ImagesView = CollectionViewSource.GetDefaultView(Tbl81ImagesList);
             Tbl90ReferencesList = _extCrud.DeleteDatasetsWithImageIdInTableReference(CurrentTbl81Image);
             if (Tbl90ReferencesList.Count > 0)
             {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + 
+                                              CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
                 _extCrud.DeleteReferences(Tbl90ReferencesList);
 
@@ -185,13 +187,18 @@ ImagesView = CollectionViewSource.GetDefaultView(Tbl81ImagesList);
                 var image= _uow.Tbl81Images.GetById(CurrentTbl81Image.ImageId);
                 if (image!= null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl81Image.ImageName)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + 
+                                          CurrentTbl81Image.ImageName)) return;
 
                     _extCrud.DeleteImage(image);
 
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl81Image.ImageName);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, 
+                                         CurrentTbl81Image.ImageName);
                 }
-                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl81Image.ImageName + " " + CultRes.StringsRes.DeleteCan1);
+                else 
+                        _allMessageBoxes.InfoMessageBox("Not To Delete", 
+                                         CultRes.StringsRes.DeleteCan + " " + CurrentTbl81Image.ImageName + " " + 
+                                         CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -240,7 +247,8 @@ ImagesView = CollectionViewSource.GetDefaultView(Tbl81ImagesList);
 
         private RelayCommand _saveFiSpeciesCommand;
 
-        public ICommand SaveFiSpeciesCommand => _saveFiSpeciesCommand ??= new RelayCommand(delegate { ExecuteSaveFiSpecies(null); });        
+        public ICommand SaveFiSpeciesCommand => 
+                                      _saveFiSpeciesCommand ??= new RelayCommand(delegate { ExecuteSaveFiSpecies(null); });        
            
         private void ExecuteSaveFiSpecies(string searchName)
         {
@@ -353,12 +361,12 @@ ImagesView = CollectionViewSource.GetDefaultView(Tbl81ImagesList);
 
            
         #region "Public Commands Connect <== Tbl72PlSpecies"                 
-        //-------------------------------------------------------------------------
+       
         private RelayCommand _savePlSpeciesCommand;
 
-        public ICommand SavePlSpeciesCommand => _savePlSpeciesCommand ??= new RelayCommand(delegate { ExecuteSavePlSpecies(null); });
-
-        //-------------------------------------------------------------------------          
+        public ICommand SavePlSpeciesCommand => 
+                            _savePlSpeciesCommand ??= new RelayCommand(delegate { ExecuteSavePlSpecies(null); });
+       
        
         private void SavePlSpecies(object o)
         {           
@@ -430,6 +438,7 @@ ImagesView = CollectionViewSource.GetDefaultView(Tbl81ImagesList);
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+        private int _selectedDetailSubRefTabIndex;
 
         public  int SelectedMainTabIndex
         {

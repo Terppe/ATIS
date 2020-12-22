@@ -13,7 +13,7 @@ using Microsoft.Win32;
     
          //    ReportPlSpeciesPdf Skriptdatum:  13.12.2019  12:32    
 
-namespace ATIS.Ui.Views.Report.ListDetails
+namespace ATIS.Ui.Views.Report.D72PlSpecies
 {     
     
     public class ReportPlSpeciesPdf : ViewModelBase
@@ -174,7 +174,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }    
           
-        private static void AddPlSpeciesHierarchyList(PdfDocument pdf, Tbl72PlSpecies tbl72PlSpeciesList)
+        private static void AddPlSpeciesHierarchyList(PdfDocument pdf, Tbl72PlSpecies plSpeciesList)
         {
             _page = pdf.Pages[_arrInts[6]];
 

@@ -21,7 +21,7 @@ using UserControl = System.Windows.Controls.UserControl;
 
       //  Tbl72PlSpeciessesView.xaml.cs Skriptdatum:  13.12.2019  12:32     
 
-namespace ATIS.Ui.Views.Database.ListDetails
+namespace ATIS.Ui.Views.Database.D72PlSpecies
 {  
 
     /// <summary>

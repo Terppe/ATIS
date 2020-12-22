@@ -123,7 +123,8 @@ RefExpertsView = CollectionViewSource.GetDefaultView(Tbl90RefExpertsList);
             Tbl90ReferencesList = _extCrud.DeleteDatasetsWithRefExpertIdInTableReference(CurrentTbl90RefExpert);
             if (Tbl90ReferencesList.Count > 0)
             {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + 
+                                              CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
                 _extCrud.DeleteReferences(Tbl90ReferencesList);
 
@@ -145,13 +146,18 @@ RefExpertsView = CollectionViewSource.GetDefaultView(Tbl90RefExpertsList);
                 var refExpert= _uow.Tbl90RefExperts.GetById(CurrentTbl90RefExpert.RefExpertId);
                 if (refExpert!= null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90RefExpert.RefExpertName)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + 
+                                          CurrentTbl90RefExpert.RefExpertName)) return;
 
                     _extCrud.DeleteRefExpert(refExpert);
 
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90RefExpert.RefExpertName);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, 
+                                         CurrentTbl90RefExpert.RefExpertName);
                 }
-                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl90RefExpert.RefExpertName + " " + CultRes.StringsRes.DeleteCan1);
+                else 
+                        _allMessageBoxes.InfoMessageBox("Not To Delete", 
+                                         CultRes.StringsRes.DeleteCan + " " + CurrentTbl90RefExpert.RefExpertName + " " + 
+                                         CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -257,6 +263,7 @@ RefExpertsView = CollectionViewSource.GetDefaultView(Tbl90RefExpertsList);
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+        private int _selectedDetailSubRefTabIndex;
 
         public  int SelectedMainTabIndex
         {

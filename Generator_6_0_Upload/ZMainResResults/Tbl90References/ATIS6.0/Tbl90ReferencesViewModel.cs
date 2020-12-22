@@ -152,7 +152,8 @@ ReferencesView = CollectionViewSource.GetDefaultView(Tbl90ReferencesList);
             Tbl90ReferencesList = _extCrud.DeleteDatasetsWithReferenceIdInTableReference(CurrentTbl90Reference);
             if (Tbl90ReferencesList.Count > 0)
             {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + 
+                                              CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
                 _extCrud.DeleteReferences(Tbl90ReferencesList);
 
@@ -174,13 +175,18 @@ ReferencesView = CollectionViewSource.GetDefaultView(Tbl90ReferencesList);
                 var reference= _uow.Tbl90References.GetById(CurrentTbl90Reference.ReferenceId);
                 if (reference!= null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90Reference.ReferenceName)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + 
+                                          CurrentTbl90Reference.ReferenceName)) return;
 
                     _extCrud.DeleteReference(reference);
 
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90Reference.ReferenceName);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, 
+                                         CurrentTbl90Reference.ReferenceName);
                 }
-                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl90Reference.ReferenceName + " " + CultRes.StringsRes.DeleteCan1);
+                else 
+                        _allMessageBoxes.InfoMessageBox("Not To Delete", 
+                                         CultRes.StringsRes.DeleteCan + " " + CurrentTbl90Reference.ReferenceName + " " + 
+                                         CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -220,7 +226,8 @@ ReferencesView = CollectionViewSource.GetDefaultView(Tbl90ReferencesList);
 
         private RelayCommand _saveRefExpertCommand;
 
-        public ICommand SaveRefExpertCommand => _saveRefExpertCommand ??= new RelayCommand(delegate { ExecuteSaveRefExpert(null); });        
+        public ICommand SaveRefExpertCommand => 
+                                      _saveRefExpertCommand ??= new RelayCommand(delegate { ExecuteSaveRefExpert(null); });        
            
         private void ExecuteSaveRefExpert(string searchName)
         {
@@ -280,12 +287,12 @@ ReferencesView = CollectionViewSource.GetDefaultView(Tbl90ReferencesList);
 
            
         #region "Public Commands Connect <== Tbl90RefSource"                 
-        //-------------------------------------------------------------------------
+       
         private RelayCommand _saveRefSourceCommand;
 
-        public ICommand SaveRefSourceCommand => _saveRefSourceCommand ??= new RelayCommand(delegate { ExecuteSaveRefSource(null); });
-
-        //-------------------------------------------------------------------------          
+        public ICommand SaveRefSourceCommand => 
+                            _saveRefSourceCommand ??= new RelayCommand(delegate { ExecuteSaveRefSource(null); });
+       
                                                           
 
 
@@ -356,6 +363,7 @@ Tbl90RefExpertsList = _extGet.GetRefExpertsCollectionOrderByFromRefExpertId<Tbl9
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+        private int _selectedDetailSubRefTabIndex;
 
         public  int SelectedMainTabIndex
         {

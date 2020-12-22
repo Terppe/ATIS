@@ -134,7 +134,8 @@ namespace ATIS.Ui.Views.Database.D66Genus
             Tbl90ReferencesList = _extCrud.DeleteDatasetsWithGenusIdInTableReference(CurrentTbl66Genus);
             if (Tbl90ReferencesList.Count > 0)
             {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + 
+                                              CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
                 _extCrud.DeleteReferences(Tbl90ReferencesList);
 
@@ -156,13 +157,18 @@ namespace ATIS.Ui.Views.Database.D66Genus
                 var genus= _uow.Tbl66Genusses.GetById(CurrentTbl66Genus.GenusId);
                 if (genus!= null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl66Genus.GenusName)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + 
+                                          CurrentTbl66Genus.GenusName)) return;
 
                     _extCrud.DeleteGenus(genus);
 
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl66Genus.GenusName);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, 
+                                         CurrentTbl66Genus.GenusName);
                 }
-                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl66Genus.GenusName + " " + CultRes.StringsRes.DeleteCan1);
+                else 
+                        _allMessageBoxes.InfoMessageBox("Not To Delete", 
+                                         CultRes.StringsRes.DeleteCan + " " + CurrentTbl66Genus.GenusName + " " + 
+                                         CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -246,7 +252,8 @@ namespace ATIS.Ui.Views.Database.D66Genus
 
         private RelayCommand _saveInfratribusCommand;
 
-        public ICommand SaveInfratribusCommand => _saveInfratribusCommand ??= new RelayCommand(delegate { ExecuteSaveInfratribus(null); });        
+        public ICommand SaveInfratribusCommand => 
+                                      _saveInfratribusCommand ??= new RelayCommand(delegate { ExecuteSaveInfratribus(null); });        
            
         private void ExecuteSaveInfratribus(string searchName)
         {
@@ -1186,6 +1193,7 @@ Tbl63InfratribussesList = _extCrud.GetInfratribussesCollectionFromInfratribusIdO
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+        private int _selectedDetailSubRefTabIndex;
 
         public  int SelectedMainTabIndex
         {

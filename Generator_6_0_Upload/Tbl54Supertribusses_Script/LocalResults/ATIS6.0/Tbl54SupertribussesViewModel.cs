@@ -133,7 +133,8 @@ namespace ATIS.Ui.Views.Database.D54Supertribus
             Tbl90ReferencesList = _extCrud.DeleteDatasetsWithSupertribusIdInTableReference(CurrentTbl54Supertribus);
             if (Tbl90ReferencesList.Count > 0)
             {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + 
+                                              CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
                 _extCrud.DeleteReferences(Tbl90ReferencesList);
 
@@ -155,13 +156,18 @@ namespace ATIS.Ui.Views.Database.D54Supertribus
                 var supertribus= _uow.Tbl54Supertribusses.GetById(CurrentTbl54Supertribus.SupertribusId);
                 if (supertribus!= null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl54Supertribus.SupertribusName)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + 
+                                          CurrentTbl54Supertribus.SupertribusName)) return;
 
                     _extCrud.DeleteSupertribus(supertribus);
 
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl54Supertribus.SupertribusName);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, 
+                                         CurrentTbl54Supertribus.SupertribusName);
                 }
-                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl54Supertribus.SupertribusName + " " + CultRes.StringsRes.DeleteCan1);
+                else 
+                        _allMessageBoxes.InfoMessageBox("Not To Delete", 
+                                         CultRes.StringsRes.DeleteCan + " " + CurrentTbl54Supertribus.SupertribusName + " " + 
+                                         CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -245,7 +251,8 @@ namespace ATIS.Ui.Views.Database.D54Supertribus
 
         private RelayCommand _saveInfrafamilyCommand;
 
-        public ICommand SaveInfrafamilyCommand => _saveInfrafamilyCommand ??= new RelayCommand(delegate { ExecuteSaveInfrafamily(null); });        
+        public ICommand SaveInfrafamilyCommand => 
+                                      _saveInfrafamilyCommand ??= new RelayCommand(delegate { ExecuteSaveInfrafamily(null); });        
            
         private void ExecuteSaveInfrafamily(string searchName)
         {
@@ -1066,6 +1073,7 @@ Tbl51InfrafamiliesList = _extCrud.GetInfrafamiliesCollectionFromInfrafamilyIdOrd
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+        private int _selectedDetailSubRefTabIndex;
 
         public  int SelectedMainTabIndex
         {

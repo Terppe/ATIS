@@ -110,8 +110,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
             SuperclassesView = CollectionViewSource.GetDefaultView(Tbl18SuperclassesList);
             SuperclassesView.MoveCurrentToFirst();
-        }
-        //------------------------------------------------------------------------------------                               
+        }                       
      
         private void ExecuteCopySuperclass(object o)
         {
@@ -140,7 +139,8 @@ namespace ATIS.Ui.Views.Database.D18Superclass
             Tbl90ReferencesList = _extCrud.DeleteDatasetsWithSuperclassIdInTableReference(CurrentTbl18Superclass);
             if (Tbl90ReferencesList.Count > 0)
             {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + 
+                                              CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
                 _extCrud.DeleteReferences(Tbl90ReferencesList);
 
@@ -162,13 +162,18 @@ namespace ATIS.Ui.Views.Database.D18Superclass
                 var superclass= _uow.Tbl18Superclasses.GetById(CurrentTbl18Superclass.SuperclassId);
                 if (superclass!= null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl18Superclass.SuperclassName)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + 
+                                          CurrentTbl18Superclass.SuperclassName)) return;
 
                     _extCrud.DeleteSuperclass(superclass);
 
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl18Superclass.SuperclassName);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, 
+                                         CurrentTbl18Superclass.SuperclassName);
                 }
-                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl18Superclass.SuperclassName + " " + CultRes.StringsRes.DeleteCan1);
+                else 
+                        _allMessageBoxes.InfoMessageBox("Not To Delete", 
+                                         CultRes.StringsRes.DeleteCan + " " + CurrentTbl18Superclass.SuperclassName + " " + 
+                                         CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -252,7 +257,8 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
         private RelayCommand _saveSubphylumCommand;
 
-        public ICommand SaveSubphylumCommand => _saveSubphylumCommand ??= new RelayCommand(delegate { ExecuteSaveSubphylum(null); });        
+        public ICommand SaveSubphylumCommand => 
+                                      _saveSubphylumCommand ??= new RelayCommand(delegate { ExecuteSaveSubphylum(null); });        
            
         private void ExecuteSaveSubphylum(string searchName)
         {
@@ -312,12 +318,12 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
            
         #region "Public Commands Connect <== Tbl15Subdivision"                 
-        //-------------------------------------------------------------------------
+       
         private RelayCommand _saveSubdivisionCommand;
 
-        public ICommand SaveSubdivisionCommand => _saveSubdivisionCommand ??= new RelayCommand(delegate { ExecuteSaveSubdivision(null); });
-
-        //-------------------------------------------------------------------------          
+        public ICommand SaveSubdivisionCommand => 
+                            _saveSubdivisionCommand ??= new RelayCommand(delegate { ExecuteSaveSubdivision(null); });
+       
      
         private void ExecuteSaveSubdivision(string searchName)
         {
@@ -1138,6 +1144,7 @@ Tbl12SubphylumsList = _extCrud.GetSubphylumsCollectionFromSubphylumIdOrderBy<Tbl
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+        private int _selectedDetailSubRefTabIndex;
 
         public  int SelectedMainTabIndex
         {

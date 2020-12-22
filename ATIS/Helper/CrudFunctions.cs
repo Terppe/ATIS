@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using ATIS.Dal.Models;
@@ -52,7 +53,7 @@ namespace ATIS.Ui.Helper
                         "genus" => GetGenussesCollectionAllOrderBy<T>(),
                         "speciesgroup" => GetSpeciesgroupsCollectionAllOrderBy<T>(),
                         "fispecies" => GetFiSpeciessesCollectionAllOrderBy<T>(),
-                        //"plspecies" => GetPlSpeciessesCollectionAllOrderBy<T>(),
+                        "plspecies" => GetPlSpeciessesCollectionAllOrderBy<T>(),
                         _ => collection
                     };
                     break;
@@ -84,7 +85,7 @@ namespace ATIS.Ui.Helper
                         "genus" => GetGenussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
                         "speciesgroup" => GetSpeciesgroupsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
                         "fispecies" => GetFiSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        //"plspecies" => GetPlSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                        "plspecies" => GetPlSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
                         _ => collection
                     };
                 }
@@ -9706,7 +9707,7 @@ namespace ATIS.Ui.Helper
 
         #region Speciesgroup
 
-        #region Get Speciesgroup
+          #region Get Speciesgroup
 
         //----------------------------------------   Speciesgroup   ------------------------
         public ObservableCollection<T> GetSpeciesgroupsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -9892,11 +9893,9 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-
-
         #region FiSpecies
 
-        #region Get FiSpecies
+          #region Get FiSpecies
 
         //----------------------------------------   FiSpecies   ------------------------
 
@@ -9937,45 +9936,7 @@ namespace ATIS.Ui.Helper
 
             return collection;
         }
-        //----------------------------------------   PlSpecies   ------------------------
 
-        public ObservableCollection<T> GetPlSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
-        {
-            ObservableCollection<T> collection;
-            collection = int.TryParse(searchName, out var id)
-                ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl72PlSpeciesses
-                    .Find(e => e.PlSpeciesId == id))
-                : new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
-                    .Include(a => a.Tbl66Genusses)
-                    .Where(a => a.Tbl66Genusses.GenusName.StartsWith(searchName))
-                    .OrderBy(a => a.Tbl66Genusses.GenusName)
-                    .ThenBy(a => a.PlSpeciesName)
-                    .ThenBy(a => a.Subspecies)
-                    .ThenBy(a => a.Divers));
-            return collection;
-        }
-
-
-        public ObservableCollection<T> GetPlSpeciessesCollectionAllOrderBy<T>()
-        {
-            ObservableCollection<T> collection;
-            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
-                .OrderBy(a => a.PlSpeciesName)
-                .ThenBy(a => a.Subspecies)
-                .ThenBy(a => a.Divers));
-            return collection;
-        }
-        public ObservableCollection<T> GetPlSpeciessesCollectionFromFiSpeciesIdOrderBy<T>(int id)
-        {
-            ObservableCollection<T> collection;
-            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
-                .Where(e => e.PlSpeciesId == id)
-                .OrderBy(a => a.PlSpeciesName)
-                .ThenBy(a => a.Subspecies)
-                .ThenBy(a => a.Divers));
-
-            return collection;
-        }
 
         //-------------------------------------- Name   -------------------------
         public ObservableCollection<T> GetNamesCollectionFromFiSpeciesIdOrderBy<T>(int id)
@@ -10066,9 +10027,20 @@ namespace ATIS.Ui.Helper
             return coll.FiSpeciesId;
         }
 
+        //Function
+        public int GetFiSpeciesIdFromFiSpeciessesCollectionSelectByName(string name)
+        {
+            var coll = _context.Tbl69FiSpeciesses
+                .SingleOrDefault(p => p.FiSpeciesName == name);
+
+            if (coll == null) return 0;
+            return coll.FiSpeciesId;
+        }
+
+
         #endregion
 
-        #region Copy FiSpecies
+          #region Copy FiSpecies
 
         // ----------------------------------------   Name  ------------------------
         public ObservableCollection<Tbl78Name> CopyName(Tbl78Name selected)
@@ -10080,19 +10052,90 @@ namespace ATIS.Ui.Helper
             {
                 NameName = CultRes.StringsRes.DatasetNew,
                 FiSpeciesId = dataset.FiSpeciesId,
+                PlSpeciesId = dataset.PlSpeciesId,
                 Valid = dataset.Valid,
                 ValidYear = dataset.ValidYear,
-                //Synonym = dataset.Synonym,
-                //Author = dataset.Author,
-                //AuthorYear = dataset.AuthorYear,
+                Language = dataset.Language,
                 Info = dataset.Info,
-                //EngName = dataset.EngName,
-                //GerName = dataset.GerName,
-                //FraName = dataset.FraName,
-                //PorName = dataset.PorName,
                 Memo = dataset.Memo
             });
 
+            return collection;
+        }
+
+        // ----------------------------------------   Image  ------------------------
+        public ObservableCollection<Tbl81Image> CopyImage(Tbl81Image selected)
+        {
+            var dataset = _uow.Tbl81Images.GetById(selected.ImageId);
+            var collection = new ObservableCollection<Tbl81Image>();
+
+            collection.Insert(0, new Tbl81Image
+            {
+                FiSpeciesId = dataset.FiSpeciesId,
+                PlSpeciesId = dataset.PlSpeciesId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Info = dataset.Info,
+                ShotDate = dataset.ShotDate,
+                ImageData = dataset.ImageData,
+                ImageMimeType = dataset.ImageMimeType,
+                Filestream = dataset.Filestream,
+                FilestreamId = dataset.FilestreamId,
+                Memo = dataset.Memo
+            });
+            return collection;
+        }
+
+        // ----------------------------------------   Synonym  ------------------------
+        public ObservableCollection<Tbl84Synonym> CopySynonym(Tbl84Synonym selected)
+        {
+            var dataset = _uow.Tbl84Synonyms.GetById(selected.SynonymId);
+            var collection = new ObservableCollection<Tbl84Synonym>();
+
+            collection.Insert(0, new Tbl84Synonym
+            {
+                SynonymName = CultRes.StringsRes.DatasetNew,
+                FiSpeciesId = dataset.FiSpeciesId,
+                PlSpeciesId = dataset.PlSpeciesId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Info = dataset.Info,
+                Memo = dataset.Memo
+
+            });
+            return collection;
+        }
+
+        // ----------------------------------------   Geographic  ------------------------
+        public ObservableCollection<Tbl87Geographic> CopyGeographic(Tbl87Geographic selected)
+        {
+            var dataset = _uow.Tbl87Geographics.GetById(selected.GeographicId);
+            var collection = new ObservableCollection<Tbl87Geographic>();
+
+            collection.Insert(0, new Tbl87Geographic
+            {
+                FiSpeciesId = dataset.FiSpeciesId,
+                PlSpeciesId = dataset.PlSpeciesId,
+                Address = dataset.Address,
+                Continent = dataset.Continent,
+                Country = dataset.Country,
+                Http = dataset.Http,
+                Latitude = dataset.Latitude,
+                Longitude = dataset.Longitude,
+                Latitude1 = dataset.Latitude1,
+                Longitude1 = dataset.Longitude1,
+                Latitude2 = dataset.Latitude2,
+                Longitude2 = dataset.Longitude2,
+                Latitude3 = dataset.Latitude3,
+                Longitude3 = dataset.Longitude3,
+                ZoomLevel = dataset.ZoomLevel,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                Memo = dataset.Memo
+            });
             return collection;
         }
 
@@ -10106,6 +10149,7 @@ namespace ATIS.Ui.Helper
                     collection.Insert(0, new Tbl90Reference()
                     {
                         FiSpeciesId = dataset.FiSpeciesId,
+                        PlSpeciesId = dataset.PlSpeciesId,
                         RefExpertId = dataset.RefExpertId,
                         Valid = dataset.Valid,
                         ValidYear = dataset.ValidYear,
@@ -10117,6 +10161,7 @@ namespace ATIS.Ui.Helper
                     collection.Insert(0, new Tbl90Reference()
                     {
                         FiSpeciesId = dataset.FiSpeciesId,
+                        PlSpeciesId = dataset.PlSpeciesId,
                         RefSourceId = dataset.RefSourceId,
                         Valid = dataset.Valid,
                         ValidYear = dataset.ValidYear,
@@ -10128,6 +10173,7 @@ namespace ATIS.Ui.Helper
                     collection.Insert(0, new Tbl90Reference()
                     {
                         FiSpeciesId = dataset.FiSpeciesId,
+                        PlSpeciesId = dataset.PlSpeciesId,
                         RefAuthorId = dataset.RefAuthorId,
                         Valid = dataset.Valid,
                         ValidYear = dataset.ValidYear,
@@ -10140,22 +10186,9 @@ namespace ATIS.Ui.Helper
             return collection;
         }
 
-
         #endregion
 
-        #region Delete FiSpecies
-
-        //------------------------------ FiSpecies --------------------------------------------------------------------------------------------
-        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithFiSpeciesIdInTableReference(Tbl69FiSpecies selected)
-        //{
-        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
-        //    return collection;
-        //}
-        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithFiSpeciesIdInTableComment(Tbl69FiSpecies selected)
-        //{
-        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
-        //    return collection;
-        //}
+          #region Delete FiSpecies
 
         //------------------------------ Name --------------------------------------------------------------------------------------------
         public void DeleteName(Tbl78Name selected)
@@ -10163,26 +10196,28 @@ namespace ATIS.Ui.Helper
             _uow.Tbl78Names.Remove(selected);
             _uow.Complete();
         }
-        //public ObservableCollection<Tbl81Image> SearchForConnectedDatasetsWithNameIdInTableImage(Tbl78Name selected)
-        //{
-        //    var collection = new ObservableCollection<Tbl81Image>(_uow.Tbl81Images.Find(x => x.NameId == selected.NameId));
-        //    return collection;
-        //}
-        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithNameIdInTableReference(Tbl78Name selected)
-        //{
-        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.NameId == selected.NameId));
-        //    return collection;
-        //}
-        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithNameIdInTableComment(Tbl78Name selected)
-        //{
-        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.NameId == selected.NameId));
-        //    return collection;
-        //}
-
-
+         //------------------------------ Image --------------------------------------------------------------------------------------------
+        public void DeleteImage(Tbl81Image selected)
+        {
+            _uow.Tbl81Images.Remove(selected);
+            _uow.Complete();
+        }
+         //------------------------------ Synonym --------------------------------------------------------------------------------------------
+        public void DeleteSynonym(Tbl84Synonym selected)
+        {
+            _uow.Tbl84Synonyms.Remove(selected);
+            _uow.Complete();
+        }
+         //------------------------------ Geographic --------------------------------------------------------------------------------------------
+        public void DeleteGeographic(Tbl87Geographic selected)
+        {
+            _uow.Tbl87Geographics.Remove(selected);
+            _uow.Complete();
+        }
+ 
         #endregion
 
-        #region Save FiSpecies 
+          #region Save FiSpecies 
 
         //------------------ Name ---------------------------------------
         public Tbl78Name NameUpdate(Tbl78Name home, Tbl78Name selected)
@@ -10191,16 +10226,11 @@ namespace ATIS.Ui.Helper
             {
                 home.NameName = selected.NameName;
                 home.FiSpeciesId = selected.FiSpeciesId;
+                home.PlSpeciesId = selected.PlSpeciesId;
                 home.Valid = selected.Valid;
                 home.ValidYear = selected.ValidYear;
-                //home.Author = selected.Author;
-                //home.AuthorYear = selected.AuthorYear;
+                home.Language = selected.Language;
                 home.Info = selected.Info;
-                //home.Synonym = selected.Synonym;
-                //home.EngName = selected.EngName;
-                //home.GerName = selected.GerName;
-                //home.FraName = selected.FraName;
-                //home.PorName = selected.PorName;
                 home.Memo = selected.Memo;
                 home.Updater = Environment.UserName;
                 home.UpdaterDate = DateTime.Now;
@@ -10213,17 +10243,12 @@ namespace ATIS.Ui.Helper
             {
                 NameName = selected.NameName,
                 FiSpeciesId = selected.FiSpeciesId,
+                PlSpeciesId = selected.PlSpeciesId,
                 CountId = RandomHelper.Randomnumber(),
                 Valid = selected.Valid,
                 ValidYear = selected.ValidYear,
-                //Author = selected.Author,
-                //AuthorYear = selected.AuthorYear,
+                Language = selected.Language,
                 Info = selected.Info,
-                //Synonym = selected.Synonym,
-                //EngName = selected.EngName,
-                //GerName = selected.GerName,
-                //FraName = selected.FraName,
-                //PorName = selected.PorName,
                 Memo = selected.Memo,
                 Writer = Environment.UserName,
                 WriterDate = DateTime.Now,
@@ -10244,6 +10269,205 @@ namespace ATIS.Ui.Helper
             _uow.Complete();
         }
 
+        //------------------ Image ---------------------------------------
+        public Tbl81Image ImageUpdate(Tbl81Image home, Tbl81Image selected)
+        {
+            if (home != null) //update
+            {
+                home.FiSpeciesId = selected.FiSpeciesId;
+                home.PlSpeciesId = selected.PlSpeciesId;
+                home.Valid = selected.Valid;
+                home.ValidYear = selected.ValidYear;
+                home.ShotDate = selected.ShotDate;
+                home.Info = selected.Info;
+                home.Memo = selected.Memo;
+                home.Updater = Environment.UserName;
+                home.UpdaterDate = DateTime.Now;
+                home.ImageData = selected.ImageData;
+                home.ImageMimeType = selected.ImageMimeType;
+                if (SelectedPath != null) home.Filestream = LoadImageData(SelectedPath);
+            }
+            return home;
+        }
+        public Tbl81Image ImageAdd(Tbl81Image selected)
+        {
+            var home = new Tbl81Image() //add new
+            {
+                FiSpeciesId = selected.FiSpeciesId,
+                PlSpeciesId = selected.PlSpeciesId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                ShotDate = selected.ShotDate,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                ImageData = selected.ImageData, //empty
+                ImageMimeType = selected.ImageMimeType,
+                Filestream = LoadImageData(SelectedPath),
+                FilestreamId = Guid.NewGuid(),
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+
+            };
+            return home;
+        }
+
+        private static byte[] LoadImageData(string filePath)
+        {
+            var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            var br = new BinaryReader(fs);
+            var imageBytes = br.ReadBytes((int)fs.Length);
+            br.Close();
+            fs.Close();
+            return imageBytes;
+        }
+
+        public void ImageSave(Tbl81Image home, Tbl81Image selected)
+        {
+
+            if (selected.ImageId != 0) //update
+            {
+                _uow.Tbl81Images.Update(home);
+            }
+            else                                //add
+                _uow.Tbl81Images.Add(home);
+            _uow.Complete();
+        }
+
+
+        public static RelayCommand OpenCommand { get; set; }
+        private string _selectedPath;
+
+        public string SelectedPath
+        {
+            get => _selectedPath;
+            set { _selectedPath = value; RaisePropertyChanged(""); }
+        }
+
+        //------------------ Synonym ---------------------------------------
+        public Tbl84Synonym SynonymUpdate(Tbl84Synonym home, Tbl84Synonym selected)
+        {
+            if (home != null) //update
+            {
+                home.SynonymName = selected.SynonymName;
+                home.FiSpeciesId = selected.FiSpeciesId;
+                home.PlSpeciesId = selected.PlSpeciesId;
+                home.Valid = selected.Valid;
+                home.ValidYear = selected.ValidYear;
+                home.Author = home.Author;
+                home.AuthorYear = home.AuthorYear;
+                home.Info = selected.Info;
+                home.Memo = selected.Memo;
+                home.Updater = Environment.UserName;
+                home.UpdaterDate = DateTime.Now;
+            }
+            return home;
+        }
+        public Tbl84Synonym SynonymAdd(Tbl84Synonym selected)
+        {
+            var home = new Tbl84Synonym() //add new
+            {
+                SynonymName = selected.SynonymName,
+                FiSpeciesId = selected.FiSpeciesId,
+                PlSpeciesId = selected.PlSpeciesId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Author = selected.Author,
+                AuthorYear = selected.AuthorYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now
+            };
+            return home;
+        }
+        public void SynonymSave(Tbl84Synonym home, Tbl84Synonym selected)
+        {
+
+            if (selected.SynonymId != 0) //update
+            {
+                _uow.Tbl84Synonyms.Update(home);
+            }
+            else                                //add
+                _uow.Tbl84Synonyms.Add(home);
+            _uow.Complete();
+        }
+
+        //------------------ Geographic ---------------------------------------
+        public Tbl87Geographic GeographicUpdate(Tbl87Geographic home, Tbl87Geographic selected)
+        {
+            if (home != null) //update
+            {
+                home.FiSpeciesId = selected.FiSpeciesId;
+                home.PlSpeciesId = selected.PlSpeciesId;
+                home.Address = selected.Address;
+                home.Continent = selected.Continent;
+                home.Country = selected.Country;
+                home.Http = selected.Http;
+                home.Latitude = selected.Latitude;
+                home.Longitude = selected.Longitude;
+                home.Latitude1 = selected.Latitude1;
+                home.Longitude1 = selected.Longitude1;
+                home.Latitude2 = selected.Latitude2;
+                home.Longitude2 = selected.Longitude2;
+                home.Latitude3 = selected.Latitude3;
+                home.Longitude3 = selected.Longitude3;
+                home.ZoomLevel = selected.ZoomLevel;
+                home.Updater = Environment.UserName;
+                home.UpdaterDate = DateTime.Now;
+
+
+            }
+            return home;
+        }
+        public Tbl87Geographic GeographicAdd(Tbl87Geographic selected)
+        {
+            var home = new Tbl87Geographic() //add new
+            {
+                FiSpeciesId = selected.FiSpeciesId,
+                PlSpeciesId = selected.PlSpeciesId,
+                CountId = RandomHelper.Randomnumber(),
+                Address = selected.Address,
+                Continent = selected.Continent,
+                Country = selected.Country,
+                Http = selected.Http,
+                Latitude = selected.Latitude,
+                Longitude = selected.Longitude,
+                Latitude1 = selected.Latitude1,
+                Longitude1 = selected.Longitude1,
+                Latitude2 = selected.Latitude2,
+                Longitude2 = selected.Longitude2,
+                Latitude3 = selected.Latitude3,
+                Longitude3 = selected.Longitude3,
+                ZoomLevel = selected.ZoomLevel,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return home;
+        }
+
+        public void GeographicSave(Tbl87Geographic home, Tbl87Geographic selected)
+        {
+
+            if (selected.GeographicId != 0) //update
+            {
+                _uow.Tbl87Geographics.Update(home);
+            }
+            else                                //add
+                _uow.Tbl87Geographics.Add(home);
+            _uow.Complete();
+        }
+
+
+        //----------------------------------------------------------------------
         public Tbl90Reference ReferenceExpertFiSpeciesUpdate(Tbl90Reference reference, Tbl90Reference selected)
         {
             if (reference != null) //update
@@ -10377,11 +10601,425 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
+        #endregion FiSpecies
+
+        #region PlSpecies
+
+          #region Get PlSpecies
+
+        public ObservableCollection<T> GetPlSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        {
+            ObservableCollection<T> collection;
+            collection = int.TryParse(searchName, out var id)
+                ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl72PlSpeciesses
+                    .Find(e => e.PlSpeciesId == id))
+                : new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
+                    .Include(a => a.Tbl66Genusses)
+                    .Where(a => a.Tbl66Genusses.GenusName.StartsWith(searchName))
+                    .OrderBy(a => a.Tbl66Genusses.GenusName)
+                    .ThenBy(a => a.PlSpeciesName)
+                    .ThenBy(a => a.Subspecies)
+                    .ThenBy(a => a.Divers));
+            return collection;
+        }
+
+        public ObservableCollection<T> GetPlSpeciessesCollectionAllOrderBy<T>()
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
+                .OrderBy(a => a.PlSpeciesName)
+                .ThenBy(a => a.Subspecies)
+                .ThenBy(a => a.Divers));
+            return collection;
+        }
+        public ObservableCollection<T> GetPlSpeciessesCollectionFromFiSpeciesIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
+                .Where(e => e.PlSpeciesId == id)
+                .OrderBy(a => a.PlSpeciesName)
+                .ThenBy(a => a.Subspecies)
+                .ThenBy(a => a.Divers));
+
+            return collection;
+        }
+        //-------------------------------------- Name   -------------------------
+        public ObservableCollection<T> GetNamesCollectionFromPlSpeciesIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl78Names
+                .Where(e => e.PlSpeciesId == id)
+                .OrderBy(k => k.NameName));
+            return collection;
+        }
+
+        //-------------------------------------- Image   -------------------------
+        public ObservableCollection<T> GetImagesCollectionFromPlSpeciesIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl81Images
+                .Where(e => e.PlSpeciesId == id)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Synonym   -------------------------
+        public ObservableCollection<T> GetSynonymsCollectionFromPlSpeciesIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl84Synonyms
+                .Where(e => e.PlSpeciesId == id)
+                .OrderBy(k => k.SynonymName));
+            return collection;
+        }
+
+        //-------------------------------------- Geographic   -------------------------
+        public ObservableCollection<T> GetGeographicsCollectionFromPlSpeciesIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl87Geographics
+                .Where(e => e.PlSpeciesId == id)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Reference Experts   -------------------------
+        public ObservableCollection<T> GetReferenceExpertsCollectionFromPlSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefExperts)
+                .Where(e => e.PlSpeciesId == id && e.RefAuthorId == null && e.RefSourceId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Reference Sources   -------------------------
+        public ObservableCollection<T> GetReferenceSourcesCollectionFromPlSpeciesIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefSources)
+                .Where(e => e.PlSpeciesId == id && e.RefAuthorId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Reference Authors   -------------------------
+        public ObservableCollection<T> GetReferenceAuthorsCollectionFromPlSpeciesIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.PlSpeciesId == id && e.RefSourceId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Comments   -------------------------
+        public ObservableCollection<T> GetCommentsCollectionFromPlSpeciesIdOrderBy<T>(int? id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
+                .Where(e => e.PlSpeciesId == id)
+                .OrderBy(e => e.Info));
+            return collection;
+        }
+
+        //Function
+        public int GetPlSpeciesIdFromNamesCollectionSelect(int id)
+        {
+            var coll = _context.Tbl78Names
+                .SingleOrDefault(p => p.NameId == id);
+
+            if (coll == null) return 0;
+            return coll.PlSpeciesId;
+        }
+
+        //Function
+        public int GetPlSpeciesIdFromPlSpeciessesCollectionSelectByName(string name)
+        {
+            var coll = _context.Tbl72PlSpeciesses
+                .SingleOrDefault(p => p.PlSpeciesName == name);
+
+            if (coll == null) return 0;
+            return coll.PlSpeciesId;
+        }
+
         #endregion
 
+        #region Copy PlSpecies
+
+        public ObservableCollection<Tbl90Reference> CopyReferencePlSpecies(Tbl90Reference selected, string refer)
+        {
+            var dataset = _uow.Tbl90References.GetById(selected.ReferenceId);
+            var collection = new ObservableCollection<Tbl90Reference>();
+            switch (refer)
+            {
+                case "Expert":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        PlSpeciesId = dataset.PlSpeciesId,
+                        RefExpertId = dataset.RefExpertId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Source":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        PlSpeciesId = dataset.PlSpeciesId,
+                        RefSourceId = dataset.RefSourceId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Author":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        PlSpeciesId = dataset.PlSpeciesId,
+                        RefAuthorId = dataset.RefAuthorId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+            }
+
+            return collection;
+        }
+
+
+        #endregion
+
+        #region Delete PlSpecies
 
 
 
+        #endregion
+
+        #region Save PlSpecies
+
+        public Tbl90Reference ReferenceExpertPlSpeciesUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefExpertId = selected.RefExpertId;
+                reference.PlSpeciesId = selected.PlSpeciesId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceExpertPlSpeciesAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefExpertId = selected.RefExpertId,
+                PlSpeciesId = selected.PlSpeciesId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourcePlSpeciesUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefSourceId = selected.RefSourceId;
+                reference.PlSpeciesId = selected.PlSpeciesId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourcePlSpeciesAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefSourceId = selected.RefSourceId,
+                PlSpeciesId = selected.PlSpeciesId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorPlSpeciesUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefAuthorId = selected.RefAuthorId;
+                reference.PlSpeciesId = selected.PlSpeciesId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorPlSpeciesAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefAuthorId = selected.RefAuthorId,
+                PlSpeciesId = selected.PlSpeciesId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl93Comment CommentPlSpeciesUpdate(Tbl93Comment comment, Tbl93Comment selected)
+        {
+            if (comment != null) //update
+            {
+                comment.PlSpeciesId = selected.PlSpeciesId;
+                comment.Valid = selected.Valid;
+                comment.ValidYear = selected.ValidYear;
+                comment.Info = selected.Info;
+                comment.Updater = Environment.UserName;
+                comment.UpdaterDate = DateTime.Now;
+                comment.Memo = selected.Memo;
+            }
+            return comment;
+        }
+        public Tbl93Comment CommentPlSpeciesAdd(Tbl93Comment selected)
+        {
+            var comment = new Tbl93Comment //add new
+            {
+                PlSpeciesId = selected.PlSpeciesId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return comment;
+        }
+
+
+        #endregion
+        
+        #endregion
+        
+        #region Name
+
+        #region Delete Name
+
+        public ObservableCollection<Tbl78Name> SearchForConnectedDatasetsWithFiSpeciesIdInTableName(Tbl69FiSpecies selected)
+        {
+            var collection = new ObservableCollection<Tbl78Name>(_uow.Tbl78Names.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
+            return collection;
+        }
+
+        public ObservableCollection<Tbl78Name> SearchForConnectedDatasetsWithPlSpeciesIdInTableName(Tbl72PlSpecies selected)
+        {
+            var collection = new ObservableCollection<Tbl78Name>(_uow.Tbl78Names.Find(x => x.PlSpeciesId == selected.PlSpeciesId));
+            return collection;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Image
+
+        #region DeleteImage
+
+        public ObservableCollection<Tbl81Image> SearchForConnectedDatasetsWithFiSpeciesIdInTableImage(Tbl69FiSpecies selected)
+        {
+            var collection = new ObservableCollection<Tbl81Image>(_uow.Tbl81Images.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
+            return collection;
+        }
+
+        public ObservableCollection<Tbl81Image> SearchForConnectedDatasetsWithPlSpeciesIdInTableImage(Tbl72PlSpecies selected)
+        {
+            var collection = new ObservableCollection<Tbl81Image>(_uow.Tbl81Images.Find(x => x.PlSpeciesId == selected.PlSpeciesId));
+            return collection;
+        }
+
+
+
+        #endregion
+
+        #endregion
+
+        #region Synonym
+
+        #region Delete Synonym
+
+        public ObservableCollection<Tbl84Synonym> SearchForConnectedDatasetsWithFiSpeciesIdInTableSynonym(Tbl69FiSpecies selected)
+        {
+            var collection = new ObservableCollection<Tbl84Synonym>(_uow.Tbl84Synonyms.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
+            return collection;
+        }
+
+        public ObservableCollection<Tbl84Synonym> SearchForConnectedDatasetsWithPlSpeciesIdInTableSynonym(Tbl72PlSpecies selected)
+        {
+            var collection = new ObservableCollection<Tbl84Synonym>(_uow.Tbl84Synonyms.Find(x => x.PlSpeciesId == selected.PlSpeciesId));
+            return collection;
+        }
+
+
+        #endregion
+
+        #endregion
+
+        #region Geographic
+
+        #region Delete Geographic
+
+        public ObservableCollection<Tbl87Geographic> SearchForConnectedDatasetsWithFiSpeciesIdInTableGeographic(Tbl69FiSpecies selected)
+        {
+            var collection = new ObservableCollection<Tbl87Geographic>(_uow.Tbl87Geographics.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
+            return collection;
+        }
+
+        public ObservableCollection<Tbl87Geographic> SearchForConnectedDatasetsWithPlSpeciesIdInTableGeographic(Tbl72PlSpecies selected)
+        {
+            var collection = new ObservableCollection<Tbl87Geographic>(_uow.Tbl87Geographics.Find(x => x.PlSpeciesId == selected.PlSpeciesId));
+            return collection;
+        }
+
+
+        #endregion
+
+        #endregion
+        
 
         #region References
 

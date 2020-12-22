@@ -56,9 +56,9 @@ namespace ATIS.Ui.Views.Database.ListDetails
       
                 // Code runs "for real" 
                 GetValueContinent();
-                _entityException = new DbEntityException();
             }
         }
+        public bool IsInDesignMode { get; set; }
 
         #endregion "Constructor"                       
  
@@ -131,7 +131,8 @@ GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
             Tbl90ReferencesList = _extCrud.DeleteDatasetsWithGeographicIdInTableReference(CurrentTbl87Geographic);
             if (Tbl90ReferencesList.Count > 0)
             {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + 
+                                              CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
                 _extCrud.DeleteReferences(Tbl90ReferencesList);
 
@@ -153,13 +154,18 @@ GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
                 var geographic= _uow.Tbl87Geographics.GetById(CurrentTbl87Geographic.GeographicId);
                 if (geographic!= null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl87Geographic.GeographicName)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + 
+                                          CurrentTbl87Geographic.GeographicName)) return;
 
                     _extCrud.DeleteGeographic(geographic);
 
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl87Geographic.GeographicName);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, 
+                                         CurrentTbl87Geographic.GeographicName);
                 }
-                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl87Geographic.GeographicName + " " + CultRes.StringsRes.DeleteCan1);
+                else 
+                        _allMessageBoxes.InfoMessageBox("Not To Delete", 
+                                         CultRes.StringsRes.DeleteCan + " " + CurrentTbl87Geographic.GeographicName + " " + 
+                                         CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -201,7 +207,8 @@ GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
 
         private RelayCommand _saveFiSpeciesCommand;
 
-        public ICommand SaveFiSpeciesCommand => _saveFiSpeciesCommand ??= new RelayCommand(delegate { ExecuteSaveFiSpecies(null); });        
+        public ICommand SaveFiSpeciesCommand => 
+                                      _saveFiSpeciesCommand ??= new RelayCommand(delegate { ExecuteSaveFiSpecies(null); });        
            
         private void ExecuteSaveFiSpecies(string searchName)
         {
@@ -314,12 +321,12 @@ GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
 
            
         #region "Public Commands Connect <== Tbl72PlSpecies"                 
-        //-------------------------------------------------------------------------
+       
         private RelayCommand _savePlSpeciesCommand;
 
-        public ICommand SavePlSpeciesCommand => _savePlSpeciesCommand ??= new RelayCommand(delegate { ExecuteSavePlSpecies(null); });
-
-        //-------------------------------------------------------------------------          
+        public ICommand SavePlSpeciesCommand => 
+                            _savePlSpeciesCommand ??= new RelayCommand(delegate { ExecuteSavePlSpecies(null); });
+       
        
         private void SavePlSpecies(object o)
         {           
@@ -391,6 +398,7 @@ GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+        private int _selectedDetailSubRefTabIndex;
 
         public  int SelectedMainTabIndex
         {

@@ -1,12 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">
-<xsl:output method="text" version="1.0" encoding="UTF-8" indent="yes"/>
-<xsl:template match="Definition"><![CDATA[  ]]>
-
-<xsl:choose>
-<xsl:when test="Table ='using++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
-</xsl:when> 
-<xsl:otherwise>    <![CDATA[ 
+     
 using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
@@ -141,14 +133,8 @@ namespace ATIS.Ui.Views.Report
 
         }
 
-        //		#region Methods  ]]>
-</xsl:otherwise>    
-</xsl:choose> 
-
-<xsl:choose>
-<xsl:when test="Table ='List Top  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
-</xsl:when>  
-<xsl:otherwise>  <![CDATA[ 
+        //		#region Methods  
+   
         public void GetTbl03RegnumsById(int id)
         {
             RegnumsCollection = _extReportBasicGet.CollRegnumsByRegnumId(id);
@@ -275,70 +261,54 @@ namespace ATIS.Ui.Views.Report
             ReportDivisionPdf.CreateMainPdf(id, use);
         }
 
-        //------------------------------------------------------------------------------  ]]>
-</xsl:otherwise>    
-</xsl:choose> 
-
- 
-
-
-<xsl:choose>
-<xsl:when test="Table ='using aktuelle Version pro Table von 09 bis 66    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
-</xsl:when> 
-<xsl:otherwise>   <![CDATA[ 
-        public void Get]]><xsl:value-of select="Table"/><![CDATA[ById(int id)
+        //------------------------------------------------------------------------------  
+    
+        public void GetTbl72PlSpeciessesById(int id)
         {
-            ]]><xsl:value-of select="Basiss"/><![CDATA[Collection = _extReportBasicGet.Coll]]><xsl:value-of select="Basiss"/><![CDATA[By]]><xsl:value-of select="Basis"/><![CDATA[Id(id);
+            PlSpeciessesCollection = _extReportBasicGet.CollPlSpeciessesByPlSpeciesId(id);
             //direct children
-            ]]><xsl:value-of select="BasissTK1"/><![CDATA[Collection = _extReportBasicGet.Coll]]><xsl:value-of select="BasissTK1"/><![CDATA[By]]><xsl:value-of select="Basis"/><![CDATA[IdAndHash(id);
+            NamesCollection = _extReportBasicGet.CollNamesByPlSpeciesIdAndHash(id);
             //------------------------------------------------------------------------------
             //Function
-            var ]]><xsl:value-of select="BasisSmFK1"/><![CDATA[Id = _extReportBasicGet.]]><xsl:value-of select="BasisFK1"/><![CDATA[IdFrom]]><xsl:value-of select="Basiss"/><![CDATA[CollectionSelect(id);
+            var genusId = _extReportBasicGet.GenusIdFromPlSpeciessesCollectionSelect(id);
             //-----------------------------------------------------------------------------
             //ForeignKeyTable
-            ]]><xsl:value-of select="BasissFK1"/><![CDATA[Collection = _extReportBasicGet.Coll]]><xsl:value-of select="BasissFK1"/><![CDATA[ByRegnumIdAndHash(]]><xsl:value-of select="BasisSmFK1"/><![CDATA[Id);
+            GenussesCollection = _extReportBasicGet.CollGenussesByRegnumIdAndHash(genusId);
             //------------------------------------------------------------------------------
-            ExpertsCollection = _extReportBasicGet.CollExpertsBy]]><xsl:value-of select="Basis"/><![CDATA[Id(id);
-            SourcesCollection = _extReportBasicGet.CollSourcesBy]]><xsl:value-of select="Basis"/><![CDATA[Id(id);
-            AuthorsCollection = _extReportBasicGet.CollAuthorsBy]]><xsl:value-of select="Basis"/><![CDATA[Id(id);
+            ExpertsCollection = _extReportBasicGet.CollExpertsByPlSpeciesId(id);
+            SourcesCollection = _extReportBasicGet.CollSourcesByPlSpeciesId(id);
+            AuthorsCollection = _extReportBasicGet.CollAuthorsByPlSpeciesId(id);
             //------------------------------------------------------------------------------
-            CommentsCollection = _extReportBasicGet.CollCommentsBy]]><xsl:value-of select="Basis"/><![CDATA[Id(id);
+            CommentsCollection = _extReportBasicGet.CollCommentsByPlSpeciesId(id);
         }
         //------------------------------------------------------------------------------
 
-        private RelayCommand _pdf]]><xsl:value-of select="Basis"/><![CDATA[PrintCommand;
-        public ICommand Pdf]]><xsl:value-of select="Basis"/><![CDATA[PrintCommand
+        private RelayCommand _pdfPlSpeciesPrintCommand;
+        public ICommand PdfPlSpeciesPrintCommand
         {
-            get { return _pdf]]><xsl:value-of select="Basis"/><![CDATA[PrintCommand ??= new RelayCommand(delegate { CreatePdf]]><xsl:value-of select="Basis"/><![CDATA[Print(_mainId); }); }
+            get { return _pdfPlSpeciesPrintCommand ??= new RelayCommand(delegate { CreatePdfPlSpeciesPrint(_mainId); }); }
         }
 
-        private static void CreatePdf]]><xsl:value-of select="Basis"/><![CDATA[Print(int id)
+        private static void CreatePdfPlSpeciesPrint(int id)
         {
             const string use = "print";
-            Report]]><xsl:value-of select="Basis"/><![CDATA[Pdf.CreateMainPdf(id, use);
+            ReportPlSpeciesPdf.CreateMainPdf(id, use);
         }
-        private RelayCommand _pdf]]><xsl:value-of select="Basis"/><![CDATA[SaveCommand;
-        public ICommand Pdf]]><xsl:value-of select="Basis"/><![CDATA[SaveCommand
+        private RelayCommand _pdfPlSpeciesSaveCommand;
+        public ICommand PdfPlSpeciesSaveCommand
         {
-            get { return _pdf]]><xsl:value-of select="Basis"/><![CDATA[SaveCommand ??= new RelayCommand(delegate { CreatePdf]]><xsl:value-of select="Basis"/><![CDATA[Save(_mainId); }); }
+            get { return _pdfPlSpeciesSaveCommand ??= new RelayCommand(delegate { CreatePdfPlSpeciesSave(_mainId); }); }
         }
 
-        private static void CreatePdf]]><xsl:value-of select="Basis"/><![CDATA[Save(int id)
+        private static void CreatePdfPlSpeciesSave(int id)
         {
             const string use = "save";
-            Report]]><xsl:value-of select="Basis"/><![CDATA[Pdf.CreateMainPdf(id, use);
+            ReportPlSpeciesPdf.CreateMainPdf(id, use);
         }
         //------------------------------------------------------------------------------  
         //------------------------------------------------------------------------------  
-  ]]>      
-</xsl:otherwise>    
-</xsl:choose> 
-
-
-<xsl:choose>
-<xsl:when test="Table ='using++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
-</xsl:when> 
-<xsl:otherwise>   <![CDATA[ 
+        
+    
         #region "Private Properties"
         public string FilterText { get; set; }
 
@@ -389,32 +359,4 @@ namespace ATIS.Ui.Views.Report
     #region Item Properties
 
     #endregion
-}     ]]>
-</xsl:otherwise>    
-</xsl:choose> 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-</xsl:template>
-</xsl:stylesheet>
-
-
+}     

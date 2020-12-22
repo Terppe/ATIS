@@ -354,14 +354,14 @@ namespace ATIS.Ui.Views.Database.D66Genus
             if (_genFiSpeciesMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl69FiSpecies)) return;
 
             //check if in Tbl69FiSpeciesses connected datasets no delete possible, Names, Images, Synonyms and Geographics delete and than return
-            //Tbl78NamesList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableName(CurrentTbl69FiSpecies);
-            //if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl78namesList.Count, "Name")) return;
-            //Tbl81ImagesList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableImage(CurrentTbl69FiSpecies);
-            //if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl81ImagesList.Count, "Image")) return;
-            //Tbl84SynonymsList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableSynonym(CurrentTbl69FiSpecies);
-            //if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl84SynonymsList.Count, "Synonym")) return;
-            //Tbl87GeographicsList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableGeographic(CurrentTbl69FiSpecies);
-            //if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl87GeographicsList.Count, "Geographic")) return;
+            Tbl78NamesList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableName(CurrentTbl69FiSpecies);
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl78NamesList.Count, "Name")) return;
+            Tbl81ImagesList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableImage(CurrentTbl69FiSpecies);
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl81ImagesList.Count, "Image")) return;
+            Tbl84SynonymsList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableSynonym(CurrentTbl69FiSpecies);
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl84SynonymsList.Count, "Synonym")) return;
+            Tbl87GeographicsList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableGeographic(CurrentTbl69FiSpecies);
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl87GeographicsList.Count, "Geographic")) return;
 
 
             try
@@ -496,14 +496,14 @@ namespace ATIS.Ui.Views.Database.D66Genus
             if (_genPlSpeciesMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl72PlSpecies)) return;
 
             //check if in Tbl72PlSpeciesses connected datasets no delete possible, Names, Images, Synonyms and Geographics delete and than return
-            //Tbl78NamesList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableName(CurrentTbl72PlSpecies);
-            //if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl78namesList.Count, "Name")) return;
-            //Tbl81ImagesList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableImage(CurrentTbl72PlSpecies);
-            //if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl81ImagesList.Count, "Image")) return;
-            //Tbl84SynonymsList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableSynonym(CurrentTbl72PlSpecies);
-            //if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl84SynonymsList.Count, "Synonym")) return;
-            //Tbl87GeographicsList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableGeographic(CurrentTbl72PlSpecies);
-            //if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl87GeographicsList.Count, "Geographic")) return;
+            Tbl78NamesList = _extCrud.SearchForConnectedDatasetsWithPlSpeciesIdInTableName(CurrentTbl72PlSpecies);
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl78NamesList.Count, "Name")) return;
+            Tbl81ImagesList = _extCrud.SearchForConnectedDatasetsWithPlSpeciesIdInTableImage(CurrentTbl72PlSpecies);
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl81ImagesList.Count, "Image")) return;
+            Tbl84SynonymsList = _extCrud.SearchForConnectedDatasetsWithPlSpeciesIdInTableSynonym(CurrentTbl72PlSpecies);
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl84SynonymsList.Count, "Synonym")) return;
+            Tbl87GeographicsList = _extCrud.SearchForConnectedDatasetsWithPlSpeciesIdInTableGeographic(CurrentTbl72PlSpecies);
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl87GeographicsList.Count, "Geographic")) return;
 
 
             try
@@ -1498,6 +1498,115 @@ namespace ATIS.Ui.Views.Database.D66Genus
         }
 
         #endregion "Public Properties"   
+
+        #region "Public Properties Tbl78Name"
+
+        public ICollectionView NamesView;
+        private Tbl78Name CurrentTbl78Name => NamesView?.CurrentItem as Tbl78Name;
+
+        private ObservableCollection<Tbl78Name> _tbl78NamesList;
+
+        public ObservableCollection<Tbl78Name> Tbl78NamesList
+        {
+            get => _tbl78NamesList;
+            set { _tbl78NamesList = value; RaisePropertyChanged(""); }
+        }
+
+        #endregion "Public Properties"
+
+        #region "Public Properties Tbl81Image"
+
+        public ICollectionView ImagesView;
+        private Tbl81Image CurrentTbl81Image => ImagesView?.CurrentItem as Tbl81Image;
+
+        private ObservableCollection<Tbl81Image> _tbl81ImagesList;
+
+        public ObservableCollection<Tbl81Image> Tbl81ImagesList
+        {
+            get => _tbl81ImagesList;
+            set { _tbl81ImagesList = value; RaisePropertyChanged(""); }
+        }
+
+        #endregion "Public Properties"
+
+        #region "Public Properties Tbl84Synonym"
+
+        private string _searchSynonymName = string.Empty;
+
+        public string SearchSynonymName
+        {
+            get => _searchSynonymName;
+            set { _searchSynonymName = value; RaisePropertyChanged(""); }
+        }
+
+        public ICollectionView SynonymsView;
+        private Tbl84Synonym CurrentTbl84Synonym => SynonymsView?.CurrentItem as Tbl84Synonym;
+
+        private ObservableCollection<Tbl84Synonym> _tbl84SynonymsList;
+
+        public ObservableCollection<Tbl84Synonym> Tbl84SynonymsList
+        {
+            get => _tbl84SynonymsList;
+            set
+            {
+                _tbl84SynonymsList = value;
+                RaisePropertyChanged("");
+            }
+        }
+
+        private ObservableCollection<Tbl84Synonym> _tbl84SynonymsAllList;
+
+        public ObservableCollection<Tbl84Synonym> Tbl84SynonymsAllList
+        {
+            get => _tbl84SynonymsAllList;
+            set
+            {
+                _tbl84SynonymsAllList = value;
+                RaisePropertyChanged("");
+            }
+        }
+
+        #endregion "Public Properties"
+
+        #region "Public Properties Tbl87Geographic"
+
+        private string _searchGeographicName = string.Empty;
+
+        public string SearchGeographicName
+        {
+            get => _searchGeographicName;
+            set { _searchGeographicName = value; RaisePropertyChanged(""); }
+        }
+
+        public ICollectionView GeographicsView;
+        private Tbl87Geographic CurrentTbl87Geographic => GeographicsView?.CurrentItem as Tbl87Geographic;
+
+        private ObservableCollection<Tbl87Geographic> _tbl87GeographicsList;
+
+        public ObservableCollection<Tbl87Geographic> Tbl87GeographicsList
+        {
+            get => _tbl87GeographicsList;
+            set
+            {
+                _tbl87GeographicsList = value;
+                RaisePropertyChanged("");
+            }
+        }
+
+        private ObservableCollection<Tbl87Geographic> _tbl87GeographicsAllList;
+
+        public ObservableCollection<Tbl87Geographic> Tbl87GeographicsAllList
+        {
+            get => _tbl87GeographicsAllList;
+            set
+            {
+                _tbl87GeographicsAllList = value;
+                RaisePropertyChanged("");
+            }
+        }
+
+        #endregion "Public Properties"
+
 
         #region "Public Properties Tbl69FiSpecies"
 

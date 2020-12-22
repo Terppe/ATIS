@@ -55,9 +55,9 @@ namespace ATIS.Ui.Views.Database.ListDetails
                  GetValueRole();
                  GetValueGender();
                  GetValueTitle();
-                _entityException = new DbEntityException();  
             }
         }
+        public bool IsInDesignMode { get; set; }
 
         #endregion "Constructor"                     
  
@@ -127,7 +127,8 @@ UserProfilesView = CollectionViewSource.GetDefaultView(TblUserProfilesList);
             Tbl90ReferencesList = _extCrud.DeleteDatasetsWithUserProfileIdInTableReference(CurrentTblUserProfile);
             if (Tbl90ReferencesList.Count > 0)
             {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + 
+                                              CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
                 _extCrud.DeleteReferences(Tbl90ReferencesList);
 
@@ -149,13 +150,18 @@ UserProfilesView = CollectionViewSource.GetDefaultView(TblUserProfilesList);
                 var userprofile= _uow.TblUserProfiles.GetById(CurrentTblUserProfile.UserProfileId);
                 if (userprofile!= null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTblUserProfile.UserProfileName)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + 
+                                          CurrentTblUserProfile.UserProfileName)) return;
 
                     _extCrud.DeleteUserProfile(userprofile);
 
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTblUserProfile.UserProfileName);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, 
+                                         CurrentTblUserProfile.UserProfileName);
                 }
-                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTblUserProfile.UserProfileName + " " + CultRes.StringsRes.DeleteCan1);
+                else 
+                        _allMessageBoxes.InfoMessageBox("Not To Delete", 
+                                         CultRes.StringsRes.DeleteCan + " " + CurrentTblUserProfile.UserProfileName + " " + 
+                                         CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -260,6 +266,7 @@ UserProfilesView = CollectionViewSource.GetDefaultView(TblUserProfilesList);
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+        private int _selectedDetailSubRefTabIndex;
 
         public  int SelectedMainTabIndex
         {

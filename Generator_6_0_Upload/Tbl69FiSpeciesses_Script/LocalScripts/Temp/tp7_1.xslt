@@ -167,6 +167,46 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         private readonly GenericMessageBoxes<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[> _gen]]><xsl:value-of select="BasisTK2"/><![CDATA[MessageBoxes = new GenericMessageBoxes<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>();
         private int _position;  ]]> 
 </xsl:when> 
+<xsl:when test="Table ='Tbl69FiSpeciesses'">   <![CDATA[ 
+        #region [Private Data Members]
+        private static readonly ILog Log = LogManager.GetLogger(typeof(]]><xsl:value-of select="Basiss"/><![CDATA[ViewModel));
+        private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
+        private readonly CrudFunctions _extCrud = new CrudFunctions();
+
+        private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
+        private readonly GenericMessageBoxes<]]><xsl:value-of select="LinqModel"/><![CDATA[> _gen]]><xsl:value-of select="Basis"/><![CDATA[MessageBoxes = new GenericMessageBoxes<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
+        private readonly GenericMessageBoxes<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[> _gen]]><xsl:value-of select="BasisFK1"/><![CDATA[MessageBoxes = new GenericMessageBoxes<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>();
+        private readonly GenericMessageBoxes<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[> _gen]]><xsl:value-of select="BasisFK2"/><![CDATA[MessageBoxes = new GenericMessageBoxes<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>();
+        private readonly GenericMessageBoxes<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[> _gen]]><xsl:value-of select="BasisTK1"/><![CDATA[MessageBoxes = new GenericMessageBoxes<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>();
+        private readonly GenericMessageBoxes<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[> _gen]]><xsl:value-of select="BasisTK2"/><![CDATA[MessageBoxes = new GenericMessageBoxes<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>();
+        private readonly GenericMessageBoxes<]]><xsl:value-of select="LinqModelTK3"/><![CDATA[> _gen]]><xsl:value-of select="BasisTK3"/><![CDATA[MessageBoxes = new GenericMessageBoxes<]]><xsl:value-of select="LinqModelTK3"/><![CDATA[>();
+        private readonly GenericMessageBoxes<]]><xsl:value-of select="LinqModelTK4"/><![CDATA[> _gen]]><xsl:value-of select="BasisTK4"/><![CDATA[MessageBoxes = new GenericMessageBoxes<]]><xsl:value-of select="LinqModelTK4"/><![CDATA[>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genExpertMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
+        private int _position;  ]]> 
+</xsl:when> 
+<xsl:when test="Table ='Tbl72PlSpeciesses'">   <![CDATA[ 
+        #region [Private Data Members]
+        private static readonly ILog Log = LogManager.GetLogger(typeof(]]><xsl:value-of select="Basiss"/><![CDATA[ViewModel));
+        private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
+        private readonly CrudFunctions _extCrud = new CrudFunctions();
+
+        private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
+        private readonly GenericMessageBoxes<]]><xsl:value-of select="LinqModel"/><![CDATA[> _gen]]><xsl:value-of select="Basis"/><![CDATA[MessageBoxes = new GenericMessageBoxes<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
+        private readonly GenericMessageBoxes<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[> _gen]]><xsl:value-of select="BasisFK1"/><![CDATA[MessageBoxes = new GenericMessageBoxes<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>();
+        private readonly GenericMessageBoxes<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[> _gen]]><xsl:value-of select="BasisFK2"/><![CDATA[MessageBoxes = new GenericMessageBoxes<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>();
+        private readonly GenericMessageBoxes<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[> _gen]]><xsl:value-of select="BasisTK1"/><![CDATA[MessageBoxes = new GenericMessageBoxes<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>();
+        private readonly GenericMessageBoxes<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[> _gen]]><xsl:value-of select="BasisTK2"/><![CDATA[MessageBoxes = new GenericMessageBoxes<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>();
+        private readonly GenericMessageBoxes<]]><xsl:value-of select="LinqModelTK3"/><![CDATA[> _gen]]><xsl:value-of select="BasisTK3"/><![CDATA[MessageBoxes = new GenericMessageBoxes<]]><xsl:value-of select="LinqModelTK3"/><![CDATA[>();
+        private readonly GenericMessageBoxes<]]><xsl:value-of select="LinqModelTK4"/><![CDATA[> _gen]]><xsl:value-of select="BasisTK4"/><![CDATA[MessageBoxes = new GenericMessageBoxes<]]><xsl:value-of select="LinqModelTK4"/><![CDATA[>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genExpertMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
+        private int _position;  ]]> 
+</xsl:when> 
 <xsl:otherwise>        <![CDATA[ 
         #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(typeof(]]><xsl:value-of select="Basiss"/><![CDATA[ViewModel));
@@ -238,7 +278,6 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 GetValueContinent();
                 GetValueMimeType();
                 RegisterCommands(); 
-                _entityException = new DbEntityException();
             }
         }
         #endregion "Constructor"          ]]>
@@ -248,7 +287,6 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 GetValueContinent();
                 GetValueMimeType();
                 RegisterCommands();
-                _entityException = new DbEntityException();
             }
         }
         #endregion "Constructor"           ]]>
@@ -284,7 +322,6 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl87Geographics'">     <![CDATA[ 
                 // Code runs "for real" 
                 GetValueContinent();
-                _entityException = new DbEntityException();
             }
         }
 
@@ -294,7 +331,6 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                  GetValueRole();
                  GetValueGender();
                  GetValueTitle();
-                _entityException = new DbEntityException();  
             }
         }
 
@@ -402,6 +438,38 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 0;
+
+            ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
+            ]]><xsl:value-of select="Basiss"/><![CDATA[View.Refresh();
+        }                     ]]>  
+</xsl:when>  
+<xsl:when test="Table ='Tbl69FiSpeciesses'">       <![CDATA[ 
+        #region [Methods ]]><xsl:value-of select="Basis"/><![CDATA[]
+
+        private void ExecuteGet]]><xsl:value-of select="Basiss"/><![CDATA[ByNameOrId(string searchName)
+       {
+            ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
+            ]]><xsl:value-of select="TableFK2"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK2"/><![CDATA[");
+            ]]><xsl:value-of select="Table"/><![CDATA[List = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<]]><xsl:value-of select="LinqModel"/><![CDATA[>(Search]]><xsl:value-of select="Basis"/><![CDATA[Name, "]]><xsl:value-of select="BasisSm"/><![CDATA[");
+
+            SelectedMainTabIndex = 0;
+            SelectedDetailTabIndex = 2;
+
+            ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
+            ]]><xsl:value-of select="Basiss"/><![CDATA[View.Refresh();
+        }                     ]]>  
+</xsl:when>  
+<xsl:when test="Table ='Tbl72PlSpeciesses'">       <![CDATA[ 
+        #region [Methods ]]><xsl:value-of select="Basis"/><![CDATA[]
+
+        private void ExecuteGet]]><xsl:value-of select="Basiss"/><![CDATA[ByNameOrId(string searchName)
+       {
+            ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
+            ]]><xsl:value-of select="TableFK2"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK2"/><![CDATA[");
+            ]]><xsl:value-of select="Table"/><![CDATA[List = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<]]><xsl:value-of select="LinqModel"/><![CDATA[>(Search]]><xsl:value-of select="Basis"/><![CDATA[Name, "]]><xsl:value-of select="BasisSm"/><![CDATA[");
+
+            SelectedMainTabIndex = 0;
+            SelectedDetailTabIndex = 2;
 
             ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
             ]]><xsl:value-of select="Basiss"/><![CDATA[View.Refresh();
@@ -525,8 +593,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
             ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
             ]]><xsl:value-of select="Basiss"/><![CDATA[View.MoveCurrentToFirst();
-        }
-        //------------------------------------------------------------------------------------                             ]]>  
+        }                     ]]>  
 </xsl:when>  
 <xsl:when test="Table ='Tbl68Speciesgroups'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
@@ -537,8 +604,31 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
             ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
             ]]><xsl:value-of select="Basiss"/><![CDATA[View.MoveCurrentToFirst();
-        }
-        //------------------------------------------------------------------------------------                             ]]>  
+        }                          ]]>  
+</xsl:when>  
+<xsl:when test="Table ='Tbl69FiSpeciesses'">       <![CDATA[ 
+        private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
+        {  
+            ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[ {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew}  );
+
+            ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
+            ]]><xsl:value-of select="TableFK2"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK2"/><![CDATA[");
+
+            ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
+            ]]><xsl:value-of select="Basiss"/><![CDATA[View.MoveCurrentToFirst();
+        }                          ]]>  
+</xsl:when>  
+<xsl:when test="Table ='Tbl72PlSpeciesses'">       <![CDATA[ 
+        private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
+        {  
+            ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[ {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew}  );
+
+            ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
+            ]]><xsl:value-of select="TableFK2"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK2"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK2"/><![CDATA[");
+
+            ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
+            ]]><xsl:value-of select="Basiss"/><![CDATA[View.MoveCurrentToFirst();
+        }                          ]]>  
 </xsl:when>  
 <xsl:when test="Table ='Tbl78Names'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
@@ -771,6 +861,40 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
             ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extCrud.SearchForConnectedDatasetsWith]]><xsl:value-of select="Basis"/><![CDATA[IdInTable]]><xsl:value-of select="BasisTK1"/><![CDATA[(Current]]><xsl:value-of select="LinqModel"/><![CDATA[);
             ]]><xsl:value-of select="TableTK2"/><![CDATA[List = _extCrud.SearchForConnectedDatasetsWith]]><xsl:value-of select="Basis"/><![CDATA[IdInTable]]><xsl:value-of select="BasisTK2"/><![CDATA[(Current]]><xsl:value-of select="LinqModel"/><![CDATA[);    ]]>  
 </xsl:when>  
+<xsl:when test="Table ='Tbl69FiSpeciesses'">       <![CDATA[ 
+            //check if in Tbl78Names, Tbl81Images, Tbl84Synonyms, Tbl87Geographics connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
+
+            Tbl81ImagesList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableImage(CurrentTbl69FiSpecies);
+
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl81ImagesList.Count, "Image")) return;
+
+            Tbl84SynonymsList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableSynonym(CurrentTbl69FiSpecies);
+
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl84SynonymsList.Count, "Synonym")) return;
+
+            Tbl87GeographicsList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableGeographic(CurrentTbl69FiSpecies);
+
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl87GeographicsList.Count, "Geographic")) return;
+
+            Tbl78NamesList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableName(CurrentTbl69FiSpecies);    ]]>  
+</xsl:when>  
+<xsl:when test="Table ='Tbl72PlSpeciesses'">       <![CDATA[ 
+            //check if in Tbl78Names, Tbl81Images, Tbl84Synonyms, Tbl87Geographics connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
+
+            Tbl81ImagesList = _extCrud.SearchForConnectedDatasetsWithPlSpeciesIdInTableImage(CurrentTbl72PlSpecies);
+
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl81ImagesList.Count, "Image")) return;
+
+            Tbl84SynonymsList = _extCrud.SearchForConnectedDatasetsWithPlSpeciesIdInTableSynonym(CurrentTbl72PlSpecies);
+
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl84SynonymsList.Count, "Synonym")) return;
+
+            Tbl87GeographicsList = _extCrud.SearchForConnectedDatasetsWithPlSpeciesIdInTableGeographic(CurrentTbl72PlSpecies);
+
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl87GeographicsList.Count, "Geographic")) return;
+
+            Tbl78NamesList = _extCrud.SearchForConnectedDatasetsWithPlSpeciesIdInTableName(CurrentTbl72PlSpecies);    ]]>  
+</xsl:when>  
 <xsl:otherwise> 
    <![CDATA[ 
             //check if in ]]><xsl:value-of select="TableTK1"/><![CDATA[ connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
@@ -818,7 +942,8 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
             Tbl90ReferencesList = _extCrud.DeleteDatasetsWith]]><xsl:value-of select="Basis"/><![CDATA[IdInTableReference(Current]]><xsl:value-of select="LinqModel"/><![CDATA[);
             if (Tbl90ReferencesList.Count > 0)
             {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + 
+                                              CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
                 _extCrud.DeleteReferences(Tbl90ReferencesList);
 
@@ -840,13 +965,18 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 var ]]><xsl:value-of select="BasisSm"/><![CDATA[= _uow.]]><xsl:value-of select="Table"/><![CDATA[.GetById(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
                 if (]]><xsl:value-of select="BasisSm"/><![CDATA[!= null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Name)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + 
+                                          Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Name)) return;
 
                     _extCrud.Delete]]><xsl:value-of select="Basis"/><![CDATA[(]]><xsl:value-of select="BasisSm"/><![CDATA[);
 
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Name);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, 
+                                         Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Name);
                 }
-                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Name + " " + CultRes.StringsRes.DeleteCan1);
+                else 
+                        _allMessageBoxes.InfoMessageBox("Not To Delete", 
+                                         CultRes.StringsRes.DeleteCan + " " + Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Name + " " + 
+                                         CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -1048,7 +1178,8 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
         private RelayCommand _save]]><xsl:value-of select="BasisFK1"/><![CDATA[Command;
 
-        public ICommand Save]]><xsl:value-of select="BasisFK1"/><![CDATA[Command => _save]]><xsl:value-of select="BasisFK1"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteSave]]><xsl:value-of select="BasisFK1"/><![CDATA[(null); });        ]]>
+        public ICommand Save]]><xsl:value-of select="BasisFK1"/><![CDATA[Command => 
+                                      _save]]><xsl:value-of select="BasisFK1"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteSave]]><xsl:value-of select="BasisFK1"/><![CDATA[(null); });        ]]>
 </xsl:otherwise>    
 </xsl:choose> 
             
@@ -1418,12 +1549,12 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>
 <xsl:otherwise>      <![CDATA[     
         #region "Public Commands Connect <== ]]><xsl:value-of select="LinqModelFK2"/><![CDATA["                 
-        //-------------------------------------------------------------------------
+       
         private RelayCommand _save]]><xsl:value-of select="BasisFK2"/><![CDATA[Command;
 
-        public ICommand Save]]><xsl:value-of select="BasisFK2"/><![CDATA[Command => _save]]><xsl:value-of select="BasisFK2"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteSave]]><xsl:value-of select="BasisFK2"/><![CDATA[(null); });
-
-        //-------------------------------------------------------------------------          ]]>
+        public ICommand Save]]><xsl:value-of select="BasisFK2"/><![CDATA[Command => 
+                            _save]]><xsl:value-of select="BasisFK2"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteSave]]><xsl:value-of select="BasisFK2"/><![CDATA[(null); });
+       ]]>
 </xsl:otherwise>    
 </xsl:choose> 
             
@@ -1477,7 +1608,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl68Speciesgroups'">  
 </xsl:when>
 <xsl:when test="Table ='Tbl69FiSpeciesses'">       <![CDATA[ 
-        private void Save]]><xsl:value-of select="BasisFK2"/><![CDATA[(object o)
+        private void ExecuteSave]]><xsl:value-of select="BasisFK2"/><![CDATA[(string searchName)
         {
             if (_gen]]><xsl:value-of select="BasisFK2"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[)) return;
 
@@ -1532,7 +1663,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         #endregion "Public Commands"                ]]>  
 </xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">       <![CDATA[ 
-        private void Save]]><xsl:value-of select="BasisFK2"/><![CDATA[(object o)
+        private void ExecuteSave]]><xsl:value-of select="BasisFK2"/><![CDATA[(string searchName)
         {
             if (_gen]]><xsl:value-of select="BasisFK2"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModelFK2"/><![CDATA[)) return;
 
@@ -1814,7 +1945,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         }         ]]>    
 </xsl:when>
 <xsl:when test="Table ='Tbl69FiSpeciesses'">           <![CDATA[ 
-        private void Add]]><xsl:value-of select="BasisTK1"/><![CDATA[(object o)      
+        private void ExecuteAdd]]><xsl:value-of select="BasisTK1"/><![CDATA[(object o)      
         {
             ]]><xsl:value-of select="TableTK1"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModelTK1"/><![CDATA[  { ]]><xsl:value-of select="NameTK1"/><![CDATA[ = CultRes.StringsRes.DatasetNew});
 
@@ -1823,7 +1954,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         }         ]]>    
 </xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">           <![CDATA[ 
-        private void Add]]><xsl:value-of select="BasisTK1"/><![CDATA[(object o)      
+        private void ExecuteAdd]]><xsl:value-of select="BasisTK1"/><![CDATA[(object o)      
         {
             ]]><xsl:value-of select="TableTK1"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModelTK1"/><![CDATA[  { ]]><xsl:value-of select="NameTK1"/><![CDATA[ = CultRes.StringsRes.DatasetNew});
 
@@ -1893,20 +2024,26 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         }      ]]>  
 </xsl:when>
 <xsl:when test="Table ='Tbl69FiSpeciesses'">            <![CDATA[ 
-        private void Copy]]><xsl:value-of select="BasisTK1"/><![CDATA[(object o)
+        private void ExecuteCopy]]><xsl:value-of select="BasisTK1"/><![CDATA[(object o)
         {
+            if (_gen]]><xsl:value-of select="BasisTK1"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[)) return;
+
+            ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extCrud.Copy]]><xsl:value-of select="BasisTK1"/><![CDATA[(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[);
+
             ]]><xsl:value-of select="BasissTK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK1"/><![CDATA[List);
             ]]><xsl:value-of select="BasissTK1"/><![CDATA[View.MoveCurrentToFirst();
-        }
-        //----------------------------------------------------------------------          ]]>  
+        }      ]]>  
 </xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">            <![CDATA[ 
-        private void Copy]]><xsl:value-of select="BasisTK1"/><![CDATA[(object o)
+        private void ExecuteCopy]]><xsl:value-of select="BasisTK1"/><![CDATA[(object o)
         {
+            if (_gen]]><xsl:value-of select="BasisTK1"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[)) return;
+
+            ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extCrud.Copy]]><xsl:value-of select="BasisTK1"/><![CDATA[(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[);
+
             ]]><xsl:value-of select="BasissTK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK1"/><![CDATA[List);
             ]]><xsl:value-of select="BasissTK1"/><![CDATA[View.MoveCurrentToFirst();
-        }
-        //----------------------------------------------------------------------          ]]>  
+        }      ]]>  
 </xsl:when>
 <xsl:when test="Table ='Tbl78Names'">          
 </xsl:when>
@@ -1991,9 +2128,15 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl87GeographicsList.Count, "Geographic")) return;
    ]]>                      
 </xsl:when>
-<xsl:when test="Table ='Tbl69FiSpeciesses'">       
+<xsl:when test="Table ='Tbl69FiSpeciesses'">          <![CDATA[           
+        private void ExecuteDelete]]><xsl:value-of select="BasisTK1"/><![CDATA[(string searchName)
+        {
+             if (_gen]]><xsl:value-of select="BasisTK1"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[)) return;     ]]>                                                                                                                  
 </xsl:when>
-<xsl:when test="Table ='Tbl72PlSpeciesses'">       
+<xsl:when test="Table ='Tbl72PlSpeciesses'">         <![CDATA[           
+        private void ExecuteDelete]]><xsl:value-of select="BasisTK1"/><![CDATA[(string searchName)
+        {
+             if (_gen]]><xsl:value-of select="BasisTK1"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[)) return;     ]]>                                                                                                                 
 </xsl:when>
 <xsl:when test="Table ='Tbl78Names'">  
 </xsl:when>
@@ -2060,6 +2203,58 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         }               ]]>       
 </xsl:when>
 <xsl:when test="Table ='Tbl68Speciesgroups'">          <![CDATA[     
+            try 
+            {
+                var ]]><xsl:value-of select="BasisSmTK1"/><![CDATA[ = _uow.]]><xsl:value-of select="TableTK1"/><![CDATA[.GetById(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="BasisTK1"/><![CDATA[Id);
+                if (]]><xsl:value-of select="BasisSmTK1"/><![CDATA[ != null)
+                {
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="BasisTK1"/><![CDATA[Name)) return;
+
+                    _extCrud.Delete]]><xsl:value-of select="BasisTK1"/><![CDATA[(]]><xsl:value-of select="BasisSmTK1"/><![CDATA[);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="BasisTK1"/><![CDATA[Name);
+                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="BasisTK1"/><![CDATA[Name + " " + CultRes.StringsRes.DeleteCan1);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+            ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+
+            ]]><xsl:value-of select="BasissTK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK1"/><![CDATA[List);
+            ]]><xsl:value-of select="BasissTK1"/><![CDATA[View.MoveCurrentToFirst();
+        }               ]]>       
+</xsl:when>
+<xsl:when test="Table ='Tbl69FiSpeciesses'">          <![CDATA[     
+            try 
+            {
+                var ]]><xsl:value-of select="BasisSmTK1"/><![CDATA[ = _uow.]]><xsl:value-of select="TableTK1"/><![CDATA[.GetById(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="BasisTK1"/><![CDATA[Id);
+                if (]]><xsl:value-of select="BasisSmTK1"/><![CDATA[ != null)
+                {
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="BasisTK1"/><![CDATA[Name)) return;
+
+                    _extCrud.Delete]]><xsl:value-of select="BasisTK1"/><![CDATA[(]]><xsl:value-of select="BasisSmTK1"/><![CDATA[);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="BasisTK1"/><![CDATA[Name);
+                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="BasisTK1"/><![CDATA[Name + " " + CultRes.StringsRes.DeleteCan1);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+            ]]><xsl:value-of select="TableTK1"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissTK1"/><![CDATA[CollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelTK1"/><![CDATA[>(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+
+            ]]><xsl:value-of select="BasissTK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK1"/><![CDATA[List);
+            ]]><xsl:value-of select="BasissTK1"/><![CDATA[View.MoveCurrentToFirst();
+        }               ]]>       
+</xsl:when>
+<xsl:when test="Table ='Tbl72PlSpeciesses'">          <![CDATA[     
             try 
             {
                 var ]]><xsl:value-of select="BasisSmTK1"/><![CDATA[ = _uow.]]><xsl:value-of select="TableTK1"/><![CDATA[.GetById(Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="BasisTK1"/><![CDATA[Id);
@@ -2469,42 +2664,133 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>
 <xsl:when test="Table ='Tbl69FiSpeciesses'">      
    <![CDATA[ 
-        private void Save]]><xsl:value-of select="BasisTK1"/><![CDATA[(object o)
+        private void ExecuteSave]]><xsl:value-of select="BasisTK1"/><![CDATA[(string searchName)
         {
- 
 
-            Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[ = Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[;
+            CurrentTbl78Name.FiSpeciesId = CurrentTbl69FiSpecies.FiSpeciesId;
 
-            //Search for CurrentTbl78Name.PlSpeciesID with Plantae#Regnum# 
-            var plantaeRegnum = _businessLayer.SingleListTbl72PlSpeciessesByPlSpeciesName("Plantae#Regnum#");
-            CurrentTbl78Name.PlSpeciesID = plantaeRegnum.PlSpeciesID;
+            //Search for CurrentTbl78Name.PlSpeciesId with Plantae#Regnum# 
 
-            SelectedMainTabIndex = 2;
-            SelectedDetailSubTabIndex = 2;
-            ]]><xsl:value-of select="BasissTK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK1"/><![CDATA[List);
-            ]]><xsl:value-of select="BasissTK1"/><![CDATA[View.Refresh();
+       //     var plantaeRegnum = _context.Tbl72PlSpeciesses.FirstOrDefault(p => p.PlSpeciesName == "Plantae#Regnum#");
+       //     var plantaeRegnum = _uow.Tbl72PlSpeciesses.Find(p => p.PlSpeciesName == "Plantae#Regnum#").FirstOrDefault();
+
+            //Fehler um PlSpeciesId zu ermitteln !!!!!!!!!!!!!!!!!!
+         //   if (plantaeRegnum != null) CurrentTbl78Name.PlSpeciesId = plantaeRegnum.PlSpeciesId;
+
+            CurrentTbl78Name.PlSpeciesId = 1;
+            try
+            {
+                var name = _uow.Tbl78Names.GetById(CurrentTbl78Name.NameId);
+
+                if (CurrentTbl78Name.NameId == 0)
+                    name = _extCrud.NameAdd(CurrentTbl78Name);
+                else
+                    name = _extCrud.NameUpdate(name, CurrentTbl78Name);
+
+                _position = NamesView.CurrentPosition;
+
+                var cap = CurrentTbl78Name.NameName;
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(cap)) return;
+
+                try
+                {
+                    _extCrud.NameSave(name, CurrentTbl78Name);
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
+                            CultRes.StringsRes.FailedToSave);
+                    Log.Error(e);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                    //         Log.Error(e);
+                    return;
+                }
+
+                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl78Name.NameId == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : CurrentTbl78Name.NameName);
+            }
+
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+            Tbl78NamesList = _extCrud.GetNamesCollectionFromFiSpeciesIdOrderBy<Tbl78Name>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+            NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
+            NamesView.MoveCurrentToPosition(_position);
         }
-        #endregion "Public Commands"                ]]>   
+        #endregion [Public Methods Connect ==> Tbl78Name]     ]]>   
 </xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">      
    <![CDATA[ 
         private void Save]]><xsl:value-of select="BasisTK1"/><![CDATA[(object o)
         {
- 
+            Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="Id"/><![CDATA[ = Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Id"/><![CDATA[;
 
-            Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[ = Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[;
-
-            //Search for CurrentTbl78Name.FiSpeciesID with Animalia#Regnum# 
+            //Search for CurrentTbl78Name.FiSpeciesId with Animalia#Regnum# 
             var animaliaRegnum = _businessLayer.SingleListTbl69FiSpeciessesByFiSpeciesName("Animalia#Regnum#");
-            CurrentTbl78Name.FiSpeciesID = animaliaRegnum.FiSpeciesID;
+            CurrentTbl78Name.FiSpeciesId = animaliaRegnum.FiSpeciesId;
 
+            CurrentTbl78Name.FiSpeciesId = 2;
 
-            SelectedMainTabIndex = 2;
-            SelectedDetailSubTabIndex = 2;
-            ]]><xsl:value-of select="BasissTK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK1"/><![CDATA[List);
-            ]]><xsl:value-of select="BasissTK1"/><![CDATA[View.Refresh();
+            try
+            {
+                var name = _uow.Tbl78Names.GetById(CurrentTbl78Name.NameId);
+
+                if (CurrentTbl78Name.NameId == 0)
+                    name = _extCrud.NameAdd(CurrentTbl78Name);
+                else
+                    name = _extCrud.NameUpdate(name, CurrentTbl78Name);
+
+                _position = NamesView.CurrentPosition;
+
+                var cap = CurrentTbl78Name.NameName;
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(cap)) return;
+
+                try
+                {
+                    _extCrud.NameSave(name, CurrentTbl78Name);
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
+                            CultRes.StringsRes.FailedToSave);
+                    Log.Error(e);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                    //         Log.Error(e);
+                    return;
+                }
+
+                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl78Name.NameId == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : CurrentTbl78Name.NameName);
+            }
+
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+            Tbl78NamesList = _extCrud.GetNamesCollectionFromFiSpeciesIdOrderBy<Tbl78Name>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+            NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
+            NamesView.MoveCurrentToPosition(_position);
         }
-        #endregion "Public Commands"                ]]>   
+        #endregion [Public Methods Connect ==> Tbl78Name]     ]]>   
 </xsl:when>
 <xsl:when test="Table ='Tbl78Names'">  
 </xsl:when>

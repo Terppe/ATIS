@@ -133,7 +133,8 @@ namespace ATIS.Ui.Views.Database.D36Subordo
             Tbl90ReferencesList = _extCrud.DeleteDatasetsWithSubordoIdInTableReference(CurrentTbl36Subordo);
             if (Tbl90ReferencesList.Count > 0)
             {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + 
+                                              CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
                 _extCrud.DeleteReferences(Tbl90ReferencesList);
 
@@ -155,13 +156,18 @@ namespace ATIS.Ui.Views.Database.D36Subordo
                 var subordo= _uow.Tbl36Subordos.GetById(CurrentTbl36Subordo.SubordoId);
                 if (subordo!= null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl36Subordo.SubordoName)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + 
+                                          CurrentTbl36Subordo.SubordoName)) return;
 
                     _extCrud.DeleteSubordo(subordo);
 
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl36Subordo.SubordoName);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, 
+                                         CurrentTbl36Subordo.SubordoName);
                 }
-                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl36Subordo.SubordoName + " " + CultRes.StringsRes.DeleteCan1);
+                else 
+                        _allMessageBoxes.InfoMessageBox("Not To Delete", 
+                                         CultRes.StringsRes.DeleteCan + " " + CurrentTbl36Subordo.SubordoName + " " + 
+                                         CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -245,7 +251,8 @@ namespace ATIS.Ui.Views.Database.D36Subordo
 
         private RelayCommand _saveOrdoCommand;
 
-        public ICommand SaveOrdoCommand => _saveOrdoCommand ??= new RelayCommand(delegate { ExecuteSaveOrdo(null); });        
+        public ICommand SaveOrdoCommand => 
+                                      _saveOrdoCommand ??= new RelayCommand(delegate { ExecuteSaveOrdo(null); });        
            
         private void ExecuteSaveOrdo(string searchName)
         {
@@ -1066,6 +1073,7 @@ Tbl33OrdosList = _extCrud.GetOrdosCollectionFromOrdoIdOrderBy<Tbl33Ordo>(Current
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+        private int _selectedDetailSubRefTabIndex;
 
         public  int SelectedMainTabIndex
         {

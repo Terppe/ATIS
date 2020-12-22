@@ -133,7 +133,8 @@ namespace ATIS.Ui.Views.Database.D51Infrafamily
             Tbl90ReferencesList = _extCrud.DeleteDatasetsWithInfrafamilyIdInTableReference(CurrentTbl51Infrafamily);
             if (Tbl90ReferencesList.Count > 0)
             {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + 
+                                              CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
                 _extCrud.DeleteReferences(Tbl90ReferencesList);
 
@@ -155,13 +156,18 @@ namespace ATIS.Ui.Views.Database.D51Infrafamily
                 var infrafamily= _uow.Tbl51Infrafamilies.GetById(CurrentTbl51Infrafamily.InfrafamilyId);
                 if (infrafamily!= null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl51Infrafamily.InfrafamilyName)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + 
+                                          CurrentTbl51Infrafamily.InfrafamilyName)) return;
 
                     _extCrud.DeleteInfrafamily(infrafamily);
 
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl51Infrafamily.InfrafamilyName);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, 
+                                         CurrentTbl51Infrafamily.InfrafamilyName);
                 }
-                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl51Infrafamily.InfrafamilyName + " " + CultRes.StringsRes.DeleteCan1);
+                else 
+                        _allMessageBoxes.InfoMessageBox("Not To Delete", 
+                                         CultRes.StringsRes.DeleteCan + " " + CurrentTbl51Infrafamily.InfrafamilyName + " " + 
+                                         CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -245,7 +251,8 @@ namespace ATIS.Ui.Views.Database.D51Infrafamily
 
         private RelayCommand _saveSubfamilyCommand;
 
-        public ICommand SaveSubfamilyCommand => _saveSubfamilyCommand ??= new RelayCommand(delegate { ExecuteSaveSubfamily(null); });        
+        public ICommand SaveSubfamilyCommand => 
+                                      _saveSubfamilyCommand ??= new RelayCommand(delegate { ExecuteSaveSubfamily(null); });        
            
         private void ExecuteSaveSubfamily(string searchName)
         {
@@ -1066,6 +1073,7 @@ Tbl48SubfamiliesList = _extCrud.GetSubfamiliesCollectionFromSubfamilyIdOrderBy<T
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+        private int _selectedDetailSubRefTabIndex;
 
         public  int SelectedMainTabIndex
         {

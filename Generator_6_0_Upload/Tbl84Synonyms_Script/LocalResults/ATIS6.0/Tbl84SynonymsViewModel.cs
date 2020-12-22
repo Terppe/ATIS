@@ -126,7 +126,8 @@ SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
             Tbl90ReferencesList = _extCrud.DeleteDatasetsWithSynonymIdInTableReference(CurrentTbl84Synonym);
             if (Tbl90ReferencesList.Count > 0)
             {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + 
+                                              CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
                 _extCrud.DeleteReferences(Tbl90ReferencesList);
 
@@ -148,13 +149,18 @@ SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
                 var synonym= _uow.Tbl84Synonyms.GetById(CurrentTbl84Synonym.SynonymId);
                 if (synonym!= null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl84Synonym.SynonymName)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + 
+                                          CurrentTbl84Synonym.SynonymName)) return;
 
                     _extCrud.DeleteSynonym(synonym);
 
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl84Synonym.SynonymName);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, 
+                                         CurrentTbl84Synonym.SynonymName);
                 }
-                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl84Synonym.SynonymName + " " + CultRes.StringsRes.DeleteCan1);
+                else 
+                        _allMessageBoxes.InfoMessageBox("Not To Delete", 
+                                         CultRes.StringsRes.DeleteCan + " " + CurrentTbl84Synonym.SynonymName + " " + 
+                                         CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -194,7 +200,8 @@ SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
 
         private RelayCommand _saveFiSpeciesCommand;
 
-        public ICommand SaveFiSpeciesCommand => _saveFiSpeciesCommand ??= new RelayCommand(delegate { ExecuteSaveFiSpecies(null); });        
+        public ICommand SaveFiSpeciesCommand => 
+                                      _saveFiSpeciesCommand ??= new RelayCommand(delegate { ExecuteSaveFiSpecies(null); });        
            
         private void ExecuteSaveFiSpecies(string searchName)
         {
@@ -307,12 +314,12 @@ SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
 
            
         #region "Public Commands Connect <== Tbl72PlSpecies"                 
-        //-------------------------------------------------------------------------
+       
         private RelayCommand _savePlSpeciesCommand;
 
-        public ICommand SavePlSpeciesCommand => _savePlSpeciesCommand ??= new RelayCommand(delegate { ExecuteSavePlSpecies(null); });
-
-        //-------------------------------------------------------------------------          
+        public ICommand SavePlSpeciesCommand => 
+                            _savePlSpeciesCommand ??= new RelayCommand(delegate { ExecuteSavePlSpecies(null); });
+       
        
         private void SavePlSpecies(object o)
         {           
@@ -384,6 +391,7 @@ SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+        private int _selectedDetailSubRefTabIndex;
 
         public  int SelectedMainTabIndex
         {

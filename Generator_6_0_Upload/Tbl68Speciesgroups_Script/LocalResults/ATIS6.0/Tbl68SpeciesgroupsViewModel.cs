@@ -100,8 +100,7 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
 
             SpeciesgroupsView = CollectionViewSource.GetDefaultView(Tbl68SpeciesgroupsList);
             SpeciesgroupsView.MoveCurrentToFirst();
-        }
-        //------------------------------------------------------------------------------------                               
+        }                            
      
         private void ExecuteCopySpeciesgroup(object o)
         {
@@ -545,6 +544,7 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+        private int _selectedDetailSubRefTabIndex;
 
         public  int SelectedMainTabIndex
         {

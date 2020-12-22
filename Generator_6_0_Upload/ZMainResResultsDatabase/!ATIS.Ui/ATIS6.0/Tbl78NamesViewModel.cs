@@ -53,9 +53,10 @@ namespace ATIS.Ui.Views.Database.ListDetails
             {          
     
                 GetValueLanguage();
-                _entityException = new DbEntityException();
             }
         }
+        public bool IsInDesignMode { get; set; }
+
         #endregion "Constructor"          
  
 
@@ -126,7 +127,8 @@ NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
             Tbl90ReferencesList = _extCrud.DeleteDatasetsWithNameIdInTableReference(CurrentTbl78Name);
             if (Tbl90ReferencesList.Count > 0)
             {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + 
+                                              CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
                 _extCrud.DeleteReferences(Tbl90ReferencesList);
 
@@ -148,13 +150,18 @@ NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
                 var name= _uow.Tbl78Names.GetById(CurrentTbl78Name.NameId);
                 if (name!= null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl78Name.NameName)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + 
+                                          CurrentTbl78Name.NameName)) return;
 
                     _extCrud.DeleteName(name);
 
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl78Name.NameName);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, 
+                                         CurrentTbl78Name.NameName);
                 }
-                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl78Name.NameName + " " + CultRes.StringsRes.DeleteCan1);
+                else 
+                        _allMessageBoxes.InfoMessageBox("Not To Delete", 
+                                         CultRes.StringsRes.DeleteCan + " " + CurrentTbl78Name.NameName + " " + 
+                                         CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -238,7 +245,8 @@ NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
 
         private RelayCommand _saveFiSpeciesCommand;
 
-        public ICommand SaveFiSpeciesCommand => _saveFiSpeciesCommand ??= new RelayCommand(delegate { ExecuteSaveFiSpecies(null); });        
+        public ICommand SaveFiSpeciesCommand => 
+                                      _saveFiSpeciesCommand ??= new RelayCommand(delegate { ExecuteSaveFiSpecies(null); });        
            
         private void ExecuteSaveFiSpecies(string searchName)
         {
@@ -351,12 +359,12 @@ NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
 
            
         #region "Public Commands Connect <== Tbl72PlSpecies"                 
-        //-------------------------------------------------------------------------
+       
         private RelayCommand _savePlSpeciesCommand;
 
-        public ICommand SavePlSpeciesCommand => _savePlSpeciesCommand ??= new RelayCommand(delegate { ExecuteSavePlSpecies(null); });
-
-        //-------------------------------------------------------------------------          
+        public ICommand SavePlSpeciesCommand => 
+                            _savePlSpeciesCommand ??= new RelayCommand(delegate { ExecuteSavePlSpecies(null); });
+       
        
         private void SavePlSpecies(object o)
         {           
@@ -427,6 +435,7 @@ NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+        private int _selectedDetailSubRefTabIndex;
 
         public  int SelectedMainTabIndex
         {
