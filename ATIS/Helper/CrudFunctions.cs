@@ -10018,7 +10018,7 @@ namespace ATIS.Ui.Helper
         }
 
         //Function
-        public int GetFiSpeciesIdFromNamesCollectionSelect(int id)
+        public int? GetFiSpeciesIdFromNamesCollectionSelect(int id)
         {
             var coll = _context.Tbl78Names
                 .SingleOrDefault(p => p.NameId == id);
@@ -10188,7 +10188,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete FiSpecies
+          #region Delete Name, Image, Synonym, Geographic
 
         //------------------------------ Name --------------------------------------------------------------------------------------------
         public void DeleteName(Tbl78Name selected)
@@ -10621,8 +10621,8 @@ namespace ATIS.Ui.Helper
                     .ThenBy(a => a.Subspecies)
                     .ThenBy(a => a.Divers));
             return collection;
-        }
 
+        }
         public ObservableCollection<T> GetPlSpeciessesCollectionAllOrderBy<T>()
         {
             ObservableCollection<T> collection;
@@ -10632,7 +10632,7 @@ namespace ATIS.Ui.Helper
                 .ThenBy(a => a.Divers));
             return collection;
         }
-        public ObservableCollection<T> GetPlSpeciessesCollectionFromFiSpeciesIdOrderBy<T>(int id)
+        public ObservableCollection<T> GetPlSpeciessesCollectionFromPlSpeciesIdOrderBy<T>(int id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
@@ -10722,7 +10722,7 @@ namespace ATIS.Ui.Helper
         }
 
         //Function
-        public int GetPlSpeciesIdFromNamesCollectionSelect(int id)
+        public int? GetPlSpeciesIdFromNamesCollectionSelect(int id)
         {
             var coll = _context.Tbl78Names
                 .SingleOrDefault(p => p.NameId == id);
@@ -10732,7 +10732,7 @@ namespace ATIS.Ui.Helper
         }
 
         //Function
-        public int GetPlSpeciesIdFromPlSpeciessesCollectionSelectByName(string name)
+        public int? GetPlSpeciesIdFromPlSpeciessesCollectionSelectByName(string name)
         {
             var coll = _context.Tbl72PlSpeciesses
                 .SingleOrDefault(p => p.PlSpeciesName == name);
@@ -10743,7 +10743,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-        #region Copy PlSpecies
+          #region Copy PlSpecies
 
         public ObservableCollection<Tbl90Reference> CopyReferencePlSpecies(Tbl90Reference selected, string refer)
         {
@@ -10792,13 +10792,13 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-        #region Delete PlSpecies
+          #region Delete PlSpecies
 
 
 
         #endregion
 
-        #region Save PlSpecies
+          #region Save PlSpecies
 
         public Tbl90Reference ReferenceExpertPlSpeciesUpdate(Tbl90Reference reference, Tbl90Reference selected)
         {

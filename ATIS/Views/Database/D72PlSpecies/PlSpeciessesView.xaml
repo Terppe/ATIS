@@ -377,6 +377,10 @@
                                             Width="150"
                                             DisplayMemberBinding="{Binding (models:Tbl78Name.NameName)}"
                                             Header="{DynamicResource Tbl78Name-NameName}" />
+                                        <GridViewColumn
+                                            Width="80"
+                                            DisplayMemberBinding="{Binding (models:Tbl78Name.Language)}"
+                                            Header="{DynamicResource Tbl78Name-Language}" />
                                         <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
@@ -1404,7 +1408,7 @@
                     <GroupBox>
                         <StackPanel Margin="1">
                             <StackPanel Height="Auto" Orientation="Horizontal">
-
+                                <Button Template="{StaticResource SavePlSpeciesButton}" />
                                 <Button Template="{StaticResource CopyPlSpeciesButton}" />
                                 <Button Template="{StaticResource AddPlSpeciesButton}" />
                                 <Button Template="{StaticResource DeletePlSpeciesButton}" />
@@ -1446,93 +1450,6 @@
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
-                            </StackPanel>
-                            <StackPanel Height="Auto" Orientation="Horizontal">
-                                <TextBox
-                                    Width="228"
-                                    Margin="5"
-                                    HorizontalContentAlignment="Stretch"
-                                    mah:TextBoxHelper.IsWaitingForData="True"
-                                    mah:TextBoxHelper.UseFloatingWatermark="True"
-                                    mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-FiSpeciesName}"
-                                    mah:TextBoxHelper.WatermarkAlignment="Left"
-                                    FontWeight="Medium"
-                                    SpellCheck.IsEnabled="True"
-                                    ToolTip="{DynamicResource Tbl69FiSpecies-FiSpeciesName}">
-                                    <TextBox.ContextMenu>
-                                        <ContextMenu>
-                                            <MenuItem Header="Custom Item" />
-                                            <Separator />
-                                            <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                            <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                            <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                        </ContextMenu>
-                                    </TextBox.ContextMenu>
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.FiSpeciesName)"
-                                            UpdateSourceTrigger="PropertyChanged" />
-                                    </TextBox.Text>
-                                </TextBox>
-                                <TextBox
-                                    Width="228"
-                                    Margin="5"
-                                    HorizontalContentAlignment="Stretch"
-                                    mah:TextBoxHelper.IsWaitingForData="True"
-                                    mah:TextBoxHelper.UseFloatingWatermark="True"
-                                    mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-Subspecies}"
-                                    mah:TextBoxHelper.WatermarkAlignment="Left"
-                                    FontWeight="Medium"
-                                    SpellCheck.IsEnabled="True"
-                                    ToolTip="{DynamicResource Tbl69FiSpecies-Subspecies}">
-                                    <TextBox.ContextMenu>
-                                        <ContextMenu>
-                                            <MenuItem Header="Custom Item" />
-                                            <Separator />
-                                            <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                            <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                            <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                        </ContextMenu>
-                                    </TextBox.ContextMenu>
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.Subspecies)"
-                                            UpdateSourceTrigger="PropertyChanged" />
-                                    </TextBox.Text>
-                                </TextBox>
-                                <TextBox
-                                    Width="228"
-                                    Margin="5"
-                                    HorizontalContentAlignment="Stretch"
-                                    mah:TextBoxHelper.IsWaitingForData="True"
-                                    mah:TextBoxHelper.UseFloatingWatermark="True"
-                                    mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-Divers}"
-                                    mah:TextBoxHelper.WatermarkAlignment="Left"
-                                    FontWeight="Medium"
-                                    SpellCheck.IsEnabled="True"
-                                    ToolTip="{DynamicResource Tbl69FiSpecies-Divers}">
-                                    <TextBox.ContextMenu>
-                                        <ContextMenu>
-                                            <MenuItem Header="Custom Item" />
-                                            <Separator />
-                                            <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                            <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                            <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                        </ContextMenu>
-                                    </TextBox.ContextMenu>
-                                    <TextBox.Text>
-                                        <Binding
-                                            ElementName="Tbl69FiSpeciessesList"
-                                            Mode="TwoWay"
-                                            Path="SelectedItem.(models:Tbl69FiSpecies.Divers)"
-                                            UpdateSourceTrigger="PropertyChanged" />
-                                    </TextBox.Text>
-                                </TextBox>
-
                             </StackPanel>
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <TextBox
@@ -2613,6 +2530,7 @@
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                 mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
                                 mah:TextBoxHelper.WatermarkAlignment="Left"
+                                CharacterCasing="Upper"
                                 FontWeight="Medium"
                                 SpellCheck.IsEnabled="True"
                                 ToolTip="{DynamicResource Shared-Author}">

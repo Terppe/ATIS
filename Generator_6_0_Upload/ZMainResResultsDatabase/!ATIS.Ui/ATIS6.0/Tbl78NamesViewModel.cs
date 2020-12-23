@@ -17,7 +17,7 @@ using System.Collections.Generic;
     
          //    NamesViewModel Skriptdatum:  22.01.2019  10:32    
 
-namespace ATIS.Ui.Views.Database.ListDetails
+namespace ATIS.Ui.Views.Database.D78Name
 {     
     
     public class NamesViewModel : ViewModelBase                     

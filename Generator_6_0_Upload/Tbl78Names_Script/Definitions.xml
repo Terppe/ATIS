@@ -12,9 +12,9 @@
   <LayoutTK3>ListDetails</LayoutTK3>
   <LayoutTK2>ListDetails</LayoutTK2>
   <LayoutTK1>ListDetails</LayoutTK1>
-  <Layout>ListDetails</Layout>
-  <LayoutFK1>ListDetails</LayoutFK1>
-  <LayoutFK2>ListDetails</LayoutFK2>
+  <Layout>D78Name</Layout>
+  <LayoutFK1>D69FiSpecies</LayoutFK1>
+  <LayoutFK2>D72PlSpecies</LayoutFK2>
   <LayoutBK1>ListDetails</LayoutBK1>
   <LayoutBK2>ListDetails</LayoutBK2>
   <LayoutBK3>ListDetails</LayoutBK3>
@@ -140,9 +140,9 @@
 
   <EntityAblTK2>NULL</EntityAblTK2> 
   <EntityAblTK1>NULL</EntityAblTK1> 
-  <EntityAbl>Tbl78Name tbl78Name</EntityAbl> 
-  <EntityAblFK1>Tbl69FiSpecies tbl69FiSpecies</EntityAblFK1> 
-  <EntityAblFK2>Tbl72PlSpecies tbl72PlSpecies</EntityAblFK2> 
+  <EntityAbl>Tbl78Name name</EntityAbl> 
+  <EntityAblFK1>Tbl69FiSpecies fiSpecies</EntityAblFK1> 
+  <EntityAblFK2>Tbl72PlSpecies plSpecies</EntityAblFK2> 
 
    <Fields>
     <Field><Name>NameID</Name> <Type>int</Type>  <NotNull>IDENTITY(1,1) NOT NULL</NotNull> </Field>

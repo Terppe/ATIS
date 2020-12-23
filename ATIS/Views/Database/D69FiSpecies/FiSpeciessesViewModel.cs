@@ -12,6 +12,7 @@ using log4net;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 
@@ -100,7 +101,6 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
 
         private void ExecuteGetFiSpeciessesByNameOrId(string searchName)
         {
-
             Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
             Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("speciesgroup");
 
@@ -115,7 +115,9 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
 
         private void ExecuteAddFiSpecies(object o)
         {
+            Tbl69FiSpeciessesList = new ObservableCollection<Tbl69FiSpecies>();
             Tbl69FiSpeciessesList.Insert(0, new Tbl69FiSpecies {FiSpeciesName = CultRes.StringsRes.DatasetNew});
+            
             Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
             Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("speciesgroup");
 
@@ -486,8 +488,8 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
             //Search for CurrentTbl78Name.PlSpeciesId with Plantae#Regnum# 
 
             //     var plantaeRegnum = _context.Tbl72PlSpeciesses.FirstOrDefault(p => p.PlSpeciesName == "Plantae#Regnum#");
-            //     var plantaeRegnum = _uow.Tbl72PlSpeciesses.Find(p => p.PlSpeciesName == "Plantae#Regnum#").FirstOrDefault();
-          //  var plantaeRegnumId = _extCrud.PlSpeciesIdFromPlSpeciessesCollectionSelectByName("Plantae#Regnum#");
+        //         var plantaeRegnum = _uow.Tbl72PlSpeciesses.Find(p => p.PlSpeciesName == "Plantae#Regnum#").FirstOrDefault();
+         //   var plantaeRegnumId = _extCrud.GetPlSpeciesIdFromPlSpeciessesCollectionSelectByName("Plantae#Regnum#");
 
             //Fehler um PlSpeciesId zu ermitteln !!!!!!!!!!!!!!!!!!
             //   if (plantaeRegnum != null) CurrentTbl78Name.PlSpeciesId = plantaeRegnum.PlSpeciesId;

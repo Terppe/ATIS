@@ -8,7 +8,7 @@ using MahApps.Metro.Controls;
 
    //  ReportNameWindow.xaml.cs Skriptdatum:  22.01.2019  10:32     
 
-namespace ATIS.Ui.Views.Report.ListDetails
+namespace ATIS.Ui.Views.Report.D78Name
 {  
 
     /// <summary>

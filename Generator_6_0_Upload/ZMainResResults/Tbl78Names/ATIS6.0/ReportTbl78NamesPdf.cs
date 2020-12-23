@@ -13,7 +13,7 @@ using Microsoft.Win32;
     
          //    ReportNamePdf Skriptdatum:  22.01.2019  10:32    
 
-namespace ATIS.Ui.Views.Report.ListDetails
+namespace ATIS.Ui.Views.Report.D78Name
 {     
     
     public class ReportNamePdf : ViewModelBase
@@ -121,7 +121,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             }
         }  
              
-        private static void AddNameHaeder(PdfDocument pdf, Tbl78Name tbl78NameList)
+        private static void AddNameHaeder(PdfDocument pdf, Tbl78Name nameList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
@@ -138,7 +138,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
         } 
           
-        private static void AddNameTaxoNomenList(PdfDocument pdf, Tbl78Name tbl78NameList)         
+        private static void AddNameTaxoNomenList(PdfDocument pdf, Tbl78Name nameList)         
           
         {
             _page = pdf.Pages[_arrInts[6]];
@@ -224,7 +224,7 @@ namespace ATIS.Ui.Views.Report.ListDetails
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }    
           
-        private static void AddNameHierarchyList(PdfDocument pdf, Tbl78Name tbl78NameList)
+        private static void AddNameHierarchyList(PdfDocument pdf, Tbl78Name nameList)
         {
             _page = pdf.Pages[_arrInts[6]];
 

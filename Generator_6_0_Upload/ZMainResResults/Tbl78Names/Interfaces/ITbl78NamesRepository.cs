@@ -12,8 +12,8 @@ namespace Atis.WpfUi.Interfaces     {
 Tbl78Name Get(int id);   
         
 
-        void Add(Tbl78Name tbl78Name);
-        void Delete(Tbl78Name tbl78Name);
+        void Add(Tbl78Name name);
+        void Delete(Tbl78Name name);
         void Save( );               
      }
 }   

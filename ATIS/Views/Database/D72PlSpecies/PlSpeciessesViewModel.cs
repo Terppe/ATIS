@@ -67,11 +67,10 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
         }
         public bool IsInDesignMode { get; set; }
 
-        #endregion "Constructor"           
+        #endregion [Constructor]           
 
 
         //    Part 1    
-
 
 
         #region [Commands PlSpecies]
@@ -100,6 +99,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
         {
             Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
             Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("speciesgroup");
+
             Tbl72PlSpeciessesList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl72PlSpecies>(SearchPlSpeciesName, "plspecies");
 
             SelectedMainTabIndex = 0;
@@ -111,6 +111,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
 
         private void ExecuteAddPlSpecies(object o)
         {
+            Tbl72PlSpeciessesList = new ObservableCollection<Tbl72PlSpecies>();
             Tbl72PlSpeciessesList.Insert(0, new Tbl72PlSpecies { PlSpeciesName = CultRes.StringsRes.DatasetNew });
 
             Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
@@ -613,7 +614,6 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
 
         private void ExecuteSaveImage(string searchName)
         {
-
             if (_genImageMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl81Image)) return;
 
             CurrentTbl81Image.PlSpeciesId = CurrentTbl72PlSpecies.PlSpeciesId;
@@ -1533,8 +1533,8 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
         private void GetConnectedTablesById(object o)
         {
 
-          //  Tbl66GenussesList = new ObservableCollection<Tbl66Genus>(_businessLayer.ListTbl66GenussesByGenusId(CurrentTbl72PlSpecies.GenusId));
             Tbl66GenussesList = _extCrud.GetGenussesCollectionFromGenusIdOrderBy<Tbl66Genus>(CurrentTbl72PlSpecies.GenusId);
+            Tbl63InfratribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl63Infratribus>("Infratribus");
 
             GenussesView = CollectionViewSource.GetDefaultView(Tbl66GenussesList);
             GenussesView.Refresh();
@@ -1569,7 +1569,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                     {
                         Tbl66GenussesList = _extCrud.GetGenussesCollectionFromGenusIdOrderBy<Tbl66Genus>(CurrentTbl72PlSpecies.GenusId);
 
-                        Tbl63InfratribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl63Infratribus>("");
+                        Tbl63InfratribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl63Infratribus>("Infratribus");
 
                         GenussesView = CollectionViewSource.GetDefaultView(Tbl66GenussesList);
                         GenussesView.Refresh();

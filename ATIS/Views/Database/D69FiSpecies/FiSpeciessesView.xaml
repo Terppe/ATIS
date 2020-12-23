@@ -378,6 +378,10 @@
                                             Width="150"
                                             DisplayMemberBinding="{Binding (models:Tbl78Name.NameName)}"
                                             Header="{DynamicResource Tbl78Name-NameName}" />
+                                        <GridViewColumn
+                                            Width="80"
+                                            DisplayMemberBinding="{Binding (models:Tbl78Name.Language)}"
+                                            Header="{DynamicResource Tbl78Name-Language}" />
                                         <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
@@ -2626,6 +2630,7 @@
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                 mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
                                 mah:TextBoxHelper.WatermarkAlignment="Left"
+                                CharacterCasing="Upper"
                                 FontWeight="Medium"
                                 SpellCheck.IsEnabled="True"
                                 ToolTip="{DynamicResource Shared-Author}">

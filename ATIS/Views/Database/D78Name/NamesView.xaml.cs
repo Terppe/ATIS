@@ -1,26 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+
+
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
+
+//  Tbl78NamesView.xaml.cs Skriptdatum:  22.01.2019  10:32     
 
 namespace ATIS.Ui.Views.Database.D78Name
 {
+
     /// <summary>
-    /// Interaktionslogik für NamesView.xaml
+    /// Interactionslogic for NamesView.xaml
     /// </summary>
     public partial class NamesView : UserControl
     {
+
+
         public NamesView()
         {
+            DataContext = new NamesViewModel();
+
             InitializeComponent();
         }
+
+
     }
 }
