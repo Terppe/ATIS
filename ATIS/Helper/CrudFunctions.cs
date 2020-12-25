@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using ATIS.Dal.Models;
@@ -15,8 +16,6 @@ namespace ATIS.Ui.Helper
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly AtisDbContext _context = new AtisDbContext();
 
-
-      //  public ObservableCollection<T> SearchNameOrIdReturnCollection<T>(string searchName, string name)
         public ObservableCollection<T> GetCollectionFromSearchNameOrIdOrderBy<T>(string searchName, string name)
         {
             var collection = new ObservableCollection<T>();
@@ -52,42 +51,42 @@ namespace ATIS.Ui.Helper
                         "genus" => GetGenussesCollectionAllOrderBy<T>(),
                         "speciesgroup" => GetSpeciesgroupsCollectionAllOrderBy<T>(),
                         "fispecies" => GetFiSpeciessesCollectionAllOrderBy<T>(),
-                        //"plspecies" => GetPlSpeciessesCollectionAllOrderBy<T>(),
+                        "plspecies" => GetPlSpeciessesCollectionAllOrderBy<T>(),
                         _ => collection
                     };
                     break;
                 default:
-                {
-                    collection = name switch
                     {
-                        "regnum" => GetRegnumsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "phylum" => GetPhylumsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "division" => GetDivisionsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "subphylum" => GetSubphylumsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "subdivision" => GetSubdivisionsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "superclass" => GetSuperclassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "classe" => GetClassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "subclass" => GetSubclassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "infraclass" => GetInfraclassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "legio" => GetLegiosCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "ordo" => GetOrdosCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "subordo" => GetSubordosCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "infraordo" => GetInfraordosCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "superfamily" => GetSuperfamiliesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "family" => GetFamiliesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "subfamily" => GetSubfamiliesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "infrafamily" => GetInfrafamiliesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "supertribus" => GetSupertribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "tribus" => GetTribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "subtribus" => GetSubtribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "infratribus" => GetInfratribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "genus" => GetGenussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "speciesgroup" => GetSpeciesgroupsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "fispecies" => GetFiSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        //"plspecies" => GetPlSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        _ => collection
-                    };
-                }
+                        collection = name switch
+                        {
+                            "regnum" => GetRegnumsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "phylum" => GetPhylumsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "division" => GetDivisionsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "subphylum" => GetSubphylumsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "subdivision" => GetSubdivisionsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "superclass" => GetSuperclassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "classe" => GetClassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "subclass" => GetSubclassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "infraclass" => GetInfraclassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "legio" => GetLegiosCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "ordo" => GetOrdosCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "subordo" => GetSubordosCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "infraordo" => GetInfraordosCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "superfamily" => GetSuperfamiliesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "family" => GetFamiliesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "subfamily" => GetSubfamiliesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "infrafamily" => GetInfrafamiliesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "supertribus" => GetSupertribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "tribus" => GetTribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "subtribus" => GetSubtribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "infratribus" => GetInfratribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "genus" => GetGenussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "speciesgroup" => GetSpeciesgroupsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "fispecies" => GetFiSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "plspecies" => GetPlSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            _ => collection
+                        };
+                    }
                     break;
             }
             return collection;
@@ -174,7 +173,6 @@ namespace ATIS.Ui.Helper
                 case "plspecies":
                     collection = GetPlSpeciessesCollectionAllOrderBy<T>();
                     break;
-
                 case "expert":
                     collection = GetReferenceExpertsCollectionAllOrderBy<T>();
                     break;
@@ -184,7 +182,6 @@ namespace ATIS.Ui.Helper
                 case "author":
                     collection = GetReferenceAuthorsCollectionAllOrderBy<T>();
                     break;
-
             }
 
             return collection;
@@ -193,7 +190,7 @@ namespace ATIS.Ui.Helper
 
         #region Regnum
 
-          #region Get Regnum
+        #region Get Regnum
 
         // ----------------------------------------   Regnum   ------------------------
         private ObservableCollection<T> GetRegnumsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -307,9 +304,9 @@ namespace ATIS.Ui.Helper
             return coll.RegnumId;
         }
 
-        #endregion     
+        #endregion
 
-          #region Copy Regnum    
+        #region Copy Regnum    
         // ----------------------------------------   Regnum   ------------------------
         public ObservableCollection<Tbl03Regnum> CopyRegnum(Tbl03Regnum selected)
         {
@@ -433,7 +430,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Regnum
+        #region Delete Regnum
 
         //------------------------------ Regnum   --------------------------------------------------------------------------------------------
         public void DeleteRegnum(Tbl03Regnum selected)
@@ -532,7 +529,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Regnum
+        #region Save Regnum
         public Tbl03Regnum RegnumUpdate(Tbl03Regnum home, Tbl03Regnum selected)
         {
             if (home != null) //update
@@ -845,7 +842,7 @@ namespace ATIS.Ui.Helper
 
         #region Phylum
 
-          #region Get Phylum
+        #region Get Phylum
 
         //----------------------------------------   Phylum   ------------------------
         private ObservableCollection<T> GetPhylumsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -940,7 +937,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Phylum
+        #region Copy Phylum
 
         // ----------------------------------------   Subphylum  ------------------------
         public ObservableCollection<Tbl12Subphylum> CopySubphylum(Tbl12Subphylum selected)
@@ -1015,7 +1012,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Phylum
+        #region Delete Phylum
 
         //------------------------------ Phylum --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithPhylumIdInTableReference(Tbl06Phylum selected)
@@ -1054,7 +1051,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Phylum 
+        #region Save Phylum 
 
         //------------------ Subphylum ---------------------------------------
         public Tbl12Subphylum SubphylumUpdate(Tbl12Subphylum home, Tbl12Subphylum selected)
@@ -1254,7 +1251,7 @@ namespace ATIS.Ui.Helper
 
         #region Division
 
-          #region Get Division
+        #region Get Division
 
         //----------------------------------------   Division   ------------------------
         private ObservableCollection<T> GetDivisionsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -1349,7 +1346,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Division
+        #region Copy Division
 
         // ----------------------------------------   Subdivision  ------------------------
         public ObservableCollection<Tbl15Subdivision> CopySubdivision(Tbl15Subdivision selected)
@@ -1424,7 +1421,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Division
+        #region Delete Division
 
         //------------------------------ Division --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithDivisionIdInTableReference(Tbl09Division selected)
@@ -1463,7 +1460,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Division 
+        #region Save Division 
 
         //------------------ Subdivision ---------------------------------------
         public Tbl15Subdivision SubdivisionUpdate(Tbl15Subdivision home, Tbl15Subdivision selected)
@@ -1662,7 +1659,7 @@ namespace ATIS.Ui.Helper
 
         #region Subphylum
 
-          #region Get Subphylum
+        #region Get Subphylum
 
         //----------------------------------------   Subphylum   ------------------------
         private ObservableCollection<T> GetSubphylumsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -1757,7 +1754,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Subphylum
+        #region Copy Subphylum
 
         // ----------------------------------------   Superclass  ------------------------
         public ObservableCollection<Tbl18Superclass> CopySuperclass(Tbl18Superclass selected)
@@ -1832,7 +1829,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Subphylum
+        #region Delete Subphylum
 
         //------------------------------ Subphylum --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubphylumIdInTableReference(Tbl12Subphylum selected)
@@ -1871,7 +1868,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Subphylum 
+        #region Save Subphylum 
 
         //------------------ Superclass ---------------------------------------
         public Tbl18Superclass SuperclassUpdate(Tbl18Superclass home, Tbl18Superclass selected)
@@ -2070,7 +2067,7 @@ namespace ATIS.Ui.Helper
 
         #region Subdivision
 
-          #region Get Subdivision
+        #region Get Subdivision
 
         //----------------------------------------   Subdivision   ------------------------
         private ObservableCollection<T> GetSubdivisionsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -2165,7 +2162,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Subdivision
+        #region Copy Subdivision
 
         // ----------------------------------------   Superclass  ------------------------
         //public ObservableCollection<Tbl18Superclass> CopySuperclass(Tbl18Superclass selected)
@@ -2240,7 +2237,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Subdivision
+        #region Delete Subdivision
 
         //------------------------------ Subdivision --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubdivisionIdInTableReference(Tbl15Subdivision selected)
@@ -2279,7 +2276,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Subdivision 
+        #region Save Subdivision 
 
         //------------------ Superclass ---------------------------------------
         //public Tbl18Superclass SuperclassUpdate(Tbl18Superclass home, Tbl18Superclass selected)
@@ -2478,7 +2475,7 @@ namespace ATIS.Ui.Helper
 
         #region Superclass
 
-          #region Get Superclass
+        #region Get Superclass
 
         //----------------------------------------   Superclass   ------------------------
         private ObservableCollection<T> GetSuperclassesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -2573,7 +2570,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Superclass
+        #region Copy Superclass
 
         // ----------------------------------------   Class  ------------------------
         public ObservableCollection<Tbl21Class> CopyClass(Tbl21Class selected)
@@ -2648,7 +2645,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Superclass
+        #region Delete Superclass
 
         //------------------------------ Superclass --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSuperclassIdInTableReference(Tbl18Superclass selected)
@@ -2687,7 +2684,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Superclass 
+        #region Save Superclass 
 
         //------------------ Class ---------------------------------------
         public Tbl21Class ClassUpdate(Tbl21Class home, Tbl21Class selected)
@@ -2886,7 +2883,7 @@ namespace ATIS.Ui.Helper
 
         #region Class
 
-          #region Get Class
+        #region Get Class
 
         //----------------------------------------   Class   ------------------------
         private ObservableCollection<T> GetClassesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -2981,7 +2978,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Class
+        #region Copy Class
 
         // ----------------------------------------   Subclass  ------------------------
         public ObservableCollection<Tbl24Subclass> CopySubclass(Tbl24Subclass selected)
@@ -3056,7 +3053,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Class
+        #region Delete Class
 
         //------------------------------ Class --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithClassIdInTableReference(Tbl21Class selected)
@@ -3095,7 +3092,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Class 
+        #region Save Class 
 
         //------------------ Subclass ---------------------------------------
         public Tbl24Subclass SubclassUpdate(Tbl24Subclass home, Tbl24Subclass selected)
@@ -3294,7 +3291,7 @@ namespace ATIS.Ui.Helper
 
         #region Subclass
 
-          #region Get Subclass
+        #region Get Subclass
 
         //----------------------------------------   Subclass   ------------------------
         private ObservableCollection<T> GetSubclassesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -3389,7 +3386,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Subclass
+        #region Copy Subclass
 
         // ----------------------------------------   Infraclass  ------------------------
         public ObservableCollection<Tbl27Infraclass> CopyInfraclass(Tbl27Infraclass selected)
@@ -3464,7 +3461,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Subclass
+        #region Delete Subclass
 
         //------------------------------ Subclass --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubclassIdInTableReference(Tbl24Subclass selected)
@@ -3503,7 +3500,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Subclass 
+        #region Save Subclass 
 
         //------------------ Infraclass ---------------------------------------
         public Tbl27Infraclass InfraclassUpdate(Tbl27Infraclass home, Tbl27Infraclass selected)
@@ -3702,7 +3699,7 @@ namespace ATIS.Ui.Helper
 
         #region Infraclass
 
-          #region Get Infraclass
+        #region Get Infraclass
 
         //----------------------------------------   Infraclass   ------------------------
         private ObservableCollection<T> GetInfraclassesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -3797,7 +3794,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Infraclass
+        #region Copy Infraclass
 
         // ----------------------------------------   Legio  ------------------------
         public ObservableCollection<Tbl30Legio> CopyLegio(Tbl30Legio selected)
@@ -3873,7 +3870,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Infraclass
+        #region Delete Infraclass
 
         //------------------------------ Infraclass --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithInfraclassIdInTableReference(Tbl27Infraclass selected)
@@ -3912,7 +3909,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Infraclass 
+        #region Save Infraclass 
 
         //------------------ Legio ---------------------------------------
         public Tbl30Legio LegioUpdate(Tbl30Legio home, Tbl30Legio selected)
@@ -4111,7 +4108,7 @@ namespace ATIS.Ui.Helper
 
         #region Legio
 
-          #region Get Legio
+        #region Get Legio
 
         //----------------------------------------   Legio   ------------------------
         private ObservableCollection<T> GetLegiosCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -4206,7 +4203,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Legio
+        #region Copy Legio
 
         // ----------------------------------------   Ordo  ------------------------
         public ObservableCollection<Tbl33Ordo> CopyOrdo(Tbl33Ordo selected)
@@ -4281,7 +4278,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Legio
+        #region Delete Legio
 
         //------------------------------ Legio --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithLegioIdInTableReference(Tbl30Legio selected)
@@ -4320,7 +4317,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Legio 
+        #region Save Legio 
 
         //------------------ Ordo ---------------------------------------
         public Tbl33Ordo OrdoUpdate(Tbl33Ordo home, Tbl33Ordo selected)
@@ -4519,7 +4516,7 @@ namespace ATIS.Ui.Helper
 
         #region Ordo
 
-          #region Get Ordo
+        #region Get Ordo
 
         //----------------------------------------   Ordo   ------------------------
         private ObservableCollection<T> GetOrdosCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -4614,7 +4611,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Ordo
+        #region Copy Ordo
 
         // ----------------------------------------   Subordo  ------------------------
         public ObservableCollection<Tbl36Subordo> CopySubordo(Tbl36Subordo selected)
@@ -4689,7 +4686,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Ordo
+        #region Delete Ordo
 
         //------------------------------ Ordo --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithOrdoIdInTableReference(Tbl33Ordo selected)
@@ -4728,7 +4725,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Ordo 
+        #region Save Ordo 
 
         //------------------ Subordo ---------------------------------------
         public Tbl36Subordo SubordoUpdate(Tbl36Subordo home, Tbl36Subordo selected)
@@ -4927,7 +4924,7 @@ namespace ATIS.Ui.Helper
 
         #region Subordo
 
-          #region Get Subordo
+        #region Get Subordo
 
         //----------------------------------------   Subordo   ------------------------
         private ObservableCollection<T> GetSubordosCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -5022,7 +5019,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Subordo
+        #region Copy Subordo
 
         // ----------------------------------------   Infraordo  ------------------------
         public ObservableCollection<Tbl39Infraordo> CopyInfraordo(Tbl39Infraordo selected)
@@ -5097,7 +5094,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Subordo
+        #region Delete Subordo
 
         //------------------------------ Subordo --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubordoIdInTableReference(Tbl36Subordo selected)
@@ -5136,7 +5133,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Subordo 
+        #region Save Subordo 
 
         //------------------ Infraordo ---------------------------------------
         public Tbl39Infraordo InfraordoUpdate(Tbl39Infraordo home, Tbl39Infraordo selected)
@@ -5335,7 +5332,7 @@ namespace ATIS.Ui.Helper
 
         #region Infraordo
 
-          #region Get Infraordo
+        #region Get Infraordo
 
         //----------------------------------------   Infraordo   ------------------------
         private ObservableCollection<T> GetInfraordosCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -5430,7 +5427,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Infraordo
+        #region Copy Infraordo
 
         // ----------------------------------------   Superfamily  ------------------------
         public ObservableCollection<Tbl42Superfamily> CopySuperfamily(Tbl42Superfamily selected)
@@ -5505,7 +5502,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Infraordo
+        #region Delete Infraordo
 
         //------------------------------ Infraordo --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithInfraordoIdInTableReference(Tbl39Infraordo selected)
@@ -5544,7 +5541,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Infraordo 
+        #region Save Infraordo 
 
         //------------------ Superfamily ---------------------------------------
         public Tbl42Superfamily SuperfamilyUpdate(Tbl42Superfamily home, Tbl42Superfamily selected)
@@ -5743,7 +5740,7 @@ namespace ATIS.Ui.Helper
 
         #region Superfamily
 
-          #region Get Superfamily
+        #region Get Superfamily
 
         //----------------------------------------   Superfamily   ------------------------
         private ObservableCollection<T> GetSuperfamiliesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -5838,7 +5835,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Superfamily
+        #region Copy Superfamily
 
         // ----------------------------------------   Family  ------------------------
         public ObservableCollection<Tbl45Family> CopyFamily(Tbl45Family selected)
@@ -5913,7 +5910,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Superfamily
+        #region Delete Superfamily
 
         //------------------------------ Superfamily --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSuperfamilyIdInTableReference(Tbl42Superfamily selected)
@@ -5952,7 +5949,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Superfamily 
+        #region Save Superfamily 
 
         //------------------ Family ---------------------------------------
         public Tbl45Family FamilyUpdate(Tbl45Family home, Tbl45Family selected)
@@ -6151,7 +6148,7 @@ namespace ATIS.Ui.Helper
 
         #region Family
 
-          #region Get Family
+        #region Get Family
 
         //----------------------------------------   Family   ------------------------
         private ObservableCollection<T> GetFamiliesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -6246,7 +6243,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Family
+        #region Copy Family
 
         // ----------------------------------------   Subfamily  ------------------------
         public ObservableCollection<Tbl48Subfamily> CopySubfamily(Tbl48Subfamily selected)
@@ -6321,7 +6318,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Family
+        #region Delete Family
 
         //------------------------------ Family --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithFamilyIdInTableReference(Tbl45Family selected)
@@ -6360,7 +6357,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Family 
+        #region Save Family 
 
         //------------------ Subfamily ---------------------------------------
         public Tbl48Subfamily SubfamilyUpdate(Tbl48Subfamily home, Tbl48Subfamily selected)
@@ -6559,7 +6556,7 @@ namespace ATIS.Ui.Helper
 
         #region Subfamily
 
-          #region Get Subfamily
+        #region Get Subfamily
 
         //----------------------------------------   Subfamily   ------------------------
         private ObservableCollection<T> GetSubfamiliesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -6654,7 +6651,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Subfamily
+        #region Copy Subfamily
 
         // ----------------------------------------   Infrafamily  ------------------------
         public ObservableCollection<Tbl51Infrafamily> CopyInfrafamily(Tbl51Infrafamily selected)
@@ -6729,7 +6726,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Subfamily
+        #region Delete Subfamily
 
         //------------------------------ Subfamily --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubfamilyIdInTableReference(Tbl48Subfamily selected)
@@ -6768,7 +6765,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Subfamily 
+        #region Save Subfamily 
 
         //------------------ Infrafamily ---------------------------------------
         public Tbl51Infrafamily InfrafamilyUpdate(Tbl51Infrafamily home, Tbl51Infrafamily selected)
@@ -6967,7 +6964,7 @@ namespace ATIS.Ui.Helper
 
         #region Infrafamily
 
-          #region Get Infrafamily
+        #region Get Infrafamily
 
         //----------------------------------------   Infrafamily   ------------------------
         private ObservableCollection<T> GetInfrafamiliesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -7062,7 +7059,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Infrafamily
+        #region Copy Infrafamily
 
         // ----------------------------------------   Supertribus  ------------------------
         public ObservableCollection<Tbl54Supertribus> CopySupertribus(Tbl54Supertribus selected)
@@ -7137,7 +7134,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Infrafamily
+        #region Delete Infrafamily
 
         //------------------------------ Infrafamily --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithInfrafamilyIdInTableReference(Tbl51Infrafamily selected)
@@ -7176,7 +7173,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Infrafamily 
+        #region Save Infrafamily 
 
         //------------------ Supertribus ---------------------------------------
         public Tbl54Supertribus SupertribusUpdate(Tbl54Supertribus home, Tbl54Supertribus selected)
@@ -7375,7 +7372,7 @@ namespace ATIS.Ui.Helper
 
         #region Supertribus
 
-          #region Get Supertribus
+        #region Get Supertribus
 
         //----------------------------------------   Supertribus   ------------------------
         private ObservableCollection<T> GetSupertribussesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -7470,7 +7467,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Supertribus
+        #region Copy Supertribus
 
         // ----------------------------------------   Tribus  ------------------------
         public ObservableCollection<Tbl57Tribus> CopyTribus(Tbl57Tribus selected)
@@ -7545,7 +7542,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Supertribus
+        #region Delete Supertribus
 
         //------------------------------ Supertribus --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSupertribusIdInTableReference(Tbl54Supertribus selected)
@@ -7584,7 +7581,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Supertribus 
+        #region Save Supertribus 
 
         //------------------ Tribus ---------------------------------------
         public Tbl57Tribus TribusUpdate(Tbl57Tribus home, Tbl57Tribus selected)
@@ -7783,7 +7780,7 @@ namespace ATIS.Ui.Helper
 
         #region Tribus
 
-          #region Get Tribus
+        #region Get Tribus
 
         //----------------------------------------   Tribus   ------------------------
         private ObservableCollection<T> GetTribussesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -7878,7 +7875,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Tribus
+        #region Copy Tribus
 
         // ----------------------------------------   Subtribus  ------------------------
         public ObservableCollection<Tbl60Subtribus> CopySubtribus(Tbl60Subtribus selected)
@@ -7953,7 +7950,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Tribus
+        #region Delete Tribus
 
         //------------------------------ Tribus --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithTribusIdInTableReference(Tbl57Tribus selected)
@@ -7992,7 +7989,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Tribus 
+        #region Save Tribus 
 
         //------------------ Subtribus ---------------------------------------
         public Tbl60Subtribus SubtribusUpdate(Tbl60Subtribus home, Tbl60Subtribus selected)
@@ -8191,7 +8188,7 @@ namespace ATIS.Ui.Helper
 
         #region Subtribus
 
-          #region Get Subtribus
+        #region Get Subtribus
 
         //----------------------------------------   Subtribus   ------------------------
         private ObservableCollection<T> GetSubtribussesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -8286,7 +8283,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Subtribus
+        #region Copy Subtribus
 
         // ----------------------------------------   Infratribus  ------------------------
         public ObservableCollection<Tbl63Infratribus> CopyInfratribus(Tbl63Infratribus selected)
@@ -8361,7 +8358,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Subtribus
+        #region Delete Subtribus
 
         //------------------------------ Subtribus --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubtribusIdInTableReference(Tbl60Subtribus selected)
@@ -8400,7 +8397,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Subtribus 
+        #region Save Subtribus 
 
         //------------------ Infratribus ---------------------------------------
         public Tbl63Infratribus InfratribusUpdate(Tbl63Infratribus home, Tbl63Infratribus selected)
@@ -8599,7 +8596,7 @@ namespace ATIS.Ui.Helper
 
         #region Infratribus
 
-          #region Get Infratribus
+        #region Get Infratribus
 
         //----------------------------------------   Infratribus   ------------------------
         private ObservableCollection<T> GetInfratribussesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -8694,7 +8691,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Infratribus
+        #region Copy Infratribus
 
         // ----------------------------------------   Genus  ------------------------
         public ObservableCollection<Tbl66Genus> CopyGenus(Tbl66Genus selected)
@@ -8769,7 +8766,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Infratribus
+        #region Delete Infratribus
 
         //------------------------------ Infratribus --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithInfratribusIdInTableReference(Tbl63Infratribus selected)
@@ -8808,7 +8805,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Infratribus 
+        #region Save Infratribus 
 
         //------------------ Genus ---------------------------------------
         public Tbl66Genus GenusUpdate(Tbl66Genus home, Tbl66Genus selected)
@@ -9128,7 +9125,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Genus
+        #region Copy Genus
 
         // ----------------------------------------   FiSpecies  ------------------------
         public ObservableCollection<Tbl69FiSpecies> CopyFiSpecies(Tbl69FiSpecies selected)
@@ -9283,7 +9280,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Genus
+        #region Delete Genus
 
         //------------------------------ Genus --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithGenusIdInTableReference(Tbl66Genus selected)
@@ -9344,7 +9341,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Genus 
+        #region Save Genus 
 
         //------------------ FiSpecies ---------------------------------------
         public Tbl69FiSpecies FiSpeciesUpdate(Tbl69FiSpecies home, Tbl69FiSpecies selected)
@@ -9727,10 +9724,10 @@ namespace ATIS.Ui.Helper
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl68Speciesgroups
                 .OrderBy(a => a.SpeciesgroupName)
-                .ThenBy(a=> a.Subspeciesgroup));
+                .ThenBy(a => a.Subspeciesgroup));
             return collection;
         }
-        public ObservableCollection<T> GetSpeciesgroupsCollectionFromSpeciesgroupIdOrderBy<T>(int id)
+        public ObservableCollection<T> GetSpeciesgroupsCollectionFromSpeciesgroupIdOrderBy<T>(int? id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl68Speciesgroups
@@ -9767,7 +9764,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Speciesgroup
+        #region Copy Speciesgroup
 
         public ObservableCollection<Tbl68Speciesgroup> CopySpeciesgroup(Tbl68Speciesgroup selected)
         {
@@ -9798,7 +9795,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Speciesgroup
+        #region Delete Speciesgroup
 
         //------------------------------ Speciesgroup --------------------------------------------------------------------------------------------
         public void DeleteSpeciesgroup(Tbl68Speciesgroup selected)
@@ -9827,7 +9824,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Speciesgroup 
+        #region Save Speciesgroup 
 
         public Tbl68Speciesgroup SpeciesgroupUpdate(Tbl68Speciesgroup home, Tbl68Speciesgroup selected)
         {
@@ -9892,8 +9889,6 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-
-
         #region FiSpecies
 
         #region Get FiSpecies
@@ -9904,8 +9899,9 @@ namespace ATIS.Ui.Helper
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
-                ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl69FiSpeciesses
-                    .Find(e => e.FiSpeciesId == id))
+                ? new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
+                    .Include(a => a.Tbl66Genusses)
+                    .Where(e => e.FiSpeciesId == id))
                 : new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
                     .Include(a => a.Tbl66Genusses)
                     .Where(a => a.Tbl66Genusses.GenusName.StartsWith(searchName))
@@ -9921,7 +9917,9 @@ namespace ATIS.Ui.Helper
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
-                .OrderBy(a => a.FiSpeciesName)
+                .Include(a => a.Tbl66Genusses)
+                .OrderBy(a => a.Tbl66Genusses.GenusName)
+                .ThenBy(a => a.FiSpeciesName)
                 .ThenBy(a => a.Subspecies)
                 .ThenBy(a => a.Divers));
             return collection;
@@ -9930,52 +9928,16 @@ namespace ATIS.Ui.Helper
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
+                .Include(a => a)
                 .Where(e => e.FiSpeciesId == id)
-                .OrderBy(a => a.FiSpeciesName)
+                .OrderBy(a => a.Tbl66Genusses.GenusName)
+                .ThenBy(a => a.FiSpeciesName)
                 .ThenBy(a => a.Subspecies)
                 .ThenBy(a => a.Divers));
 
             return collection;
         }
-        //----------------------------------------   PlSpecies   ------------------------
 
-        public ObservableCollection<T> GetPlSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
-        {
-            ObservableCollection<T> collection;
-            collection = int.TryParse(searchName, out var id)
-                ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl72PlSpeciesses
-                    .Find(e => e.PlSpeciesId == id))
-                : new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
-                    .Include(a => a.Tbl66Genusses)
-                    .Where(a => a.Tbl66Genusses.GenusName.StartsWith(searchName))
-                    .OrderBy(a => a.Tbl66Genusses.GenusName)
-                    .ThenBy(a => a.PlSpeciesName)
-                    .ThenBy(a => a.Subspecies)
-                    .ThenBy(a => a.Divers));
-            return collection;
-        }
-
-
-        public ObservableCollection<T> GetPlSpeciessesCollectionAllOrderBy<T>()
-        {
-            ObservableCollection<T> collection;
-            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
-                .OrderBy(a => a.PlSpeciesName)
-                .ThenBy(a => a.Subspecies)
-                .ThenBy(a => a.Divers));
-            return collection;
-        }
-        public ObservableCollection<T> GetPlSpeciessesCollectionFromFiSpeciesIdOrderBy<T>(int id)
-        {
-            ObservableCollection<T> collection;
-            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
-                .Where(e => e.PlSpeciesId == id)
-                .OrderBy(a => a.PlSpeciesName)
-                .ThenBy(a => a.Subspecies)
-                .ThenBy(a => a.Divers));
-
-            return collection;
-        }
 
         //-------------------------------------- Name   -------------------------
         public ObservableCollection<T> GetNamesCollectionFromFiSpeciesIdOrderBy<T>(int id)
@@ -10057,7 +10019,7 @@ namespace ATIS.Ui.Helper
         }
 
         //Function
-        public int GetFiSpeciesIdFromNamesCollectionSelect(int id)
+        public int? GetFiSpeciesIdFromNamesCollectionSelect(int id)
         {
             var coll = _context.Tbl78Names
                 .SingleOrDefault(p => p.NameId == id);
@@ -10065,6 +10027,17 @@ namespace ATIS.Ui.Helper
             if (coll == null) return 0;
             return coll.FiSpeciesId;
         }
+
+        //Function
+        public int GetFiSpeciesIdFromFiSpeciessesCollectionSelectByName(string name)
+        {
+            var coll = _context.Tbl69FiSpeciesses
+                .SingleOrDefault(p => p.FiSpeciesName == name);
+
+            if (coll == null) return 0;
+            return coll.FiSpeciesId;
+        }
+
 
         #endregion
 
@@ -10080,19 +10053,90 @@ namespace ATIS.Ui.Helper
             {
                 NameName = CultRes.StringsRes.DatasetNew,
                 FiSpeciesId = dataset.FiSpeciesId,
+                PlSpeciesId = dataset.PlSpeciesId,
                 Valid = dataset.Valid,
                 ValidYear = dataset.ValidYear,
-                //Synonym = dataset.Synonym,
-                //Author = dataset.Author,
-                //AuthorYear = dataset.AuthorYear,
+                Language = dataset.Language,
                 Info = dataset.Info,
-                //EngName = dataset.EngName,
-                //GerName = dataset.GerName,
-                //FraName = dataset.FraName,
-                //PorName = dataset.PorName,
                 Memo = dataset.Memo
             });
 
+            return collection;
+        }
+
+        // ----------------------------------------   Image  ------------------------
+        public ObservableCollection<Tbl81Image> CopyImage(Tbl81Image selected)
+        {
+            var dataset = _uow.Tbl81Images.GetById(selected.ImageId);
+            var collection = new ObservableCollection<Tbl81Image>();
+
+            collection.Insert(0, new Tbl81Image
+            {
+                FiSpeciesId = dataset.FiSpeciesId,
+                PlSpeciesId = dataset.PlSpeciesId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Info = dataset.Info,
+                ShotDate = dataset.ShotDate,
+                ImageData = dataset.ImageData,
+                ImageMimeType = dataset.ImageMimeType,
+                Filestream = dataset.Filestream,
+                FilestreamId = dataset.FilestreamId,
+                Memo = dataset.Memo
+            });
+            return collection;
+        }
+
+        // ----------------------------------------   Synonym  ------------------------
+        public ObservableCollection<Tbl84Synonym> CopySynonym(Tbl84Synonym selected)
+        {
+            var dataset = _uow.Tbl84Synonyms.GetById(selected.SynonymId);
+            var collection = new ObservableCollection<Tbl84Synonym>();
+
+            collection.Insert(0, new Tbl84Synonym
+            {
+                SynonymName = CultRes.StringsRes.DatasetNew,
+                FiSpeciesId = dataset.FiSpeciesId,
+                PlSpeciesId = dataset.PlSpeciesId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Info = dataset.Info,
+                Memo = dataset.Memo
+
+            });
+            return collection;
+        }
+
+        // ----------------------------------------   Geographic  ------------------------
+        public ObservableCollection<Tbl87Geographic> CopyGeographic(Tbl87Geographic selected)
+        {
+            var dataset = _uow.Tbl87Geographics.GetById(selected.GeographicId);
+            var collection = new ObservableCollection<Tbl87Geographic>();
+
+            collection.Insert(0, new Tbl87Geographic
+            {
+                FiSpeciesId = dataset.FiSpeciesId,
+                PlSpeciesId = dataset.PlSpeciesId,
+                Address = dataset.Address,
+                Continent = dataset.Continent,
+                Country = dataset.Country,
+                Http = dataset.Http,
+                Latitude = dataset.Latitude,
+                Longitude = dataset.Longitude,
+                Latitude1 = dataset.Latitude1,
+                Longitude1 = dataset.Longitude1,
+                Latitude2 = dataset.Latitude2,
+                Longitude2 = dataset.Longitude2,
+                Latitude3 = dataset.Latitude3,
+                Longitude3 = dataset.Longitude3,
+                ZoomLevel = dataset.ZoomLevel,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                Memo = dataset.Memo
+            });
             return collection;
         }
 
@@ -10106,6 +10150,7 @@ namespace ATIS.Ui.Helper
                     collection.Insert(0, new Tbl90Reference()
                     {
                         FiSpeciesId = dataset.FiSpeciesId,
+                        PlSpeciesId = dataset.PlSpeciesId,
                         RefExpertId = dataset.RefExpertId,
                         Valid = dataset.Valid,
                         ValidYear = dataset.ValidYear,
@@ -10117,6 +10162,7 @@ namespace ATIS.Ui.Helper
                     collection.Insert(0, new Tbl90Reference()
                     {
                         FiSpeciesId = dataset.FiSpeciesId,
+                        PlSpeciesId = dataset.PlSpeciesId,
                         RefSourceId = dataset.RefSourceId,
                         Valid = dataset.Valid,
                         ValidYear = dataset.ValidYear,
@@ -10128,6 +10174,7 @@ namespace ATIS.Ui.Helper
                     collection.Insert(0, new Tbl90Reference()
                     {
                         FiSpeciesId = dataset.FiSpeciesId,
+                        PlSpeciesId = dataset.PlSpeciesId,
                         RefAuthorId = dataset.RefAuthorId,
                         Valid = dataset.Valid,
                         ValidYear = dataset.ValidYear,
@@ -10140,22 +10187,9 @@ namespace ATIS.Ui.Helper
             return collection;
         }
 
-
         #endregion
 
-        #region Delete FiSpecies
-
-        //------------------------------ FiSpecies --------------------------------------------------------------------------------------------
-        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithFiSpeciesIdInTableReference(Tbl69FiSpecies selected)
-        //{
-        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
-        //    return collection;
-        //}
-        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithFiSpeciesIdInTableComment(Tbl69FiSpecies selected)
-        //{
-        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
-        //    return collection;
-        //}
+        #region Delete Name, Image, Synonym, Geographic
 
         //------------------------------ Name --------------------------------------------------------------------------------------------
         public void DeleteName(Tbl78Name selected)
@@ -10163,22 +10197,24 @@ namespace ATIS.Ui.Helper
             _uow.Tbl78Names.Remove(selected);
             _uow.Complete();
         }
-        //public ObservableCollection<Tbl81Image> SearchForConnectedDatasetsWithNameIdInTableImage(Tbl78Name selected)
-        //{
-        //    var collection = new ObservableCollection<Tbl81Image>(_uow.Tbl81Images.Find(x => x.NameId == selected.NameId));
-        //    return collection;
-        //}
-        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithNameIdInTableReference(Tbl78Name selected)
-        //{
-        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.NameId == selected.NameId));
-        //    return collection;
-        //}
-        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithNameIdInTableComment(Tbl78Name selected)
-        //{
-        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.NameId == selected.NameId));
-        //    return collection;
-        //}
-
+        //------------------------------ Image --------------------------------------------------------------------------------------------
+        public void DeleteImage(Tbl81Image selected)
+        {
+            _uow.Tbl81Images.Remove(selected);
+            _uow.Complete();
+        }
+        //------------------------------ Synonym --------------------------------------------------------------------------------------------
+        public void DeleteSynonym(Tbl84Synonym selected)
+        {
+            _uow.Tbl84Synonyms.Remove(selected);
+            _uow.Complete();
+        }
+        //------------------------------ Geographic --------------------------------------------------------------------------------------------
+        public void DeleteGeographic(Tbl87Geographic selected)
+        {
+            _uow.Tbl87Geographics.Remove(selected);
+            _uow.Complete();
+        }
 
         #endregion
 
@@ -10191,16 +10227,11 @@ namespace ATIS.Ui.Helper
             {
                 home.NameName = selected.NameName;
                 home.FiSpeciesId = selected.FiSpeciesId;
+                home.PlSpeciesId = selected.PlSpeciesId;
                 home.Valid = selected.Valid;
                 home.ValidYear = selected.ValidYear;
-                //home.Author = selected.Author;
-                //home.AuthorYear = selected.AuthorYear;
+                home.Language = selected.Language;
                 home.Info = selected.Info;
-                //home.Synonym = selected.Synonym;
-                //home.EngName = selected.EngName;
-                //home.GerName = selected.GerName;
-                //home.FraName = selected.FraName;
-                //home.PorName = selected.PorName;
                 home.Memo = selected.Memo;
                 home.Updater = Environment.UserName;
                 home.UpdaterDate = DateTime.Now;
@@ -10213,17 +10244,12 @@ namespace ATIS.Ui.Helper
             {
                 NameName = selected.NameName,
                 FiSpeciesId = selected.FiSpeciesId,
+                PlSpeciesId = selected.PlSpeciesId,
                 CountId = RandomHelper.Randomnumber(),
                 Valid = selected.Valid,
                 ValidYear = selected.ValidYear,
-                //Author = selected.Author,
-                //AuthorYear = selected.AuthorYear,
+                Language = selected.Language,
                 Info = selected.Info,
-                //Synonym = selected.Synonym,
-                //EngName = selected.EngName,
-                //GerName = selected.GerName,
-                //FraName = selected.FraName,
-                //PorName = selected.PorName,
                 Memo = selected.Memo,
                 Writer = Environment.UserName,
                 WriterDate = DateTime.Now,
@@ -10244,6 +10270,205 @@ namespace ATIS.Ui.Helper
             _uow.Complete();
         }
 
+        //------------------ Image ---------------------------------------
+        public Tbl81Image ImageUpdate(Tbl81Image home, Tbl81Image selected)
+        {
+            if (home != null) //update
+            {
+                home.FiSpeciesId = selected.FiSpeciesId;
+                home.PlSpeciesId = selected.PlSpeciesId;
+                home.Valid = selected.Valid;
+                home.ValidYear = selected.ValidYear;
+                home.ShotDate = selected.ShotDate;
+                home.Info = selected.Info;
+                home.Memo = selected.Memo;
+                home.Updater = Environment.UserName;
+                home.UpdaterDate = DateTime.Now;
+                home.ImageData = selected.ImageData;
+                home.ImageMimeType = selected.ImageMimeType;
+                if (SelectedPath != null) home.Filestream = LoadImageData(SelectedPath);
+            }
+            return home;
+        }
+        public Tbl81Image ImageAdd(Tbl81Image selected)
+        {
+            var home = new Tbl81Image() //add new
+            {
+                FiSpeciesId = selected.FiSpeciesId,
+                PlSpeciesId = selected.PlSpeciesId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                ShotDate = selected.ShotDate,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                ImageData = selected.ImageData, //empty
+                ImageMimeType = selected.ImageMimeType,
+                Filestream = LoadImageData(SelectedPath),
+                FilestreamId = Guid.NewGuid(),
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+
+            };
+            return home;
+        }
+
+        private static byte[] LoadImageData(string filePath)
+        {
+            var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            var br = new BinaryReader(fs);
+            var imageBytes = br.ReadBytes((int)fs.Length);
+            br.Close();
+            fs.Close();
+            return imageBytes;
+        }
+
+        public void ImageSave(Tbl81Image home, Tbl81Image selected)
+        {
+
+            if (selected.ImageId != 0) //update
+            {
+                _uow.Tbl81Images.Update(home);
+            }
+            else                                //add
+                _uow.Tbl81Images.Add(home);
+            _uow.Complete();
+        }
+
+
+        public static RelayCommand OpenCommand { get; set; }
+        private string _selectedPath;
+
+        public string SelectedPath
+        {
+            get => _selectedPath;
+            set { _selectedPath = value; RaisePropertyChanged(""); }
+        }
+
+        //------------------ Synonym ---------------------------------------
+        public Tbl84Synonym SynonymUpdate(Tbl84Synonym home, Tbl84Synonym selected)
+        {
+            if (home != null) //update
+            {
+                home.SynonymName = selected.SynonymName;
+                home.FiSpeciesId = selected.FiSpeciesId;
+                home.PlSpeciesId = selected.PlSpeciesId;
+                home.Valid = selected.Valid;
+                home.ValidYear = selected.ValidYear;
+                home.Author = home.Author;
+                home.AuthorYear = home.AuthorYear;
+                home.Info = selected.Info;
+                home.Memo = selected.Memo;
+                home.Updater = Environment.UserName;
+                home.UpdaterDate = DateTime.Now;
+            }
+            return home;
+        }
+        public Tbl84Synonym SynonymAdd(Tbl84Synonym selected)
+        {
+            var home = new Tbl84Synonym() //add new
+            {
+                SynonymName = selected.SynonymName,
+                FiSpeciesId = selected.FiSpeciesId,
+                PlSpeciesId = selected.PlSpeciesId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Author = selected.Author,
+                AuthorYear = selected.AuthorYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now
+            };
+            return home;
+        }
+        public void SynonymSave(Tbl84Synonym home, Tbl84Synonym selected)
+        {
+
+            if (selected.SynonymId != 0) //update
+            {
+                _uow.Tbl84Synonyms.Update(home);
+            }
+            else                                //add
+                _uow.Tbl84Synonyms.Add(home);
+            _uow.Complete();
+        }
+
+        //------------------ Geographic ---------------------------------------
+        public Tbl87Geographic GeographicUpdate(Tbl87Geographic home, Tbl87Geographic selected)
+        {
+            if (home != null) //update
+            {
+                home.FiSpeciesId = selected.FiSpeciesId;
+                home.PlSpeciesId = selected.PlSpeciesId;
+                home.Address = selected.Address;
+                home.Continent = selected.Continent;
+                home.Country = selected.Country;
+                home.Http = selected.Http;
+                home.Latitude = selected.Latitude;
+                home.Longitude = selected.Longitude;
+                home.Latitude1 = selected.Latitude1;
+                home.Longitude1 = selected.Longitude1;
+                home.Latitude2 = selected.Latitude2;
+                home.Longitude2 = selected.Longitude2;
+                home.Latitude3 = selected.Latitude3;
+                home.Longitude3 = selected.Longitude3;
+                home.ZoomLevel = selected.ZoomLevel;
+                home.Updater = Environment.UserName;
+                home.UpdaterDate = DateTime.Now;
+
+
+            }
+            return home;
+        }
+        public Tbl87Geographic GeographicAdd(Tbl87Geographic selected)
+        {
+            var home = new Tbl87Geographic() //add new
+            {
+                FiSpeciesId = selected.FiSpeciesId,
+                PlSpeciesId = selected.PlSpeciesId,
+                CountId = RandomHelper.Randomnumber(),
+                Address = selected.Address,
+                Continent = selected.Continent,
+                Country = selected.Country,
+                Http = selected.Http,
+                Latitude = selected.Latitude,
+                Longitude = selected.Longitude,
+                Latitude1 = selected.Latitude1,
+                Longitude1 = selected.Longitude1,
+                Latitude2 = selected.Latitude2,
+                Longitude2 = selected.Longitude2,
+                Latitude3 = selected.Latitude3,
+                Longitude3 = selected.Longitude3,
+                ZoomLevel = selected.ZoomLevel,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return home;
+        }
+
+        public void GeographicSave(Tbl87Geographic home, Tbl87Geographic selected)
+        {
+
+            if (selected.GeographicId != 0) //update
+            {
+                _uow.Tbl87Geographics.Update(home);
+            }
+            else                                //add
+                _uow.Tbl87Geographics.Add(home);
+            _uow.Complete();
+        }
+
+
+        //----------------------------------------------------------------------
         public Tbl90Reference ReferenceExpertFiSpeciesUpdate(Tbl90Reference reference, Tbl90Reference selected)
         {
             if (reference != null) //update
@@ -10377,10 +10602,429 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
+        #endregion FiSpecies
+
+        #region PlSpecies
+
+        #region Get PlSpecies
+
+        public ObservableCollection<T> GetPlSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        {
+            ObservableCollection<T> collection;
+            collection = int.TryParse(searchName, out var id)
+                ? new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
+                    .Include(a => a.Tbl66Genusses)
+                    .Where(e => e.PlSpeciesId == id))
+                : new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
+                    .Include(a => a.Tbl66Genusses)
+                    .Where(a => a.Tbl66Genusses.GenusName.StartsWith(searchName))
+                    .OrderBy(a => a.Tbl66Genusses.GenusName)
+                    .ThenBy(a => a.PlSpeciesName)
+                    .ThenBy(a => a.Subspecies)
+                    .ThenBy(a => a.Divers));
+            return collection;
+
+        }
+        public ObservableCollection<T> GetPlSpeciessesCollectionAllOrderBy<T>()
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
+                .Include(a => a.Tbl66Genusses)
+                .OrderBy(a => a.Tbl66Genusses.GenusName)
+                .ThenBy(a => a.PlSpeciesName)
+                .ThenBy(a => a.Subspecies)
+                .ThenBy(a => a.Divers));
+            return collection;
+        }
+        public ObservableCollection<T> GetPlSpeciessesCollectionFromPlSpeciesIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
+                .Include(a => a.Tbl66Genusses)
+                .Where(e => e.PlSpeciesId == id)
+                .OrderBy(a => a.Tbl66Genusses.GenusName)
+                .ThenBy(a => a.PlSpeciesName)
+                .ThenBy(a => a.Subspecies)
+                .ThenBy(a => a.Divers));
+
+            return collection;
+        }
+        //-------------------------------------- Name   -------------------------
+        public ObservableCollection<T> GetNamesCollectionFromPlSpeciesIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl78Names
+                .Where(e => e.PlSpeciesId == id)
+                .OrderBy(k => k.NameName));
+            return collection;
+        }
+
+        //-------------------------------------- Image   -------------------------
+        public ObservableCollection<T> GetImagesCollectionFromPlSpeciesIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl81Images
+                .Where(e => e.PlSpeciesId == id)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Synonym   -------------------------
+        public ObservableCollection<T> GetSynonymsCollectionFromPlSpeciesIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl84Synonyms
+                .Where(e => e.PlSpeciesId == id)
+                .OrderBy(k => k.SynonymName));
+            return collection;
+        }
+
+        //-------------------------------------- Geographic   -------------------------
+        public ObservableCollection<T> GetGeographicsCollectionFromPlSpeciesIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl87Geographics
+                .Where(e => e.PlSpeciesId == id)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Reference Experts   -------------------------
+        public ObservableCollection<T> GetReferenceExpertsCollectionFromPlSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefExperts)
+                .Where(e => e.PlSpeciesId == id && e.RefAuthorId == null && e.RefSourceId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Reference Sources   -------------------------
+        public ObservableCollection<T> GetReferenceSourcesCollectionFromPlSpeciesIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefSources)
+                .Where(e => e.PlSpeciesId == id && e.RefAuthorId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Reference Authors   -------------------------
+        public ObservableCollection<T> GetReferenceAuthorsCollectionFromPlSpeciesIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.PlSpeciesId == id && e.RefSourceId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+        //-------------------------------------- Comments   -------------------------
+        public ObservableCollection<T> GetCommentsCollectionFromPlSpeciesIdOrderBy<T>(int? id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
+                .Where(e => e.PlSpeciesId == id)
+                .OrderBy(e => e.Info));
+            return collection;
+        }
+
+        //Function
+        public int? GetPlSpeciesIdFromNamesCollectionSelect(int id)
+        {
+            var coll = _context.Tbl78Names
+                .SingleOrDefault(p => p.NameId == id);
+
+            if (coll == null) return 0;
+            return coll.PlSpeciesId;
+        }
+
+        //Function
+        public int? GetPlSpeciesIdFromPlSpeciessesCollectionSelectByName(string name)
+        {
+            var coll = _context.Tbl72PlSpeciesses
+                .SingleOrDefault(p => p.PlSpeciesName == name);
+
+            if (coll == null) return 0;
+            return coll.PlSpeciesId;
+        }
+
         #endregion
 
+        #region Copy PlSpecies
+
+        public ObservableCollection<Tbl90Reference> CopyReferencePlSpecies(Tbl90Reference selected, string refer)
+        {
+            var dataset = _uow.Tbl90References.GetById(selected.ReferenceId);
+            var collection = new ObservableCollection<Tbl90Reference>();
+            switch (refer)
+            {
+                case "Expert":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        PlSpeciesId = dataset.PlSpeciesId,
+                        RefExpertId = dataset.RefExpertId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Source":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        PlSpeciesId = dataset.PlSpeciesId,
+                        RefSourceId = dataset.RefSourceId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Author":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        PlSpeciesId = dataset.PlSpeciesId,
+                        RefAuthorId = dataset.RefAuthorId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+            }
+
+            return collection;
+        }
 
 
+        #endregion
+
+        #region Delete PlSpecies
+
+
+
+        #endregion
+
+        #region Save PlSpecies
+
+        public Tbl90Reference ReferenceExpertPlSpeciesUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefExpertId = selected.RefExpertId;
+                reference.PlSpeciesId = selected.PlSpeciesId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceExpertPlSpeciesAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefExpertId = selected.RefExpertId,
+                PlSpeciesId = selected.PlSpeciesId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourcePlSpeciesUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefSourceId = selected.RefSourceId;
+                reference.PlSpeciesId = selected.PlSpeciesId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourcePlSpeciesAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefSourceId = selected.RefSourceId,
+                PlSpeciesId = selected.PlSpeciesId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorPlSpeciesUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefAuthorId = selected.RefAuthorId;
+                reference.PlSpeciesId = selected.PlSpeciesId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorPlSpeciesAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefAuthorId = selected.RefAuthorId,
+                PlSpeciesId = selected.PlSpeciesId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl93Comment CommentPlSpeciesUpdate(Tbl93Comment comment, Tbl93Comment selected)
+        {
+            if (comment != null) //update
+            {
+                comment.PlSpeciesId = selected.PlSpeciesId;
+                comment.Valid = selected.Valid;
+                comment.ValidYear = selected.ValidYear;
+                comment.Info = selected.Info;
+                comment.Updater = Environment.UserName;
+                comment.UpdaterDate = DateTime.Now;
+                comment.Memo = selected.Memo;
+            }
+            return comment;
+        }
+        public Tbl93Comment CommentPlSpeciesAdd(Tbl93Comment selected)
+        {
+            var comment = new Tbl93Comment //add new
+            {
+                PlSpeciesId = selected.PlSpeciesId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return comment;
+        }
+
+
+        #endregion
+
+        #endregion
+
+        #region Name
+
+        #region Delete Name
+
+        public ObservableCollection<Tbl78Name> SearchForConnectedDatasetsWithFiSpeciesIdInTableName(Tbl69FiSpecies selected)
+        {
+            var collection = new ObservableCollection<Tbl78Name>(_uow.Tbl78Names.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
+            return collection;
+        }
+
+        public ObservableCollection<Tbl78Name> SearchForConnectedDatasetsWithPlSpeciesIdInTableName(Tbl72PlSpecies selected)
+        {
+            var collection = new ObservableCollection<Tbl78Name>(_uow.Tbl78Names.Find(x => x.PlSpeciesId == selected.PlSpeciesId));
+            return collection;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Image
+
+        #region DeleteImage
+
+        public ObservableCollection<Tbl81Image> SearchForConnectedDatasetsWithFiSpeciesIdInTableImage(Tbl69FiSpecies selected)
+        {
+            var collection = new ObservableCollection<Tbl81Image>(_uow.Tbl81Images.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
+            return collection;
+        }
+
+        public ObservableCollection<Tbl81Image> SearchForConnectedDatasetsWithPlSpeciesIdInTableImage(Tbl72PlSpecies selected)
+        {
+            var collection = new ObservableCollection<Tbl81Image>(_uow.Tbl81Images.Find(x => x.PlSpeciesId == selected.PlSpeciesId));
+            return collection;
+        }
+
+
+
+        #endregion
+
+        #endregion
+
+        #region Synonym
+
+        #region Delete Synonym
+
+        public ObservableCollection<Tbl84Synonym> SearchForConnectedDatasetsWithFiSpeciesIdInTableSynonym(Tbl69FiSpecies selected)
+        {
+            var collection = new ObservableCollection<Tbl84Synonym>(_uow.Tbl84Synonyms.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
+            return collection;
+        }
+
+        public ObservableCollection<Tbl84Synonym> SearchForConnectedDatasetsWithPlSpeciesIdInTableSynonym(Tbl72PlSpecies selected)
+        {
+            var collection = new ObservableCollection<Tbl84Synonym>(_uow.Tbl84Synonyms.Find(x => x.PlSpeciesId == selected.PlSpeciesId));
+            return collection;
+        }
+
+
+        #endregion
+
+        #endregion
+
+        #region Geographic
+
+        #region Delete Geographic
+
+        public ObservableCollection<Tbl87Geographic> SearchForConnectedDatasetsWithFiSpeciesIdInTableGeographic(Tbl69FiSpecies selected)
+        {
+            var collection = new ObservableCollection<Tbl87Geographic>(_uow.Tbl87Geographics.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
+            return collection;
+        }
+
+        public ObservableCollection<Tbl87Geographic> SearchForConnectedDatasetsWithPlSpeciesIdInTableGeographic(Tbl72PlSpecies selected)
+        {
+            var collection = new ObservableCollection<Tbl87Geographic>(_uow.Tbl87Geographics.Find(x => x.PlSpeciesId == selected.PlSpeciesId));
+            return collection;
+        }
+
+
+        #endregion
+
+        #endregion
 
 
         #region References
