@@ -88,6 +88,8 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         {
             Tbl03RegnumsList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl03Regnum>(SearchRegnumName, "regnum");
 
+            if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl03RegnumsList.Count)) return;
+
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 0;
 
