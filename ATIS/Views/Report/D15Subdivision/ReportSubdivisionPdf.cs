@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Linq;
 using ATIS.Dal.Models;
 using ATIS.Ui.Helper;
-using ATIS.Ui.Views.Database.CrudHelper;
 using BitMiracle.Docotic;
 using BitMiracle.Docotic.Pdf;
 using log4net;
@@ -20,7 +19,7 @@ namespace ATIS.Ui.Views.Report.D15Subdivision
     {
 
         private static readonly ILog Log = LogManager.GetLogger(typeof(ReportSubdivisionPdf));
-        private static readonly BasicGet ExtGet = new BasicGet();
+        //private static readonly BasicGet ExtGet = new BasicGet();
         private static readonly CrudFunctions ExtCrud = new CrudFunctions();
         private static readonly ReportBasicGet ExtReportBasicGet = new ReportBasicGet();
         private static readonly PdfHelper PdfHelper = new PdfHelper();
@@ -34,109 +33,109 @@ namespace ATIS.Ui.Views.Report.D15Subdivision
         //    Part 1    
 
 
-        public static void CreateMainPdf(int id, string use)
-        {
-            // NOTE: 
-            // When used in trial mode, the library imposes some restrictions.
-            // Please visit http://bitmiracle.com/pdf-library/trial-restrictions.aspx
-            // for more information.
+        //public static void CreateMainPdf(int id, string use)
+        //{
+        //    // NOTE: 
+        //    // When used in trial mode, the library imposes some restrictions.
+        //    // Please visit http://bitmiracle.com/pdf-library/trial-restrictions.aspx
+        //    // for more information.
 
-            log4net.Config.XmlConfigurator.Configure();
+        //    log4net.Config.XmlConfigurator.Configure();
 
 
-            //  LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
-            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");      
-            //-----------------------------------------------------------------------------     
+        //    //  LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
+        //    //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");      
+        //    //-----------------------------------------------------------------------------     
 
-            var subdivisionList = ExtGet.GetSubdivisionsCollectionOrderByFromSubdivisionId<Tbl15Subdivision>(id).FirstOrDefault();
+        //    var subdivisionList = ExtGet.GetSubdivisionsCollectionOrderByFromSubdivisionId<Tbl15Subdivision>(id).FirstOrDefault();
 
-            //Child
-            var superclasssList = ExtGet.GetSuperclassesCollectionOrderByFromSubdivisionId<Tbl18Superclass>(id);
+        //    //Child
+        //    var superclasssList = ExtGet.GetSuperclassesCollectionOrderByFromSubdivisionId<Tbl18Superclass>(id);
 
-            //Function
-            var divisionId = ExtReportBasicGet.DivisionIdFromSubdivisionsCollectionSelect(id);
-            //ForeignKeyTable
-            var divisionList = ExtGet.GetDivisionsCollectionOrderByFromDivisionId<Tbl09Division>(divisionId).FirstOrDefault();
-            //Function
-            var regnumId = ExtCrud.RegnumIdFromDivisionsCollectionSelect(divisionId);
-            //ForeignKeyTable
-            var regnumList = ExtCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(regnumId).FirstOrDefault();
+        //    //Function
+        //    var divisionId = ExtReportBasicGet.DivisionIdFromSubdivisionsCollectionSelect(id);
+        //    //ForeignKeyTable
+        //    var divisionList = ExtGet.GetDivisionsCollectionOrderByFromDivisionId<Tbl09Division>(divisionId).FirstOrDefault();
+        //    //Function
+        //    var regnumId = ExtCrud.RegnumIdFromDivisionsCollectionSelect(divisionId);
+        //    //ForeignKeyTable
+        //    var regnumList = ExtCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(regnumId).FirstOrDefault();
 
-            var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromSubdivisionIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
-            var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromSubdivisionIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
-            var authorsList = ExtGet.GetReferenceAuthorsCollectionOrderByFromSubdivisionIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
-            var commentsList = ExtGet.GetCommentsCollectionOrderByFromSubdivisionId<Tbl93Comment>(id);
+        //    var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromSubdivisionIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
+        //    var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromSubdivisionIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
+        //    var authorsList = ExtGet.GetReferenceAuthorsCollectionOrderByFromSubdivisionIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
+        //    var commentsList = ExtGet.GetCommentsCollectionOrderByFromSubdivisionId<Tbl93Comment>(id);
 
-            try
-            {
-                using var pdf = new PdfDocument();
-                _arrInts = PdfHelper.AddReportMain(pdf);
+        //    try
+        //    {
+        //        using var pdf = new PdfDocument();
+        //        _arrInts = PdfHelper.AddReportMain(pdf);
 
-                AddSubdivisionHaeder(pdf, subdivisionList);
-                AddSubdivisionTaxoNomenList(pdf, subdivisionList);
+        //        AddSubdivisionHaeder(pdf, subdivisionList);
+        //        AddSubdivisionTaxoNomenList(pdf, subdivisionList);
 
-                if (regnumList != null)
-                    AddRegnumHierarchyList(pdf, regnumList);
-                if (divisionList != null)
-                    AddDivisionHierarchyList(pdf, divisionList);
+        //        if (regnumList != null)
+        //            AddRegnumHierarchyList(pdf, regnumList);
+        //        if (divisionList != null)
+        //            AddDivisionHierarchyList(pdf, divisionList);
 
-                AddSubdivisionHierarchyList(pdf, subdivisionList);
+        //        AddSubdivisionHierarchyList(pdf, subdivisionList);
 
-                if (superclasssList.Count != 0)
-                    AddSuperclasssChildrenList(pdf, superclasssList);
+        //        if (superclasssList.Count != 0)
+        //            AddSuperclasssChildrenList(pdf, superclasssList);
 
-                if (expertsList.Count != 0 || sourcesList.Count != 0 || authorsList.Count != 0)
-                    _arrInts = PdfHelper.AddReferencesHaeder(pdf, _arrInts);
+        //        if (expertsList.Count != 0 || sourcesList.Count != 0 || authorsList.Count != 0)
+        //            _arrInts = PdfHelper.AddReferencesHaeder(pdf, _arrInts);
 
-                if (expertsList.Count != 0)
-                    _arrInts = PdfHelper.AddRefExpertsList(pdf, expertsList, _arrInts);
-                if (sourcesList.Count != 0)
-                    _arrInts = PdfHelper.AddRefSourcesList(pdf, sourcesList, _arrInts);
-                if (authorsList.Count != 0)
-                    _arrInts = PdfHelper.AddRefAuthorsList(pdf, authorsList, _arrInts);
+        //        if (expertsList.Count != 0)
+        //            _arrInts = PdfHelper.AddRefExpertsList(pdf, expertsList, _arrInts);
+        //        if (sourcesList.Count != 0)
+        //            _arrInts = PdfHelper.AddRefSourcesList(pdf, sourcesList, _arrInts);
+        //        if (authorsList.Count != 0)
+        //            _arrInts = PdfHelper.AddRefAuthorsList(pdf, authorsList, _arrInts);
 
-                if (commentsList.Count != 0)
-                    _arrInts = PdfHelper.AddCommentsHaeder(pdf, _arrInts);
+        //        if (commentsList.Count != 0)
+        //            _arrInts = PdfHelper.AddCommentsHaeder(pdf, _arrInts);
 
-                if (commentsList.Count != 0)
-                    _arrInts = PdfHelper.AddCommentsList(pdf, commentsList, _arrInts);
+        //        if (commentsList.Count != 0)
+        //            _arrInts = PdfHelper.AddCommentsList(pdf, commentsList, _arrInts);
 
-                switch (use)
-                {
-                    case "save":
-                    {
-                        var sfd = new SaveFileDialog { Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*" };
-                        sfd.DefaultExt = ".pdf"; // Default file extension
-                        sfd.InitialDirectory = @"C:\";
-                        var saveResult = sfd.ShowDialog();
-                        // Process save file dialog box results
-                        if (saveResult != true) return;
-                        // Save document
-                        var filename = sfd.FileName;
-                        pdf.Save(filename);
-                        break;
-                    }
-                    case "print":
-                    {
-                        var pr = new PdfPrintDocument(pdf, PrintSize.FitPage);
-                        pr.PrintDocument.Print();
-                        break;
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                // Handle  errors
-                Log.Error(e);
-            }
-            finally
-            {
-                // Clean up
-                //        if (pdf != null) pdf.Dispose();
-                //     doc = null;
-                Log.Error("Fehler");
-            }
-        }
+        //        switch (use)
+        //        {
+        //            case "save":
+        //            {
+        //                var sfd = new SaveFileDialog { Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*" };
+        //                sfd.DefaultExt = ".pdf"; // Default file extension
+        //                sfd.InitialDirectory = @"C:\";
+        //                var saveResult = sfd.ShowDialog();
+        //                // Process save file dialog box results
+        //                if (saveResult != true) return;
+        //                // Save document
+        //                var filename = sfd.FileName;
+        //                pdf.Save(filename);
+        //                break;
+        //            }
+        //            case "print":
+        //            {
+        //                var pr = new PdfPrintDocument(pdf, PrintSize.FitPage);
+        //                pr.PrintDocument.Print();
+        //                break;
+        //            }
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        // Handle  errors
+        //        Log.Error(e);
+        //    }
+        //    finally
+        //    {
+        //        // Clean up
+        //        //        if (pdf != null) pdf.Dispose();
+        //        //     doc = null;
+        //        Log.Error("Fehler");
+        //    }
+        //}
 
         private static void AddSubdivisionHaeder(PdfDocument pdf, Tbl15Subdivision subdivisionList)
         {
