@@ -19,6 +19,7 @@ namespace ATIS.Ui.Views.Report.D15Subdivision
     {
 
         private static readonly ILog Log = LogManager.GetLogger(typeof(ReportSubdivisionPdf));
+        //private static readonly BasicGet ExtGet = new BasicGet();
         private static readonly CrudFunctions ExtCrud = new CrudFunctions();
         private static readonly ReportBasicGet ExtReportBasicGet = new ReportBasicGet();
         private static readonly PdfHelper PdfHelper = new PdfHelper();
@@ -46,23 +47,23 @@ namespace ATIS.Ui.Views.Report.D15Subdivision
         //    //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");      
         //    //-----------------------------------------------------------------------------     
 
-        //    //var subdivisionList = ExtGet.GetSubdivisionsCollectionOrderByFromSubdivisionId<Tbl15Subdivision>(id).FirstOrDefault();
+        //    var subdivisionList = ExtGet.GetSubdivisionsCollectionOrderByFromSubdivisionId<Tbl15Subdivision>(id).FirstOrDefault();
 
-        //    ////Child
-        //    //var superclasssList = ExtGet.GetSuperclassesCollectionOrderByFromSubdivisionId<Tbl18Superclass>(id);
+        //    //Child
+        //    var superclasssList = ExtGet.GetSuperclassesCollectionOrderByFromSubdivisionId<Tbl18Superclass>(id);
 
-        //    ////Function
-        //    //var divisionId = ExtReportBasicGet.DivisionIdFromSubdivisionsCollectionSelect(id);
-        //    ////ForeignKeyTable
-        //    //var divisionList = ExtGet.GetDivisionsCollectionOrderByFromDivisionId<Tbl09Division>(divisionId).FirstOrDefault();
-        //    ////Function
-        //    //var regnumId = ExtCrud.RegnumIdFromDivisionsCollectionSelect(divisionId);
-        //    ////ForeignKeyTable
-        //    //var regnumList = ExtCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(regnumId).FirstOrDefault();
+        //    //Function
+        //    var divisionId = ExtReportBasicGet.DivisionIdFromSubdivisionsCollectionSelect(id);
+        //    //ForeignKeyTable
+        //    var divisionList = ExtGet.GetDivisionsCollectionOrderByFromDivisionId<Tbl09Division>(divisionId).FirstOrDefault();
+        //    //Function
+        //    var regnumId = ExtCrud.RegnumIdFromDivisionsCollectionSelect(divisionId);
+        //    //ForeignKeyTable
+        //    var regnumList = ExtCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(regnumId).FirstOrDefault();
 
-        //    //var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromSubdivisionIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
-        //    //var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromSubdivisionIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
-        //    //var authorsList = ExtGet.GetReferenceAuthorsCollectionOrderByFromSubdivisionIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
+        //    var expertsList = ExtGet.GetReferenceExpertsCollectionOrderByFromSubdivisionIdAndRefAuthorIdIsNullAndRefSourceIdIsNull<Tbl90Reference>(id);
+        //    var sourcesList = ExtGet.GetReferenceSourcesCollectionOrderByFromSubdivisionIdAndRefAuthorIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
+        //    var authorsList = ExtGet.GetReferenceAuthorsCollectionOrderByFromSubdivisionIdAndRefSourceIdIsNullAndRefExpertIdIsNull<Tbl90Reference>(id);
         //    var commentsList = ExtGet.GetCommentsCollectionOrderByFromSubdivisionId<Tbl93Comment>(id);
 
         //    try
