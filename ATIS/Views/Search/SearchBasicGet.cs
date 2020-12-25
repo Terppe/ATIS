@@ -90,12 +90,12 @@ namespace ATIS.Ui.Views.Search
                 case "plspecies":
                     collection = PlSpeciessesFilterCollection<T>(searchName);
                     break;
-                //case "name":
-                //    collection = NamesFilterCollection<T>(searchName);
-                //    break;
-                //case "synonym":
-                //    collection = SynonymsFilterCollection<T>(searchName);
-                //    break;
+                case "name":
+                    collection = NamesFilterCollection<T>(searchName);
+                    break;
+                case "synonym":
+                    collection = SynonymsFilterCollection<T>(searchName);
+                    break;
             }
 
             return collection;

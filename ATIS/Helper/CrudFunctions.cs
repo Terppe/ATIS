@@ -56,37 +56,37 @@ namespace ATIS.Ui.Helper
                     };
                     break;
                 default:
-                {
-                    collection = name switch
                     {
-                        "regnum" => GetRegnumsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "phylum" => GetPhylumsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "division" => GetDivisionsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "subphylum" => GetSubphylumsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "subdivision" => GetSubdivisionsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "superclass" => GetSuperclassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "classe" => GetClassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "subclass" => GetSubclassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "infraclass" => GetInfraclassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "legio" => GetLegiosCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "ordo" => GetOrdosCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "subordo" => GetSubordosCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "infraordo" => GetInfraordosCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "superfamily" => GetSuperfamiliesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "family" => GetFamiliesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "subfamily" => GetSubfamiliesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "infrafamily" => GetInfrafamiliesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "supertribus" => GetSupertribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "tribus" => GetTribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "subtribus" => GetSubtribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "infratribus" => GetInfratribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "genus" => GetGenussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "speciesgroup" => GetSpeciesgroupsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "fispecies" => GetFiSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        "plspecies" => GetPlSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                        _ => collection
-                    };
-                }
+                        collection = name switch
+                        {
+                            "regnum" => GetRegnumsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "phylum" => GetPhylumsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "division" => GetDivisionsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "subphylum" => GetSubphylumsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "subdivision" => GetSubdivisionsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "superclass" => GetSuperclassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "classe" => GetClassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "subclass" => GetSubclassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "infraclass" => GetInfraclassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "legio" => GetLegiosCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "ordo" => GetOrdosCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "subordo" => GetSubordosCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "infraordo" => GetInfraordosCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "superfamily" => GetSuperfamiliesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "family" => GetFamiliesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "subfamily" => GetSubfamiliesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "infrafamily" => GetInfrafamiliesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "supertribus" => GetSupertribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "tribus" => GetTribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "subtribus" => GetSubtribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "infratribus" => GetInfratribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "genus" => GetGenussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "speciesgroup" => GetSpeciesgroupsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "fispecies" => GetFiSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "plspecies" => GetPlSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            _ => collection
+                        };
+                    }
                     break;
             }
             return collection;
@@ -190,7 +190,7 @@ namespace ATIS.Ui.Helper
 
         #region Regnum
 
-          #region Get Regnum
+        #region Get Regnum
 
         // ----------------------------------------   Regnum   ------------------------
         private ObservableCollection<T> GetRegnumsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -304,9 +304,9 @@ namespace ATIS.Ui.Helper
             return coll.RegnumId;
         }
 
-        #endregion     
+        #endregion
 
-          #region Copy Regnum    
+        #region Copy Regnum    
         // ----------------------------------------   Regnum   ------------------------
         public ObservableCollection<Tbl03Regnum> CopyRegnum(Tbl03Regnum selected)
         {
@@ -430,7 +430,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Regnum
+        #region Delete Regnum
 
         //------------------------------ Regnum   --------------------------------------------------------------------------------------------
         public void DeleteRegnum(Tbl03Regnum selected)
@@ -529,7 +529,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Regnum
+        #region Save Regnum
         public Tbl03Regnum RegnumUpdate(Tbl03Regnum home, Tbl03Regnum selected)
         {
             if (home != null) //update
@@ -842,7 +842,7 @@ namespace ATIS.Ui.Helper
 
         #region Phylum
 
-          #region Get Phylum
+        #region Get Phylum
 
         //----------------------------------------   Phylum   ------------------------
         private ObservableCollection<T> GetPhylumsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -937,7 +937,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Phylum
+        #region Copy Phylum
 
         // ----------------------------------------   Subphylum  ------------------------
         public ObservableCollection<Tbl12Subphylum> CopySubphylum(Tbl12Subphylum selected)
@@ -1012,7 +1012,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Phylum
+        #region Delete Phylum
 
         //------------------------------ Phylum --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithPhylumIdInTableReference(Tbl06Phylum selected)
@@ -1051,7 +1051,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Phylum 
+        #region Save Phylum 
 
         //------------------ Subphylum ---------------------------------------
         public Tbl12Subphylum SubphylumUpdate(Tbl12Subphylum home, Tbl12Subphylum selected)
@@ -1251,7 +1251,7 @@ namespace ATIS.Ui.Helper
 
         #region Division
 
-          #region Get Division
+        #region Get Division
 
         //----------------------------------------   Division   ------------------------
         private ObservableCollection<T> GetDivisionsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -1346,7 +1346,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Division
+        #region Copy Division
 
         // ----------------------------------------   Subdivision  ------------------------
         public ObservableCollection<Tbl15Subdivision> CopySubdivision(Tbl15Subdivision selected)
@@ -1421,7 +1421,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Division
+        #region Delete Division
 
         //------------------------------ Division --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithDivisionIdInTableReference(Tbl09Division selected)
@@ -1460,7 +1460,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Division 
+        #region Save Division 
 
         //------------------ Subdivision ---------------------------------------
         public Tbl15Subdivision SubdivisionUpdate(Tbl15Subdivision home, Tbl15Subdivision selected)
@@ -1659,7 +1659,7 @@ namespace ATIS.Ui.Helper
 
         #region Subphylum
 
-          #region Get Subphylum
+        #region Get Subphylum
 
         //----------------------------------------   Subphylum   ------------------------
         private ObservableCollection<T> GetSubphylumsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -1754,7 +1754,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Subphylum
+        #region Copy Subphylum
 
         // ----------------------------------------   Superclass  ------------------------
         public ObservableCollection<Tbl18Superclass> CopySuperclass(Tbl18Superclass selected)
@@ -1829,7 +1829,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Subphylum
+        #region Delete Subphylum
 
         //------------------------------ Subphylum --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubphylumIdInTableReference(Tbl12Subphylum selected)
@@ -1868,7 +1868,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Subphylum 
+        #region Save Subphylum 
 
         //------------------ Superclass ---------------------------------------
         public Tbl18Superclass SuperclassUpdate(Tbl18Superclass home, Tbl18Superclass selected)
@@ -2067,7 +2067,7 @@ namespace ATIS.Ui.Helper
 
         #region Subdivision
 
-          #region Get Subdivision
+        #region Get Subdivision
 
         //----------------------------------------   Subdivision   ------------------------
         private ObservableCollection<T> GetSubdivisionsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -2162,7 +2162,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Subdivision
+        #region Copy Subdivision
 
         // ----------------------------------------   Superclass  ------------------------
         //public ObservableCollection<Tbl18Superclass> CopySuperclass(Tbl18Superclass selected)
@@ -2237,7 +2237,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Subdivision
+        #region Delete Subdivision
 
         //------------------------------ Subdivision --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubdivisionIdInTableReference(Tbl15Subdivision selected)
@@ -2276,7 +2276,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Subdivision 
+        #region Save Subdivision 
 
         //------------------ Superclass ---------------------------------------
         //public Tbl18Superclass SuperclassUpdate(Tbl18Superclass home, Tbl18Superclass selected)
@@ -2475,7 +2475,7 @@ namespace ATIS.Ui.Helper
 
         #region Superclass
 
-          #region Get Superclass
+        #region Get Superclass
 
         //----------------------------------------   Superclass   ------------------------
         private ObservableCollection<T> GetSuperclassesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -2570,7 +2570,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Superclass
+        #region Copy Superclass
 
         // ----------------------------------------   Class  ------------------------
         public ObservableCollection<Tbl21Class> CopyClass(Tbl21Class selected)
@@ -2645,7 +2645,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Superclass
+        #region Delete Superclass
 
         //------------------------------ Superclass --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSuperclassIdInTableReference(Tbl18Superclass selected)
@@ -2684,7 +2684,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Superclass 
+        #region Save Superclass 
 
         //------------------ Class ---------------------------------------
         public Tbl21Class ClassUpdate(Tbl21Class home, Tbl21Class selected)
@@ -2883,7 +2883,7 @@ namespace ATIS.Ui.Helper
 
         #region Class
 
-          #region Get Class
+        #region Get Class
 
         //----------------------------------------   Class   ------------------------
         private ObservableCollection<T> GetClassesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -2978,7 +2978,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Class
+        #region Copy Class
 
         // ----------------------------------------   Subclass  ------------------------
         public ObservableCollection<Tbl24Subclass> CopySubclass(Tbl24Subclass selected)
@@ -3053,7 +3053,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Class
+        #region Delete Class
 
         //------------------------------ Class --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithClassIdInTableReference(Tbl21Class selected)
@@ -3092,7 +3092,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Class 
+        #region Save Class 
 
         //------------------ Subclass ---------------------------------------
         public Tbl24Subclass SubclassUpdate(Tbl24Subclass home, Tbl24Subclass selected)
@@ -3291,7 +3291,7 @@ namespace ATIS.Ui.Helper
 
         #region Subclass
 
-          #region Get Subclass
+        #region Get Subclass
 
         //----------------------------------------   Subclass   ------------------------
         private ObservableCollection<T> GetSubclassesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -3386,7 +3386,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Subclass
+        #region Copy Subclass
 
         // ----------------------------------------   Infraclass  ------------------------
         public ObservableCollection<Tbl27Infraclass> CopyInfraclass(Tbl27Infraclass selected)
@@ -3461,7 +3461,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Subclass
+        #region Delete Subclass
 
         //------------------------------ Subclass --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubclassIdInTableReference(Tbl24Subclass selected)
@@ -3500,7 +3500,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Subclass 
+        #region Save Subclass 
 
         //------------------ Infraclass ---------------------------------------
         public Tbl27Infraclass InfraclassUpdate(Tbl27Infraclass home, Tbl27Infraclass selected)
@@ -3699,7 +3699,7 @@ namespace ATIS.Ui.Helper
 
         #region Infraclass
 
-          #region Get Infraclass
+        #region Get Infraclass
 
         //----------------------------------------   Infraclass   ------------------------
         private ObservableCollection<T> GetInfraclassesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -3794,7 +3794,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Infraclass
+        #region Copy Infraclass
 
         // ----------------------------------------   Legio  ------------------------
         public ObservableCollection<Tbl30Legio> CopyLegio(Tbl30Legio selected)
@@ -3870,7 +3870,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Infraclass
+        #region Delete Infraclass
 
         //------------------------------ Infraclass --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithInfraclassIdInTableReference(Tbl27Infraclass selected)
@@ -3909,7 +3909,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Infraclass 
+        #region Save Infraclass 
 
         //------------------ Legio ---------------------------------------
         public Tbl30Legio LegioUpdate(Tbl30Legio home, Tbl30Legio selected)
@@ -4108,7 +4108,7 @@ namespace ATIS.Ui.Helper
 
         #region Legio
 
-          #region Get Legio
+        #region Get Legio
 
         //----------------------------------------   Legio   ------------------------
         private ObservableCollection<T> GetLegiosCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -4203,7 +4203,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Legio
+        #region Copy Legio
 
         // ----------------------------------------   Ordo  ------------------------
         public ObservableCollection<Tbl33Ordo> CopyOrdo(Tbl33Ordo selected)
@@ -4278,7 +4278,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Legio
+        #region Delete Legio
 
         //------------------------------ Legio --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithLegioIdInTableReference(Tbl30Legio selected)
@@ -4317,7 +4317,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Legio 
+        #region Save Legio 
 
         //------------------ Ordo ---------------------------------------
         public Tbl33Ordo OrdoUpdate(Tbl33Ordo home, Tbl33Ordo selected)
@@ -4516,7 +4516,7 @@ namespace ATIS.Ui.Helper
 
         #region Ordo
 
-          #region Get Ordo
+        #region Get Ordo
 
         //----------------------------------------   Ordo   ------------------------
         private ObservableCollection<T> GetOrdosCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -4611,7 +4611,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Ordo
+        #region Copy Ordo
 
         // ----------------------------------------   Subordo  ------------------------
         public ObservableCollection<Tbl36Subordo> CopySubordo(Tbl36Subordo selected)
@@ -4686,7 +4686,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Ordo
+        #region Delete Ordo
 
         //------------------------------ Ordo --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithOrdoIdInTableReference(Tbl33Ordo selected)
@@ -4725,7 +4725,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Ordo 
+        #region Save Ordo 
 
         //------------------ Subordo ---------------------------------------
         public Tbl36Subordo SubordoUpdate(Tbl36Subordo home, Tbl36Subordo selected)
@@ -4924,7 +4924,7 @@ namespace ATIS.Ui.Helper
 
         #region Subordo
 
-          #region Get Subordo
+        #region Get Subordo
 
         //----------------------------------------   Subordo   ------------------------
         private ObservableCollection<T> GetSubordosCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -5019,7 +5019,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Subordo
+        #region Copy Subordo
 
         // ----------------------------------------   Infraordo  ------------------------
         public ObservableCollection<Tbl39Infraordo> CopyInfraordo(Tbl39Infraordo selected)
@@ -5094,7 +5094,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Subordo
+        #region Delete Subordo
 
         //------------------------------ Subordo --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubordoIdInTableReference(Tbl36Subordo selected)
@@ -5133,7 +5133,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Subordo 
+        #region Save Subordo 
 
         //------------------ Infraordo ---------------------------------------
         public Tbl39Infraordo InfraordoUpdate(Tbl39Infraordo home, Tbl39Infraordo selected)
@@ -5332,7 +5332,7 @@ namespace ATIS.Ui.Helper
 
         #region Infraordo
 
-          #region Get Infraordo
+        #region Get Infraordo
 
         //----------------------------------------   Infraordo   ------------------------
         private ObservableCollection<T> GetInfraordosCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -5427,7 +5427,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Infraordo
+        #region Copy Infraordo
 
         // ----------------------------------------   Superfamily  ------------------------
         public ObservableCollection<Tbl42Superfamily> CopySuperfamily(Tbl42Superfamily selected)
@@ -5502,7 +5502,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Infraordo
+        #region Delete Infraordo
 
         //------------------------------ Infraordo --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithInfraordoIdInTableReference(Tbl39Infraordo selected)
@@ -5541,7 +5541,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Infraordo 
+        #region Save Infraordo 
 
         //------------------ Superfamily ---------------------------------------
         public Tbl42Superfamily SuperfamilyUpdate(Tbl42Superfamily home, Tbl42Superfamily selected)
@@ -5740,7 +5740,7 @@ namespace ATIS.Ui.Helper
 
         #region Superfamily
 
-          #region Get Superfamily
+        #region Get Superfamily
 
         //----------------------------------------   Superfamily   ------------------------
         private ObservableCollection<T> GetSuperfamiliesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -5835,7 +5835,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Superfamily
+        #region Copy Superfamily
 
         // ----------------------------------------   Family  ------------------------
         public ObservableCollection<Tbl45Family> CopyFamily(Tbl45Family selected)
@@ -5910,7 +5910,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Superfamily
+        #region Delete Superfamily
 
         //------------------------------ Superfamily --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSuperfamilyIdInTableReference(Tbl42Superfamily selected)
@@ -5949,7 +5949,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Superfamily 
+        #region Save Superfamily 
 
         //------------------ Family ---------------------------------------
         public Tbl45Family FamilyUpdate(Tbl45Family home, Tbl45Family selected)
@@ -6148,7 +6148,7 @@ namespace ATIS.Ui.Helper
 
         #region Family
 
-          #region Get Family
+        #region Get Family
 
         //----------------------------------------   Family   ------------------------
         private ObservableCollection<T> GetFamiliesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -6243,7 +6243,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Family
+        #region Copy Family
 
         // ----------------------------------------   Subfamily  ------------------------
         public ObservableCollection<Tbl48Subfamily> CopySubfamily(Tbl48Subfamily selected)
@@ -6318,7 +6318,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Family
+        #region Delete Family
 
         //------------------------------ Family --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithFamilyIdInTableReference(Tbl45Family selected)
@@ -6357,7 +6357,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Family 
+        #region Save Family 
 
         //------------------ Subfamily ---------------------------------------
         public Tbl48Subfamily SubfamilyUpdate(Tbl48Subfamily home, Tbl48Subfamily selected)
@@ -6556,7 +6556,7 @@ namespace ATIS.Ui.Helper
 
         #region Subfamily
 
-          #region Get Subfamily
+        #region Get Subfamily
 
         //----------------------------------------   Subfamily   ------------------------
         private ObservableCollection<T> GetSubfamiliesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -6651,7 +6651,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Subfamily
+        #region Copy Subfamily
 
         // ----------------------------------------   Infrafamily  ------------------------
         public ObservableCollection<Tbl51Infrafamily> CopyInfrafamily(Tbl51Infrafamily selected)
@@ -6726,7 +6726,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Subfamily
+        #region Delete Subfamily
 
         //------------------------------ Subfamily --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubfamilyIdInTableReference(Tbl48Subfamily selected)
@@ -6765,7 +6765,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Subfamily 
+        #region Save Subfamily 
 
         //------------------ Infrafamily ---------------------------------------
         public Tbl51Infrafamily InfrafamilyUpdate(Tbl51Infrafamily home, Tbl51Infrafamily selected)
@@ -6964,7 +6964,7 @@ namespace ATIS.Ui.Helper
 
         #region Infrafamily
 
-          #region Get Infrafamily
+        #region Get Infrafamily
 
         //----------------------------------------   Infrafamily   ------------------------
         private ObservableCollection<T> GetInfrafamiliesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -7059,7 +7059,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Infrafamily
+        #region Copy Infrafamily
 
         // ----------------------------------------   Supertribus  ------------------------
         public ObservableCollection<Tbl54Supertribus> CopySupertribus(Tbl54Supertribus selected)
@@ -7134,7 +7134,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Infrafamily
+        #region Delete Infrafamily
 
         //------------------------------ Infrafamily --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithInfrafamilyIdInTableReference(Tbl51Infrafamily selected)
@@ -7173,7 +7173,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Infrafamily 
+        #region Save Infrafamily 
 
         //------------------ Supertribus ---------------------------------------
         public Tbl54Supertribus SupertribusUpdate(Tbl54Supertribus home, Tbl54Supertribus selected)
@@ -7372,7 +7372,7 @@ namespace ATIS.Ui.Helper
 
         #region Supertribus
 
-          #region Get Supertribus
+        #region Get Supertribus
 
         //----------------------------------------   Supertribus   ------------------------
         private ObservableCollection<T> GetSupertribussesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -7467,7 +7467,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Supertribus
+        #region Copy Supertribus
 
         // ----------------------------------------   Tribus  ------------------------
         public ObservableCollection<Tbl57Tribus> CopyTribus(Tbl57Tribus selected)
@@ -7542,7 +7542,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Supertribus
+        #region Delete Supertribus
 
         //------------------------------ Supertribus --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSupertribusIdInTableReference(Tbl54Supertribus selected)
@@ -7581,7 +7581,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Supertribus 
+        #region Save Supertribus 
 
         //------------------ Tribus ---------------------------------------
         public Tbl57Tribus TribusUpdate(Tbl57Tribus home, Tbl57Tribus selected)
@@ -7780,7 +7780,7 @@ namespace ATIS.Ui.Helper
 
         #region Tribus
 
-          #region Get Tribus
+        #region Get Tribus
 
         //----------------------------------------   Tribus   ------------------------
         private ObservableCollection<T> GetTribussesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -7875,7 +7875,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Tribus
+        #region Copy Tribus
 
         // ----------------------------------------   Subtribus  ------------------------
         public ObservableCollection<Tbl60Subtribus> CopySubtribus(Tbl60Subtribus selected)
@@ -7950,7 +7950,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Tribus
+        #region Delete Tribus
 
         //------------------------------ Tribus --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithTribusIdInTableReference(Tbl57Tribus selected)
@@ -7989,7 +7989,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Tribus 
+        #region Save Tribus 
 
         //------------------ Subtribus ---------------------------------------
         public Tbl60Subtribus SubtribusUpdate(Tbl60Subtribus home, Tbl60Subtribus selected)
@@ -8188,7 +8188,7 @@ namespace ATIS.Ui.Helper
 
         #region Subtribus
 
-          #region Get Subtribus
+        #region Get Subtribus
 
         //----------------------------------------   Subtribus   ------------------------
         private ObservableCollection<T> GetSubtribussesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -8283,7 +8283,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Subtribus
+        #region Copy Subtribus
 
         // ----------------------------------------   Infratribus  ------------------------
         public ObservableCollection<Tbl63Infratribus> CopyInfratribus(Tbl63Infratribus selected)
@@ -8358,7 +8358,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Subtribus
+        #region Delete Subtribus
 
         //------------------------------ Subtribus --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubtribusIdInTableReference(Tbl60Subtribus selected)
@@ -8397,7 +8397,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Subtribus 
+        #region Save Subtribus 
 
         //------------------ Infratribus ---------------------------------------
         public Tbl63Infratribus InfratribusUpdate(Tbl63Infratribus home, Tbl63Infratribus selected)
@@ -8596,7 +8596,7 @@ namespace ATIS.Ui.Helper
 
         #region Infratribus
 
-          #region Get Infratribus
+        #region Get Infratribus
 
         //----------------------------------------   Infratribus   ------------------------
         private ObservableCollection<T> GetInfratribussesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -8691,7 +8691,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Infratribus
+        #region Copy Infratribus
 
         // ----------------------------------------   Genus  ------------------------
         public ObservableCollection<Tbl66Genus> CopyGenus(Tbl66Genus selected)
@@ -8766,7 +8766,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Infratribus
+        #region Delete Infratribus
 
         //------------------------------ Infratribus --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithInfratribusIdInTableReference(Tbl63Infratribus selected)
@@ -8805,7 +8805,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Infratribus 
+        #region Save Infratribus 
 
         //------------------ Genus ---------------------------------------
         public Tbl66Genus GenusUpdate(Tbl66Genus home, Tbl66Genus selected)
@@ -9004,7 +9004,7 @@ namespace ATIS.Ui.Helper
 
         #region Genus
 
-          #region Get Genus
+        #region Get Genus
 
         //----------------------------------------   Genus   ------------------------
         public ObservableCollection<T> GetGenussesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -9125,7 +9125,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Genus
+        #region Copy Genus
 
         // ----------------------------------------   FiSpecies  ------------------------
         public ObservableCollection<Tbl69FiSpecies> CopyFiSpecies(Tbl69FiSpecies selected)
@@ -9280,7 +9280,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Genus
+        #region Delete Genus
 
         //------------------------------ Genus --------------------------------------------------------------------------------------------
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithGenusIdInTableReference(Tbl66Genus selected)
@@ -9341,7 +9341,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Genus 
+        #region Save Genus 
 
         //------------------ FiSpecies ---------------------------------------
         public Tbl69FiSpecies FiSpeciesUpdate(Tbl69FiSpecies home, Tbl69FiSpecies selected)
@@ -9703,7 +9703,7 @@ namespace ATIS.Ui.Helper
 
         #region Speciesgroup
 
-          #region Get Speciesgroup
+        #region Get Speciesgroup
 
         //----------------------------------------   Speciesgroup   ------------------------
         public ObservableCollection<T> GetSpeciesgroupsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -9724,7 +9724,7 @@ namespace ATIS.Ui.Helper
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl68Speciesgroups
                 .OrderBy(a => a.SpeciesgroupName)
-                .ThenBy(a=> a.Subspeciesgroup));
+                .ThenBy(a => a.Subspeciesgroup));
             return collection;
         }
         public ObservableCollection<T> GetSpeciesgroupsCollectionFromSpeciesgroupIdOrderBy<T>(int? id)
@@ -9736,7 +9736,7 @@ namespace ATIS.Ui.Helper
 
             return collection;
         }
-         
+
         //-------------------------------------- FiSpecies   -------------------------
         public ObservableCollection<T> GetFiSpeciessesCollectionFromSpeciesgroupIdOrderBy<T>(int? id)
         {
@@ -9764,7 +9764,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy Speciesgroup
+        #region Copy Speciesgroup
 
         public ObservableCollection<Tbl68Speciesgroup> CopySpeciesgroup(Tbl68Speciesgroup selected)
         {
@@ -9795,7 +9795,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Speciesgroup
+        #region Delete Speciesgroup
 
         //------------------------------ Speciesgroup --------------------------------------------------------------------------------------------
         public void DeleteSpeciesgroup(Tbl68Speciesgroup selected)
@@ -9824,7 +9824,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Save Speciesgroup 
+        #region Save Speciesgroup 
 
         public Tbl68Speciesgroup SpeciesgroupUpdate(Tbl68Speciesgroup home, Tbl68Speciesgroup selected)
         {
@@ -9891,7 +9891,7 @@ namespace ATIS.Ui.Helper
 
         #region FiSpecies
 
-          #region Get FiSpecies
+        #region Get FiSpecies
 
         //----------------------------------------   FiSpecies   ------------------------
 
@@ -9900,7 +9900,7 @@ namespace ATIS.Ui.Helper
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
                 ? new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
-                    .Include(a=> a.Tbl66Genusses)
+                    .Include(a => a.Tbl66Genusses)
                     .Where(e => e.FiSpeciesId == id))
                 : new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
                     .Include(a => a.Tbl66Genusses)
@@ -9917,7 +9917,7 @@ namespace ATIS.Ui.Helper
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
-                .Include(a=> a.Tbl66Genusses)
+                .Include(a => a.Tbl66Genusses)
                 .OrderBy(a => a.Tbl66Genusses.GenusName)
                 .ThenBy(a => a.FiSpeciesName)
                 .ThenBy(a => a.Subspecies)
@@ -9928,7 +9928,7 @@ namespace ATIS.Ui.Helper
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
-                .Include(a =>a)
+                .Include(a => a)
                 .Where(e => e.FiSpeciesId == id)
                 .OrderBy(a => a.Tbl66Genusses.GenusName)
                 .ThenBy(a => a.FiSpeciesName)
@@ -10041,7 +10041,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy FiSpecies
+        #region Copy FiSpecies
 
         // ----------------------------------------   Name  ------------------------
         public ObservableCollection<Tbl78Name> CopyName(Tbl78Name selected)
@@ -10189,7 +10189,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete Name, Image, Synonym, Geographic
+        #region Delete Name, Image, Synonym, Geographic
 
         //------------------------------ Name --------------------------------------------------------------------------------------------
         public void DeleteName(Tbl78Name selected)
@@ -10197,28 +10197,28 @@ namespace ATIS.Ui.Helper
             _uow.Tbl78Names.Remove(selected);
             _uow.Complete();
         }
-         //------------------------------ Image --------------------------------------------------------------------------------------------
+        //------------------------------ Image --------------------------------------------------------------------------------------------
         public void DeleteImage(Tbl81Image selected)
         {
             _uow.Tbl81Images.Remove(selected);
             _uow.Complete();
         }
-         //------------------------------ Synonym --------------------------------------------------------------------------------------------
+        //------------------------------ Synonym --------------------------------------------------------------------------------------------
         public void DeleteSynonym(Tbl84Synonym selected)
         {
             _uow.Tbl84Synonyms.Remove(selected);
             _uow.Complete();
         }
-         //------------------------------ Geographic --------------------------------------------------------------------------------------------
+        //------------------------------ Geographic --------------------------------------------------------------------------------------------
         public void DeleteGeographic(Tbl87Geographic selected)
         {
             _uow.Tbl87Geographics.Remove(selected);
             _uow.Complete();
         }
- 
+
         #endregion
 
-          #region Save FiSpecies 
+        #region Save FiSpecies 
 
         //------------------ Name ---------------------------------------
         public Tbl78Name NameUpdate(Tbl78Name home, Tbl78Name selected)
@@ -10606,7 +10606,7 @@ namespace ATIS.Ui.Helper
 
         #region PlSpecies
 
-          #region Get PlSpecies
+        #region Get PlSpecies
 
         public ObservableCollection<T> GetPlSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
@@ -10749,7 +10749,7 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Copy PlSpecies
+        #region Copy PlSpecies
 
         public ObservableCollection<Tbl90Reference> CopyReferencePlSpecies(Tbl90Reference selected, string refer)
         {
@@ -10798,13 +10798,13 @@ namespace ATIS.Ui.Helper
 
         #endregion
 
-          #region Delete PlSpecies
+        #region Delete PlSpecies
 
 
 
         #endregion
 
-          #region Save PlSpecies
+        #region Save PlSpecies
 
         public Tbl90Reference ReferenceExpertPlSpeciesUpdate(Tbl90Reference reference, Tbl90Reference selected)
         {
@@ -10939,9 +10939,9 @@ namespace ATIS.Ui.Helper
 
 
         #endregion
-        
+
         #endregion
-        
+
         #region Name
 
         #region Delete Name
@@ -11025,7 +11025,7 @@ namespace ATIS.Ui.Helper
         #endregion
 
         #endregion
-        
+
 
         #region References
 
