@@ -101,6 +101,8 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
             Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("speciesgroup");
 
             Tbl72PlSpeciessesList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl72PlSpecies>(SearchPlSpeciesName, "plspecies");
+            
+            if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl72PlSpeciessesList.Count)) return;
 
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 2;
@@ -471,7 +473,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
         }
 
 
-        private void ExecuteSaveName(object o)
+        private void ExecuteSaveName(string searchName)
         {
             CurrentTbl78Name.PlSpeciesId = CurrentTbl72PlSpecies.PlSpeciesId;
 
@@ -525,7 +527,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                 Log.Error(e);
             }
 
-            Tbl78NamesList = _extCrud.GetNamesCollectionFromFiSpeciesIdOrderBy<Tbl78Name>(CurrentTbl78Name.FiSpeciesId);
+            Tbl78NamesList = _extCrud.GetNamesCollectionFromFiSpeciesIdOrderBy<Tbl78Name>(CurrentTbl78Name.PlSpeciesId);
 
             NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
             NamesView.MoveCurrentToPosition(_position);
@@ -806,7 +808,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                 Log.Error(e);
             }
 
-            Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromPlSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl84Synonym.FiSpeciesId);
+            Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromPlSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl84Synonym.PlSpeciesId);
 
             SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
             SynonymsView.MoveCurrentToPosition(_position);
@@ -881,7 +883,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                 Log.Error(e);
             }
 
-            Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromPlSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl87Geographic.FiSpeciesId);
+            Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromPlSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl87Geographic.PlSpeciesId);
 
             GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
             GeographicsView.MoveCurrentToFirst();
@@ -941,7 +943,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                 Log.Error(e);
             }
 
-            Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromPlSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl87Geographic.FiSpeciesId);
+            Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromPlSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl87Geographic.PlSpeciesId);
 
             GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
             GeographicsView.MoveCurrentToFirst();
@@ -1259,7 +1261,6 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
 
         #endregion [Commands PlSpecies ==> Tbl90Reference Expert]                    
 
-
         #region [Methods PlSpecies ==> Tbl90Reference Expert]                 
 
         public void ExecuteAddReferenceExpert(object o)
@@ -1400,9 +1401,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
 
         public ICommand SaveCommentCommand => _saveCommentCommand ??= new RelayCommand(delegate { ExecuteSaveComment(null); });
 
-        #endregion [Commands PlSpecies ==> Tbl93Comments]        
-
-
+        #endregion [Commands PlSpecies ==> Tbl93Comments]
 
         #region [Methods PlSpecies ==> Tbl93Comments]        
 
@@ -1534,10 +1533,13 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
         {
 
             Tbl66GenussesList = _extCrud.GetGenussesCollectionFromGenusIdOrderBy<Tbl66Genus>(CurrentTbl72PlSpecies.GenusId);
-            Tbl63InfratribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl63Infratribus>("Infratribus");
+            Tbl63InfratribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl63Infratribus>("infratribus");
 
             GenussesView = CollectionViewSource.GetDefaultView(Tbl66GenussesList);
             GenussesView.Refresh();
+
+            SelectedMainTabIndex = 0;
+            SelectedDetailTabIndex = 2;
 
         }
 
@@ -1569,7 +1571,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                     {
                         Tbl66GenussesList = _extCrud.GetGenussesCollectionFromGenusIdOrderBy<Tbl66Genus>(CurrentTbl72PlSpecies.GenusId);
 
-                        Tbl63InfratribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl63Infratribus>("Infratribus");
+                        Tbl63InfratribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl63Infratribus>("infratribus");
 
                         GenussesView = CollectionViewSource.GetDefaultView(Tbl66GenussesList);
                         GenussesView.Refresh();
@@ -1593,7 +1595,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                 {
                     if (CurrentTbl72PlSpecies != null)
                     {
-                        Tbl78NamesList = _extCrud.GetNamesCollectionFromFiSpeciesIdOrderBy<Tbl78Name>(CurrentTbl72PlSpecies.PlSpeciesId);
+                        Tbl78NamesList = _extCrud.GetNamesCollectionFromPlSpeciesIdOrderBy<Tbl78Name>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                         Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("plspecies");
 
@@ -1607,7 +1609,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                 {
                     if (CurrentTbl72PlSpecies != null)
                     {
-                        Tbl81ImagesList = _extCrud.GetImagesCollectionFromFiSpeciesIdOrderBy<Tbl81Image>(CurrentTbl72PlSpecies.PlSpeciesId);
+                        Tbl81ImagesList = _extCrud.GetImagesCollectionFromPlSpeciesIdOrderBy<Tbl81Image>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                         Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("plspecies");
 
@@ -1621,7 +1623,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                 {
                     if (CurrentTbl72PlSpecies != null)
                     {
-                        Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromFiSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl72PlSpecies.PlSpeciesId);
+                        Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromPlSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                         Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("plspecies");
 
@@ -1635,7 +1637,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                 {
                     if (CurrentTbl72PlSpecies != null)
                     {
-                        Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromFiSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl72PlSpecies.PlSpeciesId);
+                        Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromPlSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                         Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("plspecies");
 
@@ -1658,7 +1660,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                 {
                     if (CurrentTbl72PlSpecies != null)
                     {
-                        Tbl93CommentsList = _extCrud.GetCommentsCollectionFromFiSpeciesIdOrderBy<Tbl93Comment>(CurrentTbl72PlSpecies.PlSpeciesId);
+                        Tbl93CommentsList = _extCrud.GetCommentsCollectionFromPlSpeciesIdOrderBy<Tbl93Comment>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                         CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
                         CommentsView.Refresh();
@@ -1713,7 +1715,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                 {
                     if (CurrentTbl72PlSpecies != null)
                     {
-                        Tbl78NamesList = _extCrud.GetNamesCollectionFromFiSpeciesIdOrderBy<Tbl78Name>(CurrentTbl72PlSpecies.PlSpeciesId);
+                        Tbl78NamesList = _extCrud.GetNamesCollectionFromPlSpeciesIdOrderBy<Tbl78Name>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                         Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("plspecies");
 
@@ -1728,7 +1730,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                 {
                     if (CurrentTbl72PlSpecies != null)
                     {
-                        Tbl81ImagesList = _extCrud.GetImagesCollectionFromFiSpeciesIdOrderBy<Tbl81Image>(CurrentTbl72PlSpecies.PlSpeciesId);
+                        Tbl81ImagesList = _extCrud.GetImagesCollectionFromPlSpeciesIdOrderBy<Tbl81Image>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                         Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("plspecies");
 
@@ -1742,7 +1744,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                 {
                     if (CurrentTbl72PlSpecies != null)
                     {
-                        Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromFiSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl72PlSpecies.PlSpeciesId);
+                        Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromPlSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                         Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("plspecies");
 
@@ -1756,7 +1758,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                 {
                     if (CurrentTbl72PlSpecies != null)
                     {
-                        Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromFiSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl72PlSpecies.PlSpeciesId);
+                        Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromPlSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                         Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("plspecies");
 
@@ -1773,7 +1775,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                         Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
 
                         Tbl90ReferenceExpertsList = _extCrud
-                            .GetReferenceExpertsCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy
+                            .GetReferenceExpertsCollectionFromPlSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy
                                 <Tbl90Reference>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                         ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
@@ -1787,7 +1789,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                 {
                     if (CurrentTbl72PlSpecies != null)
                     {
-                        Tbl93CommentsList = _extCrud.GetCommentsCollectionFromFiSpeciesIdOrderBy<Tbl93Comment>(CurrentTbl72PlSpecies.PlSpeciesId);
+                        Tbl93CommentsList = _extCrud.GetCommentsCollectionFromPlSpeciesIdOrderBy<Tbl93Comment>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                         CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
                         CommentsView.Refresh();
@@ -1816,7 +1818,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                             new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
 
                         Tbl90ReferenceExpertsList = _extCrud
-                            .GetReferenceExpertsCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy
+                            .GetReferenceExpertsCollectionFromPlSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy
                                 <Tbl90Reference>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                         ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
@@ -1837,7 +1839,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
 
                         Tbl90ReferenceSourcesList =
                             _extCrud
-                                .GetReferenceSourcesCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy
+                                .GetReferenceSourcesCollectionFromPlSpeciesIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy
                                     <Tbl90Reference>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                         ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
@@ -1858,7 +1860,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
 
                         Tbl90ReferenceAuthorsList =
                             _extCrud
-                                .GetReferenceAuthorsCollectionFromFiSpeciesIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy
+                                .GetReferenceAuthorsCollectionFromPlSpeciesIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy
                                     <Tbl90Reference>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                         ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
@@ -1886,7 +1888,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
 
                     Tbl90ReferenceExpertsList =
                         _extCrud
-                            .GetReferenceExpertsCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy
+                            .GetReferenceExpertsCollectionFromPlSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy
                                 <Tbl90Reference>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                     ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
@@ -1901,7 +1903,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
 
                     Tbl90ReferenceSourcesList =
                         _extCrud
-                            .GetReferenceSourcesCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy
+                            .GetReferenceSourcesCollectionFromPlSpeciesIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy
                                 <Tbl90Reference>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                     ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
@@ -1916,7 +1918,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
 
                     Tbl90ReferenceAuthorsList =
                         _extCrud
-                            .GetReferenceAuthorsCollectionFromFiSpeciesIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy
+                            .GetReferenceAuthorsCollectionFromPlSpeciesIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy
                                 <Tbl90Reference>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                     ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
@@ -2258,7 +2260,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
         private ObservableCollection<TblCountry> _tblCountriesAllList;
         public ObservableCollection<TblCountry> TblCountriesAllList
         {
-            get { return _tblCountriesAllList; }
+            get => _tblCountriesAllList;
             set { _tblCountriesAllList = value; RaisePropertyChanged(""); }
         }
 
@@ -2295,11 +2297,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
 
         public class Language
         {
-            public string Name
-            {
-                get;
-                set;
-            }
+            public string Name { get; set; }
         }
 
 

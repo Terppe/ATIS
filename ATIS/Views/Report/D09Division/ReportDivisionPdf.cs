@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Linq;
 using ATIS.Dal.Models;
 using ATIS.Ui.Helper;
-using ATIS.Ui.Views.Database.CrudHelper;
 using BitMiracle.Docotic;
 using BitMiracle.Docotic.Pdf;
 using log4net;

@@ -282,7 +282,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         }
         public bool IsInDesignMode { get; set; }
 
-        #endregion "Constructor"          ]]>
+        #endregion [Constructor]          ]]>
 </xsl:when>  
 <xsl:when test="Table ='Tbl72PlSpeciesses'">   <![CDATA[ 
                 GetValueLanguage();
@@ -293,7 +293,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         }
         public bool IsInDesignMode { get; set; }
 
-        #endregion "Constructor"           ]]>
+        #endregion [Constructor]          ]]>
 </xsl:when>  
 <xsl:when test="Table ='Tbl78Names'">   <![CDATA[ 
                 GetValueLanguage();
@@ -301,7 +301,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         }
         public bool IsInDesignMode { get; set; }
 
-        #endregion "Constructor"          ]]>
+        #endregion [Constructor]          ]]>
 </xsl:when> 
 <xsl:when test="Table ='Tbl81Images'">     <![CDATA[ 
                 //Image;
@@ -323,7 +323,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         }   
         public bool IsInDesignMode { get; set; }
 
-        #endregion "Constructor"                  ]]>      
+        #endregion [Constructor]          ]]>
 </xsl:when>  
 <xsl:when test="Table ='Tbl87Geographics'">     <![CDATA[ 
                 // Code runs "for real" 
@@ -332,7 +332,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         }
         public bool IsInDesignMode { get; set; }
 
-        #endregion "Constructor"                 ]]>      
+        #endregion [Constructor]          ]]>
 </xsl:when>   
 <xsl:when test="Table ='TblUserProfiles'">     <![CDATA[ 
                  GetValueRole();
@@ -342,7 +342,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         }
         public bool IsInDesignMode { get; set; }
 
-        #endregion "Constructor"               ]]>      
+        #endregion [Constructor]          ]]>
 </xsl:when>   
 <xsl:otherwise>       <![CDATA[ 
                 // Code runs "for real" 
@@ -351,7 +351,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         ]]>
+        #endregion [Constructor]          ]]>
 </xsl:otherwise>    
 </xsl:choose> 
 
@@ -585,6 +585,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl03Regnums'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[   {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew  }  );
 
             ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
@@ -594,6 +595,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl18Superclasses'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[   {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew  }  );
 
             ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
@@ -606,6 +608,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl68Speciesgroups'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {  
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[ {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew}  );
 
             ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
@@ -617,6 +620,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl69FiSpeciesses'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {  
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[ {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew}  );
 
             ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
@@ -629,6 +633,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl72PlSpeciesses'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {  
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[ {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew}  );
 
             ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
@@ -641,6 +646,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl78Names'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[   {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew  }  );
 
             ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
@@ -654,6 +660,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl81Images'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[   {   Info = CultRes.StringsRes.DatasetNew  }  );
 
             ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
@@ -667,6 +674,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl84Synonyms'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[   {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew  }  );
 
             ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
@@ -680,6 +688,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl87Geographics'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[   {   Info = CultRes.StringsRes.DatasetNew  }  );
 
                 TblCountriesAllList = new ObservableCollection<TblCountry>(_businessLayer.ListTblCountries());
@@ -694,6 +703,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl90References'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
              ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[ {   Info = CultRes.StringsRes.DatasetNew }  );
 
             Tbl03RegnumsAllList = new ObservableCollection<Tbl03Regnum>(_businessLayer.ListTbl03Regnums());
@@ -733,6 +743,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl90RefAuthors'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[ {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew}  );
 
             ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
@@ -743,6 +754,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl90RefExperts'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[ {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew}  );
 
             ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
@@ -753,6 +765,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl90RefSources'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[ {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew}  );
 
             ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
@@ -763,6 +776,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl93Comments'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {  
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[ {   Info = CultRes.StringsRes.DatasetNew }  );
 
             Tbl03RegnumsAllList = new ObservableCollection<Tbl03Regnum>(_businessLayer.ListTbl03Regnums());
@@ -798,6 +812,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='TblCountries'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[ {   Name = CultRes.StringsRes.DatasetNew}  );
 
             ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
@@ -808,6 +823,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='TblUserProfiles'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[ {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew}  );
 
             TblCountriesAllList = new ObservableCollection<TblCountry>(_businessLayer.ListTblCountries());
@@ -819,8 +835,10 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:otherwise>    <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[   {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew  }  );
             ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
+
 
             ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
             ]]><xsl:value-of select="Basiss"/><![CDATA[View.MoveCurrentToFirst();
@@ -2609,7 +2627,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='TblUserProfiles'">             
 </xsl:when>
 <xsl:otherwise>       <![CDATA[           
-        private void Save]]><xsl:value-of select="BasisTK1"/><![CDATA[(object o)
+        private void ExecuteSaveNameSave]]><xsl:value-of select="BasisTK1"/><![CDATA[(object o)
         {
             SelectedMainTabIndex = 1;
             ]]><xsl:value-of select="BasissTK1"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK1"/><![CDATA[List);
@@ -2681,7 +2699,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
             //     var plantaeRegnum = _context.Tbl72PlSpeciesses.FirstOrDefault(p => p.PlSpeciesName == "Plantae#Regnum#");
             //     var plantaeRegnum = _uow.Tbl72PlSpeciesses.Find(p => p.PlSpeciesName == "Plantae#Regnum#").FirstOrDefault();
-          //  var plantaeRegnumId = _extCrud.PlSpeciesIdFromPlSpeciessesCollectionSelectByName("Plantae#Regnum#");
+         //   var plantaeRegnumId = _extCrud.GetPlSpeciesIdFromPlSpeciessesCollectionSelectByName("Plantae#Regnum#");
 
             //Fehler um PlSpeciesId zu ermitteln !!!!!!!!!!!!!!!!!!
             //   if (plantaeRegnum != null) CurrentTbl78Name.PlSpeciesId = plantaeRegnum.PlSpeciesId;
@@ -2731,18 +2749,17 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 Log.Error(e);
             }
 
-            Tbl78NamesList = _extCrud.GetNamesCollectionFromFiSpeciesIdOrderBy<Tbl78Name>(CurrentTbl69FiSpecies.FiSpeciesId);
+            Tbl78NamesList = _extCrud.GetNamesCollectionFromFiSpeciesIdOrderBy<Tbl78Name>(CurrentTbl78Name.FiSpeciesId);
 
             NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
             NamesView.MoveCurrentToPosition(_position);
         }
         #endregion [Public Methods Connect ==> Tbl78Name]     ]]>   
 </xsl:when>
-<xsl:when test="Table ='Tbl72PlSpeciesses'">      
-   <![CDATA[ 
-        private void Save]]><xsl:value-of select="BasisTK1"/><![CDATA[(object o)
+<xsl:when test="Table ='Tbl72PlSpeciesses'">         <![CDATA[ 
+        private void ExecuteSave]]><xsl:value-of select="BasisTK1"/><![CDATA[(string searchName)
         {
-            Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="Id"/><![CDATA[ = Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Id"/><![CDATA[;
+            Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id = Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id;
 
             //Search for CurrentTbl78Name.FiSpeciesId with Animalia#Regnum# 
           //  var animaliaRegnum = _businessLayer.SingleListTbl69FiSpeciessesByFiSpeciesName("Animalia#Regnum#");
@@ -2794,7 +2811,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 Log.Error(e);
             }
 
-            Tbl78NamesList = _extCrud.GetNamesCollectionFromFiSpeciesIdOrderBy<Tbl78Name>(CurrentTbl69FiSpecies.FiSpeciesId);
+            Tbl78NamesList = _extCrud.GetNamesCollectionFromFiSpeciesIdOrderBy<Tbl78Name>(CurrentTbl78Name.PlSpeciesId);
 
             NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
             NamesView.MoveCurrentToPosition(_position);
@@ -3828,11 +3845,11 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
         private RelayCommand _delete]]><xsl:value-of select="BasisTK3"/><![CDATA[Command;
 
-        public ICommand Delete]]><xsl:value-of select="BasisTK3"/><![CDATA[Command => _delete]]><xsl:value-of select="BasisTK3"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteDelete]]><xsl:value-of select="BasisTK3"/><![CDATA[(SearchFiSpeciesName); });
+        public ICommand Delete]]><xsl:value-of select="BasisTK3"/><![CDATA[Command => _delete]]><xsl:value-of select="BasisTK3"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteDelete]]><xsl:value-of select="BasisTK3"/><![CDATA[(SearchPlSpeciesName); });
 
         private RelayCommand _save]]><xsl:value-of select="BasisTK3"/><![CDATA[Command;
 
-        public ICommand Save]]><xsl:value-of select="BasisTK3"/><![CDATA[Command => _save]]><xsl:value-of select="BasisTK3"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteSave]]><xsl:value-of select="BasisTK3"/><![CDATA[(SearchFiSpeciesName); });        
+        public ICommand Save]]><xsl:value-of select="BasisTK3"/><![CDATA[Command => _save]]><xsl:value-of select="BasisTK3"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteSave]]><xsl:value-of select="BasisTK3"/><![CDATA[(SearchPlSpeciesName); });        
         #endregion [Public Commands Connect ==> ]]><xsl:value-of select="LinqModelTK3"/><![CDATA[]                
 
         #region [Public Methods Connect ==> ]]><xsl:value-of select="LinqModelTK3"/><![CDATA[]                        ]]>
@@ -4107,7 +4124,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 Log.Error(e);
             }
 
-            Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromFiSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl69FiSpecies.FiSpeciesId);
+            Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromFiSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl84Synonym.FiSpeciesId);
 
             SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
             SynonymsView.MoveCurrentToPosition(_position);
@@ -4177,7 +4194,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 Log.Error(e);
             }
 
-            Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromFiSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl69FiSpecies.FiSpeciesId);
+            Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromPlSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl84Synonym.PlSpeciesId);
 
             SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
             SynonymsView.MoveCurrentToPosition(_position);
@@ -4468,7 +4485,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 Log.Error(e);
             }
 
-            Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromFiSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl87Geographic.FiSpeciesId);
+            Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromPlSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl87Geographic.PlSpeciesId);
 
             GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
             GeographicsView.MoveCurrentToFirst();
@@ -4607,7 +4624,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 Log.Error(e);
             }
 
-            Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromFiSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl87Geographic.FiSpeciesId);
+            Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromPlSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl87Geographic.PlSpeciesId);
 
             GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
             GeographicsView.MoveCurrentToFirst();
@@ -5062,7 +5079,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl69FiSpeciesses'">     <![CDATA[ 
 
             SelectedMainTabIndex = 6;
-            SelectedDetailSubTabIndex = 6;
+    //        SelectedDetailSubTabIndex = 6;
             SelectedMainSubRefTabIndex = 2;
 
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
@@ -5073,7 +5090,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl72PlSpeciesses'">     <![CDATA[ 
 
             SelectedMainTabIndex = 6;
-            SelectedDetailSubTabIndex = 6;
+     //       SelectedDetailSubTabIndex = 6;
             SelectedMainSubRefTabIndex = 2;
 
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
@@ -5421,7 +5438,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>
 <xsl:when test="Table ='Tbl69FiSpeciesses'">     <![CDATA[ 
             SelectedMainTabIndex = 6;
-            SelectedDetailSubTabIndex = 6;
+    //        SelectedDetailSubTabIndex = 6;
             SelectedMainSubRefTabIndex = 1;
 
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
@@ -5431,7 +5448,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">       <![CDATA[ 
             SelectedMainTabIndex = 6;
-            SelectedDetailSubTabIndex = 6;
+    //        SelectedDetailSubTabIndex = 6;
             SelectedMainSubRefTabIndex = 1;
 
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
@@ -5774,7 +5791,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>
 <xsl:when test="Table ='Tbl69FiSpeciesses'">        <![CDATA[ 
             SelectedMainTabIndex = 6;
-            SelectedDetailSubTabIndex = 6;
+     //       SelectedDetailSubTabIndex = 6;
             SelectedMainSubRefTabIndex = 0;
 
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
@@ -5784,7 +5801,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">          <![CDATA[ 
             SelectedMainTabIndex = 6;
-            SelectedDetailSubTabIndex = 6;
+       //     SelectedDetailSubTabIndex = 6;
             SelectedMainSubRefTabIndex = 0;
 
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
@@ -6120,7 +6137,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>
 <xsl:when test="Table ='Tbl69FiSpeciesses'">      <![CDATA[ 
             SelectedMainTabIndex = 7;
-            SelectedDetailSubTabIndex = 7;
+     //       SelectedDetailSubTabIndex = 7;
 
             CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
             CommentsView.Refresh();
@@ -6129,7 +6146,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">          <![CDATA[ 
             SelectedMainTabIndex = 7;
-            SelectedDetailSubTabIndex = 7;
+     //       SelectedDetailSubTabIndex = 7;
 
             CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
             CommentsView.Refresh();
@@ -6249,16 +6266,26 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
             ]]><xsl:value-of select="BasissTK1"/><![CDATA[View.Refresh();   ]]>
 </xsl:when>  
 <xsl:when test="Table ='Tbl69FiSpeciesses'">      <![CDATA[  
-            Tbl66GenussesList = new ObservableCollection<Tbl66Genus>(_businessLayer.ListTbl66GenussesByGenusId(CurrentTbl69FiSpecies.GenusID));
+            Tbl66GenussesList = _extCrud.GetGenussesCollectionFromGenusIdOrderBy<Tbl66Genus>(CurrentTbl69FiSpecies.GenusId);
+
+            Tbl63InfratribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl63Infratribus>("infratribus");
 
             GenussesView = CollectionViewSource.GetDefaultView(Tbl66GenussesList);
-            GenussesView.Refresh();   ]]> 
+            GenussesView.Refresh();
+
+            SelectedMainTabIndex = 0;
+            SelectedDetailTabIndex = 2;  ]]> 
 </xsl:when>   
 <xsl:when test="Table ='Tbl72PlSpeciesses'">     <![CDATA[  
-            Tbl66GenussesList = new ObservableCollection<Tbl66Genus>(_businessLayer.ListTbl66GenussesByGenusId(CurrentTbl72PlSpecies.GenusID));
+            Tbl66GenussesList = _extCrud.GetGenussesCollectionFromGenusIdOrderBy<Tbl66Genus>(CurrentTbl72PlSpecies.GenusId);
+
+            Tbl63InfratribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl63Infratribus>("infratribus");
 
             GenussesView = CollectionViewSource.GetDefaultView(Tbl66GenussesList);
-            GenussesView.Refresh();   ]]> 
+            GenussesView.Refresh();
+
+            SelectedMainTabIndex = 0;
+            SelectedDetailTabIndex = 2;  ]]> 
 </xsl:when>   
 <xsl:when test="Table ='Tbl78Names'">      <![CDATA[  
             Tbl68SpeciesgroupsAllList = new ObservableCollection<Tbl68Speciesgroup>(_businessLayer.ListTbl68Speciesgroups());
@@ -6437,6 +6464,36 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     SelectedDetailTabIndex = 1;
                 }       ]]>  
 </xsl:when> 
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      <![CDATA[ 
+                if (_selectedMainTabIndex == 0)             
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl66GenussesList = _extCrud.GetGenussesCollectionFromGenusIdOrderBy<Tbl66Genus>(CurrentTbl69FiSpecies.GenusId);
+
+                        Tbl63InfratribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl63Infratribus>("infratribus");
+
+                        GenussesView = CollectionViewSource.GetDefaultView(Tbl66GenussesList);
+                        GenussesView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 0;
+                }       ]]>  
+</xsl:when> 
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      <![CDATA[ 
+                if (_selectedMainTabIndex == 0)             
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl66GenussesList = _extCrud.GetGenussesCollectionFromGenusIdOrderBy<Tbl66Genus>(CurrentTbl72PlSpecies.GenusId);
+
+                        Tbl63InfratribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl63Infratribus>("infratribus");
+
+                        GenussesView = CollectionViewSource.GetDefaultView(Tbl66GenussesList);
+                        GenussesView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 0;
+                }       ]]>  
+</xsl:when> 
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedMainTabIndex == 0)             
                 {
@@ -6523,7 +6580,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        Tbl68SpeciesgroupsList = _extCrud.GetSpeciesgroupsCollectionFromSpeciesgroupIdOrderBy<Tbl68Speciesgroup>(CurrentTbl69FiSpecies.SpeciesgroupId);
+                        Tbl68SpeciesgroupsList = _extCrud.GetSpeciesgroupsCollectionFromSpeciesgroupIdOrderBy<Tbl68Speciesgroup>(CurrentTbl72PlSpecies.SpeciesgroupId);
 
                         SpeciesgroupsView = CollectionViewSource.GetDefaultView(Tbl68SpeciesgroupsList);
                         SpeciesgroupsView.Refresh();
@@ -6605,9 +6662,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        Tbl78NamesList = _extCrud.GetNamesCollectionFromFiSpeciesIdOrderBy<Tbl78Name>(CurrentTbl69FiSpecies.FiSpeciesId);
+                        Tbl78NamesList = _extCrud.GetNamesCollectionFromPlSpeciesIdOrderBy<Tbl78Name>(CurrentTbl72PlSpecies.PlSpeciesId);
 
-                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+                        Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("plspecies");
 
                         NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
                         NamesView.Refresh();
@@ -6665,9 +6722,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        Tbl81ImagesList = _extCrud.GetImagesCollectionFromFiSpeciesIdOrderBy<Tbl81Image>(CurrentTbl69FiSpecies.FiSpeciesId);
+                        Tbl81ImagesList = _extCrud.GetImagesCollectionFromPlSpeciesIdOrderBy<Tbl81Image>(CurrentTbl72PlSpecies.PlSpeciesId);
 
-                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+                        Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("plspecies");
 
                         ImagesView = CollectionViewSource.GetDefaultView(Tbl81ImagesList);
                         ImagesView.Refresh();
@@ -6741,9 +6798,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromFiSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl69FiSpecies.FiSpeciesId);
+                        Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromPlSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl72PlSpecies.PlSpeciesId);
 
-                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+                        Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("plspecies");
 
                         SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
                         SynonymsView.Refresh();
@@ -6780,9 +6837,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromFiSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl69FiSpecies.FiSpeciesId);
+                        Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromPlSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl72PlSpecies.PlSpeciesId);
 
-                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+                        Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("plspecies");
 
                         GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
                         GeographicsView.Refresh();
@@ -6856,7 +6913,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        Tbl93CommentsList = _extCrud.GetCommentsCollectionFromFiSpeciesIdOrderBy<Tbl93Comment>(CurrentTbl69FiSpecies.FiSpeciesId);
+                        Tbl93CommentsList = _extCrud.GetCommentsCollectionFromPlSpeciesIdOrderBy<Tbl93Comment>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                         CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
                         CommentsView.Refresh();
@@ -6993,7 +7050,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        Tbl68SpeciesgroupsList = _extCrud.GetSpeciesgroupsCollectionFromSpeciesgroupIdOrderBy<Tbl68Speciesgroup>(CurrentTbl69FiSpecies.SpeciesgroupId);
+                        Tbl68SpeciesgroupsList = _extCrud.GetSpeciesgroupsCollectionFromSpeciesgroupIdOrderBy<Tbl68Speciesgroup>(CurrentTbl72PlSpecies.SpeciesgroupId);
 
                         SpeciesgroupsView = CollectionViewSource.GetDefaultView(Tbl68SpeciesgroupsList);
                         SpeciesgroupsView.Refresh(); 
@@ -7159,9 +7216,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        Tbl78NamesList = _extCrud.GetNamesCollectionFromFiSpeciesIdOrderBy<Tbl78Name>(CurrentTbl69FiSpecies.FiSpeciesId);
+                        Tbl78NamesList = _extCrud.GetNamesCollectionFromPlSpeciesIdOrderBy<Tbl78Name>(CurrentTbl72PlSpecies.PlSpeciesId);
 
-                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+                        Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("plspecies");
 
                         NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
                         NamesView.Refresh();
@@ -7247,9 +7304,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        Tbl81ImagesList = _extCrud.GetImagesCollectionFromFiSpeciesIdOrderBy<Tbl81Image>(CurrentTbl69FiSpecies.FiSpeciesId);
+                        Tbl81ImagesList = _extCrud.GetImagesCollectionFromPlSpeciesIdOrderBy<Tbl81Image>(CurrentTbl72PlSpecies.PlSpeciesId);
 
-                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+                        Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("plspecies");
 
                         ImagesView = CollectionViewSource.GetDefaultView(Tbl81ImagesList);
                         ImagesView.Refresh();
@@ -7334,9 +7391,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromFiSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl69FiSpecies.FiSpeciesId);
+                        Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromPlSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl72PlSpecies.PlSpeciesId);
 
-                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+                        Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("plspecies");
 
                         SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
                         SynonymsView.Refresh();
@@ -7421,9 +7478,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromFiSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl69FiSpecies.FiSpeciesId);
+                        Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromPlSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl72PlSpecies.PlSpeciesId);
 
-                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+                        Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("plspecies");
 
                         GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
                         GeographicsView.Refresh();
@@ -7489,8 +7546,8 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                         Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
 
                         Tbl90ReferenceExpertsList = _extCrud
-                            .GetReferenceExpertsCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy
-                                <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+                            .GetReferenceExpertsCollectionFromPlSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy
+                                <Tbl90Reference>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                         ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
                         ReferenceExpertsView.Refresh();
@@ -7538,7 +7595,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 {
                     if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
                     {
-                        Tbl93CommentsList = _extCrud.GetCommentsCollectionFromFiSpeciesIdOrderBy<Tbl93Comment>(CurrentTbl69FiSpecies.FiSpeciesId);
+                        Tbl93CommentsList = _extCrud.GetCommentsCollectionFromPlSpeciesIdOrderBy<Tbl93Comment>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                         CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
                         CommentsView.Refresh();
@@ -7641,8 +7698,8 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                             new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
 
                         Tbl90ReferenceExpertsList = _extCrud
-                                .GetReferenceExpertsCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy
-                                    <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+                                .GetReferenceExpertsCollectionFromPlSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy
+                                    <Tbl90Reference>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                         ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
                         ReferenceExpertsView.Refresh();
@@ -7742,8 +7799,8 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
                         Tbl90ReferenceSourcesList =
                             _extCrud
-                                .GetReferenceSourcesCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy
-                                    <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+                                .GetReferenceSourcesCollectionFromPlSpeciesIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy
+                                    <Tbl90Reference>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                         ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
                         ReferenceSourcesView.Refresh();
@@ -7843,8 +7900,8 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
                         Tbl90ReferenceAuthorsList =
                             _extCrud
-                                .GetReferenceAuthorsCollectionFromFiSpeciesIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy
-                                    <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+                                .GetReferenceAuthorsCollectionFromPlSpeciesIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy
+                                    <Tbl90Reference>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                         ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
                         ReferenceAuthorsView.Refresh();
@@ -7870,6 +7927,23 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     SelectedDetailTabIndex = 5;
                     SelectedMainTabIndex = 2;
                 }    ]]>  
+</xsl:otherwise>    
+</xsl:choose> 
+
+<xsl:choose>
+<xsl:when test="Table ='++++++Open Detail Items  Footer 1 SelectedMainSubRefTabIndex   +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when>  
+<xsl:when test="Table ='++++++Open Detail Items  Footer 1 SelectedMainSubRefTabIndex   +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when> 
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      <![CDATA[ 
+            }
+        }         ]]>  
+</xsl:when>           
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      <![CDATA[ 
+            }
+        }         ]]>  
+</xsl:when>            
+<xsl:otherwise>  
 </xsl:otherwise>    
 </xsl:choose> 
 
@@ -7947,8 +8021,8 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
                     Tbl90ReferenceExpertsList =
                         _extCrud
-                            .GetReferenceExpertsCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy
-                                <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+                            .GetReferenceExpertsCollectionFromPlSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy
+                                <Tbl90Reference>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                     ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
                     ReferenceExpertsView.Refresh();
@@ -7962,8 +8036,8 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
                     Tbl90ReferenceSourcesList =
                         _extCrud
-                            .GetReferenceSourcesCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy
-                                <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+                            .GetReferenceSourcesCollectionFromPlSpeciesIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy
+                                <Tbl90Reference>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                     ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
                     ReferenceSourcesView.Refresh();
@@ -7977,8 +8051,8 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
                     Tbl90ReferenceAuthorsList =
                         _extCrud
-                            .GetReferenceAuthorsCollectionFromFiSpeciesIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy
-                                <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+                            .GetReferenceAuthorsCollectionFromPlSpeciesIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy
+                                <Tbl90Reference>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                     ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
                     ReferenceAuthorsView.Refresh();
@@ -9945,11 +10019,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
              public class Language
              {
-                 public string Name
-                 {
-                     get;
-                     set;
-                 }
+            public string Name   {    get;   set;    }
              }
 
  
@@ -10090,11 +10160,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
              public class Language
              {
-                 public string Name
-                 {
-                     get;
-                     set;
-                 }
+            public string Name   {    get;   set;    }
              }
 
  
@@ -10245,11 +10311,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
         public class Language
         {
-            public string Name
-            {
-                get;
-                set;
-            }
+            public string Name   {    get;   set;    }
         }
 
         #endregion Language  ]]>

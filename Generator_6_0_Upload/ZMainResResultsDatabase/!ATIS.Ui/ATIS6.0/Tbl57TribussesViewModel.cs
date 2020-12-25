@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.D57Tribus
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -99,8 +99,10 @@ namespace ATIS.Ui.Views.Database.D57Tribus
      
         private void ExecuteAddTribus(object o)
         {
+            Tbl57TribussesList = new ObservableCollection<Tbl57Tribus>();
             Tbl57TribussesList.Insert(0, new Tbl57Tribus   {   TribusName = CultRes.StringsRes.DatasetNew  }  );
             Tbl54SupertribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl54Supertribus>("supertribus");
+
 
             TribussesView = CollectionViewSource.GetDefaultView(Tbl57TribussesList);
             TribussesView.MoveCurrentToFirst();

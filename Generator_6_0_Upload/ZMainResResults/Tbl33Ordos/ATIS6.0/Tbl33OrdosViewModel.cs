@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.D33Ordo
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -99,8 +99,10 @@ namespace ATIS.Ui.Views.Database.D33Ordo
      
         private void ExecuteAddOrdo(object o)
         {
+            Tbl33OrdosList = new ObservableCollection<Tbl33Ordo>();
             Tbl33OrdosList.Insert(0, new Tbl33Ordo   {   OrdoName = CultRes.StringsRes.DatasetNew  }  );
             Tbl30LegiosAllList = _extCrud.GetCollectionAllOrderBy<Tbl30Legio>("legio");
+
 
             OrdosView = CollectionViewSource.GetDefaultView(Tbl33OrdosList);
             OrdosView.MoveCurrentToFirst();

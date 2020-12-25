@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.D42Superfamily
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -99,8 +99,10 @@ namespace ATIS.Ui.Views.Database.D42Superfamily
      
         private void ExecuteAddSuperfamily(object o)
         {
+            Tbl42SuperfamiliesList = new ObservableCollection<Tbl42Superfamily>();
             Tbl42SuperfamiliesList.Insert(0, new Tbl42Superfamily   {   SuperfamilyName = CultRes.StringsRes.DatasetNew  }  );
             Tbl39InfraordosAllList = _extCrud.GetCollectionAllOrderBy<Tbl39Infraordo>("infraordo");
+
 
             SuperfamiliesView = CollectionViewSource.GetDefaultView(Tbl42SuperfamiliesList);
             SuperfamiliesView.MoveCurrentToFirst();

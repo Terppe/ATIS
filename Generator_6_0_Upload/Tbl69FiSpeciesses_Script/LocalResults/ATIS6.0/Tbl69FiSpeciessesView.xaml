@@ -9,9 +9,7 @@
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"     
-          
-             xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"                                              
-            
+        
              d:DesignHeight="800" 
              d:DesignWidth="1600"
              mc:Ignorable="d">                                              
@@ -22,6 +20,8 @@
         <!-- Tbl69FiSpeciessesView.xaml  Skriptdatum:  17.12.2020  10:32   -->    
               
       
+    <!--  xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"  -->
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="650" />
@@ -386,7 +386,11 @@
                                                         <GridViewColumn
                                                             Width="150"
                                                             DisplayMemberBinding="{Binding (models:Tbl78Name.NameName)}"
-                                                            Header="{DynamicResource Tbl78Name-NameName}" />         
+                                                            Header="{DynamicResource Tbl78Name-NameName}" />  
+                                                        <GridViewColumn
+                                                            Width="80"
+                                                            DisplayMemberBinding="{Binding (models:Tbl78Name.Language)}"
+                                                            Header="{DynamicResource Tbl78Name-Language}" />       
                                                         <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
                                                             <GridViewColumn.CellTemplate>
                                                                 <DataTemplate>
@@ -2655,6 +2659,7 @@
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                 mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
                                 mah:TextBoxHelper.WatermarkAlignment="Left"
+                                CharacterCasing="Upper"
                                 FontWeight="Medium"
                                 SpellCheck.IsEnabled="True"
                                 ToolTip="{DynamicResource Shared-Author}">

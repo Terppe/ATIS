@@ -56,31 +56,7 @@
     ]]>                                         
     </xsl:otherwise>    
     </xsl:choose>  
-
-        <xsl:choose>
-        <xsl:when test="Table ='Usercontrol Header  Bottom  1 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
-        </xsl:when>  
-    <xsl:when test="Table ='Tbl87Geographics'">   
-    </xsl:when>
-        <xsl:otherwise> 
-        </xsl:otherwise>    
-        </xsl:choose> 
-
-        <xsl:choose>
-        <xsl:when test="Table ='Usercontrol Header  Bottom 2 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
-        </xsl:when>  
-        <xsl:when test="Table ='Tbl69FiSpeciesses'">  <![CDATA[    
-             xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"  ]]>                                            
-        </xsl:when>
-        <xsl:when test="Table ='Tbl72PlSpeciesses'">  <![CDATA[    
-             xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"  ]]>                                            
-        </xsl:when>
-        <xsl:when test="Table ='Tbl87Geographics'">  <![CDATA[    
-             xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"  ]]>                                            
-        </xsl:when>
-        <xsl:otherwise>
-        </xsl:otherwise>    
-        </xsl:choose>       
+  
             <xsl:choose>
             <xsl:when test="Table ='Usercontrol Header  Bottom  3 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
             </xsl:when>  
@@ -113,6 +89,8 @@
 <xsl:when test="Table ='Grid Part 1 Middle 2   Resources+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
 </xsl:when>
 <xsl:when test="Table ='Tbl69FiSpeciesses'">  <![CDATA[    
+    <!--  xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"  -->
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="650" />
@@ -130,9 +108,30 @@
         <StackPanel Grid.Row="0" Grid.Column="1" />    ]]>                                   
 </xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">  <![CDATA[    
+    <!--  xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"  -->
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="650" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="50*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="50*" />
+        </Grid.RowDefinitions>
+
+        <!--  Part 1   Creating Main-Grid in Column 1  -->
+
+        <StackPanel Grid.Row="0" Grid.Column="1" />    ]]>                                   
+</xsl:when>
+<xsl:when test="Table ='Tbl87Geographics'">  <![CDATA[    
+    <!--  xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"  -->
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="750" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="50*" />
         </Grid.ColumnDefinitions>
@@ -1703,7 +1702,11 @@
                                                         <GridViewColumn
                                                             Width="150"
                                                             DisplayMemberBinding="{Binding (models:]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="NameTK1"/><![CDATA[)}"
-                                                            Header="{DynamicResource ]]><xsl:value-of select="LinqModelTK1"/><![CDATA[-]]><xsl:value-of select="NameTK1"/><![CDATA[}" />         
+                                                            Header="{DynamicResource ]]><xsl:value-of select="LinqModelTK1"/><![CDATA[-]]><xsl:value-of select="NameTK1"/><![CDATA[}" />  
+                                                        <GridViewColumn
+                                                            Width="80"
+                                                            DisplayMemberBinding="{Binding (models:Tbl78Name.Language)}"
+                                                            Header="{DynamicResource Tbl78Name-Language}" />       
                                                         <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
                                                             <GridViewColumn.CellTemplate>
                                                                 <DataTemplate>
@@ -1722,7 +1725,11 @@
                                                         <GridViewColumn
                                                             Width="150"
                                                             DisplayMemberBinding="{Binding (models:]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="NameTK1"/><![CDATA[)}"
-                                                            Header="{DynamicResource ]]><xsl:value-of select="LinqModelTK1"/><![CDATA[-]]><xsl:value-of select="NameTK1"/><![CDATA[}" />         
+                                                            Header="{DynamicResource ]]><xsl:value-of select="LinqModelTK1"/><![CDATA[-]]><xsl:value-of select="NameTK1"/><![CDATA[}" />    
+                                                        <GridViewColumn
+                                                            Width="80"
+                                                            DisplayMemberBinding="{Binding (models:Tbl78Name.Language)}"
+                                                            Header="{DynamicResource Tbl78Name-Language}" />            
                                                         <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
                                                             <GridViewColumn.CellTemplate>
                                                                 <DataTemplate>
@@ -5103,6 +5110,7 @@
                             </TextBox> ]]>    
 </xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">       <![CDATA[   
+                                <Button Template="{StaticResource Save]]><xsl:value-of select="Basis"/><![CDATA[Button}" />
                                 <Button Template="{StaticResource Copy]]><xsl:value-of select="Basis"/><![CDATA[Button}" />
                                 <Button Template="{StaticResource Add]]><xsl:value-of select="Basis"/><![CDATA[Button}" />
                                 <Button Template="{StaticResource Delete]]><xsl:value-of select="Basis"/><![CDATA[Button}" /> 
@@ -5143,93 +5151,7 @@
                                         </StackPanel>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
-                            </ComboBox>
-                                </StackPanel>
-                        <StackPanel Height="Auto" Orientation="Horizontal">
-                            <TextBox
-                                Width="228"
-                                Margin="5"
-                                HorizontalContentAlignment="Stretch"
-                                mah:TextBoxHelper.IsWaitingForData="True"
-                                mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-FiSpeciesName}"
-                                mah:TextBoxHelper.WatermarkAlignment="Left"
-                                FontWeight="Medium"
-                                SpellCheck.IsEnabled="True"
-                                ToolTip="{DynamicResource Tbl69FiSpecies-FiSpeciesName}">
-                                <TextBox.ContextMenu>
-                                    <ContextMenu>
-                                        <MenuItem Header="Custom Item" />
-                                        <Separator />
-                                        <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                        <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                        <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                    </ContextMenu>
-                                </TextBox.ContextMenu>
-                                <TextBox.Text>
-                                    <Binding
-                                        ElementName="Tbl69FiSpeciessesList"
-                                        Mode="TwoWay"
-                                        Path="SelectedItem.(models:Tbl69FiSpecies.FiSpeciesName)"
-                                        UpdateSourceTrigger="PropertyChanged" />
-                                </TextBox.Text>
-                            </TextBox>
-                            <TextBox
-                                Width="228"
-                                Margin="5"
-                                HorizontalContentAlignment="Stretch"
-                                mah:TextBoxHelper.IsWaitingForData="True"
-                                mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-Subspecies}"
-                                mah:TextBoxHelper.WatermarkAlignment="Left"
-                                FontWeight="Medium"
-                                SpellCheck.IsEnabled="True"
-                                ToolTip="{DynamicResource Tbl69FiSpecies-Subspecies}">
-                                <TextBox.ContextMenu>
-                                    <ContextMenu>
-                                        <MenuItem Header="Custom Item" />
-                                        <Separator />
-                                        <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                        <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                        <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                    </ContextMenu>
-                                </TextBox.ContextMenu>
-                                <TextBox.Text>
-                                    <Binding
-                                        ElementName="Tbl69FiSpeciessesList"
-                                        Mode="TwoWay"
-                                        Path="SelectedItem.(models:Tbl69FiSpecies.Subspecies)"
-                                        UpdateSourceTrigger="PropertyChanged" />
-                                </TextBox.Text>
-                            </TextBox>
-                            <TextBox
-                                Width="228"
-                                Margin="5"
-                                HorizontalContentAlignment="Stretch"
-                                mah:TextBoxHelper.IsWaitingForData="True"
-                                mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-Divers}"
-                                mah:TextBoxHelper.WatermarkAlignment="Left"
-                                FontWeight="Medium"
-                                SpellCheck.IsEnabled="True"
-                                ToolTip="{DynamicResource Tbl69FiSpecies-Divers}">
-                                <TextBox.ContextMenu>
-                                    <ContextMenu>
-                                        <MenuItem Header="Custom Item" />
-                                        <Separator />
-                                        <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                        <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                        <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                    </ContextMenu>
-                                </TextBox.ContextMenu>
-                                <TextBox.Text>
-                                    <Binding
-                                        ElementName="Tbl69FiSpeciessesList"
-                                        Mode="TwoWay"
-                                        Path="SelectedItem.(models:Tbl69FiSpecies.Divers)"
-                                        UpdateSourceTrigger="PropertyChanged" />
-                                </TextBox.Text>
-                            </TextBox>  ]]>   
+                            </ComboBox>     ]]>   
 </xsl:when>
 <xsl:when test="Table ='Tbl78Names'">      <![CDATA[   
                                 <Button Template="{StaticResource Copy]]><xsl:value-of select="Basis"/><![CDATA[Button}" />
@@ -6731,7 +6653,7 @@
                                     </StackPanel>
                                 </StackPanel>
                             </TabItem>
-                            <TabItem FontWeight="Medium" Header="{DynamicResource Tbl69FiSpecies-TabItemHeaderSpecial}">
+                            <TabItem FontWeight="Medium" Header="{DynamicResource Tbl72PlSpecies-TabItemHeaderSpecial}">
                                 <StackPanel Height="Auto" Orientation="Horizontal">
                                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                                         <TextBox
@@ -6760,6 +6682,7 @@
                         </TabControl>
                     </StackPanel>
                 </GroupBox>
+                </StackPanel>
             </TabItem>     ]]>                 
 </xsl:when>
 <xsl:when test="Table ='Tbl78Names'">     
@@ -13013,6 +12936,7 @@
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                 mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
                                 mah:TextBoxHelper.WatermarkAlignment="Left"
+                                CharacterCasing="Upper"
                                 FontWeight="Medium"
                                 SpellCheck.IsEnabled="True"
                                 ToolTip="{DynamicResource Shared-Author}">
@@ -13108,6 +13032,7 @@
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                 mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
                                 mah:TextBoxHelper.WatermarkAlignment="Left"
+                                CharacterCasing="Upper"
                                 FontWeight="Medium"
                                 SpellCheck.IsEnabled="True"
                                 ToolTip="{DynamicResource Shared-Author}">
@@ -15364,7 +15289,6 @@
                                                 Style="{StaticResource MahApps.Styles.TextBox}"
                                                             Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferenceAuthorsList}"
                                                             TextWrapping="Wrap"
-                                                ToolTip="{DynamicResource Shared-Memo}"
                                                       ToolTip="{DynamicResource Shared-Memo}"
                                                            VerticalScrollBarVisibility="Auto" />
                                                             </ScrollViewer>

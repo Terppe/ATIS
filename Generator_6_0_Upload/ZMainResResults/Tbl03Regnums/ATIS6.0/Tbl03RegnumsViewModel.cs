@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -98,6 +98,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         
         private void ExecuteAddRegnum(object o)
         {
+            Tbl03RegnumsList = new ObservableCollection<Tbl03Regnum>();
             Tbl03RegnumsList.Insert(0, new Tbl03Regnum   {   RegnumName = CultRes.StringsRes.DatasetNew  }  );
 
             RegnumsView = CollectionViewSource.GetDefaultView(Tbl03RegnumsList);

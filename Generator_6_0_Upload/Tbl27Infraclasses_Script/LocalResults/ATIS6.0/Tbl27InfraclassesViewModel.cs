@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.D27Infraclass
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -99,8 +99,10 @@ namespace ATIS.Ui.Views.Database.D27Infraclass
      
         private void ExecuteAddInfraclass(object o)
         {
+            Tbl27InfraclassesList = new ObservableCollection<Tbl27Infraclass>();
             Tbl27InfraclassesList.Insert(0, new Tbl27Infraclass   {   InfraclassName = CultRes.StringsRes.DatasetNew  }  );
             Tbl24SubclassesAllList = _extCrud.GetCollectionAllOrderBy<Tbl24Subclass>("subclass");
+
 
             InfraclassesView = CollectionViewSource.GetDefaultView(Tbl27InfraclassesList);
             InfraclassesView.MoveCurrentToFirst();

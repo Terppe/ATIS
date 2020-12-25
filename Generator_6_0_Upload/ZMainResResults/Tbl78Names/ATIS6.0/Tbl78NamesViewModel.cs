@@ -57,7 +57,7 @@ namespace ATIS.Ui.Views.Database.D78Name
         }
         public bool IsInDesignMode { get; set; }
 
-        #endregion "Constructor"          
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -90,6 +90,7 @@ NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
         
         private void ExecuteAddName(object o)
         {
+            Tbl78NamesList = new ObservableCollection<Tbl78Name>();
             Tbl78NamesList.Insert(0, new Tbl78Name   {   NameName = CultRes.StringsRes.DatasetNew  }  );
 
             Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
@@ -797,11 +798,7 @@ NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
 
         public class Language
         {
-            public string Name
-            {
-                get;
-                set;
-            }
+            public string Name   {    get;   set;    }
         }
 
         #endregion Language  

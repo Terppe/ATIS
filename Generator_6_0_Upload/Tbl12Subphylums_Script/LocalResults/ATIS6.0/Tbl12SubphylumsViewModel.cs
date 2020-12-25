@@ -58,7 +58,7 @@ namespace ATIS.Ui.Views.Database.D12Subphylum
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -101,8 +101,10 @@ namespace ATIS.Ui.Views.Database.D12Subphylum
      
         private void ExecuteAddSubphylum(object o)
         {
+            Tbl12SubphylumsList = new ObservableCollection<Tbl12Subphylum>();
             Tbl12SubphylumsList.Insert(0, new Tbl12Subphylum   {   SubphylumName = CultRes.StringsRes.DatasetNew  }  );
             Tbl06PhylumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl06Phylum>("phylum");
+
 
             SubphylumsView = CollectionViewSource.GetDefaultView(Tbl12SubphylumsList);
             SubphylumsView.MoveCurrentToFirst();

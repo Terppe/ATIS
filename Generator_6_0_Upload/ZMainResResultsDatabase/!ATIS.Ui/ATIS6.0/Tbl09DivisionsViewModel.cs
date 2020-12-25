@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.D09Division
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -99,8 +99,10 @@ namespace ATIS.Ui.Views.Database.D09Division
      
         private void ExecuteAddDivision(object o)
         {
+            Tbl09DivisionsList = new ObservableCollection<Tbl09Division>();
             Tbl09DivisionsList.Insert(0, new Tbl09Division   {   DivisionName = CultRes.StringsRes.DatasetNew  }  );
             Tbl03RegnumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl03Regnum>("regnum");
+
 
             DivisionsView = CollectionViewSource.GetDefaultView(Tbl09DivisionsList);
             DivisionsView.MoveCurrentToFirst();

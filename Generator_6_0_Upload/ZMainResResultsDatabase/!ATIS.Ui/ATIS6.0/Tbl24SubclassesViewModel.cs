@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.D24Subclass
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -99,8 +99,10 @@ namespace ATIS.Ui.Views.Database.D24Subclass
      
         private void ExecuteAddSubclass(object o)
         {
+            Tbl24SubclassesList = new ObservableCollection<Tbl24Subclass>();
             Tbl24SubclassesList.Insert(0, new Tbl24Subclass   {   SubclassName = CultRes.StringsRes.DatasetNew  }  );
             Tbl21ClassesAllList = _extCrud.GetCollectionAllOrderBy<Tbl21Class>("classe");
+
 
             SubclassesView = CollectionViewSource.GetDefaultView(Tbl24SubclassesList);
             SubclassesView.MoveCurrentToFirst();

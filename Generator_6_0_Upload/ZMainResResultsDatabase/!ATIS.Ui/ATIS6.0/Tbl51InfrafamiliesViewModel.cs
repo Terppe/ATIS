@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.D51Infrafamily
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -99,8 +99,10 @@ namespace ATIS.Ui.Views.Database.D51Infrafamily
      
         private void ExecuteAddInfrafamily(object o)
         {
+            Tbl51InfrafamiliesList = new ObservableCollection<Tbl51Infrafamily>();
             Tbl51InfrafamiliesList.Insert(0, new Tbl51Infrafamily   {   InfrafamilyName = CultRes.StringsRes.DatasetNew  }  );
             Tbl48SubfamiliesAllList = _extCrud.GetCollectionAllOrderBy<Tbl48Subfamily>("subfamily");
+
 
             InfrafamiliesView = CollectionViewSource.GetDefaultView(Tbl51InfrafamiliesList);
             InfrafamiliesView.MoveCurrentToFirst();

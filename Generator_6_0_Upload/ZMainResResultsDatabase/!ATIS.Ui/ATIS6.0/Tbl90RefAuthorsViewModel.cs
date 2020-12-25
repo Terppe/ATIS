@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.ListDetails
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -89,6 +89,7 @@ RefAuthorsView = CollectionViewSource.GetDefaultView(Tbl90RefAuthorsList);
         
         private void ExecuteAddRefAuthor(object o)
         {
+            Tbl90RefAuthorsList = new ObservableCollection<Tbl90RefAuthor>();
             Tbl90RefAuthorsList.Insert(0, new Tbl90RefAuthor {   RefAuthorName = CultRes.StringsRes.DatasetNew}  );
 
             RefAuthorsView = CollectionViewSource.GetDefaultView(Tbl90RefAuthorsList);

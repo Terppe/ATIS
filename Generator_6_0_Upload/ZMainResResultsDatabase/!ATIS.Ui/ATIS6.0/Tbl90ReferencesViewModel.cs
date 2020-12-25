@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.ListDetails
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -89,6 +89,7 @@ ReferencesView = CollectionViewSource.GetDefaultView(Tbl90ReferencesList);
         
         private void ExecuteAddReference(object o)
         {
+            Tbl90ReferencesList = new ObservableCollection<Tbl90Reference>();
              Tbl90ReferencesList.Insert(0, new Tbl90Reference {   Info = CultRes.StringsRes.DatasetNew }  );
 
             Tbl03RegnumsAllList = new ObservableCollection<Tbl03Regnum>(_businessLayer.ListTbl03Regnums());

@@ -59,7 +59,7 @@ namespace ATIS.Ui.Views.Database.ListDetails
         }
         public bool IsInDesignMode { get; set; }
 
-        #endregion "Constructor"                     
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -92,6 +92,7 @@ UserProfilesView = CollectionViewSource.GetDefaultView(TblUserProfilesList);
         
         private void ExecuteAddUserProfile(object o)
         {
+            TblUserProfilesList = new ObservableCollection<TblUserProfile>();
             TblUserProfilesList.Insert(0, new TblUserProfile {   LastName = CultRes.StringsRes.DatasetNew}  );
 
             TblCountriesAllList = new ObservableCollection<TblCountry>(_businessLayer.ListTblCountries());

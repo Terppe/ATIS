@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.D30Legio
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -99,8 +99,10 @@ namespace ATIS.Ui.Views.Database.D30Legio
      
         private void ExecuteAddLegio(object o)
         {
+            Tbl30LegiosList = new ObservableCollection<Tbl30Legio>();
             Tbl30LegiosList.Insert(0, new Tbl30Legio   {   LegioName = CultRes.StringsRes.DatasetNew  }  );
             Tbl27InfraclassesAllList = _extCrud.GetCollectionAllOrderBy<Tbl27Infraclass>("infraclass");
+
 
             LegiosView = CollectionViewSource.GetDefaultView(Tbl30LegiosList);
             LegiosView.MoveCurrentToFirst();

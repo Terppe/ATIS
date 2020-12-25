@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.ListDetails
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -89,6 +89,7 @@ RefExpertsView = CollectionViewSource.GetDefaultView(Tbl90RefExpertsList);
         
         private void ExecuteAddRefExpert(object o)
         {
+            Tbl90RefExpertsList = new ObservableCollection<Tbl90RefExpert>();
             Tbl90RefExpertsList.Insert(0, new Tbl90RefExpert {   RefExpertName = CultRes.StringsRes.DatasetNew}  );
 
             RefExpertsView = CollectionViewSource.GetDefaultView(Tbl90RefExpertsList);

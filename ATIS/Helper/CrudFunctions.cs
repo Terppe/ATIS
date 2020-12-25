@@ -16,8 +16,6 @@ namespace ATIS.Ui.Helper
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly AtisDbContext _context = new AtisDbContext();
 
-
-      //  public ObservableCollection<T> SearchNameOrIdReturnCollection<T>(string searchName, string name)
         public ObservableCollection<T> GetCollectionFromSearchNameOrIdOrderBy<T>(string searchName, string name)
         {
             var collection = new ObservableCollection<T>();
@@ -175,7 +173,6 @@ namespace ATIS.Ui.Helper
                 case "plspecies":
                     collection = GetPlSpeciessesCollectionAllOrderBy<T>();
                     break;
-
                 case "expert":
                     collection = GetReferenceExpertsCollectionAllOrderBy<T>();
                     break;
@@ -185,7 +182,6 @@ namespace ATIS.Ui.Helper
                 case "author":
                     collection = GetReferenceAuthorsCollectionAllOrderBy<T>();
                     break;
-
             }
 
             return collection;
@@ -9008,7 +9004,7 @@ namespace ATIS.Ui.Helper
 
         #region Genus
 
-        #region Get Genus
+          #region Get Genus
 
         //----------------------------------------   Genus   ------------------------
         public ObservableCollection<T> GetGenussesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
@@ -9903,8 +9899,9 @@ namespace ATIS.Ui.Helper
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
-                ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl69FiSpeciesses
-                    .Find(e => e.FiSpeciesId == id))
+                ? new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
+                    .Include(a=> a.Tbl66Genusses)
+                    .Where(e => e.FiSpeciesId == id))
                 : new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
                     .Include(a => a.Tbl66Genusses)
                     .Where(a => a.Tbl66Genusses.GenusName.StartsWith(searchName))
@@ -9920,7 +9917,9 @@ namespace ATIS.Ui.Helper
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
-                .OrderBy(a => a.FiSpeciesName)
+                .Include(a=> a.Tbl66Genusses)
+                .OrderBy(a => a.Tbl66Genusses.GenusName)
+                .ThenBy(a => a.FiSpeciesName)
                 .ThenBy(a => a.Subspecies)
                 .ThenBy(a => a.Divers));
             return collection;
@@ -9929,8 +9928,10 @@ namespace ATIS.Ui.Helper
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
+                .Include(a =>a)
                 .Where(e => e.FiSpeciesId == id)
-                .OrderBy(a => a.FiSpeciesName)
+                .OrderBy(a => a.Tbl66Genusses.GenusName)
+                .ThenBy(a => a.FiSpeciesName)
                 .ThenBy(a => a.Subspecies)
                 .ThenBy(a => a.Divers));
 
@@ -10611,8 +10612,9 @@ namespace ATIS.Ui.Helper
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
-                ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl72PlSpeciesses
-                    .Find(e => e.PlSpeciesId == id))
+                ? new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
+                    .Include(a => a.Tbl66Genusses)
+                    .Where(e => e.PlSpeciesId == id))
                 : new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
                     .Include(a => a.Tbl66Genusses)
                     .Where(a => a.Tbl66Genusses.GenusName.StartsWith(searchName))
@@ -10627,7 +10629,9 @@ namespace ATIS.Ui.Helper
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
-                .OrderBy(a => a.PlSpeciesName)
+                .Include(a => a.Tbl66Genusses)
+                .OrderBy(a => a.Tbl66Genusses.GenusName)
+                .ThenBy(a => a.PlSpeciesName)
                 .ThenBy(a => a.Subspecies)
                 .ThenBy(a => a.Divers));
             return collection;
@@ -10636,8 +10640,10 @@ namespace ATIS.Ui.Helper
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
+                .Include(a => a.Tbl66Genusses)
                 .Where(e => e.PlSpeciesId == id)
-                .OrderBy(a => a.PlSpeciesName)
+                .OrderBy(a => a.Tbl66Genusses.GenusName)
+                .ThenBy(a => a.PlSpeciesName)
                 .ThenBy(a => a.Subspecies)
                 .ThenBy(a => a.Divers));
 

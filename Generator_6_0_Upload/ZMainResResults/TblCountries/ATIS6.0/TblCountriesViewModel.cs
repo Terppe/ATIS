@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.ListDetails
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -89,6 +89,7 @@ CountriesView = CollectionViewSource.GetDefaultView(TblCountriesList);
         
         private void ExecuteAddCountry(object o)
         {
+            TblCountriesList = new ObservableCollection<TblCountry>();
             TblCountriesList.Insert(0, new TblCountry {   Name = CultRes.StringsRes.DatasetNew}  );
 
             CountriesView = CollectionViewSource.GetDefaultView(TblCountriesList);

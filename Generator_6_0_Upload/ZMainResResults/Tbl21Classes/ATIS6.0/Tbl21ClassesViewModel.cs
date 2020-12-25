@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.D21Class
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -99,8 +99,10 @@ namespace ATIS.Ui.Views.Database.D21Class
      
         private void ExecuteAddClass(object o)
         {
+            Tbl21ClassesList = new ObservableCollection<Tbl21Class>();
             Tbl21ClassesList.Insert(0, new Tbl21Class   {   ClassName = CultRes.StringsRes.DatasetNew  }  );
             Tbl18SuperclassesAllList = _extCrud.GetCollectionAllOrderBy<Tbl18Superclass>("superclass");
+
 
             ClassesView = CollectionViewSource.GetDefaultView(Tbl21ClassesList);
             ClassesView.MoveCurrentToFirst();

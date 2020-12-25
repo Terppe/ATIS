@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.ListDetails
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -89,6 +89,7 @@ SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
         
         private void ExecuteAddSynonym(object o)
         {
+            Tbl84SynonymsList = new ObservableCollection<Tbl84Synonym>();
             Tbl84SynonymsList.Insert(0, new Tbl84Synonym   {   SynonymName = CultRes.StringsRes.DatasetNew  }  );
 
             Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");

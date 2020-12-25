@@ -52,7 +52,7 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -94,6 +94,7 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
         
         private void ExecuteAddSpeciesgroup(object o)
         {  
+            Tbl68SpeciesgroupsList = new ObservableCollection<Tbl68Speciesgroup>();
             Tbl68SpeciesgroupsList.Insert(0, new Tbl68Speciesgroup {   SpeciesgroupName = CultRes.StringsRes.DatasetNew}  );
 
             Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");

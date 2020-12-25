@@ -56,31 +56,7 @@
     ]]>                                         
     </xsl:otherwise>    
     </xsl:choose>  
-
-        <xsl:choose>
-        <xsl:when test="Table ='Usercontrol Header  Bottom  1 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
-        </xsl:when>  
-    <xsl:when test="Table ='Tbl87Geographics'">   
-    </xsl:when>
-        <xsl:otherwise> 
-        </xsl:otherwise>    
-        </xsl:choose> 
-
-        <xsl:choose>
-        <xsl:when test="Table ='Usercontrol Header  Bottom 2 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
-        </xsl:when>  
-        <xsl:when test="Table ='Tbl69FiSpeciesses'">  <![CDATA[    
-             xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"  ]]>                                            
-        </xsl:when>
-        <xsl:when test="Table ='Tbl72PlSpeciesses'">  <![CDATA[    
-             xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"  ]]>                                            
-        </xsl:when>
-        <xsl:when test="Table ='Tbl87Geographics'">  <![CDATA[    
-             xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"  ]]>                                            
-        </xsl:when>
-        <xsl:otherwise>
-        </xsl:otherwise>    
-        </xsl:choose>       
+  
             <xsl:choose>
             <xsl:when test="Table ='Usercontrol Header  Bottom  3 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
             </xsl:when>  
@@ -113,6 +89,8 @@
 <xsl:when test="Table ='Grid Part 1 Middle 2   Resources+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
 </xsl:when>
 <xsl:when test="Table ='Tbl69FiSpeciesses'">  <![CDATA[    
+    <!--  xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"  -->
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="650" />
@@ -130,9 +108,30 @@
         <StackPanel Grid.Row="0" Grid.Column="1" />    ]]>                                   
 </xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">  <![CDATA[    
+    <!--  xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"  -->
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="650" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="50*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="50*" />
+        </Grid.RowDefinitions>
+
+        <!--  Part 1   Creating Main-Grid in Column 1  -->
+
+        <StackPanel Grid.Row="0" Grid.Column="1" />    ]]>                                   
+</xsl:when>
+<xsl:when test="Table ='Tbl87Geographics'">  <![CDATA[    
+    <!--  xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"  -->
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="750" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="50*" />
         </Grid.ColumnDefinitions>
@@ -1703,7 +1702,11 @@
                                                         <GridViewColumn
                                                             Width="150"
                                                             DisplayMemberBinding="{Binding (models:]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="NameTK1"/><![CDATA[)}"
-                                                            Header="{DynamicResource ]]><xsl:value-of select="LinqModelTK1"/><![CDATA[-]]><xsl:value-of select="NameTK1"/><![CDATA[}" />         
+                                                            Header="{DynamicResource ]]><xsl:value-of select="LinqModelTK1"/><![CDATA[-]]><xsl:value-of select="NameTK1"/><![CDATA[}" />  
+                                                        <GridViewColumn
+                                                            Width="80"
+                                                            DisplayMemberBinding="{Binding (models:Tbl78Name.Language)}"
+                                                            Header="{DynamicResource Tbl78Name-Language}" />       
                                                         <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
                                                             <GridViewColumn.CellTemplate>
                                                                 <DataTemplate>
@@ -1722,7 +1725,11 @@
                                                         <GridViewColumn
                                                             Width="150"
                                                             DisplayMemberBinding="{Binding (models:]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="NameTK1"/><![CDATA[)}"
-                                                            Header="{DynamicResource ]]><xsl:value-of select="LinqModelTK1"/><![CDATA[-]]><xsl:value-of select="NameTK1"/><![CDATA[}" />         
+                                                            Header="{DynamicResource ]]><xsl:value-of select="LinqModelTK1"/><![CDATA[-]]><xsl:value-of select="NameTK1"/><![CDATA[}" />    
+                                                        <GridViewColumn
+                                                            Width="80"
+                                                            DisplayMemberBinding="{Binding (models:Tbl78Name.Language)}"
+                                                            Header="{DynamicResource Tbl78Name-Language}" />            
                                                         <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
                                                             <GridViewColumn.CellTemplate>
                                                                 <DataTemplate>
@@ -13013,6 +13020,7 @@
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                 mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
                                 mah:TextBoxHelper.WatermarkAlignment="Left"
+                                CharacterCasing="Upper"
                                 FontWeight="Medium"
                                 SpellCheck.IsEnabled="True"
                                 ToolTip="{DynamicResource Shared-Author}">
@@ -13108,6 +13116,7 @@
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                 mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
                                 mah:TextBoxHelper.WatermarkAlignment="Left"
+                                CharacterCasing="Upper"
                                 FontWeight="Medium"
                                 SpellCheck.IsEnabled="True"
                                 ToolTip="{DynamicResource Shared-Author}">

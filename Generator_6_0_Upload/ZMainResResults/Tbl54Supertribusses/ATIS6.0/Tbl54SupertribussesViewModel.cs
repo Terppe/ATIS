@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.D54Supertribus
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -99,8 +99,10 @@ namespace ATIS.Ui.Views.Database.D54Supertribus
      
         private void ExecuteAddSupertribus(object o)
         {
+            Tbl54SupertribussesList = new ObservableCollection<Tbl54Supertribus>();
             Tbl54SupertribussesList.Insert(0, new Tbl54Supertribus   {   SupertribusName = CultRes.StringsRes.DatasetNew  }  );
             Tbl51InfrafamiliesAllList = _extCrud.GetCollectionAllOrderBy<Tbl51Infrafamily>("infrafamily");
+
 
             SupertribussesView = CollectionViewSource.GetDefaultView(Tbl54SupertribussesList);
             SupertribussesView.MoveCurrentToFirst();

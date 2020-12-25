@@ -94,7 +94,7 @@ namespace ATIS.Ui.Views.Database.ListDetails
         }   
         public bool IsInDesignMode { get; set; }
 
-        #endregion "Constructor"                        
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -127,6 +127,7 @@ ImagesView = CollectionViewSource.GetDefaultView(Tbl81ImagesList);
         
         private void ExecuteAddImage(object o)
         {
+            Tbl81ImagesList = new ObservableCollection<Tbl81Image>();
             Tbl81ImagesList.Insert(0, new Tbl81Image   {   Info = CultRes.StringsRes.DatasetNew  }  );
 
             Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");

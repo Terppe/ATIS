@@ -59,7 +59,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -103,6 +103,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
         
         private void ExecuteAddSuperclass(object o)
         {
+            Tbl18SuperclassesList = new ObservableCollection<Tbl18Superclass>();
             Tbl18SuperclassesList.Insert(0, new Tbl18Superclass   {   SuperclassName = CultRes.StringsRes.DatasetNew  }  );
 
             Tbl12SubphylumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl12Subphylum>("subphylum");

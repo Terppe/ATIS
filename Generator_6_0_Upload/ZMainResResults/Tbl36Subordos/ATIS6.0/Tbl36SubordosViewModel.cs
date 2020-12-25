@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.D36Subordo
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -99,8 +99,10 @@ namespace ATIS.Ui.Views.Database.D36Subordo
      
         private void ExecuteAddSubordo(object o)
         {
+            Tbl36SubordosList = new ObservableCollection<Tbl36Subordo>();
             Tbl36SubordosList.Insert(0, new Tbl36Subordo   {   SubordoName = CultRes.StringsRes.DatasetNew  }  );
             Tbl33OrdosAllList = _extCrud.GetCollectionAllOrderBy<Tbl33Ordo>("ordo");
+
 
             SubordosView = CollectionViewSource.GetDefaultView(Tbl36SubordosList);
             SubordosView.MoveCurrentToFirst();

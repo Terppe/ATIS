@@ -67,7 +67,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
         }
         public bool IsInDesignMode { get; set; }
 
-        #endregion "Constructor"          
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -111,6 +111,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
         
         private void ExecuteAddFiSpecies(object o)
         {  
+            Tbl69FiSpeciessesList = new ObservableCollection<Tbl69FiSpecies>();
             Tbl69FiSpeciessesList.Insert(0, new Tbl69FiSpecies {   FiSpeciesName = CultRes.StringsRes.DatasetNew}  );
 
             Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
@@ -479,7 +480,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
 
             //     var plantaeRegnum = _context.Tbl72PlSpeciesses.FirstOrDefault(p => p.PlSpeciesName == "Plantae#Regnum#");
             //     var plantaeRegnum = _uow.Tbl72PlSpeciesses.Find(p => p.PlSpeciesName == "Plantae#Regnum#").FirstOrDefault();
-          //  var plantaeRegnumId = _extCrud.PlSpeciesIdFromPlSpeciessesCollectionSelectByName("Plantae#Regnum#");
+         //   var plantaeRegnumId = _extCrud.GetPlSpeciesIdFromPlSpeciessesCollectionSelectByName("Plantae#Regnum#");
 
             //Fehler um PlSpeciesId zu ermitteln !!!!!!!!!!!!!!!!!!
             //   if (plantaeRegnum != null) CurrentTbl78Name.PlSpeciesId = plantaeRegnum.PlSpeciesId;
@@ -529,7 +530,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
                 Log.Error(e);
             }
 
-            Tbl78NamesList = _extCrud.GetNamesCollectionFromFiSpeciesIdOrderBy<Tbl78Name>(CurrentTbl69FiSpecies.FiSpeciesId);
+            Tbl78NamesList = _extCrud.GetNamesCollectionFromFiSpeciesIdOrderBy<Tbl78Name>(CurrentTbl78Name.FiSpeciesId);
 
             NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
             NamesView.MoveCurrentToPosition(_position);
@@ -811,7 +812,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
                 Log.Error(e);
             }
 
-            Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromFiSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl69FiSpecies.FiSpeciesId);
+            Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromFiSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl84Synonym.FiSpeciesId);
 
             SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
             SynonymsView.MoveCurrentToPosition(_position);
@@ -1090,7 +1091,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
       
 
             SelectedMainTabIndex = 6;
-            SelectedDetailSubTabIndex = 6;
+    //        SelectedDetailSubTabIndex = 6;
             SelectedMainSubRefTabIndex = 2;
 
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
@@ -1236,7 +1237,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
 
       
             SelectedMainTabIndex = 6;
-            SelectedDetailSubTabIndex = 6;
+    //        SelectedDetailSubTabIndex = 6;
             SelectedMainSubRefTabIndex = 1;
 
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
@@ -1378,7 +1379,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
            Tbl90ReferenceExpertsList= _extCrud.GetReferenceExpertsCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);                     
          
             SelectedMainTabIndex = 6;
-            SelectedDetailSubTabIndex = 6;
+     //       SelectedDetailSubTabIndex = 6;
             SelectedMainSubRefTabIndex = 0;
 
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
@@ -1513,7 +1514,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
             Tbl93CommentsList = _extCrud.GetCommentsCollectionFromFiSpeciesIdOrderBy<Tbl93Comment>(CurrentTbl93Comment.FiSpeciesId);                 
        
             SelectedMainTabIndex = 7;
-            SelectedDetailSubTabIndex = 7;
+     //       SelectedDetailSubTabIndex = 7;
 
             CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
             CommentsView.Refresh();
@@ -1537,10 +1538,15 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
         private void GetConnectedTablesById(object o)
         {           
         
-            Tbl66GenussesList = new ObservableCollection<Tbl66Genus>(_businessLayer.ListTbl66GenussesByGenusId(CurrentTbl69FiSpecies.GenusID));
+            Tbl66GenussesList = _extCrud.GetGenussesCollectionFromGenusIdOrderBy<Tbl66Genus>(CurrentTbl69FiSpecies.GenusId);
+
+            Tbl63InfratribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl63Infratribus>("infratribus");
 
             GenussesView = CollectionViewSource.GetDefaultView(Tbl66GenussesList);
-            GenussesView.Refresh();    
+            GenussesView.Refresh();
+
+            SelectedMainTabIndex = 0;
+            SelectedDetailTabIndex = 2;   
      
         }
 
@@ -1565,14 +1571,14 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
             {
                 if (value == _selectedMainTabIndex) return;
                 _selectedMainTabIndex = value; RaisePropertyChanged("");        
-     
+       
                 if (_selectedMainTabIndex == 0)             
                 {
                     if (CurrentTbl69FiSpecies != null)
                     {
                         Tbl66GenussesList = _extCrud.GetGenussesCollectionFromGenusIdOrderBy<Tbl66Genus>(CurrentTbl69FiSpecies.GenusId);
 
-                        Tbl63InfratribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl63Infratribus>("");
+                        Tbl63InfratribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl63Infratribus>("infratribus");
 
                         GenussesView = CollectionViewSource.GetDefaultView(Tbl66GenussesList);
                         GenussesView.Refresh();
@@ -1871,6 +1877,9 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
                     SelectedMainTabIndex = 6;
                     SelectedDetailSubRefTabIndex = 2;
                 }      
+       
+            }
+        }           
        
         public int SelectedDetailSubRefTabIndex
         {
@@ -2294,11 +2303,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
 
              public class Language
              {
-                 public string Name
-                 {
-                     get;
-                     set;
-                 }
+            public string Name   {    get;   set;    }
              }
 
  

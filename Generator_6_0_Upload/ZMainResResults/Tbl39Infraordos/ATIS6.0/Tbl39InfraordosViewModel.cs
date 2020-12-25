@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.D39Infraordo
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -99,8 +99,10 @@ namespace ATIS.Ui.Views.Database.D39Infraordo
      
         private void ExecuteAddInfraordo(object o)
         {
+            Tbl39InfraordosList = new ObservableCollection<Tbl39Infraordo>();
             Tbl39InfraordosList.Insert(0, new Tbl39Infraordo   {   InfraordoName = CultRes.StringsRes.DatasetNew  }  );
             Tbl36SubordosAllList = _extCrud.GetCollectionAllOrderBy<Tbl36Subordo>("subordo");
+
 
             InfraordosView = CollectionViewSource.GetDefaultView(Tbl39InfraordosList);
             InfraordosView.MoveCurrentToFirst();

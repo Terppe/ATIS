@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -99,8 +99,10 @@ namespace ATIS.Ui.Views.Database.D06Phylum
      
         private void ExecuteAddPhylum(object o)
         {
+            Tbl06PhylumsList = new ObservableCollection<Tbl06Phylum>();
             Tbl06PhylumsList.Insert(0, new Tbl06Phylum   {   PhylumName = CultRes.StringsRes.DatasetNew  }  );
             Tbl03RegnumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl03Regnum>("regnum");
+
 
             PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
             PhylumsView.MoveCurrentToFirst();

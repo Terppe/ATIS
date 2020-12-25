@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.D48Subfamily
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -99,8 +99,10 @@ namespace ATIS.Ui.Views.Database.D48Subfamily
      
         private void ExecuteAddSubfamily(object o)
         {
+            Tbl48SubfamiliesList = new ObservableCollection<Tbl48Subfamily>();
             Tbl48SubfamiliesList.Insert(0, new Tbl48Subfamily   {   SubfamilyName = CultRes.StringsRes.DatasetNew  }  );
             Tbl45FamiliesAllList = _extCrud.GetCollectionAllOrderBy<Tbl45Family>("family");
+
 
             SubfamiliesView = CollectionViewSource.GetDefaultView(Tbl48SubfamiliesList);
             SubfamiliesView.MoveCurrentToFirst();

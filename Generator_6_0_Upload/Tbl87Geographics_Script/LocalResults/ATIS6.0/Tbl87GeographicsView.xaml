@@ -17,9 +17,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:models="clr-namespace:Te.Atis.DomainModel;assembly=Te.Atis.DomainModel"
              xmlns:validationRules="clr-namespace:Te.Atis.Ui.Desktop.Domain.Helper.ValidationRules"                                            
-          
-             xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"                                              
-            
+        
              d:DesignHeight="800" 
              d:DesignWidth="1600"
              mc:Ignorable="d">                                              
@@ -29,7 +27,9 @@
 
         <!-- Tbl87GeographicsView.xaml  Skriptdatum:  22.01.2019  10:32   -->    
               
-             
+      
+    <!--  xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"  -->
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="750" />

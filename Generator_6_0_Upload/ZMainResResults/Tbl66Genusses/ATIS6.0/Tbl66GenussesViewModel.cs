@@ -57,7 +57,7 @@ namespace ATIS.Ui.Views.Database.D66Genus
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -100,8 +100,10 @@ namespace ATIS.Ui.Views.Database.D66Genus
      
         private void ExecuteAddGenus(object o)
         {
+            Tbl66GenussesList = new ObservableCollection<Tbl66Genus>();
             Tbl66GenussesList.Insert(0, new Tbl66Genus   {   GenusName = CultRes.StringsRes.DatasetNew  }  );
             Tbl63InfratribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl63Infratribus>("infratribus");
+
 
             GenussesView = CollectionViewSource.GetDefaultView(Tbl66GenussesList);
             GenussesView.MoveCurrentToFirst();

@@ -12,7 +12,6 @@ using log4net;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 
@@ -105,6 +104,8 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
             Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("speciesgroup");
 
             Tbl69FiSpeciessesList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl69FiSpecies>(SearchFiSpeciesName, "fispecies");
+
+            if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl69FiSpeciessesList.Count)) return;
 
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 2;
@@ -2191,11 +2192,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
         public ObservableCollection<Tbl87Geographic> Tbl87GeographicsAllList
         {
             get => _tbl87GeographicsAllList;
-            set
-            {
-                _tbl87GeographicsAllList = value;
-                RaisePropertyChanged("");
-            }
+            set { _tbl87GeographicsAllList = value; RaisePropertyChanged(""); }
         }
 
         #endregion "Public Properties"

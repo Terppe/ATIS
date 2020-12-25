@@ -280,6 +280,8 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 RegisterCommands(); 
             }
         }
+        public bool IsInDesignMode { get; set; }
+
         #endregion "Constructor"          ]]>
 </xsl:when>  
 <xsl:when test="Table ='Tbl72PlSpeciesses'">   <![CDATA[ 
@@ -289,13 +291,16 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 RegisterCommands();
             }
         }
+        public bool IsInDesignMode { get; set; }
+
         #endregion "Constructor"           ]]>
 </xsl:when>  
 <xsl:when test="Table ='Tbl78Names'">   <![CDATA[ 
                 GetValueLanguage();
-                _entityException = new DbEntityException();
             }
         }
+        public bool IsInDesignMode { get; set; }
+
         #endregion "Constructor"          ]]>
 </xsl:when> 
 <xsl:when test="Table ='Tbl81Images'">     <![CDATA[ 
@@ -314,9 +319,10 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 DownloadClosedCaptionTrackCommand = new RelayCommand<ClosedCaptionTrackInfo>(
                     DownloadClosedCaptionTrack, _ => !IsBusy);
 
-                _entityException = new DbEntityException();
             }
         }   
+        public bool IsInDesignMode { get; set; }
+
         #endregion "Constructor"                  ]]>      
 </xsl:when>  
 <xsl:when test="Table ='Tbl87Geographics'">     <![CDATA[ 
@@ -324,6 +330,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 GetValueContinent();
             }
         }
+        public bool IsInDesignMode { get; set; }
 
         #endregion "Constructor"                 ]]>      
 </xsl:when>   
@@ -333,6 +340,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                  GetValueTitle();
             }
         }
+        public bool IsInDesignMode { get; set; }
 
         #endregion "Constructor"               ]]>      
 </xsl:when>   
@@ -577,6 +585,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl03Regnums'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[   {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew  }  );
 
             ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
@@ -586,6 +595,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl18Superclasses'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[   {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew  }  );
 
             ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
@@ -598,6 +608,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl68Speciesgroups'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {  
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[ {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew}  );
 
             ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
@@ -609,6 +620,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl69FiSpeciesses'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {  
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[ {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew}  );
 
             ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
@@ -621,6 +633,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl72PlSpeciesses'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {  
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[ {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew}  );
 
             ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
@@ -633,6 +646,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl78Names'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[   {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew  }  );
 
             ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
@@ -646,6 +660,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl81Images'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[   {   Info = CultRes.StringsRes.DatasetNew  }  );
 
             ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
@@ -659,6 +674,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl84Synonyms'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[   {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew  }  );
 
             ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
@@ -672,6 +688,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl87Geographics'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[   {   Info = CultRes.StringsRes.DatasetNew  }  );
 
                 TblCountriesAllList = new ObservableCollection<TblCountry>(_businessLayer.ListTblCountries());
@@ -686,6 +703,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl90References'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
              ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[ {   Info = CultRes.StringsRes.DatasetNew }  );
 
             Tbl03RegnumsAllList = new ObservableCollection<Tbl03Regnum>(_businessLayer.ListTbl03Regnums());
@@ -725,6 +743,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl90RefAuthors'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[ {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew}  );
 
             ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
@@ -735,6 +754,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl90RefExperts'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[ {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew}  );
 
             ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
@@ -745,6 +765,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl90RefSources'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[ {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew}  );
 
             ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
@@ -755,6 +776,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl93Comments'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {  
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[ {   Info = CultRes.StringsRes.DatasetNew }  );
 
             Tbl03RegnumsAllList = new ObservableCollection<Tbl03Regnum>(_businessLayer.ListTbl03Regnums());
@@ -790,6 +812,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='TblCountries'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[ {   Name = CultRes.StringsRes.DatasetNew}  );
 
             ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
@@ -800,6 +823,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='TblUserProfiles'">       <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[ {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew}  );
 
             TblCountriesAllList = new ObservableCollection<TblCountry>(_businessLayer.ListTblCountries());
@@ -811,8 +835,10 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:otherwise>    <![CDATA[ 
         private void ExecuteAdd]]><xsl:value-of select="Basis"/><![CDATA[(object o)
         {
+            ]]><xsl:value-of select="Table"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModel"/><![CDATA[>();
             ]]><xsl:value-of select="Table"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModel"/><![CDATA[   {   ]]><xsl:value-of select="Name"/><![CDATA[ = CultRes.StringsRes.DatasetNew  }  );
             ]]><xsl:value-of select="TableFK1"/><![CDATA[AllList = _extCrud.GetCollectionAllOrderBy<]]><xsl:value-of select="LinqModelFK1"/><![CDATA[>("]]><xsl:value-of select="BasisSmFK1"/><![CDATA[");
+
 
             ]]><xsl:value-of select="Basiss"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="Table"/><![CDATA[List);
             ]]><xsl:value-of select="Basiss"/><![CDATA[View.MoveCurrentToFirst();
@@ -2671,12 +2697,13 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
             //Search for CurrentTbl78Name.PlSpeciesId with Plantae#Regnum# 
 
-       //     var plantaeRegnum = _context.Tbl72PlSpeciesses.FirstOrDefault(p => p.PlSpeciesName == "Plantae#Regnum#");
-       //     var plantaeRegnum = _uow.Tbl72PlSpeciesses.Find(p => p.PlSpeciesName == "Plantae#Regnum#").FirstOrDefault();
+            //     var plantaeRegnum = _context.Tbl72PlSpeciesses.FirstOrDefault(p => p.PlSpeciesName == "Plantae#Regnum#");
+            //     var plantaeRegnum = _uow.Tbl72PlSpeciesses.Find(p => p.PlSpeciesName == "Plantae#Regnum#").FirstOrDefault();
+         //   var plantaeRegnumId = _extCrud.GetPlSpeciesIdFromPlSpeciessesCollectionSelectByName("Plantae#Regnum#");
 
             //Fehler um PlSpeciesId zu ermitteln !!!!!!!!!!!!!!!!!!
-         //   if (plantaeRegnum != null) CurrentTbl78Name.PlSpeciesId = plantaeRegnum.PlSpeciesId;
-
+            //   if (plantaeRegnum != null) CurrentTbl78Name.PlSpeciesId = plantaeRegnum.PlSpeciesId;
+            //Fehler !!!!
             CurrentTbl78Name.PlSpeciesId = 1;
             try
             {
@@ -2736,9 +2763,9 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
             Current]]><xsl:value-of select="LinqModelTK1"/><![CDATA[.]]><xsl:value-of select="Id"/><![CDATA[ = Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Id"/><![CDATA[;
 
             //Search for CurrentTbl78Name.FiSpeciesId with Animalia#Regnum# 
-            var animaliaRegnum = _businessLayer.SingleListTbl69FiSpeciessesByFiSpeciesName("Animalia#Regnum#");
-            CurrentTbl78Name.FiSpeciesId = animaliaRegnum.FiSpeciesId;
-
+          //  var animaliaRegnum = _businessLayer.SingleListTbl69FiSpeciessesByFiSpeciesName("Animalia#Regnum#");
+          //  CurrentTbl78Name.FiSpeciesId = animaliaRegnum.FiSpeciesId;
+          // Fehler !!!
             CurrentTbl78Name.FiSpeciesId = 2;
 
             try
@@ -2902,6 +2929,30 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         #region [Public Methods Connect ==> ]]><xsl:value-of select="LinqModelTK2"/><![CDATA[]                        ]]>
   </xsl:if> 
 </xsl:when>
+<xsl:when test="Table ='Tbl69FiSpeciesses'">    
+  <xsl:if test="TableTK2 !='NULL'">       <![CDATA[                
+        #region [Public Commands Connect ==> ]]><xsl:value-of select="LinqModelTK2"/><![CDATA[]                 
+        
+        private RelayCommand _add]]><xsl:value-of select="BasisTK2"/><![CDATA[Command;
+
+        public ICommand Add]]><xsl:value-of select="BasisTK2"/><![CDATA[Command => _add]]><xsl:value-of select="BasisTK2"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteAdd]]><xsl:value-of select="BasisTK2"/><![CDATA[(null); });
+
+        private RelayCommand _copy]]><xsl:value-of select="BasisTK2"/><![CDATA[Command;
+
+        public ICommand Copy]]><xsl:value-of select="BasisTK2"/><![CDATA[Command => _copy]]><xsl:value-of select="BasisTK2"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteCopy]]><xsl:value-of select="BasisTK2"/><![CDATA[(null); });
+
+        private RelayCommand _delete]]><xsl:value-of select="BasisTK2"/><![CDATA[Command;
+
+        public ICommand Delete]]><xsl:value-of select="BasisTK2"/><![CDATA[Command => _delete]]><xsl:value-of select="BasisTK2"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteDelete]]><xsl:value-of select="BasisTK2"/><![CDATA[(SearchFiSpeciesName); });
+
+        private RelayCommand _save]]><xsl:value-of select="BasisTK2"/><![CDATA[Command;
+
+        public ICommand Save]]><xsl:value-of select="BasisTK2"/><![CDATA[Command => _save]]><xsl:value-of select="BasisTK2"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteSave]]><xsl:value-of select="BasisTK2"/><![CDATA[(SearchFiSpeciesName); });        
+        #endregion [Public Commands Connect ==> ]]><xsl:value-of select="LinqModelTK2"/><![CDATA[]                
+
+        #region [Public Methods Connect ==> ]]><xsl:value-of select="LinqModelTK2"/><![CDATA[]                        ]]>
+  </xsl:if> 
+</xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">    
   <xsl:if test="TableTK2 !='NULL'">       <![CDATA[                
         #region [Public Commands Connect ==> ]]><xsl:value-of select="LinqModelTK2"/><![CDATA[]                 
@@ -2916,11 +2967,11 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
         private RelayCommand _delete]]><xsl:value-of select="BasisTK2"/><![CDATA[Command;
 
-        public ICommand Delete]]><xsl:value-of select="BasisTK2"/><![CDATA[Command => _delete]]><xsl:value-of select="BasisTK2"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteDelete]]><xsl:value-of select="BasisTK2"/><![CDATA[(null); });
+        public ICommand Delete]]><xsl:value-of select="BasisTK2"/><![CDATA[Command => _delete]]><xsl:value-of select="BasisTK2"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteDelete]]><xsl:value-of select="BasisTK2"/><![CDATA[(SearchPlSpeciesName); });
 
         private RelayCommand _save]]><xsl:value-of select="BasisTK2"/><![CDATA[Command;
 
-        public ICommand Save]]><xsl:value-of select="BasisTK2"/><![CDATA[Command => _save]]><xsl:value-of select="BasisTK2"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteSave]]><xsl:value-of select="BasisTK2"/><![CDATA[(null); });        
+        public ICommand Save]]><xsl:value-of select="BasisTK2"/><![CDATA[Command => _save]]><xsl:value-of select="BasisTK2"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteSave]]><xsl:value-of select="BasisTK2"/><![CDATA[(SearchPlSpeciesName); });        
         #endregion [Public Commands Connect ==> ]]><xsl:value-of select="LinqModelTK2"/><![CDATA[]                
 
         #region [Public Methods Connect ==> ]]><xsl:value-of select="LinqModelTK2"/><![CDATA[]                        ]]>
@@ -2977,7 +3028,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
   </xsl:if> 
 </xsl:when>
 <xsl:when test="Table ='Tbl69FiSpeciesses'">           <![CDATA[ 
-        private void Add]]><xsl:value-of select="BasisTK2"/><![CDATA[(object o)      
+        private void ExecuteAdd]]><xsl:value-of select="BasisTK2"/><![CDATA[(object o)      
         {
             if (]]><xsl:value-of select="TableTK2"/><![CDATA[List == null)
                 ]]><xsl:value-of select="TableTK2"/><![CDATA[List =  new ObservableCollection<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>( );
@@ -2990,7 +3041,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         //----------------------------------------------------------------------          ]]>    
 </xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">        <![CDATA[ 
-        private void Add]]><xsl:value-of select="BasisTK2"/><![CDATA[(object o)      
+        private void ExecuteAdd]]><xsl:value-of select="BasisTK2"/><![CDATA[(object o)      
         {
             if (]]><xsl:value-of select="TableTK2"/><![CDATA[List == null)
                 ]]><xsl:value-of select="TableTK2"/><![CDATA[List =  new ObservableCollection<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>( );
@@ -3052,18 +3103,14 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>
 <xsl:when test="Table ='Tbl69FiSpeciesses'">           
   <xsl:if test="TableTK2 !='NULL'">       <![CDATA[                
-        private void Copy]]><xsl:value-of select="BasisTK2"/><![CDATA[(object o)
+        private void ExecuteCopy]]><xsl:value-of select="BasisTK2"/><![CDATA[(object o)
         {
-            if (Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[ == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
+            if (_gen]]><xsl:value-of select="BasisTK2"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[)) return;
 
-            var ]]><xsl:value-of select="BasisSmTK2"/><![CDATA[ = _businessLayer.SingleList]]><xsl:value-of select="TableTK2"/><![CDATA[By]]><xsl:value-of select="BasisTK2"/><![CDATA[Id(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="IDTK2"/><![CDATA[);
+            ]]><xsl:value-of select="TableTK2"/><![CDATA[List = _extCrud.Copy]]><xsl:value-of select="BasisTK2"/><![CDATA[(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[);
 
+            // evtl verbundene tabellen-Datensätze auch kopieren Names, Images, Synonyms und Geographics
+          
             ]]><xsl:value-of select="BasissTK2"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK2"/><![CDATA[List);
             ]]><xsl:value-of select="BasissTK2"/><![CDATA[View.MoveCurrentToFirst();
         }
@@ -3072,12 +3119,14 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">           
   <xsl:if test="TableTK2 !='NULL'">       <![CDATA[                
-        private void Copy]]><xsl:value-of select="BasisTK2"/><![CDATA[(object o)
+        private void ExecuteCopy]]><xsl:value-of select="BasisTK2"/><![CDATA[(object o)
         {
+            if (_gen]]><xsl:value-of select="BasisTK2"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[)) return;
 
-            var ]]><xsl:value-of select="BasisSmTK2"/><![CDATA[ = _businessLayer.SingleList]]><xsl:value-of select="TableTK2"/><![CDATA[By]]><xsl:value-of select="BasisTK2"/><![CDATA[Id(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="IDTK2"/><![CDATA[);
+            ]]><xsl:value-of select="TableTK2"/><![CDATA[List = _extCrud.Copy]]><xsl:value-of select="BasisTK2"/><![CDATA[(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[);
 
-
+            // evtl verbundene tabellen-Datensätze auch kopieren Names, Images, Synonyms und Geographics
+         
             ]]><xsl:value-of select="BasissTK2"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK2"/><![CDATA[List);
             ]]><xsl:value-of select="BasissTK2"/><![CDATA[View.MoveCurrentToFirst();
         }
@@ -3268,22 +3317,64 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         }                ]]>  
 </xsl:when>
 <xsl:when test="Table ='Tbl69FiSpeciesses'">        <![CDATA[                
-        private void Delete]]><xsl:value-of select="BasisTK2"/><![CDATA[(object o)
+        private void ExecuteDelete]]><xsl:value-of select="BasisTK2"/><![CDATA[(string searchName)
         {
+             if (_gen]]><xsl:value-of select="BasisTK2"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[)) return;
+
+            try 
+            {
+                var ]]><xsl:value-of select="BasisSmTK2"/><![CDATA[ = _uow.]]><xsl:value-of select="TableTK2"/><![CDATA[.GetById(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="BasisTK2"/><![CDATA[Id);
+                if (]]><xsl:value-of select="BasisSmTK2"/><![CDATA[ != null)
+                {
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="BasisTK2"/><![CDATA[Id)) return;
+
+                    _extCrud.Delete]]><xsl:value-of select="BasisTK2"/><![CDATA[(]]><xsl:value-of select="BasisSmTK2"/><![CDATA[);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="BasisTK2"/><![CDATA[Id.ToString());
+                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="BasisTK2"/><![CDATA[Id + " " + CultRes.StringsRes.DeleteCan1);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+            ]]><xsl:value-of select="TableTK2"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissTK2"/><![CDATA[CollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
             ]]><xsl:value-of select="BasissTK2"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK2"/><![CDATA[List);
-            ]]><xsl:value-of select="BasissTK2"/><![CDATA[View.Refresh();
-        }
-        //-------------------------------------------------------------------------------------------------                  ]]>  
+            ]]><xsl:value-of select="BasissTK2"/><![CDATA[View.MoveCurrentToFirst();
+        }                ]]>  
 </xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">        <![CDATA[                
-        private void Delete]]><xsl:value-of select="BasisTK2"/><![CDATA[(object o)
+        private void ExecuteDelete]]><xsl:value-of select="BasisTK2"/><![CDATA[(string searchName)
         {
+             if (_gen]]><xsl:value-of select="BasisTK2"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[)) return;
+
+            try 
+            {
+                var ]]><xsl:value-of select="BasisSmTK2"/><![CDATA[ = _uow.]]><xsl:value-of select="TableTK2"/><![CDATA[.GetById(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="BasisTK2"/><![CDATA[Id);
+                if (]]><xsl:value-of select="BasisSmTK2"/><![CDATA[ != null)
+                {
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="BasisTK2"/><![CDATA[Id)) return;
+
+                    _extCrud.Delete]]><xsl:value-of select="BasisTK2"/><![CDATA[(]]><xsl:value-of select="BasisSmTK2"/><![CDATA[);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="BasisTK2"/><![CDATA[Id.ToString());
+                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="BasisTK2"/><![CDATA[Id + " " + CultRes.StringsRes.DeleteCan1);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+            ]]><xsl:value-of select="TableTK2"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissTK2"/><![CDATA[CollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
             ]]><xsl:value-of select="BasissTK2"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK2"/><![CDATA[List);
-            ]]><xsl:value-of select="BasissTK2"/><![CDATA[View.Refresh();
-        }
-        //-------------------------------------------------------------------------------------------------                  ]]>  
+            ]]><xsl:value-of select="BasissTK2"/><![CDATA[View.MoveCurrentToFirst();
+        }                ]]>  
 </xsl:when>
 <xsl:when test="Table ='Tbl78Names'">          
 </xsl:when>
@@ -3492,84 +3583,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:otherwise> 
 </xsl:otherwise>    
 </xsl:choose> 
-                 
-<xsl:choose>
-<xsl:when test="Table ='Save 5 Tbl66Genusses + Tbl68Speciesgroups+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
-</xsl:when>
-<xsl:when test="Table ='Save 5 Tbl66Genusses + Tbl68Speciesgroups+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
-</xsl:when>
-<xsl:when test="Table ='Tbl03Regnums'">       
-</xsl:when>
-<xsl:when test="Table ='Tbl06Phylums'">       
-</xsl:when>
-<xsl:when test="Table ='Tbl09Divisions'">       
-</xsl:when>
-<xsl:when test="Table ='Tbl12Subphylums'">       
-</xsl:when>
-<xsl:when test="Table ='Tbl15Subdivisions'">       
-</xsl:when>
-<xsl:when test="Table ='Tbl18Superclasses'">       
-</xsl:when>
-<xsl:when test="Table ='Tbl21Classes'">       
-</xsl:when>
-<xsl:when test="Table ='Tbl24Subclasses'">       
-</xsl:when>
-<xsl:when test="Table ='Tbl27Infraclasses'">       
-</xsl:when>
-<xsl:when test="Table ='Tbl30Legios'">       
-</xsl:when>
-<xsl:when test="Table ='Tbl33Ordos'">       
-</xsl:when>
-<xsl:when test="Table ='Tbl36Subordos'">       
-</xsl:when>
-<xsl:when test="Table ='Tbl39Infraordos'">       
-</xsl:when>
-<xsl:when test="Table ='Tbl42Superfamilies'">       
-</xsl:when>
-<xsl:when test="Table ='Tbl45Families'">       
-</xsl:when>
-<xsl:when test="Table ='Tbl48Subfamilies'">       
-</xsl:when>
-<xsl:when test="Table ='Tbl51Infrafamilies'">       
-</xsl:when>
-<xsl:when test="Table ='Tbl54Supertribusses'">       
-</xsl:when>
-<xsl:when test="Table ='Tbl57Tribusses'">       
-</xsl:when>
-<xsl:when test="Table ='Tbl60Subtribusses'">       
-</xsl:when>
-<xsl:when test="Table ='Tbl63Infratribusses'">       
-</xsl:when>
-<xsl:when test="Table ='Tbl69FiSpeciesses'">       
-</xsl:when>
-<xsl:when test="Table ='Tbl72PlSpeciesses'">       
-</xsl:when>
-<xsl:when test="Table ='Tbl78Names'">  
-</xsl:when>
-<xsl:when test="Table ='Tbl81Images'">  
-</xsl:when>
-<xsl:when test="Table ='Tbl84Synonyms'">  
-</xsl:when>
-<xsl:when test="Table ='Tbl87Geographics'">  
-</xsl:when>
-<xsl:when test="Table ='Tbl90RefAuthors'"> 
-</xsl:when>
-<xsl:when test="Table ='Tbl90RefSources'">             
-</xsl:when>
-<xsl:when test="Table ='Tbl90RefExperts'">             
-</xsl:when>
-<xsl:when test="Table ='Tbl90References'">    
-</xsl:when>
-<xsl:when test="Table ='Tbl93Comments'">             
-</xsl:when>
-<xsl:when test="Table ='TblCountries'">             
-</xsl:when>
-<xsl:when test="Table ='TblUserProfiles'">             
-</xsl:when>
-<xsl:otherwise>   
-</xsl:otherwise>    
-</xsl:choose>                                                          
-
+                                                         
 <xsl:choose>
 <xsl:when test="Table ='Save 5 Tbl69FiSpeciesses + Tbl72PlSpeciesses+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">        
 </xsl:when>
@@ -3623,62 +3637,134 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>
 <xsl:when test="Table ='Tbl69FiSpeciesses'">     
   <xsl:if test="TableTK2 !='NULL'">       <![CDATA[                
-        private void Save]]><xsl:value-of select="BasisTK2"/><![CDATA[(object o)
+        private void ExecuteSave]]><xsl:value-of select="BasisTK2"/><![CDATA[(string searchName)
         {
 
-            Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[ = Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[;
+             if (_gen]]><xsl:value-of select="BasisTK2"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[)) return;
+
+            Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id = Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id;                                                                                                                    
 
             //Search for CurrentTbl81Image.PlSpeciesID with Plantae#Regnum# 
-            var plantaeRegnum = _businessLayer.SingleListTbl72PlSpeciessesByPlSpeciesName("Plantae#Regnum#");
-            CurrentTbl81Image.PlSpeciesID = plantaeRegnum.PlSpeciesID;
+         //   var plantaeRegnum = _businessLayer.SingleListTbl72PlSpeciessesByPlSpeciesName("Plantae#Regnum#");
+          //  CurrentTbl81Image.PlSpeciesID = plantaeRegnum.PlSpeciesID;
+          //Fehler !!!
+          CurrentTbl81Image.PlSpeciesId = 1;
 
+            try
+            {
+                var ]]><xsl:value-of select="BasisSmTK2"/><![CDATA[ = _uow.]]><xsl:value-of select="TableTK2"/><![CDATA[.GetById(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="BasisTK2"/><![CDATA[Id);
 
-            SelectedMainTabIndex = 3;
-            SelectedDetailSubTabIndex = 3;
+                if (Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="BasisTK2"/><![CDATA[Id == 0)
+                    ]]><xsl:value-of select="BasisSmTK2"/><![CDATA[ = _extCrud.]]><xsl:value-of select="BasisTK2"/><![CDATA[Add(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[);
+                else
+                    ]]><xsl:value-of select="BasisSmTK2"/><![CDATA[ = _extCrud.]]><xsl:value-of select="BasisTK2"/><![CDATA[Update(]]><xsl:value-of select="BasisSmTK2"/><![CDATA[, Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[);
+
+              //  _position = ]]><xsl:value-of select="BasissTK2"/><![CDATA[View.CurrentPosition;
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="BasisTK2"/><![CDATA[Id.ToString())) return;
+
+                try
+                {
+                    _extCrud.]]><xsl:value-of select="BasisTK2"/><![CDATA[Save(]]><xsl:value-of select="BasisSmTK2"/><![CDATA[, Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[);
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
+                            CultRes.StringsRes.FailedToSave);
+                    Log.Error(e);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                    //         Log.Error(e);
+                    return;
+                }
+
+                _allMessageBoxes.InfoMessageBox("Save Successfull", Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="BasisTK2"/><![CDATA[Id == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="BasisTK2"/><![CDATA[Id.ToString());
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+            ]]><xsl:value-of select="TableTK2"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissTK2"/><![CDATA[CollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+        
             ]]><xsl:value-of select="BasissTK2"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK2"/><![CDATA[List);
-            ]]><xsl:value-of select="BasissTK2"/><![CDATA[View.Refresh();
+            ]]><xsl:value-of select="BasissTK2"/><![CDATA[View.MoveCurrentToFirst();
         }
 
-        private static byte[] LoadImageData(string filePath)
-        {
-            var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            var br = new BinaryReader(fs);
-            var imageBytes = br.ReadBytes((int)fs.Length);
-            br.Close();
-            fs.Close();
-            return imageBytes;
-        }
-        #endregion "Public Commands"                ]]>  
+        #endregion [Public Methods  Connect ==> ]]><xsl:value-of select="LinqModelTK2"/><![CDATA[]                                                                                             ]]>  
   </xsl:if>   
 </xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">   
   <xsl:if test="TableTK2 !='NULL'">       <![CDATA[                
-        private void Save]]><xsl:value-of select="BasisTK2"/><![CDATA[(object o)
+        private void ExecuteSave]]><xsl:value-of select="BasisTK2"/><![CDATA[(string searchName)
         {
 
-            Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[ = Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[;
+             if (_gen]]><xsl:value-of select="BasisTK2"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[)) return;
 
-            //Search for CurrentTbl81Image.FiSpeciesID with Animalia#Regnum# 
-            var animaliaRegnum = _businessLayer.SingleListTbl69FiSpeciessesByFiSpeciesName("Animalia#Regnum#");
-            CurrentTbl81Image.FiSpeciesID = animaliaRegnum.FiSpeciesID;
+            Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id = Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id;                                                                                                                    
 
+            //Search for CurrentTbl81Image.PlSpeciesID with Plantae#Regnum# 
+         //   var plantaeRegnum = _businessLayer.SingleListTbl72PlSpeciessesByPlSpeciesName("Plantae#Regnum#");
+          //  CurrentTbl81Image.PlSpeciesID = plantaeRegnum.PlSpeciesID;
+          //Fehler !!!
+          CurrentTbl81Image.FiSpeciesId = 2;
 
-            SelectedMainTabIndex = 3;
-            SelectedDetailSubTabIndex = 3;
+            try
+            {
+                var ]]><xsl:value-of select="BasisSmTK2"/><![CDATA[ = _uow.]]><xsl:value-of select="TableTK2"/><![CDATA[.GetById(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="BasisTK2"/><![CDATA[Id);
+
+                if (Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="BasisTK2"/><![CDATA[Id == 0)
+                    ]]><xsl:value-of select="BasisSmTK2"/><![CDATA[ = _extCrud.]]><xsl:value-of select="BasisTK2"/><![CDATA[Add(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[);
+                else
+                    ]]><xsl:value-of select="BasisSmTK2"/><![CDATA[ = _extCrud.]]><xsl:value-of select="BasisTK2"/><![CDATA[Update(]]><xsl:value-of select="BasisSmTK2"/><![CDATA[, Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[);
+
+              //  _position = ]]><xsl:value-of select="BasissTK2"/><![CDATA[View.CurrentPosition;
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="BasisTK2"/><![CDATA[Id.ToString())) return;
+
+                try
+                {
+                    _extCrud.]]><xsl:value-of select="BasisTK2"/><![CDATA[Save(]]><xsl:value-of select="BasisSmTK2"/><![CDATA[, Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[);
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
+                            CultRes.StringsRes.FailedToSave);
+                    Log.Error(e);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                    //         Log.Error(e);
+                    return;
+                }
+
+                _allMessageBoxes.InfoMessageBox("Save Successfull", Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="BasisTK2"/><![CDATA[Id == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="BasisTK2"/><![CDATA[Id.ToString());
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+            ]]><xsl:value-of select="TableTK2"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissTK2"/><![CDATA[CollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelTK2"/><![CDATA[>(Current]]><xsl:value-of select="LinqModelTK2"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
+        
             ]]><xsl:value-of select="BasissTK2"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK2"/><![CDATA[List);
-            ]]><xsl:value-of select="BasissTK2"/><![CDATA[View.Refresh();
+            ]]><xsl:value-of select="BasissTK2"/><![CDATA[View.MoveCurrentToFirst();
         }
 
-        private static byte[] LoadImageData(string filePath)
-        {
-            var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            var br = new BinaryReader(fs);
-            var imageBytes = br.ReadBytes((int)fs.Length);
-            br.Close();
-            fs.Close();
-            return imageBytes;
-        }
-        #endregion "Public Commands"                ]]>  
+        #endregion [Public Methods  Connect ==> ]]><xsl:value-of select="LinqModelTK2"/><![CDATA[]                                                                                             ]]>  
   </xsl:if>       
 </xsl:when>
 <xsl:when test="Table ='Tbl78Names'">  
@@ -3722,6 +3808,54 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>
 <xsl:when test="Table ='Tbl68Speciesgroups'">               
 </xsl:when>
+<xsl:when test="Table ='Tbl69FiSpeciesses'">    
+  <xsl:if test="TableTK3 !='NULL'">       <![CDATA[                
+        #region [Public Commands Connect ==> ]]><xsl:value-of select="LinqModelTK3"/><![CDATA[]                 
+        
+        private RelayCommand _add]]><xsl:value-of select="BasisTK3"/><![CDATA[Command;
+
+        public ICommand Add]]><xsl:value-of select="BasisTK3"/><![CDATA[Command => _add]]><xsl:value-of select="BasisTK3"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteAdd]]><xsl:value-of select="BasisTK3"/><![CDATA[(null); });
+
+        private RelayCommand _copy]]><xsl:value-of select="BasisTK3"/><![CDATA[Command;
+
+        public ICommand Copy]]><xsl:value-of select="BasisTK3"/><![CDATA[Command => _copy]]><xsl:value-of select="BasisTK3"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteCopy]]><xsl:value-of select="BasisTK3"/><![CDATA[(null); });
+
+        private RelayCommand _delete]]><xsl:value-of select="BasisTK3"/><![CDATA[Command;
+
+        public ICommand Delete]]><xsl:value-of select="BasisTK3"/><![CDATA[Command => _delete]]><xsl:value-of select="BasisTK3"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteDelete]]><xsl:value-of select="BasisTK3"/><![CDATA[(SearchFiSpeciesName); });
+
+        private RelayCommand _save]]><xsl:value-of select="BasisTK3"/><![CDATA[Command;
+
+        public ICommand Save]]><xsl:value-of select="BasisTK3"/><![CDATA[Command => _save]]><xsl:value-of select="BasisTK3"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteSave]]><xsl:value-of select="BasisTK3"/><![CDATA[(SearchFiSpeciesName); });        
+        #endregion [Public Commands Connect ==> ]]><xsl:value-of select="LinqModelTK3"/><![CDATA[]                
+
+        #region [Public Methods Connect ==> ]]><xsl:value-of select="LinqModelTK3"/><![CDATA[]                        ]]>
+  </xsl:if> 
+</xsl:when>
+<xsl:when test="Table ='Tbl72PlSpeciesses'">    
+  <xsl:if test="TableTK3 !='NULL'">       <![CDATA[                
+        #region [Public Commands Connect ==> ]]><xsl:value-of select="LinqModelTK3"/><![CDATA[]                 
+        
+        private RelayCommand _add]]><xsl:value-of select="BasisTK3"/><![CDATA[Command;
+
+        public ICommand Add]]><xsl:value-of select="BasisTK3"/><![CDATA[Command => _add]]><xsl:value-of select="BasisTK3"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteAdd]]><xsl:value-of select="BasisTK3"/><![CDATA[(null); });
+
+        private RelayCommand _copy]]><xsl:value-of select="BasisTK3"/><![CDATA[Command;
+
+        public ICommand Copy]]><xsl:value-of select="BasisTK3"/><![CDATA[Command => _copy]]><xsl:value-of select="BasisTK3"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteCopy]]><xsl:value-of select="BasisTK3"/><![CDATA[(null); });
+
+        private RelayCommand _delete]]><xsl:value-of select="BasisTK3"/><![CDATA[Command;
+
+        public ICommand Delete]]><xsl:value-of select="BasisTK3"/><![CDATA[Command => _delete]]><xsl:value-of select="BasisTK3"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteDelete]]><xsl:value-of select="BasisTK3"/><![CDATA[(SearchFiSpeciesName); });
+
+        private RelayCommand _save]]><xsl:value-of select="BasisTK3"/><![CDATA[Command;
+
+        public ICommand Save]]><xsl:value-of select="BasisTK3"/><![CDATA[Command => _save]]><xsl:value-of select="BasisTK3"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteSave]]><xsl:value-of select="BasisTK3"/><![CDATA[(SearchFiSpeciesName); });        
+        #endregion [Public Commands Connect ==> ]]><xsl:value-of select="LinqModelTK3"/><![CDATA[]                
+
+        #region [Public Methods Connect ==> ]]><xsl:value-of select="LinqModelTK3"/><![CDATA[]                        ]]>
+  </xsl:if> 
+</xsl:when>
 <xsl:otherwise>          
    <xsl:if test="TableTK3 !='NULL'">       <![CDATA[      
        #region "Public Commands Connect ==> ]]><xsl:value-of select="LinqModelTK3"/><![CDATA["                 
@@ -3759,11 +3893,8 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl68Speciesgroups'">               
 </xsl:when>
 <xsl:when test="Table ='Tbl69FiSpeciesses'">           <![CDATA[ 
-        private void Add]]><xsl:value-of select="BasisTK3"/><![CDATA[(object o)      
+        private void ExecuteAdd]]><xsl:value-of select="BasisTK3"/><![CDATA[(object o)      
         {
-            if (]]><xsl:value-of select="TableTK3"/><![CDATA[List == null)
-                ]]><xsl:value-of select="TableTK3"/><![CDATA[List =  new ObservableCollection<]]><xsl:value-of select="LinqModelTK3"/><![CDATA[>( );
-
              ]]><xsl:value-of select="TableTK3"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModelTK3"/><![CDATA[  { ]]><xsl:value-of select="NameTK3"/><![CDATA[ = CultRes.StringsRes.DatasetNew});
 
             ]]><xsl:value-of select="BasissTK3"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK3"/><![CDATA[List);
@@ -3772,11 +3903,8 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         //----------------------------------------------------------------------          ]]>    
 </xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">           <![CDATA[ 
-        private void Add]]><xsl:value-of select="BasisTK3"/><![CDATA[(object o)      
+        private void ExecuteAdd]]><xsl:value-of select="BasisTK3"/><![CDATA[(object o)      
         {
-            if (]]><xsl:value-of select="TableTK3"/><![CDATA[List == null)
-                ]]><xsl:value-of select="TableTK3"/><![CDATA[List =  new ObservableCollection<]]><xsl:value-of select="LinqModelTK3"/><![CDATA[>( );
-
              ]]><xsl:value-of select="TableTK3"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModelTK3"/><![CDATA[  { ]]><xsl:value-of select="NameTK3"/><![CDATA[ = CultRes.StringsRes.DatasetNew});
 
             ]]><xsl:value-of select="BasissTK3"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK3"/><![CDATA[List);
@@ -3786,7 +3914,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>
 <xsl:otherwise>    
   <xsl:if test="TableTK3 !='NULL'">       <![CDATA[      
-        private void Add]]><xsl:value-of select="BasisTK3"/><![CDATA[(object o)      
+        private void ExecuteAdd]]><xsl:value-of select="BasisTK3"/><![CDATA[(object o)      
         {
              ]]><xsl:value-of select="TableTK3"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModelTK3"/><![CDATA[  { ]]><xsl:value-of select="NameTK3"/><![CDATA[ = CultRes.StringsRes.DatasetNew});
 
@@ -3811,70 +3939,41 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>
 <xsl:when test="Table ='Tbl69FiSpeciesses'">            
   <xsl:if test="TableTK3 !='NULL'">       <![CDATA[      
-        private void Copy]]><xsl:value-of select="BasisTK3"/><![CDATA[(object o)
+        private void ExecuteCopy]]><xsl:value-of select="BasisTK3"/><![CDATA[(object o)
         {
+            if (_gen]]><xsl:value-of select="BasisTK3"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[)) return;
 
-            ]]><xsl:value-of select="TableTK3"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModelTK3"/><![CDATA[>();
-
-            var ]]><xsl:value-of select="BasisSmTK3"/><![CDATA[ = _businessLayer.SingleList]]><xsl:value-of select="TableTK3"/><![CDATA[By]]><xsl:value-of select="BasisTK3"/><![CDATA[Id(Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[.]]><xsl:value-of select="IDTK3"/><![CDATA[);
-
-            ]]><xsl:value-of select="TableTK3"/><![CDATA[List.Add(new ]]><xsl:value-of select="LinqModelTK3"/><![CDATA[
-            {
-                SynonymName = CultRes.StringsRes.DatasetNew,
-                Valid = synonym.Valid,
-                ValidYear = synonym.ValidYear,
-                Author = synonym.Author,
-                AuthorYear = synonym.AuthorYear,
-                Info = synonym.Info,
-                Memo = synonym.Memo      
-            });
+            ]]><xsl:value-of select="TableTK3"/><![CDATA[List = _extCrud.Copy]]><xsl:value-of select="BasisTK3"/><![CDATA[(Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[);
 
             ]]><xsl:value-of select="BasissTK3"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK3"/><![CDATA[List);
             ]]><xsl:value-of select="BasissTK3"/><![CDATA[View.MoveCurrentToFirst();
-        }
-        //----------------------------------------------------------------------          ]]>  
+        }      ]]>  
   </xsl:if> 
 </xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">           
   <xsl:if test="TableTK3 !='NULL'">       <![CDATA[      
-        private void Copy]]><xsl:value-of select="BasisTK3"/><![CDATA[(object o)
+        private void ExecuteCopy]]><xsl:value-of select="BasisTK3"/><![CDATA[(object o)
         {
+            if (_gen]]><xsl:value-of select="BasisTK3"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[)) return;
 
-            ]]><xsl:value-of select="TableTK3"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModelTK3"/><![CDATA[>();
-
-            var ]]><xsl:value-of select="BasisSmTK3"/><![CDATA[ = _businessLayer.SingleList]]><xsl:value-of select="TableTK3"/><![CDATA[By]]><xsl:value-of select="BasisTK3"/><![CDATA[Id(Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[.]]><xsl:value-of select="IDTK3"/><![CDATA[);
-
-            ]]><xsl:value-of select="TableTK3"/><![CDATA[List.Add(new ]]><xsl:value-of select="LinqModelTK3"/><![CDATA[
-            {
-                SynonymName = CultRes.StringsRes.DatasetNew,
-                Valid = synonym.Valid,
-                ValidYear = synonym.ValidYear,
-                Author = synonym.Author,
-                AuthorYear = synonym.AuthorYear,
-                Info = synonym.Info,
-                Memo = synonym.Memo     
-            });
+            ]]><xsl:value-of select="TableTK3"/><![CDATA[List = _extCrud.Copy]]><xsl:value-of select="BasisTK3"/><![CDATA[(Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[);
 
             ]]><xsl:value-of select="BasissTK3"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK3"/><![CDATA[List);
             ]]><xsl:value-of select="BasissTK3"/><![CDATA[View.MoveCurrentToFirst();
-        }
-        //----------------------------------------------------------------------          ]]>  
+        }         ]]>  
   </xsl:if> 
 </xsl:when>
 <xsl:otherwise>    
   <xsl:if test="TableTK3 !='NULL'">       <![CDATA[      
-        private void Copy]]><xsl:value-of select="BasisTK3"/><![CDATA[(object o)
+        private void ExecuteCopy]]><xsl:value-of select="BasisTK3"/><![CDATA[(object o)
         {
+             if (_gen]]><xsl:value-of select="BasisTK3"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[)) return;
 
-            ]]><xsl:value-of select="TableTK3"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModelTK3"/><![CDATA[>();
-
-            var ]]><xsl:value-of select="BasisSmTK3"/><![CDATA[ = _businessLayer.SingleList]]><xsl:value-of select="TableTK3"/><![CDATA[By]]><xsl:value-of select="BasisTK3"/><![CDATA[Id(Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[.]]><xsl:value-of select="IDTK3"/><![CDATA[);
-
+           ]]><xsl:value-of select="TableTK3"/><![CDATA[List = _extCrud.Copy]]><xsl:value-of select="BasisTK3"/><![CDATA[(Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[);
 
             ]]><xsl:value-of select="BasissTK3"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK3"/><![CDATA[List);
             ]]><xsl:value-of select="BasissTK3"/><![CDATA[View.MoveCurrentToFirst();
-        }
-        //----------------------------------------------------------------------          ]]>  
+        }        ]]>  
   </xsl:if> 
 </xsl:otherwise>    
 </xsl:choose> 
@@ -3891,78 +3990,64 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl68Speciesgroups'">               
 </xsl:when>
 <xsl:when test="Table ='Tbl69FiSpeciesses'">        <![CDATA[                
-        private void Delete]]><xsl:value-of select="BasisTK3"/><![CDATA[(object o)
+        private void ExecuteDelete]]><xsl:value-of select="BasisTK3"/><![CDATA[(string searchName)
         {
+            if (_gen]]><xsl:value-of select="BasisTK3"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[)) return;
 
-            try
+            try 
             {
-                var ]]><xsl:value-of select="BasisSmTK3"/><![CDATA[ = _businessLayer.SingleList]]><xsl:value-of select="TableTK3"/><![CDATA[By]]><xsl:value-of select="BasisTK3"/><![CDATA[Id(Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[.]]><xsl:value-of select="IDTK3"/><![CDATA[);
-                if (]]><xsl:value-of select="BasisSmTK3"/><![CDATA[!= null)
+                var ]]><xsl:value-of select="BasisSmTK3"/><![CDATA[ = _uow.]]><xsl:value-of select="TableTK3"/><![CDATA[.GetById(Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[.]]><xsl:value-of select="BasisTK3"/><![CDATA[Id);
+                if (]]><xsl:value-of select="BasisSmTK3"/><![CDATA[ != null)
                 {
-                    if (WpfMessageBox.Show(CultRes.StringsRes.DeleteQuestion1, CultRes.StringsRes.DeleteQuestion + " " + Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[.]]><xsl:value-of select="NameTK3"/><![CDATA[,
-                         MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes) 
-                    return;
-                    ]]><xsl:value-of select="BasisSmTK3"/><![CDATA[.EntityState = EntityState.Deleted;
-                    _businessLayer.Remove]]><xsl:value-of select="BasisTK3"/><![CDATA[(]]><xsl:value-of select="BasisSmTK3"/><![CDATA[);
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[.]]><xsl:value-of select="BasisTK3"/><![CDATA[Name)) return;
 
-                    WpfMessageBox.Show(CultRes.StringsRes.DeleteSuccess, Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[.]]><xsl:value-of select="NameTK3"/><![CDATA[,
-                       MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);  
+                    _extCrud.Delete]]><xsl:value-of select="BasisTK3"/><![CDATA[(]]><xsl:value-of select="BasisSmTK3"/><![CDATA[);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[.]]><xsl:value-of select="BasisTK3"/><![CDATA[Name);
                 }
-                else
-                {
-                    WpfMessageBox.Show(CultRes.StringsRes.Information, CultRes.StringsRes.DeleteCan + " " + Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[.]]><xsl:value-of select="NameTK3"/><![CDATA[ + " " + CultRes.StringsRes.DeleteCan1,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[.]]><xsl:value-of select="BasisTK3"/><![CDATA[Name + " " + CultRes.StringsRes.DeleteCan1);
             }
-            catch (DbEntityValidationException ex)
+            catch (Exception e)
             {
-                _entityException.EntityException(ex);
-                                 Log.Error(ex);
-           }
-         
-            ]]><xsl:value-of select="TableTK3"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModelTK3"/><![CDATA[>(_businessLayer.List]]><xsl:value-of select="TableTK3"/><![CDATA[By]]><xsl:value-of select="Basis"/><![CDATA[Id(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[));
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+            ]]><xsl:value-of select="TableTK3"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissTK3"/><![CDATA[CollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelTK3"/><![CDATA[>(Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
             ]]><xsl:value-of select="BasissTK3"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK3"/><![CDATA[List);
-            ]]><xsl:value-of select="BasissTK3"/><![CDATA[View.Refresh();
-        }
-        //-------------------------------------------------------------------------------------------------                  ]]>  
+            ]]><xsl:value-of select="BasissTK3"/><![CDATA[View.MoveCurrentToFirst();
+        }               ]]>       
 </xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">        <![CDATA[                
-        private void Delete]]><xsl:value-of select="BasisTK3"/><![CDATA[(object o)
+        private void ExecuteDelete]]><xsl:value-of select="BasisTK3"/><![CDATA[(string searchName)
         {
+            if (_gen]]><xsl:value-of select="BasisTK3"/><![CDATA[MessageBoxes.NoDatasetSelectedInfoMessageBox(Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[)) return;
 
-            try
+            try 
             {
-                var ]]><xsl:value-of select="BasisSmTK3"/><![CDATA[ = _businessLayer.SingleList]]><xsl:value-of select="TableTK3"/><![CDATA[By]]><xsl:value-of select="BasisTK3"/><![CDATA[Id(Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[.]]><xsl:value-of select="IDTK3"/><![CDATA[);
-                if (]]><xsl:value-of select="BasisSmTK3"/><![CDATA[!= null)
+                var ]]><xsl:value-of select="BasisSmTK3"/><![CDATA[ = _uow.]]><xsl:value-of select="TableTK3"/><![CDATA[.GetById(Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[.]]><xsl:value-of select="BasisTK3"/><![CDATA[Id);
+                if (]]><xsl:value-of select="BasisSmTK3"/><![CDATA[ != null)
                 {
-                    if (WpfMessageBox.Show(CultRes.StringsRes.DeleteQuestion1, CultRes.StringsRes.DeleteQuestion + " " + Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[.]]><xsl:value-of select="NameTK3"/><![CDATA[,
-                         MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes) 
-                    return;
-                    ]]><xsl:value-of select="BasisSmTK3"/><![CDATA[.EntityState = EntityState.Deleted;
-                    _businessLayer.Remove]]><xsl:value-of select="BasisTK3"/><![CDATA[(]]><xsl:value-of select="BasisSmTK3"/><![CDATA[);
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[.]]><xsl:value-of select="BasisTK3"/><![CDATA[Name)) return;
 
-                    WpfMessageBox.Show(CultRes.StringsRes.DeleteSuccess, Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[.]]><xsl:value-of select="NameTK3"/><![CDATA[,
-                       MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);  
+                    _extCrud.Delete]]><xsl:value-of select="BasisTK3"/><![CDATA[(]]><xsl:value-of select="BasisSmTK3"/><![CDATA[);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[.]]><xsl:value-of select="BasisTK3"/><![CDATA[Name);
                 }
-                else
-                {
-                    WpfMessageBox.Show(CultRes.StringsRes.Information, CultRes.StringsRes.DeleteCan + " " + Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[.]]><xsl:value-of select="NameTK3"/><![CDATA[ + " " + CultRes.StringsRes.DeleteCan1,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[.]]><xsl:value-of select="BasisTK3"/><![CDATA[Name + " " + CultRes.StringsRes.DeleteCan1);
             }
-            catch (DbEntityValidationException ex)
+            catch (Exception e)
             {
-                _entityException.EntityException(ex);
-                                Log.Error(ex);
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
             }
-         
-            ]]><xsl:value-of select="TableTK3"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModelTK3"/><![CDATA[>(_businessLayer.List]]><xsl:value-of select="TableTK3"/><![CDATA[By]]><xsl:value-of select="Basis"/><![CDATA[Id(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[));
+
+            ]]><xsl:value-of select="TableTK3"/><![CDATA[List = _extCrud.Get]]><xsl:value-of select="BasissTK3"/><![CDATA[CollectionFrom]]><xsl:value-of select="Basis"/><![CDATA[IdOrderBy<]]><xsl:value-of select="LinqModelTK3"/><![CDATA[>(Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[.]]><xsl:value-of select="Basis"/><![CDATA[Id);
 
             ]]><xsl:value-of select="BasissTK3"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK3"/><![CDATA[List);
-            ]]><xsl:value-of select="BasissTK3"/><![CDATA[View.Refresh();
-        }
-        //-------------------------------------------------------------------------------------------------                  ]]>  
+            ]]><xsl:value-of select="BasissTK3"/><![CDATA[View.MoveCurrentToFirst();
+        }               ]]>       
 </xsl:when>
 <xsl:otherwise>    
 </xsl:otherwise>    
@@ -3981,43 +4066,142 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>
 <xsl:when test="Table ='Tbl69FiSpeciesses'">         
   <xsl:if test="TableTK3 !='NULL'">       <![CDATA[      
-        private void Save]]><xsl:value-of select="BasisTK3"/><![CDATA[(object o)
+        private void ExecuteSave]]><xsl:value-of select="BasisTK3"/><![CDATA[(string searchName)
         {
 
-            Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[ = Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[;
+            CurrentTbl84Synonym.FiSpeciesId = CurrentTbl69FiSpecies.FiSpeciesId;
 
-            //Search for CurrentTbl84Synonym.PlSpeciesID with Plantae#Regnum# 
-            var plantaeRegnum = _businessLayer.SingleListTbl72PlSpeciessesByPlSpeciesName("Plantae#Regnum#");
-            CurrentTbl84Synonym.PlSpeciesID = plantaeRegnum.PlSpeciesID;
+            //Search for CurrentTbl84Synonym.PlSpeciesId with Plantae#Regnum# 
 
+            //     var plantaeRegnum = _context.Tbl72PlSpeciesses.FirstOrDefault(p => p.PlSpeciesName == "Plantae#Regnum#");
+            //     var plantaeRegnum = _uow.Tbl72PlSpeciesses.Find(p => p.PlSpeciesName == "Plantae#Regnum#").FirstOrDefault();
+            //  var plantaeRegnumId = _extCrud.PlSpeciesIdFromPlSpeciessesCollectionSelectByName("Plantae#Regnum#");
 
-            SelectedMainTabIndex = 4;
-            SelectedDetailSubTabIndex = 4;
-            ]]><xsl:value-of select="BasissTK3"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK3"/><![CDATA[List);
-            ]]><xsl:value-of select="BasissTK3"/><![CDATA[View.Refresh();
+            //Fehler um PlSpeciesId zu ermitteln !!!!!!!!!!!!!!!!!!
+            //   if (plantaeRegnum != null) CurrentTbl78Name.PlSpeciesId = plantaeRegnum.PlSpeciesId;
+            //Fehler !!!!
+            CurrentTbl84Synonym.PlSpeciesId = 1;
+            try
+            {
+                var synonym = _uow.Tbl84Synonyms.GetById(CurrentTbl84Synonym.SynonymId);
+
+                if (CurrentTbl84Synonym.SynonymId == 0)
+                    synonym = _extCrud.SynonymAdd(CurrentTbl84Synonym);
+                else
+                    synonym = _extCrud.SynonymUpdate(synonym, CurrentTbl84Synonym);
+
+                _position = SynonymsView.CurrentPosition;
+
+                var cap = CurrentTbl84Synonym.SynonymName;
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(cap)) return;
+
+                try
+                {
+                    _extCrud.SynonymSave(synonym, CurrentTbl84Synonym);
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
+                            CultRes.StringsRes.FailedToSave);
+                    Log.Error(e);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                    //         Log.Error(e);
+                    return;
+                }
+
+                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl84Synonym.SynonymId == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : CurrentTbl84Synonym.SynonymName);
+            }
+
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+            Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromFiSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+            SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
+            SynonymsView.MoveCurrentToPosition(_position);
         }
-        #endregion "Public Commands"                ]]>  
+
+        #endregion [Public Methods Connect ==> Tbl84Synonym]         ]]>  
   </xsl:if> 
 </xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">           
   <xsl:if test="TableTK3 !='NULL'">       <![CDATA[      
-        private void Save]]><xsl:value-of select="BasisTK3"/><![CDATA[(object o)
+        private void ExecuteSave]]><xsl:value-of select="BasisTK3"/><![CDATA[(string searchName)
         {
 
+            CurrentTbl84Synonym.PlSpeciesId = CurrentTbl72PlSpecies.PlSpeciesId;
 
-            Current]]><xsl:value-of select="LinqModelTK3"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[ = Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[;
+            //Search for CurrentTbl84Synonym.PlSpeciesId with Plantae#Regnum# 
 
-            //Search for CurrentTbl84Synonym.FiSpeciesID with Animalia#Regnum# 
-            var animaliaRegnum = _businessLayer.SingleListTbl69FiSpeciessesByFiSpeciesName("Animalia#Regnum#");
-            CurrentTbl84Synonym.FiSpeciesID = animaliaRegnum.FiSpeciesID;
+            //     var plantaeRegnum = _context.Tbl72PlSpeciesses.FirstOrDefault(p => p.PlSpeciesName == "Plantae#Regnum#");
+            //     var plantaeRegnum = _uow.Tbl72PlSpeciesses.Find(p => p.PlSpeciesName == "Plantae#Regnum#").FirstOrDefault();
+            //  var plantaeRegnumId = _extCrud.PlSpeciesIdFromPlSpeciessesCollectionSelectByName("Plantae#Regnum#");
 
+            //Fehler um PlSpeciesId zu ermitteln !!!!!!!!!!!!!!!!!!
+            //   if (plantaeRegnum != null) CurrentTbl78Name.PlSpeciesId = plantaeRegnum.PlSpeciesId;
+            //Fehler !!!!
+            CurrentTbl84Synonym.FiSpeciesId = 2;
+            try
+            {
+                var synonym = _uow.Tbl84Synonyms.GetById(CurrentTbl84Synonym.SynonymId);
 
-            SelectedMainTabIndex = 4;
-            SelectedDetailSubTabIndex = 4;
-            ]]><xsl:value-of select="BasissTK3"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK3"/><![CDATA[List);
-            ]]><xsl:value-of select="BasissTK3"/><![CDATA[View.Refresh();
+                if (CurrentTbl84Synonym.SynonymId == 0)
+                    synonym = _extCrud.SynonymAdd(CurrentTbl84Synonym);
+                else
+                    synonym = _extCrud.SynonymUpdate(synonym, CurrentTbl84Synonym);
+
+                _position = SynonymsView.CurrentPosition;
+
+                var cap = CurrentTbl84Synonym.SynonymName;
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(cap)) return;
+
+                try
+                {
+                    _extCrud.SynonymSave(synonym, CurrentTbl84Synonym);
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
+                            CultRes.StringsRes.FailedToSave);
+                    Log.Error(e);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                    //         Log.Error(e);
+                    return;
+                }
+
+                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl84Synonym.SynonymId == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : CurrentTbl84Synonym.SynonymName);
+            }
+
+            catch (Exception e)
+            {
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+
+            Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromFiSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+            SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
+            SynonymsView.MoveCurrentToPosition(_position);
         }
-        #endregion "Public Commands"                ]]>  
+
+        #endregion [Public Methods Connect ==> Tbl84Synonym]         ]]>  
   </xsl:if> 
 </xsl:when>
 <xsl:otherwise>    
@@ -4051,10 +4235,56 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>
 <xsl:when test="Table ='Tbl68Speciesgroups'">               
 </xsl:when>
+<xsl:when test="Table ='Tbl69FiSpeciesses'">  
+   <xsl:if test="TableTK4 !='NULL'">       <![CDATA[      
+       #region [Public Commands Connect ==> ]]><xsl:value-of select="LinqModelTK4"/><![CDATA[]                
+        
+        private RelayCommand _add]]><xsl:value-of select="BasisTK4"/><![CDATA[Command;
+
+        public ICommand Add]]><xsl:value-of select="BasisTK4"/><![CDATA[Command => _add]]><xsl:value-of select="BasisTK4"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteAdd]]><xsl:value-of select="BasisTK4"/><![CDATA[(null); });
+
+        private RelayCommand _copy]]><xsl:value-of select="BasisTK4"/><![CDATA[Command;
+
+        public ICommand Copy]]><xsl:value-of select="BasisTK4"/><![CDATA[Command => _copy]]><xsl:value-of select="BasisTK4"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteCopy]]><xsl:value-of select="BasisTK4"/><![CDATA[(null); });
+
+        private RelayCommand _delete]]><xsl:value-of select="BasisTK4"/><![CDATA[Command;
+
+        public ICommand Delete]]><xsl:value-of select="BasisTK4"/><![CDATA[Command => _delete]]><xsl:value-of select="BasisTK4"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteDelete]]><xsl:value-of select="BasisTK4"/><![CDATA[(SearchFiSpeciesName); });
+
+        private RelayCommand _save]]><xsl:value-of select="BasisTK4"/><![CDATA[Command;
+
+        public ICommand Save]]><xsl:value-of select="BasisTK4"/><![CDATA[Command => _save]]><xsl:value-of select="BasisTK4"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteSave]]><xsl:value-of select="BasisTK4"/><![CDATA[(SearchFiSpeciesName); });
+
+        #endregion [Public Commands Connect ==> ]]><xsl:value-of select="LinqModelTK4"/><![CDATA[]                       ]]>
+  </xsl:if>              
+</xsl:when>
+<xsl:when test="Table ='Tbl72PlSpeciesses'">  
+   <xsl:if test="TableTK4 !='NULL'">       <![CDATA[      
+       #region [Public Commands Connect ==> ]]><xsl:value-of select="LinqModelTK4"/><![CDATA[]                 
+        
+        private RelayCommand _add]]><xsl:value-of select="BasisTK4"/><![CDATA[Command;
+
+        public ICommand Add]]><xsl:value-of select="BasisTK4"/><![CDATA[Command => _add]]><xsl:value-of select="BasisTK4"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteAdd]]><xsl:value-of select="BasisTK4"/><![CDATA[(null); });
+
+        private RelayCommand _copy]]><xsl:value-of select="BasisTK4"/><![CDATA[Command;
+
+        public ICommand Copy]]><xsl:value-of select="BasisTK4"/><![CDATA[Command => _copy]]><xsl:value-of select="BasisTK4"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteCopy]]><xsl:value-of select="BasisTK4"/><![CDATA[(null); });
+
+        private RelayCommand _delete]]><xsl:value-of select="BasisTK4"/><![CDATA[Command;
+
+        public ICommand Delete]]><xsl:value-of select="BasisTK4"/><![CDATA[Command => _delete]]><xsl:value-of select="BasisTK4"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteDelete]]><xsl:value-of select="BasisTK4"/><![CDATA[(SearchPlSpeciesName); });
+
+        private RelayCommand _save]]><xsl:value-of select="BasisTK4"/><![CDATA[Command;
+
+        public ICommand Save]]><xsl:value-of select="BasisTK4"/><![CDATA[Command => _save]]><xsl:value-of select="BasisTK4"/><![CDATA[Command ??= new RelayCommand(delegate { ExecuteSave]]><xsl:value-of select="BasisTK4"/><![CDATA[(SearchPlSpeciesName); });
+
+        #endregion [Public Commands Connect ==> ]]><xsl:value-of select="LinqModelTK4"/><![CDATA[]                       ]]>
+  </xsl:if>              
+</xsl:when>
 <xsl:otherwise>          
    <xsl:if test="TableTK4 !='NULL'">       <![CDATA[      
        #region "Public Commands Connect ==> ]]><xsl:value-of select="LinqModelTK4"/><![CDATA["                 
-        //-------------------------------------------------------------------------
+        
         private RelayCommand _add]]><xsl:value-of select="BasisTK4"/><![CDATA[Command;
 
         public ICommand Add]]><xsl:value-of select="BasisTK4"/><![CDATA[Command => _add]]><xsl:value-of select="BasisTK4"/><![CDATA[Command ??= new RelayCommand(delegate { Add]]><xsl:value-of select="BasisTK4"/><![CDATA[(null); });
@@ -4071,7 +4301,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 
         public ICommand Save]]><xsl:value-of select="BasisTK4"/><![CDATA[Command => _save]]><xsl:value-of select="BasisTK4"/><![CDATA[Command ??= new RelayCommand(delegate { Save]]><xsl:value-of select="BasisTK4"/><![CDATA[(null); });
 
-        //-------------------------------------------------------------------------          ]]>
+        #endregion "Public Commands Connect ==> ]]><xsl:value-of select="LinqModelTK4"/><![CDATA["                       ]]>
   </xsl:if> 
 </xsl:otherwise>    
 </xsl:choose> 
@@ -4086,41 +4316,34 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl68Speciesgroups'">               
 </xsl:when>
 <xsl:when test="Table ='Tbl69FiSpeciesses'">           <![CDATA[ 
-        private void Add]]><xsl:value-of select="BasisTK4"/><![CDATA[(object o)      
+        #region [Public Methods Connect ==> Tbl87Geographic]
+        private void ExecuteAdd]]><xsl:value-of select="BasisTK4"/><![CDATA[(object o)      
         {
-            if (]]><xsl:value-of select="TableTK4"/><![CDATA[List == null)
-                ]]><xsl:value-of select="TableTK4"/><![CDATA[List =  new ObservableCollection<]]><xsl:value-of select="LinqModelTK4"/><![CDATA[>( );
-
             ]]><xsl:value-of select="TableTK4"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModelTK4"/><![CDATA[  { Info = CultRes.StringsRes.DatasetNew});
 
             ]]><xsl:value-of select="BasissTK4"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK4"/><![CDATA[List);
             ]]><xsl:value-of select="BasissTK4"/><![CDATA[View.MoveCurrentToFirst();
-        }
-        //----------------------------------------------------------------------          ]]>    
+        }       ]]>    
 </xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">    <![CDATA[ 
-        private void Add]]><xsl:value-of select="BasisTK4"/><![CDATA[(object o)      
+        #region [Public Methods Connect ==> Tbl87Geographic]
+        private void ExecuteAdd]]><xsl:value-of select="BasisTK4"/><![CDATA[(object o)      
         {
-            if (]]><xsl:value-of select="TableTK4"/><![CDATA[List == null)
-                ]]><xsl:value-of select="TableTK4"/><![CDATA[List =  new ObservableCollection<]]><xsl:value-of select="LinqModelTK4"/><![CDATA[>( );
-
             ]]><xsl:value-of select="TableTK4"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModelTK4"/><![CDATA[  { Info = CultRes.StringsRes.DatasetNew});
 
             ]]><xsl:value-of select="BasissTK4"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK4"/><![CDATA[List);
             ]]><xsl:value-of select="BasissTK4"/><![CDATA[View.MoveCurrentToFirst();
-        }
-        //----------------------------------------------------------------------          ]]>    
+        }       ]]>    
 </xsl:when>
 <xsl:otherwise>    
   <xsl:if test="TableTK4 !='NULL'">       <![CDATA[      
-        private void Add]]><xsl:value-of select="BasisTK4"/><![CDATA[(object o)      
+        private void ExecuteAdd]]><xsl:value-of select="BasisTK4"/><![CDATA[(object o)      
         {
             ]]><xsl:value-of select="TableTK4"/><![CDATA[List.Insert(0, new ]]><xsl:value-of select="LinqModelTK4"/><![CDATA[  { Info = CultRes.StringsRes.DatasetNew});
 
             ]]><xsl:value-of select="BasissTK4"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK4"/><![CDATA[List);
             ]]><xsl:value-of select="BasissTK4"/><![CDATA[View.MoveCurrentToFirst();
-        }
-        //----------------------------------------------------------------------          ]]>  
+        }       ]]>  
   </xsl:if> 
 </xsl:otherwise>    
 </xsl:choose> 
@@ -4136,92 +4359,28 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>
 <xsl:when test="Table ='Tbl69FiSpeciesses'">            
   <xsl:if test="TableTK4 !='NULL'">       <![CDATA[      
-        private void Copy]]><xsl:value-of select="BasisTK4"/><![CDATA[(object o)
+        private void ExecuteCopy]]><xsl:value-of select="BasisTK4"/><![CDATA[(object o)
         {
-            if (Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[ == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
+            if (_genGeographicMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl87Geographic)) return;
 
-            ]]><xsl:value-of select="TableTK4"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModelTK4"/><![CDATA[>();
-
-            var ]]><xsl:value-of select="BasisSmTK4"/><![CDATA[ = _businessLayer.SingleList]]><xsl:value-of select="TableTK4"/><![CDATA[By]]><xsl:value-of select="BasisTK4"/><![CDATA[Id(Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="IDTK4"/><![CDATA[);
-
-            ]]><xsl:value-of select="TableTK4"/><![CDATA[List.Add(new ]]><xsl:value-of select="LinqModelTK4"/><![CDATA[
-            {
-                Address = geographic.Address,
-                Continent = geographic.Continent,
-                Country = geographic.Country,
-                Http = geographic.Http,
-                Latitude = geographic.Latitude,
-                Longitude = geographic.Longitude,
-                Latitude1 = geographic.Latitude1,
-                Longitude1 = geographic.Longitude1,
-                Latitude2 = geographic.Latitude2,
-                Longitude2 = geographic.Longitude2,
-                Latitude3 = geographic.Latitude3,
-                Longitude3 = geographic.Longitude3,
-                ZoomLevel = geographic.ZoomLevel,
-                Valid = geographic.Valid,
-                ValidYear = geographic.ValidYear,
-                Author = geographic.Author,
-                AuthorYear = geographic.AuthorYear,
-                Info = geographic.Info,
-                Memo = geographic.Memo
-            });
+            Tbl87GeographicsList = _extCrud.CopyGeographic(CurrentTbl87Geographic);
 
             ]]><xsl:value-of select="BasissTK4"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK4"/><![CDATA[List);
             ]]><xsl:value-of select="BasissTK4"/><![CDATA[View.MoveCurrentToFirst();
-        }
-        //----------------------------------------------------------------------          ]]>  
+        }       ]]>  
   </xsl:if> 
 </xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">           
   <xsl:if test="TableTK4 !='NULL'">       <![CDATA[      
-        private void Copy]]><xsl:value-of select="BasisTK4"/><![CDATA[(object o)
+        private void ExecuteCopy]]><xsl:value-of select="BasisTK4"/><![CDATA[(object o)
         {
-            if (Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[ == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
+            if (_genGeographicMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl87Geographic)) return;
 
-            ]]><xsl:value-of select="TableTK4"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModelTK4"/><![CDATA[>();
-
-            var ]]><xsl:value-of select="BasisSmTK4"/><![CDATA[ = _businessLayer.SingleList]]><xsl:value-of select="TableTK4"/><![CDATA[By]]><xsl:value-of select="BasisTK4"/><![CDATA[Id(Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="IDTK4"/><![CDATA[);
-
-            ]]><xsl:value-of select="TableTK4"/><![CDATA[List.Add(new ]]><xsl:value-of select="LinqModelTK4"/><![CDATA[
-            {
-                Address = geographic.Address,
-                Continent = geographic.Continent,
-                Country = geographic.Country,
-                Http = geographic.Http,
-                Latitude = geographic.Latitude,
-                Longitude = geographic.Longitude,
-                Latitude1 = geographic.Latitude1,
-                Longitude1 = geographic.Longitude1,
-                Latitude2 = geographic.Latitude2,
-                Longitude2 = geographic.Longitude2,
-                Latitude3 = geographic.Latitude3,
-                Longitude3 = geographic.Longitude3,
-                ZoomLevel = geographic.ZoomLevel,
-                Valid = geographic.Valid,
-                ValidYear = geographic.ValidYear,
-                Author = geographic.Author,
-                AuthorYear = geographic.AuthorYear,
-                Info = geographic.Info,
-                Memo = geographic.Memo
-            });
+            Tbl87GeographicsList = _extCrud.CopyGeographic(CurrentTbl87Geographic);
 
             ]]><xsl:value-of select="BasissTK4"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK4"/><![CDATA[List);
             ]]><xsl:value-of select="BasissTK4"/><![CDATA[View.MoveCurrentToFirst();
-        }
-        //----------------------------------------------------------------------          ]]>  
+        }       ]]>  
   </xsl:if> 
 </xsl:when>
 <xsl:otherwise>    
@@ -4274,92 +4433,64 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 <xsl:when test="Table ='Tbl68Speciesgroups'">               
 </xsl:when>
 <xsl:when test="Table ='Tbl69FiSpeciesses'">        <![CDATA[                
-        private void Delete]]><xsl:value-of select="BasisTK4"/><![CDATA[(object o)
+        private void ExecuteDeleteGeographic(string searchName)
         {
-            if (Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[ == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
+            if (_genGeographicMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl87Geographic)) return;
 
             try
             {
-                var ]]><xsl:value-of select="BasisSmTK4"/><![CDATA[ = _businessLayer.SingleList]]><xsl:value-of select="TableTK4"/><![CDATA[By]]><xsl:value-of select="BasisTK4"/><![CDATA[Id(Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="IDTK4"/><![CDATA[);
-                if (]]><xsl:value-of select="BasisSmTK4"/><![CDATA[!= null)
+                var geographic = _uow.Tbl87Geographics.GetById(CurrentTbl87Geographic.GeographicId);
+                if (geographic != null)
                 {
-                    if (WpfMessageBox.Show(CultRes.StringsRes.DeleteQuestion1, CultRes.StringsRes.DeleteQuestion + " " + Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="IDTK4"/><![CDATA[,
-                         MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes) 
-                    return;
-                    ]]><xsl:value-of select="BasisSmTK4"/><![CDATA[.EntityState = EntityState.Deleted;
-                    _businessLayer.Remove]]><xsl:value-of select="BasisTK4"/><![CDATA[(]]><xsl:value-of select="BasisSmTK4"/><![CDATA[);
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl87Geographic.GeographicId)) return;
 
-                    WpfMessageBox.Show(CultRes.StringsRes.DeleteSuccess, Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="IDTK4"/><![CDATA[.ToString(),
-                       MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);  
+                    _extCrud.DeleteGeographic(geographic);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl87Geographic.GeographicId.ToString());
                 }
-                else
-                {
-                    WpfMessageBox.Show(CultRes.StringsRes.Information, CultRes.StringsRes.DeleteCan + " " + Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="IDTK4"/><![CDATA[ + " " + CultRes.StringsRes.DeleteCan1,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl87Geographic.GeographicId + " " + CultRes.StringsRes.DeleteCan1);
             }
-            catch (DbEntityValidationException ex)
+            catch (Exception e)
             {
-                _entityException.EntityException(ex);
-                                Log.Error(ex);
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
             }
-         
-            ]]><xsl:value-of select="TableTK4"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModelTK4"/><![CDATA[>(_businessLayer.List]]><xsl:value-of select="TableTK4"/><![CDATA[By]]><xsl:value-of select="Basis"/><![CDATA[Id(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[));
 
-            ]]><xsl:value-of select="BasissTK4"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK4"/><![CDATA[List);
-            ]]><xsl:value-of select="BasissTK4"/><![CDATA[View.Refresh();
-        }
-        //-------------------------------------------------------------------------------------------------                  ]]>  
+            Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromFiSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl87Geographic.FiSpeciesId);
+
+            GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
+            GeographicsView.MoveCurrentToFirst();
+        }             ]]>  
 </xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">        <![CDATA[                
-        private void Delete]]><xsl:value-of select="BasisTK4"/><![CDATA[(object o)
+        private void ExecuteDeleteGeographic(string searchName)
         {
-            if (Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[ == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
+            if (_genGeographicMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl87Geographic)) return;
 
             try
             {
-                var ]]><xsl:value-of select="BasisSmTK4"/><![CDATA[ = _businessLayer.SingleList]]><xsl:value-of select="TableTK4"/><![CDATA[By]]><xsl:value-of select="BasisTK4"/><![CDATA[Id(Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="IDTK4"/><![CDATA[);
-                if (]]><xsl:value-of select="BasisSmTK4"/><![CDATA[!= null)
+                var geographic = _uow.Tbl87Geographics.GetById(CurrentTbl87Geographic.GeographicId);
+                if (geographic != null)
                 {
-                    if (WpfMessageBox.Show(CultRes.StringsRes.DeleteQuestion1, CultRes.StringsRes.DeleteQuestion + " " + Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="IDTK4"/><![CDATA[,
-                         MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes) 
-                    return;
-                    ]]><xsl:value-of select="BasisSmTK4"/><![CDATA[.EntityState = EntityState.Deleted;
-                    _businessLayer.Remove]]><xsl:value-of select="BasisTK4"/><![CDATA[(]]><xsl:value-of select="BasisSmTK4"/><![CDATA[);
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl87Geographic.GeographicId)) return;
 
-                    WpfMessageBox.Show(CultRes.StringsRes.DeleteSuccess, Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="IDTK4"/><![CDATA[.ToString(),
-                       MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);  
+                    _extCrud.DeleteGeographic(geographic);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl87Geographic.GeographicId.ToString());
                 }
-                else
-                {
-                    WpfMessageBox.Show(CultRes.StringsRes.Information, CultRes.StringsRes.DeleteCan + " " + Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="IDTK4"/><![CDATA[ + " " + CultRes.StringsRes.DeleteCan1,
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                }
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl87Geographic.GeographicId + " " + CultRes.StringsRes.DeleteCan1);
             }
-            catch (DbEntityValidationException ex)
+            catch (Exception e)
             {
-                _entityException.EntityException(ex);
-                                Log.Error(ex);
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
             }
-         
-            ]]><xsl:value-of select="TableTK4"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModelTK4"/><![CDATA[>(_businessLayer.List]]><xsl:value-of select="TableTK4"/><![CDATA[By]]><xsl:value-of select="Basis"/><![CDATA[Id(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[));
 
-            ]]><xsl:value-of select="BasissTK4"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK4"/><![CDATA[List);
-            ]]><xsl:value-of select="BasissTK4"/><![CDATA[View.Refresh();
-        }
-        //-------------------------------------------------------------------------------------------------                  ]]>  
+            Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromFiSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl87Geographic.FiSpeciesId);
+
+            GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
+            GeographicsView.MoveCurrentToFirst();
+        }             ]]>  
 </xsl:when>
 <xsl:otherwise>    
 </xsl:otherwise>    
@@ -4376,307 +4507,131 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>
 <xsl:when test="Table ='Tbl69FiSpeciesses'">         
   <xsl:if test="TableTK4 !='NULL'">       <![CDATA[      
-        private void Save]]><xsl:value-of select="BasisTK4"/><![CDATA[(object o)
+        private void ExecuteSaveGeographic(string searchName)
         {
-            if (Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[ == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
+            if (_genGeographicMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl87Geographic)) return;
 
-            Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[ = Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[;
+            CurrentTbl87Geographic.FiSpeciesId = CurrentTbl69FiSpecies.FiSpeciesId;
 
-            //Search for CurrentTbl87Geographic.PlSpeciesID with Plantae#Regnum# 
-            var plantaeRegnum = _businessLayer.SingleListTbl72PlSpeciessesByPlSpeciesName("Plantae#Regnum#");
-            CurrentTbl87Geographic.PlSpeciesID = plantaeRegnum.PlSpeciesID;
+            //Search for CurrentTbl81Image.PlSpeciesID with Plantae#Regnum# 
+            //   var plantaeRegnum = _businessLayer.SingleListTbl72PlSpeciessesByPlSpeciesName("Plantae#Regnum#");
+            //  CurrentTbl81Image.PlSpeciesID = plantaeRegnum.PlSpeciesID;
+            //Fehler !!!
+            CurrentTbl87Geographic.PlSpeciesId = 1;
+
             try
             {
-                var ]]><xsl:value-of select="BasisSmTK4"/><![CDATA[ = _businessLayer.SingleList]]><xsl:value-of select="TableTK4"/><![CDATA[By]]><xsl:value-of select="BasisTK4"/><![CDATA[Id(Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="IDTK4"/><![CDATA[);
-                if (Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="IDTK4"/><![CDATA[ != 0)
+                var geographic = _uow.Tbl87Geographics.GetById(CurrentTbl87Geographic.GeographicId);
+
+                if (CurrentTbl87Geographic.GeographicId == 0)
+                    geographic = _extCrud.GeographicAdd(CurrentTbl87Geographic);
+                else
+                    geographic = _extCrud.GeographicUpdate(geographic, CurrentTbl87Geographic);
+
+                //  _position = ImagesView.CurrentPosition;
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl87Geographic.GeographicId.ToString())) return;
+
+                try
                 {
-                    if (]]><xsl:value-of select="BasisSmTK4"/><![CDATA[ != null) //update
-                    {
-                            geographic.FiSpeciesID = CurrentTbl87Geographic.FiSpeciesID;
-                            geographic.PlSpeciesID = CurrentTbl87Geographic.PlSpeciesID;
-                            geographic.Address = CurrentTbl87Geographic.Address;
-                            geographic.Continent = CurrentTbl87Geographic.Continent;
-                            geographic.Country = CurrentTbl87Geographic.Country;
-                            geographic.Http = CurrentTbl87Geographic.Http;
-                            geographic.Latitude = CurrentTbl87Geographic.Latitude;
-                            geographic.Longitude = CurrentTbl87Geographic.Longitude;
-                            geographic.Latitude1 = CurrentTbl87Geographic.Latitude1;
-                            geographic.Longitude1 = CurrentTbl87Geographic.Longitude1;
-                            geographic.Latitude2 = CurrentTbl87Geographic.Latitude2;
-                            geographic.Longitude2 = CurrentTbl87Geographic.Longitude2;
-                            geographic.Latitude3 = CurrentTbl87Geographic.Latitude3;
-                            geographic.Longitude3 = CurrentTbl87Geographic.Longitude3;
-                            geographic.ZoomLevel = CurrentTbl87Geographic.ZoomLevel;
-                            geographic.Valid = CurrentTbl87Geographic.Valid;
-                            geographic.ValidYear = CurrentTbl87Geographic.ValidYear;
-                            geographic.Info = CurrentTbl87Geographic.Info;
-                            geographic.Memo = CurrentTbl87Geographic.Memo;
-                            geographic.Updater = Environment.UserName;
-                            geographic.UpdaterDate = DateTime.Now;
-                             geographic.EntityState = EntityState.Modified;
-                       }
-                    }
-                    else
-                    {
-                        geographic = new ]]><xsl:value-of select="LinqModelTK4"/><![CDATA[     //add new
-                        {
-                            FiSpeciesID = CurrentTbl87Geographic.FiSpeciesID,
-                            PlSpeciesID = CurrentTbl87Geographic.PlSpeciesID,
-                            CountID = RandomHelper.Randomnumber(),
-                            Address = CurrentTbl87Geographic.Address,
-                            Continent = CurrentTbl87Geographic.Continent,
-                            Country = CurrentTbl87Geographic.Country,
-                            Http = CurrentTbl87Geographic.Http,
-                            Latitude = CurrentTbl87Geographic.Latitude,
-                            Longitude = CurrentTbl87Geographic.Longitude,
-                            Latitude1 = CurrentTbl87Geographic.Latitude1,
-                            Longitude1 = CurrentTbl87Geographic.Longitude1,
-                            Latitude2 = CurrentTbl87Geographic.Latitude2,
-                            Longitude2 = CurrentTbl87Geographic.Longitude2,
-                            Latitude3 = CurrentTbl87Geographic.Latitude3,
-                            Longitude3 = CurrentTbl87Geographic.Longitude3,
-                            ZoomLevel = CurrentTbl87Geographic.ZoomLevel,
-                            Valid = CurrentTbl87Geographic.Valid,
-                            ValidYear = CurrentTbl87Geographic.ValidYear,
-                            Info = CurrentTbl87Geographic.Info,
-                            Writer = Environment.UserName,
-                            WriterDate = DateTime.Now,
-                            Updater = Environment.UserName,
-                            UpdaterDate = DateTime.Now,
-                            Memo = CurrentTbl87Geographic.Memo,
-                                EntityState = EntityState.Added
-                                              };
+                    _extCrud.GeographicSave(geographic, CurrentTbl87Geographic);
                 }
+                catch (DbUpdateException e)
                 {
-                    //]]><xsl:value-of select="ID"/><![CDATA[ may be not 0
-                    if (Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[ == 0)          
-
-                    {
-                        WpfMessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        return;
-                    }
-
-                    //check if dataset with Name and ]]><xsl:value-of select="Basis"/><![CDATA[Id already exist       
-                    var dataset = _businessLayer.List]]><xsl:value-of select="TableTK4"/><![CDATA[By]]><xsl:value-of select="BasisTK4"/><![CDATA[IdAnd]]><xsl:value-of select="Basis"/><![CDATA[Id(Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="BasisTK4"/><![CDATA[ID, Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[);
-
-                    if (dataset.Count != 0 && Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="IDTK4"/><![CDATA[ == 0)  //dataset exist
-                    {
-                        WpfMessageBox.Show(CultRes.StringsRes.DatasetExist, Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="BasisTK4"/><![CDATA[ID.ToString(),
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        return;
-                    }
-                    if (dataset.Count == 0 && Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="IDTK4"/><![CDATA[ == 0 ||
-                        dataset.Count != 0 && Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="IDTK4"/><![CDATA[ != 0 ||
-                        dataset.Count == 0 && Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="IDTK4"/><![CDATA[ != 0) //new dataset and update
-                    {
-                        if (WpfMessageBox.Show(CultRes.StringsRes.SaveQuestion2, Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="BasisTK4"/><![CDATA[ID.ToString(),
-                                MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-                            return;
-                        {
-                            try
-                            {
-                               _businessLayer.Update]]><xsl:value-of select="BasisTK4"/><![CDATA[(]]><xsl:value-of select="BasisSmTK4"/><![CDATA[);
-                            }
-                            catch (DbUpdateException e)
-                            {
-                                if (e.InnerException != null)
-                                    System.Windows.MessageBox.Show(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave,
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-
-                                Log.Error(e);
-                                return;
-                            }
-                            catch (Exception e)
-                            {
-                                System.Windows.MessageBox.Show(e.Message, CultRes.StringsRes.Error,
-                                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-                                Log.Error(e);
-                                return;
-                            }
-                                    WpfMessageBox.Show(CultRes.StringsRes.SaveSuccess,
-                                        Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="IDTK4"/><![CDATA[ == 0
-                                            ? CultRes.StringsRes.DatasetNew
-                                            : Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="BasisTK4"/><![CDATA[ID.ToString(),
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        }
-                    }
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
+                            CultRes.StringsRes.FailedToSave);
+                    Log.Error(e);
+                    return;
                 }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                    //         Log.Error(e);
+                    return;
+                }
+
+                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl87Geographic.GeographicId == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : CurrentTbl87Geographic.GeographicId.ToString());
             }
-            catch (DbEntityValidationException ex)
+            catch (Exception e)
             {
-                _entityException.EntityException(ex);
-                                Log.Error(ex);
-                  return;
-           }
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
 
-            ]]><xsl:value-of select="TableTK4"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModelTK4"/><![CDATA[>(_businessLayer.List]]><xsl:value-of select="TableTK4"/><![CDATA[By]]><xsl:value-of select="Basis"/><![CDATA[Id(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[));            
+            Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromFiSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl87Geographic.FiSpeciesId);
 
-            SelectedMainTabIndex = 5;
-            SelectedDetailSubTabIndex = 5;
-            ]]><xsl:value-of select="BasissTK4"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK4"/><![CDATA[List);
-            ]]><xsl:value-of select="BasissTK4"/><![CDATA[View.Refresh();
+            GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
+            GeographicsView.MoveCurrentToFirst();
         }
-        #endregion "Public Commands"                ]]>  
+        #endregion [Public Methods  Connect ==> Tbl87Geographics]                                                                                                      ]]>  
   </xsl:if> 
 </xsl:when>
 <xsl:when test="Table ='Tbl72PlSpeciesses'">           
   <xsl:if test="TableTK4 !='NULL'">       <![CDATA[      
-        private void Save]]><xsl:value-of select="BasisTK4"/><![CDATA[(object o)
+        private void ExecuteSaveGeographic(string searchName)
         {
-            if (Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[ == null)
-            {
-                WpfMessageBox.Show(CultRes.StringsRes.DatasetNew,
-                    CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
-            }
+            if (_genGeographicMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl87Geographic)) return;
 
-            Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[ = Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[;
+            CurrentTbl87Geographic.PlSpeciesId = CurrentTbl72PlSpecies.PlSpeciesId;
 
-            //Search for CurrentTbl87Geographic.FiSpeciesID with Animalia#Regnum# 
-            var animaliaRegnum = _businessLayer.SingleListTbl69FiSpeciessesByFiSpeciesName("Animalia#Regnum#");
-            CurrentTbl87Geographic.FiSpeciesID = animaliaRegnum.FiSpeciesID;
+            //Search for CurrentTbl81Image.PlSpeciesID with Plantae#Regnum# 
+            //   var plantaeRegnum = _businessLayer.SingleListTbl72PlSpeciessesByPlSpeciesName("Plantae#Regnum#");
+            //  CurrentTbl81Image.PlSpeciesID = plantaeRegnum.PlSpeciesID;
+            //Fehler !!!
+            CurrentTbl87Geographic.FiSpeciesId = 2;
 
             try
             {
-                var ]]><xsl:value-of select="BasisSmTK4"/><![CDATA[ = _businessLayer.SingleList]]><xsl:value-of select="TableTK4"/><![CDATA[By]]><xsl:value-of select="BasisTK4"/><![CDATA[Id(Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="IDTK4"/><![CDATA[);
-                if (Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="IDTK4"/><![CDATA[ != 0)
+                var geographic = _uow.Tbl87Geographics.GetById(CurrentTbl87Geographic.GeographicId);
+
+                if (CurrentTbl87Geographic.GeographicId == 0)
+                    geographic = _extCrud.GeographicAdd(CurrentTbl87Geographic);
+                else
+                    geographic = _extCrud.GeographicUpdate(geographic, CurrentTbl87Geographic);
+
+                //  _position = ImagesView.CurrentPosition;
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl87Geographic.GeographicId.ToString())) return;
+
+                try
                 {
-                    if (]]><xsl:value-of select="BasisSmTK4"/><![CDATA[ != null) //update
-                    {
-                            geographic.FiSpeciesID = CurrentTbl87Geographic.FiSpeciesID;
-                            geographic.PlSpeciesID = CurrentTbl87Geographic.PlSpeciesID;
-                            geographic.Address = CurrentTbl87Geographic.Address;
-                            geographic.Continent = CurrentTbl87Geographic.Continent;
-                            geographic.Country = CurrentTbl87Geographic.Country;
-                            geographic.Http = CurrentTbl87Geographic.Http;
-                            geographic.Latitude = CurrentTbl87Geographic.Latitude;
-                            geographic.Longitude = CurrentTbl87Geographic.Longitude;
-                            geographic.Latitude1 = CurrentTbl87Geographic.Latitude1;
-                            geographic.Longitude1 = CurrentTbl87Geographic.Longitude1;
-                            geographic.Latitude2 = CurrentTbl87Geographic.Latitude2;
-                            geographic.Longitude2 = CurrentTbl87Geographic.Longitude2;
-                            geographic.Latitude3 = CurrentTbl87Geographic.Latitude3;
-                            geographic.Longitude3 = CurrentTbl87Geographic.Longitude3;
-                            geographic.ZoomLevel = CurrentTbl87Geographic.ZoomLevel;
-                            geographic.Valid = CurrentTbl87Geographic.Valid;
-                            geographic.ValidYear = CurrentTbl87Geographic.ValidYear;
-                            geographic.Info = CurrentTbl87Geographic.Info;
-                            geographic.Memo = CurrentTbl87Geographic.Memo;
-                            geographic.Updater = Environment.UserName;
-                            geographic.UpdaterDate = DateTime.Now;
-                             geographic.EntityState = EntityState.Modified;
-                       }
-                    }
-                    else
-                    {
-                        geographic = new ]]><xsl:value-of select="LinqModelTK4"/><![CDATA[     //add new
-                        {
-                            FiSpeciesID = CurrentTbl87Geographic.FiSpeciesID,
-                            PlSpeciesID = CurrentTbl87Geographic.PlSpeciesID,
-                            CountID = RandomHelper.Randomnumber(),
-                            Address = CurrentTbl87Geographic.Address,
-                            Continent = CurrentTbl87Geographic.Continent,
-                            Country = CurrentTbl87Geographic.Country,
-                            Http = CurrentTbl87Geographic.Http,
-                            Latitude = CurrentTbl87Geographic.Latitude,
-                            Longitude = CurrentTbl87Geographic.Longitude,
-                            Latitude1 = CurrentTbl87Geographic.Latitude1,
-                            Longitude1 = CurrentTbl87Geographic.Longitude1,
-                            Latitude2 = CurrentTbl87Geographic.Latitude2,
-                            Longitude2 = CurrentTbl87Geographic.Longitude2,
-                            Latitude3 = CurrentTbl87Geographic.Latitude3,
-                            Longitude3 = CurrentTbl87Geographic.Longitude3,
-                            ZoomLevel = CurrentTbl87Geographic.ZoomLevel,
-                            Valid = CurrentTbl87Geographic.Valid,
-                            ValidYear = CurrentTbl87Geographic.ValidYear,
-                            Info = CurrentTbl87Geographic.Info,
-                            Writer = Environment.UserName,
-                            WriterDate = DateTime.Now,
-                            Updater = Environment.UserName,
-                            UpdaterDate = DateTime.Now,
-                            Memo = CurrentTbl87Geographic.Memo,
-                                EntityState = EntityState.Added
-                                              };
+                    _extCrud.GeographicSave(geographic, CurrentTbl87Geographic);
                 }
+                catch (DbUpdateException e)
                 {
-                    //]]><xsl:value-of select="ID"/><![CDATA[ may be not 0
-                    if (Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[ == 0)          
-
-                    {
-                        WpfMessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                            MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        return;
-                    }
-
-                    //check if dataset with Name and ]]><xsl:value-of select="Basis"/><![CDATA[Id already exist       
-                    var dataset = _businessLayer.List]]><xsl:value-of select="TableTK4"/><![CDATA[By]]><xsl:value-of select="BasisTK4"/><![CDATA[IdAnd]]><xsl:value-of select="Basis"/><![CDATA[Id(Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="BasisTK4"/><![CDATA[ID, Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[);
-
-                    if (dataset.Count != 0 && Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="IDTK4"/><![CDATA[ == 0)  //dataset exist
-                    {
-                        WpfMessageBox.Show(CultRes.StringsRes.DatasetExist, Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="BasisTK4"/><![CDATA[ID.ToString(),
-                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        return;
-                    }
-                    if (dataset.Count == 0 && Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="IDTK4"/><![CDATA[ == 0 ||
-                        dataset.Count != 0 && Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="IDTK4"/><![CDATA[ != 0 ||
-                        dataset.Count == 0 && Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="IDTK4"/><![CDATA[ != 0) //new dataset and update
-                    {
-                        if (WpfMessageBox.Show(CultRes.StringsRes.SaveQuestion2, Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="BasisTK4"/><![CDATA[ID.ToString(),
-                                MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes)
-                            return;
-                        {
-                            try
-                            {
-                               _businessLayer.Update]]><xsl:value-of select="BasisTK4"/><![CDATA[(]]><xsl:value-of select="BasisSmTK4"/><![CDATA[);
-                            }
-                            catch (DbUpdateException e)
-                            {
-                                if (e.InnerException != null)
-                                    System.Windows.MessageBox.Show(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave,
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-
-                                Log.Error(e);
-                                return;
-                            }
-                            catch (Exception e)
-                            {
-                                System.Windows.MessageBox.Show(e.Message, CultRes.StringsRes.Error,
-                                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-                                Log.Error(e);
-                                return;
-                            }
-                                    WpfMessageBox.Show(CultRes.StringsRes.SaveSuccess,
-                                        Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="IDTK4"/><![CDATA[ == 0
-                                            ? CultRes.StringsRes.DatasetNew
-                                            : Current]]><xsl:value-of select="LinqModelTK4"/><![CDATA[.]]><xsl:value-of select="BasisTK4"/><![CDATA[ID.ToString(),
-                                        MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        }
-                    }
+                    if (e.InnerException != null)
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
+                            CultRes.StringsRes.FailedToSave);
+                    Log.Error(e);
+                    return;
                 }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                    //         Log.Error(e);
+                    return;
+                }
+
+                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl87Geographic.GeographicId == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : CurrentTbl87Geographic.GeographicId.ToString());
             }
-            catch (DbEntityValidationException ex)
+            catch (Exception e)
             {
-                _entityException.EntityException(ex);
-                                Log.Error(ex);
-                   return;
-           }
+                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
 
-            ]]><xsl:value-of select="TableTK4"/><![CDATA[List = new ObservableCollection<]]><xsl:value-of select="LinqModelTK4"/><![CDATA[>(_businessLayer.List]]><xsl:value-of select="TableTK4"/><![CDATA[By]]><xsl:value-of select="Basis"/><![CDATA[Id(Current]]><xsl:value-of select="LinqModel"/><![CDATA[.]]><xsl:value-of select="ID"/><![CDATA[));            
+            Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromFiSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl87Geographic.FiSpeciesId);
 
-            SelectedMainTabIndex = 5;
-            SelectedDetailSubTabIndex = 5;
-            ]]><xsl:value-of select="BasissTK4"/><![CDATA[View = CollectionViewSource.GetDefaultView(]]><xsl:value-of select="TableTK4"/><![CDATA[List);
-            ]]><xsl:value-of select="BasissTK4"/><![CDATA[View.Refresh();
+            GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
+            GeographicsView.MoveCurrentToFirst();
         }
-        #endregion "Public Commands"                ]]>  
+
+        #endregion [Public Methods  Connect ==> Tbl87Geographics]                               ]]>  
   </xsl:if> 
 </xsl:when>
 <xsl:otherwise>    
@@ -6426,6 +6381,7 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+        private int _selectedDetailSubRefTabIndex;
 
         public  int SelectedMainTabIndex
         {
@@ -6567,6 +6523,32 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     SelectedDetailTabIndex = 2;
                 }       ]]>  
 </xsl:when>   
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      <![CDATA[ 
+                if (_selectedMainTabIndex == 1)             
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl68SpeciesgroupsList = _extCrud.GetSpeciesgroupsCollectionFromSpeciesgroupIdOrderBy<Tbl68Speciesgroup>(CurrentTbl69FiSpecies.SpeciesgroupId);
+
+                        SpeciesgroupsView = CollectionViewSource.GetDefaultView(Tbl68SpeciesgroupsList);
+                        SpeciesgroupsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 1;
+                }       ]]>  
+</xsl:when>   
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      <![CDATA[ 
+                if (_selectedMainTabIndex == 1)             
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl68SpeciesgroupsList = _extCrud.GetSpeciesgroupsCollectionFromSpeciesgroupIdOrderBy<Tbl68Speciesgroup>(CurrentTbl69FiSpecies.SpeciesgroupId);
+
+                        SpeciesgroupsView = CollectionViewSource.GetDefaultView(Tbl68SpeciesgroupsList);
+                        SpeciesgroupsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 1;
+                }       ]]>  
+</xsl:when>   
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedMainTabIndex == 1)
                 {
@@ -6621,6 +6603,36 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>    
 <xsl:when test="Table ='Tbl68Speciesgroups'">   
 </xsl:when>    
+<xsl:when test="Table ='Tbl69FiSpeciesses'">     <![CDATA[ 
+                if (_selectedMainTabIndex == 2)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl78NamesList = _extCrud.GetNamesCollectionFromFiSpeciesIdOrderBy<Tbl78Name>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+
+                        NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
+                        NamesView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 3;
+                }         ]]>  
+</xsl:when>    
+<xsl:when test="Table ='Tbl72PlSpeciesses'">     <![CDATA[ 
+                if (_selectedMainTabIndex == 2)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl78NamesList = _extCrud.GetNamesCollectionFromFiSpeciesIdOrderBy<Tbl78Name>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+
+                        NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
+                        NamesView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 3;
+                }         ]]>  
+</xsl:when>    
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedMainTabIndex == 2)
                 {
@@ -6650,7 +6662,37 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 }         ]]>  
 </xsl:when> 
 <xsl:when test="Table ='Tbl68Speciesgroups'">   
-</xsl:when>        
+</xsl:when>    
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      <![CDATA[ 
+                if (_selectedMainTabIndex == 3)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl81ImagesList = _extCrud.GetImagesCollectionFromFiSpeciesIdOrderBy<Tbl81Image>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+
+                        ImagesView = CollectionViewSource.GetDefaultView(Tbl81ImagesList);
+                        ImagesView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 4;
+                }         ]]>  
+</xsl:when>     
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      <![CDATA[ 
+                if (_selectedMainTabIndex == 3)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl81ImagesList = _extCrud.GetImagesCollectionFromFiSpeciesIdOrderBy<Tbl81Image>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+
+                        ImagesView = CollectionViewSource.GetDefaultView(Tbl81ImagesList);
+                        ImagesView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 4;
+                }         ]]>  
+</xsl:when>     
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedMainTabIndex == 3)
                 {
@@ -6697,6 +6739,36 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     SelectedDetailTabIndex = 7;
                 }         ]]>  
 </xsl:when>     
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      <![CDATA[ 
+                if (_selectedMainTabIndex == 4)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromFiSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+
+                        SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
+                        SynonymsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 5;
+                }         ]]>  
+</xsl:when>     
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      <![CDATA[ 
+                if (_selectedMainTabIndex == 4)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromFiSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+
+                        SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
+                        SynonymsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 5;
+                }         ]]>  
+</xsl:when>     
 <xsl:otherwise> 
 </xsl:otherwise>    
 </xsl:choose> 
@@ -6706,6 +6778,36 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>  
 <xsl:when test="Table ='++++++Open Detail Items  Top 1 SelectedDetailTabIndex +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
 </xsl:when>  
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      <![CDATA[ 
+                if (_selectedMainTabIndex == 5)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromFiSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+
+                        GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
+                        GeographicsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 6;
+                }         ]]>  
+</xsl:when>     
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      <![CDATA[ 
+                if (_selectedMainTabIndex == 5)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromFiSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+
+                        GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
+                        GeographicsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 6;
+                }         ]]>  
+</xsl:when>     
 <xsl:otherwise>    <![CDATA[ 
             }
         }
@@ -6717,6 +6819,105 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
             {
                 if (value == _selectedDetailTabIndex) return;
                 _selectedDetailTabIndex = value;    RaisePropertyChanged("");     ]]>  
+</xsl:otherwise>    
+</xsl:choose> 
+
+<xsl:choose>
+<xsl:when test="Table ='++++++Open main Items  Top 6 SelectedDetailTabIndex +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when>  
+<xsl:when test="Table ='++++++Open Main Items  Top 6 SelectedDetailTabIndex +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when>  
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      <![CDATA[ 
+                if (_selectedMainTabIndex == 6)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                    }
+                    SelectedDetailTabIndex = 7;
+                    SelectedMainSubRefTabIndex = 0;
+                }         ]]>  
+</xsl:when>     
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      <![CDATA[ 
+                if (_selectedMainTabIndex == 6)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                    }
+                    SelectedDetailTabIndex = 7;
+                    SelectedMainSubRefTabIndex = 0;
+                }         ]]>  
+</xsl:when>     
+<xsl:otherwise>  
+</xsl:otherwise>    
+</xsl:choose> 
+
+<xsl:choose>
+<xsl:when test="Table ='++++++Open main Items  Top 7 SelectedDetailTabIndex +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when>  
+<xsl:when test="Table ='++++++Open Main Items  Top 7 SelectedDetailTabIndex +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when>  
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      <![CDATA[ 
+                if (_selectedMainTabIndex == 7)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl93CommentsList = _extCrud.GetCommentsCollectionFromFiSpeciesIdOrderBy<Tbl93Comment>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 8;
+                }         ]]>  
+</xsl:when>     
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      <![CDATA[ 
+                if (_selectedMainTabIndex == 7)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl93CommentsList = _extCrud.GetCommentsCollectionFromFiSpeciesIdOrderBy<Tbl93Comment>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
+                    SelectedDetailTabIndex = 8;
+                }         ]]>  
+</xsl:when>     
+<xsl:otherwise>  
+</xsl:otherwise>    
+</xsl:choose> 
+
+<xsl:choose>
+<xsl:when test="Table ='++++++Open Detail Items  Top 1 SelectedDetailTabIndex 0  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when>  
+<xsl:when test="Table ='++++++Open Detail Items  Top 1 SelectedDetailTabIndex 0  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when>  
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      <![CDATA[ 
+            }
+        }
+
+        public int SelectedDetailTabIndex
+        {
+            get => _selectedDetailTabIndex;
+            set
+            {
+                if (value == _selectedDetailTabIndex) return;
+                _selectedDetailTabIndex = value;
+                RaisePropertyChanged("");      ]]>  
+</xsl:when>     
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      <![CDATA[ 
+            }
+        }
+
+        public int SelectedDetailTabIndex
+        {
+            get => _selectedDetailTabIndex;
+            set
+            {
+                if (value == _selectedDetailTabIndex) return;
+                _selectedDetailTabIndex = value;
+                RaisePropertyChanged("");      ]]>  
+</xsl:when>     
+<xsl:otherwise>  
 </xsl:otherwise>    
 </xsl:choose> 
 
@@ -6792,6 +6993,32 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     SelectedMainTabIndex = 0;
                 }         ]]>  
 </xsl:when>     
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      <![CDATA[ 
+                if (_selectedDetailTabIndex == 1)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl68SpeciesgroupsList = _extCrud.GetSpeciesgroupsCollectionFromSpeciesgroupIdOrderBy<Tbl68Speciesgroup>(CurrentTbl69FiSpecies.SpeciesgroupId);
+
+                        SpeciesgroupsView = CollectionViewSource.GetDefaultView(Tbl68SpeciesgroupsList);
+                        SpeciesgroupsView.Refresh(); 
+                   }
+                    SelectedMainTabIndex = 1;
+                }         ]]>  
+</xsl:when>     
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      <![CDATA[ 
+                if (_selectedDetailTabIndex == 1)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl68SpeciesgroupsList = _extCrud.GetSpeciesgroupsCollectionFromSpeciesgroupIdOrderBy<Tbl68Speciesgroup>(CurrentTbl69FiSpecies.SpeciesgroupId);
+
+                        SpeciesgroupsView = CollectionViewSource.GetDefaultView(Tbl68SpeciesgroupsList);
+                        SpeciesgroupsView.Refresh(); 
+                   }
+                    SelectedMainTabIndex = 1;
+                }         ]]>  
+</xsl:when>     
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedDetailTabIndex == 1)                
                 {
@@ -6858,6 +7085,22 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     SelectedMainTabIndex = 1;
                }  ]]>  
 </xsl:when>        
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      <![CDATA[ 
+                if (_selectedDetailTabIndex == 2)                
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                    }
+               }  ]]>  
+</xsl:when>        
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      <![CDATA[ 
+                if (_selectedDetailTabIndex == 2)                
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                    }
+               }  ]]>  
+</xsl:when>        
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedDetailTabIndex == 2)                
                 {
@@ -6912,7 +7155,39 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 }         ]]>  
 </xsl:when>  
 <xsl:when test="Table ='Tbl68Speciesgroups'">   
-</xsl:when>        
+</xsl:when>     
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      <![CDATA[ 
+                if (_selectedDetailTabIndex == 3)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl78NamesList = _extCrud.GetNamesCollectionFromFiSpeciesIdOrderBy<Tbl78Name>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+
+                        NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
+                        NamesView.Refresh();
+                    }
+                    SelectedMainTabIndex = 2;
+                    SelectedMainSubRefTabIndex = 0;
+                }         ]]>  
+</xsl:when>     
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      <![CDATA[ 
+                if (_selectedDetailTabIndex == 3)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl78NamesList = _extCrud.GetNamesCollectionFromFiSpeciesIdOrderBy<Tbl78Name>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+
+                        NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
+                        NamesView.Refresh();
+                    }
+                    SelectedMainTabIndex = 2;
+                    SelectedMainSubRefTabIndex = 0;
+                }         ]]>  
+</xsl:when>     
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedDetailTabIndex == 3)
                 {
@@ -6969,7 +7244,37 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 }         ]]>  
 </xsl:when>   
 <xsl:when test="Table ='Tbl68Speciesgroups'">   
-</xsl:when>       
+</xsl:when> 
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      <![CDATA[ 
+                if (_selectedDetailTabIndex == 4)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl81ImagesList = _extCrud.GetImagesCollectionFromFiSpeciesIdOrderBy<Tbl81Image>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+
+                        ImagesView = CollectionViewSource.GetDefaultView(Tbl81ImagesList);
+                        ImagesView.Refresh();
+                    }
+                    SelectedMainTabIndex = 3;
+                }         ]]>  
+</xsl:when>         
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      <![CDATA[ 
+                if (_selectedDetailTabIndex == 4)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl81ImagesList = _extCrud.GetImagesCollectionFromFiSpeciesIdOrderBy<Tbl81Image>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+
+                        ImagesView = CollectionViewSource.GetDefaultView(Tbl81ImagesList);
+                        ImagesView.Refresh();
+                    }
+                    SelectedMainTabIndex = 3;
+                }         ]]>  
+</xsl:when>         
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedDetailTabIndex == 4)
                 {
@@ -7026,6 +7331,36 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 }         ]]>  
 </xsl:when>  
 <xsl:when test="Table ='Tbl68Speciesgroups'">   
+</xsl:when>  
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      <![CDATA[ 
+                if (_selectedDetailTabIndex == 5)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromFiSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+
+                        SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
+                        SynonymsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 4;
+                }         ]]>  
+</xsl:when>         
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      <![CDATA[ 
+                if (_selectedDetailTabIndex == 5)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromFiSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+
+                        SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
+                        SynonymsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 4;
+                }         ]]>  
 </xsl:when>         
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedDetailTabIndex == 5)
@@ -7083,7 +7418,37 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 }         ]]>  
 </xsl:when>  
 <xsl:when test="Table ='Tbl68Speciesgroups'">   
-</xsl:when>         
+</xsl:when> 
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      <![CDATA[ 
+                if (_selectedDetailTabIndex == 6)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromFiSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+
+                        GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
+                        GeographicsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 5;
+                }         ]]>  
+</xsl:when>          
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      <![CDATA[ 
+                if (_selectedDetailTabIndex == 6)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromFiSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
+
+                        GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
+                        GeographicsView.Refresh();
+                    }
+                    SelectedMainTabIndex = 5;
+                }         ]]>  
+</xsl:when>          
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedDetailTabIndex == 6)
                 {
@@ -7116,6 +7481,42 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
 </xsl:when>  
 <xsl:when test="Table ='Tbl68Speciesgroups'">   
 </xsl:when>         
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      <![CDATA[ 
+                if (_selectedDetailTabIndex == 7)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+
+                        Tbl90ReferenceExpertsList = _extCrud
+                            .GetReferenceExpertsCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy
+                                <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                        ReferenceExpertsView.Refresh();
+                    }
+                    SelectedMainSubRefTabIndex = 0;
+                    SelectedMainTabIndex = 6;
+                }     ]]>  
+</xsl:when>         
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      <![CDATA[ 
+                if (_selectedDetailTabIndex == 7)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+
+                        Tbl90ReferenceExpertsList = _extCrud
+                            .GetReferenceExpertsCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy
+                                <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                        ReferenceExpertsView.Refresh();
+                    }
+                    SelectedMainSubRefTabIndex = 0;
+                    SelectedMainTabIndex = 6;
+                }     ]]>  
+</xsl:when>         
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedDetailTabIndex == 7)
                 {
@@ -7128,6 +7529,43 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     }
                     SelectedMainTabIndex = 4;
                 }     ]]>  
+</xsl:otherwise>    
+</xsl:choose> 
+
+<xsl:choose>
+<xsl:when test="Table ='++++++Open Detail Items  Top 1 SelectedDetailTabIndex 8  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when>  
+<xsl:when test="Table ='++++++Open Detail Items  Top 1 SelectedDetailTabIndex 8  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when>  
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      <![CDATA[ 
+                if (_selectedDetailTabIndex == 8)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl93CommentsList = _extCrud.GetCommentsCollectionFromFiSpeciesIdOrderBy<Tbl93Comment>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
+
+                    SelectedMainTabIndex = 7;
+                }     ]]>  
+</xsl:when>         
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      <![CDATA[ 
+                if (_selectedDetailTabIndex == 8)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl93CommentsList = _extCrud.GetCommentsCollectionFromFiSpeciesIdOrderBy<Tbl93Comment>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
+                        CommentsView.Refresh();
+                    }
+
+                    SelectedMainTabIndex = 7;
+                }     ]]>  
+</xsl:when>         
+<xsl:otherwise>  
 </xsl:otherwise>    
 </xsl:choose> 
 
@@ -7190,6 +7628,48 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 }      ]]>  
 </xsl:when> 
 <xsl:when test="Table ='Tbl68Speciesgroups'">   
+</xsl:when> 
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      <![CDATA[ 
+                if (_selectedMainSubRefTabIndex == 0)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl90ExpertsAllList =
+                            new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+
+                        Tbl90ReferenceExpertsList = _extCrud
+                                .GetReferenceExpertsCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy
+                                    <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                        ReferenceExpertsView.Refresh();
+                    }
+
+                    SelectedDetailTabIndex = 7;
+                    SelectedMainTabIndex = 6;
+                    SelectedDetailSubRefTabIndex = 0;
+                }      ]]>  
+</xsl:when>          
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      <![CDATA[ 
+                if (_selectedMainSubRefTabIndex == 0)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl90ExpertsAllList =
+                            new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+
+                        Tbl90ReferenceExpertsList = _extCrud
+                                .GetReferenceExpertsCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy
+                                    <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                        ReferenceExpertsView.Refresh();
+                    }
+
+                    SelectedDetailTabIndex = 7;
+                    SelectedMainTabIndex = 6;
+                    SelectedDetailSubRefTabIndex = 0;
+                }      ]]>  
 </xsl:when>          
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedMainSubRefTabIndex == 0)
@@ -7247,7 +7727,51 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 }    ]]>  
 </xsl:when> 
 <xsl:when test="Table ='Tbl68Speciesgroups'">   
-</xsl:when>          
+</xsl:when>  
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      <![CDATA[ 
+                if (_selectedMainSubRefTabIndex == 1)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl90SourcesAllList =
+                            new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+
+                        Tbl90ReferenceSourcesList =
+                            _extCrud
+                                .GetReferenceSourcesCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy
+                                    <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+                        ReferenceSourcesView.Refresh();
+                    }
+
+                    SelectedDetailTabIndex = 7;
+                    SelectedMainTabIndex = 6;
+                    SelectedDetailSubRefTabIndex = 1;
+                }    ]]>  
+</xsl:when>         
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      <![CDATA[ 
+                if (_selectedMainSubRefTabIndex == 1)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl90SourcesAllList =
+                            new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+
+                        Tbl90ReferenceSourcesList =
+                            _extCrud
+                                .GetReferenceSourcesCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy
+                                    <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+                        ReferenceSourcesView.Refresh();
+                    }
+
+                    SelectedDetailTabIndex = 7;
+                    SelectedMainTabIndex = 6;
+                    SelectedDetailSubRefTabIndex = 1;
+                }    ]]>  
+</xsl:when>         
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedMainSubRefTabIndex == 1)
                 {
@@ -7304,7 +7828,51 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                 }    ]]>  
 </xsl:when>  
 <xsl:when test="Table ='Tbl68Speciesgroups'">   
-</xsl:when>         
+</xsl:when>
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      <![CDATA[ 
+                if (_selectedMainSubRefTabIndex == 2)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl90AuthorsAllList =
+                            new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+
+                        Tbl90ReferenceAuthorsList =
+                            _extCrud
+                                .GetReferenceAuthorsCollectionFromFiSpeciesIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy
+                                    <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
+                        ReferenceAuthorsView.Refresh();
+                    }
+
+                    SelectedDetailTabIndex = 7;
+                    SelectedMainTabIndex = 6;
+                    SelectedDetailSubRefTabIndex = 2;
+                }    ]]>  
+</xsl:when>           
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      <![CDATA[ 
+                if (_selectedMainSubRefTabIndex == 2)
+                {
+                    if (Current]]><xsl:value-of select="LinqModel"/><![CDATA[ != null)
+                    {
+                        Tbl90AuthorsAllList =
+                            new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+
+                        Tbl90ReferenceAuthorsList =
+                            _extCrud
+                                .GetReferenceAuthorsCollectionFromFiSpeciesIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy
+                                    <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                        ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
+                        ReferenceAuthorsView.Refresh();
+                    }
+
+                    SelectedDetailTabIndex = 7;
+                    SelectedMainTabIndex = 6;
+                    SelectedDetailSubRefTabIndex = 2;
+                }    ]]>  
+</xsl:when>           
 <xsl:otherwise>    <![CDATA[ 
                 if (_selectedMainSubRefTabIndex == 2)
                 {
@@ -7320,6 +7888,123 @@ namespace ATIS.Ui.Views.Database.]]><xsl:value-of select="Layout"/><![CDATA[
                     SelectedDetailTabIndex = 5;
                     SelectedMainTabIndex = 2;
                 }    ]]>  
+</xsl:otherwise>    
+</xsl:choose> 
+
+<xsl:choose>
+<xsl:when test="Table ='++++++Open Detail Items  Top 1 SelectedDetailSubRefTabIndex 1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when>  
+<xsl:when test="Table ='++++++Open Detail Items  Top 1 SelectedDetailSubRefTabIndex1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'">
+</xsl:when>  
+<xsl:when test="Table ='Tbl69FiSpeciesses'">      <![CDATA[ 
+        public int SelectedDetailSubRefTabIndex
+        {
+            get => _selectedDetailSubRefTabIndex;
+            set
+            {
+                if (value == _selectedDetailSubRefTabIndex) return;
+                _selectedDetailSubRefTabIndex = value; RaisePropertyChanged("");
+                if (_selectedDetailSubRefTabIndex == 0)
+                {
+                    Tbl90ExpertsAllList =
+                        new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+
+                    Tbl90ReferenceExpertsList =
+                        _extCrud
+                            .GetReferenceExpertsCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy
+                                <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                    ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                    ReferenceExpertsView.Refresh();
+
+                    SelectedMainSubRefTabIndex = 0;
+                }
+                if (_selectedDetailSubRefTabIndex == 1)
+                {
+                    Tbl90SourcesAllList =
+                        new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+
+                    Tbl90ReferenceSourcesList =
+                        _extCrud
+                            .GetReferenceSourcesCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy
+                                <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                    ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+                    ReferenceSourcesView.Refresh();
+
+                    SelectedMainSubRefTabIndex = 1;
+                }
+                if (_selectedDetailSubRefTabIndex == 2)
+                {
+                    Tbl90AuthorsAllList =
+                        new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+
+                    Tbl90ReferenceAuthorsList =
+                        _extCrud
+                            .GetReferenceAuthorsCollectionFromFiSpeciesIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy
+                                <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                    ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
+                    ReferenceAuthorsView.Refresh();
+
+                    SelectedMainSubRefTabIndex = 2;
+                }  ]]>  
+</xsl:when>           
+<xsl:when test="Table ='Tbl72PlSpeciesses'">      <![CDATA[ 
+        public int SelectedDetailSubRefTabIndex
+        {
+            get => _selectedDetailSubRefTabIndex;
+            set
+            {
+                if (value == _selectedDetailSubRefTabIndex) return;
+                _selectedDetailSubRefTabIndex = value; RaisePropertyChanged("");
+                if (_selectedDetailSubRefTabIndex == 0)
+                {
+                    Tbl90ExpertsAllList =
+                        new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+
+                    Tbl90ReferenceExpertsList =
+                        _extCrud
+                            .GetReferenceExpertsCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy
+                                <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                    ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
+                    ReferenceExpertsView.Refresh();
+
+                    SelectedMainSubRefTabIndex = 0;
+                }
+                if (_selectedDetailSubRefTabIndex == 1)
+                {
+                    Tbl90SourcesAllList =
+                        new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+
+                    Tbl90ReferenceSourcesList =
+                        _extCrud
+                            .GetReferenceSourcesCollectionFromFiSpeciesIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy
+                                <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                    ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
+                    ReferenceSourcesView.Refresh();
+
+                    SelectedMainSubRefTabIndex = 1;
+                }
+                if (_selectedDetailSubRefTabIndex == 2)
+                {
+                    Tbl90AuthorsAllList =
+                        new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+
+                    Tbl90ReferenceAuthorsList =
+                        _extCrud
+                            .GetReferenceAuthorsCollectionFromFiSpeciesIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy
+                                <Tbl90Reference>(CurrentTbl69FiSpecies.FiSpeciesId);
+
+                    ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
+                    ReferenceAuthorsView.Refresh();
+
+                    SelectedMainSubRefTabIndex = 2;
+                }  ]]>  
+</xsl:when>           
+<xsl:otherwise> 
 </xsl:otherwise>    
 </xsl:choose> 
 

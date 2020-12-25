@@ -2068,7 +2068,7 @@
                                         </StackPanel>
                                     </StackPanel>
                                 </TabItem>
-                                <TabItem FontWeight="Medium" Header="{DynamicResource Tbl69FiSpecies-TabItemHeaderSpecial}">
+                                <TabItem FontWeight="Medium" Header="{DynamicResource Tbl72PlSpecies-TabItemHeaderSpecial}">
                                     <StackPanel Height="Auto" Orientation="Horizontal">
                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                                             <TextBox

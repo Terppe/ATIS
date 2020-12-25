@@ -91,6 +91,8 @@ namespace ATIS.Ui.Views.Database.D66Genus
             Tbl63InfratribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl63Infratribus>("infratribus");
             Tbl66GenussesList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl66Genus>(SearchGenusName, "genus");
 
+            if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl66GenussesList.Count)) return;
+
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 1;
 

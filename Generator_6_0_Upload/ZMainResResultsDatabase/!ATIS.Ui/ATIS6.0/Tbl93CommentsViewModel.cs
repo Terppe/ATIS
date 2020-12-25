@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.ListDetails
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -89,6 +89,7 @@ CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
         
         private void ExecuteAddComment(object o)
         {  
+            Tbl93CommentsList = new ObservableCollection<Tbl93Comment>();
             Tbl93CommentsList.Insert(0, new Tbl93Comment {   Info = CultRes.StringsRes.DatasetNew }  );
 
             Tbl03RegnumsAllList = new ObservableCollection<Tbl03Regnum>(_businessLayer.ListTbl03Regnums());

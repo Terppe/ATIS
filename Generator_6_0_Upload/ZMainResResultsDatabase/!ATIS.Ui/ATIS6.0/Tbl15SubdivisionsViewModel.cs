@@ -58,7 +58,7 @@ namespace ATIS.Ui.Views.Database.D15Subdivision
         }     
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -101,8 +101,10 @@ namespace ATIS.Ui.Views.Database.D15Subdivision
      
         private void ExecuteAddSubdivision(object o)
         {
+            Tbl15SubdivisionsList = new ObservableCollection<Tbl15Subdivision>();
             Tbl15SubdivisionsList.Insert(0, new Tbl15Subdivision   {   SubdivisionName = CultRes.StringsRes.DatasetNew  }  );
             Tbl09DivisionsAllList = _extCrud.GetCollectionAllOrderBy<Tbl09Division>("division");
+
 
             SubdivisionsView = CollectionViewSource.GetDefaultView(Tbl15SubdivisionsList);
             SubdivisionsView.MoveCurrentToFirst();

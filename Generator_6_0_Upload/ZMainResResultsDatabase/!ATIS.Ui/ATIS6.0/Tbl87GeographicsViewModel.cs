@@ -60,7 +60,7 @@ namespace ATIS.Ui.Views.Database.ListDetails
         }
         public bool IsInDesignMode { get; set; }
 
-        #endregion "Constructor"                       
+        #endregion [Constructor]          
  
 
  //    Part 1    
@@ -93,6 +93,7 @@ GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
         
         private void ExecuteAddGeographic(object o)
         {
+            Tbl87GeographicsList = new ObservableCollection<Tbl87Geographic>();
             Tbl87GeographicsList.Insert(0, new Tbl87Geographic   {   Info = CultRes.StringsRes.DatasetNew  }  );
 
                 TblCountriesAllList = new ObservableCollection<TblCountry>(_businessLayer.ListTblCountries());
