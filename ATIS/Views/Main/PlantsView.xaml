@@ -24,12 +24,16 @@
     xmlns:d63Infratribus="clr-namespace:ATIS.Ui.Views.Database.D63Infratribus"
     xmlns:d66Genus="clr-namespace:ATIS.Ui.Views.Database.D66Genus"
     xmlns:d68Speciesgroup="clr-namespace:ATIS.Ui.Views.Database.D68Speciesgroup"
+    xmlns:d72PlSpecies="clr-namespace:ATIS.Ui.Views.Database.D72PlSpecies"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <UserControl.Resources>
+        <DataTemplate DataType="{x:Type d72PlSpecies:PlSpeciessesViewModel}">
+            <d72PlSpecies:PlSpeciessesView />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type d68Speciesgroup:SpeciesgroupsViewModel}">
             <d68Speciesgroup:SpeciesgroupsView />
         </DataTemplate>
@@ -102,7 +106,9 @@
             mah:HeaderedControlHelper.HeaderFontSize="17"
             mah:TabControlHelper.Underlined="TabPanel"
             SelectedIndex="0">
-            <TabItem Content="{Binding Tbl72PlSpeciessesView}" Header="{DynamicResource Database-MenuPlSpecies}" />
+            <TabItem Header="{DynamicResource Database-MenuPlSpecies}">
+                <d72PlSpecies:PlSpeciessesViewModel />
+            </TabItem>
             <TabItem Header="{DynamicResource Database-MenuGenus}">
                 <d66Genus:GenussesViewModel />
             </TabItem>
