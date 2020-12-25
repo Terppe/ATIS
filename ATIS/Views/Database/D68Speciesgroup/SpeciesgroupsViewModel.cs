@@ -85,6 +85,8 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
         {
             Tbl68SpeciesgroupsList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl68Speciesgroup>(SearchSpeciesgroupName, "speciesgroup");
 
+            if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl68SpeciesgroupsList.Count)) return;
+
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 0;
 

@@ -41,6 +41,16 @@ namespace ATIS.Ui.Views.Database.DatabaseHelper
         //    return false;
         //}
 
+        public bool NoDatasetFoundInfoMessageBox(int collectionCount)
+        {
+            if (collectionCount == 0)
+            {
+                MessageBox.Show(CultRes.StringsRes.Tables, CultRes.StringsRes.DatasetNot,
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return true;
+            }
+            return false;
+        }
         public bool DoNotDeleteDatasetInfoMessageBox(int collectionCount, string caption)
         {
             if (collectionCount > 0)
