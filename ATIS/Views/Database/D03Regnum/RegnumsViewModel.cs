@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+
+
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -10,7 +12,6 @@ using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
 using log4net;
 using Microsoft.EntityFrameworkCore;
-
 
 //    RegnumsViewModel Skriptdatum:  27.11.2020  12:32      
 
@@ -55,7 +56,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         }
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
 
 
         //    Part 1    
@@ -99,6 +100,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteAddRegnum(object o)
         {
+            Tbl03RegnumsList = new ObservableCollection<Tbl03Regnum>();
             Tbl03RegnumsList.Insert(0, new Tbl03Regnum { RegnumName = CultRes.StringsRes.DatasetNew });
 
             RegnumsView = CollectionViewSource.GetDefaultView(Tbl03RegnumsList);
@@ -200,8 +202,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
                     return;
                 }
@@ -838,6 +839,8 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
             Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromRegnumIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl03Regnum.RegnumId);
 
+
+
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
             ReferenceSourcesView.MoveCurrentToFirst();
         }
@@ -1060,7 +1063,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         {
             if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
 
-
             CurrentTbl93Comment.RegnumId = CurrentTbl03Regnum.RegnumId;
 
             try
@@ -1156,6 +1158,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
 
+
         public int SelectedMainTabIndex
         {
             get => _selectedMainTabIndex;
@@ -1223,7 +1226,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
                 if (_selectedDetailTabIndex == 0)
                 {
-                     SelectedMainTabIndex = 0;
+                    SelectedMainTabIndex = 0;
                 }
 
                 if (_selectedDetailTabIndex == 1)

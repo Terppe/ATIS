@@ -67,10 +67,11 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
         }
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]           
+        #endregion [Constructor]          
 
 
         //    Part 1    
+
 
 
         #region [Commands PlSpecies]
@@ -99,9 +100,8 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
         {
             Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
             Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("speciesgroup");
-
             Tbl72PlSpeciessesList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl72PlSpecies>(SearchPlSpeciesName, "plspecies");
-            
+
             if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl72PlSpeciessesList.Count)) return;
 
             SelectedMainTabIndex = 0;
@@ -161,8 +161,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
             Tbl90ReferencesList = _extCrud.DeleteDatasetsWithPlSpeciesIdInTableReference(CurrentTbl72PlSpecies);
             if (Tbl90ReferencesList.Count > 0)
             {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " +
-                                              CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
+                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
 
                 _extCrud.DeleteReferences(Tbl90ReferencesList);
 
@@ -184,18 +183,13 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                 var plspecies = _uow.Tbl72PlSpeciesses.GetById(CurrentTbl72PlSpecies.PlSpeciesId);
                 if (plspecies != null)
                 {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " +
-                                          CurrentTbl72PlSpecies.PlSpeciesName)) return;
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl72PlSpecies.PlSpeciesName)) return;
 
                     _extCrud.DeletePlSpecies(plspecies);
 
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess,
-                                         CurrentTbl72PlSpecies.PlSpeciesName);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl72PlSpecies.PlSpeciesName);
                 }
-                else
-                    _allMessageBoxes.InfoMessageBox("Not To Delete",
-                                     CultRes.StringsRes.DeleteCan + " " + CurrentTbl72PlSpecies.PlSpeciesName + " " +
-                                     CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl72PlSpecies.PlSpeciesName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -216,7 +210,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
             if (CurrentTbl72PlSpecies.GenusId == 0)
             {
                 MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                       MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -243,8 +237,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
                     return;
                 }
@@ -279,8 +272,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
 
         private RelayCommand _saveGenusCommand;
 
-        public ICommand SaveGenusCommand =>
-                                      _saveGenusCommand ??= new RelayCommand(delegate { ExecuteSaveGenus(null); });
+        public ICommand SaveGenusCommand => _saveGenusCommand ??= new RelayCommand(delegate { ExecuteSaveGenus(null); });
 
         private void ExecuteSaveGenus(string searchName)
         {
@@ -472,7 +464,6 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
             NamesView.MoveCurrentToFirst();
         }
 
-
         private void ExecuteSaveName(string searchName)
         {
             CurrentTbl78Name.PlSpeciesId = CurrentTbl72PlSpecies.PlSpeciesId;
@@ -616,6 +607,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
 
         private void ExecuteSaveImage(string searchName)
         {
+
             if (_genImageMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl81Image)) return;
 
             CurrentTbl81Image.PlSpeciesId = CurrentTbl72PlSpecies.PlSpeciesId;
@@ -1088,7 +1080,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
 
 
             SelectedMainTabIndex = 6;
-    //        SelectedDetailSubTabIndex = 6;
+            //       SelectedDetailSubTabIndex = 6;
             SelectedMainSubRefTabIndex = 2;
 
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
@@ -1234,7 +1226,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
 
 
             SelectedMainTabIndex = 6;
-       //     SelectedDetailSubTabIndex = 6;
+            //        SelectedDetailSubTabIndex = 6;
             SelectedMainSubRefTabIndex = 1;
 
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
@@ -1260,6 +1252,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
         public ICommand SaveReferenceExpertCommand => _saveReferenceExpertCommand ??= new RelayCommand(delegate { ExecuteSaveReferenceExpert(null); });
 
         #endregion [Commands PlSpecies ==> Tbl90Reference Expert]                    
+
 
         #region [Methods PlSpecies ==> Tbl90Reference Expert]                 
 
@@ -1375,7 +1368,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
             Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFromPlSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl72PlSpecies.PlSpeciesId);
 
             SelectedMainTabIndex = 6;
-       //     SelectedDetailSubTabIndex = 6;
+            //     SelectedDetailSubTabIndex = 6;
             SelectedMainSubRefTabIndex = 0;
 
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
@@ -1401,7 +1394,9 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
 
         public ICommand SaveCommentCommand => _saveCommentCommand ??= new RelayCommand(delegate { ExecuteSaveComment(null); });
 
-        #endregion [Commands PlSpecies ==> Tbl93Comments]
+        #endregion [Commands PlSpecies ==> Tbl93Comments]        
+
+
 
         #region [Methods PlSpecies ==> Tbl93Comments]        
 
@@ -1508,7 +1503,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
             Tbl93CommentsList = _extCrud.GetCommentsCollectionFromPlSpeciesIdOrderBy<Tbl93Comment>(CurrentTbl93Comment.PlSpeciesId);
 
             SelectedMainTabIndex = 7;
-       //     SelectedDetailSubTabIndex = 7;
+            //       SelectedDetailSubTabIndex = 7;
 
             CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
             CommentsView.Refresh();
@@ -1533,6 +1528,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
         {
 
             Tbl66GenussesList = _extCrud.GetGenussesCollectionFromGenusIdOrderBy<Tbl66Genus>(CurrentTbl72PlSpecies.GenusId);
+
             Tbl63InfratribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl63Infratribus>("infratribus");
 
             GenussesView = CollectionViewSource.GetDefaultView(Tbl66GenussesList);
@@ -1555,7 +1551,9 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+
         private int _selectedDetailSubRefTabIndex;
+
 
         public int SelectedMainTabIndex
         {
@@ -1807,8 +1805,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
             set
             {
                 if (value == _selectedMainSubRefTabIndex) return;
-                _selectedMainSubRefTabIndex = value;
-                RaisePropertyChanged("");
+                _selectedMainSubRefTabIndex = value; RaisePropertyChanged("");
 
                 if (_selectedMainSubRefTabIndex == 0)
                 {
@@ -1818,8 +1815,8 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                             new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
 
                         Tbl90ReferenceExpertsList = _extCrud
-                            .GetReferenceExpertsCollectionFromPlSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy
-                                <Tbl90Reference>(CurrentTbl72PlSpecies.PlSpeciesId);
+                                .GetReferenceExpertsCollectionFromPlSpeciesIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy
+                                    <Tbl90Reference>(CurrentTbl72PlSpecies.PlSpeciesId);
 
                         ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
                         ReferenceExpertsView.Refresh();
@@ -1871,6 +1868,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                     SelectedMainTabIndex = 6;
                     SelectedDetailSubRefTabIndex = 2;
                 }
+
             }
         }
 
@@ -2260,7 +2258,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
         private ObservableCollection<TblCountry> _tblCountriesAllList;
         public ObservableCollection<TblCountry> TblCountriesAllList
         {
-            get => _tblCountriesAllList;
+            get { return _tblCountriesAllList; }
             set { _tblCountriesAllList = value; RaisePropertyChanged(""); }
         }
 

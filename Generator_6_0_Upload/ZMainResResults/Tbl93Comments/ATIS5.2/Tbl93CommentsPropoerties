@@ -1,0 +1,207 @@
+    
+
+
+ //    Part 11    
+
+
+     
+        #region "Public Properties Tbl93Comment"
+
+        private string _searchCommentInfo;
+        public string SearchCommentInfo
+        {
+            get => _searchCommentInfo; 
+            set { _searchCommentInfo = value; OnPropertyChanged(); }
+        }
+
+        public ICollectionView CommentsView;
+        public Tbl93Comment CurrentTbl93Comment => CommentsView?.CurrentItem as Tbl93Comment;     
+   
+        private ObservableCollection<Tbl93Comment> _tbl93CommentsList;
+        public  ObservableCollection<Tbl93Comment> Tbl93CommentsList
+        {
+            get => _tbl93CommentsList; 
+            set { _tbl93CommentsList = value; OnPropertyChanged();   }
+        }
+
+        private ObservableCollection<Tbl93Comment> _tbl93CommentsAllList;
+        public ObservableCollection<Tbl93Comment> Tbl93CommentsAllList
+        {
+            get => _tbl93CommentsAllList; 
+            set { _tbl93CommentsAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl03Regnum> _tbl03RegnumsAllList;
+        public ObservableCollection<Tbl03Regnum> Tbl03RegnumsAllList
+        {
+            get => _tbl03RegnumsAllList; 
+            set { _tbl03RegnumsAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl06Phylum> _tbl06PhylumsAllList;
+        public ObservableCollection<Tbl06Phylum> Tbl06PhylumsAllList
+        {
+            get => _tbl06PhylumsAllList; 
+            set { _tbl06PhylumsAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl09Division> _tbl09DivisionsAllList;
+        public ObservableCollection<Tbl09Division> Tbl09DivisionsAllList
+        {
+            get => _tbl09DivisionsAllList; 
+            set { _tbl09DivisionsAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl12Subphylum> _tbl12SubphylumsAllList;
+        public ObservableCollection<Tbl12Subphylum> Tbl12SubphylumsAllList
+        {
+            get => _tbl12SubphylumsAllList; 
+            set { _tbl12SubphylumsAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl15Subdivision> _tbl15SubdivisionsAllList;
+        public ObservableCollection<Tbl15Subdivision> Tbl15SubdivisionsAllList
+        {
+            get => _tbl15SubdivisionsAllList; 
+            set { _tbl15SubdivisionsAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl18Superclass> _tbl18SuperclassesAllList;
+        public ObservableCollection<Tbl18Superclass> Tbl18SuperclassesAllList
+        {
+            get => _tbl18SuperclassesAllList; 
+            set { _tbl18SuperclassesAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl21Class> _tbl21ClassesAllList;
+        public ObservableCollection<Tbl21Class> Tbl21ClassesAllList
+        {
+            get => _tbl21ClassesAllList; 
+            set { _tbl21ClassesAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl24Subclass> _tbl24SubclassesAllList;
+        public ObservableCollection<Tbl24Subclass> Tbl24SubclassesAllList
+        {
+            get => _tbl24SubclassesAllList; 
+            set { _tbl24SubclassesAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl27Infraclass> _tbl27InfraclassesAllList;
+        public ObservableCollection<Tbl27Infraclass> Tbl27InfraclassesAllList
+        {
+            get => _tbl27InfraclassesAllList; 
+            set { _tbl27InfraclassesAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl30Legio> _tbl30LegiosAllList;
+        public ObservableCollection<Tbl30Legio> Tbl30LegiosAllList
+        {
+            get => _tbl30LegiosAllList; 
+            set { _tbl30LegiosAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl33Ordo> _tbl33OrdosAllList;
+        public ObservableCollection<Tbl33Ordo> Tbl33OrdosAllList
+        {
+            get => _tbl33OrdosAllList; 
+            set { _tbl33OrdosAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl36Subordo> _tbl36SubordosAllList;
+        public ObservableCollection<Tbl36Subordo> Tbl36SubordosAllList
+        {
+            get => _tbl36SubordosAllList; 
+            set { _tbl36SubordosAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl39Infraordo> _tbl39InfraordosAllList;
+        public ObservableCollection<Tbl39Infraordo> Tbl39InfraordosAllList
+        {
+            get => _tbl39InfraordosAllList; 
+            set { _tbl39InfraordosAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl42Superfamily> _tbl42SuperfamiliesAllList;
+        public ObservableCollection<Tbl42Superfamily> Tbl42SuperfamiliesAllList
+        {
+            get => _tbl42SuperfamiliesAllList; 
+            set { _tbl42SuperfamiliesAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl45Family> _tbl45FamiliesAllList;
+        public ObservableCollection<Tbl45Family> Tbl45FamiliesAllList
+        {
+            get => _tbl45FamiliesAllList; 
+            set { _tbl45FamiliesAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl48Subfamily> _tbl48SubfamiliesAllList;
+        public ObservableCollection<Tbl48Subfamily> Tbl48SubfamiliesAllList
+        {
+            get => _tbl48SubfamiliesAllList; 
+            set { _tbl48SubfamiliesAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl51Infrafamily> _tbl51InfrafamiliesAllList;
+        public ObservableCollection<Tbl51Infrafamily> Tbl51InfrafamiliesAllList
+        {
+            get => _tbl51InfrafamiliesAllList; 
+            set { _tbl51InfrafamiliesAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl54Supertribus> _tbl54SupertribussesAllList;
+        public ObservableCollection<Tbl54Supertribus> Tbl54SupertribussesAllList
+        {
+            get => _tbl54SupertribussesAllList; 
+            set { _tbl54SupertribussesAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl57Tribus> _tbl57TribussesAllList;
+        public ObservableCollection<Tbl57Tribus> Tbl57TribussesAllList
+        {
+            get => _tbl57TribussesAllList; 
+            set { _tbl57TribussesAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl60Subtribus> _tbl60SubtribussesAllList;
+        public ObservableCollection<Tbl60Subtribus> Tbl60SubtribussesAllList
+        {
+            get => _tbl60SubtribussesAllList; 
+            set { _tbl60SubtribussesAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl63Infratribus> _tbl63InfratribussesAllList;
+        public ObservableCollection<Tbl63Infratribus> Tbl63InfratribussesAllList
+        {
+            get => _tbl63InfratribussesAllList; 
+            set { _tbl63InfratribussesAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl66Genus> _tbl66GenussesAllList;
+        public ObservableCollection<Tbl66Genus> Tbl66GenussesAllList
+        {
+            get => _tbl66GenussesAllList; 
+            set { _tbl66GenussesAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl69FiSpecies> _tbl69FiSpeciessesAllList;
+        public ObservableCollection<Tbl69FiSpecies> Tbl69FiSpeciessesAllList
+        {
+            get => _tbl69FiSpeciessesAllList; 
+            set { _tbl69FiSpeciessesAllList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl72PlSpecies> _tbl72PlSpeciessesAllList;
+        public ObservableCollection<Tbl72PlSpecies> Tbl72PlSpeciessesAllList
+        {
+            get => _tbl72PlSpeciessesAllList; 
+            set { _tbl72PlSpeciessesAllList = value; OnPropertyChanged(); }
+        }
+
+        #endregion "Public Properties"
+   
+ 
+
+ //    Part 12    
+

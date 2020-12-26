@@ -1,0 +1,100 @@
+           
+                 ------- ControlTemplateButtons---------------
+    <!--  Infraordo-->
+    <ControlTemplate x:Key="SearchInfraordosButton" TargetType="Button">   
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding GetInfraordosByNameOrIdCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageSearch" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="AddInfraordoButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding AddInfraordoCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="CopyInfraordoButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding CopyInfraordoCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="SaveInfraordoButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding SaveInfraordoCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="DeleteInfraordoButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding DeleteInfraordoCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+	   

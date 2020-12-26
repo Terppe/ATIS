@@ -57,14 +57,14 @@
 
                                     <TextBox
                                         x:Name="TbSearchGenus"
-                                        Width="170"
+                                        Width="200"
                                         Margin="5"
                                         HorizontalContentAlignment="Stretch"
                                         mah:TextBoxHelper.ButtonCommand="{Binding TextBoxButtonCmd, Mode=OneWay}"
                                         mah:TextBoxHelper.ClearTextButton="True"
                                         mah:TextBoxHelper.IsWaitingForData="True"
                                         mah:TextBoxHelper.UseFloatingWatermark="True"
-                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-SearchNameOrId}"
+                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-SearchGenusNameOrId}"
                                         mah:TextBoxHelper.WatermarkAlignment="Left"
                                         ContextMenu="{x:Null}"
                                         FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
@@ -72,6 +72,7 @@
                                         SpellCheck.IsEnabled="True"
                                         Text="{Binding SearchGenusName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                         ToolTip="{DynamicResource Shared-SearchNameOrId}">
+
                                         <TextBox.InputBindings>
                                             <KeyBinding
                                                 Key="Return"
@@ -702,6 +703,7 @@
                 <GroupBox>
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
+
                             <Button Template="{StaticResource SaveInfratribusButton}" />
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
@@ -724,6 +726,7 @@
                                         UpdateSourceTrigger="PropertyChanged" />
                                 </TextBox.Text>
                             </TextBox>
+
                             <ComboBox
                                 Width="300"
                                 Margin="25,5,5,5"
@@ -738,6 +741,7 @@
                                 SelectedValuePath="SubtribusId"
                                 Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                 VirtualizingStackPanel.IsVirtualizing="True" />
+
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <CheckBox
@@ -968,6 +972,7 @@
                     <GroupBox>
                         <StackPanel Margin="1">
                             <StackPanel Height="Auto" Orientation="Horizontal">
+
                                 <Button Template="{StaticResource SaveGenusButton}" />
                                 <Button Template="{StaticResource CopyGenusButton}" />
                                 <Button Template="{StaticResource AddGenusButton}" />
@@ -1017,6 +1022,7 @@
                                     Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                     VirtualizingStackPanel.IsVirtualizing="True" />
                             </StackPanel>
+
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <CheckBox
                                     Width="80"
@@ -1212,6 +1218,7 @@
                                     </TextBox.Text>
                                 </TextBox>
                             </StackPanel>
+
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                     <TextBox
@@ -1241,12 +1248,16 @@
                 </StackPanel>
             </TabItem>
 
+
+
             <!--  Part 8.2 TK1 Connected  -->
+
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl69FiSpecies-FiSpecies}">
                 <GroupBox>
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
+
                             <Button Template="{StaticResource SaveFiSpeciesButton}" />
                             <Button Template="{StaticResource CopyFiSpeciesButton}" />
                             <Button Template="{StaticResource AddFiSpeciesButton}" />
@@ -1275,6 +1286,7 @@
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
+
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <TextBox
@@ -1362,6 +1374,7 @@
                                 </TextBox.Text>
                             </TextBox>
                         </StackPanel>
+
                         <TabControl
                             Height="Auto"
                             HorizontalAlignment="Left"
@@ -2040,12 +2053,15 @@
                 </GroupBox>
             </TabItem>
 
+
             <!--  Part 8.3  TK2  Connected  -->
+
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl72PlSpecies-PlSpecies}">
                 <GroupBox>
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
+
                             <Button Template="{StaticResource SavePlSpeciesButton}" />
                             <Button Template="{StaticResource CopyPlSpeciesButton}" />
                             <Button Template="{StaticResource AddPlSpeciesButton}" />
@@ -2719,6 +2735,7 @@
                                 </StackPanel>
                             </TabItem>
                         </TabControl>
+
                     </StackPanel>
                 </GroupBox>
             </TabItem>
@@ -2727,7 +2744,10 @@
             <!--  Part 8.3   TK3 Connected  -->
 
 
+
             <!--  Part 8.3   TK4  Connected  -->
+
+
 
 
             <!--  Part 11  -->
@@ -2741,6 +2761,7 @@
                 <GroupBox>
                     <StackPanel Margin="0,8,5,0">
                         <StackPanel Height="Auto" Orientation="Horizontal">
+
                             <Button Template="{StaticResource SaveReferenceExpertButton}" />
                             <Button Template="{StaticResource CopyReferenceExpertButton}" />
                             <Button Template="{StaticResource AddReferenceExpertButton}" />
@@ -3088,6 +3109,7 @@
                                 </TextBox.Text>
                             </TextBox>
                         </StackPanel>
+
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <TextBox

@@ -1,0 +1,39 @@
+    
+
+
+ //    Part 11    
+
+  
+     
+        #region "Public Properties Tbl90RefExpert"
+
+        public ICollectionView ExpertsView;
+        public Tbl90RefExpert CurrentTbl90RefExpert => ExpertsView?.CurrentItem as Tbl90RefExpert;
+        
+        private string _searchRefExpertName;
+        public string SearchRefExpertName
+        {
+            get => _searchRefExpertName; 
+            set { _searchRefExpertName = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl90RefExpert> _tbl90RefExpertsList;
+        public  ObservableCollection<Tbl90RefExpert> Tbl90RefExpertsList
+        {
+            get => _tbl90RefExpertsList; 
+            set { _tbl90RefExpertsList = value; OnPropertyChanged();  }
+        }
+
+        private ObservableCollection<Tbl90RefExpert> _tbl90RefExpertsAllList;
+        public ObservableCollection<Tbl90RefExpert> Tbl90RefExpertsAllList
+        {
+            get => _tbl90RefExpertsAllList; 
+            set { _tbl90RefExpertsAllList = value; OnPropertyChanged(); }
+        }
+
+        #endregion "Public Properties"
+   
+ 
+
+ //    Part 12    
+

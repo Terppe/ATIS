@@ -1,0 +1,621 @@
+            
+<Window 
+    x:Class="WPFUI.Views.Report.ReportTbl78NamesWindow"               
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:WPFUI.Domain.Converters"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:models="clr-namespace:DAL.Models;assembly=DAL"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    Title="{DynamicResource Report-Title}"
+    Width="1300"
+    Height="850"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="{StaticResource MaterialDesignFont}"
+    Icon="/Image/favicon.ico"
+    ResizeMode="CanResizeWithGrip"
+    TextElement.FontSize="13"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    WindowStartupLocation="CenterScreen">  
+
+        <!-- ReportTbl78NamesWindow.xaml  Skriptdatum:  13.11.2017  10:32   -->    
+          
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+	<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+	<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Shadows.xaml" />
+	 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
+	 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.CheckBox.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+                    <Style BasedOn="{StaticResource MaterialDesignTextBox}" TargetType="{x:Type TextBox}">
+                        <Setter Property="Margin" Value="2,0,2,0" />
+                    </Style>
+                    <Style BasedOn="{StaticResource MaterialDesignListBox}" TargetType="{x:Type ListBox}">
+                        <Setter Property="Margin" Value="2,0,2,0" />
+                        <Setter Property="Height" Value="24" />
+                    </Style>
+                    <Style TargetType="{x:Type TableCell}">
+                        <Setter Property="Padding" Value="2" />
+	    </Style>
+                </ResourceDictionary>
+            </Window.Resources>          
+             
+    <Grid x:Name="LayoutRoot">
+        <Grid.Resources>
+            <converters:DateConverter x:Key="DateConverter" />
+            <converters:TimeConverter x:Key="TimeConverter" />
+            <converters:BooleanToVisibilityConverter
+                x:Key="BooleanToVisibilityConverter"
+                False="Collapsed"
+                True="Visible" />
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions> 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel
+            Grid.Row="0"
+            DockPanel.Dock="Top"
+            Orientation="Horizontal">
+            <TextBox
+                x:Name="Reader"
+                Margin="10,0,10,0"
+                materialDesign:HintAssist.Hint="{DynamicResource ReportFlow-PaperWidth}"
+                LostFocus="Reader_LostFocus"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Text="1250" />
+            <TextBox
+                x:Name="PageWidthText"
+                Margin="10,0,10,0"
+                materialDesign:HintAssist.Hint="{DynamicResource ReportFlow-PageWidth}"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Text="1250" />
+            <TextBox
+                x:Name="PagePaddingText"
+                Margin="10,0,10,0"
+                materialDesign:HintAssist.Hint="{DynamicResource ReportFlow-PagePadding}"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Text="28" />
+            <TextBox
+                x:Name="ColumnWidthText"
+                Margin="10,0,10,0"
+                materialDesign:HintAssist.Hint="{DynamicResource ReportFlow-ColumnWidth}"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Text="800" />
+            <CheckBox
+                x:Name="FlexibleChecked"
+                VerticalAlignment="Center"
+                Content="{DynamicResource ReportFlow-ColumnWidthFlex}"
+                IsChecked="True"
+                Style="{StaticResource MaterialDesignCheckBox}" />
+            <Button
+                Width="100"
+                Margin="200,5,100,5"
+                VerticalAlignment="Center"
+                materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                Click="Print_Click"
+                Content="{DynamicResource Shared-ButtonPrint}"
+                Style="{StaticResource MaterialDesignFlatButton}" />
+            <Button
+                Width="100"
+                Margin="20,5,10,5"
+                VerticalAlignment="Center"
+                materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                Command="{Binding PdfTbl78NamesCommand}"
+                Content="PDF"
+                Style="{StaticResource MaterialDesignFlatButton}" />
+        </StackPanel>        
+
+                
+   <!--   Part 1  -->     
+                                                                                                                                                
+             
+        <FlowDocumentReader
+            Grid.Row="1"
+            Width="{Binding ElementName=ReaderWidthText, Path=Text, UpdateSourceTrigger=LostFocus}"
+            Margin="5,10"
+            BorderBrush="Black"
+            BorderThickness="0.5">
+            <FlowDocument
+                x:Name="FlowDocument"
+                Background="White"
+                ColumnWidth="{Binding ElementName=ColumnWidthText, Path=Text}"
+                FontFamily="Arial"
+                FontSize="12"
+                IsColumnWidthFlexible="{Binding ElementName=FlexibleChecked, Path=IsChecked}"
+                PagePadding="{Binding ElementName=PagePaddingText, Path=Text}"
+                PageWidth="{Binding ElementName=PageWidthText, Path=Text}">
+                <Section FontSize="14pt">
+                    <Paragraph TextAlignment="Left">
+                        <TextBlock
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Margin="10,0,0,0"
+                            FontWeight="Bold"
+                            Style="{StaticResource MaterialDesignHeadlineTextBlock}"
+                            Text="{DynamicResource Report-Title}" />
+                    </Paragraph>
+                </Section>                                                  
+             
+                <Section>
+                    <Paragraph>
+                        <materialDesign:Card
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Margin="2,0,0,0"
+                            Background="{DynamicResource PrimaryHueLightBrush}"
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                            UniformCornerRadius="2">
+                        <ListBox
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Height="Auto"
+                            Margin="0"
+                            HorizontalAlignment="Left"
+                            ItemsSource="{Binding Tbl78NamesList}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <StackPanel Margin="2,0,0,0" Orientation="Horizontal">
+                                            <TextBlock
+                                                Width="Auto"
+                                                FontSize="18"
+                                                FontWeight="Bold"
+                                                Text="{Binding (models:Tbl78Name.NameName)}" />            
+                                            <TextBlock
+                                                Width="Auto"
+                                                Margin="2,0,0,0"
+                                                FontSize="18"
+                                                FontWeight="Bold"
+                                                Text="{Binding (models:Tbl78Name.Author)}" />
+                                            <TextBlock
+                                                Width="Auto"
+                                                Margin="2,0,0,0"
+                                                FontSize="18"
+                                                FontWeight="Bold"
+                                                Text="{Binding (models:Tbl78Name.AuthorYear)}" />
+                                        </StackPanel>
+                                        <StackPanel  Orientation="Horizontal">
+                                            <TextBlock Width="Auto" Text="{DynamicResource Report-TaxonomicId}" />
+                                            <TextBlock Width="Auto" Text="{Binding (models:Tbl78Name.CountID)}" />            
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                         </ListBox>
+                       </materialDesign:Card>
+                  </Paragraph>
+              </Section>  
+
+             
+   <!--   Part 2  -->     
+                    
+             
+                <Section>
+                    <Paragraph>
+                        <TextBlock
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Margin="2,0,0,0"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource ValidationErrorBrush}"
+                            Text="{DynamicResource Report-TaxoNomen}" />
+                    </Paragraph>
+                    <Paragraph>
+                        <materialDesign:Card
+                            Margin="2,0,0,0"
+                            Background="{DynamicResource PrimaryHueLightBrush}"
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                            UniformCornerRadius="2">
+                        <ListBox
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Height="Auto"
+                            Margin="0"
+                            HorizontalAlignment="Left"
+                            ItemsSource="{Binding Tbl78NamesList}">
+	            <ListBox.ItemTemplate>
+	                <DataTemplate>
+                                    <StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock
+                                                Width="300"
+                                                FontWeight="Bold"
+                                                Text="{DynamicResource Report-TaxoRank}" />
+                                            <TextBlock Width="130" Text="{DynamicResource Tbl78Name-Name}" />          
+                                        </StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Report-Synonyms}" />
+                                            <TextBlock Width="500" Text="{Binding (models:Tbl78Name.Synonym)}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Report-CommonNames}" />
+                                            <TextBlock Width="Auto" Text="{Binding (models:Tbl78Name.GerName)}" />
+                                            <TextBlock
+                                                Width="130"
+                                                Margin="2,0,0,0"
+                                                Text="{DynamicResource Report-German}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock
+                                                Width="Auto"
+                                                Margin="300,0,0,0"
+                                                Text="{Binding (models:Tbl78Name.EngName)}" />
+                                            <TextBlock
+                                                Width="130"
+                                                Margin="2,0,0,0"
+                                                Text="{DynamicResource Report-English}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock
+                                                Width="Auto"
+                                                Margin="300,0,0,0"
+                                                Text="{Binding (models:Tbl78Name.FraName)}" />
+                                            <TextBlock
+                                                Width="130"
+                                                Margin="2,0,0,0"
+                                                Text="{DynamicResource Report-French}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock
+                                                Width="Auto"
+                                                Margin="300,0,0,0"
+                                                Text="{Binding (models:Tbl78Name.PorName)}" />
+                                            <TextBlock
+                                                Width="130"
+                                                Margin="2,0,0,0"
+                                                Text="{DynamicResource Report-Portuguese}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="20,10,0,0" Orientation="Horizontal">
+                                            <TextBlock
+                                                Width="300"
+                                                FontWeight="Bold"
+                                                Text="{DynamicResource Report-TaxoStatus}" />
+                                        </StackPanel>
+                                                <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                                    <TextBlock Width="300" Text="{DynamicResource Report-CurrentStand}" />
+                                                  <TextBlock Width="100" Text="{Binding (models:Tbl78Name.Valid)}" />
+                                                    <TextBlock
+                                                        Width="300"
+                                                        Margin="2,0,0,0"
+                                                        Text="{Binding (models:Tbl78Name.ValidYear)}" />
+                                                </StackPanel>
+                                        <StackPanel Margin="20,20,0,0" Orientation="Horizontal">
+                                            <TextBlock
+                                                Width="300"
+                                                FontWeight="Bold"
+                                                Text="{DynamicResource Report-DataQualiIndicator}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Report-RecordCrediRate}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <StackPanel.Resources>
+                                                <converters:DateTimeConverter x:Key="DateTimeConverter" />
+                                            </StackPanel.Resources>
+                                            <TextBlock Width="300" Text="{DynamicResource Report-RecordUpdate}" />
+                                            <TextBlock Width="300">
+                                                <TextBlock Text="{Binding (models:Tbl78Name.UpdaterDate), Converter={StaticResource DateTimeConverter}}" />
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Shared-Info}" />
+                                            <TextBlock Width="500" Text="{Binding (models:Tbl78Name.Info)}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Shared-Memo}" />
+                                            <TextBlock
+                                                Width="500"
+                                                Text="{Binding (models:Tbl78Name.Memo)}"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                     </materialDesign:Card>
+                  </Paragraph>   
+
+             
+
+   <!--   Part 3  -->     
+                    
+
+             
+   <!--   Part 4  -->     
+
+             
+                <Section>
+                    <Paragraph>
+                        <TextBlock
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Margin="10,0,0,2"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource ValidationErrorBrush}"
+                            Text="{DynamicResource Report-References}" />
+                        <materialDesign:Card
+                            Margin="2,2,0,0"
+                            Background="{DynamicResource PrimaryHueLightBrush}"
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                            UniformCornerRadius="2">
+                        <TextBlock
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Margin="20,0,0,0"
+                            FontWeight="Bold"
+                            Text="{DynamicResource Report-Experts}" />
+                        </materialDesign:Card>
+                        <materialDesign:Card
+                            Margin="2,2,0,0"
+                            Background="{DynamicResource PrimaryHueLightBrush}"
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                            UniformCornerRadius="2">
+                        <ListBox
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Height="Auto"
+                            Margin="0"
+                            HorizontalAlignment="Left"
+                            ItemsSource="{Binding Tbl90ExpertsList}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Report-Expert}" />
+                                            <TextBlock Width="500" Text="{Binding (models:Tbl90RefExpert.RefExpertName)}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Report-Notes}" />
+                                            <TextBlock
+                                                Width="500"
+                                                Text="{Binding (models:Tbl90RefExpert.Notes)}"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        </materialDesign:Card>
+                        <materialDesign:Card
+                            Margin="2,2,0,0"
+                            Background="{DynamicResource PrimaryHueLightBrush}"
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                            UniformCornerRadius="2">
+                        <TextBlock
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Margin="20,0,0,0"
+                            FontWeight="Bold"
+                            Text="{DynamicResource Report-OtherSources}" />
+                        </materialDesign:Card>
+                        <materialDesign:Card
+                            Margin="2,2,0,0"
+                            Background="{DynamicResource PrimaryHueLightBrush}"
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                            UniformCornerRadius="2">
+                        <ListBox
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Height="Auto"
+                            Margin="0"
+                            HorizontalAlignment="Left"
+                            ItemsSource="{Binding Tbl90SourcesList}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Report-Source}" />
+                                            <TextBlock Width="500" Text="{Binding (models:Tbl90RefSource.RefSourceName)}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Report-Acquired}" />
+                                            <TextBlock Width="500" Text="{Binding (models:Tbl90RefSource.SourceYear)}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Shared-Author}" />
+                                            <TextBlock Width="500" Text="{Binding (models:Tbl90RefSource.Author)}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Shared-Info}" />
+                                            <TextBlock
+                                                Width="500"
+                                                Text="{Binding (models:Tbl90RefSource.Info)}"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Shared-Notes}" />
+                                            <TextBlock
+                                                Width="500"
+                                                Text="{Binding (models:Tbl90RefSource.Notes)}"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        </materialDesign:Card>
+                        <materialDesign:Card
+                            Margin="2,2,0,0"
+                            Background="{DynamicResource PrimaryHueLightBrush}"
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                            UniformCornerRadius="2">
+                        <TextBlock
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Margin="20,0,0,0"
+                            FontWeight="Bold"
+                            Text="{DynamicResource Report-Publications}" />
+                        </materialDesign:Card>
+                        <materialDesign:Card
+                            Margin="2,2,0,0"
+                            Background="{DynamicResource PrimaryHueLightBrush}"
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                            UniformCornerRadius="2">
+                        <ListBox
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Height="Auto"
+                            Margin="0"
+                            HorizontalAlignment="Left"
+                            ItemsSource="{Binding Tbl90AuthorsList}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Report-AuthorsEditors}" />
+                                            <TextBlock Width="500" Text="{Binding (models:Tbl90RefAuthor.RefAuthorName)}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Report-PublicationDate}" />
+                                            <TextBlock Width="500" Text="{Binding (models:Tbl90RefAuthor.PublicationYear)}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Report-ArticleTitle}" />
+                                            <TextBlock Width="500" Text="{Binding (models:Tbl90RefAuthor.ArticelTitle)}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Report-BookName}" />
+                                            <TextBlock Width="500" Text="{Binding (models:Tbl90RefAuthor.BookName)}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Report-Pages}" />
+                                            <TextBlock Width="500" Text="{Binding (models:Tbl90RefAuthor.Page1)}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Report-Publisher}" />
+                                            <TextBlock Width="500" Text="{Binding (models:Tbl90RefAuthor.Publisher)}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Report-PublicationPlace}" />
+                                            <TextBlock Width="500" Text="{Binding (models:Tbl90RefAuthor.PublicationPlace)}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Report-Isbn}" />
+                                            <TextBlock Width="500" Text="{Binding (models:Tbl90RefAuthor.ISBN)}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Report-Infos}" />
+                                            <TextBlock Width="500" Text="{Binding (models:Tbl90RefAuthor.Info)}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300"   Text="{DynamicResource Report-Notes}" />
+                                            <TextBlock
+                                                Width="500"
+                                                Text="{Binding (models:Tbl90RefAuthor.Notes)}"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                      </materialDesign:Card>
+                  </Paragraph>
+              </Section>   
+
+
+
+   <!--   Part 5  -->     
+
+ 
+
+               
+   <!--   Part 6  -->     
+               
+ 
+
+
+   <!--   Part 7  -->     
+
+       
+                <Section>
+                    <Paragraph>
+                        <TextBlock
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Margin="2,0,0,0"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource ValidationErrorBrush}"
+                            Text="{DynamicResource Report-Comments}" />
+                        <materialDesign:Card
+                            Margin="2,0,0,0"
+                            Background="{DynamicResource PrimaryHueLightBrush}"
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                            UniformCornerRadius="2">
+                        <ListBox
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Height="Auto"
+                            Margin="2,0,0,0"
+                            HorizontalAlignment="Left"
+                            ItemsSource="{Binding Tbl93CommentsList}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="300" Text="{DynamicResource Shared-Info}" />
+                                            <TextBlock
+                                                Width="500"
+                                                Text="{Binding (models:Tbl93Comment.Info)}"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+                                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <TextBlock
+                                                Width="300"
+                                                FontWeight="Bold"
+                                                Text="{DynamicResource Report-Comment}" />
+                                            <TextBlock Width="500" Text="{Binding (models:Tbl93Comment.Memo)}" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                      </materialDesign:Card>
+                  </Paragraph>
+              </Section>   
+ 
+
+
+
+   <!--   Part 8  -->     
+
+ 
+
+   <!--   Part 9  -->     
+
+ 
+
+   <!--   Part 10  -->     
+
+ 
+
+   <!--   Part 11  -->     
+
+ 
+
+   <!--   Part 12  -->     
+
+ 
+
+   <!--   Part 13  -->     
+
+ 
+
+   <!--   Part 14  -->     
+
+ 
+
+   <!--   Part 15  -->     
+
+
+
+        
+                <Section>
+                    <Paragraph>
+                        <StackPanel Margin="20,10,0,0" Orientation="Horizontal">
+                            <TextBlock Text="{Binding Converter={StaticResource DateConverter}, Source={x:Static sys:DateTime.Now}}" />
+                            <TextBlock Margin="2,0,0,0" Text="{Binding Converter={StaticResource TimeConverter}, Source={x:Static sys:DateTime.Now}}" />
+                        </StackPanel>
+                    </Paragraph>
+                </Section>
+            </FlowDocument>
+        </FlowDocumentReader>
+	</Grid>
+</Window>   

@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.D60Subtribus
         }
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
 
 
         //    Part 1    
@@ -90,6 +90,8 @@ namespace ATIS.Ui.Views.Database.D60Subtribus
             Tbl57TribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl57Tribus>("tribus");
             Tbl60SubtribussesList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl60Subtribus>(SearchSubtribusName, "subtribus");
 
+            if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl60SubtribussesList.Count)) return;
+
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 1;
 
@@ -99,8 +101,10 @@ namespace ATIS.Ui.Views.Database.D60Subtribus
 
         private void ExecuteAddSubtribus(object o)
         {
-            Tbl60SubtribussesList.Insert(0, new Tbl60Subtribus { SubtribusName = CultRes.StringsRes.DatasetNew });
             Tbl57TribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl57Tribus>("tribus");
+
+            Tbl60SubtribussesList = new ObservableCollection<Tbl60Subtribus>();
+            Tbl60SubtribussesList.Insert(0, new Tbl60Subtribus { SubtribusName = CultRes.StringsRes.DatasetNew });
 
             SubtribussesView = CollectionViewSource.GetDefaultView(Tbl60SubtribussesList);
             SubtribussesView.MoveCurrentToFirst();
@@ -182,7 +186,7 @@ namespace ATIS.Ui.Views.Database.D60Subtribus
             if (CurrentTbl60Subtribus.TribusId == 0)
             {
                 MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                       MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -209,8 +213,7 @@ namespace ATIS.Ui.Views.Database.D60Subtribus
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
                     return;
                 }
@@ -1066,6 +1069,7 @@ namespace ATIS.Ui.Views.Database.D60Subtribus
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+
 
         public int SelectedMainTabIndex
         {

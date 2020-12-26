@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+
+
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -11,7 +13,7 @@ using ATIS.Ui.Views.Database.DatabaseHelper;
 using log4net;
 using Microsoft.EntityFrameworkCore;
 
-        //    SuperfamiliesViewModel Skriptdatum:  10.12.2020  10:32    
+//    SuperfamiliesViewModel Skriptdatum:  10.12.2020  10:32    
 
 namespace ATIS.Ui.Views.Database.D42Superfamily
 {
@@ -54,7 +56,7 @@ namespace ATIS.Ui.Views.Database.D42Superfamily
         }
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
 
 
         //    Part 1    
@@ -88,6 +90,8 @@ namespace ATIS.Ui.Views.Database.D42Superfamily
             Tbl39InfraordosAllList = _extCrud.GetCollectionAllOrderBy<Tbl39Infraordo>("infraordo");
             Tbl42SuperfamiliesList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl42Superfamily>(SearchSuperfamilyName, "superfamily");
 
+            if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl42SuperfamiliesList.Count)) return;
+
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 1;
 
@@ -97,8 +101,10 @@ namespace ATIS.Ui.Views.Database.D42Superfamily
 
         private void ExecuteAddSuperfamily(object o)
         {
-            Tbl42SuperfamiliesList.Insert(0, new Tbl42Superfamily { SuperfamilyName = CultRes.StringsRes.DatasetNew });
             Tbl39InfraordosAllList = _extCrud.GetCollectionAllOrderBy<Tbl39Infraordo>("infraordo");
+
+            Tbl42SuperfamiliesList = new ObservableCollection<Tbl42Superfamily>();
+            Tbl42SuperfamiliesList.Insert(0, new Tbl42Superfamily { SuperfamilyName = CultRes.StringsRes.DatasetNew });
 
             SuperfamiliesView = CollectionViewSource.GetDefaultView(Tbl42SuperfamiliesList);
             SuperfamiliesView.MoveCurrentToFirst();
@@ -180,7 +186,7 @@ namespace ATIS.Ui.Views.Database.D42Superfamily
             if (CurrentTbl42Superfamily.InfraordoId == 0)
             {
                 MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                       MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -207,8 +213,7 @@ namespace ATIS.Ui.Views.Database.D42Superfamily
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
                     return;
                 }
@@ -1064,6 +1069,7 @@ namespace ATIS.Ui.Views.Database.D42Superfamily
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+
 
         public int SelectedMainTabIndex
         {

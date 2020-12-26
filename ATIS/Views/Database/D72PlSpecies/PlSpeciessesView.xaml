@@ -18,6 +18,8 @@
     <!--  Tbl72PlSpeciessesView.xaml  Skriptdatum:  13.12.2019  12:32  -->
 
 
+    <!--  xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"  -->
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="650" />
@@ -57,14 +59,14 @@
 
                                     <TextBox
                                         x:Name="TbSearchPlSpecies"
-                                        Width="170"
+                                        Width="200"
                                         Margin="5"
                                         HorizontalContentAlignment="Stretch"
                                         mah:TextBoxHelper.ButtonCommand="{Binding TextBoxButtonCmd, Mode=OneWay}"
                                         mah:TextBoxHelper.ClearTextButton="True"
                                         mah:TextBoxHelper.IsWaitingForData="True"
                                         mah:TextBoxHelper.UseFloatingWatermark="True"
-                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-SearchGenus}"
+                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-SearchGenusNameOrId}"
                                         mah:TextBoxHelper.WatermarkAlignment="Left"
                                         ContextMenu="{x:Null}"
                                         FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
@@ -1408,6 +1410,7 @@
                     <GroupBox>
                         <StackPanel Margin="1">
                             <StackPanel Height="Auto" Orientation="Horizontal">
+
                                 <Button Template="{StaticResource SavePlSpeciesButton}" />
                                 <Button Template="{StaticResource CopyPlSpeciesButton}" />
                                 <Button Template="{StaticResource AddPlSpeciesButton}" />
@@ -1450,6 +1453,7 @@
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
+
                             </StackPanel>
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <TextBox

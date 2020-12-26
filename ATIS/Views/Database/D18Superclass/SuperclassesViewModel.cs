@@ -59,7 +59,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
         }
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
 
 
         //    Part 1    
@@ -94,6 +94,8 @@ namespace ATIS.Ui.Views.Database.D18Superclass
             Tbl15SubdivisionsAllList = _extCrud.GetCollectionAllOrderBy<Tbl15Subdivision>("subdivision");
             Tbl18SuperclassesList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl18Superclass>(SearchSuperclassName, "superclass");
 
+            if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl18SuperclassesList.Count)) return;
+
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 1;
 
@@ -103,6 +105,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
         private void ExecuteAddSuperclass(object o)
         {
+            Tbl18SuperclassesList = new ObservableCollection<Tbl18Superclass>();
             Tbl18SuperclassesList.Insert(0, new Tbl18Superclass { SuperclassName = CultRes.StringsRes.DatasetNew });
 
             Tbl12SubphylumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl12Subphylum>("subphylum");
@@ -111,7 +114,6 @@ namespace ATIS.Ui.Views.Database.D18Superclass
             SuperclassesView = CollectionViewSource.GetDefaultView(Tbl18SuperclassesList);
             SuperclassesView.MoveCurrentToFirst();
         }
-        //------------------------------------------------------------------------------------                               
 
         private void ExecuteCopySuperclass(object o)
         {
@@ -189,7 +191,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
             if (CurrentTbl18Superclass.SubphylumId == 0)
             {
                 MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                       MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -216,8 +218,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
                     return;
                 }
@@ -312,12 +313,12 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
 
         #region "Public Commands Connect <== Tbl15Subdivision"                 
-        //-------------------------------------------------------------------------
+
         private RelayCommand _saveSubdivisionCommand;
 
-        public ICommand SaveSubdivisionCommand => _saveSubdivisionCommand ??= new RelayCommand(delegate { ExecuteSaveSubdivision(null); });
+        public ICommand SaveSubdivisionCommand =>
+                            _saveSubdivisionCommand ??= new RelayCommand(delegate { ExecuteSaveSubdivision(null); });
 
-        //-------------------------------------------------------------------------          
 
         private void ExecuteSaveSubdivision(string searchName)
         {
@@ -1138,6 +1139,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+
 
         public int SelectedMainTabIndex
         {

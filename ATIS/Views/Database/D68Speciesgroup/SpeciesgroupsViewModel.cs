@@ -52,7 +52,7 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
         }
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
 
 
         //    Part 1    
@@ -96,6 +96,7 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
 
         private void ExecuteAddSpeciesgroup(object o)
         {
+            Tbl68SpeciesgroupsList = new ObservableCollection<Tbl68Speciesgroup>();
             Tbl68SpeciesgroupsList.Insert(0, new Tbl68Speciesgroup { SpeciesgroupName = CultRes.StringsRes.DatasetNew });
 
             Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
@@ -103,7 +104,6 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
             SpeciesgroupsView = CollectionViewSource.GetDefaultView(Tbl68SpeciesgroupsList);
             SpeciesgroupsView.MoveCurrentToFirst();
         }
-        //------------------------------------------------------------------------------------                               
 
         private void ExecuteCopySpeciesgroup(object o)
         {
@@ -179,8 +179,7 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
                     return;
                 }
@@ -208,8 +207,6 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
 
 
         //    Part 2    
-
-
 
 
 
@@ -264,14 +261,14 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
             if (_genFiSpeciesMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl69FiSpecies)) return;
 
             //check if in Tbl69FiSpeciesses connected datasets no delete possible, Names, Images, Synonyms and Geographics delete and than return
-            //Tbl78NamesList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableName(CurrentTbl69FiSpecies);
-            //if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl78namesList.Count, "Name")) return;
-            //Tbl81ImagesList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableImage(CurrentTbl69FiSpecies);
-            //if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl81ImagesList.Count, "Image")) return;
-            //Tbl84SynonymsList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableSynonym(CurrentTbl69FiSpecies);
-            //if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl84SynonymsList.Count, "Synonym")) return;
-            //Tbl87GeographicsList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableGeographic(CurrentTbl69FiSpecies);
-            //if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl87GeographicsList.Count, "Geographic")) return;
+            Tbl78NamesList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableName(CurrentTbl69FiSpecies);
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl78NamesList.Count, "Name")) return;
+            Tbl81ImagesList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableImage(CurrentTbl69FiSpecies);
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl81ImagesList.Count, "Image")) return;
+            Tbl84SynonymsList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableSynonym(CurrentTbl69FiSpecies);
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl84SynonymsList.Count, "Synonym")) return;
+            Tbl87GeographicsList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableGeographic(CurrentTbl69FiSpecies);
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl87GeographicsList.Count, "Geographic")) return;
 
 
             try
@@ -353,32 +350,33 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
             FiSpeciessesView.MoveCurrentToFirst();
         }
 
-
         #endregion [Public Methods  Connect ==> Tbl69FiSpecies]                                                                                                                                            
-
 
 
 
         //    Part 5    
 
-        #region [Public Commands Connect ==> Tbl72PlSpecies]  
+
+        #region [Public Commands Connect ==> Tbl72PlSpecies]                 
 
         private RelayCommand _addPlSpeciesCommand;
+
         public ICommand AddPlSpeciesCommand => _addPlSpeciesCommand ??= new RelayCommand(delegate { ExecuteAddPlSpecies(null); });
 
         private RelayCommand _copyPlSpeciesCommand;
+
         public ICommand CopyPlSpeciesCommand => _copyPlSpeciesCommand ??= new RelayCommand(delegate { ExecuteCopyPlSpecies(null); });
 
         private RelayCommand _deletePlSpeciesCommand;
+
         public ICommand DeletePlSpeciesCommand => _deletePlSpeciesCommand ??= new RelayCommand(delegate { ExecuteDeletePlSpecies(SearchSpeciesgroupName); });
 
         private RelayCommand _savePlSpeciesCommand;
+
         public ICommand SavePlSpeciesCommand => _savePlSpeciesCommand ??= new RelayCommand(delegate { ExecuteSavePlSpecies(SearchSpeciesgroupName); });
+        #endregion [Public Commands Connect ==> Tbl72PlSpecies]                
 
-
-        #endregion [Public Commands Connect ==> Tbl72PlSpecies]    
-
-        #region [Public Methods Connect ==> Tbl72PlSpecies]
+        #region [Public Methods Connect ==> Tbl72PlSpecies]                        
 
         private void ExecuteAddPlSpecies(object o)
         {
@@ -390,6 +388,7 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
             PlSpeciessesView = CollectionViewSource.GetDefaultView(Tbl72PlSpeciessesList);
             PlSpeciessesView.MoveCurrentToFirst();
         }
+        //----------------------------------------------------------------------            
 
         private void ExecuteCopyPlSpecies(object o)
         {
@@ -406,17 +405,15 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
         private void ExecuteDeletePlSpecies(string searchName)
         {
             if (_genPlSpeciesMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl72PlSpecies)) return;
-
             //check if in Tbl72PlSpeciesses connected datasets no delete possible, Names, Images, Synonyms and Geographics delete and than return
-            //Tbl78NamesList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableName(CurrentTbl72PlSpecies);
-            //if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl78namesList.Count, "Name")) return;
-            //Tbl81ImagesList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableImage(CurrentTbl72PlSpecies);
-            //if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl81ImagesList.Count, "Image")) return;
-            //Tbl84SynonymsList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableSynonym(CurrentTbl72PlSpecies);
-            //if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl84SynonymsList.Count, "Synonym")) return;
-            //Tbl87GeographicsList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableGeographic(CurrentTbl72PlSpecies);
-            //if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl87GeographicsList.Count, "Geographic")) return;
-
+            Tbl78NamesList = _extCrud.SearchForConnectedDatasetsWithPlSpeciesIdInTableName(CurrentTbl72PlSpecies);
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl78NamesList.Count, "Name")) return;
+            Tbl81ImagesList = _extCrud.SearchForConnectedDatasetsWithPlSpeciesIdInTableImage(CurrentTbl72PlSpecies);
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl81ImagesList.Count, "Image")) return;
+            Tbl84SynonymsList = _extCrud.SearchForConnectedDatasetsWithPlSpeciesIdInTableSynonym(CurrentTbl72PlSpecies);
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl84SynonymsList.Count, "Synonym")) return;
+            Tbl87GeographicsList = _extCrud.SearchForConnectedDatasetsWithPlSpeciesIdInTableGeographic(CurrentTbl72PlSpecies);
+            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl87GeographicsList.Count, "Geographic")) return;
 
             try
             {
@@ -496,8 +493,7 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
             PlSpeciessesView = CollectionViewSource.GetDefaultView(Tbl72PlSpeciessesList);
             PlSpeciessesView.MoveCurrentToFirst();
         }
-
-        #endregion [Public Methods  Connect ==> Tbl72PlSpecies]                                                                                                                                            
+        #endregion [Public Methods  Connect ==> Tbl72PlSpecies]                                                                                        
 
 
         //    Part 6    
@@ -528,6 +524,7 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
 
         private void GetConnectedTablesById(object o)
         {
+
             Tbl69FiSpeciessesList = _extCrud.GetFiSpeciessesCollectionFromSpeciesgroupIdOrderBy<Tbl69FiSpecies>(CurrentTbl68Speciesgroup.SpeciesgroupId);
             Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
             Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("speciesgroup");
@@ -547,8 +544,9 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
         #region "Public Commands to open Detail TabItems"
 
         private int _selectedMainTabIndex;
-     //   private int _selectedMainSubRefTabIndex;
+        private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+
 
         public int SelectedMainTabIndex
         {
@@ -587,6 +585,7 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
                     }
                     SelectedDetailTabIndex = 2;
                 }
+
             }
         }
 
@@ -619,7 +618,6 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
                         FiSpeciessesView = CollectionViewSource.GetDefaultView(Tbl69FiSpeciessesList);
                         FiSpeciessesView.Refresh();
                     }
-
                     SelectedMainTabIndex = 0;
                 }
 
@@ -637,19 +635,112 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
                     }
                     SelectedMainTabIndex = 1;
                 }
+
             }
         }
-
-
         #endregion "Public Commands to open Detail TabItems"          
 
 
         //    Part 11    
 
 
+
+        #region "Public Properties Tbl78Name"
+
+        public ICollectionView NamesView;
+        private Tbl78Name CurrentTbl78Name => NamesView?.CurrentItem as Tbl78Name;
+
+        private ObservableCollection<Tbl78Name> _tbl78NamesList;
+
+        public ObservableCollection<Tbl78Name> Tbl78NamesList
+        {
+            get => _tbl78NamesList;
+            set { _tbl78NamesList = value; RaisePropertyChanged(""); }
+        }
+
+        #endregion "Public Properties"
+
+        #region "Public Properties Tbl81Image"
+
+        public ICollectionView ImagesView;
+        private Tbl81Image CurrentTbl81Image => ImagesView?.CurrentItem as Tbl81Image;
+
+        private ObservableCollection<Tbl81Image> _tbl81ImagesList;
+
+        public ObservableCollection<Tbl81Image> Tbl81ImagesList
+        {
+            get => _tbl81ImagesList;
+            set { _tbl81ImagesList = value; RaisePropertyChanged(""); }
+        }
+
+        #endregion "Public Properties"
+
+        #region "Public Properties Tbl84Synonym"
+
+        private string _searchSynonymName = string.Empty;
+
+        public string SearchSynonymName
+        {
+            get => _searchSynonymName;
+            set { _searchSynonymName = value; RaisePropertyChanged(""); }
+        }
+
+        public ICollectionView SynonymsView;
+        private Tbl84Synonym CurrentTbl84Synonym => SynonymsView?.CurrentItem as Tbl84Synonym;
+
+        private ObservableCollection<Tbl84Synonym> _tbl84SynonymsList;
+
+        public ObservableCollection<Tbl84Synonym> Tbl84SynonymsList
+        {
+            get => _tbl84SynonymsList;
+            set { _tbl84SynonymsList = value; RaisePropertyChanged(""); }
+        }
+
+        private ObservableCollection<Tbl84Synonym> _tbl84SynonymsAllList;
+
+        public ObservableCollection<Tbl84Synonym> Tbl84SynonymsAllList
+        {
+            get => _tbl84SynonymsAllList;
+            set { _tbl84SynonymsAllList = value; RaisePropertyChanged(""); }
+        }
+
+        #endregion "Public Properties"
+
+        #region "Public Properties Tbl87Geographic"
+
+        private string _searchGeographicName = string.Empty;
+
+        public string SearchGeographicName
+        {
+            get => _searchGeographicName;
+            set { _searchGeographicName = value; RaisePropertyChanged(""); }
+        }
+
+        public ICollectionView GeographicsView;
+        private Tbl87Geographic CurrentTbl87Geographic => GeographicsView?.CurrentItem as Tbl87Geographic;
+
+        private ObservableCollection<Tbl87Geographic> _tbl87GeographicsList;
+
+        public ObservableCollection<Tbl87Geographic> Tbl87GeographicsList
+        {
+            get => _tbl87GeographicsList;
+            set { _tbl87GeographicsList = value; RaisePropertyChanged(""); }
+        }
+
+        private ObservableCollection<Tbl87Geographic> _tbl87GeographicsAllList;
+
+        public ObservableCollection<Tbl87Geographic> Tbl87GeographicsAllList
+        {
+            get => _tbl87GeographicsAllList;
+            set { _tbl87GeographicsAllList = value; RaisePropertyChanged(""); }
+        }
+
+        #endregion "Public Properties"   
+
         #region "Public Properties Tbl68Speciesgroup"
 
-        private string _searchSpeciesgroupName = "";
+        private string _searchSpeciesgroupName = string.Empty;
+
         public string SearchSpeciesgroupName
         {
             get => _searchSpeciesgroupName;
@@ -673,14 +764,8 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
             set { _tbl68SpeciesgroupsAllList = value; RaisePropertyChanged(""); }
         }
 
-        private ObservableCollection<Tbl69FiSpecies> _tbl69FiSpeciessesAllList;
-        public ObservableCollection<Tbl69FiSpecies> Tbl69FiSpeciessesAllList
-        {
-            get => _tbl69FiSpeciessesAllList;
-            set { _tbl69FiSpeciessesAllList = value; RaisePropertyChanged(""); }
-        }
-
         #endregion "Public Properties"   
+
 
         #region "Public Properties Tbl66Genus"
 
@@ -728,4 +813,4 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
 
 
     }
-}   
+}

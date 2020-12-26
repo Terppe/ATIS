@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+
+
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -54,7 +56,7 @@ namespace ATIS.Ui.Views.Database.D33Ordo
         }
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
 
 
         //    Part 1    
@@ -88,6 +90,8 @@ namespace ATIS.Ui.Views.Database.D33Ordo
             Tbl30LegiosAllList = _extCrud.GetCollectionAllOrderBy<Tbl30Legio>("legio");
             Tbl33OrdosList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl33Ordo>(SearchOrdoName, "ordo");
 
+            if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl33OrdosList.Count)) return;
+
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 1;
 
@@ -97,8 +101,10 @@ namespace ATIS.Ui.Views.Database.D33Ordo
 
         private void ExecuteAddOrdo(object o)
         {
-            Tbl33OrdosList.Insert(0, new Tbl33Ordo { OrdoName = CultRes.StringsRes.DatasetNew });
             Tbl30LegiosAllList = _extCrud.GetCollectionAllOrderBy<Tbl30Legio>("legio");
+
+            Tbl33OrdosList = new ObservableCollection<Tbl33Ordo>();
+            Tbl33OrdosList.Insert(0, new Tbl33Ordo { OrdoName = CultRes.StringsRes.DatasetNew });
 
             OrdosView = CollectionViewSource.GetDefaultView(Tbl33OrdosList);
             OrdosView.MoveCurrentToFirst();
@@ -180,7 +186,7 @@ namespace ATIS.Ui.Views.Database.D33Ordo
             if (CurrentTbl33Ordo.LegioId == 0)
             {
                 MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                       MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -207,8 +213,7 @@ namespace ATIS.Ui.Views.Database.D33Ordo
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
                     return;
                 }
@@ -1064,6 +1069,7 @@ namespace ATIS.Ui.Views.Database.D33Ordo
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+
 
         public int SelectedMainTabIndex
         {

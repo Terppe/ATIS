@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+
+
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -54,7 +56,7 @@ namespace ATIS.Ui.Views.Database.D39Infraordo
         }
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
 
 
         //    Part 1    
@@ -88,6 +90,8 @@ namespace ATIS.Ui.Views.Database.D39Infraordo
             Tbl36SubordosAllList = _extCrud.GetCollectionAllOrderBy<Tbl36Subordo>("subordo");
             Tbl39InfraordosList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl39Infraordo>(SearchInfraordoName, "infraordo");
 
+            if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl39InfraordosList.Count)) return;
+
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 1;
 
@@ -97,8 +101,10 @@ namespace ATIS.Ui.Views.Database.D39Infraordo
 
         private void ExecuteAddInfraordo(object o)
         {
-            Tbl39InfraordosList.Insert(0, new Tbl39Infraordo { InfraordoName = CultRes.StringsRes.DatasetNew });
             Tbl36SubordosAllList = _extCrud.GetCollectionAllOrderBy<Tbl36Subordo>("subordo");
+
+            Tbl39InfraordosList = new ObservableCollection<Tbl39Infraordo>();
+            Tbl39InfraordosList.Insert(0, new Tbl39Infraordo { InfraordoName = CultRes.StringsRes.DatasetNew });
 
             InfraordosView = CollectionViewSource.GetDefaultView(Tbl39InfraordosList);
             InfraordosView.MoveCurrentToFirst();
@@ -180,7 +186,7 @@ namespace ATIS.Ui.Views.Database.D39Infraordo
             if (CurrentTbl39Infraordo.SubordoId == 0)
             {
                 MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                       MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -207,8 +213,7 @@ namespace ATIS.Ui.Views.Database.D39Infraordo
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
                     return;
                 }
@@ -1064,6 +1069,7 @@ namespace ATIS.Ui.Views.Database.D39Infraordo
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+
 
         public int SelectedMainTabIndex
         {

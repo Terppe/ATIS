@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+
+
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -10,7 +12,6 @@ using ATIS.Ui.Helper;
 using ATIS.Ui.Views.Database.DatabaseHelper;
 using log4net;
 using Microsoft.EntityFrameworkCore;
-
 
 //    PhylumsViewModel Skriptdatum:  28.11.2020  12:32    
 
@@ -55,7 +56,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         }
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
 
 
         //    Part 1    
@@ -89,6 +90,8 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             Tbl03RegnumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl03Regnum>("regnum");
             Tbl06PhylumsList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl06Phylum>(SearchPhylumName, "phylum");
 
+            if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl06PhylumsList.Count)) return;
+
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 1;
 
@@ -98,8 +101,10 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void ExecuteAddPhylum(object o)
         {
-            Tbl06PhylumsList.Insert(0, new Tbl06Phylum { PhylumName = CultRes.StringsRes.DatasetNew });
             Tbl03RegnumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl03Regnum>("regnum");
+
+            Tbl06PhylumsList = new ObservableCollection<Tbl06Phylum>();
+            Tbl06PhylumsList.Insert(0, new Tbl06Phylum { PhylumName = CultRes.StringsRes.DatasetNew });
 
             PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
             PhylumsView.MoveCurrentToFirst();
@@ -121,7 +126,9 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         {
             if (_genPhylumMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl06Phylum)) return;
 
+
             //check if in Tbl12Subphylums connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
+
             Tbl12SubphylumsList = _extCrud.SearchForConnectedDatasetsWithPhylumIdInTableSubphylum(CurrentTbl06Phylum);
 
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl12SubphylumsList.Count, "Subphylum")) return;
@@ -179,7 +186,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             if (CurrentTbl06Phylum.RegnumId == 0)
             {
                 MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                       MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -206,8 +213,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
                     return;
                 }
@@ -1061,6 +1067,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+
 
         public int SelectedMainTabIndex
         {

@@ -1,0 +1,215 @@
+@model Atis.Domain.Models.Tbl36Subordo 
+
+<script type="text/javascript">
+$(function()   {
+    $('#SubordoID').focus();    
+});
+</script>
+
+ 
+          <!-- _Form.cshtml  Skriptdatum: 7.1.2012  10:32    -->     
+  
+        @using (Html.BeginForm()) {
+        <div class="pagination">
+            <p><input type="submit" value="@SharedRes.StringsRes.ButtonSave" />  
+                @Html.ActionLink(SharedRes.StringsRes.ActionLnkBack, "Index", null, new { style = "font-weight:bold" })  
+                @Html.ActionLink(SharedRes.StringsRes.ActionLnkClear, "Create", null, null)  
+            </p> 
+        </div>
+
+        @Html.ValidationSummary() 
+            <fieldset><legend>@SharedRes.StringsRes.Fields </legend>  
+  
+              <table><colgroup style="width:12em" span="2"></colgroup>                                             
+
+                     <tr>
+                         <td>@Tbl33OrdosRes.StringsRes.OrdoID </td>
+                         <td>@Html.DropDownListFor(m => m.OrdoID, ViewData["OrdoNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })          
+                         @Html.ValidationMessageFor(m => m.OrdoID) </td>
+                     </tr>                      
+     
+                     <tr>
+                        <td>@Tbl36SubordosRes.StringsRes.SubordoName </td>
+                        <td>@Html.TextBoxFor(m => m.SubordoName, new { @class = "textbox36" }) 
+                        @Html.ValidationMessageFor(m => m.SubordoName) </td>
+                    </tr>  
+ 
+                    <tr>
+                        <td>@SharedRes.StringsRes.Synonym </td>
+                        <td>@Html.TextBoxFor(m => m.Synonym, new { @class = "textbox72" }) 
+                        @Html.ValidationMessageFor(m => m.Synonym) </td>
+                    </tr>   
+ 
+                    <tr>
+                        <td>@SharedRes.StringsRes.Valid_Year </td>
+                        <td>@Html.EditorFor(m => m.Valid) 
+                        @Html.ValidationMessageFor(m => m.Valid)                                    
+                        @Html.TextBoxFor(m => m.ValidYear, new { @class = "textbox3" }) 
+                        @Html.ValidationMessageFor(m => m.ValidYear) </td>
+                    </tr>   
+ 
+                    <tr>
+                        <td>@SharedRes.StringsRes.Author_Year </td>
+                        <td>@Html.TextBoxFor(m => m.Author, new { @class = "textbox72" }) 
+                        @Html.ValidationMessageFor(m => m.Author) 
+                        @Html.TextBoxFor(m => m.AuthorYear, new { @class = "textbox3" }) 
+                        @Html.ValidationMessageFor(m => m.AuthorYear) </td>
+                    </tr>   
+ 
+                    <tr>
+                        <td>@SharedRes.StringsRes.Info </td>
+                        <td>@Html.TextBoxFor(m => m.Info, new { @class = "textbox72" }) 
+                        @Html.ValidationMessageFor(m => m.Info) </td>
+                    </tr>   
+ 
+                    <tr>
+                        <td>@SharedRes.StringsRes.EngName </td>
+                        <td>@Html.TextBoxFor(m => m.EngName, new { @class = "textbox72" }) 
+                        @Html.ValidationMessageFor(m => m.EngName) </td>
+                    </tr>   
+                    <tr>
+                        <td>@SharedRes.StringsRes.GerName </td>
+                        <td>@Html.TextBoxFor(m => m.GerName, new { @class = "textbox72" }) 
+                        @Html.ValidationMessageFor(m => m.GerName) </td>
+                    </tr>   
+                    <tr>
+                        <td>@SharedRes.StringsRes.FraName </td>
+                        <td>@Html.TextBoxFor(m => m.FraName, new { @class = "textbox72" }) 
+                        @Html.ValidationMessageFor(m => m.FraName) </td>
+                    </tr>   
+                    <tr>
+                        <td>@SharedRes.StringsRes.PorName </td>
+                        <td>@Html.TextBoxFor(m => m.PorName, new { @class = "textbox72" }) 
+                        @Html.ValidationMessageFor(m => m.PorName) </td>
+                    </tr>   
+ 
+                    <tr>
+                        <td>@SharedRes.StringsRes.Memo </td>
+                        <td>@Html.TextAreaFor(m => m.Memo, 6, 108, new { @class = "textbox" }) 
+                        @Html.ValidationMessageFor(m => m.Memo) </td>
+                    </tr>        
+        
+                   </table> 
+        <p></p>            
+        <div class="pagination">
+            <p><input type="submit" value="@SharedRes.StringsRes.ButtonSave" />  
+                @Html.ActionLink(SharedRes.StringsRes.ActionLnkBack, "Index", null, new { style = "font-weight:bold" })  
+            </p>  
+        </div>  
+
+        <ul id="nav-one" class="dropmenu css-only">      
+
+         <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkOrdoLeft, "Index", "Tbl33Ordos")</li>        
+  
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkInfraordoRight, "Index", "Tbl39Infraordos")</li>      
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkInfraordoCreateRight, "Create", "Tbl39Infraordos", new { subordoId = 0 }, null)</li>  
+    
+                          
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkReferenceCreateRight, "Create", "Tbl90References",       
+  
+       new { regnumId = 0,                        
+  
+            phylumId = 0,                        
+  
+            divisionId = 0,                        
+  
+            subphylumId = 0,                        
+  
+            subdivisionId = 0,                        
+  
+            superclassId = 0,                        
+  
+            classId = 0,                        
+  
+            subclassId = 0,                        
+  
+            infraclassId = 0,                        
+  
+            legioId = 0,                        
+  
+            ordoId = 0,                        
+subordoId = Model.SubordoID,                            
+  
+            infraordoId = 0,                        
+  
+            superfamilyId = 0,                        
+  
+            familyId = 0,                        
+  
+            subfamilyId = 0,                        
+  
+            infrafamilyId = 0,                        
+  
+            supertribusId = 0,                        
+  
+            tribusId = 0,                        
+  
+            subtribusId = 0,                        
+  
+            infratribusId = 0,                        
+  
+            genusId = 0,                        
+  
+            fispeciesId = 0,                        
+  
+            plspeciesId = 0                        
+        
+        }, null)</li>               
+ 
+                            
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkCommentCreateRight, "Create", "Tbl93Comments",     
+  
+       new { regnumId = 0,                        
+  
+            phylumId = 0,                        
+  
+            divisionId = 0,                        
+  
+            subphylumId = 0,                        
+  
+            subdivisionId = 0,                        
+  
+            superclassId = 0,                        
+  
+            classId = 0,                        
+  
+            subclassId = 0,                        
+  
+            infraclassId = 0,                        
+  
+            legioId = 0,                        
+  
+            ordoId = 0,                        
+subordoId = Model.SubordoID,                            
+  
+            infraordoId = 0,                        
+  
+            superfamilyId = 0,                        
+  
+            familyId = 0,                        
+  
+            subfamilyId = 0,                        
+  
+            infrafamilyId = 0,                        
+  
+            supertribusId = 0,                        
+  
+            tribusId = 0,                        
+  
+            subtribusId = 0,                        
+  
+            infratribusId = 0,                        
+  
+            genusId = 0,                        
+  
+            fispeciesId = 0,                        
+  
+            plspeciesId = 0                        
+        
+         }, null)</li>               
+ 
+
+     </ul> 
+</fieldset>
+}   
+   

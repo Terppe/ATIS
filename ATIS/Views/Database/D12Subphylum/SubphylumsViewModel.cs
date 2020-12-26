@@ -27,8 +27,8 @@ namespace ATIS.Ui.Views.Database.D12Subphylum
         #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(typeof(SubphylumsViewModel));
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
-        private readonly AtisDbContext _context = new AtisDbContext();
         private readonly CrudFunctions _extCrud = new CrudFunctions();
+        private readonly AtisDbContext _context = new AtisDbContext();
 
         private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
         private readonly GenericMessageBoxes<Tbl12Subphylum> _genSubphylumMessageBoxes = new GenericMessageBoxes<Tbl12Subphylum>();
@@ -59,7 +59,7 @@ namespace ATIS.Ui.Views.Database.D12Subphylum
         }
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
 
 
         //    Part 1    
@@ -93,6 +93,8 @@ namespace ATIS.Ui.Views.Database.D12Subphylum
             Tbl06PhylumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl06Phylum>("phylum");
             Tbl12SubphylumsList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl12Subphylum>(SearchSubphylumName, "subphylum");
 
+            if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl12SubphylumsList.Count)) return;
+
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 1;
 
@@ -102,8 +104,10 @@ namespace ATIS.Ui.Views.Database.D12Subphylum
 
         private void ExecuteAddSubphylum(object o)
         {
-            Tbl12SubphylumsList.Insert(0, new Tbl12Subphylum { SubphylumName = CultRes.StringsRes.DatasetNew });
             Tbl06PhylumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl06Phylum>("phylum");
+
+            Tbl12SubphylumsList = new ObservableCollection<Tbl12Subphylum>();
+            Tbl12SubphylumsList.Insert(0, new Tbl12Subphylum { SubphylumName = CultRes.StringsRes.DatasetNew });
 
             SubphylumsView = CollectionViewSource.GetDefaultView(Tbl12SubphylumsList);
             SubphylumsView.MoveCurrentToFirst();
@@ -185,7 +189,7 @@ namespace ATIS.Ui.Views.Database.D12Subphylum
             if (CurrentTbl12Subphylum.PhylumId == 0)
             {
                 MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                       MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -212,8 +216,7 @@ namespace ATIS.Ui.Views.Database.D12Subphylum
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
                     return;
                 }
@@ -1074,6 +1077,7 @@ namespace ATIS.Ui.Views.Database.D12Subphylum
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+
 
         public int SelectedMainTabIndex
         {

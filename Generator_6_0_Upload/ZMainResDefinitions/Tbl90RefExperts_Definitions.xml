@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+ <Definition>
+  <File>Tbl90RefExperts</File>
+
+  <DateTime>29.11.2018  10:32</DateTime>  
+  <Namespace>Atis</Namespace>  
+  <ConnString></ConnString> 
+  <RegisterContext>ATISEntities</RegisterContext > 
+  <Version>ATIS34</Version>
+  <Database>Atis</Database> 
+
+  <LayoutTK3>ListDetails</LayoutTK3>
+  <LayoutTK2>ListDetails</LayoutTK2>
+  <LayoutTK1>ListDetails</LayoutTK1>
+  <Layout>ListDetails</Layout>
+  <LayoutFK1>ListDetails</LayoutFK1>
+  <LayoutFK2>ListDetails</LayoutFK2>
+  <LayoutBK1>ListDetails</LayoutBK1>
+  <LayoutBK2>ListDetails</LayoutBK2>
+  <LayoutBK3>ListDetails</LayoutBK3>
+  <LayoutBK4>ListDetails</LayoutBK4>
+
+  <TableTK3>NULL</TableTK3> 
+  <TableTK2>Tbl72PlSpeciesses</TableTK2> 
+  <TableTK1>Tbl69FiSpeciesses</TableTK1>       
+  <Table>Tbl90RefExperts</Table> 
+  <TableFK1>NULL</TableFK1> 
+  <TableFK2>NULL</TableFK2> 
+  <TableBK1>NULL</TableBK1>      
+  <TableBK2>NULL</TableBK2> 
+  <TableBK3>NULL</TableBK3> 
+  <TableBK4>NULL</TableBK4> 
+
+  <Primary>[RefExpertID] ASC</Primary> 
+  <Unique1>[CountID] ASC</Unique1> 
+  <Unique2>NULL</Unique2> 
+  <Foreign1>NULL</Foreign1> 
+  <Foreign2>NULL</Foreign2> 
+  <Default1>NULL</Default1> 
+  <Default2>NULL</Default2> 
+
+  <KeyPK>PK_Tbl90RefExperts</KeyPK> 
+  <KeyIX1>IX_Tbl90RefExperts_CountID</KeyIX1> 
+  <KeyIX2>NULL</KeyIX2> 
+  <KeyFK1>NULL</KeyFK1> 
+  <KeyFK2>NULL</KeyFK2> 
+  <KeyDF1>NULL</KeyDF1> 
+  <KeyDF2>NULL</KeyDF2> 
+
+  <FolderTK3>NULL</FolderTK3> 
+  <FolderTK2>NULL</FolderTK2> 
+  <FolderTK1>NULL</FolderTK1> 
+  <Folder>Tbl90RefExperts</Folder> 
+  <FolderFK1>NULL</FolderFK1> 
+  <FolderFK2>NULL</FolderFK2> 
+  <FolderBK1>NULL</FolderBK1> 
+  <FolderBK2>NULL</FolderBK2> 
+  <FolderBK3>NULL</FolderBK3> 
+  <FolderBK4>NULL</FolderBK4> 
+
+  <IDTK3>NULL</IDTK3> 
+  <IDTK2>NULL</IDTK2> 
+  <IDTK1>NULL</IDTK1> 
+  <ID>RefExpertID</ID> 
+  <IDFK1>NULL</IDFK1> 
+  <IDFK2>NULL</IDFK2> 
+  <IDBK1>NULL</IDBK1> 
+  <IDBK2>NULL</IDBK2> 
+  <IDBK3>NULL</IDBK3> 
+  <IDBK4>NULL</IDBK4> 
+
+  <NameTK3>NULL</NameTK3> 
+  <NameTK2>NULL</NameTK2> 
+  <NameTK1>NULL</NameTK1> 
+  <Name>RefExpertName</Name> 
+  <NameFK1>NULL</NameFK1> 
+  <NameFK2>NULL</NameFK2> 
+  <NameBK1>NULL</NameBK1> 
+  <NameBK2>NULL</NameBK2> 
+  <NameBK3>NULL</NameBK3> 
+  <NameBK4>NULL</NameBK4> 
+
+  <BasisTK3>NULL</BasisTK3> 
+  <BasisTK2>PlSpecies</BasisTK2> 
+  <BasisTK1>FiSpecies</BasisTK1> 
+  <Basis>RefExpert</Basis> 
+  <BasisFK1>NULL</BasisFK1> 
+  <BasisFK2>NULL</BasisFK2> 
+  <BasisBK1>NULL</BasisBK1> 
+  <BasisBK2>NULL</BasisBK2> 
+  <BasisBK3>NULL</BasisBK3> 
+  <BasisBK4>NULL</BasisBK4> 
+
+  <Basiss>RefExperts</Basiss> 
+
+  <BasisSmTK2>NULL</BasisSmTK2> 
+  <BasisSmTK1>NULL</BasisSmTK1> 
+  <BasisSm>refExpert</BasisSm> 
+  <BasisSmFK1>NULL</BasisSmFK1> 
+
+  <LinqModelTK3>NULL</LinqModelTK3> 
+  <LinqModelTK2>NULL</LinqModelTK2> 
+  <LinqModelTK1>NULL</LinqModelTK1> 
+  <LinqModel>Tbl90RefExpert</LinqModel> 
+  <LinqModelFK1>NULL</LinqModelFK1> 
+  <LinqModelFK2>NULL</LinqModelFK2> 
+  <LinqModelBK1>NULL</LinqModelBK1> 
+  <LinqModelBK2>NULL</LinqModelBK2> 
+  <LinqModelBK3>NULL</LinqModelBK3> 
+  <LinqModelBK4>NULL</LinqModelBK4> 
+
+  <EntityTK2>NULL</EntityTK2> 
+  <EntityTK1>NULL</EntityTK1> 
+  <Entity>tbl90RefExpert</Entity> 
+  <EntityFK1>NULL</EntityFK1> 
+
+  <EntitysTK2>NULL</EntitysTK2> 
+  <EntitysTK1>NULL</EntitysTK1> 
+  <Entitys>_tbl90RefExperts</Entitys> 
+  <EntitysFK1>NULL</EntitysFK1> 
+
+  <EntityAblTK1>NULL</EntityAblTK1> 
+  <EntityAbl>Tbl90RefExpert tbl90RefExpert</EntityAbl> 
+  <EntityAblFK1>NULL</EntityAblFK1> 
+
+   <Fields>
+    <Field><Name>RefExpertID</Name> <Type>int</Type>  <NotNull>IDENTITY(1,1) NOT NULL</NotNull> </Field>
+    <Field><Name>CountID</Name> <Type>int</Type> <NotNull> NOT NULL</NotNull> </Field>
+    <Field><Name>Valid</Name> <Type>bit</Type> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>ValidYear</Name> <Type>nvarchar</Type> <Length>4</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>RefExpertName</Name> <Type>nvarchar</Type> <Length>300</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>Notes</Name> <Type>nvarchar</Type> <Length>MAX</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>Info</Name> <Type>nvarchar</Type> <Length>100</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>Writer</Name> <Type>nvarchar</Type> <Length>50</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>WriterDate</Name> <Type>datetime</Type> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>Updater</Name> <Type>nvarchar</Type> <Length>50</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>UpdaterDate</Name> <Type>datetime</Type> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>Memo</Name> <Type>nvarchar</Type> <Length>MAX</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>RowVersion</Name> <Type>timestamp</Type> <NotNull>NULL</NotNull> </Field>
+ </Fields>
+</Definition>

@@ -1,0 +1,214 @@
+@model Atis.Domain.Models.Tbl90RefAuthor 
+
+<script type="text/javascript">
+$(function()   {
+    $('#RefAuthorID').focus();    
+});
+</script>
+
+ 
+          <!-- _Form.cshtml  Skriptdatum: 29.12.2011  10:32    -->     
+  
+        @using (Html.BeginForm()) {
+        <div class="pagination">
+            <p><input type="submit" value="@SharedRes.StringsRes.ButtonSave" />  
+                @Html.ActionLink(SharedRes.StringsRes.ActionLnkBack, "Index", null, new { style = "font-weight:bold" })  
+                @Html.ActionLink(SharedRes.StringsRes.ActionLnkClear, "Create", null, null)  
+            </p> 
+        </div>
+
+        @Html.ValidationSummary() 
+            <fieldset><legend>@SharedRes.StringsRes.Fields </legend>  
+  
+              <table><colgroup style="width:12em" span="2"></colgroup>                                             
+        
+                    <tr>
+                        <td>@SharedRes.StringsRes.Author_Year </td>
+                        <td>@Html.TextBoxFor(m => m.RefAuthorName, new { @class = "textbox108" }) 
+                        @Html.ValidationMessageFor(m => m.RefAuthorName) 
+                        @Html.TextBoxFor(m => m.PublicationYear, new { @class = "textbox3" }) 
+                        @Html.ValidationMessageFor(m => m.PublicationYear) </td>
+                    </tr>   
+    
+                    <tr>
+                        <td>@SharedRes.StringsRes.Valid_Year </td>
+                        <td>@Html.EditorFor(m => m.Valid) 
+                        @Html.ValidationMessageFor(m => m.Valid)                                    
+                        @Html.TextBoxFor(m => m.ValidYear, new { @class = "textbox3" }) 
+                        @Html.ValidationMessageFor(m => m.ValidYear) </td>
+                    </tr>      
+                     <tr>
+                        <td>@Tbl90RefAuthorsRes.StringsRes.ArticelTitle </td>
+                        <td>@Html.TextBoxFor(m => m.ArticelTitle, new { @class = "textbox108" }) 
+                        @Html.ValidationMessageFor(m => m.ArticelTitle) </td>
+                    </tr>   
+                     <tr>
+                        <td>@Tbl90RefAuthorsRes.StringsRes.BookName </td>
+                        <td>@Html.TextBoxFor(m => m.BookName, new { @class = "textbox108" }) 
+                        @Html.ValidationMessageFor(m => m.BookName) </td>
+                    </tr>   
+                     <tr>
+                        <td>@Tbl90RefAuthorsRes.StringsRes.Page </td>
+                        <td>@Html.TextBoxFor(m => m.Page, new { @class = "textbox36" }) 
+                        @Html.ValidationMessageFor(m => m.Page) </td>
+                    </tr>   
+                     <tr>
+                        <td>@Tbl90RefAuthorsRes.StringsRes.Publisher </td>
+                        <td>@Html.TextBoxFor(m => m.Publisher, new { @class = "textbox108" }) 
+                        @Html.ValidationMessageFor(m => m.Publisher) </td>
+                    </tr>   
+                     <tr>
+                        <td>@Tbl90RefAuthorsRes.StringsRes.PublicationPlace </td>
+                        <td>@Html.TextBoxFor(m => m.PublicationPlace, new { @class = "textbox108" }) 
+                        @Html.ValidationMessageFor(m => m.PublicationPlace) </td>
+                    </tr>   
+                     <tr>
+                        <td>@Tbl90RefAuthorsRes.StringsRes.ISBN </td>
+                        <td>@Html.TextBoxFor(m => m.ISBN, new { @class = "textbox36" }) 
+                        @Html.ValidationMessageFor(m => m.ISBN) </td>
+                    </tr>   
+                    <tr>
+                        <td>@Tbl90RefAuthorsRes.StringsRes.Notes </td>
+                        <td>@Html.TextAreaFor(m => m.Notes, 6, 108, new { @class = "textbox" }) 
+                        @Html.ValidationMessageFor(m => m.Notes) </td>
+                    </tr>        
+                    <tr>
+                        <td>@SharedRes.StringsRes.Info </td>
+                        <td>@Html.TextBoxFor(m => m.Info, new { @class = "textbox108" }) 
+                        @Html.ValidationMessageFor(m => m.Info) </td>
+                    </tr>    
+ 
+                    <tr>
+                        <td>@SharedRes.StringsRes.Memo </td>
+                        <td>@Html.TextAreaFor(m => m.Memo, 6, 108, new { @class = "textbox" }) 
+                        @Html.ValidationMessageFor(m => m.Memo) </td>
+                    </tr>        
+        
+                   </table> 
+        <p></p>            
+        <div class="pagination">
+            <p><input type="submit" value="@SharedRes.StringsRes.ButtonSave" />  
+                @Html.ActionLink(SharedRes.StringsRes.ActionLnkBack, "Index", null, new { style = "font-weight:bold" })  
+            </p>  
+        </div>  
+
+        <ul id="nav-one" class="dropmenu css-only">      
+
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkFiSpeciesLeft, "Index", "Tbl69FiSpeciesses")</li>      
+  
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkPlSpeciesLeft, "Index", "Tbl72PlSpeciesses")</li>      
+       
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkRefExpertCreateRight, "Create", "Tbl90RefExperts")</li>              
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkRefSourceCreateRight, "Create", "Tbl90RefSources")</li>           
+  
+                          
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkReferenceCreateRight, "Create", "Tbl90References",       
+  
+       new { regnumId = 0,                        
+  
+            phylumId = 0,                        
+  
+            divisionId = 0,                        
+  
+            subphylumId = 0,                        
+  
+            subdivisionId = 0,                        
+  
+            superclassId = 0,                        
+  
+            classId = 0,                        
+  
+            subclassId = 0,                        
+  
+            infraclassId = 0,                        
+  
+            legioId = 0,                        
+  
+            ordoId = 0,                        
+  
+            subordoId = 0,                        
+  
+            infraordoId = 0,                        
+  
+            superfamilyId = 0,                        
+  
+            familyId = 0,                        
+  
+            subfamilyId = 0,                        
+  
+            infrafamilyId = 0,                        
+  
+            supertribusId = 0,                        
+  
+            tribusId = 0,                        
+  
+            subtribusId = 0,                        
+  
+            infratribusId = 0,                        
+  
+            genusId = 0,                        
+  
+            fispeciesId = 0,                        
+  
+            plspeciesId = 0                        
+        
+        }, null)</li>               
+ 
+                            
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkCommentCreateRight, "Create", "Tbl93Comments",     
+  
+       new { regnumId = 0,                        
+  
+            phylumId = 0,                        
+  
+            divisionId = 0,                        
+  
+            subphylumId = 0,                        
+  
+            subdivisionId = 0,                        
+  
+            superclassId = 0,                        
+  
+            classId = 0,                        
+  
+            subclassId = 0,                        
+  
+            infraclassId = 0,                        
+  
+            legioId = 0,                        
+  
+            ordoId = 0,                        
+  
+            subordoId = 0,                        
+  
+            infraordoId = 0,                        
+  
+            superfamilyId = 0,                        
+  
+            familyId = 0,                        
+  
+            subfamilyId = 0,                        
+  
+            infrafamilyId = 0,                        
+  
+            supertribusId = 0,                        
+  
+            tribusId = 0,                        
+  
+            subtribusId = 0,                        
+  
+            infratribusId = 0,                        
+  
+            genusId = 0,                        
+  
+            fispeciesId = 0,                        
+  
+            plspeciesId = 0                        
+        
+         }, null)</li>               
+ 
+
+     </ul> 
+</fieldset>
+}   
+   

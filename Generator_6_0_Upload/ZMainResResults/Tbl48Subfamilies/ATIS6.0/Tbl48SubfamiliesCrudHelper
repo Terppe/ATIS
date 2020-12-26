@@ -1,0 +1,430 @@
+    
+       #region Subfamily
+
+         #region Get Subfamily
+
+        //----------------------------------------   Subfamily   ------------------------
+        private ObservableCollection<T> GetSubfamiliesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        {
+            ObservableCollection<T> collection;
+            collection = int.TryParse(searchName, out var id)
+                ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl48Subfamilies
+                    .Find(e => e.SubfamilyId == id))
+                : new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl48Subfamilies
+                    .Find(e => e.SubfamilyName.StartsWith(searchName))
+                    .OrderBy(a => a.SubfamilyName)
+                );
+            return collection;
+        }
+
+        private ObservableCollection<T> GetSubfamiliesCollectionAllOrderBy<T>()
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl48Subfamilies
+                .OrderBy(a => a.SubfamilyName));
+            return collection;
+        }
+        public ObservableCollection<T> GetSubfamiliesCollectionFromSubfamilyIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl48Subfamilies
+                .Where(e => e.SubfamilyId == id)
+                .OrderBy(k => k.SubfamilyName));
+
+            return collection;
+        }
+
+                   //-------------------------------------- Infrafamily   -------------------------
+        public ObservableCollection<T> GetInfrafamiliesCollectionFromSubfamilyIdOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl51Infrafamilies
+                .Where(e => e.SubfamilyId == id)
+                .OrderBy(k => k.InfrafamilyName));
+            return collection;
+        }
+
+                   //-------------------------------------- Reference Experts   -------------------------
+        public ObservableCollection<T> GetReferenceExpertsCollectionFromSubfamilyIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefExperts)
+                .Where(e => e.SubfamilyId == id && e.RefAuthorId == null && e.RefSourceId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+                   //-------------------------------------- Reference Sources   -------------------------
+        public ObservableCollection<T> GetReferenceSourcesCollectionFromSubfamilyIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefSources)
+                .Where(e => e.SubfamilyId == id && e.RefAuthorId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+                   //-------------------------------------- Reference Authors   -------------------------
+        public ObservableCollection<T> GetReferenceAuthorsCollectionFromSubfamilyIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<T>(int id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.SubfamilyId == id && e.RefSourceId == null && e.RefExpertId == null)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+                   //-------------------------------------- Comments   -------------------------
+        public ObservableCollection<T> GetCommentsCollectionFromSubfamilyIdOrderBy<T>(int? id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
+                .Where(e => e.SubfamilyId == id)
+                .OrderBy(e => e.Info));
+            return collection;
+        }
+
+        //Function
+        public int GetSubfamilyIdFromInfrafamiliesCollectionSelect(int id)
+        {
+            var coll = _context.Tbl51Infrafamilies
+                .SingleOrDefault(p => p.InfrafamilyId == id);
+
+            if (coll == null) return 0;
+            return coll.SubfamilyId;
+        }
+
+          #endregion
+
+         #region Copy Subfamily
+
+        // ----------------------------------------   Infrafamily  ------------------------
+        public ObservableCollection<Tbl51Infrafamily> CopyInfrafamily(Tbl51Infrafamily selected)  
+        {
+            var dataset = _uow.Tbl51Infrafamilies.GetById(selected.InfrafamilyId);
+            var collection = new ObservableCollection<Tbl51Infrafamily>();
+
+            collection.Insert(0, new Tbl51Infrafamily
+            {
+                InfrafamilyName = CultRes.StringsRes.DatasetNew,
+                SubfamilyId = dataset.SubfamilyId,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Synonym = dataset.Synonym,
+                Author = dataset.Author,
+                AuthorYear = dataset.AuthorYear,
+                Info = dataset.Info,
+                EngName = dataset.EngName,
+                GerName = dataset.GerName,
+                FraName = dataset.FraName,
+                PorName = dataset.PorName,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
+
+        public ObservableCollection<Tbl90Reference> CopyReferenceSubfamily(Tbl90Reference selected, string refer)
+        {
+            var dataset = _uow.Tbl90References.GetById(selected.ReferenceId);
+            var collection = new ObservableCollection<Tbl90Reference>();
+            switch (refer)
+            {
+                case "Expert":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        SubfamilyId = dataset.SubfamilyId,
+                        RefExpertId = dataset.RefExpertId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Source":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        SubfamilyId = dataset.SubfamilyId,
+                        RefSourceId = dataset.RefSourceId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+                case "Author":
+                    collection.Insert(0, new Tbl90Reference()
+                    {
+                        SubfamilyId = dataset.SubfamilyId,
+                        RefAuthorId = dataset.RefAuthorId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+            }
+
+            return collection;
+        }
+
+        //---------  insert Case in CopyComment  -------------------------
+        public ObservableCollection<Tbl93Comment> CopyComment(Tbl93Comment selected, string name)
+        {
+            var dataset = _uow.Tbl93Comments.GetById(selected.CommentId);
+            var collection = new ObservableCollection<Tbl93Comment>();
+            switch (name)
+            {
+                case "Subfamily":
+                    collection.Insert(0, new Tbl93Comment
+                    {
+                        SubfamilyId = dataset.SubfamilyId,
+                        Valid = dataset.Valid,
+                        ValidYear = dataset.ValidYear,
+                        Info = CultRes.StringsRes.DatasetNew,
+                        Memo = dataset.Memo
+                    });
+                    break;
+              }
+
+            return collection;
+        }
+
+          #endregion  
+   
+          #region Delete Subfamily
+
+                //------------------------------ Subfamily --------------------------------------------------------------------------------------------
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubfamilyIdInTableReference(Tbl48Subfamily selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubfamilyId == selected.SubfamilyId));
+            return collection;
+        }
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubfamilyIdInTableComment(Tbl48Subfamily selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubfamilyId == selected.SubfamilyId));
+            return collection;
+        }
+
+                //------------------------------ Infrafamily --------------------------------------------------------------------------------------------
+        public void DeleteInfrafamily(Tbl51Infrafamily selected)
+        {
+            _uow.Tbl51Infrafamilies.Remove(selected);
+            _uow.Complete();
+        }
+        public ObservableCollection<Tbl54Supertribus> SearchForConnectedDatasetsWithInfrafamilyIdInTableSupertribus(Tbl51Infrafamily selected)
+        {
+            var collection = new ObservableCollection<Tbl54Supertribus>(_uow.Tbl54Supertribusses.Find(x => x.InfrafamilyId == selected.InfrafamilyId));
+            return collection;
+        }
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithInfrafamilyIdInTableReference(Tbl51Infrafamily selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.InfrafamilyId == selected.InfrafamilyId));
+            return collection;
+        }
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithInfrafamilyIdInTableComment(Tbl51Infrafamily selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.InfrafamilyId == selected.InfrafamilyId));
+            return collection;
+        }
+
+
+        #endregion
+
+        #region Save Subfamily 
+
+        //------------------ Infrafamily ---------------------------------------
+        public Tbl51InfrafamilyInfrafamilyUpdate(Tbl51Infrafamily home, Tbl51Infrafamily selected)
+        {
+            if (home != null) //update
+            {
+                home.InfrafamilyName = selected.InfrafamilyName;
+                home.SubfamilyId = selected.SubfamilyId;
+                home.Valid = selected.Valid;
+                home.ValidYear = selected.ValidYear;
+                home.Author = selected.Author;
+                home.AuthorYear = selected.AuthorYear;
+                home.Info = selected.Info;
+                home.Synonym = selected.Synonym;
+                home.EngName = selected.EngName;
+                home.GerName = selected.GerName;
+                home.FraName = selected.FraName;
+                home.PorName = selected.PorName;
+                home.Memo = selected.Memo;
+                home.Updater = Environment.UserName;
+                home.UpdaterDate = DateTime.Now;
+            }
+            return home;
+        }
+        public Tbl51InfrafamilyInfrafamilyAdd(Tbl51Infrafamily selected)
+        {
+            var home = new Tbl51Infrafamily() //add new
+            {
+                InfrafamilyName = selected.InfrafamilyName,
+                SubfamilyId = selected.SubfamilyId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Author = selected.Author,
+                AuthorYear = selected.AuthorYear,
+                Info = selected.Info,
+                Synonym = selected.Synonym,
+                EngName = selected.EngName,
+                GerName = selected.GerName,
+                FraName = selected.FraName,
+                PorName = selected.PorName,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now
+            };
+            return home;
+        }
+        public void InfrafamilySave(Tbl51Infrafamily home, Tbl51Infrafamily selected)
+        {
+
+            if (selected.InfrafamilyId != 0) //update
+            {
+                _uow.Tbl51Infrafamilies.Update(home);
+            }
+            else                                //add
+                _uow.Tbl51Infrafamilies.Add(home);
+            _uow.Complete();
+        }
+
+        public Tbl90Reference ReferenceExpertSubfamilyUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefExpertId = selected.RefExpertId;
+                reference.SubfamilyId = selected.SubfamilyId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceExpertSubfamilyAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefExpertId = selected.RefExpertId,
+                SubfamilyId = selected.SubfamilyId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourceSubfamilyUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefSourceId = selected.RefSourceId;
+                reference.SubfamilyId = selected.SubfamilyId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceSourceSubfamilyAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefSourceId = selected.RefSourceId,
+                SubfamilyId = selected.SubfamilyId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorSubfamilyUpdate(Tbl90Reference reference, Tbl90Reference selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefAuthorId = selected.RefAuthorId;
+                reference.SubfamilyId = selected.SubfamilyId;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+                reference.Memo = selected.Memo;
+            }
+            return reference;
+        }
+        public Tbl90Reference ReferenceAuthorSubfamilyAdd(Tbl90Reference selected)
+        {
+            var reference = new Tbl90Reference //add new
+            {
+                RefAuthorId = selected.RefAuthorId,
+                SubfamilyId = selected.SubfamilyId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        public Tbl93Comment CommentSubfamilyUpdate(Tbl93Comment comment, Tbl93Comment selected)
+        {
+            if (comment != null) //update
+            {
+                comment.SubfamilyId = selected.SubfamilyId;
+                comment.Valid = selected.Valid;
+                comment.ValidYear = selected.ValidYear;
+                comment.Info = selected.Info;
+                comment.Updater = Environment.UserName;
+                comment.UpdaterDate = DateTime.Now;
+                comment.Memo = selected.Memo;
+            }
+            return comment;
+        }
+        public Tbl93Comment CommentSubfamilyAdd(Tbl93Comment selected)
+        {
+            var comment = new Tbl93Comment //add new
+            {
+                SubfamilyId = selected.SubfamilyId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return comment;
+        }
+
+          #endregion          
+
+        #endregion
+   
