@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
 using ATIS.Dal.Models;
-using ATIS.Ui.Core;
+using ATIS.Ui.Helper;
 using Microsoft.EntityFrameworkCore;
 
-namespace ATIS.Ui.Helper
+namespace ATIS.Ui.Core
 {
 
     public class CrudFunctions : ViewModelBase
