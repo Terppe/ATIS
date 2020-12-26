@@ -1,0 +1,305 @@
+@model Atis.Domain.ViewModels.Tbl93Comments.ListViewModel
+
+        <!-- Index  Skriptdatum:  15.03.2012  10:32   -->    
+    
+
+@{
+    ViewBag.Title =  Tbl93CommentsRes.StringsRes.Index;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Tbl93CommentsRes.StringsRes.Index</h2>
+
+@using (Html.BeginForm("Index", "Tbl93Comments", FormMethod.Get))              
+{
+    <fieldset class="filtering">
+        <legend>@SharedRes.StringsRes.Filter</legend>  
+        <div> 
+            <p></p>         
+
+              <table>                                             
+                     <tr>
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.DDLFiSpeciesName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.FiSpeciesID, Model.FiSpeciesList, SharedRes.StringsRes.DDLAll, new { @class = "ddl15" })     </td>      
+                                         
+    
+                    
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.DDLPlSpeciesName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.PlSpeciesID, Model.PlSpeciesList, SharedRes.StringsRes.DDLAll, new { @class = "ddl15" })    </td>       
+                         
+    
+                     
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.DDLGenusName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.GenusID, Model.GenusList, SharedRes.StringsRes.DDLAll, new { @class = "ddl15" })      </td>     
+                     </tr>        
+              </table>                                                           
+    
+              <table>                                             
+                     <tr>
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.DDLInfratribusName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.InfratribusID, Model.InfratribusList, SharedRes.StringsRes.DDLAll, new { @class = "ddl15" })     </td>      
+                                         
+    
+                    
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.DDLSubtribusName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.SubtribusID, Model.SubtribusList, SharedRes.StringsRes.DDLAll, new { @class = "ddl15" })    </td>       
+                         
+    
+                     
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.DDLTribusName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.TribusID, Model.TribusList, SharedRes.StringsRes.DDLAll, new { @class = "ddl15" })      </td>     
+                             
+    
+                     
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.DDLSupertribusName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.SupertribusID, Model.SupertribusList, SharedRes.StringsRes.DDLAll, new { @class = "ddl15" })      </td>     
+                     </tr>        
+              </table>                                                           
+    
+              <table>                                             
+                     <tr>
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.DDLInfrafamilyName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.InfrafamilyID, Model.InfrafamilyList, SharedRes.StringsRes.DDLAll, new { @class = "ddl15" })     </td>      
+                                         
+    
+                    
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.DDLSubfamilyName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.SubfamilyID, Model.SubfamilyList, SharedRes.StringsRes.DDLAll, new { @class = "ddl15" })    </td>       
+                         
+    
+                     
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.DDLFamilyName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.FamilyID, Model.FamilyList, SharedRes.StringsRes.DDLAll, new { @class = "ddl15" })      </td>     
+                             
+    
+                     
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.DDLSuperfamilyName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.SuperfamilyID, Model.SuperfamilyList, SharedRes.StringsRes.DDLAll, new { @class = "ddl15" })      </td>     
+                     </tr>        
+              </table>                                                           
+    
+              <table>                                             
+                     <tr>
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.DDLInfraordoName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.InfraordoID, Model.InfraordoList, SharedRes.StringsRes.DDLAll, new { @class = "ddl15" })     </td>      
+                                         
+    
+                    
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.DDLSubordoName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.SubordoID, Model.SubordoList, SharedRes.StringsRes.DDLAll, new { @class = "ddl15" })    </td>       
+                         
+    
+                     
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.DDLOrdoName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.OrdoID, Model.OrdoList, SharedRes.StringsRes.DDLAll, new { @class = "ddl15" })      </td>     
+                             
+    
+                     
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.DDLLegioName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.LegioID, Model.LegioList, SharedRes.StringsRes.DDLAll, new { @class = "ddl15" })      </td>     
+                     </tr>        
+              </table>                                                           
+    
+              <table>                                             
+                     <tr>
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.DDLInfraclassName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.InfraclassID, Model.InfraclassList, SharedRes.StringsRes.DDLAll, new { @class = "ddl15" })     </td>      
+                                         
+    
+                    
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.DDLSubclassName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.SubclassID, Model.SubclassList, SharedRes.StringsRes.DDLAll, new { @class = "ddl15" })    </td>       
+                         
+    
+                     
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.DDLClassName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.ClassID, Model.ClassList, SharedRes.StringsRes.DDLAll, new { @class = "ddl15" })      </td>     
+                             
+    
+                     
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.DDLSuperclassName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.SuperclassID, Model.SuperclassList, SharedRes.StringsRes.DDLAll, new { @class = "ddl15" })      </td>     
+                     </tr>        
+              </table>                                                           
+    
+              <table>                                             
+                     <tr>
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.DDLSubdivisionName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.SubdivisionID, Model.SubdivisionList, SharedRes.StringsRes.DDLAll, new { @class = "ddl15" })     </td>      
+                                         
+    
+                     
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.DDLDivisionName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.DivisionID, Model.DivisionList, SharedRes.StringsRes.DDLAll, new { @class = "ddl15" })      </td>     
+                     </tr>        
+              </table>                                                           
+    
+              <table>                                             
+                     <tr>
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.DDLSubphylumName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.SubphylumID, Model.SubphylumList, SharedRes.StringsRes.DDLAll, new { @class = "ddl15" })     </td>      
+                                         
+    
+                     
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.DDLPhylumName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.PhylumID, Model.PhylumList, SharedRes.StringsRes.DDLAll, new { @class = "ddl15" })      </td>     
+                     </tr>        
+              </table>                                                           
+    
+              <table>                                             
+                     <tr>
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.DDLRegnumName </strong></td>
+                         <td>@Html.DropDownListFor(m => m.RegnumID, Model.RegnumList, SharedRes.StringsRes.DDLAll, new { @class = "ddl15" })     </td>      
+                                         
+            
+                     
+                         <td style="width:8em"><strong>@Tbl93CommentsRes.StringsRes.CommentID </strong></td>
+                         <td><input type="text" id="commentid" name="commentid" /></td>                   
+  
+                    <td style="width:4em"><strong>@SharedRes.StringsRes.Valid </strong></td>
+                    <td>@Html.EditorFor(m => m.Valid)</td>
+
+                    @Html.Hidden("sortBy", Model.SortBy)
+                    @Html.Hidden("ascending", Model.SortAscending)
+
+                    <td><input type="submit" value="@SharedRes.StringsRes.Search" /></td> 
+                </tr>   
+            </table>        
+ 
+        </div>
+    </fieldset>
+}
+
+<table class="grid" style="width: 95%">                
+    <tr>
+        <th></th>   
+  
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "Memo" }, { "DisplayName", SharedRes.StringsRes.Memo } })</th>   
+ 
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "Valid" }, { "DisplayName", SharedRes.StringsRes.Valid } })</th>
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "ValidYear" }, { "DisplayName", SharedRes.StringsRes.ValidYear } })</th>   
+  
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "" }, { "DisplayName", Tbl93CommentsRes.StringsRes.Taxo } })</th>                 
+
+     </tr>
+
+    @foreach (var item in Model.Tbl93Comments) { 
+    
+    <tr>
+        <td class="left">
+            @Html.ActionLink(SharedRes.StringsRes.ActionLnkDelete, "Delete", new { id = item.CommentID }) | 
+            @Html.ActionLink(SharedRes.StringsRes.ActionLnkEdit, "Edit", new { id = item.CommentID }) |
+            @Html.ActionLink(SharedRes.StringsRes.ActionLnkDetails, "Details", new { id = item.CommentID }) </td>           
+
+  
+        <td class="left">@item.Memo</td>       
+  
+ 
+        <td class="align-middle">
+        @if (item.Valid == true) { 
+                <img src="@Url.Content("~/Content/Images/Ok.png")" alt="@SharedRes.StringsRes.ValidYes" title="@SharedRes.StringsRes.ValidYes" />   } 
+            else { 
+                <img src="@Url.Content("~/Content/Images/cancel.png")" alt="@SharedRes.StringsRes.ValidNo" title="@SharedRes.StringsRes.ValidNo" />   
+           } 
+         </td>
+        <td class="align-middle">@item.ValidYear</td>   
+  
+         <td class="left">
+        @if (item.FiSpeciesID != null)
+            {   <p>@item.Tbl69FiSpeciesses.Tbl66Genusses.GenusName @item.Tbl69FiSpeciesses.FiSpeciesName  @item.Tbl69FiSpeciesses.Subspecies @item.Tbl69FiSpeciesses.Divers   </p>}
+        @if (item.PlSpeciesID != null)
+            {   <p>@item.Tbl72PlSpeciesses.Tbl66Genusses.GenusName @item.Tbl72PlSpeciesses.PlSpeciesName  @item.Tbl72PlSpeciesses.Subspecies @item.Tbl72PlSpeciesses.Divers   </p>}
+        @if (item.GenusID != null)
+            {   @item.Tbl66Genusses.GenusName   }
+        @if (item.InfratribusID != null)
+            {   @item.Tbl63Infratribusses.InfratribusName   }
+        @if (item.SubtribusID != null)
+            {   @item.Tbl60Subtribusses.SubtribusName   }
+        @if (item.TribusID != null)
+            {   @item.Tbl57Tribusses.TribusName   }
+        @if (item.SupertribusID != null)
+            {   @item.Tbl54Supertribusses.SupertribusName   }
+        @if (item.InfrafamilyID != null)
+            {   @item.Tbl51Infrafamilies.InfrafamilyName   }
+        @if (item.SubfamilyID != null)
+            {   @item.Tbl48Subfamilies.SubfamilyName   }
+        @if (item.FamilyID != null)
+            {   @item.Tbl45Families.FamilyName   }
+        @if (item.SuperfamilyID != null)
+            {   @item.Tbl42Superfamilies.SuperfamilyName   }
+        @if (item.InfraordoID != null)
+            {   @item.Tbl39Infraordos.InfraordoName   }
+        @if (item.SubordoID != null)
+            {   @item.Tbl36Subordos.SubordoName   }
+        @if (item.OrdoID != null)
+            {   @item.Tbl33Ordos.OrdoName   }
+        @if (item.LegioID != null)
+            {   @item.Tbl30Legios.LegioName   }
+        @if (item.InfraclassID != null)
+            {   @item.Tbl27Infraclasses.InfraclassName   }
+        @if (item.SubclassID != null)
+            {   @item.Tbl24Subclasses.SubclassName   }
+        @if (item.ClassID != null)
+            {   @item.Tbl21Classes.ClassName   }
+        @if (item.SuperclassID != null)
+            {   @item.Tbl18Superclasses.SuperclassName   }
+        @if (item.SubdivisionID != null)
+            {   @item.Tbl15Subdivisions.SubdivisionName   }
+        @if (item.SubphylumID != null)
+            {   @item.Tbl12Subphylums.SubphylumName   }
+        @if (item.DivisionID != null)
+            {   @item.Tbl09Divisions.DivisionName   }
+        @if (item.PhylumID != null)
+            {   @item.Tbl06Phylums.PhylumName   }
+        @if (item.RegnumID != null)
+            {   @item.Tbl03Regnums.RegnumName   }
+       </td>                 
+
+    </tr>    
+    }     
+    <tr>        
+  
+        <td class="pager" colspan="9">   
+ 
+           @Html.Partial("_Pager", Model)
+        </td>
+    </tr>       
+</table>
+<div>
+    <ul id="nav-one" class="dropmenu css-only">      
+
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkFiSpeciesRight, "Index", "Tbl69FiSpeciesses")</li>      
+  
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkPlSpeciesRight, "Index", "Tbl72PlSpeciesses")</li>      
+   
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkCommentRight, "Index", "Tbl93Comments")</li>                       
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkCommentCreateRight, "Create", "Tbl93Comments",
+            new { regnumId = 0,
+                      phylumId = 0,
+                      divisionId = 0,
+                      subphylumId = 0,
+                      subdivisionId = 0,
+                      superclassId = 0,
+                      classId = 0,
+                      subclassId = 0,
+                      infraclassId = 0,
+                      legioId = 0,
+                      ordoId = 0,
+                      subordoId = 0,
+                      infraordoId = 0,
+                      superfamilyId = 0,
+                      familyId = 0,
+                      subfamilyId = 0,
+                      infrafamilyId = 0,
+                      supertribusId = 0,
+                      tribusId = 0,
+                      subtribusId = 0,
+                      infratribusId = 0,
+                      genusId = 0,
+                      fispeciesId = 0,
+                      plspeciesId = 0
+            }, null)</li>               
+     
+  
+    </ul> 
+</div>           

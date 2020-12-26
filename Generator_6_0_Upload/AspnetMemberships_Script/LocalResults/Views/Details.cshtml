@@ -1,0 +1,104 @@
+@model Atis.Domain.Models.AspnetMembership 
+
+        <!-- Details Skriptdatum:  24.03.2012  10:32    -->   
+
+@{
+    ViewBag.Title = AspnetMembershipsRes.StringsRes.Details;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@AspnetMembershipsRes.StringsRes.Details</h2>
+
+    <div id="pagination">
+        @Html.ActionLink(SharedRes.StringsRes.ActionLnkBack, "Index", null, new { style = "font-weight:bold" })
+    </div>
+
+<fieldset><legend>@SharedRes.StringsRes.Fields </legend>   
+
+
+
+   
+        <p>
+            <strong>@AspnetMembershipsRes.StringsRes.Password  :</strong>
+            @Model.Password            
+        </p>      
+        <p>
+            <strong>@AspnetMembershipsRes.StringsRes.PasswordFormat  :</strong>
+            @Model.PasswordFormat            
+        </p>        
+        <p>
+            <strong>@AspnetMembershipsRes.StringsRes.PasswordSalt  :</strong>
+            @Model.PasswordSalt           
+        </p>       
+        <p>
+            <strong>@AspnetMembershipsRes.StringsRes.MobilePIN  :</strong>
+            @Model.MobilePIN          
+        </p>       
+        <p>
+            <strong>@AspnetMembershipsRes.StringsRes.Email  :</strong>
+            @Model.Email          
+        </p>       
+        <p>
+            <strong>@AspnetMembershipsRes.StringsRes.LoweredEmail  :</strong>
+            @Model.LoweredEmail          
+        </p>       
+        <p>
+            <strong>@AspnetMembershipsRes.StringsRes.PasswordQuestion  :</strong>
+            @Model.PasswordQuestion            
+        </p>      
+        <p>
+            <strong>@AspnetMembershipsRes.StringsRes.PasswordAnswer  :</strong>
+            @Model.PasswordAnswer            
+        </p>      
+        <p>
+            <strong>@AspnetMembershipsRes.StringsRes.IsApproved  :</strong>
+            @Model.IsApproved            
+        </p>      
+        <p>
+            <strong>@AspnetMembershipsRes.StringsRes.IsLockedOut  :</strong>
+            @Model.IsLockedOut           
+        </p>      
+        <p>
+            <strong>@AspnetMembershipsRes.StringsRes.CreateDate  :</strong>
+            @Model.CreateDate            
+        </p>      
+        <p>
+            <strong>@AspnetMembershipsRes.StringsRes.LastLoginDate  :</strong>
+            @Model.LastLoginDate            
+        </p>      
+        <p>
+            <strong>@AspnetMembershipsRes.StringsRes.LastPasswordChangedDate  :</strong>
+            @Model.LastPasswordChangedDate            
+        </p>      
+        <p>
+            <strong>@AspnetMembershipsRes.StringsRes.LastLockoutDate  :</strong>
+            @Model.LastLockoutDate            
+        </p>      
+        <p>
+            <strong>@AspnetMembershipsRes.StringsRes.FailedPasswordAttemptCount  :</strong>
+            @Model.FailedPasswordAttemptCount            
+        </p>      
+        <p>
+            <strong>@AspnetMembershipsRes.StringsRes.FailedPasswordAttemptWindowStart  :</strong>
+            @Model.FailedPasswordAttemptWindowStart           
+        </p>      
+        <p>
+            <strong>@AspnetMembershipsRes.StringsRes.FailedPasswordAnswerAttemptCount  :</strong>
+            @Model.FailedPasswordAnswerAttemptCount            
+        </p>      
+        <p>
+            <strong>@AspnetMembershipsRes.StringsRes.FailedPasswordAnswerAttemptWindowStart  :</strong>
+            @Model.FailedPasswordAnswerAttemptWindowStart           
+        </p>       
+   
+        <p></p>
+</fieldset>
+<p>
+    @Html.ActionLink(SharedRes.StringsRes.ActionLnkEdit, "Edit", new { id = Model.UserId }) |
+    @Html.ActionLink(SharedRes.StringsRes.ActionLnkBack, "Index")
+</p>
+    <div class="pagination"></div>
+
+    
+  
+

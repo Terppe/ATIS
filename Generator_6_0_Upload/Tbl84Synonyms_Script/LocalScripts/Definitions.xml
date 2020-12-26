@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+ <Definition>
+  <File>Tbl84Synonyms</File>
+
+  <DateTime>13.11.2018  10:32</DateTime>  
+  <Namespace>Atis</Namespace>  
+  <ConnString></ConnString> 
+  <RegisterContext>ATISEntities</RegisterContext > 
+  <Version>ATIS34</Version>
+  <Database>Atis</Database> 
+
+  <LayoutTK3>ListDetails</LayoutTK3>
+  <LayoutTK2>ListDetails</LayoutTK2>
+  <LayoutTK1>ListDetails</LayoutTK1>
+  <Layout>ListDetails</Layout>
+  <LayoutFK1>ListDetails</LayoutFK1>
+  <LayoutFK2>ListDetails</LayoutFK2>
+  <LayoutBK1>ListDetails</LayoutBK1>
+  <LayoutBK2>ListDetails</LayoutBK2>
+  <LayoutBK3>ListDetails</LayoutBK3>
+  <LayoutBK4>ListDetails</LayoutBK4>
+
+  <TableTK3>NULL</TableTK3> 
+  <TableTK2>NULL</TableTK2> 
+  <TableTK1>NULL</TableTK1>       
+  <Table>Tbl84Synonyms</Table> 
+  <TableFK1>Tbl69FiSpeciesses</TableFK1> 
+  <TableFK2>Tbl72PlSpeciesses</TableFK2> 
+  <TableBK1>Tbl66Genusses</TableBK1>      
+  <TableBK2>NULL</TableBK2> 
+  <TableBK3>NULL</TableBK3> 
+  <TableBK4>NULL</TableBK4> 
+
+  <Primary>[SynonymID] ASC</Primary> 
+  <Unique1>[SynonymName] ASC, [Author] ASC, [FiSpeciesID] ASC, [PlSpeciesID] ASC</Unique1> 
+  <Unique2>[CountID] ASC</Unique2> 
+  <Foreign1>FiSpeciesID</Foreign1> 
+  <Foreign2>PlSpeciesID</Foreign2> 
+  <Default1>NULL</Default1> 
+  <Default2>NULL</Default2> 
+
+  <KeyPK>PK_Tbl84Synonyms</KeyPK> 
+  <KeyIX1>IX_Tbl84Synonyms_SynonymName_FKID</KeyIX1> 
+  <KeyIX2>IX_Tbl84Synonyms_CountID</KeyIX2> 
+  <KeyFK1>FK_Tbl84Synonyms_Tbl69FiSpeciesses</KeyFK1> 
+  <KeyFK2>FK_Tbl84Synonyms_Tbl72PlSpeciesses</KeyFK2> 
+  <KeyDF1>NULL</KeyDF1> 
+  <KeyDF2>NULL</KeyDF2> 
+
+  <FolderTK3>NULL</FolderTK3> 
+  <FolderTK2>NULL</FolderTK2> 
+  <FolderTK1>NULL</FolderTK1> 
+  <Folder>Tbl84Synonyms</Folder> 
+  <FolderFK1>Tbl69FiSpeciesses</FolderFK1> 
+  <FolderFK2>Tbl72PlSpeciesses</FolderFK2> 
+  <FolderBK1>Tbl66Genusses</FolderBK1> 
+  <FolderBK2>NULL</FolderBK2> 
+  <FolderBK3>NULL</FolderBK3> 
+  <FolderBK4>NULL</FolderBK4> 
+
+  <IDTK3>NULL</IDTK3> 
+  <IDTK2>NULL</IDTK2> 
+  <IDTK1>NULL</IDTK1> 
+  <ID>SynonymID</ID> 
+  <IDFK1>FiSpeciesID</IDFK1> 
+  <IDFK2>PlSpeciesID</IDFK2> 
+  <IDBK1>GenusID</IDBK1> 
+  <IDBK2>NULL</IDBK2> 
+  <IDBK3>NULL</IDBK3> 
+  <IDBK4>NULL</IDBK4> 
+
+  <NameTK3>NULL</NameTK3> 
+  <NameTK2>NULL</NameTK2> 
+  <NameTK1>NULL</NameTK1> 
+  <Name>SynonymName</Name> 
+  <NameFK1>FiSpeciesName</NameFK1> 
+  <NameFK2>PlSpeciesName</NameFK2> 
+  <NameBK1>GenusName</NameBK1> 
+  <NameBK2>NULL</NameBK2> 
+  <NameBK3>NULL</NameBK3> 
+  <NameBK4>NULL</NameBK4> 
+
+  <BasisTK3>Geographic</BasisTK3> 
+  <BasisTK2>Image</BasisTK2> 
+  <BasisTK1>Name</BasisTK1> 
+  <Basis>Synonym</Basis> 
+  <BasisFK1>FiSpecies</BasisFK1> 
+  <BasisFK2>PlSpecies</BasisFK2> 
+  <BasisBK1>Genus</BasisBK1> 
+  <BasisBK2>NULL</BasisBK2> 
+  <BasisBK3>NULL</BasisBK3> 
+  <BasisBK4>NULL</BasisBK4> 
+
+  <BasissTK2>NULL</BasissTK2> 
+  <BasissTK1>NULL</BasissTK1> 
+  <Basiss>Synonyms</Basiss> 
+  <BasissFK1>FiSpeciesses</BasissFK1> 
+  <BasissFK2>PlSpeciesses</BasissFK2> 
+  <BasissBK1>Genusses</BasissBK1> 
+  <BasissBK2>NULL</BasissBK2> 
+
+  <BasisSmTK2>NULL</BasisSmTK2> 
+  <BasisSmTK1>NULL</BasisSmTK1> 
+  <BasisSm>synonym</BasisSm> 
+  <BasisSmFK1>fispecies</BasisSmFK1> 
+  <BasisSmFK2>plspecies</BasisSmFK2> 
+
+  <LinqModelTK3>NULL</LinqModelTK3> 
+  <LinqModelTK2>NULL</LinqModelTK2> 
+  <LinqModelTK1>Tbl68Speciesgroup</LinqModelTK1> 
+  <LinqModel>Tbl84Synonym</LinqModel> 
+  <LinqModelFK1>Tbl69FiSpecies</LinqModelFK1> 
+  <LinqModelFK2>Tbl72PlSpecies</LinqModelFK2> 
+  <LinqModelBK1>Tbl66Genus</LinqModelBK1> 
+  <LinqModelBK2>NULL</LinqModelBK2> 
+  <LinqModelBK3>NULL</LinqModelBK3> 
+  <LinqModelBK4>NULL</LinqModelBK4> 
+
+  <TranslateTK2>NULL</TranslateTK2> 
+  <TranslateTK1>tbl68Speciesgroups</TranslateTK1> 
+  <Translate>tbl84Synonyms</Translate> 
+  <TranslateFK1>tbl69FiSpeciesses</TranslateFK1> 
+  <TranslateFK2>tbl72PlSpeciesses</TranslateFK2> 
+  <TranslateBK1>tbl66Genusses</TranslateBK1> 
+  <TranslateBK2>NULL</TranslateBK2> 
+  <TranslateBK3>NULL</TranslateBK3> 
+
+  <EntityTK2>NULL</EntityTK2> 
+  <EntityTK1>NULL</EntityTK1> 
+  <Entity>tbl84Synonym</Entity> 
+  <EntityFK1>tbl69FiSpecies</EntityFK1> 
+  <EntityFK2>tbl72PlSpecies</EntityFK2> 
+
+  <EntitysTK2>NULL</EntitysTK2> 
+  <EntitysTK1>_tbl68Speciesgroups</EntitysTK1> 
+  <Entitys>_tbl84Synonyms</Entitys> 
+  <EntitysFK1>_tbl69FiSpeciesses</EntitysFK1> 
+  <EntitysFK2>_tbl72PlSpeciesses</EntitysFK2> 
+  <EntitysBK1>_tbl66Genusses</EntitysBK1> 
+
+  <EntityAblTK2>NULL</EntityAblTK2> 
+  <EntityAblTK1>NULL</EntityAblTK1> 
+  <EntityAbl>Tbl84Synonym tbl84Synonym</EntityAbl> 
+  <EntityAblFK1>Tbl69FiSpecies tbl69FiSpecies</EntityAblFK1> 
+  <EntityAblFK2>Tbl72PlSpecies tbl72PlSpecies</EntityAblFK2> 
+
+   <Fields>
+    <Field><Name>SynonymID</Name> <Type>int</Type>  <NotNull>IDENTITY(1,1) NOT NULL</NotNull> </Field>
+    <Field><Name>SynonymName</Name> <Type>nvarchar</Type> <Length>100</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>FiSpeciesID</Name> <Type>int</Type> <NotNull> NOT NULL</NotNull> </Field>
+    <Field><Name>PlSpeciesID</Name> <Type>int</Type> <NotNull> NOT NULL</NotNull> </Field>
+    <Field><Name>CountID</Name> <Type>int</Type> <NotNull> NOT NULL</NotNull> </Field>
+    <Field><Name>Valid</Name> <Type>bit</Type> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>ValidYear</Name> <Type>nvarchar</Type> <Length>4</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>Author</Name> <Type>nvarchar</Type> <Length>60</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>AuthorYear</Name> <Type>nvarchar</Type> <Length>4</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>Info</Name> <Type>nvarchar</Type> <Length>100</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>Writer</Name> <Type>nvarchar</Type> <Length>50</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>WriterDate</Name> <Type>datetime</Type> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>Updater</Name> <Type>nvarchar</Type> <Length>50</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>UpdaterDate</Name> <Type>datetime</Type> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>Memo</Name> <Type>nvarchar</Type> <Length>MAX</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>RowVersion</Name> <Type>timestamp</Type> <NotNull>NULL</NotNull> </Field>
+ </Fields>
+</Definition>

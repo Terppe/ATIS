@@ -1,0 +1,139 @@
+    
+
+
+ //    Part 11    
+
+     
+        #region "Public Properties Tbl39Infraordo"
+
+        private string _searchInfraordoName;
+        public  string SearchInfraordoName
+        {
+            get => _searchInfraordoName; 
+            set { _searchInfraordoName = value; OnPropertyChanged();  }
+        }
+
+        public  ICollectionView InfraordosView;
+        public  Tbl39Infraordo CurrentTbl39Infraordo => InfraordosView?.CurrentItem as Tbl39Infraordo;
+
+        private ObservableCollection<Tbl39Infraordo> _tbl39InfraordosList;
+        public  ObservableCollection<Tbl39Infraordo> Tbl39InfraordosList
+        {
+            get => _tbl39InfraordosList; 
+            set {  _tbl39InfraordosList = value; OnPropertyChanged();   }
+        }
+
+        private ObservableCollection<Tbl39Infraordo> _tbl39InfraordosAllList;
+        public  ObservableCollection<Tbl39Infraordo> Tbl39InfraordosAllList
+        {
+            get => _tbl39InfraordosAllList; 
+            set { _tbl39InfraordosAllList = value; OnPropertyChanged(); }
+        }
+
+        #endregion "Public Properties"   
+       
+        #region "Public Properties Tbl36Subordo"
+
+        private string _searchSubordoName;
+        public string SearchSubordoName
+        {
+            get  => _searchSubordoName; 
+            set { _searchSubordoName = value; OnPropertyChanged(); }
+        }
+
+        public ICollectionView SubordosView;
+        public Tbl36Subordo CurrentTbl36Subordo => SubordosView?.CurrentItem as Tbl36Subordo;           
+
+        private ObservableCollection<Tbl36Subordo> _tbl36SubordosList;
+        public ObservableCollection<Tbl36Subordo> Tbl36SubordosList
+        {
+            get => _tbl36SubordosList; 
+            set { _tbl36SubordosList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl36Subordo> _tbl36SubordosAllList;
+        public ObservableCollection<Tbl36Subordo> Tbl36SubordosAllList
+        {
+            get => _tbl36SubordosAllList; 
+            set { _tbl36SubordosAllList = value; OnPropertyChanged(); }       
+        }
+
+        #endregion "Public Properties"
+   
+  
+       
+        #region "Public Properties Tbl42Superfamily"
+
+        private string _searchSuperfamilyName;
+        public string SearchSuperfamilyName
+        {
+            get => _searchSuperfamilyName; 
+            set { _searchSuperfamilyName = value; OnPropertyChanged(); }
+        }
+
+        public ICollectionView SuperfamiliesView;
+        public Tbl42Superfamily CurrentTbl42Superfamily => SuperfamiliesView?.CurrentItem as Tbl42Superfamily;           
+
+        private ObservableCollection<Tbl42Superfamily> _tbl42SuperfamiliesList;
+        public ObservableCollection<Tbl42Superfamily> Tbl42SuperfamiliesList
+        {
+            get => _tbl42SuperfamiliesList; 
+            set { _tbl42SuperfamiliesList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl42Superfamily> _tbl42SuperfamiliesAllList;
+        public ObservableCollection<Tbl42Superfamily> Tbl42SuperfamiliesAllList
+        {
+            get => _tbl42SuperfamiliesAllList; 
+            set { _tbl42SuperfamiliesAllList = value; OnPropertyChanged(); }       
+        }
+
+        #endregion "Public Properties"
+   
+  
+       
+        #region "Public Properties Tbl45Family"
+
+        private string _searchFamilyName;
+        public string SearchFamilyName
+        {
+            get => _searchFamilyName; 
+            set { _searchFamilyName = value; OnPropertyChanged(); }
+        }
+
+        public ICollectionView FamiliesView;
+        public Tbl45Family CurrentTbl45Family => FamiliesView?.CurrentItem as Tbl45Family;           
+
+        private ObservableCollection<Tbl45Family> _tbl45FamiliesList;
+        public ObservableCollection<Tbl45Family> Tbl45FamiliesList
+        {
+            get => _tbl45FamiliesList; 
+            set { _tbl45FamiliesList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Tbl45Family> _tbl45FamiliesAllList;
+        public ObservableCollection<Tbl45Family> Tbl45FamiliesAllList
+        {
+            get => _tbl45FamiliesAllList; 
+            set { _tbl45FamiliesAllList = value; OnPropertyChanged(); }       
+        }
+
+        #endregion "Public Properties"
+   
+  
+       
+        #region "Public Properties Tbl33Ordo"
+
+        private ObservableCollection<Tbl33Ordo> _tbl33OrdosAllList;
+        public  new ObservableCollection<Tbl33Ordo> Tbl33OrdosAllList
+        {
+            get => _tbl33OrdosAllList; 
+            set { _tbl33OrdosAllList = value; OnPropertyChanged(); }
+        }
+
+        #endregion "Public Properties"
+   
+   
+
+ //    Part 12    
+

@@ -1,0 +1,105 @@
+@model Atis.Domain.Models.Tbl81Image 
+
+        <!-- Details Skriptdatum:  28.12.2011  10:32    -->   
+
+@{
+    ViewBag.Title = Tbl81ImagesRes.StringsRes.Details;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Tbl81ImagesRes.StringsRes.Details</h2>
+
+    <div id="pagination">
+        @Html.ActionLink(SharedRes.StringsRes.ActionLnkBack, "Index", null, new { style = "font-weight:bold" })
+    </div>
+
+<fieldset><legend>@SharedRes.StringsRes.Fields </legend>   
+
+
+
+ 
+        <p>
+            <strong>@Tbl81ImagesRes.StringsRes.ImageID  :</strong>
+            @Model.ImageID 
+        </p>      
+        <p>
+            <strong>@SharedRes.StringsRes.CountID  :</strong>
+            @Model.CountID            
+        </p>      
+   
+        @if (!@Model.Tbl69FiSpeciesses.Tbl66Genusses.GenusName .Contains("#")) { 
+    
+        <p>
+            <strong>@Tbl69FiSpeciessesRes.StringsRes.FiSpeciesID  :</strong>      
+            @Model.Tbl69FiSpeciesses.Tbl66Genusses.GenusName 
+            @Model.Tbl69FiSpeciesses.FiSpeciesName  
+            @Model.Tbl69FiSpeciesses.Subspecies  
+            @Model.Tbl69FiSpeciesses.Divers  
+        </p>    
+    
+        }
+        else  { 
+    
+        <p>
+            <strong>@Tbl72PlSpeciessesRes.StringsRes.PlSpeciesID  :</strong>      
+            @Model.Tbl72PlSpeciesses.Tbl66Genusses.GenusName  
+            @Model.Tbl72PlSpeciesses.PlSpeciesName  
+            @Model.Tbl72PlSpeciesses.Subspecies  
+            @Model.Tbl72PlSpeciesses.Divers  
+        </p>    
+    
+        } 
+  
+        <p>
+            <strong>@Tbl81ImagesRes.StringsRes.ShotDate  :</strong>
+            @Model.ShotDate             
+            @Model.Filestream          
+            @Model.FilestreamID           
+        </p>      
+        <p>
+            <strong>@Tbl81ImagesRes.StringsRes.Filestream  :</strong>
+            <img src="@Url.Action("GetFilestream", "Tbl81Images", new { id = Model.ImageID})" alt="@Tbl81ImagesRes.StringsRes.Filestream"  /> 
+        </p>      
+ 
+        <p>
+            <strong>@SharedRes.StringsRes.Valid  :</strong>
+            @Html.DisplayFor(m => m.Valid)
+            @Model.ValidYear 
+        </p>      
+ 
+        <p>
+            <strong>@SharedRes.StringsRes.Info  :</strong>
+            @Model.Info            
+        </p>      
+ 
+        <p>
+            <strong>@SharedRes.StringsRes.Memo  :</strong>
+            @Model.Memo            
+        </p>      
+ 
+         <p>
+            <strong>@SharedRes.StringsRes.Writer  :</strong>
+            @Model.Writer  |
+            @Model.WriterDate.ToShortDateString() 
+            <strong>@@</strong>
+            @Model.WriterDate.ToShortTimeString() 
+        </p>  
+        <p>        
+            <strong>@SharedRes.StringsRes.Updater  :</strong>
+            @Model.Updater  |
+            @Model.UpdaterDate.ToShortDateString() 
+            <strong>@@</strong>
+            @Model.UpdaterDate.ToShortTimeString() 
+        </p>  
+   
+        <p></p>
+</fieldset>
+<p>
+    @Html.ActionLink(SharedRes.StringsRes.ActionLnkEdit, "Edit", new { id = Model.ImageID }) |
+    @Html.ActionLink(SharedRes.StringsRes.ActionLnkBack, "Index")
+</p>
+    <div class="pagination"></div>
+
+    
+  
+

@@ -1,0 +1,20 @@
+using System.Linq;
+using Atis.Domain.Models;      
+   
+// <!-- Interface Skriptdatum:  16.03.2014  12:32     -->  
+
+namespace Atis.Domain.Interfaces     {         
+    public interface ITbl09DivisionsRepository    {
+        IQueryable<Tbl09Division> Tbl09Divisions { get; }                   
+        IQueryable<Tbl09Division> FindAll();
+        IQueryable<Tbl09Division> FindAllSort();          
+    
+Tbl09Division Get(int id);   
+        
+
+        void Add(Tbl09Division tbl09Division);
+        void Delete(Tbl09Division tbl09Division);
+        void Save( );               
+     }
+}   
+

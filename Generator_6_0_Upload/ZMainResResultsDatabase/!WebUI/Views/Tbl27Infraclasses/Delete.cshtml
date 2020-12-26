@@ -1,0 +1,27 @@
+@model Atis.Domain.Models.Tbl27Infraclass    	
+
+       <!-- Delete  Skriptdatum:  30.12.2011  18:32    -->        
+
+@{
+    ViewBag.Title = Tbl27InfraclassesRes.StringsRes.Delete;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Tbl27InfraclassesRes.StringsRes.Delete</h2>
+
+    <div>
+        <p>@SharedRes.StringsRes.DeleteMessage       
+  
+             <i>@Model.InfraclassName  ?</i>   
+ 
+         </p>     	   
+    </div>
+@using (Html.BeginForm()) {
+    <p>
+            <input name="confirmButton" type="submit" value="@SharedRes.StringsRes.ButtonDelete" /> 
+        @Html.ActionLink(SharedRes.StringsRes.ActionLnkBack, "Index")
+
+    </p>
+}
+
+    

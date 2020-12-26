@@ -37,7 +37,6 @@ namespace ATIS.Ui.Views.Search
 
         //    //HtmlConverter.ConvertToPdf(htmlDoc, writer);
 
-        //    //用法2 -- 自定义页面大小、留白尺寸
         //    PdfDocument pdf = new PdfDocument(writer);
         //    PageSize a6 = PageSize.A6;
         //    a6.ApplyMargins(20, 20, 20, 20, false);		//if true the rectangle will expand, otherwise it will shrink

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+ <Definition>
+  <File>Tbl09Divisions</File>
+
+  <DateTime>04.11.2020  12:32</DateTime>  
+  <Namespace>Atis</Namespace>  
+  <ConnString></ConnString> 
+  <RegisterContext>ATISEntities</RegisterContext > 
+  <Version>ATIS34</Version>
+  <Database>Atis</Database> 
+
+  <LayoutTK3>ListDetails</LayoutTK3>
+  <LayoutTK2>ListDetails</LayoutTK2>
+  <LayoutTK1>D15Subdivision</LayoutTK1>
+  <Layout>D09Division</Layout>
+  <LayoutFK1>D03Regnum</LayoutFK1>
+  <LayoutFK2>ListDetails</LayoutFK2>
+  <LayoutBK1>ListDetails</LayoutBK1>
+  <LayoutBK2>ListDetails</LayoutBK2>
+  <LayoutBK3>ListDetails</LayoutBK3>
+  <LayoutBK4>ListDetails</LayoutBK4>
+
+  <TableTK10>Tbl93Comments</TableTK10> 
+  <TableTK9>Tbl90RefAuthors</TableTK9> 
+  <TableTK8>Tbl90RefExperts</TableTK8> 
+  <TableTK7>Tbl90RefSources</TableTK7> 
+  <TableTK6>Tbl90References</TableTK6> 
+  <TableTK5>Tbl27Infraclasses</TableTK5> 
+  <TableTK4>NULL</TableTK4> 
+  <TableTK3>NULL</TableTK3> 
+  <TableTK2>Tbl18Superclasses</TableTK2> 
+  <TableTK1>Tbl15Subdivisions</TableTK1>       
+  <Table>Tbl09Divisions</Table> 
+  <TableFK1>Tbl03Regnums</TableFK1> 
+  <TableFK2>NULL</TableFK2> 
+  <TableBK1>NULL</TableBK1>      
+  <TableBK2>NULL</TableBK2> 
+  <TableBK3>NULL</TableBK3> 
+  <TableBK4>NULL</TableBK4> 
+
+  <Primary>[DivisionID] ASC</Primary> 
+  <Unique1>[DivisionName] ASC, [RegnumID] ASC, [Author] ASC</Unique1> 
+  <Unique2>[CountID] ASC</Unique2> 
+  <Foreign1>RegnumID</Foreign1> 
+  <Foreign2>NULL</Foreign2> 
+  <Default1>NULL</Default1> 
+  <Default2>NULL</Default2> 
+
+  <KeyPK>PK_Tbl09Divisions</KeyPK> 
+  <KeyIX1>IX_Tbl09Divisions_DivisionName</KeyIX1> 
+  <KeyIX2>IX_Tbl09Divisions_CountID</KeyIX2> 
+  <KeyFK1>FK_Tbl09Divisions_Tbl03Regnums</KeyFK1> 
+  <KeyFK2>NULL</KeyFK2> 
+  <KeyDF1>NULL</KeyDF1> 
+  <KeyDF2>NULL</KeyDF2> 
+
+  <FolderTK3>NULL</FolderTK3> 
+  <FolderTK2>Tbl18Superclasses</FolderTK2> 
+  <FolderTK1>Tbl15Subdivisions</FolderTK1> 
+  <Folder>Tbl09Divisions</Folder> 
+  <FolderFK1>Tbl03Regnums</FolderFK1> 
+  <FolderFK2>NULL</FolderFK2> 
+  <FolderBK1>NULL</FolderBK1> 
+  <FolderBK2>NULL</FolderBK2> 
+  <FolderBK3>NULL</FolderBK3> 
+  <FolderBK4>NULL</FolderBK4> 
+
+  <IDTK10>CommentID</IDTK10> 
+  <IDTK9>RefAuthorID</IDTK9> 
+  <IDTK8>RefExpertID</IDTK8> 
+  <IDTK7>RefSourceID</IDTK7> 
+  <IDTK6>ReferenceID</IDTK6> 
+  <IDTK5>InfraclassID</IDTK5> 
+  <IDTK4>SubclassID</IDTK4> 
+  <IDTK3>ClassID</IDTK3> 
+  <IDTK2>SuperclassID</IDTK2> 
+  <IDTK1>SubdivisionID</IDTK1> 
+  <ID>DivisionID</ID> 
+  <IDFK1>RegnumID</IDFK1> 
+  <IDFK2>NULL</IDFK2> 
+  <IDBK1>NULL</IDBK1> 
+  <IDBK2>NULL</IDBK2> 
+  <IDBK3>NULL</IDBK3> 
+  <IDBK4>NULL</IDBK4> 
+
+  <NameTK10>CommentName</NameTK10> 
+  <NameTK9>RefAuthorName</NameTK9> 
+  <NameTK8>RefExpertName</NameTK8> 
+  <NameTK7>RefSourceName</NameTK7> 
+  <NameTK6>ReferenceName</NameTK6> 
+  <NameTK5>InfraclassName</NameTK5> 
+  <NameTK4>SubclassName</NameTK4> 
+  <NameTK3>ClassName</NameTK3> 
+  <NameTK2>SuperclassName</NameTK2> 
+  <NameTK1>SubdivisionName</NameTK1> 
+  <Name>DivisionName</Name> 
+  <NameFK1>RegnumName</NameFK1> 
+  <NameFK2>NULL</NameFK2> 
+  <NameBK1>NULL</NameBK1> 
+  <NameBK2>NULL</NameBK2> 
+  <NameBK3>NULL</NameBK3> 
+  <NameBK4>NULL</NameBK4> 
+
+  <BasisTK3>NULL</BasisTK3> 
+  <BasisTK2>Superclass</BasisTK2> 
+  <BasisTK1>Subdivision</BasisTK1> 
+  <Basis>Division</Basis> 
+  <BasisFK1>Regnum</BasisFK1> 
+  <BasisFK2>NULL</BasisFK2> 
+  <BasisBK1>NULL</BasisBK1> 
+  <BasisBK2>NULL</BasisBK2> 
+  <BasisBK3>NULL</BasisBK3> 
+  <BasisBK4>NULL</BasisBK4> 
+
+  <BasissTK3>NULL</BasissTK3> 
+  <BasissTK2>Superclasses</BasissTK2> 
+  <BasissTK1>Subdivisions</BasissTK1> 
+  <Basiss>Divisions</Basiss> 
+  <BasissFK1>Regnums</BasissFK1> 
+  <BasissFK2>NULL</BasissFK2> 
+
+  <BasisSmTK2>superclass</BasisSmTK2> 
+  <BasisSmTK1>subdivision</BasisSmTK1> 
+  <BasisSm>division</BasisSm> 
+  <BasisSmFK1>regnum</BasisSmFK1> 
+
+  <LinqModelTK10>Tbl93Comment</LinqModelTK10> 
+  <LinqModelTK9>Tbl90RefAuthor</LinqModelTK9> 
+  <LinqModelTK8>Tbl90RefExpert</LinqModelTK8> 
+  <LinqModelTK7>Tbl90RefSource</LinqModelTK7> 
+  <LinqModelTK6>Tbl90Reference</LinqModelTK6> 
+  <LinqModelTK5>Tbl27Infraclass</LinqModelTK5> 
+  <LinqModelTK4>Tbl24Subclass</LinqModelTK4> 
+  <LinqModelTK3>Tbl21Class</LinqModelTK3> 
+  <LinqModelTK2>Tbl18Superclass</LinqModelTK2> 
+  <LinqModelTK1>Tbl15Subdivision</LinqModelTK1> 
+  <LinqModel>Tbl09Division</LinqModel> 
+  <LinqModelFK1>Tbl03Regnum</LinqModelFK1> 
+  <LinqModelFK2>NULL</LinqModelFK2> 
+  <LinqModelBK1>NULL</LinqModelBK1> 
+  <LinqModelBK2>NULL</LinqModelBK2> 
+  <LinqModelBK3>NULL</LinqModelBK3> 
+  <LinqModelBK4>NULL</LinqModelBK4> 
+
+  <TranslateTK2>tbl18Superclasses</TranslateTK2> 
+  <TranslateTK1>tbl15Subdivisions</TranslateTK1> 
+  <Translate>tbl09Divisions</Translate> 
+  <TranslateFK1>tbl03Regnums</TranslateFK1> 
+
+  <EntityTK2>tbl18Superclass</EntityTK2> 
+  <EntityTK1>tbl15Subdivision</EntityTK1> 
+  <Entity>tbl09Division</Entity> 
+  <EntityFK1>tbl03Regnum</EntityFK1> 
+
+  <EntitysTK2>_tbl18Superclasses</EntitysTK2> 
+  <EntitysTK1>_tbl15Subdivisions</EntitysTK1> 
+  <Entitys>_tbl09Divisions</Entitys> 
+  <EntitysFK1>_tbl03Regnums</EntitysFK1> 
+
+  <EntityAblTK1>Tbl15Subdivision subdivision</EntityAblTK1> 
+  <EntityAbl>Tbl09Division division</EntityAbl> 
+  <EntityAblFK1>Tbl03Regnum regnum</EntityAblFK1> 
+
+   <Fields>
+    <Field><Name>DivisionID</Name> <Type>int</Type>  <NotNull>IDENTITY(1,1) NOT NULL</NotNull> </Field>
+    <Field><Name>DivisionName</Name> <Type>nvarchar</Type> <Length>100</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>RegnumID</Name> <Type>int</Type>  <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>CountID</Name> <Type>int</Type> <NotNull> NOT NULL</NotNull> </Field>
+    <Field><Name>Valid</Name> <Type>bit</Type> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>ValidYear</Name> <Type>nvarchar</Type> <Length>4</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>Synonym</Name> <Type>nvarchar</Type> <Length>MAX</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>Author</Name> <Type>nvarchar</Type> <Length>60</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>AuthorYear</Name> <Type>nvarchar</Type> <Length>4</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>Info</Name> <Type>nvarchar</Type> <Length>100</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>EngName</Name> <Type>nvarchar</Type> <Length>200</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>GerName</Name> <Type>nvarchar</Type> <Length>200</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>FraName</Name> <Type>nvarchar</Type> <Length>200</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>PorName</Name> <Type>nvarchar</Type> <Length>200</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>Writer</Name> <Type>nvarchar</Type> <Length>50</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>WriterDate</Name> <Type>datetime</Type> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>Updater</Name> <Type>nvarchar</Type> <Length>50</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>UpdaterDate</Name> <Type>datetime</Type> <NotNull>NOT NULL</NotNull> </Field>
+    <Field><Name>Memo</Name> <Type>nvarchar</Type> <Length>MAX</Length> <Collate>COLLATE Latin1_General_CI_AS </Collate> <NotNull>NULL</NotNull> </Field>
+    <Field><Name>RowVersion</Name> <Type>timestamp</Type> <NotNull>NULL</NotNull> </Field>
+ </Fields>
+</Definition>

@@ -1,0 +1,151 @@
+@model Atis.Domain.Models.AspnetMembership  
+
+<script type="text/javascript"> 
+$(function()   {
+    $('#ApplicationId').focus();
+});
+</script> 
+      
+ 
+          <!-- _Form.cshtml  Skriptdatum: 24.03.2012  10:32    -->     
+  
+        @using (Html.BeginForm()) {
+        <div class="pagination">
+            <p><input type="submit" value="@SharedRes.StringsRes.ButtonSave" />  
+                @Html.ActionLink(SharedRes.StringsRes.ActionLnkBack, "Index", null, new { style = "font-weight:bold" })  
+                @Html.ActionLink(SharedRes.StringsRes.ActionLnkClear, "Create", null, null)  
+            </p> 
+        </div>
+
+        @Html.ValidationSummary() 
+            <fieldset><legend>@SharedRes.StringsRes.Fields </legend>  
+  
+              <table><colgroup style="width:12em" span="2"></colgroup>                                             
+
+                     <tr>
+                         <td>@AspnetApplicationsRes.StringsRes.ApplicationId </td>
+                         <td>@Html.DropDownListFor(m => m.ApplicationId, ViewData["ApplicationNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })          
+                         @Html.ValidationMessageFor(m => m.ApplicationId) </td>
+                     </tr>                      
+    
+                     <tr>
+                         <td>@AspnetUsersRes.StringsRes.UserId </td>
+                         <td>@Html.DropDownListFor(m => m.UserId, ViewData["UserNameDDL"] as SelectList, SharedRes.StringsRes.DDLSelectOne, new { @class = "ddl15" })           
+                         @Html.ValidationMessageFor(m => m.UserId) </td>
+                     </tr>                      
+      
+                     <tr>
+                        <td>@AspnetMembershipsRes.StringsRes.Password </td>
+                        <td>@Html.TextBoxFor(m => m.Password, new { @class = "textbox36" }) 
+                        @Html.ValidationMessageFor(m => m.Password) </td>
+                    </tr>    
+                    <tr>
+                        <td>@AspnetMembershipsRes.StringsRes.PasswordFormat </td>
+                        <td>@Html.TextBoxFor(m => m.PasswordFormat, new { @class = "textbox36" }) 
+                        @Html.ValidationMessageFor(m => m.PasswordFormat) </td>
+                    </tr>   
+                    <tr>
+                        <td>@AspnetMembershipsRes.StringsRes.PasswordSalt </td>
+                        <td>@Html.TextBoxFor(m => m.PasswordSalt, new { @class = "textbox36" }) 
+                        @Html.ValidationMessageFor(m => m.PasswordSalt) </td>
+                    </tr>   
+                    <tr>
+                        <td>@AspnetMembershipsRes.StringsRes.MobilePIN </td>
+                        <td>@Html.TextBoxFor(m => m.MobilePIN, new { @class = "textbox20" }) 
+                        @Html.ValidationMessageFor(m => m.MobilePIN) </td>
+                    </tr>   
+                    <tr>
+                        <td>@AspnetMembershipsRes.StringsRes.Email </td>
+                        <td>@Html.TextBoxFor(m => m.Email, new { @class = "textbox72" }) 
+                        @Html.ValidationMessageFor(m => m.Email) </td>
+                    </tr>   
+                    <tr>
+                        <td>@AspnetMembershipsRes.StringsRes.LoweredEmail </td>
+                        <td>@Html.TextBoxFor(m => m.LoweredEmail, new { @class = "textbox72" }) 
+                        @Html.ValidationMessageFor(m => m.LoweredEmail) </td>
+                    </tr>   
+                     <tr>
+                        <td>@AspnetMembershipsRes.StringsRes.PasswordQuestion </td>
+                        <td>@Html.TextBoxFor(m => m.PasswordQuestion, new { @class = "textbox72" }) 
+                        @Html.ValidationMessageFor(m => m.PasswordQuestion) </td>
+                    </tr>    
+                     <tr>
+                        <td>@AspnetMembershipsRes.StringsRes.PasswordAnswer </td>
+                        <td>@Html.TextBoxFor(m => m.PasswordAnswer, new { @class = "textbox72" }) 
+                        @Html.ValidationMessageFor(m => m.PasswordAnswer) </td>
+                    </tr>    
+                     <tr>
+                        <td>@AspnetMembershipsRes.StringsRes.IsApproved </td>
+                        <td>@Html.EditorFor(m => m.IsApproved) 
+                        @Html.ValidationMessageFor(m => m.IsApproved) </td>
+                    </tr>    
+                     <tr>
+                        <td>@AspnetMembershipsRes.StringsRes.IsLockedOut </td>
+                        <td>@Html.EditorFor(m => m.IsLockedOut) 
+                        @Html.ValidationMessageFor(m => m.IsLockedOut) </td>
+                    </tr>    
+                     <tr>
+                        <td>@AspnetMembershipsRes.StringsRes.CreateDate </td>
+                        <td>@Html.TextBoxFor(m => m.CreateDate, new { @class = "textbox20" }) 
+                        @Html.ValidationMessageFor(m => m.CreateDate) </td>
+                    </tr>    
+                     <tr>
+                        <td>@AspnetMembershipsRes.StringsRes.LastLoginDate </td>
+                        <td>@Html.TextBoxFor(m => m.LastLoginDate, new { @class = "textbox20" })
+                        @Html.ValidationMessageFor(m => m.LastLoginDate) </td>
+                    </tr>    
+                     <tr>
+                        <td>@AspnetMembershipsRes.StringsRes.LastPasswordChangedDate </td>
+                        <td>@Html.TextBoxFor(m => m.LastPasswordChangedDate, new { @class = "textbox20" })
+                        @Html.ValidationMessageFor(m => m.LastPasswordChangedDate) </td>
+                    </tr>    
+                     <tr>
+                        <td>@AspnetMembershipsRes.StringsRes.LastLockoutDate </td>
+                        <td>@Html.TextBoxFor(m => m.LastLockoutDate, new { @class = "textbox20" }) 
+                        @Html.ValidationMessageFor(m => m.LastLockoutDate) </td>
+                    </tr>    
+                     <tr>
+                        <td>@AspnetMembershipsRes.StringsRes.FailedPasswordAttemptCount </td>
+                        <td>@Html.TextBoxFor(m => m.FailedPasswordAttemptCount, new { @class = "textbox20" }) 
+                        @Html.ValidationMessageFor(m => m.FailedPasswordAttemptCount) </td>
+                    </tr>    
+                     <tr>
+                        <td>@AspnetMembershipsRes.StringsRes.FailedPasswordAttemptWindowStart </td>
+                        <td>@Html.TextBoxFor(m => m.FailedPasswordAttemptWindowStart, new { @class = "textbox20" }) 
+                        @Html.ValidationMessageFor(m => m.FailedPasswordAttemptWindowStart) </td>
+                    </tr>    
+                     <tr>
+                        <td>@AspnetMembershipsRes.StringsRes.FailedPasswordAnswerAttemptCount </td>
+                        <td>@Html.TextBoxFor(m => m.FailedPasswordAnswerAttemptCount, new { @class = "textbox20" }) 
+                        @Html.ValidationMessageFor(m => m.FailedPasswordAnswerAttemptCount) </td>
+                    </tr>    
+                     <tr>
+                        <td>@AspnetMembershipsRes.StringsRes.FailedPasswordAnswerAttemptWindowStart </td>
+                        <td>@Html.TextBoxFor(m => m.FailedPasswordAnswerAttemptWindowStart, new { @class = "textbox20" }) 
+                        @Html.ValidationMessageFor(m => m.FailedPasswordAnswerAttemptWindowStart) </td>
+                    </tr>    
+                     <tr>
+                        <td>@AspnetMembershipsRes.StringsRes.Comment </td>
+                        <td>@Html.TextAreaFor(m => m.Comment, 6, 108, new { @class = "textbox" }) 
+                        @Html.ValidationMessageFor(m => m.Comment) </td>
+                    </tr>   
+        
+                   </table> 
+        <p></p>            
+        <div class="pagination">
+            <p><input type="submit" value="@SharedRes.StringsRes.ButtonSave" />  
+                @Html.ActionLink(SharedRes.StringsRes.ActionLnkBack, "Index", null, new { style = "font-weight:bold" })  
+            </p>  
+        </div>  
+
+        <ul id="nav-one" class="dropmenu css-only">      
+
+         <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkApplicationLeft, "Index", "AspnetApplications")</li>        
+  
+         <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkUserLeft, "Index", "AspnetUsers")</li>      
+   
+
+     </ul> 
+</fieldset>
+}   
+   

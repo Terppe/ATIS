@@ -1,0 +1,1713 @@
+    
+<UserControl 
+             x:Class="WPFUI.Views.Database.Tbl90ReferencesView"               
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:database="clr-namespace:WPFUI.Views.Database"       
+        
+             xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+             xmlns:helper="clr-namespace:WPFUI.Helper"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"                                                     
+        
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:models="clr-namespace:DAL.Models;assembly=DAL"
+             xmlns:validationRules="clr-namespace:WPFUI.Helper.ValidationRules"                                              
+            
+             d:DesignHeight="930" 
+             d:DesignWidth="1140"
+             mc:Ignorable="d">                                              
+                   
+    <UserControl.Resources>
+        <helper:ComboBoxEmptyItemConverter x:Key="ComboBoxEmptyItemConverter" />
+        <helper:CapitalizeFirstLetterConverter x:Key="CapFirst" />          
+       
+    </UserControl.Resources>
+
+    <UserControl.DataContext>
+        <database:Tbl90ReferencesViewModel/>
+    </UserControl.DataContext>                           
+ 
+
+        <!-- Tbl90ReferencesView.xaml  Skriptdatum:  14.11.2017  10:32   -->    
+
+             
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition
+                Width="1"
+                MinWidth="318"
+                MaxWidth="932" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>                                    
+
+                            <!-- Part 1   Creating Sub-Grid in Column 0  -->              
+             
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.7*" />
+                <RowDefinition Height="Auto" />                                    
+             
+                <RowDefinition Height="400" />
+            </Grid.RowDefinitions>                                    
+             
+            <dragablz:TabablzControl Margin="1" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderReferences}">                                      
+             
+                    <ScrollViewer
+                        Name="Tbl90ReferencesListScroll"
+                        HorizontalScrollBarVisibility="Auto"
+                        PreviewMouseWheel="Tbl90ReferencesListScroll_PreviewMouseWheel"
+                        VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                    <materialDesign:ColorZone
+                                        Width="150"
+                                        Margin="30,10,0,10"
+                                        materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                                        Background="White"
+                                        CornerRadius="1"
+                                        Focusable="True"
+                                        Mode="PrimaryMid">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>                                         
+             
+                                            <TextBox
+                                                x:Name="TbSearchReference"
+                                                Grid.Column="1"
+                                                Grid.ColumnSpan="2"
+                                                Width="150"
+                                                Margin="-5,4"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Center"                                        
+    
+                                                materialDesign:HintAssist.Hint="{DynamicResource Shared-SearchNameOrId}"                                     
+             
+                                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                                BorderThickness="0"
+                                                Focusable="True"
+                                                Foreground="Gray"                                     
+    
+                                                Text="{Binding SearchReferenceInfo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                ToolTip="{DynamicResource Shared-SearchNameOrId}"  />                                      
+             
+                                        <Button
+                                            Grid.Column="2"
+                                            Click="ClearReferenceButton_Click"
+                                            Template="{StaticResource ClearButtonTemplate}" />
+                                    </Grid>
+                                </materialDesign:ColorZone>                                      
+             
+                                <Button Template="{StaticResource GetReferenceButtonTemplate}" />  
+             
+                                <Button Template="{StaticResource AddReferenceButtonTemplate}" />
+                            </StackPanel>          
+             
+                            <StackPanel>
+                                <ListView
+                                     x:Name="Tbl90ReferencesList"   
+             
+                                    IsSynchronizedWithCurrentItem="True"
+                                    ItemsSource="{Binding Tbl90ReferencesList}" 
+                                    SelectedItem="{Binding SelectedItem}" >  
+             
+                                    <!--  trigger  -->
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseDoubleClick">
+                                            <i:InvokeCommandAction Command="{Binding GetConnectedTablesCommand}" CommandParameter="{Binding ElementName=SelectedItem, Path=SelectedItem}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>    
+             
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90Reference-ReferenceId}" >       
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock     
+                                                            Width="120"  
+                                                            Text="{Binding (models:Tbl90Reference.ReferenceID)}"
+                                                            TextAlignment="Right" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>   
+            
+                                            <GridViewColumn
+                                                Width="500"
+                                                DisplayMemberBinding="{Binding (models:Tbl90Reference.Info)}"
+                                                Header="{DynamicResource Shared-Info}" />                                                                                               
+             
+                                            <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <CheckBox IsChecked="{Binding (models:Tbl90Reference.Valid)}" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>                                                                                                                           
+             
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+            </dragablz:TabablzControl>                                                                                                                           
+
+
+                     <!-- Part 2   FK1  aktuell  -->    
+
+             
+            <dragablz:TabablzControl
+                Grid.Row="2"
+                Margin="1"
+                Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                SelectedIndex="{Binding SelectedMainTabIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">                                     
+                                                          
+
+                     <!-- Part 2  FK2  aktuell  -->    
+             
+                                                            
+        
+                     <!-- Part 2   FK3  aktuell  -->    
+
+   
+             
+                     <!-- Part 2  FK4  aktuell  -->    
+             
+   
+
+                     <!-- Part 4  TK1  aktuell  -->    
+
+  
+
+                     <!-- Part 4   TK2  aktuell  -->    
+     
+  
+       
+                     <!-- Part 4   TK3  aktuell  -->    
+   
+  
+            
+                     <!-- Part 4   TK4  aktuell  -->    
+
+  
+             
+     
+                     <!-- Part 7   -->        
+
+            
+                                <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderReferences}">
+                                    <dragablz:TabablzControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedMainSubRefTabIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                        <TabItem Header="{DynamicResource Shared-TabStripHeaderRefExperts}">
+                                            <ScrollViewer
+                                                Name="Tbl90RefExpertsListScroll"
+                                                HorizontalScrollBarVisibility="Auto"
+                                                PreviewMouseWheel="Tbl90RefExpertsListScroll_PreviewMouseWheel"
+                                                VerticalScrollBarVisibility="Auto">
+                                                <StackPanel>
+                                                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                                        <materialDesign:ColorZone
+                                                            Width="150"
+                                                            Margin="30,10,0,10"
+                                                            materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                                                            Background="White"
+                                                            CornerRadius="1"
+                                                            Mode="PrimaryMid">
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="Auto" />
+                                                                    <ColumnDefinition Width="*" />
+                                                                    <ColumnDefinition Width="Auto" />
+                                                                </Grid.ColumnDefinitions>
+                                                                <TextBox
+                                                                    x:Name="TbSearchRefExpert"
+                                                                    Grid.Column="1"
+                                                                    Grid.ColumnSpan="2"
+                                                                    Width="150"
+                                                                    Margin="-5,4"
+                                                                    HorizontalAlignment="Right"
+                                                                    VerticalAlignment="Center"
+                                                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-SearchNameOrId}"
+                                                                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                                                    BorderThickness="0"
+                                                                    Foreground="Gray"
+                                                                    Text="{Binding SearchRefExpertName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                                    ToolTip="{DynamicResource Shared-SearchNameOrId}" />
+                                                                <Button
+                                                                    Grid.Column="2"
+                                                                    Click="ClearRefExpertButton_Click"
+                                                                    Template="{StaticResource ClearButtonTemplate}" />
+                                                            </Grid>
+                                                        </materialDesign:ColorZone>
+                                                        <Button Template="{StaticResource GetRefExpertButtonTemplate}" />
+                                                        <Button Template="{StaticResource AddRefExpertButtonTemplate}" />
+                                                    </StackPanel>        
+            
+                                          <StackPanel>
+                                               <ListView
+                                                    x:Name="Tbl90RefExpertsList"
+                                                    IsSynchronizedWithCurrentItem="True"
+                                                    ItemsSource="{Binding Tbl90RefExpertsList}">     
+            
+                                                    <ListView.View>
+                                                        <GridView>
+                                                            <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90Reference-ReferenceId}">
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                        Width="80"
+                                                                        Text="{Binding (models:Tbl90Reference.ReferenceID)}"
+                                                                        TextAlignment="Right" />
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+                                                            <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90RefExpert-ExpertId}">
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                        Width="120"
+                                                                        Text="{Binding (models:Tbl90Reference.RefExpertID)}"
+                                                                        TextAlignment="Right" />
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+                                                            <GridViewColumn
+                                                                Width="550"
+                                                                DisplayMemberBinding="{Binding (models:Tbl90Reference.Tbl90RefExperts).RefExpertName}"
+                                                                Header="{DynamicResource Tbl90RefExpert-ExpertName}" />
+                                                            <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <StackPanel Orientation="Horizontal">
+                                                                            <CheckBox IsChecked="{Binding (models:Tbl90Reference.Valid)}" />
+                                                                        </StackPanel>
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+                                                            <GridViewColumn
+                                                                Width="700"
+                                                                DisplayMemberBinding="{Binding (models:Tbl90Reference.Info)}"
+                                                                Header="{DynamicResource Shared-Info}" />
+                                                        </GridView>
+                                                    </ListView.View>
+                                                  </ListView>
+                                               </StackPanel>
+                                             </StackPanel>
+                                          </ScrollViewer>
+                                        </TabItem>
+                                        <TabItem Header="{DynamicResource Shared-TabStripHeaderRefSources}">
+                                            <ScrollViewer
+                                                Name="Tbl90RefSourcesListScroll"
+                                                HorizontalScrollBarVisibility="Auto"
+                                                PreviewMouseWheel="Tbl90RefSourcesListScroll_PreviewMouseWheel"
+                                                VerticalScrollBarVisibility="Auto">
+                                                <StackPanel>
+                                                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                                        <materialDesign:ColorZone
+                                                            Width="150"
+                                                            Margin="30,10,0,10"
+                                                            materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                                                            Background="White"
+                                                            CornerRadius="1"
+                                                            Mode="PrimaryMid">
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="Auto" />
+                                                                    <ColumnDefinition Width="*" />
+                                                                    <ColumnDefinition Width="Auto" />
+                                                                </Grid.ColumnDefinitions>
+                                                                <TextBox
+                                                                    x:Name="TbSearchRefSource"
+                                                                    Grid.Column="1"
+                                                                    Grid.ColumnSpan="2"
+                                                                    Width="150"
+                                                                    Margin="-5,4"
+                                                                    HorizontalAlignment="Right"
+                                                                    VerticalAlignment="Center"
+                                                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-SearchNameOrId}"
+                                                                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                                                    BorderThickness="0"
+                                                                    Foreground="Gray"
+                                                                   Text="{Binding SearchRefSourceName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                                   ToolTip="{DynamicResource Shared-SearchNameOrId}" />
+                                                                <Button
+                                                                    Grid.Column="2"
+                                                                    Click="ClearRefSourceButton_Click"
+                                                                    Template="{StaticResource ClearButtonTemplate}" />
+                                                            </Grid>
+                                                        </materialDesign:ColorZone>
+                                                        <Button Template="{StaticResource GetRefSourceButtonTemplate}" />
+                                                        <Button Template="{StaticResource AddRefSourceButtonTemplate}" />
+                                                    </StackPanel>     
+            
+                                           <StackPanel>
+                                               <ListView
+                                                    x:Name="Tbl90RefSourcesList"
+                                                    IsSynchronizedWithCurrentItem="True"
+                                                    ItemsSource="{Binding Tbl90RefSourcesList}">     
+            
+                                                    <ListView.View>
+                                                        <GridView>
+                                                            <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90Reference-ReferenceId}">
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                        Width="80"
+                                                                        Text="{Binding (models:Tbl90Reference.ReferenceID)}"
+                                                                        TextAlignment="Right" />
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+                                                            <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90RefSource-SourceId}">
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                        Width="120"
+                                                                        Text="{Binding (models:Tbl90Reference.RefSourceID)}"
+                                                                        TextAlignment="Right" />
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+                                                            <GridViewColumn
+                                                                Width="550"
+                                                                DisplayMemberBinding="{Binding (models:Tbl90Reference.Tbl90RefSources).RefSourceName}"
+                                                                Header="{DynamicResource Tbl90Reference-RefSourceName}" />
+                                                            <GridViewColumn Header="{DynamicResource Shared-Valid}">
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <StackPanel Orientation="Horizontal">
+                                                                            <CheckBox IsChecked="{Binding (models:Tbl90Reference.Valid)}" />
+                                                                        </StackPanel>
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+                                                            <GridViewColumn
+                                                                Width="700"
+                                                                DisplayMemberBinding="{Binding (models:Tbl90Reference.Info)}"
+                                                                Header="{DynamicResource Shared-Info}" />
+                                                        </GridView>
+                                                    </ListView.View>
+                                                </ListView>
+                                              </StackPanel>
+                                            </StackPanel>
+                                          </ScrollViewer>
+                                        </TabItem>
+                                        <TabItem Header="{DynamicResource Shared-TabStripHeaderRefAuthors}">
+                                            <ScrollViewer
+                                                Name="Tbl90RefAuthorsListScroll"
+                                                HorizontalScrollBarVisibility="Auto"
+                                                PreviewMouseWheel="Tbl90RefAuthorsListScroll_PreviewMouseWheel"
+                                                VerticalScrollBarVisibility="Auto">
+                                                <StackPanel>
+                                                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                                        <materialDesign:ColorZone
+                                                            Width="150"
+                                                            Margin="30,10,0,10"
+                                                            materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                                                            Background="White"
+                                                            CornerRadius="1"
+                                                            Mode="PrimaryMid">
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="Auto" />
+                                                                    <ColumnDefinition Width="*" />
+                                                                    <ColumnDefinition Width="Auto" />
+                                                                </Grid.ColumnDefinitions>
+                                                                <TextBox
+                                                                    x:Name="TbSearchRefAuthor"
+                                                                    Grid.Column="1"
+                                                                    Grid.ColumnSpan="2"
+                                                                    Width="150"
+                                                                    Margin="-5,4"
+                                                                    HorizontalAlignment="Right"
+                                                                    VerticalAlignment="Center"
+                                                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-SearchNameOrId}"
+                                                                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                                                    BorderThickness="0"
+                                                                    Foreground="Gray"
+                                                                   Text="{Binding SearchRefAuthorName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                                   ToolTip="{DynamicResource Shared-SearchNameOrId}" />
+                                                                <Button
+                                                                    Grid.Column="2"
+                                                                    Click="ClearRefAuthorButton_Click"
+                                                                    Template="{StaticResource ClearButtonTemplate}" />
+                                                            </Grid>
+                                                        </materialDesign:ColorZone>
+                                                        <Button Template="{StaticResource GetRefAuthorButtonTemplate}" />
+                                                        <Button Template="{StaticResource AddRefAuthorButtonTemplate}" />
+                                                    </StackPanel>     
+            
+                                          <StackPanel>
+                                               <ListView
+                                                    x:Name="Tbl90RefAuthorsList"
+                                                    IsSynchronizedWithCurrentItem="True"
+                                                    ItemsSource="{Binding Tbl90RefAuthorsList}">     
+            
+                                                    <ListView.View>
+                                                        <GridView>
+                                                            <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90Reference-ReferenceId}">
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                        Width="80"
+                                                                        Text="{Binding (models:Tbl90Reference.ReferenceID)}"
+                                                                        TextAlignment="Right" />
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+                                                            <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90RefAuthor-AuthorId}">
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                        Width="120"
+                                                                        Text="{Binding (models:Tbl90Reference.RefAuthorID)}"
+                                                                        TextAlignment="Right" />
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+                                                            <GridViewColumn
+                                                                Width="550"
+                                                                DisplayMemberBinding="{Binding (models:Tbl90Reference.Tbl90RefAuthors).RefAuthorName}"
+                                                                Header="{DynamicResource Tbl90Reference-RefAuthorName}" />
+                                                            <GridViewColumn Header="{DynamicResource Shared-Valid}">
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <StackPanel Orientation="Horizontal">
+                                                                            <CheckBox IsChecked="{Binding (models:Tbl90Reference.Valid)}" />
+                                                                        </StackPanel>
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+                                                            <GridViewColumn
+                                                                Width="700"
+                                                                DisplayMemberBinding="{Binding (models:Tbl90Reference.Info)}"
+                                                                Header="{DynamicResource Shared-Info}" />
+                                                        </GridView>
+                                                    </ListView.View>
+                                                </ListView>
+                                              </StackPanel>
+                                            </StackPanel>
+                                          </ScrollViewer>
+                                        </TabItem>
+                                    </dragablz:TabablzControl>
+                                </TabItem>                                                                                        
+           
+                            </dragablz:TabablzControl>
+                            <GridSplitter
+                                Grid.Row="1"
+                                Height="5"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Center"
+                                Background="Black"
+                                ResizeDirection="Rows" />
+                        </Grid>             
+
+
+                     <!-- Part 8 Splitter  -->    
+
+        
+        <!--  Creating Sub-Grid in Column 2  -->
+        <Grid Grid.Row="0" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="9*" />           
+        
+                <RowDefinition Height="69*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="412*" />
+            </Grid.RowDefinitions>           
+        
+            <dragablz:TabablzControl
+                Grid.Row="0"
+                Grid.RowSpan="3"
+                Grid.ColumnSpan="3"
+                Margin="1"
+                Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                SelectedIndex="{Binding SelectedDetailTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <TabItem FontWeight="Medium" Header="{DynamicResource Tbl90Reference-Reference}" >           
+         
+                        <StackPanel Margin="0,0,5,0">
+                            <StackPanel Height="Auto" Orientation="Horizontal">   
+                
+                       <Button
+                                Margin="560,0,0,0"
+                                HorizontalAlignment="Left"
+                                Command="{Binding SaveReferenceCommand}"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                ToolTip="{DynamicResource Shared-ButtonSave}">
+                                <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Margin="0,0,-5,0"
+                                Kind="ContentSave"
+                                Opacity=".56" />
+                            </Button>     
+         
+                            <Button Template="{StaticResource CopyReferenceButtonTemplate}" />  
+                            <Button Template="{StaticResource AddReferenceButtonTemplate}" />  
+                            <Button Template="{StaticResource DeleteReferenceButtonTemplate}" />  
+                        </StackPanel>
+                    </StackPanel>
+                </TabItem>
+            </dragablz:TabablzControl>
+            <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto">  
+       
+                        <dragablz:TabablzControl
+                            Margin="1"
+                            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                            SelectedIndex="{Binding SelectedDetailTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">             
+       
+                            <TabItem Header="{DynamicResource Shared-TabStripHeaderReferences}">
+                                    <StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <ComboBox
+                                                Width="250"
+                                                Margin="5,0,0,0"
+                                                VerticalAlignment="Bottom"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Tbl69FiSpecies-FiSpeciesName}"
+                                                IsSynchronizedWithCurrentItem="True"
+                                                ItemsSource="{Binding Tbl69FiSpeciessesAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                SelectedValue="{Binding SelectedItem.(models:Tbl69FiSpecies.FiSpeciesID), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                                SelectedValuePath="FiSpeciesID"
+                                                Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl69FiSpecies.Tbl66Genusses).GenusName}" />
+                                                                <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl69FiSpecies.FiSpeciesName)}" />
+                                                                <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl69FiSpecies.Subspecies)}" />
+                                                                <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl69FiSpecies.Divers)}" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                            <ComboBox
+                                                Width="250"
+                                                Margin="5,0,0,0"
+                                                VerticalAlignment="Bottom"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Tbl72PlSpecies-PlSpeciesName}"
+                                                IsSynchronizedWithCurrentItem="True"
+                                                ItemsSource="{Binding Tbl72PlSpeciessesAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                SelectedValue="{Binding SelectedItem.(models:Tbl72PlSpecies.PlSpeciesID), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                                SelectedValuePath="PlSpeciesID"
+                                                Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl72PlSpecies.Tbl66Genusses).GenusName}" />
+                                                                <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl72PlSpecies.PlSpeciesName)}" />
+                                                                <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl72PlSpecies.Subspecies)}" />
+                                                                <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl72PlSpecies.Divers)}" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                            <ComboBox
+                                                Width="245"
+                                                Margin="5,0,0,0"
+                                                VerticalAlignment="Bottom"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Tbl66Genus-GenusName}"
+                                                IsSynchronizedWithCurrentItem="True"
+                                                ItemsSource="{Binding Tbl66GenussesAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                SelectedValue="{Binding SelectedItem.(models:Tbl66Genus.GenusID), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                                SelectedValuePath="GenusID"
+                                                Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl66Genus.GenusName)}" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <ComboBox
+                                                Width="755"
+                                                Margin="5,0,0,0"
+                                                VerticalAlignment="Bottom"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Tbl90RefExpert-ExpertName}"
+                                                IsSynchronizedWithCurrentItem="True"
+                                                ItemsSource="{Binding Tbl90RefExpertsAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                SelectedValue="{Binding SelectedItem.(models:Tbl90RefExpert.RefExpertID), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                                SelectedValuePath="RefExpertID"
+                                                Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl90RefExpert.RefExpertName)}" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <ComboBox
+                                                Width="755"
+                                                Margin="5,0,0,0"
+                                                VerticalAlignment="Bottom"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Tbl90RefSource-SourceName}"
+                                                IsSynchronizedWithCurrentItem="True"
+                                                ItemsSource="{Binding Tbl90RefSourcesAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                SelectedValue="{Binding SelectedItem.(models:Tbl90RefSource.RefSourceID), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                                SelectedValuePath="RefSourceID"
+                                                Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl90RefSource.RefSourceName)}" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <ComboBox
+                                                Width="755"
+                                                Margin="5,0,0,0"
+                                                VerticalAlignment="Bottom"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Tbl90RefAuthor-AuthorName}"
+                                                IsSynchronizedWithCurrentItem="True"
+                                                ItemsSource="{Binding Tbl90RefAuthorsAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                SelectedValue="{Binding SelectedItem.(models:Tbl90RefAuthor.RefAuthorID), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                                SelectedValuePath="RefAuthorID"
+                                                Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl90RefAuthor.RefAuthorName)}" />
+                                                                <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl90RefAuthor.BookName)}" />
+                                                                <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl90RefAuthor.Page1)}" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                <CheckBox
+                                    Width="80"
+                                    Margin="20,0,0,0"
+                                    VerticalAlignment="Bottom"
+                                    Content="{DynamicResource Shared-Valid}"
+                                    FontWeight="Normal"
+                                    IsChecked="{Binding SelectedItem.(models:Tbl90Reference.Valid), ElementName=Tbl90ReferencesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Style="{StaticResource MaterialDesignCheckBox}" />
+                                <TextBox
+                                    Width="50"
+                                    Margin="25,0,0,0"
+                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-ValidYear}"
+                                    materialDesign:ValidationAssist.UsePopup="True"
+                                    FontWeight="Medium"
+                                    Style="{StaticResource TextBoxInError}"
+                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl90ReferencesList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl90Reference.ValidYear)"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validationRules:NumberValidator />
+                                                <validationRules:Year4Validator />
+                                                <validationRules:DoubleRangeRule Max="2100" Min="1000" />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                <TextBox
+                                    Width="760"
+                                    Margin="5,0,0,0"
+                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-Info}"
+                                    materialDesign:ValidationAssist.UsePopup="True"
+                                    FontWeight="Medium"
+                                    Style="{StaticResource TextBoxInError}"
+                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl90ReferencesList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl90Reference.Info)"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validationRules:Name100Validator />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <TextBox
+                                                Height="500"
+                                                MinWidth="760"
+                                                MaxWidth="760"
+                                                Margin="5,0,0,5"
+                                                VerticalAlignment="Stretch"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Shared-Memo}"
+                                                AcceptsReturn="True"
+                                                FontWeight="Medium"
+                                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferencesList}"
+                                                TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto" />
+                                        </StackPanel>
+                                    </StackPanel>
+                            </TabItem>
+                            <TabItem Header="{DynamicResource Shared-TabStripHeaderMain}">
+                                    <StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <ComboBox
+                                                Width="370"
+                                                Margin="5,0,0,0"
+                                                VerticalAlignment="Bottom"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Tbl66Genus-GenusName}"
+                                                IsSynchronizedWithCurrentItem="True"
+                                                ItemsSource="{Binding Tbl66GenussesAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                SelectedValue="{Binding SelectedItem.(models:Tbl66Genus.GenusID), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                                SelectedValuePath="GenusID"
+                                                Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl66Genus.GenusName)}" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                            <ComboBox
+                                                Width="370"
+                                                Margin="15,0,0,0"
+                                                VerticalAlignment="Bottom"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Tbl63Infratribus-InfratribusName}"
+                                                IsSynchronizedWithCurrentItem="True"
+                                                ItemsSource="{Binding Tbl63InfratribussesAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                SelectedValue="{Binding SelectedItem.(models:Tbl63Infratribus.InfratribusID), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                                SelectedValuePath="InfratribusID"
+                                                Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl63Infratribus.InfratribusName)}" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <ComboBox
+                                                Width="370"
+                                                Margin="5,0,0,0"
+                                                VerticalAlignment="Bottom"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Tbl60Subtribus-SubtribusName}"
+                                                IsSynchronizedWithCurrentItem="True"
+                                                ItemsSource="{Binding Tbl60SubtribussesAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                SelectedValue="{Binding SelectedItem.(models:Tbl60Subtribus.SubtribusID), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                                SelectedValuePath="SubtribusID"
+                                                Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl60Subtribus.SubtribusName)}" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                            <ComboBox
+                                                Width="370"
+                                                Margin="15,0,0,0"
+                                                VerticalAlignment="Bottom"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Tbl57Tribus-TribusName}"
+                                                IsSynchronizedWithCurrentItem="True"
+                                                ItemsSource="{Binding Tbl57TribussesAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                SelectedValue="{Binding SelectedItem.(models:Tbl57Tribus.TribusID), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                                SelectedValuePath="TribusID"
+                                                Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl57Tribus.TribusName)}" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <ComboBox
+                                                Width="370"
+                                                Margin="5,0,0,0"
+                                                VerticalAlignment="Bottom"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Tbl54Supertribus-SupertribusName}"
+                                                IsSynchronizedWithCurrentItem="True"
+                                                ItemsSource="{Binding Tbl54SupertribussesAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                SelectedValue="{Binding SelectedItem.(models:Tbl54Supertribus.SupertribusID), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                                SelectedValuePath="SupertribusID"
+                                                Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl54Supertribus.SupertribusName)}" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                                <ComboBox
+                                                    Width="370"
+                                                    Margin="15,0,0,0"
+                                                    VerticalAlignment="Bottom"
+                                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl51Infrafamily-InfrafamilyName}"
+                                                    IsSynchronizedWithCurrentItem="True"
+                                                    ItemsSource="{Binding Tbl51InfrafamiliesAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                    SelectedValue="{Binding SelectedItem.(models:Tbl51Infrafamily.InfrafamilyID), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                                    SelectedValuePath="InfrafamilyID"
+                                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                                    <ComboBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl51Infrafamily.InfrafamilyName)}" />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ComboBox.ItemTemplate>
+                                                </ComboBox>
+                                            </StackPanel>
+                                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                                <ComboBox
+                                                    Width="370"
+                                                    Margin="5,0,0,0"
+                                                    VerticalAlignment="Bottom"
+                                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl48Subfamily-SubfamilyName}"
+                                                    IsSynchronizedWithCurrentItem="True"
+                                                    ItemsSource="{Binding Tbl48SubfamiliesAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                    SelectedValue="{Binding SelectedItem.(models:Tbl48Subfamily.SubfamilyID), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                                    SelectedValuePath="SubfamilyID"
+                                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                                    <ComboBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl48Subfamily.SubfamilyName)}" />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ComboBox.ItemTemplate>
+                                                </ComboBox>
+                                                <ComboBox
+                                                    Width="370"
+                                                    Margin="15,0,0,0"
+                                                    VerticalAlignment="Bottom"
+                                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl45Family-FamilyName}"
+                                                    IsSynchronizedWithCurrentItem="True"
+                                                    ItemsSource="{Binding Tbl45FamiliesAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                    SelectedValue="{Binding SelectedItem.(models:Tbl45Family.FamilyID), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                                    SelectedValuePath="FamilyID"
+                                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                                    <ComboBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl45Family.FamilyName)}" />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ComboBox.ItemTemplate>
+                                                </ComboBox>
+                                            </StackPanel>
+                                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                                <ComboBox
+                                                    Width="370"
+                                                    Margin="5,0,0,0"
+                                                    VerticalAlignment="Bottom"
+                                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl42Superfamily-SuperfamilyName}"
+                                                    IsSynchronizedWithCurrentItem="True"
+                                                    ItemsSource="{Binding Tbl42SuperfamiliesAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                    SelectedValue="{Binding SelectedItem.(models:Tbl42Superfamily.SuperfamilyID), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                                    SelectedValuePath="SuperfamilyID"
+                                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                                    <ComboBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl42Superfamily.SuperfamilyName)}" />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ComboBox.ItemTemplate>
+                                                </ComboBox>
+                                                <ComboBox
+                                                    Width="370"
+                                                    Margin="15,0,0,0"
+                                                    VerticalAlignment="Bottom"
+                                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl27Infraclass-InfraclassName}"
+                                                    IsSynchronizedWithCurrentItem="True"
+                                                    ItemsSource="{Binding Tbl27InfraclassesAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                    SelectedValue="{Binding SelectedItem.(models:Tbl27Infraclass.InfraclassID), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                                    SelectedValuePath="InfraclassID"
+                                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                                    <ComboBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl27Infraclass.InfraclassName)}" />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ComboBox.ItemTemplate>
+                                                </ComboBox>
+                                            </StackPanel>
+                                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                                <ComboBox
+                                                    Width="370"
+                                                    Margin="5,0,0,0"
+                                                    VerticalAlignment="Bottom"
+                                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl24Subclass-SubclassName}"
+                                                    IsSynchronizedWithCurrentItem="True"
+                                                    ItemsSource="{Binding Tbl24SubclassesAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                    SelectedValue="{Binding SelectedItem.(models:Tbl24Subclass.SubclassID), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                                    SelectedValuePath="SubclassID"
+                                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                                    <ComboBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl24Subclass.SubclassName)}" />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ComboBox.ItemTemplate>
+                                                </ComboBox>
+                                                <ComboBox
+                                                    Width="370"
+                                                    Margin="15,0,0,0"
+                                                    VerticalAlignment="Bottom"
+                                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl21Class-ClassName}"
+                                                    IsSynchronizedWithCurrentItem="True"
+                                                    ItemsSource="{Binding Tbl21ClassesAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                    SelectedValue="{Binding SelectedItem.(models:Tbl21Class.ClassID), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                                    SelectedValuePath="ClassID"
+                                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                                    <ComboBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl21Class.ClassName)}" />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ComboBox.ItemTemplate>
+                                                </ComboBox>
+                                            </StackPanel>
+                                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                                <ComboBox
+                                                    Width="370"
+                                                    Margin="5,0,0,0"
+                                                    VerticalAlignment="Bottom"
+                                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl18Superclass-SuperclassName}"
+                                                    IsSynchronizedWithCurrentItem="True"
+                                                    ItemsSource="{Binding Tbl18SuperclassesAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                    SelectedValue="{Binding SelectedItem.(models:Tbl18Superclass.SuperclassID), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                                    SelectedValuePath="SuperclassID"
+                                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                                    <ComboBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl18Superclass.SuperclassName)}" />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ComboBox.ItemTemplate>
+                                                </ComboBox>
+                                            </StackPanel>
+                                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                                <ComboBox
+                                                    Width="370"
+                                                    Margin="5,0,0,0"
+                                                    VerticalAlignment="Bottom"
+                                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl09Division-DivisionName}"
+                                                    IsSynchronizedWithCurrentItem="True"
+                                                    ItemsSource="{Binding Tbl09DivisionsAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                    SelectedValue="{Binding SelectedItem.(models:Tbl09Division.DivisionID), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                                    SelectedValuePath="DivisionID"
+                                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                                    <ComboBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl09Division.DivisionName)}" />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ComboBox.ItemTemplate>
+                                                </ComboBox>
+                                                <ComboBox
+                                                    Width="370"
+                                                    Margin="15,0,0,0"
+                                                    VerticalAlignment="Bottom"
+                                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl15Subdivision-SubdivisionName}"
+                                                    IsSynchronizedWithCurrentItem="True"
+                                                    ItemsSource="{Binding Tbl15SubdivisionsAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                    SelectedValue="{Binding SelectedItem.(models:Tbl15Subdivision.SubdivisionID), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                                    SelectedValuePath="SubdivisionID"
+                                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                                    <ComboBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl15Subdivision.SubdivisionName)}" />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ComboBox.ItemTemplate>
+                                                </ComboBox>
+                                            </StackPanel>
+                                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                                <ComboBox
+                                                    Width="370"
+                                                    Margin="5,0,0,0"
+                                                    VerticalAlignment="Bottom"
+                                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl06Phylum-PhylumName}"
+                                                    IsSynchronizedWithCurrentItem="True"
+                                                    ItemsSource="{Binding Tbl06PhylumsAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                    SelectedValue="{Binding SelectedItem.(models:Tbl06Phylum.PhylumID), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                                    SelectedValuePath="PhylumID"
+                                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                                    <ComboBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl06Phylum.PhylumName)}" />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ComboBox.ItemTemplate>
+                                                </ComboBox>
+                                                <ComboBox
+                                                    Width="370"
+                                                    Margin="15,0,0,0"
+                                                    VerticalAlignment="Bottom"
+                                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl12Subphylum-SubphylumName}"
+                                                    IsSynchronizedWithCurrentItem="True"
+                                                    ItemsSource="{Binding Tbl12SubphylumsAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                    SelectedValue="{Binding SelectedItem.(models:Tbl12Subphylum.SubphylumID), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                                    SelectedValuePath="SubphylumID"
+                                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                                    <ComboBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl12Subphylum.SubphylumName)}" />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ComboBox.ItemTemplate>
+                                                </ComboBox>
+                                            </StackPanel>
+                                            <StackPanel Height="Auto" Orientation="Horizontal">
+                                                <ComboBox
+                                                    Width="755"
+                                                    Margin="5,0,0,0"
+                                                    VerticalAlignment="Bottom"
+                                                    materialDesign:HintAssist.Hint="{DynamicResource Tbl03Regnum-RegnumName}"
+                                                    IsSynchronizedWithCurrentItem="True"
+                                                    ItemsSource="{Binding Tbl03RegnumsAllList, Converter={StaticResource ComboBoxEmptyItemConverter}}"
+                                                    SelectedValue="{Binding SelectedItem.(models:Tbl03Regnum.RegnumID), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                                    SelectedValuePath="RegnumID"
+                                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                                    <ComboBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding (models:Tbl03Regnum.RegnumName)}" />
+                                                                <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl03Regnum.Subregnum)}" />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ComboBox.ItemTemplate>
+                                                </ComboBox>
+                                            </StackPanel>
+                                        </StackPanel>
+                            </TabItem>                      
+
+
+                     <!-- Part 8.1 FK1 - FK4 Connected -->         
+
+              
+                            <TabItem FontWeight="Medium" Header="{DynamicResource Shared-Connect}">
+                                <dragablz:TabablzControl Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SelectedIndex="{Binding SelectedDetailSubRefTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceExpert}">
+                                        <StackPanel Margin="0,0,5,0">
+                                            <StackPanel Height="Auto" Orientation="Horizontal">    
+       
+                                        <TextBox
+                                            Width="500"
+                                            Margin="5,10,25,0"
+                                            materialDesign:HintAssist.Hint="{DynamicResource Tbl90RefExpert-ExpertName}"
+                                            materialDesign:ValidationAssist.UsePopup="True"
+                                            FontWeight="Medium"
+                                            Style="{StaticResource TextBoxInError}"
+                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    Converter="{StaticResource CapFirst}"
+                                                    ElementName="Tbl90RefExpertsList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl90RefExpert.RefExpertName)"
+                                                    UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:Name200Validator />
+                                                        <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>   
+         
+                                        <Button Template="{StaticResource SaveRefExpertButtonTemplate}" />  
+         
+                                         <Button Template="{StaticResource CopyRefExpertButtonTemplate}" />
+                                        <Button Template="{StaticResource AddRefExpertButtonTemplate}" />
+                                        <Button Template="{StaticResource DeleteRefExpertButtonTemplate}" />    
+            
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                <CheckBox
+                                    Width="80"
+                                    Margin="20,0,0,0"
+                                    VerticalAlignment="Bottom"
+                                    Content="{DynamicResource Shared-Valid}"
+                                    FontWeight="Normal"
+                                    IsChecked="{Binding SelectedItem.(models:Tbl90RefExpert.Valid), ElementName=Tbl90RefExpertsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Style="{StaticResource MaterialDesignCheckBox}" />
+                                <TextBox
+                                    Width="50"
+                                    Margin="25,0,0,0"
+                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-ValidYear}"
+                                    materialDesign:ValidationAssist.UsePopup="True"
+                                   FontWeight="Medium"
+                                   Style="{StaticResource TextBoxInError}"
+                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl90RefExpertsList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl90RefExpert.ValidYear)"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validationRules:NumberValidator />
+                                                <validationRules:Year4Validator />
+                                                <validationRules:DoubleRangeRule Max="2100" Min="1000" />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                                      </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <TextBox
+                                                Height="150"
+                                                MinWidth="760"
+                                                MaxWidth="760"
+                                                Margin="5,0,0,0"
+                                                VerticalAlignment="Stretch"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Shared-Notes}"
+                                                AcceptsReturn="True"
+                                                FontWeight="Medium"
+                                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                Text="{Binding SelectedItem.(models:Tbl90RefExpert.Notes), ElementName=Tbl90RefExpertsList}"
+                                                TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto" />
+                                        </StackPanel>
+                                         <StackPanel Height="Auto" Orientation="Horizontal">
+                                <TextBox
+                                    Width="760"
+                                    Margin="5,0,0,0"
+                                    materialDesign:HintAssist.Hint="{DynamicResource Shared-Info}"
+                                    materialDesign:ValidationAssist.UsePopup="True"
+                                    FontWeight="Medium"
+                                    Style="{StaticResource TextBoxInError}"
+                                    Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                    <TextBox.Text>
+                                        <Binding
+                                            ElementName="Tbl90RefExpertsList"
+                                            Mode="TwoWay"
+                                            Path="SelectedItem.(models:Tbl90RefExpert.Info)"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validationRules:Name100Validator />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                                        </StackPanel>  
+        
+       
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <TextBox
+                                                Height="425"
+                                                MinWidth="760"
+                                                MaxWidth="760"
+                                                Margin="5,0,0,0"
+                                                VerticalAlignment="Stretch"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Shared-Memo}"
+                                                AcceptsReturn="True"
+                                                FontWeight="Medium"
+                                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                Text="{Binding SelectedItem.(models:Tbl90RefExpert.Memo), ElementName=Tbl90RefExpertsList}"
+                                                TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto" />
+                                      </StackPanel>
+                                    </StackPanel>
+                                </TabItem>   
+           
+                            <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceSource}">
+                                    <StackPanel>    
+           
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <CheckBox
+                                                Width="80"
+                                                Margin="5,0,0,0"
+                                                VerticalAlignment="Bottom"
+                                                Content="{DynamicResource Shared-Valid}"
+                                                IsChecked="{Binding SelectedItem.(models:Tbl90RefSource.Valid), ElementName=Tbl90RefSourcesList}" 
+                                                Style="{StaticResource MaterialDesignCheckBox}"/>
+                                        <TextBox
+                                            Width="75"
+                                            Margin="25,0,0,0"
+                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-ValidYear}"
+                                            materialDesign:ValidationAssist.UsePopup="True"
+                                            FontWeight="Medium"
+                                            Style="{StaticResource TextBoxInError}"
+                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl90RefExpertsList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl90RefExpert.ValidYear)"             
+                                                    UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:NumberValidator />
+                                                        <validationRules:Year4Validator />
+                                                        <validationRules:DoubleRangeRule Max="2100" Min="1000" />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>        
+         
+                                        <Button Template="{StaticResource SaveRefSourceButtonTemplate}" />  
+         
+                                        <Button Template="{StaticResource CopyRefSourceButtonTemplate}" /> 
+                                        <Button Template="{StaticResource AddRefSourceButtonTemplate}" />  
+                                        <Button Template="{StaticResource DeleteRefSourceButtonTemplate}" />  
+         
+                                        </StackPanel>
+                                         <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="760"
+                                Margin="5,10,0,0"
+                                materialDesign:HintAssist.Hint="{DynamicResource Tbl90RefSource-SourceName}"
+                                materialDesign:ValidationAssist.UsePopup="True"
+                                            FontWeight="Medium"
+                                Style="{StaticResource TextBoxInError}"
+                                Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90RefSourcesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90RefSource.RefSourceName)"
+                                        UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validationRules:Name200Validator />
+                                            <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox
+                                            Width="600"
+                                            Margin="5,0,0,0"
+                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-Author}"
+                                            materialDesign:ValidationAssist.UsePopup="True"
+                                            CharacterCasing="Upper"
+                                            FontWeight="Medium"
+                                            Style="{StaticResource TextBoxInError}"
+                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl90RefSourcesList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl90RefSource.Author)"
+                                                    UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:Name100Validator />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBox
+                                            Width="135"
+                                            Margin="25,0,0,0"
+                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-AuthorYear}"
+                                            materialDesign:ValidationAssist.UsePopup="True"
+                                            FontWeight="Medium"
+                                            Style="{StaticResource TextBoxInError}"
+                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl90RefSourcesList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl90RefSource.SourceYear)"
+                                                    UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:NumberValidator />
+                                                        <validationRules:Year4Validator />
+                                                        <validationRules:DoubleRangeRule Max="2100" Min="1000" />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <TextBox
+                                                Height="150"
+                                                MinWidth="760"
+                                                MaxWidth="760"
+                                                Margin="5,0,0,0"
+                                                VerticalAlignment="Stretch"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Shared-Notes}"
+                                                AcceptsReturn="True"
+                                                FontWeight="Medium"
+                                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                Text="{Binding SelectedItem.(models:Tbl90RefSource.Notes), ElementName=Tbl90RefSourcesList}"
+                                                TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto" />
+                                        </StackPanel>
+                                         <StackPanel Height="Auto" Orientation="Horizontal">
+                                        <TextBox
+                                            Width="760"
+                                            Margin="5,0,0,0"
+                                            materialDesign:HintAssist.Hint="{DynamicResource Shared-Info}"
+                                            materialDesign:ValidationAssist.UsePopup="True"
+                                            FontWeight="Medium"
+                                            Style="{StaticResource TextBoxInError}"
+                                            Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                            <TextBox.Text>
+                                                <Binding
+                                                    ElementName="Tbl90RefSourcesList"
+                                                    Mode="TwoWay"
+                                                    Path="SelectedItem.(models:Tbl90RefSource.Info)"
+                                                    UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:Name100Validator />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <TextBox
+                                                Height="385"
+                                                MinWidth="760"
+                                                MaxWidth="760"
+                                                Margin="5,0,0,0"
+                                                VerticalAlignment="Stretch"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Shared-Memo}"
+                                                AcceptsReturn="True"
+                                                FontWeight="Medium"
+                                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                Text="{Binding SelectedItem.(models:Tbl90RefSource.Memo), ElementName=Tbl90RefSourcesList}"
+                                                TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto" />
+                                        </StackPanel>
+                                     </StackPanel>
+                                </TabItem>
+                            <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceAuthor}">
+                                <HeaderedContentControl Margin="0,0,0,0">
+                                    <StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <CheckBox
+                                                Width="80"
+                                                Margin="20,0,0,0"
+                                                VerticalAlignment="Bottom"
+                                                Content="{DynamicResource Shared-Valid}"
+                                                FontWeight="Normal"
+                                                IsChecked="{Binding SelectedItem.(models:Tbl90RefAuthor.Valid), ElementName=Tbl90RefAuthorsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                Style="{StaticResource MaterialDesignCheckBox}" />
+                                            <TextBox
+                                                Width="50"
+                                                Margin="25,0,0,0"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Shared-ValidYear}"
+                                                materialDesign:ValidationAssist.UsePopup="True"
+                                                FontWeight="Medium"
+                                                Style="{StaticResource TextBoxInError}"
+                                                Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                                <TextBox.Text>
+                                                    <Binding
+                                                        ElementName="Tbl90RefAuthorsList"
+                                                        Mode="TwoWay"
+                                                        Path="SelectedItem.(models:Tbl90RefAuthor.ValidYear)"
+                                                        UpdateSourceTrigger="PropertyChanged">
+                                                        <Binding.ValidationRules>
+                                                            <validationRules:NumberValidator />
+                                                            <validationRules:Year4Validator />
+                                                            <validationRules:DoubleRangeRule Max="2100" Min="1000" />
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </TextBox.Text>
+                                            </TextBox>
+                                            <TextBox
+                                                Width="275"
+                                                Margin="25,0,0,0"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Tbl90RefAuthor-Isbn}"
+                                                materialDesign:ValidationAssist.UsePopup="True"
+                                                Style="{StaticResource TextBoxInError}"
+                                                Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                                <TextBox.Text>
+                                                    <Binding
+                                                        ElementName="Tbl90RefAuthorsList"
+                                                        Mode="TwoWay"
+                                                        Path="SelectedItem.(models:Tbl90RefAuthor.ISBN)"
+                                                        UpdateSourceTrigger="PropertyChanged">
+                                                        <Binding.ValidationRules>
+                                                            <validationRules:Name200Validator />
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </TextBox.Text>
+                                            </TextBox>
+                                            <Button
+                                                Margin="80,0,0,0"
+                                                HorizontalAlignment="Left"
+                                                Command="{Binding SaveRefAuthorCommand}"
+                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                ToolTip="{DynamicResource Shared-ButtonSave}">
+                                                <materialDesign:PackIcon
+                                                    Width="24"
+                                                    Height="24"
+                                                    Margin="0,0,-5,0"
+                                                    Kind="ContentSave"
+                                                    Opacity=".56" />
+                                            </Button>
+                                        <Button Template="{StaticResource CopyRefAuthorButtonTemplate}" />
+                                        <Button Template="{StaticResource AddRefAuthorButtonTemplate}" />
+                                        <Button Template="{StaticResource DeleteRefAuthorButtonTemplate}" />
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <TextBox
+                                                Width="760"
+                                                Margin="5,0,0,0"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Tbl90RefAuthor-AuthorName}"
+                                                materialDesign:ValidationAssist.UsePopup="True"
+                                            FontWeight="Medium"
+                                                Style="{StaticResource TextBoxInError}"
+                                                Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                                <TextBox.Text>
+                                                    <Binding
+                                                        ElementName="Tbl90RefAuthorsList"
+                                                        Mode="TwoWay"
+                                                        Path="SelectedItem.(models:Tbl90RefAuthor.RefAuthorName)"
+                                                        UpdateSourceTrigger="PropertyChanged">
+                                                        <Binding.ValidationRules>
+                                                            <validationRules:Name200Validator />
+                                                            <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </TextBox.Text>
+                                            </TextBox>
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <TextBox
+                                                Width="760"
+                                                Margin="5,0,0,0"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Tbl90RefAuthor-ArticelTitle}"
+                                                materialDesign:ValidationAssist.UsePopup="True"
+                                            FontWeight="Medium"
+                                                Style="{StaticResource TextBoxInError}"
+                                                Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                                <TextBox.Text>
+                                                    <Binding
+                                                        ElementName="Tbl90RefAuthorsList"
+                                                        Mode="TwoWay"
+                                                        Path="SelectedItem.(models:Tbl90RefAuthor.ArticelTitle)"
+                                                        UpdateSourceTrigger="PropertyChanged">
+                                                        <Binding.ValidationRules>
+                                                            <validationRules:Name200Validator />
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </TextBox.Text>
+                                            </TextBox>
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <TextBox
+                                                Width="660"
+                                                Margin="5,0,0,0"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Tbl90RefAuthor-BookName}"
+                                                materialDesign:ValidationAssist.UsePopup="True"
+                                            FontWeight="Medium"
+                                                Style="{StaticResource TextBoxInError}"
+                                                Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                                <TextBox.Text>
+                                                    <Binding
+                                                        ElementName="Tbl90RefAuthorsList"
+                                                        Mode="TwoWay"
+                                                        Path="SelectedItem.(models:Tbl90RefAuthor.BookName)"
+                                                        UpdateSourceTrigger="PropertyChanged">
+                                                        <Binding.ValidationRules>
+                                                            <validationRules:Name200Validator />
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </TextBox.Text>
+                                            </TextBox>
+                                            <TextBox
+                                                Width="95"
+                                                Margin="5,0,0,0"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Tbl90RefAuthor-Page}"
+                                                materialDesign:ValidationAssist.UsePopup="True"
+                                                Style="{StaticResource TextBoxInError}"
+                                                Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                                <TextBox.Text>
+                                                    <Binding
+                                                        ElementName="Tbl90RefAuthorsList"
+                                                        Mode="TwoWay"
+                                                        Path="SelectedItem.(models:Tbl90RefAuthor.Page1)"
+                                                        UpdateSourceTrigger="PropertyChanged">
+                                                        <Binding.ValidationRules>
+                                                            <validationRules:Name100Validator />
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </TextBox.Text>
+                                            </TextBox>
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <TextBox
+                                                Width="560"
+                                                Margin="5,0,0,0"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Tbl90RefAuthor-Publisher}"
+                                                materialDesign:ValidationAssist.UsePopup="True"
+                                             FontWeight="Medium"
+                                               Style="{StaticResource TextBoxInError}"
+                                                Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                                <TextBox.Text>
+                                                    <Binding
+                                                        ElementName="Tbl90RefAuthorsList"
+                                                        Mode="TwoWay"
+                                                        Path="SelectedItem.(models:Tbl90RefAuthor.Publisher)"
+                                                        UpdateSourceTrigger="PropertyChanged">
+                                                        <Binding.ValidationRules>
+                                                            <validationRules:Name200Validator />
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </TextBox.Text>
+                                            </TextBox>
+                                            <TextBox
+                                                Width="195"
+                                                Margin="5,0,0,0"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Tbl90RefAuthor-PublicationPlace}"
+                                                materialDesign:ValidationAssist.UsePopup="True"
+                                             FontWeight="Medium"
+                                               Style="{StaticResource TextBoxInError}"
+                                                Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                                <TextBox.Text>
+                                                    <Binding
+                                                        ElementName="Tbl90RefAuthorsList"
+                                                        Mode="TwoWay"
+                                                        Path="SelectedItem.(models:Tbl90RefAuthor.PublicationPlace)"
+                                                        UpdateSourceTrigger="PropertyChanged">
+                                                        <Binding.ValidationRules>
+                                                            <validationRules:Name200Validator />
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </TextBox.Text>
+                                            </TextBox>
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <TextBox
+                                                Height="90"
+                                                MinWidth="760"
+                                                MaxWidth="760"
+                                                Margin="5,0,0,0"
+                                                VerticalAlignment="Stretch"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Shared-Notes}"
+                                                AcceptsReturn="True"
+                                            FontWeight="Medium"
+                                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                Text="{Binding SelectedItem.(models:Tbl90RefAuthor.Notes), ElementName=Tbl90RefAuthorsList}"
+                                                TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto" />
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <TextBox
+                                                Width="760"
+                                                Margin="5,0,0,0"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Shared-Info}"
+                                                materialDesign:ValidationAssist.UsePopup="True"
+                                                FontWeight="Medium"
+                                                Style="{StaticResource TextBoxInError}"
+                                                Validation.ErrorTemplate="{StaticResource MaterialDesignValidationErrorTemplate}">
+                                                <TextBox.Text>
+                                                    <Binding
+                                                        ElementName="Tbl90RefAuthorsList"
+                                                        Mode="TwoWay"
+                                                        Path="SelectedItem.(models:Tbl90RefAuthor.Info)"
+                                                        UpdateSourceTrigger="PropertyChanged">
+                                                        <Binding.ValidationRules>
+                                                            <validationRules:Name100Validator />
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </TextBox.Text>
+                                            </TextBox>
+                                        </StackPanel>
+                                        <StackPanel Height="Auto" Orientation="Horizontal">
+                                            <TextBox
+                                                Height="385"
+                                                MinWidth="760"
+                                                MaxWidth="760"
+                                                Margin="5,0,0,0"
+                                                VerticalAlignment="Stretch"
+                                                materialDesign:HintAssist.Hint="{DynamicResource Shared-Memo}"
+                                                AcceptsReturn="True"
+                                                FontWeight="Medium"
+                                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                Text="{Binding SelectedItem.(models:Tbl90RefAuthor.Memo), ElementName=Tbl90RefAuthorsList}"
+                                                TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </HeaderedContentControl>
+                            </TabItem>
+                        </dragablz:TabablzControl> 
+                </TabItem>
+            </dragablz:TabablzControl>  
+  
+
+
+  
+             <!--  Part 8.2 TK1 Connected -->  
+
+
+                                                                                                                                                                                                                                                                                                                      
+                     <!-- Part 8.3  TK2  Connected-->           
+
+
+     
+                     <!-- Part 8.3   TK3 Connected -->           
+
+
+     
+                     <!-- Part 8.3   TK4  Connected  -->           
+
+
+
+
+                     <!-- Part 11  -->                
+
+                     <!-- Part 12  -->                
+
+                     <!-- Part 13  -->                
+
+             
+            </ScrollViewer>                   
+        
+      </Grid>
+        <GridSplitter
+            Grid.Row="0"
+            Grid.RowSpan="3"
+            Grid.Column="1"
+            Width="4"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Stretch"
+            Background="Black"
+            ResizeDirection="Columns"
+            ShowsPreview="False" />
+  </Grid>
+</UserControl>
+            

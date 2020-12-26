@@ -1,0 +1,100 @@
+@model Atis.Domain.ViewModels.TblCounters.ListViewModel
+
+        <!-- Index  Skriptdatum:  3.1.2012  12:32     -->    
+    
+
+@{
+    ViewBag.Title =  TblCountersRes.StringsRes.Index;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@TblCountersRes.StringsRes.Index</h2>
+
+@using (Html.BeginForm("Index", "TblCounters", FormMethod.Get))              
+{
+    <fieldset class="filtering">
+        <legend>@SharedRes.StringsRes.Filter</legend>  
+        <div> 
+            <p></p>         
+  
+            <table>                                             
+                <tr>  
+                    <td style="width:8em"><strong>@TblCountersRes.StringsRes.CounterID </strong></td>
+                    <td><input type="text" id="counterid" name="counterid" /></td>            
+                    <td style="width:8em"><strong>@TblCountersRes.StringsRes.CounterName </strong></td>
+                    <td><input type="text" id="countername" name="countername" /></td>            
+        
+                    <td style="width:4em"><strong>@SharedRes.StringsRes.Valid </strong></td>
+                    @Html.Hidden("sortBy", Model.SortBy)
+                    @Html.Hidden("ascending", Model.SortAscending)
+
+                    <td><input type="submit" value="@SharedRes.StringsRes.Search" /></td> 
+                </tr>   
+            </table>        
+ 
+        </div>
+    </fieldset>
+}
+
+<table class="grid" style="width: 95%">                
+    <tr>
+        <th></th>   
+ 
+        <th>@Html.Partial("_SmartLink", Model, new ViewDataDictionary { { "ColumnName", "CounterName" }, { "DisplayName", TblCountersRes.StringsRes.CounterName } })</th>                    
+
+     </tr>
+
+    @foreach (var item in Model.TblCounters) { 
+    
+    <tr>
+        <td class="left">
+            @Html.ActionLink(SharedRes.StringsRes.ActionLnkDelete, "Delete", new { id = item.CounterID }) | 
+            @Html.ActionLink(SharedRes.StringsRes.ActionLnkEdit, "Edit", new { id = item.CounterID }) |
+            @Html.ActionLink(SharedRes.StringsRes.ActionLnkDetails, "Details", new { id = item.CounterID }) </td>           
+
+
+    </tr>    
+    }     
+    <tr>        
+  
+        <td class="pager" colspan="9">   
+ 
+           @Html.Partial("_Pager", Model)
+        </td>
+    </tr>       
+</table>
+<div>
+    <ul id="nav-one" class="dropmenu css-only">      
+ 
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkCommentRight, "Index", "Tbl93Comments")</li>                       
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkCommentCreateRight, "Create", "Tbl93Comments",
+            new { regnumId = 0,
+                      phylumId = 0,
+                      divisionId = 0,
+                      subphylumId = 0,
+                      subdivisionId = 0,
+                      superclassId = 0,
+                      classId = 0,
+                      subclassId = 0,
+                      infraclassId = 0,
+                      legioId = 0,
+                      ordoId = 0,
+                      subordoId = 0,
+                      infraordoId = 0,
+                      superfamilyId = 0,
+                      familyId = 0,
+                      subfamilyId = 0,
+                      infrafamilyId = 0,
+                      supertribusId = 0,
+                      tribusId = 0,
+                      subtribusId = 0,
+                      infratribusId = 0,
+                      genusId = 0,
+                      fispeciesId = 0,
+                      plspeciesId = 0
+            }, null)</li>               
+ 
+  
+        <li>@Html.ActionLink(SharedRes.StringsRes.ActionLnkCreate, "Create", "TblCounters", new { NULLId = 0 }, null)</li>   
+    </ul> 
+</div>   
