@@ -57,14 +57,14 @@
 
                                     <TextBox
                                         x:Name="TbSearchSpeciesgroup"
-                                        Width="170"
+                                        Width="200"
                                         Margin="5"
                                         HorizontalContentAlignment="Stretch"
                                         mah:TextBoxHelper.ButtonCommand="{Binding TextBoxButtonCmd, Mode=OneWay}"
                                         mah:TextBoxHelper.ClearTextButton="True"
                                         mah:TextBoxHelper.IsWaitingForData="True"
                                         mah:TextBoxHelper.UseFloatingWatermark="True"
-                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-SearchNameOrId}"
+                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-SearchSpeciesgroupNameOrId}"
                                         mah:TextBoxHelper.WatermarkAlignment="Left"
                                         ContextMenu="{x:Null}"
                                         FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
@@ -72,6 +72,7 @@
                                         SpellCheck.IsEnabled="True"
                                         Text="{Binding SearchSpeciesgroupName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                         ToolTip="{DynamicResource Shared-SearchNameOrId}">
+
                                         <TextBox.InputBindings>
                                             <KeyBinding
                                                 Key="Return"
@@ -395,6 +396,7 @@
                     <GroupBox>
                         <StackPanel Margin="1">
                             <StackPanel Height="Auto" Orientation="Horizontal">
+
                                 <Button Template="{StaticResource SaveSpeciesgroupButton}" />
                                 <Button Template="{StaticResource CopySpeciesgroupButton}" />
                                 <Button Template="{StaticResource AddSpeciesgroupButton}" />
@@ -439,7 +441,6 @@
                                             UpdateSourceTrigger="PropertyChanged" />
                                     </TextBox.Text>
                                 </TextBox>
-
                             </StackPanel>
 
                             <StackPanel Height="Auto" Orientation="Horizontal">
@@ -637,6 +638,7 @@
                                     </TextBox.Text>
                                 </TextBox>
                             </StackPanel>
+
                             <StackPanel Height="Auto" Orientation="Horizontal">
                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                     <TextBox
@@ -675,6 +677,7 @@
                 <GroupBox>
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
+
                             <Button Template="{StaticResource SaveFiSpeciesButton}" />
                             <Button Template="{StaticResource CopyFiSpeciesButton}" />
                             <Button Template="{StaticResource AddFiSpeciesButton}" />
@@ -790,6 +793,7 @@
                                 </TextBox.Text>
                             </TextBox>
                         </StackPanel>
+
                         <TabControl
                             Height="Auto"
                             HorizontalAlignment="Left"
@@ -1476,6 +1480,7 @@
                 <GroupBox>
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
+
                             <Button Template="{StaticResource SavePlSpeciesButton}" />
                             <Button Template="{StaticResource CopyPlSpeciesButton}" />
                             <Button Template="{StaticResource AddPlSpeciesButton}" />
@@ -2149,9 +2154,17 @@
                                 </StackPanel>
                             </TabItem>
                         </TabControl>
+
                     </StackPanel>
                 </GroupBox>
             </TabItem>
+
+
+            <!--  Part 8.3   TK3 Connected  -->
+
+
+
+            <!--  Part 8.3   TK4  Connected  -->
 
 
 

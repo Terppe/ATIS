@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"
     d:DesignHeight="800"
-    d:DesignWidth="1550"
+    d:DesignWidth="1600"
     mc:Ignorable="d">
 
     <UserControl.Resources />
@@ -57,14 +57,14 @@
 
                                     <TextBox
                                         x:Name="TbSearchInfratribus"
-                                        Width="170"
+                                        Width="200"
                                         Margin="5"
                                         HorizontalContentAlignment="Stretch"
                                         mah:TextBoxHelper.ButtonCommand="{Binding TextBoxButtonCmd, Mode=OneWay}"
                                         mah:TextBoxHelper.ClearTextButton="True"
                                         mah:TextBoxHelper.IsWaitingForData="True"
                                         mah:TextBoxHelper.UseFloatingWatermark="True"
-                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-SearchNameOrId}"
+                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-SearchInfratribusNameOrId}"
                                         mah:TextBoxHelper.WatermarkAlignment="Left"
                                         ContextMenu="{x:Null}"
                                         FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
@@ -72,6 +72,7 @@
                                         SpellCheck.IsEnabled="True"
                                         Text="{Binding SearchInfratribusName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                         ToolTip="{DynamicResource Shared-SearchNameOrId}">
+
                                         <TextBox.InputBindings>
                                             <KeyBinding
                                                 Key="Return"
@@ -1171,7 +1172,7 @@
 
 
 
-            <!--  Part 4.2 TK1 Connected  -->
+            <!--  Part 8.2 TK1 Connected  -->
 
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl66Genus-Genus}">
@@ -1467,7 +1468,7 @@
                                 Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Expert}"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefExpert-Expert}"
                                 DisplayMemberPath="RefExpertName"
                                 IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Tbl90ExpertsAllList}"
@@ -1551,7 +1552,7 @@
                                 Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Source}"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefSource-Source}"
                                 IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Tbl90SourcesAllList}"
                                 SelectedValue="{Binding SelectedItem.(models:Tbl90RefSource.RefSourceId), ElementName=Tbl90ReferenceSourcesList, Mode=TwoWay}"
@@ -1637,6 +1638,7 @@
                                     AcceptsReturn="True"
                                     FontWeight="Medium"
                                     SpellCheck.IsEnabled="True"
+                                    Style="{StaticResource MahApps.Styles.TextBox}"
                                     Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferenceSourcesList}"
                                     TextWrapping="Wrap"
                                     ToolTip="{DynamicResource Shared-Memo}"
@@ -1661,7 +1663,7 @@
                                 Width="700"
                                 Margin="5"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
-                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefAuthor-Author}"
                                 IsEditable="False"
                                 IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Tbl90AuthorsAllList}"

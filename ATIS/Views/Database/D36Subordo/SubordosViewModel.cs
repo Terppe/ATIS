@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.D36Subordo
         }
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
 
 
         //    Part 1    
@@ -90,6 +90,8 @@ namespace ATIS.Ui.Views.Database.D36Subordo
             Tbl33OrdosAllList = _extCrud.GetCollectionAllOrderBy<Tbl33Ordo>("ordo");
             Tbl36SubordosList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl36Subordo>(SearchSubordoName, "subordo");
 
+            if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl36SubordosList.Count)) return;
+
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 1;
 
@@ -99,8 +101,10 @@ namespace ATIS.Ui.Views.Database.D36Subordo
 
         private void ExecuteAddSubordo(object o)
         {
-            Tbl36SubordosList.Insert(0, new Tbl36Subordo { SubordoName = CultRes.StringsRes.DatasetNew });
             Tbl33OrdosAllList = _extCrud.GetCollectionAllOrderBy<Tbl33Ordo>("ordo");
+
+            Tbl36SubordosList = new ObservableCollection<Tbl36Subordo>();
+            Tbl36SubordosList.Insert(0, new Tbl36Subordo { SubordoName = CultRes.StringsRes.DatasetNew });
 
             SubordosView = CollectionViewSource.GetDefaultView(Tbl36SubordosList);
             SubordosView.MoveCurrentToFirst();
@@ -182,7 +186,7 @@ namespace ATIS.Ui.Views.Database.D36Subordo
             if (CurrentTbl36Subordo.OrdoId == 0)
             {
                 MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                       MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -209,8 +213,7 @@ namespace ATIS.Ui.Views.Database.D36Subordo
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
                     return;
                 }
@@ -1066,6 +1069,7 @@ namespace ATIS.Ui.Views.Database.D36Subordo
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+
 
         public int SelectedMainTabIndex
         {

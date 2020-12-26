@@ -27,8 +27,8 @@ namespace ATIS.Ui.Views.Database.D15Subdivision
         #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(typeof(SubdivisionsViewModel));
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
-        private readonly AtisDbContext _context = new AtisDbContext();
         private readonly CrudFunctions _extCrud = new CrudFunctions();
+        private readonly AtisDbContext _context = new AtisDbContext();
 
         private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
         private readonly GenericMessageBoxes<Tbl15Subdivision> _genSubdivisionMessageBoxes = new GenericMessageBoxes<Tbl15Subdivision>();
@@ -59,7 +59,7 @@ namespace ATIS.Ui.Views.Database.D15Subdivision
         }
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
 
 
         //    Part 1    
@@ -93,6 +93,8 @@ namespace ATIS.Ui.Views.Database.D15Subdivision
             Tbl09DivisionsAllList = _extCrud.GetCollectionAllOrderBy<Tbl09Division>("division");
             Tbl15SubdivisionsList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl15Subdivision>(SearchSubdivisionName, "subdivision");
 
+            if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl15SubdivisionsList.Count)) return;
+
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 1;
 
@@ -102,8 +104,10 @@ namespace ATIS.Ui.Views.Database.D15Subdivision
 
         private void ExecuteAddSubdivision(object o)
         {
-            Tbl15SubdivisionsList.Insert(0, new Tbl15Subdivision { SubdivisionName = CultRes.StringsRes.DatasetNew });
             Tbl09DivisionsAllList = _extCrud.GetCollectionAllOrderBy<Tbl09Division>("division");
+
+            Tbl15SubdivisionsList = new ObservableCollection<Tbl15Subdivision>();
+            Tbl15SubdivisionsList.Insert(0, new Tbl15Subdivision { SubdivisionName = CultRes.StringsRes.DatasetNew });
 
             SubdivisionsView = CollectionViewSource.GetDefaultView(Tbl15SubdivisionsList);
             SubdivisionsView.MoveCurrentToFirst();
@@ -185,7 +189,7 @@ namespace ATIS.Ui.Views.Database.D15Subdivision
             if (CurrentTbl15Subdivision.DivisionId == 0)
             {
                 MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                       MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -212,8 +216,7 @@ namespace ATIS.Ui.Views.Database.D15Subdivision
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
                     return;
                 }
@@ -1074,6 +1077,7 @@ namespace ATIS.Ui.Views.Database.D15Subdivision
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+
 
         public int SelectedMainTabIndex
         {

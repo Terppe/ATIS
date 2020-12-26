@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.D63Infratribus
         }
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
 
 
         //    Part 1    
@@ -90,6 +90,8 @@ namespace ATIS.Ui.Views.Database.D63Infratribus
             Tbl60SubtribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl60Subtribus>("subtribus");
             Tbl63InfratribussesList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl63Infratribus>(SearchInfratribusName, "infratribus");
 
+            if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl63InfratribussesList.Count)) return;
+
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 1;
 
@@ -99,8 +101,10 @@ namespace ATIS.Ui.Views.Database.D63Infratribus
 
         private void ExecuteAddInfratribus(object o)
         {
-            Tbl63InfratribussesList.Insert(0, new Tbl63Infratribus { InfratribusName = CultRes.StringsRes.DatasetNew });
             Tbl60SubtribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl60Subtribus>("subtribus");
+
+            Tbl63InfratribussesList = new ObservableCollection<Tbl63Infratribus>();
+            Tbl63InfratribussesList.Insert(0, new Tbl63Infratribus { InfratribusName = CultRes.StringsRes.DatasetNew });
 
             InfratribussesView = CollectionViewSource.GetDefaultView(Tbl63InfratribussesList);
             InfratribussesView.MoveCurrentToFirst();
@@ -182,7 +186,7 @@ namespace ATIS.Ui.Views.Database.D63Infratribus
             if (CurrentTbl63Infratribus.SubtribusId == 0)
             {
                 MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                       MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -209,8 +213,7 @@ namespace ATIS.Ui.Views.Database.D63Infratribus
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
                     return;
                 }
@@ -777,6 +780,7 @@ namespace ATIS.Ui.Views.Database.D63Infratribus
 
         #endregion [Commands Infratribus ==> Tbl90Reference Expert]                    
 
+
         #region [Methods Infratribus ==> Tbl90Reference Expert]                 
 
         public void ExecuteAddReferenceExpert(object o)
@@ -896,7 +900,6 @@ namespace ATIS.Ui.Views.Database.D63Infratribus
         }
         #endregion [Methods Infratribus ==> Tbl90Reference Expert]                               
 
-
         #region [Commands Infratribus ==> Tbl93Comments]        
 
         private RelayCommand _addCommentCommand;
@@ -915,7 +918,9 @@ namespace ATIS.Ui.Views.Database.D63Infratribus
 
         public ICommand SaveCommentCommand => _saveCommentCommand ??= new RelayCommand(delegate { ExecuteSaveComment(null); });
 
-        #endregion [Commands Infratribus ==> Tbl93Comments]
+        #endregion [Commands Infratribus ==> Tbl93Comments]        
+
+
 
         #region [Methods Infratribus ==> Tbl93Comments]        
 
@@ -1064,6 +1069,7 @@ namespace ATIS.Ui.Views.Database.D63Infratribus
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+
 
         public int SelectedMainTabIndex
         {

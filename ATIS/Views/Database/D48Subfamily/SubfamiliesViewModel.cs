@@ -56,7 +56,7 @@ namespace ATIS.Ui.Views.Database.D48Subfamily
         }
         public bool IsInDesignMode { get; set; }
 
-        #endregion [Constructor]         
+        #endregion [Constructor]          
 
 
         //    Part 1    
@@ -90,6 +90,8 @@ namespace ATIS.Ui.Views.Database.D48Subfamily
             Tbl45FamiliesAllList = _extCrud.GetCollectionAllOrderBy<Tbl45Family>("family");
             Tbl48SubfamiliesList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl48Subfamily>(SearchSubfamilyName, "subfamily");
 
+            if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl48SubfamiliesList.Count)) return;
+
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 1;
 
@@ -99,8 +101,10 @@ namespace ATIS.Ui.Views.Database.D48Subfamily
 
         private void ExecuteAddSubfamily(object o)
         {
-            Tbl48SubfamiliesList.Insert(0, new Tbl48Subfamily { SubfamilyName = CultRes.StringsRes.DatasetNew });
             Tbl45FamiliesAllList = _extCrud.GetCollectionAllOrderBy<Tbl45Family>("family");
+
+            Tbl48SubfamiliesList = new ObservableCollection<Tbl48Subfamily>();
+            Tbl48SubfamiliesList.Insert(0, new Tbl48Subfamily { SubfamilyName = CultRes.StringsRes.DatasetNew });
 
             SubfamiliesView = CollectionViewSource.GetDefaultView(Tbl48SubfamiliesList);
             SubfamiliesView.MoveCurrentToFirst();
@@ -182,7 +186,7 @@ namespace ATIS.Ui.Views.Database.D48Subfamily
             if (CurrentTbl48Subfamily.FamilyId == 0)
             {
                 MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                       MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -209,8 +213,7 @@ namespace ATIS.Ui.Views.Database.D48Subfamily
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
                     return;
                 }
@@ -1066,6 +1069,7 @@ namespace ATIS.Ui.Views.Database.D48Subfamily
         private int _selectedMainTabIndex;
         private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
+
 
         public int SelectedMainTabIndex
         {
