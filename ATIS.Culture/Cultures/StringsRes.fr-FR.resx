@@ -921,4 +921,7 @@
   <data name="ReportSpanish" xml:space="preserve">
     <value>[Spanish]</value>
   </data>
+  <data name="AppClose" xml:space="preserve">
+    <value>Quit application ?</value>
+  </data>
 </root>

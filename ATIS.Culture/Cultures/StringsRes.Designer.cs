@@ -61,6 +61,15 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Quit application ? ähnelt.
+        /// </summary>
+        public static string AppClose {
+            get {
+                return ResourceManager.GetString("AppClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Application closed ähnelt.
         /// </summary>
         public static string AppClosed {
