@@ -1,7 +1,4 @@
-﻿using System;
-
-
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 
 //  Tbl78NamesView.xaml.cs Skriptdatum:  22.01.2019  10:32     

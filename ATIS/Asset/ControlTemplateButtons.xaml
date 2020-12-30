@@ -2557,7 +2557,7 @@
             Width="36"
             Height="36"
             Margin="4"
-            Command="{Binding GetImagesByNameOrIdCommand}"
+            Command="{Binding GetImagesByIdCommand}"
             Foreground="{DynamicResource MahApps.Brushes.Accent}"
             IsEnabled="True"
             Style="{StaticResource MahApps.Styles.Button.Circle}">
@@ -2753,7 +2753,7 @@
             Width="36"
             Height="36"
             Margin="4"
-            Command="{Binding GetGeographicsByNameOrIdCommand}"
+            Command="{Binding GetGeographicsByIdCommand}"
             Foreground="{DynamicResource MahApps.Brushes.Accent}"
             IsEnabled="True"
             Style="{StaticResource MahApps.Styles.Button.Circle}">

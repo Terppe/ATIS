@@ -1,26 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+
+
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
+
+//  Tbl84SynonymsView.xaml.cs Skriptdatum:  29.12.2020  10:32     
 
 namespace ATIS.Ui.Views.Database.D84Synonym
 {
+
     /// <summary>
-    /// Interaktionslogik für SynonymsView.xaml
+    /// Interactionslogic for SynonymsView.xaml
     /// </summary>
     public partial class SynonymsView : UserControl
     {
+
+
         public SynonymsView()
         {
+            DataContext = new SynonymsViewModel();
+
             InitializeComponent();
         }
+
+
     }
 }

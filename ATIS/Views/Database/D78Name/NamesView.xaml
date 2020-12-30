@@ -57,14 +57,14 @@
 
                                     <TextBox
                                         x:Name="TbSearchName"
-                                        Width="170"
+                                        Width="200"
                                         Margin="5"
                                         HorizontalContentAlignment="Stretch"
                                         mah:TextBoxHelper.ButtonCommand="{Binding TextBoxButtonCmd, Mode=OneWay}"
                                         mah:TextBoxHelper.ClearTextButton="True"
                                         mah:TextBoxHelper.IsWaitingForData="True"
                                         mah:TextBoxHelper.UseFloatingWatermark="True"
-                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-SearchNameOrId}"
+                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-SearchNameNameOrId}"
                                         mah:TextBoxHelper.WatermarkAlignment="Left"
                                         ContextMenu="{x:Null}"
                                         FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
@@ -385,7 +385,6 @@
             Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
             SelectedIndex="{Binding SelectedDetailTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
-
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl69FiSpecies-FiSpecies}">
                 <GroupBox>
                     <StackPanel Margin="1">
@@ -395,10 +394,25 @@
                             <Button Template="{StaticResource AddFiSpeciesButton}" />
                             <Button Template="{StaticResource DeleteFiSpeciesButton}" />
                         </StackPanel>
+
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ComboBox
-                                Width="300"
+                                Width="250"
                                 Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl66Genus-Genus}"
+                                DisplayMemberPath="GenusName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl66GenussesAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl66Genus.GenusId), ElementName=Tbl69FiSpeciessesList, Mode=TwoWay}"
+                                SelectedValuePath="GenusId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                            <ComboBox
+                                Width="250"
+                                Margin="25,5,5,5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                 mah:TextBoxHelper.Watermark="{DynamicResource Tbl68Speciesgroup-Speciesgroup}"
@@ -419,6 +433,7 @@
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
                         </StackPanel>
+
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <TextBox
                                 Width="228"
@@ -504,6 +519,7 @@
                                         UpdateSourceTrigger="PropertyChanged" />
                                 </TextBox.Text>
                             </TextBox>
+
                         </StackPanel>
                         <TabControl
                             Height="Auto"
@@ -1183,8 +1199,6 @@
                 </GroupBox>
             </TabItem>
 
-
-            <!--  Part 8.2 TK1 Connected  -->
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl72PlSpecies-PlSpecies}">
                 <GroupBox>
                     <StackPanel Margin="1">
@@ -1196,8 +1210,22 @@
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ComboBox
-                                Width="300"
+                                Width="250"
                                 Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl66Genus-Genus}"
+                                DisplayMemberPath="GenusName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl66GenussesAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl66Genus.GenusId), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay}"
+                                SelectedValuePath="GenusId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                            <ComboBox
+                                Width="250"
+                                Margin="25,5,5,5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                 mah:TextBoxHelper.Watermark="{DynamicResource Tbl68Speciesgroup-Speciesgroup}"
@@ -1514,17 +1542,17 @@
                                             Width="300"
                                             Margin="5,10,5,5"
                                             VerticalAlignment="Bottom"
-                                            Content="{DynamicResource Tbl69FiSpecies-Difficult1}"
+                                            Content="{DynamicResource Tbl72PlSpecies-Difficult1}"
                                             FontWeight="Normal"
-                                            IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.Difficult1), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            IsChecked="{Binding SelectedItem.(models:Tbl72PlSpecies.Difficult1), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             Style="{StaticResource MahApps.Styles.CheckBox}" />
                                         <CheckBox
                                             Width="300"
                                             Margin="5,10,5,5"
                                             VerticalAlignment="Bottom"
-                                            Content="{DynamicResource Tbl69FiSpecies-Difficult2}"
+                                            Content="{DynamicResource Tbl72PlSpecies-Difficult2}"
                                             FontWeight="Normal"
-                                            IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.Difficult2), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            IsChecked="{Binding SelectedItem.(models:Tbl72PlSpecies.Difficult2), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             Style="{StaticResource MahApps.Styles.CheckBox}" />
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
@@ -1532,17 +1560,17 @@
                                             Width="300"
                                             Margin="5"
                                             VerticalAlignment="Bottom"
-                                            Content="{DynamicResource Tbl69FiSpecies-Difficult3}"
+                                            Content="{DynamicResource Tbl72PlSpecies-Difficult3}"
                                             FontWeight="Normal"
-                                            IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.Difficult3), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            IsChecked="{Binding SelectedItem.(models:Tbl72PlSpecies.Difficult3), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             Style="{StaticResource MahApps.Styles.CheckBox}" />
                                         <CheckBox
                                             Width="300"
                                             Margin="5"
                                             VerticalAlignment="Bottom"
-                                            Content="{DynamicResource Tbl69FiSpecies-Difficult4}"
+                                            Content="{DynamicResource Tbl72PlSpecies-Difficult4}"
                                             FontWeight="Normal"
-                                            IsChecked="{Binding SelectedItem.(models:Tbl69FiSpecies.Difficult4), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            IsChecked="{Binding SelectedItem.(models:Tbl72PlSpecies.Difficult4), ElementName=Tbl72PlSpeciessesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             Style="{StaticResource MahApps.Styles.CheckBox}" />
                                     </StackPanel>
                                     <StackPanel Height="Auto" Orientation="Horizontal">
@@ -1835,7 +1863,7 @@
                                     </StackPanel>
                                 </StackPanel>
                             </TabItem>
-                            <TabItem FontWeight="Medium" Header="{DynamicResource Tbl69FiSpecies-TabItemHeaderSpecial}">
+                            <TabItem FontWeight="Medium" Header="{DynamicResource Tbl72PlSpecies-TabItemHeaderSpecial}">
                                 <StackPanel Height="Auto" Orientation="Horizontal">
                                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                                         <TextBox
@@ -1870,6 +1898,7 @@
                 <GroupBox>
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
+
                             <Button Template="{StaticResource SaveNameButton}" />
                             <Button Template="{StaticResource CopyNameButton}" />
                             <Button Template="{StaticResource AddNameButton}" />
@@ -1968,12 +1997,34 @@
                     </StackPanel>
                 </GroupBox>
             </TabItem>
-
-
         </TabControl>
+
+
+
+        <!--  Part 8.2 TK1 Connected  -->
+
+
+
+        <!--  Part 8.3  TK2  Connected  -->
+
+
+
+        <!--  Part 8.3   TK3 Connected  -->
+
+
+
+        <!--  Part 8.3   TK4  Connected  -->
+
+
+
+
+        <!--  Part 11  -->
+
+        <!--  Part 12  -->
+
+        <!--  Part 13  -->
+
+
     </Grid>
-
-
-
 </UserControl>
 

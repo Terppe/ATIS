@@ -51,6 +51,8 @@ namespace ATIS.Ui.Core
                         "speciesgroup" => GetSpeciesgroupsCollectionAllOrderBy<T>(),
                         "fispecies" => GetFiSpeciessesCollectionAllOrderBy<T>(),
                         "plspecies" => GetPlSpeciessesCollectionAllOrderBy<T>(),
+                        "name" => GetNamesCollectionAllOrderBy<T>(),
+                        "synonym" => GetNamesCollectionAllOrderBy<T>(),
                         _ => collection
                     };
                     break;
@@ -83,6 +85,8 @@ namespace ATIS.Ui.Core
                             "speciesgroup" => GetSpeciesgroupsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
                             "fispecies" => GetFiSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
                             "plspecies" => GetPlSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "name" => GetNamesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "synonym" => GetSynonymsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
                             _ => collection
                         };
                     }
@@ -172,6 +176,13 @@ namespace ATIS.Ui.Core
                 case "plspecies":
                     collection = GetPlSpeciessesCollectionAllOrderBy<T>();
                     break;
+                case "name":
+                    collection = GetNamesCollectionAllOrderBy<T>();
+                    break;
+                case "synonym":
+                    collection = GetNamesCollectionAllOrderBy<T>();
+                    break;
+
                 case "expert":
                     collection = GetReferenceExpertsCollectionAllOrderBy<T>();
                     break;
@@ -9899,10 +9910,10 @@ namespace ATIS.Ui.Core
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
                 ? new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
-                    .Include(a => a.Tbl66Genusses)
+                    .Include(b => b.Tbl66Genusses)
                     .Where(e => e.FiSpeciesId == id))
                 : new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
-                    .Include(a => a.Tbl66Genusses)
+                    .Include(b => b.Tbl66Genusses)
                     .Where(a => a.Tbl66Genusses.GenusName.StartsWith(searchName))
                     .OrderBy(a => a.Tbl66Genusses.GenusName)
                     .ThenBy(a => a.FiSpeciesName)
@@ -9927,7 +9938,7 @@ namespace ATIS.Ui.Core
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
-                .Include(a => a)
+                .Include(a => a.Tbl66Genusses)
                 .Where(e => e.FiSpeciesId == id)
                 .OrderBy(a => a.Tbl66Genusses.GenusName)
                 .ThenBy(a => a.FiSpeciesName)
@@ -10612,12 +10623,12 @@ namespace ATIS.Ui.Core
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
                 ? new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
-                    .Include(a => a.Tbl66Genusses)
+                    .Include(b => b.Tbl66Genusses)
                     .Where(e => e.PlSpeciesId == id))
                 : new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
-                    .Include(a => a.Tbl66Genusses)
-                    .Where(a => a.Tbl66Genusses.GenusName.StartsWith(searchName))
-                    .OrderBy(a => a.Tbl66Genusses.GenusName)
+                    .Include(b => b.Tbl66Genusses)
+                    .Where(b => b.Tbl66Genusses.GenusName.StartsWith(searchName))
+                    .OrderBy(b => b.Tbl66Genusses.GenusName)
                     .ThenBy(a => a.PlSpeciesName)
                     .ThenBy(a => a.Subspecies)
                     .ThenBy(a => a.Divers));
@@ -10628,8 +10639,8 @@ namespace ATIS.Ui.Core
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
-                .Include(a => a.Tbl66Genusses)
-                .OrderBy(a => a.Tbl66Genusses.GenusName)
+                .Include(b => b.Tbl66Genusses)
+                .OrderBy(b => b.Tbl66Genusses.GenusName)
                 .ThenBy(a => a.PlSpeciesName)
                 .ThenBy(a => a.Subspecies)
                 .ThenBy(a => a.Divers));
@@ -10639,7 +10650,7 @@ namespace ATIS.Ui.Core
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
-                .Include(a => a.Tbl66Genusses)
+                .Include(b => b.Tbl66Genusses)
                 .Where(e => e.PlSpeciesId == id)
                 .OrderBy(a => a.Tbl66Genusses.GenusName)
                 .ThenBy(a => a.PlSpeciesName)
@@ -10943,6 +10954,34 @@ namespace ATIS.Ui.Core
 
         #region Name
 
+        #region Get Name
+
+        //----------------------------------------   Name   ------------------------
+        public ObservableCollection<T> GetNamesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        {
+            ObservableCollection<T> collection;
+            collection = int.TryParse(searchName, out var id)
+                ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl78Names
+                    .Find(e => e.NameId == id))
+                : new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl78Names
+                    .Find(e => e.NameName.StartsWith(searchName))
+                    .OrderBy(a => a.NameName)
+                );
+            return collection;
+        }
+
+        public ObservableCollection<T> GetNamesCollectionAllOrderBy<T>()
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl78Names
+                .OrderBy(a => a.NameName));
+
+            return collection;
+        }
+
+
+        #endregion
+
         #region Delete Name
 
         public ObservableCollection<Tbl78Name> SearchForConnectedDatasetsWithFiSpeciesIdInTableName(Tbl69FiSpecies selected)
@@ -10963,6 +11002,20 @@ namespace ATIS.Ui.Core
 
         #region Image
 
+        #region GetImage
+        public ObservableCollection<T> GetImagesCollectionFromSearchIdOrderBy<T>(in int searchImageId)
+        {
+            ObservableCollection<T> collection;
+            var i = searchImageId;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl81Images
+                .Where(e => e.ImageId == i)
+                .OrderBy(e => e.Info));
+            return collection;
+        }
+
+
+
+        #endregion
         #region DeleteImage
 
         public ObservableCollection<Tbl81Image> SearchForConnectedDatasetsWithFiSpeciesIdInTableImage(Tbl69FiSpecies selected)
@@ -10984,6 +11037,34 @@ namespace ATIS.Ui.Core
         #endregion
 
         #region Synonym
+
+        #region Get Name
+
+        //----------------------------------------   Synonym   ------------------------
+        public ObservableCollection<T> GetSynonymsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        {
+            ObservableCollection<T> collection;
+            collection = int.TryParse(searchName, out var id)
+                ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl84Synonyms
+                    .Find(e => e.SynonymId == id))
+                : new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl84Synonyms
+                    .Find(e => e.SynonymName.StartsWith(searchName))
+                    .OrderBy(a => a.SynonymName)
+                );
+            return collection;
+        }
+
+        public ObservableCollection<T> GetTbl84SynonymssCollectionAllOrderBy<T>()
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl84Synonyms
+                .OrderBy(a => a.SynonymName));
+
+            return collection;
+        }
+
+
+        #endregion
 
         #region Delete Synonym
 
@@ -11355,5 +11436,6 @@ namespace ATIS.Ui.Core
 
 
         #endregion
+
     }
 }
