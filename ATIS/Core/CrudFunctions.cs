@@ -9760,7 +9760,7 @@ namespace ATIS.Ui.Core
         }
 
         //-------------------------------------- PlSpecies   -------------------------
-        public ObservableCollection<T> GetPlSpeciessesCollectionFromSpeciesgroupIdOrderBy<T>(int id)
+        public ObservableCollection<T> GetPlSpeciessesCollectionFromSpeciesgroupIdOrderBy<T>(int? id)
         {
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses

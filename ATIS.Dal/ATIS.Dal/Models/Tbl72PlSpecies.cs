@@ -13,7 +13,7 @@ namespace ATIS.Dal.Models
         public string Subspecies { get; set; }
         public string Divers { get; set; }
         public int GenusId { get; set; }
-        public int SpeciesgroupId { get; set; }
+        public int? SpeciesgroupId { get; set; }
         public int CountId { get; set; }
         public bool? Valid { get; set; }
         public string ValidYear { get; set; }
