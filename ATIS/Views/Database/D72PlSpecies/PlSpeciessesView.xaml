@@ -2720,7 +2720,7 @@
                             </TextBox>
                         </StackPanel>
                         <TabControl
-                            Width="700"
+                            Width="780"
                             Height="Auto"
                             Margin="0,-1,0,1"
                             Padding="0"

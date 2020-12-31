@@ -6,6 +6,7 @@
     xmlns:d78Name="clr-namespace:ATIS.Ui.Views.Database.D78Name"
     xmlns:d81Image="clr-namespace:ATIS.Ui.Views.Database.D81Image"
     xmlns:d84Synonym="clr-namespace:ATIS.Ui.Views.Database.D84Synonym"
+    xmlns:d87Geographic="clr-namespace:ATIS.Ui.Views.Database.D87Geographic"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
@@ -21,6 +22,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type d84Synonym:SynonymsViewModel}">
             <d84Synonym:SynonymsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d87Geographic:GeographicsViewModel}">
+            <d87Geographic:GeographicsView />
         </DataTemplate>
 
     </UserControl.Resources>
@@ -41,7 +45,9 @@
             <TabItem Header="{DynamicResource Database-MenuSynonym}">
                 <d84Synonym:SynonymsViewModel />
             </TabItem>
-            <TabItem Content="{Binding Tbl87GeographicsView}" Header="{DynamicResource Database-MenuGeographic}" />
+            <TabItem Header="{DynamicResource Database-MenuGeographic}">
+                <d87Geographic:GeographicsViewModel />
+            </TabItem>
             <TabItem Header="{DynamicResource Database-MenuReference}">
                 <TabControl
                     Height="Auto"

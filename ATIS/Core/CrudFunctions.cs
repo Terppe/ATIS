@@ -11087,6 +11087,20 @@ namespace ATIS.Ui.Core
 
         #region Geographic
 
+        #region GetGeographic
+
+        public ObservableCollection<T> GetGeographicsCollectionFromSearchIdOrderBy<T>(in int searchgeographicId)
+        {
+            ObservableCollection<T> collection;
+            var i = searchgeographicId;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl87Geographics
+                .Where(e => e.GeographicId == i)
+                .OrderBy(e => e.Info));
+            return collection;
+        }
+
+
+        #endregion
         #region Delete Geographic
 
         public ObservableCollection<Tbl87Geographic> SearchForConnectedDatasetsWithFiSpeciesIdInTableGeographic(Tbl69FiSpecies selected)
