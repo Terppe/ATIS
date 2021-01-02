@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace ATIS.Ui.Views.Database.DatabaseHelper
+namespace ATIS.Ui.Helper.MessageBox
 {
     public class AllMessageBoxes
     {
@@ -45,7 +45,7 @@ namespace ATIS.Ui.Views.Database.DatabaseHelper
         {
             if (collectionCount == 0)
             {
-                MessageBox.Show(CultRes.StringsRes.Tables, CultRes.StringsRes.DatasetNot,
+                System.Windows.MessageBox.Show(CultRes.StringsRes.Tables, CultRes.StringsRes.DatasetNot,
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return true;
             }
@@ -55,7 +55,7 @@ namespace ATIS.Ui.Views.Database.DatabaseHelper
         {
             if (collectionCount > 0)
             {
-                MessageBox.Show("Not to Delete",
+                System.Windows.MessageBox.Show("Not to Delete",
                     caption + " " + "ConnectedDataset",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return true;
@@ -66,26 +66,26 @@ namespace ATIS.Ui.Views.Database.DatabaseHelper
 
         public bool DeleteDatasetQuestionMessageBox(string caption)
         {
-            return MessageBox.Show("Wollen Sie Datensätze löschen ?",
+            return System.Windows.MessageBox.Show("Wollen Sie Datensätze löschen ?",
                 caption + " " + "ConnectedDataset",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes;
         }
 
         public bool SaveDatasetQuestionMessageBox(string caption)
         {
-            return MessageBox.Show(CultRes.StringsRes.SaveQuestion2, caption,
+            return System.Windows.MessageBox.Show(CultRes.StringsRes.SaveQuestion2, caption,
                        MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes;
         }
         //------------------------------------------------------------------
         public void InfoMessageBox(string message, string caption)
         {
-            MessageBox.Show(message, caption,
+            System.Windows.MessageBox.Show(message, caption,
                 MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         public void WarningMessageBox(string message, string caption)
         {
-            MessageBox.Show(message, caption,
+            System.Windows.MessageBox.Show(message, caption,
                 MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 

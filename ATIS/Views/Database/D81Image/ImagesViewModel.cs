@@ -9,7 +9,6 @@ using System.Windows.Input;
 using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
-using ATIS.Ui.Views.Database.DatabaseHelper;
 using log4net;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +17,7 @@ using System.Globalization;
 using System.IO;
 using Microsoft.Win32;
 using System.Windows.Media.Imaging;
+using ATIS.Ui.Helper.MessageBox;
 using ATIS.Ui.Views.Database.D78Name;
 
 //using GalaSoft.MvvmLight.Command;

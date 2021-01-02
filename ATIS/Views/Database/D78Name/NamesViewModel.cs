@@ -7,11 +7,11 @@ using System.Windows.Input;
 using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
-using ATIS.Ui.Views.Database.DatabaseHelper;
 using log4net;
 using Microsoft.EntityFrameworkCore;
 
 using System.Collections.Generic;
+using ATIS.Ui.Helper.MessageBox;
 
 //    NamesViewModel Skriptdatum:  22.01.2019  10:32    
 

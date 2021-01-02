@@ -9,13 +9,13 @@ using System.Windows.Input;
 using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
-using ATIS.Ui.Views.Database.DatabaseHelper;
 using log4net;
 using Microsoft.EntityFrameworkCore;
 
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Media.Imaging;
+using ATIS.Ui.Helper.MessageBox;
 using Microsoft.Win32;
 
 //    FiSpeciessesViewModel Skriptdatum:  17.12.2020  10:32    

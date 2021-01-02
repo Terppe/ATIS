@@ -7,12 +7,12 @@ using System.Windows.Input;
 using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
-using ATIS.Ui.Views.Database.DatabaseHelper;
 using log4net;
 using Microsoft.EntityFrameworkCore;
 
 using System.Globalization;
 using System.Collections.Generic;
+using ATIS.Ui.Helper.MessageBox;
 
 //    GeographicsViewModel Skriptdatum:  30.12.2020  10:32    
 
