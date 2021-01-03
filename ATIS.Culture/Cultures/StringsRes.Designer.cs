@@ -70,11 +70,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Quit application ? ähnelt.
+        /// </summary>
+        public static string AppClose1 {
+            get {
+                return ResourceManager.GetString("AppClose1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Application closed ähnelt.
         /// </summary>
         public static string AppClosed {
             get {
                 return ResourceManager.GetString("AppClosed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Application closed ähnelt.
+        /// </summary>
+        public static string AppClosed1 {
+            get {
+                return ResourceManager.GetString("AppClosed1", resourceCulture);
             }
         }
         
@@ -97,11 +115,38 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Question ähnelt.
+        /// </summary>
+        public static string AppCloseQuestion11 {
+            get {
+                return ResourceManager.GetString("AppCloseQuestion11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Are you really shure to close this application ähnelt.
+        /// </summary>
+        public static string AppCloseQuestion2 {
+            get {
+                return ResourceManager.GetString("AppCloseQuestion2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Request for principal permission failed ähnelt.
         /// </summary>
         public static string AreaAuthMessage {
             get {
                 return ResourceManager.GetString("AreaAuthMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Request for principal permission failed ähnelt.
+        /// </summary>
+        public static string AreaAuthMessage1 {
+            get {
+                return ResourceManager.GetString("AreaAuthMessage1", resourceCulture);
             }
         }
         
@@ -115,11 +160,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die You don&apos;t have authorization for this area ähnelt.
+        /// </summary>
+        public static string AreaAuthNo1 {
+            get {
+                return ResourceManager.GetString("AreaAuthNo1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Access denied. Please provide some valid credentials. ähnelt.
         /// </summary>
         public static string AuthAccessNot {
             get {
                 return ResourceManager.GetString("AuthAccessNot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Access denied. Please provide some valid credentials. ähnelt.
+        /// </summary>
+        public static string AuthAccessNot1 {
+            get {
+                return ResourceManager.GetString("AuthAccessNot1", resourceCulture);
             }
         }
         
@@ -133,6 +196,15 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Custom authentication ähnelt.
+        /// </summary>
+        public static string AuthCustom1 {
+            get {
+                return ResourceManager.GetString("AuthCustom1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die You are not authorized! ähnelt.
         /// </summary>
         public static string AuthNot {
@@ -142,11 +214,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die You are not authorized! ähnelt.
+        /// </summary>
+        public static string AuthNot1 {
+            get {
+                return ResourceManager.GetString("AuthNot1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Not authenticated! ähnelt.
         /// </summary>
         public static string AuthUserNot {
             get {
                 return ResourceManager.GetString("AuthUserNot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Not authenticated! ähnelt.
+        /// </summary>
+        public static string AuthUserNot1 {
+            get {
+                return ResourceManager.GetString("AuthUserNot1", resourceCulture);
             }
         }
         
@@ -169,11 +259,38 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die You are an administrator! ähnelt.
+        /// </summary>
+        public static string AuthUserQuestion11 {
+            get {
+                return ResourceManager.GetString("AuthUserQuestion11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die You are NOT a member of the administrators group. ähnelt.
         /// </summary>
         public static string AuthUserQuestion2 {
             get {
                 return ResourceManager.GetString("AuthUserQuestion2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die You are NOT a member of the administrators group. ähnelt.
+        /// </summary>
+        public static string AuthUserQuestion21 {
+            get {
+                return ResourceManager.GetString("AuthUserQuestion21", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Signed in as {0}. {1} ähnelt.
+        /// </summary>
+        public static string AuthUserQuestion3 {
+            get {
+                return ResourceManager.GetString("AuthUserQuestion3", resourceCulture);
             }
         }
         
@@ -187,11 +304,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Option must be checked ähnelt.
+        /// </summary>
+        public static string CheckOption1 {
+            get {
+                return ResourceManager.GetString("CheckOption1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Class ähnelt.
         /// </summary>
         public static string Class {
             get {
                 return ResourceManager.GetString("Class", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Class ähnelt.
+        /// </summary>
+        public static string Class1 {
+            get {
+                return ResourceManager.GetString("Class1", resourceCulture);
             }
         }
         
@@ -205,11 +340,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Comment ähnelt.
+        /// </summary>
+        public static string Comment1 {
+            get {
+                return ResourceManager.GetString("Comment1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die include connected datasets, not possible to delete here ! ähnelt.
         /// </summary>
         public static string ConnectedDataset {
             get {
                 return ResourceManager.GetString("ConnectedDataset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die include connected datasets, not possible to delete here ! ähnelt.
+        /// </summary>
+        public static string ConnectedDataset1 {
+            get {
+                return ResourceManager.GetString("ConnectedDataset1", resourceCulture);
             }
         }
         
@@ -223,11 +376,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Connected Table ähnelt.
+        /// </summary>
+        public static string ConnectedTable1 {
+            get {
+                return ResourceManager.GetString("ConnectedTable1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Can&apos;t convert back ähnelt.
         /// </summary>
         public static string ConvertBackNo {
             get {
                 return ResourceManager.GetString("ConvertBackNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Can&apos;t convert back ähnelt.
+        /// </summary>
+        public static string ConvertBackNo1 {
+            get {
+                return ResourceManager.GetString("ConvertBackNo1", resourceCulture);
             }
         }
         
@@ -241,11 +412,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Country ähnelt.
+        /// </summary>
+        public static string Country1 {
+            get {
+                return ResourceManager.GetString("Country1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die dataset already existing ähnelt.
         /// </summary>
         public static string DatasetExist {
             get {
                 return ResourceManager.GetString("DatasetExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die dataset already existing ähnelt.
+        /// </summary>
+        public static string DatasetExist1 {
+            get {
+                return ResourceManager.GetString("DatasetExist1", resourceCulture);
             }
         }
         
@@ -259,6 +448,15 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die new ähnelt.
+        /// </summary>
+        public static string DatasetNew1 {
+            get {
+                return ResourceManager.GetString("DatasetNew1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die No dataset found ähnelt.
         /// </summary>
         public static string DatasetNot {
@@ -268,11 +466,38 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die No dataset found ähnelt.
+        /// </summary>
+        public static string DatasetNot1 {
+            get {
+                return ResourceManager.GetString("DatasetNot1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die dataset not found ähnelt.
         /// </summary>
         public static string DatasetNotExist {
             get {
                 return ResourceManager.GetString("DatasetNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die dataset not found ähnelt.
+        /// </summary>
+        public static string DatasetNotExist1 {
+            get {
+                return ResourceManager.GetString("DatasetNotExist1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Please Select dataset ! ähnelt.
+        /// </summary>
+        public static string DatasetSelect {
+            get {
+                return ResourceManager.GetString("DatasetSelect", resourceCulture);
             }
         }
         
@@ -295,6 +520,33 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die can be deleted ! ähnelt.
+        /// </summary>
+        public static string DeleteCan11 {
+            get {
+                return ResourceManager.GetString("DeleteCan11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Only ähnelt.
+        /// </summary>
+        public static string DeleteCan2 {
+            get {
+                return ResourceManager.GetString("DeleteCan2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Dataset not to delete ähnelt.
+        /// </summary>
+        public static string DeleteNot {
+            get {
+                return ResourceManager.GetString("DeleteNot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Are you really shure to delete this  ähnelt.
         /// </summary>
         public static string DeleteQuestion {
@@ -313,11 +565,38 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Question ähnelt.
+        /// </summary>
+        public static string DeleteQuestion11 {
+            get {
+                return ResourceManager.GetString("DeleteQuestion11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Are you really shure to delete this  ähnelt.
+        /// </summary>
+        public static string DeleteQuestion2 {
+            get {
+                return ResourceManager.GetString("DeleteQuestion2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die was successfully deleted ähnelt.
         /// </summary>
         public static string DeleteSuccess {
             get {
                 return ResourceManager.GetString("DeleteSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die was successfully deleted ähnelt.
+        /// </summary>
+        public static string DeleteSuccess1 {
+            get {
+                return ResourceManager.GetString("DeleteSuccess1", resourceCulture);
             }
         }
         
@@ -331,11 +610,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Division ähnelt.
+        /// </summary>
+        public static string Division1 {
+            get {
+                return ResourceManager.GetString("Division1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die eMail does&apos;t exist ähnelt.
         /// </summary>
         public static string EMailNotExist {
             get {
                 return ResourceManager.GetString("EMailNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die eMail does&apos;t exist ähnelt.
+        /// </summary>
+        public static string EMailNotExist1 {
+            get {
+                return ResourceManager.GetString("EMailNotExist1", resourceCulture);
             }
         }
         
@@ -349,11 +646,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Error ähnelt.
+        /// </summary>
+        public static string Error1 {
+            get {
+                return ResourceManager.GetString("Error1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Failed to save ähnelt.
         /// </summary>
         public static string FailedToSave {
             get {
                 return ResourceManager.GetString("FailedToSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Failed to save ähnelt.
+        /// </summary>
+        public static string FailedToSave1 {
+            get {
+                return ResourceManager.GetString("FailedToSave1", resourceCulture);
             }
         }
         
@@ -367,11 +682,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Family ähnelt.
+        /// </summary>
+        public static string Family1 {
+            get {
+                return ResourceManager.GetString("Family1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die FiSpecies ähnelt.
         /// </summary>
         public static string FiSpecies {
             get {
                 return ResourceManager.GetString("FiSpecies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die FiSpecies ähnelt.
+        /// </summary>
+        public static string FiSpecies1 {
+            get {
+                return ResourceManager.GetString("FiSpecies1", resourceCulture);
             }
         }
         
@@ -385,11 +718,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Genus ähnelt.
+        /// </summary>
+        public static string Genus1 {
+            get {
+                return ResourceManager.GetString("Genus1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Geographic ähnelt.
         /// </summary>
         public static string Geographic {
             get {
                 return ResourceManager.GetString("Geographic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Geographic ähnelt.
+        /// </summary>
+        public static string Geographic1 {
+            get {
+                return ResourceManager.GetString("Geographic1", resourceCulture);
             }
         }
         
@@ -403,11 +754,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Get new ID ähnelt.
+        /// </summary>
+        public static string GetNewNumber1 {
+            get {
+                return ResourceManager.GetString("GetNewNumber1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Illegal characters or  ähnelt.
         /// </summary>
         public static string IllegalCharacters {
             get {
                 return ResourceManager.GetString("IllegalCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Illegal characters or  ähnelt.
+        /// </summary>
+        public static string IllegalCharacters1 {
+            get {
+                return ResourceManager.GetString("IllegalCharacters1", resourceCulture);
             }
         }
         
@@ -421,11 +790,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Image ähnelt.
+        /// </summary>
+        public static string Image1 {
+            get {
+                return ResourceManager.GetString("Image1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Information ähnelt.
         /// </summary>
         public static string Information {
             get {
                 return ResourceManager.GetString("Information", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Information ähnelt.
+        /// </summary>
+        public static string Information1 {
+            get {
+                return ResourceManager.GetString("Information1", resourceCulture);
             }
         }
         
@@ -439,11 +826,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Infraclass ähnelt.
+        /// </summary>
+        public static string Infraclass1 {
+            get {
+                return ResourceManager.GetString("Infraclass1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Infrafamily ähnelt.
         /// </summary>
         public static string Infrafamily {
             get {
                 return ResourceManager.GetString("Infrafamily", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Infrafamily ähnelt.
+        /// </summary>
+        public static string Infrafamily1 {
+            get {
+                return ResourceManager.GetString("Infrafamily1", resourceCulture);
             }
         }
         
@@ -457,11 +862,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Infraordo ähnelt.
+        /// </summary>
+        public static string Infraordo1 {
+            get {
+                return ResourceManager.GetString("Infraordo1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Infratribus ähnelt.
         /// </summary>
         public static string Infratribus {
             get {
                 return ResourceManager.GetString("Infratribus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Infratribus ähnelt.
+        /// </summary>
+        public static string Infratribus1 {
+            get {
+                return ResourceManager.GetString("Infratribus1", resourceCulture);
             }
         }
         
@@ -475,11 +898,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Input requested ähnelt.
+        /// </summary>
+        public static string InputRequested1 {
+            get {
+                return ResourceManager.GetString("InputRequested1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Invalid date ähnelt.
         /// </summary>
         public static string InvalidDate {
             get {
                 return ResourceManager.GetString("InvalidDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Invalid date ähnelt.
+        /// </summary>
+        public static string InvalidDate1 {
+            get {
+                return ResourceManager.GetString("InvalidDate1", resourceCulture);
             }
         }
         
@@ -493,11 +934,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Legio ähnelt.
+        /// </summary>
+        public static string Legio1 {
+            get {
+                return ResourceManager.GetString("Legio1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die List ähnelt.
         /// </summary>
         public static string List {
             get {
                 return ResourceManager.GetString("List", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die List ähnelt.
+        /// </summary>
+        public static string List1 {
+            get {
+                return ResourceManager.GetString("List1", resourceCulture);
             }
         }
         
@@ -511,11 +970,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die is an administrator ähnelt.
+        /// </summary>
+        public static string LoginAdministrator1 {
+            get {
+                return ResourceManager.GetString("LoginAdministrator1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die is logged in as  ähnelt.
         /// </summary>
         public static string LoginAs {
             get {
                 return ResourceManager.GetString("LoginAs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die is logged in as  ähnelt.
+        /// </summary>
+        public static string LoginAs1 {
+            get {
+                return ResourceManager.GetString("LoginAs1", resourceCulture);
             }
         }
         
@@ -529,11 +1006,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die is a biologist ähnelt.
+        /// </summary>
+        public static string LoginBiologist1 {
+            get {
+                return ResourceManager.GetString("LoginBiologist1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die The application&apos;s default thread principal must be set to a CustomPrincipal object on startup. ähnelt.
         /// </summary>
         public static string LoginCustomPrincipal {
             get {
                 return ResourceManager.GetString("LoginCustomPrincipal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The application&apos;s default thread principal must be set to a CustomPrincipal object on startup. ähnelt.
+        /// </summary>
+        public static string LoginCustomPrincipal1 {
+            get {
+                return ResourceManager.GetString("LoginCustomPrincipal1", resourceCulture);
             }
         }
         
@@ -547,11 +1042,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die is a developer ähnelt.
+        /// </summary>
+        public static string LoginDeveloper1 {
+            get {
+                return ResourceManager.GetString("LoginDeveloper1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Enter an email. ähnelt.
         /// </summary>
         public static string LoginEmail {
             get {
                 return ResourceManager.GetString("LoginEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Enter an email. ähnelt.
+        /// </summary>
+        public static string LoginEmail1 {
+            get {
+                return ResourceManager.GetString("LoginEmail1", resourceCulture);
             }
         }
         
@@ -565,11 +1078,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ERROR: {0} ähnelt.
+        /// </summary>
+        public static string LoginError1 {
+            get {
+                return ResourceManager.GetString("LoginError1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Login failed! Please provide some valid credentials. ähnelt.
         /// </summary>
         public static string LoginFail {
             get {
                 return ResourceManager.GetString("LoginFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Login failed! Please provide some valid credentials. ähnelt.
+        /// </summary>
+        public static string LoginFail1 {
+            get {
+                return ResourceManager.GetString("LoginFail1", resourceCulture);
             }
         }
         
@@ -583,11 +1114,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The underlying provider failed on open ähnelt.
+        /// </summary>
+        public static string LoginFailEx1 {
+            get {
+                return ResourceManager.GetString("LoginFailEx1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die is an user ähnelt.
         /// </summary>
         public static string LoginUser {
             get {
                 return ResourceManager.GetString("LoginUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die is an user ähnelt.
+        /// </summary>
+        public static string LoginUser1 {
+            get {
+                return ResourceManager.GetString("LoginUser1", resourceCulture);
             }
         }
         
@@ -601,11 +1150,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Enter a valid email. ähnelt.
+        /// </summary>
+        public static string LoginValidEmail1 {
+            get {
+                return ResourceManager.GetString("LoginValidEmail1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Sorry! Please enter existing Email/Password. ähnelt.
         /// </summary>
         public static string LoginValidEmailPassword {
             get {
                 return ResourceManager.GetString("LoginValidEmailPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Sorry! Please enter existing Email/Password. ähnelt.
+        /// </summary>
+        public static string LoginValidEmailPassword1 {
+            get {
+                return ResourceManager.GetString("LoginValidEmailPassword1", resourceCulture);
             }
         }
         
@@ -619,11 +1186,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Please enter a valid password ähnelt.
+        /// </summary>
+        public static string LoginValidPassword1 {
+            get {
+                return ResourceManager.GetString("LoginValidPassword1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die is a zoologist ähnelt.
         /// </summary>
         public static string LoginZoologist {
             get {
                 return ResourceManager.GetString("LoginZoologist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die is a zoologist ähnelt.
+        /// </summary>
+        public static string LoginZoologist1 {
+            get {
+                return ResourceManager.GetString("LoginZoologist1", resourceCulture);
             }
         }
         
@@ -637,11 +1222,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Nobody logged in ähnelt.
+        /// </summary>
+        public static string Logout1 {
+            get {
+                return ResourceManager.GetString("Logout1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die About ähnelt.
         /// </summary>
         public static string MainWindowAbout {
             get {
                 return ResourceManager.GetString("MainWindowAbout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die About ähnelt.
+        /// </summary>
+        public static string MainWindowAbout1 {
+            get {
+                return ResourceManager.GetString("MainWindowAbout1", resourceCulture);
             }
         }
         
@@ -655,11 +1258,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Adjustment ähnelt.
+        /// </summary>
+        public static string MainWindowAdjustment1 {
+            get {
+                return ResourceManager.GetString("MainWindowAdjustment1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Admin Area ähnelt.
         /// </summary>
         public static string MainWindowAdminArea {
             get {
                 return ResourceManager.GetString("MainWindowAdminArea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Admin Area ähnelt.
+        /// </summary>
+        public static string MainWindowAdminArea1 {
+            get {
+                return ResourceManager.GetString("MainWindowAdminArea1", resourceCulture);
             }
         }
         
@@ -673,11 +1294,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Appearence ähnelt.
+        /// </summary>
+        public static string MainWindowAppearence1 {
+            get {
+                return ResourceManager.GetString("MainWindowAppearence1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Database ähnelt.
         /// </summary>
         public static string MainWindowDatabase {
             get {
                 return ResourceManager.GetString("MainWindowDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Database ähnelt.
+        /// </summary>
+        public static string MainWindowDatabase1 {
+            get {
+                return ResourceManager.GetString("MainWindowDatabase1", resourceCulture);
             }
         }
         
@@ -691,11 +1330,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Downsize ähnelt.
+        /// </summary>
+        public static string MainWindowDownsize1 {
+            get {
+                return ResourceManager.GetString("MainWindowDownsize1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Feedback ähnelt.
         /// </summary>
         public static string MainWindowFeedback {
             get {
                 return ResourceManager.GetString("MainWindowFeedback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Feedback ähnelt.
+        /// </summary>
+        public static string MainWindowFeedback1 {
+            get {
+                return ResourceManager.GetString("MainWindowFeedback1", resourceCulture);
             }
         }
         
@@ -709,11 +1366,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Home ähnelt.
+        /// </summary>
+        public static string MainWindowHome1 {
+            get {
+                return ResourceManager.GetString("MainWindowHome1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Info Area ähnelt.
         /// </summary>
         public static string MainWindowInfoArea {
             get {
                 return ResourceManager.GetString("MainWindowInfoArea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Info Area ähnelt.
+        /// </summary>
+        public static string MainWindowInfoArea1 {
+            get {
+                return ResourceManager.GetString("MainWindowInfoArea1", resourceCulture);
             }
         }
         
@@ -727,11 +1402,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Language ähnelt.
+        /// </summary>
+        public static string MainWindowLanguage1 {
+            get {
+                return ResourceManager.GetString("MainWindowLanguage1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Maximize ähnelt.
         /// </summary>
         public static string MainWindowMaximize {
             get {
                 return ResourceManager.GetString("MainWindowMaximize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Maximize ähnelt.
+        /// </summary>
+        public static string MainWindowMaximize1 {
+            get {
+                return ResourceManager.GetString("MainWindowMaximize1", resourceCulture);
             }
         }
         
@@ -745,11 +1438,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die User Area ähnelt.
+        /// </summary>
+        public static string MainWindowUserArea1 {
+            get {
+                return ResourceManager.GetString("MainWindowUserArea1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Name ähnelt.
         /// </summary>
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Name ähnelt.
+        /// </summary>
+        public static string Name1 {
+            get {
+                return ResourceManager.GetString("Name1", resourceCulture);
             }
         }
         
@@ -763,11 +1474,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Cannot connection to the Sql Server service on MySqlServer ähnelt.
+        /// </summary>
+        public static string NoConnectServer1 {
+            get {
+                return ResourceManager.GetString("NoConnectServer1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Ordo ähnelt.
         /// </summary>
         public static string Ordo {
             get {
                 return ResourceManager.GetString("Ordo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ordo ähnelt.
+        /// </summary>
+        public static string Ordo1 {
+            get {
+                return ResourceManager.GetString("Ordo1", resourceCulture);
             }
         }
         
@@ -781,11 +1510,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Phylum ähnelt.
+        /// </summary>
+        public static string Phylum1 {
+            get {
+                return ResourceManager.GetString("Phylum1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die PlSpecies ähnelt.
         /// </summary>
         public static string PlSpecies {
             get {
                 return ResourceManager.GetString("PlSpecies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die PlSpecies ähnelt.
+        /// </summary>
+        public static string PlSpecies1 {
+            get {
+                return ResourceManager.GetString("PlSpecies1", resourceCulture);
             }
         }
         
@@ -799,11 +1546,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Question ähnelt.
+        /// </summary>
+        public static string Question1 {
+            get {
+                return ResourceManager.GetString("Question1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Reference Author ähnelt.
         /// </summary>
         public static string RefAuthor {
             get {
                 return ResourceManager.GetString("RefAuthor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Reference Author ähnelt.
+        /// </summary>
+        public static string RefAuthor1 {
+            get {
+                return ResourceManager.GetString("RefAuthor1", resourceCulture);
             }
         }
         
@@ -817,11 +1582,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Reference ähnelt.
+        /// </summary>
+        public static string Reference1 {
+            get {
+                return ResourceManager.GetString("Reference1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Reference Author ähnelt.
         /// </summary>
         public static string ReferenceAuthor {
             get {
                 return ResourceManager.GetString("ReferenceAuthor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Reference Author ähnelt.
+        /// </summary>
+        public static string ReferenceAuthor1 {
+            get {
+                return ResourceManager.GetString("ReferenceAuthor1", resourceCulture);
             }
         }
         
@@ -835,11 +1618,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Reference Expert ähnelt.
+        /// </summary>
+        public static string ReferenceExpert1 {
+            get {
+                return ResourceManager.GetString("ReferenceExpert1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Reference Source ähnelt.
         /// </summary>
         public static string ReferenceSource {
             get {
                 return ResourceManager.GetString("ReferenceSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Reference Source ähnelt.
+        /// </summary>
+        public static string ReferenceSource1 {
+            get {
+                return ResourceManager.GetString("ReferenceSource1", resourceCulture);
             }
         }
         
@@ -853,11 +1654,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Reference Expert ähnelt.
+        /// </summary>
+        public static string RefExpert1 {
+            get {
+                return ResourceManager.GetString("RefExpert1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Reference Source ähnelt.
         /// </summary>
         public static string RefSource {
             get {
                 return ResourceManager.GetString("RefSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Reference Source ähnelt.
+        /// </summary>
+        public static string RefSource1 {
+            get {
+                return ResourceManager.GetString("RefSource1", resourceCulture);
             }
         }
         
@@ -871,11 +1690,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Kingdom ähnelt.
+        /// </summary>
+        public static string Regnum1 {
+            get {
+                return ResourceManager.GetString("Regnum1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Report ähnelt.
         /// </summary>
         public static string Report {
             get {
                 return ResourceManager.GetString("Report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Report ähnelt.
+        /// </summary>
+        public static string Report1 {
+            get {
+                return ResourceManager.GetString("Report1", resourceCulture);
             }
         }
         
@@ -889,11 +1726,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Acquired ähnelt.
+        /// </summary>
+        public static string ReportAcquired1 {
+            get {
+                return ResourceManager.GetString("ReportAcquired1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Address ähnelt.
         /// </summary>
         public static string ReportAddress {
             get {
                 return ResourceManager.GetString("ReportAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Address ähnelt.
+        /// </summary>
+        public static string ReportAddress1 {
+            get {
+                return ResourceManager.GetString("ReportAddress1", resourceCulture);
             }
         }
         
@@ -907,11 +1762,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Article/Chapter Title ähnelt.
+        /// </summary>
+        public static string ReportArticleTitle1 {
+            get {
+                return ResourceManager.GetString("ReportArticleTitle1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Author ähnelt.
         /// </summary>
         public static string ReportAuthor {
             get {
                 return ResourceManager.GetString("ReportAuthor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Author ähnelt.
+        /// </summary>
+        public static string ReportAuthor1 {
+            get {
+                return ResourceManager.GetString("ReportAuthor1", resourceCulture);
             }
         }
         
@@ -925,11 +1798,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Author(s)/Editor(s) ähnelt.
+        /// </summary>
+        public static string ReportAuthorsEditors1 {
+            get {
+                return ResourceManager.GetString("ReportAuthorsEditors1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Basinheight ähnelt.
         /// </summary>
         public static string ReportBasinHeight {
             get {
                 return ResourceManager.GetString("ReportBasinHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Basinheight ähnelt.
+        /// </summary>
+        public static string ReportBasinHeight1 {
+            get {
+                return ResourceManager.GetString("ReportBasinHeight1", resourceCulture);
             }
         }
         
@@ -943,11 +1834,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Basinlength ähnelt.
+        /// </summary>
+        public static string ReportBasinLength1 {
+            get {
+                return ResourceManager.GetString("ReportBasinLength1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Journal/Book Name ähnelt.
         /// </summary>
         public static string ReportBookName {
             get {
                 return ResourceManager.GetString("ReportBookName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Journal/Book Name ähnelt.
+        /// </summary>
+        public static string ReportBookName1 {
+            get {
+                return ResourceManager.GetString("ReportBookName1", resourceCulture);
             }
         }
         
@@ -961,11 +1870,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die CarboHardness (°KH) ähnelt.
+        /// </summary>
+        public static string ReportCarboHardness121 {
+            get {
+                return ResourceManager.GetString("ReportCarboHardness121", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Comment(s) ähnelt.
         /// </summary>
         public static string ReportComments {
             get {
                 return ResourceManager.GetString("ReportComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Comment(s) ähnelt.
+        /// </summary>
+        public static string ReportComments1 {
+            get {
+                return ResourceManager.GetString("ReportComments1", resourceCulture);
             }
         }
         
@@ -979,11 +1906,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Common Name(s) ähnelt.
+        /// </summary>
+        public static string ReportCommonNames1 {
+            get {
+                return ResourceManager.GetString("ReportCommonNames1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Continent ähnelt.
         /// </summary>
         public static string ReportContinent {
             get {
                 return ResourceManager.GetString("ReportContinent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Continent ähnelt.
+        /// </summary>
+        public static string ReportContinent1 {
+            get {
+                return ResourceManager.GetString("ReportContinent1", resourceCulture);
             }
         }
         
@@ -997,11 +1942,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Country ähnelt.
+        /// </summary>
+        public static string ReportCountry1 {
+            get {
+                return ResourceManager.GetString("ReportCountry1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Culture ähnelt.
         /// </summary>
         public static string ReportCulture {
             get {
                 return ResourceManager.GetString("ReportCulture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Culture ähnelt.
+        /// </summary>
+        public static string ReportCulture1 {
+            get {
+                return ResourceManager.GetString("ReportCulture1", resourceCulture);
             }
         }
         
@@ -1015,11 +1978,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Current Standing ähnelt.
+        /// </summary>
+        public static string ReportCurrentStand1 {
+            get {
+                return ResourceManager.GetString("ReportCurrentStand1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Data Quality Indicators ähnelt.
         /// </summary>
         public static string ReportDataQualiIndicator {
             get {
                 return ResourceManager.GetString("ReportDataQualiIndicator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Data Quality Indicators ähnelt.
+        /// </summary>
+        public static string ReportDataQualiIndicator1 {
+            get {
+                return ResourceManager.GetString("ReportDataQualiIndicator1", resourceCulture);
             }
         }
         
@@ -1033,11 +2014,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Species for Beginners ähnelt.
+        /// </summary>
+        public static string ReportDifficult11 {
+            get {
+                return ResourceManager.GetString("ReportDifficult11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Species for Beginners with experience ähnelt.
         /// </summary>
         public static string ReportDifficult2 {
             get {
                 return ResourceManager.GetString("ReportDifficult2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Species for Beginners with experience ähnelt.
+        /// </summary>
+        public static string ReportDifficult21 {
+            get {
+                return ResourceManager.GetString("ReportDifficult21", resourceCulture);
             }
         }
         
@@ -1051,11 +2050,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Species for advanced Beginners ähnelt.
+        /// </summary>
+        public static string ReportDifficult31 {
+            get {
+                return ResourceManager.GetString("ReportDifficult31", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Species for Experts ähnelt.
         /// </summary>
         public static string ReportDifficult4 {
             get {
                 return ResourceManager.GetString("ReportDifficult4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Species for Experts ähnelt.
+        /// </summary>
+        public static string ReportDifficult41 {
+            get {
+                return ResourceManager.GetString("ReportDifficult41", resourceCulture);
             }
         }
         
@@ -1069,11 +2086,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Direct Children ähnelt.
+        /// </summary>
+        public static string ReportDirectChild1 {
+            get {
+                return ResourceManager.GetString("ReportDirectChild1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die [English] ähnelt.
         /// </summary>
         public static string ReportEnglish {
             get {
                 return ResourceManager.GetString("ReportEnglish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die [English] ähnelt.
+        /// </summary>
+        public static string ReportEnglish1 {
+            get {
+                return ResourceManager.GetString("ReportEnglish1", resourceCulture);
             }
         }
         
@@ -1087,11 +2122,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Expert ähnelt.
+        /// </summary>
+        public static string ReportExpert1 {
+            get {
+                return ResourceManager.GetString("ReportExpert1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Expert(s) ähnelt.
         /// </summary>
         public static string ReportExperts {
             get {
                 return ResourceManager.GetString("ReportExperts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Expert(s) ähnelt.
+        /// </summary>
+        public static string ReportExperts1 {
+            get {
+                return ResourceManager.GetString("ReportExperts1", resourceCulture);
             }
         }
         
@@ -1105,11 +2158,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Fishlength ähnelt.
+        /// </summary>
+        public static string ReportFishLength1 {
+            get {
+                return ResourceManager.GetString("ReportFishLength1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Food ähnelt.
         /// </summary>
         public static string ReportFood {
             get {
                 return ResourceManager.GetString("ReportFood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Food ähnelt.
+        /// </summary>
+        public static string ReportFood1 {
+            get {
+                return ResourceManager.GetString("ReportFood1", resourceCulture);
             }
         }
         
@@ -1123,11 +2194,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die [French] ähnelt.
+        /// </summary>
+        public static string ReportFrench1 {
+            get {
+                return ResourceManager.GetString("ReportFrench1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die generated at   ähnelt.
         /// </summary>
         public static string ReportGenerated {
             get {
                 return ResourceManager.GetString("ReportGenerated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die generated at   ähnelt.
+        /// </summary>
+        public static string ReportGenerated1 {
+            get {
+                return ResourceManager.GetString("ReportGenerated1", resourceCulture);
             }
         }
         
@@ -1141,11 +2230,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Geographics ähnelt.
+        /// </summary>
+        public static string ReportGeographics1 {
+            get {
+                return ResourceManager.GetString("ReportGeographics1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die [German] ähnelt.
         /// </summary>
         public static string ReportGerman {
             get {
                 return ResourceManager.GetString("ReportGerman", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die [German] ähnelt.
+        /// </summary>
+        public static string ReportGerman1 {
+            get {
+                return ResourceManager.GetString("ReportGerman1", resourceCulture);
             }
         }
         
@@ -1159,11 +2266,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Global ähnelt.
+        /// </summary>
+        public static string ReportGlobal1 {
+            get {
+                return ResourceManager.GetString("ReportGlobal1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Global Species Completeness ähnelt.
         /// </summary>
         public static string ReportGlobalSpecComp {
             get {
                 return ResourceManager.GetString("ReportGlobalSpecComp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Global Species Completeness ähnelt.
+        /// </summary>
+        public static string ReportGlobalSpecComp1 {
+            get {
+                return ResourceManager.GetString("ReportGlobalSpecComp1", resourceCulture);
             }
         }
         
@@ -1177,11 +2302,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Sexual dimorphism ähnelt.
+        /// </summary>
+        public static string ReportGu1 {
+            get {
+                return ResourceManager.GetString("ReportGu1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Hardness (°dGH) ähnelt.
         /// </summary>
         public static string ReportHardness12 {
             get {
                 return ResourceManager.GetString("ReportHardness12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Hardness (°dGH) ähnelt.
+        /// </summary>
+        public static string ReportHardness121 {
+            get {
+                return ResourceManager.GetString("ReportHardness121", resourceCulture);
             }
         }
         
@@ -1195,11 +2338,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Herbivore ähnelt.
+        /// </summary>
+        public static string ReportHerbivore1 {
+            get {
+                return ResourceManager.GetString("ReportHerbivore1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Http ähnelt.
         /// </summary>
         public static string ReportHttp {
             get {
                 return ResourceManager.GetString("ReportHttp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Http ähnelt.
+        /// </summary>
+        public static string ReportHttp1 {
+            get {
+                return ResourceManager.GetString("ReportHttp1", resourceCulture);
             }
         }
         
@@ -1213,11 +2374,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Husbandry ähnelt.
+        /// </summary>
+        public static string ReportHusbandry1 {
+            get {
+                return ResourceManager.GetString("ReportHusbandry1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Mime Type ähnelt.
         /// </summary>
         public static string ReportImageMimeType {
             get {
                 return ResourceManager.GetString("ReportImageMimeType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Mime Type ähnelt.
+        /// </summary>
+        public static string ReportImageMimeType1 {
+            get {
+                return ResourceManager.GetString("ReportImageMimeType1", resourceCulture);
             }
         }
         
@@ -1231,11 +2410,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Images ähnelt.
+        /// </summary>
+        public static string ReportImages1 {
+            get {
+                return ResourceManager.GetString("ReportImages1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Shot Date ähnelt.
         /// </summary>
         public static string ReportImageShot {
             get {
                 return ResourceManager.GetString("ReportImageShot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Shot Date ähnelt.
+        /// </summary>
+        public static string ReportImageShot1 {
+            get {
+                return ResourceManager.GetString("ReportImageShot1", resourceCulture);
             }
         }
         
@@ -1249,11 +2446,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Importer/Year ähnelt.
+        /// </summary>
+        public static string ReportImporterWithYear1 {
+            get {
+                return ResourceManager.GetString("ReportImporterWithYear1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Info ähnelt.
         /// </summary>
         public static string ReportInfo {
             get {
                 return ResourceManager.GetString("ReportInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Info ähnelt.
+        /// </summary>
+        public static string ReportInfo1 {
+            get {
+                return ResourceManager.GetString("ReportInfo1", resourceCulture);
             }
         }
         
@@ -1267,11 +2482,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ISBN/ISSN ähnelt.
+        /// </summary>
+        public static string ReportIsbn1 {
+            get {
+                return ResourceManager.GetString("ReportIsbn1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Karnivore ähnelt.
         /// </summary>
         public static string ReportKarnivore {
             get {
                 return ResourceManager.GetString("ReportKarnivore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Karnivore ähnelt.
+        /// </summary>
+        public static string ReportKarnivore1 {
+            get {
+                return ResourceManager.GetString("ReportKarnivore1", resourceCulture);
             }
         }
         
@@ -1285,11 +2518,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Latitude ähnelt.
+        /// </summary>
+        public static string ReportLatitude1 {
+            get {
+                return ResourceManager.GetString("ReportLatitude1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Latitude - Longitude ähnelt.
         /// </summary>
         public static string ReportLatitudeLongitude {
             get {
                 return ResourceManager.GetString("ReportLatitudeLongitude", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Latitude - Longitude ähnelt.
+        /// </summary>
+        public static string ReportLatitudeLongitude1 {
+            get {
+                return ResourceManager.GetString("ReportLatitudeLongitude1", resourceCulture);
             }
         }
         
@@ -1303,11 +2554,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die LDA-Number/LDA-Origin ähnelt.
+        /// </summary>
+        public static string ReportLdaNumberLdaOrigin1 {
+            get {
+                return ResourceManager.GetString("ReportLdaNumberLdaOrigin1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Limnivore ähnelt.
         /// </summary>
         public static string ReportLimnivore {
             get {
                 return ResourceManager.GetString("ReportLimnivore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Limnivore ähnelt.
+        /// </summary>
+        public static string ReportLimnivore1 {
+            get {
+                return ResourceManager.GetString("ReportLimnivore1", resourceCulture);
             }
         }
         
@@ -1321,11 +2590,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die L-Number/L-Origin ähnelt.
+        /// </summary>
+        public static string ReportLNumberLOrigin1 {
+            get {
+                return ResourceManager.GetString("ReportLNumberLOrigin1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Longitude ähnelt.
         /// </summary>
         public static string ReportLongitude {
             get {
                 return ResourceManager.GetString("ReportLongitude", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Longitude ähnelt.
+        /// </summary>
+        public static string ReportLongitude1 {
+            get {
+                return ResourceManager.GetString("ReportLongitude1", resourceCulture);
             }
         }
         
@@ -1339,11 +2626,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Memo ähnelt.
+        /// </summary>
+        public static string ReportMemo1 {
+            get {
+                return ResourceManager.GetString("ReportMemo1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Memo Culture ähnelt.
         /// </summary>
         public static string ReportMemoCulture {
             get {
                 return ResourceManager.GetString("ReportMemoCulture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Memo Culture ähnelt.
+        /// </summary>
+        public static string ReportMemoCulture1 {
+            get {
+                return ResourceManager.GetString("ReportMemoCulture1", resourceCulture);
             }
         }
         
@@ -1357,11 +2662,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Memo Dimorphism ähnelt.
+        /// </summary>
+        public static string ReportMemoDimorphism1 {
+            get {
+                return ResourceManager.GetString("ReportMemoDimorphism1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Memo Food ähnelt.
         /// </summary>
         public static string ReportMemoFood {
             get {
                 return ResourceManager.GetString("ReportMemoFood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Memo Food ähnelt.
+        /// </summary>
+        public static string ReportMemoFood1 {
+            get {
+                return ResourceManager.GetString("ReportMemoFood1", resourceCulture);
             }
         }
         
@@ -1375,11 +2698,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Memo Global ähnelt.
+        /// </summary>
+        public static string ReportMemoGlobal1 {
+            get {
+                return ResourceManager.GetString("ReportMemoGlobal1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Memo Reproduction ähnelt.
         /// </summary>
         public static string ReportMemoReproduction {
             get {
                 return ResourceManager.GetString("ReportMemoReproduction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Memo Reproduction ähnelt.
+        /// </summary>
+        public static string ReportMemoReproduction1 {
+            get {
+                return ResourceManager.GetString("ReportMemoReproduction1", resourceCulture);
             }
         }
         
@@ -1393,11 +2734,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Memo Special ähnelt.
+        /// </summary>
+        public static string ReportMemoSpecial1 {
+            get {
+                return ResourceManager.GetString("ReportMemoSpecial1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Memo Species ähnelt.
         /// </summary>
         public static string ReportMemoSpecies {
             get {
                 return ResourceManager.GetString("ReportMemoSpecies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Memo Species ähnelt.
+        /// </summary>
+        public static string ReportMemoSpecies1 {
+            get {
+                return ResourceManager.GetString("ReportMemoSpecies1", resourceCulture);
             }
         }
         
@@ -1411,11 +2770,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Memo Technic ähnelt.
+        /// </summary>
+        public static string ReportMemoTechnic1 {
+            get {
+                return ResourceManager.GetString("ReportMemoTechnic1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Name(s) ähnelt.
         /// </summary>
         public static string ReportNames {
             get {
                 return ResourceManager.GetString("ReportNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Name(s) ähnelt.
+        /// </summary>
+        public static string ReportNames1 {
+            get {
+                return ResourceManager.GetString("ReportNames1", resourceCulture);
             }
         }
         
@@ -1429,11 +2806,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Notes ähnelt.
+        /// </summary>
+        public static string ReportNotes1 {
+            get {
+                return ResourceManager.GetString("ReportNotes1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Omnivore ähnelt.
         /// </summary>
         public static string ReportOmnivore {
             get {
                 return ResourceManager.GetString("ReportOmnivore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Omnivore ähnelt.
+        /// </summary>
+        public static string ReportOmnivore1 {
+            get {
+                return ResourceManager.GetString("ReportOmnivore1", resourceCulture);
             }
         }
         
@@ -1447,11 +2842,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Other Source(s) ähnelt.
+        /// </summary>
+        public static string ReportOtherSources1 {
+            get {
+                return ResourceManager.GetString("ReportOtherSources1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Page(s) ähnelt.
         /// </summary>
         public static string ReportPages {
             get {
                 return ResourceManager.GetString("ReportPages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Page(s) ähnelt.
+        /// </summary>
+        public static string ReportPages1 {
+            get {
+                return ResourceManager.GetString("ReportPages1", resourceCulture);
             }
         }
         
@@ -1465,11 +2878,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ph Values ähnelt.
+        /// </summary>
+        public static string ReportPh121 {
+            get {
+                return ResourceManager.GetString("ReportPh121", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Plantlength ähnelt.
         /// </summary>
         public static string ReportPlantLength {
             get {
                 return ResourceManager.GetString("ReportPlantLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Plantlength ähnelt.
+        /// </summary>
+        public static string ReportPlantLength1 {
+            get {
+                return ResourceManager.GetString("ReportPlantLength1", resourceCulture);
             }
         }
         
@@ -1483,11 +2914,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die [Portuguese] ähnelt.
+        /// </summary>
+        public static string ReportPortuguese1 {
+            get {
+                return ResourceManager.GetString("ReportPortuguese1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Publication Date ähnelt.
         /// </summary>
         public static string ReportPublicationDate {
             get {
                 return ResourceManager.GetString("ReportPublicationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Publication Date ähnelt.
+        /// </summary>
+        public static string ReportPublicationDate1 {
+            get {
+                return ResourceManager.GetString("ReportPublicationDate1", resourceCulture);
             }
         }
         
@@ -1501,11 +2950,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Publication Place ähnelt.
+        /// </summary>
+        public static string ReportPublicationPlace1 {
+            get {
+                return ResourceManager.GetString("ReportPublicationPlace1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Publication(s) ähnelt.
         /// </summary>
         public static string ReportPublications {
             get {
                 return ResourceManager.GetString("ReportPublications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Publication(s) ähnelt.
+        /// </summary>
+        public static string ReportPublications1 {
+            get {
+                return ResourceManager.GetString("ReportPublications1", resourceCulture);
             }
         }
         
@@ -1519,11 +2986,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Publisher ähnelt.
+        /// </summary>
+        public static string ReportPublisher1 {
+            get {
+                return ResourceManager.GetString("ReportPublisher1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Record Credibility Rating ähnelt.
         /// </summary>
         public static string ReportRecordCrediRate {
             get {
                 return ResourceManager.GetString("ReportRecordCrediRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Record Credibility Rating ähnelt.
+        /// </summary>
+        public static string ReportRecordCrediRate1 {
+            get {
+                return ResourceManager.GetString("ReportRecordCrediRate1", resourceCulture);
             }
         }
         
@@ -1537,11 +3022,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Latest Record Review ähnelt.
+        /// </summary>
+        public static string ReportRecordUpdate1 {
+            get {
+                return ResourceManager.GetString("ReportRecordUpdate1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die References ähnelt.
         /// </summary>
         public static string ReportReferences {
             get {
                 return ResourceManager.GetString("ReportReferences", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die References ähnelt.
+        /// </summary>
+        public static string ReportReferences1 {
+            get {
+                return ResourceManager.GetString("ReportReferences1", resourceCulture);
             }
         }
         
@@ -1555,11 +3058,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Reference for ähnelt.
+        /// </summary>
+        public static string ReportRefFor1 {
+            get {
+                return ResourceManager.GetString("ReportRefFor1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Bottom ähnelt.
         /// </summary>
         public static string ReportRegionBottom {
             get {
                 return ResourceManager.GetString("ReportRegionBottom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Bottom ähnelt.
+        /// </summary>
+        public static string ReportRegionBottom1 {
+            get {
+                return ResourceManager.GetString("ReportRegionBottom1", resourceCulture);
             }
         }
         
@@ -1573,11 +3094,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Middle ähnelt.
+        /// </summary>
+        public static string ReportRegionMiddle1 {
+            get {
+                return ResourceManager.GetString("ReportRegionMiddle1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Top ähnelt.
         /// </summary>
         public static string ReportRegionTop {
             get {
                 return ResourceManager.GetString("ReportRegionTop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Top ähnelt.
+        /// </summary>
+        public static string ReportRegionTop1 {
+            get {
+                return ResourceManager.GetString("ReportRegionTop1", resourceCulture);
             }
         }
         
@@ -1591,11 +3130,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Reproduction ähnelt.
+        /// </summary>
+        public static string ReportReproduction1 {
+            get {
+                return ResourceManager.GetString("ReportReproduction1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Source ähnelt.
         /// </summary>
         public static string ReportSource {
             get {
                 return ResourceManager.GetString("ReportSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Source ähnelt.
+        /// </summary>
+        public static string ReportSource1 {
+            get {
+                return ResourceManager.GetString("ReportSource1", resourceCulture);
             }
         }
         
@@ -1609,11 +3166,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Social behavior ähnelt.
+        /// </summary>
+        public static string ReportSozial1 {
+            get {
+                return ResourceManager.GetString("ReportSozial1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die [Spanish] ähnelt.
         /// </summary>
         public static string ReportSpanish {
             get {
                 return ResourceManager.GetString("ReportSpanish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die [Spanish] ähnelt.
+        /// </summary>
+        public static string ReportSpanish1 {
+            get {
+                return ResourceManager.GetString("ReportSpanish1", resourceCulture);
             }
         }
         
@@ -1627,11 +3202,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Synonym(s) ähnelt.
+        /// </summary>
+        public static string ReportSynonyms1 {
+            get {
+                return ResourceManager.GetString("ReportSynonyms1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Taxonomic Hierachy ähnelt.
         /// </summary>
         public static string ReportTaxoHiera {
             get {
                 return ResourceManager.GetString("ReportTaxoHiera", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Taxonomic Hierachy ähnelt.
+        /// </summary>
+        public static string ReportTaxoHiera1 {
+            get {
+                return ResourceManager.GetString("ReportTaxoHiera1", resourceCulture);
             }
         }
         
@@ -1645,11 +3238,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Taxonomy and Nomenclature ähnelt.
+        /// </summary>
+        public static string ReportTaxoNomen1 {
+            get {
+                return ResourceManager.GetString("ReportTaxoNomen1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Taxonomic Serial No. ähnelt.
         /// </summary>
         public static string ReportTaxonomicId {
             get {
                 return ResourceManager.GetString("ReportTaxonomicId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Taxonomic Serial No. ähnelt.
+        /// </summary>
+        public static string ReportTaxonomicId1 {
+            get {
+                return ResourceManager.GetString("ReportTaxonomicId1", resourceCulture);
             }
         }
         
@@ -1663,11 +3274,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Taxonomic Rank ähnelt.
+        /// </summary>
+        public static string ReportTaxoRank1 {
+            get {
+                return ResourceManager.GetString("ReportTaxoRank1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Taxonomic Status ähnelt.
         /// </summary>
         public static string ReportTaxoStatus {
             get {
                 return ResourceManager.GetString("ReportTaxoStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Taxonomic Status ähnelt.
+        /// </summary>
+        public static string ReportTaxoStatus1 {
+            get {
+                return ResourceManager.GetString("ReportTaxoStatus1", resourceCulture);
             }
         }
         
@@ -1681,11 +3310,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Technic ähnelt.
+        /// </summary>
+        public static string ReportTechnic1 {
+            get {
+                return ResourceManager.GetString("ReportTechnic1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Temperature (°C) ähnelt.
         /// </summary>
         public static string ReportTemp12 {
             get {
                 return ResourceManager.GetString("ReportTemp12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Temperature (°C) ähnelt.
+        /// </summary>
+        public static string ReportTemp121 {
+            get {
+                return ResourceManager.GetString("ReportTemp121", resourceCulture);
             }
         }
         
@@ -1699,11 +3346,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Aquaristic Taxonomic Information System ähnelt.
+        /// </summary>
+        public static string ReportTitle1 {
+            get {
+                return ResourceManager.GetString("ReportTitle1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Tradename ähnelt.
         /// </summary>
         public static string ReportTradeName {
             get {
                 return ResourceManager.GetString("ReportTradeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Tradename ähnelt.
+        /// </summary>
+        public static string ReportTradeName1 {
+            get {
+                return ResourceManager.GetString("ReportTradeName1", resourceCulture);
             }
         }
         
@@ -1717,11 +3382,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Valid ähnelt.
+        /// </summary>
+        public static string ReportValid1 {
+            get {
+                return ResourceManager.GetString("ReportValid1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Year ähnelt.
         /// </summary>
         public static string ReportValidYear {
             get {
                 return ResourceManager.GetString("ReportValidYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Year ähnelt.
+        /// </summary>
+        public static string ReportValidYear1 {
+            get {
+                return ResourceManager.GetString("ReportValidYear1", resourceCulture);
             }
         }
         
@@ -1735,11 +3418,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ZoomLevel ähnelt.
+        /// </summary>
+        public static string ReportZoomLevel1 {
+            get {
+                return ResourceManager.GetString("ReportZoomLevel1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Application Name is required ähnelt.
         /// </summary>
         public static string RequiredApplicationName {
             get {
                 return ResourceManager.GetString("RequiredApplicationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Application Name is required ähnelt.
+        /// </summary>
+        public static string RequiredApplicationName1 {
+            get {
+                return ResourceManager.GetString("RequiredApplicationName1", resourceCulture);
             }
         }
         
@@ -1753,11 +3454,38 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Class Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredClassName1 {
+            get {
+                return ResourceManager.GetString("RequiredClassName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Please select in Combobox ähnelt.
+        /// </summary>
+        public static string RequiredComboSelect {
+            get {
+                return ResourceManager.GetString("RequiredComboSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Counter is required  ähnelt.
         /// </summary>
         public static string RequiredCounterName {
             get {
                 return ResourceManager.GetString("RequiredCounterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Counter is required  ähnelt.
+        /// </summary>
+        public static string RequiredCounterName1 {
+            get {
+                return ResourceManager.GetString("RequiredCounterName1", resourceCulture);
             }
         }
         
@@ -1771,11 +3499,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Count ID is required  ähnelt.
+        /// </summary>
+        public static string RequiredCountID1 {
+            get {
+                return ResourceManager.GetString("RequiredCountID1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Division Name is required  ähnelt.
         /// </summary>
         public static string RequiredDivisionName {
             get {
                 return ResourceManager.GetString("RequiredDivisionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Division Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredDivisionName1 {
+            get {
+                return ResourceManager.GetString("RequiredDivisionName1", resourceCulture);
             }
         }
         
@@ -1798,11 +3544,38 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Email must contain be formated like so; xxx@xxx.xxx and contain no more then 50 characters. ähnelt.
+        /// </summary>
+        public static string RequiredEMail11 {
+            get {
+                return ResourceManager.GetString("RequiredEMail11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Email must formated like so; xxx@xxx.xxx ähnelt.
         /// </summary>
         public static string RequiredEMail2 {
             get {
                 return ResourceManager.GetString("RequiredEMail2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Email must formated like so; xxx@xxx.xxx ähnelt.
+        /// </summary>
+        public static string RequiredEMail21 {
+            get {
+                return ResourceManager.GetString("RequiredEMail21", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Email is a required field. ähnelt.
+        /// </summary>
+        public static string RequiredEMail3 {
+            get {
+                return ResourceManager.GetString("RequiredEMail3", resourceCulture);
             }
         }
         
@@ -1816,11 +3589,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Family Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredFamilyName1 {
+            get {
+                return ResourceManager.GetString("RequiredFamilyName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Fisch Species Name is required  ähnelt.
         /// </summary>
         public static string RequiredFiSpeciesName {
             get {
                 return ResourceManager.GetString("RequiredFiSpeciesName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Fisch Species Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredFiSpeciesName1 {
+            get {
+                return ResourceManager.GetString("RequiredFiSpeciesName1", resourceCulture);
             }
         }
         
@@ -1834,11 +3625,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Future date required ähnelt.
+        /// </summary>
+        public static string RequiredFutureDate1 {
+            get {
+                return ResourceManager.GetString("RequiredFutureDate1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Please select Genealogy Connect ähnelt.
         /// </summary>
         public static string RequiredGenealogyConnect {
             get {
                 return ResourceManager.GetString("RequiredGenealogyConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Please select Genealogy Connect ähnelt.
+        /// </summary>
+        public static string RequiredGenealogyConnect1 {
+            get {
+                return ResourceManager.GetString("RequiredGenealogyConnect1", resourceCulture);
             }
         }
         
@@ -1852,11 +3661,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Genus Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredGenusName1 {
+            get {
+                return ResourceManager.GetString("RequiredGenusName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Infra Class Name is required  ähnelt.
         /// </summary>
         public static string RequiredInfraclassName {
             get {
                 return ResourceManager.GetString("RequiredInfraclassName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Infra Class Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredInfraclassName1 {
+            get {
+                return ResourceManager.GetString("RequiredInfraclassName1", resourceCulture);
             }
         }
         
@@ -1870,11 +3697,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Infra Family Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredInfrafamilyName1 {
+            get {
+                return ResourceManager.GetString("RequiredInfrafamilyName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Infra Order Name is required  ähnelt.
         /// </summary>
         public static string RequiredInfraordoName {
             get {
                 return ResourceManager.GetString("RequiredInfraordoName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Infra Order Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredInfraordoName1 {
+            get {
+                return ResourceManager.GetString("RequiredInfraordoName1", resourceCulture);
             }
         }
         
@@ -1888,11 +3733,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Infra Tribus Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredInfratribusName1 {
+            get {
+                return ResourceManager.GetString("RequiredInfratribusName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Input required ! ähnelt.
         /// </summary>
         public static string RequiredInput {
             get {
                 return ResourceManager.GetString("RequiredInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Input required ! ähnelt.
+        /// </summary>
+        public static string RequiredInput1 {
+            get {
+                return ResourceManager.GetString("RequiredInput1", resourceCulture);
             }
         }
         
@@ -1906,6 +3769,15 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Super Order Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredLegioName1 {
+            get {
+                return ResourceManager.GetString("RequiredLegioName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Name is required  ähnelt.
         /// </summary>
         public static string RequiredNameName {
@@ -1915,11 +3787,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredNameName1 {
+            get {
+                return ResourceManager.GetString("RequiredNameName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Order Name is required  ähnelt.
         /// </summary>
         public static string RequiredOrdoName {
             get {
                 return ResourceManager.GetString("RequiredOrdoName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Order Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredOrdoName1 {
+            get {
+                return ResourceManager.GetString("RequiredOrdoName1", resourceCulture);
             }
         }
         
@@ -1942,11 +3832,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Password must contain no more then 20 letters or numbers. Must contain only numbers and letters and be a minimum of 5 characters ähnelt.
+        /// </summary>
+        public static string RequiredPassword11 {
+            get {
+                return ResourceManager.GetString("RequiredPassword11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Enter Password ähnelt.
         /// </summary>
         public static string RequiredPassword2 {
             get {
                 return ResourceManager.GetString("RequiredPassword2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Enter Password ähnelt.
+        /// </summary>
+        public static string RequiredPassword21 {
+            get {
+                return ResourceManager.GetString("RequiredPassword21", resourceCulture);
             }
         }
         
@@ -1960,11 +3868,38 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Enter Confirm password. ähnelt.
+        /// </summary>
+        public static string RequiredPassword31 {
+            get {
+                return ResourceManager.GetString("RequiredPassword31", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Confirm password must be same as password. ähnelt.
         /// </summary>
         public static string RequiredPassword4 {
             get {
                 return ResourceManager.GetString("RequiredPassword4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Confirm password must be same as password. ähnelt.
+        /// </summary>
+        public static string RequiredPassword41 {
+            get {
+                return ResourceManager.GetString("RequiredPassword41", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Password is a required field. Must contain only numbers and letters and be a minimum of 5 characters. ähnelt.
+        /// </summary>
+        public static string RequiredPassword5 {
+            get {
+                return ResourceManager.GetString("RequiredPassword5", resourceCulture);
             }
         }
         
@@ -1978,11 +3913,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Phylum Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredPhylumName1 {
+            get {
+                return ResourceManager.GetString("RequiredPhylumName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Plant Species Name is required  ähnelt.
         /// </summary>
         public static string RequiredPlSpeciesName {
             get {
                 return ResourceManager.GetString("RequiredPlSpeciesName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Plant Species Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredPlSpeciesName1 {
+            get {
+                return ResourceManager.GetString("RequiredPlSpeciesName1", resourceCulture);
             }
         }
         
@@ -1996,11 +3949,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Reference Author is required  ähnelt.
+        /// </summary>
+        public static string RequiredRefAuthorName1 {
+            get {
+                return ResourceManager.GetString("RequiredRefAuthorName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Reference Expert is required  ähnelt.
         /// </summary>
         public static string RequiredRefExpertName {
             get {
                 return ResourceManager.GetString("RequiredRefExpertName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Reference Expert is required  ähnelt.
+        /// </summary>
+        public static string RequiredRefExpertName1 {
+            get {
+                return ResourceManager.GetString("RequiredRefExpertName1", resourceCulture);
             }
         }
         
@@ -2014,11 +3985,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Reference Source is required  ähnelt.
+        /// </summary>
+        public static string RequiredRefSourceName1 {
+            get {
+                return ResourceManager.GetString("RequiredRefSourceName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Kingdom Name is required  ähnelt.
         /// </summary>
         public static string RequiredRegnumName {
             get {
                 return ResourceManager.GetString("RequiredRegnumName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Kingdom Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredRegnumName1 {
+            get {
+                return ResourceManager.GetString("RequiredRegnumName1", resourceCulture);
             }
         }
         
@@ -2032,11 +4021,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Role a is required field. ähnelt.
+        /// </summary>
+        public static string RequiredRole1 {
+            get {
+                return ResourceManager.GetString("RequiredRole1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Species Group Name is required  ähnelt.
         /// </summary>
         public static string RequiredSpeciesgroupName {
             get {
                 return ResourceManager.GetString("RequiredSpeciesgroupName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Species Group Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredSpeciesgroupName1 {
+            get {
+                return ResourceManager.GetString("RequiredSpeciesgroupName1", resourceCulture);
             }
         }
         
@@ -2050,11 +4057,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Sub Class Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredSubclassName1 {
+            get {
+                return ResourceManager.GetString("RequiredSubclassName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Sub Division Name is required  ähnelt.
         /// </summary>
         public static string RequiredSubdivisionName {
             get {
                 return ResourceManager.GetString("RequiredSubdivisionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Sub Division Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredSubdivisionName1 {
+            get {
+                return ResourceManager.GetString("RequiredSubdivisionName1", resourceCulture);
             }
         }
         
@@ -2068,11 +4093,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Sub Family Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredSubfamilyName1 {
+            get {
+                return ResourceManager.GetString("RequiredSubfamilyName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Sub Order Name is required  ähnelt.
         /// </summary>
         public static string RequiredSubordoName {
             get {
                 return ResourceManager.GetString("RequiredSubordoName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Sub Order Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredSubordoName1 {
+            get {
+                return ResourceManager.GetString("RequiredSubordoName1", resourceCulture);
             }
         }
         
@@ -2086,11 +4129,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Sub Phylum Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredSubphylumName1 {
+            get {
+                return ResourceManager.GetString("RequiredSubphylumName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Sub Tribus Name is required  ähnelt.
         /// </summary>
         public static string RequiredSubtribusName {
             get {
                 return ResourceManager.GetString("RequiredSubtribusName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Sub Tribus Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredSubtribusName1 {
+            get {
+                return ResourceManager.GetString("RequiredSubtribusName1", resourceCulture);
             }
         }
         
@@ -2104,11 +4165,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Super Class Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredSuperclassName1 {
+            get {
+                return ResourceManager.GetString("RequiredSuperclassName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Super Family Name is required  ähnelt.
         /// </summary>
         public static string RequiredSuperfamilyName {
             get {
                 return ResourceManager.GetString("RequiredSuperfamilyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Super Family Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredSuperfamilyName1 {
+            get {
+                return ResourceManager.GetString("RequiredSuperfamilyName1", resourceCulture);
             }
         }
         
@@ -2122,11 +4201,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Super Tribus Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredSupertribusName1 {
+            get {
+                return ResourceManager.GetString("RequiredSupertribusName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Synonym is required  ähnelt.
         /// </summary>
         public static string RequiredSynonymName {
             get {
                 return ResourceManager.GetString("RequiredSynonymName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Synonym is required  ähnelt.
+        /// </summary>
+        public static string RequiredSynonymName1 {
+            get {
+                return ResourceManager.GetString("RequiredSynonymName1", resourceCulture);
             }
         }
         
@@ -2140,11 +4237,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Tribus Name is required  ähnelt.
+        /// </summary>
+        public static string RequiredTribusName1 {
+            get {
+                return ResourceManager.GetString("RequiredTribusName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die User Name is required ähnelt.
         /// </summary>
         public static string RequiredUserName {
             get {
                 return ResourceManager.GetString("RequiredUserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die User Name is required ähnelt.
+        /// </summary>
+        public static string RequiredUserName1 {
+            get {
+                return ResourceManager.GetString("RequiredUserName1", resourceCulture);
             }
         }
         
@@ -2158,11 +4273,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Please enter value in the range: ähnelt.
+        /// </summary>
+        public static string RequiredValueRange1 {
+            get {
+                return ResourceManager.GetString("RequiredValueRange1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Question ähnelt.
         /// </summary>
         public static string SaveQuestion {
             get {
                 return ResourceManager.GetString("SaveQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Question ähnelt.
+        /// </summary>
+        public static string SaveQuestion1 {
+            get {
+                return ResourceManager.GetString("SaveQuestion1", resourceCulture);
             }
         }
         
@@ -2176,11 +4309,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Are you shure to save this ? ähnelt.
+        /// </summary>
+        public static string SaveQuestion21 {
+            get {
+                return ResourceManager.GetString("SaveQuestion21", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die was successfully saved ! ähnelt.
         /// </summary>
         public static string SaveSuccess {
             get {
                 return ResourceManager.GetString("SaveSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die was successfully saved ! ähnelt.
+        /// </summary>
+        public static string SaveSuccess1 {
+            get {
+                return ResourceManager.GetString("SaveSuccess1", resourceCulture);
             }
         }
         
@@ -2194,6 +4345,15 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Search will be closed ähnelt.
+        /// </summary>
+        public static string SearchBeClosed1 {
+            get {
+                return ResourceManager.GetString("SearchBeClosed1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Search Name or ID ähnelt.
         /// </summary>
         public static string SearchNameOrId {
@@ -2203,11 +4363,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Search Name or ID ähnelt.
+        /// </summary>
+        public static string SearchNameOrId1 {
+            get {
+                return ResourceManager.GetString("SearchNameOrId1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Speciesgroup ähnelt.
         /// </summary>
         public static string Speciesgroup {
             get {
                 return ResourceManager.GetString("Speciesgroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Speciesgroup ähnelt.
+        /// </summary>
+        public static string Speciesgroup1 {
+            get {
+                return ResourceManager.GetString("Speciesgroup1", resourceCulture);
             }
         }
         
@@ -2230,11 +4408,38 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die input may not be longer than 100 characters  ähnelt.
+        /// </summary>
+        public static string StringLength_1001 {
+            get {
+                return ResourceManager.GetString("StringLength_1001", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die input may not be longer than 10 characters  ähnelt.
+        /// </summary>
+        public static string StringLength_101 {
+            get {
+                return ResourceManager.GetString("StringLength_101", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die input may not be longer than 200 characters  ähnelt.
         /// </summary>
         public static string StringLength_200 {
             get {
                 return ResourceManager.GetString("StringLength_200", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die input may not be longer than 200 characters  ähnelt.
+        /// </summary>
+        public static string StringLength_2001 {
+            get {
+                return ResourceManager.GetString("StringLength_2001", resourceCulture);
             }
         }
         
@@ -2248,11 +4453,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die input may not be longer than 300 characters  ähnelt.
+        /// </summary>
+        public static string StringLength_3001 {
+            get {
+                return ResourceManager.GetString("StringLength_3001", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die input may not be longer than 50 characters  ähnelt.
         /// </summary>
         public static string StringLength_50 {
             get {
                 return ResourceManager.GetString("StringLength_50", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die input may not be longer than 50 characters  ähnelt.
+        /// </summary>
+        public static string StringLength_501 {
+            get {
+                return ResourceManager.GetString("StringLength_501", resourceCulture);
             }
         }
         
@@ -2266,11 +4489,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die input may not be longer than 60 characters  ähnelt.
+        /// </summary>
+        public static string StringLength_601 {
+            get {
+                return ResourceManager.GetString("StringLength_601", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die The Year must have 4 characters ähnelt.
         /// </summary>
         public static string StringLengthYear_4 {
             get {
                 return ResourceManager.GetString("StringLengthYear_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The Year must have 4 characters ähnelt.
+        /// </summary>
+        public static string StringLengthYear_41 {
+            get {
+                return ResourceManager.GetString("StringLengthYear_41", resourceCulture);
             }
         }
         
@@ -2284,11 +4525,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Subclass ähnelt.
+        /// </summary>
+        public static string Subclass1 {
+            get {
+                return ResourceManager.GetString("Subclass1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Subdivision ähnelt.
         /// </summary>
         public static string Subdivision {
             get {
                 return ResourceManager.GetString("Subdivision", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Subdivision ähnelt.
+        /// </summary>
+        public static string Subdivision1 {
+            get {
+                return ResourceManager.GetString("Subdivision1", resourceCulture);
             }
         }
         
@@ -2302,11 +4561,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Subfamily ähnelt.
+        /// </summary>
+        public static string Subfamily1 {
+            get {
+                return ResourceManager.GetString("Subfamily1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Subordo ähnelt.
         /// </summary>
         public static string Subordo {
             get {
                 return ResourceManager.GetString("Subordo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Subordo ähnelt.
+        /// </summary>
+        public static string Subordo1 {
+            get {
+                return ResourceManager.GetString("Subordo1", resourceCulture);
             }
         }
         
@@ -2320,11 +4597,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Subphylum ähnelt.
+        /// </summary>
+        public static string Subphylum1 {
+            get {
+                return ResourceManager.GetString("Subphylum1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Subspecies ähnelt.
         /// </summary>
         public static string Subspecies {
             get {
                 return ResourceManager.GetString("Subspecies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Subspecies ähnelt.
+        /// </summary>
+        public static string Subspecies1 {
+            get {
+                return ResourceManager.GetString("Subspecies1", resourceCulture);
             }
         }
         
@@ -2338,11 +4633,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Subtribus ähnelt.
+        /// </summary>
+        public static string Subtribus1 {
+            get {
+                return ResourceManager.GetString("Subtribus1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Superclass ähnelt.
         /// </summary>
         public static string Superclass {
             get {
                 return ResourceManager.GetString("Superclass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Superclass ähnelt.
+        /// </summary>
+        public static string Superclass1 {
+            get {
+                return ResourceManager.GetString("Superclass1", resourceCulture);
             }
         }
         
@@ -2356,11 +4669,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Superfamily ähnelt.
+        /// </summary>
+        public static string Superfamily1 {
+            get {
+                return ResourceManager.GetString("Superfamily1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Supertribus ähnelt.
         /// </summary>
         public static string Supertribus {
             get {
                 return ResourceManager.GetString("Supertribus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Supertribus ähnelt.
+        /// </summary>
+        public static string Supertribus1 {
+            get {
+                return ResourceManager.GetString("Supertribus1", resourceCulture);
             }
         }
         
@@ -2374,11 +4705,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Synonym ähnelt.
+        /// </summary>
+        public static string Synonym1 {
+            get {
+                return ResourceManager.GetString("Synonym1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Tables ähnelt.
         /// </summary>
         public static string Tables {
             get {
                 return ResourceManager.GetString("Tables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Tables ähnelt.
+        /// </summary>
+        public static string Tables1 {
+            get {
+                return ResourceManager.GetString("Tables1", resourceCulture);
             }
         }
         
@@ -2392,11 +4741,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Tribus ähnelt.
+        /// </summary>
+        public static string Tribus1 {
+            get {
+                return ResourceManager.GetString("Tribus1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die try again ! ähnelt.
         /// </summary>
         public static string TryAgain {
             get {
                 return ResourceManager.GetString("TryAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die try again ! ähnelt.
+        /// </summary>
+        public static string TryAgain1 {
+            get {
+                return ResourceManager.GetString("TryAgain1", resourceCulture);
             }
         }
         
@@ -2410,11 +4777,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die User Profile ähnelt.
+        /// </summary>
+        public static string UserProfile1 {
+            get {
+                return ResourceManager.GetString("UserProfile1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Userprofile already existing ähnelt.
         /// </summary>
         public static string UserProfileExist {
             get {
                 return ResourceManager.GetString("UserProfileExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Userprofile already existing ähnelt.
+        /// </summary>
+        public static string UserProfileExist1 {
+            get {
+                return ResourceManager.GetString("UserProfileExist1", resourceCulture);
             }
         }
         
@@ -2428,11 +4813,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Userprofile was not found ähnelt.
+        /// </summary>
+        public static string UserProfileNotExist1 {
+            get {
+                return ResourceManager.GetString("UserProfileNotExist1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Valid ähnelt.
         /// </summary>
         public static string Valid {
             get {
                 return ResourceManager.GetString("Valid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Valid ähnelt.
+        /// </summary>
+        public static string Valid1 {
+            get {
+                return ResourceManager.GetString("Valid1", resourceCulture);
             }
         }
         
@@ -2446,11 +4849,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The validation errors are:  ähnelt.
+        /// </summary>
+        public static string ValidationErrors1 {
+            get {
+                return ResourceManager.GetString("ValidationErrors1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Not Valid ähnelt.
         /// </summary>
         public static string ValidNot {
             get {
                 return ResourceManager.GetString("ValidNot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Not Valid ähnelt.
+        /// </summary>
+        public static string ValidNot1 {
+            get {
+                return ResourceManager.GetString("ValidNot1", resourceCulture);
             }
         }
         
@@ -2464,6 +4885,15 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Value must be non-zero ähnelt.
+        /// </summary>
+        public static string ValueNotZero1 {
+            get {
+                return ResourceManager.GetString("ValueNotZero1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Value must be numeric ähnelt.
         /// </summary>
         public static string ValueNumeric {
@@ -2473,11 +4903,29 @@ namespace CultRes {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Value must be numeric ähnelt.
+        /// </summary>
+        public static string ValueNumeric1 {
+            get {
+                return ResourceManager.GetString("ValueNumeric1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Warning ähnelt.
         /// </summary>
         public static string Warning {
             get {
                 return ResourceManager.GetString("Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Warning ähnelt.
+        /// </summary>
+        public static string Warning1 {
+            get {
+                return ResourceManager.GetString("Warning1", resourceCulture);
             }
         }
     }
