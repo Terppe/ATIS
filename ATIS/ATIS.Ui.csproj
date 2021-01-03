@@ -48,6 +48,7 @@
 
   <ItemGroup>
     <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Database\DatabaseHelper\" />
     <Folder Include="Views\Report\D24Subclass\" />
     <Folder Include="Views\Report\D27Infraclass\" />
     <Folder Include="Views\Report\D30Legio\" />

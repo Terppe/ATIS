@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace ATIS.Ui.Views.Database.DatabaseHelper
+namespace ATIS.Ui.Helper.MessageBox
 {
     public class GenericMessageBoxes<T>
     {
@@ -8,7 +8,7 @@ namespace ATIS.Ui.Views.Database.DatabaseHelper
         {
             if (selectedName == null)
             {
-                MessageBox.Show("Select Dataset",
+                System.Windows.MessageBox.Show("Select Dataset",
                     "Required",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return true;
