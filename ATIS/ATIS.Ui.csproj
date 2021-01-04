@@ -12,6 +12,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Database\DatabaseHelper\**" />
+    <EmbeddedResource Remove="Views\Database\DatabaseHelper\**" />
+    <None Remove="Views\Database\DatabaseHelper\**" />
+    <Page Remove="Views\Database\DatabaseHelper\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="appsettings.json" />
     <None Remove="Asset\Images\Aquarium.jpg" />
     <None Remove="Asset\Images\Aquarium2.jpg" />
@@ -48,7 +55,6 @@
 
   <ItemGroup>
     <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Database\DatabaseHelper\" />
     <Folder Include="Views\Report\D24Subclass\" />
     <Folder Include="Views\Report\D27Infraclass\" />
     <Folder Include="Views\Report\D30Legio\" />

@@ -15,7 +15,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Media.Imaging;
-using ATIS.Ui.Helper.MessageBox;
 using Microsoft.Win32;
 
 //    FiSpeciessesViewModel Skriptdatum:  17.12.2020  10:32    

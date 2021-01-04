@@ -11,7 +11,6 @@ using log4net;
 using Microsoft.EntityFrameworkCore;
 
 using System.Collections.Generic;
-using ATIS.Ui.Helper.MessageBox;
 
 //    NamesViewModel Skriptdatum:  22.01.2019  10:32    
 

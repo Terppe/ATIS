@@ -17,7 +17,6 @@ using System.Globalization;
 using System.IO;
 using Microsoft.Win32;
 using System.Windows.Media.Imaging;
-using ATIS.Ui.Helper.MessageBox;
 using ATIS.Ui.Views.Database.D78Name;
 
 //using GalaSoft.MvvmLight.Command;
