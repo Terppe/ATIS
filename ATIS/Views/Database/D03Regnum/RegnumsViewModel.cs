@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-
-
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -27,13 +25,13 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         private readonly CrudFunctions _extCrud = new CrudFunctions();
 
         private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
-        private readonly GenericMessageBoxes<Tbl03Regnum> _genRegnumMessageBoxes = new GenericMessageBoxes<Tbl03Regnum>();
-        private readonly GenericMessageBoxes<Tbl06Phylum> _genPhylumMessageBoxes = new GenericMessageBoxes<Tbl06Phylum>();
-        private readonly GenericMessageBoxes<Tbl09Division> _genDivisionMessageBoxes = new GenericMessageBoxes<Tbl09Division>();
-        private readonly GenericMessageBoxes<Tbl90Reference> _genExpertMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
-        private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
-        private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
-        private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
+        //private readonly GenericMessageBoxes<Tbl03Regnum> _genRegnumMessageBoxes = new GenericMessageBoxes<Tbl03Regnum>();
+        //private readonly GenericMessageBoxes<Tbl06Phylum> _genPhylumMessageBoxes = new GenericMessageBoxes<Tbl06Phylum>();
+        //private readonly GenericMessageBoxes<Tbl09Division> _genDivisionMessageBoxes = new GenericMessageBoxes<Tbl09Division>();
+        //private readonly GenericMessageBoxes<Tbl90Reference> _genExpertMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        //private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        //private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
+        //private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
         private int _position;
 
         #endregion [Private Data Members]               
@@ -108,7 +106,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteCopyRegnum(object o)
         {
-            if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl03Regnum)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl03Regnum)) return;
 
             Tbl03RegnumsList = _extCrud.CopyRegnum(CurrentTbl03Regnum);
 
@@ -120,7 +118,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteDeleteRegnum(string searchName)
         {
-            if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl03Regnum)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl03Regnum)) return;
 
             //check if in Tbl06Phylums connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
 
@@ -176,7 +174,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteSaveRegnum(string searchName)
         {
-            if (_genRegnumMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl03Regnum)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl03Regnum)) return;
 
             try
             {
@@ -270,7 +268,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteCopyPhylum(object o)
         {
-            if (_genPhylumMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl06Phylum)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl06Phylum)) return;
 
             Tbl06PhylumsList = _extCrud.CopyPhylum(CurrentTbl06Phylum);
 
@@ -282,7 +280,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteDeletePhylum(string searchName)
         {
-            if (_genPhylumMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl06Phylum)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl06Phylum)) return;
 
             //check if in Tbl12Subphylums connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
             Tbl12SubphylumsList = _extCrud.SearchForConnectedDatasetsWithPhylumIdInTableSubphylum(CurrentTbl06Phylum);
@@ -337,7 +335,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteSavePhylum(string searchName)
         {
-            if (_genPhylumMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl06Phylum)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl06Phylum)) return;
 
             CurrentTbl06Phylum.RegnumId = CurrentTbl03Regnum.RegnumId;
 
@@ -361,8 +359,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
                     return;
                 }
@@ -373,7 +370,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                     return;
                 }
 
-                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl06Phylum.PhylumId == 0
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl06Phylum.PhylumId == 0
                     ? CultRes.StringsRes.DatasetNew
                     : CurrentTbl06Phylum.PhylumName);
             }
@@ -431,7 +428,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteCopyDivision(object o)
         {
-            if (_genDivisionMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl09Division)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl09Division)) return;
 
             Tbl09DivisionsList = _extCrud.CopyDivision(CurrentTbl09Division);
 
@@ -443,7 +440,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteDeleteDivision(string searchName)
         {
-            if (_genDivisionMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl09Division)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl09Division)) return;
 
             //check if in Tbl15Subdivisions connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
             Tbl15SubdivisionsList = _extCrud.SearchForConnectedDatasetsWithDivisionIdInTableSubdivision(CurrentTbl09Division);
@@ -498,7 +495,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteSaveDivision(string searchName)
         {
-            if (_genDivisionMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl09Division)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl09Division)) return;
 
             CurrentTbl09Division.RegnumId = CurrentTbl03Regnum.RegnumId;
 
@@ -522,8 +519,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
+                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
                     return;
                 }
@@ -534,7 +530,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
                     return;
                 }
 
-                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl09Division.DivisionId == 0
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl09Division.DivisionId == 0
                     ? CultRes.StringsRes.DatasetNew
                     : CurrentTbl09Division.DivisionName);
             }
@@ -600,7 +596,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         public void ExecuteCopyReferenceAuthor(object o)
         {
-            if (_genAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceAuthor)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceAuthor)) return;
 
             Tbl90ReferenceAuthorsList = _extCrud.CopyReferenceRegnum(CurrentTbl90ReferenceAuthor, "Author");
 
@@ -610,7 +606,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteDeleteReferenceAuthor(string searchName)
         {
-            if (_genAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceAuthor)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceAuthor)) return;
 
             try
             {
@@ -637,19 +633,22 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         public void ExecuteSaveReferenceAuthor(string searchName)
         {
-            if (_genAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceAuthor)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceAuthor)) return;
 
             CurrentTbl90ReferenceAuthor.RegnumId = CurrentTbl03Regnum.RegnumId;
 
-            //Combobox select RefExpertId or RefSourceId or RefAuthorId may be not null
-            if (CurrentTbl90ReferenceAuthor.RefExpertId == null &&
-                CurrentTbl90ReferenceAuthor.RefSourceId == null &&
-                CurrentTbl90ReferenceAuthor.RefAuthorId == null)
-            {
-                MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
+            //Combobox select RefAuthorId may be not null
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl90ReferenceAuthor.RefAuthorId)) return;
+
+            ////Combobox select RefExpertId or RefSourceId or RefAuthorId may be not null
+            //if (CurrentTbl90ReferenceAuthor.RefExpertId == null &&
+            //    CurrentTbl90ReferenceAuthor.RefSourceId == null &&
+            //    CurrentTbl90ReferenceAuthor.RefAuthorId == null)
+            //{
+            //    MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
+            //        MessageBoxButton.OK, MessageBoxImage.Information);
+            //    return;
+            //}
 
             try
             {
@@ -739,7 +738,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         public void ExecuteCopyReferenceSource(object o)
         {
-            if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
 
             Tbl90ReferenceAuthorsList = _extCrud.CopyReferenceRegnum(CurrentTbl90ReferenceSource, "Source");
 
@@ -749,7 +748,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteDeleteReferenceSource(object o)
         {
-            if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
 
             try
             {
@@ -778,17 +777,20 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         public void ExecuteSaveReferenceSource(object o)
         {
-            if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
 
-            //RefExpertId or RefSourceId or RefAuthorId may be not 0
-            if (CurrentTbl90ReferenceSource.RefExpertId == null &&
-                CurrentTbl90ReferenceSource.RefSourceId == null &&
-                CurrentTbl90ReferenceSource.RefAuthorId == null)
-            {
-                MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
+            //Combobox select RefSourceId may be not null
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl90ReferenceSource.RefSourceId)) return;
+
+            ////RefExpertId or RefSourceId or RefAuthorId may be not 0
+            //if (CurrentTbl90ReferenceSource.RefExpertId == null &&
+            //    CurrentTbl90ReferenceSource.RefSourceId == null &&
+            //    CurrentTbl90ReferenceSource.RefAuthorId == null)
+            //{
+            //    MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
+            //        MessageBoxButton.OK, MessageBoxImage.Information);
+            //    return;
+            //}
 
             CurrentTbl90ReferenceSource.RegnumId = CurrentTbl03Regnum.RegnumId;
 
@@ -880,7 +882,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         public void ExecuteCopyReferenceExpert(object o)
         {
-            if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
 
             Tbl90ReferenceExpertsList = _extCrud.CopyReferenceRegnum(CurrentTbl90ReferenceExpert, "Expert");
 
@@ -890,7 +892,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteDeleteReferenceExpert(object o)
         {
-            if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
 
             try
             {
@@ -919,17 +921,20 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         public void ExecuteSaveReferenceExpert(object o)
         {
-            if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
 
-            //RefExpertId or RefSourceId or RefAuthorId may be not 0
-            if (CurrentTbl90ReferenceExpert.RefExpertId == null &&
-                CurrentTbl90ReferenceExpert.RefSourceId == null &&
-                CurrentTbl90ReferenceExpert.RefAuthorId == null)
-            {
-                MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
+            //Combobox select RefExpertId  may be not null
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl90ReferenceExpert.RefExpertId)) return;
+
+            ////RefExpertId or RefSourceId or RefAuthorId may be not 0
+            //if (CurrentTbl90ReferenceExpert.RefExpertId == null &&
+            //    CurrentTbl90ReferenceExpert.RefSourceId == null &&
+            //    CurrentTbl90ReferenceExpert.RefAuthorId == null)
+            //{
+            //    MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
+            //        MessageBoxButton.OK, MessageBoxImage.Information);
+            //    return;
+            //}
 
             CurrentTbl90ReferenceExpert.RegnumId = CurrentTbl03Regnum.RegnumId;
 
@@ -1004,8 +1009,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         #endregion [Commands Regnum ==> Tbl93Comments]        
 
-
-
         #region [Methods Regnum ==> Tbl93Comments]        
 
         public void ExecuteAddComment(object o)
@@ -1021,7 +1024,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         public void ExecuteCopyComment(object o)
         {
 
-            if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
 
             Tbl93CommentsList = _extCrud.CopyComment(CurrentTbl93Comment, "Comment");
 
@@ -1031,7 +1034,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteDeleteComment(object o)
         {
-            if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
 
             try
             {
@@ -1060,7 +1063,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
         private void ExecuteSaveComment(object o)
         {
-            if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
 
             CurrentTbl93Comment.RegnumId = CurrentTbl03Regnum.RegnumId;
 
