@@ -26,33 +26,33 @@ namespace ATIS.Ui.Core
                 case "*":
                     collection = name switch
                     {
-                        "regnum" => GetRegnumsCollectionAllOrderBy<T>(),
-                        "phylum" => GetPhylumsCollectionAllOrderBy<T>(),
-                        "division" => GetDivisionsCollectionAllOrderBy<T>(),
-                        "subphylum" => GetSubphylumsCollectionAllOrderBy<T>(),
-                        "subdivision" => GetSubdivisionsCollectionAllOrderBy<T>(),
-                        "superclass" => GetSuperclassesCollectionAllOrderBy<T>(),
-                        "classe" => GetClassesCollectionAllOrderBy<T>(),
-                        "subclass" => GetSubclassesCollectionAllOrderBy<T>(),
-                        "infraclass" => GetInfraclassesCollectionAllOrderBy<T>(),
-                        "legio" => GetLegiosCollectionAllOrderBy<T>(),
-                        "ordo" => GetOrdosCollectionAllOrderBy<T>(),
-                        "subordo" => GetSubordosCollectionAllOrderBy<T>(),
-                        "infraordo" => GetInfraordosCollectionAllOrderBy<T>(),
-                        "superfamily" => GetSuperfamiliesCollectionAllOrderBy<T>(),
-                        "family" => GetFamiliesCollectionAllOrderBy<T>(),
-                        "subfamily" => GetSubfamiliesCollectionAllOrderBy<T>(),
-                        "infrafamily" => GetInfrafamiliesCollectionAllOrderBy<T>(),
-                        "supertribus" => GetSupertribussesCollectionAllOrderBy<T>(),
-                        "tribus" => GetTribussesCollectionAllOrderBy<T>(),
-                        "subtribus" => GetSubtribussesCollectionAllOrderBy<T>(),
-                        "infratribus" => GetInfratribussesCollectionAllOrderBy<T>(),
-                        "genus" => GetGenussesCollectionAllOrderBy<T>(),
-                        "speciesgroup" => GetSpeciesgroupsCollectionAllOrderBy<T>(),
-                        "fispecies" => GetFiSpeciessesCollectionAllOrderBy<T>(),
-                        "plspecies" => GetPlSpeciessesCollectionAllOrderBy<T>(),
-                        "name" => GetNamesCollectionAllOrderBy<T>(),
-                        "synonym" => GetNamesCollectionAllOrderBy<T>(),
+                        "Regnum" => GetRegnumsCollectionAllOrderBy<T>(),
+                        "Phylum" => GetPhylumsCollectionAllOrderBy<T>(),
+                        "Division" => GetDivisionsCollectionAllOrderBy<T>(),
+                        "Subphylum" => GetSubphylumsCollectionAllOrderBy<T>(),
+                        "Subdivision" => GetSubdivisionsCollectionAllOrderBy<T>(),
+                        "Superclass" => GetSuperclassesCollectionAllOrderBy<T>(),
+                        "Classe" => GetClassesCollectionAllOrderBy<T>(),
+                        "Subclass" => GetSubclassesCollectionAllOrderBy<T>(),
+                        "Infraclass" => GetInfraclassesCollectionAllOrderBy<T>(),
+                        "Legio" => GetLegiosCollectionAllOrderBy<T>(),
+                        "Ordo" => GetOrdosCollectionAllOrderBy<T>(),
+                        "Subordo" => GetSubordosCollectionAllOrderBy<T>(),
+                        "Infraordo" => GetInfraordosCollectionAllOrderBy<T>(),
+                        "Superfamily" => GetSuperfamiliesCollectionAllOrderBy<T>(),
+                        "Family" => GetFamiliesCollectionAllOrderBy<T>(),
+                        "Subfamily" => GetSubfamiliesCollectionAllOrderBy<T>(),
+                        "Infrafamily" => GetInfrafamiliesCollectionAllOrderBy<T>(),
+                        "Supertribus" => GetSupertribussesCollectionAllOrderBy<T>(),
+                        "Tribus" => GetTribussesCollectionAllOrderBy<T>(),
+                        "Subtribus" => GetSubtribussesCollectionAllOrderBy<T>(),
+                        "Infratribus" => GetInfratribussesCollectionAllOrderBy<T>(),
+                        "Genus" => GetGenussesCollectionAllOrderBy<T>(),
+                        "Speciesgroup" => GetSpeciesgroupsCollectionAllOrderBy<T>(),
+                        "Fispecies" => GetFiSpeciessesCollectionAllOrderBy<T>(),
+                        "Plspecies" => GetPlSpeciessesCollectionAllOrderBy<T>(),
+                        "Name" => GetNamesCollectionAllOrderBy<T>(),
+                        "Synonym" => GetNamesCollectionAllOrderBy<T>(),
                         _ => collection
                     };
                     break;
@@ -60,33 +60,33 @@ namespace ATIS.Ui.Core
                     {
                         collection = name switch
                         {
-                            "regnum" => GetRegnumsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "phylum" => GetPhylumsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "division" => GetDivisionsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "subphylum" => GetSubphylumsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "subdivision" => GetSubdivisionsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "superclass" => GetSuperclassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "classe" => GetClassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "subclass" => GetSubclassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "infraclass" => GetInfraclassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "legio" => GetLegiosCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "ordo" => GetOrdosCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "subordo" => GetSubordosCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "infraordo" => GetInfraordosCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "superfamily" => GetSuperfamiliesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "family" => GetFamiliesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "subfamily" => GetSubfamiliesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "infrafamily" => GetInfrafamiliesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "supertribus" => GetSupertribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "tribus" => GetTribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "subtribus" => GetSubtribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "infratribus" => GetInfratribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "genus" => GetGenussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "speciesgroup" => GetSpeciesgroupsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "fispecies" => GetFiSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "plspecies" => GetPlSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "name" => GetNamesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
-                            "synonym" => GetSynonymsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Regnum" => GetRegnumsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Phylum" => GetPhylumsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Division" => GetDivisionsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Subphylum" => GetSubphylumsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Subdivision" => GetSubdivisionsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Superclass" => GetSuperclassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Classe" => GetClassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Subclass" => GetSubclassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Infraclass" => GetInfraclassesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Legio" => GetLegiosCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Ordo" => GetOrdosCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Subordo" => GetSubordosCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Infraordo" => GetInfraordosCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Superfamily" => GetSuperfamiliesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Family" => GetFamiliesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Subfamily" => GetSubfamiliesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Infrafamily" => GetInfrafamiliesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Supertribus" => GetSupertribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Tribus" => GetTribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Subtribus" => GetSubtribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Infratribus" => GetInfratribussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Genus" => GetGenussesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Speciesgroup" => GetSpeciesgroupsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Fispecies" => GetFiSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Plspecies" => GetPlSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Name" => GetNamesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Synonym" => GetSynonymsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
                             _ => collection
                         };
                     }
@@ -101,95 +101,94 @@ namespace ATIS.Ui.Core
 
             switch (name)
             {
-                case "regnum":
+                case "Regnum":
                     collection = GetRegnumsCollectionAllOrderBy<T>();
                     break;
-                case "phylum":
+                case "Phylum":
                     collection = GetPhylumsCollectionAllOrderBy<T>();
                     break;
-                case "division":
+                case "Division":
                     collection = GetDivisionsCollectionAllOrderBy<T>();
                     break;
-                case "subphylum":
+                case "Subphylum":
                     collection = GetSubphylumsCollectionAllOrderBy<T>();
                     break;
-                case "subdivision":
+                case "Subdivision":
                     collection = GetSubdivisionsCollectionAllOrderBy<T>();
                     break;
-                case "superclass":
+                case "Superclass":
                     collection = GetSuperclassesCollectionAllOrderBy<T>();
                     break;
-                case "classe":
+                case "Classe":
                     collection = GetClassesCollectionAllOrderBy<T>();
                     break;
-                case "subclass":
+                case "Subclass":
                     collection = GetSubclassesCollectionAllOrderBy<T>();
                     break;
-                case "infraclass":
+                case "Infraclass":
                     collection = GetInfraclassesCollectionAllOrderBy<T>();
                     break;
-                case "legio":
+                case "Legio":
                     collection = GetLegiosCollectionAllOrderBy<T>();
                     break;
-                case "ordo":
+                case "Ordo":
                     collection = GetOrdosCollectionAllOrderBy<T>();
                     break;
-                case "subordo":
+                case "Subordo":
                     collection = GetSubordosCollectionAllOrderBy<T>();
                     break;
-                case "infraordo":
+                case "Infraordo":
                     collection = GetInfraordosCollectionAllOrderBy<T>();
                     break;
-                case "superfamily":
+                case "Superfamily":
                     collection = GetSuperfamiliesCollectionAllOrderBy<T>();
                     break;
-                case "family":
+                case "Family":
                     collection = GetFamiliesCollectionAllOrderBy<T>();
                     break;
-                case "subfamily":
+                case "Subfamily":
                     collection = GetSubfamiliesCollectionAllOrderBy<T>();
                     break;
-                case "infrafamily":
+                case "Infrafamily":
                     collection = GetInfrafamiliesCollectionAllOrderBy<T>();
                     break;
-                case "supertribus":
+                case "Supertribus":
                     collection = GetSupertribussesCollectionAllOrderBy<T>();
                     break;
-                case "tribus":
+                case "Tribus":
                     collection = GetTribussesCollectionAllOrderBy<T>();
                     break;
-                case "subtribus":
+                case "Subtribus":
                     collection = GetSubtribussesCollectionAllOrderBy<T>();
                     break;
-                case "infratribus":
+                case "Infratribus":
                     collection = GetInfratribussesCollectionAllOrderBy<T>();
                     break;
-                case "genus":
+                case "Genus":
                     collection = GetGenussesCollectionAllOrderBy<T>();
                     break;
-                case "speciesgroup":
+                case "Speciesgroup":
                     collection = GetSpeciesgroupsCollectionAllOrderBy<T>();
                     break;
-                case "fispecies":
+                case "Fispecies":
                     collection = GetFiSpeciessesCollectionAllOrderBy<T>();
                     break;
-                case "plspecies":
+                case "Plspecies":
                     collection = GetPlSpeciessesCollectionAllOrderBy<T>();
                     break;
-                case "name":
+                case "Name":
                     collection = GetNamesCollectionAllOrderBy<T>();
                     break;
-                case "synonym":
+                case "Synonym":
                     collection = GetNamesCollectionAllOrderBy<T>();
                     break;
-
-                case "expert":
+                case "Expert":
                     collection = GetReferenceExpertsCollectionAllOrderBy<T>();
                     break;
-                case "source":
+                case "Source":
                     collection = GetReferenceSourcesCollectionAllOrderBy<T>();
                     break;
-                case "author":
+                case "Author":
                     collection = GetReferenceAuthorsCollectionAllOrderBy<T>();
                     break;
             }
@@ -203,7 +202,7 @@ namespace ATIS.Ui.Core
         #region Get Regnum
 
         // ----------------------------------------   Regnum   ------------------------
-        private ObservableCollection<T> GetRegnumsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        public ObservableCollection<T> GetRegnumsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
@@ -448,24 +447,24 @@ namespace ATIS.Ui.Core
             _uow.Tbl03Regnums.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl06Phylum> SearchForConnectedDatasetsWithRegnumIdInTablePhylum(Tbl03Regnum selected)
+        public ObservableCollection<Tbl06Phylum> SearchForConnectedDatasetsWithRegnumIdInTablePhylum(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums.Find(x => x.RegnumId == selected.RegnumId));
+            var collection = new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums.Find(x => x.RegnumId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl09Division> SearchForConnectedDatasetsWithRegnumIdInTableDivision(Tbl03Regnum selected)
+        public ObservableCollection<Tbl09Division> SearchForConnectedDatasetsWithRegnumIdInTableDivision(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl09Division>(_uow.Tbl09Divisions.Find(x => x.RegnumId == selected.RegnumId));
+            var collection = new ObservableCollection<Tbl09Division>(_uow.Tbl09Divisions.Find(x => x.RegnumId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(Tbl03Regnum selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.RegnumId == selected.RegnumId));
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.RegnumId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(Tbl03Regnum selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithRegnumIdInTableComment(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.RegnumId == selected.RegnumId));
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.RegnumId == selectedId));
             return collection;
         }
         //------------------------------ Phylum   --------------------------------------------------------------------------------------------
@@ -474,40 +473,40 @@ namespace ATIS.Ui.Core
             _uow.Tbl06Phylums.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl12Subphylum> SearchForConnectedDatasetsWithPhylumIdInTableSubphylum(Tbl06Phylum selected)
+        public ObservableCollection<Tbl12Subphylum> SearchForConnectedDatasetsWithPhylumIdInTableSubphylum(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl12Subphylum>(_uow.Tbl12Subphylums.Find(x => x.PhylumId == selected.PhylumId));
+            var collection = new ObservableCollection<Tbl12Subphylum>(_uow.Tbl12Subphylums.Find(x => x.PhylumId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithPhylumIdInTableReference(Tbl06Phylum selected)
-        {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.PhylumId == selected.PhylumId));
-            return collection;
-        }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithPhylumIdInTableComment(Tbl06Phylum selected)
-        {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.PhylumId == selected.PhylumId));
-            return collection;
-        }
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithPhylumIdInTableReference(int selectedId)
+        //{
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.PhylumId == selectedId));
+        //    return collection;
+        //}
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithPhylumIdInTableComment(int selectedId)
+        //{
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.PhylumId == selectedId));
+        //    return collection;
+        //}
         //------------------------------ Division   --------------------------------------------------------------------------------------------
         public void DeleteDivision(Tbl09Division selected)
         {
             _uow.Tbl09Divisions.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl15Subdivision> SearchForConnectedDatasetsWithDivisionIdInTableSubdivision(Tbl09Division selected)
+        public ObservableCollection<Tbl15Subdivision> SearchForConnectedDatasetsWithDivisionIdInTableSubdivision(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl15Subdivision>(_uow.Tbl15Subdivisions.Find(x => x.DivisionId == selected.DivisionId));
+            var collection = new ObservableCollection<Tbl15Subdivision>(_uow.Tbl15Subdivisions.Find(x => x.DivisionId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithDivisionIdInTableReference(Tbl09Division selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithDivisionIdInTableReference(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.DivisionId == selected.DivisionId));
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.DivisionId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithDivisionIdInTableComment(Tbl09Division selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithDivisionIdInTableComment(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.DivisionId == selected.DivisionId));
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.DivisionId == selectedId));
             return collection;
         }
         //-----------------------DeleteReferences, DeleteComments, DeleteReference, DeleteComment-----------------------------------
@@ -855,7 +854,7 @@ namespace ATIS.Ui.Core
         #region Get Phylum
 
         //----------------------------------------   Phylum   ------------------------
-        private ObservableCollection<T> GetPhylumsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        public ObservableCollection<T> GetPhylumsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
@@ -1025,16 +1024,16 @@ namespace ATIS.Ui.Core
         #region Delete Phylum
 
         //------------------------------ Phylum --------------------------------------------------------------------------------------------
-        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithPhylumIdInTableReference(Tbl06Phylum selected)
-        //{
-        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.PhylumId == selected.PhylumId));
-        //    return collection;
-        //}
-        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithPhylumIdInTableComment(Tbl06Phylum selected)
-        //{
-        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.PhylumId == selected.PhylumId));
-        //    return collection;
-        //}
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithPhylumIdInTableReference(int selectedId)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.PhylumId == selectedId));
+            return collection;
+        }
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithPhylumIdInTableComment(int selectedId)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.PhylumId == selectedId));
+            return collection;
+        }
 
         //------------------------------ Subphylum --------------------------------------------------------------------------------------------
         public void DeleteSubphylum(Tbl12Subphylum selected)
@@ -1042,19 +1041,19 @@ namespace ATIS.Ui.Core
             _uow.Tbl12Subphylums.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl18Superclass> SearchForConnectedDatasetsWithSubphylumIdInTableSuperclass(Tbl12Subphylum selected)
+        public ObservableCollection<Tbl18Superclass> SearchForConnectedDatasetsWithSubphylumIdInTableSuperclass(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl18Superclass>(_uow.Tbl18Superclasses.Find(x => x.SubphylumId == selected.SubphylumId));
+            var collection = new ObservableCollection<Tbl18Superclass>(_uow.Tbl18Superclasses.Find(x => x.SubphylumId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubphylumIdInTableReference(Tbl12Subphylum selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubphylumIdInTableReference(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubphylumId == selected.SubphylumId));
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubphylumId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubphylumIdInTableComment(Tbl12Subphylum selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubphylumIdInTableComment(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubphylumId == selected.SubphylumId));
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubphylumId == selectedId));
             return collection;
         }
 
@@ -1264,7 +1263,7 @@ namespace ATIS.Ui.Core
         #region Get Division
 
         //----------------------------------------   Division   ------------------------
-        private ObservableCollection<T> GetDivisionsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        public ObservableCollection<T> GetDivisionsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
@@ -1434,14 +1433,14 @@ namespace ATIS.Ui.Core
         #region Delete Division
 
         //------------------------------ Division --------------------------------------------------------------------------------------------
-        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithDivisionIdInTableReference(Tbl09Division selected)
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithDivisionIdInTableReference(int selectedId)
         //{
-        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.DivisionId == selected.DivisionId));
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.DivisionId == selectedId));
         //    return collection;
         //}
-        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithDivisionIdInTableComment(Tbl09Division selected)
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithDivisionIdInTableComment(int selectedId)
         //{
-        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.DivisionId == selected.DivisionId));
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.DivisionId == selectedId));
         //    return collection;
         //}
 
@@ -1451,19 +1450,19 @@ namespace ATIS.Ui.Core
             _uow.Tbl15Subdivisions.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl18Superclass> SearchForConnectedDatasetsWithSubdivisionIdInTableSuperclass(Tbl15Subdivision selected)
+        public ObservableCollection<Tbl18Superclass> SearchForConnectedDatasetsWithSubdivisionIdInTableSuperclass(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl18Superclass>(_uow.Tbl18Superclasses.Find(x => x.SubdivisionId == selected.SubdivisionId));
+            var collection = new ObservableCollection<Tbl18Superclass>(_uow.Tbl18Superclasses.Find(x => x.SubdivisionId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubdivisionIdInTableReference(Tbl15Subdivision selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubdivisionIdInTableReference(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubdivisionId == selected.SubdivisionId));
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubdivisionId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubdivisionIdInTableComment(Tbl15Subdivision selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubdivisionIdInTableComment(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubdivisionId == selected.SubdivisionId));
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubdivisionId == selectedId));
             return collection;
         }
 
@@ -1672,7 +1671,7 @@ namespace ATIS.Ui.Core
         #region Get Subphylum
 
         //----------------------------------------   Subphylum   ------------------------
-        private ObservableCollection<T> GetSubphylumsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        public ObservableCollection<T> GetSubphylumsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
@@ -1842,16 +1841,16 @@ namespace ATIS.Ui.Core
         #region Delete Subphylum
 
         //------------------------------ Subphylum --------------------------------------------------------------------------------------------
-        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubphylumIdInTableReference(Tbl12Subphylum selected)
-        //{
-        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubphylumId == selected.SubphylumId));
-        //    return collection;
-        //}
-        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubphylumIdInTableComment(Tbl12Subphylum selected)
-        //{
-        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubphylumId == selected.SubphylumId));
-        //    return collection;
-        //}
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubphylumIdInTableReference(Tbl12Subphylum selected)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubphylumId == selected.SubphylumId));
+            return collection;
+        }
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubphylumIdInTableComment(Tbl12Subphylum selected)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubphylumId == selected.SubphylumId));
+            return collection;
+        }
 
         //------------------------------ Superclass --------------------------------------------------------------------------------------------
         public void DeleteSuperclass(Tbl18Superclass selected)
@@ -1859,19 +1858,19 @@ namespace ATIS.Ui.Core
             _uow.Tbl18Superclasses.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl21Class> SearchForConnectedDatasetsWithSuperclassIdInTableClass(Tbl18Superclass selected)
+        public ObservableCollection<Tbl21Class> SearchForConnectedDatasetsWithSuperclassIdInTableClass(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl21Class>(_uow.Tbl21Classes.Find(x => x.SuperclassId == selected.SuperclassId));
+            var collection = new ObservableCollection<Tbl21Class>(_uow.Tbl21Classes.Find(x => x.SuperclassId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSuperclassIdInTableReference(Tbl18Superclass selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSuperclassIdInTableReference(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SuperclassId == selected.SuperclassId));
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SuperclassId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSuperclassIdInTableComment(Tbl18Superclass selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSuperclassIdInTableComment(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SuperclassId == selected.SuperclassId));
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SuperclassId == selectedId));
             return collection;
         }
 
@@ -2080,7 +2079,7 @@ namespace ATIS.Ui.Core
         #region Get Subdivision
 
         //----------------------------------------   Subdivision   ------------------------
-        private ObservableCollection<T> GetSubdivisionsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        public ObservableCollection<T> GetSubdivisionsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
@@ -2250,14 +2249,14 @@ namespace ATIS.Ui.Core
         #region Delete Subdivision
 
         //------------------------------ Subdivision --------------------------------------------------------------------------------------------
-        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubdivisionIdInTableReference(Tbl15Subdivision selected)
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubdivisionIdInTableReference(int selectedId)
         //{
-        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubdivisionId == selected.SubdivisionId));
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubdivisionId == selectedId));
         //    return collection;
         //}
-        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubdivisionIdInTableComment(Tbl15Subdivision selected)
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubdivisionIdInTableComment(int selectedId)
         //{
-        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubdivisionId == selected.SubdivisionId));
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubdivisionId == selectedId));
         //    return collection;
         //}
 
@@ -2488,7 +2487,7 @@ namespace ATIS.Ui.Core
         #region Get Superclass
 
         //----------------------------------------   Superclass   ------------------------
-        private ObservableCollection<T> GetSuperclassesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        public ObservableCollection<T> GetSuperclassesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
@@ -2658,14 +2657,14 @@ namespace ATIS.Ui.Core
         #region Delete Superclass
 
         //------------------------------ Superclass --------------------------------------------------------------------------------------------
-        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSuperclassIdInTableReference(Tbl18Superclass selected)
+        //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSuperclassIdInTableReference(int selectedId)
         //{
-        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SuperclassId == selected.SuperclassId));
+        //    var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SuperclassId == selectedId));
         //    return collection;
         //}
-        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSuperclassIdInTableComment(Tbl18Superclass selected)
+        //public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSuperclassIdInTableComment(int selectedId)
         //{
-        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SuperclassId == selected.SuperclassId));
+        //    var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SuperclassId == selectedId));
         //    return collection;
         //}
 
@@ -2675,19 +2674,19 @@ namespace ATIS.Ui.Core
             _uow.Tbl21Classes.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl24Subclass> SearchForConnectedDatasetsWithClassIdInTableSubclass(Tbl21Class selected)
+        public ObservableCollection<Tbl24Subclass> SearchForConnectedDatasetsWithClassIdInTableSubclass(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl24Subclass>(_uow.Tbl24Subclasses.Find(x => x.ClassId == selected.ClassId));
+            var collection = new ObservableCollection<Tbl24Subclass>(_uow.Tbl24Subclasses.Find(x => x.ClassId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithClassIdInTableReference(Tbl21Class selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithClassIdInTableReference(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.ClassId == selected.ClassId));
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.ClassId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithClassIdInTableComment(Tbl21Class selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithClassIdInTableComment(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.ClassId == selected.ClassId));
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.ClassId == selectedId));
             return collection;
         }
 
@@ -2896,7 +2895,7 @@ namespace ATIS.Ui.Core
         #region Get Class
 
         //----------------------------------------   Class   ------------------------
-        private ObservableCollection<T> GetClassesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        public ObservableCollection<T> GetClassesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
@@ -3083,19 +3082,19 @@ namespace ATIS.Ui.Core
             _uow.Tbl24Subclasses.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl27Infraclass> SearchForConnectedDatasetsWithSubclassIdInTableInfraclass(Tbl24Subclass selected)
+        public ObservableCollection<Tbl27Infraclass> SearchForConnectedDatasetsWithSubclassIdInTableInfraclass(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl27Infraclass>(_uow.Tbl27Infraclasses.Find(x => x.SubclassId == selected.SubclassId));
+            var collection = new ObservableCollection<Tbl27Infraclass>(_uow.Tbl27Infraclasses.Find(x => x.SubclassId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubclassIdInTableReference(Tbl24Subclass selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubclassIdInTableReference(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubclassId == selected.SubclassId));
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubclassId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubclassIdInTableComment(Tbl24Subclass selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubclassIdInTableComment(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubclassId == selected.SubclassId));
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubclassId == selectedId));
             return collection;
         }
 
@@ -3304,7 +3303,7 @@ namespace ATIS.Ui.Core
         #region Get Subclass
 
         //----------------------------------------   Subclass   ------------------------
-        private ObservableCollection<T> GetSubclassesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        public ObservableCollection<T> GetSubclassesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
@@ -3491,19 +3490,19 @@ namespace ATIS.Ui.Core
             _uow.Tbl27Infraclasses.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl30Legio> SearchForConnectedDatasetsWithInfraclassIdInTableLegio(Tbl27Infraclass selected)
+        public ObservableCollection<Tbl30Legio> SearchForConnectedDatasetsWithInfraclassIdInTableLegio(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl30Legio>(_uow.Tbl30Legios.Find(x => x.InfraclassId == selected.InfraclassId));
+            var collection = new ObservableCollection<Tbl30Legio>(_uow.Tbl30Legios.Find(x => x.InfraclassId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithInfraclassIdInTableReference(Tbl27Infraclass selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithInfraclassIdInTableReference(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.InfraclassId == selected.InfraclassId));
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.InfraclassId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithInfraclassIdInTableComment(Tbl27Infraclass selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithInfraclassIdInTableComment(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.InfraclassId == selected.InfraclassId));
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.InfraclassId == selectedId));
             return collection;
         }
 
@@ -3712,7 +3711,7 @@ namespace ATIS.Ui.Core
         #region Get Infraclass
 
         //----------------------------------------   Infraclass   ------------------------
-        private ObservableCollection<T> GetInfraclassesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        public ObservableCollection<T> GetInfraclassesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
@@ -3900,19 +3899,19 @@ namespace ATIS.Ui.Core
             _uow.Tbl30Legios.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl33Ordo> SearchForConnectedDatasetsWithLegioIdInTableOrdo(Tbl30Legio selected)
+        public ObservableCollection<Tbl33Ordo> SearchForConnectedDatasetsWithLegioIdInTableOrdo(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl33Ordo>(_uow.Tbl33Ordos.Find(x => x.LegioId == selected.LegioId));
+            var collection = new ObservableCollection<Tbl33Ordo>(_uow.Tbl33Ordos.Find(x => x.LegioId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithLegioIdInTableReference(Tbl30Legio selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithLegioIdInTableReference(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.LegioId == selected.LegioId));
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.LegioId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithLegioIdInTableComment(Tbl30Legio selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithLegioIdInTableComment(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.LegioId == selected.LegioId));
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.LegioId == selectedId));
             return collection;
         }
 
@@ -4121,7 +4120,7 @@ namespace ATIS.Ui.Core
         #region Get Legio
 
         //----------------------------------------   Legio   ------------------------
-        private ObservableCollection<T> GetLegiosCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        public ObservableCollection<T> GetLegiosCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
@@ -4308,19 +4307,19 @@ namespace ATIS.Ui.Core
             _uow.Tbl33Ordos.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl36Subordo> SearchForConnectedDatasetsWithOrdoIdInTableSubordo(Tbl33Ordo selected)
+        public ObservableCollection<Tbl36Subordo> SearchForConnectedDatasetsWithOrdoIdInTableSubordo(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl36Subordo>(_uow.Tbl36Subordos.Find(x => x.OrdoId == selected.OrdoId));
+            var collection = new ObservableCollection<Tbl36Subordo>(_uow.Tbl36Subordos.Find(x => x.OrdoId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithOrdoIdInTableReference(Tbl33Ordo selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithOrdoIdInTableReference(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.OrdoId == selected.OrdoId));
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.OrdoId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithOrdoIdInTableComment(Tbl33Ordo selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithOrdoIdInTableComment(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.OrdoId == selected.OrdoId));
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.OrdoId == selectedId));
             return collection;
         }
 
@@ -4529,7 +4528,7 @@ namespace ATIS.Ui.Core
         #region Get Ordo
 
         //----------------------------------------   Ordo   ------------------------
-        private ObservableCollection<T> GetOrdosCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        public ObservableCollection<T> GetOrdosCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
@@ -4716,19 +4715,19 @@ namespace ATIS.Ui.Core
             _uow.Tbl36Subordos.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl39Infraordo> SearchForConnectedDatasetsWithSubordoIdInTableInfraordo(Tbl36Subordo selected)
+        public ObservableCollection<Tbl39Infraordo> SearchForConnectedDatasetsWithSubordoIdInTableInfraordo(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl39Infraordo>(_uow.Tbl39Infraordos.Find(x => x.SubordoId == selected.SubordoId));
+            var collection = new ObservableCollection<Tbl39Infraordo>(_uow.Tbl39Infraordos.Find(x => x.SubordoId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubordoIdInTableReference(Tbl36Subordo selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubordoIdInTableReference(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubordoId == selected.SubordoId));
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubordoId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubordoIdInTableComment(Tbl36Subordo selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubordoIdInTableComment(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubordoId == selected.SubordoId));
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubordoId == selectedId));
             return collection;
         }
 
@@ -4937,7 +4936,7 @@ namespace ATIS.Ui.Core
         #region Get Subordo
 
         //----------------------------------------   Subordo   ------------------------
-        private ObservableCollection<T> GetSubordosCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        public ObservableCollection<T> GetSubordosCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
@@ -5124,19 +5123,19 @@ namespace ATIS.Ui.Core
             _uow.Tbl39Infraordos.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl42Superfamily> SearchForConnectedDatasetsWithInfraordoIdInTableSuperfamily(Tbl39Infraordo selected)
+        public ObservableCollection<Tbl42Superfamily> SearchForConnectedDatasetsWithInfraordoIdInTableSuperfamily(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl42Superfamily>(_uow.Tbl42Superfamilies.Find(x => x.InfraordoId == selected.InfraordoId));
+            var collection = new ObservableCollection<Tbl42Superfamily>(_uow.Tbl42Superfamilies.Find(x => x.InfraordoId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithInfraordoIdInTableReference(Tbl39Infraordo selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithInfraordoIdInTableReference(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.InfraordoId == selected.InfraordoId));
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.InfraordoId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithInfraordoIdInTableComment(Tbl39Infraordo selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithInfraordoIdInTableComment(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.InfraordoId == selected.InfraordoId));
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.InfraordoId == selectedId));
             return collection;
         }
 
@@ -5345,7 +5344,7 @@ namespace ATIS.Ui.Core
         #region Get Infraordo
 
         //----------------------------------------   Infraordo   ------------------------
-        private ObservableCollection<T> GetInfraordosCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        public ObservableCollection<T> GetInfraordosCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
@@ -5532,19 +5531,19 @@ namespace ATIS.Ui.Core
             _uow.Tbl42Superfamilies.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl45Family> SearchForConnectedDatasetsWithSuperfamilyIdInTableFamily(Tbl42Superfamily selected)
+        public ObservableCollection<Tbl45Family> SearchForConnectedDatasetsWithSuperfamilyIdInTableFamily(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl45Family>(_uow.Tbl45Families.Find(x => x.SuperfamilyId == selected.SuperfamilyId));
+            var collection = new ObservableCollection<Tbl45Family>(_uow.Tbl45Families.Find(x => x.SuperfamilyId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSuperfamilyIdInTableReference(Tbl42Superfamily selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSuperfamilyIdInTableReference(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SuperfamilyId == selected.SuperfamilyId));
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SuperfamilyId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSuperfamilyIdInTableComment(Tbl42Superfamily selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSuperfamilyIdInTableComment(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SuperfamilyId == selected.SuperfamilyId));
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SuperfamilyId == selectedId));
             return collection;
         }
 
@@ -5753,7 +5752,7 @@ namespace ATIS.Ui.Core
         #region Get Superfamily
 
         //----------------------------------------   Superfamily   ------------------------
-        private ObservableCollection<T> GetSuperfamiliesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        public ObservableCollection<T> GetSuperfamiliesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
@@ -5940,19 +5939,19 @@ namespace ATIS.Ui.Core
             _uow.Tbl45Families.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl48Subfamily> SearchForConnectedDatasetsWithFamilyIdInTableSubfamily(Tbl45Family selected)
+        public ObservableCollection<Tbl48Subfamily> SearchForConnectedDatasetsWithFamilyIdInTableSubfamily(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl48Subfamily>(_uow.Tbl48Subfamilies.Find(x => x.FamilyId == selected.FamilyId));
+            var collection = new ObservableCollection<Tbl48Subfamily>(_uow.Tbl48Subfamilies.Find(x => x.FamilyId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithFamilyIdInTableReference(Tbl45Family selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithFamilyIdInTableReference(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.FamilyId == selected.FamilyId));
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.FamilyId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithFamilyIdInTableComment(Tbl45Family selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithFamilyIdInTableComment(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.FamilyId == selected.FamilyId));
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.FamilyId == selectedId));
             return collection;
         }
 
@@ -6161,7 +6160,7 @@ namespace ATIS.Ui.Core
         #region Get Family
 
         //----------------------------------------   Family   ------------------------
-        private ObservableCollection<T> GetFamiliesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        public ObservableCollection<T> GetFamiliesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
@@ -6348,19 +6347,19 @@ namespace ATIS.Ui.Core
             _uow.Tbl48Subfamilies.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl51Infrafamily> SearchForConnectedDatasetsWithSubfamilyIdInTableInfrafamily(Tbl48Subfamily selected)
+        public ObservableCollection<Tbl51Infrafamily> SearchForConnectedDatasetsWithSubfamilyIdInTableInfrafamily(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl51Infrafamily>(_uow.Tbl51Infrafamilies.Find(x => x.SubfamilyId == selected.SubfamilyId));
+            var collection = new ObservableCollection<Tbl51Infrafamily>(_uow.Tbl51Infrafamilies.Find(x => x.SubfamilyId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubfamilyIdInTableReference(Tbl48Subfamily selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubfamilyIdInTableReference(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubfamilyId == selected.SubfamilyId));
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubfamilyId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubfamilyIdInTableComment(Tbl48Subfamily selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubfamilyIdInTableComment(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubfamilyId == selected.SubfamilyId));
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubfamilyId == selectedId));
             return collection;
         }
 
@@ -6569,7 +6568,7 @@ namespace ATIS.Ui.Core
         #region Get Subfamily
 
         //----------------------------------------   Subfamily   ------------------------
-        private ObservableCollection<T> GetSubfamiliesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        public ObservableCollection<T> GetSubfamiliesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
@@ -6756,19 +6755,19 @@ namespace ATIS.Ui.Core
             _uow.Tbl51Infrafamilies.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl54Supertribus> SearchForConnectedDatasetsWithInfrafamilyIdInTableSupertribus(Tbl51Infrafamily selected)
+        public ObservableCollection<Tbl54Supertribus> SearchForConnectedDatasetsWithInfrafamilyIdInTableSupertribus(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl54Supertribus>(_uow.Tbl54Supertribusses.Find(x => x.InfrafamilyId == selected.InfrafamilyId));
+            var collection = new ObservableCollection<Tbl54Supertribus>(_uow.Tbl54Supertribusses.Find(x => x.InfrafamilyId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithInfrafamilyIdInTableReference(Tbl51Infrafamily selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithInfrafamilyIdInTableReference(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.InfrafamilyId == selected.InfrafamilyId));
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.InfrafamilyId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithInfrafamilyIdInTableComment(Tbl51Infrafamily selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithInfrafamilyIdInTableComment(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.InfrafamilyId == selected.InfrafamilyId));
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.InfrafamilyId == selectedId));
             return collection;
         }
 
@@ -6977,7 +6976,7 @@ namespace ATIS.Ui.Core
         #region Get Infrafamily
 
         //----------------------------------------   Infrafamily   ------------------------
-        private ObservableCollection<T> GetInfrafamiliesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        public ObservableCollection<T> GetInfrafamiliesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
@@ -7164,19 +7163,19 @@ namespace ATIS.Ui.Core
             _uow.Tbl54Supertribusses.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl57Tribus> SearchForConnectedDatasetsWithSupertribusIdInTableTribus(Tbl54Supertribus selected)
+        public ObservableCollection<Tbl57Tribus> SearchForConnectedDatasetsWithSupertribusIdInTableTribus(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl57Tribus>(_uow.Tbl57Tribusses.Find(x => x.SupertribusId == selected.SupertribusId));
+            var collection = new ObservableCollection<Tbl57Tribus>(_uow.Tbl57Tribusses.Find(x => x.SupertribusId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSupertribusIdInTableReference(Tbl54Supertribus selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSupertribusIdInTableReference(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SupertribusId == selected.SupertribusId));
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SupertribusId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSupertribusIdInTableComment(Tbl54Supertribus selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSupertribusIdInTableComment(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SupertribusId == selected.SupertribusId));
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SupertribusId == selectedId));
             return collection;
         }
 
@@ -7385,7 +7384,7 @@ namespace ATIS.Ui.Core
         #region Get Supertribus
 
         //----------------------------------------   Supertribus   ------------------------
-        private ObservableCollection<T> GetSupertribussesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        public ObservableCollection<T> GetSupertribussesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
@@ -7572,19 +7571,19 @@ namespace ATIS.Ui.Core
             _uow.Tbl57Tribusses.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl60Subtribus> SearchForConnectedDatasetsWithTribusIdInTableSubtribus(Tbl57Tribus selected)
+        public ObservableCollection<Tbl60Subtribus> SearchForConnectedDatasetsWithTribusIdInTableSubtribus(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl60Subtribus>(_uow.Tbl60Subtribusses.Find(x => x.TribusId == selected.TribusId));
+            var collection = new ObservableCollection<Tbl60Subtribus>(_uow.Tbl60Subtribusses.Find(x => x.TribusId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithTribusIdInTableReference(Tbl57Tribus selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithTribusIdInTableReference(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.TribusId == selected.TribusId));
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.TribusId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithTribusIdInTableComment(Tbl57Tribus selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithTribusIdInTableComment(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.TribusId == selected.TribusId));
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.TribusId == selectedId));
             return collection;
         }
 
@@ -7793,7 +7792,7 @@ namespace ATIS.Ui.Core
         #region Get Tribus
 
         //----------------------------------------   Tribus   ------------------------
-        private ObservableCollection<T> GetTribussesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        public ObservableCollection<T> GetTribussesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
@@ -7980,19 +7979,19 @@ namespace ATIS.Ui.Core
             _uow.Tbl60Subtribusses.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl63Infratribus> SearchForConnectedDatasetsWithSubtribusIdInTableInfratribus(Tbl60Subtribus selected)
+        public ObservableCollection<Tbl63Infratribus> SearchForConnectedDatasetsWithSubtribusIdInTableInfratribus(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl63Infratribus>(_uow.Tbl63Infratribusses.Find(x => x.SubtribusId == selected.SubtribusId));
+            var collection = new ObservableCollection<Tbl63Infratribus>(_uow.Tbl63Infratribusses.Find(x => x.SubtribusId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubtribusIdInTableReference(Tbl60Subtribus selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSubtribusIdInTableReference(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubtribusId == selected.SubtribusId));
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.SubtribusId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubtribusIdInTableComment(Tbl60Subtribus selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithSubtribusIdInTableComment(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubtribusId == selected.SubtribusId));
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.SubtribusId == selectedId));
             return collection;
         }
 
@@ -8201,7 +8200,7 @@ namespace ATIS.Ui.Core
         #region Get Subtribus
 
         //----------------------------------------   Subtribus   ------------------------
-        private ObservableCollection<T> GetSubtribussesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        public ObservableCollection<T> GetSubtribussesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
@@ -8388,19 +8387,19 @@ namespace ATIS.Ui.Core
             _uow.Tbl63Infratribusses.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl66Genus> SearchForConnectedDatasetsWithInfratribusIdInTableGenus(Tbl63Infratribus selected)
+        public ObservableCollection<Tbl66Genus> SearchForConnectedDatasetsWithInfratribusIdInTableGenus(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl66Genus>(_uow.Tbl66Genusses.Find(x => x.InfratribusId == selected.InfratribusId));
+            var collection = new ObservableCollection<Tbl66Genus>(_uow.Tbl66Genusses.Find(x => x.InfratribusId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithInfratribusIdInTableReference(Tbl63Infratribus selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithInfratribusIdInTableReference(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.InfratribusId == selected.InfratribusId));
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.InfratribusId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithInfratribusIdInTableComment(Tbl63Infratribus selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithInfratribusIdInTableComment(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.InfratribusId == selected.InfratribusId));
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.InfratribusId == selectedId));
             return collection;
         }
 
@@ -8609,7 +8608,7 @@ namespace ATIS.Ui.Core
         #region Get Infratribus
 
         //----------------------------------------   Infratribus   ------------------------
-        private ObservableCollection<T> GetInfratribussesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        public ObservableCollection<T> GetInfratribussesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
         {
             ObservableCollection<T> collection;
             collection = int.TryParse(searchName, out var id)
@@ -8796,19 +8795,19 @@ namespace ATIS.Ui.Core
             _uow.Tbl66Genusses.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl69FiSpecies> SearchForConnectedDatasetsWithGenusIdInTableFiSpecies(Tbl66Genus selected)
+        public ObservableCollection<Tbl69FiSpecies> SearchForConnectedDatasetsWithGenusIdInTableFiSpecies(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl69FiSpecies>(_uow.Tbl69FiSpeciesses.Find(x => x.GenusId == selected.GenusId));
+            var collection = new ObservableCollection<Tbl69FiSpecies>(_uow.Tbl69FiSpeciesses.Find(x => x.GenusId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithGenusIdInTableReference(Tbl66Genus selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithGenusIdInTableReference(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.GenusId == selected.GenusId));
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.GenusId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithGenusIdInTableComment(Tbl66Genus selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithGenusIdInTableComment(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.GenusId == selected.GenusId));
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.GenusId == selectedId));
             return collection;
         }
 
@@ -9310,19 +9309,19 @@ namespace ATIS.Ui.Core
             _uow.Tbl69FiSpeciesses.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl69FiSpecies> SearchForConnectedDatasetsWithFiSpeciesIdInTableFiSpecies(Tbl69FiSpecies selected)
+        public ObservableCollection<Tbl69FiSpecies> SearchForConnectedDatasetsWithFiSpeciesIdInTableFiSpecies(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl69FiSpecies>(_uow.Tbl69FiSpeciesses.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
+            var collection = new ObservableCollection<Tbl69FiSpecies>(_uow.Tbl69FiSpeciesses.Find(x => x.FiSpeciesId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithFiSpeciesIdInTableReference(Tbl69FiSpecies selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithFiSpeciesIdInTableReference(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.FiSpeciesId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithFiSpeciesIdInTableComment(Tbl69FiSpecies selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithFiSpeciesIdInTableComment(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.FiSpeciesId == selectedId));
             return collection;
         }
 
@@ -9332,19 +9331,19 @@ namespace ATIS.Ui.Core
             _uow.Tbl72PlSpeciesses.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl72PlSpecies> SearchForConnectedDatasetsWithPlSpeciesIdInTablePlSpecies(Tbl72PlSpecies selected)
+        public ObservableCollection<Tbl72PlSpecies> SearchForConnectedDatasetsWithPlSpeciesIdInTablePlSpecies(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl72PlSpecies>(_uow.Tbl72PlSpeciesses.Find(x => x.PlSpeciesId == selected.PlSpeciesId));
+            var collection = new ObservableCollection<Tbl72PlSpecies>(_uow.Tbl72PlSpeciesses.Find(x => x.PlSpeciesId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithPlSpeciesIdInTableReference(Tbl72PlSpecies selected)
+        public ObservableCollection<Tbl90Reference> DeleteDatasetsWithPlSpeciesIdInTableReference(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.PlSpeciesId == selected.PlSpeciesId));
+            var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.PlSpeciesId == selectedId));
             return collection;
         }
-        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithPlSpeciesIdInTableComment(Tbl72PlSpecies selected)
+        public ObservableCollection<Tbl93Comment> DeleteDatasetsWithPlSpeciesIdInTableComment(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.PlSpeciesId == selected.PlSpeciesId));
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments.Find(x => x.PlSpeciesId == selectedId));
             return collection;
         }
 
@@ -9813,9 +9812,9 @@ namespace ATIS.Ui.Core
             _uow.Tbl68Speciesgroups.Remove(selected);
             _uow.Complete();
         }
-        public ObservableCollection<Tbl69FiSpecies> SearchForConnectedDatasetsWithSpeciesgroupIdInTableFiSpecies(Tbl68Speciesgroup selected)
+        public ObservableCollection<Tbl69FiSpecies> SearchForConnectedDatasetsWithSpeciesgroupIdInTableFiSpecies(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl69FiSpecies>(_uow.Tbl69FiSpeciesses.Find(x => x.SpeciesgroupId == selected.SpeciesgroupId));
+            var collection = new ObservableCollection<Tbl69FiSpecies>(_uow.Tbl69FiSpeciesses.Find(x => x.SpeciesgroupId == selectedId));
             return collection;
         }
         //public ObservableCollection<Tbl90Reference> DeleteDatasetsWithSpeciesgroupIdInTableReference(Tbl68Speciesgroup selected)
@@ -10984,15 +10983,15 @@ namespace ATIS.Ui.Core
 
         #region Delete Name
 
-        public ObservableCollection<Tbl78Name> SearchForConnectedDatasetsWithFiSpeciesIdInTableName(Tbl69FiSpecies selected)
+        public ObservableCollection<Tbl78Name> SearchForConnectedDatasetsWithFiSpeciesIdInTableName(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl78Name>(_uow.Tbl78Names.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
+            var collection = new ObservableCollection<Tbl78Name>(_uow.Tbl78Names.Find(x => x.FiSpeciesId == selectedId));
             return collection;
         }
 
-        public ObservableCollection<Tbl78Name> SearchForConnectedDatasetsWithPlSpeciesIdInTableName(Tbl72PlSpecies selected)
+        public ObservableCollection<Tbl78Name> SearchForConnectedDatasetsWithPlSpeciesIdInTableName(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl78Name>(_uow.Tbl78Names.Find(x => x.PlSpeciesId == selected.PlSpeciesId));
+            var collection = new ObservableCollection<Tbl78Name>(_uow.Tbl78Names.Find(x => x.PlSpeciesId == selectedId));
             return collection;
         }
 
@@ -11016,17 +11015,18 @@ namespace ATIS.Ui.Core
 
 
         #endregion
+
         #region DeleteImage
 
-        public ObservableCollection<Tbl81Image> SearchForConnectedDatasetsWithFiSpeciesIdInTableImage(Tbl69FiSpecies selected)
+        public ObservableCollection<Tbl81Image> SearchForConnectedDatasetsWithFiSpeciesIdInTableImage(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl81Image>(_uow.Tbl81Images.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
+            var collection = new ObservableCollection<Tbl81Image>(_uow.Tbl81Images.Find(x => x.FiSpeciesId == selectedId));
             return collection;
         }
 
-        public ObservableCollection<Tbl81Image> SearchForConnectedDatasetsWithPlSpeciesIdInTableImage(Tbl72PlSpecies selected)
+        public ObservableCollection<Tbl81Image> SearchForConnectedDatasetsWithPlSpeciesIdInTableImage(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl81Image>(_uow.Tbl81Images.Find(x => x.PlSpeciesId == selected.PlSpeciesId));
+            var collection = new ObservableCollection<Tbl81Image>(_uow.Tbl81Images.Find(x => x.PlSpeciesId == selectedId));
             return collection;
         }
 
@@ -11068,15 +11068,15 @@ namespace ATIS.Ui.Core
 
         #region Delete Synonym
 
-        public ObservableCollection<Tbl84Synonym> SearchForConnectedDatasetsWithFiSpeciesIdInTableSynonym(Tbl69FiSpecies selected)
+        public ObservableCollection<Tbl84Synonym> SearchForConnectedDatasetsWithFiSpeciesIdInTableSynonym(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl84Synonym>(_uow.Tbl84Synonyms.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
+            var collection = new ObservableCollection<Tbl84Synonym>(_uow.Tbl84Synonyms.Find(x => x.FiSpeciesId == selectedId));
             return collection;
         }
 
-        public ObservableCollection<Tbl84Synonym> SearchForConnectedDatasetsWithPlSpeciesIdInTableSynonym(Tbl72PlSpecies selected)
+        public ObservableCollection<Tbl84Synonym> SearchForConnectedDatasetsWithPlSpeciesIdInTableSynonym(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl84Synonym>(_uow.Tbl84Synonyms.Find(x => x.PlSpeciesId == selected.PlSpeciesId));
+            var collection = new ObservableCollection<Tbl84Synonym>(_uow.Tbl84Synonyms.Find(x => x.PlSpeciesId == selectedId));
             return collection;
         }
 
@@ -11101,17 +11101,18 @@ namespace ATIS.Ui.Core
 
 
         #endregion
+
         #region Delete Geographic
 
-        public ObservableCollection<Tbl87Geographic> SearchForConnectedDatasetsWithFiSpeciesIdInTableGeographic(Tbl69FiSpecies selected)
+        public ObservableCollection<Tbl87Geographic> SearchForConnectedDatasetsWithFiSpeciesIdInTableGeographic(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl87Geographic>(_uow.Tbl87Geographics.Find(x => x.FiSpeciesId == selected.FiSpeciesId));
+            var collection = new ObservableCollection<Tbl87Geographic>(_uow.Tbl87Geographics.Find(x => x.FiSpeciesId == selectedId));
             return collection;
         }
 
-        public ObservableCollection<Tbl87Geographic> SearchForConnectedDatasetsWithPlSpeciesIdInTableGeographic(Tbl72PlSpecies selected)
+        public ObservableCollection<Tbl87Geographic> SearchForConnectedDatasetsWithPlSpeciesIdInTableGeographic(int selectedId)
         {
-            var collection = new ObservableCollection<Tbl87Geographic>(_uow.Tbl87Geographics.Find(x => x.PlSpeciesId == selected.PlSpeciesId));
+            var collection = new ObservableCollection<Tbl87Geographic>(_uow.Tbl87Geographics.Find(x => x.PlSpeciesId == selectedId));
             return collection;
         }
 

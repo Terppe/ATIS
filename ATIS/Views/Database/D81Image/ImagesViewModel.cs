@@ -122,10 +122,10 @@ namespace ATIS.Ui.Views.Database.D81Image
 
         private void ExecuteGetImagesById(int searchId)
         {
-            Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies"); 
-            Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("plspecies");
+            Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("Fispecies"); 
+            Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("Plspecies");
 
-            Tbl81ImagesList = _extCrud.GetImagesCollectionFromSearchIdOrderBy<Tbl81Image>(SearchImageId);
+            Tbl81ImagesList = _extCrud.GetImagesCollectionFromSearchIdOrderBy<Tbl81Image>(searchId);
 
             if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl81ImagesList.Count)) return;
 
@@ -141,8 +141,8 @@ namespace ATIS.Ui.Views.Database.D81Image
             Tbl81ImagesList = new ObservableCollection<Tbl81Image>();
             Tbl81ImagesList.Insert(0, new Tbl81Image { Info = CultRes.StringsRes.DatasetNew });
 
-            Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
-            Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("plspecies");
+            Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("Fispecies");
+            Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("Plspecies");
 
             ImagesView = CollectionViewSource.GetDefaultView(Tbl81ImagesList);
             ImagesView.MoveCurrentToFirst();
@@ -196,7 +196,7 @@ namespace ATIS.Ui.Views.Database.D81Image
             if (CurrentTbl81Image.FiSpeciesId == 0)
             {
                 MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                 return;
             }
         }

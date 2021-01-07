@@ -4,7 +4,7 @@
 using System.Windows.Controls;
 
 
-//  Tbl39InfraordosView.xaml.cs Skriptdatum:  10.12.2020  10:32     
+//  InfraordosView.xaml.cs Skriptdatum:  07.01.2021  10:32     
 
 namespace ATIS.Ui.Views.Database.D39Infraordo
 {

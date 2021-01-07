@@ -80,9 +80,9 @@ namespace ATIS.Ui.Views.Database.D84Synonym
 
         private void ExecuteGetSynonymsByNameOrId(string searchName)
         {
-            Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies"); 
-            Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("plspecies");
-            Tbl84SynonymsList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl84Synonym>(searchName, "synonym");
+            Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("Fispecies"); 
+            Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("Plspecies");
+            Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromSearchNameOrIdOrderBy<Tbl84Synonym>(searchName);
 
             if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl84SynonymsList.Count)) return;
 
@@ -98,8 +98,8 @@ namespace ATIS.Ui.Views.Database.D84Synonym
             Tbl84SynonymsList = new ObservableCollection<Tbl84Synonym>();
             Tbl84SynonymsList.Insert(0, new Tbl84Synonym { SynonymName = CultRes.StringsRes.DatasetNew });
 
-            Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
-            Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("plspecies");
+            Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("Fispecies");
+            Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("Plspecies");
 
             SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
             SynonymsView.MoveCurrentToFirst();
@@ -154,7 +154,7 @@ namespace ATIS.Ui.Views.Database.D84Synonym
             if (CurrentTbl84Synonym.FiSpeciesId == 0)
             {
                 MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                 return;
             }
         }

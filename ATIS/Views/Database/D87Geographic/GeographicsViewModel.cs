@@ -83,8 +83,8 @@ namespace ATIS.Ui.Views.Database.D87Geographic
 
         private void ExecuteGetGeographicsById(int searchId)
         {
-            Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
-            Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("plspecies");
+            Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("Fispecies");
+            Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("Plspecies");
             Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromSearchIdOrderBy<Tbl87Geographic>(searchId);
 
             if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl87GeographicsList.Count)) return;
@@ -102,8 +102,8 @@ namespace ATIS.Ui.Views.Database.D87Geographic
             Tbl87GeographicsList.Insert(0, new Tbl87Geographic { Info = CultRes.StringsRes.DatasetNew });
 
             TblCountriesAllList = _extCrud.GetCollectionAllOrderBy<TblCountry>("country");
-            Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
-            Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("plspecies");
+            Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("Fispecies");
+            Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("Plspecies");
 
             GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
             GeographicsView.MoveCurrentToFirst();
@@ -158,7 +158,7 @@ namespace ATIS.Ui.Views.Database.D87Geographic
             if (CurrentTbl87Geographic.FiSpeciesId == 0)
             {
                 MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                 return;
             }
         }

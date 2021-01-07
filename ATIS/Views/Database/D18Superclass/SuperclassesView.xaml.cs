@@ -4,7 +4,7 @@
 using System.Windows.Controls;
 
 
-//  Tbl18SuperclassesView.xaml.cs Skriptdatum:  04.11.2020  12:32     
+//  SuperclassesView.xaml.cs Skriptdatum:  07.01.2021  12:32     
 
 namespace ATIS.Ui.Views.Database.D18Superclass
 {

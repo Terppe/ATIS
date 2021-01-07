@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 
 
-//  Tbl21ClassesView.xaml.cs Skriptdatum:  05.11.2020  18:32     
+//  ClassesView.xaml.cs Skriptdatum:  07.01.2021  18:32     
 
 namespace ATIS.Ui.Views.Database.D21Class
 {

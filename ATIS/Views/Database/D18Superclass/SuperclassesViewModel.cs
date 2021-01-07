@@ -5,7 +5,6 @@ using System.ComponentModel;
 
 using System.Linq;
 
-using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using ATIS.Dal.Models;
@@ -14,7 +13,7 @@ using ATIS.Ui.Helper;
 using log4net;
 using Microsoft.EntityFrameworkCore;
 
-//    SuperclassesViewModel Skriptdatum:  04.11.2020  12:32    
+//    SuperclassesViewModel Skriptdatum:  07.01.2021  12:32    
 
 namespace ATIS.Ui.Views.Database.D18Superclass
 {
@@ -27,16 +26,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
         private static readonly ILog Log = LogManager.GetLogger(typeof(SuperclassesViewModel));
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly CrudFunctions _extCrud = new CrudFunctions();
-
         private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
-        private readonly GenericMessageBoxes<Tbl18Superclass> _genSuperclassMessageBoxes = new GenericMessageBoxes<Tbl18Superclass>();
-        private readonly GenericMessageBoxes<Tbl12Subphylum> _genSubphylumMessageBoxes = new GenericMessageBoxes<Tbl12Subphylum>();
-        private readonly GenericMessageBoxes<Tbl15Subdivision> _genSubdivisionMessageBoxes = new GenericMessageBoxes<Tbl15Subdivision>();
-        private readonly GenericMessageBoxes<Tbl21Class> _genClassMessageBoxes = new GenericMessageBoxes<Tbl21Class>();
-        private readonly GenericMessageBoxes<Tbl90Reference> _genExpertMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
-        private readonly GenericMessageBoxes<Tbl90Reference> _genSourceMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
-        private readonly GenericMessageBoxes<Tbl90Reference> _genAuthorMessageBoxes = new GenericMessageBoxes<Tbl90Reference>();
-        private readonly GenericMessageBoxes<Tbl93Comment> _genCommentMessageBoxes = new GenericMessageBoxes<Tbl93Comment>();
         private int _position;
 
         #endregion [Private Data Members]               
@@ -89,9 +79,9 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
         private void ExecuteGetSuperclassesByNameOrId(string searchName)
         {
-            Tbl12SubphylumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl12Subphylum>("subphylum");
-            Tbl15SubdivisionsAllList = _extCrud.GetCollectionAllOrderBy<Tbl15Subdivision>("subdivision");
-            Tbl18SuperclassesList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl18Superclass>(SearchSuperclassName, "superclass");
+            Tbl12SubphylumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl12Subphylum>("Subphylum");
+            Tbl15SubdivisionsAllList = _extCrud.GetCollectionAllOrderBy<Tbl15Subdivision>("Subdivision");
+            Tbl18SuperclassesList = _extCrud.GetSuperclassesCollectionFromSearchNameOrIdOrderBy<Tbl18Superclass>(searchName);
 
             if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl18SuperclassesList.Count)) return;
 
@@ -104,11 +94,11 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
         private void ExecuteAddSuperclass(object o)
         {
-            Tbl18SuperclassesList = new ObservableCollection<Tbl18Superclass>();
+            Tbl18SuperclassesList ??= new ObservableCollection<Tbl18Superclass>();
             Tbl18SuperclassesList.Insert(0, new Tbl18Superclass { SuperclassName = CultRes.StringsRes.DatasetNew });
 
-            Tbl12SubphylumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl12Subphylum>("subphylum");
-            Tbl15SubdivisionsAllList = _extCrud.GetCollectionAllOrderBy<Tbl15Subdivision>("subdivision");
+            Tbl12SubphylumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl12Subphylum>("Subphylum");
+            Tbl15SubdivisionsAllList = _extCrud.GetCollectionAllOrderBy<Tbl15Subdivision>("Subdivision");
 
             SuperclassesView = CollectionViewSource.GetDefaultView(Tbl18SuperclassesList);
             SuperclassesView.MoveCurrentToFirst();
@@ -116,7 +106,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
         private void ExecuteCopySuperclass(object o)
         {
-            if (_genSuperclassMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl18Superclass)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl18Superclass)) return;
 
             Tbl18SuperclassesList = _extCrud.CopySuperclass(CurrentTbl18Superclass);
 
@@ -128,17 +118,17 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
         private void ExecuteDeleteSuperclass(string searchName)
         {
-            if (_genSuperclassMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl18Superclass)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl18Superclass)) return;
 
 
             //check if in Tbl21Classes connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
 
-            Tbl21ClassesList = _extCrud.SearchForConnectedDatasetsWithSuperclassIdInTableClass(CurrentTbl18Superclass);
+            Tbl21ClassesList = _extCrud.SearchForConnectedDatasetsWithSuperclassIdInTableClass(CurrentTbl18Superclass.SuperclassId);
 
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl21ClassesList.Count, "Class")) return;
 
             //Delete all References Experts, Sources, Authors  ----------------------------------------------------
-            Tbl90ReferencesList = _extCrud.DeleteDatasetsWithSuperclassIdInTableReference(CurrentTbl18Superclass);
+            Tbl90ReferencesList = _extCrud.DeleteDatasetsWithSuperclassIdInTableReference(CurrentTbl18Superclass.SuperclassId);
             if (Tbl90ReferencesList.Count > 0)
             {
                 if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
@@ -149,7 +139,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
             }
 
             //Delete all Comments  ----------------------------------------------------
-            Tbl93CommentsList = _extCrud.DeleteDatasetsWithSuperclassIdInTableComment(CurrentTbl18Superclass);
+            Tbl93CommentsList = _extCrud.DeleteDatasetsWithSuperclassIdInTableComment(CurrentTbl18Superclass.SuperclassId);
             if (Tbl93CommentsList.Count > 0)
             {
                 if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
@@ -169,7 +159,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl18Superclass.SuperclassName);
                 }
-                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl18Superclass.SuperclassName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl18Superclass.SuperclassName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -184,15 +174,10 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
         private void ExecuteSaveSuperclass(string searchName)
         {
-            if (_genSuperclassMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl18Superclass)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl18Superclass)) return;
 
             //Combobox select SubphylumID  may be not 0
-            if (CurrentTbl18Superclass.SubphylumId == 0)
-            {
-                MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                       MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl18Superclass.SubphylumId)) return;
 
             try
             {
@@ -256,7 +241,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
         private void ExecuteSaveSubphylum(string searchName)
         {
-            if (_genSubphylumMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl12Subphylum)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl12Subphylum)) return;
 
             try
             {
@@ -321,7 +306,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
         private void ExecuteSaveSubdivision(string searchName)
         {
-            if (_genSubdivisionMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl15Subdivision)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl15Subdivision)) return;
 
             try
             {
@@ -399,8 +384,10 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
         private void ExecuteAddClass(object o)
         {
+            Tbl21ClassesList ??= new ObservableCollection<Tbl21Class>();
+
             Tbl21ClassesList.Insert(0, new Tbl21Class { ClassName = CultRes.StringsRes.DatasetNew });
-            Tbl18SuperclassesAllList = _extCrud.GetCollectionAllOrderBy<Tbl18Superclass>("superclass");
+            Tbl18SuperclassesAllList = _extCrud.GetCollectionAllOrderBy<Tbl18Superclass>("Superclass");
 
             ClassesView = CollectionViewSource.GetDefaultView(Tbl21ClassesList);
             ClassesView.MoveCurrentToFirst();
@@ -408,7 +395,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
         private void ExecuteCopyClass(object o)
         {
-            if (_genClassMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl21Class)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl21Class)) return;
 
             Tbl21ClassesList = _extCrud.CopyClass(CurrentTbl21Class);
 
@@ -420,14 +407,14 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
         private void ExecuteDeleteClass(string searchName)
         {
-            if (_genClassMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl21Class)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl21Class)) return;
 
             //check if in Tbl24Subclasses connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-            Tbl24SubclassesList = _extCrud.SearchForConnectedDatasetsWithClassIdInTableSubclass(CurrentTbl21Class);
+            Tbl24SubclassesList = _extCrud.SearchForConnectedDatasetsWithClassIdInTableSubclass(CurrentTbl21Class.ClassId);
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl24SubclassesList.Count, "Subclass")) return;
 
             //Delete all References Experts, Sources, Authors  ----------------------------------------------------
-            Tbl90ReferencesList = _extCrud.DeleteDatasetsWithClassIdInTableReference(CurrentTbl21Class);
+            Tbl90ReferencesList = _extCrud.DeleteDatasetsWithClassIdInTableReference(CurrentTbl21Class.ClassId);
             if (Tbl90ReferencesList.Count > 0)
             {
                 if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
@@ -438,7 +425,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
             }
 
             //Delete all Comments  ----------------------------------------------------
-            Tbl93CommentsList = _extCrud.DeleteDatasetsWithClassIdInTableComment(CurrentTbl21Class);
+            Tbl93CommentsList = _extCrud.DeleteDatasetsWithClassIdInTableComment(CurrentTbl21Class.ClassId);
             if (Tbl93CommentsList.Count > 0)
             {
                 if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
@@ -459,7 +446,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl21Class.ClassName);
                 }
-                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl21Class.ClassName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl21Class.ClassName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -475,9 +462,12 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
         private void ExecuteSaveClass(string searchName)
         {
-            if (_genClassMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl21Class)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl21Class)) return;
 
             CurrentTbl21Class.SuperclassId = CurrentTbl18Superclass.SuperclassId;
+
+            //Combobox select SuperclassId may be not 0
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl21Class.SuperclassId)) return;
 
             try
             {
@@ -511,7 +501,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
                     return;
                 }
 
-                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl21Class.ClassId == 0
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl21Class.ClassId == 0
                     ? CultRes.StringsRes.DatasetNew
                     : CurrentTbl21Class.ClassName);
             }
@@ -573,7 +563,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
         {
             Tbl90ReferenceAuthorsList ??= new ObservableCollection<Tbl90Reference>();
 
-            Tbl90AuthorsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefAuthor>("author");
+            Tbl90AuthorsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefAuthor>("Author");
             Tbl90ReferenceAuthorsList.Insert(0, new Tbl90Reference { Info = CultRes.StringsRes.DatasetNew });
 
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
@@ -582,7 +572,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
         public void ExecuteCopyReferenceAuthor(object o)
         {
-            if (_genAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceAuthor)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceAuthor)) return;
 
             Tbl90ReferenceAuthorsList = _extCrud.CopyReferenceSuperclass(CurrentTbl90ReferenceAuthor, "Author");
 
@@ -590,9 +580,9 @@ namespace ATIS.Ui.Views.Database.D18Superclass
             ReferenceAuthorsView.MoveCurrentToFirst();
         }
 
-        private void ExecuteDeleteReferenceAuthor(string searchName)
+        private void ExecuteDeleteReferenceAuthor(object o)
         {
-            if (_genAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceAuthor)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceAuthor)) return;
 
             try
             {
@@ -605,7 +595,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceAuthor.Info);
                 }
-                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceAuthor.Info + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceAuthor.Info + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -617,21 +607,14 @@ namespace ATIS.Ui.Views.Database.D18Superclass
             ReferenceAuthorsView.Refresh();
         }
 
-        public void ExecuteSaveReferenceAuthor(string searchName)
+        public void ExecuteSaveReferenceAuthor(object o)
         {
-            if (_genAuthorMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceAuthor)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceAuthor)) return;
 
             CurrentTbl90ReferenceAuthor.SuperclassId = CurrentTbl18Superclass.SuperclassId;
 
-            //Combobox select RefExpertId or RefSourceId or RefAuthorId may be not null
-            if (CurrentTbl90ReferenceAuthor.RefExpertId == null &&
-                CurrentTbl90ReferenceAuthor.RefSourceId == null &&
-                CurrentTbl90ReferenceAuthor.RefAuthorId == null)
-            {
-                MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
+            //Combobox select RefAuthorId may be not null
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl90ReferenceAuthor.RefAuthorId)) return;
 
             try
             {
@@ -667,7 +650,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
                     return;
                 }
 
-                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl90ReferenceAuthor.ReferenceId == 0
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl90ReferenceAuthor.ReferenceId == 0
                     ? CultRes.StringsRes.DatasetNew
                     : CurrentTbl90ReferenceAuthor.Info);
             }
@@ -711,7 +694,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
         {
             Tbl90ReferenceSourcesList ??= new ObservableCollection<Tbl90Reference>();
 
-            Tbl90SourcesAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefSource>("source");
+            Tbl90SourcesAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefSource>("Source");
 
             Tbl90ReferenceSourcesList.Insert(0, new Tbl90Reference { Info = CultRes.StringsRes.DatasetNew });
 
@@ -721,7 +704,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
         public void ExecuteCopyReferenceSource(object o)
         {
-            if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
 
             Tbl90ReferenceAuthorsList = _extCrud.CopyReferenceSuperclass(CurrentTbl90ReferenceSource, "Source");
 
@@ -731,7 +714,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
         private void ExecuteDeleteReferenceSource(object o)
         {
-            if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
 
             try
             {
@@ -744,7 +727,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceSource.Info);
                 }
-                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceSource.Info + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceSource.Info + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -760,17 +743,11 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
         public void ExecuteSaveReferenceSource(object o)
         {
-            if (_genSourceMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
 
-            //RefExpertId or RefSourceId or RefAuthorId may be not 0
-            if (CurrentTbl90ReferenceSource.RefExpertId == null &&
-                CurrentTbl90ReferenceSource.RefSourceId == null &&
-                CurrentTbl90ReferenceSource.RefAuthorId == null)
-            {
-                MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
+            //Combobox select RefSourceId may be not 0
+
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl90ReferenceSource.RefSourceId)) return;
 
             CurrentTbl90ReferenceSource.SuperclassId = CurrentTbl18Superclass.SuperclassId;
 
@@ -808,7 +785,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
                     return;
                 }
 
-                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl90ReferenceSource.ReferenceId == 0
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl90ReferenceSource.ReferenceId == 0
                     ? CultRes.StringsRes.DatasetNew
                     : CurrentTbl90ReferenceSource.Info);
             }
@@ -862,7 +839,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
         public void ExecuteCopyReferenceExpert(object o)
         {
-            if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
 
             Tbl90ReferenceExpertsList = _extCrud.CopyReferenceSuperclass(CurrentTbl90ReferenceExpert, "Expert");
 
@@ -872,7 +849,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
         private void ExecuteDeleteReferenceExpert(object o)
         {
-            if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
 
             try
             {
@@ -885,7 +862,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceExpert.Info);
                 }
-                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceExpert.Info + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceExpert.Info + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -901,17 +878,10 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
         public void ExecuteSaveReferenceExpert(object o)
         {
-            if (_genExpertMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
 
-            //RefExpertId or RefSourceId or RefAuthorId may be not 0
-            if (CurrentTbl90ReferenceExpert.RefExpertId == null &&
-                CurrentTbl90ReferenceExpert.RefSourceId == null &&
-                CurrentTbl90ReferenceExpert.RefAuthorId == null)
-            {
-                MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
+            //Combobox select RefExpertId  may be not 0
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl90ReferenceExpert.RefExpertId)) return;
 
             CurrentTbl90ReferenceExpert.SuperclassId = CurrentTbl18Superclass.SuperclassId;
 
@@ -948,7 +918,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
                     return;
                 }
 
-                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl90ReferenceExpert.ReferenceId == 0
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl90ReferenceExpert.ReferenceId == 0
                     ? CultRes.StringsRes.DatasetNew
                     : CurrentTbl90ReferenceExpert.Info);
             }
@@ -1003,7 +973,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
         public void ExecuteCopyComment(object o)
         {
 
-            if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
 
             Tbl93CommentsList = _extCrud.CopyComment(CurrentTbl93Comment, "Comment");
 
@@ -1013,7 +983,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
         private void ExecuteDeleteComment(object o)
         {
-            if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
 
             try
             {
@@ -1026,7 +996,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl93Comment.Info);
                 }
-                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl93Comment.Info + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl93Comment.Info + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -1034,7 +1004,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
                 Log.Error(e);
             }
 
-            Tbl93CommentsList = _extCrud.GetCommentsCollectionFromSuperclassIdOrderBy<Tbl93Comment>(CurrentTbl93Comment.SuperclassId);
+            Tbl93CommentsList = _extCrud.GetCommentsCollectionFromSuperclassIdOrderBy<Tbl93Comment>(CurrentTbl18Superclass.SuperclassId);
 
             CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
             CommentsView.Refresh();
@@ -1042,7 +1012,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
         private void ExecuteSaveComment(object o)
         {
-            if (_genCommentMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
 
             CurrentTbl93Comment.SuperclassId = CurrentTbl18Superclass.SuperclassId;
 
@@ -1080,7 +1050,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
                     return;
                 }
 
-                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl93Comment.CommentId == 0
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl93Comment.CommentId == 0
                     ? CultRes.StringsRes.DatasetNew
                     : CurrentTbl93Comment.Info);
             }
@@ -1090,7 +1060,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
                 Log.Error(e);
             }
 
-            Tbl93CommentsList = _extCrud.GetCommentsCollectionFromSuperclassIdOrderBy<Tbl93Comment>(CurrentTbl93Comment.SuperclassId);
+            Tbl93CommentsList = _extCrud.GetCommentsCollectionFromSuperclassIdOrderBy<Tbl93Comment>(CurrentTbl18Superclass.SuperclassId);
 
 
             CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
