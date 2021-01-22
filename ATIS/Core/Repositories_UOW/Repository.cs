@@ -8,12 +8,20 @@ using System.Linq.Expressions;
 namespace ATIS.Ui.Core.Repositories_UOW
 {
     public class Repository<T> : IRepository<T> where T : class
-    {
+    {    /// <summary>
+         /// The context object for the database
+         /// </summary>
+        private DbContext _context;
+
+        /// <summary>
+        /// The IObjectSet that represents the current entity.
+        /// </summary>
         private readonly DbSet<T> _entities;
 
         public Repository(DbContext context)
         {
-            _entities = context.Set<T>();
+            _context = context;
+            _entities = _context.Set<T>();
         }
 
         public T GetById(int id)
@@ -28,11 +36,15 @@ namespace ATIS.Ui.Core.Repositories_UOW
 
         public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
         {
-            return _entities.Where(predicate);
+            return _entities.Where<T>(predicate);
         }
 
         public void Add(T entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
             _entities.Add(entity);
         }
 
@@ -59,6 +71,74 @@ namespace ATIS.Ui.Core.Repositories_UOW
         public void RemoveRange(IEnumerable<T> entities)
         {
             _entities.RemoveRange(entities);
+        }
+
+        public IQueryable<T> GetQuery()
+        {
+            return _entities;
+        }
+
+        public IQueryable<T> AsNoTracking()
+        {
+            return _entities.AsNoTracking<T>();
+        }
+
+        public T Single(Expression<Func<T, bool>> predicate)
+        {
+            return _entities.Single<T>(predicate);
+        }
+
+        public T First(Expression<Func<T, bool>> predicate)
+        {
+            return _entities.First<T>(predicate);
+        }
+
+        public T FirstOrDefault(Expression<Func<T, bool>> predicate)
+        {
+            return _entities.FirstOrDefault<T>(predicate);
+        }
+
+        public void Delete(T entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            _entities.Remove(entity);
+        }
+
+        public void Attach(T entity)
+        {
+            _entities.Attach(entity);
+        }
+
+        public void Detach(T entity)
+        {
+            _context.Entry(entity).State = EntityState.Detached;
+        }
+
+        public void MarkModified(T entity)
+        {
+            _context.Entry(entity).State = EntityState.Modified;
+        }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposing) return;
+            if (_context == null) return;
+            _context.Dispose();
+
+            _context = null;
         }
     }
 }
