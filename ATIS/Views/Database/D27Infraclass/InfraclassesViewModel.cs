@@ -119,7 +119,7 @@ namespace ATIS.Ui.Views.Database.D27Infraclass
 
             //check if in Tbl30Legios connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
 
-            Tbl30LegiosList = _extCrud.SearchForConnectedDatasetsWithInfraclassIdInTableLegio(CurrentTbl27Infraclass.InfraclassId);
+            Tbl30LegiosList = _extCrud.GetConnectedDatasetsWithInfraclassIdInTableLegio(CurrentTbl27Infraclass.InfraclassId);
 
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl30LegiosList.Count, "Legio")) return;
 
@@ -344,7 +344,7 @@ namespace ATIS.Ui.Views.Database.D27Infraclass
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl30Legio)) return;
 
             //check if in Tbl33Ordos connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-            Tbl33OrdosList = _extCrud.SearchForConnectedDatasetsWithLegioIdInTableOrdo(CurrentTbl30Legio.LegioId);
+            Tbl33OrdosList = _extCrud.GetConnectedDatasetsWithLegioIdInTableOrdo(CurrentTbl30Legio.LegioId);
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl33OrdosList.Count, "Ordo")) return;
 
             //Delete all References Experts, Sources, Authors  ----------------------------------------------------

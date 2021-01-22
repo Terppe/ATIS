@@ -119,7 +119,7 @@ namespace ATIS.Ui.Views.Database.D66Genus
 
             //check if in Tbl69FiSpeciesses connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
 
-            Tbl69FiSpeciessesList = _extCrud.SearchForConnectedDatasetsWithGenusIdInTableFiSpecies(CurrentTbl66Genus.GenusId);
+            Tbl69FiSpeciessesList = _extCrud.GetConnectedDatasetsWithGenusIdInTableFiSpecies(CurrentTbl66Genus.GenusId);
 
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl69FiSpeciessesList.Count, "FiSpecies")) return;
 

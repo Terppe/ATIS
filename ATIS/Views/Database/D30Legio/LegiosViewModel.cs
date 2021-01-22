@@ -119,7 +119,7 @@ namespace ATIS.Ui.Views.Database.D30Legio
 
             //check if in Tbl33Ordos connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
 
-            Tbl33OrdosList = _extCrud.SearchForConnectedDatasetsWithLegioIdInTableOrdo(CurrentTbl30Legio.LegioId);
+            Tbl33OrdosList = _extCrud.GetConnectedDatasetsWithLegioIdInTableOrdo(CurrentTbl30Legio.LegioId);
 
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl33OrdosList.Count, "Ordo")) return;
 
@@ -344,7 +344,7 @@ namespace ATIS.Ui.Views.Database.D30Legio
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl33Ordo)) return;
 
             //check if in Tbl36Subordos connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-            Tbl36SubordosList = _extCrud.SearchForConnectedDatasetsWithOrdoIdInTableSubordo(CurrentTbl33Ordo.OrdoId);
+            Tbl36SubordosList = _extCrud.GetConnectedDatasetsWithOrdoIdInTableSubordo(CurrentTbl33Ordo.OrdoId);
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl36SubordosList.Count, "Subordo")) return;
 
             //Delete all References Experts, Sources, Authors  ----------------------------------------------------

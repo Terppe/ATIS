@@ -119,7 +119,7 @@ namespace ATIS.Ui.Views.Database.D39Infraordo
 
             //check if in Tbl42Superfamilies connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
 
-            Tbl42SuperfamiliesList = _extCrud.SearchForConnectedDatasetsWithInfraordoIdInTableSuperfamily(CurrentTbl39Infraordo.InfraordoId);
+            Tbl42SuperfamiliesList = _extCrud.GetConnectedDatasetsWithInfraordoIdInTableSuperfamily(CurrentTbl39Infraordo.InfraordoId);
 
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl42SuperfamiliesList.Count, "Superfamily")) return;
 
@@ -344,7 +344,7 @@ namespace ATIS.Ui.Views.Database.D39Infraordo
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl42Superfamily)) return;
 
             //check if in Tbl45Families connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-            Tbl45FamiliesList = _extCrud.SearchForConnectedDatasetsWithSuperfamilyIdInTableFamily(CurrentTbl42Superfamily.SuperfamilyId);
+            Tbl45FamiliesList = _extCrud.GetConnectedDatasetsWithSuperfamilyIdInTableFamily(CurrentTbl42Superfamily.SuperfamilyId);
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl45FamiliesList.Count, "Family")) return;
 
             //Delete all References Experts, Sources, Authors  ----------------------------------------------------

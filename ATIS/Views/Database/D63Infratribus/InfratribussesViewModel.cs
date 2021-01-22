@@ -119,7 +119,7 @@ namespace ATIS.Ui.Views.Database.D63Infratribus
 
             //check if in Tbl66Genusses connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
 
-            Tbl66GenussesList = _extCrud.SearchForConnectedDatasetsWithInfratribusIdInTableGenus(CurrentTbl63Infratribus.InfratribusId);
+            Tbl66GenussesList = _extCrud.GetConnectedDatasetsWithInfratribusIdInTableGenus(CurrentTbl63Infratribus.InfratribusId);
 
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl66GenussesList.Count, "Genus")) return;
 
@@ -344,7 +344,7 @@ namespace ATIS.Ui.Views.Database.D63Infratribus
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl66Genus)) return;
 
             //check if in Tbl69FiSpeciesses connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-            Tbl69FiSpeciessesList = _extCrud.SearchForConnectedDatasetsWithGenusIdInTableFiSpecies(CurrentTbl66Genus.GenusId);
+            Tbl69FiSpeciessesList = _extCrud.GetConnectedDatasetsWithGenusIdInTableFiSpecies(CurrentTbl66Genus.GenusId);
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl69FiSpeciessesList.Count, "FiSpecies")) return;
 
             //Delete all References Experts, Sources, Authors  ----------------------------------------------------

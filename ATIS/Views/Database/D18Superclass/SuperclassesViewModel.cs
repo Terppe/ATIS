@@ -123,7 +123,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
             //check if in Tbl21Classes connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
 
-            Tbl21ClassesList = _extCrud.SearchForConnectedDatasetsWithSuperclassIdInTableClass(CurrentTbl18Superclass.SuperclassId);
+            Tbl21ClassesList = _extCrud.GetConnectedDatasetsWithSuperclassIdInTableClass(CurrentTbl18Superclass.SuperclassId);
 
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl21ClassesList.Count, "Class")) return;
 
@@ -410,7 +410,7 @@ namespace ATIS.Ui.Views.Database.D18Superclass
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl21Class)) return;
 
             //check if in Tbl24Subclasses connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-            Tbl24SubclassesList = _extCrud.SearchForConnectedDatasetsWithClassIdInTableSubclass(CurrentTbl21Class.ClassId);
+            Tbl24SubclassesList = _extCrud.GetConnectedDatasetsWithClassIdInTableSubclass(CurrentTbl21Class.ClassId);
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl24SubclassesList.Count, "Subclass")) return;
 
             //Delete all References Experts, Sources, Authors  ----------------------------------------------------

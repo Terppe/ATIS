@@ -114,8 +114,8 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
             //check if in Tbl06Phylums connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
 
-            Tbl06PhylumsList = _extCrud.SearchForConnectedDatasetsWithRegnumIdInTablePhylum(CurrentTbl03Regnum.RegnumId);
-            Tbl09DivisionsList = _extCrud.SearchForConnectedDatasetsWithRegnumIdInTableDivision(CurrentTbl03Regnum.RegnumId);
+            Tbl06PhylumsList = _extCrud.GetConnectedDatasetsWithRegnumIdInTablePhylum(CurrentTbl03Regnum.RegnumId);
+            Tbl09DivisionsList = _extCrud.GetConnectedDatasetsWithRegnumIdInTableDivision(CurrentTbl03Regnum.RegnumId);
 
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl06PhylumsList.Count, "Phylum")) return;
 
@@ -277,7 +277,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl06Phylum)) return;
 
             //check if in Tbl12Subphylums connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-            Tbl12SubphylumsList = _extCrud.SearchForConnectedDatasetsWithPhylumIdInTableSubphylum(CurrentTbl06Phylum.PhylumId);
+            Tbl12SubphylumsList = _extCrud.GetConnectedDatasetsWithPhylumIdInTableSubphylum(CurrentTbl06Phylum.PhylumId);
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl12SubphylumsList.Count, "Subphylum")) return;
 
             //Delete all References Experts, Sources, Authors  ----------------------------------------------------
@@ -442,7 +442,7 @@ namespace ATIS.Ui.Views.Database.D03Regnum
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl09Division)) return;
 
             //check if in Tbl15Subdivisions connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-            Tbl15SubdivisionsList = _extCrud.SearchForConnectedDatasetsWithDivisionIdInTableSubdivision(CurrentTbl09Division.DivisionId);
+            Tbl15SubdivisionsList = _extCrud.GetConnectedDatasetsWithDivisionIdInTableSubdivision(CurrentTbl09Division.DivisionId);
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl15SubdivisionsList.Count, "Subdivision")) return;
 
             //Delete all References Experts, Sources, Authors  ----------------------------------------------------

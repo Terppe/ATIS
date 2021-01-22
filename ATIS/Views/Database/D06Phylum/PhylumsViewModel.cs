@@ -119,7 +119,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
             //check if in Tbl12Subphylums connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
 
-            Tbl12SubphylumsList = _extCrud.SearchForConnectedDatasetsWithPhylumIdInTableSubphylum(CurrentTbl06Phylum.PhylumId);
+            Tbl12SubphylumsList = _extCrud.GetConnectedDatasetsWithPhylumIdInTableSubphylum(CurrentTbl06Phylum.PhylumId);
 
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl12SubphylumsList.Count, "Subphylum")) return;
 
@@ -344,7 +344,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl12Subphylum)) return;
 
             //check if in Tbl18Superclasses connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-            Tbl18SuperclassesList = _extCrud.SearchForConnectedDatasetsWithSubphylumIdInTableSuperclass(CurrentTbl12Subphylum.SubphylumId);
+            Tbl18SuperclassesList = _extCrud.GetConnectedDatasetsWithSubphylumIdInTableSuperclass(CurrentTbl12Subphylum.SubphylumId);
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl18SuperclassesList.Count, "Superclass")) return;
 
             //Delete all References Experts, Sources, Authors  ----------------------------------------------------

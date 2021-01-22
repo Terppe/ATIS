@@ -119,7 +119,7 @@ namespace ATIS.Ui.Views.Database.D15Subdivision
 
             //check if in Tbl18Superclasses connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
 
-            Tbl18SuperclassesList = _extCrud.SearchForConnectedDatasetsWithSubdivisionIdInTableSuperclass(CurrentTbl15Subdivision.SubdivisionId);
+            Tbl18SuperclassesList = _extCrud.GetConnectedDatasetsWithSubdivisionIdInTableSuperclass(CurrentTbl15Subdivision.SubdivisionId);
 
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl18SuperclassesList.Count, "Superclass")) return;
 
@@ -344,7 +344,7 @@ namespace ATIS.Ui.Views.Database.D15Subdivision
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl18Superclass)) return;
 
             //check if in Tbl21Classes connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-            Tbl21ClassesList = _extCrud.SearchForConnectedDatasetsWithSuperclassIdInTableClass(CurrentTbl18Superclass.SuperclassId);
+            Tbl21ClassesList = _extCrud.GetConnectedDatasetsWithSuperclassIdInTableClass(CurrentTbl18Superclass.SuperclassId);
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl21ClassesList.Count, "Class")) return;
 
             //Delete all References Experts, Sources, Authors  ----------------------------------------------------

@@ -119,7 +119,7 @@ namespace ATIS.Ui.Views.Database.D45Family
 
             //check if in Tbl48Subfamilies connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
 
-            Tbl48SubfamiliesList = _extCrud.SearchForConnectedDatasetsWithFamilyIdInTableSubfamily(CurrentTbl45Family.FamilyId);
+            Tbl48SubfamiliesList = _extCrud.GetConnectedDatasetsWithFamilyIdInTableSubfamily(CurrentTbl45Family.FamilyId);
 
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl48SubfamiliesList.Count, "Subfamily")) return;
 
@@ -344,7 +344,7 @@ namespace ATIS.Ui.Views.Database.D45Family
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl48Subfamily)) return;
 
             //check if in Tbl51Infrafamilies connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-            Tbl51InfrafamiliesList = _extCrud.SearchForConnectedDatasetsWithSubfamilyIdInTableInfrafamily(CurrentTbl48Subfamily.SubfamilyId);
+            Tbl51InfrafamiliesList = _extCrud.GetConnectedDatasetsWithSubfamilyIdInTableInfrafamily(CurrentTbl48Subfamily.SubfamilyId);
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl51InfrafamiliesList.Count, "Infrafamily")) return;
 
             //Delete all References Experts, Sources, Authors  ----------------------------------------------------
