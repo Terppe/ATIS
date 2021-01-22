@@ -9,7 +9,6 @@ using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using log4net;
-using Microsoft.EntityFrameworkCore;
 
 //    PhylumsViewModel Skriptdatum:  06.01.2021  12:32    
 
@@ -22,8 +21,9 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(typeof(PhylumsViewModel));
-        private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly CrudFunctions _extCrud = new CrudFunctions();
+        private readonly DeleteFunctions _extDelete = new DeleteFunctions();
+        private readonly SaveFunctions _extSave = new SaveFunctions();
         private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
         private int _position;
 
@@ -77,8 +77,19 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void ExecuteGetPhylumsByNameOrId(string searchName)
         {
+            if (Tbl03RegnumsAllList == null)
+                Tbl03RegnumsAllList ??= new ObservableCollection<Tbl03Regnum>();
+            else
+                Tbl03RegnumsAllList.Clear();
+
             Tbl03RegnumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl03Regnum>("Regnum");
-            Tbl06PhylumsList = _extCrud.GetPhylumsCollectionFromSearchNameOrIdOrderBy<Tbl06Phylum>(searchName);
+
+            if (Tbl06PhylumsList == null)
+                Tbl06PhylumsList ??= new ObservableCollection<Tbl06Phylum>();
+            else
+                Tbl06PhylumsList.Clear();
+
+            Tbl06PhylumsList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl06Phylum>(searchName, "Phylum");
 
             if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl06PhylumsList.Count)) return;
 
@@ -91,10 +102,22 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void ExecuteAddPhylum(object o)
         {
+            if (Tbl06PhylumsList == null)
+                Tbl06PhylumsList ??= new ObservableCollection<Tbl06Phylum>();
+            else
+                Tbl06PhylumsList.Clear();
+
+            if (Tbl03RegnumsAllList == null)
+                Tbl03RegnumsAllList ??= new ObservableCollection<Tbl03Regnum>();
+            else
+                Tbl03RegnumsAllList.Clear();
+
             Tbl03RegnumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl03Regnum>("Regnum");
 
-            Tbl06PhylumsList ??= new ObservableCollection<Tbl06Phylum>();
             Tbl06PhylumsList.Insert(0, new Tbl06Phylum { PhylumName = CultRes.StringsRes.DatasetNew });
+
+            SelectedMainTabIndex = 0;
+            SelectedDetailTabIndex = 1;
 
             PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
             PhylumsView.MoveCurrentToFirst();
@@ -116,110 +139,33 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl06Phylum)) return;
 
+            _extDelete.DeletePhylum(CurrentTbl06Phylum);
 
-            //check if in Tbl12Subphylums connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-
-            Tbl12SubphylumsList = _extCrud.GetConnectedDatasetsWithPhylumIdInTableSubphylum(CurrentTbl06Phylum.PhylumId);
-
-            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl12SubphylumsList.Count, "Subphylum")) return;
-
-            //Delete all References Experts, Sources, Authors  ----------------------------------------------------
-            Tbl90ReferencesList = _extCrud.DeleteDatasetsWithPhylumIdInTableReference(CurrentTbl06Phylum.PhylumId);
-            if (Tbl90ReferencesList.Count > 0)
-            {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
-
-                _extCrud.DeleteReferences(Tbl90ReferencesList);
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
-            }
-
-            //Delete all Comments  ----------------------------------------------------
-            Tbl93CommentsList = _extCrud.DeleteDatasetsWithPhylumIdInTableComment(CurrentTbl06Phylum.PhylumId);
-            if (Tbl93CommentsList.Count > 0)
-            {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
-
-                _extCrud.DeleteComments(Tbl93CommentsList);
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
-            }
-            try
-            {
-                var phylum = _uow.Tbl06Phylums.GetById(CurrentTbl06Phylum.PhylumId);
-                if (phylum != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl06Phylum.PhylumName)) return;
-
-                    _extCrud.DeletePhylum(phylum);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl06Phylum.PhylumName);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl06Phylum.PhylumName + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-
-            ExecuteGetPhylumsByNameOrId(searchName);
-
-            PhylumsView.MoveCurrentToFirst();
+            Tbl06PhylumsList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl06Phylum>(searchName, "Phylum");
+            PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
+            PhylumsView.MoveCurrentToLast();
         }
 
         private void ExecuteSavePhylum(string searchName)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl06Phylum)) return;
 
-            //Combobox select RegnumID  may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl06Phylum.RegnumId)) return;
+            _position = PhylumsView.CurrentPosition;
 
-            try
+            _extSave.SavePhylum(CurrentTbl06Phylum);
+
+            if (_position == 0) //new
             {
-                var phylum = _uow.Tbl06Phylums.GetById(CurrentTbl06Phylum.PhylumId);
-                //   var phylum = _context.Tbl06Phylums.AsNoTracking().FirstOrDefault(a=>a.PhylumId == CurrentTbl06Phylum.PhylumId);
-                //          _context.Entry(phylum).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl06Phylum.PhylumName))
-                    return;
-
-                if (CurrentTbl06Phylum.PhylumId == 0)
-                    phylum = _extCrud.PhylumAdd(CurrentTbl06Phylum);
-                else
-                    phylum = _extCrud.PhylumUpdate(phylum, CurrentTbl06Phylum);
-
-                _position = PhylumsView.CurrentPosition;
-
-                try
-                {
-                    _extCrud.PhylumSave(phylum, CurrentTbl06Phylum);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl06Phylum.PhylumId == 0
-                    ? "DatasetNew"
-                    : CurrentTbl06Phylum.PhylumName);
+                Tbl06PhylumsList = _extCrud.GetLastPhylumsDatasetOrderById();
+                PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
+                PhylumsView.MoveCurrentToFirst();
             }
-            catch (Exception e)
+            else
             {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                Tbl06PhylumsList = _extCrud.GetPhylumsCollectionFromSearchNameOrIdOrderBy<Tbl06Phylum>(searchName);
+                PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
+                PhylumsView.MoveCurrentToPosition(_position);
             }
-            ExecuteGetPhylumsByNameOrId(searchName);
-            PhylumsView.MoveCurrentToPosition(_position);
         }
         #endregion [Methods Phylum]                
 
@@ -235,55 +181,15 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         public ICommand SaveRegnumCommand => _saveRegnumCommand ??= new RelayCommand(delegate { ExecuteSaveRegnum(null); });
 
-        private void ExecuteSaveRegnum(string searchName)
+        private void ExecuteSaveRegnum(object o)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl03Regnum)) return;
 
-            try
-            {
-                var regnum = _uow.Tbl03Regnums.GetById(CurrentTbl03Regnum.RegnumId);
+            _extSave.SaveRegnum(CurrentTbl03Regnum);
 
-                if (CurrentTbl03Regnum.RegnumId == 0)
-                    regnum = _extCrud.RegnumAdd(CurrentTbl03Regnum);
-                else
-                    regnum = _extCrud.RegnumUpdate(regnum, CurrentTbl03Regnum);
-
-                _position = PhylumsView.CurrentPosition;
-
-                var cap = CurrentTbl03Regnum.RegnumName + " " + CurrentTbl03Regnum.Subregnum;
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(cap)) return;
-
-                try
-                {
-                    _extCrud.RegnumSave(regnum, CurrentTbl03Regnum);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl03Regnum.RegnumId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl03Regnum.RegnumName + " " + CurrentTbl03Regnum.Subregnum);
-            }
-
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-            ExecuteGetPhylumsByNameOrId(searchName);
-            PhylumsView.MoveCurrentToPosition(_position);
+            Tbl03RegnumsList = _extCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(CurrentTbl06Phylum.RegnumId);
+            RegnumsView = CollectionViewSource.GetDefaultView(Tbl03RegnumsList);
+            RegnumsView.Refresh();
         }
 
         #endregion "Public Commands"                  
@@ -307,10 +213,10 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         public ICommand CopySubphylumCommand => _copySubphylumCommand ??= new RelayCommand(delegate { ExecuteCopySubphylum(null); });
 
         private RelayCommand _deleteSubphylumCommand;
-        public ICommand DeleteSubphylumCommand => _deleteSubphylumCommand ??= new RelayCommand(delegate { ExecuteDeleteSubphylum(SearchPhylumName); });
+        public ICommand DeleteSubphylumCommand => _deleteSubphylumCommand ??= new RelayCommand(delegate { ExecuteDeleteSubphylum(null); });
 
         private RelayCommand _saveSubphylumCommand;
-        public ICommand SaveSubphylumCommand => _saveSubphylumCommand ??= new RelayCommand(delegate { ExecuteSaveSubphylum(SearchPhylumName); });
+        public ICommand SaveSubphylumCommand => _saveSubphylumCommand ??= new RelayCommand(delegate { ExecuteSaveSubphylum(null); });
 
         #endregion [Public Commands Connect ==> Tbl12Subphylum]    
 
@@ -318,10 +224,19 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         private void ExecuteAddSubphylum(object o)
         {
+            if (Tbl06PhylumsAllList == null)
+                Tbl06PhylumsAllList ??= new ObservableCollection<Tbl06Phylum>();
+            else
+                Tbl06PhylumsAllList.Clear();
+
+            Tbl06PhylumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl06Phylum>("Phylum");
+
+            SelectedMainTabIndex = 0;
+            SelectedDetailTabIndex = 1;
+
             Tbl12SubphylumsList ??= new ObservableCollection<Tbl12Subphylum>();
 
             Tbl12SubphylumsList.Insert(0, new Tbl12Subphylum { SubphylumName = CultRes.StringsRes.DatasetNew });
-            Tbl06PhylumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl06Phylum>("Phylum");
 
             SubphylumsView = CollectionViewSource.GetDefaultView(Tbl12SubphylumsList);
             SubphylumsView.MoveCurrentToFirst();
@@ -339,112 +254,24 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             SubphylumsView.MoveCurrentToFirst();
         }
 
-        private void ExecuteDeleteSubphylum(string searchName)
+        private void ExecuteDeleteSubphylum(object o)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl12Subphylum)) return;
 
-            //check if in Tbl18Superclasses connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-            Tbl18SuperclassesList = _extCrud.GetConnectedDatasetsWithSubphylumIdInTableSuperclass(CurrentTbl12Subphylum.SubphylumId);
-            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl18SuperclassesList.Count, "Superclass")) return;
+            _extDelete.DeleteSubphylum(CurrentTbl12Subphylum);
 
-            //Delete all References Experts, Sources, Authors  ----------------------------------------------------
-            Tbl90ReferencesList = _extCrud.DeleteDatasetsWithSubphylumIdInTableReference(CurrentTbl12Subphylum.SubphylumId);
-            if (Tbl90ReferencesList.Count > 0)
-            {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
-
-                _extCrud.DeleteReferences(Tbl90ReferencesList);
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
-            }
-
-            //Delete all Comments  ----------------------------------------------------
-            Tbl93CommentsList = _extCrud.DeleteDatasetsWithSubphylumIdInTableComment(CurrentTbl12Subphylum.SubphylumId);
-            if (Tbl93CommentsList.Count > 0)
-            {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
-
-                _extCrud.DeleteComments(Tbl93CommentsList);
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
-            }
-
-            try
-            {
-                var subphylum = _uow.Tbl12Subphylums.GetById(CurrentTbl12Subphylum.SubphylumId);
-                if (subphylum != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl12Subphylum.SubphylumName)) return;
-
-                    _extCrud.DeleteSubphylum(subphylum);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl12Subphylum.SubphylumName);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl12Subphylum.SubphylumName + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-
-            Tbl12SubphylumsList = _extCrud.GetSubphylumsCollectionFromPhylumIdOrderBy<Tbl12Subphylum>(CurrentTbl12Subphylum.PhylumId);
-
+            Tbl12SubphylumsList = _extCrud.GetSubphylumsCollectionFromPhylumIdOrderBy<Tbl12Subphylum>(CurrentTbl12Subphylum.SubphylumId);
             SubphylumsView = CollectionViewSource.GetDefaultView(Tbl12SubphylumsList);
             SubphylumsView.MoveCurrentToFirst();
         }
 
-        private void ExecuteSaveSubphylum(string searchName)
+        private void ExecuteSaveSubphylum(object o)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl12Subphylum)) return;
 
             CurrentTbl12Subphylum.PhylumId = CurrentTbl06Phylum.PhylumId;
 
-            //Combobox select PhylumId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl12Subphylum.PhylumId)) return;
-
-            try
-            {
-                var subphylum = _uow.Tbl12Subphylums.GetById(CurrentTbl12Subphylum.SubphylumId);
-
-                if (CurrentTbl12Subphylum.SubphylumId == 0)
-                    subphylum = _extCrud.SubphylumAdd(CurrentTbl12Subphylum);
-                else
-                    subphylum = _extCrud.SubphylumUpdate(subphylum, CurrentTbl12Subphylum);
-
-                //  _position = SubphylumsView.CurrentPosition;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl12Subphylum.SubphylumName)) return;
-
-                try
-                {
-                    _extCrud.SubphylumSave(subphylum, CurrentTbl12Subphylum);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl12Subphylum.SubphylumId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl12Subphylum.SubphylumName);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-
+            _extSave.SaveSubphylum(CurrentTbl12Subphylum);
             Tbl12SubphylumsList = _extCrud.GetSubphylumsCollectionFromPhylumIdOrderBy<Tbl12Subphylum>(CurrentTbl12Subphylum.PhylumId);
 
             SubphylumsView = CollectionViewSource.GetDefaultView(Tbl12SubphylumsList);
@@ -518,25 +345,9 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceAuthor)) return;
 
-            try
-            {
-                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceAuthor.ReferenceId);
-                if (reference != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceAuthor.Info)) return;
+            _extDelete.DeleteReferenceAuthor(CurrentTbl90ReferenceAuthor);
 
-                    _extCrud.DeleteReference(reference);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceAuthor.Info);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceAuthor.Info + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-
+            Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFromPhylumIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl90ReferenceAuthor.PhylumId);
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
             ReferenceAuthorsView.Refresh();
         }
@@ -547,54 +358,9 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
             CurrentTbl90ReferenceAuthor.PhylumId = CurrentTbl06Phylum.PhylumId;
 
-            //Combobox select RefAuthorId may be not null
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl90ReferenceAuthor.RefAuthorId)) return;
+            _extSave.SaveReferenceAuthor(CurrentTbl90ReferenceAuthor, "Phylum");
 
-            try
-            {
-                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceAuthor.ReferenceId);
-
-
-                if (CurrentTbl90ReferenceAuthor.ReferenceId == 0)
-                    reference = _extCrud.ReferenceAuthorPhylumAdd(CurrentTbl90ReferenceAuthor);
-
-                else
-                    reference = _extCrud.ReferenceAuthorPhylumUpdate(reference, CurrentTbl90ReferenceAuthor);
-
-                //    _position = PhylumsView.CurrentPosition;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceAuthor.Info)) return;
-
-                try
-                {
-                    _extCrud.ReferenceAuthorSave(reference, CurrentTbl90ReferenceAuthor);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl90ReferenceAuthor.ReferenceId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl90ReferenceAuthor.Info);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
             Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFromPhylumIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl06Phylum.PhylumId);
-
 
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
             ReferenceAuthorsView.Refresh();
@@ -650,27 +416,9 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
 
-            try
-            {
-                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceSource.ReferenceId);
-                if (reference != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceSource.Info)) return;
-
-                    _extCrud.DeleteReference(reference);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceSource.Info);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceSource.Info + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extDelete.DeleteReferenceSource(CurrentTbl90ReferenceSource);
 
             Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromPhylumIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl06Phylum.PhylumId);
-
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
             ReferenceSourcesView.MoveCurrentToFirst();
         }
@@ -679,58 +427,11 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
 
-            //Combobox select RefSourceId may be not 0
-
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl90ReferenceSource.RefSourceId)) return;
-
             CurrentTbl90ReferenceSource.PhylumId = CurrentTbl06Phylum.PhylumId;
 
-            try
-            {
-                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceSource.ReferenceId);
-
-
-                if (CurrentTbl90ReferenceSource.ReferenceId == 0)
-                    reference = _extCrud.ReferenceSourcePhylumAdd(CurrentTbl90ReferenceSource);
-                else
-                    reference = _extCrud.ReferenceSourcePhylumUpdate(reference, CurrentTbl90ReferenceSource);
-
-                //        _position = PhylumsView.CurrentPosition;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceSource.Info)) return;
-
-                try
-                {
-                    _extCrud.ReferenceSourceSave(reference, CurrentTbl90ReferenceSource);
-
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl90ReferenceSource.ReferenceId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl90ReferenceSource.Info);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extSave.SaveReferenceSource(CurrentTbl90ReferenceSource, "Phylum");
 
             Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromPhylumIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl06Phylum.PhylumId);
-
 
 
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
@@ -764,7 +465,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         {
             Tbl90ReferenceExpertsList ??= new ObservableCollection<Tbl90Reference>();
 
-            Tbl90ExpertsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefExpert>("expert");
+            Tbl90ExpertsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefExpert>("Expert");
             Tbl90ReferenceExpertsList.Insert(0, new Tbl90Reference { Info = CultRes.StringsRes.DatasetNew });
 
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
@@ -785,27 +486,9 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
 
-            try
-            {
-                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceExpert.ReferenceId);
-                if (reference != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceExpert.Info)) return;
-
-                    _extCrud.DeleteReference(reference);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceExpert.Info);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceExpert.Info + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extDelete.DeleteReferenceExpert(CurrentTbl90ReferenceExpert);
 
             Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFromPhylumIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl06Phylum.PhylumId);
-
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
             ReferenceExpertsView.Refresh();
         }
@@ -814,53 +497,9 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
 
-            //Combobox select RefExpertId  may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl90ReferenceExpert.RefExpertId)) return;
-
             CurrentTbl90ReferenceExpert.PhylumId = CurrentTbl06Phylum.PhylumId;
 
-            try
-            {
-                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceExpert.ReferenceId);
-
-
-                if (CurrentTbl90ReferenceExpert.ReferenceId == 0)
-                    reference = _extCrud.ReferenceExpertPhylumAdd(CurrentTbl90ReferenceExpert);
-                else
-                    reference = _extCrud.ReferenceExpertPhylumUpdate(reference, CurrentTbl90ReferenceExpert);
-
-                //        _position = PhylumsView.CurrentPosition;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceExpert.Info)) return;
-
-                try
-                {
-                    _extCrud.ReferenceExpertSave(reference, CurrentTbl90ReferenceExpert);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl90ReferenceExpert.ReferenceId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl90ReferenceExpert.Info);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extSave.SaveReferenceExpert(CurrentTbl90ReferenceExpert, "Phylum");
 
             Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFromPhylumIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl06Phylum.PhylumId);
 
@@ -894,7 +533,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
         #region [Methods Phylum ==> Tbl93Comments]        
 
-        public void ExecuteAddComment(object o)
+        private void ExecuteAddComment(object o)
         {
             Tbl93CommentsList ??= new ObservableCollection<Tbl93Comment>();
 
@@ -904,7 +543,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             CommentsView.MoveCurrentToFirst();
         }
 
-        public void ExecuteCopyComment(object o)
+        private void ExecuteCopyComment(object o)
         {
 
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
@@ -919,24 +558,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
 
-            try
-            {
-                var comment = _uow.Tbl93Comments.GetById(CurrentTbl93Comment.CommentId);
-                if (comment != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl93Comment.Info)) return;
-
-                    _extCrud.DeleteComment(comment);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl93Comment.Info);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl93Comment.Info + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extDelete.DeleteComment(CurrentTbl93Comment);
 
             Tbl93CommentsList = _extCrud.GetCommentsCollectionFromPhylumIdOrderBy<Tbl93Comment>(CurrentTbl06Phylum.PhylumId);
 
@@ -950,49 +572,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
             CurrentTbl93Comment.PhylumId = CurrentTbl06Phylum.PhylumId;
 
-            try
-            {
-                var comment = _uow.Tbl93Comments.GetById(CurrentTbl93Comment.CommentId);
-
-
-                if (CurrentTbl93Comment.CommentId == 0)
-                    comment = _extCrud.CommentPhylumAdd(CurrentTbl93Comment);
-                else
-                    comment = _extCrud.CommentPhylumUpdate(comment, CurrentTbl93Comment);
-
-                //        _position = PhylumsView.CurrentPosition;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl93Comment.Info))
-                    return;
-
-                try
-                {
-                    _extCrud.CommentSave(comment, CurrentTbl93Comment);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl93Comment.CommentId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl93Comment.Info);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extSave.SaveComment(CurrentTbl93Comment, "Phylum");
 
             Tbl93CommentsList = _extCrud.GetCommentsCollectionFromPhylumIdOrderBy<Tbl93Comment>(CurrentTbl06Phylum.PhylumId);
 
@@ -1065,7 +645,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                     {
                         Tbl12SubphylumsList = _extCrud.GetSubphylumsCollectionFromPhylumIdOrderBy<Tbl12Subphylum>(CurrentTbl06Phylum.PhylumId);
 
-                        Tbl06PhylumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl06Phylum>("phylum");
+                        Tbl06PhylumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl06Phylum>("Phylum");
 
                         SubphylumsView = CollectionViewSource.GetDefaultView(Tbl12SubphylumsList);
                         SubphylumsView.Refresh();
@@ -1125,7 +705,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                     {
                         Tbl12SubphylumsList = _extCrud.GetSubphylumsCollectionFromPhylumIdOrderBy<Tbl12Subphylum>(CurrentTbl06Phylum.PhylumId);
 
-                        Tbl06PhylumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl06Phylum>("phylum");
+                        Tbl06PhylumsAllList = _extCrud.GetCollectionAllOrderBy<Tbl06Phylum>("Phylum");
 
                         SubphylumsView = CollectionViewSource.GetDefaultView(Tbl12SubphylumsList);
                         SubphylumsView.Refresh();
@@ -1137,7 +717,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 {
                     if (CurrentTbl06Phylum != null)
                     {
-                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+                        Tbl90ExpertsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefExpert>("Expert");
 
                         Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFromPhylumIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl06Phylum.PhylumId);
 
@@ -1152,7 +732,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 {
                     if (CurrentTbl06Phylum != null)
                     {
-                        Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+                        Tbl90SourcesAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefSource>("Source");
 
                         Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromPhylumIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl06Phylum.PhylumId);
 
@@ -1167,7 +747,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 {
                     if (CurrentTbl06Phylum != null)
                     {
-                        Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+                        Tbl90AuthorsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefAuthor>("Author");
 
                         Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFromPhylumIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl06Phylum.PhylumId);
 
@@ -1205,7 +785,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 {
                     if (CurrentTbl06Phylum != null)
                     {
-                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+                        Tbl90ExpertsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefExpert>("Expert");
 
                         Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFromPhylumIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl06Phylum.PhylumId);
 
@@ -1220,7 +800,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 {
                     if (CurrentTbl06Phylum != null)
                     {
-                        Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+                        Tbl90SourcesAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefSource>("Source");
 
                         Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromPhylumIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl06Phylum.PhylumId);
 
@@ -1235,7 +815,7 @@ namespace ATIS.Ui.Views.Database.D06Phylum
                 {
                     if (CurrentTbl06Phylum != null)
                     {
-                        Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+                        Tbl90AuthorsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefAuthor>("Author");
 
                         Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFromPhylumIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl06Phylum.PhylumId);
 

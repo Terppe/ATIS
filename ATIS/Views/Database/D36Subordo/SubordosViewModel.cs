@@ -561,8 +561,6 @@ namespace ATIS.Ui.Views.Database.D36Subordo
                 else
                     reference = _extCrud.ReferenceAuthorSubordoUpdate(reference, CurrentTbl90ReferenceAuthor);
 
-                //    _position = SubordosView.CurrentPosition;
-
                 if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceAuthor.Info)) return;
 
                 try
@@ -593,9 +591,8 @@ namespace ATIS.Ui.Views.Database.D36Subordo
                 _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+
             Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFromSubordoIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl36Subordo.SubordoId);
-
-
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
             ReferenceAuthorsView.Refresh();
         }

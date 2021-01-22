@@ -9,7 +9,6 @@ using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using log4net;
-using Microsoft.EntityFrameworkCore;
 
 //    TribussesViewModel Skriptdatum:  07.01.2021  10:32    
 
@@ -22,8 +21,9 @@ namespace ATIS.Ui.Views.Database.D57Tribus
 
         #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(typeof(TribussesViewModel));
-        private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly CrudFunctions _extCrud = new CrudFunctions();
+        private readonly DeleteFunctions _extDelete = new DeleteFunctions();
+        private readonly SaveFunctions _extSave = new SaveFunctions();
         private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
         private int _position;
 
@@ -77,8 +77,19 @@ namespace ATIS.Ui.Views.Database.D57Tribus
 
         private void ExecuteGetTribussesByNameOrId(string searchName)
         {
+            if (Tbl54SupertribussesAllList == null)
+                Tbl54SupertribussesAllList ??= new ObservableCollection<Tbl54Supertribus>();
+            else
+                Tbl54SupertribussesAllList.Clear();
+
             Tbl54SupertribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl54Supertribus>("Supertribus");
-            Tbl57TribussesList = _extCrud.GetTribussesCollectionFromSearchNameOrIdOrderBy<Tbl57Tribus>(searchName);
+
+            if (Tbl57TribussesList == null)
+                Tbl57TribussesList ??= new ObservableCollection<Tbl57Tribus>();
+            else
+                Tbl57TribussesList.Clear();
+
+            Tbl57TribussesList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl57Tribus>(searchName, "Tribus");
 
             if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl57TribussesList.Count)) return;
 
@@ -91,10 +102,22 @@ namespace ATIS.Ui.Views.Database.D57Tribus
 
         private void ExecuteAddTribus(object o)
         {
+            if (Tbl57TribussesList == null)
+                Tbl57TribussesList ??= new ObservableCollection<Tbl57Tribus>();
+            else
+                Tbl57TribussesList.Clear();
+
+            if (Tbl54SupertribussesAllList == null)
+                Tbl54SupertribussesAllList ??= new ObservableCollection<Tbl54Supertribus>();
+            else
+                Tbl54SupertribussesAllList.Clear();
+
             Tbl54SupertribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl54Supertribus>("Supertribus");
 
-            Tbl57TribussesList ??= new ObservableCollection<Tbl57Tribus>();
             Tbl57TribussesList.Insert(0, new Tbl57Tribus { TribusName = CultRes.StringsRes.DatasetNew });
+
+            SelectedMainTabIndex = 0;
+            SelectedDetailTabIndex = 1;
 
             TribussesView = CollectionViewSource.GetDefaultView(Tbl57TribussesList);
             TribussesView.MoveCurrentToFirst();
@@ -116,110 +139,33 @@ namespace ATIS.Ui.Views.Database.D57Tribus
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl57Tribus)) return;
 
+            _extDelete.DeleteTribus(CurrentTbl57Tribus);
 
-            //check if in Tbl60Subtribusses connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-
-            Tbl60SubtribussesList = _extCrud.GetConnectedDatasetsWithTribusIdInTableSubtribus(CurrentTbl57Tribus.TribusId);
-
-            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl60SubtribussesList.Count, "Subtribus")) return;
-
-            //Delete all References Experts, Sources, Authors  ----------------------------------------------------
-            Tbl90ReferencesList = _extCrud.DeleteDatasetsWithTribusIdInTableReference(CurrentTbl57Tribus.TribusId);
-            if (Tbl90ReferencesList.Count > 0)
-            {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
-
-                _extCrud.DeleteReferences(Tbl90ReferencesList);
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
-            }
-
-            //Delete all Comments  ----------------------------------------------------
-            Tbl93CommentsList = _extCrud.DeleteDatasetsWithTribusIdInTableComment(CurrentTbl57Tribus.TribusId);
-            if (Tbl93CommentsList.Count > 0)
-            {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
-
-                _extCrud.DeleteComments(Tbl93CommentsList);
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
-            }
-            try
-            {
-                var tribus = _uow.Tbl57Tribusses.GetById(CurrentTbl57Tribus.TribusId);
-                if (tribus != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl57Tribus.TribusName)) return;
-
-                    _extCrud.DeleteTribus(tribus);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl57Tribus.TribusName);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl57Tribus.TribusName + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-
-            ExecuteGetTribussesByNameOrId(searchName);
-
-            TribussesView.MoveCurrentToFirst();
+            Tbl57TribussesList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl57Tribus>(searchName, "Tribus");
+            TribussesView = CollectionViewSource.GetDefaultView(Tbl57TribussesList);
+            TribussesView.MoveCurrentToLast();
         }
 
         private void ExecuteSaveTribus(string searchName)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl57Tribus)) return;
 
-            //Combobox select SupertribusID  may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl57Tribus.SupertribusId)) return;
+            _position = TribussesView.CurrentPosition;
 
-            try
+            _extSave.SaveTribus(CurrentTbl57Tribus);
+
+            if (_position == 0) //new
             {
-                var tribus = _uow.Tbl57Tribusses.GetById(CurrentTbl57Tribus.TribusId);
-                //   var phylum = _context.Tbl57Tribusses.AsNoTracking().FirstOrDefault(a=>a.TribusId == CurrentTbl57Tribus.TribusId);
-                //          _context.Entry(tribus).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl57Tribus.TribusName))
-                    return;
-
-                if (CurrentTbl57Tribus.TribusId == 0)
-                    tribus = _extCrud.TribusAdd(CurrentTbl57Tribus);
-                else
-                    tribus = _extCrud.TribusUpdate(tribus, CurrentTbl57Tribus);
-
-                _position = TribussesView.CurrentPosition;
-
-                try
-                {
-                    _extCrud.TribusSave(tribus, CurrentTbl57Tribus);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl57Tribus.TribusId == 0
-                    ? "DatasetNew"
-                    : CurrentTbl57Tribus.TribusName);
+                Tbl57TribussesList = _extCrud.GetLastTribussesDatasetOrderById();
+                TribussesView = CollectionViewSource.GetDefaultView(Tbl57TribussesList);
+                TribussesView.MoveCurrentToFirst();
             }
-            catch (Exception e)
+            else
             {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                Tbl57TribussesList = _extCrud.GetTribussesCollectionFromSearchNameOrIdOrderBy<Tbl57Tribus>(searchName);
+                TribussesView = CollectionViewSource.GetDefaultView(Tbl57TribussesList);
+                TribussesView.MoveCurrentToPosition(_position);
             }
-            ExecuteGetTribussesByNameOrId(searchName);
-            TribussesView.MoveCurrentToPosition(_position);
         }
         #endregion [Methods Tribus]                
 
@@ -235,55 +181,15 @@ namespace ATIS.Ui.Views.Database.D57Tribus
 
         public ICommand SaveSupertribusCommand => _saveSupertribusCommand ??= new RelayCommand(delegate { ExecuteSaveSupertribus(null); });
 
-        private void ExecuteSaveSupertribus(string searchName)
+        private void ExecuteSaveSupertribus(object o)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl54Supertribus)) return;
 
-            try
-            {
-                var supertribus = _uow.Tbl54Supertribusses.GetById(CurrentTbl54Supertribus.SupertribusId);
+            _extSave.SaveSupertribus(CurrentTbl54Supertribus);
 
-                if (CurrentTbl54Supertribus.SupertribusId == 0)
-                    supertribus = _extCrud.SupertribusAdd(CurrentTbl54Supertribus);
-                else
-                    supertribus = _extCrud.SupertribusUpdate(supertribus, CurrentTbl54Supertribus);
-
-                _position = TribussesView.CurrentPosition;
-
-                var cap = CurrentTbl54Supertribus.SupertribusName;
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(cap)) return;
-
-                try
-                {
-                    _extCrud.SupertribusSave(supertribus, CurrentTbl54Supertribus);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl54Supertribus.SupertribusId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl54Supertribus.SupertribusName);
-            }
-
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-            ExecuteGetTribussesByNameOrId(searchName);
-            TribussesView.MoveCurrentToPosition(_position);
+            Tbl54SupertribussesList = _extCrud.GetSupertribussesCollectionFromSupertribusIdOrderBy<Tbl54Supertribus>(CurrentTbl57Tribus.SupertribusId);
+            SupertribussesView = CollectionViewSource.GetDefaultView(Tbl54SupertribussesList);
+            SupertribussesView.Refresh();
         }
 
         #endregion "Public Commands"                  
@@ -307,10 +213,10 @@ namespace ATIS.Ui.Views.Database.D57Tribus
         public ICommand CopySubtribusCommand => _copySubtribusCommand ??= new RelayCommand(delegate { ExecuteCopySubtribus(null); });
 
         private RelayCommand _deleteSubtribusCommand;
-        public ICommand DeleteSubtribusCommand => _deleteSubtribusCommand ??= new RelayCommand(delegate { ExecuteDeleteSubtribus(SearchTribusName); });
+        public ICommand DeleteSubtribusCommand => _deleteSubtribusCommand ??= new RelayCommand(delegate { ExecuteDeleteSubtribus(null); });
 
         private RelayCommand _saveSubtribusCommand;
-        public ICommand SaveSubtribusCommand => _saveSubtribusCommand ??= new RelayCommand(delegate { ExecuteSaveSubtribus(SearchTribusName); });
+        public ICommand SaveSubtribusCommand => _saveSubtribusCommand ??= new RelayCommand(delegate { ExecuteSaveSubtribus(null); });
 
         #endregion [Public Commands Connect ==> Tbl60Subtribus]    
 
@@ -318,10 +224,19 @@ namespace ATIS.Ui.Views.Database.D57Tribus
 
         private void ExecuteAddSubtribus(object o)
         {
+            if (Tbl57TribussesAllList == null)
+                Tbl57TribussesAllList ??= new ObservableCollection<Tbl57Tribus>();
+            else
+                Tbl57TribussesAllList.Clear();
+
+            Tbl57TribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl57Tribus>("Tribus");
+
+            SelectedMainTabIndex = 0;
+            SelectedDetailTabIndex = 1;
+
             Tbl60SubtribussesList ??= new ObservableCollection<Tbl60Subtribus>();
 
             Tbl60SubtribussesList.Insert(0, new Tbl60Subtribus { SubtribusName = CultRes.StringsRes.DatasetNew });
-            Tbl57TribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl57Tribus>("Tribus");
 
             SubtribussesView = CollectionViewSource.GetDefaultView(Tbl60SubtribussesList);
             SubtribussesView.MoveCurrentToFirst();
@@ -339,112 +254,24 @@ namespace ATIS.Ui.Views.Database.D57Tribus
             SubtribussesView.MoveCurrentToFirst();
         }
 
-        private void ExecuteDeleteSubtribus(string searchName)
+        private void ExecuteDeleteSubtribus(object o)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl60Subtribus)) return;
 
-            //check if in Tbl63Infratribusses connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-            Tbl63InfratribussesList = _extCrud.GetConnectedDatasetsWithSubtribusIdInTableInfratribus(CurrentTbl60Subtribus.SubtribusId);
-            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl63InfratribussesList.Count, "Infratribus")) return;
+            _extDelete.DeleteSubtribus(CurrentTbl60Subtribus);
 
-            //Delete all References Experts, Sources, Authors  ----------------------------------------------------
-            Tbl90ReferencesList = _extCrud.DeleteDatasetsWithSubtribusIdInTableReference(CurrentTbl60Subtribus.SubtribusId);
-            if (Tbl90ReferencesList.Count > 0)
-            {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
-
-                _extCrud.DeleteReferences(Tbl90ReferencesList);
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
-            }
-
-            //Delete all Comments  ----------------------------------------------------
-            Tbl93CommentsList = _extCrud.DeleteDatasetsWithSubtribusIdInTableComment(CurrentTbl60Subtribus.SubtribusId);
-            if (Tbl93CommentsList.Count > 0)
-            {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
-
-                _extCrud.DeleteComments(Tbl93CommentsList);
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
-            }
-
-            try
-            {
-                var subtribus = _uow.Tbl60Subtribusses.GetById(CurrentTbl60Subtribus.SubtribusId);
-                if (subtribus != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl60Subtribus.SubtribusName)) return;
-
-                    _extCrud.DeleteSubtribus(subtribus);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl60Subtribus.SubtribusName);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl60Subtribus.SubtribusName + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-
-            Tbl60SubtribussesList = _extCrud.GetSubtribussesCollectionFromTribusIdOrderBy<Tbl60Subtribus>(CurrentTbl60Subtribus.TribusId);
-
+            Tbl60SubtribussesList = _extCrud.GetSubtribussesCollectionFromTribusIdOrderBy<Tbl60Subtribus>(CurrentTbl60Subtribus.SubtribusId);
             SubtribussesView = CollectionViewSource.GetDefaultView(Tbl60SubtribussesList);
             SubtribussesView.MoveCurrentToFirst();
         }
 
-        private void ExecuteSaveSubtribus(string searchName)
+        private void ExecuteSaveSubtribus(object o)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl60Subtribus)) return;
 
             CurrentTbl60Subtribus.TribusId = CurrentTbl57Tribus.TribusId;
 
-            //Combobox select TribusId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl60Subtribus.TribusId)) return;
-
-            try
-            {
-                var subtribus = _uow.Tbl60Subtribusses.GetById(CurrentTbl60Subtribus.SubtribusId);
-
-                if (CurrentTbl60Subtribus.SubtribusId == 0)
-                    subtribus = _extCrud.SubtribusAdd(CurrentTbl60Subtribus);
-                else
-                    subtribus = _extCrud.SubtribusUpdate(subtribus, CurrentTbl60Subtribus);
-
-                //  _position = SubtribussesView.CurrentPosition;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl60Subtribus.SubtribusName)) return;
-
-                try
-                {
-                    _extCrud.SubtribusSave(subtribus, CurrentTbl60Subtribus);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl60Subtribus.SubtribusId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl60Subtribus.SubtribusName);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-
+            _extSave.SaveSubtribus(CurrentTbl60Subtribus);
             Tbl60SubtribussesList = _extCrud.GetSubtribussesCollectionFromTribusIdOrderBy<Tbl60Subtribus>(CurrentTbl60Subtribus.TribusId);
 
             SubtribussesView = CollectionViewSource.GetDefaultView(Tbl60SubtribussesList);
@@ -518,25 +345,9 @@ namespace ATIS.Ui.Views.Database.D57Tribus
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceAuthor)) return;
 
-            try
-            {
-                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceAuthor.ReferenceId);
-                if (reference != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceAuthor.Info)) return;
+            _extDelete.DeleteReferenceAuthor(CurrentTbl90ReferenceAuthor);
 
-                    _extCrud.DeleteReference(reference);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceAuthor.Info);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceAuthor.Info + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-
+            Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFromTribusIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl90ReferenceAuthor.TribusId);
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
             ReferenceAuthorsView.Refresh();
         }
@@ -547,54 +358,9 @@ namespace ATIS.Ui.Views.Database.D57Tribus
 
             CurrentTbl90ReferenceAuthor.TribusId = CurrentTbl57Tribus.TribusId;
 
-            //Combobox select RefAuthorId may be not null
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl90ReferenceAuthor.RefAuthorId)) return;
+            _extSave.SaveReferenceAuthor(CurrentTbl90ReferenceAuthor, "Tribus");
 
-            try
-            {
-                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceAuthor.ReferenceId);
-
-
-                if (CurrentTbl90ReferenceAuthor.ReferenceId == 0)
-                    reference = _extCrud.ReferenceAuthorTribusAdd(CurrentTbl90ReferenceAuthor);
-
-                else
-                    reference = _extCrud.ReferenceAuthorTribusUpdate(reference, CurrentTbl90ReferenceAuthor);
-
-                //    _position = TribussesView.CurrentPosition;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceAuthor.Info)) return;
-
-                try
-                {
-                    _extCrud.ReferenceAuthorSave(reference, CurrentTbl90ReferenceAuthor);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl90ReferenceAuthor.ReferenceId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl90ReferenceAuthor.Info);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
             Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFromTribusIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl57Tribus.TribusId);
-
 
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
             ReferenceAuthorsView.Refresh();
@@ -650,27 +416,9 @@ namespace ATIS.Ui.Views.Database.D57Tribus
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
 
-            try
-            {
-                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceSource.ReferenceId);
-                if (reference != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceSource.Info)) return;
-
-                    _extCrud.DeleteReference(reference);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceSource.Info);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceSource.Info + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extDelete.DeleteReferenceSource(CurrentTbl90ReferenceSource);
 
             Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromTribusIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl57Tribus.TribusId);
-
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
             ReferenceSourcesView.MoveCurrentToFirst();
         }
@@ -679,58 +427,11 @@ namespace ATIS.Ui.Views.Database.D57Tribus
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
 
-            //Combobox select RefSourceId may be not 0
-
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl90ReferenceSource.RefSourceId)) return;
-
             CurrentTbl90ReferenceSource.TribusId = CurrentTbl57Tribus.TribusId;
 
-            try
-            {
-                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceSource.ReferenceId);
-
-
-                if (CurrentTbl90ReferenceSource.ReferenceId == 0)
-                    reference = _extCrud.ReferenceSourceTribusAdd(CurrentTbl90ReferenceSource);
-                else
-                    reference = _extCrud.ReferenceSourceTribusUpdate(reference, CurrentTbl90ReferenceSource);
-
-                //        _position = TribussesView.CurrentPosition;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceSource.Info)) return;
-
-                try
-                {
-                    _extCrud.ReferenceSourceSave(reference, CurrentTbl90ReferenceSource);
-
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl90ReferenceSource.ReferenceId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl90ReferenceSource.Info);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extSave.SaveReferenceSource(CurrentTbl90ReferenceSource, "Tribus");
 
             Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromTribusIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl57Tribus.TribusId);
-
 
 
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
@@ -764,7 +465,7 @@ namespace ATIS.Ui.Views.Database.D57Tribus
         {
             Tbl90ReferenceExpertsList ??= new ObservableCollection<Tbl90Reference>();
 
-            Tbl90ExpertsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefExpert>("expert");
+            Tbl90ExpertsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefExpert>("Expert");
             Tbl90ReferenceExpertsList.Insert(0, new Tbl90Reference { Info = CultRes.StringsRes.DatasetNew });
 
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
@@ -785,27 +486,9 @@ namespace ATIS.Ui.Views.Database.D57Tribus
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
 
-            try
-            {
-                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceExpert.ReferenceId);
-                if (reference != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceExpert.Info)) return;
-
-                    _extCrud.DeleteReference(reference);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceExpert.Info);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceExpert.Info + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extDelete.DeleteReferenceExpert(CurrentTbl90ReferenceExpert);
 
             Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFromTribusIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl57Tribus.TribusId);
-
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
             ReferenceExpertsView.Refresh();
         }
@@ -814,53 +497,9 @@ namespace ATIS.Ui.Views.Database.D57Tribus
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
 
-            //Combobox select RefExpertId  may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl90ReferenceExpert.RefExpertId)) return;
-
             CurrentTbl90ReferenceExpert.TribusId = CurrentTbl57Tribus.TribusId;
 
-            try
-            {
-                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceExpert.ReferenceId);
-
-
-                if (CurrentTbl90ReferenceExpert.ReferenceId == 0)
-                    reference = _extCrud.ReferenceExpertTribusAdd(CurrentTbl90ReferenceExpert);
-                else
-                    reference = _extCrud.ReferenceExpertTribusUpdate(reference, CurrentTbl90ReferenceExpert);
-
-                //        _position = PhylumsView.CurrentPosition;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceExpert.Info)) return;
-
-                try
-                {
-                    _extCrud.ReferenceExpertSave(reference, CurrentTbl90ReferenceExpert);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl90ReferenceExpert.ReferenceId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl90ReferenceExpert.Info);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extSave.SaveReferenceExpert(CurrentTbl90ReferenceExpert, "Tribus");
 
             Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFromTribusIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl57Tribus.TribusId);
 
@@ -894,7 +533,7 @@ namespace ATIS.Ui.Views.Database.D57Tribus
 
         #region [Methods Tribus ==> Tbl93Comments]        
 
-        public void ExecuteAddComment(object o)
+        private void ExecuteAddComment(object o)
         {
             Tbl93CommentsList ??= new ObservableCollection<Tbl93Comment>();
 
@@ -904,7 +543,7 @@ namespace ATIS.Ui.Views.Database.D57Tribus
             CommentsView.MoveCurrentToFirst();
         }
 
-        public void ExecuteCopyComment(object o)
+        private void ExecuteCopyComment(object o)
         {
 
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
@@ -919,24 +558,7 @@ namespace ATIS.Ui.Views.Database.D57Tribus
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
 
-            try
-            {
-                var comment = _uow.Tbl93Comments.GetById(CurrentTbl93Comment.CommentId);
-                if (comment != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl93Comment.Info)) return;
-
-                    _extCrud.DeleteComment(comment);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl93Comment.Info);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl93Comment.Info + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extDelete.DeleteComment(CurrentTbl93Comment);
 
             Tbl93CommentsList = _extCrud.GetCommentsCollectionFromTribusIdOrderBy<Tbl93Comment>(CurrentTbl57Tribus.TribusId);
 
@@ -950,49 +572,7 @@ namespace ATIS.Ui.Views.Database.D57Tribus
 
             CurrentTbl93Comment.TribusId = CurrentTbl57Tribus.TribusId;
 
-            try
-            {
-                var comment = _uow.Tbl93Comments.GetById(CurrentTbl93Comment.CommentId);
-
-
-                if (CurrentTbl93Comment.CommentId == 0)
-                    comment = _extCrud.CommentTribusAdd(CurrentTbl93Comment);
-                else
-                    comment = _extCrud.CommentTribusUpdate(comment, CurrentTbl93Comment);
-
-                //        _position = TribussesView.CurrentPosition;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl93Comment.Info))
-                    return;
-
-                try
-                {
-                    _extCrud.CommentSave(comment, CurrentTbl93Comment);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl93Comment.CommentId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl93Comment.Info);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extSave.SaveComment(CurrentTbl93Comment, "Tribus");
 
             Tbl93CommentsList = _extCrud.GetCommentsCollectionFromTribusIdOrderBy<Tbl93Comment>(CurrentTbl57Tribus.TribusId);
 
@@ -1020,7 +600,7 @@ namespace ATIS.Ui.Views.Database.D57Tribus
         {
             Tbl54SupertribussesList = _extCrud.GetSupertribussesCollectionFromSupertribusIdOrderBy<Tbl54Supertribus>(CurrentTbl57Tribus.SupertribusId);
 
-            Tbl51InfrafamiliesAllList = _extCrud.GetCollectionAllOrderBy<Tbl51Infrafamily>("");
+            Tbl51InfrafamiliesAllList = _extCrud.GetCollectionAllOrderBy<Tbl51Infrafamily>("Infrafamily");
 
             SupertribussesView = CollectionViewSource.GetDefaultView(Tbl54SupertribussesList);
             SupertribussesView.Refresh();
@@ -1055,7 +635,7 @@ namespace ATIS.Ui.Views.Database.D57Tribus
                     {
                         Tbl54SupertribussesList = _extCrud.GetSupertribussesCollectionFromSupertribusIdOrderBy<Tbl54Supertribus>(CurrentTbl57Tribus.SupertribusId);
 
-                        Tbl51InfrafamiliesAllList = _extCrud.GetCollectionAllOrderBy<Tbl51Infrafamily>("");
+                        Tbl51InfrafamiliesAllList = _extCrud.GetCollectionAllOrderBy<Tbl51Infrafamily>("Infrafamily");
 
                         SupertribussesView = CollectionViewSource.GetDefaultView(Tbl54SupertribussesList);
                         SupertribussesView.Refresh();
@@ -1069,7 +649,7 @@ namespace ATIS.Ui.Views.Database.D57Tribus
                     {
                         Tbl60SubtribussesList = _extCrud.GetSubtribussesCollectionFromTribusIdOrderBy<Tbl60Subtribus>(CurrentTbl57Tribus.TribusId);
 
-                        Tbl57TribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl57Tribus>("tribus");
+                        Tbl57TribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl57Tribus>("Tribus");
 
                         SubtribussesView = CollectionViewSource.GetDefaultView(Tbl60SubtribussesList);
                         SubtribussesView.Refresh();
@@ -1129,7 +709,7 @@ namespace ATIS.Ui.Views.Database.D57Tribus
                     {
                         Tbl60SubtribussesList = _extCrud.GetSubtribussesCollectionFromTribusIdOrderBy<Tbl60Subtribus>(CurrentTbl57Tribus.TribusId);
 
-                        Tbl57TribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl57Tribus>("tribus");
+                        Tbl57TribussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl57Tribus>("Tribus");
 
                         SubtribussesView = CollectionViewSource.GetDefaultView(Tbl60SubtribussesList);
                         SubtribussesView.Refresh();
@@ -1141,7 +721,7 @@ namespace ATIS.Ui.Views.Database.D57Tribus
                 {
                     if (CurrentTbl57Tribus != null)
                     {
-                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+                        Tbl90ExpertsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefExpert>("Expert");
 
                         Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFromTribusIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl57Tribus.TribusId);
 
@@ -1156,7 +736,7 @@ namespace ATIS.Ui.Views.Database.D57Tribus
                 {
                     if (CurrentTbl57Tribus != null)
                     {
-                        Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+                        Tbl90SourcesAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefSource>("Source");
 
                         Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromTribusIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl57Tribus.TribusId);
 
@@ -1171,7 +751,7 @@ namespace ATIS.Ui.Views.Database.D57Tribus
                 {
                     if (CurrentTbl57Tribus != null)
                     {
-                        Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+                        Tbl90AuthorsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefAuthor>("Author");
 
                         Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFromTribusIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl57Tribus.TribusId);
 
@@ -1221,7 +801,7 @@ namespace ATIS.Ui.Views.Database.D57Tribus
                 {
                     if (CurrentTbl57Tribus != null)
                     {
-                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+                        Tbl90ExpertsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefExpert>("Expert");
 
                         Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFromTribusIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl57Tribus.TribusId);
 
@@ -1236,7 +816,7 @@ namespace ATIS.Ui.Views.Database.D57Tribus
                 {
                     if (CurrentTbl57Tribus != null)
                     {
-                        Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+                        Tbl90SourcesAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefSource>("Source");
 
                         Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromTribusIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl57Tribus.TribusId);
 
@@ -1251,7 +831,7 @@ namespace ATIS.Ui.Views.Database.D57Tribus
                 {
                     if (CurrentTbl57Tribus != null)
                     {
-                        Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+                        Tbl90AuthorsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefAuthor>("Author");
 
                         Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFromTribusIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl57Tribus.TribusId);
 

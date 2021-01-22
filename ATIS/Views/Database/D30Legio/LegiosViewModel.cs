@@ -9,7 +9,6 @@ using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using log4net;
-using Microsoft.EntityFrameworkCore;
 
 //    LegiosViewModel Skriptdatum:  07.01.2021  10:32    
 
@@ -22,8 +21,9 @@ namespace ATIS.Ui.Views.Database.D30Legio
 
         #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(typeof(LegiosViewModel));
-        private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly CrudFunctions _extCrud = new CrudFunctions();
+        private readonly DeleteFunctions _extDelete = new DeleteFunctions();
+        private readonly SaveFunctions _extSave = new SaveFunctions();
         private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
         private int _position;
 
@@ -77,8 +77,19 @@ namespace ATIS.Ui.Views.Database.D30Legio
 
         private void ExecuteGetLegiosByNameOrId(string searchName)
         {
+            if (Tbl27InfraclassesAllList == null)
+                Tbl27InfraclassesAllList ??= new ObservableCollection<Tbl27Infraclass>();
+            else
+                Tbl27InfraclassesAllList.Clear();
+
             Tbl27InfraclassesAllList = _extCrud.GetCollectionAllOrderBy<Tbl27Infraclass>("Infraclass");
-            Tbl30LegiosList = _extCrud.GetLegiosCollectionFromSearchNameOrIdOrderBy<Tbl30Legio>(searchName);
+
+            if (Tbl30LegiosList == null)
+                Tbl30LegiosList ??= new ObservableCollection<Tbl30Legio>();
+            else
+                Tbl30LegiosList.Clear();
+
+            Tbl30LegiosList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl30Legio>(searchName, "Legio");
 
             if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl30LegiosList.Count)) return;
 
@@ -91,10 +102,22 @@ namespace ATIS.Ui.Views.Database.D30Legio
 
         private void ExecuteAddLegio(object o)
         {
+            if (Tbl30LegiosList == null)
+                Tbl30LegiosList ??= new ObservableCollection<Tbl30Legio>();
+            else
+                Tbl30LegiosList.Clear();
+
+            if (Tbl27InfraclassesAllList == null)
+                Tbl27InfraclassesAllList ??= new ObservableCollection<Tbl27Infraclass>();
+            else
+                Tbl27InfraclassesAllList.Clear();
+
             Tbl27InfraclassesAllList = _extCrud.GetCollectionAllOrderBy<Tbl27Infraclass>("Infraclass");
 
-            Tbl30LegiosList ??= new ObservableCollection<Tbl30Legio>();
             Tbl30LegiosList.Insert(0, new Tbl30Legio { LegioName = CultRes.StringsRes.DatasetNew });
+
+            SelectedMainTabIndex = 0;
+            SelectedDetailTabIndex = 1;
 
             LegiosView = CollectionViewSource.GetDefaultView(Tbl30LegiosList);
             LegiosView.MoveCurrentToFirst();
@@ -116,110 +139,33 @@ namespace ATIS.Ui.Views.Database.D30Legio
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl30Legio)) return;
 
+            _extDelete.DeleteLegio(CurrentTbl30Legio);
 
-            //check if in Tbl33Ordos connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-
-            Tbl33OrdosList = _extCrud.GetConnectedDatasetsWithLegioIdInTableOrdo(CurrentTbl30Legio.LegioId);
-
-            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl33OrdosList.Count, "Ordo")) return;
-
-            //Delete all References Experts, Sources, Authors  ----------------------------------------------------
-            Tbl90ReferencesList = _extCrud.DeleteDatasetsWithLegioIdInTableReference(CurrentTbl30Legio.LegioId);
-            if (Tbl90ReferencesList.Count > 0)
-            {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
-
-                _extCrud.DeleteReferences(Tbl90ReferencesList);
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
-            }
-
-            //Delete all Comments  ----------------------------------------------------
-            Tbl93CommentsList = _extCrud.DeleteDatasetsWithLegioIdInTableComment(CurrentTbl30Legio.LegioId);
-            if (Tbl93CommentsList.Count > 0)
-            {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
-
-                _extCrud.DeleteComments(Tbl93CommentsList);
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
-            }
-            try
-            {
-                var legio = _uow.Tbl30Legios.GetById(CurrentTbl30Legio.LegioId);
-                if (legio != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl30Legio.LegioName)) return;
-
-                    _extCrud.DeleteLegio(legio);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl30Legio.LegioName);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl30Legio.LegioName + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-
-            ExecuteGetLegiosByNameOrId(searchName);
-
-            LegiosView.MoveCurrentToFirst();
+            Tbl30LegiosList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl30Legio>(searchName, "Legio");
+            LegiosView = CollectionViewSource.GetDefaultView(Tbl30LegiosList);
+            LegiosView.MoveCurrentToLast();
         }
 
         private void ExecuteSaveLegio(string searchName)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl30Legio)) return;
 
-            //Combobox select InfraclassID  may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl30Legio.InfraclassId)) return;
+            _position = LegiosView.CurrentPosition;
 
-            try
+            _extSave.SaveLegio(CurrentTbl30Legio);
+
+            if (_position == 0) //new
             {
-                var legio = _uow.Tbl30Legios.GetById(CurrentTbl30Legio.LegioId);
-                //   var phylum = _context.Tbl30Legios.AsNoTracking().FirstOrDefault(a=>a.LegioId == CurrentTbl30Legio.LegioId);
-                //          _context.Entry(legio).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl30Legio.LegioName))
-                    return;
-
-                if (CurrentTbl30Legio.LegioId == 0)
-                    legio = _extCrud.LegioAdd(CurrentTbl30Legio);
-                else
-                    legio = _extCrud.LegioUpdate(legio, CurrentTbl30Legio);
-
-                _position = LegiosView.CurrentPosition;
-
-                try
-                {
-                    _extCrud.LegioSave(legio, CurrentTbl30Legio);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl30Legio.LegioId == 0
-                    ? "DatasetNew"
-                    : CurrentTbl30Legio.LegioName);
+                Tbl30LegiosList = _extCrud.GetLastLegiosDatasetOrderById();
+                LegiosView = CollectionViewSource.GetDefaultView(Tbl30LegiosList);
+                LegiosView.MoveCurrentToFirst();
             }
-            catch (Exception e)
+            else
             {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                Tbl30LegiosList = _extCrud.GetLegiosCollectionFromSearchNameOrIdOrderBy<Tbl30Legio>(searchName);
+                LegiosView = CollectionViewSource.GetDefaultView(Tbl30LegiosList);
+                LegiosView.MoveCurrentToPosition(_position);
             }
-            ExecuteGetLegiosByNameOrId(searchName);
-            LegiosView.MoveCurrentToPosition(_position);
         }
         #endregion [Methods Legio]                
 
@@ -235,55 +181,15 @@ namespace ATIS.Ui.Views.Database.D30Legio
 
         public ICommand SaveInfraclassCommand => _saveInfraclassCommand ??= new RelayCommand(delegate { ExecuteSaveInfraclass(null); });
 
-        private void ExecuteSaveInfraclass(string searchName)
+        private void ExecuteSaveInfraclass(object o)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl27Infraclass)) return;
 
-            try
-            {
-                var infraclass = _uow.Tbl27Infraclasses.GetById(CurrentTbl27Infraclass.InfraclassId);
+            _extSave.SaveInfraclass(CurrentTbl27Infraclass);
 
-                if (CurrentTbl27Infraclass.InfraclassId == 0)
-                    infraclass = _extCrud.InfraclassAdd(CurrentTbl27Infraclass);
-                else
-                    infraclass = _extCrud.InfraclassUpdate(infraclass, CurrentTbl27Infraclass);
-
-                _position = LegiosView.CurrentPosition;
-
-                var cap = CurrentTbl27Infraclass.InfraclassName;
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(cap)) return;
-
-                try
-                {
-                    _extCrud.InfraclassSave(infraclass, CurrentTbl27Infraclass);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl27Infraclass.InfraclassId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl27Infraclass.InfraclassName);
-            }
-
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-            ExecuteGetLegiosByNameOrId(searchName);
-            LegiosView.MoveCurrentToPosition(_position);
+            Tbl27InfraclassesList = _extCrud.GetInfraclassesCollectionFromInfraclassIdOrderBy<Tbl27Infraclass>(CurrentTbl30Legio.InfraclassId);
+            InfraclassesView = CollectionViewSource.GetDefaultView(Tbl27InfraclassesList);
+            InfraclassesView.Refresh();
         }
 
         #endregion "Public Commands"                  
@@ -307,10 +213,10 @@ namespace ATIS.Ui.Views.Database.D30Legio
         public ICommand CopyOrdoCommand => _copyOrdoCommand ??= new RelayCommand(delegate { ExecuteCopyOrdo(null); });
 
         private RelayCommand _deleteOrdoCommand;
-        public ICommand DeleteOrdoCommand => _deleteOrdoCommand ??= new RelayCommand(delegate { ExecuteDeleteOrdo(SearchLegioName); });
+        public ICommand DeleteOrdoCommand => _deleteOrdoCommand ??= new RelayCommand(delegate { ExecuteDeleteOrdo(null); });
 
         private RelayCommand _saveOrdoCommand;
-        public ICommand SaveOrdoCommand => _saveOrdoCommand ??= new RelayCommand(delegate { ExecuteSaveOrdo(SearchLegioName); });
+        public ICommand SaveOrdoCommand => _saveOrdoCommand ??= new RelayCommand(delegate { ExecuteSaveOrdo(null); });
 
         #endregion [Public Commands Connect ==> Tbl33Ordo]    
 
@@ -318,10 +224,19 @@ namespace ATIS.Ui.Views.Database.D30Legio
 
         private void ExecuteAddOrdo(object o)
         {
+            if (Tbl30LegiosAllList == null)
+                Tbl30LegiosAllList ??= new ObservableCollection<Tbl30Legio>();
+            else
+                Tbl30LegiosAllList.Clear();
+
+            Tbl30LegiosAllList = _extCrud.GetCollectionAllOrderBy<Tbl30Legio>("Legio");
+
+            SelectedMainTabIndex = 0;
+            SelectedDetailTabIndex = 1;
+
             Tbl33OrdosList ??= new ObservableCollection<Tbl33Ordo>();
 
             Tbl33OrdosList.Insert(0, new Tbl33Ordo { OrdoName = CultRes.StringsRes.DatasetNew });
-            Tbl30LegiosAllList = _extCrud.GetCollectionAllOrderBy<Tbl30Legio>("Legio");
 
             OrdosView = CollectionViewSource.GetDefaultView(Tbl33OrdosList);
             OrdosView.MoveCurrentToFirst();
@@ -339,112 +254,24 @@ namespace ATIS.Ui.Views.Database.D30Legio
             OrdosView.MoveCurrentToFirst();
         }
 
-        private void ExecuteDeleteOrdo(string searchName)
+        private void ExecuteDeleteOrdo(object o)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl33Ordo)) return;
 
-            //check if in Tbl36Subordos connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-            Tbl36SubordosList = _extCrud.GetConnectedDatasetsWithOrdoIdInTableSubordo(CurrentTbl33Ordo.OrdoId);
-            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl36SubordosList.Count, "Subordo")) return;
+            _extDelete.DeleteOrdo(CurrentTbl33Ordo);
 
-            //Delete all References Experts, Sources, Authors  ----------------------------------------------------
-            Tbl90ReferencesList = _extCrud.DeleteDatasetsWithOrdoIdInTableReference(CurrentTbl33Ordo.OrdoId);
-            if (Tbl90ReferencesList.Count > 0)
-            {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
-
-                _extCrud.DeleteReferences(Tbl90ReferencesList);
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
-            }
-
-            //Delete all Comments  ----------------------------------------------------
-            Tbl93CommentsList = _extCrud.DeleteDatasetsWithOrdoIdInTableComment(CurrentTbl33Ordo.OrdoId);
-            if (Tbl93CommentsList.Count > 0)
-            {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
-
-                _extCrud.DeleteComments(Tbl93CommentsList);
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
-            }
-
-            try
-            {
-                var ordo = _uow.Tbl33Ordos.GetById(CurrentTbl33Ordo.OrdoId);
-                if (ordo != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl33Ordo.OrdoName)) return;
-
-                    _extCrud.DeleteOrdo(ordo);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl33Ordo.OrdoName);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl33Ordo.OrdoName + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-
-            Tbl33OrdosList = _extCrud.GetOrdosCollectionFromLegioIdOrderBy<Tbl33Ordo>(CurrentTbl33Ordo.LegioId);
-
+            Tbl33OrdosList = _extCrud.GetOrdosCollectionFromLegioIdOrderBy<Tbl33Ordo>(CurrentTbl33Ordo.OrdoId);
             OrdosView = CollectionViewSource.GetDefaultView(Tbl33OrdosList);
             OrdosView.MoveCurrentToFirst();
         }
 
-        private void ExecuteSaveOrdo(string searchName)
+        private void ExecuteSaveOrdo(object o)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl33Ordo)) return;
 
             CurrentTbl33Ordo.LegioId = CurrentTbl30Legio.LegioId;
 
-            //Combobox select LegioId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl33Ordo.LegioId)) return;
-
-            try
-            {
-                var ordo = _uow.Tbl33Ordos.GetById(CurrentTbl33Ordo.OrdoId);
-
-                if (CurrentTbl33Ordo.OrdoId == 0)
-                    ordo = _extCrud.OrdoAdd(CurrentTbl33Ordo);
-                else
-                    ordo = _extCrud.OrdoUpdate(ordo, CurrentTbl33Ordo);
-
-                //  _position = OrdosView.CurrentPosition;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl33Ordo.OrdoName)) return;
-
-                try
-                {
-                    _extCrud.OrdoSave(ordo, CurrentTbl33Ordo);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl33Ordo.OrdoId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl33Ordo.OrdoName);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-
+            _extSave.SaveOrdo(CurrentTbl33Ordo);
             Tbl33OrdosList = _extCrud.GetOrdosCollectionFromLegioIdOrderBy<Tbl33Ordo>(CurrentTbl33Ordo.LegioId);
 
             OrdosView = CollectionViewSource.GetDefaultView(Tbl33OrdosList);
@@ -518,25 +345,9 @@ namespace ATIS.Ui.Views.Database.D30Legio
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceAuthor)) return;
 
-            try
-            {
-                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceAuthor.ReferenceId);
-                if (reference != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceAuthor.Info)) return;
+            _extDelete.DeleteReferenceAuthor(CurrentTbl90ReferenceAuthor);
 
-                    _extCrud.DeleteReference(reference);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceAuthor.Info);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceAuthor.Info + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-
+            Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFromLegioIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl90ReferenceAuthor.LegioId);
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
             ReferenceAuthorsView.Refresh();
         }
@@ -547,54 +358,9 @@ namespace ATIS.Ui.Views.Database.D30Legio
 
             CurrentTbl90ReferenceAuthor.LegioId = CurrentTbl30Legio.LegioId;
 
-            //Combobox select RefAuthorId may be not null
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl90ReferenceAuthor.RefAuthorId)) return;
+            _extSave.SaveReferenceAuthor(CurrentTbl90ReferenceAuthor, "Legio");
 
-            try
-            {
-                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceAuthor.ReferenceId);
-
-
-                if (CurrentTbl90ReferenceAuthor.ReferenceId == 0)
-                    reference = _extCrud.ReferenceAuthorLegioAdd(CurrentTbl90ReferenceAuthor);
-
-                else
-                    reference = _extCrud.ReferenceAuthorLegioUpdate(reference, CurrentTbl90ReferenceAuthor);
-
-                //    _position = LegiosView.CurrentPosition;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceAuthor.Info)) return;
-
-                try
-                {
-                    _extCrud.ReferenceAuthorSave(reference, CurrentTbl90ReferenceAuthor);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl90ReferenceAuthor.ReferenceId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl90ReferenceAuthor.Info);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
             Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFromLegioIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl30Legio.LegioId);
-
 
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
             ReferenceAuthorsView.Refresh();
@@ -650,27 +416,9 @@ namespace ATIS.Ui.Views.Database.D30Legio
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
 
-            try
-            {
-                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceSource.ReferenceId);
-                if (reference != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceSource.Info)) return;
-
-                    _extCrud.DeleteReference(reference);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceSource.Info);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceSource.Info + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extDelete.DeleteReferenceSource(CurrentTbl90ReferenceSource);
 
             Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromLegioIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl30Legio.LegioId);
-
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
             ReferenceSourcesView.MoveCurrentToFirst();
         }
@@ -679,58 +427,11 @@ namespace ATIS.Ui.Views.Database.D30Legio
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
 
-            //Combobox select RefSourceId may be not 0
-
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl90ReferenceSource.RefSourceId)) return;
-
             CurrentTbl90ReferenceSource.LegioId = CurrentTbl30Legio.LegioId;
 
-            try
-            {
-                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceSource.ReferenceId);
-
-
-                if (CurrentTbl90ReferenceSource.ReferenceId == 0)
-                    reference = _extCrud.ReferenceSourceLegioAdd(CurrentTbl90ReferenceSource);
-                else
-                    reference = _extCrud.ReferenceSourceLegioUpdate(reference, CurrentTbl90ReferenceSource);
-
-                //        _position = LegiosView.CurrentPosition;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceSource.Info)) return;
-
-                try
-                {
-                    _extCrud.ReferenceSourceSave(reference, CurrentTbl90ReferenceSource);
-
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl90ReferenceSource.ReferenceId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl90ReferenceSource.Info);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extSave.SaveReferenceSource(CurrentTbl90ReferenceSource, "Legio");
 
             Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromLegioIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl30Legio.LegioId);
-
 
 
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
@@ -764,7 +465,7 @@ namespace ATIS.Ui.Views.Database.D30Legio
         {
             Tbl90ReferenceExpertsList ??= new ObservableCollection<Tbl90Reference>();
 
-            Tbl90ExpertsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefExpert>("expert");
+            Tbl90ExpertsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefExpert>("Expert");
             Tbl90ReferenceExpertsList.Insert(0, new Tbl90Reference { Info = CultRes.StringsRes.DatasetNew });
 
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
@@ -785,27 +486,9 @@ namespace ATIS.Ui.Views.Database.D30Legio
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
 
-            try
-            {
-                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceExpert.ReferenceId);
-                if (reference != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceExpert.Info)) return;
-
-                    _extCrud.DeleteReference(reference);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceExpert.Info);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceExpert.Info + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extDelete.DeleteReferenceExpert(CurrentTbl90ReferenceExpert);
 
             Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFromLegioIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl30Legio.LegioId);
-
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
             ReferenceExpertsView.Refresh();
         }
@@ -814,53 +497,9 @@ namespace ATIS.Ui.Views.Database.D30Legio
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
 
-            //Combobox select RefExpertId  may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl90ReferenceExpert.RefExpertId)) return;
-
             CurrentTbl90ReferenceExpert.LegioId = CurrentTbl30Legio.LegioId;
 
-            try
-            {
-                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceExpert.ReferenceId);
-
-
-                if (CurrentTbl90ReferenceExpert.ReferenceId == 0)
-                    reference = _extCrud.ReferenceExpertLegioAdd(CurrentTbl90ReferenceExpert);
-                else
-                    reference = _extCrud.ReferenceExpertLegioUpdate(reference, CurrentTbl90ReferenceExpert);
-
-                //        _position = PhylumsView.CurrentPosition;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceExpert.Info)) return;
-
-                try
-                {
-                    _extCrud.ReferenceExpertSave(reference, CurrentTbl90ReferenceExpert);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl90ReferenceExpert.ReferenceId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl90ReferenceExpert.Info);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extSave.SaveReferenceExpert(CurrentTbl90ReferenceExpert, "Legio");
 
             Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFromLegioIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl30Legio.LegioId);
 
@@ -894,7 +533,7 @@ namespace ATIS.Ui.Views.Database.D30Legio
 
         #region [Methods Legio ==> Tbl93Comments]        
 
-        public void ExecuteAddComment(object o)
+        private void ExecuteAddComment(object o)
         {
             Tbl93CommentsList ??= new ObservableCollection<Tbl93Comment>();
 
@@ -904,7 +543,7 @@ namespace ATIS.Ui.Views.Database.D30Legio
             CommentsView.MoveCurrentToFirst();
         }
 
-        public void ExecuteCopyComment(object o)
+        private void ExecuteCopyComment(object o)
         {
 
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
@@ -919,24 +558,7 @@ namespace ATIS.Ui.Views.Database.D30Legio
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
 
-            try
-            {
-                var comment = _uow.Tbl93Comments.GetById(CurrentTbl93Comment.CommentId);
-                if (comment != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl93Comment.Info)) return;
-
-                    _extCrud.DeleteComment(comment);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl93Comment.Info);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl93Comment.Info + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extDelete.DeleteComment(CurrentTbl93Comment);
 
             Tbl93CommentsList = _extCrud.GetCommentsCollectionFromLegioIdOrderBy<Tbl93Comment>(CurrentTbl30Legio.LegioId);
 
@@ -950,49 +572,7 @@ namespace ATIS.Ui.Views.Database.D30Legio
 
             CurrentTbl93Comment.LegioId = CurrentTbl30Legio.LegioId;
 
-            try
-            {
-                var comment = _uow.Tbl93Comments.GetById(CurrentTbl93Comment.CommentId);
-
-
-                if (CurrentTbl93Comment.CommentId == 0)
-                    comment = _extCrud.CommentLegioAdd(CurrentTbl93Comment);
-                else
-                    comment = _extCrud.CommentLegioUpdate(comment, CurrentTbl93Comment);
-
-                //        _position = LegiosView.CurrentPosition;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl93Comment.Info))
-                    return;
-
-                try
-                {
-                    _extCrud.CommentSave(comment, CurrentTbl93Comment);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl93Comment.CommentId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl93Comment.Info);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extSave.SaveComment(CurrentTbl93Comment, "Legio");
 
             Tbl93CommentsList = _extCrud.GetCommentsCollectionFromLegioIdOrderBy<Tbl93Comment>(CurrentTbl30Legio.LegioId);
 
@@ -1020,7 +600,7 @@ namespace ATIS.Ui.Views.Database.D30Legio
         {
             Tbl27InfraclassesList = _extCrud.GetInfraclassesCollectionFromInfraclassIdOrderBy<Tbl27Infraclass>(CurrentTbl30Legio.InfraclassId);
 
-            Tbl24SubclassesAllList = _extCrud.GetCollectionAllOrderBy<Tbl24Subclass>("");
+            Tbl24SubclassesAllList = _extCrud.GetCollectionAllOrderBy<Tbl24Subclass>("Subclass");
 
             InfraclassesView = CollectionViewSource.GetDefaultView(Tbl27InfraclassesList);
             InfraclassesView.Refresh();
@@ -1055,7 +635,7 @@ namespace ATIS.Ui.Views.Database.D30Legio
                     {
                         Tbl27InfraclassesList = _extCrud.GetInfraclassesCollectionFromInfraclassIdOrderBy<Tbl27Infraclass>(CurrentTbl30Legio.InfraclassId);
 
-                        Tbl24SubclassesAllList = _extCrud.GetCollectionAllOrderBy<Tbl24Subclass>("");
+                        Tbl24SubclassesAllList = _extCrud.GetCollectionAllOrderBy<Tbl24Subclass>("Subclass");
 
                         InfraclassesView = CollectionViewSource.GetDefaultView(Tbl27InfraclassesList);
                         InfraclassesView.Refresh();
@@ -1069,7 +649,7 @@ namespace ATIS.Ui.Views.Database.D30Legio
                     {
                         Tbl33OrdosList = _extCrud.GetOrdosCollectionFromLegioIdOrderBy<Tbl33Ordo>(CurrentTbl30Legio.LegioId);
 
-                        Tbl30LegiosAllList = _extCrud.GetCollectionAllOrderBy<Tbl30Legio>("legio");
+                        Tbl30LegiosAllList = _extCrud.GetCollectionAllOrderBy<Tbl30Legio>("Legio");
 
                         OrdosView = CollectionViewSource.GetDefaultView(Tbl33OrdosList);
                         OrdosView.Refresh();
@@ -1129,7 +709,7 @@ namespace ATIS.Ui.Views.Database.D30Legio
                     {
                         Tbl33OrdosList = _extCrud.GetOrdosCollectionFromLegioIdOrderBy<Tbl33Ordo>(CurrentTbl30Legio.LegioId);
 
-                        Tbl30LegiosAllList = _extCrud.GetCollectionAllOrderBy<Tbl30Legio>("legio");
+                        Tbl30LegiosAllList = _extCrud.GetCollectionAllOrderBy<Tbl30Legio>("Legio");
 
                         OrdosView = CollectionViewSource.GetDefaultView(Tbl33OrdosList);
                         OrdosView.Refresh();
@@ -1141,7 +721,7 @@ namespace ATIS.Ui.Views.Database.D30Legio
                 {
                     if (CurrentTbl30Legio != null)
                     {
-                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+                        Tbl90ExpertsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefExpert>("Expert");
 
                         Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFromLegioIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl30Legio.LegioId);
 
@@ -1156,7 +736,7 @@ namespace ATIS.Ui.Views.Database.D30Legio
                 {
                     if (CurrentTbl30Legio != null)
                     {
-                        Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+                        Tbl90SourcesAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefSource>("Source");
 
                         Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromLegioIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl30Legio.LegioId);
 
@@ -1171,7 +751,7 @@ namespace ATIS.Ui.Views.Database.D30Legio
                 {
                     if (CurrentTbl30Legio != null)
                     {
-                        Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+                        Tbl90AuthorsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefAuthor>("Author");
 
                         Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFromLegioIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl30Legio.LegioId);
 
@@ -1221,7 +801,7 @@ namespace ATIS.Ui.Views.Database.D30Legio
                 {
                     if (CurrentTbl30Legio != null)
                     {
-                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+                        Tbl90ExpertsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefExpert>("Expert");
 
                         Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFromLegioIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl30Legio.LegioId);
 
@@ -1236,7 +816,7 @@ namespace ATIS.Ui.Views.Database.D30Legio
                 {
                     if (CurrentTbl30Legio != null)
                     {
-                        Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+                        Tbl90SourcesAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefSource>("Source");
 
                         Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromLegioIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl30Legio.LegioId);
 
@@ -1251,7 +831,7 @@ namespace ATIS.Ui.Views.Database.D30Legio
                 {
                     if (CurrentTbl30Legio != null)
                     {
-                        Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+                        Tbl90AuthorsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefAuthor>("Author");
 
                         Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFromLegioIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl30Legio.LegioId);
 

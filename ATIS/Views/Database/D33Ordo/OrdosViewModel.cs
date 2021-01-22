@@ -9,7 +9,6 @@ using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using log4net;
-using Microsoft.EntityFrameworkCore;
 
 //    OrdosViewModel Skriptdatum:  07.01.2021  10:32    
 
@@ -22,8 +21,9 @@ namespace ATIS.Ui.Views.Database.D33Ordo
 
         #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(typeof(OrdosViewModel));
-        private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly CrudFunctions _extCrud = new CrudFunctions();
+        private readonly DeleteFunctions _extDelete = new DeleteFunctions();
+        private readonly SaveFunctions _extSave = new SaveFunctions();
         private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
         private int _position;
 
@@ -77,8 +77,19 @@ namespace ATIS.Ui.Views.Database.D33Ordo
 
         private void ExecuteGetOrdosByNameOrId(string searchName)
         {
+            if (Tbl30LegiosAllList == null)
+                Tbl30LegiosAllList ??= new ObservableCollection<Tbl30Legio>();
+            else
+                Tbl30LegiosAllList.Clear();
+
             Tbl30LegiosAllList = _extCrud.GetCollectionAllOrderBy<Tbl30Legio>("Legio");
-            Tbl33OrdosList = _extCrud.GetOrdosCollectionFromSearchNameOrIdOrderBy<Tbl33Ordo>(searchName);
+
+            if (Tbl33OrdosList == null)
+                Tbl33OrdosList ??= new ObservableCollection<Tbl33Ordo>();
+            else
+                Tbl33OrdosList.Clear();
+
+            Tbl33OrdosList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl33Ordo>(searchName, "Ordo");
 
             if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl33OrdosList.Count)) return;
 
@@ -91,10 +102,22 @@ namespace ATIS.Ui.Views.Database.D33Ordo
 
         private void ExecuteAddOrdo(object o)
         {
+            if (Tbl33OrdosList == null)
+                Tbl33OrdosList ??= new ObservableCollection<Tbl33Ordo>();
+            else
+                Tbl33OrdosList.Clear();
+
+            if (Tbl30LegiosAllList == null)
+                Tbl30LegiosAllList ??= new ObservableCollection<Tbl30Legio>();
+            else
+                Tbl30LegiosAllList.Clear();
+
             Tbl30LegiosAllList = _extCrud.GetCollectionAllOrderBy<Tbl30Legio>("Legio");
 
-            Tbl33OrdosList ??= new ObservableCollection<Tbl33Ordo>();
             Tbl33OrdosList.Insert(0, new Tbl33Ordo { OrdoName = CultRes.StringsRes.DatasetNew });
+
+            SelectedMainTabIndex = 0;
+            SelectedDetailTabIndex = 1;
 
             OrdosView = CollectionViewSource.GetDefaultView(Tbl33OrdosList);
             OrdosView.MoveCurrentToFirst();
@@ -116,110 +139,33 @@ namespace ATIS.Ui.Views.Database.D33Ordo
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl33Ordo)) return;
 
+            _extDelete.DeleteOrdo(CurrentTbl33Ordo);
 
-            //check if in Tbl36Subordos connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-
-            Tbl36SubordosList = _extCrud.GetConnectedDatasetsWithOrdoIdInTableSubordo(CurrentTbl33Ordo.OrdoId);
-
-            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl36SubordosList.Count, "Subordo")) return;
-
-            //Delete all References Experts, Sources, Authors  ----------------------------------------------------
-            Tbl90ReferencesList = _extCrud.DeleteDatasetsWithOrdoIdInTableReference(CurrentTbl33Ordo.OrdoId);
-            if (Tbl90ReferencesList.Count > 0)
-            {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
-
-                _extCrud.DeleteReferences(Tbl90ReferencesList);
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
-            }
-
-            //Delete all Comments  ----------------------------------------------------
-            Tbl93CommentsList = _extCrud.DeleteDatasetsWithOrdoIdInTableComment(CurrentTbl33Ordo.OrdoId);
-            if (Tbl93CommentsList.Count > 0)
-            {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
-
-                _extCrud.DeleteComments(Tbl93CommentsList);
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
-            }
-            try
-            {
-                var ordo = _uow.Tbl33Ordos.GetById(CurrentTbl33Ordo.OrdoId);
-                if (ordo != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl33Ordo.OrdoName)) return;
-
-                    _extCrud.DeleteOrdo(ordo);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl33Ordo.OrdoName);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl33Ordo.OrdoName + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-
-            ExecuteGetOrdosByNameOrId(searchName);
-
-            OrdosView.MoveCurrentToFirst();
+            Tbl33OrdosList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl33Ordo>(searchName, "Ordo");
+            OrdosView = CollectionViewSource.GetDefaultView(Tbl33OrdosList);
+            OrdosView.MoveCurrentToLast();
         }
 
         private void ExecuteSaveOrdo(string searchName)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl33Ordo)) return;
 
-            //Combobox select LegioID  may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl33Ordo.LegioId)) return;
+            _position = OrdosView.CurrentPosition;
 
-            try
+            _extSave.SaveOrdo(CurrentTbl33Ordo);
+
+            if (_position == 0) //new
             {
-                var ordo = _uow.Tbl33Ordos.GetById(CurrentTbl33Ordo.OrdoId);
-                //   var phylum = _context.Tbl33Ordos.AsNoTracking().FirstOrDefault(a=>a.OrdoId == CurrentTbl33Ordo.OrdoId);
-                //          _context.Entry(ordo).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl33Ordo.OrdoName))
-                    return;
-
-                if (CurrentTbl33Ordo.OrdoId == 0)
-                    ordo = _extCrud.OrdoAdd(CurrentTbl33Ordo);
-                else
-                    ordo = _extCrud.OrdoUpdate(ordo, CurrentTbl33Ordo);
-
-                _position = OrdosView.CurrentPosition;
-
-                try
-                {
-                    _extCrud.OrdoSave(ordo, CurrentTbl33Ordo);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl33Ordo.OrdoId == 0
-                    ? "DatasetNew"
-                    : CurrentTbl33Ordo.OrdoName);
+                Tbl33OrdosList = _extCrud.GetLastOrdosDatasetOrderById();
+                OrdosView = CollectionViewSource.GetDefaultView(Tbl33OrdosList);
+                OrdosView.MoveCurrentToFirst();
             }
-            catch (Exception e)
+            else
             {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                Tbl33OrdosList = _extCrud.GetOrdosCollectionFromSearchNameOrIdOrderBy<Tbl33Ordo>(searchName);
+                OrdosView = CollectionViewSource.GetDefaultView(Tbl33OrdosList);
+                OrdosView.MoveCurrentToPosition(_position);
             }
-            ExecuteGetOrdosByNameOrId(searchName);
-            OrdosView.MoveCurrentToPosition(_position);
         }
         #endregion [Methods Ordo]                
 
@@ -235,55 +181,15 @@ namespace ATIS.Ui.Views.Database.D33Ordo
 
         public ICommand SaveLegioCommand => _saveLegioCommand ??= new RelayCommand(delegate { ExecuteSaveLegio(null); });
 
-        private void ExecuteSaveLegio(string searchName)
+        private void ExecuteSaveLegio(object o)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl30Legio)) return;
 
-            try
-            {
-                var legio = _uow.Tbl30Legios.GetById(CurrentTbl30Legio.LegioId);
+            _extSave.SaveLegio(CurrentTbl30Legio);
 
-                if (CurrentTbl30Legio.LegioId == 0)
-                    legio = _extCrud.LegioAdd(CurrentTbl30Legio);
-                else
-                    legio = _extCrud.LegioUpdate(legio, CurrentTbl30Legio);
-
-                _position = OrdosView.CurrentPosition;
-
-                var cap = CurrentTbl30Legio.LegioName;
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(cap)) return;
-
-                try
-                {
-                    _extCrud.LegioSave(legio, CurrentTbl30Legio);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl30Legio.LegioId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl30Legio.LegioName);
-            }
-
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-            ExecuteGetOrdosByNameOrId(searchName);
-            OrdosView.MoveCurrentToPosition(_position);
+            Tbl30LegiosList = _extCrud.GetLegiosCollectionFromLegioIdOrderBy<Tbl30Legio>(CurrentTbl33Ordo.LegioId);
+            LegiosView = CollectionViewSource.GetDefaultView(Tbl30LegiosList);
+            LegiosView.Refresh();
         }
 
         #endregion "Public Commands"                  
@@ -307,10 +213,10 @@ namespace ATIS.Ui.Views.Database.D33Ordo
         public ICommand CopySubordoCommand => _copySubordoCommand ??= new RelayCommand(delegate { ExecuteCopySubordo(null); });
 
         private RelayCommand _deleteSubordoCommand;
-        public ICommand DeleteSubordoCommand => _deleteSubordoCommand ??= new RelayCommand(delegate { ExecuteDeleteSubordo(SearchOrdoName); });
+        public ICommand DeleteSubordoCommand => _deleteSubordoCommand ??= new RelayCommand(delegate { ExecuteDeleteSubordo(null); });
 
         private RelayCommand _saveSubordoCommand;
-        public ICommand SaveSubordoCommand => _saveSubordoCommand ??= new RelayCommand(delegate { ExecuteSaveSubordo(SearchOrdoName); });
+        public ICommand SaveSubordoCommand => _saveSubordoCommand ??= new RelayCommand(delegate { ExecuteSaveSubordo(null); });
 
         #endregion [Public Commands Connect ==> Tbl36Subordo]    
 
@@ -318,10 +224,19 @@ namespace ATIS.Ui.Views.Database.D33Ordo
 
         private void ExecuteAddSubordo(object o)
         {
+            if (Tbl33OrdosAllList == null)
+                Tbl33OrdosAllList ??= new ObservableCollection<Tbl33Ordo>();
+            else
+                Tbl33OrdosAllList.Clear();
+
+            Tbl33OrdosAllList = _extCrud.GetCollectionAllOrderBy<Tbl33Ordo>("Ordo");
+
+            SelectedMainTabIndex = 0;
+            SelectedDetailTabIndex = 1;
+
             Tbl36SubordosList ??= new ObservableCollection<Tbl36Subordo>();
 
             Tbl36SubordosList.Insert(0, new Tbl36Subordo { SubordoName = CultRes.StringsRes.DatasetNew });
-            Tbl33OrdosAllList = _extCrud.GetCollectionAllOrderBy<Tbl33Ordo>("Ordo");
 
             SubordosView = CollectionViewSource.GetDefaultView(Tbl36SubordosList);
             SubordosView.MoveCurrentToFirst();
@@ -339,112 +254,24 @@ namespace ATIS.Ui.Views.Database.D33Ordo
             SubordosView.MoveCurrentToFirst();
         }
 
-        private void ExecuteDeleteSubordo(string searchName)
+        private void ExecuteDeleteSubordo(object o)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl36Subordo)) return;
 
-            //check if in Tbl39Infraordos connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-            Tbl39InfraordosList = _extCrud.GetConnectedDatasetsWithSubordoIdInTableInfraordo(CurrentTbl36Subordo.SubordoId);
-            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl39InfraordosList.Count, "Infraordo")) return;
+            _extDelete.DeleteSubordo(CurrentTbl36Subordo);
 
-            //Delete all References Experts, Sources, Authors  ----------------------------------------------------
-            Tbl90ReferencesList = _extCrud.DeleteDatasetsWithSubordoIdInTableReference(CurrentTbl36Subordo.SubordoId);
-            if (Tbl90ReferencesList.Count > 0)
-            {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.ReferenceAuthor + " " + CultRes.StringsRes.ReferenceSource + " " + CultRes.StringsRes.ReferenceSource)) return;
-
-                _extCrud.DeleteReferences(Tbl90ReferencesList);
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
-            }
-
-            //Delete all Comments  ----------------------------------------------------
-            Tbl93CommentsList = _extCrud.DeleteDatasetsWithSubordoIdInTableComment(CurrentTbl36Subordo.SubordoId);
-            if (Tbl93CommentsList.Count > 0)
-            {
-                if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.Comment)) return;
-
-                _extCrud.DeleteComments(Tbl93CommentsList);
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Comment);
-            }
-
-            try
-            {
-                var subordo = _uow.Tbl36Subordos.GetById(CurrentTbl36Subordo.SubordoId);
-                if (subordo != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl36Subordo.SubordoName)) return;
-
-                    _extCrud.DeleteSubordo(subordo);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl36Subordo.SubordoName);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl36Subordo.SubordoName + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-
-            Tbl36SubordosList = _extCrud.GetSubordosCollectionFromOrdoIdOrderBy<Tbl36Subordo>(CurrentTbl36Subordo.OrdoId);
-
+            Tbl36SubordosList = _extCrud.GetSubordosCollectionFromOrdoIdOrderBy<Tbl36Subordo>(CurrentTbl36Subordo.SubordoId);
             SubordosView = CollectionViewSource.GetDefaultView(Tbl36SubordosList);
             SubordosView.MoveCurrentToFirst();
         }
 
-        private void ExecuteSaveSubordo(string searchName)
+        private void ExecuteSaveSubordo(object o)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl36Subordo)) return;
 
             CurrentTbl36Subordo.OrdoId = CurrentTbl33Ordo.OrdoId;
 
-            //Combobox select OrdoId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl36Subordo.OrdoId)) return;
-
-            try
-            {
-                var subordo = _uow.Tbl36Subordos.GetById(CurrentTbl36Subordo.SubordoId);
-
-                if (CurrentTbl36Subordo.SubordoId == 0)
-                    subordo = _extCrud.SubordoAdd(CurrentTbl36Subordo);
-                else
-                    subordo = _extCrud.SubordoUpdate(subordo, CurrentTbl36Subordo);
-
-                //  _position = SubordosView.CurrentPosition;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl36Subordo.SubordoName)) return;
-
-                try
-                {
-                    _extCrud.SubordoSave(subordo, CurrentTbl36Subordo);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl36Subordo.SubordoId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl36Subordo.SubordoName);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-
+            _extSave.SaveSubordo(CurrentTbl36Subordo);
             Tbl36SubordosList = _extCrud.GetSubordosCollectionFromOrdoIdOrderBy<Tbl36Subordo>(CurrentTbl36Subordo.OrdoId);
 
             SubordosView = CollectionViewSource.GetDefaultView(Tbl36SubordosList);
@@ -518,25 +345,9 @@ namespace ATIS.Ui.Views.Database.D33Ordo
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceAuthor)) return;
 
-            try
-            {
-                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceAuthor.ReferenceId);
-                if (reference != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceAuthor.Info)) return;
+            _extDelete.DeleteReferenceAuthor(CurrentTbl90ReferenceAuthor);
 
-                    _extCrud.DeleteReference(reference);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceAuthor.Info);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceAuthor.Info + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-
+            Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFromOrdoIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl90ReferenceAuthor.OrdoId);
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
             ReferenceAuthorsView.Refresh();
         }
@@ -547,54 +358,9 @@ namespace ATIS.Ui.Views.Database.D33Ordo
 
             CurrentTbl90ReferenceAuthor.OrdoId = CurrentTbl33Ordo.OrdoId;
 
-            //Combobox select RefAuthorId may be not null
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl90ReferenceAuthor.RefAuthorId)) return;
+            _extSave.SaveReferenceAuthor(CurrentTbl90ReferenceAuthor, "Ordo");
 
-            try
-            {
-                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceAuthor.ReferenceId);
-
-
-                if (CurrentTbl90ReferenceAuthor.ReferenceId == 0)
-                    reference = _extCrud.ReferenceAuthorOrdoAdd(CurrentTbl90ReferenceAuthor);
-
-                else
-                    reference = _extCrud.ReferenceAuthorOrdoUpdate(reference, CurrentTbl90ReferenceAuthor);
-
-                //    _position = OrdosView.CurrentPosition;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceAuthor.Info)) return;
-
-                try
-                {
-                    _extCrud.ReferenceAuthorSave(reference, CurrentTbl90ReferenceAuthor);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl90ReferenceAuthor.ReferenceId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl90ReferenceAuthor.Info);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
             Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFromOrdoIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl33Ordo.OrdoId);
-
 
             ReferenceAuthorsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceAuthorsList);
             ReferenceAuthorsView.Refresh();
@@ -650,27 +416,9 @@ namespace ATIS.Ui.Views.Database.D33Ordo
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
 
-            try
-            {
-                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceSource.ReferenceId);
-                if (reference != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceSource.Info)) return;
-
-                    _extCrud.DeleteReference(reference);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceSource.Info);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceSource.Info + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extDelete.DeleteReferenceSource(CurrentTbl90ReferenceSource);
 
             Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromOrdoIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl33Ordo.OrdoId);
-
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
             ReferenceSourcesView.MoveCurrentToFirst();
         }
@@ -679,58 +427,11 @@ namespace ATIS.Ui.Views.Database.D33Ordo
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceSource)) return;
 
-            //Combobox select RefSourceId may be not 0
-
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl90ReferenceSource.RefSourceId)) return;
-
             CurrentTbl90ReferenceSource.OrdoId = CurrentTbl33Ordo.OrdoId;
 
-            try
-            {
-                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceSource.ReferenceId);
-
-
-                if (CurrentTbl90ReferenceSource.ReferenceId == 0)
-                    reference = _extCrud.ReferenceSourceOrdoAdd(CurrentTbl90ReferenceSource);
-                else
-                    reference = _extCrud.ReferenceSourceOrdoUpdate(reference, CurrentTbl90ReferenceSource);
-
-                //        _position = OrdosView.CurrentPosition;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceSource.Info)) return;
-
-                try
-                {
-                    _extCrud.ReferenceSourceSave(reference, CurrentTbl90ReferenceSource);
-
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl90ReferenceSource.ReferenceId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl90ReferenceSource.Info);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extSave.SaveReferenceSource(CurrentTbl90ReferenceSource, "Ordo");
 
             Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromOrdoIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl33Ordo.OrdoId);
-
 
 
             ReferenceSourcesView = CollectionViewSource.GetDefaultView(Tbl90ReferenceSourcesList);
@@ -764,7 +465,7 @@ namespace ATIS.Ui.Views.Database.D33Ordo
         {
             Tbl90ReferenceExpertsList ??= new ObservableCollection<Tbl90Reference>();
 
-            Tbl90ExpertsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefExpert>("expert");
+            Tbl90ExpertsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefExpert>("Expert");
             Tbl90ReferenceExpertsList.Insert(0, new Tbl90Reference { Info = CultRes.StringsRes.DatasetNew });
 
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
@@ -785,27 +486,9 @@ namespace ATIS.Ui.Views.Database.D33Ordo
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
 
-            try
-            {
-                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceExpert.ReferenceId);
-                if (reference != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl90ReferenceExpert.Info)) return;
-
-                    _extCrud.DeleteReference(reference);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl90ReferenceExpert.Info);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl90ReferenceExpert.Info + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extDelete.DeleteReferenceExpert(CurrentTbl90ReferenceExpert);
 
             Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFromOrdoIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl33Ordo.OrdoId);
-
             ReferenceExpertsView = CollectionViewSource.GetDefaultView(Tbl90ReferenceExpertsList);
             ReferenceExpertsView.Refresh();
         }
@@ -814,53 +497,9 @@ namespace ATIS.Ui.Views.Database.D33Ordo
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90ReferenceExpert)) return;
 
-            //Combobox select RefExpertId  may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(CurrentTbl90ReferenceExpert.RefExpertId)) return;
-
             CurrentTbl90ReferenceExpert.OrdoId = CurrentTbl33Ordo.OrdoId;
 
-            try
-            {
-                var reference = _uow.Tbl90References.GetById(CurrentTbl90ReferenceExpert.ReferenceId);
-
-
-                if (CurrentTbl90ReferenceExpert.ReferenceId == 0)
-                    reference = _extCrud.ReferenceExpertOrdoAdd(CurrentTbl90ReferenceExpert);
-                else
-                    reference = _extCrud.ReferenceExpertOrdoUpdate(reference, CurrentTbl90ReferenceExpert);
-
-                //        _position = PhylumsView.CurrentPosition;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceExpert.Info)) return;
-
-                try
-                {
-                    _extCrud.ReferenceExpertSave(reference, CurrentTbl90ReferenceExpert);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl90ReferenceExpert.ReferenceId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl90ReferenceExpert.Info);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extSave.SaveReferenceExpert(CurrentTbl90ReferenceExpert, "Ordo");
 
             Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFromOrdoIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl33Ordo.OrdoId);
 
@@ -894,7 +533,7 @@ namespace ATIS.Ui.Views.Database.D33Ordo
 
         #region [Methods Ordo ==> Tbl93Comments]        
 
-        public void ExecuteAddComment(object o)
+        private void ExecuteAddComment(object o)
         {
             Tbl93CommentsList ??= new ObservableCollection<Tbl93Comment>();
 
@@ -904,7 +543,7 @@ namespace ATIS.Ui.Views.Database.D33Ordo
             CommentsView.MoveCurrentToFirst();
         }
 
-        public void ExecuteCopyComment(object o)
+        private void ExecuteCopyComment(object o)
         {
 
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
@@ -919,24 +558,7 @@ namespace ATIS.Ui.Views.Database.D33Ordo
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl93Comment)) return;
 
-            try
-            {
-                var comment = _uow.Tbl93Comments.GetById(CurrentTbl93Comment.CommentId);
-                if (comment != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl93Comment.Info)) return;
-
-                    _extCrud.DeleteComment(comment);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl93Comment.Info);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl93Comment.Info + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extDelete.DeleteComment(CurrentTbl93Comment);
 
             Tbl93CommentsList = _extCrud.GetCommentsCollectionFromOrdoIdOrderBy<Tbl93Comment>(CurrentTbl33Ordo.OrdoId);
 
@@ -950,49 +572,7 @@ namespace ATIS.Ui.Views.Database.D33Ordo
 
             CurrentTbl93Comment.OrdoId = CurrentTbl33Ordo.OrdoId;
 
-            try
-            {
-                var comment = _uow.Tbl93Comments.GetById(CurrentTbl93Comment.CommentId);
-
-
-                if (CurrentTbl93Comment.CommentId == 0)
-                    comment = _extCrud.CommentOrdoAdd(CurrentTbl93Comment);
-                else
-                    comment = _extCrud.CommentOrdoUpdate(comment, CurrentTbl93Comment);
-
-                //        _position = OrdosView.CurrentPosition;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl93Comment.Info))
-                    return;
-
-                try
-                {
-                    _extCrud.CommentSave(comment, CurrentTbl93Comment);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl93Comment.CommentId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl93Comment.Info);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extSave.SaveComment(CurrentTbl93Comment, "Ordo");
 
             Tbl93CommentsList = _extCrud.GetCommentsCollectionFromOrdoIdOrderBy<Tbl93Comment>(CurrentTbl33Ordo.OrdoId);
 
@@ -1020,7 +600,7 @@ namespace ATIS.Ui.Views.Database.D33Ordo
         {
             Tbl30LegiosList = _extCrud.GetLegiosCollectionFromLegioIdOrderBy<Tbl30Legio>(CurrentTbl33Ordo.LegioId);
 
-            Tbl27InfraclassesAllList = _extCrud.GetCollectionAllOrderBy<Tbl27Infraclass>("");
+            Tbl27InfraclassesAllList = _extCrud.GetCollectionAllOrderBy<Tbl27Infraclass>("Infraclass");
 
             LegiosView = CollectionViewSource.GetDefaultView(Tbl30LegiosList);
             LegiosView.Refresh();
@@ -1055,7 +635,7 @@ namespace ATIS.Ui.Views.Database.D33Ordo
                     {
                         Tbl30LegiosList = _extCrud.GetLegiosCollectionFromLegioIdOrderBy<Tbl30Legio>(CurrentTbl33Ordo.LegioId);
 
-                        Tbl27InfraclassesAllList = _extCrud.GetCollectionAllOrderBy<Tbl27Infraclass>("");
+                        Tbl27InfraclassesAllList = _extCrud.GetCollectionAllOrderBy<Tbl27Infraclass>("Infraclass");
 
                         LegiosView = CollectionViewSource.GetDefaultView(Tbl30LegiosList);
                         LegiosView.Refresh();
@@ -1069,7 +649,7 @@ namespace ATIS.Ui.Views.Database.D33Ordo
                     {
                         Tbl36SubordosList = _extCrud.GetSubordosCollectionFromOrdoIdOrderBy<Tbl36Subordo>(CurrentTbl33Ordo.OrdoId);
 
-                        Tbl33OrdosAllList = _extCrud.GetCollectionAllOrderBy<Tbl33Ordo>("ordo");
+                        Tbl33OrdosAllList = _extCrud.GetCollectionAllOrderBy<Tbl33Ordo>("Ordo");
 
                         SubordosView = CollectionViewSource.GetDefaultView(Tbl36SubordosList);
                         SubordosView.Refresh();
@@ -1129,7 +709,7 @@ namespace ATIS.Ui.Views.Database.D33Ordo
                     {
                         Tbl36SubordosList = _extCrud.GetSubordosCollectionFromOrdoIdOrderBy<Tbl36Subordo>(CurrentTbl33Ordo.OrdoId);
 
-                        Tbl33OrdosAllList = _extCrud.GetCollectionAllOrderBy<Tbl33Ordo>("ordo");
+                        Tbl33OrdosAllList = _extCrud.GetCollectionAllOrderBy<Tbl33Ordo>("Ordo");
 
                         SubordosView = CollectionViewSource.GetDefaultView(Tbl36SubordosList);
                         SubordosView.Refresh();
@@ -1141,7 +721,7 @@ namespace ATIS.Ui.Views.Database.D33Ordo
                 {
                     if (CurrentTbl33Ordo != null)
                     {
-                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+                        Tbl90ExpertsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefExpert>("Expert");
 
                         Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFromOrdoIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl33Ordo.OrdoId);
 
@@ -1156,7 +736,7 @@ namespace ATIS.Ui.Views.Database.D33Ordo
                 {
                     if (CurrentTbl33Ordo != null)
                     {
-                        Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+                        Tbl90SourcesAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefSource>("Source");
 
                         Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromOrdoIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl33Ordo.OrdoId);
 
@@ -1171,7 +751,7 @@ namespace ATIS.Ui.Views.Database.D33Ordo
                 {
                     if (CurrentTbl33Ordo != null)
                     {
-                        Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+                        Tbl90AuthorsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefAuthor>("Author");
 
                         Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFromOrdoIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl33Ordo.OrdoId);
 
@@ -1221,7 +801,7 @@ namespace ATIS.Ui.Views.Database.D33Ordo
                 {
                     if (CurrentTbl33Ordo != null)
                     {
-                        Tbl90ExpertsAllList = new ObservableCollection<Tbl90RefExpert>(_uow.Tbl90RefExperts.ListTbl90RefExpertsOrderBy());
+                        Tbl90ExpertsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefExpert>("Expert");
 
                         Tbl90ReferenceExpertsList = _extCrud.GetReferenceExpertsCollectionFromOrdoIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(CurrentTbl33Ordo.OrdoId);
 
@@ -1236,7 +816,7 @@ namespace ATIS.Ui.Views.Database.D33Ordo
                 {
                     if (CurrentTbl33Ordo != null)
                     {
-                        Tbl90SourcesAllList = new ObservableCollection<Tbl90RefSource>(_uow.Tbl90RefSources.ListTbl90RefSourcesOrderBy());
+                        Tbl90SourcesAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefSource>("Source");
 
                         Tbl90ReferenceSourcesList = _extCrud.GetReferenceSourcesCollectionFromOrdoIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl33Ordo.OrdoId);
 
@@ -1251,7 +831,7 @@ namespace ATIS.Ui.Views.Database.D33Ordo
                 {
                     if (CurrentTbl33Ordo != null)
                     {
-                        Tbl90AuthorsAllList = new ObservableCollection<Tbl90RefAuthor>(_uow.Tbl90RefAuthors.ListTbl90RefAuthorsOrderBy());
+                        Tbl90AuthorsAllList = _extCrud.GetCollectionAllOrderBy<Tbl90RefAuthor>("Author");
 
                         Tbl90ReferenceAuthorsList = _extCrud.GetReferenceAuthorsCollectionFromOrdoIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(CurrentTbl33Ordo.OrdoId);
 

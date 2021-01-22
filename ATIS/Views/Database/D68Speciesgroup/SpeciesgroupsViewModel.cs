@@ -9,7 +9,6 @@ using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using log4net;
-using Microsoft.EntityFrameworkCore;
 
 //    SpeciesgroupsViewModel Skriptdatum:  07.01.2021  10:32    
 
@@ -22,8 +21,9 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
 
         #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(typeof(SpeciesgroupsViewModel));
-        private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly CrudFunctions _extCrud = new CrudFunctions();
+        private readonly DeleteFunctions _extDelete = new DeleteFunctions();
+        private readonly SaveFunctions _extSave = new SaveFunctions();
         private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
         private int _position;
 
@@ -77,7 +77,12 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
 
         private void ExecuteGetSpeciesgroupsByNameOrId(string searchName)
         {
-            Tbl68SpeciesgroupsList = _extCrud.GetSpeciesgroupsCollectionFromSearchNameOrIdOrderBy<Tbl68Speciesgroup>(searchName);
+            if (Tbl68SpeciesgroupsList == null)
+                Tbl68SpeciesgroupsList ??= new ObservableCollection<Tbl68Speciesgroup>();
+            else
+                Tbl68SpeciesgroupsList.Clear();
+
+            Tbl68SpeciesgroupsList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl68Speciesgroup>(searchName, "Speciesgroup");
 
             if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl68SpeciesgroupsList.Count)) return;
 
@@ -90,10 +95,22 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
 
         private void ExecuteAddSpeciesgroup(object o)
         {
-            Tbl68SpeciesgroupsList ??= new ObservableCollection<Tbl68Speciesgroup>();
+            if (Tbl68SpeciesgroupsList == null)
+                Tbl68SpeciesgroupsList ??= new ObservableCollection<Tbl68Speciesgroup>();
+            else
+                Tbl68SpeciesgroupsList.Clear();
+
+            if (Tbl66GenussesAllList == null)
+                Tbl66GenussesAllList ??= new ObservableCollection<Tbl66Genus>();
+            else
+                Tbl66GenussesAllList.Clear();
+
             Tbl68SpeciesgroupsList.Insert(0, new Tbl68Speciesgroup { SpeciesgroupName = CultRes.StringsRes.DatasetNew });
 
             Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("Genus");
+
+            SelectedMainTabIndex = 0;
+            SelectedDetailTabIndex = 1;
 
             SpeciesgroupsView = CollectionViewSource.GetDefaultView(Tbl68SpeciesgroupsList);
             SpeciesgroupsView.MoveCurrentToFirst();
@@ -115,86 +132,33 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl68Speciesgroup)) return;
 
+            _extDelete.DeleteSpeciesgroup(CurrentTbl68Speciesgroup);
 
-            //check if in Tbl69FiSpeciesses connected datasets no delete possible, Expert, Sources, Authors and Comment delete and than return
-
-            Tbl69FiSpeciessesList = _extCrud.SearchForConnectedDatasetsWithSpeciesgroupIdInTableFiSpecies(CurrentTbl68Speciesgroup.SpeciesgroupId);
-
-            if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl69FiSpeciessesList.Count, "FiSpecies")) return;
-
-            try
-            {
-                var speciesgroup = _uow.Tbl68Speciesgroups.GetById(CurrentTbl68Speciesgroup.SpeciesgroupId);
-                if (speciesgroup != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl68Speciesgroup.SpeciesgroupName)) return;
-
-                    _extCrud.DeleteSpeciesgroup(speciesgroup);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl68Speciesgroup.SpeciesgroupName);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl68Speciesgroup.SpeciesgroupName + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-
-            ExecuteGetSpeciesgroupsByNameOrId(searchName);
-
-            SpeciesgroupsView.MoveCurrentToFirst();
+            Tbl68SpeciesgroupsList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl68Speciesgroup>(searchName, "Speciesgroup");
+            SpeciesgroupsView = CollectionViewSource.GetDefaultView(Tbl68SpeciesgroupsList);
+            SpeciesgroupsView.MoveCurrentToLast();
         }
 
         private void ExecuteSaveSpeciesgroup(string searchName)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl68Speciesgroup)) return;
 
-            try
+            _position = SpeciesgroupsView.CurrentPosition;
+
+            _extSave.SaveSpeciesgroup(CurrentTbl68Speciesgroup);
+
+            if (_position == 0) //new
             {
-                var speciesgroup = _uow.Tbl68Speciesgroups.GetById(CurrentTbl68Speciesgroup.SpeciesgroupId);
-                //   var phylum = _context.Tbl68Speciesgroups.AsNoTracking().FirstOrDefault(a=>a.SpeciesgroupId == CurrentTbl68Speciesgroup.SpeciesgroupId);
-                //          _context.Entry(speciesgroup).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl68Speciesgroup.SpeciesgroupName))
-                    return;
-
-                if (CurrentTbl68Speciesgroup.SpeciesgroupId == 0)
-                    speciesgroup = _extCrud.SpeciesgroupAdd(CurrentTbl68Speciesgroup);
-                else
-                    speciesgroup = _extCrud.SpeciesgroupUpdate(speciesgroup, CurrentTbl68Speciesgroup);
-
-                _position = SpeciesgroupsView.CurrentPosition;
-
-                try
-                {
-                    _extCrud.SpeciesgroupSave(speciesgroup, CurrentTbl68Speciesgroup);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl68Speciesgroup.SpeciesgroupId == 0
-                    ? "DatasetNew"
-                    : CurrentTbl68Speciesgroup.SpeciesgroupName);
+                Tbl68SpeciesgroupsList = _extCrud.GetLastSpeciesgroupsDatasetOrderById();
+                SpeciesgroupsView = CollectionViewSource.GetDefaultView(Tbl68SpeciesgroupsList);
+                SpeciesgroupsView.MoveCurrentToFirst();
             }
-            catch (Exception e)
+            else
             {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                Tbl68SpeciesgroupsList = _extCrud.GetSpeciesgroupsCollectionFromSearchNameOrIdOrderBy<Tbl68Speciesgroup>(searchName);
+                SpeciesgroupsView = CollectionViewSource.GetDefaultView(Tbl68SpeciesgroupsList);
+                SpeciesgroupsView.MoveCurrentToPosition(_position);
             }
-            ExecuteGetSpeciesgroupsByNameOrId(searchName);
-            SpeciesgroupsView.MoveCurrentToPosition(_position);
         }
         #endregion [Methods Speciesgroup]                
 
@@ -222,10 +186,10 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
         public ICommand CopyFiSpeciesCommand => _copyFiSpeciesCommand ??= new RelayCommand(delegate { ExecuteCopyFiSpecies(null); });
 
         private RelayCommand _deleteFiSpeciesCommand;
-        public ICommand DeleteFiSpeciesCommand => _deleteFiSpeciesCommand ??= new RelayCommand(delegate { ExecuteDeleteFiSpecies(SearchSpeciesgroupName); });
+        public ICommand DeleteFiSpeciesCommand => _deleteFiSpeciesCommand ??= new RelayCommand(delegate { ExecuteDeleteFiSpecies(null); });
 
         private RelayCommand _saveFiSpeciesCommand;
-        public ICommand SaveFiSpeciesCommand => _saveFiSpeciesCommand ??= new RelayCommand(delegate { ExecuteSaveFiSpecies(SearchSpeciesgroupName); });
+        public ICommand SaveFiSpeciesCommand => _saveFiSpeciesCommand ??= new RelayCommand(delegate { ExecuteSaveFiSpecies(null); });
 
         #endregion [Public Commands Connect ==> Tbl69FiSpecies]    
 
@@ -233,6 +197,16 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
 
         private void ExecuteAddFiSpecies(object o)
         {
+            if (Tbl68SpeciesgroupsAllList == null)
+                Tbl68SpeciesgroupsAllList ??= new ObservableCollection<Tbl68Speciesgroup>();
+            else
+                Tbl68SpeciesgroupsAllList.Clear();
+
+            Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("Speciesgroup");
+
+            SelectedMainTabIndex = 0;
+            SelectedDetailTabIndex = 0;
+
             Tbl69FiSpeciessesList ??= new ObservableCollection<Tbl69FiSpecies>();
 
             Tbl69FiSpeciessesList.Insert(0, new Tbl69FiSpecies { FiSpeciesName = CultRes.StringsRes.DatasetNew });
@@ -245,6 +219,8 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
         private void ExecuteCopyFiSpecies(object o)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl69FiSpecies)) return;
+
+            Tbl69FiSpeciessesList = _extCrud.CopyFiSpecies(CurrentTbl69FiSpecies);
 
             // evtl verbundene tabellen-Datensätze auch kopieren Names, Images, Synonyms und Geographics
 
@@ -266,25 +242,7 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
             Tbl87GeographicsList = _extCrud.SearchForConnectedDatasetsWithFiSpeciesIdInTableGeographic(CurrentTbl69FiSpecies.FiSpeciesId);
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl87GeographicsList.Count, "Geographic")) return;
 
-
-            try
-            {
-                var fispecies = _uow.Tbl69FiSpeciesses.GetById(CurrentTbl69FiSpecies.FiSpeciesId);
-                if (fispecies != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl69FiSpecies.FiSpeciesName)) return;
-
-                    _extCrud.DeleteFiSpecies(fispecies);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl69FiSpecies.FiSpeciesName);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl69FiSpecies.FiSpeciesName + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extDelete.DeleteFiSpecies(CurrentTbl69FiSpecies);
 
             Tbl69FiSpeciessesList = _extCrud.GetFiSpeciessesCollectionFromSpeciesgroupIdOrderBy<Tbl69FiSpecies>(CurrentTbl69FiSpecies.SpeciesgroupId);
 
@@ -297,49 +255,6 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl69FiSpecies)) return;
 
             CurrentTbl69FiSpecies.SpeciesgroupId = CurrentTbl68Speciesgroup.SpeciesgroupId;
-
-            try
-            {
-                var fispecies = _uow.Tbl69FiSpeciesses.GetById(CurrentTbl69FiSpecies.FiSpeciesId);
-
-                if (CurrentTbl69FiSpecies.FiSpeciesId == 0)
-                    fispecies = _extCrud.FiSpeciesAdd(CurrentTbl69FiSpecies);
-                else
-                    fispecies = _extCrud.FiSpeciesUpdate(fispecies, CurrentTbl69FiSpecies);
-
-                //  _position = FiSpeciessesView.CurrentPosition;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl69FiSpecies.FiSpeciesName)) return;
-
-                try
-                {
-                    _extCrud.FiSpeciesSave(fispecies, CurrentTbl69FiSpecies);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl69FiSpecies.FiSpeciesId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl69FiSpecies.FiSpeciesName);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-
             Tbl69FiSpeciessesList = _extCrud.GetFiSpeciessesCollectionFromSpeciesgroupIdOrderBy<Tbl69FiSpecies>(CurrentTbl69FiSpecies.SpeciesgroupId);
 
             FiSpeciessesView = CollectionViewSource.GetDefaultView(Tbl69FiSpeciessesList);
@@ -411,24 +326,7 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
             Tbl87GeographicsList = _extCrud.SearchForConnectedDatasetsWithPlSpeciesIdInTableGeographic(CurrentTbl72PlSpecies.PlSpeciesId);
             if (_allMessageBoxes.DoNotDeleteDatasetInfoMessageBox(Tbl87GeographicsList.Count, "Geographic")) return;
 
-            try
-            {
-                var plspecies = _uow.Tbl72PlSpeciesses.GetById(CurrentTbl72PlSpecies.PlSpeciesId);
-                if (plspecies != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl72PlSpecies.PlSpeciesName)) return;
-
-                    _extCrud.DeletePlSpecies(plspecies);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl72PlSpecies.PlSpeciesName);
-                }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl72PlSpecies.PlSpeciesName + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extDelete.DeletePlSpecies(CurrentTbl72PlSpecies);
 
             Tbl72PlSpeciessesList = _extCrud.GetPlSpeciessesCollectionFromSpeciesgroupIdOrderBy<Tbl72PlSpecies>(CurrentTbl72PlSpecies.SpeciesgroupId);
 
@@ -442,47 +340,7 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
 
             CurrentTbl72PlSpecies.SpeciesgroupId = CurrentTbl68Speciesgroup.SpeciesgroupId;
 
-            try
-            {
-                var plspecies = _uow.Tbl72PlSpeciesses.GetById(CurrentTbl72PlSpecies.PlSpeciesId);
-
-                if (CurrentTbl72PlSpecies.PlSpeciesId == 0)
-                    plspecies = _extCrud.PlSpeciesAdd(CurrentTbl72PlSpecies);
-                else
-                    plspecies = _extCrud.PlSpeciesUpdate(plspecies, CurrentTbl72PlSpecies);
-
-                //  _position = PlSpeciessesView.CurrentPosition;
-
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl72PlSpecies.PlSpeciesName)) return;
-
-                try
-                {
-                    _extCrud.PlSpeciesSave(plspecies, CurrentTbl72PlSpecies);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, CurrentTbl72PlSpecies.PlSpeciesId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl72PlSpecies.PlSpeciesName);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
+            _extSave.SavePlSpecies(CurrentTbl72PlSpecies);
 
             Tbl72PlSpeciessesList = _extCrud.GetPlSpeciessesCollectionFromSpeciesgroupIdOrderBy<Tbl72PlSpecies>(CurrentTbl72PlSpecies.SpeciesgroupId);
 
@@ -523,7 +381,7 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
 
             Tbl69FiSpeciessesList = _extCrud.GetFiSpeciessesCollectionFromSpeciesgroupIdOrderBy<Tbl69FiSpecies>(CurrentTbl68Speciesgroup.SpeciesgroupId);
             Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
-            Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("speciesgroup");
+            Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("Speciesgroup");
 
             FiSpeciessesView = CollectionViewSource.GetDefaultView(Tbl69FiSpeciessesList);
             FiSpeciessesView.Refresh();
@@ -540,7 +398,7 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
         #region "Public Commands to open Detail TabItems"
 
         private int _selectedMainTabIndex;
-     //   private int _selectedMainSubRefTabIndex;
+        private int _selectedMainSubRefTabIndex;
         private int _selectedDetailTabIndex;
 
 
@@ -558,8 +416,8 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
                     {
                         Tbl69FiSpeciessesList = _extCrud.GetFiSpeciessesCollectionFromSpeciesgroupIdOrderBy<Tbl69FiSpecies>(CurrentTbl68Speciesgroup.SpeciesgroupId);
 
-                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
-                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("speciesgroup");
+                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("Genus");
+                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("Speciesgroup");
 
                         FiSpeciessesView = CollectionViewSource.GetDefaultView(Tbl69FiSpeciessesList);
                         FiSpeciessesView.Refresh();
@@ -573,8 +431,8 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
                     {
                         Tbl72PlSpeciessesList = _extCrud.GetPlSpeciessesCollectionFromGenusIdOrderBy<Tbl72PlSpecies>(CurrentTbl68Speciesgroup.SpeciesgroupId);
 
-                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
-                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("speciesgroup");
+                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("Genus");
+                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("Speciesgroup");
 
                         PlSpeciessesView = CollectionViewSource.GetDefaultView(Tbl72PlSpeciessesList);
                         PlSpeciessesView.Refresh();
@@ -608,8 +466,8 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
                     {
                         Tbl69FiSpeciessesList = _extCrud.GetFiSpeciessesCollectionFromSpeciesgroupIdOrderBy<Tbl69FiSpecies>(CurrentTbl68Speciesgroup.SpeciesgroupId);
 
-                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
-                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("speciesgroup");
+                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("Genus");
+                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("Speciesgroup");
 
                         FiSpeciessesView = CollectionViewSource.GetDefaultView(Tbl69FiSpeciessesList);
                         FiSpeciessesView.Refresh();
@@ -623,8 +481,8 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
                     {
                         Tbl72PlSpeciessesList = _extCrud.GetPlSpeciessesCollectionFromGenusIdOrderBy<Tbl72PlSpecies>(CurrentTbl68Speciesgroup.SpeciesgroupId);
 
-                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
-                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("speciesgroup");
+                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("Genus");
+                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("Speciesgroup");
 
                         PlSpeciessesView = CollectionViewSource.GetDefaultView(Tbl72PlSpeciessesList);
                         PlSpeciessesView.Refresh();

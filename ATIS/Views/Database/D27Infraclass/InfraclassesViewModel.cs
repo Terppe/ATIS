@@ -561,13 +561,11 @@ namespace ATIS.Ui.Views.Database.D27Infraclass
                 else
                     reference = _extCrud.ReferenceAuthorInfraclassUpdate(reference, CurrentTbl90ReferenceAuthor);
 
-                //    _position = InfraclassesView.CurrentPosition;
-
                 if (_allMessageBoxes.SaveDatasetQuestionMessageBox(CurrentTbl90ReferenceAuthor.Info)) return;
 
                 try
                 {
-                    _extCrud.ReferenceAuthorSave(reference, CurrentTbl90ReferenceAuthor);
+                    _extCrud.ReferenceAuthorSave(reference, CurrentTbl90ReferenceAuthor );
                 }
                 catch (DbUpdateException e)
                 {
@@ -701,7 +699,7 @@ namespace ATIS.Ui.Views.Database.D27Infraclass
 
                 try
                 {
-                    _extCrud.ReferenceSourceSave(reference, CurrentTbl90ReferenceSource);
+                    _extCrud.ReferenceSourceSave(reference, CurrentTbl90ReferenceSource );
 
                 }
                 catch (DbUpdateException e)
@@ -835,7 +833,7 @@ namespace ATIS.Ui.Views.Database.D27Infraclass
 
                 try
                 {
-                    _extCrud.ReferenceExpertSave(reference, CurrentTbl90ReferenceExpert);
+                    _extCrud.ReferenceExpertSave(reference, CurrentTbl90ReferenceExpert );
                 }
                 catch (DbUpdateException e)
                 {
@@ -967,7 +965,7 @@ namespace ATIS.Ui.Views.Database.D27Infraclass
 
                 try
                 {
-                    _extCrud.CommentSave(comment, CurrentTbl93Comment);
+                    _extCrud.CommentSave(comment, CurrentTbl93Comment );
                 }
                 catch (DbUpdateException e)
                 {
