@@ -191,6 +191,62 @@
         </Expander>
     </DataTemplate>
 
+    <!--          MessageBox  -->
+    <Style TargetType="{x:Type Button}">
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background" Value="SteelBlue" />
+        <!--<Setter Property="Background" Value="{DynamicResource NormalBrush}" />-->
+        <Setter Property="BorderBrush" Value="Black" />
+        <Style.Triggers>
+            <Trigger Property="Control.IsMouseOver" Value="True">
+                <Setter Property="Background" Value="LightSteelBlue" />
+                <Setter Property="Foreground" Value="Black" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <ControlTemplate x:Key="AefCustomButton" TargetType="{x:Type ButtonBase}">
+        <Border
+                x:Name="border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="1"
+                SnapsToDevicePixels="True">
+            <ContentPresenter
+                    x:Name="contentPresenter"
+                    Margin="{TemplateBinding Padding}"
+                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                    Content="{TemplateBinding Content}"
+                    ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                    Focusable="False"
+                    RecognizesAccessKey="True"
+                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="Button.IsDefaulted" Value="True">
+                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="border" Property="Background" Value="#FFBEE6FD" />
+                <Setter TargetName="border" Property="BorderBrush" Value="#FF3C7FB1" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter TargetName="border" Property="Background" Value="#FFC4E5F6" />
+                <Setter TargetName="border" Property="BorderBrush" Value="#FF2C628B" />
+            </Trigger>
+            <Trigger Property="ToggleButton.IsChecked" Value="True">
+                <Setter TargetName="border" Property="Background" Value="#FFBCDDEE" />
+                <Setter TargetName="border" Property="BorderBrush" Value="#FF245A83" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="border" Property="Background" Value="#FFF4F4F4" />
+                <Setter TargetName="border" Property="BorderBrush" Value="#FFADB2B5" />
+                <Setter Property="Foreground" Value="#FF838383" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
 
 
 
