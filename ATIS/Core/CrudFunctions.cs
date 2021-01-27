@@ -4185,12 +4185,17 @@ namespace ATIS.Ui.Core
             var collection = int.TryParse(searchName, out var id)
                 ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl69FiSpeciesses
                     .Find(e => e.FiSpeciesId == id))
-                : new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl69FiSpeciesses
-                    .Find(e => e.FiSpeciesName.StartsWith(searchName))
-                    .OrderBy(a => a.FiSpeciesName)
+                : new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
+                    .Include(d => d.Tbl66Genusses)
+                    .Where(e => e.Tbl66Genusses.GenusName.StartsWith(searchName))
+                    .OrderBy(a => a.Tbl66Genusses.GenusName)
+                    .ThenBy(a => a.FiSpeciesName)
+                    .ThenBy(a => a.Subspecies)
+                    .ThenBy(a => a.Divers)
                 );
             return collection;
         }
+
         private ObservableCollection<T> GetFiSpeciessesCollectionAllOrderBy<T>()
         {
             var collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
@@ -4610,9 +4615,13 @@ namespace ATIS.Ui.Core
             var collection = int.TryParse(searchName, out var id)
                 ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl72PlSpeciesses
                     .Find(e => e.PlSpeciesId == id))
-                : new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl72PlSpeciesses
-                    .Find(e => e.PlSpeciesName.StartsWith(searchName))
-                    .OrderBy(a => a.PlSpeciesName)
+                : new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
+                    .Include(d => d.Tbl66Genusses)
+                    .Where(e => e.Tbl66Genusses.GenusName.StartsWith(searchName))
+                    .OrderBy(a => a.Tbl66Genusses.GenusName)
+                    .ThenBy(a => a.PlSpeciesName)
+                    .ThenBy(a => a.Subspecies)
+                    .ThenBy(a => a.Divers)
                 );
             return collection;
         }
