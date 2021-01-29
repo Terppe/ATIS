@@ -11,7 +11,6 @@ using ATIS.Ui.Helper;
 using log4net;
 
 using System.Collections.Generic;
-using System.IO;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 
@@ -101,7 +100,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
 
             Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("Genus");
             Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("Speciesgroup");
-            Tbl69FiSpeciessesList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl69FiSpecies>(searchName, "Fispecies");
+            Tbl69FiSpeciessesList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl69FiSpecies>(searchName, "FiSpecies");
 
             if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl69FiSpeciessesList.Count)) return;
 
@@ -278,16 +277,6 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
 
         private void ExecuteAddName(object o)
         {
-            if (Tbl69FiSpeciessesAllList == null)
-                Tbl69FiSpeciessesAllList ??= new ObservableCollection<Tbl69FiSpecies>();
-            else
-                Tbl69FiSpeciessesAllList.Clear();
-
-            Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("FiSpecies");
-
-            SelectedMainTabIndex = 0;
-            SelectedDetailTabIndex = 2;
-
             Tbl78NamesList ??= new ObservableCollection<Tbl78Name>();
 
             Tbl78NamesList.Insert(0, new Tbl78Name { NameName = CultRes.StringsRes.DatasetNew });
@@ -306,7 +295,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
             NamesView.MoveCurrentToFirst();
         }
 
-        private void ExecuteDeleteName(string searchName)
+        private void ExecuteDeleteName(object o)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl78Name)) return;
 
@@ -319,24 +308,20 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
         }
 
 
-        private void ExecuteSaveName(string searchName)
+        private void ExecuteSaveName(object o)
         {
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl78Name)) return;
 
             CurrentTbl78Name.FiSpeciesId = CurrentTbl69FiSpecies.FiSpeciesId;
 
-            //Search for CurrentTbl78Name.PlSpeciesId with Plantae#Regnum# 
+            var plantaeRegnum = _extCrud.GetPlSpeciesSingleByPlSpeciesName<Tbl72PlSpecies>("Plantae#Regnum#");
 
-            //     var plantaeRegnum = _context.Tbl72PlSpeciesses.FirstOrDefault(p => p.PlSpeciesName == "Plantae#Regnum#");
-            //     var plantaeRegnum = _uow.Tbl72PlSpeciesses.Find(p => p.PlSpeciesName == "Plantae#Regnum#").FirstOrDefault();
-            //   var plantaeRegnumId = _extCrud.GetPlSpeciesIdFromPlSpeciessesCollectionSelectByName("Plantae#Regnum#");
+            CurrentTbl78Name.PlSpeciesId = plantaeRegnum.PlSpeciesId;
 
-            //Fehler um PlSpeciesId zu ermitteln !!!!!!!!!!!!!!!!!!
-            //   if (plantaeRegnum != null) CurrentTbl78Name.PlSpeciesId = plantaeRegnum.PlSpeciesId;
-            //Fehler !!!!
-              CurrentTbl78Name.PlSpeciesId = 1;
+            //    CurrentTbl78Name.PlSpeciesId = 1;
 
-              _extSave.SaveName(CurrentTbl78Name);
- 
+            _extSave.SaveName(CurrentTbl78Name);
+
             Tbl78NamesList = _extCrud.GetNamesCollectionFromFiSpeciesIdOrderBy<Tbl78Name>(CurrentTbl78Name.FiSpeciesId);
 
             NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
@@ -374,7 +359,6 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
         {
             Tbl81ImagesList ??= new ObservableCollection<Tbl81Image>();
             Tbl81ImagesList.Insert(0, new Tbl81Image { Info = CultRes.StringsRes.DatasetNew });
-            Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("Genus");
 
             ImagesView = CollectionViewSource.GetDefaultView(Tbl81ImagesList);
             ImagesView.MoveCurrentToFirst();
@@ -406,19 +390,15 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
 
         private void ExecuteSaveImage(string searchName)
         {
-
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl81Image)) return;
 
             CurrentTbl81Image.FiSpeciesId = CurrentTbl69FiSpecies.FiSpeciesId;
 
-            //     var plantaeRegnum = _context.Tbl72PlSpeciesses.FirstOrDefault(p => p.PlSpeciesName == "Plantae#Regnum#");
-            //     var plantaeRegnum = _uow.Tbl72PlSpeciesses.Find(p => p.PlSpeciesName == "Plantae#Regnum#").FirstOrDefault();
-            //   var plantaeRegnumId = _extCrud.GetPlSpeciesIdFromPlSpeciessesCollectionSelectByName("Plantae#Regnum#");
+            var plantaeRegnum = _extCrud.GetPlSpeciesSingleByPlSpeciesName<Tbl72PlSpecies>("Plantae#Regnum#");
 
-            //Fehler um PlSpeciesId zu ermitteln !!!!!!!!!!!!!!!!!!
-            //   if (plantaeRegnum != null) CurrentTbl78Name.PlSpeciesId = plantaeRegnum.PlSpeciesId;
-            //Fehler !!!!
-            CurrentTbl81Image.PlSpeciesId = 1;
+            CurrentTbl81Image.PlSpeciesId = plantaeRegnum.PlSpeciesId;
+
+            //    CurrentTbl81Image.PlSpeciesId = 1;
 
             _extSave.SaveImage(CurrentTbl81Image);
 
@@ -457,12 +437,12 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
 
         private void ExecuteAddSynonym(object o)
         {
+            Tbl84SynonymsList ??= new ObservableCollection<Tbl84Synonym>();
             Tbl84SynonymsList.Insert(0, new Tbl84Synonym { SynonymName = CultRes.StringsRes.DatasetNew });
 
             SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
             SynonymsView.MoveCurrentToFirst();
         }
-        //----------------------------------------------------------------------              
 
         private void ExecuteCopySynonym(object o)
         {
@@ -488,19 +468,15 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
 
         private void ExecuteSaveSynonym(string searchName)
         {
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl84Synonym)) return;
 
             CurrentTbl84Synonym.FiSpeciesId = CurrentTbl69FiSpecies.FiSpeciesId;
 
-            //Search for CurrentTbl84Synonym.PlSpeciesId with Plantae#Regnum# 
+            var plantaeRegnum = _extCrud.GetPlSpeciesSingleByPlSpeciesName<Tbl72PlSpecies>("Plantae#Regnum#");
 
-            //     var plantaeRegnum = _context.Tbl72PlSpeciesses.FirstOrDefault(p => p.PlSpeciesName == "Plantae#Regnum#");
-            //     var plantaeRegnum = _uow.Tbl72PlSpeciesses.Find(p => p.PlSpeciesName == "Plantae#Regnum#").FirstOrDefault();
-            //   var plantaeRegnumId = _extCrud.GetPlSpeciesIdFromPlSpeciessesCollectionSelectByName("Plantae#Regnum#");
+            CurrentTbl84Synonym.PlSpeciesId = plantaeRegnum.PlSpeciesId;
 
-            //Fehler um PlSpeciesId zu ermitteln !!!!!!!!!!!!!!!!!!
-            //   if (plantaeRegnum != null) CurrentTbl78Name.PlSpeciesId = plantaeRegnum.PlSpeciesId;
-            //Fehler !!!!
-            CurrentTbl84Synonym.PlSpeciesId = 1;
+            //    CurrentTbl84Synonym.PlSpeciesId = 1;
 
             _extSave.SaveSynonym(CurrentTbl84Synonym);
 
@@ -562,7 +538,6 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
 
             _extDelete.DeleteGeographic(CurrentTbl87Geographic);
 
-
             Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromFiSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl87Geographic.FiSpeciesId);
 
             GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
@@ -575,14 +550,11 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
 
             CurrentTbl87Geographic.FiSpeciesId = CurrentTbl69FiSpecies.FiSpeciesId;
 
-            //     var plantaeRegnum = _context.Tbl72PlSpeciesses.FirstOrDefault(p => p.PlSpeciesName == "Plantae#Regnum#");
-            //     var plantaeRegnum = _uow.Tbl72PlSpeciesses.Find(p => p.PlSpeciesName == "Plantae#Regnum#").FirstOrDefault();
-            //   var plantaeRegnumId = _extCrud.GetPlSpeciesIdFromPlSpeciessesCollectionSelectByName("Plantae#Regnum#");
+            var plantaeRegnum = _extCrud.GetPlSpeciesSingleByPlSpeciesName<Tbl72PlSpecies>("Plantae#Regnum#");
 
-            //Fehler um PlSpeciesId zu ermitteln !!!!!!!!!!!!!!!!!!
-            //   if (plantaeRegnum != null) CurrentTbl78Name.PlSpeciesId = plantaeRegnum.PlSpeciesId;
-            //Fehler !!!!
-            CurrentTbl87Geographic.PlSpeciesId = 1;
+            CurrentTbl87Geographic.PlSpeciesId = plantaeRegnum.PlSpeciesId;
+
+            //    CurrentTbl87Geographic.PlSpeciesId = 1;
 
             _extSave.SaveGeographic(CurrentTbl87Geographic);
 
@@ -1745,7 +1717,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
 
         private void RegisterCommands()
         {
-           // OpenCommand = new RelayCommand(ExecuteOpenFileDialog);
+            //  OpenCommand = new RelayCommand(ExecuteOpenFileDialog);
         }
 
         private void ExecuteOpenFileDialog(object o)
