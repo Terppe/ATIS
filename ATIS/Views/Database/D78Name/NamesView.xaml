@@ -15,7 +15,7 @@
     <UserControl.Resources />
 
 
-    <!--  Tbl78NamesView.xaml  Skriptdatum:  22.01.2019  10:32  -->
+    <!--  NamesView.xaml  Skriptdatum:  29.01.2021  10:32  -->
 
 
     <Grid>
@@ -390,14 +390,11 @@
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <Button Template="{StaticResource SaveFiSpeciesButton}" />
-                            <Button Template="{StaticResource CopyFiSpeciesButton}" />
-                            <Button Template="{StaticResource AddFiSpeciesButton}" />
-                            <Button Template="{StaticResource DeleteFiSpeciesButton}" />
                         </StackPanel>
 
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ComboBox
-                                Width="250"
+                                Width="228"
                                 Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -411,8 +408,8 @@
                                 Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                 VirtualizingStackPanel.IsVirtualizing="True" />
                             <ComboBox
-                                Width="250"
-                                Margin="25,5,5,5"
+                                Width="228"
+                                Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                 mah:TextBoxHelper.Watermark="{DynamicResource Tbl68Speciesgroup-Speciesgroup}"
@@ -1204,13 +1201,10 @@
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <Button Template="{StaticResource SavePlSpeciesButton}" />
-                            <Button Template="{StaticResource CopyPlSpeciesButton}" />
-                            <Button Template="{StaticResource AddPlSpeciesButton}" />
-                            <Button Template="{StaticResource DeletePlSpeciesButton}" />
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ComboBox
-                                Width="250"
+                                Width="228"
                                 Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1224,8 +1218,8 @@
                                 Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                 VirtualizingStackPanel.IsVirtualizing="True" />
                             <ComboBox
-                                Width="250"
-                                Margin="25,5,5,5"
+                                Width="228"
+                                Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                 mah:TextBoxHelper.Watermark="{DynamicResource Tbl68Speciesgroup-Speciesgroup}"
@@ -1898,7 +1892,6 @@
                 <GroupBox>
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
-
                             <Button Template="{StaticResource SaveNameButton}" />
                             <Button Template="{StaticResource CopyNameButton}" />
                             <Button Template="{StaticResource AddNameButton}" />
@@ -1906,7 +1899,7 @@
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <TextBox
-                                Width="300"
+                                Width="590"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -1916,6 +1909,16 @@
                                 FontWeight="Medium"
                                 SpellCheck.IsEnabled="True"
                                 ToolTip="{DynamicResource Tbl78Name-NameName}">
+                                <TextBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Custom Item" />
+                                        <Separator />
+                                        <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                    </ContextMenu>
+                                </TextBox.ContextMenu>
+
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl78NamesList"
@@ -1927,7 +1930,7 @@
                             <ComboBox
                                 x:Name="CbLanguage"
                                 Width="100"
-                                Margin="25,5,5,5"
+                                Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                 mah:TextBoxHelper.Watermark="{DynamicResource Tbl78Name-Language}"
@@ -1938,6 +1941,56 @@
                                 Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                 Text="{Binding SelectedItem.(models:Tbl78Name.Language), ElementName=Tbl78NamesList, Mode=TwoWay}"
                                 VirtualizingStackPanel.IsVirtualizing="True" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ComboBox
+                                Width="345"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-FiSpeciesNameSubDivers}"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl69FiSpeciessesAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl69FiSpecies.FiSpeciesId), ElementName=Tbl78NamesList, Mode=TwoWay}"
+                                SelectedValuePath="FiSpeciesId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding (models:Tbl69FiSpecies.Tbl66Genusses).GenusName}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl69FiSpecies.FiSpeciesName)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl69FiSpecies.Subspecies)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl69FiSpecies.Divers)}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <ComboBox
+                                Width="345"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-PlSpeciesNameSubDivers}"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl72PlSpeciessesAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl72PlSpecies.PlSpeciesId), ElementName=Tbl78NamesList, Mode=TwoWay}"
+                                SelectedValuePath="PlSpeciesId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding (models:Tbl72PlSpecies.Tbl66Genusses).GenusName}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl72PlSpecies.PlSpeciesName)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl72PlSpecies.Subspecies)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl72PlSpecies.Divers)}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <CheckBox

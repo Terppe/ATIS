@@ -16,7 +16,7 @@
     <UserControl.Resources />
 
 
-    <!--  Tbl81ImagesView.xaml  Skriptdatum:  29.12.2020  10:32  -->
+    <!--  ImagesView.xaml  Skriptdatum:  02.02.2021  10:32  -->
 
 
     <Grid>
@@ -392,14 +392,11 @@
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <Button Template="{StaticResource SaveFiSpeciesButton}" />
-                            <Button Template="{StaticResource CopyFiSpeciesButton}" />
-                            <Button Template="{StaticResource AddFiSpeciesButton}" />
-                            <Button Template="{StaticResource DeleteFiSpeciesButton}" />
                         </StackPanel>
 
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ComboBox
-                                Width="250"
+                                Width="228"
                                 Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -413,8 +410,8 @@
                                 Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                 VirtualizingStackPanel.IsVirtualizing="True" />
                             <ComboBox
-                                Width="250"
-                                Margin="25,5,5,5"
+                                Width="228"
+                                Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                 mah:TextBoxHelper.Watermark="{DynamicResource Tbl68Speciesgroup-Speciesgroup}"
@@ -1206,13 +1203,10 @@
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <Button Template="{StaticResource SavePlSpeciesButton}" />
-                            <Button Template="{StaticResource CopyPlSpeciesButton}" />
-                            <Button Template="{StaticResource AddPlSpeciesButton}" />
-                            <Button Template="{StaticResource DeletePlSpeciesButton}" />
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ComboBox
-                                Width="250"
+                                Width="228"
                                 Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1226,8 +1220,8 @@
                                 Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                 VirtualizingStackPanel.IsVirtualizing="True" />
                             <ComboBox
-                                Width="250"
-                                Margin="25,5,5,5"
+                                Width="228"
+                                Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                 mah:TextBoxHelper.Watermark="{DynamicResource Tbl68Speciesgroup-Speciesgroup}"
@@ -1909,15 +1903,68 @@
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ComboBox
+                                Width="345"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-FiSpeciesNameSubDivers}"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl69FiSpeciessesAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl69FiSpecies.FiSpeciesId), ElementName=Tbl81ImagesList, Mode=TwoWay}"
+                                SelectedValuePath="FiSpeciesId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding (models:Tbl69FiSpecies.Tbl66Genusses).GenusName}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl69FiSpecies.FiSpeciesName)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl69FiSpecies.Subspecies)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl69FiSpecies.Divers)}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <ComboBox
+                                Width="345"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-PlSpeciesNameSubDivers}"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl72PlSpeciessesAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl72PlSpecies.PlSpeciesId), ElementName=Tbl81ImagesList, Mode=TwoWay}"
+                                SelectedValuePath="PlSpeciesId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding (models:Tbl72PlSpecies.Tbl66Genusses).GenusName}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl72PlSpecies.PlSpeciesName)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl72PlSpecies.Subspecies)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl72PlSpecies.Divers)}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ComboBox
                                 x:Name="CbMimeType1"
                                 Width="115"
                                 Margin="5"
                                 VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl81Image-ImageMimeType}"
                                 DisplayMemberPath="Name"
                                 IsSynchronizedWithCurrentItem="True"
                                 ItemsSource="{Binding MimeTypes}"
                                 SelectedItem="{Binding SelectedMimeType}"
                                 Text="{Binding SelectedItem.(models:Tbl81Image.ImageMimeType), ElementName=Tbl81ImagesList, Mode=TwoWay}"
+                                ToolTip="{DynamicResource Tbl81Image-ImageMimeType}"
                                 VirtualizingStackPanel.IsVirtualizing="True" />
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
@@ -2046,13 +2093,20 @@
                                                 MinWidth="700"
                                                 MinHeight="100"
                                                 MaxWidth="700"
-                                                MaxHeight="400"
+                                                MaxHeight="200"
                                                 Margin="5"
                                                 VerticalAlignment="Stretch"
+                                                HorizontalContentAlignment="Stretch"
+                                                mah:TextBoxHelper.IsWaitingForData="True"
+                                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                                mah:TextBoxHelper.WatermarkAlignment="Left"
                                                 AcceptsReturn="True"
                                                 FontWeight="Medium"
+                                                SpellCheck.IsEnabled="True"
                                                 Text="{Binding SelectedItem.(models:Tbl81Image.Memo), ElementName=Tbl81ImagesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 TextWrapping="Wrap"
+                                                ToolTip="{DynamicResource Shared-Memo}"
                                                 VerticalScrollBarVisibility="Auto" />
                                         </ScrollViewer>
                                     </StackPanel>

@@ -518,6 +518,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
         #region [Public Methods Connect ==> Tbl87Geographic]
         private void ExecuteAddGeographic(object o)
         {
+            TblCountriesAllList = _extCrud.GetCollectionAllOrderBy<TblCountry>("Country");
             Tbl87GeographicsList.Insert(0, new Tbl87Geographic { Info = CultRes.StringsRes.DatasetNew });
 
             GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
@@ -995,6 +996,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                     if (CurrentTbl72PlSpecies != null)
                     {
                         Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromPlSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl72PlSpecies.PlSpeciesId);
+                        TblCountriesAllList = _extCrud.GetCollectionAllOrderBy<TblCountry>("Country");
 
                         Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("Plspecies");
 
@@ -1117,6 +1119,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                     {
                         Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromPlSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl72PlSpecies.PlSpeciesId);
 
+                        TblCountriesAllList = _extCrud.GetCollectionAllOrderBy<TblCountry>("Country");
                         Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("Plspecies");
 
                         GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);

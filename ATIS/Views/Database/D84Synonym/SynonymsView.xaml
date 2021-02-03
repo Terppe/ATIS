@@ -15,7 +15,7 @@
     <UserControl.Resources />
 
 
-    <!--  Tbl84SynonymsView.xaml  Skriptdatum:  29.12.2020  10:32  -->
+    <!--  SynonymsView.xaml  Skriptdatum:  01.02.2021  10:32  -->
 
 
     <Grid>
@@ -394,14 +394,10 @@
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <Button Template="{StaticResource SaveFiSpeciesButton}" />
-                            <Button Template="{StaticResource CopyFiSpeciesButton}" />
-                            <Button Template="{StaticResource AddFiSpeciesButton}" />
-                            <Button Template="{StaticResource DeleteFiSpeciesButton}" />
                         </StackPanel>
-
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ComboBox
-                                Width="250"
+                                Width="228"
                                 Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -415,8 +411,8 @@
                                 Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                 VirtualizingStackPanel.IsVirtualizing="True" />
                             <ComboBox
-                                Width="250"
-                                Margin="25,5,5,5"
+                                Width="228"
+                                Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                 mah:TextBoxHelper.Watermark="{DynamicResource Tbl68Speciesgroup-Speciesgroup}"
@@ -1208,13 +1204,10 @@
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <Button Template="{StaticResource SavePlSpeciesButton}" />
-                            <Button Template="{StaticResource CopyPlSpeciesButton}" />
-                            <Button Template="{StaticResource AddPlSpeciesButton}" />
-                            <Button Template="{StaticResource DeletePlSpeciesButton}" />
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ComboBox
-                                Width="250"
+                                Width="228"
                                 Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
@@ -1228,8 +1221,8 @@
                                 Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
                                 VirtualizingStackPanel.IsVirtualizing="True" />
                             <ComboBox
-                                Width="250"
-                                Margin="25,5,5,5"
+                                Width="228"
+                                Margin="5"
                                 VerticalAlignment="Bottom"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"
                                 mah:TextBoxHelper.Watermark="{DynamicResource Tbl68Speciesgroup-Speciesgroup}"
@@ -1910,7 +1903,7 @@
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <TextBox
-                                Width="300"
+                                Width="700"
                                 Margin="5"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
@@ -1920,6 +1913,15 @@
                                 FontWeight="Medium"
                                 SpellCheck.IsEnabled="True"
                                 ToolTip="{DynamicResource Tbl84Synonym-SynonymName}">
+                                <TextBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Custom Item" />
+                                        <Separator />
+                                        <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                        <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
+                                    </ContextMenu>
+                                </TextBox.ContextMenu>
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl84SynonymsList"
@@ -1930,14 +1932,105 @@
                             </TextBox>
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ComboBox
+                                Width="345"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-FiSpeciesNameSubDivers}"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl69FiSpeciessesAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl69FiSpecies.FiSpeciesId), ElementName=Tbl84SynonymsList, Mode=TwoWay}"
+                                SelectedValuePath="FiSpeciesId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding (models:Tbl69FiSpecies.Tbl66Genusses).GenusName}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl69FiSpecies.FiSpeciesName)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl69FiSpecies.Subspecies)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl69FiSpecies.Divers)}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <ComboBox
+                                Width="345"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-PlSpeciesNameSubDivers}"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl72PlSpeciessesAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl72PlSpecies.PlSpeciesId), ElementName=Tbl84SynonymsList, Mode=TwoWay}"
+                                SelectedValuePath="PlSpeciesId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding (models:Tbl72PlSpecies.Tbl66Genusses).GenusName}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl72PlSpecies.PlSpeciesName)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl72PlSpecies.Subspecies)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl72PlSpecies.Divers)}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
                             <CheckBox
                                 Width="80"
                                 Margin="5"
                                 VerticalAlignment="Bottom"
                                 Content="{DynamicResource Shared-Valid}"
                                 FontWeight="Normal"
-                                IsChecked="{Binding SelectedItem.(models:Tbl84Synonym.Valid), ElementName=Tbl78NamesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                IsChecked="{Binding SelectedItem.(models:Tbl84Synonym.Valid), ElementName=Tbl84SynonymsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Style="{StaticResource MahApps.Styles.CheckBox}" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="600"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                CharacterCasing="Upper"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-Author}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl84SynonymsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl84Synonym.Author)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox
+                                Width="90"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-AuthorYear}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-AuthorYear}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl84SynonymsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl84Synonym.AuthorYear)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <TextBox
@@ -1953,19 +2046,20 @@
                                 ToolTip="{DynamicResource Shared-Info}">
                                 <TextBox.Text>
                                     <Binding
-                                        ElementName="Tbl84SynonymList"
+                                        ElementName="Tbl84SynonymsList"
                                         Mode="TwoWay"
                                         Path="SelectedItem.(models:Tbl84Synonym.Info)"
                                         UpdateSourceTrigger="PropertyChanged" />
                                 </TextBox.Text>
                             </TextBox>
                         </StackPanel>
+
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <TextBox
                                     Height="Auto"
                                     MinWidth="700"
-                                    MinHeight="75"
+                                    MinHeight="100"
                                     MaxWidth="700"
                                     MaxHeight="200"
                                     Margin="5"
@@ -1978,7 +2072,7 @@
                                     AcceptsReturn="True"
                                     FontWeight="Medium"
                                     SpellCheck.IsEnabled="True"
-                                    Text="{Binding SelectedItem.(models:Tbl84Synonym.Memo), ElementName=Tbl84SynonymList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Text="{Binding SelectedItem.(models:Tbl84Synonym.Memo), ElementName=Tbl84SynonymsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     TextWrapping="Wrap"
                                     ToolTip="{DynamicResource Shared-Memo}"
                                     VerticalScrollBarVisibility="Auto" />

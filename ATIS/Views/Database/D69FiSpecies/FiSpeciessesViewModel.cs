@@ -515,6 +515,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
         #region [Public Methods Connect ==> Tbl87Geographic]
         private void ExecuteAddGeographic(object o)
         {
+            TblCountriesAllList = _extCrud.GetCollectionAllOrderBy<TblCountry>("Country");
             Tbl87GeographicsList.Insert(0, new Tbl87Geographic { Info = CultRes.StringsRes.DatasetNew });
 
             GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
@@ -991,6 +992,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
                     if (CurrentTbl69FiSpecies != null)
                     {
                         Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromFiSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl69FiSpecies.FiSpeciesId);
+                        TblCountriesAllList = _extCrud.GetCollectionAllOrderBy<TblCountry>("Country");
 
                         Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("Fispecies");
 
@@ -1113,6 +1115,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
                     {
                         Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromFiSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl69FiSpecies.FiSpeciesId);
 
+                        TblCountriesAllList = _extCrud.GetCollectionAllOrderBy<TblCountry>("Country");
                         Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("Fispecies");
 
                         GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);

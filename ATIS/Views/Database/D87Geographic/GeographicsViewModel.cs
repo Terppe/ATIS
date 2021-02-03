@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using System.Collections.Generic;
 
-//    GeographicsViewModel Skriptdatum:  30.12.2020  10:32    
+//    GeographicsViewModel Skriptdatum:  02.02.2021  10:32    
 
 namespace ATIS.Ui.Views.Database.D87Geographic
 {
@@ -24,13 +24,10 @@ namespace ATIS.Ui.Views.Database.D87Geographic
 
         #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(typeof(GeographicsViewModel));
-        private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly CrudFunctions _extCrud = new CrudFunctions();
-
+        private readonly DeleteFunctions _extDelete = new DeleteFunctions();
+        private readonly SaveFunctions _extSave = new SaveFunctions();
         private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
-        private readonly GenericMessageBoxes<Tbl87Geographic> _genGeographicMessageBoxes = new GenericMessageBoxes<Tbl87Geographic>();
-        private readonly GenericMessageBoxes<Tbl69FiSpecies> _genFiSpeciesMessageBoxes = new GenericMessageBoxes<Tbl69FiSpecies>();
-        private readonly GenericMessageBoxes<Tbl72PlSpecies> _genPlSpeciesMessageBoxes = new GenericMessageBoxes<Tbl72PlSpecies>();
         private int _position;
 
         #endregion [Private Data Members]               
@@ -83,8 +80,25 @@ namespace ATIS.Ui.Views.Database.D87Geographic
 
         private void ExecuteGetGeographicsById(int searchId)
         {
-            Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("Fispecies");
-            Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("Plspecies");
+            if (Tbl69FiSpeciessesAllList == null)
+                Tbl69FiSpeciessesAllList ??= new ObservableCollection<Tbl69FiSpecies>();
+            else
+                Tbl69FiSpeciessesAllList.Clear();
+
+            if (Tbl72PlSpeciessesAllList == null)
+                Tbl72PlSpeciessesAllList ??= new ObservableCollection<Tbl72PlSpecies>();
+            else
+                Tbl72PlSpeciessesAllList.Clear();
+
+            if (Tbl87GeographicsList == null)
+                Tbl87GeographicsList ??= new ObservableCollection<Tbl87Geographic>();
+            else
+                Tbl87GeographicsList.Clear();
+
+            TblCountriesAllList = _extCrud.GetCollectionAllOrderBy<TblCountry>("Country");
+            Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("FiSpecies");
+            Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("PlSpecies");
+
             Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromSearchIdOrderBy<Tbl87Geographic>(searchId);
 
             if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl87GeographicsList.Count)) return;
@@ -98,21 +112,37 @@ namespace ATIS.Ui.Views.Database.D87Geographic
 
         private void ExecuteAddGeographic(object o)
         {
-            Tbl87GeographicsList = new ObservableCollection<Tbl87Geographic>();
+            if (Tbl87GeographicsList == null)
+                Tbl87GeographicsList ??= new ObservableCollection<Tbl87Geographic>();
+            else
+                Tbl87GeographicsList.Clear();
+
+            if (Tbl69FiSpeciessesAllList == null)
+                Tbl69FiSpeciessesAllList ??= new ObservableCollection<Tbl69FiSpecies>();
+            else
+                Tbl69FiSpeciessesAllList.Clear();
+
+            if (Tbl72PlSpeciessesAllList == null)
+                Tbl72PlSpeciessesAllList ??= new ObservableCollection<Tbl72PlSpecies>();
+            else
+                Tbl72PlSpeciessesAllList.Clear();
+
             Tbl87GeographicsList.Insert(0, new Tbl87Geographic { Info = CultRes.StringsRes.DatasetNew });
 
-            TblCountriesAllList = _extCrud.GetCollectionAllOrderBy<TblCountry>("country");
-            Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("Fispecies");
-            Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("Plspecies");
+            TblCountriesAllList = _extCrud.GetCollectionAllOrderBy<TblCountry>("Country");
+            Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("FiSpecies");
+            Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("PlSpecies");
+
+            SelectedMainTabIndex = 0;
+            SelectedDetailTabIndex = 2;
 
             GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
             GeographicsView.MoveCurrentToFirst();
         }
-        //------------------------------------------------------------------------------------                               
 
         private void ExecuteCopyGeographic(object o)
         {
-            if (_genGeographicMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl87Geographic)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl87Geographic)) return;
 
             Tbl87GeographicsList = _extCrud.CopyGeographic(CurrentTbl87Geographic);
 
@@ -124,46 +154,37 @@ namespace ATIS.Ui.Views.Database.D87Geographic
 
         private void ExecuteDeleteGeographic(int searchId)
         {
-            if (_genGeographicMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl87Geographic)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl87Geographic)) return;
 
-            try
-            {
-                var geographic = _uow.Tbl87Geographics.GetById(CurrentTbl87Geographic.GeographicId);
-                if (geographic != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl87Geographic.GeographicId)) return;
+            _extDelete.DeleteGeographic(CurrentTbl87Geographic);
 
-                    _extCrud.DeleteGeographic(geographic);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl87Geographic.GeographicId.ToString());
-                }
-                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl87Geographic.GeographicId + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-
-            ExecuteGetGeographicsById(searchId);
-
-            GeographicsView.MoveCurrentToFirst();
+            Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromSearchIdOrderBy<Tbl87Geographic>(searchId);
+            GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
+            GeographicsView.MoveCurrentToLast();
         }
 
-        private void ExecuteSaveGeographic(int searchName)
+        private void ExecuteSaveGeographic(int searchId)
         {
-            if (_genGeographicMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl87Geographic)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl87Geographic)) return;
 
-            //Combobox select FiSpeciesId  may be not 0
-            if (CurrentTbl87Geographic.FiSpeciesId == 0)
+            _position = GeographicsView.CurrentPosition;
+
+            _extSave.SaveGeographic(CurrentTbl87Geographic);
+
+            if (_position == 0) //new
             {
-                MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
+                Tbl87GeographicsList = _extCrud.GetLastGeographicsDatasetOrderById();
+                GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
+                GeographicsView.MoveCurrentToFirst();
+            }
+            else
+            {
+                Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromSearchIdOrderBy<Tbl87Geographic>(searchId);
+                GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
+                GeographicsView.MoveCurrentToPosition(_position);
             }
         }
-
-        #endregion "Public Commands"                   
+        #endregion [Methods Geographic]                
 
 
 
@@ -174,57 +195,17 @@ namespace ATIS.Ui.Views.Database.D87Geographic
 
         private RelayCommand _saveFiSpeciesCommand;
 
-        public ICommand SaveFiSpeciesCommand => _saveFiSpeciesCommand ??= new RelayCommand(delegate { ExecuteSaveFiSpecies(SearchGeographicId); });
+        public ICommand SaveFiSpeciesCommand => _saveFiSpeciesCommand ??= new RelayCommand(delegate { ExecuteSaveFiSpecies(null); });
 
-        private void ExecuteSaveFiSpecies(int searchId)
+        private void ExecuteSaveFiSpecies(object o)
         {
-            if (_genFiSpeciesMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl69FiSpecies)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl69FiSpecies)) return;
 
-            try
-            {
-                var fispecies = _uow.Tbl69FiSpeciesses.GetById(CurrentTbl69FiSpecies.FiSpeciesId);
+            _extSave.SaveFiSpecies(CurrentTbl69FiSpecies);
 
-                if (CurrentTbl69FiSpecies.FiSpeciesId == 0)
-                    fispecies = _extCrud.FiSpeciesAdd(CurrentTbl69FiSpecies);
-                else
-                    fispecies = _extCrud.FiSpeciesUpdate(fispecies, CurrentTbl69FiSpecies);
-
-                _position = GeographicsView.CurrentPosition;
-
-                var cap = CurrentTbl69FiSpecies.FiSpeciesName;
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(cap)) return;
-
-                try
-                {
-                    _extCrud.FiSpeciesSave(fispecies, CurrentTbl69FiSpecies);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl69FiSpecies.FiSpeciesId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl69FiSpecies.FiSpeciesName);
-            }
-
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-            ExecuteGetGeographicsById(searchId);
-            GeographicsView.MoveCurrentToPosition(_position);
+            Tbl69FiSpeciessesList = _extCrud.GetFiSpeciessesCollectionFromFiSpeciesIdOrderBy<Tbl69FiSpecies>(CurrentTbl87Geographic.FiSpeciesId);
+            FiSpeciessesView = CollectionViewSource.GetDefaultView(Tbl69FiSpeciessesList);
+            FiSpeciessesView.Refresh();
         }
 
         #endregion "Public Commands"                  
@@ -237,58 +218,18 @@ namespace ATIS.Ui.Views.Database.D87Geographic
 
         private RelayCommand _savePlSpeciesCommand;
 
-        public ICommand SavePlSpeciesCommand => _savePlSpeciesCommand ??= new RelayCommand(delegate { ExecuteSavePlSpecies(SearchGeographicId); });
+        public ICommand SavePlSpeciesCommand => _savePlSpeciesCommand ??= new RelayCommand(delegate { ExecuteSavePlSpecies(null); });
 
-        private void ExecuteSavePlSpecies(int searchId)
+
+        private void ExecuteSavePlSpecies(object o)
         {
-            if (_genPlSpeciesMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl72PlSpecies)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl72PlSpecies)) return;
 
-            try
-            {
-                var plspecies = _uow.Tbl72PlSpeciesses.GetById(CurrentTbl72PlSpecies.PlSpeciesId);
+            _extSave.SavePlSpecies(CurrentTbl72PlSpecies);
 
-                if (CurrentTbl72PlSpecies.PlSpeciesId == 0)
-                    plspecies = _extCrud.PlSpeciesAdd(CurrentTbl72PlSpecies);
-                else
-                    plspecies = _extCrud.PlSpeciesUpdate(plspecies, CurrentTbl72PlSpecies);
-
-                _position = GeographicsView.CurrentPosition;
-
-                var cap = CurrentTbl72PlSpecies.PlSpeciesName;
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(cap)) return;
-
-                try
-                {
-                    _extCrud.PlSpeciesSave(plspecies, CurrentTbl72PlSpecies);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl72PlSpecies.PlSpeciesId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl72PlSpecies.PlSpeciesName);
-            }
-
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-
-            ExecuteGetGeographicsById(searchId);
-            GeographicsView.MoveCurrentToPosition(_position);
+            Tbl72PlSpeciessesList = _extCrud.GetPlSpeciessesCollectionFromPlSpeciesIdOrderBy<Tbl72PlSpecies>(CurrentTbl87Geographic.PlSpeciesId);
+            PlSpeciessesView = CollectionViewSource.GetDefaultView(Tbl72PlSpeciessesList);
+            PlSpeciessesView.Refresh();
         }
 
         #endregion "Public Commands"                  
@@ -334,8 +275,8 @@ namespace ATIS.Ui.Views.Database.D87Geographic
         private void GetConnectedTablesById(object o)
         {
 
-            Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
-            Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("speciesgroup");
+            Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("Genus");
+            Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("Speciesgroup");
 
             Tbl69FiSpeciessesList = _extCrud.GetFiSpeciessesCollectionFromFiSpeciesIdOrderBy<Tbl69FiSpecies>(CurrentTbl87Geographic.FiSpeciesId);
 
@@ -371,8 +312,8 @@ namespace ATIS.Ui.Views.Database.D87Geographic
                     {
                         Tbl69FiSpeciessesList = _extCrud.GetFiSpeciessesCollectionFromFiSpeciesIdOrderBy<Tbl69FiSpecies>(CurrentTbl87Geographic.FiSpeciesId);
 
-                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
-                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("speciesgroup");
+                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("Genus");
+                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("Speciesgroup");
 
                         FiSpeciessesView = CollectionViewSource.GetDefaultView(Tbl69FiSpeciessesList);
                         FiSpeciessesView.Refresh();
@@ -386,8 +327,8 @@ namespace ATIS.Ui.Views.Database.D87Geographic
                     {
                         Tbl72PlSpeciessesList = _extCrud.GetPlSpeciessesCollectionFromPlSpeciesIdOrderBy<Tbl72PlSpecies>(CurrentTbl87Geographic.PlSpeciesId);
 
-                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
-                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("speciesgroup");
+                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("Genus");
+                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("Speciesgroup");
 
                         PlSpeciessesView = CollectionViewSource.GetDefaultView(Tbl72PlSpeciessesList);
                         PlSpeciessesView.Refresh();
@@ -412,8 +353,8 @@ namespace ATIS.Ui.Views.Database.D87Geographic
                     {
                         Tbl69FiSpeciessesList = _extCrud.GetFiSpeciessesCollectionFromFiSpeciesIdOrderBy<Tbl69FiSpecies>(CurrentTbl87Geographic.FiSpeciesId);
 
-                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
-                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("speciesgroup");
+                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("Genus");
+                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("Speciesgroup");
 
                         FiSpeciessesView = CollectionViewSource.GetDefaultView(Tbl69FiSpeciessesList);
                         FiSpeciessesView.Refresh();
@@ -427,8 +368,8 @@ namespace ATIS.Ui.Views.Database.D87Geographic
                     {
                         Tbl72PlSpeciessesList = _extCrud.GetPlSpeciessesCollectionFromPlSpeciesIdOrderBy<Tbl72PlSpecies>(CurrentTbl87Geographic.PlSpeciesId);
 
-                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
-                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("speciesgroup");
+                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("Genus");
+                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("Speciesgroup");
 
                         PlSpeciessesView = CollectionViewSource.GetDefaultView(Tbl72PlSpeciessesList);
                         PlSpeciessesView.Refresh();
@@ -440,10 +381,25 @@ namespace ATIS.Ui.Views.Database.D87Geographic
                 {
                     if (CurrentTbl87Geographic != null)
                     {
-                        Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromPlSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl87Geographic.PlSpeciesId);
+                        //  var plantaeRegnum = _extCrud.GetPlSpeciesSingleByPlSpeciesName<Tbl72PlSpecies>("Plantae#Regnum#");
+                        // CurrentTbl87Geographic.PlSpeciesId = plantaeRegnum.PlSpeciesId;
+                        //    CurrentTbl87Geographic.PlSpeciesId = 1;
+                        //  var animaliaRegnum = _extCrud.GetFiSpeciesSingleByFiSpeciesName<Tbl69FiSpecies>("Animalia#Regnum#");
+                        // CurrentTbl87Geographic.FiSpeciesId = animaliaRegnum.FiSpeciesId;
+                        //  CurrentTbl87Geographic.FiSpeciesId = 2;
 
-                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
-                        Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("plspecies");
+                        if (CurrentTbl87Geographic.FiSpeciesId == 2)
+                        {
+                            Tbl87GeographicsList = _extCrud.GetNamesCollectionFromPlSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl87Geographic.PlSpeciesId);
+                        }
+                        if (CurrentTbl87Geographic.PlSpeciesId == 1)
+                        {
+                            Tbl87GeographicsList = _extCrud.GetNamesCollectionFromFiSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl87Geographic.FiSpeciesId);
+                        }
+
+                        TblCountriesAllList = _extCrud.GetCollectionAllOrderBy<TblCountry>("Country");
+                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("FiSpecies");
+                        Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("PlSpecies");
 
                         GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
                         GeographicsView.Refresh();

@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using log4net;
-using Microsoft.EntityFrameworkCore;
 
-//    SynonymsViewModel Skriptdatum:  29.12.2020  10:32    
+//    SynonymsViewModel Skriptdatum:  01.02.2021  10:32    
 
 namespace ATIS.Ui.Views.Database.D84Synonym
 {
@@ -21,13 +19,10 @@ namespace ATIS.Ui.Views.Database.D84Synonym
 
         #region [Private Data Members]
         private static readonly ILog Log = LogManager.GetLogger(typeof(SynonymsViewModel));
-        private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly CrudFunctions _extCrud = new CrudFunctions();
-
+        private readonly DeleteFunctions _extDelete = new DeleteFunctions();
+        private readonly SaveFunctions _extSave = new SaveFunctions();
         private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
-        private readonly GenericMessageBoxes<Tbl84Synonym> _genSynonymMessageBoxes = new GenericMessageBoxes<Tbl84Synonym>();
-        private readonly GenericMessageBoxes<Tbl69FiSpecies> _genFiSpeciesMessageBoxes = new GenericMessageBoxes<Tbl69FiSpecies>();
-        private readonly GenericMessageBoxes<Tbl72PlSpecies> _genPlSpeciesMessageBoxes = new GenericMessageBoxes<Tbl72PlSpecies>();
         private int _position;
 
         #endregion [Private Data Members]               
@@ -80,35 +75,65 @@ namespace ATIS.Ui.Views.Database.D84Synonym
 
         private void ExecuteGetSynonymsByNameOrId(string searchName)
         {
-            Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("Fispecies"); 
-            Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("Plspecies");
+            if (Tbl69FiSpeciessesAllList == null)
+                Tbl69FiSpeciessesAllList ??= new ObservableCollection<Tbl69FiSpecies>();
+            else
+                Tbl69FiSpeciessesAllList.Clear();
+
+            if (Tbl72PlSpeciessesAllList == null)
+                Tbl72PlSpeciessesAllList ??= new ObservableCollection<Tbl72PlSpecies>();
+            else
+                Tbl72PlSpeciessesAllList.Clear();
+
+            if (Tbl84SynonymsList == null)
+                Tbl84SynonymsList ??= new ObservableCollection<Tbl84Synonym>();
+            else
+                Tbl84SynonymsList.Clear();
+
+            Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("FiSpecies");
+            Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("PlSpecies");
+
             Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromSearchNameOrIdOrderBy<Tbl84Synonym>(searchName);
 
             if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(Tbl84SynonymsList.Count)) return;
+
+            SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
+            SynonymsView.Refresh();
+        }
+        //------------------------------------------------------------------------------------                          
+
+        private void ExecuteAddSynonym(object o)
+        {
+            if (Tbl84SynonymsList == null)
+                Tbl84SynonymsList ??= new ObservableCollection<Tbl84Synonym>();
+            else
+                Tbl84SynonymsList.Clear();
+
+            if (Tbl69FiSpeciessesAllList == null)
+                Tbl69FiSpeciessesAllList ??= new ObservableCollection<Tbl69FiSpecies>();
+            else
+                Tbl69FiSpeciessesAllList.Clear();
+
+            if (Tbl72PlSpeciessesAllList == null)
+                Tbl72PlSpeciessesAllList ??= new ObservableCollection<Tbl72PlSpecies>();
+            else
+                Tbl72PlSpeciessesAllList.Clear();
+
+            Tbl84SynonymsList.Insert(0, new Tbl84Synonym { SynonymName = CultRes.StringsRes.DatasetNew });
+
+            Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("FiSpecies");
+            Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("PlSpecies");
 
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 2;
 
             SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
-            SynonymsView.Refresh();
-        }
-
-        private void ExecuteAddSynonym(object o)
-        {
-            Tbl84SynonymsList = new ObservableCollection<Tbl84Synonym>();
-            Tbl84SynonymsList.Insert(0, new Tbl84Synonym { SynonymName = CultRes.StringsRes.DatasetNew });
-
-            Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("Fispecies");
-            Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("Plspecies");
-
-            SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
             SynonymsView.MoveCurrentToFirst();
         }
-        //------------------------------------------------------------------------------------                               
 
         private void ExecuteCopySynonym(object o)
         {
-            if (_genSynonymMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl84Synonym)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl84Synonym)) return;
 
             Tbl84SynonymsList = _extCrud.CopySynonym(CurrentTbl84Synonym);
 
@@ -120,46 +145,37 @@ namespace ATIS.Ui.Views.Database.D84Synonym
 
         private void ExecuteDeleteSynonym(string searchName)
         {
-            if (_genSynonymMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl84Synonym)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl84Synonym)) return;
 
-            try
-            {
-                var synonym = _uow.Tbl84Synonyms.GetById(CurrentTbl84Synonym.SynonymId);
-                if (synonym != null)
-                {
-                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + CurrentTbl84Synonym.SynonymName)) return;
+            _extDelete.DeleteSynonym(CurrentTbl84Synonym);
 
-                    _extCrud.DeleteSynonym(synonym);
-
-                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl84Synonym.SynonymName);
-                }
-                else _allMessageBoxes.InfoMessageBox("Not To Delete", CultRes.StringsRes.DeleteCan + " " + CurrentTbl84Synonym.SynonymName + " " + CultRes.StringsRes.DeleteCan1);
-            }
-            catch (Exception e)
-            {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-
-            ExecuteGetSynonymsByNameOrId(searchName);
-
-            SynonymsView.MoveCurrentToFirst();
+            Tbl84SynonymsList = _extCrud.GetCollectionFromSearchNameOrIdOrderBy<Tbl84Synonym>(searchName, "Synonym");
+            SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
+            SynonymsView.MoveCurrentToLast();
         }
 
         private void ExecuteSaveSynonym(string searchName)
         {
-            if (_genSynonymMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl84Synonym)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl84Synonym)) return;
 
-            //Combobox select FiSpeciesID  may be not 0
-            if (CurrentTbl84Synonym.FiSpeciesId == 0)
+            _position = SynonymsView.CurrentPosition;
+
+            _extSave.SaveSynonym(CurrentTbl84Synonym);
+
+            if (_position == 0) //new
             {
-                MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredInput,
-                    MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                return;
+                Tbl84SynonymsList = _extCrud.GetLastSynonymsDatasetOrderById();
+                SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
+                SynonymsView.MoveCurrentToFirst();
+            }
+            else
+            {
+                Tbl84SynonymsList = _extCrud.GetSynonymsCollectionFromSearchNameOrIdOrderBy<Tbl84Synonym>(searchName);
+                SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
+                SynonymsView.MoveCurrentToPosition(_position);
             }
         }
-
-        #endregion "Public Commands"                   
+        #endregion [Methods Synonym]                
 
 
 
@@ -168,61 +184,21 @@ namespace ATIS.Ui.Views.Database.D84Synonym
 
         #region "Public Commands Connect <== Tbl69FiSpecies"                 
 
+
         private RelayCommand _saveFiSpeciesCommand;
 
-        public ICommand SaveFiSpeciesCommand => _saveFiSpeciesCommand ??= new RelayCommand(delegate { ExecuteSaveFiSpecies(SearchSynonymName); });
+        public ICommand SaveFiSpeciesCommand => _saveFiSpeciesCommand ??= new RelayCommand(delegate { ExecuteSaveFiSpecies(null); });
 
-        private void ExecuteSaveFiSpecies(string searchName)
+        private void ExecuteSaveFiSpecies(object o)
         {
-            if (_genFiSpeciesMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl69FiSpecies)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl69FiSpecies)) return;
 
-            try
-            {
-                var fispecies = _uow.Tbl69FiSpeciesses.GetById(CurrentTbl69FiSpecies.FiSpeciesId);
+            _extSave.SaveFiSpecies(CurrentTbl69FiSpecies);
 
-                if (CurrentTbl69FiSpecies.FiSpeciesId == 0)
-                    fispecies = _extCrud.FiSpeciesAdd(CurrentTbl69FiSpecies);
-                else
-                    fispecies = _extCrud.FiSpeciesUpdate(fispecies, CurrentTbl69FiSpecies);
-
-                _position = SynonymsView.CurrentPosition;
-
-                var cap = CurrentTbl69FiSpecies.FiSpeciesName;
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(cap)) return;
-
-                try
-                {
-                    _extCrud.FiSpeciesSave(fispecies, CurrentTbl69FiSpecies);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl69FiSpecies.FiSpeciesId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl69FiSpecies.FiSpeciesName);
-            }
-
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-            ExecuteGetSynonymsByNameOrId(searchName);
-            SynonymsView.MoveCurrentToPosition(_position);
+            Tbl69FiSpeciessesList = _extCrud.GetFiSpeciessesCollectionFromFiSpeciesIdOrderBy<Tbl69FiSpecies>(CurrentTbl84Synonym.FiSpeciesId);
+            FiSpeciessesView = CollectionViewSource.GetDefaultView(Tbl69FiSpeciessesList);
+            FiSpeciessesView.Refresh();
         }
-
         #endregion "Public Commands"                  
 
 
@@ -233,60 +209,19 @@ namespace ATIS.Ui.Views.Database.D84Synonym
 
         private RelayCommand _savePlSpeciesCommand;
 
-        public ICommand SavePlSpeciesCommand => _savePlSpeciesCommand ??= new RelayCommand(delegate { ExecuteSavePlSpecies(SearchSynonymName); });
+        public ICommand SavePlSpeciesCommand => _savePlSpeciesCommand ??= new RelayCommand(delegate { ExecuteSavePlSpecies(null); });
 
-        private void ExecuteSavePlSpecies(string searchName)
+
+        private void ExecuteSavePlSpecies(object o)
         {
-            if (_genPlSpeciesMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl72PlSpecies)) return;
+            if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl72PlSpecies)) return;
 
-            try
-            {
-                var plspecies = _uow.Tbl72PlSpeciesses.GetById(CurrentTbl72PlSpecies.PlSpeciesId);
+            _extSave.SavePlSpecies(CurrentTbl72PlSpecies);
 
-                if (CurrentTbl72PlSpecies.PlSpeciesId == 0)
-                    plspecies = _extCrud.PlSpeciesAdd(CurrentTbl72PlSpecies);
-                else
-                    plspecies = _extCrud.PlSpeciesUpdate(plspecies, CurrentTbl72PlSpecies);
-
-                _position = SynonymsView.CurrentPosition;
-
-                var cap = CurrentTbl72PlSpecies.PlSpeciesName;
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(cap)) return;
-
-                try
-                {
-                    _extCrud.PlSpeciesSave(plspecies, CurrentTbl72PlSpecies);
-                }
-                catch (DbUpdateException e)
-                {
-                    if (e.InnerException != null)
-                        _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(),
-                            CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
-                }
-
-                _allMessageBoxes.InfoMessageBox("Save Successfull", CurrentTbl72PlSpecies.PlSpeciesId == 0
-                    ? CultRes.StringsRes.DatasetNew
-                    : CurrentTbl72PlSpecies.PlSpeciesName);
-            }
-
-            catch (Exception e)
-            {
-                _allMessageBoxes.WarningMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
-            }
-
-            ExecuteGetSynonymsByNameOrId(searchName);
-            SynonymsView.MoveCurrentToPosition(_position);
+            Tbl72PlSpeciessesList = _extCrud.GetPlSpeciessesCollectionFromPlSpeciesIdOrderBy<Tbl72PlSpecies>(CurrentTbl84Synonym.PlSpeciesId);
+            PlSpeciessesView = CollectionViewSource.GetDefaultView(Tbl72PlSpeciessesList);
+            PlSpeciessesView.Refresh();
         }
-
         #endregion "Public Commands"                  
 
 
@@ -330,8 +265,8 @@ namespace ATIS.Ui.Views.Database.D84Synonym
         private void GetConnectedTablesById(object o)
         {
 
-            Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
-            Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("speciesgroup");
+            Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("Genus");
+            Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("Speciesgroup");
 
             Tbl69FiSpeciessesList = _extCrud.GetFiSpeciessesCollectionFromFiSpeciesIdOrderBy<Tbl69FiSpecies>(CurrentTbl84Synonym.FiSpeciesId);
 
@@ -367,8 +302,8 @@ namespace ATIS.Ui.Views.Database.D84Synonym
                     {
                         Tbl69FiSpeciessesList = _extCrud.GetFiSpeciessesCollectionFromFiSpeciesIdOrderBy<Tbl69FiSpecies>(CurrentTbl84Synonym.FiSpeciesId);
 
-                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
-                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("speciesgroup");
+                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("Genus");
+                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("Speciesgroup");
 
                         FiSpeciessesView = CollectionViewSource.GetDefaultView(Tbl69FiSpeciessesList);
                         FiSpeciessesView.Refresh();
@@ -382,8 +317,8 @@ namespace ATIS.Ui.Views.Database.D84Synonym
                     {
                         Tbl72PlSpeciessesList = _extCrud.GetPlSpeciessesCollectionFromPlSpeciesIdOrderBy<Tbl72PlSpecies>(CurrentTbl84Synonym.PlSpeciesId);
 
-                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
-                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("speciesgroup");
+                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("Genus");
+                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("Speciesgroup");
 
                         PlSpeciessesView = CollectionViewSource.GetDefaultView(Tbl72PlSpeciessesList);
                         PlSpeciessesView.Refresh();
@@ -408,8 +343,8 @@ namespace ATIS.Ui.Views.Database.D84Synonym
                     {
                         Tbl69FiSpeciessesList = _extCrud.GetFiSpeciessesCollectionFromFiSpeciesIdOrderBy<Tbl69FiSpecies>(CurrentTbl84Synonym.FiSpeciesId);
 
-                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
-                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("speciesgroup");
+                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("Genus");
+                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("Speciesgroup");
 
                         FiSpeciessesView = CollectionViewSource.GetDefaultView(Tbl69FiSpeciessesList);
                         FiSpeciessesView.Refresh();
@@ -423,8 +358,8 @@ namespace ATIS.Ui.Views.Database.D84Synonym
                     {
                         Tbl72PlSpeciessesList = _extCrud.GetPlSpeciessesCollectionFromPlSpeciesIdOrderBy<Tbl72PlSpecies>(CurrentTbl84Synonym.PlSpeciesId);
 
-                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("genus");
-                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("speciesgroup");
+                        Tbl66GenussesAllList = _extCrud.GetCollectionAllOrderBy<Tbl66Genus>("Genus");
+                        Tbl68SpeciesgroupsAllList = _extCrud.GetCollectionAllOrderBy<Tbl68Speciesgroup>("Speciesgroup");
 
                         PlSpeciessesView = CollectionViewSource.GetDefaultView(Tbl72PlSpeciessesList);
                         PlSpeciessesView.Refresh();
@@ -436,10 +371,24 @@ namespace ATIS.Ui.Views.Database.D84Synonym
                 {
                     if (CurrentTbl84Synonym != null)
                     {
-                        Tbl84SynonymsList = _extCrud.GetNamesCollectionFromPlSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl84Synonym.PlSpeciesId);
+                        //  var plantaeRegnum = _extCrud.GetPlSpeciesSingleByPlSpeciesName<Tbl72PlSpecies>("Plantae#Regnum#");
+                        // CurrentTbl78Name.PlSpeciesId = plantaeRegnum.PlSpeciesId;
+                        //    CurrentTbl78Name.PlSpeciesId = 1;
+                        //  var animaliaRegnum = _extCrud.GetFiSpeciesSingleByFiSpeciesName<Tbl69FiSpecies>("Animalia#Regnum#");
+                        // CurrentTbl84Synonym.FiSpeciesId = animaliaRegnum.FiSpeciesId;
+                        //  CurrentTbl84Synonym.FiSpeciesId = 2;
 
-                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("fispecies");
-                        Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("plspecies");
+                        if (CurrentTbl84Synonym.FiSpeciesId == 2)
+                        {
+                            Tbl84SynonymsList = _extCrud.GetNamesCollectionFromPlSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl84Synonym.PlSpeciesId);
+                        }
+                        if (CurrentTbl84Synonym.PlSpeciesId == 1)
+                        {
+                            Tbl84SynonymsList = _extCrud.GetNamesCollectionFromFiSpeciesIdOrderBy<Tbl84Synonym>(CurrentTbl84Synonym.FiSpeciesId);
+                        }
+
+                        Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("FiSpecies");
+                        Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("PlSpecies");
 
                         SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
                         SynonymsView.Refresh();
@@ -480,6 +429,7 @@ namespace ATIS.Ui.Views.Database.D84Synonym
             get => _tbl84SynonymsAllList;
             set { _tbl84SynonymsAllList = value; RaisePropertyChanged(""); }
         }
+
 
         #endregion "Public Properties"   
 
