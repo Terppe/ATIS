@@ -202,6 +202,9 @@ namespace ATIS.Ui.Core
                 case "Comment":
                     collection = GetCommentsCollectionAllOrderBy<T>();
                     break;
+                case "Country":
+                    collection = GetCountriesCollectionAllOrderBy<T>();
+                    break;
             }
 
             return collection;
@@ -4198,7 +4201,11 @@ namespace ATIS.Ui.Core
         private ObservableCollection<T> GetFiSpeciessesCollectionAllOrderBy<T>()
         {
             var collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl69FiSpeciesses
-                .OrderBy(a => a.FiSpeciesName));
+                .Include(d => d.Tbl66Genusses)
+                .OrderBy(a => a.Tbl66Genusses.GenusName)
+                .ThenBy(a => a.FiSpeciesName)
+                .ThenBy(a => a.Subspecies)
+                .ThenBy(a => a.Divers));
             return collection;
         }
         public ObservableCollection<T> GetFiSpeciessesCollectionFromGenusIdOrderBy<T>(int id)
@@ -4514,7 +4521,11 @@ namespace ATIS.Ui.Core
         private ObservableCollection<T> GetPlSpeciessesCollectionAllOrderBy<T>()
         {
             var collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl72PlSpeciesses
-                .OrderBy(a => a.PlSpeciesName));
+                .Include(d => d.Tbl66Genusses)
+                .OrderBy(a => a.Tbl66Genusses.GenusName)
+                .ThenBy(a => a.PlSpeciesName)
+                .ThenBy(a => a.Subspecies)
+                .ThenBy(a => a.Divers));
             return collection;
         }
         public ObservableCollection<T> GetPlSpeciessesCollectionFromGenusIdOrderBy<T>(int id)
@@ -4767,6 +4778,16 @@ namespace ATIS.Ui.Core
                 .OrderBy(k => k.NameName));
             return collection;
         }
+
+        public ObservableCollection<Tbl78Name> GetLastNamesDatasetOrderById()
+        {
+            var collection = _context.Tbl78Names
+                .OrderBy(c => c.NameId)
+                .AsNoTracking()
+                .LastOrDefault();
+            return new ObservableCollection<Tbl78Name> { collection };
+        }
+
         #endregion
 
         #region Copy Name
@@ -4872,7 +4893,6 @@ namespace ATIS.Ui.Core
                 .OrderBy(e => e.Info));
             return collection;
         }
-
         public ObservableCollection<T> GetImagesCollectionFromFiSpeciesIdOrderBy<T>(int id)
         {
             var collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl81Images
@@ -4887,7 +4907,14 @@ namespace ATIS.Ui.Core
                 .OrderBy(k => k.Info));
             return collection;
         }
-
+        public ObservableCollection<Tbl81Image> GetLastImagesDatasetOrderById()
+        {
+            var collection = _context.Tbl81Images
+                .OrderBy(c => c.ImageId)
+                .AsNoTracking()
+                .LastOrDefault();
+            return new ObservableCollection<Tbl81Image> { collection };
+        }
         #endregion
 
         #region Copy Image
@@ -5047,6 +5074,15 @@ namespace ATIS.Ui.Core
                 .OrderBy(k => k.SynonymName));
             return collection;
         }
+        public ObservableCollection<Tbl84Synonym> GetLastSynonymsDatasetOrderById()
+        {
+            var collection = _context.Tbl84Synonyms
+                .OrderBy(c => c.SynonymId)
+                .AsNoTracking()
+                .LastOrDefault();
+            return new ObservableCollection<Tbl84Synonym> { collection };
+        }
+
 
         #endregion
 
@@ -5157,7 +5193,6 @@ namespace ATIS.Ui.Core
                 .OrderBy(e => e.Info));
             return collection;
         }
-
         public ObservableCollection<T> GetGeographicsCollectionFromFiSpeciesIdOrderBy<T>(int id)
         {
             var collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl87Geographics
@@ -5171,6 +5206,14 @@ namespace ATIS.Ui.Core
                 .Where(e => e.PlSpeciesId == id)
                 .OrderBy(k => k.Info));
             return collection;
+        }
+        public ObservableCollection<Tbl87Geographic> GetLastGeographicsDatasetOrderById()
+        {
+            var collection = _context.Tbl87Geographics
+                .OrderBy(c => c.GeographicId)
+                .AsNoTracking()
+                .LastOrDefault();
+            return new ObservableCollection<Tbl87Geographic> { collection };
         }
 
         #endregion
@@ -11014,6 +11057,22 @@ namespace ATIS.Ui.Core
 
         #endregion
 
+        #region Country
+
+        #region Get Country
+
+        public ObservableCollection<T> GetCountriesCollectionAllOrderBy<T>()
+        {
+            var collection = new ObservableCollection<T>((IEnumerable<T>)_context.TblCountries
+                .OrderBy(a => a.Name)
+                .AsNoTracking());
+            return collection;
+        }
+
+
+        #endregion
+
+        #endregion
     }
 
 }

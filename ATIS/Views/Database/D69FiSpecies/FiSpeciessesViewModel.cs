@@ -235,8 +235,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
 
         private RelayCommand _saveSpeciesgroupCommand;
 
-        public ICommand SaveSpeciesgroupCommand =>
-                            _saveSpeciesgroupCommand ??= new RelayCommand(delegate { ExecuteSaveSpeciesgroup(null); });
+        public ICommand SaveSpeciesgroupCommand => _saveSpeciesgroupCommand ??= new RelayCommand(delegate { ExecuteSaveSpeciesgroup(null); });
 
 
         private void ExecuteSaveSpeciesgroup(object o)
@@ -1619,7 +1618,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
                      new Language {Name = "GER"},
                      new Language {Name = "ENG"},
                      new Language {Name = "FRE"},
-                     new Language {Name = "POR"}
+                     new Language {Name = "SPA"}
                  };
 
             _selectedLanguage = new Language();

@@ -1624,7 +1624,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                      new Language {Name = "GER"},
                      new Language {Name = "ENG"},
                      new Language {Name = "FRE"},
-                     new Language {Name = "POR"}
+                     new Language {Name = "SPA"}
                  };
 
             _selectedLanguage = new Language();
