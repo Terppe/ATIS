@@ -37,7 +37,7 @@ namespace ATIS.Ui.Core
 
                     _extCrud.DeleteRegnum(dataset);
 
-                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl03Regnum.RegnumName);
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl03Regnum.RegnumName);
                 }
                 else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl03Regnum.RegnumName + " " + CultRes.StringsRes.DeleteCan1);
             }
@@ -811,6 +811,27 @@ namespace ATIS.Ui.Core
             }
         }
 
+        public void DeleteReference(Tbl90Reference currentTbl90Reference)
+        {
+            try
+            {
+                var dataset = _uow.Tbl90References.GetById(currentTbl90Reference.ReferenceId);
+                if (dataset != null)
+                {
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + currentTbl90Reference.Info)) return;
+
+                    _extCrud.DeleteReference(dataset);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl90Reference.Info);
+                }
+                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl90Reference.Info + " " + CultRes.StringsRes.DeleteCan1);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+        }
 
 
         #endregion
@@ -837,7 +858,7 @@ namespace ATIS.Ui.Core
             _extCrud.DeleteReferences(Tbl90ReferencesList);
 
             _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CultRes.StringsRes.Reference);
-        
+
         }
         private void DeleteDivisionReferences(int divisionId)
         {

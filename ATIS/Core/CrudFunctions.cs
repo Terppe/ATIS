@@ -5352,6 +5352,37 @@ namespace ATIS.Ui.Core
         #region References
 
         #region Reference Get
+        public ObservableCollection<T> GetReferencesCollectionFromSearchInfoOrIdOrderBy<T>(string searchInfo)
+        {
+            ObservableCollection<T> collection;
+            collection = int.TryParse(searchInfo, out var id)
+                ? new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                    .Include(a => a.Tbl90RefExperts)
+                    .Include(a => a.Tbl90RefSources)
+                    .Include(a => a.Tbl90RefAuthors)
+                    .Where(e => e.ReferenceId == id))
+                : new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                    .Include(a => a.Tbl90RefExperts)
+                    .Include(a => a.Tbl90RefSources)
+                    .Include(a => a.Tbl90RefAuthors)
+                    .Where(e => e.Info.StartsWith(searchInfo))
+                    .OrderBy(a => a.Info)
+                );
+            return collection;
+        }
+
+        public ObservableCollection<T> GetReferencesCollectionFromReferenceIdOrderBy<T>(int? id)
+        {
+            ObservableCollection<T> collection;
+            collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90References
+                .Include(a => a.Tbl90RefExperts)
+                .Include(a => a.Tbl90RefSources)
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.ReferenceId == id)
+                .OrderBy(k => k.Info));
+            return collection;
+        }
+
         public Tbl90Reference GetReferenceSingleByReferenceId<T>(int referenceId)
         {
             Tbl90Reference single = _uow.Tbl90References.GetById(referenceId);
@@ -5367,9 +5398,37 @@ namespace ATIS.Ui.Core
             return collection;
         }
 
+        public ObservableCollection<Tbl90Reference> GetLastReferencesDatasetOrderById()
+        {
+            var collection = _context.Tbl90References
+                .OrderBy(c => c.ReferenceId)
+                .AsNoTracking()
+                .LastOrDefault();
+            return new ObservableCollection<Tbl90Reference> { collection };
+        }
+
+
+
         #endregion
 
         #region Reference Copy
+
+        public ObservableCollection<Tbl90Reference> CopyReference(Tbl90Reference selected)
+        {
+            var dataset = _uow.Tbl90References.GetById(selected.ReferenceId);
+            var collection = new ObservableCollection<Tbl90Reference>();
+
+            collection.Insert(0, new Tbl90Reference
+            {
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Info = dataset.Info,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
+
         public ObservableCollection<Tbl90Reference> CopyReferenceRegnum(Tbl90Reference selected, string refer)
         {
             var dataset = _uow.Tbl90References.GetById(selected.ReferenceId);
@@ -6404,6 +6463,7 @@ namespace ATIS.Ui.Core
         #endregion
 
         #region Reference Delete
+
         public ObservableCollection<Tbl90Reference> DeleteDatasetsWithRegnumIdInTableReference(int selectedId)
         {
             var collection = new ObservableCollection<Tbl90Reference>(_uow.Tbl90References.Find(x => x.RegnumId == selectedId));
@@ -6542,6 +6602,100 @@ namespace ATIS.Ui.Core
         #endregion
 
         #region Reference Save
+
+        public void ReferenceSave(Tbl90Reference home, Tbl90Reference selected)
+        {
+            if (selected.ReferenceId != 0)   //update
+                _uow.Tbl90References.Update(home);
+            else                                            //add
+                _uow.Tbl90References.Add(home);
+
+            _uow.Complete();
+        }
+
+        public Tbl90Reference ReferenceUpdate(Tbl90Reference home, Tbl90Reference selected)
+        {
+            if (home != null) //update
+            {
+                home.RefExpertId = selected.RefExpertId;
+                home.RefAuthorId = selected.RefAuthorId;
+                home.RefSourceId = selected.RefSourceId;
+                home.RegnumId = selected.RegnumId;
+                home.PhylumId = selected.PhylumId;
+                home.DivisionId = selected.DivisionId;
+                home.SubphylumId = selected.SubphylumId;
+                home.SubdivisionId = selected.SubdivisionId;
+                home.SuperclassId = selected.SuperclassId;
+                home.ClassId = selected.ClassId;
+                home.SubclassId = selected.SubclassId;
+                home.InfraclassId = selected.InfraclassId;
+                home.LegioId = selected.LegioId;
+                home.OrdoId = selected.OrdoId;
+                home.SubordoId = selected.SubordoId;
+                home.InfraordoId = selected.InfraordoId;
+                home.SuperfamilyId = selected.SuperfamilyId;
+                home.FamilyId = selected.FamilyId;
+                home.SubfamilyId = selected.SubfamilyId;
+                home.InfrafamilyId = selected.InfrafamilyId;
+                home.SupertribusId = selected.SupertribusId;
+                home.TribusId = selected.TribusId;
+                home.SubtribusId = selected.SubtribusId;
+                home.InfratribusId = selected.InfratribusId;
+                home.GenusId = selected.GenusId;
+                home.PlSpeciesId = selected.PlSpeciesId;
+                home.FiSpeciesId = selected.FiSpeciesId;
+                home.Valid = selected.Valid;
+                home.ValidYear = selected.ValidYear;
+                home.Info = selected.Info;
+                home.Memo = selected.Memo;
+                home.Updater = Environment.UserName;
+                home.UpdaterDate = DateTime.Now;
+            }
+            return home;
+        }
+        public Tbl90Reference ReferenceAdd(Tbl90Reference selected)
+        {
+            var home = new Tbl90Reference() //add new
+            {
+                RefAuthorId = selected.RefAuthorId,
+                RefSourceId = selected.RefSourceId,
+                RefExpertId = selected.RefExpertId,
+                RegnumId = selected.RegnumId,
+                PhylumId = selected.PhylumId,
+                DivisionId = selected.DivisionId,
+                SubphylumId = selected.SubphylumId,
+                SubdivisionId = selected.SubdivisionId,
+                SuperclassId = selected.SuperclassId,
+                ClassId = selected.ClassId,
+                SubclassId = selected.SubclassId,
+                InfraclassId = selected.InfraclassId,
+                LegioId = selected.LegioId,
+                OrdoId = selected.OrdoId,
+                SubordoId = selected.SubordoId,
+                InfraordoId = selected.InfraordoId,
+                SuperfamilyId = selected.SuperfamilyId,
+                FamilyId = selected.FamilyId,
+                SubfamilyId = selected.SubfamilyId,
+                InfrafamilyId = selected.InfrafamilyId,
+                SupertribusId = selected.SupertribusId,
+                TribusId = selected.TribusId,
+                SubtribusId = selected.SubtribusId,
+                InfratribusId = selected.InfratribusId,
+                GenusId = selected.GenusId,
+                PlSpeciesId = selected.PlSpeciesId,
+                FiSpeciesId = selected.FiSpeciesId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now
+            };
+            return home;
+        }
 
         public void ReferenceExpertSave(Tbl90Reference home, Tbl90Reference selected)
         {
@@ -9688,6 +9842,203 @@ namespace ATIS.Ui.Core
 
         #endregion
 
+        #region RefExpert
+
+        #region RefExpert Get
+        public ObservableCollection<T> GetRefExpertsCollectionFromRefExpertIdOrderBy<T>(int? id)
+        {
+            var collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90RefExperts
+                .Where(e => e.RefExpertId == id)
+                .OrderBy(k => k.RefExpertName));
+            return collection;
+        }
+        #endregion
+
+        #region RefExpert Save
+        public void RefExpertSave(Tbl90RefExpert home, Tbl90RefExpert selected)
+        {
+
+            if (selected.RefExpertId != 0) //update
+            {
+                _uow.Tbl90RefExperts.Update(home);
+            }
+            else                                //add
+                _uow.Tbl90RefExperts.Add(home);
+            _uow.Complete();
+        }
+        public Tbl90RefExpert RefExpertUpdate(Tbl90RefExpert reference, Tbl90RefExpert selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefExpertName = selected.RefExpertName;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Notes = selected.Notes;
+                reference.Memo = selected.Memo;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+            }
+            return reference;
+        }
+        public Tbl90RefExpert RefExpertAdd(Tbl90RefExpert selected)
+        {
+            var reference = new Tbl90RefExpert //add new
+            {
+                RefExpertName = selected.RefExpertName,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Notes = selected.Notes,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+            };
+            return reference;
+        }
+        #endregion
+
+        #endregion
+
+        #region RefSource
+
+        #region RefSource Get
+        public ObservableCollection<T> GetRefSourcesCollectionFromRefSourceIdOrderBy<T>(int? id)
+        {
+            var collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90RefSources
+                .Where(e => e.RefSourceId == id)
+                .OrderBy(k => k.RefSourceName));
+            return collection;
+        }
+
+        #endregion
+
+        #region RefSource Save
+        public void RefSourceSave(Tbl90RefSource home, Tbl90RefSource selected)
+        {
+
+            if (selected.RefSourceId != 0) //update
+            {
+                _uow.Tbl90RefSources.Update(home);
+            }
+            else                                //add
+                _uow.Tbl90RefSources.Add(home);
+            _uow.Complete();
+        }
+        public Tbl90RefSource RefSourceUpdate(Tbl90RefSource reference, Tbl90RefSource selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefSourceName = selected.RefSourceName;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.Info = selected.Info;
+                reference.Notes = selected.Notes;
+                reference.Memo = selected.Memo;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+            }
+            return reference;
+        }
+        public Tbl90RefSource RefSourceAdd(Tbl90RefSource selected)
+        {
+            var reference = new Tbl90RefSource //add new
+            {
+                RefSourceName = selected.RefSourceName,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Notes = selected.Notes,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now
+            };
+            return reference;
+        }
+        #endregion
+
+        #endregion
+
+        #region RefAuthor
+
+        #region RefAuthor Get
+        public ObservableCollection<T> GetRefAuthorsCollectionFromRefAuthorIdOrderBy<T>(int? id)
+        {
+            var collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90RefAuthors
+                .Where(e => e.RefAuthorId == id)
+                .OrderBy(k => k.RefAuthorName));
+            return collection;
+        }
+        #endregion
+
+        #region RefAuthor Save
+        public void RefAuthorSave(Tbl90RefAuthor home, Tbl90RefAuthor selected)
+        {
+
+            if (selected.RefAuthorId != 0) //update
+            {
+                _uow.Tbl90RefAuthors.Update(home);
+            }
+            else                                //add
+                _uow.Tbl90RefAuthors.Add(home);
+            _uow.Complete();
+        }
+        public Tbl90RefAuthor RefAuthorUpdate(Tbl90RefAuthor reference, Tbl90RefAuthor selected)
+        {
+            if (reference != null) //update
+            {
+                reference.RefAuthorName = selected.RefAuthorName;
+                reference.Valid = selected.Valid;
+                reference.ValidYear = selected.ValidYear;
+                reference.PublicationYear = selected.PublicationYear;
+                reference.ArticelTitle = selected.ArticelTitle;
+                reference.BookName = selected.BookName;
+                reference.Info = selected.Info;
+                reference.Page1 = selected.Page1;
+                reference.Publisher = selected.Publisher;
+                reference.PublicationPlace = selected.PublicationPlace;
+                reference.ISBN = selected.ISBN;
+                reference.Notes = selected.Notes;
+                reference.Memo = selected.Memo;
+                reference.Updater = Environment.UserName;
+                reference.UpdaterDate = DateTime.Now;
+            }
+            return reference;
+        }
+        public Tbl90RefAuthor RefAuthorAdd(Tbl90RefAuthor selected)
+        {
+            var reference = new Tbl90RefAuthor //add new
+            {
+                RefAuthorName = selected.RefAuthorName,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                PublicationYear = selected.PublicationYear,
+                ArticelTitle = selected.ArticelTitle,
+                BookName = selected.BookName,
+                Info = selected.Info,
+                Page1 = selected.Page1,
+                Publisher = selected.Publisher,
+                PublicationPlace = selected.PublicationPlace,
+                ISBN = selected.ISBN,
+                Notes = selected.Notes,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+                Memo = selected.Memo
+            };
+            return reference;
+        }
+        #endregion
+
+        #endregion
 
         #region Comment
 

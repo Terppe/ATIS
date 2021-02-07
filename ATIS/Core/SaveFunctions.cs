@@ -24,7 +24,7 @@ namespace ATIS.Ui.Core
         {
             try
             {
-              //  var dataset = _extCrud.GetRegnumSingleByRegnumId<Tbl03Regnum>(currentTbl03Regnum.RegnumId);
+                //  var dataset = _extCrud.GetRegnumSingleByRegnumId<Tbl03Regnum>(currentTbl03Regnum.RegnumId);
                 var dataset = _uow.Tbl03Regnums.GetById(currentTbl03Regnum.RegnumId);
 
                 if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl03Regnum.RegnumName))
@@ -65,13 +65,13 @@ namespace ATIS.Ui.Core
         public void SavePhylum(Tbl06Phylum currentTbl06Phylum)
         {
             //Combobox select RegnumId  may not be 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl06Phylum.RegnumId)) return ;
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl06Phylum.RegnumId)) return;
             try
             {
-          //    var dataset = _extCrud.GetPhylumSingleByPhylumId(currentTbl06Phylum.PhylumId);
-              var dataset = _uow.Tbl06Phylums.GetById(currentTbl06Phylum.PhylumId);
+                //    var dataset = _extCrud.GetPhylumSingleByPhylumId(currentTbl06Phylum.PhylumId);
+                var dataset = _uow.Tbl06Phylums.GetById(currentTbl06Phylum.PhylumId);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl06Phylum.PhylumName)) return ;
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl06Phylum.PhylumName)) return;
 
                 if (currentTbl06Phylum.PhylumId == 0)
                     dataset = _extCrud.PhylumAdd(currentTbl06Phylum);
@@ -88,13 +88,13 @@ namespace ATIS.Ui.Core
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return ;
+                    return;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                     Log.Error(e);
-                    return ;
+                    return;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl06Phylum.PhylumId == 0
@@ -113,7 +113,7 @@ namespace ATIS.Ui.Core
             if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl09Division.RegnumId)) return;
             try
             {
-            //    var dataset = _extCrud.GetDivisionSingleByDivisionId<Tbl09Division>(currentTbl09Division.DivisionId);
+                //    var dataset = _extCrud.GetDivisionSingleByDivisionId<Tbl09Division>(currentTbl09Division.DivisionId);
                 var dataset = _uow.Tbl09Divisions.GetById(currentTbl09Division.DivisionId);
 
                 if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl09Division.DivisionName)) return;
@@ -159,7 +159,7 @@ namespace ATIS.Ui.Core
 
             try
             {
-            //    var dataset = _extCrud.GetSubphylumSingleBySubphylumId<Tbl12Subphylum>(currentTbl12Subphylum.SubphylumId);
+                //    var dataset = _extCrud.GetSubphylumSingleBySubphylumId<Tbl12Subphylum>(currentTbl12Subphylum.SubphylumId);
                 var dataset = _uow.Tbl12Subphylums.GetById(currentTbl12Subphylum.SubphylumId);
 
 
@@ -207,7 +207,7 @@ namespace ATIS.Ui.Core
 
             try
             {
-          //      var dataset = _extCrud.GetSubdivisionSingleBySubdivisionId<Tbl15Subdivision>(currentTbl15Subdivision.SubdivisionId);
+                //      var dataset = _extCrud.GetSubdivisionSingleBySubdivisionId<Tbl15Subdivision>(currentTbl15Subdivision.SubdivisionId);
                 var dataset = _uow.Tbl15Subdivisions.GetById(currentTbl15Subdivision.SubdivisionId);
 
                 if (currentTbl15Subdivision.SubdivisionId == 0)
@@ -1337,6 +1337,88 @@ namespace ATIS.Ui.Core
             }
         }
 
+        public void SaveReference(Tbl90Reference currentTbl90Reference)
+        {
+            var z = 0;
+            if (currentTbl90Reference.RegnumId != null) z += 1;
+            if (currentTbl90Reference.PhylumId != null) z += 1;
+            if (currentTbl90Reference.SubphylumId != null) z += 1;
+            if (currentTbl90Reference.DivisionId != null) z += 1;
+            if (currentTbl90Reference.SubdivisionId != null) z += 1;
+            if (currentTbl90Reference.SuperclassId != null) z += 1;
+            if (currentTbl90Reference.ClassId != null) z += 1;
+            if (currentTbl90Reference.SubclassId != null) z += 1;
+            if (currentTbl90Reference.InfraclassId != null) z += 1;
+            if (currentTbl90Reference.LegioId != null) z += 1;
+            if (currentTbl90Reference.OrdoId != null) z += 1;
+            if (currentTbl90Reference.SubordoId != null) z += 1;
+            if (currentTbl90Reference.InfraordoId != null) z += 1;
+            if (currentTbl90Reference.SuperfamilyId != null) z += 1;
+            if (currentTbl90Reference.FamilyId != null) z += 1;
+            if (currentTbl90Reference.SubfamilyId != null) z += 1;
+            if (currentTbl90Reference.InfrafamilyId != null) z += 1;
+            if (currentTbl90Reference.SupertribusId != null) z += 1;
+            if (currentTbl90Reference.TribusId != null) z += 1;
+            if (currentTbl90Reference.SubtribusId != null) z += 1;
+            if (currentTbl90Reference.InfratribusId != null) z += 1;
+            if (currentTbl90Reference.GenusId != null) z += 1;
+            if (currentTbl90Reference.FiSpeciesId != null) z += 1;
+            if (currentTbl90Reference.PlSpeciesId != null) z += 1;
+
+            if (z == 0)
+            {
+                _allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(z);
+                return;
+            }
+
+            if (z > 1)
+            {
+                _allMessageBoxes.IdSelectInComboBoxMoreThenOneInfoMessageBox();
+                return;
+            }
+
+
+            try
+            {
+                var dataset = _uow.Tbl90References.GetById(currentTbl90Reference.ReferenceId);
+                //    var dataset = _extCrud.GetClassSingleByReferenceId<Tbl90Reference>(currentTbl90Reference.ReferenceId);
+
+                if (currentTbl90Reference.ReferenceId == 0)
+                    dataset = _extCrud.ReferenceAdd(currentTbl90Reference);
+                else
+                    dataset = _extCrud.ReferenceUpdate(dataset, currentTbl90Reference);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl90Reference.Info)) return;
+
+                try
+                {
+                    _extCrud.ReferenceSave(dataset, currentTbl90Reference);
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
+                    Log.Error(e);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
+                    //         Log.Error(e);
+                    return;
+                }
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl90Reference.ReferenceId == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : currentTbl90Reference.Info);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+        }
+
 
         public void SaveReferenceAuthor(Tbl90Reference currentTbl90ReferenceAuthor, string name)
         {
@@ -1345,8 +1427,8 @@ namespace ATIS.Ui.Core
 
             try
             {
-                      var dataset = _uow.Tbl90References.GetById(currentTbl90ReferenceAuthor.ReferenceId);
-               // var dataset = _extCrud.GetReferenceSingleByReferenceId<Tbl90Reference>(currentTbl90ReferenceAuthor.ReferenceId);
+                var dataset = _uow.Tbl90References.GetById(currentTbl90ReferenceAuthor.ReferenceId);
+                // var dataset = _extCrud.GetReferenceSingleByReferenceId<Tbl90Reference>(currentTbl90ReferenceAuthor.ReferenceId);
 
 
                 dataset = AddUpdateReferenceAuthor(currentTbl90ReferenceAuthor, dataset, name);
@@ -1386,221 +1468,221 @@ namespace ATIS.Ui.Core
             switch (name)
             {
                 case "Regnum":
-                {
-                    if (currentTbl90ReferenceAuthor.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceAuthorRegnumAdd(currentTbl90ReferenceAuthor);
+                    {
+                        if (currentTbl90ReferenceAuthor.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceAuthorRegnumAdd(currentTbl90ReferenceAuthor);
 
-                    else
-                        dataset = _extCrud.ReferenceAuthorRegnumUpdate(dataset, currentTbl90ReferenceAuthor);
-                    return dataset;
-                }
+                        else
+                            dataset = _extCrud.ReferenceAuthorRegnumUpdate(dataset, currentTbl90ReferenceAuthor);
+                        return dataset;
+                    }
                 case "Phylum":
-                {
-                    if (currentTbl90ReferenceAuthor.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceAuthorPhylumAdd(currentTbl90ReferenceAuthor);
+                    {
+                        if (currentTbl90ReferenceAuthor.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceAuthorPhylumAdd(currentTbl90ReferenceAuthor);
 
-                    else
-                        dataset = _extCrud.ReferenceAuthorPhylumUpdate(dataset, currentTbl90ReferenceAuthor);
-                    return dataset;
-                }
+                        else
+                            dataset = _extCrud.ReferenceAuthorPhylumUpdate(dataset, currentTbl90ReferenceAuthor);
+                        return dataset;
+                    }
                 case "Division":
-                {
-                    if (currentTbl90ReferenceAuthor.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceAuthorDivisionAdd(currentTbl90ReferenceAuthor);
+                    {
+                        if (currentTbl90ReferenceAuthor.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceAuthorDivisionAdd(currentTbl90ReferenceAuthor);
 
-                    else
-                        dataset = _extCrud.ReferenceAuthorDivisionUpdate(dataset, currentTbl90ReferenceAuthor);
-                    return dataset;
-                }
+                        else
+                            dataset = _extCrud.ReferenceAuthorDivisionUpdate(dataset, currentTbl90ReferenceAuthor);
+                        return dataset;
+                    }
                 case "Subphylum":
-                {
-                    if (currentTbl90ReferenceAuthor.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceAuthorSubphylumAdd(currentTbl90ReferenceAuthor);
+                    {
+                        if (currentTbl90ReferenceAuthor.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceAuthorSubphylumAdd(currentTbl90ReferenceAuthor);
 
-                    else
-                        dataset = _extCrud.ReferenceAuthorSubphylumUpdate(dataset, currentTbl90ReferenceAuthor);
-                    return dataset;
-                }
+                        else
+                            dataset = _extCrud.ReferenceAuthorSubphylumUpdate(dataset, currentTbl90ReferenceAuthor);
+                        return dataset;
+                    }
                 case "Subdivision":
-                {
-                    if (currentTbl90ReferenceAuthor.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceAuthorSubdivisionAdd(currentTbl90ReferenceAuthor);
+                    {
+                        if (currentTbl90ReferenceAuthor.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceAuthorSubdivisionAdd(currentTbl90ReferenceAuthor);
 
-                    else
-                        dataset = _extCrud.ReferenceAuthorSubdivisionUpdate(dataset, currentTbl90ReferenceAuthor);
-                    return dataset;
-                }
+                        else
+                            dataset = _extCrud.ReferenceAuthorSubdivisionUpdate(dataset, currentTbl90ReferenceAuthor);
+                        return dataset;
+                    }
                 case "Superclass":
-                {
-                    if (currentTbl90ReferenceAuthor.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceAuthorSuperclassAdd(currentTbl90ReferenceAuthor);
+                    {
+                        if (currentTbl90ReferenceAuthor.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceAuthorSuperclassAdd(currentTbl90ReferenceAuthor);
 
-                    else
-                        dataset = _extCrud.ReferenceAuthorSuperclassUpdate(dataset, currentTbl90ReferenceAuthor);
-                    return dataset;
-                }
+                        else
+                            dataset = _extCrud.ReferenceAuthorSuperclassUpdate(dataset, currentTbl90ReferenceAuthor);
+                        return dataset;
+                    }
                 case "Class":
-                {
-                    if (currentTbl90ReferenceAuthor.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceAuthorClassAdd(currentTbl90ReferenceAuthor);
+                    {
+                        if (currentTbl90ReferenceAuthor.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceAuthorClassAdd(currentTbl90ReferenceAuthor);
 
-                    else
-                        dataset = _extCrud.ReferenceAuthorClassUpdate(dataset, currentTbl90ReferenceAuthor);
-                    return dataset;
-                }
+                        else
+                            dataset = _extCrud.ReferenceAuthorClassUpdate(dataset, currentTbl90ReferenceAuthor);
+                        return dataset;
+                    }
                 case "Subclass":
-                {
-                    if (currentTbl90ReferenceAuthor.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceAuthorSubclassAdd(currentTbl90ReferenceAuthor);
+                    {
+                        if (currentTbl90ReferenceAuthor.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceAuthorSubclassAdd(currentTbl90ReferenceAuthor);
 
-                    else
-                        dataset = _extCrud.ReferenceAuthorSubclassUpdate(dataset, currentTbl90ReferenceAuthor);
-                    return dataset;
-                }
+                        else
+                            dataset = _extCrud.ReferenceAuthorSubclassUpdate(dataset, currentTbl90ReferenceAuthor);
+                        return dataset;
+                    }
                 case "Infraclass":
-                {
-                    if (currentTbl90ReferenceAuthor.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceAuthorInfraclassAdd(currentTbl90ReferenceAuthor);
+                    {
+                        if (currentTbl90ReferenceAuthor.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceAuthorInfraclassAdd(currentTbl90ReferenceAuthor);
 
-                    else
-                        dataset = _extCrud.ReferenceAuthorInfraclassUpdate(dataset, currentTbl90ReferenceAuthor);
-                    return dataset;
-                }
+                        else
+                            dataset = _extCrud.ReferenceAuthorInfraclassUpdate(dataset, currentTbl90ReferenceAuthor);
+                        return dataset;
+                    }
                 case "Legio":
-                {
-                    if (currentTbl90ReferenceAuthor.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceAuthorLegioAdd(currentTbl90ReferenceAuthor);
+                    {
+                        if (currentTbl90ReferenceAuthor.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceAuthorLegioAdd(currentTbl90ReferenceAuthor);
 
-                    else
-                        dataset = _extCrud.ReferenceAuthorLegioUpdate(dataset, currentTbl90ReferenceAuthor);
-                    return dataset;
-                }
+                        else
+                            dataset = _extCrud.ReferenceAuthorLegioUpdate(dataset, currentTbl90ReferenceAuthor);
+                        return dataset;
+                    }
                 case "Ordo":
-                {
-                    if (currentTbl90ReferenceAuthor.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceAuthorOrdoAdd(currentTbl90ReferenceAuthor);
+                    {
+                        if (currentTbl90ReferenceAuthor.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceAuthorOrdoAdd(currentTbl90ReferenceAuthor);
 
-                    else
-                        dataset = _extCrud.ReferenceAuthorOrdoUpdate(dataset, currentTbl90ReferenceAuthor);
-                    return dataset;
-                }
+                        else
+                            dataset = _extCrud.ReferenceAuthorOrdoUpdate(dataset, currentTbl90ReferenceAuthor);
+                        return dataset;
+                    }
                 case "Subordo":
-                {
-                    if (currentTbl90ReferenceAuthor.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceAuthorSubordoAdd(currentTbl90ReferenceAuthor);
+                    {
+                        if (currentTbl90ReferenceAuthor.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceAuthorSubordoAdd(currentTbl90ReferenceAuthor);
 
-                    else
-                        dataset = _extCrud.ReferenceAuthorSubordoUpdate(dataset, currentTbl90ReferenceAuthor);
-                    return dataset;
-                }
+                        else
+                            dataset = _extCrud.ReferenceAuthorSubordoUpdate(dataset, currentTbl90ReferenceAuthor);
+                        return dataset;
+                    }
                 case "Infraordo":
-                {
-                    if (currentTbl90ReferenceAuthor.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceAuthorInfraordoAdd(currentTbl90ReferenceAuthor);
+                    {
+                        if (currentTbl90ReferenceAuthor.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceAuthorInfraordoAdd(currentTbl90ReferenceAuthor);
 
-                    else
-                        dataset = _extCrud.ReferenceAuthorInfraordoUpdate(dataset, currentTbl90ReferenceAuthor);
-                    return dataset;
-                }
+                        else
+                            dataset = _extCrud.ReferenceAuthorInfraordoUpdate(dataset, currentTbl90ReferenceAuthor);
+                        return dataset;
+                    }
                 case "Superfamily":
-                {
-                    if (currentTbl90ReferenceAuthor.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceAuthorSuperfamilyAdd(currentTbl90ReferenceAuthor);
+                    {
+                        if (currentTbl90ReferenceAuthor.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceAuthorSuperfamilyAdd(currentTbl90ReferenceAuthor);
 
-                    else
-                        dataset = _extCrud.ReferenceAuthorSuperfamilyUpdate(dataset, currentTbl90ReferenceAuthor);
-                    return dataset;
-                }
+                        else
+                            dataset = _extCrud.ReferenceAuthorSuperfamilyUpdate(dataset, currentTbl90ReferenceAuthor);
+                        return dataset;
+                    }
                 case "Family":
-                {
-                    if (currentTbl90ReferenceAuthor.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceAuthorFamilyAdd(currentTbl90ReferenceAuthor);
+                    {
+                        if (currentTbl90ReferenceAuthor.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceAuthorFamilyAdd(currentTbl90ReferenceAuthor);
 
-                    else
-                        dataset = _extCrud.ReferenceAuthorFamilyUpdate(dataset, currentTbl90ReferenceAuthor);
-                    return dataset;
-                }
+                        else
+                            dataset = _extCrud.ReferenceAuthorFamilyUpdate(dataset, currentTbl90ReferenceAuthor);
+                        return dataset;
+                    }
                 case "Subfamily":
-                {
-                    if (currentTbl90ReferenceAuthor.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceAuthorSubfamilyAdd(currentTbl90ReferenceAuthor);
+                    {
+                        if (currentTbl90ReferenceAuthor.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceAuthorSubfamilyAdd(currentTbl90ReferenceAuthor);
 
-                    else
-                        dataset = _extCrud.ReferenceAuthorSubfamilyUpdate(dataset, currentTbl90ReferenceAuthor);
-                    return dataset;
-                }
+                        else
+                            dataset = _extCrud.ReferenceAuthorSubfamilyUpdate(dataset, currentTbl90ReferenceAuthor);
+                        return dataset;
+                    }
                 case "Infrafamily":
-                {
-                    if (currentTbl90ReferenceAuthor.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceAuthorInfrafamilyAdd(currentTbl90ReferenceAuthor);
+                    {
+                        if (currentTbl90ReferenceAuthor.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceAuthorInfrafamilyAdd(currentTbl90ReferenceAuthor);
 
-                    else
-                        dataset = _extCrud.ReferenceAuthorInfrafamilyUpdate(dataset, currentTbl90ReferenceAuthor);
-                    return dataset;
-                }
+                        else
+                            dataset = _extCrud.ReferenceAuthorInfrafamilyUpdate(dataset, currentTbl90ReferenceAuthor);
+                        return dataset;
+                    }
                 case "Supertribus":
-                {
-                    if (currentTbl90ReferenceAuthor.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceAuthorSupertribusAdd(currentTbl90ReferenceAuthor);
+                    {
+                        if (currentTbl90ReferenceAuthor.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceAuthorSupertribusAdd(currentTbl90ReferenceAuthor);
 
-                    else
-                        dataset = _extCrud.ReferenceAuthorSupertribusUpdate(dataset, currentTbl90ReferenceAuthor);
-                    return dataset;
-                }
+                        else
+                            dataset = _extCrud.ReferenceAuthorSupertribusUpdate(dataset, currentTbl90ReferenceAuthor);
+                        return dataset;
+                    }
                 case "Tribus":
-                {
-                    if (currentTbl90ReferenceAuthor.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceAuthorTribusAdd(currentTbl90ReferenceAuthor);
+                    {
+                        if (currentTbl90ReferenceAuthor.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceAuthorTribusAdd(currentTbl90ReferenceAuthor);
 
-                    else
-                        dataset = _extCrud.ReferenceAuthorTribusUpdate(dataset, currentTbl90ReferenceAuthor);
-                    return dataset;
-                }
+                        else
+                            dataset = _extCrud.ReferenceAuthorTribusUpdate(dataset, currentTbl90ReferenceAuthor);
+                        return dataset;
+                    }
                 case "Subtribus":
-                {
-                    if (currentTbl90ReferenceAuthor.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceAuthorSubtribusAdd(currentTbl90ReferenceAuthor);
+                    {
+                        if (currentTbl90ReferenceAuthor.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceAuthorSubtribusAdd(currentTbl90ReferenceAuthor);
 
-                    else
-                        dataset = _extCrud.ReferenceAuthorSubtribusUpdate(dataset, currentTbl90ReferenceAuthor);
-                    return dataset;
-                }
+                        else
+                            dataset = _extCrud.ReferenceAuthorSubtribusUpdate(dataset, currentTbl90ReferenceAuthor);
+                        return dataset;
+                    }
                 case "Infratribus":
-                {
-                    if (currentTbl90ReferenceAuthor.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceAuthorInfratribusAdd(currentTbl90ReferenceAuthor);
+                    {
+                        if (currentTbl90ReferenceAuthor.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceAuthorInfratribusAdd(currentTbl90ReferenceAuthor);
 
-                    else
-                        dataset = _extCrud.ReferenceAuthorInfratribusUpdate(dataset, currentTbl90ReferenceAuthor);
-                    return dataset;
-                }
+                        else
+                            dataset = _extCrud.ReferenceAuthorInfratribusUpdate(dataset, currentTbl90ReferenceAuthor);
+                        return dataset;
+                    }
                 case "Genus":
-                {
-                    if (currentTbl90ReferenceAuthor.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceAuthorGenusAdd(currentTbl90ReferenceAuthor);
+                    {
+                        if (currentTbl90ReferenceAuthor.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceAuthorGenusAdd(currentTbl90ReferenceAuthor);
 
-                    else
-                        dataset = _extCrud.ReferenceAuthorGenusUpdate(dataset, currentTbl90ReferenceAuthor);
-                    return dataset;
-                }
+                        else
+                            dataset = _extCrud.ReferenceAuthorGenusUpdate(dataset, currentTbl90ReferenceAuthor);
+                        return dataset;
+                    }
                 case "FiSpecies":
-                {
-                    if (currentTbl90ReferenceAuthor.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceAuthorFiSpeciesAdd(currentTbl90ReferenceAuthor);
+                    {
+                        if (currentTbl90ReferenceAuthor.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceAuthorFiSpeciesAdd(currentTbl90ReferenceAuthor);
 
-                    else
-                        dataset = _extCrud.ReferenceAuthorFiSpeciesUpdate(dataset, currentTbl90ReferenceAuthor);
-                    return dataset;
-                }
+                        else
+                            dataset = _extCrud.ReferenceAuthorFiSpeciesUpdate(dataset, currentTbl90ReferenceAuthor);
+                        return dataset;
+                    }
                 case "PlSpecies":
-                {
-                    if (currentTbl90ReferenceAuthor.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceAuthorPlSpeciesAdd(currentTbl90ReferenceAuthor);
+                    {
+                        if (currentTbl90ReferenceAuthor.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceAuthorPlSpeciesAdd(currentTbl90ReferenceAuthor);
 
-                    else
-                        dataset = _extCrud.ReferenceAuthorPlSpeciesUpdate(dataset, currentTbl90ReferenceAuthor);
-                    return dataset;
-                }
+                        else
+                            dataset = _extCrud.ReferenceAuthorPlSpeciesUpdate(dataset, currentTbl90ReferenceAuthor);
+                        return dataset;
+                    }
 
                 default:
                     return dataset;
@@ -1614,8 +1696,8 @@ namespace ATIS.Ui.Core
 
             try
             {
-                   var dataset = _uow.Tbl90References.GetById(currentTbl90ReferenceSource.ReferenceId);
-              //  var dataset = _extCrud.GetReferenceSingleByReferenceId<Tbl90Reference>(currentTbl90ReferenceSource.ReferenceId);
+                var dataset = _uow.Tbl90References.GetById(currentTbl90ReferenceSource.ReferenceId);
+                //  var dataset = _extCrud.GetReferenceSingleByReferenceId<Tbl90Reference>(currentTbl90ReferenceSource.ReferenceId);
 
                 dataset = AddUpdateReferenceSource(currentTbl90ReferenceSource, dataset, name);
 
@@ -1656,197 +1738,197 @@ namespace ATIS.Ui.Core
             switch (name)
             {
                 case "Regnum":
-                {
-                    if (currentTbl90ReferenceSource.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceSourceRegnumAdd(currentTbl90ReferenceSource);
-                    else
-                        dataset = _extCrud.ReferenceSourceRegnumUpdate(dataset, currentTbl90ReferenceSource);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceSource.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceSourceRegnumAdd(currentTbl90ReferenceSource);
+                        else
+                            dataset = _extCrud.ReferenceSourceRegnumUpdate(dataset, currentTbl90ReferenceSource);
+                        return dataset;
+                    }
                 case "Phylum":
-                {
-                    if (currentTbl90ReferenceSource.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceSourcePhylumAdd(currentTbl90ReferenceSource);
-                    else
-                        dataset = _extCrud.ReferenceSourcePhylumUpdate(dataset, currentTbl90ReferenceSource);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceSource.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceSourcePhylumAdd(currentTbl90ReferenceSource);
+                        else
+                            dataset = _extCrud.ReferenceSourcePhylumUpdate(dataset, currentTbl90ReferenceSource);
+                        return dataset;
+                    }
                 case "Division":
-                {
-                    if (currentTbl90ReferenceSource.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceSourceDivisionAdd(currentTbl90ReferenceSource);
-                    else
-                        dataset = _extCrud.ReferenceSourceDivisionUpdate(dataset, currentTbl90ReferenceSource);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceSource.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceSourceDivisionAdd(currentTbl90ReferenceSource);
+                        else
+                            dataset = _extCrud.ReferenceSourceDivisionUpdate(dataset, currentTbl90ReferenceSource);
+                        return dataset;
+                    }
                 case "Subphylum":
-                {
-                    if (currentTbl90ReferenceSource.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceSourceSubphylumAdd(currentTbl90ReferenceSource);
-                    else
-                        dataset = _extCrud.ReferenceSourceSubphylumUpdate(dataset, currentTbl90ReferenceSource);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceSource.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceSourceSubphylumAdd(currentTbl90ReferenceSource);
+                        else
+                            dataset = _extCrud.ReferenceSourceSubphylumUpdate(dataset, currentTbl90ReferenceSource);
+                        return dataset;
+                    }
                 case "Subdivision":
-                {
-                    if (currentTbl90ReferenceSource.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceSourceSubdivisionAdd(currentTbl90ReferenceSource);
-                    else
-                        dataset = _extCrud.ReferenceSourceSubdivisionUpdate(dataset, currentTbl90ReferenceSource);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceSource.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceSourceSubdivisionAdd(currentTbl90ReferenceSource);
+                        else
+                            dataset = _extCrud.ReferenceSourceSubdivisionUpdate(dataset, currentTbl90ReferenceSource);
+                        return dataset;
+                    }
                 case "Superclass":
-                {
-                    if (currentTbl90ReferenceSource.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceSourceSuperclassAdd(currentTbl90ReferenceSource);
-                    else
-                        dataset = _extCrud.ReferenceSourceSuperclassUpdate(dataset, currentTbl90ReferenceSource);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceSource.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceSourceSuperclassAdd(currentTbl90ReferenceSource);
+                        else
+                            dataset = _extCrud.ReferenceSourceSuperclassUpdate(dataset, currentTbl90ReferenceSource);
+                        return dataset;
+                    }
                 case "Class":
-                {
-                    if (currentTbl90ReferenceSource.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceSourceClassAdd(currentTbl90ReferenceSource);
-                    else
-                        dataset = _extCrud.ReferenceSourceClassUpdate(dataset, currentTbl90ReferenceSource);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceSource.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceSourceClassAdd(currentTbl90ReferenceSource);
+                        else
+                            dataset = _extCrud.ReferenceSourceClassUpdate(dataset, currentTbl90ReferenceSource);
+                        return dataset;
+                    }
                 case "Subclass":
-                {
-                    if (currentTbl90ReferenceSource.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceSourceSubclassAdd(currentTbl90ReferenceSource);
-                    else
-                        dataset = _extCrud.ReferenceSourceSubclassUpdate(dataset, currentTbl90ReferenceSource);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceSource.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceSourceSubclassAdd(currentTbl90ReferenceSource);
+                        else
+                            dataset = _extCrud.ReferenceSourceSubclassUpdate(dataset, currentTbl90ReferenceSource);
+                        return dataset;
+                    }
                 case "Infraclass":
-                {
-                    if (currentTbl90ReferenceSource.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceSourceInfraclassAdd(currentTbl90ReferenceSource);
-                    else
-                        dataset = _extCrud.ReferenceSourceInfraclassUpdate(dataset, currentTbl90ReferenceSource);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceSource.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceSourceInfraclassAdd(currentTbl90ReferenceSource);
+                        else
+                            dataset = _extCrud.ReferenceSourceInfraclassUpdate(dataset, currentTbl90ReferenceSource);
+                        return dataset;
+                    }
                 case "Legio":
-                {
-                    if (currentTbl90ReferenceSource.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceSourceLegioAdd(currentTbl90ReferenceSource);
-                    else
-                        dataset = _extCrud.ReferenceSourceLegioUpdate(dataset, currentTbl90ReferenceSource);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceSource.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceSourceLegioAdd(currentTbl90ReferenceSource);
+                        else
+                            dataset = _extCrud.ReferenceSourceLegioUpdate(dataset, currentTbl90ReferenceSource);
+                        return dataset;
+                    }
                 case "Ordo":
-                {
-                    if (currentTbl90ReferenceSource.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceSourceOrdoAdd(currentTbl90ReferenceSource);
-                    else
-                        dataset = _extCrud.ReferenceSourceOrdoUpdate(dataset, currentTbl90ReferenceSource);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceSource.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceSourceOrdoAdd(currentTbl90ReferenceSource);
+                        else
+                            dataset = _extCrud.ReferenceSourceOrdoUpdate(dataset, currentTbl90ReferenceSource);
+                        return dataset;
+                    }
                 case "Subordo":
-                {
-                    if (currentTbl90ReferenceSource.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceSourceSubordoAdd(currentTbl90ReferenceSource);
-                    else
-                        dataset = _extCrud.ReferenceSourceSubordoUpdate(dataset, currentTbl90ReferenceSource);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceSource.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceSourceSubordoAdd(currentTbl90ReferenceSource);
+                        else
+                            dataset = _extCrud.ReferenceSourceSubordoUpdate(dataset, currentTbl90ReferenceSource);
+                        return dataset;
+                    }
                 case "Infraordo":
-                {
-                    if (currentTbl90ReferenceSource.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceSourceInfraordoAdd(currentTbl90ReferenceSource);
-                    else
-                        dataset = _extCrud.ReferenceSourceInfraordoUpdate(dataset, currentTbl90ReferenceSource);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceSource.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceSourceInfraordoAdd(currentTbl90ReferenceSource);
+                        else
+                            dataset = _extCrud.ReferenceSourceInfraordoUpdate(dataset, currentTbl90ReferenceSource);
+                        return dataset;
+                    }
                 case "Superfamily":
-                {
-                    if (currentTbl90ReferenceSource.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceSourceSuperfamilyAdd(currentTbl90ReferenceSource);
-                    else
-                        dataset = _extCrud.ReferenceSourceSuperfamilyUpdate(dataset, currentTbl90ReferenceSource);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceSource.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceSourceSuperfamilyAdd(currentTbl90ReferenceSource);
+                        else
+                            dataset = _extCrud.ReferenceSourceSuperfamilyUpdate(dataset, currentTbl90ReferenceSource);
+                        return dataset;
+                    }
                 case "Family":
-                {
-                    if (currentTbl90ReferenceSource.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceSourceFamilyAdd(currentTbl90ReferenceSource);
-                    else
-                        dataset = _extCrud.ReferenceSourceFamilyUpdate(dataset, currentTbl90ReferenceSource);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceSource.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceSourceFamilyAdd(currentTbl90ReferenceSource);
+                        else
+                            dataset = _extCrud.ReferenceSourceFamilyUpdate(dataset, currentTbl90ReferenceSource);
+                        return dataset;
+                    }
                 case "Subfamily":
-                {
-                    if (currentTbl90ReferenceSource.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceSourceSubfamilyAdd(currentTbl90ReferenceSource);
-                    else
-                        dataset = _extCrud.ReferenceSourceSubfamilyUpdate(dataset, currentTbl90ReferenceSource);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceSource.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceSourceSubfamilyAdd(currentTbl90ReferenceSource);
+                        else
+                            dataset = _extCrud.ReferenceSourceSubfamilyUpdate(dataset, currentTbl90ReferenceSource);
+                        return dataset;
+                    }
                 case "Infrafamily":
-                {
-                    if (currentTbl90ReferenceSource.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceSourceInfrafamilyAdd(currentTbl90ReferenceSource);
-                    else
-                        dataset = _extCrud.ReferenceSourceInfrafamilyUpdate(dataset, currentTbl90ReferenceSource);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceSource.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceSourceInfrafamilyAdd(currentTbl90ReferenceSource);
+                        else
+                            dataset = _extCrud.ReferenceSourceInfrafamilyUpdate(dataset, currentTbl90ReferenceSource);
+                        return dataset;
+                    }
                 case "Supertribus":
-                {
-                    if (currentTbl90ReferenceSource.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceSourceSupertribusAdd(currentTbl90ReferenceSource);
-                    else
-                        dataset = _extCrud.ReferenceSourceSupertribusUpdate(dataset, currentTbl90ReferenceSource);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceSource.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceSourceSupertribusAdd(currentTbl90ReferenceSource);
+                        else
+                            dataset = _extCrud.ReferenceSourceSupertribusUpdate(dataset, currentTbl90ReferenceSource);
+                        return dataset;
+                    }
                 case "Tribus":
-                {
-                    if (currentTbl90ReferenceSource.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceSourceTribusAdd(currentTbl90ReferenceSource);
-                    else
-                        dataset = _extCrud.ReferenceSourceTribusUpdate(dataset, currentTbl90ReferenceSource);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceSource.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceSourceTribusAdd(currentTbl90ReferenceSource);
+                        else
+                            dataset = _extCrud.ReferenceSourceTribusUpdate(dataset, currentTbl90ReferenceSource);
+                        return dataset;
+                    }
                 case "Subtribus":
-                {
-                    if (currentTbl90ReferenceSource.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceSourceSubtribusAdd(currentTbl90ReferenceSource);
-                    else
-                        dataset = _extCrud.ReferenceSourceSubtribusUpdate(dataset, currentTbl90ReferenceSource);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceSource.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceSourceSubtribusAdd(currentTbl90ReferenceSource);
+                        else
+                            dataset = _extCrud.ReferenceSourceSubtribusUpdate(dataset, currentTbl90ReferenceSource);
+                        return dataset;
+                    }
                 case "Infratribus":
-                {
-                    if (currentTbl90ReferenceSource.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceSourceInfratribusAdd(currentTbl90ReferenceSource);
-                    else
-                        dataset = _extCrud.ReferenceSourceInfratribusUpdate(dataset, currentTbl90ReferenceSource);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceSource.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceSourceInfratribusAdd(currentTbl90ReferenceSource);
+                        else
+                            dataset = _extCrud.ReferenceSourceInfratribusUpdate(dataset, currentTbl90ReferenceSource);
+                        return dataset;
+                    }
                 case "Genus":
-                {
-                    if (currentTbl90ReferenceSource.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceSourceGenusAdd(currentTbl90ReferenceSource);
-                    else
-                        dataset = _extCrud.ReferenceSourceGenusUpdate(dataset, currentTbl90ReferenceSource);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceSource.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceSourceGenusAdd(currentTbl90ReferenceSource);
+                        else
+                            dataset = _extCrud.ReferenceSourceGenusUpdate(dataset, currentTbl90ReferenceSource);
+                        return dataset;
+                    }
                 case "FiSpecies":
-                {
-                    if (currentTbl90ReferenceSource.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceSourceFiSpeciesAdd(currentTbl90ReferenceSource);
-                    else
-                        dataset = _extCrud.ReferenceSourceFiSpeciesUpdate(dataset, currentTbl90ReferenceSource);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceSource.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceSourceFiSpeciesAdd(currentTbl90ReferenceSource);
+                        else
+                            dataset = _extCrud.ReferenceSourceFiSpeciesUpdate(dataset, currentTbl90ReferenceSource);
+                        return dataset;
+                    }
                 case "PlSpecies":
-                {
-                    if (currentTbl90ReferenceSource.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceSourcePlSpeciesAdd(currentTbl90ReferenceSource);
-                    else
-                        dataset = _extCrud.ReferenceSourcePlSpeciesUpdate(dataset, currentTbl90ReferenceSource);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceSource.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceSourcePlSpeciesAdd(currentTbl90ReferenceSource);
+                        else
+                            dataset = _extCrud.ReferenceSourcePlSpeciesUpdate(dataset, currentTbl90ReferenceSource);
+                        return dataset;
+                    }
                 default:
                     return dataset;
             }
@@ -1859,8 +1941,8 @@ namespace ATIS.Ui.Core
 
             try
             {
-                     var dataset = _uow.Tbl90References.GetById(currentTbl90ReferenceExpert.ReferenceId);
-               // var dataset = _extCrud.GetReferenceSingleByReferenceId<Tbl90Reference>(currentTbl90ReferenceExpert.ReferenceId);
+                var dataset = _uow.Tbl90References.GetById(currentTbl90ReferenceExpert.ReferenceId);
+                // var dataset = _extCrud.GetReferenceSingleByReferenceId<Tbl90Reference>(currentTbl90ReferenceExpert.ReferenceId);
 
                 dataset = AddUpdateReferenceExpert(currentTbl90ReferenceExpert, dataset, name);
 
@@ -1899,199 +1981,330 @@ namespace ATIS.Ui.Core
             switch (name)
             {
                 case "Regnum":
-                {
-                    if (currentTbl90ReferenceExpert.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceExpertRegnumAdd(currentTbl90ReferenceExpert);
-                    else
-                        dataset = _extCrud.ReferenceExpertRegnumUpdate(dataset, currentTbl90ReferenceExpert);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceExpert.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceExpertRegnumAdd(currentTbl90ReferenceExpert);
+                        else
+                            dataset = _extCrud.ReferenceExpertRegnumUpdate(dataset, currentTbl90ReferenceExpert);
+                        return dataset;
+                    }
                 case "Phylum":
-                {
-                    if (currentTbl90ReferenceExpert.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceExpertPhylumAdd(currentTbl90ReferenceExpert);
-                    else
-                        dataset = _extCrud.ReferenceExpertPhylumUpdate(dataset, currentTbl90ReferenceExpert);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceExpert.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceExpertPhylumAdd(currentTbl90ReferenceExpert);
+                        else
+                            dataset = _extCrud.ReferenceExpertPhylumUpdate(dataset, currentTbl90ReferenceExpert);
+                        return dataset;
+                    }
                 case "Division":
-                {
-                    if (currentTbl90ReferenceExpert.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceExpertDivisionAdd(currentTbl90ReferenceExpert);
-                    else
-                        dataset = _extCrud.ReferenceExpertDivisionUpdate(dataset, currentTbl90ReferenceExpert);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceExpert.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceExpertDivisionAdd(currentTbl90ReferenceExpert);
+                        else
+                            dataset = _extCrud.ReferenceExpertDivisionUpdate(dataset, currentTbl90ReferenceExpert);
+                        return dataset;
+                    }
                 case "Subphylum":
-                {
-                    if (currentTbl90ReferenceExpert.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceExpertSubphylumAdd(currentTbl90ReferenceExpert);
-                    else
-                        dataset = _extCrud.ReferenceExpertSubphylumUpdate(dataset, currentTbl90ReferenceExpert);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceExpert.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceExpertSubphylumAdd(currentTbl90ReferenceExpert);
+                        else
+                            dataset = _extCrud.ReferenceExpertSubphylumUpdate(dataset, currentTbl90ReferenceExpert);
+                        return dataset;
+                    }
                 case "Subdivision":
-                {
-                    if (currentTbl90ReferenceExpert.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceExpertSubdivisionAdd(currentTbl90ReferenceExpert);
-                    else
-                        dataset = _extCrud.ReferenceExpertSubdivisionUpdate(dataset, currentTbl90ReferenceExpert);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceExpert.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceExpertSubdivisionAdd(currentTbl90ReferenceExpert);
+                        else
+                            dataset = _extCrud.ReferenceExpertSubdivisionUpdate(dataset, currentTbl90ReferenceExpert);
+                        return dataset;
+                    }
                 case "Superclass":
-                {
-                    if (currentTbl90ReferenceExpert.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceExpertSuperclassAdd(currentTbl90ReferenceExpert);
-                    else
-                        dataset = _extCrud.ReferenceExpertSuperclassUpdate(dataset, currentTbl90ReferenceExpert);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceExpert.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceExpertSuperclassAdd(currentTbl90ReferenceExpert);
+                        else
+                            dataset = _extCrud.ReferenceExpertSuperclassUpdate(dataset, currentTbl90ReferenceExpert);
+                        return dataset;
+                    }
                 case "Class":
-                {
-                    if (currentTbl90ReferenceExpert.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceExpertClassAdd(currentTbl90ReferenceExpert);
-                    else
-                        dataset = _extCrud.ReferenceExpertClassUpdate(dataset, currentTbl90ReferenceExpert);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceExpert.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceExpertClassAdd(currentTbl90ReferenceExpert);
+                        else
+                            dataset = _extCrud.ReferenceExpertClassUpdate(dataset, currentTbl90ReferenceExpert);
+                        return dataset;
+                    }
                 case "Subclass":
-                {
-                    if (currentTbl90ReferenceExpert.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceExpertSubclassAdd(currentTbl90ReferenceExpert);
-                    else
-                        dataset = _extCrud.ReferenceExpertSubclassUpdate(dataset, currentTbl90ReferenceExpert);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceExpert.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceExpertSubclassAdd(currentTbl90ReferenceExpert);
+                        else
+                            dataset = _extCrud.ReferenceExpertSubclassUpdate(dataset, currentTbl90ReferenceExpert);
+                        return dataset;
+                    }
                 case "Infraclass":
-                {
-                    if (currentTbl90ReferenceExpert.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceExpertInfraclassAdd(currentTbl90ReferenceExpert);
-                    else
-                        dataset = _extCrud.ReferenceExpertInfraclassUpdate(dataset, currentTbl90ReferenceExpert);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceExpert.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceExpertInfraclassAdd(currentTbl90ReferenceExpert);
+                        else
+                            dataset = _extCrud.ReferenceExpertInfraclassUpdate(dataset, currentTbl90ReferenceExpert);
+                        return dataset;
+                    }
                 case "Legio":
-                {
-                    if (currentTbl90ReferenceExpert.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceExpertLegioAdd(currentTbl90ReferenceExpert);
-                    else
-                        dataset = _extCrud.ReferenceExpertLegioUpdate(dataset, currentTbl90ReferenceExpert);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceExpert.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceExpertLegioAdd(currentTbl90ReferenceExpert);
+                        else
+                            dataset = _extCrud.ReferenceExpertLegioUpdate(dataset, currentTbl90ReferenceExpert);
+                        return dataset;
+                    }
                 case "Ordo":
-                {
-                    if (currentTbl90ReferenceExpert.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceExpertOrdoAdd(currentTbl90ReferenceExpert);
-                    else
-                        dataset = _extCrud.ReferenceExpertOrdoUpdate(dataset, currentTbl90ReferenceExpert);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceExpert.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceExpertOrdoAdd(currentTbl90ReferenceExpert);
+                        else
+                            dataset = _extCrud.ReferenceExpertOrdoUpdate(dataset, currentTbl90ReferenceExpert);
+                        return dataset;
+                    }
                 case "Subordo":
-                {
-                    if (currentTbl90ReferenceExpert.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceExpertSubordoAdd(currentTbl90ReferenceExpert);
-                    else
-                        dataset = _extCrud.ReferenceExpertSubordoUpdate(dataset, currentTbl90ReferenceExpert);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceExpert.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceExpertSubordoAdd(currentTbl90ReferenceExpert);
+                        else
+                            dataset = _extCrud.ReferenceExpertSubordoUpdate(dataset, currentTbl90ReferenceExpert);
+                        return dataset;
+                    }
                 case "Infraordo":
-                {
-                    if (currentTbl90ReferenceExpert.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceExpertInfraordoAdd(currentTbl90ReferenceExpert);
-                    else
-                        dataset = _extCrud.ReferenceExpertInfraordoUpdate(dataset, currentTbl90ReferenceExpert);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceExpert.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceExpertInfraordoAdd(currentTbl90ReferenceExpert);
+                        else
+                            dataset = _extCrud.ReferenceExpertInfraordoUpdate(dataset, currentTbl90ReferenceExpert);
+                        return dataset;
+                    }
                 case "Superfamily":
-                {
-                    if (currentTbl90ReferenceExpert.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceExpertSuperfamilyAdd(currentTbl90ReferenceExpert);
-                    else
-                        dataset = _extCrud.ReferenceExpertSuperfamilyUpdate(dataset, currentTbl90ReferenceExpert);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceExpert.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceExpertSuperfamilyAdd(currentTbl90ReferenceExpert);
+                        else
+                            dataset = _extCrud.ReferenceExpertSuperfamilyUpdate(dataset, currentTbl90ReferenceExpert);
+                        return dataset;
+                    }
                 case "Family":
-                {
-                    if (currentTbl90ReferenceExpert.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceExpertFamilyAdd(currentTbl90ReferenceExpert);
-                    else
-                        dataset = _extCrud.ReferenceExpertFamilyUpdate(dataset, currentTbl90ReferenceExpert);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceExpert.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceExpertFamilyAdd(currentTbl90ReferenceExpert);
+                        else
+                            dataset = _extCrud.ReferenceExpertFamilyUpdate(dataset, currentTbl90ReferenceExpert);
+                        return dataset;
+                    }
                 case "Subfamily":
-                {
-                    if (currentTbl90ReferenceExpert.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceExpertSubfamilyAdd(currentTbl90ReferenceExpert);
-                    else
-                        dataset = _extCrud.ReferenceExpertSubfamilyUpdate(dataset, currentTbl90ReferenceExpert);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceExpert.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceExpertSubfamilyAdd(currentTbl90ReferenceExpert);
+                        else
+                            dataset = _extCrud.ReferenceExpertSubfamilyUpdate(dataset, currentTbl90ReferenceExpert);
+                        return dataset;
+                    }
                 case "Infrafamily":
-                {
-                    if (currentTbl90ReferenceExpert.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceExpertInfrafamilyAdd(currentTbl90ReferenceExpert);
-                    else
-                        dataset = _extCrud.ReferenceExpertInfrafamilyUpdate(dataset, currentTbl90ReferenceExpert);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceExpert.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceExpertInfrafamilyAdd(currentTbl90ReferenceExpert);
+                        else
+                            dataset = _extCrud.ReferenceExpertInfrafamilyUpdate(dataset, currentTbl90ReferenceExpert);
+                        return dataset;
+                    }
                 case "Supertribus":
-                {
-                    if (currentTbl90ReferenceExpert.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceExpertSupertribusAdd(currentTbl90ReferenceExpert);
-                    else
-                        dataset = _extCrud.ReferenceExpertSupertribusUpdate(dataset, currentTbl90ReferenceExpert);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceExpert.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceExpertSupertribusAdd(currentTbl90ReferenceExpert);
+                        else
+                            dataset = _extCrud.ReferenceExpertSupertribusUpdate(dataset, currentTbl90ReferenceExpert);
+                        return dataset;
+                    }
                 case "Tribus":
-                {
-                    if (currentTbl90ReferenceExpert.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceExpertTribusAdd(currentTbl90ReferenceExpert);
-                    else
-                        dataset = _extCrud.ReferenceExpertTribusUpdate(dataset, currentTbl90ReferenceExpert);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceExpert.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceExpertTribusAdd(currentTbl90ReferenceExpert);
+                        else
+                            dataset = _extCrud.ReferenceExpertTribusUpdate(dataset, currentTbl90ReferenceExpert);
+                        return dataset;
+                    }
                 case "Subtribus":
-                {
-                    if (currentTbl90ReferenceExpert.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceExpertSubtribusAdd(currentTbl90ReferenceExpert);
-                    else
-                        dataset = _extCrud.ReferenceExpertSubtribusUpdate(dataset, currentTbl90ReferenceExpert);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceExpert.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceExpertSubtribusAdd(currentTbl90ReferenceExpert);
+                        else
+                            dataset = _extCrud.ReferenceExpertSubtribusUpdate(dataset, currentTbl90ReferenceExpert);
+                        return dataset;
+                    }
                 case "Infratribus":
-                {
-                    if (currentTbl90ReferenceExpert.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceExpertInfratribusAdd(currentTbl90ReferenceExpert);
-                    else
-                        dataset = _extCrud.ReferenceExpertInfratribusUpdate(dataset, currentTbl90ReferenceExpert);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceExpert.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceExpertInfratribusAdd(currentTbl90ReferenceExpert);
+                        else
+                            dataset = _extCrud.ReferenceExpertInfratribusUpdate(dataset, currentTbl90ReferenceExpert);
+                        return dataset;
+                    }
                 case "Genus":
-                {
-                    if (currentTbl90ReferenceExpert.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceExpertGenusAdd(currentTbl90ReferenceExpert);
-                    else
-                        dataset = _extCrud.ReferenceExpertGenusUpdate(dataset, currentTbl90ReferenceExpert);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceExpert.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceExpertGenusAdd(currentTbl90ReferenceExpert);
+                        else
+                            dataset = _extCrud.ReferenceExpertGenusUpdate(dataset, currentTbl90ReferenceExpert);
+                        return dataset;
+                    }
                 case "FiSpecies":
-                {
-                    if (currentTbl90ReferenceExpert.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceExpertFiSpeciesAdd(currentTbl90ReferenceExpert);
-                    else
-                        dataset = _extCrud.ReferenceExpertFiSpeciesUpdate(dataset, currentTbl90ReferenceExpert);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceExpert.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceExpertFiSpeciesAdd(currentTbl90ReferenceExpert);
+                        else
+                            dataset = _extCrud.ReferenceExpertFiSpeciesUpdate(dataset, currentTbl90ReferenceExpert);
+                        return dataset;
+                    }
                 case "PlSpecies":
-                {
-                    if (currentTbl90ReferenceExpert.ReferenceId == 0)
-                        dataset = _extCrud.ReferenceExpertPlSpeciesAdd(currentTbl90ReferenceExpert);
-                    else
-                        dataset = _extCrud.ReferenceExpertPlSpeciesUpdate(dataset, currentTbl90ReferenceExpert);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl90ReferenceExpert.ReferenceId == 0)
+                            dataset = _extCrud.ReferenceExpertPlSpeciesAdd(currentTbl90ReferenceExpert);
+                        else
+                            dataset = _extCrud.ReferenceExpertPlSpeciesUpdate(dataset, currentTbl90ReferenceExpert);
+                        return dataset;
+                    }
                 default:
                     return dataset;
+            }
+        }
+
+
+        public void SaveRefExpert(Tbl90RefExpert currentTbl90RefExpert)
+        {
+            try
+            {
+                var dataset = _uow.Tbl90RefExperts.GetById(currentTbl90RefExpert.RefExpertId);
+                //    var dataset = _extCrud.GetClassSingleByClassId<Tbl90RefExpert>(currentTbl90RefExpert.RefExpertId);
+
+                if (currentTbl90RefExpert.RefExpertId == 0)
+                    dataset = _extCrud.RefExpertAdd(currentTbl90RefExpert);
+                else
+                    dataset = _extCrud.RefExpertUpdate(dataset, currentTbl90RefExpert);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl90RefExpert.RefExpertName)) return;
+
+                try
+                {
+                    _extCrud.RefExpertSave(dataset, currentTbl90RefExpert);
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
+                    Log.Error(e);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
+                    //         Log.Error(e);
+                    return;
+                }
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl90RefExpert.RefExpertId == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : currentTbl90RefExpert.RefExpertName);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+        }
+
+
+        public void SaveRefSource(Tbl90RefSource currentTbl90RefSource)
+        {
+            try
+            {
+                var dataset = _uow.Tbl90RefSources.GetById(currentTbl90RefSource.RefSourceId);
+                //    var dataset = _extCrud.GetClassSingleByClassId<Tbl90RefExpert>(currentTbl90RefExpert.RefExpertId);
+
+                if (currentTbl90RefSource.RefSourceId == 0)
+                    dataset = _extCrud.RefSourceAdd(currentTbl90RefSource);
+                else
+                    dataset = _extCrud.RefSourceUpdate(dataset, currentTbl90RefSource);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl90RefSource.RefSourceName)) return;
+
+                try
+                {
+                    _extCrud.RefSourceSave(dataset, currentTbl90RefSource);
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
+                    Log.Error(e);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
+                    //         Log.Error(e);
+                    return;
+                }
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl90RefSource.RefSourceId == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : currentTbl90RefSource.RefSourceName);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+        }
+
+        public void SaveRefAuthor(Tbl90RefAuthor currentTbl90RefAuthor)
+        {
+            try
+            {
+                var dataset = _uow.Tbl90RefAuthors.GetById(currentTbl90RefAuthor.RefAuthorId);
+                //    var dataset = _extCrud.GetClassSingleByClassId<Tbl90RefExpert>(currentTbl90RefExpert.RefExpertId);
+
+                if (currentTbl90RefAuthor.RefAuthorId == 0)
+                    dataset = _extCrud.RefAuthorAdd(currentTbl90RefAuthor);
+                else
+                    dataset = _extCrud.RefAuthorUpdate(dataset, currentTbl90RefAuthor);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl90RefAuthor.RefAuthorName)) return;
+
+                try
+                {
+                    _extCrud.RefAuthorSave(dataset, currentTbl90RefAuthor);
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
+                    Log.Error(e);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
+                    //         Log.Error(e);
+                    return;
+                }
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl90RefAuthor.RefAuthorId == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : currentTbl90RefAuthor.RefAuthorName);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
             }
         }
 
@@ -2100,8 +2313,8 @@ namespace ATIS.Ui.Core
         {
             try
             {
-                   var dataset = _uow.Tbl93Comments.GetById(currentTbl93Comment.CommentId);
-              //  var dataset = _extCrud.GetCommentSingleByCommentId<Tbl93Comment>(currentTbl93Comment.CommentId);
+                var dataset = _uow.Tbl93Comments.GetById(currentTbl93Comment.CommentId);
+                //  var dataset = _extCrud.GetCommentSingleByCommentId<Tbl93Comment>(currentTbl93Comment.CommentId);
 
                 dataset = AddUpdateComment(currentTbl93Comment, dataset, name);
 
@@ -2142,197 +2355,197 @@ namespace ATIS.Ui.Core
             switch (name)
             {
                 case "Regnum":
-                {
-                    if (currentTbl93Comment.CommentId == 0)
-                        dataset = _extCrud.CommentRegnumAdd(currentTbl93Comment);
-                    else
-                        dataset = _extCrud.CommentRegnumUpdate(dataset, currentTbl93Comment);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl93Comment.CommentId == 0)
+                            dataset = _extCrud.CommentRegnumAdd(currentTbl93Comment);
+                        else
+                            dataset = _extCrud.CommentRegnumUpdate(dataset, currentTbl93Comment);
+                        return dataset;
+                    }
                 case "Phylum":
-                {
-                    if (currentTbl93Comment.CommentId == 0)
-                        dataset = _extCrud.CommentPhylumAdd(currentTbl93Comment);
-                    else
-                        dataset = _extCrud.CommentPhylumUpdate(dataset, currentTbl93Comment);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl93Comment.CommentId == 0)
+                            dataset = _extCrud.CommentPhylumAdd(currentTbl93Comment);
+                        else
+                            dataset = _extCrud.CommentPhylumUpdate(dataset, currentTbl93Comment);
+                        return dataset;
+                    }
                 case "Division":
-                {
-                    if (currentTbl93Comment.CommentId == 0)
-                        dataset = _extCrud.CommentDivisionAdd(currentTbl93Comment);
-                    else
-                        dataset = _extCrud.CommentDivisionUpdate(dataset, currentTbl93Comment);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl93Comment.CommentId == 0)
+                            dataset = _extCrud.CommentDivisionAdd(currentTbl93Comment);
+                        else
+                            dataset = _extCrud.CommentDivisionUpdate(dataset, currentTbl93Comment);
+                        return dataset;
+                    }
                 case "Subphylum":
-                {
-                    if (currentTbl93Comment.CommentId == 0)
-                        dataset = _extCrud.CommentSubphylumAdd(currentTbl93Comment);
-                    else
-                        dataset = _extCrud.CommentSubphylumUpdate(dataset, currentTbl93Comment);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl93Comment.CommentId == 0)
+                            dataset = _extCrud.CommentSubphylumAdd(currentTbl93Comment);
+                        else
+                            dataset = _extCrud.CommentSubphylumUpdate(dataset, currentTbl93Comment);
+                        return dataset;
+                    }
                 case "Subdivision":
-                {
-                    if (currentTbl93Comment.CommentId == 0)
-                        dataset = _extCrud.CommentSubdivisionAdd(currentTbl93Comment);
-                    else
-                        dataset = _extCrud.CommentSubdivisionUpdate(dataset, currentTbl93Comment);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl93Comment.CommentId == 0)
+                            dataset = _extCrud.CommentSubdivisionAdd(currentTbl93Comment);
+                        else
+                            dataset = _extCrud.CommentSubdivisionUpdate(dataset, currentTbl93Comment);
+                        return dataset;
+                    }
                 case "Superclass":
-                {
-                    if (currentTbl93Comment.CommentId == 0)
-                        dataset = _extCrud.CommentSuperclassAdd(currentTbl93Comment);
-                    else
-                        dataset = _extCrud.CommentSuperclassUpdate(dataset, currentTbl93Comment);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl93Comment.CommentId == 0)
+                            dataset = _extCrud.CommentSuperclassAdd(currentTbl93Comment);
+                        else
+                            dataset = _extCrud.CommentSuperclassUpdate(dataset, currentTbl93Comment);
+                        return dataset;
+                    }
                 case "Class":
-                {
-                    if (currentTbl93Comment.CommentId == 0)
-                        dataset = _extCrud.CommentClassAdd(currentTbl93Comment);
-                    else
-                        dataset = _extCrud.CommentClassUpdate(dataset, currentTbl93Comment);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl93Comment.CommentId == 0)
+                            dataset = _extCrud.CommentClassAdd(currentTbl93Comment);
+                        else
+                            dataset = _extCrud.CommentClassUpdate(dataset, currentTbl93Comment);
+                        return dataset;
+                    }
                 case "Subclass":
-                {
-                    if (currentTbl93Comment.CommentId == 0)
-                        dataset = _extCrud.CommentSubclassAdd(currentTbl93Comment);
-                    else
-                        dataset = _extCrud.CommentSubclassUpdate(dataset, currentTbl93Comment);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl93Comment.CommentId == 0)
+                            dataset = _extCrud.CommentSubclassAdd(currentTbl93Comment);
+                        else
+                            dataset = _extCrud.CommentSubclassUpdate(dataset, currentTbl93Comment);
+                        return dataset;
+                    }
                 case "Infraclass":
-                {
-                    if (currentTbl93Comment.CommentId == 0)
-                        dataset = _extCrud.CommentInfraclassAdd(currentTbl93Comment);
-                    else
-                        dataset = _extCrud.CommentInfraclassUpdate(dataset, currentTbl93Comment);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl93Comment.CommentId == 0)
+                            dataset = _extCrud.CommentInfraclassAdd(currentTbl93Comment);
+                        else
+                            dataset = _extCrud.CommentInfraclassUpdate(dataset, currentTbl93Comment);
+                        return dataset;
+                    }
                 case "Legio":
-                {
-                    if (currentTbl93Comment.CommentId == 0)
-                        dataset = _extCrud.CommentLegioAdd(currentTbl93Comment);
-                    else
-                        dataset = _extCrud.CommentLegioUpdate(dataset, currentTbl93Comment);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl93Comment.CommentId == 0)
+                            dataset = _extCrud.CommentLegioAdd(currentTbl93Comment);
+                        else
+                            dataset = _extCrud.CommentLegioUpdate(dataset, currentTbl93Comment);
+                        return dataset;
+                    }
                 case "Ordo":
-                {
-                    if (currentTbl93Comment.CommentId == 0)
-                        dataset = _extCrud.CommentOrdoAdd(currentTbl93Comment);
-                    else
-                        dataset = _extCrud.CommentOrdoUpdate(dataset, currentTbl93Comment);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl93Comment.CommentId == 0)
+                            dataset = _extCrud.CommentOrdoAdd(currentTbl93Comment);
+                        else
+                            dataset = _extCrud.CommentOrdoUpdate(dataset, currentTbl93Comment);
+                        return dataset;
+                    }
                 case "Subordo":
-                {
-                    if (currentTbl93Comment.CommentId == 0)
-                        dataset = _extCrud.CommentSubordoAdd(currentTbl93Comment);
-                    else
-                        dataset = _extCrud.CommentSubordoUpdate(dataset, currentTbl93Comment);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl93Comment.CommentId == 0)
+                            dataset = _extCrud.CommentSubordoAdd(currentTbl93Comment);
+                        else
+                            dataset = _extCrud.CommentSubordoUpdate(dataset, currentTbl93Comment);
+                        return dataset;
+                    }
                 case "Infraordo":
-                {
-                    if (currentTbl93Comment.CommentId == 0)
-                        dataset = _extCrud.CommentInfraordoAdd(currentTbl93Comment);
-                    else
-                        dataset = _extCrud.CommentInfraordoUpdate(dataset, currentTbl93Comment);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl93Comment.CommentId == 0)
+                            dataset = _extCrud.CommentInfraordoAdd(currentTbl93Comment);
+                        else
+                            dataset = _extCrud.CommentInfraordoUpdate(dataset, currentTbl93Comment);
+                        return dataset;
+                    }
                 case "Superfamily":
-                {
-                    if (currentTbl93Comment.CommentId == 0)
-                        dataset = _extCrud.CommentSuperfamilyAdd(currentTbl93Comment);
-                    else
-                        dataset = _extCrud.CommentSuperfamilyUpdate(dataset, currentTbl93Comment);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl93Comment.CommentId == 0)
+                            dataset = _extCrud.CommentSuperfamilyAdd(currentTbl93Comment);
+                        else
+                            dataset = _extCrud.CommentSuperfamilyUpdate(dataset, currentTbl93Comment);
+                        return dataset;
+                    }
                 case "Family":
-                {
-                    if (currentTbl93Comment.CommentId == 0)
-                        dataset = _extCrud.CommentFamilyAdd(currentTbl93Comment);
-                    else
-                        dataset = _extCrud.CommentFamilyUpdate(dataset, currentTbl93Comment);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl93Comment.CommentId == 0)
+                            dataset = _extCrud.CommentFamilyAdd(currentTbl93Comment);
+                        else
+                            dataset = _extCrud.CommentFamilyUpdate(dataset, currentTbl93Comment);
+                        return dataset;
+                    }
                 case "Subfamily":
-                {
-                    if (currentTbl93Comment.CommentId == 0)
-                        dataset = _extCrud.CommentSubfamilyAdd(currentTbl93Comment);
-                    else
-                        dataset = _extCrud.CommentSubfamilyUpdate(dataset, currentTbl93Comment);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl93Comment.CommentId == 0)
+                            dataset = _extCrud.CommentSubfamilyAdd(currentTbl93Comment);
+                        else
+                            dataset = _extCrud.CommentSubfamilyUpdate(dataset, currentTbl93Comment);
+                        return dataset;
+                    }
                 case "Infrafamily":
-                {
-                    if (currentTbl93Comment.CommentId == 0)
-                        dataset = _extCrud.CommentInfrafamilyAdd(currentTbl93Comment);
-                    else
-                        dataset = _extCrud.CommentInfrafamilyUpdate(dataset, currentTbl93Comment);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl93Comment.CommentId == 0)
+                            dataset = _extCrud.CommentInfrafamilyAdd(currentTbl93Comment);
+                        else
+                            dataset = _extCrud.CommentInfrafamilyUpdate(dataset, currentTbl93Comment);
+                        return dataset;
+                    }
                 case "Supertribus":
-                {
-                    if (currentTbl93Comment.CommentId == 0)
-                        dataset = _extCrud.CommentSupertribusAdd(currentTbl93Comment);
-                    else
-                        dataset = _extCrud.CommentSupertribusUpdate(dataset, currentTbl93Comment);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl93Comment.CommentId == 0)
+                            dataset = _extCrud.CommentSupertribusAdd(currentTbl93Comment);
+                        else
+                            dataset = _extCrud.CommentSupertribusUpdate(dataset, currentTbl93Comment);
+                        return dataset;
+                    }
                 case "Tribus":
-                {
-                    if (currentTbl93Comment.CommentId == 0)
-                        dataset = _extCrud.CommentTribusAdd(currentTbl93Comment);
-                    else
-                        dataset = _extCrud.CommentTribusUpdate(dataset, currentTbl93Comment);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl93Comment.CommentId == 0)
+                            dataset = _extCrud.CommentTribusAdd(currentTbl93Comment);
+                        else
+                            dataset = _extCrud.CommentTribusUpdate(dataset, currentTbl93Comment);
+                        return dataset;
+                    }
                 case "Subtribus":
-                {
-                    if (currentTbl93Comment.CommentId == 0)
-                        dataset = _extCrud.CommentSubtribusAdd(currentTbl93Comment);
-                    else
-                        dataset = _extCrud.CommentSubtribusUpdate(dataset, currentTbl93Comment);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl93Comment.CommentId == 0)
+                            dataset = _extCrud.CommentSubtribusAdd(currentTbl93Comment);
+                        else
+                            dataset = _extCrud.CommentSubtribusUpdate(dataset, currentTbl93Comment);
+                        return dataset;
+                    }
                 case "Infratribus":
-                {
-                    if (currentTbl93Comment.CommentId == 0)
-                        dataset = _extCrud.CommentInfratribusAdd(currentTbl93Comment);
-                    else
-                        dataset = _extCrud.CommentInfratribusUpdate(dataset, currentTbl93Comment);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl93Comment.CommentId == 0)
+                            dataset = _extCrud.CommentInfratribusAdd(currentTbl93Comment);
+                        else
+                            dataset = _extCrud.CommentInfratribusUpdate(dataset, currentTbl93Comment);
+                        return dataset;
+                    }
                 case "Genus":
-                {
-                    if (currentTbl93Comment.CommentId == 0)
-                        dataset = _extCrud.CommentGenusAdd(currentTbl93Comment);
-                    else
-                        dataset = _extCrud.CommentGenusUpdate(dataset, currentTbl93Comment);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl93Comment.CommentId == 0)
+                            dataset = _extCrud.CommentGenusAdd(currentTbl93Comment);
+                        else
+                            dataset = _extCrud.CommentGenusUpdate(dataset, currentTbl93Comment);
+                        return dataset;
+                    }
                 case "FiSpecies":
-                {
-                    if (currentTbl93Comment.CommentId == 0)
-                        dataset = _extCrud.CommentFiSpeciesAdd(currentTbl93Comment);
-                    else
-                        dataset = _extCrud.CommentFiSpeciesUpdate(dataset, currentTbl93Comment);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl93Comment.CommentId == 0)
+                            dataset = _extCrud.CommentFiSpeciesAdd(currentTbl93Comment);
+                        else
+                            dataset = _extCrud.CommentFiSpeciesUpdate(dataset, currentTbl93Comment);
+                        return dataset;
+                    }
                 case "PlSpecies":
-                {
-                    if (currentTbl93Comment.CommentId == 0)
-                        dataset = _extCrud.CommentPlSpeciesAdd(currentTbl93Comment);
-                    else
-                        dataset = _extCrud.CommentPlSpeciesUpdate(dataset, currentTbl93Comment);
-                    return dataset;
-                }
+                    {
+                        if (currentTbl93Comment.CommentId == 0)
+                            dataset = _extCrud.CommentPlSpeciesAdd(currentTbl93Comment);
+                        else
+                            dataset = _extCrud.CommentPlSpeciesUpdate(dataset, currentTbl93Comment);
+                        return dataset;
+                    }
 
                 default:
                     return dataset;

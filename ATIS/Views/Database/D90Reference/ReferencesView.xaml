@@ -1,12 +1,1490 @@
-﻿<UserControl x:Class="ATIS.Ui.Views.Database.D90Reference.ReferencesView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ATIS.Ui.Views.Database.D90Reference"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<UserControl
+    x:Class="ATIS.Ui.Views.Database.D90Reference.ReferencesView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helper="clr-namespace:ATIS.Ui.Helper"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"
+    d:DesignHeight="930"
+    d:DesignWidth="1600"
+    mc:Ignorable="d">
+
+    <UserControl.Resources />
+
+
+    <!--  ReferencesView.xaml  Skriptdatum:  03.02.2021  10:32  -->
+
+
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="750" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="50*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="50*" />
+        </Grid.RowDefinitions>
+
+        <!--  Part 1   Creating Main-Grid in Column 1  -->
+
+        <StackPanel Grid.Row="0" Grid.Column="1" />
+
+        <TabControl
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="1"
+            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+            <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderReferences}">
+
+                <ScrollViewer
+                    helper:AutoScrollBehavior.TopMouseScrollPriority="True"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <GroupBox>
+                            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBox
+                                        x:Name="TbSearchReference"
+                                        Width="200"
+                                        Margin="5"
+                                        HorizontalContentAlignment="Stretch"
+                                        mah:TextBoxHelper.ButtonCommand="{Binding TextBoxButtonCmd, Mode=OneWay}"
+                                        mah:TextBoxHelper.ClearTextButton="True"
+                                        mah:TextBoxHelper.IsWaitingForData="True"
+                                        mah:TextBoxHelper.UseFloatingWatermark="True"
+                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-SearchReferenceNameOrId}"
+                                        mah:TextBoxHelper.WatermarkAlignment="Left"
+                                        ContextMenu="{x:Null}"
+                                        FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
+                                        FontWeight="Medium"
+                                        SpellCheck.IsEnabled="True"
+                                        Text="{Binding SearchReferenceInfo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        ToolTip="{DynamicResource Shared-SearchInfoOrId}">
+
+                                        <TextBox.InputBindings>
+                                            <KeyBinding
+                                                Key="Return"
+                                                Command="{Binding TextBoxButtonCmd, Mode=OneWay}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=TextBox}, Path=Text, Mode=OneWay}" />
+                                        </TextBox.InputBindings>
+                                        <TextBox.Style>
+                                            <Style BasedOn="{StaticResource MahApps.Styles.TextBox.Search}" TargetType="{x:Type TextBox}">
+                                                <Style.Triggers>
+                                                    <Trigger Property="mah:TextBoxHelper.HasText" Value="True">
+                                                        <Setter Property="mah:TextBoxHelper.ButtonContent" Value="r" />
+                                                        <Setter Property="mah:TextBoxHelper.ButtonContentTemplate" Value="{x:Null}" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBox.Style>
+                                    </TextBox>
+                                </Grid>
+
+                                <Button Template="{StaticResource SearchReferencesButton}" />
+                                <Button Template="{StaticResource AddReferenceButton}" />
+                            </StackPanel>
+                        </GroupBox>
+
+                        <GroupBox>
+                            <ListView
+                                x:Name="Tbl90ReferencesList"
+                                Height="Auto"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl90ReferencesList}"
+                                ScrollViewer.IsDeferredScrollingEnabled="True"
+                                SelectedItem="{Binding (Selector.SelectedItem)}"
+                                VirtualizingStackPanel.IsVirtualizing="True"
+                                VirtualizingStackPanel.VirtualizationMode="Recycling">
+
+                                <!--  trigger  -->
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <i:InvokeCommandAction Command="{Binding GetConnectedTablesCommand}" CommandParameter="{Binding ElementName=Tbl90ReferencesList, Path=SelectedItem}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90Reference-ReferenceId}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                        Width="100"
+                                                        Text="{Binding (models:Tbl90Reference.ReferenceId)}"
+                                                        TextAlignment="Left" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+
+                                        <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <CheckBox IsChecked="{Binding (models:Tbl90Reference.Valid)}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+
+                                        <GridViewColumn
+                                            Width="500"
+                                            DisplayMemberBinding="{Binding (models:Tbl90Reference.Info)}"
+                                            Header="{DynamicResource Shared-Info}" />
+
+
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+
+        <!--  Part 2 Splitter  -->
+
+        <GridSplitter
+            Grid.Row="0"
+            Grid.Column="1"
+            Width="5"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Stretch"
+            Background="Black"
+            ShowsPreview="False" />
+
+
+        <!--  Part 2   FK1  aktuell  -->
+
+        <TabControl
+            Grid.Row="0"
+            Grid.Column="2"
+            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+            SelectedIndex="{Binding SelectedMainTabIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+
+
+            <!--  Part 2  FK2  aktuell  -->
+
+
+
+            <!--  Part 2   FK3  aktuell  -->
+
+
+
+            <!--  Part 2  FK4  aktuell  -->
+
+
+
+            <!--  Part 4  TK1  aktuell  -->
+
+
+
+            <!--  Part 4   TK2  aktuell  -->
+
+
+
+            <!--  Part 4   TK3  aktuell  -->
+
+
+
+            <!--  Part 4   TK4  aktuell  -->
+
+
+
+            <!--  Part 7  -->
+
+            <TabItem Header="{DynamicResource Shared-TabStripHeaderRefExperts}">
+                <ScrollViewer
+                    helper:AutoScrollBehavior.TopMouseScrollPriority="True"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <GroupBox>
+
+                            <ListView
+                                x:Name="Tbl90RefExpertsList"
+                                Height="Auto"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl90RefExpertsList}"
+                                ScrollViewer.IsDeferredScrollingEnabled="True"
+                                SelectedItem="{Binding (Selector.SelectedItem)}"
+                                VirtualizingStackPanel.IsVirtualizing="True"
+                                VirtualizingStackPanel.VirtualizationMode="Recycling">
+
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90RefExpert-ExpertId}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                        Width="100"
+                                                        Text="{Binding (models:Tbl90RefExpert.RefExpertId)}"
+                                                        TextAlignment="Left" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn
+                                            Width="250"
+                                            DisplayMemberBinding="{Binding (models:Tbl90RefExpert.RefExpertName)}"
+                                            Header="{DynamicResource Tbl90RefExpert-ExpertName}" />
+                                        <GridViewColumn Width="60" Header="{DynamicResource Shared-Valid}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <CheckBox IsChecked="{Binding (models:Tbl90RefExpert.Valid)}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn
+                                            Width="200"
+                                            DisplayMemberBinding="{Binding (models:Tbl90RefExpert.Info)}"
+                                            Header="{DynamicResource Shared-Info}" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="{DynamicResource Shared-TabStripHeaderRefSources}">
+                <ScrollViewer
+                    helper:AutoScrollBehavior.TopMouseScrollPriority="True"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <GroupBox>
+
+                            <ListView
+                                x:Name="Tbl90RefSourcesList"
+                                Height="Auto"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl90RefSourcesList}"
+                                ScrollViewer.IsDeferredScrollingEnabled="True"
+                                SelectedItem="{Binding (Selector.SelectedItem)}"
+                                VirtualizingStackPanel.IsVirtualizing="True"
+                                VirtualizingStackPanel.VirtualizationMode="Recycling">
+
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90RefSource-SourceId}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                        Width="100"
+                                                        Text="{Binding (models:Tbl90RefSource.RefSourceId)}"
+                                                        TextAlignment="Left" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn
+                                            Width="250"
+                                            DisplayMemberBinding="{Binding (models:Tbl90RefSource.RefSourceName)}"
+                                            Header="{DynamicResource Tbl90Reference-RefSourceName}" />
+                                        <GridViewColumn Header="{DynamicResource Shared-Valid}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <CheckBox IsChecked="{Binding (models:Tbl90RefSource.Valid)}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn
+                                            Width="200"
+                                            DisplayMemberBinding="{Binding (models:Tbl90RefSource.Info)}"
+                                            Header="{DynamicResource Shared-Info}" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="{DynamicResource Shared-TabStripHeaderRefAuthors}">
+                <ScrollViewer
+                    helper:AutoScrollBehavior.TopMouseScrollPriority="True"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <GroupBox>
+
+                            <ListView
+                                x:Name="Tbl90RefAuthorsList"
+                                Height="Auto"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl90RefAuthorsList}"
+                                ScrollViewer.IsDeferredScrollingEnabled="True"
+                                SelectedItem="{Binding (Selector.SelectedItem)}"
+                                VirtualizingStackPanel.IsVirtualizing="True"
+                                VirtualizingStackPanel.VirtualizationMode="Recycling">
+
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Width="Auto" Header="{DynamicResource Tbl90RefAuthor-AuthorId}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                        Width="100"
+                                                        Text="{Binding (models:Tbl90RefAuthor.RefAuthorId)}"
+                                                        TextAlignment="Left" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn
+                                            Width="250"
+                                            DisplayMemberBinding="{Binding (models:Tbl90RefAuthor.RefAuthorName)}"
+                                            Header="{DynamicResource Tbl90Reference-RefAuthorName}" />
+                                        <GridViewColumn Header="{DynamicResource Shared-Valid}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <CheckBox IsChecked="{Binding (models:Tbl90RefAuthor.Valid)}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn
+                                            Width="200"
+                                            DisplayMemberBinding="{Binding (models:Tbl90RefAuthor.Info)}"
+                                            Header="{DynamicResource Shared-Info}" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+
+
+
+        <!--  Part 2 Splitter  -->
+
+
+        <GridSplitter
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Height="5"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center"
+            Background="Black"
+            ShowsPreview="False" />
+
+
+        <!--  Part 2   FK1  aktuell  -->
+
+
+        <TabControl
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+            SelectedIndex="{Binding SelectedDetailTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+            <TabItem FontWeight="Medium" Header="{DynamicResource Tbl90Reference-Reference}">
+                <GroupBox>
+                    <StackPanel Margin="1">
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <Button Template="{StaticResource SaveReferenceButton}" />
+                            <Button Template="{StaticResource CopyReferenceButton}" />
+                            <Button Template="{StaticResource AddReferenceButton}" />
+                            <Button Template="{StaticResource DeleteReferenceButton}" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ComboBox
+                                Width="394"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl69FiSpecies-FiSpeciesId}"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl69FiSpeciessesAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl69FiSpecies.FiSpeciesId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="FiSpeciesId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding (models:Tbl69FiSpecies.Tbl66Genusses).GenusName}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl69FiSpecies.FiSpeciesName)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl69FiSpecies.Subspecies)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl69FiSpecies.Divers)}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <ComboBox
+                                Width="395"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl72PlSpecies-PlSpeciesId}"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl72PlSpeciessesAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl72PlSpecies.PlSpeciesId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="PlSpeciesId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True">
+
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding (models:Tbl72PlSpecies.Tbl66Genusses).GenusName}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl72PlSpecies.PlSpeciesName)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl72PlSpecies.Subspecies)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl72PlSpecies.Divers)}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ComboBox
+                                Width="800"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefExpert-ExpertName}"
+                                DisplayMemberPath="RefExpertName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl90RefExpertsAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl90RefExpert.RefExpertId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="RefExpertId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ComboBox
+                                Width="800"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefSource-SourceName}"
+                                DisplayMemberPath="RefSourceName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl90RefSourcesAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl90RefSource.RefSourceId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="RefSourceId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ComboBox
+                                Width="800"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefAuthor-AuthorName}"
+                                DisplayMemberPath="RefAuthorName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl90RefAuthorsAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl90RefAuthor.RefAuthorId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="RefAuthorId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <CheckBox
+                                Width="80"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                Content="{DynamicResource Shared-Valid}"
+                                FontWeight="Normal"
+                                IsChecked="{Binding SelectedItem.(models:Tbl90Reference.Valid), ElementName=Tbl90ReferencesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Style="{StaticResource MahApps.Styles.CheckBox}" />
+                            <TextBox
+                                Width="80"
+                                Margin="15,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-ValidYear}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-ValidYear}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90ReferencesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90Reference.ValidYear)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox
+                                Width="610"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Info}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-Info}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90ReferencesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90Reference.Info)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <TextBox
+                                    Height="Auto"
+                                    MinWidth="800"
+                                    MinHeight="75"
+                                    MaxWidth="800"
+                                    MaxHeight="200"
+                                    Margin="5"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    AcceptsReturn="True"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    Text="{Binding SelectedItem.(models:Tbl90Reference.Memo), ElementName=Tbl90ReferencesList}"
+                                    TextWrapping="Wrap"
+                                    ToolTip="{DynamicResource Shared-Memo}"
+                                    VerticalScrollBarVisibility="Auto" />
+                            </ScrollViewer>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ComboBox
+                                Width="245"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl66Genus-GenusName}"
+                                DisplayMemberPath="GenusName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl66GenussesAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl66Genus.GenusId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="GenusId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ComboBox
+                                Width="245"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl63Infratribus-InfratribusName}"
+                                DisplayMemberPath="InfratribusName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl63InfratribussesAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl63Infratribus.InfratribusId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="InfratribusId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                            <ComboBox
+                                Width="245"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl60Subtribus-SubtribusName}"
+                                DisplayMemberPath="SubtribusName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl60SubtribussesAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl60Subtribus.SubtribusId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="SubtribusId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                            <ComboBox
+                                Width="245"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl57Tribus-TribusName}"
+                                DisplayMemberPath="TribusName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl57TribussesAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl57Tribus.TribusId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="TribusId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                            <ComboBox
+                                Width="245"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl54Supertribus-SupertribusName}"
+                                DisplayMemberPath="SupertribusName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl54SupertribussesAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl54Supertribus.SupertribusId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="SupertribusId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ComboBox
+                                Width="245"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl51Infrafamily-InfrafamilyName}"
+                                DisplayMemberPath="InfrafamilyName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl51InfrafamiliesAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl51Infrafamily.InfrafamilyId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="InfrafamilyId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                            <ComboBox
+                                Width="245"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl48Subfamily-SubfamilyName}"
+                                DisplayMemberPath="SubfamilyName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl48SubfamiliesAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl48Subfamily.SubfamilyId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="SubfamilyId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                            <ComboBox
+                                Width="245"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl45Family-FamilyName}"
+                                DisplayMemberPath="FamilyName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl45FamiliesAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl45Family.FamilyId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="FamilyId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                            <ComboBox
+                                Width="245"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl42Superfamily-SuperfamilyName}"
+                                DisplayMemberPath="SuperfamilyName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl42SuperfamiliesAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl42Superfamily.SuperfamilyId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="SuperfamilyId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ComboBox
+                                Width="245"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl39Infraordo-InfraordoName}"
+                                DisplayMemberPath="InfraordoName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl39InfraordosAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl39Infraordo.InfraordoId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="InfraordoId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                            <ComboBox
+                                Width="245"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl36Subordo-SubordoName}"
+                                DisplayMemberPath="SubordoName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl36SubordosAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl36Subordo.SubordoId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="SubordoId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                            <ComboBox
+                                Width="245"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl33Ordo-OrdoName}"
+                                DisplayMemberPath="OrdoName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl33OrdosAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl33Ordo.OrdoId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="OrdoId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                            <ComboBox
+                                Width="245"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl30Legio-LegioName}"
+                                DisplayMemberPath="LegioName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl30LegiosAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl30Legio.LegioId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="LegioId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ComboBox
+                                Width="245"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl27Infraclass-InfraclassName}"
+                                DisplayMemberPath="InfraclassName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl27InfraclassesAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl27Infraclass.InfraclassId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="InfraclassId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                            <ComboBox
+                                Width="245"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl24Subclass-SubclassName}"
+                                DisplayMemberPath="SubclassName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl24SubclassesAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl24Subclass.SubclassId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="SubclassId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                            <ComboBox
+                                Width="245"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl21Class-ClassName}"
+                                DisplayMemberPath="ClassName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl21ClassesAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl21Class.ClassId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="ClassId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                            <ComboBox
+                                Width="245"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl18Superclass-SuperclassName}"
+                                DisplayMemberPath="SuperclassName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl18SuperclassesAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl18Superclass.SuperclassId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="SuperclassId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ComboBox
+                                Width="245"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl09Division-DivisionName}"
+                                DisplayMemberPath="DivisionName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl09DivisionsAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl09Division.DivisionId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="DivisionId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                            <ComboBox
+                                Width="245"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl15Subdivision-SubdivisionName}"
+                                DisplayMemberPath="SubdivisionName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl15SubdivisionsAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl15Subdivision.SubdivisionId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="SubdivisionId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ComboBox
+                                Width="245"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl06Phylum-PhylumName}"
+                                DisplayMemberPath="PhylumName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl06PhylumsAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl06Phylum.PhylumId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="PhylumId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                            <ComboBox
+                                Width="245"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl12Subphylum-SubphylumName}"
+                                DisplayMemberPath="SubphylumName"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl12SubphylumsAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl12Subphylum.SubphylumId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="SubphylumId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                            <ComboBox
+                                Width="245"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl03Regnum-RegnumName}"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Tbl03RegnumsAllList}"
+                                SelectedIndex="0"
+                                SelectedValue="{Binding SelectedItem.(models:Tbl03Regnum.RegnumId), ElementName=Tbl90ReferencesList, Mode=TwoWay}"
+                                SelectedValuePath="RegnumId"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding (models:Tbl03Regnum.RegnumName)}" />
+                                            <TextBlock Margin="2,0,0,0" Text="{Binding (models:Tbl03Regnum.Subregnum)}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+            </TabItem>
+
+            <!--  Part 8.1  TK1  Connected  -->
+
+            <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceExpert}">
+                <GroupBox>
+                    <StackPanel Margin="0,0,5,0">
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <Button Template="{StaticResource SaveReferenceExpertButton}" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="800"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefExpert-ExpertName}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl90RefExpert-RefExpertName}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90RefExpertsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90RefExpert.RefExpertName)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <CheckBox
+                                Width="80"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                Content="{DynamicResource Shared-Valid}"
+                                FontWeight="Normal"
+                                IsChecked="{Binding SelectedItem.(models:Tbl90RefExpert.Valid), ElementName=Tbl90RefExpertsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Style="{StaticResource MahApps.Styles.CheckBox}" />
+                            <TextBox
+                                Width="80"
+                                Margin="25,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-ValidYear}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-ValidYear}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90RefExpertsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90RefExpert.ValidYear)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <TextBox
+                                    Height="Auto"
+                                    MinWidth="800"
+                                    MinHeight="100"
+                                    MaxWidth="800"
+                                    MaxHeight="400"
+                                    Margin="5"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Notes}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    AcceptsReturn="True"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    Text="{Binding SelectedItem.(models:Tbl90RefExpert.Notes), ElementName=Tbl90RefExpertsList}"
+                                    TextWrapping="Wrap"
+                                    ToolTip="{DynamicResource Shared-Notes}"
+                                    VerticalScrollBarVisibility="Auto" />
+                            </ScrollViewer>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="800"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Info}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-Info}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90RefExpertsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90RefExpert.Info)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <TextBox
+                                    Height="Auto"
+                                    MinWidth="800"
+                                    MinHeight="100"
+                                    MaxWidth="800"
+                                    MaxHeight="400"
+                                    Margin="5"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    AcceptsReturn="True"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    Text="{Binding SelectedItem.(models:Tbl90RefExpert.Memo), ElementName=Tbl90RefExpertsList}"
+                                    TextWrapping="Wrap"
+                                    ToolTip="{DynamicResource Shared-Memo}"
+                                    VerticalScrollBarVisibility="Auto" />
+                            </ScrollViewer>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+            </TabItem>
+
+
+            <!--  Part 8.2  TK2  Connected  -->
+
+            <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceSource}">
+                <GroupBox>
+                    <StackPanel Margin="0,0,5,0">
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <Button Template="{StaticResource SaveReferenceSourceButton}" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <CheckBox
+                                Width="80"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                Content="{DynamicResource Shared-Valid}"
+                                FontWeight="Normal"
+                                IsChecked="{Binding SelectedItem.(models:Tbl90RefSource.Valid), ElementName=Tbl90RefSourcesList}"
+                                Style="{StaticResource MahApps.Styles.CheckBox}" />
+                            <TextBox
+                                Width="80"
+                                Margin="25,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-ValidYear}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-ValidYear}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90RefSourcesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90RefSource.ValidYear)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="800"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefSource-SourceName}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl90RefSource-SourceName}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90RefSourcesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90RefSource.RefSourceName)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="690"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Author}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                CharacterCasing="Upper"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-Author}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90RefSourcesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90RefSource.Author)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox
+                                Width="80"
+                                Margin="25,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefSource-SourceYear}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                CharacterCasing="Upper"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl90RefSource-SourceYear}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90RefSourcesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90RefSource.SourceYear)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <TextBox
+                                    Height="Auto"
+                                    MinWidth="800"
+                                    MinHeight="100"
+                                    MaxWidth="800"
+                                    MaxHeight="400"
+                                    Margin="5"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Notes}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    AcceptsReturn="True"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    Text="{Binding SelectedItem.(models:Tbl90RefSource.Notes), ElementName=Tbl90RefSourcesList}"
+                                    TextWrapping="Wrap"
+                                    ToolTip="{DynamicResource Shared-Notes}"
+                                    VerticalScrollBarVisibility="Auto" />
+                            </ScrollViewer>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="800"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Info}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-Info}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90RefSourcesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90RefSource.Info)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <TextBox
+                                    Height="Auto"
+                                    MinWidth="800"
+                                    MinHeight="100"
+                                    MaxWidth="800"
+                                    MaxHeight="400"
+                                    Margin="5"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    AcceptsReturn="True"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    Text="{Binding SelectedItem.(models:Tbl90RefSource.Memo), ElementName=Tbl90RefSourcesList}"
+                                    TextWrapping="Wrap"
+                                    ToolTip="{DynamicResource Shared-Memo}"
+                                    VerticalScrollBarVisibility="Auto" />
+                            </ScrollViewer>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+            </TabItem>
+
+
+
+            <!--  Part 8.3  TK3  Connected  -->
+
+            <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceAuthor}">
+                <GroupBox>
+                    <StackPanel Margin="0,0,5,0">
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <Button Template="{StaticResource SaveReferenceAuthorButton}" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <CheckBox
+                                Width="80"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                Content="{DynamicResource Shared-Valid}"
+                                FontWeight="Normal"
+                                IsChecked="{Binding SelectedItem.(models:Tbl90RefAuthor.Valid), ElementName=Tbl90RefAuthorsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Style="{StaticResource MahApps.Styles.CheckBox}" />
+                            <TextBox
+                                Width="80"
+                                Margin="25,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-ValidYear}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-ValidYear}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90RefAuthorsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90RefAuthor.ValidYear)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox
+                                Width="275"
+                                Margin="25,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefAuthor-Isbn}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl90RefAuthor-Isbn}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90RefAuthorsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90RefAuthor.ISBN)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="800"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefAuthor-AuthorName}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl90RefAuthor-AuthorName}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90RefAuthorsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90RefAuthor.RefAuthorName)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="800"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefAuthor-ArticelTitle}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl90RefAuthor-ArticelTitle}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90RefAuthorsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90RefAuthor.ArticelTitle)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="700"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefAuthor-BookName}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl90RefAuthor-BookName}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90RefAuthorsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90RefAuthor.BookName)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox
+                                Width="90"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefAuthor-Page}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl90RefAuthor-Page}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90RefAuthorsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90RefAuthor.Page1)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="560"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefAuthor-Publisher}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl90RefAuthor-Publisher}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90RefAuthorsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90RefAuthor.Publisher)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox
+                                Width="228"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Tbl90RefAuthor-PublicationPlace}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Tbl90RefAuthor-PublicationPlace}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90RefAuthorsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90RefAuthor.PublicationPlace)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <TextBox
+                                    Height="Auto"
+                                    MinWidth="800"
+                                    MinHeight="100"
+                                    MaxWidth="800"
+                                    MaxHeight="400"
+                                    Margin="5"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Notes}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    AcceptsReturn="True"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    Text="{Binding SelectedItem.(models:Tbl90RefAuthor.Notes), ElementName=Tbl90RefAuthorsList}"
+                                    TextWrapping="Wrap"
+                                    ToolTip="{DynamicResource Shared-Notes}"
+                                    VerticalScrollBarVisibility="Auto" />
+                            </ScrollViewer>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="800"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource Shared-Info}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource Shared-Info}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="Tbl90RefAuthorsList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:Tbl90RefAuthor.Info)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <TextBox
+                                    Height="Auto"
+                                    MinWidth="800"
+                                    MinHeight="100"
+                                    MaxWidth="800"
+                                    MaxHeight="400"
+                                    Margin="5"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    AcceptsReturn="True"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    Text="{Binding SelectedItem.(models:Tbl90RefAuthor.Memo), ElementName=Tbl90RefAuthorsList}"
+                                    TextWrapping="Wrap"
+                                    ToolTip="{DynamicResource Shared-Memo}"
+                                    VerticalScrollBarVisibility="Auto" />
+                            </ScrollViewer>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+            </TabItem>
+
+        </TabControl>
+
+
+
+
+
+        <!--  Part 8.3   TK4  Connected  -->
+
+
+
+
+        <!--  Part 11  -->
+
+        <!--  Part 12  -->
+
+        <!--  Part 13  -->
+
+
+
     </Grid>
 </UserControl>
+

@@ -7,6 +7,7 @@
     xmlns:d81Image="clr-namespace:ATIS.Ui.Views.Database.D81Image"
     xmlns:d84Synonym="clr-namespace:ATIS.Ui.Views.Database.D84Synonym"
     xmlns:d87Geographic="clr-namespace:ATIS.Ui.Views.Database.D87Geographic"
+    xmlns:d90Reference="clr-namespace:ATIS.Ui.Views.Database.D90Reference"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
@@ -25,6 +26,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type d87Geographic:GeographicsViewModel}">
             <d87Geographic:GeographicsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d90Reference:ReferencesViewModel}">
+            <d90Reference:ReferencesView />
         </DataTemplate>
 
     </UserControl.Resources>
@@ -54,7 +58,9 @@
                     mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
                     mah:HeaderedControlHelper.HeaderFontSize="16"
                     mah:TabControlHelper.Underlined="TabPanel">
-                    <TabItem Content="{Binding Tbl90ReferencesView}" Header="{DynamicResource Database-MenuReference}" />
+                    <TabItem Header="{DynamicResource Database-MenuReference}">
+                        <d90Reference:ReferencesViewModel />
+                    </TabItem>
                     <TabItem Content="{Binding Tbl90RefExpertsView}" Header="{DynamicResource Database-MenuRefExpert}" />
                     <TabItem Content="{Binding Tbl90RefSourcesView}" Header="{DynamicResource Database-MenuRefSource}" />
                     <TabItem Content="{Binding Tbl90RefAuthorsView}" Header="{DynamicResource Database-MenuRefAuthor}" />

@@ -88,6 +88,14 @@ namespace ATIS.Ui.Helper
                 MessageBoxButton.OK, MessageBoxImage.Information);
             return true;
         }
+        public bool IdSelectInComboBoxMoreThenOneInfoMessageBox()
+        {
+            //System.Windows.MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredComboSelect,
+            //    MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBoxEx.Show("Auswahl Combobox", "Mehr als einen gewählt",
+                MessageBoxButton.OK, MessageBoxImage.Information);
+            return true;
+        }
         //public bool CheckIfDatasetAlreadyExistInfoMessageBox(int collectionCount, int? id, string caption)
         //{
         //    if (collectionCount != 0 && id == 0) return false;
