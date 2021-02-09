@@ -152,7 +152,14 @@ namespace ATIS.Ui.Views.Database.D66Genus
 
             _position = GenussesView.CurrentPosition;
 
-            _extSave.SaveGenus(CurrentTbl66Genus);
+            var ret = _extSave.SaveGenus(CurrentTbl66Genus);
+
+            if (ret != true)
+            {
+                GenussesView = CollectionViewSource.GetDefaultView(Tbl66GenussesList);
+                GenussesView.Refresh();
+                return;
+            }
 
             if (_position == 0) //new
             {

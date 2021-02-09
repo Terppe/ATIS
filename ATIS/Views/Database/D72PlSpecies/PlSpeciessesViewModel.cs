@@ -185,7 +185,14 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
 
             _position = PlSpeciessesView.CurrentPosition;
 
-            _extSave.SavePlSpecies(CurrentTbl72PlSpecies);
+            var ret = _extSave.SavePlSpecies(CurrentTbl72PlSpecies);
+
+            if (ret != true)
+            {
+                PlSpeciessesView = CollectionViewSource.GetDefaultView(Tbl72PlSpeciessesList);
+                PlSpeciessesView.Refresh();
+                return;
+            }
 
             if (_position == 0) //new
             {

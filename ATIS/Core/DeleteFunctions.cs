@@ -1395,6 +1395,79 @@ namespace ATIS.Ui.Core
         }
         #endregion
 
+        #region Delete RefAuthor
+        public void DeleteRefAuthor(Tbl90RefAuthor currentTbl90RefAuthor)
+        {
+            try
+            {
+                var refAuthor = _uow.Tbl90RefAuthors.GetById(currentTbl90RefAuthor.RefAuthorId);
+                if (refAuthor != null)
+                {
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + currentTbl90RefAuthor.RefAuthorName)) return;
+
+                    _extCrud.DeleteRefAuthor(refAuthor);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl90RefAuthor.RefAuthorName);
+                }
+                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl90RefAuthor.RefAuthorName + " " + CultRes.StringsRes.DeleteCan1);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+        }
+        #endregion
+
+        #region Delete RefExpert
+        public void DeleteRefExpert(Tbl90RefExpert currentTbl90RefExpert)
+        {
+            try
+            {
+                var refExpert = _uow.Tbl90RefExperts.GetById(currentTbl90RefExpert.RefExpertId);
+                if (refExpert != null)
+                {
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + currentTbl90RefExpert.RefExpertName)) return;
+
+                    _extCrud.DeleteRefExpert(refExpert);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl90RefExpert.RefExpertName);
+                }
+                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl90RefExpert.RefExpertName + " " + CultRes.StringsRes.DeleteCan1);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+        }
+        #endregion
+
+        #region Delete RefSource
+        public void DeleteRefSource(Tbl90RefSource currentTbl90RefSource)
+        {
+            try
+            {
+                var refSource = _uow.Tbl90RefSources.GetById(currentTbl90RefSource.RefSourceId);
+                if (refSource != null)
+                {
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + currentTbl90RefSource.RefSourceName)) return;
+
+                    _extCrud.DeleteRefSource(refSource);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl90RefSource.RefSourceName);
+                }
+                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl90RefSource.RefSourceName + " " + CultRes.StringsRes.DeleteCan1);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+        }
+        #endregion
+
+
         #region Delete Comment
 
         public void DeleteComment(Tbl93Comment currentTbl93Comment)

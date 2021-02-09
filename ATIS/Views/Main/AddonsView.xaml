@@ -7,6 +7,9 @@
     xmlns:d81Image="clr-namespace:ATIS.Ui.Views.Database.D81Image"
     xmlns:d84Synonym="clr-namespace:ATIS.Ui.Views.Database.D84Synonym"
     xmlns:d87Geographic="clr-namespace:ATIS.Ui.Views.Database.D87Geographic"
+    xmlns:d90RefAuthor="clr-namespace:ATIS.Ui.Views.Database.D90RefAuthor"
+    xmlns:d90RefExpert="clr-namespace:ATIS.Ui.Views.Database.D90RefExpert"
+    xmlns:d90RefSource="clr-namespace:ATIS.Ui.Views.Database.D90RefSource"
     xmlns:d90Reference="clr-namespace:ATIS.Ui.Views.Database.D90Reference"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -29,6 +32,15 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type d90Reference:ReferencesViewModel}">
             <d90Reference:ReferencesView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d90RefAuthor:RefAuthorsViewModel}">
+            <d90RefAuthor:RefAuthorsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d90RefExpert:RefExpertsViewModel}">
+            <d90RefExpert:RefExpertsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d90RefSource:RefSourcesViewModel}">
+            <d90RefSource:RefSourcesView />
         </DataTemplate>
 
     </UserControl.Resources>
@@ -61,9 +73,15 @@
                     <TabItem Header="{DynamicResource Database-MenuReference}">
                         <d90Reference:ReferencesViewModel />
                     </TabItem>
-                    <TabItem Content="{Binding Tbl90RefExpertsView}" Header="{DynamicResource Database-MenuRefExpert}" />
-                    <TabItem Content="{Binding Tbl90RefSourcesView}" Header="{DynamicResource Database-MenuRefSource}" />
-                    <TabItem Content="{Binding Tbl90RefAuthorsView}" Header="{DynamicResource Database-MenuRefAuthor}" />
+                    <TabItem Header="{DynamicResource Database-MenuRefExpert}">
+                        <d90RefExpert:RefExpertsViewModel />
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Database-MenuRefSource}">
+                        <d90RefSource:RefSourcesViewModel />
+                    </TabItem>
+                    <TabItem Header="{DynamicResource Database-MenuRefAuthor}">
+                        <d90RefAuthor:RefAuthorsViewModel />
+                    </TabItem>
                 </TabControl>
             </TabItem>
             <TabItem Content="{Binding Tbl93CommentsView}" Header="{DynamicResource Database-MenuComment}" />

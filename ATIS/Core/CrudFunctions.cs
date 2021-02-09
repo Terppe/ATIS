@@ -9845,6 +9845,18 @@ namespace ATIS.Ui.Core
         #region RefExpert
 
         #region RefExpert Get
+        public ObservableCollection<T> GetRefExpertsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        {
+            ObservableCollection<T> collection;
+            collection = int.TryParse(searchName, out var id)
+                ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl90RefExperts
+                    .Find(e => e.RefExpertId == id))
+                : new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl90RefExperts
+                    .Find(e => e.RefExpertName.StartsWith(searchName))
+                    .OrderBy(a => a.RefExpertName)
+                );
+            return collection;
+        }
         public ObservableCollection<T> GetRefExpertsCollectionFromRefExpertIdOrderBy<T>(int? id)
         {
             var collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90RefExperts
@@ -9852,12 +9864,50 @@ namespace ATIS.Ui.Core
                 .OrderBy(k => k.RefExpertName));
             return collection;
         }
+        public ObservableCollection<Tbl90RefExpert> GetLastRefExpertsDatasetOrderById()
+        {
+            var collection = _context.Tbl90RefExperts
+                .OrderBy(c => c.RefExpertId)
+                .AsNoTracking()
+                .LastOrDefault();
+            return new ObservableCollection<Tbl90RefExpert> { collection };
+        }
+
+        #endregion
+
+        #region RefExpert Copy
+
+        public ObservableCollection<Tbl90RefExpert> CopyRefExpert(Tbl90RefExpert selected)
+        {
+            var dataset = _uow.Tbl90RefExperts.GetById(selected.RefExpertId);
+            var collection = new ObservableCollection<Tbl90RefExpert>();
+
+            collection.Insert(0, new Tbl90RefExpert
+            {
+                RefExpertName = CultRes.StringsRes.DatasetNew,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Info = dataset.Info,
+                Notes = dataset.Notes,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
+
+        #endregion
+
+        #region RefExpert Delete
+        public void DeleteRefExpert(Tbl90RefExpert selected)
+        {
+            _uow.Tbl90RefExperts.Remove(selected);
+            _uow.Complete();
+        }
         #endregion
 
         #region RefExpert Save
         public void RefExpertSave(Tbl90RefExpert home, Tbl90RefExpert selected)
         {
-
             if (selected.RefExpertId != 0) //update
             {
                 _uow.Tbl90RefExperts.Update(home);
@@ -9906,6 +9956,18 @@ namespace ATIS.Ui.Core
         #region RefSource
 
         #region RefSource Get
+        public ObservableCollection<T> GetRefSourcesCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        {
+            ObservableCollection<T> collection;
+            collection = int.TryParse(searchName, out var id)
+                ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl90RefSources
+                    .Find(e => e.RefSourceId == id))
+                : new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl90RefSources
+                    .Find(e => e.RefSourceName.StartsWith(searchName))
+                    .OrderBy(a => a.RefSourceName)
+                );
+            return collection;
+        }
         public ObservableCollection<T> GetRefSourcesCollectionFromRefSourceIdOrderBy<T>(int? id)
         {
             var collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90RefSources
@@ -9913,7 +9975,42 @@ namespace ATIS.Ui.Core
                 .OrderBy(k => k.RefSourceName));
             return collection;
         }
+        public ObservableCollection<Tbl90RefSource> GetLastRefSourcesDatasetOrderById()
+        {
+            var collection = _context.Tbl90RefSources
+                .OrderBy(c => c.RefSourceId)
+                .AsNoTracking()
+                .LastOrDefault();
+            return new ObservableCollection<Tbl90RefSource> { collection };
+        }
+        #endregion
 
+        #region RefSource Copy
+        public ObservableCollection<Tbl90RefSource> CopyRefSource(Tbl90RefSource selected)
+        {
+            var dataset = _uow.Tbl90RefSources.GetById(selected.RefSourceId);
+            var collection = new ObservableCollection<Tbl90RefSource>();
+
+            collection.Insert(0, new Tbl90RefSource
+            {
+                RefSourceName = CultRes.StringsRes.DatasetNew,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Info = dataset.Info,
+                Notes = dataset.Notes,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
+        #endregion
+
+        #region RefSource Delete
+        public void DeleteRefSource(Tbl90RefSource selected)
+        {
+            _uow.Tbl90RefSources.Remove(selected);
+            _uow.Complete();
+        }
         #endregion
 
         #region RefSource Save
@@ -9968,12 +10065,70 @@ namespace ATIS.Ui.Core
         #region RefAuthor
 
         #region RefAuthor Get
+        public ObservableCollection<T> GetRefAuthorsCollectionFromSearchNameOrIdOrderBy<T>(string searchName)
+        {
+            ObservableCollection<T> collection;
+            collection = int.TryParse(searchName, out var id)
+                ? new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl90RefAuthors
+                    .Find(e => e.RefAuthorId == id))
+                : new ObservableCollection<T>((IEnumerable<T>)_uow.Tbl90RefAuthors
+                    .Find(e => e.RefAuthorName.StartsWith(searchName))
+                    .OrderBy(a => a.RefAuthorName)
+                );
+            return collection;
+        }
+
         public ObservableCollection<T> GetRefAuthorsCollectionFromRefAuthorIdOrderBy<T>(int? id)
         {
             var collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90RefAuthors
                 .Where(e => e.RefAuthorId == id)
                 .OrderBy(k => k.RefAuthorName));
             return collection;
+        }
+
+        public ObservableCollection<Tbl90RefAuthor> GetLastRefAuthorsDatasetOrderById()
+        {
+            var collection = _context.Tbl90RefAuthors
+                .OrderBy(c => c.RefAuthorId)
+                .AsNoTracking()
+                .LastOrDefault();
+            return new ObservableCollection<Tbl90RefAuthor> { collection };
+        }
+
+        #endregion
+
+        #region RefAuthor Copy
+        public ObservableCollection<Tbl90RefAuthor> CopyRefAuthor(Tbl90RefAuthor selected)
+        {
+            var dataset = _uow.Tbl90RefAuthors.GetById(selected.RefAuthorId);
+            var collection = new ObservableCollection<Tbl90RefAuthor>();
+
+            collection.Insert(0, new Tbl90RefAuthor
+            {
+                RefAuthorName = CultRes.StringsRes.DatasetNew,
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                PublicationYear = dataset.PublicationYear,
+                ArticelTitle = dataset.ArticelTitle,
+                BookName = dataset.BookName,
+                Info = dataset.Info,
+                Page1 = dataset.Page1,
+                Publisher = dataset.Publisher,
+                PublicationPlace = dataset.PublicationPlace,
+                ISBN = dataset.ISBN,
+                Notes = dataset.Notes,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
+        #endregion
+
+        #region RefAuthor Delete
+        public void DeleteRefAuthor(Tbl90RefAuthor selected)
+        {
+            _uow.Tbl90RefAuthors.Remove(selected);
+            _uow.Complete();
         }
         #endregion
 

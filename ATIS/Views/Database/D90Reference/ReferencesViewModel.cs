@@ -69,7 +69,7 @@ namespace ATIS.Ui.Views.Database.D90Reference
         public ICommand DeleteReferenceCommand => _deleteReferenceCommand ??= new RelayCommand(delegate { ExecuteDeleteReference(null); });
 
         private RelayCommand _saveReferenceCommand;
-        public ICommand SaveReferenceCommand => _saveReferenceCommand ??= new RelayCommand(delegate { ExecuteSaveReference(null); });
+        public ICommand SaveReferenceCommand => _saveReferenceCommand ??= new RelayCommand(delegate { ExecuteSaveReference(SearchReferenceInfo); });
 
         #endregion [Commands Reference]       
 
@@ -79,6 +79,7 @@ namespace ATIS.Ui.Views.Database.D90Reference
         private void ExecuteGetReferencesByNameOrId(string searchInfo)
         {
             ConnectedAllLists();
+
             if (Tbl90ReferencesList == null)
                 Tbl90ReferencesList ??= new ObservableCollection<Tbl90Reference>();
             else
@@ -91,8 +92,6 @@ namespace ATIS.Ui.Views.Database.D90Reference
             ReferencesView = CollectionViewSource.GetDefaultView(Tbl90ReferencesList);
             ReferencesView.Refresh();
         }
-
-
         private void ExecuteAddReference(object o)
         {
             ConnectedAllLists();
@@ -107,8 +106,6 @@ namespace ATIS.Ui.Views.Database.D90Reference
             ReferencesView = CollectionViewSource.GetDefaultView(Tbl90ReferencesList);
             ReferencesView.MoveCurrentToFirst();
         }
-        //------------------------------------------------------------------------------------                               
-
         private void ExecuteCopyReference(object o)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90Reference)) return;
@@ -120,7 +117,6 @@ namespace ATIS.Ui.Views.Database.D90Reference
             ReferencesView = CollectionViewSource.GetDefaultView(Tbl90ReferencesList);
             ReferencesView.MoveCurrentToFirst();
         }
-
         private void ExecuteDeleteReference(string searchName)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90Reference)) return;
@@ -131,14 +127,20 @@ namespace ATIS.Ui.Views.Database.D90Reference
             ReferencesView = CollectionViewSource.GetDefaultView(Tbl90ReferencesList);
             ReferencesView.MoveCurrentToLast();
         }
-
         private void ExecuteSaveReference(string searchName)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl90Reference)) return;
 
             _position = ReferencesView.CurrentPosition;
 
-            _extSave.SaveReference(CurrentTbl90Reference);
+           var ret = _extSave.SaveReference(CurrentTbl90Reference);
+
+           if (ret != true)
+           {
+               ReferencesView = CollectionViewSource.GetDefaultView(Tbl90ReferencesList);
+               ReferencesView.Refresh();
+               return;
+           }
 
             if (_position == 0) //new
             {
@@ -295,7 +297,7 @@ namespace ATIS.Ui.Views.Database.D90Reference
                     if (CurrentTbl90Reference != null)
                     {
                         Tbl90RefExpertsList = _extCrud.GetRefExpertsCollectionFromRefExpertIdOrderBy<Tbl90RefExpert>(CurrentTbl90Reference.RefExpertId);
-
+                        
                         RefExpertsView = CollectionViewSource.GetDefaultView(Tbl90RefExpertsList);
                         RefExpertsView.Refresh();
                     }
@@ -324,7 +326,7 @@ namespace ATIS.Ui.Views.Database.D90Reference
                     SelectedDetailTabIndex = 3;
                 }
 
-
+ 
             }
         }
 

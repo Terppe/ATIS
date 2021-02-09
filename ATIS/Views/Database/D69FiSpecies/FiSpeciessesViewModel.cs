@@ -185,7 +185,14 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
 
             _position = FiSpeciessesView.CurrentPosition;
 
-            _extSave.SaveFiSpecies(CurrentTbl69FiSpecies);
+            var ret = _extSave.SaveFiSpecies(CurrentTbl69FiSpecies);
+
+            if (ret != true)
+            {
+                FiSpeciessesView = CollectionViewSource.GetDefaultView(Tbl69FiSpeciessesList);
+                FiSpeciessesView.Refresh();
+                return;
+            }
 
             if (_position == 0) //new
             {
