@@ -152,9 +152,16 @@ namespace ATIS.Ui.Views.Database.D42Superfamily
 
             _position = SuperfamiliesView.CurrentPosition;
 
-            _extSave.SaveSuperfamily(CurrentTbl42Superfamily);
+            var ret = _extSave.SaveSuperfamily(CurrentTbl42Superfamily);
 
-            if (_position == 0) //new
+            if (ret != true)
+            {
+                SuperfamiliesView = CollectionViewSource.GetDefaultView(Tbl42SuperfamiliesList);
+                SuperfamiliesView.Refresh();
+                return;
+            }
+
+            if (CurrentTbl42Superfamily.SuperfamilyId == 0) //new
             {
                 Tbl42SuperfamiliesList = _extCrud.GetLastSuperfamiliesDatasetOrderById();
                 SuperfamiliesView = CollectionViewSource.GetDefaultView(Tbl42SuperfamiliesList);

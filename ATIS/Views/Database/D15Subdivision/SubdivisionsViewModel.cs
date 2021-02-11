@@ -152,9 +152,16 @@ namespace ATIS.Ui.Views.Database.D15Subdivision
 
             _position = SubdivisionsView.CurrentPosition;
 
-            _extSave.SaveSubdivision(CurrentTbl15Subdivision);
+            var ret = _extSave.SaveSubdivision(CurrentTbl15Subdivision);
 
-            if (_position == 0) //new
+            if (ret != true)
+            {
+                SubdivisionsView = CollectionViewSource.GetDefaultView(Tbl15SubdivisionsList);
+                SubdivisionsView.Refresh();
+                return;
+            }
+
+            if (CurrentTbl15Subdivision.SubdivisionId == 0) //new
             {
                 Tbl15SubdivisionsList = _extCrud.GetLastSubdivisionsDatasetOrderById();
                 SubdivisionsView = CollectionViewSource.GetDefaultView(Tbl15SubdivisionsList);

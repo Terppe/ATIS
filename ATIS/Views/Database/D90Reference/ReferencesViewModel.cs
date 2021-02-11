@@ -142,7 +142,7 @@ namespace ATIS.Ui.Views.Database.D90Reference
                return;
            }
 
-            if (_position == 0) //new
+            if (CurrentTbl90Reference.ReferenceId == 0) //new
             {
                 Tbl90ReferencesList = _extCrud.GetLastReferencesDatasetOrderById();
                 ReferencesView = CollectionViewSource.GetDefaultView(Tbl90ReferencesList);

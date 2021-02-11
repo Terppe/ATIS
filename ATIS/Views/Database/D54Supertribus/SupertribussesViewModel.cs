@@ -152,9 +152,16 @@ namespace ATIS.Ui.Views.Database.D54Supertribus
 
             _position = SupertribussesView.CurrentPosition;
 
-            _extSave.SaveSupertribus(CurrentTbl54Supertribus);
+            var ret = _extSave.SaveSupertribus(CurrentTbl54Supertribus);
 
-            if (_position == 0) //new
+            if (ret != true)
+            {
+                SupertribussesView = CollectionViewSource.GetDefaultView(Tbl54SupertribussesList);
+                SupertribussesView.Refresh();
+                return;
+            }
+
+            if (CurrentTbl54Supertribus.SupertribusId == 0) //new
             {
                 Tbl54SupertribussesList = _extCrud.GetLastSupertribussesDatasetOrderById();
                 SupertribussesView = CollectionViewSource.GetDefaultView(Tbl54SupertribussesList);

@@ -152,9 +152,16 @@ namespace ATIS.Ui.Views.Database.D12Subphylum
 
             _position = SubphylumsView.CurrentPosition;
 
-            _extSave.SaveSubphylum(CurrentTbl12Subphylum);
+            var ret = _extSave.SaveSubphylum(CurrentTbl12Subphylum);
 
-            if (_position == 0) //new
+            if (ret != true)
+            {
+                SubphylumsView = CollectionViewSource.GetDefaultView(Tbl12SubphylumsList);
+                SubphylumsView.Refresh();
+                return;
+            }
+
+            if (CurrentTbl12Subphylum.SubphylumId == 0) //new
             {
                 Tbl12SubphylumsList = _extCrud.GetLastSubphylumsDatasetOrderById();
                 SubphylumsView = CollectionViewSource.GetDefaultView(Tbl12SubphylumsList);

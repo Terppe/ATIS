@@ -152,9 +152,16 @@ namespace ATIS.Ui.Views.Database.D63Infratribus
 
             _position = InfratribussesView.CurrentPosition;
 
-            _extSave.SaveInfratribus(CurrentTbl63Infratribus);
+            var ret = _extSave.SaveInfratribus(CurrentTbl63Infratribus);
 
-            if (_position == 0) //new
+            if (ret != true)
+            {
+                InfratribussesView = CollectionViewSource.GetDefaultView(Tbl63InfratribussesList);
+                InfratribussesView.Refresh();
+                return;
+            }
+
+            if (CurrentTbl63Infratribus.InfratribusId == 0) //new
             {
                 Tbl63InfratribussesList = _extCrud.GetLastInfratribussesDatasetOrderById();
                 InfratribussesView = CollectionViewSource.GetDefaultView(Tbl63InfratribussesList);

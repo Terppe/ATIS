@@ -201,9 +201,16 @@ namespace ATIS.Ui.Views.Database.D81Image
 
             _position = ImagesView.CurrentPosition;
 
-            _extSave.SaveImage(CurrentTbl81Image);
+            var ret = _extSave.SaveImage(CurrentTbl81Image);
 
-            if (_position == 0) //new
+            if (ret != true)
+            {
+                ImagesView = CollectionViewSource.GetDefaultView(Tbl81ImagesList);
+                ImagesView.Refresh();
+                return;
+            }
+
+            if (CurrentTbl81Image.ImageId == 0) //new
             {
                 Tbl81ImagesList = _extCrud.GetLastImagesDatasetOrderById();
                 ImagesView = CollectionViewSource.GetDefaultView(Tbl81ImagesList);

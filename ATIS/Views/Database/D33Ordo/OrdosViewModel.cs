@@ -152,9 +152,16 @@ namespace ATIS.Ui.Views.Database.D33Ordo
 
             _position = OrdosView.CurrentPosition;
 
-            _extSave.SaveOrdo(CurrentTbl33Ordo);
+            var ret = _extSave.SaveOrdo(CurrentTbl33Ordo);
 
-            if (_position == 0) //new
+            if (ret != true)
+            {
+                OrdosView = CollectionViewSource.GetDefaultView(Tbl33OrdosList);
+                OrdosView.Refresh();
+                return;
+            }
+
+            if (CurrentTbl33Ordo.OrdoId == 0) //new
             {
                 Tbl33OrdosList = _extCrud.GetLastOrdosDatasetOrderById();
                 OrdosView = CollectionViewSource.GetDefaultView(Tbl33OrdosList);

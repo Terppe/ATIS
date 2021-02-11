@@ -152,9 +152,16 @@ namespace ATIS.Ui.Views.Database.D24Subclass
 
             _position = SubclassesView.CurrentPosition;
 
-            _extSave.SaveSubclass(CurrentTbl24Subclass);
+            var ret = _extSave.SaveSubclass(CurrentTbl24Subclass);
 
-            if (_position == 0) //new
+            if (ret != true)
+            {
+                SubclassesView = CollectionViewSource.GetDefaultView(Tbl24SubclassesList);
+                SubclassesView.Refresh();
+                return;
+            }
+
+            if (CurrentTbl24Subclass.SubclassId == 0) //new
             {
                 Tbl24SubclassesList = _extCrud.GetLastSubclassesDatasetOrderById();
                 SubclassesView = CollectionViewSource.GetDefaultView(Tbl24SubclassesList);

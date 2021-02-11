@@ -152,9 +152,16 @@ namespace ATIS.Ui.Views.Database.D60Subtribus
 
             _position = SubtribussesView.CurrentPosition;
 
-            _extSave.SaveSubtribus(CurrentTbl60Subtribus);
+            var ret = _extSave.SaveSubtribus(CurrentTbl60Subtribus);
 
-            if (_position == 0) //new
+            if (ret != true)
+            {
+                SubtribussesView = CollectionViewSource.GetDefaultView(Tbl60SubtribussesList);
+                SubtribussesView.Refresh();
+                return;
+            }
+
+            if (CurrentTbl60Subtribus.SubtribusId == 0) //new
             {
                 Tbl60SubtribussesList = _extCrud.GetLastSubtribussesDatasetOrderById();
                 SubtribussesView = CollectionViewSource.GetDefaultView(Tbl60SubtribussesList);

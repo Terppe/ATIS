@@ -152,9 +152,16 @@ namespace ATIS.Ui.Views.Database.D30Legio
 
             _position = LegiosView.CurrentPosition;
 
-            _extSave.SaveLegio(CurrentTbl30Legio);
+            var ret = _extSave.SaveLegio(CurrentTbl30Legio);
 
-            if (_position == 0) //new
+            if (ret != true)
+            {
+                LegiosView = CollectionViewSource.GetDefaultView(Tbl30LegiosList);
+                LegiosView.Refresh();
+                return;
+            }
+
+            if (CurrentTbl30Legio.LegioId == 0) //new
             {
                 Tbl30LegiosList = _extCrud.GetLastLegiosDatasetOrderById();
                 LegiosView = CollectionViewSource.GetDefaultView(Tbl30LegiosList);

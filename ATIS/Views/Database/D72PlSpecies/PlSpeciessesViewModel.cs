@@ -194,7 +194,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                 return;
             }
 
-            if (_position == 0) //new
+            if (CurrentTbl72PlSpecies.PlSpeciesId == 0) //new
             {
                 Tbl72PlSpeciessesList = _extCrud.GetLastPlSpeciessesDatasetOrderById();
                 PlSpeciessesView = CollectionViewSource.GetDefaultView(Tbl72PlSpeciessesList);
@@ -1125,7 +1125,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
                     if (CurrentTbl72PlSpecies != null)
                     {
                         Tbl87GeographicsList = _extCrud.GetGeographicsCollectionFromPlSpeciesIdOrderBy<Tbl87Geographic>(CurrentTbl72PlSpecies.PlSpeciesId);
-
+                   
                         TblCountriesAllList = _extCrud.GetCollectionAllOrderBy<TblCountry>("Country");
                         Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("Plspecies");
 
@@ -1732,7 +1732,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
 
         private void RegisterCommands()
         {
-            //  OpenCommand = new RelayCommand(ExecuteOpenFileDialog);
+          //  OpenCommand = new RelayCommand(ExecuteOpenFileDialog);
         }
 
         private void ExecuteOpenFileDialog(object o)

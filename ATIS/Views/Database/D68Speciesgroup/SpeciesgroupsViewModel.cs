@@ -145,9 +145,16 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
 
             _position = SpeciesgroupsView.CurrentPosition;
 
-            _extSave.SaveSpeciesgroup(CurrentTbl68Speciesgroup);
+            var ret = _extSave.SaveSpeciesgroup(CurrentTbl68Speciesgroup);
 
-            if (_position == 0) //new
+            if (ret != true)
+            {
+                SpeciesgroupsView = CollectionViewSource.GetDefaultView(Tbl68SpeciesgroupsList);
+                SpeciesgroupsView.Refresh();
+                return;
+            }
+
+            if (CurrentTbl68Speciesgroup.SpeciesgroupId == 0) //new
             {
                 Tbl68SpeciesgroupsList = _extCrud.GetLastSpeciesgroupsDatasetOrderById();
                 SpeciesgroupsView = CollectionViewSource.GetDefaultView(Tbl68SpeciesgroupsList);

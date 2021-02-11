@@ -140,9 +140,16 @@ namespace ATIS.Ui.Views.Database.D03Regnum
 
             _position = RegnumsView.CurrentPosition;
 
-            _extSave.SaveRegnum(CurrentTbl03Regnum);
+            var ret = _extSave.SaveRegnum(CurrentTbl03Regnum);
 
-            if (_position == 0) //new
+            if (ret != true)
+            {
+                RegnumsView = CollectionViewSource.GetDefaultView(Tbl03RegnumsList);
+                RegnumsView.Refresh();
+                return;
+            }
+
+            if (CurrentTbl03Regnum.RegnumId == 0) //new
             {
                 Tbl03RegnumsList = _extCrud.GetLastRegnumsDatasetOrderById();
                 RegnumsView = CollectionViewSource.GetDefaultView(Tbl03RegnumsList);

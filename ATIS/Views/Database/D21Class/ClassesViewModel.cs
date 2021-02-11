@@ -152,9 +152,16 @@ namespace ATIS.Ui.Views.Database.D21Class
 
             _position = ClassesView.CurrentPosition;
 
-            _extSave.SaveClass(CurrentTbl21Class);
+            var ret = _extSave.SaveClass(CurrentTbl21Class);
 
-            if (_position == 0) //new
+            if (ret != true)
+            {
+                ClassesView = CollectionViewSource.GetDefaultView(Tbl21ClassesList);
+                ClassesView.Refresh();
+                return;
+            }
+
+            if (CurrentTbl21Class.ClassId == 0) //new
             {
                 Tbl21ClassesList = _extCrud.GetLastClassesDatasetOrderById();
                 ClassesView = CollectionViewSource.GetDefaultView(Tbl21ClassesList);

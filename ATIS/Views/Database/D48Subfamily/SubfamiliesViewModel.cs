@@ -152,9 +152,16 @@ namespace ATIS.Ui.Views.Database.D48Subfamily
 
             _position = SubfamiliesView.CurrentPosition;
 
-            _extSave.SaveSubfamily(CurrentTbl48Subfamily);
+            var ret = _extSave.SaveSubfamily(CurrentTbl48Subfamily);
 
-            if (_position == 0) //new
+            if (ret != true)
+            {
+                SubfamiliesView = CollectionViewSource.GetDefaultView(Tbl48SubfamiliesList);
+                SubfamiliesView.Refresh();
+                return;
+            }
+
+            if (CurrentTbl48Subfamily.SubfamilyId == 0) //new
             {
                 Tbl48SubfamiliesList = _extCrud.GetLastSubfamiliesDatasetOrderById();
                 SubfamiliesView = CollectionViewSource.GetDefaultView(Tbl48SubfamiliesList);

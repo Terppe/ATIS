@@ -136,7 +136,7 @@ namespace ATIS.Ui.Views.Database.D90RefAuthor
                 return;
             }
 
-            if (_position == 0) //new
+            if (CurrentTbl90RefAuthor.RefAuthorId == 0) //new
             {
                 Tbl90RefAuthorsList = _extCrud.GetLastRefAuthorsDatasetOrderById();
                 RefAuthorsView = CollectionViewSource.GetDefaultView(Tbl90RefAuthorsList);

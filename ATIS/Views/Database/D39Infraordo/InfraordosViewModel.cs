@@ -152,9 +152,16 @@ namespace ATIS.Ui.Views.Database.D39Infraordo
 
             _position = InfraordosView.CurrentPosition;
 
-            _extSave.SaveInfraordo(CurrentTbl39Infraordo);
+            var ret = _extSave.SaveInfraordo(CurrentTbl39Infraordo);
 
-            if (_position == 0) //new
+            if (ret != true)
+            {
+                InfraordosView = CollectionViewSource.GetDefaultView(Tbl39InfraordosList);
+                InfraordosView.Refresh();
+                return;
+            }
+
+            if (CurrentTbl39Infraordo.InfraordoId == 0) //new
             {
                 Tbl39InfraordosList = _extCrud.GetLastInfraordosDatasetOrderById();
                 InfraordosView = CollectionViewSource.GetDefaultView(Tbl39InfraordosList);

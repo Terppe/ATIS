@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Windows;
 using ATIS.Dal.Models;
 using ATIS.Ui.Helper;
-using ATIS.Ui.Views.Database.D06Phylum;
 using log4net;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,15 +14,17 @@ namespace ATIS.Ui.Core
         private readonly CrudFunctions _extCrud = new CrudFunctions();
         private readonly AllMessageBoxes _allMessageBoxes = new AllMessageBoxes();
 
-        public void SaveRegnum(Tbl03Regnum currentTbl03Regnum)
+        public bool SaveRegnum(Tbl03Regnum currentTbl03Regnum)
         {
+            var returnBool = false;
+
             try
             {
                 //  var dataset = _extCrud.GetRegnumSingleByRegnumId<Tbl03Regnum>(currentTbl03Regnum.RegnumId);
                 var dataset = _uow.Tbl03Regnums.GetById(currentTbl03Regnum.RegnumId);
 
                 if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl03Regnum.RegnumName))
-                    return;
+                    return false;
 
                 if (currentTbl03Regnum.RegnumId == 0)
                     dataset = _extCrud.RegnumAdd(currentTbl03Regnum);
@@ -37,22 +33,24 @@ namespace ATIS.Ui.Core
                 try
                 {
                     _extCrud.RegnumSave(dataset, currentTbl03Regnum);
+                    returnBool = true;
+
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
 
-                _allMessageBoxes.DetailErrorMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl03Regnum.RegnumId == 0
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl03Regnum.RegnumId == 0
                     ? CultRes.StringsRes.DatasetNew
                     : currentTbl03Regnum.RegnumName + " " + currentTbl03Regnum.Subregnum);
             }
@@ -61,17 +59,19 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
-        public void SavePhylum(Tbl06Phylum currentTbl06Phylum)
+        public bool SavePhylum(Tbl06Phylum currentTbl06Phylum)
         {
+            var returnBool = false;
+
             //Combobox select RegnumId  may not be 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl06Phylum.RegnumId)) return;
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl06Phylum.RegnumId)) return false;
             try
             {
-                //    var dataset = _extCrud.GetPhylumSingleByPhylumId(currentTbl06Phylum.PhylumId);
                 var dataset = _uow.Tbl06Phylums.GetById(currentTbl06Phylum.PhylumId);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl06Phylum.PhylumName)) return;
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl06Phylum.PhylumName)) return false;
 
                 if (currentTbl06Phylum.PhylumId == 0)
                     dataset = _extCrud.PhylumAdd(currentTbl06Phylum);
@@ -81,6 +81,7 @@ namespace ATIS.Ui.Core
                 try
                 {
                     _extCrud.PhylumSave(dataset, currentTbl06Phylum);
+                    returnBool = true;
                 }
 
                 catch (DbUpdateException e)
@@ -88,13 +89,13 @@ namespace ATIS.Ui.Core
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl06Phylum.PhylumId == 0
@@ -106,17 +107,18 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
-        public void SaveDivision(Tbl09Division currentTbl09Division)
+        public bool SaveDivision(Tbl09Division currentTbl09Division)
         {
+            var returnBool = false;
             //Combobox select RegnumId  may not be 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl09Division.RegnumId)) return;
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl09Division.RegnumId)) return false;
             try
             {
-                //    var dataset = _extCrud.GetDivisionSingleByDivisionId<Tbl09Division>(currentTbl09Division.DivisionId);
                 var dataset = _uow.Tbl09Divisions.GetById(currentTbl09Division.DivisionId);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl09Division.DivisionName)) return;
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl09Division.DivisionName)) return false;
 
                 if (currentTbl09Division.DivisionId == 0)
                     dataset = _extCrud.DivisionAdd(currentTbl09Division);
@@ -126,6 +128,7 @@ namespace ATIS.Ui.Core
                 try
                 {
                     _extCrud.DivisionSave(dataset, currentTbl09Division);
+                    returnBool = true;
                 }
 
                 catch (DbUpdateException e)
@@ -133,13 +136,13 @@ namespace ATIS.Ui.Core
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl09Division.DivisionId == 0
@@ -151,15 +154,18 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+
+            return returnBool;
         }
-        public void SaveSubphylum(Tbl12Subphylum currentTbl12Subphylum)
+        public bool SaveSubphylum(Tbl12Subphylum currentTbl12Subphylum)
         {
+            var returnBool = false;
+
             //Combobox select PhylumId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl12Subphylum.PhylumId)) return;
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl12Subphylum.PhylumId)) return false;
 
             try
             {
-                //    var dataset = _extCrud.GetSubphylumSingleBySubphylumId<Tbl12Subphylum>(currentTbl12Subphylum.SubphylumId);
                 var dataset = _uow.Tbl12Subphylums.GetById(currentTbl12Subphylum.SubphylumId);
 
 
@@ -169,24 +175,25 @@ namespace ATIS.Ui.Core
                     dataset = _extCrud.SubphylumUpdate(dataset, currentTbl12Subphylum);
 
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl12Subphylum.SubphylumName)) return;
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl12Subphylum.SubphylumName)) return false;
 
                 try
                 {
                     _extCrud.SubphylumSave(dataset, currentTbl12Subphylum);
+                    returnBool = true;
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                     //         Log.Error(e);
-                    return;
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl12Subphylum.SubphylumId == 0
@@ -198,41 +205,42 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
-
+            return returnBool;
         }
-        public void SaveSubdivision(Tbl15Subdivision currentTbl15Subdivision)
+        public bool SaveSubdivision(Tbl15Subdivision currentTbl15Subdivision)
         {
-            //Combobox select DivisionId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl15Subdivision.DivisionId)) return;
+            var returnBool = false;
+            //Combobox select DivisionID  may be not 0
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl15Subdivision.DivisionId)) return false;
 
             try
             {
-                //      var dataset = _extCrud.GetSubdivisionSingleBySubdivisionId<Tbl15Subdivision>(currentTbl15Subdivision.SubdivisionId);
                 var dataset = _uow.Tbl15Subdivisions.GetById(currentTbl15Subdivision.SubdivisionId);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl15Subdivision.SubdivisionName)) return false;
 
                 if (currentTbl15Subdivision.SubdivisionId == 0)
                     dataset = _extCrud.SubdivisionAdd(currentTbl15Subdivision);
                 else
                     dataset = _extCrud.SubdivisionUpdate(dataset, currentTbl15Subdivision);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl15Subdivision.SubdivisionName)) return;
-
                 try
                 {
                     _extCrud.SubdivisionSave(dataset, currentTbl15Subdivision);
+                    returnBool = true;
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
+                    Log.Error(e);
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl15Subdivision.SubdivisionId == 0
@@ -244,42 +252,42 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
-        public void SaveSuperclass(Tbl18Superclass currentTbl18Superclass)
+        public bool SaveSuperclass(Tbl18Superclass currentTbl18Superclass)
         {
-            //Combobox select SubdivisionId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl18Superclass.SubdivisionId)) return;
-            //Combobox select SubphylumId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl18Superclass.SubphylumId)) return;
+            var returnBool = false;
+            //Combobox select SubphylumID  may be not 0
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl18Superclass.SubphylumId)) return false;
 
             try
             {
                 var dataset = _uow.Tbl18Superclasses.GetById(currentTbl18Superclass.SuperclassId);
-                //    var dataset = _extCrud.GetSuperclassSingleBySubdivisionId<Tbl18Superclass>(currentTbl18Superclass.SuperclassId);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl18Superclass.SuperclassName)) return false;
 
                 if (currentTbl18Superclass.SuperclassId == 0)
                     dataset = _extCrud.SuperclassAdd(currentTbl18Superclass);
                 else
                     dataset = _extCrud.SuperclassUpdate(dataset, currentTbl18Superclass);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl18Superclass.SuperclassName)) return;
-
                 try
                 {
                     _extCrud.SuperclassSave(dataset, currentTbl18Superclass);
+                    returnBool = true;
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
+                    Log.Error(e);
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl18Superclass.SuperclassId == 0
@@ -291,40 +299,42 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
-        public void SaveClass(Tbl21Class currentTbl21Class)
+        public bool SaveClass(Tbl21Class currentTbl21Class)
         {
-            //Combobox select SuperclassId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl21Class.SuperclassId)) return;
+            var returnBool = false;
+            //Combobox select SuperclassID  may be not 0
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl21Class.SuperclassId)) return false;
 
             try
             {
                 var dataset = _uow.Tbl21Classes.GetById(currentTbl21Class.ClassId);
-                //    var dataset = _extCrud.GetClassSingleByClassId<Tbl21Class>(currentTbl21Class.ClassId);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl21Class.ClassName)) return false;
 
                 if (currentTbl21Class.ClassId == 0)
                     dataset = _extCrud.ClassAdd(currentTbl21Class);
                 else
                     dataset = _extCrud.ClassUpdate(dataset, currentTbl21Class);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl21Class.ClassName)) return;
-
                 try
                 {
                     _extCrud.ClassSave(dataset, currentTbl21Class);
+                    returnBool = true;
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
+                    Log.Error(e);
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl21Class.ClassId == 0
@@ -336,40 +346,42 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
-        public void SaveSubclass(Tbl24Subclass currentTbl24Subclass)
+        public bool SaveSubclass(Tbl24Subclass currentTbl24Subclass)
         {
-            //Combobox select ClassId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl24Subclass.ClassId)) return;
+            var returnBool = false;
+            //Combobox select ClassID  may be not 0
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl24Subclass.ClassId)) return false;
 
             try
             {
                 var dataset = _uow.Tbl24Subclasses.GetById(currentTbl24Subclass.SubclassId);
-                //    var dataset = _extCrud.GetClassSingleByClassId<Tbl21Class>(currentTbl21Class.ClassId);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl24Subclass.SubclassName)) return false;
 
                 if (currentTbl24Subclass.SubclassId == 0)
                     dataset = _extCrud.SubclassAdd(currentTbl24Subclass);
                 else
                     dataset = _extCrud.SubclassUpdate(dataset, currentTbl24Subclass);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl24Subclass.SubclassName)) return;
-
                 try
                 {
                     _extCrud.SubclassSave(dataset, currentTbl24Subclass);
+                    returnBool = true;
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
+                    Log.Error(e);
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl24Subclass.SubclassId == 0
@@ -381,40 +393,42 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
-        public void SaveInfraclass(Tbl27Infraclass currentTbl27Infraclass)
+        public bool SaveInfraclass(Tbl27Infraclass currentTbl27Infraclass)
         {
-            //Combobox select SubclassId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl27Infraclass.SubclassId)) return;
+            var returnBool = false;
+            //Combobox select SubclassID  may be not 0
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl27Infraclass.SubclassId)) return false;
 
             try
             {
                 var dataset = _uow.Tbl27Infraclasses.GetById(currentTbl27Infraclass.InfraclassId);
-                //    var dataset = _extCrud.GetClassSingleByClassId<Tbl21Class>(currentTbl21Class.ClassId);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl27Infraclass.InfraclassName)) return false;
 
                 if (currentTbl27Infraclass.InfraclassId == 0)
                     dataset = _extCrud.InfraclassAdd(currentTbl27Infraclass);
                 else
                     dataset = _extCrud.InfraclassUpdate(dataset, currentTbl27Infraclass);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl27Infraclass.InfraclassName)) return;
-
                 try
                 {
                     _extCrud.InfraclassSave(dataset, currentTbl27Infraclass);
+                    returnBool = true;
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
+                    Log.Error(e);
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl27Infraclass.InfraclassId == 0
@@ -426,40 +440,42 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
-        public void SaveLegio(Tbl30Legio currentTbl30Legio)
+        public bool SaveLegio(Tbl30Legio currentTbl30Legio)
         {
-            //Combobox select InfraclassId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl30Legio.InfraclassId)) return;
+            var returnBool = false;
+            //Combobox select InfraclassID  may be not 0
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl30Legio.InfraclassId)) return false;
 
             try
             {
                 var dataset = _uow.Tbl30Legios.GetById(currentTbl30Legio.LegioId);
-                //    var dataset = _extCrud.GetClassSingleByClassId<Tbl21Class>(currentTbl21Class.ClassId);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl30Legio.LegioName)) return false;
 
                 if (currentTbl30Legio.LegioId == 0)
                     dataset = _extCrud.LegioAdd(currentTbl30Legio);
                 else
                     dataset = _extCrud.LegioUpdate(dataset, currentTbl30Legio);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl30Legio.LegioName)) return;
-
                 try
                 {
                     _extCrud.LegioSave(dataset, currentTbl30Legio);
+                    returnBool = true;
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
+                    Log.Error(e);
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl30Legio.LegioId == 0
@@ -471,40 +487,42 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
-        public void SaveOrdo(Tbl33Ordo currentTbl33Ordo)
+        public bool SaveOrdo(Tbl33Ordo currentTbl33Ordo)
         {
-            //Combobox select LegioId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl33Ordo.LegioId)) return;
+            var returnBool = false;
+            //Combobox select LegioID  may be not 0
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl33Ordo.LegioId)) return false;
 
             try
             {
                 var dataset = _uow.Tbl33Ordos.GetById(currentTbl33Ordo.OrdoId);
-                //    var dataset = _extCrud.GetClassSingleByClassId<Tbl21Class>(currentTbl33Ordo.OrdoId);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl33Ordo.OrdoName)) return false;
 
                 if (currentTbl33Ordo.OrdoId == 0)
                     dataset = _extCrud.OrdoAdd(currentTbl33Ordo);
                 else
                     dataset = _extCrud.OrdoUpdate(dataset, currentTbl33Ordo);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl33Ordo.OrdoName)) return;
-
                 try
                 {
                     _extCrud.OrdoSave(dataset, currentTbl33Ordo);
+                    returnBool = true;
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
+                    Log.Error(e);
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl33Ordo.OrdoId == 0
@@ -516,40 +534,42 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
-        public void SaveSubordo(Tbl36Subordo currentTbl36Subordo)
+        public bool SaveSubordo(Tbl36Subordo currentTbl36Subordo)
         {
-            //Combobox select OrdoId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl36Subordo.OrdoId)) return;
+            var returnBool = false;
+            //Combobox select OrdoID  may be not 0
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl36Subordo.OrdoId)) return false;
 
             try
             {
                 var dataset = _uow.Tbl36Subordos.GetById(currentTbl36Subordo.SubordoId);
-                //    var dataset = _extCrud.GetClassSingleByClassId<Tbl21Class>(currentTbl36Subordo.SubordoId);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl36Subordo.SubordoName)) return false;
 
                 if (currentTbl36Subordo.SubordoId == 0)
                     dataset = _extCrud.SubordoAdd(currentTbl36Subordo);
                 else
                     dataset = _extCrud.SubordoUpdate(dataset, currentTbl36Subordo);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl36Subordo.SubordoName)) return;
-
                 try
                 {
                     _extCrud.SubordoSave(dataset, currentTbl36Subordo);
+                    returnBool = true;
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
+                    Log.Error(e);
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl36Subordo.SubordoId == 0
@@ -561,40 +581,42 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
-        public void SaveInfraordo(Tbl39Infraordo currentTbl39Infraordo)
+        public bool SaveInfraordo(Tbl39Infraordo currentTbl39Infraordo)
         {
-            //Combobox select SubordoId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl39Infraordo.SubordoId)) return;
+            var returnBool = false;
+            //Combobox select SubordoID  may be not 0
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl39Infraordo.SubordoId)) return false;
 
             try
             {
                 var dataset = _uow.Tbl39Infraordos.GetById(currentTbl39Infraordo.InfraordoId);
-                //    var dataset = _extCrud.GetClassSingleByClassId<Tbl21Class>(currentTbl39Infraordo.InfraordoId);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl39Infraordo.InfraordoName)) return false;
 
                 if (currentTbl39Infraordo.InfraordoId == 0)
                     dataset = _extCrud.InfraordoAdd(currentTbl39Infraordo);
                 else
                     dataset = _extCrud.InfraordoUpdate(dataset, currentTbl39Infraordo);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl39Infraordo.InfraordoName)) return;
-
                 try
                 {
                     _extCrud.InfraordoSave(dataset, currentTbl39Infraordo);
+                    returnBool = true;
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
+                    Log.Error(e);
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl39Infraordo.InfraordoId == 0
@@ -606,40 +628,42 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
-        public void SaveSuperfamily(Tbl42Superfamily currentTbl42Superfamily)
+        public bool SaveSuperfamily(Tbl42Superfamily currentTbl42Superfamily)
         {
-            //Combobox select InfraordoId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl42Superfamily.InfraordoId)) return;
+            var returnBool = false;
+            //Combobox select InfraordoID  may be not 0
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl42Superfamily.InfraordoId)) return false;
 
             try
             {
                 var dataset = _uow.Tbl42Superfamilies.GetById(currentTbl42Superfamily.SuperfamilyId);
-                //    var dataset = _extCrud.GetClassSingleByClassId<Tbl21Class>(currentTbl42Superfamily.SuperfamilyId);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl42Superfamily.SuperfamilyName)) return false;
 
                 if (currentTbl42Superfamily.SuperfamilyId == 0)
                     dataset = _extCrud.SuperfamilyAdd(currentTbl42Superfamily);
                 else
                     dataset = _extCrud.SuperfamilyUpdate(dataset, currentTbl42Superfamily);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl42Superfamily.SuperfamilyName)) return;
-
                 try
                 {
                     _extCrud.SuperfamilySave(dataset, currentTbl42Superfamily);
+                    returnBool = true;
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
+                    Log.Error(e);
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl42Superfamily.SuperfamilyId == 0
@@ -651,40 +675,42 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
-        public void SaveFamily(Tbl45Family currentTbl45Family)
+        public bool SaveFamily(Tbl45Family currentTbl45Family)
         {
-            //Combobox select SuperfamilyId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl45Family.SuperfamilyId)) return;
+            var returnBool = false;
+            //Combobox select SuperfamilyID  may be not 0
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl45Family.SuperfamilyId)) return false;
 
             try
             {
                 var dataset = _uow.Tbl45Families.GetById(currentTbl45Family.FamilyId);
-                //    var dataset = _extCrud.GetClassSingleByClassId<Tbl21Class>(currentTbl45Family.FamilyId);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl45Family.FamilyName)) return false;
 
                 if (currentTbl45Family.FamilyId == 0)
                     dataset = _extCrud.FamilyAdd(currentTbl45Family);
                 else
                     dataset = _extCrud.FamilyUpdate(dataset, currentTbl45Family);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl45Family.FamilyName)) return;
-
                 try
                 {
                     _extCrud.FamilySave(dataset, currentTbl45Family);
+                    returnBool = true;
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
+                    Log.Error(e);
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl45Family.FamilyId == 0
@@ -696,40 +722,42 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
-        public void SaveSubfamily(Tbl48Subfamily currentTbl48Subfamily)
+        public bool SaveSubfamily(Tbl48Subfamily currentTbl48Subfamily)
         {
-            //Combobox select FamilyId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl48Subfamily.FamilyId)) return;
+            var returnBool = false;
+            //Combobox select FamilyID  may be not 0
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl48Subfamily.FamilyId)) return false;
 
             try
             {
                 var dataset = _uow.Tbl48Subfamilies.GetById(currentTbl48Subfamily.SubfamilyId);
-                //    var dataset = _extCrud.GetClassSingleByClassId<Tbl21Class>(currentTbl48Subfamily.SubfamilyId);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl48Subfamily.SubfamilyName)) return false;
 
                 if (currentTbl48Subfamily.SubfamilyId == 0)
                     dataset = _extCrud.SubfamilyAdd(currentTbl48Subfamily);
                 else
                     dataset = _extCrud.SubfamilyUpdate(dataset, currentTbl48Subfamily);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl48Subfamily.SubfamilyName)) return;
-
                 try
                 {
                     _extCrud.SubfamilySave(dataset, currentTbl48Subfamily);
+                    returnBool = true;
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
+                    Log.Error(e);
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl48Subfamily.SubfamilyId == 0
@@ -741,40 +769,42 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
-        public void SaveInfrafamily(Tbl51Infrafamily currentTbl51Infrafamily)
+        public bool SaveInfrafamily(Tbl51Infrafamily currentTbl51Infrafamily)
         {
-            //Combobox select SubfamilyId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl51Infrafamily.SubfamilyId)) return;
+            var returnBool = false;
+            //Combobox select SubfamilyID  may be not 0
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl51Infrafamily.SubfamilyId)) return false;
 
             try
             {
                 var dataset = _uow.Tbl51Infrafamilies.GetById(currentTbl51Infrafamily.InfrafamilyId);
-                //    var dataset = _extCrud.GetClassSingleByClassId<Tbl21Class>(currentTbl51Infrafamily.InfrafamilyId);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl51Infrafamily.InfrafamilyName)) return false;
 
                 if (currentTbl51Infrafamily.InfrafamilyId == 0)
                     dataset = _extCrud.InfrafamilyAdd(currentTbl51Infrafamily);
                 else
                     dataset = _extCrud.InfrafamilyUpdate(dataset, currentTbl51Infrafamily);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl51Infrafamily.InfrafamilyName)) return;
-
                 try
                 {
                     _extCrud.InfrafamilySave(dataset, currentTbl51Infrafamily);
+                    returnBool = true;
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
+                    Log.Error(e);
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl51Infrafamily.InfrafamilyId == 0
@@ -786,40 +816,42 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
-        public void SaveSupertribus(Tbl54Supertribus currentTbl54Supertribus)
+        public bool SaveSupertribus(Tbl54Supertribus currentTbl54Supertribus)
         {
-            //Combobox select InfrafamilyId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl54Supertribus.InfrafamilyId)) return;
+            var returnBool = false;
+            //Combobox select InfrafamilyID  may be not 0
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl54Supertribus.InfrafamilyId)) return false;
 
             try
             {
                 var dataset = _uow.Tbl54Supertribusses.GetById(currentTbl54Supertribus.SupertribusId);
-                //    var dataset = _extCrud.GetClassSingleByClassId<Tbl21Class>(currentTbl54Supertribus.SupertribusId);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl54Supertribus.SupertribusName)) return false;
 
                 if (currentTbl54Supertribus.SupertribusId == 0)
                     dataset = _extCrud.SupertribusAdd(currentTbl54Supertribus);
                 else
                     dataset = _extCrud.SupertribusUpdate(dataset, currentTbl54Supertribus);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl54Supertribus.SupertribusName)) return;
-
                 try
                 {
                     _extCrud.SupertribusSave(dataset, currentTbl54Supertribus);
+                    returnBool = true;
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
+                    Log.Error(e);
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl54Supertribus.SupertribusId == 0
@@ -831,40 +863,42 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
-        public void SaveTribus(Tbl57Tribus currentTbl57Tribus)
+        public bool SaveTribus(Tbl57Tribus currentTbl57Tribus)
         {
-            //Combobox select SupertribusId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl57Tribus.SupertribusId)) return;
+            var returnBool = false;
+            //Combobox select SupertribusID  may be not 0
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl57Tribus.SupertribusId)) return false;
 
             try
             {
                 var dataset = _uow.Tbl57Tribusses.GetById(currentTbl57Tribus.TribusId);
-                //    var dataset = _extCrud.GetClassSingleByClassId<Tbl21Class>(currentTbl57Tribus.TribusId);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl57Tribus.TribusName)) return false;
 
                 if (currentTbl57Tribus.TribusId == 0)
                     dataset = _extCrud.TribusAdd(currentTbl57Tribus);
                 else
                     dataset = _extCrud.TribusUpdate(dataset, currentTbl57Tribus);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl57Tribus.TribusName)) return;
-
                 try
                 {
                     _extCrud.TribusSave(dataset, currentTbl57Tribus);
+                    returnBool = true;
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
+                    Log.Error(e);
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl57Tribus.TribusId == 0
@@ -876,40 +910,42 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
-        public void SaveSubtribus(Tbl60Subtribus currentTbl60Subtribus)
+        public bool SaveSubtribus(Tbl60Subtribus currentTbl60Subtribus)
         {
-            //Combobox select TribusId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl60Subtribus.TribusId)) return;
+            var returnBool = false;
+            //Combobox select TribusID  may be not 0
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl60Subtribus.TribusId)) return false;
 
             try
             {
                 var dataset = _uow.Tbl60Subtribusses.GetById(currentTbl60Subtribus.SubtribusId);
-                //    var dataset = _extCrud.GetClassSingleByClassId<Tbl21Class>(currentTbl60Subtribus.SubtribusId);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl60Subtribus.SubtribusName)) return false;
 
                 if (currentTbl60Subtribus.SubtribusId == 0)
                     dataset = _extCrud.SubtribusAdd(currentTbl60Subtribus);
                 else
                     dataset = _extCrud.SubtribusUpdate(dataset, currentTbl60Subtribus);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl60Subtribus.SubtribusName)) return;
-
                 try
                 {
                     _extCrud.SubtribusSave(dataset, currentTbl60Subtribus);
+                    returnBool = true;
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
+                    Log.Error(e);
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl60Subtribus.SubtribusId == 0
@@ -921,40 +957,42 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
-        public void SaveInfratribus(Tbl63Infratribus currentTbl63Infratribus)
+        public bool SaveInfratribus(Tbl63Infratribus currentTbl63Infratribus)
         {
-            //Combobox select SubtribusId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl63Infratribus.SubtribusId)) return;
+            var returnBool = false;
+            //Combobox select SubtribusID  may be not 0
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl63Infratribus.SubtribusId)) return false;
 
             try
             {
                 var dataset = _uow.Tbl63Infratribusses.GetById(currentTbl63Infratribus.InfratribusId);
-                //    var dataset = _extCrud.GetClassSingleByClassId<Tbl21Class>(currentTbl63Infratribus.InfratribusId);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl63Infratribus.InfratribusName)) return false;
 
                 if (currentTbl63Infratribus.InfratribusId == 0)
                     dataset = _extCrud.InfratribusAdd(currentTbl63Infratribus);
                 else
                     dataset = _extCrud.InfratribusUpdate(dataset, currentTbl63Infratribus);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl63Infratribus.InfratribusName)) return;
-
                 try
                 {
                     _extCrud.InfratribusSave(dataset, currentTbl63Infratribus);
+                    returnBool = true;
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
+                    Log.Error(e);
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl63Infratribus.InfratribusId == 0
@@ -966,6 +1004,7 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
         public bool SaveGenus(Tbl66Genus currentTbl66Genus)
         {
@@ -1016,50 +1055,50 @@ namespace ATIS.Ui.Core
             }
             return returnBool;
         }
-        public void SaveSpeciesgroup(Tbl68Speciesgroup currentTbl68Speciesgroup)
+        public bool SaveSpeciesgroup(Tbl68Speciesgroup currentTbl68Speciesgroup)
         {
-            ////Combobox select InfratribusId may be not 0
-            //if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl66Genus.InfratribusId)) return;
+            var returnBool = false;
 
             try
             {
                 var dataset = _uow.Tbl68Speciesgroups.GetById(currentTbl68Speciesgroup.SpeciesgroupId);
-                //    var dataset = _extCrud.GetClassSingleByClassId<Tbl21Class>(currentTbl66Genus.GenusId);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl68Speciesgroup.SpeciesgroupName)) return false;
 
                 if (currentTbl68Speciesgroup.SpeciesgroupId == 0)
                     dataset = _extCrud.SpeciesgroupAdd(currentTbl68Speciesgroup);
                 else
                     dataset = _extCrud.SpeciesgroupUpdate(dataset, currentTbl68Speciesgroup);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl68Speciesgroup.SpeciesgroupName + " " + currentTbl68Speciesgroup.Subspeciesgroup)) return;
-
                 try
                 {
                     _extCrud.SpeciesgroupSave(dataset, currentTbl68Speciesgroup);
+                    returnBool = true;
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
+                    Log.Error(e);
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl68Speciesgroup.SpeciesgroupId == 0
                     ? CultRes.StringsRes.DatasetNew
-                    : currentTbl68Speciesgroup.SpeciesgroupName + " " + currentTbl68Speciesgroup.Subspeciesgroup);
+                    : currentTbl68Speciesgroup.SpeciesgroupName);
             }
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
         public bool SaveFiSpecies(Tbl69FiSpecies currentTbl69FiSpecies)
         {
@@ -1120,7 +1159,6 @@ namespace ATIS.Ui.Core
             try
             {
                 var dataset = _uow.Tbl72PlSpeciesses.GetById(currentTbl72PlSpecies.PlSpeciesId);
-                //    var dataset = _extCrud.GetClassSingleByClassId<Tbl21Class>(currentTbl69FiSpecies.FiSpeciesId);
 
                 if (currentTbl72PlSpecies.PlSpeciesId == 0)
                     dataset = _extCrud.PlSpeciesAdd(currentTbl72PlSpecies);
@@ -1160,42 +1198,43 @@ namespace ATIS.Ui.Core
 
             return returnBool;
         }
-
-        public void SaveName(Tbl78Name currentTbl78Name)
+        public bool SaveName(Tbl78Name currentTbl78Name)
         {
+            var returnBool = false;
+
             //Combobox select FiSpeciesId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl78Name.FiSpeciesId)) return;
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl78Name.FiSpeciesId)) return false;
             //Combobox select PlSpeciesId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl78Name.PlSpeciesId)) return;
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl78Name.PlSpeciesId)) return false;
 
             try
             {
                 var dataset = _uow.Tbl78Names.GetById(currentTbl78Name.NameId);
-                //    var dataset = _extCrud.GetClassSingleByClassId<Tbl21Class>(currentTbl66Genus.GenusId);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl78Name.NameName)) return false;
 
                 if (currentTbl78Name.NameId == 0)
                     dataset = _extCrud.NameAdd(currentTbl78Name);
                 else
                     dataset = _extCrud.NameUpdate(dataset, currentTbl78Name);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl78Name.NameName)) return;
-
                 try
                 {
                     _extCrud.NameSave(dataset, currentTbl78Name);
+                    returnBool = true;
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
+                    Log.Error(e);
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl78Name.NameId == 0
@@ -1207,42 +1246,45 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
-        public void SaveImage(Tbl81Image currentTbl81Image)
+        public bool SaveImage(Tbl81Image currentTbl81Image)
         {
+            var returnBool = false;
+
             //Combobox select FiSpeciesId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl81Image.FiSpeciesId)) return;
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl81Image.FiSpeciesId)) return false;
             //Combobox select PlSpeciesId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl81Image.PlSpeciesId)) return;
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl81Image.PlSpeciesId)) return false;
 
             try
             {
                 var dataset = _uow.Tbl81Images.GetById(currentTbl81Image.ImageId);
-                //    var dataset = _extCrud.GetClassSingleByClassId<Tbl21Class>(currentTbl81Image.ImageId);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl81Image.Info)) return false;
 
                 if (currentTbl81Image.ImageId == 0)
                     dataset = _extCrud.ImageAdd(currentTbl81Image);
                 else
                     dataset = _extCrud.ImageUpdate(dataset, currentTbl81Image);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl81Image.Info)) return;
-
                 try
                 {
                     _extCrud.ImageSave(dataset, currentTbl81Image);
+                    returnBool = true;
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
+                    Log.Error(e);
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl81Image.ImageId == 0
@@ -1254,42 +1296,45 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
-        public void SaveSynonym(Tbl84Synonym currentTbl84Synonym)
+        public bool SaveSynonym(Tbl84Synonym currentTbl84Synonym)
         {
+            var returnBool = false;
+
             //Combobox select FiSpeciesId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl84Synonym.FiSpeciesId)) return;
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl84Synonym.FiSpeciesId)) return false;
             //Combobox select PlSpeciesId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl84Synonym.PlSpeciesId)) return;
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl84Synonym.PlSpeciesId)) return false;
 
             try
             {
                 var dataset = _uow.Tbl84Synonyms.GetById(currentTbl84Synonym.SynonymId);
-                //    var dataset = _extCrud.GetClassSingleByClassId<Tbl21Class>(currentTbl66Genus.GenusId);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl84Synonym.SynonymName)) return false;
 
                 if (currentTbl84Synonym.SynonymId == 0)
                     dataset = _extCrud.SynonymAdd(currentTbl84Synonym);
                 else
                     dataset = _extCrud.SynonymUpdate(dataset, currentTbl84Synonym);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl84Synonym.SynonymName)) return;
-
                 try
                 {
                     _extCrud.SynonymSave(dataset, currentTbl84Synonym);
+                    returnBool = true;
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
+                    Log.Error(e);
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl84Synonym.SynonymId == 0
@@ -1301,42 +1346,45 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
-        public void SaveGeographic(Tbl87Geographic currentTbl87Geographic)
+        public bool SaveGeographic(Tbl87Geographic currentTbl87Geographic)
         {
+            var returnBool = false;
+
             //Combobox select FiSpeciesId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl87Geographic.FiSpeciesId)) return;
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl87Geographic.FiSpeciesId)) return false;
             //Combobox select PlSpeciesId may be not 0
-            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl87Geographic.PlSpeciesId)) return;
+            if (_allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(currentTbl87Geographic.PlSpeciesId)) return false;
 
             try
             {
                 var dataset = _uow.Tbl87Geographics.GetById(currentTbl87Geographic.GeographicId);
-                //    var dataset = _extCrud.GetClassSingleByClassId<Tbl21Class>(currentTbl87Geographic.GeographicId);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl87Geographic.Info)) return false;
 
                 if (currentTbl87Geographic.GeographicId == 0)
                     dataset = _extCrud.GeographicAdd(currentTbl87Geographic);
                 else
                     dataset = _extCrud.GeographicUpdate(dataset, currentTbl87Geographic);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl87Geographic.Info)) return;
-
                 try
                 {
                     _extCrud.GeographicSave(dataset, currentTbl87Geographic);
+                    returnBool = true;
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
-                    return;
+                    Log.Error(e);
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl87Geographic.GeographicId == 0
@@ -1348,6 +1396,7 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
 
         public bool SaveReference(Tbl90Reference currentTbl90Reference)
@@ -1453,7 +1502,6 @@ namespace ATIS.Ui.Core
             return returnBool;
         }
 
-
         public bool SaveReferenceAuthor(Tbl90Reference currentTbl90ReferenceAuthor, string name)
         {
             var returnBool = false;
@@ -1502,8 +1550,6 @@ namespace ATIS.Ui.Core
 
             return returnBool;
         }
-
-
         private Tbl90Reference AddUpdateReferenceAuthor(Tbl90Reference currentTbl90ReferenceAuthor, Tbl90Reference dataset, string name)
         {
             switch (name)
@@ -1729,7 +1775,6 @@ namespace ATIS.Ui.Core
                     return dataset;
             }
         }
-
         public void SaveReferenceSource(Tbl90Reference currentTbl90ReferenceSource, string name)
         {
             //Combobox select RefSourceId may be not 0
@@ -1974,7 +2019,6 @@ namespace ATIS.Ui.Core
                     return dataset;
             }
         }
-
         public void SaveReferenceExpert(Tbl90Reference currentTbl90ReferenceExpert, string name)
         {
             //Combobox select RefExpertId  may be not 0
@@ -2218,7 +2262,6 @@ namespace ATIS.Ui.Core
             }
         }
 
-
         public bool SaveRefExpert(Tbl90RefExpert currentTbl90RefExpert)
         {
             var returnBool = false;
@@ -2358,9 +2401,10 @@ namespace ATIS.Ui.Core
             return returnBool;
         }
 
-
-        public void SaveComment(Tbl93Comment currentTbl93Comment, string name)
+        public bool SaveComment(Tbl93Comment currentTbl93Comment, string name)
         {
+            var returnBool = false;
+
             try
             {
                 var dataset = _uow.Tbl93Comments.GetById(currentTbl93Comment.CommentId);
@@ -2368,26 +2412,32 @@ namespace ATIS.Ui.Core
 
                 dataset = AddUpdateComment(currentTbl93Comment, dataset, name);
 
+                //if (currentTbl93Comment.CommentId == 0)
+                //    dataset = _extCrud.CommentRegnumAdd(currentTbl93Comment);
+                //else
+                //    dataset = _extCrud.CommentRegnumUpdate(dataset, currentTbl93Comment);
 
-                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl93Comment.Info))
-                    return;
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl93Comment.Info)) return false;
 
                 try
                 {
                     _extCrud.CommentSave(dataset, currentTbl93Comment);
+                    returnBool = true;
                 }
                 catch (DbUpdateException e)
                 {
                     if (e.InnerException != null)
-                        _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
+                        _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(),
+                            CultRes.StringsRes.FailedToSave);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                     Log.Error(e);
-                    return;
+                    return false;
                 }
 
                 _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl93Comment.CommentId == 0
@@ -2399,6 +2449,7 @@ namespace ATIS.Ui.Core
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 Log.Error(e);
             }
+            return returnBool;
         }
         private Tbl93Comment AddUpdateComment(Tbl93Comment currentTbl93Comment, Tbl93Comment dataset, string name)
         {
@@ -2600,6 +2651,92 @@ namespace ATIS.Ui.Core
                 default:
                     return dataset;
             }
+        }
+
+        public bool SaveComment(Tbl93Comment currentTbl93Comment)
+        {
+            var returnBool = false;
+            // Regnum-PlSpecies
+            var z = 0;
+            if (currentTbl93Comment.RegnumId != null) z += 1;
+            if (currentTbl93Comment.PhylumId != null) z += 1;
+            if (currentTbl93Comment.SubphylumId != null) z += 1;
+            if (currentTbl93Comment.DivisionId != null) z += 1;
+            if (currentTbl93Comment.SubdivisionId != null) z += 1;
+            if (currentTbl93Comment.SuperclassId != null) z += 1;
+            if (currentTbl93Comment.ClassId != null) z += 1;
+            if (currentTbl93Comment.SubclassId != null) z += 1;
+            if (currentTbl93Comment.InfraclassId != null) z += 1;
+            if (currentTbl93Comment.LegioId != null) z += 1;
+            if (currentTbl93Comment.OrdoId != null) z += 1;
+            if (currentTbl93Comment.SubordoId != null) z += 1;
+            if (currentTbl93Comment.InfraordoId != null) z += 1;
+            if (currentTbl93Comment.SuperfamilyId != null) z += 1;
+            if (currentTbl93Comment.FamilyId != null) z += 1;
+            if (currentTbl93Comment.SubfamilyId != null) z += 1;
+            if (currentTbl93Comment.InfrafamilyId != null) z += 1;
+            if (currentTbl93Comment.SupertribusId != null) z += 1;
+            if (currentTbl93Comment.TribusId != null) z += 1;
+            if (currentTbl93Comment.SubtribusId != null) z += 1;
+            if (currentTbl93Comment.InfratribusId != null) z += 1;
+            if (currentTbl93Comment.GenusId != null) z += 1;
+            if (currentTbl93Comment.FiSpeciesId != null) z += 1;
+            if (currentTbl93Comment.PlSpeciesId != null) z += 1;
+
+            if (z == 0)
+            {
+                _allMessageBoxes.IdSelectInComboBoxNotBe0InfoMessageBox(z);
+                return false;
+            }
+
+            if (z > 1)
+            {
+                _allMessageBoxes.IdSelectInComboBoxMoreThenOneInfoMessageBox();
+                return false;
+            }
+
+            try
+            {
+                var dataset = _uow.Tbl93Comments.GetById(currentTbl93Comment.CommentId);
+                //  var dataset = _extCrud.GetCommentSingleByCommentId<Tbl93Comment>(currentTbl93Comment.CommentId);
+
+                if (currentTbl93Comment.CommentId == 0)
+                    dataset = _extCrud.CommentAdd(currentTbl93Comment);
+                else
+                    dataset = _extCrud.CommentUpdate(dataset, currentTbl93Comment);
+
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl93Comment.Info)) return false;
+
+                try
+                {
+                    _extCrud.CommentSave(dataset, currentTbl93Comment);
+                    returnBool = true;
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
+                    Log.Error(e);
+                    return false;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
+                    Log.Error(e);
+                    return false;
+                }
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTbl93Comment.CommentId == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : currentTbl93Comment.Info);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+            return returnBool;
         }
 
     }

@@ -152,9 +152,16 @@ namespace ATIS.Ui.Views.Database.D51Infrafamily
 
             _position = InfrafamiliesView.CurrentPosition;
 
-            _extSave.SaveInfrafamily(CurrentTbl51Infrafamily);
+            var ret = _extSave.SaveInfrafamily(CurrentTbl51Infrafamily);
 
-            if (_position == 0) //new
+            if (ret != true)
+            {
+                InfrafamiliesView = CollectionViewSource.GetDefaultView(Tbl51InfrafamiliesList);
+                InfrafamiliesView.Refresh();
+                return;
+            }
+
+            if (CurrentTbl51Infrafamily.InfrafamilyId == 0) //new
             {
                 Tbl51InfrafamiliesList = _extCrud.GetLastInfrafamiliesDatasetOrderById();
                 InfrafamiliesView = CollectionViewSource.GetDefaultView(Tbl51InfrafamiliesList);

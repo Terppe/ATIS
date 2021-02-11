@@ -152,9 +152,16 @@ namespace ATIS.Ui.Views.Database.D57Tribus
 
             _position = TribussesView.CurrentPosition;
 
-            _extSave.SaveTribus(CurrentTbl57Tribus);
+            var ret = _extSave.SaveTribus(CurrentTbl57Tribus);
 
-            if (_position == 0) //new
+            if (ret != true)
+            {
+                TribussesView = CollectionViewSource.GetDefaultView(Tbl57TribussesList);
+                TribussesView.Refresh();
+                return;
+            }
+
+            if (CurrentTbl57Tribus.TribusId == 0) //new
             {
                 Tbl57TribussesList = _extCrud.GetLastTribussesDatasetOrderById();
                 TribussesView = CollectionViewSource.GetDefaultView(Tbl57TribussesList);

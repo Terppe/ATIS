@@ -152,9 +152,16 @@ namespace ATIS.Ui.Views.Database.D45Family
 
             _position = FamiliesView.CurrentPosition;
 
-            _extSave.SaveFamily(CurrentTbl45Family);
+            var ret = _extSave.SaveFamily(CurrentTbl45Family);
 
-            if (_position == 0) //new
+            if (ret != true)
+            {
+                FamiliesView = CollectionViewSource.GetDefaultView(Tbl45FamiliesList);
+                FamiliesView.Refresh();
+                return;
+            }
+
+            if (CurrentTbl45Family.FamilyId == 0) //new
             {
                 Tbl45FamiliesList = _extCrud.GetLastFamiliesDatasetOrderById();
                 FamiliesView = CollectionViewSource.GetDefaultView(Tbl45FamiliesList);

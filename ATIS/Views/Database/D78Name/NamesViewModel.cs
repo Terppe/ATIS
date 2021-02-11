@@ -163,9 +163,16 @@ namespace ATIS.Ui.Views.Database.D78Name
 
             _position = NamesView.CurrentPosition;
 
-            _extSave.SaveName(CurrentTbl78Name);
+            var ret = _extSave.SaveName(CurrentTbl78Name);
 
-            if (_position == 0) //new
+            if (ret != true)
+            {
+                NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);
+                NamesView.Refresh();
+                return;
+            }
+
+            if (CurrentTbl78Name.NameId == 0) //new
             {
                 Tbl78NamesList = _extCrud.GetLastNamesDatasetOrderById();
                 NamesView = CollectionViewSource.GetDefaultView(Tbl78NamesList);

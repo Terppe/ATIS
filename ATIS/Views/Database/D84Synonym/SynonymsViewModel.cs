@@ -100,7 +100,6 @@ namespace ATIS.Ui.Views.Database.D84Synonym
             SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
             SynonymsView.Refresh();
         }
-        //------------------------------------------------------------------------------------                          
 
         private void ExecuteAddSynonym(object o)
         {
@@ -160,9 +159,16 @@ namespace ATIS.Ui.Views.Database.D84Synonym
 
             _position = SynonymsView.CurrentPosition;
 
-            _extSave.SaveSynonym(CurrentTbl84Synonym);
+            var ret = _extSave.SaveSynonym(CurrentTbl84Synonym);
 
-            if (_position == 0) //new
+            if (ret != true)
+            {
+                SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);
+                SynonymsView.Refresh();
+                return;
+            }
+
+            if (CurrentTbl84Synonym.SynonymId == 0) //new
             {
                 Tbl84SynonymsList = _extCrud.GetLastSynonymsDatasetOrderById();
                 SynonymsView = CollectionViewSource.GetDefaultView(Tbl84SynonymsList);

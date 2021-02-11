@@ -5406,9 +5406,6 @@ namespace ATIS.Ui.Core
                 .LastOrDefault();
             return new ObservableCollection<Tbl90Reference> { collection };
         }
-
-
-
         #endregion
 
         #region Reference Copy
@@ -10198,6 +10195,40 @@ namespace ATIS.Ui.Core
         #region Comment
 
         #region Comment Get
+        //public ObservableCollection<T> GetCommentsCollectionFromSearchNameOrIdOrderBy<T>(string searchInfo)
+        //{
+        //    ObservableCollection<T> collection;
+        //    collection = int.TryParse(searchInfo, out var id)
+        //        ? new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
+        //            .Where(e => e.CommentId == id))
+        //        : new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
+        //            .Where(e => e.Info.StartsWith(searchInfo))
+        //            .OrderBy(a => a.Info)
+        //        );
+        //    return collection;
+        //}
+        public ObservableCollection<T> GetCommentsCollectionFromSearchInfoOrIdOrderBy<T>(string searchInfo)
+        {
+            ObservableCollection<T> collection;
+            collection = int.TryParse(searchInfo, out var id)
+                ? new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
+                    .Where(e => e.CommentId == id))
+                : new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
+                    .Where(e => e.Info.StartsWith(searchInfo))
+                    .OrderBy(a => a.Info)
+                );
+            return collection;
+        }
+
+        public ObservableCollection<Tbl93Comment> GetLastCommentsDatasetOrderById()
+        {
+            var collection = _context.Tbl93Comments
+                .OrderBy(c => c.CommentId)
+                .AsNoTracking()
+                .LastOrDefault();
+            return new ObservableCollection<Tbl93Comment> { collection };
+        }
+
         public ObservableCollection<T> GetCommentsCollectionFromRegnumIdOrderBy<T>(int? id)
         {
             ObservableCollection<T> collection;
@@ -10391,7 +10422,6 @@ namespace ATIS.Ui.Core
             return collection;
         }
 
-
         public ObservableCollection<T> GetCommentsCollectionAllOrderBy<T>()
         {
             var collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
@@ -10406,11 +10436,25 @@ namespace ATIS.Ui.Core
             //    Tbl93Comment single = _context.Tbl93Comments.FirstOrDefault(a => a.CommentId == commentId);
             return single;
         }
-
-
         #endregion
 
         #region Comment Copy
+        public ObservableCollection<Tbl93Comment> CopyComment(Tbl93Comment selected)
+        {
+            var dataset = _uow.Tbl93Comments.GetById(selected.CommentId);
+            var collection = new ObservableCollection<Tbl93Comment>();
+
+            collection.Insert(0, new Tbl93Comment
+            {
+                Valid = dataset.Valid,
+                ValidYear = dataset.ValidYear,
+                Info = dataset.Info,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
+
         public ObservableCollection<Tbl93Comment> CopyComment(Tbl93Comment selected, string name)
         {
             var dataset = _uow.Tbl93Comments.GetById(selected.CommentId);
@@ -10834,6 +10878,8 @@ namespace ATIS.Ui.Core
             };
             return comment;
         }
+
+
         public Tbl93Comment CommentPhylumUpdate(Tbl93Comment comment, Tbl93Comment selected)
         {
             if (comment != null) //update
@@ -11548,6 +11594,83 @@ namespace ATIS.Ui.Core
             return comment;
         }
 
+        public Tbl93Comment CommentUpdate(Tbl93Comment home, Tbl93Comment selected)
+        {
+            if (home != null) //update
+            {
+                home.RegnumId = selected.RegnumId;
+                home.PhylumId = selected.PhylumId;
+                home.DivisionId = selected.DivisionId;
+                home.SubphylumId = selected.SubphylumId;
+                home.SubdivisionId = selected.SubdivisionId;
+                home.SuperclassId = selected.SuperclassId;
+                home.ClassId = selected.ClassId;
+                home.SubclassId = selected.SubclassId;
+                home.InfraclassId = selected.InfraclassId;
+                home.LegioId = selected.LegioId;
+                home.OrdoId = selected.OrdoId;
+                home.SubordoId = selected.SubordoId;
+                home.InfraordoId = selected.InfraordoId;
+                home.SuperfamilyId = selected.SuperfamilyId;
+                home.FamilyId = selected.FamilyId;
+                home.SubfamilyId = selected.SubfamilyId;
+                home.InfrafamilyId = selected.InfrafamilyId;
+                home.SupertribusId = selected.SupertribusId;
+                home.TribusId = selected.TribusId;
+                home.SubtribusId = selected.SubtribusId;
+                home.InfratribusId = selected.InfratribusId;
+                home.GenusId = selected.GenusId;
+                home.PlSpeciesId = selected.PlSpeciesId;
+                home.FiSpeciesId = selected.FiSpeciesId;
+                home.Valid = selected.Valid;
+                home.ValidYear = selected.ValidYear;
+                home.Info = selected.Info;
+                home.Memo = selected.Memo;
+                home.Updater = Environment.UserName;
+                home.UpdaterDate = DateTime.Now;
+            }
+            return home;
+        }
+        public Tbl93Comment CommentAdd(Tbl93Comment selected)
+        {
+            var home = new Tbl93Comment() //add new
+            {
+                RegnumId = selected.RegnumId,
+                PhylumId = selected.PhylumId,
+                DivisionId = selected.DivisionId,
+                SubphylumId = selected.SubphylumId,
+                SubdivisionId = selected.SubdivisionId,
+                SuperclassId = selected.SuperclassId,
+                ClassId = selected.ClassId,
+                SubclassId = selected.SubclassId,
+                InfraclassId = selected.InfraclassId,
+                LegioId = selected.LegioId,
+                OrdoId = selected.OrdoId,
+                SubordoId = selected.SubordoId,
+                InfraordoId = selected.InfraordoId,
+                SuperfamilyId = selected.SuperfamilyId,
+                FamilyId = selected.FamilyId,
+                SubfamilyId = selected.SubfamilyId,
+                InfrafamilyId = selected.InfrafamilyId,
+                SupertribusId = selected.SupertribusId,
+                TribusId = selected.TribusId,
+                SubtribusId = selected.SubtribusId,
+                InfratribusId = selected.InfratribusId,
+                GenusId = selected.GenusId,
+                PlSpeciesId = selected.PlSpeciesId,
+                FiSpeciesId = selected.FiSpeciesId,
+                CountId = RandomHelper.Randomnumber(),
+                Valid = selected.Valid,
+                ValidYear = selected.ValidYear,
+                Info = selected.Info,
+                Memo = selected.Memo,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now
+            };
+            return home;
+        }
 
         public void CommentSave(Tbl93Comment home, Tbl93Comment selected)
         {

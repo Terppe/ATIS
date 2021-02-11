@@ -152,9 +152,15 @@ namespace ATIS.Ui.Views.Database.D06Phylum
 
             _position = PhylumsView.CurrentPosition;
 
-            _extSave.SavePhylum(CurrentTbl06Phylum);
+            var ret = _extSave.SavePhylum(CurrentTbl06Phylum);
+            if (ret != true)
+            {
+                PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
+                PhylumsView.Refresh();
+                return;
+            }
 
-            if (_position == 0) //new
+            if (CurrentTbl06Phylum.PhylumId == 0) //new
             {
                 Tbl06PhylumsList = _extCrud.GetLastPhylumsDatasetOrderById();
                 PhylumsView = CollectionViewSource.GetDefaultView(Tbl06PhylumsList);
@@ -575,7 +581,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
             _extSave.SaveComment(CurrentTbl93Comment, "Phylum");
 
             Tbl93CommentsList = _extCrud.GetCommentsCollectionFromPhylumIdOrderBy<Tbl93Comment>(CurrentTbl06Phylum.PhylumId);
-
 
             CommentsView = CollectionViewSource.GetDefaultView(Tbl93CommentsList);
             CommentsView.MoveCurrentToFirst();

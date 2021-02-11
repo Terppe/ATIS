@@ -161,7 +161,7 @@ namespace ATIS.Ui.Views.Database.D66Genus
                 return;
             }
 
-            if (_position == 0) //new
+            if (CurrentTbl66Genus.GenusId == 0) //new
             {
                 Tbl66GenussesList = _extCrud.GetLastGenussesDatasetOrderById();
                 GenussesView = CollectionViewSource.GetDefaultView(Tbl66GenussesList);

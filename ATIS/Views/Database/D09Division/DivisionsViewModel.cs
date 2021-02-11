@@ -152,9 +152,16 @@ namespace ATIS.Ui.Views.Database.D09Division
 
             _position = DivisionsView.CurrentPosition;
 
-            _extSave.SaveDivision(CurrentTbl09Division);
+            var ret = _extSave.SaveDivision(CurrentTbl09Division);
 
-            if (_position == 0) //new
+            if (ret != true)
+            {
+                DivisionsView = CollectionViewSource.GetDefaultView(Tbl09DivisionsList);
+                DivisionsView.Refresh();
+                return;
+            }
+
+            if (CurrentTbl09Division.DivisionId == 0) //new
             {
                 Tbl09DivisionsList = _extCrud.GetLastDivisionsDatasetOrderById();
                 DivisionsView = CollectionViewSource.GetDefaultView(Tbl09DivisionsList);

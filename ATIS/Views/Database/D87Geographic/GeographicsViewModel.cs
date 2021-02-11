@@ -169,9 +169,16 @@ namespace ATIS.Ui.Views.Database.D87Geographic
 
             _position = GeographicsView.CurrentPosition;
 
-            _extSave.SaveGeographic(CurrentTbl87Geographic);
+            var ret = _extSave.SaveGeographic(CurrentTbl87Geographic);
 
-            if (_position == 0) //new
+            if (ret != true)
+            {
+                GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);
+                GeographicsView.Refresh();
+                return;
+            }
+
+            if (CurrentTbl87Geographic.GeographicId == 0) //new
             {
                 Tbl87GeographicsList = _extCrud.GetLastGeographicsDatasetOrderById();
                 GeographicsView = CollectionViewSource.GetDefaultView(Tbl87GeographicsList);

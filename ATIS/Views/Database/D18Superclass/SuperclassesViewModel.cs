@@ -161,9 +161,16 @@ namespace ATIS.Ui.Views.Database.D18Superclass
 
             _position = SuperclassesView.CurrentPosition;
 
-            _extSave.SaveSuperclass(CurrentTbl18Superclass);
+            var ret = _extSave.SaveSuperclass(CurrentTbl18Superclass);
 
-            if (_position == 0) //new
+            if (ret != true)
+            {
+                SuperclassesView = CollectionViewSource.GetDefaultView(Tbl18SuperclassesList);
+                SuperclassesView.Refresh();
+                return;
+            }
+
+            if (CurrentTbl18Superclass.SuperclassId == 0) //new
             {
                 Tbl18SuperclassesList = _extCrud.GetLastSuperclassesDatasetOrderById();
                 SuperclassesView = CollectionViewSource.GetDefaultView(Tbl18SuperclassesList);

@@ -11,6 +11,7 @@
     xmlns:d90RefExpert="clr-namespace:ATIS.Ui.Views.Database.D90RefExpert"
     xmlns:d90RefSource="clr-namespace:ATIS.Ui.Views.Database.D90RefSource"
     xmlns:d90Reference="clr-namespace:ATIS.Ui.Views.Database.D90Reference"
+    xmlns:d93Comment="clr-namespace:ATIS.Ui.Views.Database.D93Comment"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
@@ -41,6 +42,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type d90RefSource:RefSourcesViewModel}">
             <d90RefSource:RefSourcesView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type d93Comment:CommentsViewModel}">
+            <d93Comment:CommentsView />
         </DataTemplate>
 
     </UserControl.Resources>
@@ -84,7 +88,9 @@
                     </TabItem>
                 </TabControl>
             </TabItem>
-            <TabItem Content="{Binding Tbl93CommentsView}" Header="{DynamicResource Database-MenuComment}" />
+            <TabItem Header="{DynamicResource Database-MenuComment}">
+                <d93Comment:CommentsViewModel />
+            </TabItem>
             <TabItem Content="{Binding TblCountriesView}" Header="{DynamicResource Database-MenuCountry}" />
             <TabItem Content="{Binding TblUserProfilesView}" Header="{DynamicResource Database-MenuUserProfile}" />
         </TabControl>
