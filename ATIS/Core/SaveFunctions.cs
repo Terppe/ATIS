@@ -2739,5 +2739,97 @@ namespace ATIS.Ui.Core
             return returnBool;
         }
 
+        public bool SaveCountry(TblCountry currentTblCountry)
+        {
+            var returnBool = false;
+
+            try
+            {
+                var dataset = _uow.TblCountries.GetById(currentTblCountry.CountryId);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTblCountry.Name)) return false;
+
+                if (currentTblCountry.CountryId == 0)
+                    dataset = _extCrud.CountryAdd(currentTblCountry);
+                else
+                    dataset = _extCrud.CountryUpdate(dataset, currentTblCountry);
+
+                try
+                {
+                    _extCrud.CountrySave(dataset, currentTblCountry);
+                    returnBool = true;
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
+                    Log.Error(e);
+                    return false;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
+                    Log.Error(e);
+                    return false;
+                }
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTblCountry.CountryId == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : currentTblCountry.Name);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+            return returnBool;
+        }
+
+        public bool SaveUserProfile(TblUserProfile currentTblUserProfile)
+        {
+            var returnBool = false;
+
+            try
+            {
+                var dataset = _uow.TblUserProfiles.GetById(currentTblUserProfile.UserProfileId);
+
+                if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTblUserProfile.Email)) return false;
+
+                if (currentTblUserProfile.UserProfileId == 0)
+                    dataset = _extCrud.UserProfileAdd(currentTblUserProfile);
+                else
+                    dataset = _extCrud.UserProfileUpdate(dataset, currentTblUserProfile);
+
+                try
+                {
+                    _extCrud.UserProfileSave(dataset, currentTblUserProfile);
+                    returnBool = true;
+                }
+                catch (DbUpdateException e)
+                {
+                    if (e.InnerException != null)
+                        _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
+                    Log.Error(e);
+                    return false;
+                }
+                catch (Exception e)
+                {
+                    _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
+                    Log.Error(e);
+                    return false;
+                }
+
+                _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.SaveSuccess, currentTblUserProfile.UserProfileId == 0
+                    ? CultRes.StringsRes.DatasetNew
+                    : currentTblUserProfile.Email);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+            return returnBool;
+        }
+
     }
 }

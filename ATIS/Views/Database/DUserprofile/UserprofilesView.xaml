@@ -1,12 +1,757 @@
-﻿<UserControl x:Class="ATIS.Ui.Views.Database.DUserprofile.UserprofilesView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ATIS.Ui.Views.Database.DUserprofile"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<UserControl
+    x:Class="ATIS.Ui.Views.Database.DUserprofile.UserprofilesView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helper="clr-namespace:ATIS.Ui.Helper"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"
+    d:DesignHeight="930"
+    d:DesignWidth="1600"
+    mc:Ignorable="d">
+
+    <UserControl.Resources />
+
+
+    <!--  UserProfilesView.xaml  Skriptdatum:   26.02.2019  10:32  -->
+
+
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="750" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="50*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="50*" />
+        </Grid.RowDefinitions>
+
+        <!--  Part 1   Creating Main-Grid in Column 1  -->
+
+        <StackPanel Grid.Row="0" Grid.Column="1" />
+
+        <TabControl
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Margin="1"
+            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+            <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderUserProfiles}">
+
+                <ScrollViewer
+                    helper:AutoScrollBehavior.TopMouseScrollPriority="True"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <GroupBox>
+                            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBox
+                                        x:Name="TbSearchUserProfile"
+                                        Width="200"
+                                        Margin="5"
+                                        HorizontalContentAlignment="Stretch"
+                                        mah:TextBoxHelper.ButtonCommand="{Binding TextBoxButtonCmd, Mode=OneWay}"
+                                        mah:TextBoxHelper.ClearTextButton="True"
+                                        mah:TextBoxHelper.IsWaitingForData="True"
+                                        mah:TextBoxHelper.UseFloatingWatermark="True"
+                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-SearchEmail}"
+                                        mah:TextBoxHelper.WatermarkAlignment="Left"
+                                        ContextMenu="{x:Null}"
+                                        FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
+                                        FontWeight="Medium"
+                                        SpellCheck.IsEnabled="True"
+                                        Text="{Binding SearchEmail, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        ToolTip="{DynamicResource Shared-SearchNameOrId}">
+
+                                        <TextBox.InputBindings>
+                                            <KeyBinding
+                                                Key="Return"
+                                                Command="{Binding TextBoxButtonCmd, Mode=OneWay}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=TextBox}, Path=Text, Mode=OneWay}" />
+                                        </TextBox.InputBindings>
+                                        <TextBox.Style>
+                                            <Style BasedOn="{StaticResource MahApps.Styles.TextBox.Search}" TargetType="{x:Type TextBox}">
+                                                <Style.Triggers>
+                                                    <Trigger Property="mah:TextBoxHelper.HasText" Value="True">
+                                                        <Setter Property="mah:TextBoxHelper.ButtonContent" Value="r" />
+                                                        <Setter Property="mah:TextBoxHelper.ButtonContentTemplate" Value="{x:Null}" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBox.Style>
+                                    </TextBox>
+                                </Grid>
+
+                                <Button Template="{StaticResource SearchUserProfilesButton}" />
+                                <Button Template="{StaticResource AddUserProfileButton}" />
+                            </StackPanel>
+                        </GroupBox>
+
+                        <GroupBox>
+                            <ListView
+                                x:Name="TblUserProfilesList"
+                                Height="Auto"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding TblUserProfilesList}"
+                                ScrollViewer.IsDeferredScrollingEnabled="True"
+                                SelectedItem="{Binding (Selector.SelectedItem)}"
+                                VirtualizingStackPanel.IsVirtualizing="True"
+                                VirtualizingStackPanel.VirtualizationMode="Recycling">
+
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Width="Auto" Header="{DynamicResource TblUserProfile-UserProfileId}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                        Width="100"
+                                                        Text="{Binding (models:TblUserProfile.UserProfileId)}"
+                                                        TextAlignment="Left" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+
+                                        <GridViewColumn
+                                            Width="150"
+                                            DisplayMemberBinding="{Binding (models:TblUserProfile.Email)}"
+                                            Header="{DynamicResource TblUserProfile-Email}" />
+                                        <GridViewColumn
+                                            Width="100"
+                                            DisplayMemberBinding="{Binding (models:TblUserProfile.Role)}"
+                                            Header="{DynamicResource TblUserProfile-Role}" />
+                                        <GridViewColumn
+                                            Width="100"
+                                            DisplayMemberBinding="{Binding (models:TblUserProfile.FirstName)}"
+                                            Header="{DynamicResource TblUserProfile-FirstName}" />
+                                        <GridViewColumn
+                                            Width="100"
+                                            DisplayMemberBinding="{Binding (models:TblUserProfile.LastName)}"
+                                            Header="{DynamicResource TblUserProfile-LastName}" />
+                                        <GridViewColumn
+                                            Width="750"
+                                            DisplayMemberBinding="{Binding (models:TblUserProfile.Password)}"
+                                            Header="{DynamicResource TblUserProfile-Password}" />
+
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+
+
+        <!--  Part 2   FK1  aktuell  -->
+
+
+
+        <!--  Part 2  FK2  aktuell  -->
+
+
+
+        <!--  Part 2   FK3  aktuell  -->
+
+
+
+        <!--  Part 2  FK4  aktuell  -->
+
+
+
+        <!--  Part 4  TK1  aktuell  -->
+
+
+
+        <!--  Part 4   TK2  aktuell  -->
+
+
+
+        <!--  Part 4   TK3  aktuell  -->
+
+
+
+        <!--  Part 4   TK4  aktuell  -->
+
+
+
+        <!--  Part 7  -->
+
+
+
+        <!--  Part 2 Splitter  -->
+
+
+        <GridSplitter
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Height="5"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center"
+            Background="Black"
+            ShowsPreview="False" />
+
+
+        <!--  Part 2   FK1  aktuell  -->
+
+
+        <TabControl
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+            SelectedIndex="{Binding SelectedDetailTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+            <TabItem FontWeight="Medium" Header="{DynamicResource TblUserProfile-UserProfile}">
+                <GroupBox>
+                    <StackPanel Margin="1">
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+
+                            <Button Template="{StaticResource SaveUserProfileButton}" />
+                            <Button Template="{StaticResource CopyUserProfileButton}" />
+                            <Button Template="{StaticResource AddUserProfileButton}" />
+                            <Button Template="{StaticResource DeleteUserProfileButton}" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                x:Name="TextBoxEmail"
+                                Width="300"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource TblUserProfile-Email}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource TblUserProfile-Email}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="TblUserProfilesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:TblUserProfile.Email)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                x:Name="PasswordBox"
+                                Width="800"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource TblUserProfile-Password}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource TblUserProfile-Password}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="TblUserProfilesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:TblUserProfile.Password)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ComboBox
+                                x:Name="CbRole"
+                                Width="150"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource TblUserProfile-Role}"
+                                DisplayMemberPath="Name"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Roles}"
+                                SelectedItem="{Binding SelectedRole}"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                Text="{Binding SelectedItem.(models:TblUserProfile.Role), ElementName=TblUserProfilesList, Mode=TwoWay}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                            <CheckBox
+                                x:Name="ChFlag"
+                                Width="80"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                Content="{DynamicResource TblUserProfile-Flag}"
+                                FontWeight="Normal"
+                                IsChecked="{Binding SelectedItem.(models:TblUserProfile.Flag), ElementName=TblUserProfilesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Style="{StaticResource MahApps.Styles.CheckBox}" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                x:Name="TbColour"
+                                Width="800"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource TblUserProfile-Colour}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource TblUserProfile-Colour}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="TblUserProfilesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:TblUserProfile.Colour)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ComboBox
+                                x:Name="CbTitle"
+                                Width="250"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource TblUserProfile-Title}"
+                                DisplayMemberPath="Name"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Titles}"
+                                SelectedItem="{Binding SelectedTitle}"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                Text="{Binding SelectedItem.(models:TblUserProfile.Title), ElementName=TblUserProfilesList, Mode=TwoWay}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                            <TextBox
+                                x:Name="TbFirstName"
+                                Width="250"
+                                Margin="20,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource TblUserProfile-FirstName}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource TblUserProfile-FirstName}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="TblUserProfilesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:TblUserProfile.FirstName)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox
+                                x:Name="TbLastName"
+                                Width="250"
+                                Margin="20,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource TblUserProfile-LastName}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource TblUserProfile-LastName}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="TblUserProfilesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:TblUserProfile.LastName)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="auto" Orientation="Horizontal">
+                            <ComboBox
+                                x:Name="CbGender"
+                                Width="250"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource TblUserProfile-Gender}"
+                                DisplayMemberPath="Name"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Genders}"
+                                SelectedItem="{Binding SelectedGender}"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                Text="{Binding SelectedItem.(models:TblUserProfile.Gender), ElementName=TblUserProfilesList, Mode=TwoWay}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                            <DatePicker
+                                x:Name="DpBirthDate"
+                                Width="150"
+                                Margin="20,5,5,5"
+                                HorizontalAlignment="Left"
+                                Text="{Binding SelectedItem.(models:TblUserProfile.BirthDate), ElementName=TblUserProfilesList, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ComboBox
+                                x:Name="CbCountry"
+                                Width="250"
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource TblUserProfile-Country}"
+                                DisplayMemberPath="Name"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding TblCountriesAllList}"
+                                SelectedValue="{Binding SelectedItem.(models:TblUserProfile.Country), ElementName=TblUserProfilesList, Mode=TwoWay}"
+                                SelectedValuePath="Name"
+                                Style="{DynamicResource MahApps.Styles.ComboBox.Virtualized}"
+                                VirtualizingStackPanel.IsVirtualizing="True" />
+                            <TextBox
+                                x:Name="TbPostcode"
+                                Width="150"
+                                Margin="20,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource TblUserProfile-Postcode}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource TblUserProfile-Postcode}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="TblUserProfilesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:TblUserProfile.Postcode)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox
+                                x:Name="TbCity"
+                                Width="350"
+                                Margin="20,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource TblUserProfile-City}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource TblUserProfile-City}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="TblUserProfilesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:TblUserProfile.City)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                x:Name="TbStreet1"
+                                Width="390"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource TblUserProfile-Street1}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource TblUserProfile-Street1}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="TblUserProfilesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:TblUserProfile.Street1)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox
+                                x:Name="TbStreet2"
+                                Width="390"
+                                Margin="15,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource TblUserProfile-Street2}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource TblUserProfile-Street2}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="TblUserProfilesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:TblUserProfile.Street2)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                x:Name="TbTel"
+                                Width="250"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource TblUserProfile-Tel}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource TblUserProfile-Tel}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="TblUserProfilesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:TblUserProfile.Tel)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox
+                                x:Name="TbMobil"
+                                Width="250"
+                                Margin="20,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource TblUserProfile-Mobil}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource TblUserProfile-Mobil}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="TblUserProfilesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:TblUserProfile.Mobil)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox
+                                x:Name="TbFax"
+                                Width="250"
+                                Margin="20,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource TblUserProfile-Fax}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource TblUserProfile-Fax}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="TblUserProfilesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:TblUserProfile.Fax)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                x:Name="TbUrl"
+                                Width="390"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource TblUserProfile-HomePageUrl}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource TblUserProfile-HomePageUrl}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="TblUserProfilesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:TblUserProfile.HomePageUrl)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox
+                                x:Name="TbBusiness"
+                                Width="390"
+                                Margin="15,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource TblUserProfile-Business}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource TblUserProfile-Business}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="TblUserProfilesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:TblUserProfile.Business)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                x:Name="TbCompany"
+                                Width="390"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource TblUserProfile-Company}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource TblUserProfile-Company}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="TblUserProfilesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:TblUserProfile.Company)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox
+                                x:Name="TbSignature"
+                                Width="390"
+                                Margin="15,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource TblUserProfile-Signature}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource TblUserProfile-Signature}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="TblUserProfilesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:TblUserProfile.Signature)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                x:Name="TbMimeType"
+                                Width="250"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource TblUserProfile-ImageMimeType}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource TblUserProfile-ImageMimeType}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="TblUserProfilesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:TblUserProfile.ImageMimeType)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox
+                                x:Name="TbFileStreamId"
+                                Width="525"
+                                Margin="20,5,5,5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource TblUserProfile-FilestreamId}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource TblUserProfile-FilestreamId}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="TblUserProfilesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:TblUserProfile.FilestreamId)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <CheckBox
+                                x:Name="ChNewsletter"
+                                Width="150"
+                                Margin="5"
+                                VerticalAlignment="Center"
+                                Content="{DynamicResource TblUserProfile-MailNewsletter}"
+                                FontWeight="Medium"
+                                IsChecked="{Binding SelectedItem.(models:TblUserProfile.MailNewsletter), ElementName=TblUserProfilesList}"
+                                Style="{StaticResource MahApps.Styles.CheckBox}" />
+                            <CheckBox
+                                x:Name="ChMaul"
+                                Width="150"
+                                Margin="100,5,5,5"
+                                VerticalAlignment="Center"
+                                Content="{DynamicResource TblUserProfile-MaulHtml}"
+                                FontWeight="Normal"
+                                IsChecked="{Binding SelectedItem.(models:TblUserProfile.MaulHtml), ElementName=TblUserProfilesList}"
+                                Style="{StaticResource MahApps.Styles.CheckBox}" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <TextBox
+                                    x:Name="TbMemo"
+                                    Height="Auto"
+                                    MinWidth="800"
+                                    MinHeight="75"
+                                    MaxWidth="800"
+                                    MaxHeight="300"
+                                    Margin="5"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    mah:TextBoxHelper.IsWaitingForData="True"
+                                    mah:TextBoxHelper.UseFloatingWatermark="True"
+                                    mah:TextBoxHelper.Watermark="{DynamicResource Shared-Memo}"
+                                    mah:TextBoxHelper.WatermarkAlignment="Left"
+                                    AcceptsReturn="True"
+                                    FontWeight="Medium"
+                                    SpellCheck.IsEnabled="True"
+                                    Text="{Binding SelectedItem.(models:TblUserProfile.Memo), ElementName=TblUserProfilesList}"
+                                    TextWrapping="Wrap"
+                                    ToolTip="{DynamicResource Shared-Memo}"
+                                    VerticalScrollBarVisibility="Auto" />
+                            </ScrollViewer>
+                        </StackPanel>
+
+
+                        <!--  Part 8.2 TK1 Connected  -->
+
+
+
+                        <!--  Part 8.3  TK2  Connected  -->
+
+
+
+                        <!--  Part 8.3   TK3 Connected  -->
+
+
+
+                        <!--  Part 8.3   TK4  Connected  -->
+
+
+
+
+                        <!--  Part 11  -->
+
+                        <!--  Part 12  -->
+
+                        <!--  Part 13  -->
+                    </StackPanel>
+                </GroupBox>
+            </TabItem>
+        </TabControl>
+
     </Grid>
 </UserControl>
+

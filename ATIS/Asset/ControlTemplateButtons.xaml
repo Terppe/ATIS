@@ -3566,5 +3566,198 @@
         </Button>
     </ControlTemplate>
 
+    <ControlTemplate x:Key="SearchCountriesButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding GetCountriesByNameOrIdCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageSearch" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="AddCountryButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding AddCountryCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="CopyCountryButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding CopyCountryCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="SaveCountryButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding SaveCountryCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="DeleteCountryButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding DeleteCountryCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="SearchUserProfilesButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding GetUserProfilesByNameOrIdCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageSearch" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="AddUserProfileButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding AddUserProfileCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="CopyUserProfileButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding CopyUserProfileCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="SaveUserProfileButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding SaveUserProfileCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
+    <ControlTemplate x:Key="DeleteUserProfileButton" TargetType="Button">
+        <Button
+            Width="36"
+            Height="36"
+            Margin="4"
+            Command="{Binding DeleteUserProfileCommand}"
+            Foreground="{DynamicResource MahApps.Brushes.Accent}"
+            IsEnabled="True"
+            Style="{StaticResource MahApps.Styles.Button.Circle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+    </ControlTemplate>
 
 </ResourceDictionary>

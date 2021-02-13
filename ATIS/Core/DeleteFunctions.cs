@@ -1494,6 +1494,54 @@ namespace ATIS.Ui.Core
 
         #endregion
 
+        #region Delete Country
+        public void DeleteCountry(TblCountry currentTblCountry)
+        {
+            try
+            {
+                var country = _uow.TblCountries.GetById(currentTblCountry.CountryId);
+                if (country != null)
+                {
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + currentTblCountry.Name)) return;
+
+                    _extCrud.DeleteCountry(country);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTblCountry.Name);
+                }
+                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTblCountry.Name + " " + CultRes.StringsRes.DeleteCan1);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+        }
+        #endregion
+
+        #region Delete UserProfile
+        public void DeleteUserProfile(TblUserProfile currentTblUserProfile)
+        {
+            try
+            {
+                var userprofile = _uow.TblUserProfiles.GetById(currentTblUserProfile.UserProfileId);
+                if (userprofile != null)
+                {
+                    if (_allMessageBoxes.DeleteDatasetQuestionMessageBox(CultRes.StringsRes.DeleteQuestion + " " + currentTblUserProfile.FirstName + " " + currentTblUserProfile.LastName)) return;
+
+                    _extCrud.DeleteUserProfile(userprofile);
+
+                    _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTblUserProfile.FirstName + " " + currentTblUserProfile.LastName);
+                }
+                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTblUserProfile.FirstName + " " + currentTblUserProfile.LastName + " " + CultRes.StringsRes.DeleteCan1);
+            }
+            catch (Exception e)
+            {
+                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                Log.Error(e);
+            }
+        }
+        #endregion
+
 
         #region Properties
 

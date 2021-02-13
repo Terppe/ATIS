@@ -58,6 +58,8 @@ namespace ATIS.Ui.Core
                         "Source" => GetSourcesCollectionAllOrderBy<T>(),
                         "Author" => GetAuthorsCollectionAllOrderBy<T>(),
                         "Comment" => GetCommentsCollectionAllOrderBy<T>(),
+                        "Country" => GetCountriesCollectionAllOrderBy<T>(),
+                        "UserProfile" => GetUserProfilesCollectionAllOrderBy<T>(),
                         _ => collection
                     };
                     break;
@@ -92,6 +94,8 @@ namespace ATIS.Ui.Core
                             "PlSpecies" => GetPlSpeciessesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
                             "Name" => GetNamesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
                             "Synonym" => GetSynonymsCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "Country" => GetCountriesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
+                            "UserProfile" => GetUserProfilesCollectionFromSearchNameOrIdOrderBy<T>(searchName),
                             _ => collection
                         };
                     }
@@ -204,6 +208,9 @@ namespace ATIS.Ui.Core
                     break;
                 case "Country":
                     collection = GetCountriesCollectionAllOrderBy<T>();
+                    break;
+                case "UserProfile":
+                    collection = GetUserProfilesCollectionAllOrderBy<T>();
                     break;
             }
 
@@ -5348,7 +5355,6 @@ namespace ATIS.Ui.Core
 
         #endregion
 
-
         #region References
 
         #region Reference Get
@@ -6725,7 +6731,6 @@ namespace ATIS.Ui.Core
         #endregion
 
         #endregion
-
 
         #region Reference Experts
 
@@ -10195,18 +10200,6 @@ namespace ATIS.Ui.Core
         #region Comment
 
         #region Comment Get
-        //public ObservableCollection<T> GetCommentsCollectionFromSearchNameOrIdOrderBy<T>(string searchInfo)
-        //{
-        //    ObservableCollection<T> collection;
-        //    collection = int.TryParse(searchInfo, out var id)
-        //        ? new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
-        //            .Where(e => e.CommentId == id))
-        //        : new ObservableCollection<T>((IEnumerable<T>)_context.Tbl93Comments
-        //            .Where(e => e.Info.StartsWith(searchInfo))
-        //            .OrderBy(a => a.Info)
-        //        );
-        //    return collection;
-        //}
         public ObservableCollection<T> GetCommentsCollectionFromSearchInfoOrIdOrderBy<T>(string searchInfo)
         {
             ObservableCollection<T> collection;
@@ -11689,7 +11682,18 @@ namespace ATIS.Ui.Core
         #region Country
 
         #region Get Country
-
+        public ObservableCollection<T> GetCountriesCollectionFromSearchNameOrIdOrderBy<T>(string searchInfo)
+        {
+            ObservableCollection<T> collection;
+            collection = int.TryParse(searchInfo, out var id)
+                ? new ObservableCollection<T>((IEnumerable<T>)_context.TblCountries
+                    .Where(e => e.CountryId == id))
+                : new ObservableCollection<T>((IEnumerable<T>)_context.TblCountries
+                    .Where(e => e.Name.StartsWith(searchInfo))
+                    .OrderBy(a => a.Name)
+                );
+            return collection;
+        }
         public ObservableCollection<T> GetCountriesCollectionAllOrderBy<T>()
         {
             var collection = new ObservableCollection<T>((IEnumerable<T>)_context.TblCountries
@@ -11697,8 +11701,257 @@ namespace ATIS.Ui.Core
                 .AsNoTracking());
             return collection;
         }
+        public ObservableCollection<TblCountry> GetLastCountriesDatasetOrderById()
+        {
+            var collection = _context.TblCountries
+                .OrderBy(c => c.CountryId)
+                .AsNoTracking()
+                .LastOrDefault();
+            return new ObservableCollection<TblCountry> { collection };
+        }
+        #endregion
 
+        #region Copy Country
+        public ObservableCollection<TblCountry> CopyCountry(TblCountry selected)
+        {
+            var dataset = _uow.TblCountries.GetById(selected.CountryId);
+            var collection = new ObservableCollection<TblCountry>();
 
+            collection.Insert(0, new TblCountry
+            {
+                Name = dataset.Name,
+                Regex = dataset.Regex
+            });
+
+            return collection;
+        }
+        #endregion
+
+        #region Delete Country
+        public void DeleteCountry(TblCountry selected)
+        {
+            _uow.TblCountries.Remove(selected);
+            // _context.Tbl57Tribusses.Remove(selected);
+            _uow.Complete();
+            // _context.SaveChanges();
+        }
+        #endregion
+
+        #region Save Country
+        public TblCountry CountryUpdate(TblCountry home, TblCountry selected)
+        {
+            if (home != null) //update
+            {
+                home.Name = selected.Name;
+                home.Regex = selected.Regex;
+            }
+            return home;
+        }
+        public TblCountry CountryAdd(TblCountry selected)
+        {
+            var home = new TblCountry() //add new
+            {
+                Name = selected.Name,
+                Regex = selected.Regex
+            };
+            return home;
+        }
+        public void CountrySave(TblCountry home, TblCountry selected)
+        {
+            //_uow.BeginTransaction();
+            if (selected.CountryId != 0) //update
+                _uow.TblCountries.Update(home);
+            else                        //add
+                _uow.TblCountries.Add(home);
+
+            _uow.Complete();
+            //_uow.Commit();
+        }
+        #endregion
+
+        #endregion
+
+        #region UserProfile
+
+        #region Get UserProfile
+        public ObservableCollection<T> GetUserProfilesCollectionFromSearchNameOrIdOrderBy<T>(string searchEmail)
+        {
+            ObservableCollection<T> collection;
+            collection = int.TryParse(searchEmail, out var id)
+                ? new ObservableCollection<T>((IEnumerable<T>)_context.TblUserProfiles
+                    .Where(e => e.UserProfileId == id))
+                : new ObservableCollection<T>((IEnumerable<T>)_context.TblUserProfiles
+                    .Where(e => e.Email.StartsWith(searchEmail))
+                    .OrderBy(a => a.Email)
+                );
+            return collection;
+        }
+        public ObservableCollection<T> GetUserProfilesCollectionAllOrderBy<T>()
+        {
+            var collection = new ObservableCollection<T>((IEnumerable<T>)_context.TblUserProfiles
+                .OrderBy(a => a.Email)
+                .AsNoTracking());
+            return collection;
+        }
+        public ObservableCollection<TblUserProfile> GetLastUserProfilesDatasetOrderById()
+        {
+            var collection = _context.TblUserProfiles
+                .OrderBy(c => c.UserProfileId)
+                .AsNoTracking()
+                .LastOrDefault();
+            return new ObservableCollection<TblUserProfile> { collection };
+        }
+        #endregion
+
+        #region Delete UserProfile
+        public void DeleteUserProfile(TblUserProfile selected)
+        {
+            _uow.TblUserProfiles.Remove(selected);
+            // _context.Tbl57Tribusses.Remove(selected);
+            _uow.Complete();
+            // _context.SaveChanges();
+        }
+        #endregion
+
+        #region Copy UserProfile
+        public ObservableCollection<TblUserProfile> CopyUserProfile(TblUserProfile selected)
+        {
+            var dataset = _uow.TblUserProfiles.GetById(selected.UserProfileId);
+            var collection = new ObservableCollection<TblUserProfile>();
+
+            collection.Insert(0, new TblUserProfile
+            {
+                Email = CultRes.StringsRes.DatasetNew,
+                Role = dataset.Role,
+                Flag = dataset.Flag,
+                Colour = dataset.Colour,
+                Title = dataset.Title,
+                FirstName = dataset.FirstName,
+                LastName = dataset.LastName,
+                BirthDate = dataset.BirthDate,
+                Gender = dataset.Gender,
+                Country = dataset.Country,
+                Postcode = dataset.Postcode,
+                City = dataset.City,
+                Street1 = dataset.Street1,
+                Street2 = dataset.Street2,
+                Tel = dataset.Tel,
+                Mobil = dataset.Mobil,
+                Fax = dataset.Fax,
+                HomePageUrl = dataset.HomePageUrl,
+                Business = dataset.Business,
+                Company = dataset.Company,
+                Filestream = dataset.Filestream,
+                ImageMimeType = dataset.ImageMimeType,
+                FilestreamId = Guid.NewGuid(),
+                Signature = dataset.Signature,
+                MailNewsletter = dataset.MailNewsletter,
+                MaulHtml = dataset.MaulHtml,
+                Known = dataset.Known,
+                StartDate = dataset.StartDate,
+                EndDate = dataset.EndDate,
+                Memo = dataset.Memo
+            });
+
+            return collection;
+        }
+        #endregion
+
+        #region Save UserProfile
+        public TblUserProfile UserProfileUpdate(TblUserProfile home, TblUserProfile selected)
+        {
+            if (home != null) //update
+            {
+                home.Email = selected.Email;
+                //password extra ohne scrypt bearbeiten userprofile.Password = Crypt.CalculateHash(selected.Password, selected.Email);
+                home.Role = selected.Role;
+                home.Flag = selected.Flag;
+                home.Colour = selected.Colour;
+                home.Title = selected.Title;
+                home.FirstName = selected.FirstName;
+                home.LastName = selected.LastName;
+                home.BirthDate = selected.BirthDate;
+                home.Gender = selected.Gender;
+                home.Country = selected.Country;
+                home.Postcode = selected.Postcode;
+                home.City = selected.City;
+                home.Street1 = selected.Street1;
+                home.Street2 = selected.Street2;
+                home.Tel = selected.Tel;
+                home.Mobil = selected.Mobil;
+                home.Fax = selected.Fax;
+                home.HomePageUrl = selected.HomePageUrl;
+                home.Business = selected.Business;
+                home.Company = selected.Company;
+                home.Filestream = selected.Filestream;
+                home.ImageMimeType = selected.ImageMimeType;
+                home.FilestreamId = selected.FilestreamId;
+                home.Signature = selected.Signature;
+                home.MailNewsletter = selected.MailNewsletter;
+                home.MaulHtml = selected.MaulHtml;
+                home.Known = selected.Known;
+                home.StartDate = DateTime.Now;
+                home.EndDate = DateTime.Now;
+                home.Updater = Environment.UserName;
+                home.UpdaterDate = DateTime.Now;
+                home.Memo = selected.Memo;
+            }
+            return home;
+        }
+        public TblUserProfile UserProfileAdd(TblUserProfile selected)
+        {
+            var home = new TblUserProfile() //add new
+            {
+                Email = selected.Email,
+                CountId = RandomHelper.Randomnumber(),
+                Password = Crypt.CalculateHash(selected.Password, selected.Email),
+                Role = selected.Role,
+                Flag = selected.Flag,
+                Colour = selected.Colour,
+                Title = selected.Title,
+                FirstName = selected.FirstName,
+                LastName = selected.LastName,
+                BirthDate = selected.BirthDate,
+                Gender = selected.Gender,
+                Country = selected.Country,
+                Postcode = selected.Postcode,
+                City = selected.City,
+                Street1 = selected.Street1,
+                Street2 = selected.Street2,
+                Tel = selected.Tel,
+                Mobil = selected.Mobil,
+                Fax = selected.Fax,
+                HomePageUrl = selected.HomePageUrl,
+                Business = selected.Business,
+                Company = selected.Company,
+                Filestream = selected.Filestream,
+                ImageMimeType = selected.ImageMimeType,
+                FilestreamId = Guid.NewGuid(),
+                Signature = selected.Signature,
+                MailNewsletter = selected.MailNewsletter,
+                MaulHtml = selected.MaulHtml,
+                Known = selected.Known,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now,
+                Writer = Environment.UserName,
+                WriterDate = DateTime.Now,
+                Updater = Environment.UserName,
+                UpdaterDate = DateTime.Now,
+                Memo = selected.Memo
+            };
+            return home;
+        }
+        public void UserProfileSave(TblUserProfile home, TblUserProfile selected)
+        {
+            //_uow.BeginTransaction();
+            if (selected.UserProfileId != 0) //update
+                _uow.TblUserProfiles.Update(home);
+            else                        //add
+                _uow.TblUserProfiles.Add(home);
+
+            _uow.Complete();
+            //_uow.Commit();
+        }
         #endregion
 
         #endregion

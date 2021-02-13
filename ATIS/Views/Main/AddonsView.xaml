@@ -12,6 +12,8 @@
     xmlns:d90RefSource="clr-namespace:ATIS.Ui.Views.Database.D90RefSource"
     xmlns:d90Reference="clr-namespace:ATIS.Ui.Views.Database.D90Reference"
     xmlns:d93Comment="clr-namespace:ATIS.Ui.Views.Database.D93Comment"
+    xmlns:dCountry="clr-namespace:ATIS.Ui.Views.Database.DCountry"
+    xmlns:dUserprofile="clr-namespace:ATIS.Ui.Views.Database.DUserprofile"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
@@ -45,6 +47,12 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type d93Comment:CommentsViewModel}">
             <d93Comment:CommentsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type dCountry:CountriesViewModel}">
+            <dCountry:CountriesView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type dUserprofile:UserprofilesViewModel}">
+            <dUserprofile:UserprofilesView />
         </DataTemplate>
 
     </UserControl.Resources>
@@ -91,8 +99,12 @@
             <TabItem Header="{DynamicResource Database-MenuComment}">
                 <d93Comment:CommentsViewModel />
             </TabItem>
-            <TabItem Content="{Binding TblCountriesView}" Header="{DynamicResource Database-MenuCountry}" />
-            <TabItem Content="{Binding TblUserProfilesView}" Header="{DynamicResource Database-MenuUserProfile}" />
+            <TabItem Header="{DynamicResource Database-MenuCountry}">
+                <dCountry:CountriesViewModel />
+            </TabItem>
+            <TabItem Header="{DynamicResource Database-MenuUserProfile}">
+                <dUserprofile:UserprofilesViewModel />
+            </TabItem>
         </TabControl>
     </Grid>
 </UserControl>

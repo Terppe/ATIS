@@ -1,26 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows.Controls;
+
+
+//  UserProfilesView.xaml.cs Skriptdatum:   26.02.2019  10:32     
 
 namespace ATIS.Ui.Views.Database.DUserprofile
 {
+
     /// <summary>
-    /// Interaktionslogik für UserprofilesView.xaml
+    /// Interactionslogic for UserProfilesView.xaml
     /// </summary>
     public partial class UserprofilesView : UserControl
     {
+
+
         public UserprofilesView()
         {
+            DataContext = new UserprofilesViewModel();
+
             InitializeComponent();
         }
+
+
     }
 }

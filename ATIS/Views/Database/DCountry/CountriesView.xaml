@@ -1,12 +1,289 @@
-﻿<UserControl x:Class="ATIS.Ui.Views.Database.DCountry.CountriesView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ATIS.Ui.Views.Database.DCountry"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<UserControl
+    x:Class="ATIS.Ui.Views.Database.DCountry.CountriesView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helper="clr-namespace:ATIS.Ui.Helper"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:ATIS.Dal.Models;assembly=ATIS.Dal"
+    d:DesignHeight="800"
+    d:DesignWidth="1600"
+    mc:Ignorable="d">
+
+    <UserControl.Resources />
+
+
+    <!--  CountriesView.xaml  Skriptdatum:   29.11.2018 12:32  -->
+
+
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="750" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="50*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="50*" />
+        </Grid.RowDefinitions>
+
+        <!--  Part 1   Creating Main-Grid in Column 1  -->
+
+        <StackPanel Grid.Row="0" Grid.Column="1" />
+
+        <TabControl
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Margin="1"
+            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+            <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderCountries}">
+
+                <ScrollViewer
+                    helper:AutoScrollBehavior.TopMouseScrollPriority="True"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <GroupBox>
+                            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBox
+                                        x:Name="TbSearchCountry"
+                                        Width="200"
+                                        Margin="5"
+                                        HorizontalContentAlignment="Stretch"
+                                        mah:TextBoxHelper.ButtonCommand="{Binding TextBoxButtonCmd, Mode=OneWay}"
+                                        mah:TextBoxHelper.ClearTextButton="True"
+                                        mah:TextBoxHelper.IsWaitingForData="True"
+                                        mah:TextBoxHelper.UseFloatingWatermark="True"
+                                        mah:TextBoxHelper.Watermark="{DynamicResource Shared-SearchNameOrId}"
+                                        mah:TextBoxHelper.WatermarkAlignment="Left"
+                                        ContextMenu="{x:Null}"
+                                        FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
+                                        FontWeight="Medium"
+                                        SpellCheck.IsEnabled="True"
+                                        Text="{Binding SearchCountryName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        ToolTip="{DynamicResource Shared-SearchNameOrId}">
+
+                                        <TextBox.InputBindings>
+                                            <KeyBinding
+                                                Key="Return"
+                                                Command="{Binding TextBoxButtonCmd, Mode=OneWay}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=TextBox}, Path=Text, Mode=OneWay}" />
+                                        </TextBox.InputBindings>
+                                        <TextBox.Style>
+                                            <Style BasedOn="{StaticResource MahApps.Styles.TextBox.Search}" TargetType="{x:Type TextBox}">
+                                                <Style.Triggers>
+                                                    <Trigger Property="mah:TextBoxHelper.HasText" Value="True">
+                                                        <Setter Property="mah:TextBoxHelper.ButtonContent" Value="r" />
+                                                        <Setter Property="mah:TextBoxHelper.ButtonContentTemplate" Value="{x:Null}" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBox.Style>
+                                    </TextBox>
+                                </Grid>
+
+                                <Button Template="{StaticResource SearchCountriesButton}" />
+                                <Button Template="{StaticResource AddCountryButton}" />
+                            </StackPanel>
+                        </GroupBox>
+
+                        <GroupBox>
+                            <ListView
+                                x:Name="TblCountriesList"
+                                Height="Auto"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding TblCountriesList}"
+                                ScrollViewer.IsDeferredScrollingEnabled="True"
+                                SelectedItem="{Binding (Selector.SelectedItem)}"
+                                VirtualizingStackPanel.IsVirtualizing="True"
+                                VirtualizingStackPanel.VirtualizationMode="Recycling">
+
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Width="Auto" Header="{DynamicResource TblCountry-CountryId}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                        Width="100"
+                                                        Text="{Binding (models:TblCountry.CountryId)}"
+                                                        TextAlignment="Left" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+
+                                        <GridViewColumn
+                                            Width="150"
+                                            DisplayMemberBinding="{Binding (models:TblCountry.Name)}"
+                                            Header="{DynamicResource TblCountry-Name}" />
+                                        <GridViewColumn
+                                            Width="500"
+                                            DisplayMemberBinding="{Binding (models:TblCountry.Regex)}"
+                                            Header="{DynamicResource TblCountry-Regex}" />
+
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+
+
+        <!--  Part 2   FK1  aktuell  -->
+
+
+
+        <!--  Part 2  FK2  aktuell  -->
+
+
+
+        <!--  Part 2   FK3  aktuell  -->
+
+
+
+        <!--  Part 2  FK4  aktuell  -->
+
+
+
+        <!--  Part 4  TK1  aktuell  -->
+
+
+
+        <!--  Part 4   TK2  aktuell  -->
+
+
+
+        <!--  Part 4   TK3  aktuell  -->
+
+
+
+        <!--  Part 4   TK4  aktuell  -->
+
+
+
+        <!--  Part 7  -->
+
+
+
+        <!--  Part 2 Splitter  -->
+
+
+        <GridSplitter
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Height="5"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center"
+            Background="Black"
+            ShowsPreview="False" />
+
+
+        <!--  Part 2   FK1  aktuell  -->
+
+
+        <TabControl
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+
+            <TabItem FontWeight="Medium" Header="{DynamicResource TblCountry-Country}">
+                <GroupBox>
+                    <StackPanel Margin="1">
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+
+                            <Button Template="{StaticResource SaveCountryButton}" />
+                            <Button Template="{StaticResource CopyCountryButton}" />
+                            <Button Template="{StaticResource AddCountryButton}" />
+                            <Button Template="{StaticResource DeleteCountryButton}" />
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="800"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource TblCountry-Name}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource TblCountry-Name}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="TblCountriesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:TblCountry.Name)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal">
+                            <TextBox
+                                Width="800"
+                                Margin="5"
+                                HorizontalContentAlignment="Stretch"
+                                mah:TextBoxHelper.IsWaitingForData="True"
+                                mah:TextBoxHelper.UseFloatingWatermark="True"
+                                mah:TextBoxHelper.Watermark="{DynamicResource TblCountry-Regex}"
+                                mah:TextBoxHelper.WatermarkAlignment="Left"
+                                FontWeight="Medium"
+                                SpellCheck.IsEnabled="True"
+                                ToolTip="{DynamicResource TblCountry-Regex}">
+                                <TextBox.Text>
+                                    <Binding
+                                        ElementName="TblCountriesList"
+                                        Mode="TwoWay"
+                                        Path="SelectedItem.(models:TblCountry.Regex)"
+                                        UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+
+
+
+                        <!--  Part 8.2 TK1 Connected  -->
+
+
+
+                        <!--  Part 8.3  TK2  Connected  -->
+
+
+
+                        <!--  Part 8.3   TK3 Connected  -->
+
+
+
+                        <!--  Part 8.3   TK4  Connected  -->
+
+
+
+
+                        <!--  Part 11  -->
+
+                        <!--  Part 12  -->
+
+                        <!--  Part 13  -->
+                    </StackPanel>
+                </GroupBox>
+            </TabItem>
+        </TabControl>
+
+
+
     </Grid>
 </UserControl>
+
