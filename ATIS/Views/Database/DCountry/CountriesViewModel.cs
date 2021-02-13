@@ -7,7 +7,7 @@ using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using log4net;
 
-//    CountriesViewModel Skriptdatum:   29.11.2018 12:32      
+//    CountriesViewModel Skriptdatum:   13.02.2021 12:32      
 
 namespace ATIS.Ui.Views.Database.DCountry
 {

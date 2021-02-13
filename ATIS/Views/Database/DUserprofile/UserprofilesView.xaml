@@ -15,7 +15,7 @@
     <UserControl.Resources />
 
 
-    <!--  UserProfilesView.xaml  Skriptdatum:   26.02.2019  10:32  -->
+    <!--  UserProfilesView.xaml  Skriptdatum:   13.02.2021  10:32  -->
 
 
     <Grid>
@@ -210,10 +210,9 @@
             Grid.Row="2"
             Grid.Column="0"
             Grid.ColumnSpan="3"
-            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-            SelectedIndex="{Binding SelectedDetailTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
 
-            <TabItem FontWeight="Medium" Header="{DynamicResource TblUserProfile-UserProfile}">
+            <TabItem FontWeight="Medium" Header="{DynamicResource TblUserProfile-Email}">
                 <GroupBox>
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">

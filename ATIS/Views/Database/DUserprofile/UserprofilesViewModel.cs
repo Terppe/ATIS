@@ -8,7 +8,7 @@ using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using log4net;
 
-//    UserProfilesViewModel Skriptdatum:   26.02.2019  10:32    
+//    UserProfilesViewModel Skriptdatum:   13.02.2021  10:32    
 
 namespace ATIS.Ui.Views.Database.DUserprofile
 {
@@ -81,7 +81,6 @@ namespace ATIS.Ui.Views.Database.DUserprofile
             else
                 TblUserProfilesList.Clear();
 
-            TblUserProfilesList = _extCrud.GetUserProfilesCollectionFromSearchNameOrIdOrderBy<TblUserProfile>(searchName);
 
             if (TblCountriesAllList == null)
                 TblCountriesAllList ??= new ObservableCollection<TblCountry>();
@@ -90,6 +89,7 @@ namespace ATIS.Ui.Views.Database.DUserprofile
 
             TblCountriesAllList = _extCrud.GetCollectionAllOrderBy<TblCountry>("Country");
 
+            TblUserProfilesList = _extCrud.GetUserProfilesCollectionFromSearchNameOrIdOrderBy<TblUserProfile>(searchName);
 
             if (_allMessageBoxes.NoDatasetFoundInfoMessageBox(TblUserProfilesList.Count)) return;
 
