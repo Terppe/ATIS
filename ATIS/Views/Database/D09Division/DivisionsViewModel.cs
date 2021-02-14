@@ -8,7 +8,6 @@ using System.Windows.Input;
 using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
-using log4net;
 
 //    DivisionsViewModel Skriptdatum:  06.01.2021  12:32    
 
@@ -20,7 +19,6 @@ namespace ATIS.Ui.Views.Database.D09Division
         // Version with Generic Unit Of Work and AtisDbContext for general use   
 
         #region [Private Data Members]
-        private static readonly ILog Log = LogManager.GetLogger(typeof(DivisionsViewModel));
         private readonly CrudFunctions _extCrud = new CrudFunctions();
         private readonly DeleteFunctions _extDelete = new DeleteFunctions();
         private readonly SaveFunctions _extSave = new SaveFunctions();

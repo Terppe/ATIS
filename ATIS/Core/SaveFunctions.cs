@@ -1,14 +1,12 @@
 ﻿using System;
 using ATIS.Dal.Models;
 using ATIS.Ui.Helper;
-using log4net;
 using Microsoft.EntityFrameworkCore;
 
 namespace ATIS.Ui.Core
 {
     public class SaveFunctions : ViewModelBase
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(SaveFunctions));
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         //private readonly AtisDbContext _context = new AtisDbContext();
         private readonly CrudFunctions _extCrud = new CrudFunctions();
@@ -40,13 +38,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.WarningMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -57,7 +55,8 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
+
             }
             return returnBool;
         }
@@ -88,13 +87,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -105,7 +104,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -135,13 +134,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -152,7 +151,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
 
             return returnBool;
@@ -186,13 +185,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    //         Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -203,7 +202,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -233,13 +232,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -250,7 +249,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -280,13 +279,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -297,7 +296,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -327,13 +326,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -344,7 +343,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -374,13 +373,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -391,7 +390,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -421,13 +420,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -438,7 +437,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -468,13 +467,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -485,7 +484,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -515,13 +514,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -532,7 +531,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -562,13 +561,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -579,7 +578,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -609,13 +608,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -626,7 +625,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -656,13 +655,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -673,7 +672,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -703,13 +702,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -720,7 +719,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -750,13 +749,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -767,7 +766,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -797,13 +796,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -814,7 +813,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -844,13 +843,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -861,7 +860,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -891,13 +890,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -908,7 +907,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -938,13 +937,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -955,7 +954,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -985,13 +984,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -1002,7 +1001,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -1034,7 +1033,7 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
@@ -1051,7 +1050,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -1079,13 +1078,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -1096,7 +1095,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -1128,7 +1127,7 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
@@ -1145,7 +1144,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -1176,7 +1175,7 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
@@ -1193,7 +1192,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
 
             return returnBool;
@@ -1227,13 +1226,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -1244,7 +1243,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -1277,13 +1276,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -1294,7 +1293,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -1327,13 +1326,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -1344,7 +1343,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -1377,13 +1376,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -1394,7 +1393,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -1480,7 +1479,7 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
@@ -1497,7 +1496,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -1528,13 +1527,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -1545,7 +1544,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
 
             return returnBool;
@@ -1799,13 +1798,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return;
                 }
 
@@ -1816,7 +1815,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         private Tbl90Reference AddUpdateReferenceSource(Tbl90Reference currentTbl90ReferenceSource, Tbl90Reference dataset, string name)
@@ -2041,13 +2040,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return;
                 }
 
@@ -2058,7 +2057,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         private Tbl90Reference AddUpdateReferenceExpert(Tbl90Reference currentTbl90ReferenceExpert, Tbl90Reference dataset, string name)
@@ -2286,7 +2285,7 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
@@ -2303,7 +2302,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
 
             return returnBool;
@@ -2332,7 +2331,7 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
@@ -2349,7 +2348,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
 
             return returnBool;
@@ -2379,7 +2378,7 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
@@ -2396,7 +2395,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -2430,13 +2429,13 @@ namespace ATIS.Ui.Core
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(),
                             CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -2447,7 +2446,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -2717,13 +2716,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -2734,7 +2733,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -2763,13 +2762,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -2780,7 +2779,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }
@@ -2809,13 +2808,13 @@ namespace ATIS.Ui.Core
                 {
                     if (e.InnerException != null)
                         _allMessageBoxes.DetailErrorMessageBox(e.InnerException.ToString(), CultRes.StringsRes.FailedToSave);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
                 catch (Exception e)
                 {
                     _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                    Log.Error(e);
+                    SimpleLog.Log(e);
                     return false;
                 }
 
@@ -2826,7 +2825,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             return returnBool;
         }

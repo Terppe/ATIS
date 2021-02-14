@@ -3,13 +3,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using ATIS.Dal.Models;
 using ATIS.Ui.Helper;
-using log4net;
 
 namespace ATIS.Ui.Core
 {
     public class DeleteFunctions : ViewModelBase
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(DeleteFunctions));
         private readonly UnitOfWork _uow = new UnitOfWork(new AtisDbContext());
         private readonly AtisDbContext _context = new AtisDbContext();
         private readonly CrudFunctions _extCrud = new CrudFunctions();
@@ -44,7 +42,8 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
+
             }
         }
         public void DeletePhylum(Tbl06Phylum currentTbl06Phylum)
@@ -70,7 +69,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         public void DeleteDivision(Tbl09Division currentTbl09Division)
@@ -97,7 +96,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         public void DeleteSubphylum(Tbl12Subphylum currentTbl12Subphylum)
@@ -124,7 +123,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         public void DeleteSubdivision(Tbl15Subdivision currentTbl15Subdivision)
@@ -151,7 +150,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
 
         }
@@ -179,7 +178,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
 
         }
@@ -207,7 +206,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
 
         }
@@ -235,7 +234,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
 
         }
@@ -263,7 +262,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
 
         }
@@ -291,7 +290,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
 
         }
@@ -319,7 +318,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
 
         }
@@ -347,7 +346,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
 
         }
@@ -375,7 +374,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         public void DeleteSuperfamily(Tbl42Superfamily currentTbl42Superfamily)
@@ -402,7 +401,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         public void DeleteFamily(Tbl45Family currentTbl45Family)
@@ -429,7 +428,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         public void DeleteSubfamily(Tbl48Subfamily currentTbl48Subfamily)
@@ -456,7 +455,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         public void DeleteInfrafamily(Tbl51Infrafamily currentTbl51Infrafamily)
@@ -483,7 +482,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         public void DeleteSupertribus(Tbl54Supertribus currentTbl54Supertribus)
@@ -510,7 +509,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         public void DeleteTribus(Tbl57Tribus currentTbl57Tribus)
@@ -537,7 +536,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         public void DeleteSubtribus(Tbl60Subtribus currentTbl60Subtribus)
@@ -564,7 +563,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         public void DeleteInfratribus(Tbl63Infratribus currentTbl63Infratribus)
@@ -591,7 +590,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         public void DeleteGenus(Tbl66Genus currentTbl66Genus)
@@ -620,7 +619,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         public void DeleteSpeciesgroup(Tbl68Speciesgroup currentTbl68Speciesgroup)
@@ -641,7 +640,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         public void DeleteFiSpecies(Tbl69FiSpecies currentTbl69FiSpecies)
@@ -666,7 +665,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         public void DeletePlSpecies(Tbl72PlSpecies currentTbl72PlSpecies)
@@ -691,7 +690,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         public void DeleteName(Tbl78Name currentTbl78Name)
@@ -720,7 +719,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         public void DeleteImage(Tbl81Image currentTbl81Image)
@@ -749,7 +748,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         public void DeleteSynonym(Tbl84Synonym currentTbl84Synonym)
@@ -778,7 +777,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         public void DeleteGeographic(Tbl87Geographic currentTbl87Geographic)
@@ -807,7 +806,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
 
@@ -829,7 +828,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
 
@@ -1347,7 +1346,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         public void DeleteReferenceSource(Tbl90Reference currentTbl90ReferenceSource)
@@ -1368,7 +1367,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
 
         }
@@ -1390,7 +1389,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         #endregion
@@ -1414,7 +1413,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         #endregion
@@ -1438,7 +1437,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         #endregion
@@ -1462,7 +1461,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         #endregion
@@ -1488,7 +1487,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
 
@@ -1513,7 +1512,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         #endregion
@@ -1537,7 +1536,7 @@ namespace ATIS.Ui.Core
             catch (Exception e)
             {
                 _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
         }
         #endregion

@@ -40,7 +40,6 @@
             Margin="1"
             Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
             <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderRegnums}">
-
                 <ScrollViewer
                     helper:AutoScrollBehavior.TopMouseScrollPriority="True"
                     HorizontalScrollBarVisibility="Auto"

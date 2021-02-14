@@ -4,6 +4,7 @@ using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
+using ATIS.Ui.Helper;
 using ControlzEx.Theming;
 
 namespace ATIS.Ui.Views.Main
@@ -26,6 +27,16 @@ namespace ATIS.Ui.Views.Main
 
             InitializeComponent();
             TbUser.Text = auth.AuthenticatedUser;
+            // Log to a sub-directory 'Log' of the current working directory. 
+            // Prefix log file with 'MyLog_'.
+            // Write XML file, not plain text.
+            // This is an optional call and has only to be done once, 
+            // pereferably before the first log entry is written. 
+            SimpleLog.SetLogFile(logDir: ".\\Log", prefix: "MyLog_", writeText: false);
+            // Write info message to log
+            SimpleLog.Info("ATIS logging started.");
+
+
         }
 
         //---------------------------Flyout --------------------------------
@@ -63,11 +74,19 @@ namespace ATIS.Ui.Views.Main
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             IsNonCloseButtonClicked = true;
+
+            // Write info message to log
+            SimpleLog.Info("ATIS logging closed.");
+
             Close(); // this will trigger the Closing () event method
         }
 
         public bool IsNonCloseButtonClicked { get; set; }
 
+        private void ShowLogFile(object sender, RoutedEventArgs e)
+        {
+            SimpleLog.ShowLogFile();
+        }
 
         //private async void MetroWindow_Closing1(object sender, System.ComponentModel.CancelEventArgs e)
         //{

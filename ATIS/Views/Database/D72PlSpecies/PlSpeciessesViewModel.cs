@@ -8,7 +8,6 @@ using System.Windows.Input;
 using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
-using log4net;
 
 using System.Collections.Generic;
 using System.Windows.Media.Imaging;
@@ -24,7 +23,6 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
         // Version with Generic Unit Of Work and AtisDbContext for general use   
 
         #region [Private Data Members]
-        private static readonly ILog Log = LogManager.GetLogger(typeof(PlSpeciessesViewModel));
         private readonly CrudFunctions _extCrud = new CrudFunctions();
         private readonly DeleteFunctions _extDelete = new DeleteFunctions();
         private readonly SaveFunctions _extSave = new SaveFunctions();

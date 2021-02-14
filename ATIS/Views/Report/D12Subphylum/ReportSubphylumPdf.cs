@@ -7,7 +7,6 @@ using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using BitMiracle.Docotic;
 using BitMiracle.Docotic.Pdf;
-using log4net;
 using Microsoft.Win32;
 
 
@@ -19,7 +18,6 @@ namespace ATIS.Ui.Views.Report.D12Subphylum
     public class ReportSubphylumPdf : ViewModelBase
     {
 
-        private static readonly ILog Log = LogManager.GetLogger(typeof(ReportSubphylumPdf));
         private static readonly CrudFunctions ExtCrud = new CrudFunctions();
         private static readonly ReportBasicGet ExtReportBasicGet = new ReportBasicGet();
         private static readonly PdfHelper PdfHelper = new PdfHelper();
@@ -40,7 +38,7 @@ namespace ATIS.Ui.Views.Report.D12Subphylum
             // Please visit http://bitmiracle.com/pdf-library/trial-restrictions.aspx
             // for more information.
 
-            log4net.Config.XmlConfigurator.Configure();
+          //  log4net.Config.XmlConfigurator.Configure();
 
 
             //  LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
@@ -126,14 +124,14 @@ namespace ATIS.Ui.Views.Report.D12Subphylum
             catch (Exception e)
             {
                 // Handle  errors
-                Log.Error(e);
+                SimpleLog.Log(e);
             }
             finally
             {
                 // Clean up
                 //        if (pdf != null) pdf.Dispose();
                 //     doc = null;
-                Log.Error("Fehler");
+                SimpleLog.Error("Fehler");
             }
         }
 

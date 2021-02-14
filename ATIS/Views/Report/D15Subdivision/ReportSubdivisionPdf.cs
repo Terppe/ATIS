@@ -7,7 +7,6 @@ using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using BitMiracle.Docotic;
 using BitMiracle.Docotic.Pdf;
-using log4net;
 using Microsoft.Win32;
 
 
@@ -19,7 +18,6 @@ namespace ATIS.Ui.Views.Report.D15Subdivision
     public class ReportSubdivisionPdf : ViewModelBase
     {
 
-        private static readonly ILog Log = LogManager.GetLogger(typeof(ReportSubdivisionPdf));
         //private static readonly BasicGet ExtGet = new BasicGet();
         private static readonly CrudFunctions ExtCrud = new CrudFunctions();
         private static readonly ReportBasicGet ExtReportBasicGet = new ReportBasicGet();

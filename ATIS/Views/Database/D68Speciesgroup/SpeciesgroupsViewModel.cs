@@ -8,7 +8,6 @@ using System.Windows.Input;
 using ATIS.Dal.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
-using log4net;
 
 //    SpeciesgroupsViewModel Skriptdatum:  07.01.2021  10:32    
 
@@ -20,7 +19,6 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
         // Version with Generic Unit Of Work and AtisDbContext for general use   
 
         #region [Private Data Members]
-        private static readonly ILog Log = LogManager.GetLogger(typeof(SpeciesgroupsViewModel));
         private readonly CrudFunctions _extCrud = new CrudFunctions();
         private readonly DeleteFunctions _extDelete = new DeleteFunctions();
         private readonly SaveFunctions _extSave = new SaveFunctions();
