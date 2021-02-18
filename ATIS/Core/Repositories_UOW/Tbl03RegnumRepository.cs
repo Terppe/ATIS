@@ -1,4 +1,4 @@
-﻿using ATIS.Dal.Models;
+﻿using ATIS.Ui.Models;
 using ATIS.Ui.Core.Interfaces_UOW;
 using System;
 using System.Collections.Generic;

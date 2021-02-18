@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Shell;
-using ATIS.Dal.Models;
+using ATIS.Ui.Models;
 using ATIS.Ui.Helper;
 using BitMiracle.Docotic.Pdf;
 

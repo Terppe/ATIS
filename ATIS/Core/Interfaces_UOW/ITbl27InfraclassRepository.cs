@@ -1,4 +1,4 @@
-﻿using ATIS.Dal.Models;
+﻿using ATIS.Ui.Models;
 
 namespace ATIS.Ui.Core.Interfaces_UOW
 {

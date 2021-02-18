@@ -1,4 +1,4 @@
-﻿using ATIS.Dal.Models;
+﻿using ATIS.Ui.Models;
 using ATIS.Ui.Helper;
 using System.Collections.ObjectModel;
 using System.Windows.Input;

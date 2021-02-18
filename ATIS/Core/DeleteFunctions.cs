@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using ATIS.Dal.Models;
 using ATIS.Ui.Helper;
+using ATIS.Ui.Models;
 
 namespace ATIS.Ui.Core
 {

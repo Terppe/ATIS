@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using ATIS.Dal.Models;
+using ATIS.Ui.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using BitMiracle.Docotic;

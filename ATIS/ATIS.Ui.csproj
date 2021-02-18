@@ -89,7 +89,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ATIS.Culture\ATIS.Culture.csproj" />
-    <ProjectReference Include="..\ATIS.Dal\ATIS.Dal\ATIS.Dal.csproj" />
   </ItemGroup>
 
   <ItemGroup>
