@@ -88,10 +88,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ATIS.Culture\ATIS.Culture.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="System.Windows.Interactivity">
       <HintPath>bin\Debug\netcoreapp3.1\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -108,6 +104,67 @@
 
   <ItemGroup>
     <SplashScreen Include="Asset\Images\AtisSplash.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="CultRes\StringsRes.de-DE.Designer.cs">
+      <DependentUpon>StringsRes.de-DE.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="CultRes\StringsRes.Designer.cs">
+      <DependentUpon>StringsRes.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="CultRes\StringsRes.fr-FR.Designer.cs">
+      <DependentUpon>StringsRes.fr-FR.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="CultRes\StringsRes.pt-PT.Designer.cs">
+      <DependentUpon>StringsRes.pt-PT.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="CultRes\StringsRes.de-DE.resx">
+      <CustomToolNamespace>CultRes</CustomToolNamespace>
+      <LastGenOutput>StringsRes.de-DE.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CultRes\StringsRes.fr-FR.resx">
+      <CustomToolNamespace>CultRes</CustomToolNamespace>
+      <LastGenOutput>StringsRes.fr-FR.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CultRes\StringsRes.pt-PT.resx">
+      <CustomToolNamespace>CultRes</CustomToolNamespace>
+      <LastGenOutput>StringsRes.pt-PT.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CultRes\StringsRes.resx">
+      <CustomToolNamespace>CultRes</CustomToolNamespace>
+      <LastGenOutput>StringsRes.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="CultRes\StringsRes.de-DE.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="CultRes\StringsRes.fr-FR.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="CultRes\StringsRes.pt-PT.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="CultRes\StringsRes.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 
 </Project>
