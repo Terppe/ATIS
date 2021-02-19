@@ -108,7 +108,8 @@
                                         Content="{TemplateBinding Content}"
                                         ContentTemplate="{TemplateBinding ContentTemplate}"
                                         ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
-                                        Feedback="{TemplateBinding Foreground,  Converter={StaticResource BrushRoundConverter}}"
+                                        Feedback="{TemplateBinding Foreground,
+                                                                   Converter={StaticResource BrushRoundConverter}}"
                                         Focusable="False"
                                         SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                                 </Grid>
@@ -197,9 +198,50 @@
                     <StackPanel>
                         <TextBlock Text="This flyout adapts its theme to the current accent" />
                         <GroupBox
-                            Height="250"
+                            Height="50"
                             Margin="10"
                             Header="Flyout Group Box" />
+                        <Button
+                            Width="120"
+                            Height="60"
+                            Margin="10"
+                            HorizontalAlignment="Left"
+                            Command="{Binding ChangeCulUsaCommand}"
+                            ToolTip="{DynamicResource MainWindow-MenuCulUsa}"
+                            ToolTipService.Placement="Right">
+                            <Image Source="/Asset/Images/flagge_USA.jpg" Stretch="Fill" />
+                        </Button>
+                        <Button
+                            Width="120"
+                            Height="60"
+                            Margin="10"
+                            HorizontalAlignment="Left"
+                            Command="{Binding ChangeCulGermanCommand}"
+                            ToolTip="{DynamicResource MainWindow-MenuCulGerman}"
+                            ToolTipService.Placement="Right">
+                            <Image Source="/Asset/Images/flagge_D.gif" Stretch="Fill" />
+                        </Button>
+                        <Button
+                            Width="120"
+                            Height="60"
+                            Margin="10"
+                            HorizontalAlignment="Left"
+                            Command="{Binding ChangeCulFrenchCommand}"
+                            ToolTip="{DynamicResource MainWindow-MenuCulFrench}"
+                            ToolTipService.Placement="Right">
+                            <Image Source="/Asset/Images/flagge_FR.jpg" Stretch="Fill" />
+                        </Button>
+                        <Button
+                            Width="120"
+                            Height="60"
+                            Margin="10"
+                            HorizontalAlignment="Left"
+                            Command="{Binding ChangeCulPortuguiseCommand}"
+                            ToolTip="{DynamicResource MainWindow-MenuCulPortuguise}"
+                            ToolTipService.Placement="Right">
+                            <Image Source="/Asset/Images/flagge_PT.png" Stretch="Fill" />
+                        </Button>
+
                         <Button
                             Margin="10"
                             Command="{Binding ShowLoginCommand}"
@@ -351,6 +393,7 @@
                         Kind="RegularBrush" />
                 </StackPanel>
             </Button>
+
             <Button
                 Grid.Row="0"
                 Width="30"
@@ -384,10 +427,14 @@
             </Button>
 
             <mah:Flyout
+                Height="35"
+                Margin="870,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
                 Header="Modal"
                 IsModal="False"
                 Position="Right"
-                Theme="Accent" HorizontalAlignment="Left" Height="35" Margin="870,0,0,0" VerticalAlignment="Bottom" />
+                Theme="Accent" />
         </Grid>
 
         <StatusBar Grid.Row="3" Grid.Column="0">

@@ -28,7 +28,7 @@ namespace ATIS.Ui.Views.Main
         }
 
         private readonly IDialogCoordinator _dialogCoordinator;
-   //     private readonly IDisposable _disposable;
+        //     private readonly IDisposable _disposable;
         private readonly AtisDbContext _context = new AtisDbContext();
         private readonly SearchBasicGet _extSearchGet = new SearchBasicGet();
 
@@ -177,6 +177,41 @@ namespace ATIS.Ui.Views.Main
             passwordChangeWindow.Show();
         }
         //------------------------------------------------------------------
+        //----------------------------------------------------------------
+        private RelayCommand _changeCulUsaCommand;
+        public ICommand ChangeCulUsaCommand => _changeCulUsaCommand ??= new RelayCommand(delegate { ChangeCultureUsa(null); });
+
+        private static void ChangeCultureUsa(object o)
+        {
+            App.ChangeLanguage("en-US");
+        }
+        //----------------------------------------------------------------
+        private RelayCommand _changeCulFrenchCommand;
+        public ICommand ChangeCulFrenchCommand => _changeCulFrenchCommand ??= new RelayCommand(delegate { ChangeCultureFrench(null); });
+
+        private static void ChangeCultureFrench(object o)
+        {
+            App.ChangeLanguage("fr-FR");
+        }
+        //----------------------------------------------------------------
+        private RelayCommand _changeCulGermanCommand;
+        public ICommand ChangeCulGermanCommand => _changeCulGermanCommand ??= new RelayCommand(delegate { ChangeCultureGerman(null); });
+
+        private static void ChangeCultureGerman(object o)
+        {
+            App.ChangeLanguage("de-DE");
+        }
+        //----------------------------------------------------------------
+        private RelayCommand _changeCulPortuguiseCommand;
+        public ICommand ChangeCulPortuguiseCommand => _changeCulPortuguiseCommand ??= new RelayCommand(delegate { ChangeCulturePortuguise(null); });
+
+
+        private static void ChangeCulturePortuguise(object o)
+        {
+            App.ChangeLanguage("pt-PT");
+        }
+
+        //-----------------------------------------------------------
 
         //------------------------------------------------------------------
         //private RelayCommand _searchQuickByNameCommand;
@@ -229,7 +264,7 @@ namespace ATIS.Ui.Views.Main
         public void Dispose()
         {
             //  HotkeyManager.Current.Remove("demo");
-      //      if (_disposable != null) _disposable.Dispose();
+            //      if (_disposable != null) _disposable.Dispose();
         }
 
 

@@ -23,6 +23,10 @@
     <None Remove="Asset\Images\Aquarium.jpg" />
     <None Remove="Asset\Images\Aquarium2.jpg" />
     <None Remove="Asset\Images\AtisSplash.jpg" />
+    <None Remove="Asset\Images\flagge_D.gif" />
+    <None Remove="Asset\Images\flagge_FR.jpg" />
+    <None Remove="Asset\Images\flagge_PT.png" />
+    <None Remove="Asset\Images\flagge_USA.jpg" />
     <None Remove="Asset\Images\Home.jpg" />
     <None Remove="Asset\Images\Nilpferd.jpg" />
     <None Remove="Asset\Images\Privat.jpg" />
@@ -96,6 +100,10 @@
   <ItemGroup>
     <Resource Include="Asset\Images\Aquarium.jpg" />
     <Resource Include="Asset\Images\Aquarium2.jpg" />
+    <Resource Include="Asset\Images\flagge_D.gif" />
+    <Resource Include="Asset\Images\flagge_FR.jpg" />
+    <Resource Include="Asset\Images\flagge_PT.png" />
+    <Resource Include="Asset\Images\flagge_USA.jpg" />
     <Resource Include="Asset\Images\Home.jpg" />
     <Resource Include="Asset\Images\Nilpferd.jpg" />
     <Resource Include="Asset\Images\Privat.jpg" />

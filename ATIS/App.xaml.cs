@@ -20,6 +20,7 @@ namespace ATIS.Ui
             //  var cul = Settings.Default.Culture;
             //    ChangeLanguage(cul.IetfLanguageTag);
             //   ChangeLanguage(Settings.Default["Culture"].ToString());
+            SetLanguageDictionary();
 
             //Create a custom principal with an anonymous identity at startup
             //var customPrincipal = new CustomPrincipal();
@@ -36,15 +37,20 @@ namespace ATIS.Ui
             var customPrincipal = new CustomPrincipal();
             AppDomain.CurrentDomain.SetThreadPrincipal(customPrincipal);
 
+            //if (Equals(Settings.Default.Culture, CultureInfo.CurrentUICulture) == false)
+            //{
+            //    Thread.CurrentThread.CurrentCulture = Settings.Default.Culture;
+            //    Thread.CurrentThread.CurrentUICulture = Settings.Default.Culture;
+            //}
+
             FrameworkElement.LanguageProperty.OverrideMetadata(
                 typeof(FrameworkElement),
                 new FrameworkPropertyMetadata(
                     XmlLanguage.GetLanguage(
-                    CultureInfo.CurrentCulture.IetfLanguageTag)));
+                        CultureInfo.CurrentCulture.IetfLanguageTag)));
 
             base.OnStartup(e);
 
-            SetLanguageDictionary();
         }
 
         public void SetLanguageDictionary()
