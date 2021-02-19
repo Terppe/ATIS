@@ -41,6 +41,14 @@ namespace ATIS.Ui.Views.Main
         }
 
         //-----------------------------------------------------------
+        private RelayCommand _changeCulSpainCommand;
+        public ICommand ChangeCulSpainCommand => _changeCulSpainCommand ??= new RelayCommand(delegate { ChangeCultureSpain(null); });
+
+
+        private static void ChangeCultureSpain(object o)
+        {
+            App.ChangeLanguage("sp-SP");
+        }
 
     }
 }

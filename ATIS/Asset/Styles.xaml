@@ -191,7 +191,7 @@
         </Expander>
     </DataTemplate>
 
-    <!--          MessageBox  -->
+    <!--  MessageBox  -->
     <Style TargetType="{x:Type Button}">
         <Setter Property="Foreground" Value="White" />
         <Setter Property="Background" Value="SteelBlue" />
@@ -206,23 +206,23 @@
     </Style>
     <ControlTemplate x:Key="AefCustomButton" TargetType="{x:Type ButtonBase}">
         <Border
-                x:Name="border"
-                Background="{TemplateBinding Background}"
-                BorderBrush="{TemplateBinding BorderBrush}"
-                BorderThickness="{TemplateBinding BorderThickness}"
-                CornerRadius="1"
-                SnapsToDevicePixels="True">
+            x:Name="border"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            CornerRadius="1"
+            SnapsToDevicePixels="True">
             <ContentPresenter
-                    x:Name="contentPresenter"
-                    Margin="{TemplateBinding Padding}"
-                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                    Content="{TemplateBinding Content}"
-                    ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                    ContentTemplate="{TemplateBinding ContentTemplate}"
-                    Focusable="False"
-                    RecognizesAccessKey="True"
-                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                x:Name="contentPresenter"
+                Margin="{TemplateBinding Padding}"
+                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                Content="{TemplateBinding Content}"
+                ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                ContentTemplate="{TemplateBinding ContentTemplate}"
+                Focusable="False"
+                RecognizesAccessKey="True"
+                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="Button.IsDefaulted" Value="True">

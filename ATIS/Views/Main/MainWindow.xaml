@@ -236,10 +236,10 @@
                             Height="60"
                             Margin="10"
                             HorizontalAlignment="Left"
-                            Command="{Binding ChangeCulPortuguiseCommand}"
-                            ToolTip="{DynamicResource MainWindow-MenuCulPortuguise}"
+                            Command="{Binding ChangeCulSpainCommand}"
+                            ToolTip="{DynamicResource MainWindow-MenuCulSpain}"
                             ToolTipService.Placement="Right">
-                            <Image Source="/Asset/Images/flagge_PT.png" Stretch="Fill" />
+                            <Image Source="/Asset/Images/flagge_Sp.png" Stretch="Fill" />
                         </Button>
 
                         <Button

@@ -80,6 +80,9 @@ namespace ATIS.Ui
                 case "pt-PT":
                     dict.Source = new Uri("CultRes/StringsRes.pt-PT.xaml", UriKind.Relative);
                     break;
+                case "sp-SP":
+                    dict.Source = new Uri("CultRes/StringsRes.sp-SP.xaml", UriKind.Relative);
+                    break;
                 default:
                     dict.Source = new Uri("CultRes/StringsRes.xaml", UriKind.Relative);
                     break;
@@ -112,6 +115,9 @@ namespace ATIS.Ui
                     break;
                 case "pt-PT":
                     dict.Source = new Uri("CultRes/StringsRes.pt-PT.xaml", UriKind.Relative);
+                    break;
+                case "sp-SP":
+                    dict.Source = new Uri("CultRes/StringsRes.sp-SP.xaml", UriKind.Relative);
                     break;
                 default:
                     dict.Source = new Uri("CultRes/StringsRes.xaml", UriKind.Relative);

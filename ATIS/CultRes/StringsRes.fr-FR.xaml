@@ -207,6 +207,7 @@
     <system:String x:Key="MainWindow-MenuCulGerman">Allemand</system:String>
     <system:String x:Key="MainWindow-MenuCulFrench">Français</system:String>
     <system:String x:Key="MainWindow-MenuCulPortuguise">Portugais</system:String>
+    <system:String x:Key="MainWindow-MenuCulSpain">Spanish</system:String>
     <system:String x:Key="MainWindow-AppCloseQuestion">Are you really sure to close this application</system:String>
     <system:String x:Key="MainWindow-AppCloseQuestion1">Question</system:String>
 

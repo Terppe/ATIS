@@ -31,7 +31,6 @@ namespace ATIS.Ui.Views.Main
             DataContext = new SettingViewModel();
 
             InitializeComponent();
-            //    this.DataContext = this;
 
             Colors = typeof(Colors)
                 .GetProperties()
@@ -42,8 +41,6 @@ namespace ATIS.Ui.Views.Main
             var appTheme = ThemeManager.Current.DetectTheme(Application.Current);
             ThemeManager.Current.ChangeTheme(this, appTheme!);
 
-            System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
-            Text = CultRes.StringsRes.UserProfile;
 
             //     this.DataContext = this;
 
@@ -104,41 +101,6 @@ namespace ATIS.Ui.Views.Main
         }
 
         //-------------------------------------------------------------------------
-        private string _text = "";
-
-        public string Text
-        {
-            get => _text;
-            set
-            {
-                _text = value;
-                OnPropertyChanged("Text");
-            }
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string prop)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
-
-        private void enUs_Click(object sender, RoutedEventArgs e)
-        {
-            System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
-            Text = CultRes.StringsRes.UserProfile;
-        }
-
-        private void frFr_Click(object sender, RoutedEventArgs e)
-        {
-            System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("fr-FR");
-            Text = CultRes.StringsRes.UserProfile;
-        }
-
-        private void nlNl_Click(object sender, RoutedEventArgs e)
-        {
-            System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("nl-NL");
-            Text = CultRes.StringsRes.UserProfile;
-        }
 
     }
 }

@@ -26,6 +26,7 @@
     <None Remove="Asset\Images\flagge_D.gif" />
     <None Remove="Asset\Images\flagge_FR.jpg" />
     <None Remove="Asset\Images\flagge_PT.png" />
+    <None Remove="Asset\Images\flagge_SP.png" />
     <None Remove="Asset\Images\flagge_USA.jpg" />
     <None Remove="Asset\Images\Home.jpg" />
     <None Remove="Asset\Images\Nilpferd.jpg" />
@@ -100,10 +101,21 @@
   <ItemGroup>
     <Resource Include="Asset\Images\Aquarium.jpg" />
     <Resource Include="Asset\Images\Aquarium2.jpg" />
-    <Resource Include="Asset\Images\flagge_D.gif" />
-    <Resource Include="Asset\Images\flagge_FR.jpg" />
-    <Resource Include="Asset\Images\flagge_PT.png" />
-    <Resource Include="Asset\Images\flagge_USA.jpg" />
+    <Resource Include="Asset\Images\flagge_D.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Asset\Images\flagge_FR.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Asset\Images\flagge_PT.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Asset\Images\flagge_SP.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Asset\Images\flagge_USA.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Asset\Images\Home.jpg" />
     <Resource Include="Asset\Images\Nilpferd.jpg" />
     <Resource Include="Asset\Images\Privat.jpg" />
@@ -127,11 +139,6 @@
     </Compile>
     <Compile Update="CultRes\StringsRes.fr-FR.Designer.cs">
       <DependentUpon>StringsRes.fr-FR.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="CultRes\StringsRes.pt-PT.Designer.cs">
-      <DependentUpon>StringsRes.pt-PT.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
@@ -161,6 +168,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="CultRes\StringsRes.sp-SP.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="CultRes\StringsRes.de-DE.xaml">
       <SubType>Designer</SubType>
     </Page>
