@@ -41,8 +41,8 @@
         </Grid.RowDefinitions>
 
         <TabControl>
-            <TabItem Header="App Style">
-                <GroupBox Margin="5" Header="The Application">
+            <TabItem Header="{DynamicResource Shared-TabStripHeaderAppStyles}">
+                <GroupBox Margin="5"  >
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -88,9 +88,9 @@
                     </Grid>
                 </GroupBox>
             </TabItem>
-            <TabItem Header="Icon Pack" />
-            <TabItem Header="Language">
-                <GroupBox Margin="5" Header="The Application">
+            <TabItem Header="{DynamicResource Shared-TabStripHeaderIcons}" />
+            <TabItem Header="{DynamicResource Shared-TabStripHeaderLanguages}">
+                <GroupBox Margin="5"  >
 
                     <Grid>
                         <!--<Button

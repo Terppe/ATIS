@@ -114,6 +114,9 @@
     <system:String x:Key="Shared-TabStripHeaderComments">Comments</system:String>
     <system:String x:Key="Shared-TabStripHeaderCountries">Countries</system:String>
     <system:String x:Key="Shared-TabStripHeaderUserProfiles">User Profiles</system:String>
+    <system:String x:Key="Shared-TabStripHeaderAppStyles">la aplicación estilo</system:String>
+    <system:String x:Key="Shared-TabStripHeaderIcons">el icono</system:String>
+    <system:String x:Key="Shared-TabStripHeaderLanguages">la lengua</system:String>
 
     <system:String x:Key="Shared-DdlAfrica">Africa</system:String>
     <system:String x:Key="Shared-DdlAntarctic">Antarctic</system:String>

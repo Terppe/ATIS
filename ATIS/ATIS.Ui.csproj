@@ -127,18 +127,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="CultRes\StringsRes.de-DE.Designer.cs">
-      <DependentUpon>StringsRes.de-DE.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
     <Compile Update="CultRes\StringsRes.Designer.cs">
       <DependentUpon>StringsRes.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="CultRes\StringsRes.fr-FR.Designer.cs">
-      <DependentUpon>StringsRes.fr-FR.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
@@ -153,11 +143,6 @@
     <EmbeddedResource Update="CultRes\StringsRes.fr-FR.resx">
       <CustomToolNamespace>CultRes</CustomToolNamespace>
       <LastGenOutput>StringsRes.fr-FR.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="CultRes\StringsRes.pt-PT.resx">
-      <CustomToolNamespace>CultRes</CustomToolNamespace>
-      <LastGenOutput>StringsRes.pt-PT.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="CultRes\StringsRes.resx">
@@ -176,9 +161,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="CultRes\StringsRes.fr-FR.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="CultRes\StringsRes.pt-PT.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="CultRes\StringsRes.xaml">
