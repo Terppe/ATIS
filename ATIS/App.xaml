@@ -17,11 +17,8 @@
                 <ResourceDictionary Source="CultRes/StringsRes.xaml" />
                 <ResourceDictionary Source="CultRes/StringsRes.de-DE.xaml" />
                 <ResourceDictionary Source="CultRes/StringsRes.fr-FR.xaml" />
-                <!--<ResourceDictionary Source="CultRes/StringsRes.pt-PT.xaml" />-->
                 <ResourceDictionary Source="CultRes/StringsRes.sp-SP.xaml" />
                 <!--<ResourceDictionary Source="pack://application:,,,/Atis.Ui.CultRes;component/StringsRes.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Atis.Ui.CultRes;component/StringsRes.de-DE.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Atis.Ui.CultRes;component/StringsRes.fr-FR.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Atis.Ui.CultRes;component/StringsRes.pt-PT.xaml" />-->
 
                 <!--<ResourceDictionary Source="pack://application:,,,/ATIS.Styles;component/StylesDictionary.xaml" />-->

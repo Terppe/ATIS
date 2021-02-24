@@ -19,7 +19,7 @@
     SizeChanged="NotifiableWindow_SizeChanged"
     SizeToContent="WidthAndHeight"
     SourceInitialized="Window_SourceInitialized"
-    WindowStartupLocation="CenterScreen"
+    WindowStartupLocation="CenterOwner"
     WindowStyle="SingleBorderWindow"
     mc:Ignorable="d">
 

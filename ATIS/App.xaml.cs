@@ -59,26 +59,11 @@ namespace ATIS.Ui
             switch (Thread.CurrentThread.CurrentCulture.ToString())
             //    switch (SqlMapper.Settings.Default["Culture"].ToString())
             {
-                //case "de-DE":
-                //    dict.Source = new Uri("/Atis.Culture;component/Cultures/StringsRes.de-DE.xaml", UriKind.Relative);
-                //    break;
-                //case "fr-FR":
-                //    dict.Source = new Uri("/Atis.Culture;component/Cultures/StringsRes.fr-FR.xaml", UriKind.Relative);
-                //    break;
-                //case "pt-PT":
-                //    dict.Source = new Uri("/Atis.Culture;component/Cultures/StringsRes.pt-PT.xaml", UriKind.Relative);
-                //    break;
-                //default:
-                //    dict.Source = new Uri("/Atis.Culture;component/Cultures/StringsRes.xaml", UriKind.Relative);
-                //    break;
                 case "de-DE":
                     dict.Source = new Uri("CultRes/StringsRes.de-DE.xaml", UriKind.Relative);
                     break;
                 case "fr-FR":
                     dict.Source = new Uri("CultRes/StringsRes.fr-FR.xaml", UriKind.Relative);
-                    break;
-                case "pt-PT":
-                    dict.Source = new Uri("CultRes/StringsRes.pt-PT.xaml", UriKind.Relative);
                     break;
                 case "sp-SP":
                     dict.Source = new Uri("CultRes/StringsRes.sp-SP.xaml", UriKind.Relative);
@@ -95,26 +80,11 @@ namespace ATIS.Ui
             var dict = new ResourceDictionary();
             switch (culture)
             {
-                //case "de-DE":
-                //    dict.Source = new Uri("/Atis.Culture;component/Cultures/StringsRes.de-DE.xaml", UriKind.Relative);
-                //    break;
-                //case "fr-FR":
-                //    dict.Source = new Uri("/Atis.Culture;component/Cultures/StringsRes.fr-FR.xaml", UriKind.Relative);
-                //    break;
-                //case "pt-PT":
-                //    dict.Source = new Uri("/Atis.Culture;component/Cultures/StringsRes.pt-PT.xaml", UriKind.Relative);
-                //    break;
-                //default:
-                //    dict.Source = new Uri("/Atis.Culture;component/Cultures/StringsRes.xaml", UriKind.Relative);
-                //    break;
                 case "de-DE":
                     dict.Source = new Uri("CultRes/StringsRes.de-DE.xaml", UriKind.Relative);
                     break;
                 case "fr-FR":
                     dict.Source = new Uri("CultRes/StringsRes.fr-FR.xaml", UriKind.Relative);
-                    break;
-                case "pt-PT":
-                    dict.Source = new Uri("CultRes/StringsRes.pt-PT.xaml", UriKind.Relative);
                     break;
                 case "sp-SP":
                     dict.Source = new Uri("CultRes/StringsRes.sp-SP.xaml", UriKind.Relative);
@@ -122,7 +92,6 @@ namespace ATIS.Ui
                 default:
                     dict.Source = new Uri("CultRes/StringsRes.xaml", UriKind.Relative);
                     break;
-
             }
             Application.Current.Resources.MergedDictionaries.Add(dict);
 

@@ -245,6 +245,7 @@ namespace ATIS.Ui.Helper.MsgBoxes
 			this.InitializeComponent();
 			this.DataContext = this;
 			this.LargestButtonWidth();
+            this.Owner = Application.Current.MainWindow;
 		}
 
 		/// <summary>
