@@ -102,8 +102,6 @@ namespace ATIS.Ui.Views.Database.D51Infrafamily
         {
             if (Tbl51InfrafamiliesList == null)
                 Tbl51InfrafamiliesList ??= new ObservableCollection<Tbl51Infrafamily>();
-            else
-                Tbl51InfrafamiliesList.Clear();
 
             if (Tbl48SubfamiliesAllList == null)
                 Tbl48SubfamiliesAllList ??= new ObservableCollection<Tbl48Subfamily>();

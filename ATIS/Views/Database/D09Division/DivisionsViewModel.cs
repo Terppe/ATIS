@@ -102,8 +102,6 @@ namespace ATIS.Ui.Views.Database.D09Division
         {
             if (Tbl09DivisionsList == null)
                 Tbl09DivisionsList ??= new ObservableCollection<Tbl09Division>();
-            else
-                Tbl09DivisionsList.Clear();
 
             if (Tbl03RegnumsAllList == null)
                 Tbl03RegnumsAllList ??= new ObservableCollection<Tbl03Regnum>();

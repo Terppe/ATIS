@@ -39,6 +39,9 @@
             Grid.Row="0"
             Grid.Column="0"
             Margin="1"
+            mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+            mah:HeaderedControlHelper.HeaderFontSize="16"
+            mah:TabControlHelper.Underlined="TabPanel"
             Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
             <TabItem FontWeight="DemiBold" Header="{DynamicResource Shared-TabStripHeaderImages}">
                 <ScrollViewer
@@ -182,6 +185,9 @@
         <TabControl
             Grid.Row="0"
             Grid.Column="2"
+            mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+            mah:HeaderedControlHelper.HeaderFontSize="16"
+            mah:TabControlHelper.Underlined="TabPanel"
             Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
             SelectedIndex="{Binding SelectedMainTabIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
 
@@ -384,6 +390,9 @@
             Grid.Row="2"
             Grid.Column="0"
             Grid.ColumnSpan="3"
+            mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+            mah:HeaderedControlHelper.HeaderFontSize="16"
+            mah:TabControlHelper.Underlined="TabPanel"
             Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
             SelectedIndex="{Binding SelectedDetailTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
@@ -524,6 +533,9 @@
                             Height="Auto"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Stretch"
+                            mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+                            mah:HeaderedControlHelper.HeaderFontSize="16"
+                            mah:TabControlHelper.Underlined="TabPanel"
                             Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
                             SelectedIndex="{Binding SelectedDetailSubFiSpeciesTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl69FiSpecies-TabItemHeaderSpecification}">
@@ -1332,6 +1344,9 @@
                             Height="Auto"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Stretch"
+                            mah:HeaderedControlHelper.HeaderFontFamily="Segoe UI Semibold"
+                            mah:HeaderedControlHelper.HeaderFontSize="16"
+                            mah:TabControlHelper.Underlined="TabPanel"
                             Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
                             SelectedIndex="{Binding SelectedDetailSubPlSpeciesTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl72PlSpecies-TabItemHeaderSpecification}">

@@ -113,8 +113,6 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
         {
             if (Tbl72PlSpeciessesList == null)
                 Tbl72PlSpeciessesList ??= new ObservableCollection<Tbl72PlSpecies>();
-            else
-                Tbl72PlSpeciessesList.Clear();
 
             if (Tbl66GenussesAllList == null)
                 Tbl66GenussesAllList ??= new ObservableCollection<Tbl66Genus>();

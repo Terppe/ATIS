@@ -102,8 +102,6 @@ namespace ATIS.Ui.Views.Database.D54Supertribus
         {
             if (Tbl54SupertribussesList == null)
                 Tbl54SupertribussesList ??= new ObservableCollection<Tbl54Supertribus>();
-            else
-                Tbl54SupertribussesList.Clear();
 
             if (Tbl51InfrafamiliesAllList == null)
                 Tbl51InfrafamiliesAllList ??= new ObservableCollection<Tbl51Infrafamily>();

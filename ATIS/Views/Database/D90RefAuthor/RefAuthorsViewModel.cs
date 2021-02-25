@@ -89,8 +89,6 @@ namespace ATIS.Ui.Views.Database.D90RefAuthor
         {
             if (Tbl90RefAuthorsList == null)
                 Tbl90RefAuthorsList ??= new ObservableCollection<Tbl90RefAuthor>();
-            else
-                Tbl90RefAuthorsList.Clear();
 
             Tbl90RefAuthorsList.Insert(0, new Tbl90RefAuthor { RefAuthorName = CultRes.StringsRes.DatasetNew });
 

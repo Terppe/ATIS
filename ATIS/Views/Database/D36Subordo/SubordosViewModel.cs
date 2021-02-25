@@ -102,8 +102,6 @@ namespace ATIS.Ui.Views.Database.D36Subordo
         {
             if (Tbl36SubordosList == null)
                 Tbl36SubordosList ??= new ObservableCollection<Tbl36Subordo>();
-            else
-                Tbl36SubordosList.Clear();
 
             if (Tbl33OrdosAllList == null)
                 Tbl33OrdosAllList ??= new ObservableCollection<Tbl33Ordo>();

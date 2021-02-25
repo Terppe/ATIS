@@ -102,8 +102,6 @@ namespace ATIS.Ui.Views.Database.D06Phylum
         {
             if (Tbl06PhylumsList == null)
                 Tbl06PhylumsList ??= new ObservableCollection<Tbl06Phylum>();
-            else
-                Tbl06PhylumsList.Clear();
 
             if (Tbl03RegnumsAllList == null)
                 Tbl03RegnumsAllList ??= new ObservableCollection<Tbl03Regnum>();

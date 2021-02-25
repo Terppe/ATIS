@@ -96,8 +96,6 @@ namespace ATIS.Ui.Views.Database.D90Reference
 
             if (Tbl90ReferencesList == null)
                 Tbl90ReferencesList ??= new ObservableCollection<Tbl90Reference>();
-            else
-                Tbl90ReferencesList.Clear();
 
             Tbl90ReferencesList.Insert(0, new Tbl90Reference { Info = CultRes.StringsRes.DatasetNew });
 

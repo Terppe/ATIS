@@ -89,8 +89,6 @@ namespace ATIS.Ui.Views.Database.DCountry
         {
             if (TblCountriesList == null)
                 TblCountriesList ??= new ObservableCollection<TblCountry>();
-            else
-                TblCountriesList.Clear();
 
             TblCountriesList.Insert(0, new TblCountry { Name = CultRes.StringsRes.DatasetNew });
 

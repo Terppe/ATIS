@@ -105,8 +105,6 @@ namespace ATIS.Ui.Views.Database.D78Name
         {
             if (Tbl78NamesList == null)
                 Tbl78NamesList ??= new ObservableCollection<Tbl78Name>();
-            else
-                Tbl78NamesList.Clear();
 
             if (Tbl69FiSpeciessesAllList == null)
                 Tbl69FiSpeciessesAllList ??= new ObservableCollection<Tbl69FiSpecies>();

@@ -102,8 +102,6 @@ namespace ATIS.Ui.Views.Database.D66Genus
         {
             if (Tbl66GenussesList == null)
                 Tbl66GenussesList ??= new ObservableCollection<Tbl66Genus>();
-            else
-                Tbl66GenussesList.Clear();
 
             if (Tbl63InfratribussesAllList == null)
                 Tbl63InfratribussesAllList ??= new ObservableCollection<Tbl63Infratribus>();

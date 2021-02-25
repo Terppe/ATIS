@@ -144,8 +144,6 @@ namespace ATIS.Ui.Views.Database.D81Image
         {
             if (Tbl81ImagesList == null)
                 Tbl81ImagesList ??= new ObservableCollection<Tbl81Image>();
-            else
-                Tbl81ImagesList.Clear();
 
             if (Tbl69FiSpeciessesAllList == null)
                 Tbl69FiSpeciessesAllList ??= new ObservableCollection<Tbl69FiSpecies>();

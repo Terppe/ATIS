@@ -102,8 +102,6 @@ namespace ATIS.Ui.Views.Database.D21Class
         {
             if (Tbl21ClassesList == null)
                 Tbl21ClassesList ??= new ObservableCollection<Tbl21Class>();
-            else
-                Tbl21ClassesList.Clear();
 
             if (Tbl18SuperclassesAllList == null)
                 Tbl18SuperclassesAllList ??= new ObservableCollection<Tbl18Superclass>();

@@ -95,8 +95,6 @@ namespace ATIS.Ui.Views.Database.D68Speciesgroup
         {
             if (Tbl68SpeciesgroupsList == null)
                 Tbl68SpeciesgroupsList ??= new ObservableCollection<Tbl68Speciesgroup>();
-            else
-                Tbl68SpeciesgroupsList.Clear();
 
             if (Tbl66GenussesAllList == null)
                 Tbl66GenussesAllList ??= new ObservableCollection<Tbl66Genus>();

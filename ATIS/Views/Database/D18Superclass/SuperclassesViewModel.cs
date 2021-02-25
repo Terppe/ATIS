@@ -105,8 +105,6 @@ namespace ATIS.Ui.Views.Database.D18Superclass
         {
             if (Tbl18SuperclassesList == null)
                 Tbl18SuperclassesList ??= new ObservableCollection<Tbl18Superclass>();
-            else
-                Tbl18SuperclassesList.Clear();
 
             if (Tbl12SubphylumsAllList == null)
                 Tbl12SubphylumsAllList ??= new ObservableCollection<Tbl12Subphylum>();

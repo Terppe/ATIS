@@ -93,8 +93,6 @@ namespace ATIS.Ui.Views.Database.D90RefSource
         {
             if (Tbl90RefSourcesList == null)
                 Tbl90RefSourcesList ??= new ObservableCollection<Tbl90RefSource>();
-            else
-                Tbl90RefSourcesList.Clear();
 
             Tbl90RefSourcesList.Insert(0, new Tbl90RefSource { RefSourceName = CultRes.StringsRes.DatasetNew });
 

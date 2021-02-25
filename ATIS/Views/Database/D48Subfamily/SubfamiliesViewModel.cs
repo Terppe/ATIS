@@ -102,8 +102,6 @@ namespace ATIS.Ui.Views.Database.D48Subfamily
         {
             if (Tbl48SubfamiliesList == null)
                 Tbl48SubfamiliesList ??= new ObservableCollection<Tbl48Subfamily>();
-            else
-                Tbl48SubfamiliesList.Clear();
 
             if (Tbl45FamiliesAllList == null)
                 Tbl45FamiliesAllList ??= new ObservableCollection<Tbl45Family>();

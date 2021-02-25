@@ -102,8 +102,6 @@ namespace ATIS.Ui.Views.Database.D30Legio
         {
             if (Tbl30LegiosList == null)
                 Tbl30LegiosList ??= new ObservableCollection<Tbl30Legio>();
-            else
-                Tbl30LegiosList.Clear();
 
             if (Tbl27InfraclassesAllList == null)
                 Tbl27InfraclassesAllList ??= new ObservableCollection<Tbl27Infraclass>();

@@ -102,8 +102,6 @@ namespace ATIS.Ui.Views.Database.D12Subphylum
         {
             if (Tbl12SubphylumsList == null)
                 Tbl12SubphylumsList ??= new ObservableCollection<Tbl12Subphylum>();
-            else
-                Tbl12SubphylumsList.Clear();
 
             if (Tbl06PhylumsAllList == null)
                 Tbl06PhylumsAllList ??= new ObservableCollection<Tbl06Phylum>();

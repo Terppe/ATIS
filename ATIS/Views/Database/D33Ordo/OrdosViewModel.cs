@@ -102,8 +102,6 @@ namespace ATIS.Ui.Views.Database.D33Ordo
         {
             if (Tbl33OrdosList == null)
                 Tbl33OrdosList ??= new ObservableCollection<Tbl33Ordo>();
-            else
-                Tbl33OrdosList.Clear();
 
             if (Tbl30LegiosAllList == null)
                 Tbl30LegiosAllList ??= new ObservableCollection<Tbl30Legio>();

@@ -112,8 +112,6 @@ namespace ATIS.Ui.Views.Database.D87Geographic
         {
             if (Tbl87GeographicsList == null)
                 Tbl87GeographicsList ??= new ObservableCollection<Tbl87Geographic>();
-            else
-                Tbl87GeographicsList.Clear();
 
             if (Tbl69FiSpeciessesAllList == null)
                 Tbl69FiSpeciessesAllList ??= new ObservableCollection<Tbl69FiSpecies>();

@@ -102,8 +102,6 @@ namespace ATIS.Ui.Views.Database.D42Superfamily
         {
             if (Tbl42SuperfamiliesList == null)
                 Tbl42SuperfamiliesList ??= new ObservableCollection<Tbl42Superfamily>();
-            else
-                Tbl42SuperfamiliesList.Clear();
 
             if (Tbl39InfraordosAllList == null)
                 Tbl39InfraordosAllList ??= new ObservableCollection<Tbl39Infraordo>();

@@ -102,8 +102,6 @@ namespace ATIS.Ui.Views.Database.D15Subdivision
         {
             if (Tbl15SubdivisionsList == null)
                 Tbl15SubdivisionsList ??= new ObservableCollection<Tbl15Subdivision>();
-            else
-                Tbl15SubdivisionsList.Clear();
 
             if (Tbl09DivisionsAllList == null)
                 Tbl09DivisionsAllList ??= new ObservableCollection<Tbl09Division>();

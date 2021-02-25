@@ -102,8 +102,6 @@ namespace ATIS.Ui.Views.Database.D57Tribus
         {
             if (Tbl57TribussesList == null)
                 Tbl57TribussesList ??= new ObservableCollection<Tbl57Tribus>();
-            else
-                Tbl57TribussesList.Clear();
 
             if (Tbl54SupertribussesAllList == null)
                 Tbl54SupertribussesAllList ??= new ObservableCollection<Tbl54Supertribus>();

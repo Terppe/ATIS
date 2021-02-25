@@ -102,8 +102,6 @@ namespace ATIS.Ui.Views.Database.D24Subclass
         {
             if (Tbl24SubclassesList == null)
                 Tbl24SubclassesList ??= new ObservableCollection<Tbl24Subclass>();
-            else
-                Tbl24SubclassesList.Clear();
 
             if (Tbl21ClassesAllList == null)
                 Tbl21ClassesAllList ??= new ObservableCollection<Tbl21Class>();

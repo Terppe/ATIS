@@ -102,8 +102,6 @@ namespace ATIS.Ui.Views.Database.D63Infratribus
         {
             if (Tbl63InfratribussesList == null)
                 Tbl63InfratribussesList ??= new ObservableCollection<Tbl63Infratribus>();
-            else
-                Tbl63InfratribussesList.Clear();
 
             if (Tbl60SubtribussesAllList == null)
                 Tbl60SubtribussesAllList ??= new ObservableCollection<Tbl60Subtribus>();

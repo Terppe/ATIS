@@ -99,8 +99,6 @@ namespace ATIS.Ui.Views.Database.DUserprofile
         {
             if (TblUserProfilesList == null)
                 TblUserProfilesList ??= new ObservableCollection<TblUserProfile>();
-            else
-                TblUserProfilesList.Clear();
 
             if (TblCountriesAllList == null)
                 TblCountriesAllList ??= new ObservableCollection<TblCountry>();

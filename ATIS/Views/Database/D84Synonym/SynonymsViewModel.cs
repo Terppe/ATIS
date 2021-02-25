@@ -103,8 +103,6 @@ namespace ATIS.Ui.Views.Database.D84Synonym
         {
             if (Tbl84SynonymsList == null)
                 Tbl84SynonymsList ??= new ObservableCollection<Tbl84Synonym>();
-            else
-                Tbl84SynonymsList.Clear();
 
             if (Tbl69FiSpeciessesAllList == null)
                 Tbl69FiSpeciessesAllList ??= new ObservableCollection<Tbl69FiSpecies>();

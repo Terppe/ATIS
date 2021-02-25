@@ -97,8 +97,6 @@ namespace ATIS.Ui.Views.Database.D93Comment
 
             if (Tbl93CommentsList == null)
                 Tbl93CommentsList ??= new ObservableCollection<Tbl93Comment>();
-            else
-                Tbl93CommentsList.Clear();
 
             Tbl93CommentsList.Insert(0, new Tbl93Comment { Info = CultRes.StringsRes.DatasetNew });
 

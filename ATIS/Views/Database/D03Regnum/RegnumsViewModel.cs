@@ -95,8 +95,6 @@ namespace ATIS.Ui.Views.Database.D03Regnum
         {
             if (Tbl03RegnumsList == null)
                 Tbl03RegnumsList ??= new ObservableCollection<Tbl03Regnum>();
-            else
-                Tbl03RegnumsList.Clear();
 
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 0;

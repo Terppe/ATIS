@@ -89,8 +89,6 @@ namespace ATIS.Ui.Views.Database.D90RefExpert
         {
             if (Tbl90RefExpertsList == null)
                 Tbl90RefExpertsList ??= new ObservableCollection<Tbl90RefExpert>();
-            else
-                Tbl90RefExpertsList.Clear();
 
             Tbl90RefExpertsList.Insert(0, new Tbl90RefExpert { RefExpertName = CultRes.StringsRes.DatasetNew });
 

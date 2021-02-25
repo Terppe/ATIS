@@ -102,8 +102,6 @@ namespace ATIS.Ui.Views.Database.D39Infraordo
         {
             if (Tbl39InfraordosList == null)
                 Tbl39InfraordosList ??= new ObservableCollection<Tbl39Infraordo>();
-            else
-                Tbl39InfraordosList.Clear();
 
             if (Tbl36SubordosAllList == null)
                 Tbl36SubordosAllList ??= new ObservableCollection<Tbl36Subordo>();

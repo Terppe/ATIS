@@ -102,8 +102,6 @@ namespace ATIS.Ui.Views.Database.D27Infraclass
         {
             if (Tbl27InfraclassesList == null)
                 Tbl27InfraclassesList ??= new ObservableCollection<Tbl27Infraclass>();
-            else
-                Tbl27InfraclassesList.Clear();
 
             if (Tbl24SubclassesAllList == null)
                 Tbl24SubclassesAllList ??= new ObservableCollection<Tbl24Subclass>();
