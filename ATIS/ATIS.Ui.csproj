@@ -9,6 +9,8 @@
     <Description>Bilddatenbank der Aquaristik</Description>
     <Company>Terppe</Company>
     <Version>6.0.0</Version>
+    <Product>Aquaristic Taxonomic Information System</Product>
+    <ApplicationIcon>Application.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,6 +22,7 @@
 
   <ItemGroup>
     <None Remove="appsettings.json" />
+    <None Remove="Asset\Images\Application.ico" />
     <None Remove="Asset\Images\Aquarium.jpg" />
     <None Remove="Asset\Images\Aquarium2.jpg" />
     <None Remove="Asset\Images\AtisSplash.jpg" />
@@ -99,6 +102,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Asset\Images\Application.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Asset\Images\Aquarium.jpg" />
     <Resource Include="Asset\Images\Aquarium2.jpg" />
     <Resource Include="Asset\Images\flagge_D.gif">
