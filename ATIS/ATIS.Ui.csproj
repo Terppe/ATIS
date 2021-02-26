@@ -35,6 +35,13 @@
     <None Remove="Asset\Images\Nilpferd.jpg" />
     <None Remove="Asset\Images\Privat.jpg" />
     <None Remove="Asset\Images\Settings.jpg" />
+    <None Remove="Helper\MessageBox\MsgBoxImages\Accept.png" />
+    <None Remove="Helper\MessageBox\MsgBoxImages\Error.png" />
+    <None Remove="Helper\MessageBox\MsgBoxImages\Information.png" />
+    <None Remove="Helper\MessageBox\MsgBoxImages\Question.png" />
+    <None Remove="Helper\MessageBox\MsgBoxImages\Software-update-urgent.png" />
+    <None Remove="Helper\MessageBox\MsgBoxImages\Stop.png" />
+    <None Remove="Helper\MessageBox\MsgBoxImages\Warning.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -126,6 +133,27 @@
     <Resource Include="Asset\Images\Nilpferd.jpg" />
     <Resource Include="Asset\Images\Privat.jpg" />
     <Resource Include="Asset\Images\Settings.jpg" />
+    <Resource Include="Helper\MessageBox\MsgBoxImages\Accept.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Helper\MessageBox\MsgBoxImages\Error.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Helper\MessageBox\MsgBoxImages\Information.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Helper\MessageBox\MsgBoxImages\Question.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Helper\MessageBox\MsgBoxImages\Software-update-urgent.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Helper\MessageBox\MsgBoxImages\Stop.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Helper\MessageBox\MsgBoxImages\Warning.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
