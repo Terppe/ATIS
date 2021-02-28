@@ -79,7 +79,7 @@
                 Name="TxtMsg"
                 Grid.Row="1"
                 Grid.Column="1"
-                Height="50"
+                Height="Auto"
                 Margin="10,14"
                 VerticalAlignment="Center"
                 FontSize="14"

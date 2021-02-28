@@ -326,6 +326,14 @@
                 Text="{Binding AuthenticatedUser, UpdateSourceTrigger=PropertyChanged}"
                 TextWrapping="NoWrap"
                 Visibility="Visible" />
+            <TextBlock
+                x:Name="TbDataBase"
+                Width="Auto"
+                Margin="250,0,630,5"
+                Foreground="Red"
+                Text="Database exist, SQL-Server activ"
+                TextWrapping="NoWrap"
+                Visibility="Visible" />
             <Button
                 Width="180"
                 Margin="10,2,450,0"

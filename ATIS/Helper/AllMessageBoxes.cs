@@ -46,8 +46,8 @@ namespace ATIS.Ui.Helper
             if (id != 0) return false;
             //System.Windows.MessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredComboSelect,
             //    MessageBoxButton.OK, MessageBoxImage.Information);
-            //MessageBoxEx.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredComboSelect,
-            //    MessageBoxButton.OK, MessageBoxImage.Information);
+            WpfMessageBox.Show(CultRes.StringsRes.RequiredGenealogyConnect, CultRes.StringsRes.RequiredComboSelect,
+                MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
             return true;
         }
 
@@ -108,7 +108,7 @@ namespace ATIS.Ui.Helper
         public bool DeleteDatasetQuestionMessageBox(string caption)
         {
             return WpfMessageBox.Show(CultRes.StringsRes.DeleteQuestion,
-                caption + " " + CultRes.StringsRes.ConnectedDataset,
+                caption,
                 MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) != MessageBoxResult.Yes;
         }
 

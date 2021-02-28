@@ -10,6 +10,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using ATIS.Ui.Helper.MessageBox;
+using MessageBoxImage = System.Windows.MessageBoxImage;
 
 namespace ATIS.Ui.Views.Log
 {
@@ -217,12 +219,12 @@ namespace ATIS.Ui.Views.Log
 
                             _uow.Complete();
 
-                            MessageBox.Show(CultRes.StringsRes.SaveSuccess, Email,
+                            WpfMessageBox.Show(CultRes.StringsRes.SaveSuccess, Email,
                                 MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                         else
                         {
-                            MessageBox.Show(CultRes.StringsRes.DatasetExist, Email,
+                            WpfMessageBox.Show(CultRes.StringsRes.DatasetExist, Email,
                                 MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                     }

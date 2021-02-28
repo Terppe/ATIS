@@ -9,6 +9,8 @@ using System.Reflection;
 using System.Windows;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
+using ATIS.Ui.Helper.MessageBox;
+using Microsoft.Data.SqlClient;
 
 namespace ATIS.Ui.Views.Main
 {
@@ -41,10 +43,17 @@ namespace ATIS.Ui.Views.Main
             //choose background colors from Windows 10
             //move to Einstellungen
             //     Background = SystemParameters.WindowGlassBrush;
-
-
-            if (!CheckServerExist(srv, Convert.ToInt32(port))) { }
-            if (!CheckDatabaseExist(srv)) { }
+            if (!CheckForServer(srv, Convert.ToInt32(port)))
+            {
+                TbDataBase.Text = "SQL-Server not running";
+            }
+            else
+            {
+                if (!CheckDatabaseExist(srv))
+                {
+                    TbDataBase.Text = "Database not Found";
+                }
+            }
 
 
             // Log to a sub-directory 'Log' of the current working directory. 
@@ -166,30 +175,33 @@ namespace ATIS.Ui.Views.Main
             //    new PaletteHelper().SetLightDark(theme != "Light");
         }
 
-        //------------------------Check Server -------------------------------
-        private bool CheckServerExist(string address, int port)
+        //------------------------Check Server and Database-------------------------------
+
+        private bool CheckForServer(string address, int port)
         {
             var timeout = 500;
+            if (ConfigurationManager.AppSettings["RemoteTestTimeout"] != null)
+                timeout = int.Parse(ConfigurationManager.AppSettings["RemoteTestTimeout"]);
+            var result = false;
             try
             {
-                var result = false;
                 using (var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
                 {
-                    var asyncResult = socket.BeginConnect(address, port, null, null);
+                    IAsyncResult asyncResult = socket.BeginConnect(address, port, null, null);
                     result = asyncResult.AsyncWaitHandle.WaitOne(timeout, true);
                     socket.Close();
                 }
                 return result;
             }
-            catch
+            catch (SqlException e)
             {
-                AllMessageBoxes.InfoMessageBox(CultRes.StringsRes.NoConnectServer + " " + address + " " + port, $"CultRes.StringsRes.NoConnectServer: {address}");
+                MessageBox.Show(CultRes.StringsRes.NoConnectServer, e.Message,
+                    MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question);
 
-                SimpleLog.Error($"CultRes.StringsRes.NoConnectServer: {address}");
+                SimpleLog.Error(CultRes.StringsRes.NoConnectServer + e.Message);
                 return false;
             }
         }
-
         /// <summary>
         ///Check if database exist or SQLServer not running
         /// </summary>
@@ -197,20 +209,38 @@ namespace ATIS.Ui.Views.Main
         public static bool CheckDatabaseExist(string db)
         {
             var ret = false;
-            using (var context = new AtisDbContext())
+
+            try
             {
-                var dbExists = context.Database.CanConnect();
-
-                if (!dbExists)
+                using (var context = new AtisDbContext())
                 {
-                    AllMessageBoxes.InfoMessageBox(CultRes.StringsRes.NoConnectServer + " " + db, $"CultRes.StringsRes.NoConnectServer: {db}");
+                    var dbExists = context.Database.CanConnect();
 
-                    SimpleLog.Error($"CultRes.StringsRes.NoConnectServer: {db}");
+                    if (!dbExists)
+                    {
+                        // MessageBox.Show(CultRes.StringsRes.NoConnectServer + " " + db, $"CultRes.StringsRes.NoConnectServer: {db}");
+
+                        MessageBox.Show($"Database does not exist", "SQL-Server ok " + db,
+                            MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question);
+                        if (true)
+                        {
+                            ret = false;
+                        }
+                        SimpleLog.Error("Database does not exist - SQL - Server ok");
+                    }
+                    else
+                    {
+                        ret = true;
+                    }
                 }
-                else
-                {
-                    ret = true;
-                }
+            }
+            catch (SqlException e)
+            {
+                MessageBox.Show($"CultRes.StringsRes.NoConnectServer: {db}", e.Message,
+                    MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question);
+
+                SimpleLog.Error($"CultRes.StringsRes.NoConnectServer: {db}");
+                ret = false;
             }
             return ret;
         }

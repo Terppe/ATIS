@@ -37,11 +37,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl03Regnum.RegnumName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl03Regnum.RegnumName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl03Regnum.RegnumName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
 
             }
@@ -64,7 +64,7 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl06Phylum.PhylumName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl06Phylum.PhylumName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl06Phylum.PhylumName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -91,11 +91,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, CurrentTbl09Division.DivisionName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl09Division.DivisionName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + CurrentTbl09Division.DivisionName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -118,7 +118,7 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl12Subphylum.SubphylumName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl12Subphylum.SubphylumName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl12Subphylum.SubphylumName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
@@ -145,11 +145,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl15Subdivision.SubdivisionName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl15Subdivision.SubdivisionName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl15Subdivision.SubdivisionName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
 
@@ -173,11 +173,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl18Superclass.SuperclassName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl18Superclass.SuperclassName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl18Superclass.SuperclassName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
 
@@ -201,11 +201,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl21Class.ClassName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl21Class.ClassName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl21Class.ClassName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
 
@@ -229,11 +229,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl24Subclass.SubclassName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl24Subclass.SubclassName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl24Subclass.SubclassName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
 
@@ -257,11 +257,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl27Infraclass.InfraclassName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl27Infraclass.InfraclassName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl27Infraclass.InfraclassName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
 
@@ -285,11 +285,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl30Legio.LegioName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl30Legio.LegioName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl30Legio.LegioName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
 
@@ -313,11 +313,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl33Ordo.OrdoName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl33Ordo.OrdoName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl33Ordo.OrdoName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
 
@@ -341,11 +341,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl36Subordo.SubordoName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl36Subordo.SubordoName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl36Subordo.SubordoName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
 
@@ -369,11 +369,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl39Infraordo.InfraordoName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl39Infraordo.InfraordoName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl39Infraordo.InfraordoName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -396,11 +396,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl42Superfamily.SuperfamilyName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl42Superfamily.SuperfamilyName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl42Superfamily.SuperfamilyName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -423,11 +423,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl45Family.FamilyName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl45Family.FamilyName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl45Family.FamilyName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -450,11 +450,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl48Subfamily.SubfamilyName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl48Subfamily.SubfamilyName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl48Subfamily.SubfamilyName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -477,11 +477,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl51Infrafamily.InfrafamilyName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl51Infrafamily.InfrafamilyName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl51Infrafamily.InfrafamilyName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -504,11 +504,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl54Supertribus.SupertribusName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl54Supertribus.SupertribusName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl54Supertribus.SupertribusName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -531,11 +531,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl57Tribus.TribusName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl57Tribus.TribusName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl57Tribus.TribusName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -558,11 +558,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl60Subtribus.SubtribusName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl60Subtribus.SubtribusName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl60Subtribus.SubtribusName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -585,11 +585,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl63Infratribus.InfratribusName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl63Infratribus.InfratribusName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl63Infratribus.InfratribusName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -614,11 +614,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl66Genus.GenusName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl66Genus.GenusName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl66Genus.GenusName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -635,11 +635,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl68Speciesgroup.SpeciesgroupName + " " + currentTbl68Speciesgroup.Subspeciesgroup);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl68Speciesgroup.SpeciesgroupName + " " + currentTbl68Speciesgroup.Subspeciesgroup + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl68Speciesgroup.SpeciesgroupName + " " + currentTbl68Speciesgroup.Subspeciesgroup + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -660,11 +660,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl69FiSpecies.FiSpeciesName + " " + currentTbl69FiSpecies.Subspecies + " " + currentTbl69FiSpecies.Divers);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl69FiSpecies.FiSpeciesName + " " + currentTbl69FiSpecies.Subspecies + " " + currentTbl69FiSpecies.Divers + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl69FiSpecies.FiSpeciesName + " " + currentTbl69FiSpecies.Subspecies + " " + currentTbl69FiSpecies.Divers + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -685,11 +685,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl72PlSpecies.PlSpeciesName + " " + currentTbl72PlSpecies.Subspecies + " " + currentTbl72PlSpecies.Divers);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl72PlSpecies.PlSpeciesName + " " + currentTbl72PlSpecies.Subspecies + " " + currentTbl72PlSpecies.Divers + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl72PlSpecies.PlSpeciesName + " " + currentTbl72PlSpecies.Subspecies + " " + currentTbl72PlSpecies.Divers + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -714,11 +714,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl78Name.NameName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl78Name.NameName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl78Name.NameName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -743,11 +743,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl81Image.Info);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl81Image.Info + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl81Image.Info + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -772,11 +772,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl84Synonym.SynonymName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl84Synonym.SynonymName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl84Synonym.SynonymName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -801,11 +801,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl87Geographic.Info);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl87Geographic.Info + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl87Geographic.Info + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -823,11 +823,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl90Reference.Info);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl90Reference.Info + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl90Reference.Info + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -1341,11 +1341,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl90ReferenceAuthor.Info);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl90ReferenceAuthor.Info + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl90ReferenceAuthor.Info + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -1362,11 +1362,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl90ReferenceSource.Info);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl90ReferenceSource.Info + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl90ReferenceSource.Info + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
 
@@ -1384,11 +1384,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl90ReferenceExpert.Info);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl90ReferenceExpert.Info + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl90ReferenceExpert.Info + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -1408,11 +1408,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl90RefAuthor.RefAuthorName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl90RefAuthor.RefAuthorName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl90RefAuthor.RefAuthorName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -1432,11 +1432,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl90RefExpert.RefExpertName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl90RefExpert.RefExpertName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl90RefExpert.RefExpertName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -1456,11 +1456,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl90RefSource.RefSourceName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl90RefSource.RefSourceName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl90RefSource.RefSourceName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -1482,11 +1482,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTbl93Comment.Info);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl93Comment.Info + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTbl93Comment.Info + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -1507,11 +1507,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTblCountry.Name);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTblCountry.Name + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTblCountry.Name + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }
@@ -1531,11 +1531,11 @@ namespace ATIS.Ui.Core
 
                     _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteSuccess, currentTblUserProfile.FirstName + " " + currentTblUserProfile.LastName);
                 }
-                else _allMessageBoxes.InfoMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTblUserProfile.FirstName + " " + currentTblUserProfile.LastName + " " + CultRes.StringsRes.DeleteCan1);
+                else _allMessageBoxes.WarningMessageBox(CultRes.StringsRes.DeleteNot, CultRes.StringsRes.DeleteCan + " " + currentTblUserProfile.FirstName + " " + currentTblUserProfile.LastName + " " + CultRes.StringsRes.DeleteCan1);
             }
             catch (Exception e)
             {
-                _allMessageBoxes.InfoMessageBox(e.Message, CultRes.StringsRes.Error);
+                _allMessageBoxes.ErrorMessageBox(e.Message, CultRes.StringsRes.Error);
                 SimpleLog.Log(e);
             }
         }

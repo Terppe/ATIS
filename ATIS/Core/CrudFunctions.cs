@@ -3864,7 +3864,7 @@ namespace ATIS.Ui.Core
         public Tbl66Genus GetGenusSingleByGenusId<T>(int id)
         {
             Tbl66Genus single = _uow.Tbl66Genusses.GetById(id);
-            //    Tbl66Genus single = _context.Tbl66Genusses.FirstOrDefault(a => a.GenusId == id);
+            //    Tbl66Genus single = _context.Tbl66Genusses.AsNoTracking().FirstOrDefault(a => a.GenusId == id);
             return single;
         }
         public ObservableCollection<Tbl66Genus> GetLastGenussesDatasetOrderById()
@@ -3984,11 +3984,11 @@ namespace ATIS.Ui.Core
             else                        //add
                 _uow.Tbl66Genusses.Add(home);
 
+            // _context.SaveChanges();
             _uow.Complete();
             //_uow.Commit();
         }
         #endregion
-
         #endregion
 
         #region Speciesgroup
