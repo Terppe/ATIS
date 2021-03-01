@@ -9,7 +9,7 @@ namespace ATIS.Ui.Views.Log
     /// <summary>
     /// Interaktionslogik für RegisterWindow.xaml
     /// </summary>
-    [PrincipalPermission(SecurityAction.Demand)]
+    //[PrincipalPermission(SecurityAction.Demand)]
 
     public partial class RegisterWindow : MetroWindow, MainWindowViewModel.IView
     {

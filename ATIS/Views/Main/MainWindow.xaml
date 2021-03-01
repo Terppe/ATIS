@@ -12,11 +12,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:search="clr-namespace:ATIS.Ui.Views.Search"
     d:DesignHeight="400"
-    d:DesignWidth="1000"
+    d:DesignWidth="1200"
     dialog:DialogParticipation.Register="{Binding}"
     Background="DarkTurquoise"
     Closing="MetroWindow_Closing"
-    GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+    GlowBrush="{DynamicResource MahApps.Brushes.Accent1}"
     RenderOptions.ClearTypeHint="Enabled"
     ResizeMode="CanResizeWithGrip"
     SaveWindowPosition="True"
@@ -446,9 +446,13 @@
         </Grid>
 
         <StatusBar Grid.Row="3" Grid.Column="0">
-            <StatusBarItem>ATIS Application</StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="ATIS Application" />
+            </StatusBarItem>
             <Separator Style="{StaticResource MahApps.Styles.Separator.StatusBar}" />
-            <StatusBarItem>Developer: Rudolf Terppé Version 6.0</StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="Copyright © Rudolf Terppé Version 6.0.0.0" />
+            </StatusBarItem>
             <StatusBarItem Content="{Binding ElementName=MainTabControl, Path=SelectedItem.Header, Mode=OneWay}" />
         </StatusBar>
 

@@ -9,7 +9,7 @@ namespace ATIS.Ui.Views.Log
     /// <summary>
     /// Interaction logic for LoginWindow.xaml
     /// </summary>
-    [PrincipalPermission(SecurityAction.Demand)]
+   // [PrincipalPermission(SecurityAction.Demand)]
     public partial class LoginWindow : MetroWindow, MainWindowViewModel.IView
     {
         public LoginWindow()
