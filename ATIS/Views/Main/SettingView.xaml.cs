@@ -1,7 +1,6 @@
 ﻿using ControlzEx.Theming;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,9 +27,10 @@ namespace ATIS.Ui.Views.Main
 
         public SettingView()
         {
-            DataContext = new SettingViewModel();
+            //   DataContext = new SettingViewModel();
 
             InitializeComponent();
+            this.DataContext = this;
 
             Colors = typeof(Colors)
                 .GetProperties()
@@ -40,10 +40,6 @@ namespace ATIS.Ui.Views.Main
 
             var appTheme = ThemeManager.Current.DetectTheme(Application.Current);
             ThemeManager.Current.ChangeTheme(this, appTheme!);
-
-
-            //     this.DataContext = this;
-
         }
 
         //--------------------- AppStyle-------------
@@ -99,8 +95,5 @@ namespace ATIS.Ui.Views.Main
                 //         AppSettings.ThemeUpdate();
             }
         }
-
-        //-------------------------------------------------------------------------
-
     }
 }
