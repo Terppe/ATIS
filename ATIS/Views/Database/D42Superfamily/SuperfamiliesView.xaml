@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helper="clr-namespace:ATIS.Ui.Helper"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:ATIS.Ui.Models"
@@ -12,7 +13,222 @@
     d:DesignWidth="1600"
     mc:Ignorable="d">
 
-    <UserControl.Resources />
+    <UserControl.Resources>
+        <ContextMenu x:Key="MenuInfraordoSave" MinWidth="150">
+            <MenuItem Command="{Binding SaveInfraordoCommand}" Header="{DynamicResource Shared-ButtonSave}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MenuSuperfamilyAll" MinWidth="150">
+            <MenuItem Command="{Binding SaveSuperfamilyCommand}" Header="{DynamicResource Shared-ButtonSave}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding CopySuperfamilyCommand}" Header="{DynamicResource Shared-ButtonCopy}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding AddSuperfamilyCommand}" Header="{DynamicResource Shared-ButtonAdd}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding DeleteSuperfamilyCommand}" Header="{DynamicResource Shared-ButtonDelete}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MenuFamilyAll" MinWidth="150">
+            <MenuItem Command="{Binding SaveFamilyCommand}" Header="{DynamicResource Shared-ButtonSave}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding CopyFamilyCommand}" Header="{DynamicResource Shared-ButtonCopy}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding AddFamilyCommand}" Header="{DynamicResource Shared-ButtonAdd}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding DeleteFamilyCommand}" Header="{DynamicResource Shared-ButtonDelete}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MenuReferenceExpert">
+            <MenuItem Command="{Binding SaveReferenceExpertCommand}" Header="{DynamicResource Shared-ButtonSave}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding CopyReferenceExpertCommand}" Header="{DynamicResource Shared-ButtonCopy}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding AddReferenceExpertCommand}" Header="{DynamicResource Shared-ButtonAdd}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding DeleteReferenceExpertCommand}" Header="{DynamicResource Shared-ButtonDelete}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MenuReferenceSource">
+            <MenuItem Command="{Binding SaveReferenceSourceCommand}" Header="{DynamicResource Shared-ButtonSave}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding CopyReferenceSourceCommand}" Header="{DynamicResource Shared-ButtonCopy}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding AddReferenceSourceCommand}" Header="{DynamicResource Shared-ButtonAdd}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding DeleteReferenceSourceCommand}" Header="{DynamicResource Shared-ButtonDelete}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MenuReferenceAuthor">
+            <MenuItem Command="{Binding SaveReferenceAuthorCommand}" Header="{DynamicResource Shared-ButtonSave}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding CopyReferenceAuthorCommand}" Header="{DynamicResource Shared-ButtonCopy}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding AddReferenceAuthorCommand}" Header="{DynamicResource Shared-ButtonAdd}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding DeleteReferenceAuthorCommand}" Header="{DynamicResource Shared-ButtonDelete}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MenuComment">
+            <MenuItem Command="{Binding SaveCommentCommand}" Header="{DynamicResource Shared-ButtonSave}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding CopyCommentCommand}" Header="{DynamicResource Shared-ButtonCopy}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding AddCommentCommand}" Header="{DynamicResource Shared-ButtonAdd}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding DeleteCommentCommand}" Header="{DynamicResource Shared-ButtonDelete}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+    </UserControl.Resources>
 
 
     <!--  SuperfamiliesView.xaml  Skriptdatum:  07.01.2021  10:32  -->
@@ -631,7 +847,7 @@
             SelectedIndex="{Binding SelectedDetailTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl39Infraordo-Infraordo}">
-                <GroupBox>
+                <GroupBox Background="Transparent" ContextMenu="{StaticResource MenuInfraordoSave}">
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
 
@@ -900,7 +1116,7 @@
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl42Superfamily-Superfamily}">
                 <StackPanel>
-                    <GroupBox>
+                    <GroupBox Background="Transparent" ContextMenu="{StaticResource MenuSuperfamilyAll}">
                         <StackPanel Margin="1">
                             <StackPanel Height="Auto" Orientation="Horizontal">
 
@@ -1185,7 +1401,7 @@
 
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl45Family-Family}">
-                <GroupBox>
+                <GroupBox Background="Transparent" ContextMenu="{StaticResource MenuFamilyAll}">
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
 
@@ -1462,7 +1678,7 @@
 
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceExpert}">
-                <GroupBox>
+                <GroupBox Background="Transparent" ContextMenu="{StaticResource MenuReferenceExpert}">
                     <StackPanel Margin="0,8,5,0">
                         <StackPanel Height="Auto" Orientation="Horizontal">
 
@@ -1547,7 +1763,7 @@
             </TabItem>
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceSource}">
-                <GroupBox>
+                <GroupBox Background="Transparent" ContextMenu="{StaticResource MenuReferenceSource}">
                     <StackPanel Margin="0,8,5,0">
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <Button Template="{StaticResource SaveReferenceSourceButton}" />
@@ -1659,7 +1875,7 @@
             </TabItem>
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceAuthor}">
-                <GroupBox>
+                <GroupBox Background="Transparent" ContextMenu="{StaticResource MenuReferenceAuthor}">
                     <StackPanel Margin="0,8,5,0">
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <Button Template="{StaticResource SaveReferenceAuthorButton}" />
@@ -1775,7 +1991,7 @@
             <!--  Part 14  -->
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl93Comment-Comment}">
-                <GroupBox>
+                <GroupBox Background="Transparent" ContextMenu="{StaticResource MenuComment}">
                     <StackPanel Margin="0,8,5,0">
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <Button Template="{StaticResource SaveCommentButton}" />

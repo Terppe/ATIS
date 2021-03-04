@@ -8,11 +8,227 @@
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:ATIS.Ui.Models"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     d:DesignHeight="800"
     d:DesignWidth="1600"
     mc:Ignorable="d">
 
-    <UserControl.Resources />
+    <UserControl.Resources>
+        <ContextMenu x:Key="MenuSubclassSave" MinWidth="150">
+            <MenuItem Command="{Binding SaveSubclassCommand}" Header="{DynamicResource Shared-ButtonSave}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MenuInfraclassAll" MinWidth="150">
+            <MenuItem Command="{Binding SaveInfraclassCommand}" Header="{DynamicResource Shared-ButtonSave}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding CopyInfraclassCommand}" Header="{DynamicResource Shared-ButtonCopy}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding AddInfraclassCommand}" Header="{DynamicResource Shared-ButtonAdd}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding DeleteInfraclassCommand}" Header="{DynamicResource Shared-ButtonDelete}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MenuLegioAll" MinWidth="150">
+            <MenuItem Command="{Binding SaveLegioCommand}" Header="{DynamicResource Shared-ButtonSave}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding CopyLegioCommand}" Header="{DynamicResource Shared-ButtonCopy}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding AddLegioCommand}" Header="{DynamicResource Shared-ButtonAdd}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding DeleteLegioCommand}" Header="{DynamicResource Shared-ButtonDelete}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MenuReferenceExpert">
+            <MenuItem Command="{Binding SaveReferenceExpertCommand}" Header="{DynamicResource Shared-ButtonSave}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding CopyReferenceExpertCommand}" Header="{DynamicResource Shared-ButtonCopy}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding AddReferenceExpertCommand}" Header="{DynamicResource Shared-ButtonAdd}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding DeleteReferenceExpertCommand}" Header="{DynamicResource Shared-ButtonDelete}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MenuReferenceSource">
+            <MenuItem Command="{Binding SaveReferenceSourceCommand}" Header="{DynamicResource Shared-ButtonSave}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding CopyReferenceSourceCommand}" Header="{DynamicResource Shared-ButtonCopy}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding AddReferenceSourceCommand}" Header="{DynamicResource Shared-ButtonAdd}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding DeleteReferenceSourceCommand}" Header="{DynamicResource Shared-ButtonDelete}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MenuReferenceAuthor">
+            <MenuItem Command="{Binding SaveReferenceAuthorCommand}" Header="{DynamicResource Shared-ButtonSave}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding CopyReferenceAuthorCommand}" Header="{DynamicResource Shared-ButtonCopy}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding AddReferenceAuthorCommand}" Header="{DynamicResource Shared-ButtonAdd}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding DeleteReferenceAuthorCommand}" Header="{DynamicResource Shared-ButtonDelete}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MenuComment">
+            <MenuItem Command="{Binding SaveCommentCommand}" Header="{DynamicResource Shared-ButtonSave}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding CopyCommentCommand}" Header="{DynamicResource Shared-ButtonCopy}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding AddCommentCommand}" Header="{DynamicResource Shared-ButtonAdd}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding DeleteCommentCommand}" Header="{DynamicResource Shared-ButtonDelete}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+    </UserControl.Resources>
 
 
     <!--  InfraclassesView.xaml  Skriptdatum:  07.01.2021  18:32  -->

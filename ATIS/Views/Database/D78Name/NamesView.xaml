@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helper="clr-namespace:ATIS.Ui.Helper"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:ATIS.Ui.Models"
@@ -12,8 +13,62 @@
     d:DesignWidth="1600"
     mc:Ignorable="d">
 
-    <UserControl.Resources />
-
+    <UserControl.Resources>
+        <ContextMenu x:Key="MenuFiSpeciesSave" MinWidth="150">
+            <MenuItem Command="{Binding SaveFiSpeciesCommand}" Header="{DynamicResource Shared-ButtonSave}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MenuPlSpeciesSave" MinWidth="150">
+            <MenuItem Command="{Binding SavePlSpeciesCommand}" Header="{DynamicResource Shared-ButtonSave}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MenuNameAll" MinWidth="150">
+            <MenuItem Command="{Binding SaveNameCommand}" Header="{DynamicResource Shared-ButtonSave}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding CopyNameCommand}" Header="{DynamicResource Shared-ButtonCopy}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding AddNameCommand}" Header="{DynamicResource Shared-ButtonAdd}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding DeleteNameCommand}" Header="{DynamicResource Shared-ButtonDelete}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+    </UserControl.Resources>
 
     <!--  NamesView.xaml  Skriptdatum:  29.01.2021  10:32  -->
 
@@ -395,7 +450,7 @@
             SelectedIndex="{Binding SelectedDetailTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl69FiSpecies-FiSpecies}">
-                <GroupBox>
+                <GroupBox Background="Transparent" ContextMenu="{StaticResource MenuFiSpeciesSave}">
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <Button Template="{StaticResource SaveFiSpeciesButton}" />
@@ -452,15 +507,6 @@
                                 FontWeight="Medium"
                                 SpellCheck.IsEnabled="True"
                                 ToolTip="{DynamicResource Tbl69FiSpecies-FiSpeciesName}">
-                                <TextBox.ContextMenu>
-                                    <ContextMenu>
-                                        <MenuItem Header="Custom Item" />
-                                        <Separator />
-                                        <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                        <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                        <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                    </ContextMenu>
-                                </TextBox.ContextMenu>
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl69FiSpeciessesList"
@@ -480,15 +526,6 @@
                                 FontWeight="Medium"
                                 SpellCheck.IsEnabled="True"
                                 ToolTip="{DynamicResource Tbl69FiSpecies-Subspecies}">
-                                <TextBox.ContextMenu>
-                                    <ContextMenu>
-                                        <MenuItem Header="Custom Item" />
-                                        <Separator />
-                                        <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                        <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                        <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                    </ContextMenu>
-                                </TextBox.ContextMenu>
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl69FiSpeciessesList"
@@ -508,15 +545,6 @@
                                 FontWeight="Medium"
                                 SpellCheck.IsEnabled="True"
                                 ToolTip="{DynamicResource Tbl69FiSpecies-Divers}">
-                                <TextBox.ContextMenu>
-                                    <ContextMenu>
-                                        <MenuItem Header="Custom Item" />
-                                        <Separator />
-                                        <MenuItem Command="ApplicationCommands.Cut" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                        <MenuItem Command="ApplicationCommands.Copy" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                        <MenuItem Command="ApplicationCommands.Paste" Style="{DynamicResource MahApps.Styles.MenuItem}" />
-                                    </ContextMenu>
-                                </TextBox.ContextMenu>
                                 <TextBox.Text>
                                     <Binding
                                         ElementName="Tbl69FiSpeciessesList"
@@ -1209,7 +1237,7 @@
             </TabItem>
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl72PlSpecies-PlSpecies}">
-                <GroupBox>
+                <GroupBox Background="Transparent" ContextMenu="{StaticResource MenuPlSpeciesSave}">
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <Button Template="{StaticResource SavePlSpeciesButton}" />
@@ -1904,7 +1932,7 @@
             </TabItem>
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl78Name-Name}">
-                <GroupBox>
+                <GroupBox Background="Transparent" ContextMenu="{StaticResource MenuNameAll}">
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <Button Template="{StaticResource SaveNameButton}" />

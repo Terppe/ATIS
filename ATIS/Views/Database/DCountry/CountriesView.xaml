@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helper="clr-namespace:ATIS.Ui.Helper"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:ATIS.Ui.Models"
@@ -12,7 +13,42 @@
     d:DesignWidth="1600"
     mc:Ignorable="d">
 
-    <UserControl.Resources />
+    <UserControl.Resources>
+        <ContextMenu x:Key="MenuCountryAll" MinWidth="150">
+            <MenuItem Command="{Binding SaveCountryCommand}" Header="{DynamicResource Shared-ButtonSave}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding CopyCountryCommand}" Header="{DynamicResource Shared-ButtonCopy}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding AddCountryCommand}" Header="{DynamicResource Shared-ButtonAdd}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding DeleteCountryCommand}" Header="{DynamicResource Shared-ButtonDelete}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+    </UserControl.Resources>
 
 
     <!--  CountriesView.xaml  Skriptdatum:   13.02.2021 12:32  -->
@@ -207,7 +243,7 @@
             Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
 
             <TabItem FontWeight="Medium" Header="{DynamicResource TblCountry-Country}">
-                <GroupBox>
+                <GroupBox Background="Transparent" ContextMenu="{StaticResource MenuCountryAll}">
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
 

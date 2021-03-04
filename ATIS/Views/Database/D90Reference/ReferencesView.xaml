@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helper="clr-namespace:ATIS.Ui.Helper"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:ATIS.Ui.Models"
@@ -12,7 +13,72 @@
     d:DesignWidth="1600"
     mc:Ignorable="d">
 
-    <UserControl.Resources />
+    <UserControl.Resources>
+        <ContextMenu x:Key="MenuReferenceAll" MinWidth="150">
+            <MenuItem Command="{Binding SaveReferenceCommand}" Header="{DynamicResource Shared-ButtonSave}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding CopyReferenceCommand}" Header="{DynamicResource Shared-ButtonCopy}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="PageCopy" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding AddReferenceCommand}" Header="{DynamicResource Shared-ButtonAdd}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Add" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding DeleteReferenceCommand}" Header="{DynamicResource Shared-ButtonDelete}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Delete" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MenuReferenceExpertSave" MinWidth="150">
+            <MenuItem Command="{Binding SaveReferenceExpertCommand}" Header="{DynamicResource Shared-ButtonSave}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MenuReferenceSourceSave" MinWidth="150">
+            <MenuItem Command="{Binding SaveReferenceSourceCommand}" Header="{DynamicResource Shared-ButtonSave}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MenuReferenceAuthorSave" MinWidth="150">
+            <MenuItem Command="{Binding SaveReferenceAuthorCommand}" Header="{DynamicResource Shared-ButtonSave}">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconModern
+                        Width="20"
+                        Height="20"
+                        Kind="Save" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+    </UserControl.Resources>
 
 
     <!--  ReferencesView.xaml  Skriptdatum:  03.02.2021  10:32  -->
@@ -404,7 +470,7 @@
             SelectedIndex="{Binding SelectedDetailTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Tbl90Reference-Reference}">
-                <GroupBox>
+                <GroupBox Background="Transparent" ContextMenu="{StaticResource MenuReferenceAll}">
                     <StackPanel Margin="1">
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <Button Template="{StaticResource SaveReferenceButton}" />
@@ -920,7 +986,7 @@
             <!--  Part 8.1  TK1  Connected  -->
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceExpert}">
-                <GroupBox>
+                <GroupBox Background="Transparent" ContextMenu="{StaticResource MenuReferenceExpertSave}">
                     <StackPanel Margin="0,0,5,0">
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <Button Template="{StaticResource SaveReferenceExpertButton}" />
@@ -1052,7 +1118,7 @@
             <!--  Part 8.2  TK2  Connected  -->
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceSource}">
-                <GroupBox>
+                <GroupBox Background="Transparent" ContextMenu="{StaticResource MenuReferenceSourceSave}">
                     <StackPanel Margin="0,0,5,0">
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <Button Template="{StaticResource SaveReferenceSourceButton}" />
@@ -1227,7 +1293,7 @@
             <!--  Part 8.3  TK3  Connected  -->
 
             <TabItem FontWeight="Medium" Header="{DynamicResource Shared-ReferenceAuthor}">
-                <GroupBox>
+                <GroupBox Background="Transparent" ContextMenu="{StaticResource MenuReferenceAuthorSave}">
                     <StackPanel Margin="0,0,5,0">
                         <StackPanel Height="Auto" Orientation="Horizontal">
                             <Button Template="{StaticResource SaveReferenceAuthorButton}" />
