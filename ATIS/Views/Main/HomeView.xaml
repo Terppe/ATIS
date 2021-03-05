@@ -4,9 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/shared"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:valueConverter="clr-namespace:ATIS.Ui.Helper.ValueConverter"
     d:DesignHeight="600"
     d:DesignWidth="800"
     mc:Ignorable="d">
@@ -116,7 +117,7 @@
             Grid.RowSpan="2"
             Grid.Column="0"
             Grid.ColumnSpan="3">
-            <Label Content="Aquaristic Taxonomic Information System" Style="{DynamicResource DescriptionHeaderStyle}" />
+            <!--<Label Content="Aquaristic Taxonomic Information System" Style="{DynamicResource DescriptionHeaderStyle}" />-->
 
             <Label
                 x:Name="LbVersion"
@@ -221,69 +222,177 @@
                     SwitchUpDownButtons="True"
                     Value="{Binding Path=SelectedIndex, Mode=TwoWay, Converter={valueConverter:Int32IndexToNumberConverter}}" />
             </StackPanel>-->
+            <StackPanel
+                Grid.Column="1"
+                Margin="24,20,0,0"
+                VerticalAlignment="Center">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    FontSize="20"
+                    Style="{DynamicResource DescriptionHeaderStyle}"
+                    Text="{DynamicResource MainWindow-Welcome}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+            <StackPanel>
+                <Border  
+                    Margin="0,8,0,0"
+                    BorderBrush="{DynamicResource MahApps.Brushes.Accent}"
+                    BorderThickness="1" Width="Auto">
+                    <Grid Margin="8">
+                        <Button
+                            Width="120"
+                            HorizontalAlignment="Left"
+                            Click="GitHubButton_OnClick"
+                            Style="{DynamicResource MahApps.Styles.Button}">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconModern
+                                    Width="30"
+                                    Height="30"
+                                    Margin="8,0,0,0"
+                                    Kind="SocialGithub" />
+                                <TextBlock
+                                    Margin="8,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Text="GitHub" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            Width="120"
+                            Margin="130,0,0,0"
+                            HorizontalAlignment="Left"
+                            Click="EmailButton_OnClick"
+                            Style="{DynamicResource MahApps.Styles.Button}">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconModern
+                                    Width="30"
+                                    Height="30"
+                                    Margin="8,0,0,0"
+                                    Kind="Email" />
+                                <TextBlock
+                                    Margin="8,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Text="Email" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </Border>
+            </StackPanel>
+            <StackPanel>
+                <Border
+                    Margin="0,8,0,0"
+                    BorderBrush="{DynamicResource MahApps.Brushes.Accent}"
+                    BorderThickness="1">
+                    <Grid Margin="8">
+                        <Button
+                            Width="120"
+                            HorizontalAlignment="Left"
+                            Click="ItisUSAButton_OnClick"
+                            Style="{DynamicResource MahApps.Styles.Button}">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconModern
+                                    Width="30"
+                                    Height="30"
+                                    Margin="8,0,0,0"
+                                    Kind="Ferry" />
+                                <TextBlock
+                                    Margin="8,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Text="ITIS USA" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            Width="120"
+                            Margin="130,0,0,0"
+                            HorizontalAlignment="Left"
+                            Click="ItisCandaButton_OnClick"
+                            Style="{DynamicResource MahApps.Styles.Button}">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconModern
+                                    Width="30"
+                                    Height="30"
+                                    Margin="8,0,0,0"
+                                    Kind="Ferry" />
+                                <TextBlock
+                                    Margin="8,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Text="ITIS Canada" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            Width="120"
+                            Margin="260,0,0,0"
+                            HorizontalAlignment="Left"
+                            Click="CoLifeButton_OnClick"
+                            Style="{DynamicResource MahApps.Styles.Button}">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconModern
+                                    Width="30"
+                                    Height="30"
+                                    Margin="8,0,0,0"
+                                    Kind="Ferry" />
+                                <TextBlock
+                                    Margin="8,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Text="Catalog of Life" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            Width="120"
+                            Margin="390,0,0,0"
+                            HorizontalAlignment="Left"
+                            Click="EOLButton_OnClick"
+                            Style="{DynamicResource MahApps.Styles.Button}">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconModern
+                                    Width="30"
+                                    Height="30"
+                                    Margin="8,0,0,0"
+                                    Kind="Ferry" />
+                                <TextBlock
+                                    Margin="8,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Text="EOL" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            Width="120"
+                            Margin="520,0,0,0"
+                            HorizontalAlignment="Left"
+                            Click="GlobalBioButton_OnClick"
+                            Style="{DynamicResource MahApps.Styles.Button}">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconModern
+                                    Width="30"
+                                    Height="30"
+                                    Margin="8,0,0,0"
+                                    Kind="Ferry" />
+                                <TextBlock
+                                    Margin="8,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Text="Global Bio" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            Width="120"
+                            Margin="650,0,0,0"
+                            HorizontalAlignment="Left"
+                            Click="MexicoButton_OnClick"
+                            Style="{DynamicResource MahApps.Styles.Button}">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconModern
+                                    Width="30"
+                                    Height="30"
+                                    Margin="8,0,0,0"
+                                    Kind="Ferry" />
+                                <TextBlock
+                                    Margin="8,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Text="Mexico" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </Border>
+            </StackPanel>
         </StackPanel>
-
-        <!--<Grid Grid.Row="1" Grid.Column="0">
-            <Label Content="Context menu" Style="{DynamicResource DescriptionHeaderStyle}" />
-            <Label HorizontalAlignment="Stretch"
-                   VerticalAlignment="Stretch"
-                   HorizontalContentAlignment="Center"
-                   VerticalContentAlignment="Center"
-                   Content="Right click here to open a context menu">
-                <Label.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Menu 1">
-                            <MenuItem Header="Submenu 1" IsChecked="True" />
-                            <MenuItem Header="Submenu 1"
-                                      IsChecked="True"
-                                      IsEnabled="False" />
-                            <MenuItem Header="Submenu 2" />
-                            <MenuItem Header="Submenu 3" IsEnabled="False" />
-                        </MenuItem>
-                        <MenuItem Header="Menu 2" />
-                        <MenuItem Header="Menu 3" IsChecked="True" />
-                        <MenuItem Header="Menu 4"
-                                  IsChecked="True"
-                                  IsEnabled="False" />
-                        <MenuItem Header="Menu 5" />
-                        <MenuItem Header="Menu 6" IsEnabled="False" />
-                    </ContextMenu>
-                </Label.ContextMenu>
-            </Label>
-        </Grid>-->
-
-
     </Grid>
-
-
-    <!--<Grid>
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" MinWidth="250" />
-            <ColumnDefinition Width="*" MinWidth="200" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-
-
-
-
-
-        <Label
-            Grid.Row="1"
-            Grid.Column="0"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Content="Aquaristic Taxonomic Information System" />
-
-        <Label
-            x:Name="LbVersion"
-            Grid.Row="0"
-            Grid.Column="0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top" />
-
-    </Grid>-->
 </UserControl>

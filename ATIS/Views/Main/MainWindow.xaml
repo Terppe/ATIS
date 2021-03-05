@@ -401,7 +401,6 @@
                         Kind="RegularBrush" />
                 </StackPanel>
             </Button>
-
             <Button
                 Grid.Row="0"
                 Width="30"
@@ -433,7 +432,6 @@
                         Kind="DoorLeave" />
                 </StackPanel>
             </Button>
-
             <mah:Flyout
                 Height="35"
                 Margin="870,0,0,0"
@@ -462,14 +460,17 @@
             Grid.Row="2"
             Grid.Column="0"
             Margin="0,0,1,0"
+            CompactPaneLength="48"
             HamburgerWidth="48"
             IsPaneOpen="True"
             ItemInvoked="HamburgerMenuControl_OnItemInvoked"
             ItemTemplate="{StaticResource MenuItemTemplate}"
+            OpenPaneLength="160"
             OptionsItemTemplate="{StaticResource MenuItemTemplate}"
+            PaneBackground="LightGray"
             SelectedIndex="0"
             Style="{StaticResource MahApps.Styles.HamburgerMenu.Ripple}"
-            VerticalScrollBarOnLeftSide="False">
+            VerticalScrollBarOnLeftSide="True">
             <!--  Header  -->
             <mah:HamburgerMenu.HamburgerMenuHeaderTemplate>
                 <DataTemplate>
@@ -557,12 +558,12 @@
                             <main:AddonsView />
                         </mah:HamburgerMenuIconItem.Tag>
                     </mah:HamburgerMenuIconItem>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Octicons Kind=Search}" Label="Search Quick">
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Octicons Kind=Search}" Label="{DynamicResource MainWindow-ItemSearchQuick}">
                         <mah:HamburgerMenuIconItem.Tag>
                             <search:SearchQuickView />
                         </mah:HamburgerMenuIconItem.Tag>
                     </mah:HamburgerMenuIconItem>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Octicons Kind=Question}" Label="About">
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Octicons Kind=Question}" Label="{DynamicResource MainWindow-ItemAbout}">
                         <mah:HamburgerMenuIconItem.Tag>
                             <main:AboutView />
                         </mah:HamburgerMenuIconItem.Tag>

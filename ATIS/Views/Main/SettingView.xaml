@@ -7,6 +7,7 @@
     xmlns:local="clr-namespace:ATIS.Ui.Views.Main"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:theming="urn:controlzex"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     d:DataContext="{d:DesignInstance local:SettingViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -88,7 +89,12 @@
                     </Grid>
                 </GroupBox>
             </TabItem>
-            <TabItem Header="{DynamicResource Shared-TabStripHeaderIcons}" />
+            <TabItem Header="{DynamicResource Shared-TabStripHeaderIcons}">
+                <!--<ContentControl Content="{iconPacks:PackIcon {x:Static iconPacks:PackIconFontAwesomeKind.Book}, Width=20, Height=20}"/>-->
+                <Grid>
+                    <!--<iconPacks:PackIconMaterial Kind="EmoticonCool" VerticalAlignment="Center" HorizontalAlignment="Center" />-->
+                </Grid>
+            </TabItem>
             <TabItem Header="{DynamicResource Shared-TabStripHeaderLanguages}">
                 <GroupBox Margin="5"  >
 
