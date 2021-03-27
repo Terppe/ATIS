@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Globalization;
-using System.Linq;
 using ATIS.Ui.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
@@ -10,7 +10,7 @@ using BitMiracle.Docotic.Pdf;
 using Microsoft.Win32;
 
 
-//    ReportRegnumPdf Skriptdatum:  27.11.2020  12:32      
+//    ReportRegnumPdf Skriptdatum:  04.01.2021  12:32      
 
 namespace ATIS.Ui.Views.Report.D03Regnum
 {
@@ -25,6 +25,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
         private static int _z;
         private static int[] _arrInts = new int[11];
         private static PdfPage _page;
+        private static Tbl03Regnum _regnumSingleList;
 
 
         //    Part 1    
@@ -37,19 +38,20 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             // Please visit http://bitmiracle.com/pdf-library/trial-restrictions.aspx
             // for more information.
 
-          //  log4net.Config.XmlConfigurator.Configure();
+            var key = ConfigurationManager.AppSettings["Pdf"];
+            LicenseManager.AddLicenseData(key);
+            //BitMiracle.Docotic.LicenseManager.AddLicenseData(key);
 
-
-            //  LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
-            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");      
+            //LicenseManager.AddLicenseData("5LX7Z-5GUF6-UUYTR-8YOQC-XGT2B");
+            //  BitMiracle.Docotic.LicenseManager.AddLicenseData("5LX7Z-5GUF6-UUYTR-8YOQC-XGT2B");
             //-----------------------------------------------------------------------------     
 
-            var regnumList = ExtCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(id).FirstOrDefault();
+            _regnumSingleList = ExtCrud.GetRegnumSingleByRegnumId<Tbl03Regnum>(id);
 
             //Children
             var phylumsList = ExtCrud.GetPhylumsCollectionFromRegnumIdOrderBy<Tbl06Phylum>(id);
             var divisionsList = ExtCrud.GetDivisionsCollectionFromRegnumIdOrderBy<Tbl09Division>(id);
-
+            //------------------------------------------------------   
             var expertsList = ExtCrud.GetReferenceExpertsCollectionFromRegnumIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(id);
             var sourcesList = ExtCrud.GetReferenceSourcesCollectionFromRegnumIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(id);
             var authorsList = ExtCrud.GetReferenceAuthorsCollectionFromRegnumIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(id);
@@ -60,10 +62,10 @@ namespace ATIS.Ui.Views.Report.D03Regnum
                 using var pdf = new PdfDocument();
                 _arrInts = PdfHelper.AddReportMain(pdf);
 
-                AddRegnumHaeder(pdf, regnumList);
-                AddRegnumTaxoNomenList(pdf, regnumList);
+                AddRegnumHaeder(pdf, _regnumSingleList);
+                AddRegnumTaxoNomenList(pdf, _regnumSingleList);
 
-                AddRegnumHierarchyList(pdf, regnumList);
+                AddRegnumHierarchyList(pdf, _regnumSingleList);
 
                 if (phylumsList.Count != 0)
                     AddPhylumsChildrenList(pdf, phylumsList);
@@ -92,7 +94,7 @@ namespace ATIS.Ui.Views.Report.D03Regnum
                     {
                         var sfd = new SaveFileDialog { Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*" };
                         sfd.DefaultExt = ".pdf"; // Default file extension
-                        sfd.InitialDirectory = @"C:\";
+                        sfd.InitialDirectory = @"C:\Temp\";
                         var saveResult = sfd.ShowDialog();
                         // Process save file dialog box results
                         if (saveResult != true) return;
@@ -112,13 +114,13 @@ namespace ATIS.Ui.Views.Report.D03Regnum
             catch (Exception e)
             {
                 // Handle  errors
-                SimpleLog.Log(e);
+                SimpleLog.Error(e.Message);
             }
             finally
             {
-                // Clean up
+                //Clean up
                 //        if (pdf != null) pdf.Dispose();
-                //     doc = null;
+                //doc = null;
                 SimpleLog.Error("Fehler");
             }
         }

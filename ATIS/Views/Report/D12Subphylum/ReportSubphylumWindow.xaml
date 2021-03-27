@@ -11,7 +11,7 @@
     Height="600"
     ResizeMode="CanResizeWithGrip">
 
-    <!--  ReportSubphylumWindow.xaml  Skriptdatum:  01.12.2020  12:32  -->
+    <!--  ReportSubphylumWindow.xaml  Skriptdatum:  06.01.2021  12:32  -->
 
     <mah:MetroWindow.Resources>
         <ResourceDictionary>
@@ -589,7 +589,7 @@
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Expert}" />
                                                 <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefExperts).RefExpertName}" />
                                             </StackPanel>
-                                            <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <StackPanel Margin="20,0,0,10" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Notes}" />
                                                 <TextBlock
                                                     Width="700"
@@ -635,7 +635,7 @@
                                                     Text="{Binding (models:Tbl90Reference.Tbl90RefSources).Info}"
                                                     TextWrapping="Wrap" />
                                             </StackPanel>
-                                            <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <StackPanel Margin="20,0,0,10" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Shared-Notes}" />
                                                 <TextBlock
                                                     Width="700"
@@ -698,7 +698,7 @@
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Infos}" />
                                                 <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).Info}" />
                                             </StackPanel>
-                                            <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <StackPanel Margin="20,0,0,10" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Notes}" />
                                                 <TextBlock
                                                     Width="700"
@@ -754,7 +754,7 @@
                                                     Text="{Binding (models:Tbl93Comment.Info)}"
                                                     TextWrapping="Wrap" />
                                             </StackPanel>
-                                            <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <StackPanel Margin="20,0,0,10" Orientation="Horizontal">
                                                 <TextBlock
                                                     Width="300"
                                                     FontWeight="Bold"

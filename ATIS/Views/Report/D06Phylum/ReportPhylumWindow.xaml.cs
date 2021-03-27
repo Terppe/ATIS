@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Configuration;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using MahApps.Metro.Controls;
 using ATIS.Ui.Views.Report.D03Regnum;
 using ATIS.Ui.Views.Report.D12Subphylum;
-using MahApps.Metro.Controls;
 
-//  ReportPhylumWindow.xaml.cs Skriptdatum:  28.11.2020  12:32     
+//  ReportPhylumWindow.xaml.cs Skriptdatum:  06.01.2021  12:32     
 
 namespace ATIS.Ui.Views.Report.D06Phylum
 {
@@ -18,17 +19,20 @@ namespace ATIS.Ui.Views.Report.D06Phylum
     {
 
         public ReportPhylumWindow(int un, string tab)
-        {
-            //      Mouse.OverrideCursor = Cursors.Wait;
+        { 
 
             DataContext = new ReportViewModel(un, tab);
             InitializeComponent();
 
-            WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            //    WindowStartupLocation = WindowStartupLocation.Manual;
+            var left = Convert.ToInt16(ConfigurationManager.AppSettings["Left"]);
+            var top = Convert.ToInt16(ConfigurationManager.AppSettings["Top"]);
+            var height = Convert.ToInt16(ConfigurationManager.AppSettings["Height"]);
+            var width = Convert.ToInt16(ConfigurationManager.AppSettings["Width"]);
 
-            //       Left = Settings.Default.Left + (Settings.Default.Width / 2) - (Width / 2);
-            //       Top = Settings.Default.Top + (Settings.Default.Height / 2) - (Height / 2);
+            WindowStartupLocation = WindowStartupLocation.Manual;
+
+            Left = left + (width / 2) - (Width / 2);
+            Top  = top + (height / 2) - (Height / 2);
         }
 
         private void Print_Click(object sender, RoutedEventArgs e)

@@ -69,24 +69,7 @@
 
   <ItemGroup>
     <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Report\D24Subclass\" />
-    <Folder Include="Views\Report\D27Infraclass\" />
-    <Folder Include="Views\Report\D30Legio\" />
-    <Folder Include="Views\Report\D33Ordo\" />
-    <Folder Include="Views\Report\D36Subordo\" />
-    <Folder Include="Views\Report\D39Infraordo\" />
-    <Folder Include="Views\Report\D42Superfamily\" />
-    <Folder Include="Views\Report\D45Family\" />
-    <Folder Include="Views\Report\D48Subfamily\" />
-    <Folder Include="Views\Report\D51Infrafamily\" />
-    <Folder Include="Views\Report\D54Supertribus\" />
-    <Folder Include="Views\Report\D57Tribus\" />
-    <Folder Include="Views\Report\D60Subtribus\" />
-    <Folder Include="Views\Report\D63Infratribus\" />
-    <Folder Include="Views\Report\D66Genus\" />
     <Folder Include="Views\Report\D68Speciesgroup\" />
-    <Folder Include="Views\Report\D69FiSpecies\" />
-    <Folder Include="Views\Report\D72PlSpecies\" />
     <Folder Include="Views\Report\D78Name\" />
     <Folder Include="Views\Report\D81Image\" />
     <Folder Include="Views\Report\D84Synonym\" />
@@ -98,7 +81,6 @@
     <Folder Include="Views\Report\D93Comment\" />
     <Folder Include="Views\Report\DCountry\" />
     <Folder Include="Views\Report\DUserprofile\" />
-    <Folder Include="Views\Report\D21Class\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
 

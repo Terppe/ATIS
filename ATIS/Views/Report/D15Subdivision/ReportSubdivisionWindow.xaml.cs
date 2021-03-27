@@ -1,17 +1,22 @@
 ﻿using System;
+using System.Configuration;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using MahApps.Metro.Controls;
+
+
 using ATIS.Ui.Views.Report.D03Regnum;
 using ATIS.Ui.Views.Report.D09Division;
 using ATIS.Ui.Views.Report.D18Superclass;
 
-using MahApps.Metro.Controls;
 
-//  ReportSubdivisionWindow.xaml.cs Skriptdatum:  04.11.2020  12:32      
+
+//  ReportSubdivisionWindow.xaml.cs Skriptdatum:  07.01.2021  12:32     
 
 namespace ATIS.Ui.Views.Report.D15Subdivision
 {
+
     /// <summary>
     /// Interactionslogic for ReportSubdivisionWindow.xaml
     /// </summary>
@@ -20,16 +25,18 @@ namespace ATIS.Ui.Views.Report.D15Subdivision
 
         public ReportSubdivisionWindow(int un, string tab)
         {
-            //      Mouse.OverrideCursor = Cursors.Wait;
-
             DataContext = new ReportViewModel(un, tab);
             InitializeComponent();
 
-            WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            //    WindowStartupLocation = WindowStartupLocation.Manual;
+            var left = Convert.ToInt16(ConfigurationManager.AppSettings["Left"]);
+            var top = Convert.ToInt16(ConfigurationManager.AppSettings["Top"]);
+            var height = Convert.ToInt16(ConfigurationManager.AppSettings["Height"]);
+            var width = Convert.ToInt16(ConfigurationManager.AppSettings["Width"]);
 
-            //       Left = Settings.Default.Left + (Settings.Default.Width / 2) - (Width / 2);
-            //       Top = Settings.Default.Top + (Settings.Default.Height / 2) - (Height / 2);
+            WindowStartupLocation = WindowStartupLocation.Manual;
+
+            Left = left + (width / 2) - (Width / 2);
+            Top = top + (height / 2) - (Height / 2);
         }
 
         private void Print_Click(object sender, RoutedEventArgs e)
@@ -46,6 +53,7 @@ namespace ATIS.Ui.Views.Report.D15Subdivision
         {
             Width = Reader.Width + 20;
         }
+
 
         //  Tbl03Regnums  -->
         private void HyperlinkRegnum_Click(object sender, RoutedEventArgs e)
@@ -73,6 +81,7 @@ namespace ATIS.Ui.Views.Report.D15Subdivision
             var rp = new ReportSuperclassWindow(id, "Tbl18Superclasses");
             rp.Show();
         }
+
 
 
     }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Globalization;
-using System.Linq;
 using ATIS.Ui.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
@@ -10,7 +10,7 @@ using BitMiracle.Docotic.Pdf;
 using Microsoft.Win32;
 
 
-//    ReportPhylumPdf Skriptdatum:  28.11.2020  12:32    
+//    ReportPhylumPdf Skriptdatum:  06.01.2021  12:32    
 
 namespace ATIS.Ui.Views.Report.D06Phylum
 {
@@ -26,35 +26,36 @@ namespace ATIS.Ui.Views.Report.D06Phylum
         private static int[] _arrInts = new int[11];
         private static PdfPage _page;
 
+        private static Tbl03Regnum _regnumSingleList;
+        private static Tbl06Phylum _phylumSingleList;
+
 
         //    Part 1    
 
 
         public static void CreateMainPdf(int id, string use)
+
         {
             // NOTE: 
             // When used in trial mode, the library imposes some restrictions.
             // Please visit http://bitmiracle.com/pdf-library/trial-restrictions.aspx
             // for more information.
 
-         //   log4net.Config.XmlConfigurator.Configure();
+            var key = ConfigurationManager.AppSettings["Pdf"];
+            LicenseManager.AddLicenseData(key);
+            //BitMiracle.Docotic.LicenseManager.AddLicenseData(key);
 
+            //LicenseManager.AddLicenseData("5LX7Z-5GUF6-UUYTR-8YOQC-XGT2B");
+            //BitMiracle.Docotic.LicenseManager.AddLicenseData("5LX7Z-5GUF6-UUYTR-8YOQC-XGT2B");
+            //-----------------------------------------------------------------------------     
 
-            //  LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
-            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
+            _phylumSingleList = ExtCrud.GetPhylumSingleByPhylumId<Tbl06Phylum>(id);
+            _regnumSingleList = ExtCrud.GetRegnumSingleByRegnumId<Tbl03Regnum>(_phylumSingleList.RegnumId);
 
-
-            //-----------------------------------------------------------------------------
-            var phylumList = ExtCrud.GetPhylumsCollectionFromPhylumIdOrderBy<Tbl06Phylum>(id).FirstOrDefault();
-            //Child
+            //Children
             var subphylumsList = ExtCrud.GetSubphylumsCollectionFromPhylumIdOrderBy<Tbl12Subphylum>(id);
 
-            //Funktion
-            var regnumId = ExtCrud.RegnumIdFromPhylumsCollectionSelect(id);
-            //ForeignKeyTable
-            var regnumList = ExtCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(regnumId).FirstOrDefault();
-
-
+            //------------------------------------------------------   
             var expertsList = ExtCrud.GetReferenceExpertsCollectionFromPhylumIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(id);
             var sourcesList = ExtCrud.GetReferenceSourcesCollectionFromPhylumIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(id);
             var authorsList = ExtCrud.GetReferenceAuthorsCollectionFromPhylumIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(id);
@@ -62,16 +63,16 @@ namespace ATIS.Ui.Views.Report.D06Phylum
 
             try
             {
+
                 using var pdf = new PdfDocument();
                 _arrInts = PdfHelper.AddReportMain(pdf);
 
-                AddPhylumHaeder(pdf, phylumList);
-                AddPhylumTaxoNomenList(pdf, phylumList);
+                AddPhylumHaeder(pdf, _phylumSingleList);
+                AddPhylumTaxoNomenList(pdf, _phylumSingleList, _regnumSingleList);
 
-                if (regnumList != null)
-                    AddRegnumHierarchyList(pdf, regnumList);
-
-                AddPhylumHierarchyList(pdf, phylumList);
+                if (_regnumSingleList != null)
+                    AddRegnumHierarchyList(pdf, _regnumSingleList);
+                AddPhylumHierarchyList(pdf, _phylumSingleList);
 
                 if (subphylumsList.Count != 0)
                     AddSubphylumsChildrenList(pdf, subphylumsList);
@@ -95,40 +96,39 @@ namespace ATIS.Ui.Views.Report.D06Phylum
                 switch (use)
                 {
                     case "save":
-                    {
-                        var sfd = new SaveFileDialog { Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*" };
-                        sfd.DefaultExt = ".pdf"; // Default file extension
-                        sfd.InitialDirectory = @"C:\";
-                        var saveResult = sfd.ShowDialog();
-                        // Process save file dialog box results
-                        if (saveResult != true) return;
-                        // Save document
-                        var filename = sfd.FileName;
-                        pdf.Save(filename);
-                        break;
-                    }
+                        {
+                            var sfd = new SaveFileDialog { Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*" };
+                            sfd.DefaultExt = ".pdf"; // Default file extension
+                            sfd.InitialDirectory = @"C:\Temp\";
+                            var saveResult = sfd.ShowDialog();
+                            // Process save file dialog box results
+                            if (saveResult != true) return;
+                            // Save document
+                            var filename = sfd.FileName;
+                            pdf.Save(filename);
+                            break;
+                        }
                     case "print":
-                    {
-                        var pr = new PdfPrintDocument(pdf, PrintSize.FitPage);
-                        pr.PrintDocument.Print();
-                        break;
-                    }
+                        {
+                            var pr = new PdfPrintDocument(pdf, PrintSize.FitPage);
+                            pr.PrintDocument.Print();
+                            break;
+                        }
                 }
             }
             catch (Exception e)
             {
                 // Handle  errors
-                SimpleLog.Log(e);
+                SimpleLog.Error(e.Message);
             }
             finally
             {
-               // Clean up
+                // Clean up
                 //        if (pdf != null) pdf.Dispose();
-                //doc = null;
+                //     doc = null;
                 SimpleLog.Error("Fehler");
             }
         }
-
 
         private static void AddPhylumHaeder(PdfDocument pdf, Tbl06Phylum phylumList)
         {
@@ -138,7 +138,7 @@ namespace ATIS.Ui.Views.Report.D06Phylum
 
             var textAusgabeNameAuthor = phylumList.PhylumName + " " + textAusgabeAuthor;
 
-            _arrInts = PdfHelper.PdfTbBoldLeft("regnumName", _arrInts, true, textAusgabeNameAuthor, 2);
+            _arrInts = PdfHelper.PdfTbBoldLeft("phylumName", _arrInts, true, textAusgabeNameAuthor, 2);
 
             _arrInts[1] += _arrInts[9]; //Distance to next TextBox
 
@@ -147,114 +147,85 @@ namespace ATIS.Ui.Views.Report.D06Phylum
             _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
         }
 
-        private static void AddPhylumTaxoNomenList(PdfDocument pdf, Tbl06Phylum phylumList)
-
+        private static void AddPhylumTaxoNomenList(PdfDocument pdf, Tbl06Phylum phylumList, Tbl03Regnum regnumList)
         {
             _page = pdf.Pages[_arrInts[6]];
-
             _arrInts = PdfHelper.PdfTbBoldLeft("header2", _arrInts, true, CultRes.StringsRes.ReportTaxoNomen, 2);
-
             _arrInts[1] += _arrInts[9]; //Distance to next TextBox
             //----------------------------------------------------------------
-            _arrInts = PdfHelper.PdfTbMoveLeft("kingdomLeft", _arrInts, false, CultRes.StringsRes.Phylum + ":", 0);
-
-            _arrInts = PdfHelper.PdfTbRight("kingdomRight", _arrInts, false, phylumList.PhylumName, 0);
-
+            _arrInts = PdfHelper.PdfTbMoveLeft("kingdomLeft", _arrInts, false, CultRes.StringsRes.Regnum + ":", 0);
+            _arrInts = PdfHelper.PdfTbRight("kingdomRight", _arrInts, false, regnumList.RegnumName, 0);
             //---------------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("rankLeft", _arrInts, false, CultRes.StringsRes.ReportTaxoRank, 0);
-            _arrInts = PdfHelper.PdfTbRight("rankRight", _arrInts, false, CultRes.StringsRes.Regnum, 0);
+            _arrInts = PdfHelper.PdfTbRight("rankRight", _arrInts, false, CultRes.StringsRes.Phylum, 0);
             //------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("synonymLeft", _arrInts, false, CultRes.StringsRes.ReportSynonyms, 0);
             //------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMtRight("synonymRight", _arrInts, phylumList.Synonym);
-
             _arrInts[1] += _arrInts[9]; //Distance to next TextBox
-
-            //---------------------------------------------------------------
+            //--------------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("commNameLeft", _arrInts, false, CultRes.StringsRes.ReportCommonNames, 0);
             //---------------------------------------------------------------
             _arrInts = PdfHelper.PdfTbRight("commNameGerRight", _arrInts, false, phylumList.GerName + " " + CultRes.StringsRes.ReportGerman, 0);
             _arrInts = PdfHelper.PdfTbRight("commNameEngRight", _arrInts, false, phylumList.EngName + " " + CultRes.StringsRes.ReportEnglish, 0);
             _arrInts = PdfHelper.PdfTbRight("commNameFraRight", _arrInts, false, phylumList.FraName + " " + CultRes.StringsRes.ReportFrench, 0);
             _arrInts = PdfHelper.PdfTbRight("commNameSpaRight", _arrInts, false, phylumList.PorName + " " + CultRes.StringsRes.ReportSpanish, 0);
-
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox 
             //-------------------------------------------------------
             _arrInts = PdfHelper.PdfTbBoldMoveLeft("status", _arrInts, CultRes.StringsRes.ReportTaxoStatus, 0);
             //---------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("currStatusLeft", _arrInts, false, CultRes.StringsRes.ReportCurrentStand, 0);
-
             _arrInts = PdfHelper.PdfTbRight("currStatusRight", _arrInts, false, phylumList.Valid.ToString(), 0);
-
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
-
             //-----------------------------------------------------------
             _arrInts = PdfHelper.PdfTbBoldMoveLeft("quali", _arrInts, CultRes.StringsRes.ReportDataQualiIndicator, 0);
             //---------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("recordLeft", _arrInts, false, CultRes.StringsRes.ReportRecordUpdate, 0);
-
             _arrInts = PdfHelper.PdfTbRight("recordRight", _arrInts, false, Convert.ToString(phylumList.UpdaterDate, CultureInfo.InvariantCulture), 0);
-
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
-
             //-------------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("infoLeft", _arrInts, false, CultRes.StringsRes.ReportInfo, 0);
-
             _arrInts = PdfHelper.PdfTbMtRight("infoRight", _arrInts, phylumList.Info);
-
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
-
             //-------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("memoLeft", _arrInts, false, CultRes.StringsRes.ReportMemo, 0);
-
             _arrInts = PdfHelper.PdfTbMtRight("memoRight", _arrInts, phylumList.Memo);
-
             _arrInts[1] += _arrInts[9]; //Distance to next TextBox
         }
 
         private static void AddRegnumHierarchyList(PdfDocument pdf, Tbl03Regnum regnumList)
         {
             _page = pdf.Pages[_arrInts[6]];
-
             _arrInts = PdfHelper.PdfTbBoldLeft("regnumHeader", _arrInts, true, CultRes.StringsRes.ReportTaxoHiera, 2);
-
             _arrInts[1] += _arrInts[9]; //Distance to next TextBox
-
             //---------------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("regnumLeft", _arrInts, false, CultRes.StringsRes.Regnum, 0);
-
             var txtName = regnumList.RegnumName + " " + regnumList.Subregnum;
 
             var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, regnumList.Author,
                 regnumList.AuthorYear, regnumList.GerName, regnumList.EngName, regnumList.FraName, regnumList.PorName);
 
             _arrInts = PdfHelper.PdfTbMtRight("regnumRight", _arrInts, textResult);
-
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }
 
         private static void AddPhylumHierarchyList(PdfDocument pdf, Tbl06Phylum phylumList)
         {
             _page = pdf.Pages[_arrInts[6]];
-
             _arrInts = PdfHelper.PdfTbMoveLeft("phylumLeft", _arrInts, false, CultRes.StringsRes.Phylum, 0);
-
             var txtName = phylumList.PhylumName;
 
             var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, phylumList.Author,
                 phylumList.AuthorYear, phylumList.GerName, phylumList.EngName, phylumList.FraName, phylumList.PorName);
 
             _arrInts = PdfHelper.PdfTbMtRight("phylumRight", _arrInts, textResult);
-
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }
 
         private static void AddSubphylumsChildrenList(PdfDocument pdf, ObservableCollection<Tbl12Subphylum> subphylumsList)
         {
             _page = pdf.Pages[_arrInts[6]];
-
             _arrInts = PdfHelper.PdfTbRight("childrenSubphylum", _arrInts, true, CultRes.StringsRes.ReportDirectChild, 1);
-
             _arrInts[1] += _arrInts[9] / 2; //Distance to next TextBox
 
             //------------------------------------------------------------------
@@ -289,9 +260,7 @@ namespace ATIS.Ui.Views.Report.D06Phylum
 
                 if (tAllLength >= _arrInts[8])
                 {
-
                     _arrInts = PdfHelper.PdfTbMtRight(_z1, _arrInts, textResult);
-
                     _arrInts[1] += _arrInts[3] / 2;  // 1/2 Fontheight Leerzeile
                 }
                 else
@@ -304,5 +273,6 @@ namespace ATIS.Ui.Views.Report.D06Phylum
             }
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
         }
+
     }
 }

@@ -11,7 +11,7 @@
     Height="600"
     ResizeMode="CanResizeWithGrip">
 
-    <!--  ReportDivisionWindow.xaml  Skriptdatum:  04.11.2020  12:32  -->
+    <!-- ReportDivisionWindow.xaml  Skriptdatum:  06.01.2021  12:32   -->
 
     <mah:MetroWindow.Resources>
         <ResourceDictionary>
@@ -48,8 +48,8 @@
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <StackPanel
@@ -139,7 +139,7 @@
         </StackPanel>
 
 
-        <!--  Part 1  -->
+        <!--   Part 1  -->
 
 
         <FlowDocumentReader
@@ -176,20 +176,20 @@
                     <Paragraph>
                         <GroupBox>
                             <ListBox
-                                Width="{Binding ElementName=PageWidthText, Path=Text}"
-                                Height="Auto"
-                                Margin="0"
-                                HorizontalAlignment="Left"
-                                ItemsSource="{Binding DivisionsCollection}">
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Height="Auto"
+                            Margin="0"
+                            HorizontalAlignment="Left"
+                            ItemsSource="{Binding DivisionsCollection}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
                                             <StackPanel Margin="2,0,0,0" Orientation="Horizontal">
                                                 <TextBlock
-                                                    Width="Auto"
-                                                    FontSize="18"
-                                                    FontWeight="Bold"
-                                                    Text="{Binding (models:Tbl09Division.DivisionName)}" />
+                                                Width="Auto"
+                                                FontSize="18"
+                                                FontWeight="Bold"
+                                                Text="{Binding (models:Tbl09Division.DivisionName)}" />
                                                 <TextBlock
                                                     Width="Auto"
                                                     Margin="2,0,0,0"
@@ -203,7 +203,7 @@
                                                     </TextBlock.Text>
                                                 </TextBlock>
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
+                                            <StackPanel  Orientation="Horizontal">
                                                 <TextBlock Width="Auto" Text="{DynamicResource Report-TaxonomicId}" />
                                                 <TextBlock Width="Auto" Text="{Binding (models:Tbl09Division.CountId)}" />
                                             </StackPanel>
@@ -216,7 +216,7 @@
                 </Section>
 
 
-                <!--  Part 2  -->
+                <!--   Part 2  -->
 
 
                 <Section>
@@ -255,11 +255,11 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
                             <ListBox
-                                Width="{Binding ElementName=PageWidthText, Path=Text}"
-                                Height="Auto"
-                                Margin="0"
-                                HorizontalAlignment="Left"
-                                ItemsSource="{Binding DivisionsCollection}">
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Height="Auto"
+                            Margin="0"
+                            HorizontalAlignment="Left"
+                            ItemsSource="{Binding DivisionsCollection}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
@@ -275,59 +275,59 @@
                                                 <TextBlock Width="300" Text="{DynamicResource Report-CommonNames}" />
                                                 <TextBlock Width="Auto" Text="{Binding (models:Tbl09Division.GerName)}" />
                                                 <TextBlock
-                                                    Width="130"
-                                                    Margin="2,0,0,0"
-                                                    Text="{DynamicResource Report-German}" />
+                                                Width="130"
+                                                Margin="2,0,0,0"
+                                                Text="{DynamicResource Report-German}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock
-                                                    Width="Auto"
-                                                    Margin="300,0,0,0"
-                                                    Text="{Binding (models:Tbl09Division.EngName)}" />
+                                                Width="Auto"
+                                                Margin="300,0,0,0"
+                                                Text="{Binding (models:Tbl09Division.EngName)}" />
                                                 <TextBlock
-                                                    Width="130"
-                                                    Margin="2,0,0,0"
-                                                    Text="{DynamicResource Report-English}" />
+                                                Width="130"
+                                                Margin="2,0,0,0"
+                                                Text="{DynamicResource Report-English}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock
-                                                    Width="Auto"
-                                                    Margin="300,0,0,0"
-                                                    Text="{Binding (models:Tbl09Division.FraName)}" />
+                                                Width="Auto"
+                                                Margin="300,0,0,0"
+                                                Text="{Binding (models:Tbl09Division.FraName)}" />
                                                 <TextBlock
-                                                    Width="130"
-                                                    Margin="2,0,0,0"
-                                                    Text="{DynamicResource Report-French}" />
+                                                Width="130"
+                                                Margin="2,0,0,0"
+                                                Text="{DynamicResource Report-French}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock
-                                                    Width="Auto"
-                                                    Margin="300,0,0,0"
-                                                    Text="{Binding (models:Tbl09Division.PorName)}" />
+                                                Width="Auto"
+                                                Margin="300,0,0,0"
+                                                Text="{Binding (models:Tbl09Division.PorName)}" />
                                                 <TextBlock
-                                                    Width="130"
-                                                    Margin="2,0,0,0"
-                                                    Text="{DynamicResource Report-Spanish}" />
+                                                Width="130"
+                                                Margin="2,0,0,0"
+                                                Text="{DynamicResource Report-Spanish}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,10,0,0" Orientation="Horizontal">
                                                 <TextBlock
-                                                    Width="300"
-                                                    FontWeight="Bold"
-                                                    Text="{DynamicResource Report-TaxoStatus}" />
+                                                Width="300"
+                                                FontWeight="Bold"
+                                                Text="{DynamicResource Report-TaxoStatus}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-CurrentStand}" />
                                                 <TextBlock Width="100" Text="{Binding (models:Tbl09Division.Valid)}" />
                                                 <TextBlock
-                                                    Width="300"
-                                                    Margin="2,0,0,0"
-                                                    Text="{Binding (models:Tbl09Division.ValidYear)}" />
+                                                        Width="300"
+                                                        Margin="2,0,0,0"
+                                                        Text="{Binding (models:Tbl09Division.ValidYear)}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,20,0,0" Orientation="Horizontal">
                                                 <TextBlock
-                                                    Width="300"
-                                                    FontWeight="Bold"
-                                                    Text="{DynamicResource Report-DataQualiIndicator}" />
+                                                Width="300"
+                                                FontWeight="Bold"
+                                                Text="{DynamicResource Report-DataQualiIndicator}" />
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-RecordCrediRate}" />
@@ -338,8 +338,8 @@
                                                 </StackPanel.Resources>
                                                 <TextBlock Width="300" Text="{DynamicResource Report-RecordUpdate}" />
                                                 <TextBlock Width="300">
-                                                    <TextBlock Text="{Binding (models:Tbl09Division.UpdaterDate), Converter={StaticResource DateTimeConverter}}" />
-                                                </TextBlock>
+                                                <TextBlock Text="{Binding (models:Tbl09Division.UpdaterDate), Converter={StaticResource DateTimeConverter}}" />
+                                            </TextBlock>
                                             </StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Shared-Info}" />
@@ -348,9 +348,9 @@
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Shared-Memo}" />
                                                 <TextBlock
-                                                    Width="700"
-                                                    Text="{Binding (models:Tbl09Division.Memo)}"
-                                                    TextWrapping="Wrap" />
+                                                Width="700"
+                                                Text="{Binding (models:Tbl09Division.Memo)}"
+                                                TextWrapping="Wrap" />
                                             </StackPanel>
                                         </StackPanel>
                                     </DataTemplate>
@@ -361,8 +361,7 @@
 
 
 
-                    <!--  Part 3  -->
-
+                    <!--   Part 3  -->
 
 
                     <!--  Tbl03Regnums  -->
@@ -424,6 +423,7 @@
                         </StackPanel>
 
                         <!--  Tbl09Divisions  -->
+
                         <StackPanel>
                             <ListBox
                                 x:Name="Tbl09DivisionsList"
@@ -515,7 +515,7 @@
                 </Section>
 
 
-                <!--  Part 4  -->
+                <!--   Part 4  -->
 
 
                 <Section>
@@ -534,11 +534,11 @@
                             Text="{DynamicResource Report-Experts}" />
                         <StackPanel>
                             <ListBox
-                                Width="{Binding ElementName=PageWidthText, Path=Text}"
-                                Height="Auto"
-                                Margin="0"
-                                HorizontalAlignment="Left"
-                                ItemsSource="{Binding ExpertsCollection}">
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Height="Auto"
+                            Margin="0"
+                            HorizontalAlignment="Left"
+                            ItemsSource="{Binding ExpertsCollection}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
@@ -546,12 +546,12 @@
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Expert}" />
                                                 <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefExperts).RefExpertName}" />
                                             </StackPanel>
-                                            <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <StackPanel Margin="20,0,0,10" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Notes}" />
                                                 <TextBlock
-                                                    Width="700"
-                                                    Text="{Binding (models:Tbl90Reference.Tbl90RefExperts).Notes}"
-                                                    TextWrapping="Wrap" />
+                                                Width="700"
+                                                Text="{Binding (models:Tbl90Reference.Tbl90RefExperts).Notes}"
+                                                TextWrapping="Wrap" />
                                             </StackPanel>
                                         </StackPanel>
                                     </DataTemplate>
@@ -565,11 +565,11 @@
                             Text="{DynamicResource Report-OtherSources}" />
                         <StackPanel>
                             <ListBox
-                                Width="{Binding ElementName=PageWidthText, Path=Text}"
-                                Height="Auto"
-                                Margin="0"
-                                HorizontalAlignment="Left"
-                                ItemsSource="{Binding SourcesCollection}">
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Height="Auto"
+                            Margin="0"
+                            HorizontalAlignment="Left"
+                            ItemsSource="{Binding SourcesCollection}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
@@ -588,16 +588,16 @@
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Shared-Info}" />
                                                 <TextBlock
-                                                    Width="700"
-                                                    Text="{Binding (models:Tbl90Reference.Tbl90RefSources).Info}"
-                                                    TextWrapping="Wrap" />
+                                                Width="700"
+                                                Text="{Binding (models:Tbl90Reference.Tbl90RefSources).Info}"
+                                                TextWrapping="Wrap" />
                                             </StackPanel>
-                                            <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <StackPanel Margin="20,0,0,10" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Shared-Notes}" />
                                                 <TextBlock
-                                                    Width="700"
-                                                    Text="{Binding (models:Tbl90Reference.Tbl90RefSources).Notes}"
-                                                    TextWrapping="Wrap" />
+                                                Width="700"
+                                                Text="{Binding (models:Tbl90Reference.Tbl90RefSources).Notes}"
+                                                TextWrapping="Wrap" />
                                             </StackPanel>
                                         </StackPanel>
                                     </DataTemplate>
@@ -611,11 +611,11 @@
                             Text="{DynamicResource Report-Publications}" />
                         <StackPanel>
                             <ListBox
-                                Width="{Binding ElementName=PageWidthText, Path=Text}"
-                                Height="Auto"
-                                Margin="0"
-                                HorizontalAlignment="Left"
-                                ItemsSource="{Binding AuthorsCollection}">
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Height="Auto"
+                            Margin="0"
+                            HorizontalAlignment="Left"
+                            ItemsSource="{Binding AuthorsCollection}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
@@ -655,12 +655,12 @@
                                                 <TextBlock Width="300" Text="{DynamicResource Report-Infos}" />
                                                 <TextBlock Width="700" Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).Info}" />
                                             </StackPanel>
-                                            <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
-                                                <TextBlock Width="300" Text="{DynamicResource Report-Notes}" />
+                                            <StackPanel Margin="20,0,0,10" Orientation="Horizontal">
+                                                <TextBlock Width="300"   Text="{DynamicResource Report-Notes}" />
                                                 <TextBlock
-                                                    Width="700"
-                                                    Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).Notes}"
-                                                    TextWrapping="Wrap" />
+                                                Width="700"
+                                                Text="{Binding (models:Tbl90Reference.Tbl90RefAuthors).Notes}"
+                                                TextWrapping="Wrap" />
                                             </StackPanel>
                                         </StackPanel>
                                     </DataTemplate>
@@ -672,17 +672,17 @@
 
 
 
-                <!--  Part 5  -->
+                <!--   Part 5  -->
 
 
 
 
-                <!--  Part 6  -->
+                <!--   Part 6  -->
 
 
 
 
-                <!--  Part 7  -->
+                <!--   Part 7  -->
 
 
                 <Section>
@@ -696,30 +696,30 @@
                             Text="{DynamicResource Report-Comments}" />
                         <StackPanel>
                             <ListBox
-                                Width="{Binding ElementName=PageWidthText, Path=Text}"
-                                Height="Auto"
-                                Margin="2,0,0,0"
-                                HorizontalAlignment="Left"
-                                ItemsSource="{Binding CommentsCollection}">
+                            Width="{Binding ElementName=PageWidthText, Path=Text}"
+                            Height="Auto"
+                            Margin="2,0,0,0"
+                            HorizontalAlignment="Left"
+                            ItemsSource="{Binding CommentsCollection}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
                                             <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                                                 <TextBlock Width="300" Text="{DynamicResource Shared-Info}" />
                                                 <TextBlock
-                                                    Width="700"
-                                                    Text="{Binding (models:Tbl93Comment.Info)}"
-                                                    TextWrapping="Wrap" />
+                                                Width="700"
+                                                Text="{Binding (models:Tbl93Comment.Info)}"
+                                                TextWrapping="Wrap" />
                                             </StackPanel>
-                                            <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                            <StackPanel Margin="20,0,0,10" Orientation="Horizontal">
                                                 <TextBlock
-                                                    Width="300"
-                                                    FontWeight="Bold"
-                                                    Text="{DynamicResource Report-Comment}" />
+                                                Width="300"
+                                                FontWeight="Bold"
+                                                Text="{DynamicResource Report-Comment}" />
                                                 <TextBlock
-                                                    Width="700"
-                                                    Text="{Binding (models:Tbl93Comment.Memo)}"
-                                                    TextWrapping="Wrap" />
+                                                Width="700"
+                                                Text="{Binding (models:Tbl93Comment.Memo)}"
+                                                TextWrapping="Wrap" />
                                             </StackPanel>
                                         </StackPanel>
                                     </DataTemplate>
@@ -732,35 +732,35 @@
 
 
 
-                <!--  Part 8  -->
+                <!--   Part 8  -->
 
 
 
-                <!--  Part 9  -->
+                <!--   Part 9  -->
 
 
 
-                <!--  Part 10  -->
+                <!--   Part 10  -->
 
 
 
-                <!--  Part 11  -->
+                <!--   Part 11  -->
 
 
 
-                <!--  Part 12  -->
+                <!--   Part 12  -->
 
 
 
-                <!--  Part 13  -->
+                <!--   Part 13  -->
 
 
 
-                <!--  Part 14  -->
+                <!--   Part 14  -->
 
 
 
-                <!--  Part 15  -->
+                <!--   Part 15  -->
 
 
 
@@ -776,4 +776,4 @@
             </FlowDocument>
         </FlowDocumentReader>
     </Grid>
-</mah:MetroWindow>
+</mah:MetroWindow>  

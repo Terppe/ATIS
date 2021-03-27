@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Globalization;
-using System.Linq;
 using ATIS.Ui.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
@@ -10,7 +10,7 @@ using BitMiracle.Docotic.Pdf;
 using Microsoft.Win32;
 
 
-//    ReportDivisionPdf Skriptdatum:  04.11.2020  12:32    
+//    ReportDivisionPdf Skriptdatum:  06.01.2021  12:32    
 
 namespace ATIS.Ui.Views.Report.D09Division
 {
@@ -19,7 +19,6 @@ namespace ATIS.Ui.Views.Report.D09Division
     {
 
         private static readonly CrudFunctions ExtCrud = new CrudFunctions();
-        private static readonly ReportBasicGet ExtReportBasicGet = new ReportBasicGet();
         private static readonly PdfHelper PdfHelper = new PdfHelper();
         private static string _n;
         private static string _z1;
@@ -27,34 +26,36 @@ namespace ATIS.Ui.Views.Report.D09Division
         private static int[] _arrInts = new int[11];
         private static PdfPage _page;
 
+        private static Tbl03Regnum _regnumSingleList;
+        private static Tbl09Division _divisionSingleList;
+
 
         //    Part 1    
 
 
         public static void CreateMainPdf(int id, string use)
+
         {
             // NOTE: 
             // When used in trial mode, the library imposes some restrictions.
             // Please visit http://bitmiracle.com/pdf-library/trial-restrictions.aspx
             // for more information.
 
-          //  log4net.Config.XmlConfigurator.Configure();
+            var key = ConfigurationManager.AppSettings["Pdf"];
+            LicenseManager.AddLicenseData(key);
+            //BitMiracle.Docotic.LicenseManager.AddLicenseData(key);
 
-
-            //  LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");
-            //    BitMiracle.Docotic.LicenseManager.AddLicenseData("5IUML-K4LFW-CQ4J0-Y673N-72V88");      
+            //LicenseManager.AddLicenseData("5LX7Z-5GUF6-UUYTR-8YOQC-XGT2B");
+            //BitMiracle.Docotic.LicenseManager.AddLicenseData("5LX7Z-5GUF6-UUYTR-8YOQC-XGT2B");
             //-----------------------------------------------------------------------------     
 
-            var divisionList = ExtCrud.GetDivisionsCollectionFromDivisionIdOrderBy<Tbl09Division>(id).FirstOrDefault();
+            _divisionSingleList = ExtCrud.GetDivisionSingleByDivisionId<Tbl09Division>(id);
+            _regnumSingleList = ExtCrud.GetRegnumSingleByRegnumId<Tbl03Regnum>(_divisionSingleList.RegnumId);
 
-            //Child
+            //Children
             var subdivisionsList = ExtCrud.GetSubdivisionsCollectionFromDivisionIdOrderBy<Tbl15Subdivision>(id);
 
-            //Funktion
-            var regnumId = ExtCrud.RegnumIdFromDivisionsCollectionSelect(id);
-            //ForeignKeyTable
-            var regnumList = ExtCrud.GetRegnumsCollectionFromRegnumIdOrderBy<Tbl03Regnum>(regnumId).FirstOrDefault();
-
+            //------------------------------------------------------   
             var expertsList = ExtCrud.GetReferenceExpertsCollectionFromDivisionIdAndRefAuthorIdIsNullAndRefSourceIdIsNullOrderBy<Tbl90Reference>(id);
             var sourcesList = ExtCrud.GetReferenceSourcesCollectionFromDivisionIdAndRefAuthorIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(id);
             var authorsList = ExtCrud.GetReferenceAuthorsCollectionFromDivisionIdAndRefSourceIdIsNullAndRefExpertIdIsNullOrderBy<Tbl90Reference>(id);
@@ -66,12 +67,12 @@ namespace ATIS.Ui.Views.Report.D09Division
                 using var pdf = new PdfDocument();
                 _arrInts = PdfHelper.AddReportMain(pdf);
 
-                AddDivisionHaeder(pdf, divisionList);
-                AddDivisionTaxoNomenList(pdf, divisionList);
+                AddDivisionHaeder(pdf, _divisionSingleList);
+                AddDivisionTaxoNomenList(pdf, _divisionSingleList, _regnumSingleList);
 
-                if (regnumList != null)
-                    AddRegnumHierarchyList(pdf, regnumList);
-                AddDivisionHierarchyList(pdf, divisionList);
+                if (_regnumSingleList != null)
+                    AddRegnumHierarchyList(pdf, _regnumSingleList);
+                AddDivisionHierarchyList(pdf, _divisionSingleList);
 
                 if (subdivisionsList.Count != 0)
                     AddSubdivisionsChildrenList(pdf, subdivisionsList);
@@ -98,7 +99,7 @@ namespace ATIS.Ui.Views.Report.D09Division
                         {
                             var sfd = new SaveFileDialog { Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*" };
                             sfd.DefaultExt = ".pdf"; // Default file extension
-                            sfd.InitialDirectory = @"C:\";
+                            sfd.InitialDirectory = @"C:\Temp\";
                             var saveResult = sfd.ShowDialog();
                             // Process save file dialog box results
                             if (saveResult != true) return;
@@ -118,7 +119,7 @@ namespace ATIS.Ui.Views.Report.D09Division
             catch (Exception e)
             {
                 // Handle  errors
-                SimpleLog.Log(e);
+                SimpleLog.Error(e.Message);
             }
             finally
             {
@@ -137,7 +138,7 @@ namespace ATIS.Ui.Views.Report.D09Division
 
             var textAusgabeNameAuthor = divisionList.DivisionName + " " + textAusgabeAuthor;
 
-            _arrInts = PdfHelper.PdfTbBoldLeft("regnumName", _arrInts, true, textAusgabeNameAuthor, 2);
+            _arrInts = PdfHelper.PdfTbBoldLeft("divisionName", _arrInts, true, textAusgabeNameAuthor, 2);
 
             _arrInts[1] += _arrInts[9]; //Distance to next TextBox
 
@@ -146,7 +147,7 @@ namespace ATIS.Ui.Views.Report.D09Division
             _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
         }
 
-        private static void AddDivisionTaxoNomenList(PdfDocument pdf, Tbl09Division divisionList)
+        private static void AddDivisionTaxoNomenList(PdfDocument pdf, Tbl09Division divisionList, Tbl03Regnum regnumList)
 
         {
             _page = pdf.Pages[_arrInts[6]];
@@ -155,80 +156,61 @@ namespace ATIS.Ui.Views.Report.D09Division
 
             _arrInts[1] += _arrInts[9]; //Distance to next TextBox
             //----------------------------------------------------------------
-            _arrInts = PdfHelper.PdfTbMoveLeft("kingdomLeft", _arrInts, false, CultRes.StringsRes.Division + ":", 0);
+            _arrInts = PdfHelper.PdfTbMoveLeft("kingdomLeft", _arrInts, false, CultRes.StringsRes.Regnum + ":", 0);
 
-            _arrInts = PdfHelper.PdfTbRight("kingdomRight", _arrInts, false, divisionList.DivisionName, 0);
+            _arrInts = PdfHelper.PdfTbRight("kingdomRight", _arrInts, false, regnumList.RegnumName, 0);
 
             //---------------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("rankLeft", _arrInts, false, CultRes.StringsRes.ReportTaxoRank, 0);
-            _arrInts = PdfHelper.PdfTbRight("rankRight", _arrInts, false, CultRes.StringsRes.Regnum, 0);
+            _arrInts = PdfHelper.PdfTbRight("rankRight", _arrInts, false, CultRes.StringsRes.Division, 0);
             //------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("synonymLeft", _arrInts, false, CultRes.StringsRes.ReportSynonyms, 0);
             //------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMtRight("synonymRight", _arrInts, divisionList.Synonym);
-
             _arrInts[1] += _arrInts[9]; //Distance to next TextBox
-
-            //---------------------------------------------------------------
+            //--------------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("commNameLeft", _arrInts, false, CultRes.StringsRes.ReportCommonNames, 0);
             //---------------------------------------------------------------
             _arrInts = PdfHelper.PdfTbRight("commNameGerRight", _arrInts, false, divisionList.GerName + " " + CultRes.StringsRes.ReportGerman, 0);
             _arrInts = PdfHelper.PdfTbRight("commNameEngRight", _arrInts, false, divisionList.EngName + " " + CultRes.StringsRes.ReportEnglish, 0);
             _arrInts = PdfHelper.PdfTbRight("commNameFraRight", _arrInts, false, divisionList.FraName + " " + CultRes.StringsRes.ReportFrench, 0);
             _arrInts = PdfHelper.PdfTbRight("commNameSpaRight", _arrInts, false, divisionList.PorName + " " + CultRes.StringsRes.ReportSpanish, 0);
-
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox 
             //-------------------------------------------------------
             _arrInts = PdfHelper.PdfTbBoldMoveLeft("status", _arrInts, CultRes.StringsRes.ReportTaxoStatus, 0);
             //---------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("currStatusLeft", _arrInts, false, CultRes.StringsRes.ReportCurrentStand, 0);
-
             _arrInts = PdfHelper.PdfTbRight("currStatusRight", _arrInts, false, divisionList.Valid.ToString(), 0);
-
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
-
             //-----------------------------------------------------------
             _arrInts = PdfHelper.PdfTbBoldMoveLeft("quali", _arrInts, CultRes.StringsRes.ReportDataQualiIndicator, 0);
             //---------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("recordLeft", _arrInts, false, CultRes.StringsRes.ReportRecordUpdate, 0);
-
             _arrInts = PdfHelper.PdfTbRight("recordRight", _arrInts, false, Convert.ToString(divisionList.UpdaterDate, CultureInfo.InvariantCulture), 0);
-
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
-
             //-------------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("infoLeft", _arrInts, false, CultRes.StringsRes.ReportInfo, 0);
-
             _arrInts = PdfHelper.PdfTbMtRight("infoRight", _arrInts, divisionList.Info);
-
             _arrInts[1] += _arrInts[9] - 3; //Distance to next TextBox
-
             //-------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("memoLeft", _arrInts, false, CultRes.StringsRes.ReportMemo, 0);
-
             _arrInts = PdfHelper.PdfTbMtRight("memoRight", _arrInts, divisionList.Memo);
-
             _arrInts[1] += _arrInts[9]; //Distance to next TextBox
         }
 
         private static void AddRegnumHierarchyList(PdfDocument pdf, Tbl03Regnum regnumList)
         {
             _page = pdf.Pages[_arrInts[6]];
-
             _arrInts = PdfHelper.PdfTbBoldLeft("regnumHeader", _arrInts, true, CultRes.StringsRes.ReportTaxoHiera, 2);
-
             _arrInts[1] += _arrInts[9]; //Distance to next TextBox
-
             //---------------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("regnumLeft", _arrInts, false, CultRes.StringsRes.Regnum, 0);
-
             var txtName = regnumList.RegnumName + " " + regnumList.Subregnum;
 
             var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, regnumList.Author,
                 regnumList.AuthorYear, regnumList.GerName, regnumList.EngName, regnumList.FraName, regnumList.PorName);
 
             _arrInts = PdfHelper.PdfTbMtRight("regnumRight", _arrInts, textResult);
-
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }
 

@@ -282,6 +282,8 @@ namespace ATIS.Ui.Core
             if (coll == null) return 0;
             return coll.RegnumId;
         }
+
+
         #endregion
 
         #region Copy Regnum    
@@ -417,7 +419,7 @@ namespace ATIS.Ui.Core
                 .AsNoTracking());
             return collection;
         }
-        public Tbl06Phylum GetPhylumSingleByPhylumId(int id)
+        public Tbl06Phylum GetPhylumSingleByPhylumId<T>(int id)
         {
             Tbl06Phylum single = _uow.Tbl06Phylums.GetById(id);
             //    Tbl06Phylum single = _context.Tbl06Phylums.FirstOrDefault(a => a.PhylumId == id);
@@ -447,6 +449,7 @@ namespace ATIS.Ui.Core
             var collection = new ObservableCollection<Tbl06Phylum>(_uow.Tbl06Phylums.Find(x => x.RegnumId == selectedId));
             return collection;
         }
+
         #endregion
 
         #region Copy Phylum
@@ -605,7 +608,7 @@ namespace ATIS.Ui.Core
             return new ObservableCollection<Tbl09Division> { collection };
         }
         //Function
-        public int GetDivisionIdFromSubdivisionsCollectionSelect(int id)
+        public int DivisionIdFromSubdivisionsCollectionSelect(int id)
         {
             var coll = _context.Tbl15Subdivisions
                 .SingleOrDefault(p => p.SubdivisionId == id);
@@ -618,6 +621,7 @@ namespace ATIS.Ui.Core
             var collection = new ObservableCollection<Tbl09Division>(_uow.Tbl09Divisions.Find(x => x.RegnumId == selectedId));
             return collection;
         }
+
         #endregion
 
         #region Copy Division
@@ -1130,6 +1134,20 @@ namespace ATIS.Ui.Core
 
             if (coll == null) return 0;
             return coll.SuperclassId;
+        }
+
+
+        public Tbl18Superclass GetSuperclassSingleBySubdivisionId<T>(int id)
+        {
+            Tbl18Superclass single = _uow.Tbl18Superclasses.GetById(id);
+            //    Tbl09Division single = _context.Tbl09Divisions.FirstOrDefault(a => a.DivisionId == id);
+            return single;
+        }
+        public Tbl18Superclass GetSuperclassSingleBySuperclassId<T>(int id)
+        {
+            Tbl18Superclass single = _uow.Tbl18Superclasses.GetById(id);
+            //    Tbl09Division single = _context.Tbl09Divisions.FirstOrDefault(a => a.DivisionId == id);
+            return single;
         }
 
         #endregion
@@ -6967,6 +6985,17 @@ namespace ATIS.Ui.Core
                 .OrderBy(a => a.RefExpertName));
             return collection;
         }
+        public ObservableCollection<Tbl90Reference> CollExpertsByRegnumId(int id)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_context.Tbl90References
+                .Include(a => a.Tbl90RefExperts)
+                .Where(e => e.RefExpertId == e.Tbl90RefExperts.RefExpertId &&
+                            e.RegnumId == id &&
+                            e.RefAuthorId.HasValue == false &&
+                            e.RefSourceId.HasValue == false)
+                .OrderBy(a => a.Tbl90RefExperts.RefExpertName));
+            return collection;
+        }
 
         #endregion
 
@@ -8002,6 +8031,18 @@ namespace ATIS.Ui.Core
             ObservableCollection<T> collection;
             collection = new ObservableCollection<T>((IEnumerable<T>)_context.Tbl90RefSources
                 .OrderBy(a => a.RefSourceName));
+            return collection;
+        }
+        public ObservableCollection<Tbl90Reference> CollSourcesByRegnumId(int id)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_context.Tbl90References
+                .Include(a => a.Tbl90RefSources)
+                .Where(e => e.RefSourceId == e.Tbl90RefSources.RefSourceId &&
+                            e.RegnumId == id &&
+                            e.RefAuthorId.HasValue == false &&
+                            e.RefExpertId.HasValue == false)
+                .OrderBy(a => a.Tbl90RefSources.RefSourceName)
+                .ThenBy(a => a.Tbl90RefSources.SourceYear));
             return collection;
         }
 
@@ -9041,6 +9082,21 @@ namespace ATIS.Ui.Core
                 .ThenBy(a => a.BookName)
                 .ThenBy(a => a.Page1)
             );
+            return collection;
+        }
+        public ObservableCollection<Tbl90Reference> CollAuthorsByRegnumId(int id)
+        {
+            var collection = new ObservableCollection<Tbl90Reference>(_context.Tbl90References
+                .Include(a => a.Tbl90RefAuthors)
+                .Where(e => e.RefAuthorId == e.Tbl90RefAuthors.RefAuthorId &&
+                            e.RegnumId == id &&
+                            e.RefSourceId.HasValue == false &&
+                            e.RefExpertId.HasValue == false)
+                .OrderBy(e => e.Tbl90RefAuthors.RefAuthorName)
+                .ThenBy(e => e.Tbl90RefAuthors.ArticelTitle)
+                .ThenBy(e => e.Tbl90RefAuthors.BookName)
+                .ThenBy(e => e.Tbl90RefAuthors.Page1)
+                .ThenBy(e => e.Tbl90RefAuthors.Publisher));
             return collection;
         }
 
@@ -10429,6 +10485,13 @@ namespace ATIS.Ui.Core
             //    Tbl93Comment single = _context.Tbl93Comments.FirstOrDefault(a => a.CommentId == commentId);
             return single;
         }
+        public ObservableCollection<Tbl93Comment> CollCommentsByRegnumId(int id)
+        {
+            var collection = new ObservableCollection<Tbl93Comment>(_uow.Tbl93Comments
+                .Find(e => e.RegnumId == id));
+            return collection;
+        }
+
         #endregion
 
         #region Comment Copy
