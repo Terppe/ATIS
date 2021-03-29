@@ -3,14 +3,20 @@ using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Configuration;
+using System.Diagnostics;
+using System.Drawing;
 using System.Globalization;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Windows;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
-using ATIS.Ui.Helper.MessageBox;
+using ATIS.Ui.Properties;
+using ControlzEx.Theming;
+using MaterialDesignThemes.Wpf;
 using Microsoft.Data.SqlClient;
+using System.Windows.Media;
+using Theme = ControlzEx.Theming.Theme;
 
 namespace ATIS.Ui.Views.Main
 {
@@ -24,47 +30,28 @@ namespace ATIS.Ui.Views.Main
 
         public MainWindow()
         {
-            var auth = new AuthenticationViewModel(new AuthenticationService());
+            // check if Application is already running  if it is running - Kill
+            if (Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(Assembly.GetEntryAssembly()?.Location)).Length > 1) Process.GetCurrentProcess().Kill();
 
             DataContext = new MainWindowViewModel(DialogCoordinator.Instance);
-
             InitializeComponent();
 
             LoadStuff();
 
-            var appName = ReadSetting("ApplicationName");
-            var srv = ReadSetting("ServerName");
-            var port = ReadSetting("Port");
-
-            Title = appName + " " + Assembly.GetExecutingAssembly().GetName().Version + " || " + srv;
-
-            TbUser.Text = auth.AuthenticatedUser;
-
-            //choose background colors from Windows 10
-            //move to Einstellungen
-            //     Background = SystemParameters.WindowGlassBrush;
-            if (!CheckForServer(srv, Convert.ToInt32(port)))
+            if (!CheckForServer(Settings.Default.ServerName, Convert.ToInt32(Settings.Default.Port)))
             {
                 TbDataBase.Text = "SQL-Server not running";
             }
             else
             {
-                if (!CheckDatabaseExist(srv))
+                if (!CheckDatabaseExist(Settings.Default.ServerName))
                 {
                     TbDataBase.Text = "Database not Found";
                 }
             }
 
-
-            // Log to a sub-directory 'Log' of the current working directory. 
-            // Prefix log file with 'MyLog_'.
-            // Write XML file, not plain text.
-            // This is an optional call and has only to be done once, 
-            // pereferably before the first log entry is written. 
-            SimpleLog.SetLogFile(logDir: ".\\Log", prefix: "MyLog_", writeText: true);
-
             // Write info message to log
-            SimpleLog.Info("ATIS logging started.");
+            SimpleLog.Info("MainWindow logging started.");
         }
 
         //---------------------------Flyout --------------------------------
@@ -116,63 +103,31 @@ namespace ATIS.Ui.Views.Main
             SimpleLog.ShowLogFile();
         }
 
-        //private async void MetroWindow_Closing1(object sender, System.ComponentModel.CancelEventArgs e)
-        //{
-        //    if (e.Cancel)
-        //    {
-        //        return;
-        //    }
-
-        //    if (_viewModel.QuitConfirmationEnabled == false && _shutdown == false)
-        //    {
-        //        e.Cancel = true;
-
-        //        // We have to delay the execution through BeginInvoke to prevent potential re-entrancy
-        //        //save width, height, language, assets, theme
-        //        Dispatcher.BeginInvoke(new Action(async () => await ConfirmShutdown()));
-        //    }
-        //    else
-        //    {
-        //        _viewModel.Dispose();
-        //    }
-        //}
-
-        //private async Task ConfirmShutdown()
-        //{
-        //    var mySettings = new MetroDialogSettings
-        //    {
-        //        AffirmativeButtonText = "Quit",
-        //        NegativeButtonText = "Cancel",
-        //        AnimateShow = true,
-        //        AnimateHide = false
-        //    };
-
-        //    var result = await this.ShowMessageAsync("Quit application?", "Sure you want to quit application?",
-        //        MessageDialogStyle.AffirmativeAndNegative, mySettings);
-
-        //    _shutdown = result == MessageDialogResult.Affirmative;
-
-        //    if (_shutdown)
-        //    {
-        //        Application.Current.Shutdown();
-        //    }
-        //}
-
-        //--------------------------------------------------------------------------
         private void LoadStuff()
         {
-            //Top = Convert.ToDouble(ConfigurationManager.AppSettings["Top"]);
-            //Left = Convert.ToDouble(ConfigurationManager.AppSettings["Left"]);
-            //Height = Convert.ToDouble(ConfigurationManager.AppSettings["Height"]);
-            //Width = Convert.ToDouble(ConfigurationManager.AppSettings["Width"]);
-            //          WindowState = ConfigurationManager.AppSettings["WindowState"];
+            var auth = new AuthenticationViewModel(new AuthenticationService());
+            TbUser.Text = auth.AuthenticatedUser;
 
-            var accentColor = ConfigurationManager.AppSettings["Accent1"];
-            //     new PaletteHelper().ReplaceAccentColor(accentColor);
-            var primaryColor = ConfigurationManager.AppSettings["Primary1"];
-            //     new PaletteHelper().ReplacePrimaryColor(primaryColor);
-            var theme = ConfigurationManager.AppSettings["Theme1"];
-            //    new PaletteHelper().SetLightDark(theme != "Light");
+            Title = Settings.Default.ApplicationName;
+            App.Text = Settings.Default.ApplicationName;
+            Version.Text = "Copyright © Rudolf Terppé | Version " + Assembly.GetExecutingAssembly().GetName().Version + " | " + Settings.Default.ServerName;
+            //choose background colors from Windows 10
+            //move to Einstellungen
+            //    Background = SystemParameters.WindowGlassBrush;
+
+            WindowState = Settings.Default.WindowState;
+
+            // Set the window theme to Dark.Red
+            //       ThemeManager.Current.ChangeTheme(this, Settings.Default.Theme1);
+
+            //   var theme = ThemeManager.Current.GetTheme("BaseDark");
+            //      var accent = ThemeManager.Current.BaseColors;
+
+            //new PaletteHelper().ReplaceAccentColor(accentColor);
+            //var primaryColor = Settings.Default.Primary1;
+            //new PaletteHelper().ReplacePrimaryColor(primaryColor);
+            //var theme = Settings.Default.Theme1;
+            //new PaletteHelper().SetLightDark(theme != "Light");
         }
 
         //------------------------Check Server and Database-------------------------------
@@ -264,18 +219,23 @@ namespace ATIS.Ui.Views.Main
             _shutdown = result == MessageDialogResult.Affirmative;
             if (_shutdown)
             {
-                //     Settings.Default.Accent1 = new PaletteHelper().QueryPalette().AccentSwatch.Name;
-                //    Settings.Default.Primary1 = new PaletteHelper().QueryPalette().PrimarySwatch.Name;
+                //Settings.Default.Accent1 = new PaletteHelper().QueryPalette().AccentSwatch.Name;
+                //Settings.Default.Primary1 = new PaletteHelper().QueryPalette().PrimarySwatch.Name;
+                //Settings.Default.Theme1 = new PaletteHelper().SetLightDark(isDark); 
 
-                AddUpdateAppSettings("Top", Top.ToString(CultureInfo.CurrentCulture));
-                AddUpdateAppSettings("Left", Left.ToString(CultureInfo.CurrentCulture));
-                AddUpdateAppSettings("Height", Height.ToString(CultureInfo.CurrentCulture));
-                AddUpdateAppSettings("Width", Width.ToString(CultureInfo.CurrentCulture));
-                //      AddUpdateAppSettings("WindowState", WindowState);
+                Settings.Default.WindowState = WindowState;
+                Theme theme = ThemeManager.Current.DetectTheme(this);
+                //  Settings.Default.Theme1 = theme;
+                Settings.Default.Theme1 = ThemeManager.Current.DetectTheme().Name;
+                Settings.Default.Accent1 = ThemeManager.Current.DetectTheme().DisplayName;
+                Settings.Default.Primary1 = ThemeManager.Current.DetectTheme().Name;
+                //var appTheme = ThemeManager.GetAppTheme(SelectedTheme.Name);
+                //var accent = ThemeManager.GetAccent(SelectedAccent.Name);
 
-                //AddUpdateAppSettings("Accent1", accentColor);
-                //AddUpdateAppSettings("Primary1", primaryColor);
-                //AddUpdateAppSettings("Theme1", theme);
+                //Settings.Default.Theme1 = SelectedTheme.Name;
+                //Settings.Default.Accent1 = SelectedAccent.Name;
+                //Theme1 direct in PaletteSelectorViewModel
+                Settings.Default.Save();
 
                 Application.Current.Shutdown();
             }
@@ -289,48 +249,7 @@ namespace ATIS.Ui.Views.Main
         //    ThemeManager.ChangeAppStyle(Application.Current, accent, theme);
         //}
 
-        //------------------------------- Settings --------------------------
 
-        static string ReadSetting(string key)
-        {
-            try
-            {
-                var appSettings = ConfigurationManager.AppSettings;
-                var result = appSettings[key] ?? "Not Found";
-                return result;
-            }
-            catch (ConfigurationErrorsException e)
-            {
-                AllMessageBoxes.ErrorMessageBox(e.Message, "Error reading app settings");
-                SimpleLog.Error("Error reading app settings");
-            }
-            return null;
-        }
-
-        static void AddUpdateAppSettings(string key, string value)
-        {
-            try
-            {
-                var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                var settings = configFile.AppSettings.Settings;
-                if (settings[key] == null)
-                {
-                    settings.Add(key, value);
-                }
-                else
-                {
-                    settings[key].Value = value;
-                }
-                configFile.Save(ConfigurationSaveMode.Modified);
-                ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
-            }
-            catch (ConfigurationErrorsException e)
-            {
-                AllMessageBoxes.ErrorMessageBox(e.Message, "Error writing app settings");
-                SimpleLog.Error("Error writing app settings");
-
-            }
-        }
 
     }
 }

@@ -181,7 +181,6 @@
                 <Setter Property="PaneForeground" Value="{DynamicResource MahApps.Brushes.Text}" />
                 <Setter Property="ShowSelectionIndicator" Value="True" />
             </Style>
-
         </ResourceDictionary>
     </mah:MetroWindow.Resources>
 
@@ -445,11 +444,11 @@
 
         <StatusBar Grid.Row="3" Grid.Column="0">
             <StatusBarItem>
-                <TextBlock Text="ATIS Application" />
+                <TextBlock Name="App" />
             </StatusBarItem>
             <Separator Style="{StaticResource MahApps.Styles.Separator.StatusBar}" />
             <StatusBarItem>
-                <TextBlock Text="Copyright © Rudolf Terppé Version 6.0.0.0" />
+                <TextBlock Name="Version" />
             </StatusBarItem>
             <StatusBarItem Content="{Binding ElementName=MainTabControl, Path=SelectedItem.Header, Mode=OneWay}" />
         </StatusBar>
@@ -605,7 +604,6 @@
                 </DataTemplate>
             </mah:HamburgerMenu.ContentTemplate>
         </mah:HamburgerMenu>
-
     </Grid>
 
 </mah:MetroWindow>
