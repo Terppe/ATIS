@@ -1,9 +1,11 @@
 ﻿using ATIS.Ui.Views.Log;
 using System;
+using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Windows.Media;
 using ATIS.Ui.Helper;
@@ -35,10 +37,18 @@ namespace ATIS.Ui
             var customPrincipal = new CustomPrincipal();
             AppDomain.CurrentDomain.SetThreadPrincipal(customPrincipal);
 
-            if (Equals(Settings.Default.Culture, CultureInfo.CurrentUICulture) == false)
+            //if (Equals(Settings.Default.Culture, CultureInfo.CurrentUICulture) == false)
+            //{
+            //    Thread.CurrentThread.CurrentCulture = Settings.Default.Culture;
+            //    Thread.CurrentThread.CurrentUICulture = Settings.Default.Culture;
+            //}
+
+            var cult = ConfigurationManager.AppSettings.Get("Culture");
+
+            if (Equals(cult, CultureInfo.CurrentUICulture) == false)
             {
-                Thread.CurrentThread.CurrentCulture = Settings.Default.Culture;
-                Thread.CurrentThread.CurrentUICulture = Settings.Default.Culture;
+                Thread.CurrentThread.CurrentCulture = new CultureInfo(cult ?? string.Empty);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(cult ?? string.Empty);
             }
 
             FrameworkElement.LanguageProperty.OverrideMetadata(
@@ -47,17 +57,14 @@ namespace ATIS.Ui
                     XmlLanguage.GetLanguage(
                         CultureInfo.CurrentCulture.IetfLanguageTag)));
 
-            var currentTheme = Settings.Default.Theme1;
-            var currentAccent = Settings.Default.Accent1;
-            //Theme theme = ThemeManager.ChangeTheme(Current, currentAccent, currentTheme );
-            //Theme theme1 = ThemeManager.ChangeTheme(this, currentAccent, Settings.Default.Theme1);
-            //ThemeManager.ChangeTheme(FindResource("CurrentAccent") as FrameworkElement, currentAccent, currentTheme);
+            ThemeManager.Current.ChangeThemeBaseColor(Current, ConfigurationManager.AppSettings.Get("Theme1")!);
+            ThemeManager.Current.ChangeThemeColorScheme(Current, ConfigurationManager.AppSettings.Get("Accent1")!);
         }
 
         public void SetLanguageDictionary()
         {
             var dict = new ResourceDictionary();
-            switch (Settings.Default["Culture"].ToString())
+            switch (ConfigurationManager.AppSettings.Get("Culture"))
             {
                 case "de-DE":
                     dict.Source = new Uri("CultRes/StringsRes.de-DE.xaml", UriKind.Relative);
@@ -93,8 +100,14 @@ namespace ATIS.Ui
                     break;
             }
             Current.Resources.MergedDictionaries.Add(dict);
-            Settings.Default.Culture = CultureInfo.GetCultureInfoByIetfLanguageTag(culture);
-            Settings.Default.Save();
+
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings["Culture"].Value = CultureInfo.GetCultureInfoByIetfLanguageTag(culture).ToString();
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("AppSettings");
+
+            //   Settings.Default.Culture = CultureInfo.GetCultureInfoByIetfLanguageTag(culture);
+            //   Settings.Default.Save();
         }
 
     }

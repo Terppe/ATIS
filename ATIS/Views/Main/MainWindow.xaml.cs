@@ -4,19 +4,14 @@ using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Configuration;
 using System.Diagnostics;
-using System.Drawing;
 using System.Globalization;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Windows;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
-using ATIS.Ui.Properties;
 using ControlzEx.Theming;
-using MaterialDesignThemes.Wpf;
 using Microsoft.Data.SqlClient;
-using System.Windows.Media;
-using Theme = ControlzEx.Theming.Theme;
 
 namespace ATIS.Ui.Views.Main
 {
@@ -38,13 +33,14 @@ namespace ATIS.Ui.Views.Main
 
             LoadStuff();
 
-            if (!CheckForServer(Settings.Default.ServerName, Convert.ToInt32(Settings.Default.Port)))
+            if (!CheckForServer(ConfigurationManager.AppSettings.Get("ServerName"),
+                    Convert.ToInt32(ConfigurationManager.AppSettings.Get("Port"))))
             {
                 TbDataBase.Text = "SQL-Server not running";
             }
             else
             {
-                if (!CheckDatabaseExist(Settings.Default.ServerName))
+                if (!CheckDatabaseExist(ConfigurationManager.AppSettings.Get("ServerName")))
                 {
                     TbDataBase.Text = "Database not Found";
                 }
@@ -71,7 +67,6 @@ namespace ATIS.Ui.Views.Main
 
             flyout.IsOpen = !flyout.IsOpen;
         }
-
 
         //--------------------------------HamburgerMenu------------------------------------
 
@@ -108,26 +103,15 @@ namespace ATIS.Ui.Views.Main
             var auth = new AuthenticationViewModel(new AuthenticationService());
             TbUser.Text = auth.AuthenticatedUser;
 
-            Title = Settings.Default.ApplicationName;
-            App.Text = Settings.Default.ApplicationName;
-            Version.Text = "Copyright © Rudolf Terppé | Version " + Assembly.GetExecutingAssembly().GetName().Version + " | " + Settings.Default.ServerName;
+            Title = ConfigurationManager.AppSettings.Get("ApplicationName");
+            App.Text = ConfigurationManager.AppSettings.Get("ApplicationName");
+            Version.Text = "Copyright © Rudolf Terppé | Version " +
+                           Assembly.GetExecutingAssembly().GetName().Version + " | " +
+                           ConfigurationManager.AppSettings.Get("ApplicationName");
+
             //choose background colors from Windows 10
             //move to Einstellungen
             //    Background = SystemParameters.WindowGlassBrush;
-
-            WindowState = Settings.Default.WindowState;
-
-            // Set the window theme to Dark.Red
-            //       ThemeManager.Current.ChangeTheme(this, Settings.Default.Theme1);
-
-            //   var theme = ThemeManager.Current.GetTheme("BaseDark");
-            //      var accent = ThemeManager.Current.BaseColors;
-
-            //new PaletteHelper().ReplaceAccentColor(accentColor);
-            //var primaryColor = Settings.Default.Primary1;
-            //new PaletteHelper().ReplacePrimaryColor(primaryColor);
-            //var theme = Settings.Default.Theme1;
-            //new PaletteHelper().SetLightDark(theme != "Light");
         }
 
         //------------------------Check Server and Database-------------------------------
@@ -135,8 +119,8 @@ namespace ATIS.Ui.Views.Main
         private bool CheckForServer(string address, int port)
         {
             var timeout = 500;
-            if (ConfigurationManager.AppSettings["RemoteTestTimeout"] != null)
-                timeout = int.Parse(ConfigurationManager.AppSettings["RemoteTestTimeout"]);
+            if (ConfigurationManager.AppSettings.Get("RemoteTestTimeout") != null)
+                timeout = int.Parse(ConfigurationManager.AppSettings.Get("RemoteTestTimeout") ?? string.Empty);
             var result = false;
             try
             {
@@ -216,40 +200,29 @@ namespace ATIS.Ui.Views.Main
                 CultRes.StringsRes.AppCloseQuestion,
                 MessageDialogStyle.AffirmativeAndNegative, mySettings);
 
+            var appTheme = ThemeManager.Current.DetectTheme(Application.Current);
+
             _shutdown = result == MessageDialogResult.Affirmative;
             if (_shutdown)
             {
-                //Settings.Default.Accent1 = new PaletteHelper().QueryPalette().AccentSwatch.Name;
-                //Settings.Default.Primary1 = new PaletteHelper().QueryPalette().PrimarySwatch.Name;
-                //Settings.Default.Theme1 = new PaletteHelper().SetLightDark(isDark); 
+                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                if (appTheme != null)
+                {
+                    config.AppSettings.Settings["Theme1"].Value = appTheme.BaseColorScheme;
+                    config.AppSettings.Settings["Accent1"].Value = appTheme.ColorScheme;
+                }
 
-                Settings.Default.WindowState = WindowState;
-                Theme theme = ThemeManager.Current.DetectTheme(this);
-                //  Settings.Default.Theme1 = theme;
-                Settings.Default.Theme1 = ThemeManager.Current.DetectTheme().Name;
-                Settings.Default.Accent1 = ThemeManager.Current.DetectTheme().DisplayName;
-                Settings.Default.Primary1 = ThemeManager.Current.DetectTheme().Name;
-                //var appTheme = ThemeManager.GetAppTheme(SelectedTheme.Name);
-                //var accent = ThemeManager.GetAccent(SelectedAccent.Name);
+                config.AppSettings.Settings["Primary1"].Value = "Teal";
+                config.AppSettings.Settings["Updated"].Value = false.ToString();
+                config.AppSettings.Settings["CheckedUpdate"].Value = 0.1.ToString(CultureInfo.InvariantCulture);
+                config.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection("AppSettings");
 
-                //Settings.Default.Theme1 = SelectedTheme.Name;
-                //Settings.Default.Accent1 = SelectedAccent.Name;
-                //Theme1 direct in PaletteSelectorViewModel
-                Settings.Default.Save();
+                //Settings.Default.WindowState = WindowState;
+                //Settings.Default.Save();
 
                 Application.Current.Shutdown();
             }
         }
-
-        //private void MenuItem_Click(object sender, RoutedEventArgs e)
-        //{
-        //    // set the Red accent and dark theme only to the current window
-        //    var theme = ThemeManager.GetAppTheme("BaseDark");
-        //    var accent = ThemeManager.GetAccent("Red");
-        //    ThemeManager.ChangeAppStyle(Application.Current, accent, theme);
-        //}
-
-
-
     }
 }

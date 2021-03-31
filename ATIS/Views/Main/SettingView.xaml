@@ -4,10 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:local="clr-namespace:ATIS.Ui.Views.Main"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:theming="urn:controlzex"
-    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     d:DataContext="{d:DesignInstance local:SettingViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -43,7 +43,7 @@
 
         <TabControl>
             <TabItem Header="{DynamicResource Shared-TabStripHeaderAppStyles}">
-                <GroupBox Margin="5"  >
+                <GroupBox Margin="5">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -62,29 +62,20 @@
                             Margin="5"
                             Columns="2"
                             Rows="2">
-                            <TextBlock
-                                Margin="0,0,2,0"
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                Margin="0,10,20,0"
                                 VerticalAlignment="Center"
                                 Text="Accents" />
-                            <TextBlock
-                                Margin="2,0,0,0"
-                                VerticalAlignment="Center"
-                                Text="Colors" />
-                            <ComboBox
-                                x:Name="AccentSelector"
-                                Margin="0,0,2,0"
+                                <ComboBox   HorizontalAlignment="Left"
+                                x:Name="AccentSelector" Width="500"
+                                Margin="0,10,2,0"
                                 VerticalAlignment="Center"
                                 DisplayMemberPath="Name"
                                 IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Source={StaticResource Themes}}"
                                 SelectionChanged="AccentSelectionChanged" />
-                            <ComboBox
-                                x:Name="ColorsSelector"
-                                Margin="2,0,0,0"
-                                VerticalAlignment="Center"
-                                DisplayMemberPath="Key"
-                                ItemsSource="{Binding Colors}"
-                                SelectionChanged="ColorsSelectorOnSelectionChanged" />
+                            </StackPanel>
                         </UniformGrid>
                     </Grid>
                 </GroupBox>
@@ -94,90 +85,6 @@
                 <Grid>
                     <!--<iconPacks:PackIconMaterial Kind="EmoticonCool" VerticalAlignment="Center" HorizontalAlignment="Center" />-->
                 </Grid>
-            </TabItem>
-            <TabItem Header="{DynamicResource Shared-TabStripHeaderLanguages}">
-                <GroupBox Margin="5"  >
-
-                    <Grid>
-                        <!--<Button
-                            Width="75"
-                            Margin="10,10,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Click="enUs_Click"
-                            Content="en-US" />
-                        <Button
-                            Width="75"
-                            Margin="10,35,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Click="frFr_Click"
-                            Content="fr-FR" />
-                        <Button
-                            Width="75"
-                            Margin="10,60,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Click="nlNl_Click"
-                            Content="nl-NL" />
-                        <TextBlock
-                            Width="417"
-                            Height="70"
-                            Margin="90,10,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Text="{Binding Path=Text}"
-                            TextWrapping="Wrap" />-->
-
-                        <Button
-                            Width="120"
-                            Height="60"
-                            Margin="10,10,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Command="{Binding ChangeCulUsaCommand}"
-                            ToolTip="{DynamicResource MainWindow-MenuCulUsa}"
-                            ToolTipService.Placement="Right">
-                            <Image Source="/Asset/Images/flagge_USA.jpg" Stretch="Fill"/>
-                        </Button>
-                        <Button
-                            Width="120"
-                            Height="60"
-                            Margin="10,80,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Command="{Binding ChangeCulGermanCommand}"
-                            ToolTip="{DynamicResource MainWindow-MenuCulGerman}"
-                            ToolTipService.Placement="Right">
-                            <Image Source="/Asset/Images/flagge_D.gif" Stretch="Fill" />
-                        </Button>
-                        <Button
-                            Width="120"
-                            Height="60"
-                            Margin="10,150,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Command="{Binding ChangeCulFrenchCommand}"
-                            ToolTip="{DynamicResource MainWindow-MenuCulFrench}"
-                            ToolTipService.Placement="Right">
-                            <Image Source="/Asset/Images/flagge_FR.jpg" Stretch="Fill" />
-                        </Button>
-                        <Button
-                            Width="120"
-                            Height="60"
-                            Margin="10,220,0,0"
-                            HorizontalAlignment="Left"
-                            Command="{Binding ChangeCulSpainCommand}"
-                            ToolTip="{DynamicResource MainWindow-MenuCulSpain}"
-                            ToolTipService.Placement="Right" >
-                            <Image  Source="/Asset/Images/flagge_Sp.png" Stretch="Fill" />
-                        </Button>
-                        <!--<Image Margin="13,96,687,337" Source="/Asset/Images/flagge_PT.png" />
-                        <Image Margin="13,96,687,537" Source="/Asset/Images/flagge_FR.jpg" />
-                        <Image Margin="13,96,687,637" Source="/Asset/Images/flagge_D.gif" />-->
-                    </Grid>
-
-                </GroupBox>
             </TabItem>
         </TabControl>
     </Grid>

@@ -236,28 +236,6 @@ namespace ATIS.Ui.Views.Main
 
         //----------------------------------------------------------------------
 
-        //private RelayCommand _getByNameOrIdCommand;
-        //public ICommand GetByNameCommand => _getByNameOrIdCommand ??= new RelayCommand(delegate { ExecuteGetByName(FilterText); });
-
-
-        //private void ExecuteGetByName(string searchName)
-        //{
-        //    //      TabIndexDetail = 1;
-
-        //    //PhylumsCollection.Clear();
-        //    //DivisionsCollection.Clear();
-        //    //SubphylumsCollection.Clear();
-        //    //SubdivisionsCollection.Clear();
-        //    //ReferencesCollection.Clear();
-        //    //ReferenceExpertsCollection.Clear();
-        //    //ReferenceSourcesCollection.Clear();
-        //    //ReferenceAuthorsCollection.Clear();
-        //    //CommentsCollection.Clear();
-
-        //    //    RegnumsCollection = _extGet.SearchNameAndIdReturnCollection<Tbl03Regnum>(searchName, "regnum");
-        //    //   RaisePropertyChanged("RegnumsCollection");
-        //}
-
         public string FilterText { get; set; }
 
         //----------------Close -----------------
