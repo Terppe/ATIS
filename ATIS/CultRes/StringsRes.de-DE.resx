@@ -156,6 +156,9 @@
   <data name="AuthUserQuestion2" xml:space="preserve">
     <value>Sie sind KEIN Mitglied der Administratoren-Gruppe</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
   <data name="CheckOption" xml:space="preserve">
     <value>Option muss überprüft werden</value>
   </data>
@@ -368,6 +371,9 @@
   </data>
   <data name="Question" xml:space="preserve">
     <value>Frage</value>
+  </data>
+  <data name="Quit" xml:space="preserve">
+    <value>Beenden</value>
   </data>
   <data name="RefAuthor" xml:space="preserve">
     <value>Quelle Autor</value>

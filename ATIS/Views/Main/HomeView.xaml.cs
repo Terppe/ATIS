@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Configuration;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Navigation;
-using MahApps.Metro.Controls;
 
 namespace ATIS.Ui.Views.Main
 {
@@ -21,8 +19,7 @@ namespace ATIS.Ui.Views.Main
 
             InitializeComponent();
 
-            LbVersion.Content = ".NET Core Version: " + System.Environment.Version;
-
+            LbVersion.Content = ".NET Core Version: " + Environment.Version;
         }
 
         //private void FlipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -72,7 +69,7 @@ namespace ATIS.Ui.Views.Main
             //// System.Diagnostics.Process.Start(mailto);
             //System.Diagnostics.Process.Start(new ProcessStartInfo(mailto) { UseShellExecute = true });
             ////    Process.Start("mailto://rudolf@terppe.de");
-            System.Diagnostics.Process.Start(new ProcessStartInfo("mailto:rudolf@terppe.de") { UseShellExecute = true });
+            Process.Start(new ProcessStartInfo("mailto:rudolf@terppe.de") { UseShellExecute = true });
         }
 
         private void DonateButton_OnClick(object sender, RoutedEventArgs e)
@@ -84,16 +81,16 @@ namespace ATIS.Ui.Views.Main
         {
             var psi = new ProcessStartInfo
             {
-                FileName = "https://itis.gov",
+                FileName = ConfigurationManager.AppSettings["ItisUSA"]!,
                 UseShellExecute = true
             };
             Process.Start(psi);
         }
-        private void ItisCandaButton_OnClick(object sender, RoutedEventArgs e)
+        private void ItisCanadaButton_OnClick(object sender, RoutedEventArgs e)
         {
             var psi = new ProcessStartInfo
             {
-                FileName = "http://www.cbif.gc.ca",
+                FileName = ConfigurationManager.AppSettings["ItisCanada"]!,
                 UseShellExecute = true
             };
             Process.Start(psi);
@@ -103,7 +100,7 @@ namespace ATIS.Ui.Views.Main
         {
             var psi = new ProcessStartInfo
             {
-                FileName = "http://www.catalogueoflife.org/annual-checklist/2015/",
+                FileName = ConfigurationManager.AppSettings["CoLife"]!,
                 UseShellExecute = true
             };
             Process.Start(psi);
@@ -113,7 +110,7 @@ namespace ATIS.Ui.Views.Main
         {
             var psi = new ProcessStartInfo
             {
-                FileName = "http://www.eol.org/",
+                FileName = ConfigurationManager.AppSettings["EOL"]!,
                 UseShellExecute = true
             };
             Process.Start(psi);
@@ -122,7 +119,7 @@ namespace ATIS.Ui.Views.Main
         {
             var psi = new ProcessStartInfo
             {
-                FileName = "http://www.conabio.gob.mx/",
+                FileName = ConfigurationManager.AppSettings["Mexico"]!,
                 UseShellExecute = true
             };
             Process.Start(psi);
@@ -132,21 +129,16 @@ namespace ATIS.Ui.Views.Main
         {
             var psi = new ProcessStartInfo
             {
-                FileName = "http://www.gbif.org/",
+                FileName = ConfigurationManager.AppSettings["GlobalBio"]!,
                 UseShellExecute = true
             };
             Process.Start(psi);
         }
-        //mexico  http://www.conabio.gob.mx/
-        //Species 2000   http://www.sp2000.org/
-        //Global Bio  http://www.gbif.org/
-        //Catalog of Life  http://www.catalogueoflife.org/annual-checklist/2015/
-        //EOL  http://www.eol.org/
 
         private void HelpLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            Hyperlink thisLink = (Hyperlink)sender;
-            string navigateUri = thisLink.NavigateUri.ToString();
+            var thisLink = (Hyperlink)sender;
+            var navigateUri = thisLink.NavigateUri.ToString();
             Process.Start(new ProcessStartInfo(navigateUri));
             e.Handled = true;
         }

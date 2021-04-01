@@ -234,10 +234,11 @@
                     TextWrapping="Wrap" />
             </StackPanel>
             <StackPanel>
-                <Border  
+                <Border
+                    Width="Auto"
                     Margin="0,8,0,0"
                     BorderBrush="{DynamicResource MahApps.Brushes.Accent}"
-                    BorderThickness="1" Width="Auto">
+                    BorderThickness="1">
                     <Grid Margin="8">
                         <Button
                             Width="120"
@@ -304,7 +305,7 @@
                             Width="120"
                             Margin="130,0,0,0"
                             HorizontalAlignment="Left"
-                            Click="ItisCandaButton_OnClick"
+                            Click="ItisCanadaButton_OnClick"
                             Style="{DynamicResource MahApps.Styles.Button}">
                             <StackPanel Orientation="Horizontal">
                                 <iconPacks:PackIconModern

@@ -37,15 +37,10 @@ namespace ATIS.Ui
             var customPrincipal = new CustomPrincipal();
             AppDomain.CurrentDomain.SetThreadPrincipal(customPrincipal);
 
-            //if (Equals(Settings.Default.Culture, CultureInfo.CurrentUICulture) == false)
-            //{
-            //    Thread.CurrentThread.CurrentCulture = Settings.Default.Culture;
-            //    Thread.CurrentThread.CurrentUICulture = Settings.Default.Culture;
-            //}
 
             var cult = ConfigurationManager.AppSettings.Get("Culture");
 
-            if (Equals(cult, CultureInfo.CurrentUICulture) == false)
+            if (Equals(cult, CultureInfo.CurrentUICulture.ToString()) == false)
             {
                 Thread.CurrentThread.CurrentCulture = new CultureInfo(cult ?? string.Empty);
                 Thread.CurrentThread.CurrentUICulture = new CultureInfo(cult ?? string.Empty);
@@ -105,9 +100,6 @@ namespace ATIS.Ui
             config.AppSettings.Settings["Culture"].Value = CultureInfo.GetCultureInfoByIetfLanguageTag(culture).ToString();
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("AppSettings");
-
-            //   Settings.Default.Culture = CultureInfo.GetCultureInfoByIetfLanguageTag(culture);
-            //   Settings.Default.Save();
         }
 
     }

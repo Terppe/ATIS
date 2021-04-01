@@ -1,7 +1,11 @@
 ﻿using ControlzEx.Theming;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Configuration;
+using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -69,13 +73,21 @@ namespace ATIS.Ui.Views.Main
             var selectedColor = e.AddedItems.OfType<KeyValuePair<string, Color>?>().FirstOrDefault();
             if (selectedColor != null)
             {
-                var theme = ThemeManager.Current.DetectTheme(Application.Current);
-                var inverseTheme = ThemeManager.Current.GetInverseTheme(theme!);
-                ThemeManager.Current.AddTheme(RuntimeThemeGenerator.Current.GenerateRuntimeTheme(inverseTheme.BaseColorScheme, selectedColor.Value.Value));
-                ThemeManager.Current.ChangeTheme(Application.Current, ThemeManager.Current.AddTheme(RuntimeThemeGenerator.Current.GenerateRuntimeTheme(theme.BaseColorScheme, selectedColor.Value.Value)!));
+                var col = selectedColor.Value;
+                var brush = new SolidColorBrush(col.Value);
+                //local Background
+                Background = brush;
+                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+                config.AppSettings.Settings["BackgroundBrush"].Value = brush.ToString();
+
+                config.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection("AppSettings");
                 Application.Current?.MainWindow?.Activate();
             }
         }
+
+
         //-----------------------------------------------------------
 
         private void RadioButtonChecked(object sender, RoutedEventArgs e)

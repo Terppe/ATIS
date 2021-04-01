@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Media;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using ControlzEx.Theming;
@@ -106,12 +107,15 @@ namespace ATIS.Ui.Views.Main
             Title = ConfigurationManager.AppSettings.Get("ApplicationName");
             App.Text = ConfigurationManager.AppSettings.Get("ApplicationName");
             Version.Text = "Copyright © Rudolf Terppé | Version " +
-                           Assembly.GetExecutingAssembly().GetName().Version + " | " +
-                           ConfigurationManager.AppSettings.Get("ApplicationName");
+                           Assembly.GetExecutingAssembly().GetName().Version;
 
             //choose background colors from Windows 10
             //move to Einstellungen
             //    Background = SystemParameters.WindowGlassBrush;
+
+            var background = ConfigurationManager.AppSettings.Get("BackgroundBrush");
+            var conver = new BrushConverter();
+            Background = (Brush)conver.ConvertFromString(background) as SolidColorBrush;
         }
 
         //------------------------Check Server and Database-------------------------------
@@ -126,7 +130,7 @@ namespace ATIS.Ui.Views.Main
             {
                 using (var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
                 {
-                    IAsyncResult asyncResult = socket.BeginConnect(address, port, null, null);
+                    var asyncResult = socket.BeginConnect(address, port, null, null);
                     result = asyncResult.AsyncWaitHandle.WaitOne(timeout, true);
                     socket.Close();
                 }
@@ -191,8 +195,8 @@ namespace ATIS.Ui.Views.Main
             if (_shutdown) return;
             var mySettings = new MetroDialogSettings()
             {
-                AffirmativeButtonText = "Quit",
-                NegativeButtonText = "Cancel",
+                AffirmativeButtonText = CultRes.StringsRes.Quit,
+                NegativeButtonText = CultRes.StringsRes.Cancel,
                 AnimateShow = true,
                 AnimateHide = false
             };
@@ -212,14 +216,17 @@ namespace ATIS.Ui.Views.Main
                     config.AppSettings.Settings["Accent1"].Value = appTheme.ColorScheme;
                 }
 
+                config.AppSettings.Settings["Top"].Value = Top.ToString(CultureInfo.InvariantCulture);
+                config.AppSettings.Settings["Left"].Value = Left.ToString(CultureInfo.InvariantCulture);
+                config.AppSettings.Settings["Width"].Value = Width.ToString(CultureInfo.InvariantCulture);
+                config.AppSettings.Settings["Height"].Value = Height.ToString(CultureInfo.InvariantCulture);
+
                 config.AppSettings.Settings["Primary1"].Value = "Teal";
                 config.AppSettings.Settings["Updated"].Value = false.ToString();
                 config.AppSettings.Settings["CheckedUpdate"].Value = 0.1.ToString(CultureInfo.InvariantCulture);
+
                 config.Save(ConfigurationSaveMode.Modified);
                 ConfigurationManager.RefreshSection("AppSettings");
-
-                //Settings.Default.WindowState = WindowState;
-                //Settings.Default.Save();
 
                 Application.Current.Shutdown();
             }

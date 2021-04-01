@@ -62,20 +62,29 @@
                             Margin="5"
                             Columns="2"
                             Rows="2">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                Margin="0,10,20,0"
+                            <TextBlock
+                                Margin="0,0,2,0"
                                 VerticalAlignment="Center"
                                 Text="Accents" />
-                                <ComboBox   HorizontalAlignment="Left"
-                                x:Name="AccentSelector" Width="500"
-                                Margin="0,10,2,0"
+                            <TextBlock
+                                Margin="2,0,0,0"
+                                VerticalAlignment="Center"
+                                Text="Background" />
+                            <ComboBox
+                                x:Name="AccentSelector"
+                                Margin="0,0,2,0"
                                 VerticalAlignment="Center"
                                 DisplayMemberPath="Name"
                                 IsSynchronizedWithCurrentItem="False"
                                 ItemsSource="{Binding Source={StaticResource Themes}}"
                                 SelectionChanged="AccentSelectionChanged" />
-                            </StackPanel>
+                            <ComboBox
+                                x:Name="ColorsSelector"
+                                Margin="2,0,0,0"
+                                VerticalAlignment="Center"
+                                DisplayMemberPath="Key"
+                                ItemsSource="{Binding Colors}"
+                                SelectionChanged="ColorsSelectorOnSelectionChanged" />
                         </UniformGrid>
                     </Grid>
                 </GroupBox>
