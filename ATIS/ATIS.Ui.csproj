@@ -13,7 +13,7 @@
     <ApplicationIcon>Application.ico</ApplicationIcon>
     <Deterministic>false</Deterministic>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <Authors />
+    <Authors>Rudolf Terppé</Authors>
   </PropertyGroup>
 
   <ItemGroup>

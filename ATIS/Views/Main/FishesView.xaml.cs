@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.Configuration;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace ATIS.Ui.Views.Main
 {
@@ -10,6 +12,11 @@ namespace ATIS.Ui.Views.Main
         public FishesView()
         {
             InitializeComponent();
+
+            var background = ConfigurationManager.AppSettings.Get("BackgroundBrush");
+            var conver = new BrushConverter();
+            Background = (Brush)conver.ConvertFromString(background) as SolidColorBrush;
+
         }
     }
 }

@@ -51,6 +51,25 @@ namespace ATIS.Ui.Views.Main
             SimpleLog.Info("MainWindow logging started.");
         }
 
+        private void LoadStuff()
+        {
+            var auth = new AuthenticationViewModel(new AuthenticationService());
+            TbUser.Text = auth.AuthenticatedUser;
+
+            Title = ConfigurationManager.AppSettings.Get("ApplicationName");
+            App.Text = ConfigurationManager.AppSettings.Get("ApplicationName");
+            Version.Text = "Copyright © Rudolf Terppé | Version " +
+                           Assembly.GetExecutingAssembly().GetName().Version;
+
+            //choose background colors from Windows 10
+            //move to Einstellungen
+            //    Background = SystemParameters.WindowGlassBrush;
+
+            var background = ConfigurationManager.AppSettings.Get("BackgroundBrush");
+            var conver = new BrushConverter();
+            Background = (Brush)conver.ConvertFromString(background) as SolidColorBrush;
+        }
+
         //---------------------------Flyout --------------------------------
 
         private void ShowModal(object sender, RoutedEventArgs e)
@@ -97,25 +116,6 @@ namespace ATIS.Ui.Views.Main
         private void ShowLogFile(object sender, RoutedEventArgs e)
         {
             SimpleLog.ShowLogFile();
-        }
-
-        private void LoadStuff()
-        {
-            var auth = new AuthenticationViewModel(new AuthenticationService());
-            TbUser.Text = auth.AuthenticatedUser;
-
-            Title = ConfigurationManager.AppSettings.Get("ApplicationName");
-            App.Text = ConfigurationManager.AppSettings.Get("ApplicationName");
-            Version.Text = "Copyright © Rudolf Terppé | Version " +
-                           Assembly.GetExecutingAssembly().GetName().Version;
-
-            //choose background colors from Windows 10
-            //move to Einstellungen
-            //    Background = SystemParameters.WindowGlassBrush;
-
-            var background = ConfigurationManager.AppSettings.Get("BackgroundBrush");
-            var conver = new BrushConverter();
-            Background = (Brush)conver.ConvertFromString(background) as SolidColorBrush;
         }
 
         //------------------------Check Server and Database-------------------------------

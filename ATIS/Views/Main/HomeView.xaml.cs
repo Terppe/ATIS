@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Media;
 using System.Windows.Navigation;
 
 namespace ATIS.Ui.Views.Main
@@ -20,6 +21,11 @@ namespace ATIS.Ui.Views.Main
             InitializeComponent();
 
             LbVersion.Content = ".NET Core Version: " + Environment.Version;
+
+            var background = ConfigurationManager.AppSettings.Get("BackgroundBrush");
+            var conver = new BrushConverter();
+            Background = (Brush)conver.ConvertFromString(background) as SolidColorBrush;
+
         }
 
         //private void FlipView_SelectionChanged(object sender, SelectionChangedEventArgs e)

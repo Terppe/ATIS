@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,6 +22,11 @@ namespace ATIS.Ui.Views.Main
         public MiscellaneousView()
         {
             InitializeComponent();
+
+            var background = ConfigurationManager.AppSettings.Get("BackgroundBrush");
+            var conver = new BrushConverter();
+            Background = (Brush)conver.ConvertFromString(background) as SolidColorBrush;
+
         }
     }
 }
