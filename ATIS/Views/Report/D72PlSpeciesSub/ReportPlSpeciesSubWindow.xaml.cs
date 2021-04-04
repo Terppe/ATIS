@@ -28,21 +28,21 @@ using ATIS.Ui.Views.Report.D57Tribus;
 using ATIS.Ui.Views.Report.D60Subtribus;
 using ATIS.Ui.Views.Report.D63Infratribus;
 using ATIS.Ui.Views.Report.D66Genus;
-using ATIS.Ui.Views.Report.D69FiSpeciesSub;
+using ATIS.Ui.Views.Report.D72PlSpecies;
 
 
-//  ReportFiSpeciesWindow.xaml.cs Skriptdatum:  07.01.2021  10:32     
+//  ReportPlSpeciesWindow.xaml.cs Skriptdatum:  07.01.2021  12:32     
 
-namespace ATIS.Ui.Views.Report.D69FiSpecies
+namespace ATIS.Ui.Views.Report.D72PlSpeciesSub
 {
 
     /// <summary>
-    /// Interactionslogic for ReportFiSpeciesWindow.xaml
+    /// Interactionslogic for ReportPlSpeciesSubWindow.xaml
     /// </summary>
-    public partial class ReportFiSpeciesWindow : MetroWindow
+    public partial class ReportPlSpeciesSubWindow : MetroWindow
     {
 
-        public ReportFiSpeciesWindow(int un, string tab)
+        public ReportPlSpeciesSubWindow(int un, string tab)
         {
             DataContext = new ReportViewModel(un, tab);
             InitializeComponent();
@@ -258,22 +258,15 @@ namespace ATIS.Ui.Views.Report.D69FiSpecies
             var rp = new ReportGenusWindow(id, "Tbl66Genusses");
             rp.Show();
         }
-        //Tbl69FiSpeciesses
-        private void HyperlinkFiSpecies_Click(object sender, RoutedEventArgs e)
-        {
-            var tagValue = ((Hyperlink)sender).Tag;
-            var id = Convert.ToInt32(tagValue);
-            var rp = new ReportFiSpeciesWindow(id, "Tbl69FiSpeciesses");
-            rp.Show();
-        }
-        private void HyperlinkFiSpeciesSub_Click(object sender, RoutedEventArgs e)
-        {
-            var tagValue = ((Hyperlink)sender).Tag;
-            var id = Convert.ToInt32(tagValue);
-            var rp = new ReportFiSpeciesSubWindow(id, "Tbl69FiSpeciessesSub");
-            rp.Show();
-        }
 
+        //Tbl72PlSpeciesses
+        private void HyperlinkPlSpecies_Click(object sender, RoutedEventArgs e)
+        {
+            var tagValue = ((Hyperlink)sender).Tag;
+            var id = Convert.ToInt32(tagValue);
+            var rp = new ReportPlSpeciesWindow(id, "Tbl72PlSpeciesses");
+            rp.Show();
+        }
 
     }
 }

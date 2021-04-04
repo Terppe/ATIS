@@ -197,18 +197,18 @@
                                                     FontSize="18"
                                                     FontWeight="Bold"
                                                     Text="{Binding (models:Tbl69FiSpecies.FiSpeciesName)}" />
-                                                <TextBlock
+                                                <!--<TextBlock
                                                     Width="Auto"
                                                     Margin="2,0,0,0"
                                                     FontSize="18"
                                                     FontWeight="Bold"
-                                                    Text="{Binding (models:Tbl69FiSpecies.Subspecies)}" />
-                                                <TextBlock
+                                                    Text="{Binding (models:Tbl69FiSpecies.Subspecies)}" />-->
+                                                <!--<TextBlock
                                                     Width="Auto"
                                                     Margin="2,0,0,0"
                                                     FontSize="18"
                                                     FontWeight="Bold"
-                                                    Text="{Binding (models:Tbl69FiSpecies.Divers)}" />
+                                                    Text="{Binding (models:Tbl69FiSpecies.Divers)}" />-->
                                                 <TextBlock
                                                     Width="Auto"
                                                     Margin="2,0,0,0"
@@ -251,6 +251,29 @@
                     <Paragraph>
                         <GroupBox>
                             <StackPanel>
+                                <ListBox
+                                    x:Name="Tbl03Regnums1List"
+                                    Width="{Binding ElementName=PageWidthText, Path=Text}"
+                                    Height="Auto"
+                                    Margin="0"
+                                    HorizontalAlignment="Left"
+                                    ItemsSource="{Binding RegnumsCollection}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                                                <TextBlock Width="300" Text="{DynamicResource Tbl03Regnum-Regnum}" />
+                                                <TextBlock>
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat=" {0} {1} ">
+                                                            <Binding Path="(models:Tbl03Regnum.RegnumName)" />
+                                                            <Binding Path="(models:Tbl03Regnum.Subregnum)" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
                                 <ListBox
                                     Width="{Binding ElementName=PageWidthText, Path=Text}"
                                     Height="Auto"
@@ -1295,7 +1318,6 @@
                         </StackPanel>
 
                         <!--  Tbl60Subtribusses  -->
-
                         <StackPanel>
                             <ListBox
                                 x:Name="Tbl60SubtribussesList"
@@ -1339,7 +1361,6 @@
                         </StackPanel>
 
                         <!--  Tbl63Infratribusses  -->
-
                         <StackPanel>
                             <ListBox
                                 x:Name="Tbl63InfratribussesList"
@@ -1383,7 +1404,6 @@
                         </StackPanel>
 
                         <!--  Tbl66Genusses  -->
-
                         <StackPanel>
                             <ListBox
                                 x:Name="Tbl66GenussesList"
@@ -1426,20 +1446,20 @@
                             </ListBox>
                         </StackPanel>
 
-                        <!--  Tbl69FiSpecies FiSpeciesName  -->
+                        <!--  FiSpeciessesCollection  -->
                         <StackPanel>
                             <ListBox
-                                x:Name="Tbl69FiSpeciessesFiSpeciesNameList"
+                                x:Name="Tbl69FiSpeciessesList"
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
                                 Height="Auto"
                                 Margin="0"
                                 HorizontalAlignment="Left"
-                                ItemsSource="{Binding FiSpeciessesFiSpeciesNameCollection}"
-                                Visibility="{Binding ElementName=Tbl69FiSpeciessesFiSpeciesNameList, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                ItemsSource="{Binding FiSpeciessesCollection}"
+                                Visibility="{Binding ElementName=Tbl69FiSpeciessesList, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Margin="180,0,0,0" Orientation="Horizontal">
-                                            <TextBlock Width="140" Text="{DynamicResource Tbl69FiSpecies-FiSpecies}" />
+                                            <TextBlock Width="140" Text="{DynamicResource Tbl69FiSpecies-FiSpeciesName}" />
                                             <TextBlock FontWeight="Bold">
                                                 <TextBlock.Text>
                                                     <MultiBinding StringFormat=" {0} {1} ">
@@ -1461,86 +1481,8 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </StackPanel>
-                        <!--  Tbl69FiSpecies Gattung Art Unterart  -->
-                        <StackPanel>
-                            <ListBox
-                                x:Name="Tbl69FiSpeciessesList"
-                                Width="{Binding ElementName=PageWidthText, Path=Text}"
-                                Height="Auto"
-                                Margin="0"
-                                HorizontalAlignment="Left"
-                                ItemsSource="{Binding FiSpeciessesCollection}"
-                                Visibility="{Binding ElementName=Tbl69FiSpeciessesList, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Margin="180,0,0,0" Orientation="Horizontal">
-                                            <TextBlock Width="140" Text="{DynamicResource Tbl69FiSpecies-FiSpecies}" />
-                                            <TextBlock FontWeight="Bold">
-                                                <TextBlock.Text>
-                                                    <MultiBinding StringFormat=" {0} {1} {2} {3} ">
-                                                        <Binding Path="(models:Tbl69FiSpecies.Tbl66Genusses).GenusName" />
-                                                        <Binding Path="(models:Tbl69FiSpecies.FiSpeciesName)" />
-                                                        <Binding Path="(models:Tbl69FiSpecies.Subspecies)" />
-                                                        <Binding Path="(models:Tbl69FiSpecies.Divers)" />
-                                                    </MultiBinding>
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                            <TextBlock Width="Auto" Margin="2,0,0,0">
-                                                <TextBlock.Text>
-                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
-                                                        <Binding Path="Author" />
-                                                        <Binding Path="AuthorYear" />
-                                                    </MultiBinding>
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                        </StackPanel>
-                        <!--  Tbl69FiSpecies Gattung Art Unterart as Sublist  -->
-                        <StackPanel>
-                            <ListBox
-                                x:Name="Tbl69FiSpeciessesSubList1"
-                                Width="{Binding ElementName=PageWidthText, Path=Text}"
-                                Height="Auto"
-                                Margin="0"
-                                HorizontalAlignment="Left"
-                                ItemsSource="{Binding FiSpeciessesSubCollection}"
-                                Visibility="{Binding ElementName=Tbl69FiSpeciessesSubList, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Margin="320,0,0,0" Orientation="Horizontal">
-                                            <TextBlock>
-                                                <Hyperlink Click="HyperlinkFiSpecies_Click" Tag="{Binding (models:Tbl69FiSpecies.FiSpeciesId)}">
-                                                    <TextBlock>
-                                                        <TextBlock.Text>
-                                                            <MultiBinding StringFormat=" {0} {1} {2} {3} ">
-                                                                <Binding Path="(models:Tbl69FiSpecies.Tbl66Genusses).GenusName" />
-                                                                <Binding Path="(models:Tbl69FiSpecies.FiSpeciesName)" />
-                                                                <Binding Path="(models:Tbl69FiSpecies.Subspecies)" />
-                                                                <Binding Path="(models:Tbl69FiSpecies.Divers)" />
-                                                            </MultiBinding>
-                                                        </TextBlock.Text>
-                                                    </TextBlock>
-                                                </Hyperlink>
-                                            </TextBlock>
-                                            <TextBlock Width="Auto" Margin="2,0,0,0">
-                                                <TextBlock.Text>
-                                                    <MultiBinding Converter="{StaticResource AuthorConverter}">
-                                                        <Binding Path="Author" />
-                                                        <Binding Path="AuthorYear" />
-                                                    </MultiBinding>
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                        </StackPanel>
 
-                        <!--  Tbl69FiSpecies Children  -->
-
+                        <!--  Tbl69FiSpecies Children FiSpeciessesSubCollection  -->
                         <StackPanel>
                             <TextBlock
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
@@ -1548,11 +1490,7 @@
                                 FontWeight="Bold"
                                 Text="{DynamicResource Report-DirectChild}" />
                         </StackPanel>
-                        <!--          <materialDesign:Card
-                            Margin="2,2,0,0"
-                            Background="{DynamicResource PrimaryHueLightBrush}"
-                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                            UniformCornerRadius="2">
+                        <StackPanel>
                             <ListBox
                                 x:Name="Tbl69FiSpeciessesSubList"
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
@@ -1564,9 +1502,9 @@
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Margin="188,0,0,0" Orientation="Horizontal">
-                                            <TextBlock Width="140" Text="{DynamicResource Tbl69FiSpecies-Subspecies}" />
+                                            <TextBlock Width="132" Text="{DynamicResource Tbl69FiSpecies-Subspecies}" />
                                             <TextBlock>
-                                                <Hyperlink Click="HyperlinkFiSpecies_Click" Tag="{Binding (models:Tbl69FiSpecies.FiSpeciesId)}">
+                                                <Hyperlink Click="HyperlinkFiSpeciesSub_Click" Tag="{Binding (models:Tbl69FiSpecies.FiSpeciesId)}">
                                                     <TextBlock>
                                                         <TextBlock.Text>
                                                             <MultiBinding StringFormat=" {0} {1} {2} {3} ">
@@ -1579,7 +1517,7 @@
                                                     </TextBlock>
                                                 </Hyperlink>
                                             </TextBlock>
-                                            <TextBlock Margin="2,0,0,0" Width="Auto">
+                                            <TextBlock Width="Auto" Margin="2,0,0,0">
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource AuthorConverter}">
                                                         <Binding Path="Author" />
@@ -1591,8 +1529,8 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                        </materialDesign:Card>
-                        -->
+                        </StackPanel>
+
                     </Paragraph>
                 </Section>
 

@@ -1,5 +1,5 @@
 ﻿<mah:MetroWindow
-    x:Class="ATIS.Ui.Views.Report.D72PlSpecies.ReportPlSpeciesWindow"
+    x:Class="ATIS.Ui.Views.Report.D72PlSpeciesSub.ReportPlSpeciesSubWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
@@ -127,14 +127,14 @@
                 Width="120"
                 Margin="5,5,10,5"
                 VerticalAlignment="Center"
-                Command="{Binding PdfPlSpeciesPrintCommand}"
+                Command="{Binding PdfPlSpeciesSubPrintCommand}"
                 Content="{DynamicResource Report-PrintPdf}"
                 Style="{StaticResource MahApps.Styles.Button}" />
             <Button
                 Width="120"
                 Margin="5,5,10,5"
                 VerticalAlignment="Center"
-                Command="{Binding PdfPlSpeciesSaveCommand}"
+                Command="{Binding PdfPlSpeciesSubSaveCommand}"
                 Content="{DynamicResource Report-SavePdf}"
                 Style="{StaticResource MahApps.Styles.Button}" />
         </StackPanel>
@@ -181,7 +181,7 @@
                                 Height="Auto"
                                 Margin="0"
                                 HorizontalAlignment="Left"
-                                ItemsSource="{Binding PlSpeciessesCollection}">
+                                ItemsSource="{Binding PlSpeciessesSubCollection}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
@@ -197,7 +197,7 @@
                                                     FontSize="18"
                                                     FontWeight="Bold"
                                                     Text="{Binding (models:Tbl72PlSpecies.PlSpeciesName)}" />
-                                                <!--<TextBlock
+                                                <TextBlock
                                                     Width="Auto"
                                                     Margin="2,0,0,0"
                                                     FontSize="18"
@@ -208,7 +208,7 @@
                                                     Margin="2,0,0,0"
                                                     FontSize="18"
                                                     FontWeight="Bold"
-                                                    Text="{Binding (models:Tbl72PlSpecies.Divers)}" />-->
+                                                    Text="{Binding (models:Tbl72PlSpecies.Divers)}" />
                                                 <TextBlock
                                                     Width="Auto"
                                                     Margin="2,0,0,0"
@@ -279,7 +279,7 @@
                                     Height="Auto"
                                     Margin="0"
                                     HorizontalAlignment="Left"
-                                    ItemsSource="{Binding PlSpeciessesCollection}">
+                                    ItemsSource="{Binding PlSpeciessesSubCollection}">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel>
@@ -358,7 +358,7 @@
                                     Height="Auto"
                                     Margin="0"
                                     HorizontalAlignment="Left"
-                                    ItemsSource="{Binding PlSpeciessesCollection}">
+                                    ItemsSource="{Binding PlSpeciessesSubCollection}">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel>
@@ -1386,7 +1386,7 @@
                             </ListBox>
                         </StackPanel>
 
-                        <!--  PlSpeciessesCollection  -->
+                        <!--  FiSpeciessesCollection  -->
                         <StackPanel>
                             <ListBox
                                 x:Name="Tbl72PlSpeciessesPlSpeciesNameList"
@@ -1400,7 +1400,7 @@
                                     <DataTemplate>
                                         <StackPanel Margin="180,0,0,0" Orientation="Horizontal">
                                             <TextBlock Width="140" Text="{DynamicResource Tbl72PlSpecies-PlSpeciesName}" />
-                                            <TextBlock FontWeight="Bold">
+                                            <TextBlock>
                                                 <TextBlock.Text>
                                                     <MultiBinding StringFormat=" {0} {1} ">
                                                         <Binding Path="(models:Tbl72PlSpecies.Tbl66Genusses).GenusName" />
@@ -1422,41 +1422,29 @@
                             </ListBox>
                         </StackPanel>
 
-                        <!--  Tbl69FiSpecies Children FiSpeciessesSubCollection  -->
-
-                        <StackPanel>
-                            <TextBlock
-                                Width="{Binding ElementName=PageWidthText, Path=Text}"
-                                Margin="300,0,0,0"
-                                FontWeight="Bold"
-                                Text="{DynamicResource Report-DirectChild}" />
-                        </StackPanel>
+                        <!--  Tbl72PlSpecies  PlSpeciessesSubCollection  -->
                         <StackPanel>
                             <ListBox
-                                x:Name="Tbl72PlSpeciessesSubList"
+                                x:Name="Tbl72PlSpeciessesList"
                                 Width="{Binding ElementName=PageWidthText, Path=Text}"
                                 Height="Auto"
                                 Margin="0"
                                 HorizontalAlignment="Left"
                                 ItemsSource="{Binding PlSpeciessesSubCollection}"
-                                Visibility="{Binding ElementName=Tbl72PlSpeciessesSubList, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                Visibility="{Binding ElementName=Tbl72PlSpeciessesList, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Margin="188,0,0,0" Orientation="Horizontal">
                                             <TextBlock Width="132" Text="{DynamicResource Tbl72PlSpecies-Subspecies}" />
-                                            <TextBlock>
-                                                <Hyperlink Click="HyperlinkPlSpeciesSub_Click" Tag="{Binding (models:Tbl72PlSpecies.PlSpeciesId)}">
-                                                    <TextBlock>
-                                                        <TextBlock.Text>
-                                                            <MultiBinding StringFormat=" {0} {1} {2} {3} ">
-                                                                <Binding Path="(models:Tbl72PlSpecies.Tbl66Genusses).GenusName" />
-                                                                <Binding Path="(models:Tbl72PlSpecies.PlSpeciesName)" />
-                                                                <Binding Path="(models:Tbl72PlSpecies.Subspecies)" />
-                                                                <Binding Path="(models:Tbl72PlSpecies.Divers)" />
-                                                            </MultiBinding>
-                                                        </TextBlock.Text>
-                                                    </TextBlock>
-                                                </Hyperlink>
+                                            <TextBlock FontWeight="Bold">
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat=" {0} {1} {2} {3} ">
+                                                        <Binding Path="(models:Tbl72PlSpecies.Tbl66Genusses).GenusName" />
+                                                        <Binding Path="(models:Tbl72PlSpecies.PlSpeciesName)" />
+                                                        <Binding Path="(models:Tbl72PlSpecies.Subspecies)" />
+                                                        <Binding Path="(models:Tbl72PlSpecies.Divers)" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
                                             </TextBlock>
                                             <TextBlock Width="Auto" Margin="2,0,0,0">
                                                 <TextBlock.Text>
@@ -1471,7 +1459,6 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </StackPanel>
-
                     </Paragraph>
                 </Section>
 

@@ -1,4 +1,5 @@
-﻿using ATIS.Ui.Models;
+﻿using System;
+using ATIS.Ui.Models;
 using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using Microsoft.EntityFrameworkCore;
@@ -1811,19 +1812,32 @@ namespace ATIS.Ui.Views.Report
                 .Find(e => e.FiSpeciesId == id));
             return collection;
         }
-        public ObservableCollection<Tbl69FiSpecies> CollFiSpeciessesByFiSpeciesNameAndNotEmptySubspeciesAndHash(string name)
+        public ObservableCollection<Tbl69FiSpecies> CollFiSpeciessesByFiSpeciesNameAndNotEmptySubspecies(int id, string name)
         {
             var collection = new ObservableCollection<Tbl69FiSpecies>(_context.Tbl69FiSpeciesses
                 .Include(d => d.Tbl66Genusses)
-                .Where(e => e.FiSpeciesName == name &&
-                           e.FiSpeciesName.Contains("#") == false &&
-                           e.Subspecies != null)
+                .Where(e => e.GenusId == id &&
+                            e.FiSpeciesName == name &&
+                            (e.Subspecies != null || e.Subspecies != string.Empty))
                 .OrderBy(a => a.Tbl66Genusses.GenusName)
                 .ThenBy(a => a.FiSpeciesName)
                 .ThenBy(a => a.Subspecies)
                 .ThenBy(a => a.Divers));
             return collection;
         }
+        public ObservableCollection<Tbl69FiSpecies> CollFiSpeciessesByGenusIdAndFiSpeciesNameAndEmptySubspecies(int id, string name)
+        {
+            var collection = new ObservableCollection<Tbl69FiSpecies>(_context.Tbl69FiSpeciesses
+                .Include(d => d.Tbl66Genusses)
+                .Where(e => e.GenusId == id &&
+                            e.FiSpeciesName == name &&
+                            (e.Subspecies == null || e.Subspecies == string.Empty) &&
+                            (e.Divers == null || e.Divers == string.Empty))
+                .OrderBy(a => a.Tbl66Genusses.GenusName)
+                .ThenBy(a => a.FiSpeciesName));
+            return collection;
+        }
+
         public ObservableCollection<Tbl69FiSpecies> CollFiSpeciessesByFiSpeciesNameAndSubspeciesAndDivers(string fiSpeciesName, string subspecies,
             string divers)
         {
@@ -1943,6 +1957,34 @@ namespace ATIS.Ui.Views.Report
                 .Find(e => e.PlSpeciesId == id));
             return collection;
         }
+
+        public ObservableCollection<Tbl72PlSpecies> CollPlSpeciessesByGenusIdAndPlSpeciesNameAndEmptySubspecies(int id, string name)
+        {
+            var collection = new ObservableCollection<Tbl72PlSpecies>(_context.Tbl72PlSpeciesses
+                .Include(d => d.Tbl66Genusses)
+                .Where(e => e.GenusId == id &&
+                            e.PlSpeciesName == name &&
+                           (e.Subspecies == null || e.Subspecies == string.Empty) &&
+                            (e.Divers == null || e.Divers == string.Empty)
+                )
+                .OrderBy(a => a.Tbl66Genusses.GenusName)
+                .ThenBy(a => a.PlSpeciesName));
+            return collection;
+        }
+        public ObservableCollection<Tbl72PlSpecies> CollPlSpeciessesByPlSpeciesNameAndNotEmptySubspecies(int id, string name)
+        {
+            var collection = new ObservableCollection<Tbl72PlSpecies>(_context.Tbl72PlSpeciesses
+                .Include(d => d.Tbl66Genusses)
+                .Where(e => e.GenusId == id &&
+                            e.PlSpeciesName == name &&
+                            (e.Subspecies != null || e.Subspecies != string.Empty))
+                .OrderBy(a => a.Tbl66Genusses.GenusName)
+                .ThenBy(a => a.PlSpeciesName)
+                .ThenBy(a => a.Subspecies)
+                .ThenBy(a => a.Divers));
+            return collection;
+        }
+
         public ObservableCollection<Tbl72PlSpecies> CollPlSpeciessesByPlSpeciesNameAndNotEmptySubspeciesAndHash(string name)
         {
             var collection = new ObservableCollection<Tbl72PlSpecies>(_context.Tbl72PlSpeciesses

@@ -28,7 +28,7 @@ using ATIS.Ui.Views.Report.D57Tribus;
 using ATIS.Ui.Views.Report.D60Subtribus;
 using ATIS.Ui.Views.Report.D63Infratribus;
 using ATIS.Ui.Views.Report.D66Genus;
-
+using ATIS.Ui.Views.Report.D72PlSpeciesSub;
 
 
 //  ReportPlSpeciesWindow.xaml.cs Skriptdatum:  07.01.2021  12:32     
@@ -265,6 +265,13 @@ namespace ATIS.Ui.Views.Report.D72PlSpecies
             var tagValue = ((Hyperlink)sender).Tag;
             var id = Convert.ToInt32(tagValue);
             var rp = new ReportPlSpeciesWindow(id, "Tbl72PlSpeciesses");
+            rp.Show();
+        }
+        private void HyperlinkPlSpeciesSub_Click(object sender, RoutedEventArgs e)
+        {
+            var tagValue = ((Hyperlink)sender).Tag;
+            var id = Convert.ToInt32(tagValue);
+            var rp = new ReportPlSpeciesSubWindow(id, "Tbl72PlSpeciessesSub");
             rp.Show();
         }
 

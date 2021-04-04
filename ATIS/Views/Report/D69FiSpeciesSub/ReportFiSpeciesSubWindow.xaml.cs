@@ -1,6 +1,6 @@
-﻿using System;
+﻿using System.Windows;
+using System;
 using System.Configuration;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using MahApps.Metro.Controls;
@@ -28,21 +28,16 @@ using ATIS.Ui.Views.Report.D57Tribus;
 using ATIS.Ui.Views.Report.D60Subtribus;
 using ATIS.Ui.Views.Report.D63Infratribus;
 using ATIS.Ui.Views.Report.D66Genus;
-using ATIS.Ui.Views.Report.D69FiSpeciesSub;
+using ATIS.Ui.Views.Report.D69FiSpecies;
 
-
-//  ReportFiSpeciesWindow.xaml.cs Skriptdatum:  07.01.2021  10:32     
-
-namespace ATIS.Ui.Views.Report.D69FiSpecies
+namespace ATIS.Ui.Views.Report.D69FiSpeciesSub
 {
-
     /// <summary>
-    /// Interactionslogic for ReportFiSpeciesWindow.xaml
+    /// Interaktionslogik für ReportFiSpeciesSubWindow.xaml
     /// </summary>
-    public partial class ReportFiSpeciesWindow : MetroWindow
+    public partial class ReportFiSpeciesSubWindow : MetroWindow
     {
-
-        public ReportFiSpeciesWindow(int un, string tab)
+        public ReportFiSpeciesSubWindow(int un, string tab)
         {
             DataContext = new ReportViewModel(un, tab);
             InitializeComponent();
@@ -266,15 +261,6 @@ namespace ATIS.Ui.Views.Report.D69FiSpecies
             var rp = new ReportFiSpeciesWindow(id, "Tbl69FiSpeciesses");
             rp.Show();
         }
-        private void HyperlinkFiSpeciesSub_Click(object sender, RoutedEventArgs e)
-        {
-            var tagValue = ((Hyperlink)sender).Tag;
-            var id = Convert.ToInt32(tagValue);
-            var rp = new ReportFiSpeciesSubWindow(id, "Tbl69FiSpeciessesSub");
-            rp.Show();
-        }
-
 
     }
 }
-

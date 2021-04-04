@@ -11,6 +11,25 @@ using ATIS.Ui.Views.Report.D09Division;
 using ATIS.Ui.Views.Report.D12Subphylum;
 using ATIS.Ui.Views.Report.D15Subdivision;
 using ATIS.Ui.Views.Report.D18Superclass;
+using ATIS.Ui.Views.Report.D21Class;
+using ATIS.Ui.Views.Report.D24Subclass;
+using ATIS.Ui.Views.Report.D27Infraclass;
+using ATIS.Ui.Views.Report.D30Legio;
+using ATIS.Ui.Views.Report.D33Ordo;
+using ATIS.Ui.Views.Report.D36Subordo;
+using ATIS.Ui.Views.Report.D39Infraordo;
+using ATIS.Ui.Views.Report.D42Superfamily;
+using ATIS.Ui.Views.Report.D45Family;
+using ATIS.Ui.Views.Report.D48Subfamily;
+using ATIS.Ui.Views.Report.D51Infrafamily;
+using ATIS.Ui.Views.Report.D54Supertribus;
+using ATIS.Ui.Views.Report.D57Tribus;
+using ATIS.Ui.Views.Report.D63Infratribus;
+using ATIS.Ui.Views.Report.D66Genus;
+using ATIS.Ui.Views.Report.D69FiSpecies;
+using ATIS.Ui.Views.Report.D69FiSpeciesSub;
+using ATIS.Ui.Views.Report.D72PlSpecies;
+using ATIS.Ui.Views.Report.D72PlSpeciesSub;
 using BitMiracle.Docotic;
 
 namespace ATIS.Ui.Views.Report
@@ -26,7 +45,7 @@ namespace ATIS.Ui.Views.Report
         private readonly int _mainId;
         private static int _fishId;
         private static int _plantId;
- 
+
         #endregion "Private Data Members"
 
         public ReportViewModel(int id, string tab)
@@ -120,10 +139,32 @@ namespace ATIS.Ui.Views.Report
                     GetTbl68SpeciesgroupsById(id);
                     break;
                 case "Tbl69FiSpeciesses":
-                    GetTbl69FiSpeciessesById(id);
+                    var fiSpecies = _extReportBasicGet.GetFiSpeciesSingleByFiSpeciesId(id);
+                    if (string.IsNullOrEmpty(fiSpecies.Subspecies) && string.IsNullOrEmpty(fiSpecies.Divers))
+                    {
+                        GetTbl69FiSpeciessesById(id);
+                    }
+                    else
+                    {
+                        GetTbl69FiSpeciessesSubById(id);
+                    }
+                    break;
+                case "Tbl69FiSpeciessesSub":
+                    GetTbl69FiSpeciessesSubById(id);
                     break;
                 case "Tbl72PlSpeciesses":
-                    GetTbl72PlSpeciessesById(id);
+                    var plSpecies = _extReportBasicGet.GetPlSpeciesSingleByPlSpeciesId(id);
+                    if (string.IsNullOrEmpty(plSpecies.Subspecies) && string.IsNullOrEmpty(plSpecies.Divers))
+                    {
+                        GetTbl72PlSpeciessesById(id);
+                    }
+                    else
+                    {
+                        GetTbl72PlSpeciessesSubById(id);
+                    }
+                    break;
+                case "Tbl72PlSpeciessesSub":
+                    GetTbl72PlSpeciessesSubById(id);
                     break;
                     //    case "Tbl78Names":
                     //        GetTbl78NamesById(id);
@@ -444,7 +485,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfClassPrint(int id)
         {
             const string use = "print";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportClassPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         private RelayCommand _pdfClassSaveCommand;
         public ICommand PdfClassSaveCommand
@@ -454,7 +495,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfClassSave(int id)
         {
             const string use = "save";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportClassPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         #endregion
 
@@ -504,7 +545,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfSubclassPrint(int id)
         {
             const string use = "print";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportSubclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         private RelayCommand _pdfSubclassSaveCommand;
         public ICommand PdfSubclassSaveCommand
@@ -514,7 +555,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfSubclassSave(int id)
         {
             const string use = "save";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportSubclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         #endregion
 
@@ -565,7 +606,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfInfraclassPrint(int id)
         {
             const string use = "print";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportInfraclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         private RelayCommand _pdfInfraclassSaveCommand;
         public ICommand PdfInfraclassSaveCommand
@@ -575,7 +616,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfInfraclassSave(int id)
         {
             const string use = "save";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportInfraclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         #endregion
 
@@ -628,7 +669,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfLegioPrint(int id)
         {
             const string use = "print";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportLegioPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         private RelayCommand _pdfLegioSaveCommand;
         public ICommand PdfLegioSaveCommand
@@ -638,7 +679,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfLegioSave(int id)
         {
             const string use = "save";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportLegioPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         #endregion
 
@@ -693,7 +734,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfOrdoPrint(int id)
         {
             const string use = "print";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportOrdoPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         private RelayCommand _pdfOrdoSaveCommand;
         public ICommand PdfOrdoSaveCommand
@@ -703,7 +744,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfOrdoSave(int id)
         {
             const string use = "save";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportOrdoPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         #endregion
 
@@ -760,7 +801,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfSubordoPrint(int id)
         {
             const string use = "print";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportSubordoPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         private RelayCommand _pdfSubordoSaveCommand;
         public ICommand PdfSubordoSaveCommand
@@ -770,7 +811,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfSubordoSave(int id)
         {
             const string use = "save";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportSubordoPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         #endregion
 
@@ -829,7 +870,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfInfraordoPrint(int id)
         {
             const string use = "print";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportInfraordoPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         private RelayCommand _pdfInfraordoSaveCommand;
         public ICommand PdfInfraordoSaveCommand
@@ -839,7 +880,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfInfraordoSave(int id)
         {
             const string use = "save";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportInfraordoPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         #endregion
 
@@ -900,7 +941,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfSuperfamilyPrint(int id)
         {
             const string use = "print";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportSuperfamilyPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         private RelayCommand _pdfSuperfamilySaveCommand;
         public ICommand PdfSuperfamilySaveCommand
@@ -910,7 +951,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfSuperfamilySave(int id)
         {
             const string use = "save";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportSuperfamilyPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         #endregion
 
@@ -973,7 +1014,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfFamilyPrint(int id)
         {
             const string use = "print";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportFamilyPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         private RelayCommand _pdfFamilySaveCommand;
         public ICommand PdfFamilySaveCommand
@@ -983,7 +1024,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfFamilySave(int id)
         {
             const string use = "save";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportFamilyPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         #endregion
 
@@ -1048,7 +1089,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfSubfamilyPrint(int id)
         {
             const string use = "print";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportSubfamilyPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         private RelayCommand _pdfSubfamilySaveCommand;
         public ICommand PdfSubfamilySaveCommand
@@ -1058,7 +1099,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfSubfamilySave(int id)
         {
             const string use = "save";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportSubfamilyPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         #endregion
 
@@ -1125,7 +1166,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfInfrafamilyPrint(int id)
         {
             const string use = "print";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportInfrafamilyPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         private RelayCommand _pdfInfrafamilySaveCommand;
         public ICommand PdfInfrafamilySaveCommand
@@ -1135,7 +1176,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfInfrafamilySave(int id)
         {
             const string use = "save";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportInfrafamilyPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         #endregion
 
@@ -1204,7 +1245,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfSupertribusPrint(int id)
         {
             const string use = "print";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportSupertribusPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         private RelayCommand _pdfSupertribusSaveCommand;
         public ICommand PdfSupertribusSaveCommand
@@ -1214,7 +1255,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfSupertribusSave(int id)
         {
             const string use = "save";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportSupertribusPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         #endregion
 
@@ -1285,7 +1326,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfTribusPrint(int id)
         {
             const string use = "print";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportTribusPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         private RelayCommand _pdfTribusSaveCommand;
         public ICommand PdfTribusSaveCommand
@@ -1295,7 +1336,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfTribusSave(int id)
         {
             const string use = "save";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportTribusPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         #endregion
 
@@ -1368,7 +1409,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfSubtribusPrint(int id)
         {
             const string use = "print";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportInfratribusPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         private RelayCommand _pdfSubtribusSaveCommand;
         public ICommand PdfSubtribusSaveCommand
@@ -1378,7 +1419,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfSubtribusSave(int id)
         {
             const string use = "save";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportInfratribusPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         #endregion
 
@@ -1453,7 +1494,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfInfratribusPrint(int id)
         {
             const string use = "print";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportInfratribusPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         private RelayCommand _pdfInfratribusSaveCommand;
         public ICommand PdfInfratribusSaveCommand
@@ -1463,7 +1504,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfInfratribusSave(int id)
         {
             const string use = "save";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportInfratribusPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         #endregion
 
@@ -1540,7 +1581,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfGenusPrint(int id)
         {
             const string use = "print";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportGenusPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         private RelayCommand _pdfGenusSaveCommand;
         public ICommand PdfGenusSaveCommand
@@ -1550,7 +1591,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfGenusSave(int id)
         {
             const string use = "save";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportGenusPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         #endregion
 
@@ -1567,24 +1608,12 @@ namespace ATIS.Ui.Views.Report
         public void GetTbl69FiSpeciessesById(int id)
         {
             var fiSpecies = _extReportBasicGet.GetFiSpeciesSingleByFiSpeciesId(id);
-            
-            //direct children
-            //special FiSpeciessesSubList with Subspecies empty  
-            //     if (fiSpecies.Subspecies.IsNullOrEmpty())
-            if (string.IsNullOrEmpty(fiSpecies.Subspecies))
-            {
-                FiSpeciessesCollection = _extReportBasicGet.CollFiSpeciessesByFiSpeciesId(id);
-                FiSpeciessesSubCollection = _extReportBasicGet.CollFiSpeciessesByFiSpeciesNameAndNotEmptySubspeciesAndHash(fiSpecies.FiSpeciesName);
-                FiSpeciessesFiSpeciesNameCollection = new ObservableCollection<Tbl69FiSpecies>();
-            }
-            else
-            {
-                FiSpeciessesFiSpeciesNameCollection = _extReportBasicGet.CollFiSpeciessesByFiSpeciesNameAndSubspeciesAndDivers(fiSpecies.FiSpeciesName, fiSpecies.Subspecies, fiSpecies.Divers);
-                FiSpeciessesCollection = _extReportBasicGet.CollFiSpeciessesByFiSpeciesId(id);
-                FiSpeciessesSubCollection = new ObservableCollection<Tbl69FiSpecies>();
-            }
+            FiSpeciessesCollection = _extReportBasicGet.CollFiSpeciessesByFiSpeciesId(id);
+
             NamesCollection = _extReportBasicGet.CollNamesByFiSpeciesIdAndHash(id);
             SynonymsCollection = _extReportBasicGet.CollSynonymsByFiSpeciesIdAndHash(id);
+            ImagesCollection = _extReportBasicGet.CollImagesByFiSpeciesId(id);
+            GeographicsCollection = _extReportBasicGet.CollGeographicsByFiSpeciesId(id);
 
             var genusId = _extReportBasicGet.GenusIdFromFiSpeciessesCollectionSelect(id);
             GenussesCollection = _extReportBasicGet.CollGenussesByGenusIdAndHash(genusId);
@@ -1640,16 +1669,13 @@ namespace ATIS.Ui.Views.Report
                 RegnumsCollection = _extReportBasicGet.CollRegnumsByRegnumIdAndHash(regnumId);
             }
             //direct children
-            FiSpeciessesCollection = _extReportBasicGet.CollFiSpeciessesByGenusIdAndHash(id);
+            FiSpeciessesSubCollection = _extReportBasicGet.CollFiSpeciessesByFiSpeciesNameAndNotEmptySubspecies(fiSpecies.GenusId, fiSpecies.FiSpeciesName);
             //-----------------------------------------------------------------------------
             ExpertsCollection = _extReportBasicGet.CollExpertsByFiSpeciesId(id);
             SourcesCollection = _extReportBasicGet.CollSourcesByFiSpeciesId(id);
             AuthorsCollection = _extReportBasicGet.CollAuthorsByFiSpeciesId(id);
             //------------------------------------------------------------------------------
             CommentsCollection = _extReportBasicGet.CollCommentsByFiSpeciesId(id);
-            //------------------------------------------------------------------------------
-            ImagesCollection = _extReportBasicGet.CollImagesByFiSpeciesId(id);
-            GeographicsCollection = _extReportBasicGet.CollGeographicsByFiSpeciesId(id);
         }
         //------------------------------------------------------------------------------
         private RelayCommand _pdfFiSpeciesPrintCommand;
@@ -1660,7 +1686,7 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfFiSpeciesPrint(int id)
         {
             const string use = "print";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportFiSpeciesPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         private RelayCommand _pdfFiSpeciesSaveCommand;
         public ICommand PdfFiSpeciesSaveCommand
@@ -1670,7 +1696,102 @@ namespace ATIS.Ui.Views.Report
         private static void CreatePdfFiSpeciesSave(int id)
         {
             const string use = "save";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportFiSpeciesPdf.CreateMainPdf(id, _fishId, _plantId, use);
+        }
+        #endregion
+
+        #region FiSpeciesSub
+        public void GetTbl69FiSpeciessesSubById(int id)
+        {
+            var fiSpecies = _extReportBasicGet.GetFiSpeciesSingleByFiSpeciesId(id);
+
+            FiSpeciessesSubCollection = _extReportBasicGet.CollFiSpeciessesByFiSpeciesId(id);
+            FiSpeciessesCollection = _extReportBasicGet.CollFiSpeciessesByGenusIdAndFiSpeciesNameAndEmptySubspecies(fiSpecies.GenusId, fiSpecies.FiSpeciesName);
+            NamesCollection = _extReportBasicGet.CollNamesByFiSpeciesIdAndHash(id);
+            SynonymsCollection = _extReportBasicGet.CollSynonymsByFiSpeciesIdAndHash(id);
+            ImagesCollection = _extReportBasicGet.CollImagesByFiSpeciesId(id);
+            GeographicsCollection = _extReportBasicGet.CollGeographicsByFiSpeciesId(id);
+
+            var genusId = _extReportBasicGet.GenusIdFromFiSpeciessesCollectionSelect(id);
+            GenussesCollection = _extReportBasicGet.CollGenussesByGenusIdAndHash(genusId);
+            var infratribusId = _extReportBasicGet.InfratribusIdFromGenussesCollectionSelect(genusId);
+            InfratribussesCollection = _extReportBasicGet.CollInfratribussesByInfratribusIdAndHash(infratribusId);
+            var subtribusId = _extReportBasicGet.SubtribusIdFromInfratribussesCollectionSelect(infratribusId);
+            SubtribussesCollection = _extReportBasicGet.CollSubtribussesBySubtribusIdAndHash(subtribusId);
+            var tribusId = _extReportBasicGet.TribusIdFromSubtribussesCollectionSelect(subtribusId);
+            TribussesCollection = _extReportBasicGet.CollTribussesByTribusIdAndHash(tribusId);
+            var supertribusId = _extReportBasicGet.SupertribusIdFromTribussesCollectionSelect(tribusId);
+            SupertribussesCollection = _extReportBasicGet.CollSupertribussesBySupertribusIdAndHash(supertribusId);
+            var infrafamilyId = _extReportBasicGet.InfrafamilyIdFromSupertribussesCollectionSelect(supertribusId);
+            InfrafamiliesCollection = _extReportBasicGet.CollInfrafamiliesByInfrafamilyIdAndHash(infrafamilyId);
+            var subfamilyId = _extReportBasicGet.SubfamilyIdFromInfrafamiliesCollectionSelect(infrafamilyId);
+            SubfamiliesCollection = _extReportBasicGet.CollSubfamiliesBySubfamilyIdAndHash(subfamilyId);
+            var familyId = _extReportBasicGet.FamilyIdFromSubfamiliesCollectionSelect(subfamilyId);
+            FamiliesCollection = _extReportBasicGet.CollFamiliesByFamilyIdAndHash(familyId);
+            var superfamilyId = _extReportBasicGet.SuperfamilyIdFromFamiliesCollectionSelect(familyId);
+            SuperfamiliesCollection = _extReportBasicGet.CollSuperfamiliesBySuperfamilyIdAndHash(superfamilyId);
+            var infraordoId = _extReportBasicGet.InfraordoIdFromSuperfamiliesCollectionSelect(superfamilyId);
+            InfraordosCollection = _extReportBasicGet.CollInfraordosByInfraordoIdAndHash(infraordoId);
+            var subordoId = _extReportBasicGet.SubordoIdFromInfraordosCollectionSelect(infraordoId);
+            SubordosCollection = _extReportBasicGet.CollSubordosBySubordoIdAndHash(subordoId);
+            var ordoId = _extReportBasicGet.OrdoIdFromSubordosCollectionSelect(subordoId);
+            OrdosCollection = _extReportBasicGet.CollOrdosByOrdoIdAndHash(ordoId);
+            var legioId = _extReportBasicGet.LegioIdFromOrdosCollectionSelect(ordoId);
+            LegiosCollection = _extReportBasicGet.CollLegiosByLegioIdAndHash(legioId);
+            var infraclassId = _extReportBasicGet.InfraclassIdFromLegiosCollectionSelect(legioId);
+            InfraclassesCollection = _extReportBasicGet.CollInfraclassesByInfraclassIdAndHash(infraclassId);
+            var subclassId = _extReportBasicGet.SubclassIdFromInfraclassesCollectionSelect(infraclassId);
+            SubclassesCollection = _extReportBasicGet.CollSubclassesBySubclassIdAndHash(subclassId);
+            var classId = _extReportBasicGet.ClassIdFromSubclassesCollectionSelect(subclassId);
+            ClassesCollection = _extReportBasicGet.CollClassesByClassIdAndHash(classId);
+            var superclassId = _extReportBasicGet.SuperclassIdFromClassesCollectionSelect(classId);
+            SuperclassesCollection = _extReportBasicGet.CollSuperclassesBySuperclassIdAndHash(superclassId);
+            var subphylumId = _extReportBasicGet.SubphylumIdFromSuperclassesCollectionSelect(superclassId);
+            var subdivisionId = _extReportBasicGet.SubdivisionIdFromSuperclassesCollectionSelect(superclassId);
+
+            if (subphylumId == _fishId)  //Basis #Subphylum#
+            {
+                SubdivisionsCollection = _extReportBasicGet.CollSubdivisionsBySubdivisionIdAndHash(subdivisionId);
+                var divisionId = _extReportBasicGet.DivisionIdFromSubdivisionsCollectionSelect(subdivisionId);
+                DivisionsCollection = _extReportBasicGet.CollDivisionsByDivisionIdAndHash(divisionId);
+                var regnumId = _extReportBasicGet.RegnumIdFromDivisionsCollectionSelect(divisionId);
+                RegnumsCollection = _extReportBasicGet.CollRegnumsByRegnumIdAndHash(regnumId);
+            }
+            if (subdivisionId == _plantId)  //Basis #Subdivision#
+            {
+                SubphylumsCollection = _extReportBasicGet.CollSubphylumsBySubphylumIdAndHash(subphylumId);
+                var phylumId = _extReportBasicGet.PhylumIdFromSubphylumsCollectionSelect(subphylumId);
+                PhylumsCollection = _extReportBasicGet.CollPhylumsByPhylumIdAndHash(phylumId);
+                var regnumId = _extReportBasicGet.RegnumIdFromPhylumsCollectionSelect(phylumId);
+                RegnumsCollection = _extReportBasicGet.CollRegnumsByRegnumIdAndHash(regnumId);
+            }
+            //-----------------------------------------------------------------------------
+            ExpertsCollection = _extReportBasicGet.CollExpertsByFiSpeciesId(id);
+            SourcesCollection = _extReportBasicGet.CollSourcesByFiSpeciesId(id);
+            AuthorsCollection = _extReportBasicGet.CollAuthorsByFiSpeciesId(id);
+            //------------------------------------------------------------------------------
+            CommentsCollection = _extReportBasicGet.CollCommentsByFiSpeciesId(id);
+        }
+        //------------------------------------------------------------------------------
+        private RelayCommand _pdfFiSpeciesSubPrintCommand;
+        public ICommand PdfFiSpeciesSubPrintCommand
+        {
+            get { return _pdfFiSpeciesSubPrintCommand ??= new RelayCommand(delegate { CreatePdfFiSpeciesSubPrint(_mainId); }); }
+        }
+        private static void CreatePdfFiSpeciesSubPrint(int id)
+        {
+            const string use = "print";
+            ReportFiSpeciesSubPdf.CreateMainPdf(id, _fishId, _plantId, use);
+        }
+        private RelayCommand _pdfFiSpeciesSubSaveCommand;
+        public ICommand PdfFiSpeciesSubSaveCommand
+        {
+            get { return _pdfFiSpeciesSubSaveCommand ??= new RelayCommand(delegate { CreatePdfFiSpeciesSubSave(_mainId); }); }
+        }
+        private static void CreatePdfFiSpeciesSubSave(int id)
+        {
+            const string use = "save";
+            ReportFiSpeciesSubPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         #endregion
 
@@ -1678,24 +1799,111 @@ namespace ATIS.Ui.Views.Report
         public void GetTbl72PlSpeciessesById(int id)
         {
             var plSpecies = _extReportBasicGet.GetPlSpeciesSingleByPlSpeciesId(id);
+            PlSpeciessesCollection = _extReportBasicGet.CollPlSpeciessesByPlSpeciesId(id);
 
-            //direct children
-            //special PlSpeciessesSubList with Subspecies empty  
-            //     if (plSpecies.Subspecies.IsNullOrEmpty())
-            if (string.IsNullOrEmpty(plSpecies.Subspecies))
-            {
-                PlSpeciessesCollection = _extReportBasicGet.CollPlSpeciessesByPlSpeciesId(id);
-                PlSpeciessesSubCollection = _extReportBasicGet.CollPlSpeciessesByPlSpeciesNameAndNotEmptySubspeciesAndHash(plSpecies.PlSpeciesName);
-                PlSpeciessesPlSpeciesNameCollection = new ObservableCollection<Tbl72PlSpecies>();
-            }
-            else
-            {
-                PlSpeciessesPlSpeciesNameCollection = _extReportBasicGet.CollPlSpeciessesByPlSpeciesNameAndSubspeciesAndDivers(plSpecies.PlSpeciesName, plSpecies.Subspecies, plSpecies.Divers);
-                PlSpeciessesCollection = _extReportBasicGet.CollPlSpeciessesByPlSpeciesId(id);
-                PlSpeciessesSubCollection = new ObservableCollection<Tbl72PlSpecies>();
-            }
             NamesCollection = _extReportBasicGet.CollNamesByPlSpeciesIdAndHash(id);
             SynonymsCollection = _extReportBasicGet.CollSynonymsByPlSpeciesIdAndHash(id);
+            ImagesCollection = _extReportBasicGet.CollImagesByPlSpeciesId(id);
+            GeographicsCollection = _extReportBasicGet.CollGeographicsByPlSpeciesId(id);
+
+            var genusId = _extReportBasicGet.GenusIdFromPlSpeciessesCollectionSelect(id);
+            GenussesCollection = _extReportBasicGet.CollGenussesByGenusIdAndHash(genusId);
+            var infratribusId = _extReportBasicGet.InfratribusIdFromGenussesCollectionSelect(genusId);
+            InfratribussesCollection = _extReportBasicGet.CollInfratribussesByInfratribusIdAndHash(infratribusId);
+            var subtribusId = _extReportBasicGet.SubtribusIdFromInfratribussesCollectionSelect(infratribusId);
+            SubtribussesCollection = _extReportBasicGet.CollSubtribussesBySubtribusIdAndHash(subtribusId);
+            var tribusId = _extReportBasicGet.TribusIdFromSubtribussesCollectionSelect(subtribusId);
+            TribussesCollection = _extReportBasicGet.CollTribussesByTribusIdAndHash(tribusId);
+            var supertribusId = _extReportBasicGet.SupertribusIdFromTribussesCollectionSelect(tribusId);
+            SupertribussesCollection = _extReportBasicGet.CollSupertribussesBySupertribusIdAndHash(supertribusId);
+            var infrafamilyId = _extReportBasicGet.InfrafamilyIdFromSupertribussesCollectionSelect(supertribusId);
+            InfrafamiliesCollection = _extReportBasicGet.CollInfrafamiliesByInfrafamilyIdAndHash(infrafamilyId);
+            var subfamilyId = _extReportBasicGet.SubfamilyIdFromInfrafamiliesCollectionSelect(infrafamilyId);
+            SubfamiliesCollection = _extReportBasicGet.CollSubfamiliesBySubfamilyIdAndHash(subfamilyId);
+            var familyId = _extReportBasicGet.FamilyIdFromSubfamiliesCollectionSelect(subfamilyId);
+            FamiliesCollection = _extReportBasicGet.CollFamiliesByFamilyIdAndHash(familyId);
+            var superfamilyId = _extReportBasicGet.SuperfamilyIdFromFamiliesCollectionSelect(familyId);
+            SuperfamiliesCollection = _extReportBasicGet.CollSuperfamiliesBySuperfamilyIdAndHash(superfamilyId);
+            var infraordoId = _extReportBasicGet.InfraordoIdFromSuperfamiliesCollectionSelect(superfamilyId);
+            InfraordosCollection = _extReportBasicGet.CollInfraordosByInfraordoIdAndHash(infraordoId);
+            var subordoId = _extReportBasicGet.SubordoIdFromInfraordosCollectionSelect(infraordoId);
+            SubordosCollection = _extReportBasicGet.CollSubordosBySubordoIdAndHash(subordoId);
+            var ordoId = _extReportBasicGet.OrdoIdFromSubordosCollectionSelect(subordoId);
+            OrdosCollection = _extReportBasicGet.CollOrdosByOrdoIdAndHash(ordoId);
+            var legioId = _extReportBasicGet.LegioIdFromOrdosCollectionSelect(ordoId);
+            LegiosCollection = _extReportBasicGet.CollLegiosByLegioIdAndHash(legioId);
+            var infraclassId = _extReportBasicGet.InfraclassIdFromLegiosCollectionSelect(legioId);
+            InfraclassesCollection = _extReportBasicGet.CollInfraclassesByInfraclassIdAndHash(infraclassId);
+            var subclassId = _extReportBasicGet.SubclassIdFromInfraclassesCollectionSelect(infraclassId);
+            SubclassesCollection = _extReportBasicGet.CollSubclassesBySubclassIdAndHash(subclassId);
+            var classId = _extReportBasicGet.ClassIdFromSubclassesCollectionSelect(subclassId);
+            ClassesCollection = _extReportBasicGet.CollClassesByClassIdAndHash(classId);
+            var superclassId = _extReportBasicGet.SuperclassIdFromClassesCollectionSelect(classId);
+            SuperclassesCollection = _extReportBasicGet.CollSuperclassesBySuperclassIdAndHash(superclassId);
+            var subphylumId = _extReportBasicGet.SubphylumIdFromSuperclassesCollectionSelect(superclassId);
+            var subdivisionId = _extReportBasicGet.SubdivisionIdFromSuperclassesCollectionSelect(superclassId);
+
+            if (subphylumId == _fishId)  //Basis #Subphylum#
+            {
+                SubdivisionsCollection = _extReportBasicGet.CollSubdivisionsBySubdivisionIdAndHash(subdivisionId);
+                var divisionId = _extReportBasicGet.DivisionIdFromSubdivisionsCollectionSelect(subdivisionId);
+                DivisionsCollection = _extReportBasicGet.CollDivisionsByDivisionIdAndHash(divisionId);
+                var regnumId = _extReportBasicGet.RegnumIdFromDivisionsCollectionSelect(divisionId);
+                RegnumsCollection = _extReportBasicGet.CollRegnumsByRegnumIdAndHash(regnumId);
+            }
+            if (subdivisionId == _plantId)  //Basis #Subdivision#
+            {
+                SubphylumsCollection = _extReportBasicGet.CollSubphylumsBySubphylumIdAndHash(subphylumId);
+                var phylumId = _extReportBasicGet.PhylumIdFromSubphylumsCollectionSelect(subphylumId);
+                PhylumsCollection = _extReportBasicGet.CollPhylumsByPhylumIdAndHash(phylumId);
+                var regnumId = _extReportBasicGet.RegnumIdFromPhylumsCollectionSelect(phylumId);
+                RegnumsCollection = _extReportBasicGet.CollRegnumsByRegnumIdAndHash(regnumId);
+            }
+            //direct children
+            PlSpeciessesCollection = _extReportBasicGet.CollPlSpeciessesByGenusIdAndHash(id);
+            PlSpeciessesCollection = _extReportBasicGet.CollPlSpeciessesByPlSpeciesNameAndNotEmptySubspecies(plSpecies.GenusId, plSpecies.PlSpeciesName);
+            //-----------------------------------------------------------------------------
+            ExpertsCollection = _extReportBasicGet.CollExpertsByPlSpeciesId(id);
+            SourcesCollection = _extReportBasicGet.CollSourcesByPlSpeciesId(id);
+            AuthorsCollection = _extReportBasicGet.CollAuthorsByPlSpeciesId(id);
+            //------------------------------------------------------------------------------
+            CommentsCollection = _extReportBasicGet.CollCommentsByPlSpeciesId(id);
+        }
+        //------------------------------------------------------------------------------
+        private RelayCommand _pdfPlSpeciesPrintCommand;
+        public ICommand PdfPlSpeciesPrintCommand
+        {
+            get { return _pdfPlSpeciesPrintCommand ??= new RelayCommand(delegate { CreatePdfPlSpeciesPrint(_mainId); }); }
+        }
+        private static void CreatePdfPlSpeciesPrint(int id)
+        {
+            const string use = "print";
+            ReportPlSpeciesPdf.CreateMainPdf(id, _fishId, _plantId, use);
+        }
+        private RelayCommand _pdfPlSpeciesSaveCommand;
+        public ICommand PdfPlSpeciesSaveCommand
+        {
+            get { return _pdfPlSpeciesSaveCommand ??= new RelayCommand(delegate { CreatePdfPlSpeciesSave(_mainId); }); }
+        }
+        private static void CreatePdfPlSpeciesSave(int id)
+        {
+            const string use = "save";
+            ReportPlSpeciesPdf.CreateMainPdf(id, _fishId, _plantId, use);
+        }
+        #endregion
+
+        #region PlSpeciesSub
+        public void GetTbl72PlSpeciessesSubById(int id)
+        {
+            var plSpecies = _extReportBasicGet.GetPlSpeciesSingleByPlSpeciesId(id);
+
+
+            PlSpeciessesSubCollection = _extReportBasicGet.CollPlSpeciessesByPlSpeciesId(id);
+            PlSpeciessesCollection = _extReportBasicGet.CollPlSpeciessesByGenusIdAndPlSpeciesNameAndEmptySubspecies(plSpecies.GenusId, plSpecies.PlSpeciesName);
+            NamesCollection = _extReportBasicGet.CollNamesByPlSpeciesIdAndHash(id);
+            SynonymsCollection = _extReportBasicGet.CollSynonymsByPlSpeciesIdAndHash(id);
+            ImagesCollection = _extReportBasicGet.CollImagesByPlSpeciesId(id);
+            GeographicsCollection = _extReportBasicGet.CollGeographicsByPlSpeciesId(id);
 
             var genusId = _extReportBasicGet.GenusIdFromPlSpeciessesCollectionSelect(id);
             GenussesCollection = _extReportBasicGet.CollGenussesByGenusIdAndHash(genusId);
@@ -1758,33 +1966,29 @@ namespace ATIS.Ui.Views.Report
             AuthorsCollection = _extReportBasicGet.CollAuthorsByPlSpeciesId(id);
             //------------------------------------------------------------------------------
             CommentsCollection = _extReportBasicGet.CollCommentsByPlSpeciesId(id);
-            //------------------------------------------------------------------------------
-            ImagesCollection = _extReportBasicGet.CollImagesByPlSpeciesId(id);
-            GeographicsCollection = _extReportBasicGet.CollGeographicsByPlSpeciesId(id);
         }
         //------------------------------------------------------------------------------
-        private RelayCommand _pdfPlSpeciesPrintCommand;
-        public ICommand PdfPlSpeciesPrintCommand
+        private RelayCommand _pdfPlSpeciesSubPrintCommand;
+        public ICommand PdfPlSpeciesSubPrintCommand
         {
-            get { return _pdfPlSpeciesPrintCommand ??= new RelayCommand(delegate { CreatePdfPlSpeciesPrint(_mainId); }); }
+            get { return _pdfPlSpeciesSubPrintCommand ??= new RelayCommand(delegate { CreatePdfPlSpeciesSubPrint(_mainId); }); }
         }
-        private static void CreatePdfPlSpeciesPrint(int id)
+        private static void CreatePdfPlSpeciesSubPrint(int id)
         {
             const string use = "print";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportPlSpeciesSubPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
-        private RelayCommand _pdfPlSpeciesSaveCommand;
-        public ICommand PdfPlSpeciesSaveCommand
+        private RelayCommand _pdfPlSpeciesSubSaveCommand;
+        public ICommand PdfPlSpeciesSubSaveCommand
         {
-            get { return _pdfPlSpeciesSaveCommand ??= new RelayCommand(delegate { CreatePdfPlSpeciesSave(_mainId); }); }
+            get { return _pdfPlSpeciesSubSaveCommand ??= new RelayCommand(delegate { CreatePdfPlSpeciesSubSave(_mainId); }); }
         }
-        private static void CreatePdfPlSpeciesSave(int id)
+        private static void CreatePdfPlSpeciesSubSave(int id)
         {
             const string use = "save";
-            ReportSuperclassPdf.CreateMainPdf(id, _fishId, _plantId, use);
+            ReportPlSpeciesSubPdf.CreateMainPdf(id, _fishId, _plantId, use);
         }
         #endregion
-
 
         #region "Private Properties"
         public string FilterText { get; set; }

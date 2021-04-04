@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using ATIS.Ui.Views.Report;
 using ATIS.Ui.Views.Report.D15Subdivision;
 using ATIS.Ui.Views.Report.D18Superclass;
 using ATIS.Ui.Views.Report.D21Class;
@@ -21,7 +22,9 @@ using ATIS.Ui.Views.Report.D60Subtribus;
 using ATIS.Ui.Views.Report.D63Infratribus;
 using ATIS.Ui.Views.Report.D66Genus;
 using ATIS.Ui.Views.Report.D69FiSpecies;
+using ATIS.Ui.Views.Report.D69FiSpeciesSub;
 using ATIS.Ui.Views.Report.D72PlSpecies;
+using ATIS.Ui.Views.Report.D72PlSpeciesSub;
 
 namespace ATIS.Ui.Views.Search
 {
@@ -30,6 +33,8 @@ namespace ATIS.Ui.Views.Search
     /// </summary>
     public partial class SearchBase : UserControl
     {
+        private readonly ReportBasicGet _extReportBasicGet = new ReportBasicGet();
+
         public SearchBase()
         {
             DataContext = new SearchQuickViewModel();
@@ -254,7 +259,18 @@ namespace ATIS.Ui.Views.Search
 
             if (lvItem == null) return;
             var id = (dynamic)lvItem.Tag;
-            var rp = new ReportFiSpeciesWindow(id, "Tbl69FiSpeciesses");
+            var fiSpecies = _extReportBasicGet.GetFiSpeciesSingleByFiSpeciesId(id);
+            var rp = new Window();
+
+            if (string.IsNullOrEmpty(fiSpecies.Subspecies) && string.IsNullOrEmpty(fiSpecies.Divers))
+            {
+                rp = new ReportFiSpeciesWindow(id, "Tbl69FiSpeciesses");
+            }
+            else
+            {
+                rp = new ReportFiSpeciesSubWindow(id, "Tbl69FiSpeciesses");
+            }
+
             rp.Show();
         }
 
@@ -264,7 +280,17 @@ namespace ATIS.Ui.Views.Search
 
             if (lvItem == null) return;
             var id = (dynamic)lvItem.Tag;
-            var rp = new ReportPlSpeciesWindow(id, "Tbl72PlSpeciesses");
+            var plSpecies = _extReportBasicGet.GetPlSpeciesSingleByPlSpeciesId(id);
+            var rp = new Window();
+
+            if (string.IsNullOrEmpty(plSpecies.Subspecies) && string.IsNullOrEmpty(plSpecies.Divers))
+            {
+                rp = new ReportPlSpeciesWindow(id, "Tbl72PlSpeciesses");
+            }
+            else
+            {
+                rp = new ReportPlSpeciesSubWindow(id, "Tbl72PlSpeciesses");
+            }
             rp.Show();
         }
 
