@@ -1464,16 +1464,12 @@
                                         <StackPanel Margin="180,0,0,0" Orientation="Horizontal">
                                             <TextBlock Width="140" Text="{DynamicResource Tbl69FiSpecies-FiSpeciesName}" />
                                             <TextBlock>
-                                                <Hyperlink Click="HyperlinkFiSpecies_Click" Tag="{Binding (models:Tbl69FiSpecies.FiSpeciesId)}">
-                                                    <TextBlock>
-                                                        <TextBlock.Text>
-                                                            <MultiBinding StringFormat=" {0} {1} ">
-                                                                <Binding Path="(models:Tbl69FiSpecies.Tbl66Genusses).GenusName" />
-                                                                <Binding Path="(models:Tbl69FiSpecies.FiSpeciesName)" />
-                                                            </MultiBinding>
-                                                        </TextBlock.Text>
-                                                    </TextBlock>
-                                                </Hyperlink>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat=" {0} {1} ">
+                                                        <Binding Path="(models:Tbl69FiSpecies.Tbl66Genusses).GenusName" />
+                                                        <Binding Path="(models:Tbl69FiSpecies.FiSpeciesName)" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
                                             </TextBlock>
                                             <TextBlock Width="Auto" Margin="2,0,0,0">
                                                 <TextBlock.Text>

@@ -49,6 +49,7 @@ namespace ATIS.Ui.Views.Report.D72PlSpeciesSub
         private static Tbl63Infratribus _infratribusSingleList;
         private static Tbl66Genus _genusSingleList;
         private static Tbl72PlSpecies _plspeciesSingleList;
+        private static Tbl72PlSpecies _plspeciesSubSingleList;
 
 
         //    Part 1    
@@ -70,7 +71,8 @@ namespace ATIS.Ui.Views.Report.D72PlSpeciesSub
             //BitMiracle.Docotic.LicenseManager.AddLicenseData("5LX7Z-5GUF6-UUYTR-8YOQC-XGT2B");
             //-----------------------------------------------------------------------------     
 
-            _plspeciesSingleList = ExtCrud.GetPlSpeciesSingleByPlSpeciesId<Tbl72PlSpecies>(id);
+            _plspeciesSubSingleList = ExtCrud.GetPlSpeciesSingleByPlSpeciesId<Tbl72PlSpecies>(id);
+            _plspeciesSingleList = ExtCrud.GetPlSpeciesSingleByPlSpeciesId<Tbl72PlSpecies>(_plspeciesSubSingleList.PlSpeciesId);
             _genusSingleList = ExtCrud.GetGenusSingleByGenusId<Tbl66Genus>(_plspeciesSingleList.GenusId);
             _infratribusSingleList = ExtCrud.GetInfratribusSingleByInfratribusId<Tbl63Infratribus>(_genusSingleList.InfratribusId);
             _subtribusSingleList = ExtCrud.GetSubtribusSingleBySubtribusId<Tbl60Subtribus>(_infratribusSingleList.SubtribusId);
@@ -83,7 +85,7 @@ namespace ATIS.Ui.Views.Report.D72PlSpeciesSub
             _infraordoSingleList = ExtCrud.GetInfraordoSingleByInfraordoId<Tbl39Infraordo>(_superfamilySingleList.InfraordoId);
             _subordoSingleList = ExtCrud.GetSubordoSingleBySubordoId<Tbl36Subordo>(_infraordoSingleList.SubordoId);
             _ordoSingleList = ExtCrud.GetOrdoSingleByOrdoId<Tbl33Ordo>(_subordoSingleList.OrdoId);
-            _legioSingleList = ExtCrud.GetLegioSingleByLegioId<Tbl30Legio>(_legioSingleList.LegioId);
+            _legioSingleList = ExtCrud.GetLegioSingleByLegioId<Tbl30Legio>(_ordoSingleList.LegioId);
             _infraclassSingleList = ExtCrud.GetInfraclassSingleByInfraclassId<Tbl27Infraclass>(_legioSingleList.InfraclassId);
             _subclassSingleList = ExtCrud.GetSubclassSingleBySubclassId<Tbl24Subclass>(_infraclassSingleList.SubclassId);
             _classSingleList = ExtCrud.GetClassSingleByClassId<Tbl21Class>(_subclassSingleList.ClassId);
@@ -116,8 +118,8 @@ namespace ATIS.Ui.Views.Report.D72PlSpeciesSub
                 using var pdf = new PdfDocument();
                 _arrInts = PdfHelper.AddReportMain(pdf);
 
-                AddPlSpeciesHaeder(pdf, _plspeciesSingleList);
-                AddPlSpeciesTaxoNomenList(pdf, _plspeciesSingleList, _regnumSingleList);
+                AddPlSpeciesSubHaeder(pdf, _plspeciesSubSingleList);
+                AddPlSpeciesSubTaxoNomenList(pdf, _plspeciesSubSingleList, _regnumSingleList);
 
                 if (_regnumSingleList != null)
                     AddRegnumHierarchyList(pdf, _regnumSingleList);
@@ -163,8 +165,10 @@ namespace ATIS.Ui.Views.Report.D72PlSpeciesSub
                     AddInfratribusHierarchyList(pdf, _infratribusSingleList);
                 if (_genusSingleList != null)
                     AddGenusHierarchyList(pdf, _genusSingleList);
+                if (_plspeciesSingleList != null)
+                    AddPlSpeciesHierarchyList(pdf, _plspeciesSingleList);
 
-                AddPlSpeciesHierarchyList(pdf, _plspeciesSingleList);
+                AddPlSpeciesSubHierarchyList(pdf, _plspeciesSubSingleList);
 
                 if (expertsList.Count != 0 || sourcesList.Count != 0 || authorsList.Count != 0)
                     _arrInts = PdfHelper.AddReferencesHaeder(pdf, _arrInts);
@@ -219,14 +223,14 @@ namespace ATIS.Ui.Views.Report.D72PlSpeciesSub
             }
         }
 
-        private static void AddPlSpeciesHaeder(PdfDocument pdf, Tbl72PlSpecies plspeciesList)
+        private static void AddPlSpeciesSubHaeder(PdfDocument pdf, Tbl72PlSpecies plspeciesList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
             var textAusgabeAuthor = PdfHelper.AuthorViewChangeWithString(plspeciesList.Author, plspeciesList.AuthorYear);
 
 
-            var textAusgabeNameAuthor = plspeciesList.PlSpeciesName + " " + textAusgabeAuthor;
+            var textAusgabeNameAuthor = plspeciesList.PlSpeciesName + " " + plspeciesList.Subspecies + " " + plspeciesList.Divers + " " + textAusgabeAuthor;
 
             _arrInts = PdfHelper.PdfTbBoldLeft("plspeciesName", _arrInts, true, textAusgabeNameAuthor, 2);
 
@@ -237,7 +241,7 @@ namespace ATIS.Ui.Views.Report.D72PlSpeciesSub
             _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
         }
 
-        private static void AddPlSpeciesTaxoNomenList(PdfDocument pdf, Tbl72PlSpecies plspeciesList, Tbl03Regnum regnumList)
+        private static void AddPlSpeciesSubTaxoNomenList(PdfDocument pdf, Tbl72PlSpecies plspeciesList, Tbl03Regnum regnumList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
@@ -251,7 +255,7 @@ namespace ATIS.Ui.Views.Report.D72PlSpeciesSub
 
             //---------------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("rankLeft", _arrInts, false, CultRes.StringsRes.ReportTaxoRank, 0);
-            _arrInts = PdfHelper.PdfTbRight("rankRight", _arrInts, false, CultRes.StringsRes.PlSpecies, 0);
+            _arrInts = PdfHelper.PdfTbRight("rankRight", _arrInts, false, CultRes.StringsRes.Subspecies, 0);
             //------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("synonymLeft", _arrInts, false, CultRes.StringsRes.ReportSynonyms, 0);
             //------------------------------------------------------
@@ -630,6 +634,22 @@ namespace ATIS.Ui.Views.Report.D72PlSpeciesSub
                 plspeciesList.Divers, plspeciesList.Author, plspeciesList.AuthorYear, plspeciesList.Importer, plspeciesList.ImportingYear);
 
             _arrInts = PdfHelper.PdfTbMtRight("plspeciesRight", _arrInts, textResult);
+
+            _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
+        }
+
+        private static void AddPlSpeciesSubHierarchyList(PdfDocument pdf, Tbl72PlSpecies plspeciesList)
+        {
+            _page = pdf.Pages[_arrInts[6]];
+
+            _arrInts = PdfHelper.PdfTbMoveLeft("plspeciesSubLeft", _arrInts, false, CultRes.StringsRes.Subspecies, 0);
+
+            var txtName = plspeciesList.PlSpeciesName;
+
+            var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, plspeciesList.Subspecies,
+                plspeciesList.Divers, plspeciesList.Author, plspeciesList.AuthorYear, plspeciesList.Importer, plspeciesList.ImportingYear);
+
+            _arrInts = PdfHelper.PdfTbMtRight("plspeciesSubRight", _arrInts, textResult);
 
             _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
         }

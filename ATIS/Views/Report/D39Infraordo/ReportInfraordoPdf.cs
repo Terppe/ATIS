@@ -63,7 +63,7 @@ namespace ATIS.Ui.Views.Report.D39Infraordo
             _infraordoSingleList = ExtCrud.GetInfraordoSingleByInfraordoId<Tbl39Infraordo>(id);
             _subordoSingleList = ExtCrud.GetSubordoSingleBySubordoId<Tbl36Subordo>(_infraordoSingleList.SubordoId);
             _ordoSingleList = ExtCrud.GetOrdoSingleByOrdoId<Tbl33Ordo>(_subordoSingleList.OrdoId);
-            _legioSingleList = ExtCrud.GetLegioSingleByLegioId<Tbl30Legio>(_legioSingleList.LegioId);
+            _legioSingleList = ExtCrud.GetLegioSingleByLegioId<Tbl30Legio>(_ordoSingleList.LegioId);
             _infraclassSingleList = ExtCrud.GetInfraclassSingleByInfraclassId<Tbl27Infraclass>(_legioSingleList.InfraclassId);
             _subclassSingleList = ExtCrud.GetSubclassSingleBySubclassId<Tbl24Subclass>(_infraclassSingleList.SubclassId);
             _classSingleList = ExtCrud.GetClassSingleByClassId<Tbl21Class>(_subclassSingleList.ClassId);

@@ -49,6 +49,7 @@ namespace ATIS.Ui.Views.Report.D69FiSpeciesSub
         private static Tbl63Infratribus _infratribusSingleList;
         private static Tbl66Genus _genusSingleList;
         private static Tbl69FiSpecies _fispeciesSingleList;
+        private static Tbl69FiSpecies _fispeciesSubSingleList;
 
 
         //    Part 1    
@@ -70,7 +71,8 @@ namespace ATIS.Ui.Views.Report.D69FiSpeciesSub
             //BitMiracle.Docotic.LicenseManager.AddLicenseData("5LX7Z-5GUF6-UUYTR-8YOQC-XGT2B");
             //-----------------------------------------------------------------------------     
 
-            _fispeciesSingleList = ExtCrud.GetFiSpeciesSingleByFiSpeciesId<Tbl69FiSpecies>(id);
+            _fispeciesSubSingleList = ExtCrud.GetFiSpeciesSingleByFiSpeciesId<Tbl69FiSpecies>(id);
+            _fispeciesSingleList = ExtCrud.GetFiSpeciesSingleByFiSpeciesId<Tbl69FiSpecies>(_fispeciesSubSingleList.FiSpeciesId);
             _genusSingleList = ExtCrud.GetGenusSingleByGenusId<Tbl66Genus>(_fispeciesSingleList.GenusId);
             _infratribusSingleList = ExtCrud.GetInfratribusSingleByInfratribusId<Tbl63Infratribus>(_genusSingleList.InfratribusId);
             _subtribusSingleList = ExtCrud.GetSubtribusSingleBySubtribusId<Tbl60Subtribus>(_infratribusSingleList.SubtribusId);
@@ -83,7 +85,7 @@ namespace ATIS.Ui.Views.Report.D69FiSpeciesSub
             _infraordoSingleList = ExtCrud.GetInfraordoSingleByInfraordoId<Tbl39Infraordo>(_superfamilySingleList.InfraordoId);
             _subordoSingleList = ExtCrud.GetSubordoSingleBySubordoId<Tbl36Subordo>(_infraordoSingleList.SubordoId);
             _ordoSingleList = ExtCrud.GetOrdoSingleByOrdoId<Tbl33Ordo>(_subordoSingleList.OrdoId);
-            _legioSingleList = ExtCrud.GetLegioSingleByLegioId<Tbl30Legio>(_legioSingleList.LegioId);
+            _legioSingleList = ExtCrud.GetLegioSingleByLegioId<Tbl30Legio>(_ordoSingleList.LegioId);
             _infraclassSingleList = ExtCrud.GetInfraclassSingleByInfraclassId<Tbl27Infraclass>(_legioSingleList.InfraclassId);
             _subclassSingleList = ExtCrud.GetSubclassSingleBySubclassId<Tbl24Subclass>(_infraclassSingleList.SubclassId);
             _classSingleList = ExtCrud.GetClassSingleByClassId<Tbl21Class>(_subclassSingleList.ClassId);
@@ -116,8 +118,8 @@ namespace ATIS.Ui.Views.Report.D69FiSpeciesSub
                 using var pdf = new PdfDocument();
                 _arrInts = PdfHelper.AddReportMain(pdf);
 
-                AddFiSpeciesHaeder(pdf, _fispeciesSingleList);
-                AddFiSpeciesTaxoNomenList(pdf, _fispeciesSingleList, _regnumSingleList);
+                AddFiSpeciesSubHaeder(pdf, _fispeciesSubSingleList);
+                AddFiSpeciesSubTaxoNomenList(pdf, _fispeciesSubSingleList, _regnumSingleList);
 
                 if (_regnumSingleList != null)
                     AddRegnumHierarchyList(pdf, _regnumSingleList);
@@ -163,8 +165,10 @@ namespace ATIS.Ui.Views.Report.D69FiSpeciesSub
                     AddInfratribusHierarchyList(pdf, _infratribusSingleList);
                 if (_genusSingleList != null)
                     AddGenusHierarchyList(pdf, _genusSingleList);
+                if (_fispeciesSingleList != null)
+                    AddFiSpeciesHierarchyList(pdf, _fispeciesSingleList);
 
-                AddFiSpeciesHierarchyList(pdf, _fispeciesSingleList);
+                AddFiSpeciesSubHierarchyList(pdf, _fispeciesSubSingleList);
 
                 if (expertsList.Count != 0 || sourcesList.Count != 0 || authorsList.Count != 0)
                     _arrInts = PdfHelper.AddReferencesHaeder(pdf, _arrInts);
@@ -219,7 +223,7 @@ namespace ATIS.Ui.Views.Report.D69FiSpeciesSub
             }
         }
 
-        private static void AddFiSpeciesHaeder(PdfDocument pdf, Tbl69FiSpecies fispeciesList)
+        private static void AddFiSpeciesSubHaeder(PdfDocument pdf, Tbl69FiSpecies fispeciesList)
         {
             _page = pdf.Pages[_arrInts[6]];
 
@@ -236,7 +240,7 @@ namespace ATIS.Ui.Views.Report.D69FiSpeciesSub
             _arrInts[1] += _arrInts[9] + 5; //Distance to next TextBox
         }
 
-        private static void AddFiSpeciesTaxoNomenList(PdfDocument pdf, Tbl69FiSpecies fispeciesList, Tbl03Regnum regnumList)
+        private static void AddFiSpeciesSubTaxoNomenList(PdfDocument pdf, Tbl69FiSpecies fispeciesList, Tbl03Regnum regnumList)
 
         {
             _page = pdf.Pages[_arrInts[6]];
@@ -251,7 +255,7 @@ namespace ATIS.Ui.Views.Report.D69FiSpeciesSub
 
             //---------------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("rankLeft", _arrInts, false, CultRes.StringsRes.ReportTaxoRank, 0);
-            _arrInts = PdfHelper.PdfTbRight("rankRight", _arrInts, false, CultRes.StringsRes.FiSpecies, 0);
+            _arrInts = PdfHelper.PdfTbRight("rankRight", _arrInts, false, CultRes.StringsRes.Subspecies, 0);
             //------------------------------------------------------
             _arrInts = PdfHelper.PdfTbMoveLeft("synonymLeft", _arrInts, false, CultRes.StringsRes.ReportSynonyms, 0);
             //------------------------------------------------------
@@ -623,6 +627,21 @@ namespace ATIS.Ui.Views.Report.D69FiSpeciesSub
             _page = pdf.Pages[_arrInts[6]];
 
             _arrInts = PdfHelper.PdfTbMoveLeft("fispeciesLeft", _arrInts, false, CultRes.StringsRes.FiSpecies, 0);
+
+            var txtName = fispeciesList.FiSpeciesName;
+
+            var textResult = PdfHelper.NamesAuthorsForeignNamesViewChange(txtName, fispeciesList.Subspecies,
+                fispeciesList.Divers, fispeciesList.Author, fispeciesList.AuthorYear, fispeciesList.Importer, fispeciesList.ImportingYear);
+
+            _arrInts = PdfHelper.PdfTbMtRight("fispeciesRight", _arrInts, textResult);
+
+            _arrInts[1] += _arrInts[9] + 2; //Distance to next TextBox
+        }
+        private static void AddFiSpeciesSubHierarchyList(PdfDocument pdf, Tbl69FiSpecies fispeciesList)
+        {
+            _page = pdf.Pages[_arrInts[6]];
+
+            _arrInts = PdfHelper.PdfTbMoveLeft("fispeciesLeft", _arrInts, false, CultRes.StringsRes.Subspecies, 0);
 
             var txtName = fispeciesList.FiSpeciesName;
 
