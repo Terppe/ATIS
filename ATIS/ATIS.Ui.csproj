@@ -73,17 +73,6 @@
   <ItemGroup>
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Report\D68Speciesgroup\" />
-    <Folder Include="Views\Report\D78Name\" />
-    <Folder Include="Views\Report\D81Image\" />
-    <Folder Include="Views\Report\D84Synonym\" />
-    <Folder Include="Views\Report\D87Geographic\" />
-    <Folder Include="Views\Report\D90RefAuthor\" />
-    <Folder Include="Views\Report\D90Reference\" />
-    <Folder Include="Views\Report\D90RefExpert\" />
-    <Folder Include="Views\Report\D90RefSource\" />
-    <Folder Include="Views\Report\D93Comment\" />
-    <Folder Include="Views\Report\DCountry\" />
-    <Folder Include="Views\Report\DUserprofile\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
 
