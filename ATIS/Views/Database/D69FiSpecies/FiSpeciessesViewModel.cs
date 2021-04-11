@@ -10,6 +10,8 @@ using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 
 using System.Collections.Generic;
+using System.Drawing;
+using System.Windows;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 
@@ -17,7 +19,6 @@ using Microsoft.Win32;
 
 namespace ATIS.Ui.Views.Database.D69FiSpecies
 {
-
     public class FiSpeciessesViewModel : ViewModelBase
     {
         // Version with Generic Unit Of Work and AtisDbContext for general use   
@@ -49,6 +50,8 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
             }
         }
         public bool IsInDesignMode { get; set; }
+
+        public BitmapSource ButtonSource { get; }
 
         #endregion [Constructor]          
 
@@ -352,7 +355,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
 
         private RelayCommand _saveImageCommand;
 
-        public ICommand SaveImageCommand => _saveImageCommand ??= new RelayCommand(delegate { ExecuteSaveImage(SearchFiSpeciesName); });
+        public ICommand SaveImageCommand => _saveImageCommand ??= new RelayCommand(delegate { ExecuteSaveImage(SearchFiSpeciesName, SelectedPath); });
         #endregion [Public Commands Connect ==> Tbl81Image]                
 
         #region [Public Methods Connect ==> Tbl81Image]                        
@@ -361,6 +364,9 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
         {
             Tbl81ImagesList ??= new ObservableCollection<Tbl81Image>();
             Tbl81ImagesList.Insert(0, new Tbl81Image { Info = CultRes.StringsRes.DatasetNew });
+         
+            //Image search
+            ExecuteOpenFileDialog();
 
             ImagesView = CollectionViewSource.GetDefaultView(Tbl81ImagesList);
             ImagesView.MoveCurrentToFirst();
@@ -390,7 +396,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
             ImagesView.MoveCurrentToFirst();
         }
 
-        private void ExecuteSaveImage(string searchName)
+        private void ExecuteSaveImage(string searchName, string selectedPath)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl81Image)) return;
 
@@ -402,7 +408,7 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
 
             //    CurrentTbl81Image.PlSpeciesId = 1;
 
-            _extSave.SaveImage(CurrentTbl81Image);
+            _extSave.SaveImage(CurrentTbl81Image, selectedPath);
 
             Tbl81ImagesList = _extCrud.GetImagesCollectionFromFiSpeciesIdOrderBy<Tbl81Image>(CurrentTbl81Image.FiSpeciesId);
 
@@ -1722,10 +1728,10 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
 
         private void RegisterCommands()
         {
-          //  OpenCommand = new RelayCommand(ExecuteOpenFileDialog);
+            OpenCommand = new RelayCommand(ExecuteOpenFileDialog);
         }
 
-        private void ExecuteOpenFileDialog(object o)
+        private void ExecuteOpenFileDialog()
         {
             var dialog = new OpenFileDialog
             {
@@ -1740,7 +1746,9 @@ namespace ATIS.Ui.Views.Database.D69FiSpecies
             dialog.ShowDialog();
 
             SelectedPath = dialog.FileName;
-            ImageSource = new BitmapImage(new Uri(dialog.FileName));
+            ImageSource = new BitmapImage(new Uri(dialog.FileName, UriKind.Relative));
+            //   RaisePropertyChanged("IsAuthenticated");
+            ImageSource.CacheOption = BitmapCacheOption.Default;
         }
 
         #endregion

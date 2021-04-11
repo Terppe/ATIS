@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Windows.Media.Imaging;
 using ATIS.Ui.Models;
 using ATIS.Ui.Helper;
 using Microsoft.EntityFrameworkCore;
@@ -4985,7 +4986,7 @@ namespace ATIS.Ui.Core
         #endregion
 
         #region Save Image
-        public Tbl81Image ImageUpdate(Tbl81Image home, Tbl81Image selected)
+        public Tbl81Image ImageUpdate(Tbl81Image home, Tbl81Image selected, string selectedPath)
         {
             if (home != null) //update
             {
@@ -4998,14 +4999,14 @@ namespace ATIS.Ui.Core
                 home.Memo = selected.Memo;
                 home.ImageData = selected.ImageData;
                 home.ImageMimeType = selected.ImageMimeType;
-                if (SelectedPath != null) home.Filestream = LoadImageData(SelectedPath);
+                if (selectedPath != null) home.Filestream = LoadImageData(selectedPath);
                 home.FilestreamId = Guid.NewGuid();
                 home.Updater = Environment.UserName;
                 home.UpdaterDate = DateTime.Now;
             }
             return home;
         }
-        public Tbl81Image ImageAdd(Tbl81Image selected)
+        public Tbl81Image ImageAdd(Tbl81Image selected, string selectedPath)
         {
             var home = new Tbl81Image() //add new
             {
@@ -5019,7 +5020,7 @@ namespace ATIS.Ui.Core
                 Memo = selected.Memo,
                 ImageData = selected.ImageData, //empty
                 ImageMimeType = selected.ImageMimeType,
-                Filestream = LoadImageData(SelectedPath),
+                Filestream = LoadImageData(selectedPath),
                 FilestreamId = Guid.NewGuid(),
                 Writer = Environment.UserName,
                 WriterDate = DateTime.Now,
@@ -5028,6 +5029,7 @@ namespace ATIS.Ui.Core
             };
             return home;
         }
+
         private static byte[] LoadImageData(string filePath)
         {
             var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
@@ -5037,6 +5039,7 @@ namespace ATIS.Ui.Core
             fs.Close();
             return imageBytes;
         }
+
         public void ImageSave(Tbl81Image home, Tbl81Image selected)
         {
 

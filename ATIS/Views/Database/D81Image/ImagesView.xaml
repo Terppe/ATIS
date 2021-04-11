@@ -1970,6 +1970,28 @@
                             <Button Template="{StaticResource CopyImageButton}" />
                             <Button Template="{StaticResource AddImageButton}" />
                             <Button Template="{StaticResource DeleteImageButton}" />
+                            <!--<Button
+                                Width="180"
+                                Margin="10,2,450,0"
+                                HorizontalAlignment="Right"
+                                Click="ShowImage"
+                                Content="Bild suchen"
+                                Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                ToolTip="Bild suchen" />-->
+                            <!--Command="{Binding ShowImageCommand}"-->
+
+                            <!--<Button
+                                Margin="10,2,200,0" Width="80" Height="24" 
+                                HorizontalAlignment="Right" Content="Search" Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                Command="{Binding OpenCommand}"
+                                ToolTip="{DynamicResource Shared-SearchImage}">
+                            </Button>-->
+                            <!--<Button
+                                Margin="10,2,250,0" Width="80" Height="24" VerticalAlignment="Top"
+                                HorizontalAlignment="Right" Content="ShowImage"
+                                Click="ShowImage"
+                                ToolTip="{DynamicResource Shared-SearchImage}">
+                            </Button>-->
 
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
@@ -2042,7 +2064,7 @@
                             <TextBox
                                 x:Name="TbPath"
                                 Width="700"
-                                Margin="5"
+                                Margin="5" Height="50"
                                 HorizontalContentAlignment="Stretch"
                                 mah:TextBoxHelper.IsWaitingForData="True"
                                 mah:TextBoxHelper.UseFloatingWatermark="True"

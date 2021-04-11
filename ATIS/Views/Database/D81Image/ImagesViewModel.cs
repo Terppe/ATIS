@@ -9,6 +9,7 @@ using ATIS.Ui.Core;
 using ATIS.Ui.Helper;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Media;
 using Microsoft.Win32;
 using System.Windows.Media.Imaging;
 
@@ -102,7 +103,7 @@ namespace ATIS.Ui.Views.Database.D81Image
         public ICommand DeleteImageCommand => _deleteImageCommand ??= new RelayCommand(delegate { ExecuteDeleteImage(SearchImageId); });
 
         private RelayCommand _saveImageCommand;
-        public ICommand SaveImageCommand => _saveImageCommand ??= new RelayCommand(delegate { ExecuteSaveImage(SearchImageId); });
+        public ICommand SaveImageCommand => _saveImageCommand ??= new RelayCommand(delegate { ExecuteSaveImage(SearchImageId, SelectedPath); });
 
         #endregion [Commands Image]       
 
@@ -160,6 +161,9 @@ namespace ATIS.Ui.Views.Database.D81Image
             Tbl69FiSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl69FiSpecies>("FiSpecies");
             Tbl72PlSpeciessesAllList = _extCrud.GetCollectionAllOrderBy<Tbl72PlSpecies>("PlSpecies");
 
+            //Image search
+            ExecuteOpenFileDialog();
+
             SelectedMainTabIndex = 0;
             SelectedDetailTabIndex = 2;
 
@@ -190,13 +194,13 @@ namespace ATIS.Ui.Views.Database.D81Image
             ImagesView.MoveCurrentToLast();
         }
 
-        private void ExecuteSaveImage(int searchId)
+        private void ExecuteSaveImage(int searchId, string selectedPath)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl81Image)) return;
 
             _position = ImagesView.CurrentPosition;
 
-            var ret = _extSave.SaveImage(CurrentTbl81Image);
+            var ret = _extSave.SaveImage(CurrentTbl81Image, selectedPath);
 
             if (ret != true)
             {
@@ -286,15 +290,13 @@ namespace ATIS.Ui.Views.Database.D81Image
 
         //    Part 4    
 
-
-
+ 
 
         //    Part 5    
 
 
-
+ 
         //    Part 6    
-
 
 
 
@@ -759,10 +761,10 @@ namespace ATIS.Ui.Views.Database.D81Image
 
         private void RegisterCommands()
         {
-            // OpenCommand = new RelayCommand(ExecuteOpenFileDialog);
+             OpenCommand = new RelayCommand(ExecuteOpenFileDialog);
         }
 
-        private void ExecuteOpenFileDialog(object o)
+        private void ExecuteOpenFileDialog()
         {
             var dialog = new OpenFileDialog
             {
@@ -778,8 +780,22 @@ namespace ATIS.Ui.Views.Database.D81Image
 
             SelectedPath = dialog.FileName;
             ImageSource = new BitmapImage(new Uri(dialog.FileName));
+
+            //var openFileDialog = new OpenFileDialog();
+            //if (openFileDialog.ShowDialog() == true)
+            //{
+            //    var fileUri = new Uri(openFileDialog.FileName);
+            //    SelectedPath = openFileDialog.FileName;
+
+            //    ImageSource = new BitmapImage(fileUri);
+            //}
+
         }
 
+        public ImageSource DisplayedImage
+        {
+            get { return new BitmapImage(new Uri(SelectedPath)); }
+        }
         #endregion
 
 

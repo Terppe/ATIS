@@ -353,7 +353,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
 
         private RelayCommand _saveImageCommand;
 
-        public ICommand SaveImageCommand => _saveImageCommand ??= new RelayCommand(delegate { ExecuteSaveImage(SearchPlSpeciesName); });
+        public ICommand SaveImageCommand => _saveImageCommand ??= new RelayCommand(delegate { ExecuteSaveImage(SearchPlSpeciesName, SelectedPath); });
         #endregion [Public Commands Connect ==> Tbl81Image]                
 
         #region [Public Methods Connect ==> Tbl81Image]                        
@@ -362,6 +362,9 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
         {
             Tbl81ImagesList ??= new ObservableCollection<Tbl81Image>();
             Tbl81ImagesList.Insert(0, new Tbl81Image { Info = CultRes.StringsRes.DatasetNew });
+
+            //Image search
+            ExecuteOpenFileDialog();
 
             ImagesView = CollectionViewSource.GetDefaultView(Tbl81ImagesList);
             ImagesView.MoveCurrentToFirst();
@@ -391,7 +394,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
             ImagesView.MoveCurrentToFirst();
         }
 
-        private void ExecuteSaveImage(string searchName)
+        private void ExecuteSaveImage(string searchName, string selectedPath)
         {
             if (_allMessageBoxes.NoDatasetSelectedInfoMessageBox(CurrentTbl81Image)) return;
 
@@ -403,7 +406,7 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
 
             //  CurrentTbl78Name.FiSpeciesId = 2;
 
-            _extSave.SaveImage(CurrentTbl81Image);
+            _extSave.SaveImage(CurrentTbl81Image, selectedPath);
 
             Tbl81ImagesList = _extCrud.GetImagesCollectionFromPlSpeciesIdOrderBy<Tbl81Image>(CurrentTbl81Image.PlSpeciesId);
 
@@ -1728,10 +1731,10 @@ namespace ATIS.Ui.Views.Database.D72PlSpecies
 
         private void RegisterCommands()
         {
-          //  OpenCommand = new RelayCommand(ExecuteOpenFileDialog);
+            OpenCommand = new RelayCommand(ExecuteOpenFileDialog);
         }
 
-        private void ExecuteOpenFileDialog(object o)
+        private void ExecuteOpenFileDialog()
         {
             var dialog = new OpenFileDialog
             {

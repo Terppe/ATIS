@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Microsoft.Win32;
 
@@ -74,6 +75,34 @@ namespace ATIS.Ui.Views.Database.D81Image
             //    BtnGet.Focus();
             //    e.Handled = true;
             //}
+        }
+
+        private void ShowImage(object sender, RoutedEventArgs e)
+        {
+            //var path = TbPath.Text;
+            ////  var ret = _extSave.SaveImage(CurrentTbl81Image, selectedPath);
+            //ImageSource bild = LoadImageData(path);
+            //Image1.Source = bild;
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.InitialDirectory = "c:\\";
+            dlg.Filter = "All images|*.jpg;*.jpeg;*.jpe;*.bmp;*.gif;*.ico;*.png;*.tif;*.tiff;*.hpd;*.jxr;*.wdp|" +
+                         "JPEG image|*.jpg;*.jpeg;*.jpe|Windows BMP image|*.bmp|GIF image|*.gif|Microsoft Windows icon|*.ico|" +
+                         "PNG image|*.png|TIFF image|*.tif;*.tiff|JPEG XR|*.hpd;*.jxr;*.wdp";
+
+            dlg.FilterIndex = 1;
+            dlg.RestoreDirectory = true;
+
+            if (dlg.ShowDialog() == true)
+            {
+                string selectedFileName = dlg.FileName;
+                TbPath.Text = selectedFileName;
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(selectedFileName);
+                bitmap.EndInit();
+                Image1.Source = bitmap;
+            }
+
         }
 
         private void image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

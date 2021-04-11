@@ -1247,7 +1247,7 @@ namespace ATIS.Ui.Core
             }
             return returnBool;
         }
-        public bool SaveImage(Tbl81Image currentTbl81Image)
+        public bool SaveImage(Tbl81Image currentTbl81Image, string selectedPath)
         {
             var returnBool = false;
 
@@ -1263,9 +1263,9 @@ namespace ATIS.Ui.Core
                 if (_allMessageBoxes.SaveDatasetQuestionMessageBox(currentTbl81Image.Info)) return false;
 
                 if (currentTbl81Image.ImageId == 0)
-                    dataset = _extCrud.ImageAdd(currentTbl81Image);
+                    dataset = _extCrud.ImageAdd(currentTbl81Image, selectedPath);
                 else
-                    dataset = _extCrud.ImageUpdate(dataset, currentTbl81Image);
+                    dataset = _extCrud.ImageUpdate(dataset, currentTbl81Image, selectedPath);
 
                 try
                 {

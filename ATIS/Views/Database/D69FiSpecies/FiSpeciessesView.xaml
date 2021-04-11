@@ -2684,6 +2684,18 @@
                             <Button Template="{StaticResource CopyImageButton}" />
                             <Button Template="{StaticResource AddImageButton}" />
                             <Button Template="{StaticResource DeleteImageButton}" />
+                            <!--<Button
+                                Margin="10,2,250,0" Width="80" Height="24" VerticalAlignment="Top"
+                                HorizontalAlignment="Right" Content="ShowImage"
+                                Click="ShowImage"
+                                ToolTip="{DynamicResource Shared-SearchImage}">
+                            </Button>-->
+                            <!--<Button
+                                Margin="10,2,200,0" Width="80" Height="24" 
+                                HorizontalAlignment="Right" Content="Search" Style="{StaticResource MahApps.Styles.Button.Flat}"
+                                Command="{Binding OpenCommand}"
+                                ToolTip="{DynamicResource Shared-SearchImage}">
+                            </Button>-->
 
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal">
