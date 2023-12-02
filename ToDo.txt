@@ -1,0 +1,4 @@
+Validation
+Generator weiter
+Rule.NotNullOrWhiteSpace().WithResourceString("ClassNameCannotBeEmpty") lesen von ErrorMessages.resw
+FiSpeciespage bei Language in Datagrid und einzelsatz

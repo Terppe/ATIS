@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "ATIS.WinUi (Package)": {
+        "commandName": "MsixPackage"
+      },
+      "ATIS.WinUi (Unpackaged)": {
+        "commandName": "Project"
+      }
+    }
+}

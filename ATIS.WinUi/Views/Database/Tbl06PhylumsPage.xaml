@@ -1,0 +1,2252 @@
+<!--  Copyright (c) Microsoft Corporation and Contributors.  -->
+<!--  Licensed under the MIT License.  -->
+
+<Page
+    x:Class="ATIS.WinUi.Views.Database.Tbl06PhylumsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:ATIS.WinUi.Behaviors"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:converters="using:ATIS.WinUi.Helpers.Converters"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:ATIS.WinUi.Helpers"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    behaviors:NavigationViewHeaderBehavior.HeaderMode="Never"
+    Background="Transparent"
+    NavigationCacheMode="Enabled"
+    mc:Ignorable="d">
+
+    <!--  PhylumsPage.xaml  Skriptdatum: 21.03.2023  12:32  -->
+
+    <Page.Resources>
+        <converters:AutoSuggestQueryParameterConverter x:Key="ArgsConverter" />
+        <MenuFlyout x:Key="ContextMenuRegnum">
+            <MenuFlyoutItem x:Uid="MenuFlyout_Save_Regnum" Command="{x:Bind ViewModel.SaveRegnumCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Save.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Refresh_Regnum" Command="{x:Bind ViewModel.RefreshRegnumServerCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Refresh.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+        </MenuFlyout>
+        <MenuFlyout x:Key="ContextMenuPhylum">
+            <MenuFlyoutItem x:Uid="MenuFlyout_Save_Phylum" Command="{x:Bind ViewModel.SavePhylumCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Save.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Add_Phylum" Command="{x:Bind ViewModel.AddPhylumCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Add.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Copy_Phylum" Command="{x:Bind ViewModel.CopyPhylumCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Copy.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Delete_Phylum" Command="{x:Bind ViewModel.DeletePhylumCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Delete.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Refresh_Phylum" Command="{x:Bind ViewModel.RefreshPhylumServerCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Refresh.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+        </MenuFlyout>
+        <MenuFlyout x:Key="ContextMenuSubphylum">
+            <MenuFlyoutItem x:Uid="MenuFlyout_Save_Subphylum" Command="{x:Bind ViewModel.SaveSubphylumCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Save.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Add_Subphylum" Command="{x:Bind ViewModel.AddSubphylumCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Add.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Copy_Subphylum" Command="{x:Bind ViewModel.CopySubphylumCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Copy.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Delete_Subphylum" Command="{x:Bind ViewModel.DeleteSubphylumCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Delete.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Refresh_Subphylum" Command="{x:Bind ViewModel.RefreshSubphylumServerCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Refresh.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+        </MenuFlyout>
+        <MenuFlyout x:Key="ContextMenuReferenceExpert">
+            <MenuFlyoutItem x:Uid="MenuFlyout_Save_Reference_Expert" Command="{x:Bind ViewModel.SaveReferenceExpertCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Save.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Add_Reference_Expert" Command="{x:Bind ViewModel.AddReferenceExpertCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Add.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Copy_Reference_Expert" Command="{x:Bind ViewModel.CopyReferenceExpertCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Copy.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Delete_Reference_Expert" Command="{x:Bind ViewModel.DeleteReferenceExpertCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Delete.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Refresh_Reference_Expert" Command="{x:Bind ViewModel.RefreshReferenceExpertServerCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Refresh.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+        </MenuFlyout>
+        <MenuFlyout x:Key="ContextMenuReferenceSource">
+            <MenuFlyoutItem x:Uid="MenuFlyout_Save_Reference_Source" Command="{x:Bind ViewModel.SaveReferenceSourceCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Save.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Add_Reference_Source" Command="{x:Bind ViewModel.AddReferenceSourceCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Add.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Copy_Reference_Source" Command="{x:Bind ViewModel.CopyReferenceSourceCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Copy.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Delete_Reference_Source" Command="{x:Bind ViewModel.DeleteReferenceSourceCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Delete.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Refresh_Reference_Source" Command="{x:Bind ViewModel.RefreshReferenceSourceServerCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Refresh.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+        </MenuFlyout>
+        <MenuFlyout x:Key="ContextMenuReferenceAuthor">
+            <MenuFlyoutItem x:Uid="MenuFlyout_Save_Reference_Author" Command="{x:Bind ViewModel.SaveReferenceAuthorCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Save.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Add_Reference_Author" Command="{x:Bind ViewModel.AddReferenceAuthorCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Add.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Copy_Reference_Author" Command="{x:Bind ViewModel.CopyReferenceAuthorCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Copy.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Delete_Reference_Author" Command="{x:Bind ViewModel.DeleteReferenceAuthorCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Delete.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Refresh_Reference_Author" Command="{x:Bind ViewModel.RefreshReferenceAuthorServerCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Refresh.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+        </MenuFlyout>
+        <MenuFlyout x:Key="ContextMenuComment">
+            <MenuFlyoutItem x:Uid="MenuFlyout_Save_Comment" Command="{x:Bind ViewModel.SaveCommentCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Save.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Add_Comment" Command="{x:Bind ViewModel.AddCommentCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Add.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Copy_Comment" Command="{x:Bind ViewModel.CopyCommentCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Copy.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Delete_Comment" Command="{x:Bind ViewModel.DeleteCommentCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Delete.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Refresh_Comment" Command="{x:Bind ViewModel.RefreshCommentServerCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Refresh.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+        </MenuFlyout>
+    </Page.Resources>
+
+    <Grid x:Name="PhylumMainRoot">
+        <TabView
+            x:Name="PhylumTabView"
+            Background="LightSkyBlue"
+            IsAddTabButtonVisible="False"
+            SelectedIndex="{x:Bind ViewModel.SelectedMainDetailTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            SelectionChanged="TabView_OnSelectionChanged">
+            <TabView.TabItems>
+
+                <!--  Part 2   FK1  aktuell  -->
+
+                <TabViewItem x:Uid="TabViewItem_Regnums" IsClosable="False">
+                    <TabViewItem.IconSource>
+                        <BitmapIconSource ShowAsMonochrome="False" UriSource="ms-appx:///Assets/ArrowLeft.png" />
+                    </TabViewItem.IconSource>
+
+                    <RelativePanel x:Name="RegnumLayoutRoot">
+                        <TextBlock
+                            x:Name="RegnumDatasetText"
+                            x:Uid="TextBlock_DataSetCount"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            Style="{StaticResource DatasetTitleStyle}" />
+                        <TextBlock
+                            x:Name="RegnumDatasetCountText"
+                            Width="50"
+                            RelativePanel.RightOf="RegnumDatasetText"
+                            Style="{StaticResource DatasetTitleStyle}"
+                            Text="{x:Bind ViewModel.RegnumDataSetCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <CommandBar
+                            x:Name="RegnumCommandBar"
+                            HorizontalAlignment="Stretch"
+                            Background="Transparent"
+                            DefaultLabelPosition="Right"
+                            RelativePanel.AlignRightWithPanel="True"
+                            RelativePanel.RightOf="RegnumDatasetCountText">
+                            <AppBarButton
+                                x:Uid="AppBarButtonSave"
+                                Command="{x:Bind ViewModel.SaveRegnumCommand}"
+                                Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Save.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonCancel"
+                                Click="{x:Bind ViewModel.RegnumCancelEditsAsync}"
+                                Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Cancel.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarSeparator Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}" />
+                            <AppBarButton
+                                x:Uid="AppBarButtonEdit"
+                                Click="{x:Bind ViewModel.RegnumStartEdit}"
+                                IsEnabled="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Edit.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                        </CommandBar>
+                        <Grid
+                            Margin="{StaticResource SmallTopMargin}"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            RelativePanel.AlignRightWithPanel="True"
+                            RelativePanel.Below="RegnumDatasetText">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <ListView
+                                x:Name="Tbl03RegnumsListView"
+                                ItemsSource="{x:Bind ViewModel.RegnumItems}"
+                                SelectedItem="{x:Bind ViewModel.RegnumSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Visibility="Collapsed" />
+                            <ScrollViewer
+                                x:Name="DetailPanelRegnum"
+                                Height="Auto"
+                                Margin="0,5,0,0"
+                                ContextFlyout="{StaticResource ContextMenuRegnum}"
+                                RelativePanel.AlignLeftWithPanel="True"
+                                RelativePanel.AlignRightWithPanel="True"
+                                RelativePanel.Below="RegnumDatasetText"
+                                VerticalScrollBarVisibility="Auto"
+                                VerticalScrollMode="Auto">
+                                <RelativePanel Margin="8,0,0,8">
+                                    <TextBox
+                                        x:Name="RegnumId"
+                                        x:Uid="TextBox_RegnumId"
+                                        MinWidth="110"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="True"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        Text="{x:Bind ViewModel.RegnumSelected.RegnumId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="RegnumName"
+                                        x:Uid="TextBox_RegnumName"
+                                        MinWidth="150"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.RightOf="RegnumId"
+                                        Text="{x:Bind ViewModel.RegnumSelected.RegnumName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                                    <TextBox
+                                        x:Name="Subregnum"
+                                        x:Uid="TextBox_Subregnum"
+                                        MinWidth="150"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.RightOf="RegnumName"
+                                        Text="{x:Bind ViewModel.RegnumSelected.Subregnum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <CheckBox
+                                        x:Name="ValidCheckRegnum"
+                                        x:Uid="CheckBox_Valid"
+                                        Width="80"
+                                        Margin="{StaticResource SmallTopRightCheckBoxMargin}"
+                                        VerticalAlignment="Bottom"
+                                        IsChecked="{x:Bind ViewModel.RegnumSelected.Valid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        RelativePanel.RightOf="Subregnum" />
+
+                                    <TextBox
+                                        x:Name="ValidYearTextRegnum"
+                                        x:Uid="TextBox_ValidYear"
+                                        Width="70"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.RightOf="ValidCheckRegnum"
+                                        Style="{StaticResource BodyTextBoxStyle}"
+                                        Text="{x:Bind ViewModel.RegnumSelected.ValidYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="AuthorTextRegnum"
+                                        x:Uid="TextBox_Author"
+                                        MinWidth="150"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        HorizontalAlignment="Stretch"
+                                        CharacterCasing="Upper"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.Below="RegnumId"
+                                        Text="{x:Bind ViewModel.RegnumSelected.Author, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="AuthorYearTextRegnum"
+                                        x:Uid="TextBox_AuthorYear"
+                                        Width="70"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.Below="RegnumId"
+                                        RelativePanel.RightOf="AuthorTextRegnum"
+                                        Text="{x:Bind ViewModel.RegnumSelected.AuthorYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="InfoRegnum"
+                                        x:Uid="TextBox_Info"
+                                        MinWidth="1120"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        HorizontalAlignment="Stretch"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.Below="AuthorTextRegnum"
+                                        Text="{x:Bind ViewModel.RegnumSelected.Info, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="SynonymRegnum"
+                                        x:Uid="TextBox_Synonym"
+                                        MinWidth="1120"
+                                        MinHeight="100"
+                                        MaxWidth="1300"
+                                        MaxHeight="150"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        AcceptsReturn="True"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.Below="InfoRegnum"
+                                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                        Text="{x:Bind ViewModel.RegnumSelected.Synonym, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        TextWrapping="Wrap" />
+                                    <TextBox
+                                        x:Name="EngNameRegnum"
+                                        x:Uid="TextBox_EngName"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.Below="SynonymRegnum"
+                                        Text="{x:Bind ViewModel.RegnumSelected.EngName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="GerNameRegnum"
+                                        x:Uid="TextBox_GerName"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.Below="SynonymRegnum"
+                                        RelativePanel.RightOf="EngNameRegnum"
+                                        Text="{x:Bind ViewModel.RegnumSelected.GerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="FraNameRegnum"
+                                        x:Uid="TextBox_FraName"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.Below="SynonymRegnum"
+                                        RelativePanel.RightOf="GerNameRegnum"
+                                        Text="{x:Bind ViewModel.RegnumSelected.FraName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="PorNameRegnum"
+                                        x:Uid="TextBox_SpaName"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.Below="SynonymRegnum"
+                                        RelativePanel.RightOf="FraNameRegnum"
+                                        Text="{x:Bind ViewModel.RegnumSelected.PorName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="MemoRegnum"
+                                        x:Uid="TextBox_Memo"
+                                        MinWidth="1120"
+                                        MinHeight="100"
+                                        MaxWidth="1300"
+                                        MaxHeight="150"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        AcceptsReturn="True"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.Below="EngNameRegnum"
+                                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                        Text="{x:Bind ViewModel.RegnumSelected.Memo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        TextWrapping="Wrap" />
+                                </RelativePanel>
+                            </ScrollViewer>
+                            <!--<ScrollViewer
+                            x:Name="DetailPanelRegnum"
+                            Height="Auto"
+                            Margin="0,5,0,0"
+                            ContextFlyout="{StaticResource ContextMenuRegnum}"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            RelativePanel.AlignRightWithPanel="True"
+                            RelativePanel.Below="RegnumDatasetText"
+                            VerticalScrollBarVisibility="Auto"
+                            VerticalScrollMode="Auto">
+                            <RelativePanel Margin="8,0,0,8">
+                            <TextBox
+                            x:Name="RegnumId"
+                            x:Uid="TextBox_RegnumId"
+                            MinWidth="110"
+                            Margin="{StaticResource XSmallTopRightMargin}"
+                            IsReadOnly="True"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            Text="{x:Bind ViewModel.RegnumSelected.RegnumId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox
+                            x:Name="RegnumName"
+                            x:Uid="TextBox_RegnumName"
+                            MinWidth="150"
+                            Margin="{StaticResource XSmallTopRightMargin}"
+                            IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                            RelativePanel.RightOf="RegnumId"
+                            Text="{x:Bind ViewModel.RegnumSelected.RegnumName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <TextBox
+                            x:Name="Subregnum"
+                            x:Uid="TextBox_Subregnum"
+                            MinWidth="150"
+                            Margin="{StaticResource XSmallTopRightMargin}"
+                            IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                            RelativePanel.RightOf="RegnumName"
+                            Text="{x:Bind ViewModel.RegnumSelected.Subregnum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <CheckBox
+                            x:Name="ValidCheckRegnum"
+                            x:Uid="CheckBox_Valid"
+                            Width="80"
+                            Margin="{StaticResource SmallTopRightCheckBoxMargin}"
+                            VerticalAlignment="Bottom"
+                            IsChecked="{x:Bind ViewModel.RegnumSelected.Valid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            RelativePanel.RightOf="Subregnum" />
+
+                            <TextBox
+                            x:Name="ValidYearTextRegnum"
+                            x:Uid="TextBox_ValidYear"
+                            Width="70"
+                            Margin="{StaticResource XSmallTopRightMargin}"
+                            CornerRadius="3"
+                            IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                            RelativePanel.RightOf="ValidCheckRegnum"
+                            Style="{StaticResource BodyTextBoxStyle}"
+                            Text="{x:Bind ViewModel.RegnumSelected.ValidYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox
+                            x:Name="AuthorTextRegnum"
+                            x:Uid="TextBox_Author"
+                            MinWidth="150"
+                            Margin="{StaticResource XSmallTopRightMargin}"
+                            HorizontalAlignment="Stretch"
+                            CharacterCasing="Upper"
+                            IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            RelativePanel.Below="RegnumName"
+                            Text="{x:Bind ViewModel.RegnumSelected.Author, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox
+                            x:Name="AuthorYearTextRegnum"
+                            x:Uid="TextBox_AuthorYear"
+                            Width="70"
+                            Margin="{StaticResource XSmallTopRightMargin}"
+                            IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                            RelativePanel.Below="RegnumName"
+                            RelativePanel.RightOf="AuthorTextRegnum"
+                            Text="{x:Bind ViewModel.RegnumSelected.AuthorYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox
+                            x:Name="InfoRegnum"
+                            x:Uid="TextBox_Info"
+                            MinWidth="1120"
+                            Margin="{StaticResource XSmallTopRightMargin}"
+                            HorizontalAlignment="Stretch"
+                            IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            RelativePanel.Below="AuthorTextRegnum"
+                            Text="{x:Bind ViewModel.RegnumSelected.Info, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox
+                            x:Name="SynonymRegnum"
+                            x:Uid="TextBox_Synonym"
+                            MinWidth="1120"
+                            MinHeight="75"
+                            MaxWidth="1300"
+                            MaxHeight="150"
+                            Margin="{StaticResource XSmallTopRightMargin}"
+                            AcceptsReturn="True"
+                            IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            RelativePanel.Below="InfoRegnum"
+                            ScrollViewer.VerticalScrollBarVisibility="Auto"
+                            Text="{x:Bind ViewModel.RegnumSelected.Synonym, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            TextWrapping="Wrap" />
+                            <TextBox
+                            x:Name="EngNameRegnum"
+                            x:Uid="TextBox_EngName"
+                            Margin="{StaticResource XSmallTopRightMargin}"
+                            IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            RelativePanel.Below="SynonymRegnum"
+                            Text="{x:Bind ViewModel.RegnumSelected.EngName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox
+                            x:Name="GerNameRegnum"
+                            x:Uid="TextBox_GerName"
+                            Margin="{StaticResource XSmallTopRightMargin}"
+                            IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                            RelativePanel.Below="SynonymRegnum"
+                            RelativePanel.RightOf="EngNameRegnum"
+                            Text="{x:Bind ViewModel.RegnumSelected.GerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox
+                            x:Name="FraNameRegnum"
+                            x:Uid="TextBox_FraName"
+                            Margin="{StaticResource XSmallTopRightMargin}"
+                            IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                            RelativePanel.Below="SynonymRegnum"
+                            RelativePanel.RightOf="GerNameRegnum"
+                            Text="{x:Bind ViewModel.RegnumSelected.FraName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox
+                            x:Name="PorNameRegnum"
+                            x:Uid="TextBox_SpaName"
+                            Margin="{StaticResource XSmallTopRightMargin}"
+                            IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                            RelativePanel.Below="SynonymRegnum"
+                            RelativePanel.RightOf="FraNameRegnum"
+                            Text="{x:Bind ViewModel.RegnumSelected.PorName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox
+                            x:Name="MemoRegnum"
+                            x:Uid="TextBox_Memo"
+                            MinWidth="1120"
+                            MinHeight="75"
+                            MaxWidth="1300"
+                            MaxHeight="150"
+                            Margin="{StaticResource XSmallTopRightMargin}"
+                            AcceptsReturn="True"
+                            IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            RelativePanel.Below="EngNameRegnum"
+                            ScrollViewer.VerticalScrollBarVisibility="Auto"
+                            Text="{x:Bind ViewModel.RegnumSelected.Memo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            TextWrapping="Wrap" />
+                            </RelativePanel>
+                            </ScrollViewer>-->
+                        </Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource LargeWindowSnapPoint}" />
+                                    </VisualState.StateTriggers>
+                                </VisualState>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowSnapPoint}" />
+                                    </VisualState.StateTriggers>
+                                </VisualState>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource MinWindowSnapPoint}" />
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="RegnumCommandBar.DefaultLabelPosition" Value="Bottom" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </RelativePanel>
+                </TabViewItem>
+
+                <!--  Part 2  FK2    aktuell  -->
+
+                <!--  Part 2  FK3    aktuell  -->
+
+                <!--  Part 2  FK4    aktuell  -->
+
+                <!--  Part 2  Main   aktuell  -->
+
+                <TabViewItem x:Uid="TabViewItem_Phylums" IsClosable="False">
+                    <RelativePanel x:Name="PhylumLayoutRoot">
+                        <TextBlock
+                            x:Name="PhylumDatasetText"
+                            x:Uid="TextBlock_DataSetCount"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            Style="{StaticResource DatasetTitleStyle}" />
+                        <TextBlock
+                            x:Name="PhylumDatasetCountText"
+                            Width="50"
+                            RelativePanel.RightOf="PhylumDatasetText"
+                            Style="{StaticResource DatasetTitleStyle}"
+                            Text="{x:Bind ViewModel.PhylumDataSetCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <CommandBar
+                            x:Name="PhylumCommandBar"
+                            HorizontalAlignment="Stretch"
+                            Background="Transparent"
+                            DefaultLabelPosition="Right"
+                            RelativePanel.LeftOf="PhylumSearchAutoSuggestBox"
+                            RelativePanel.RightOf="PhylumDatasetCountText">
+                            <AppBarButton
+                                x:Uid="AppBarButtonSave"
+                                Command="{x:Bind ViewModel.SavePhylumCommand}"
+                                Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Save.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonDelete"
+                                Command="{x:Bind ViewModel.DeletePhylumCommand}"
+                                IsEnabled="{x:Bind converters:NotConverter.IsNotNull(ViewModel.PhylumSelected), Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Delete.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonCancel"
+                                Click="{x:Bind ViewModel.PhylumCancelEditsAsync}"
+                                Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Cancel.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarSeparator Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}" />
+                            <AppBarSeparator />
+                            <AppBarButton
+                                x:Uid="AppBarButtonEdit"
+                                Click="{x:Bind ViewModel.PhylumStartEdit}"
+                                IsEnabled="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                Visibility="{x:Bind converters:NotConverter.CollapsedIf(ViewModel.IsNewPhylum), Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Edit.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonAdd"
+                                Command="{x:Bind ViewModel.AddPhylumCommand}"
+                                ToolTipService.ToolTip="New Phylum">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Add.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonCopy"
+                                Command="{x:Bind ViewModel.CopyPhylumCommand}"
+                                IsEnabled="{x:Bind converters:NotConverter.IsNotNull(ViewModel.PhylumSelected), Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Copy.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonSync"
+                                Command="{x:Bind ViewModel.RefreshPhylumServerCommand}"
+                                ToolTipService.ToolTip="Sync with server">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Refresh.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                        </CommandBar>
+                        <AutoSuggestBox
+                            Name="PhylumSearchAutoSuggestBox"
+                            x:Uid="AutoSuggestBox_Search"
+                            Width="250"
+                            Margin="{StaticResource XSmallLeftTopRightMargin}"
+                            CornerRadius="2"
+                            Loaded="PhylumSearchAutoSuggestBox_OnLoaded"
+                            RelativePanel.AlignRightWithPanel="True"
+                            Text="{x:Bind ViewModel.SearchPhylumName, Mode=TwoWay}">
+                            <interactivity:Interaction.Behaviors>
+                                <core:EventTriggerBehavior EventName="QuerySubmitted">
+                                    <core:InvokeCommandAction Command="{x:Bind ViewModel.GetPhylumsByNameOrIdCommand, Mode=OneWay}" InputConverter="{StaticResource ArgsConverter}" />
+                                </core:EventTriggerBehavior>
+                            </interactivity:Interaction.Behaviors>
+                            <AutoSuggestBox.QueryIcon>
+                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Search.png" />
+                            </AutoSuggestBox.QueryIcon>
+                        </AutoSuggestBox>
+                        <Grid
+                            Margin="{StaticResource SmallTopMargin}"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            RelativePanel.AlignRightWithPanel="True"
+                            RelativePanel.Below="PhylumDatasetText">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="2" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <controls:DataGrid
+                                x:Name="PhylumDatagrid"
+                                MaxHeight="175"
+                                AutoGenerateColumns="False"
+                                BorderThickness="0"
+                                CanUserReorderColumns="False"
+                                CanUserResizeColumns="False"
+                                CanUserSortColumns="True"
+                                ContextFlyout="{StaticResource ContextMenuPhylum}"
+                                GridLinesVisibility="Horizontal"
+                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                ItemsSource="{x:Bind ViewModel.PhylumItems}"
+                                SelectedItem="{x:Bind ViewModel.PhylumSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                SelectionMode="Single">
+                                <controls:DataGrid.Columns>
+                                    <controls:DataGridTextColumn
+                                        x:Uid="DataGridTextColumn_PhylumId"
+                                        Binding="{Binding PhylumId}"
+                                        CanUserSort="False"
+                                        Tag="PhylumId" />
+                                    <controls:DataGridTextColumn
+                                        x:Uid="DataGridTextColumn_PhylumName"
+                                        Binding="{Binding PhylumName}"
+                                        CanUserSort="True"
+                                        Tag="PhylumName" />
+                                    <!--<controls:DataGridComboBoxColumn
+                                    x:Uid="DataGridComboBoxColumn_RegnumName"
+                                    Binding="{Binding RegnumId}"
+                                    DisplayMemberPath="RegnumFullName"
+                                    ItemsSource="{x:Bind ViewModel.Tbl03RegnumsAllList, Mode=OneWay}" />-->
+                                    <controls:DataGridCheckBoxColumn
+                                        x:Uid="DataGridCheckBoxColumn_Valid"
+                                        Binding="{Binding Valid}"
+                                        Tag="Valid" />
+                                    <controls:DataGridTextColumn
+                                        x:Uid="DataGridTextColumn_ValidYear"
+                                        Binding="{Binding ValidYear}"
+                                        Tag="ValidYear" />
+                                    <controls:DataGridTextColumn
+                                        x:Uid="DataGridTextColumn_Author"
+                                        Binding="{Binding Author}"
+                                        Tag="Author" />
+                                    <controls:DataGridTextColumn
+                                        x:Uid="DataGridTextColumn_AuthorYear"
+                                        Binding="{Binding AuthorYear}"
+                                        Tag="AuthorYear" />
+                                </controls:DataGrid.Columns>
+                            </controls:DataGrid>
+                            <ProgressBar
+                                Grid.Row="1"
+                                Margin="{StaticResource SmallTopMargin}"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Top"
+                                IsIndeterminate="True"
+                                Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
+                            <ScrollViewer
+                                x:Name="DetailPanelPhylum"
+                                Grid.Row="2"
+                                Height="Auto"
+                                Margin="0,5,0,0"
+                                RelativePanel.AlignLeftWithPanel="True"
+                                RelativePanel.AlignRightWithPanel="True"
+                                RelativePanel.Below="PhylumDatasetText"
+                                VerticalScrollBarVisibility="Auto"
+                                VerticalScrollMode="Auto">
+                                <RelativePanel Margin="8,0,0,8">
+                                    <TextBox
+                                        x:Name="PhylumId"
+                                        x:Uid="TextBox_PhylumId"
+                                        MinWidth="110"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="True"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        Text="{x:Bind ViewModel.PhylumSelected.PhylumId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="PhylumName"
+                                        x:Uid="TextBox_PhylumName"
+                                        MinWidth="150"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.RightOf="PhylumId"
+                                        Text="{x:Bind ViewModel.PhylumSelected.PhylumName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <ComboBox
+                                        x:Name="RegnumCombo"
+                                        x:Uid="ComboBox_RegnumName"
+                                        MinWidth="200"
+                                        Margin="{StaticResource XSmallTopRightComboBoxMargin}"
+                                        DisplayMemberPath="RegnumFullName"
+                                        ItemsSource="{x:Bind ViewModel.Tbl03RegnumsAllList}"
+                                        RelativePanel.RightOf="PhylumName"
+                                        SelectedValue="{x:Bind ViewModel.PhylumSelected.RegnumId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        SelectedValuePath="RegnumId" />
+                                    <CheckBox
+                                        x:Name="ValidCheckPhylum"
+                                        x:Uid="CheckBox_Valid"
+                                        Width="80"
+                                        Margin="{StaticResource SmallTopRightCheckBoxMargin}"
+                                        VerticalAlignment="Bottom"
+                                        IsChecked="{x:Bind ViewModel.PhylumSelected.Valid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        RelativePanel.RightOf="RegnumCombo" />
+                                    <TextBox
+                                        x:Name="ValidYearTextPhylum"
+                                        x:Uid="TextBox_ValidYear"
+                                        Width="70"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        CornerRadius="3"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.RightOf="ValidCheckPhylum"
+                                        Style="{StaticResource BodyTextBoxStyle}"
+                                        Text="{x:Bind ViewModel.PhylumSelected.ValidYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="AuthorTextPhylum"
+                                        x:Uid="TextBox_Author"
+                                        MinWidth="150"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        HorizontalAlignment="Stretch"
+                                        CharacterCasing="Upper"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.Below="PhylumName"
+                                        Text="{x:Bind ViewModel.PhylumSelected.Author, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="AuthorYearTextPhylum"
+                                        x:Uid="TextBox_AuthorYear"
+                                        Width="70"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        CornerRadius="3"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.Below="PhylumName"
+                                        RelativePanel.RightOf="AuthorTextPhylum"
+                                        Text="{x:Bind ViewModel.PhylumSelected.AuthorYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="InfoPhylum"
+                                        x:Uid="TextBox_Info"
+                                        MinWidth="1120"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        HorizontalAlignment="Stretch"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.Below="AuthorTextPhylum"
+                                        Text="{x:Bind ViewModel.PhylumSelected.Info, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="SynonymPhylum"
+                                        x:Uid="TextBox_Synonym"
+                                        MinWidth="1120"
+                                        MinHeight="75"
+                                        MaxWidth="1300"
+                                        MaxHeight="150"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        AcceptsReturn="True"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.Below="InfoPhylum"
+                                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                        Text="{x:Bind ViewModel.PhylumSelected.Synonym, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        TextWrapping="Wrap" />
+                                    <TextBox
+                                        x:Name="EngNamePhylum"
+                                        x:Uid="TextBox_EngName"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.Below="SynonymPhylum"
+                                        Text="{x:Bind ViewModel.PhylumSelected.EngName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="GerNamePhylum"
+                                        x:Uid="TextBox_GerName"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.Below="SynonymPhylum"
+                                        RelativePanel.RightOf="EngNamePhylum"
+                                        Text="{x:Bind ViewModel.PhylumSelected.GerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="FraNamePhylum"
+                                        x:Uid="TextBox_FraName"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.Below="SynonymPhylum"
+                                        RelativePanel.RightOf="GerNamePhylum"
+                                        Text="{x:Bind ViewModel.PhylumSelected.FraName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="PorNamePhylum"
+                                        x:Uid="TextBox_SpaName"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.Below="SynonymPhylum"
+                                        RelativePanel.RightOf="FraNamePhylum"
+                                        Text="{x:Bind ViewModel.PhylumSelected.PorName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="MemoPhylum"
+                                        x:Uid="TextBox_Memo"
+                                        MinWidth="1120"
+                                        MinHeight="75"
+                                        MaxWidth="1300"
+                                        MaxHeight="150"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        AcceptsReturn="True"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.Below="EngNamePhylum"
+                                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                        Text="{x:Bind ViewModel.PhylumSelected.Memo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        TextWrapping="Wrap" />
+                                </RelativePanel>
+                            </ScrollViewer>
+                        </Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource LargeWindowSnapPoint}" />
+                                    </VisualState.StateTriggers>
+                                </VisualState>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowSnapPoint}" />
+                                    </VisualState.StateTriggers>
+                                </VisualState>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource MinWindowSnapPoint}" />
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="PhylumCommandBar.DefaultLabelPosition" Value="Bottom" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </RelativePanel>
+                </TabViewItem>
+                <!--  Part 2   FK3  aktuell  -->
+
+                <!--  Part 2   FK4  aktuell  -->
+
+                <!--  Part 4   TK1  aktuell  -->
+
+                <TabViewItem x:Uid="TabViewItem_Subphylums" IsClosable="False">
+                    <TabViewItem.IconSource>
+                        <BitmapIconSource ShowAsMonochrome="False" UriSource="ms-appx:///Assets/ArrowRight.png" />
+                    </TabViewItem.IconSource>
+                    <RelativePanel x:Name="SubphylumLayoutRoot">
+                        <TextBlock
+                            x:Name="SubphylumDatasetText"
+                            x:Uid="TextBlock_DataSetCount"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            Style="{StaticResource DatasetTitleStyle}" />
+                        <TextBlock
+                            x:Name="SubphylumDatasetCountText"
+                            Width="50"
+                            RelativePanel.RightOf="SubphylumDatasetText"
+                            Style="{StaticResource DatasetTitleStyle}"
+                            Text="{x:Bind ViewModel.SubphylumDataSetCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <CommandBar
+                            x:Name="SubphylumCommandBar"
+                            HorizontalAlignment="Stretch"
+                            Background="Transparent"
+                            DefaultLabelPosition="Right"
+                            RelativePanel.AlignRightWithPanel="True"
+                            RelativePanel.RightOf="SubphylumDatasetCountText">
+                            <AppBarButton
+                                x:Uid="AppBarButtonSave"
+                                Command="{x:Bind ViewModel.SaveSubphylumCommand}"
+                                Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Save.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonDelete"
+                                Command="{x:Bind ViewModel.DeleteSubphylumCommand}"
+                                IsEnabled="{x:Bind converters:NotConverter.IsNotNull(ViewModel.SubphylumSelected), Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Delete.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonCancel"
+                                Click="{x:Bind ViewModel.SubphylumCancelEditsAsync}"
+                                Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Cancel.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarSeparator Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}" />
+                            <AppBarSeparator />
+                            <AppBarButton
+                                x:Uid="AppBarButtonEdit"
+                                Click="{x:Bind ViewModel.SubphylumStartEdit}"
+                                IsEnabled="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                Visibility="{x:Bind converters:NotConverter.CollapsedIf(ViewModel.IsNewSubphylum), Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Edit.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonAdd"
+                                Command="{x:Bind ViewModel.AddSubphylumCommand}"
+                                ToolTipService.ToolTip="New Subphylum">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Add.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonCopy"
+                                Command="{x:Bind ViewModel.CopySubphylumCommand}"
+                                IsEnabled="{x:Bind converters:NotConverter.IsNotNull(ViewModel.SubphylumSelected), Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Copy.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonSync"
+                                Command="{x:Bind ViewModel.RefreshSubphylumServerCommand}"
+                                ToolTipService.ToolTip="Sync with server">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Refresh.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                        </CommandBar>
+                        <Grid
+                            Margin="{StaticResource SmallTopMargin}"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            RelativePanel.AlignRightWithPanel="True"
+                            RelativePanel.Below="SubphylumDatasetText">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="2" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <controls:DataGrid
+                                x:Name="DataGridSubphylum"
+                                MaxHeight="175"
+                                AutoGenerateColumns="False"
+                                BorderThickness="0"
+                                CanUserReorderColumns="False"
+                                CanUserResizeColumns="False"
+                                ContextFlyout="{StaticResource ContextMenuSubphylum}"
+                                GridLinesVisibility="Horizontal"
+                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                ItemsSource="{x:Bind ViewModel.SubphylumItems, Mode=OneWay}"
+                                SelectedItem="{x:Bind ViewModel.SubphylumSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                SelectionMode="Single">
+                                <controls:DataGrid.Columns>
+                                    <controls:DataGridTextColumn
+                                        x:Uid="DataGridTextColumn_SubphylumId"
+                                        Binding="{Binding SubphylumId}"
+                                        CanUserSort="False"
+                                        Tag="SubphylumId" />
+                                    <controls:DataGridTextColumn
+                                        x:Uid="DataGridTextColumn_SubphylumName"
+                                        Binding="{Binding SubphylumName}"
+                                        CanUserSort="True"
+                                        Tag="SubphylumName" />
+                                    <controls:DataGridComboBoxColumn
+                                        x:Uid="DataGridComboBoxColumn_PhylumName"
+                                        Binding="{Binding PhylumId}"
+                                        DisplayMemberPath="PhylumName"
+                                        ItemsSource="{x:Bind ViewModel.Tbl06PhylumsAllList, Mode=OneWay}" />
+                                    <controls:DataGridCheckBoxColumn
+                                        x:Uid="DataGridCheckBoxColumn_Valid"
+                                        Binding="{Binding Valid}"
+                                        Tag="Valid" />
+                                    <controls:DataGridTextColumn
+                                        x:Uid="DataGridTextColumn_ValidYear"
+                                        Binding="{Binding ValidYear}"
+                                        Tag="ValidYear" />
+                                    <controls:DataGridTextColumn
+                                        x:Uid="DataGridTextColumn_Author"
+                                        Binding="{Binding Author}"
+                                        Tag="Author" />
+                                    <controls:DataGridTextColumn
+                                        x:Uid="DataGridTextColumn_AuthorYear"
+                                        Binding="{Binding AuthorYear}"
+                                        Tag="AuthorYear" />
+                                </controls:DataGrid.Columns>
+                            </controls:DataGrid>
+                            <ProgressBar
+                                Grid.Row="1"
+                                Margin="{StaticResource SmallLeftMargin}"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Top"
+                                IsIndeterminate="True"
+                                Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
+                            <ScrollViewer
+                                x:Name="DetailPanelSubphylum"
+                                Grid.Row="2"
+                                Height="Auto"
+                                Margin="0,5,0,0"
+                                RelativePanel.AlignLeftWithPanel="True"
+                                RelativePanel.AlignRightWithPanel="True"
+                                RelativePanel.Below="SubphylumDatasetText"
+                                VerticalScrollBarVisibility="Auto"
+                                VerticalScrollMode="Auto">
+                                <RelativePanel Margin="8,0,0,8">
+                                    <TextBox
+                                        x:Name="SubphylumId"
+                                        x:Uid="TextBox_SubphylumId"
+                                        MinWidth="110"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="True"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        Text="{x:Bind ViewModel.SubphylumSelected.SubphylumId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="SubphylumName"
+                                        x:Uid="TextBox_SubphylumName"
+                                        MinWidth="150"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.RightOf="SubphylumId"
+                                        Text="{x:Bind ViewModel.SubphylumSelected.SubphylumName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <ComboBox
+                                        x:Name="PhylumCombo"
+                                        x:Uid="ComboBox_PhylumName"
+                                        MinWidth="200"
+                                        Margin="{StaticResource XSmallTopRightComboBoxMargin}"
+                                        DisplayMemberPath="PhylumName"
+                                        ItemsSource="{x:Bind ViewModel.Tbl06PhylumsAllList}"
+                                        RelativePanel.RightOf="SubphylumName"
+                                        SelectedValue="{x:Bind ViewModel.SubphylumSelected.PhylumId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        SelectedValuePath="PhylumId" />
+                                    <CheckBox
+                                        x:Name="ValidCheckSubphylum"
+                                        x:Uid="CheckBox_Valid"
+                                        Width="80"
+                                        Margin="{StaticResource SmallTopRightCheckBoxMargin}"
+                                        VerticalAlignment="Bottom"
+                                        IsChecked="{x:Bind ViewModel.SubphylumSelected.Valid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        RelativePanel.RightOf="PhylumCombo" />
+                                    <TextBox
+                                        x:Name="ValidYearTextSubphylum"
+                                        x:Uid="TextBox_ValidYear"
+                                        Width="70"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.RightOf="ValidCheckSubphylum"
+                                        Style="{StaticResource BodyTextBoxStyle}"
+                                        Text="{x:Bind ViewModel.SubphylumSelected.ValidYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="AuthorTextSubphylum"
+                                        x:Uid="TextBox_Author"
+                                        MinWidth="150"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        HorizontalAlignment="Stretch"
+                                        CharacterCasing="Upper"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.Below="SubphylumId"
+                                        Text="{x:Bind ViewModel.SubphylumSelected.Author, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="AuthorYearTextSubphylum"
+                                        x:Uid="TextBox_AuthorYear"
+                                        Width="70"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.Below="SubphylumId"
+                                        RelativePanel.RightOf="AuthorTextSubphylum"
+                                        Text="{x:Bind ViewModel.SubphylumSelected.AuthorYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="InfoSubphylum"
+                                        x:Uid="TextBox_Info"
+                                        MinWidth="1120"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        HorizontalAlignment="Stretch"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.Below="AuthorTextSubphylum"
+                                        Text="{x:Bind ViewModel.SubphylumSelected.Info, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="SynonymSubphylum"
+                                        x:Uid="TextBox_Synonym"
+                                        MinWidth="1120"
+                                        MinHeight="75"
+                                        MaxWidth="1300"
+                                        MaxHeight="150"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        AcceptsReturn="True"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.Below="InfoSubphylum"
+                                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                        Text="{x:Bind ViewModel.SubphylumSelected.Synonym, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        TextWrapping="Wrap" />
+                                    <TextBox
+                                        x:Name="EngNameSubphylum"
+                                        x:Uid="TextBox_EngName"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.Below="SynonymSubphylum"
+                                        Text="{x:Bind ViewModel.SubphylumSelected.EngName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="GerNameSubphylum"
+                                        x:Uid="TextBox_GerName"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.Below="SynonymSubphylum"
+                                        RelativePanel.RightOf="EngNameSubphylum"
+                                        Text="{x:Bind ViewModel.SubphylumSelected.GerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="FraNameSubphylum"
+                                        x:Uid="TextBox_FraName"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.Below="SynonymSubphylum"
+                                        RelativePanel.RightOf="GerNameSubphylum"
+                                        Text="{x:Bind ViewModel.SubphylumSelected.FraName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="PorNameSubphylum"
+                                        x:Uid="TextBox_SpaName"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.Below="SynonymSubphylum"
+                                        RelativePanel.RightOf="FraNameSubphylum"
+                                        Text="{x:Bind ViewModel.SubphylumSelected.PorName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="MemoSubphylum"
+                                        x:Uid="TextBox_Memo"
+                                        MinWidth="1120"
+                                        MinHeight="75"
+                                        MaxWidth="1300"
+                                        MaxHeight="150"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        AcceptsReturn="True"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.Below="EngNameSubphylum"
+                                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                        Text="{x:Bind ViewModel.SubphylumSelected.Memo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        TextWrapping="Wrap" />
+                                </RelativePanel>
+                            </ScrollViewer>
+                        </Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource LargeWindowSnapPoint}" />
+                                    </VisualState.StateTriggers>
+                                </VisualState>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowSnapPoint}" />
+                                    </VisualState.StateTriggers>
+                                </VisualState>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource MinWindowSnapPoint}" />
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="SubphylumCommandBar.DefaultLabelPosition" Value="Bottom" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </RelativePanel>
+                </TabViewItem>
+                <!--  Part 4   TK2  aktuell  -->
+
+                <!--  Part 4   TK3  aktuell  -->
+
+                <!--  Part 4   TK4  aktuell  -->
+
+                <!--  Part 7  -->
+
+                <TabViewItem x:Uid="TabViewItem_References" IsClosable="False">
+                    <TabViewItem.IconSource>
+                        <BitmapIconSource ShowAsMonochrome="False" UriSource="ms-appx:///Assets/ArrowRight.png" />
+                    </TabViewItem.IconSource>
+                    <TabView
+                        Background="DarkGray"
+                        IsAddTabButtonVisible="False"
+                        SelectedIndex="{x:Bind ViewModel.SelectedMainDetailRefTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <TabView.TabItems>
+                            <TabViewItem x:Uid="TabViewItem_Ref_Experts" IsClosable="False">
+                                <TabViewItem.IconSource>
+                                    <BitmapIconSource ShowAsMonochrome="False" UriSource="ms-appx:///Assets/ArrowRight.png" />
+                                </TabViewItem.IconSource>
+                                <RelativePanel x:Name="ReferenceExpertLayoutRoot">
+                                    <TextBlock
+                                        x:Name="ReferenceExpertDatasetText"
+                                        x:Uid="TextBlock_DataSetCount"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        Style="{StaticResource DatasetTitleStyle}" />
+                                    <TextBlock
+                                        x:Name="ReferenceExpertDatasetCountText"
+                                        Width="50"
+                                        RelativePanel.RightOf="ReferenceExpertDatasetText"
+                                        Style="{StaticResource DatasetTitleStyle}"
+                                        Text="{x:Bind ViewModel.ReferenceExpertDataSetCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <CommandBar
+                                        x:Name="ReferenceExpertCommandBar"
+                                        HorizontalAlignment="Stretch"
+                                        Background="Transparent"
+                                        DefaultLabelPosition="Right"
+                                        RelativePanel.AlignRightWithPanel="True"
+                                        RelativePanel.RightOf="ReferenceExpertDatasetCountText">
+                                        <AppBarButton
+                                            x:Uid="AppBarButtonSave"
+                                            Command="{x:Bind ViewModel.SaveReferenceExpertCommand}"
+                                            Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}">
+                                            <AppBarButton.Icon>
+                                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Save.png" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                        <AppBarButton
+                                            x:Uid="AppBarButtonDelete"
+                                            Command="{x:Bind ViewModel.DeleteReferenceExpertCommand}"
+                                            IsEnabled="{x:Bind converters:NotConverter.IsNotNull(ViewModel.ReferenceExpertSelected), Mode=OneWay}">
+                                            <AppBarButton.Icon>
+                                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Delete.png" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                        <AppBarButton
+                                            x:Uid="AppBarButtonCancel"
+                                            Click="{x:Bind ViewModel.ReferenceExpertCancelEditsAsync}"
+                                            Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}">
+                                            <AppBarButton.Icon>
+                                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Cancel.png" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                        <AppBarSeparator Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}" />
+                                        <AppBarSeparator />
+                                        <AppBarButton
+                                            x:Uid="AppBarButtonEdit"
+                                            Click="{x:Bind ViewModel.ReferenceExpertStartEdit}"
+                                            IsEnabled="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                            Visibility="{x:Bind converters:NotConverter.CollapsedIf(ViewModel.IsNewReferenceExpert), Mode=OneWay}">
+                                            <AppBarButton.Icon>
+                                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Edit.png" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                        <AppBarButton
+                                            x:Uid="AppBarButtonAdd"
+                                            Command="{x:Bind ViewModel.AddReferenceExpertCommand}"
+                                            ToolTipService.ToolTip="New Reference Expert">
+                                            <AppBarButton.Icon>
+                                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Add.png" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                        <AppBarButton
+                                            x:Uid="AppBarButtonCopy"
+                                            Command="{x:Bind ViewModel.CopyReferenceExpertCommand}"
+                                            IsEnabled="{x:Bind converters:NotConverter.IsNotNull(ViewModel.ReferenceExpertSelected), Mode=OneWay}">
+                                            <AppBarButton.Icon>
+                                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Copy.png" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                        <AppBarButton
+                                            x:Uid="AppBarButtonSync"
+                                            Command="{x:Bind ViewModel.RefreshReferenceExpertServerCommand}"
+                                            ToolTipService.ToolTip="Sync with server">
+                                            <AppBarButton.Icon>
+                                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Refresh.png" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                    </CommandBar>
+                                    <Grid
+                                        Margin="{StaticResource SmallTopMargin}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.AlignRightWithPanel="True"
+                                        RelativePanel.Below="ReferenceExpertDatasetText">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="2" />
+                                            <RowDefinition Height="1*" />
+                                        </Grid.RowDefinitions>
+                                        <controls:DataGrid
+                                            x:Name="DataGridReferenceExpert"
+                                            MaxHeight="175"
+                                            AutoGenerateColumns="False"
+                                            BorderThickness="0"
+                                            CanUserReorderColumns="False"
+                                            CanUserResizeColumns="False"
+                                            ContextFlyout="{StaticResource ContextMenuReferenceExpert}"
+                                            GridLinesVisibility="Horizontal"
+                                            IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                            ItemsSource="{x:Bind ViewModel.ReferenceExpertItems, Mode=OneWay}"
+                                            SelectedItem="{x:Bind ViewModel.ReferenceExpertSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            SelectionMode="Single">
+                                            <controls:DataGrid.Columns>
+                                                <controls:DataGridTextColumn
+                                                    x:Uid="DataGridTextColumn_ReferenceId"
+                                                    Binding="{Binding ReferenceId}"
+                                                    CanUserSort="False"
+                                                    Tag="ReferenceId" />
+                                                <controls:DataGridComboBoxColumn
+                                                    x:Uid="DataGridComboBoxColumn_RefExpertName"
+                                                    Binding="{Binding RefExpertId}"
+                                                    DisplayMemberPath="RefExpertName"
+                                                    ItemsSource="{x:Bind ViewModel.Tbl90ExpertsAllList, Mode=OneWay}" />
+                                                <controls:DataGridCheckBoxColumn
+                                                    x:Uid="DataGridCheckBoxColumn_Valid"
+                                                    Binding="{Binding Valid}"
+                                                    Tag="Valid" />
+                                                <controls:DataGridTextColumn
+                                                    x:Uid="DataGridTextColumn_ValidYear"
+                                                    Binding="{Binding ValidYear}"
+                                                    Tag="ValidYear" />
+                                                <controls:DataGridTextColumn
+                                                    x:Uid="DataGridTextColumn_Info"
+                                                    Binding="{Binding Info}"
+                                                    Tag="Info" />
+                                            </controls:DataGrid.Columns>
+                                        </controls:DataGrid>
+                                        <ProgressBar
+                                            Grid.Row="1"
+                                            Margin="{StaticResource SmallTopMargin}"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Top"
+                                            IsIndeterminate="True"
+                                            Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
+                                        <ScrollViewer
+                                            x:Name="DetailPanelReferenceExpert"
+                                            Grid.Row="2"
+                                            Height="Auto"
+                                            Margin="0,5,0,0"
+                                            RelativePanel.AlignLeftWithPanel="True"
+                                            RelativePanel.AlignRightWithPanel="True"
+                                            RelativePanel.Below="ReferenceExpertDatasetText"
+                                            VerticalScrollBarVisibility="Auto"
+                                            VerticalScrollMode="Auto">
+                                            <RelativePanel Margin="8,0,0,8">
+                                                <TextBox
+                                                    x:Name="ReferenceIdExpert"
+                                                    x:Uid="TextBox_ReferenceId"
+                                                    MinWidth="110"
+                                                    Margin="{StaticResource XSmallTopRightMargin}"
+                                                    IsReadOnly="True"
+                                                    RelativePanel.AlignLeftWithPanel="True"
+                                                    Text="{x:Bind ViewModel.ReferenceExpertSelected.ReferenceId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                <TextBox
+                                                    x:Name="ReferenceExpertId"
+                                                    x:Uid="TextBox_ReferenceExpertId"
+                                                    MinWidth="110"
+                                                    Margin="{StaticResource XSmallTopRightMargin}"
+                                                    IsReadOnly="True"
+                                                    RelativePanel.RightOf="ReferenceIdExpert"
+                                                    Text="{x:Bind ViewModel.ReferenceExpertSelected.RefExpertId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                <ComboBox
+                                                    x:Name="ReferenceExpertCombo"
+                                                    x:Uid="ComboBox_RefExpertName"
+                                                    MinWidth="200"
+                                                    Margin="{StaticResource XSmallTopRightMargin}"
+                                                    DisplayMemberPath="RefExpertName"
+                                                    ItemsSource="{x:Bind ViewModel.Tbl90ExpertsAllList}"
+                                                    RelativePanel.RightOf="ReferenceExpertId"
+                                                    SelectedValue="{x:Bind helpers:CastHelper.NullableIntToObjCast(ViewModel.ReferenceExpertSelected.RefExpertId), BindBack=ViewModel.ReferenceExpertSelected.SetRefExpertId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    SelectedValuePath="RefExpertId" />
+                                                <CheckBox
+                                                    x:Name="ValidCheckReferenceExpert"
+                                                    x:Uid="CheckBox_Valid"
+                                                    Width="80"
+                                                    Margin="{StaticResource SmallTopRightCheckBoxMargin}"
+                                                    VerticalAlignment="Bottom"
+                                                    IsChecked="{x:Bind ViewModel.ReferenceExpertSelected.Valid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    RelativePanel.RightOf="ReferenceExpertCombo" />
+                                                <TextBox
+                                                    x:Name="ValidYearTextReferenceExpert"
+                                                    x:Uid="TextBox_ValidYear"
+                                                    Width="70"
+                                                    Margin="{StaticResource XSmallTopRightMargin}"
+                                                    IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                    RelativePanel.RightOf="ValidCheckReferenceExpert"
+                                                    Style="{StaticResource BodyTextBoxStyle}"
+                                                    Text="{x:Bind ViewModel.ReferenceExpertSelected.ValidYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                <TextBox
+                                                    x:Name="InfoReferenceExpert"
+                                                    x:Uid="TextBox_Info"
+                                                    MinWidth="1120"
+                                                    Margin="{StaticResource XSmallTopRightMargin}"
+                                                    HorizontalAlignment="Stretch"
+                                                    IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                    RelativePanel.AlignLeftWithPanel="True"
+                                                    RelativePanel.Below="ReferenceIdExpert"
+                                                    Text="{x:Bind ViewModel.ReferenceExpertSelected.Info, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                <TextBox
+                                                    x:Name="MemoReferenceExpert"
+                                                    x:Uid="TextBox_Memo"
+                                                    MinWidth="1120"
+                                                    MinHeight="100"
+                                                    MaxWidth="1300"
+                                                    MaxHeight="150"
+                                                    Margin="{StaticResource XSmallTopRightMargin}"
+                                                    AcceptsReturn="True"
+                                                    IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                    RelativePanel.AlignLeftWithPanel="True"
+                                                    RelativePanel.Below="InfoReferenceExpert"
+                                                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                    Text="{x:Bind ViewModel.ReferenceExpertSelected.Memo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    TextWrapping="Wrap" />
+                                            </RelativePanel>
+                                        </ScrollViewer>
+                                    </Grid>
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup>
+                                            <VisualState>
+                                                <VisualState.StateTriggers>
+                                                    <AdaptiveTrigger MinWindowWidth="{StaticResource LargeWindowSnapPoint}" />
+                                                </VisualState.StateTriggers>
+                                            </VisualState>
+                                            <VisualState>
+                                                <VisualState.StateTriggers>
+                                                    <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowSnapPoint}" />
+                                                </VisualState.StateTriggers>
+                                            </VisualState>
+                                            <VisualState>
+                                                <VisualState.StateTriggers>
+                                                    <AdaptiveTrigger MinWindowWidth="{StaticResource MinWindowSnapPoint}" />
+                                                </VisualState.StateTriggers>
+                                                <VisualState.Setters>
+                                                    <Setter Target="ReferenceExpertCommandBar.DefaultLabelPosition" Value="Bottom" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                </RelativePanel>
+                            </TabViewItem>
+                            <TabViewItem x:Uid="TabViewItem_Ref_Sources" IsClosable="False">
+                                <TabViewItem.IconSource>
+                                    <BitmapIconSource ShowAsMonochrome="False" UriSource="ms-appx:///Assets/ArrowRight.png" />
+                                </TabViewItem.IconSource>
+                                <RelativePanel x:Name="ReferenceSourceLayoutRoot">
+                                    <TextBlock
+                                        x:Name="ReferenceSourceDatasetText"
+                                        x:Uid="TextBlock_DataSetCount"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        Style="{StaticResource DatasetTitleStyle}" />
+                                    <TextBlock
+                                        x:Name="ReferenceSourceDatasetCountText"
+                                        Width="50"
+                                        RelativePanel.RightOf="ReferenceSourceDatasetText"
+                                        Style="{StaticResource DatasetTitleStyle}"
+                                        Text="{x:Bind ViewModel.ReferenceSourceDataSetCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <CommandBar
+                                        x:Name="ReferenceSourceCommandBar"
+                                        HorizontalAlignment="Stretch"
+                                        Background="Transparent"
+                                        DefaultLabelPosition="Right"
+                                        RelativePanel.AlignRightWithPanel="True"
+                                        RelativePanel.RightOf="ReferenceSourceDatasetCountText">
+                                        <AppBarButton
+                                            x:Uid="AppBarButtonSave"
+                                            Command="{x:Bind ViewModel.SaveReferenceSourceCommand}"
+                                            Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}">
+                                            <AppBarButton.Icon>
+                                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Save.png" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                        <AppBarButton
+                                            x:Uid="AppBarButtonDelete"
+                                            Command="{x:Bind ViewModel.DeleteReferenceSourceCommand}"
+                                            IsEnabled="{x:Bind converters:NotConverter.IsNotNull(ViewModel.ReferenceSourceSelected), Mode=OneWay}">
+                                            <AppBarButton.Icon>
+                                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Delete.png" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                        <AppBarButton
+                                            x:Uid="AppBarButtonCancel"
+                                            Click="{x:Bind ViewModel.ReferenceSourceCancelEditsAsync}"
+                                            Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}">
+                                            <AppBarButton.Icon>
+                                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Cancel.png" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                        <AppBarSeparator Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}" />
+                                        <AppBarSeparator />
+                                        <AppBarButton
+                                            x:Uid="AppBarButtonEdit"
+                                            Click="{x:Bind ViewModel.ReferenceSourceStartEdit}"
+                                            IsEnabled="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                            Visibility="{x:Bind converters:NotConverter.CollapsedIf(ViewModel.IsNewReferenceSource), Mode=OneWay}">
+                                            <AppBarButton.Icon>
+                                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Edit.png" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                        <AppBarButton
+                                            x:Uid="AppBarButtonAdd"
+                                            Command="{x:Bind ViewModel.AddReferenceSourceCommand}"
+                                            ToolTipService.ToolTip="New Reference Source">
+                                            <AppBarButton.Icon>
+                                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Add.png" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                        <AppBarButton
+                                            x:Uid="AppBarButtonCopy"
+                                            Command="{x:Bind ViewModel.CopyReferenceSourceCommand}"
+                                            IsEnabled="{x:Bind converters:NotConverter.IsNotNull(ViewModel.ReferenceSourceSelected), Mode=OneWay}">
+                                            <AppBarButton.Icon>
+                                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Copy.png" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                        <AppBarButton
+                                            x:Uid="AppBarButtonSync"
+                                            Command="{x:Bind ViewModel.RefreshReferenceSourceServerCommand}"
+                                            ToolTipService.ToolTip="Sync with server">
+                                            <AppBarButton.Icon>
+                                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Refresh.png" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                    </CommandBar>
+                                    <Grid
+                                        Margin="{StaticResource SmallTopMargin}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.AlignRightWithPanel="True"
+                                        RelativePanel.Below="ReferenceSourceDatasetText">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="2" />
+                                            <RowDefinition Height="1*" />
+                                        </Grid.RowDefinitions>
+                                        <controls:DataGrid
+                                            x:Name="DataGridReferenceSource"
+                                            MaxHeight="175"
+                                            AutoGenerateColumns="False"
+                                            BorderThickness="0"
+                                            CanUserReorderColumns="False"
+                                            CanUserResizeColumns="False"
+                                            ContextFlyout="{StaticResource ContextMenuReferenceSource}"
+                                            GridLinesVisibility="Horizontal"
+                                            IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                            ItemsSource="{x:Bind ViewModel.ReferenceSourceItems, Mode=OneWay}"
+                                            SelectedItem="{x:Bind ViewModel.ReferenceSourceSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            SelectionMode="Single">
+                                            <controls:DataGrid.Columns>
+                                                <controls:DataGridTextColumn
+                                                    x:Uid="DataGridTextColumn_ReferenceId"
+                                                    Binding="{Binding ReferenceId}"
+                                                    CanUserSort="False"
+                                                    Tag="ReferenceId" />
+                                                <controls:DataGridComboBoxColumn
+                                                    x:Uid="DataGridComboBoxColumn_RefSourceName"
+                                                    Binding="{Binding RefSourceId}"
+                                                    DisplayMemberPath="RefSourceName"
+                                                    ItemsSource="{x:Bind ViewModel.Tbl90SourcesAllList, Mode=OneWay}" />
+                                                <controls:DataGridCheckBoxColumn
+                                                    x:Uid="DataGridCheckBoxColumn_Valid"
+                                                    Binding="{Binding Valid}"
+                                                    Tag="Valid" />
+                                                <controls:DataGridTextColumn
+                                                    x:Uid="DataGridTextColumn_ValidYear"
+                                                    Binding="{Binding ValidYear}"
+                                                    Tag="ValidYear" />
+                                                <controls:DataGridTextColumn
+                                                    x:Uid="DataGridTextColumn_Info"
+                                                    Binding="{Binding Info}"
+                                                    Tag="Info" />
+                                            </controls:DataGrid.Columns>
+                                        </controls:DataGrid>
+                                        <ProgressBar
+                                            Grid.Row="1"
+                                            Margin="{StaticResource SmallTopMargin}"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Top"
+                                            IsIndeterminate="True"
+                                            Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
+                                        <ScrollViewer
+                                            x:Name="DetailPanelReferenceSource"
+                                            Grid.Row="2"
+                                            Height="Auto"
+                                            Margin="0,5,0,0"
+                                            RelativePanel.AlignLeftWithPanel="True"
+                                            RelativePanel.AlignRightWithPanel="True"
+                                            RelativePanel.Below="ReferenceSourceDatasetText"
+                                            VerticalScrollBarVisibility="Auto"
+                                            VerticalScrollMode="Auto">
+                                            <RelativePanel Margin="8,0,0,8">
+                                                <TextBox
+                                                    x:Name="ReferenceIdSource"
+                                                    x:Uid="TextBox_ReferenceId"
+                                                    MinWidth="150"
+                                                    Margin="{StaticResource XSmallTopRightMargin}"
+                                                    IsReadOnly="True"
+                                                    RelativePanel.AlignLeftWithPanel="True"
+                                                    Text="{x:Bind ViewModel.ReferenceSourceSelected.ReferenceId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                <TextBox
+                                                    x:Name="ReferenceSourceId"
+                                                    x:Uid="TextBox_ReferenceSourceId"
+                                                    MinWidth="150"
+                                                    Margin="{StaticResource XSmallTopRightMargin}"
+                                                    IsReadOnly="True"
+                                                    RelativePanel.RightOf="ReferenceIdSource"
+                                                    Text="{x:Bind ViewModel.ReferenceSourceSelected.RefSourceId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                <CheckBox
+                                                    x:Name="ValidCheckReferenceSource"
+                                                    x:Uid="CheckBox_Valid"
+                                                    Width="80"
+                                                    Margin="{StaticResource SmallTopRightCheckBoxMargin}"
+                                                    VerticalAlignment="Bottom"
+                                                    IsChecked="{x:Bind ViewModel.ReferenceSourceSelected.Valid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    RelativePanel.RightOf="ReferenceSourceId" />
+                                                <TextBox
+                                                    x:Name="ValidYearTextReferenceSource"
+                                                    x:Uid="TextBox_ValidYear"
+                                                    Width="70"
+                                                    Margin="{StaticResource XSmallTopRightMargin}"
+                                                    CornerRadius="3"
+                                                    IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                    RelativePanel.RightOf="ValidCheckReferenceSource"
+                                                    Style="{StaticResource BodyTextBoxStyle}"
+                                                    Text="{x:Bind ViewModel.ReferenceSourceSelected.ValidYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                <ComboBox
+                                                    x:Name="ReferenceSourceCombo"
+                                                    x:Uid="ComboBox_RefSourceName"
+                                                    MinWidth="500"
+                                                    Margin="{StaticResource XSmallTopRightMargin}"
+                                                    DisplayMemberPath="RefSourceName"
+                                                    ItemsSource="{x:Bind ViewModel.Tbl90SourcesAllList}"
+                                                    RelativePanel.AlignLeftWithPanel="True"
+                                                    RelativePanel.Below="ReferenceIdSource"
+                                                    SelectedValue="{x:Bind helpers:CastHelper.NullableIntToObjCast(ViewModel.ReferenceSourceSelected.RefSourceId), BindBack=ViewModel.ReferenceSourceSelected.SetRefSourceId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    SelectedValuePath="RefSourceId" />
+                                                <TextBox
+                                                    x:Name="InfoReferenceSource"
+                                                    x:Uid="TextBox_Info"
+                                                    MinWidth="1120"
+                                                    Margin="{StaticResource XSmallTopRightMargin}"
+                                                    HorizontalAlignment="Stretch"
+                                                    IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                    RelativePanel.AlignLeftWithPanel="True"
+                                                    RelativePanel.Below="ReferenceSourceCombo"
+                                                    Text="{x:Bind ViewModel.ReferenceSourceSelected.Info, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                <TextBox
+                                                    x:Name="MemoReferenceSource"
+                                                    x:Uid="TextBox_Memo"
+                                                    MinWidth="1120"
+                                                    MinHeight="100"
+                                                    MaxWidth="1300"
+                                                    MaxHeight="150"
+                                                    Margin="{StaticResource XSmallTopRightMargin}"
+                                                    AcceptsReturn="True"
+                                                    IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                    RelativePanel.AlignLeftWithPanel="True"
+                                                    RelativePanel.Below="InfoReferenceSource"
+                                                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                    Text="{x:Bind ViewModel.ReferenceSourceSelected.Memo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    TextWrapping="Wrap" />
+                                            </RelativePanel>
+                                        </ScrollViewer>
+                                    </Grid>
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup>
+                                            <VisualState>
+                                                <VisualState.StateTriggers>
+                                                    <AdaptiveTrigger MinWindowWidth="{StaticResource LargeWindowSnapPoint}" />
+                                                </VisualState.StateTriggers>
+                                            </VisualState>
+                                            <VisualState>
+                                                <VisualState.StateTriggers>
+                                                    <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowSnapPoint}" />
+                                                </VisualState.StateTriggers>
+                                            </VisualState>
+                                            <VisualState>
+                                                <VisualState.StateTriggers>
+                                                    <AdaptiveTrigger MinWindowWidth="{StaticResource MinWindowSnapPoint}" />
+                                                </VisualState.StateTriggers>
+                                                <VisualState.Setters>
+                                                    <Setter Target="ReferenceSourceCommandBar.DefaultLabelPosition" Value="Bottom" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                </RelativePanel>
+                            </TabViewItem>
+                            <TabViewItem x:Uid="TabViewItem_Ref_Authors" IsClosable="False">
+                                <TabViewItem.IconSource>
+                                    <BitmapIconSource ShowAsMonochrome="False" UriSource="ms-appx:///Assets/ArrowRight.png" />
+                                </TabViewItem.IconSource>
+                                <RelativePanel x:Name="ReferenceAuthorLayoutRoot">
+                                    <TextBlock
+                                        x:Name="ReferenceAuthorDatasetText"
+                                        x:Uid="TextBlock_DataSetCount"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        Style="{StaticResource DatasetTitleStyle}" />
+                                    <TextBlock
+                                        x:Name="ReferenceAuthorDatasetCountText"
+                                        Width="50"
+                                        RelativePanel.RightOf="ReferenceAuthorDatasetText"
+                                        Style="{StaticResource DatasetTitleStyle}"
+                                        Text="{x:Bind ViewModel.ReferenceAuthorDataSetCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <CommandBar
+                                        x:Name="ReferenceAuthorCommandBar"
+                                        HorizontalAlignment="Stretch"
+                                        Background="Transparent"
+                                        DefaultLabelPosition="Right"
+                                        RelativePanel.AlignRightWithPanel="True"
+                                        RelativePanel.RightOf="ReferenceAuthorDatasetCountText">
+                                        <AppBarButton
+                                            x:Uid="AppBarButtonSave"
+                                            Command="{x:Bind ViewModel.SaveReferenceAuthorCommand}"
+                                            Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}">
+                                            <AppBarButton.Icon>
+                                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Save.png" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                        <AppBarButton
+                                            x:Uid="AppBarButtonDelete"
+                                            Command="{x:Bind ViewModel.DeleteReferenceAuthorCommand}"
+                                            IsEnabled="{x:Bind converters:NotConverter.IsNotNull(ViewModel.ReferenceAuthorSelected), Mode=OneWay}">
+                                            <AppBarButton.Icon>
+                                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Delete.png" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                        <AppBarButton
+                                            x:Uid="AppBarButtonCancel"
+                                            Click="{x:Bind ViewModel.ReferenceAuthorCancelEditsAsync}"
+                                            Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}">
+                                            <AppBarButton.Icon>
+                                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Cancel.png" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                        <AppBarSeparator Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}" />
+                                        <AppBarSeparator />
+                                        <AppBarButton
+                                            x:Uid="AppBarButtonEdit"
+                                            Click="{x:Bind ViewModel.ReferenceAuthorStartEdit}"
+                                            IsEnabled="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                            Visibility="{x:Bind converters:NotConverter.CollapsedIf(ViewModel.IsNewReferenceAuthor), Mode=OneWay}">
+                                            <AppBarButton.Icon>
+                                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Edit.png" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                        <AppBarButton
+                                            x:Uid="AppBarButtonAdd"
+                                            Command="{x:Bind ViewModel.AddReferenceAuthorCommand}"
+                                            ToolTipService.ToolTip="New Reference Author">
+                                            <AppBarButton.Icon>
+                                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Add.png" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                        <AppBarButton
+                                            x:Uid="AppBarButtonCopy"
+                                            Command="{x:Bind ViewModel.CopyReferenceAuthorCommand}"
+                                            IsEnabled="{x:Bind converters:NotConverter.IsNotNull(ViewModel.ReferenceAuthorSelected), Mode=OneWay}">
+                                            <AppBarButton.Icon>
+                                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Copy.png" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                        <AppBarButton
+                                            x:Uid="AppBarButtonSync"
+                                            Command="{x:Bind ViewModel.RefreshReferenceAuthorServerCommand}"
+                                            ToolTipService.ToolTip="Sync with server">
+                                            <AppBarButton.Icon>
+                                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Refresh.png" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                    </CommandBar>
+                                    <Grid
+                                        Margin="{StaticResource SmallTopMargin}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.AlignRightWithPanel="True"
+                                        RelativePanel.Below="ReferenceAuthorDatasetText">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="2" />
+                                            <RowDefinition Height="1*" />
+                                        </Grid.RowDefinitions>
+                                        <controls:DataGrid
+                                            x:Name="DataGridReferenceAuthor"
+                                            MaxHeight="175"
+                                            AutoGenerateColumns="False"
+                                            BorderThickness="0"
+                                            CanUserReorderColumns="False"
+                                            CanUserResizeColumns="False"
+                                            ContextFlyout="{StaticResource ContextMenuReferenceAuthor}"
+                                            GridLinesVisibility="Horizontal"
+                                            IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                            ItemsSource="{x:Bind ViewModel.ReferenceAuthorItems, Mode=OneWay}"
+                                            SelectedItem="{x:Bind ViewModel.ReferenceAuthorSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            SelectionMode="Single">
+                                            <controls:DataGrid.Columns>
+                                                <controls:DataGridTextColumn
+                                                    x:Uid="DataGridTextColumn_ReferenceId"
+                                                    Binding="{Binding ReferenceId}"
+                                                    CanUserSort="False"
+                                                    Tag="ReferenceId" />
+                                                <controls:DataGridComboBoxColumn
+                                                    x:Uid="DataGridComboBoxColumn_RefAuthorName"
+                                                    MaxWidth="800"
+                                                    Binding="{Binding RefAuthorId}"
+                                                    DisplayMemberPath="RefAuthorName"
+                                                    ItemsSource="{x:Bind ViewModel.Tbl90AuthorsAllList, Mode=OneWay}" />
+                                                <controls:DataGridCheckBoxColumn
+                                                    x:Uid="DataGridCheckBoxColumn_Valid"
+                                                    Binding="{Binding Valid}"
+                                                    Tag="Valid" />
+                                                <controls:DataGridTextColumn
+                                                    x:Uid="DataGridTextColumn_ValidYear"
+                                                    Binding="{Binding ValidYear}"
+                                                    Tag="ValidYear" />
+                                                <controls:DataGridTextColumn
+                                                    x:Uid="DataGridTextColumn_Info"
+                                                    Binding="{Binding Info}"
+                                                    Tag="Info" />
+                                            </controls:DataGrid.Columns>
+                                        </controls:DataGrid>
+                                        <ProgressBar
+                                            Grid.Row="1"
+                                            Margin="{StaticResource SmallTopMargin}"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Top"
+                                            IsIndeterminate="True"
+                                            Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
+                                        <ScrollViewer
+                                            x:Name="DetailPanelReferenceAuthor"
+                                            Grid.Row="2"
+                                            Height="Auto"
+                                            Margin="0,5,0,0"
+                                            RelativePanel.AlignLeftWithPanel="True"
+                                            RelativePanel.AlignRightWithPanel="True"
+                                            RelativePanel.Below="ReferenceAuthorDatasetText"
+                                            VerticalScrollBarVisibility="Auto"
+                                            VerticalScrollMode="Auto">
+                                            <RelativePanel Margin="8,0,0,8">
+                                                <TextBox
+                                                    x:Name="ReferenceIdAuthor"
+                                                    x:Uid="TextBox_ReferenceId"
+                                                    MinWidth="150"
+                                                    Margin="{StaticResource XSmallTopRightMargin}"
+                                                    IsReadOnly="True"
+                                                    RelativePanel.AlignLeftWithPanel="True"
+                                                    Text="{x:Bind ViewModel.ReferenceAuthorSelected.ReferenceId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                <TextBox
+                                                    x:Name="ReferenceAuthorId"
+                                                    x:Uid="TextBox_ReferenceAuthorId"
+                                                    MinWidth="150"
+                                                    Margin="{StaticResource XSmallTopRightMargin}"
+                                                    IsReadOnly="True"
+                                                    RelativePanel.RightOf="ReferenceIdAuthor"
+                                                    Text="{x:Bind ViewModel.ReferenceAuthorSelected.RefAuthorId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                <CheckBox
+                                                    x:Name="ValidCheckReferenceAuthor"
+                                                    x:Uid="CheckBox_Valid"
+                                                    Width="80"
+                                                    Margin="{StaticResource SmallTopRightCheckBoxMargin}"
+                                                    VerticalAlignment="Bottom"
+                                                    IsChecked="{x:Bind ViewModel.ReferenceAuthorSelected.Valid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    RelativePanel.RightOf="ReferenceAuthorId" />
+                                                <TextBox
+                                                    x:Name="ValidYearTextReferenceAuthor"
+                                                    x:Uid="TextBox_ValidYear"
+                                                    Width="70"
+                                                    Margin="{StaticResource XSmallTopRightMargin}"
+                                                    CornerRadius="3"
+                                                    IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                    RelativePanel.RightOf="ValidCheckReferenceAuthor"
+                                                    Style="{StaticResource BodyTextBoxStyle}"
+                                                    Text="{x:Bind ViewModel.ReferenceAuthorSelected.ValidYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                <ComboBox
+                                                    x:Name="ReferenceAuthorCombo"
+                                                    x:Uid="ComboBox_RefAuthorName"
+                                                    MinWidth="800"
+                                                    Margin="{StaticResource XSmallTopRightMargin}"
+                                                    DisplayMemberPath="RefAuthorName"
+                                                    ItemsSource="{x:Bind ViewModel.Tbl90AuthorsAllList}"
+                                                    RelativePanel.AlignLeftWithPanel="True"
+                                                    RelativePanel.Below="ReferenceIdAuthor"
+                                                    SelectedValue="{x:Bind helpers:CastHelper.NullableIntToObjCast(ViewModel.ReferenceAuthorSelected.RefAuthorId), BindBack=ViewModel.ReferenceAuthorSelected.SetRefAuthorId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    SelectedValuePath="RefAuthorId" />
+                                                <TextBox
+                                                    x:Name="InfoReferenceAuthor"
+                                                    x:Uid="TextBox_Info"
+                                                    MinWidth="1120"
+                                                    Margin="{StaticResource XSmallTopRightMargin}"
+                                                    HorizontalAlignment="Stretch"
+                                                    IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                    RelativePanel.AlignLeftWithPanel="True"
+                                                    RelativePanel.Below="ReferenceAuthorCombo"
+                                                    Text="{x:Bind ViewModel.ReferenceAuthorSelected.Info, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                <TextBox
+                                                    x:Name="MemoReferenceAuthor"
+                                                    x:Uid="TextBox_Memo"
+                                                    MinWidth="1120"
+                                                    MinHeight="100"
+                                                    MaxWidth="1300"
+                                                    MaxHeight="150"
+                                                    Margin="{StaticResource XSmallTopRightMargin}"
+                                                    AcceptsReturn="True"
+                                                    IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                    RelativePanel.AlignLeftWithPanel="True"
+                                                    RelativePanel.Below="InfoReferenceAuthor"
+                                                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                    Text="{x:Bind ViewModel.ReferenceAuthorSelected.Memo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    TextWrapping="Wrap" />
+                                            </RelativePanel>
+                                        </ScrollViewer>
+                                    </Grid>
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup>
+                                            <VisualState>
+                                                <VisualState.StateTriggers>
+                                                    <AdaptiveTrigger MinWindowWidth="{StaticResource LargeWindowSnapPoint}" />
+                                                </VisualState.StateTriggers>
+                                            </VisualState>
+                                            <VisualState>
+                                                <VisualState.StateTriggers>
+                                                    <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowSnapPoint}" />
+                                                </VisualState.StateTriggers>
+                                            </VisualState>
+                                            <VisualState>
+                                                <VisualState.StateTriggers>
+                                                    <AdaptiveTrigger MinWindowWidth="{StaticResource MinWindowSnapPoint}" />
+                                                </VisualState.StateTriggers>
+                                                <VisualState.Setters>
+                                                    <Setter Target="ReferenceAuthorCommandBar.DefaultLabelPosition" Value="Bottom" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                </RelativePanel>
+                            </TabViewItem>
+                        </TabView.TabItems>
+                    </TabView>
+                </TabViewItem>
+                <TabViewItem x:Uid="TabViewItem_Comments" IsClosable="False">
+                    <TabViewItem.IconSource>
+                        <BitmapIconSource ShowAsMonochrome="False" UriSource="ms-appx:///Assets/ArrowRight.png" />
+                    </TabViewItem.IconSource>
+                    <RelativePanel x:Name="CommentLayoutRoot">
+                        <TextBlock
+                            x:Name="CommentDatasetText"
+                            x:Uid="TextBlock_DataSetCount"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            Style="{StaticResource DatasetTitleStyle}" />
+                        <TextBlock
+                            x:Name="CommentDatasetCountText"
+                            Width="50"
+                            RelativePanel.RightOf="CommentDatasetText"
+                            Style="{StaticResource DatasetTitleStyle}"
+                            Text="{x:Bind ViewModel.CommentDataSetCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <CommandBar
+                            x:Name="CommentCommandBar"
+                            HorizontalAlignment="Stretch"
+                            Background="Transparent"
+                            DefaultLabelPosition="Right"
+                            RelativePanel.AlignRightWithPanel="True"
+                            RelativePanel.RightOf="CommentDatasetCountText">
+                            <AppBarButton
+                                x:Uid="AppBarButtonSave"
+                                Command="{x:Bind ViewModel.SaveCommentCommand}"
+                                Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Save.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonDelete"
+                                Command="{x:Bind ViewModel.DeleteCommentCommand}"
+                                IsEnabled="{x:Bind converters:NotConverter.IsNotNull(ViewModel.CommentSelected), Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Delete.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonCancel"
+                                Click="{x:Bind ViewModel.CommentCancelEditsAsync}"
+                                Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Cancel.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarSeparator Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}" />
+                            <AppBarSeparator />
+                            <AppBarButton
+                                x:Uid="AppBarButtonEdit"
+                                Click="{x:Bind ViewModel.CommentStartEdit}"
+                                IsEnabled="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                Visibility="{x:Bind converters:NotConverter.CollapsedIf(ViewModel.IsNewComment), Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Edit.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonAdd"
+                                Command="{x:Bind ViewModel.AddCommentCommand}"
+                                ToolTipService.ToolTip="New Comment">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Add.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonCopy"
+                                Command="{x:Bind ViewModel.CopyCommentCommand}"
+                                IsEnabled="{x:Bind converters:NotConverter.IsNotNull(ViewModel.CommentSelected), Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Copy.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonSync"
+                                Command="{x:Bind ViewModel.RefreshCommentServerCommand}"
+                                ToolTipService.ToolTip="Sync with server">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Refresh.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                        </CommandBar>
+                        <Grid
+                            Margin="{StaticResource SmallTopMargin}"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            RelativePanel.AlignRightWithPanel="True"
+                            RelativePanel.Below="CommentDatasetText">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="2" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <controls:DataGrid
+                                x:Name="DataGridComment"
+                                MaxHeight="175"
+                                AutoGenerateColumns="False"
+                                BorderThickness="0"
+                                CanUserReorderColumns="False"
+                                CanUserResizeColumns="False"
+                                ContextFlyout="{StaticResource ContextMenuComment}"
+                                GridLinesVisibility="Horizontal"
+                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                ItemsSource="{x:Bind ViewModel.CommentItems, Mode=OneWay}"
+                                SelectedItem="{x:Bind ViewModel.CommentSelected, Mode=TwoWay}"
+                                SelectionMode="Single">
+                                <controls:DataGrid.Columns>
+                                    <controls:DataGridTextColumn
+                                        x:Uid="DataGridTextColumn_CommentId"
+                                        Binding="{Binding CommentId}"
+                                        CanUserSort="False"
+                                        Tag="CommentId" />
+                                    <controls:DataGridCheckBoxColumn
+                                        x:Uid="DataGridCheckBoxColumn_Valid"
+                                        Binding="{Binding Valid}"
+                                        Tag="Valid" />
+                                    <controls:DataGridTextColumn
+                                        x:Uid="DataGridTextColumn_ValidYear"
+                                        Binding="{Binding ValidYear}"
+                                        Tag="ValidYear" />
+                                    <controls:DataGridTextColumn
+                                        x:Uid="DataGridTextColumn_Info"
+                                        Binding="{Binding Info}"
+                                        Tag="Info" />
+                                </controls:DataGrid.Columns>
+                            </controls:DataGrid>
+                            <ProgressBar
+                                Grid.Row="1"
+                                Margin="{StaticResource SmallTopMargin}"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Top"
+                                IsIndeterminate="True"
+                                Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
+                            <ScrollViewer
+                                x:Name="DetailPanelComment"
+                                Grid.Row="2"
+                                Height="Auto"
+                                Margin="0,5,0,0"
+                                RelativePanel.AlignLeftWithPanel="True"
+                                RelativePanel.AlignRightWithPanel="True"
+                                RelativePanel.Below="CommentDatasetText"
+                                VerticalScrollBarVisibility="Auto"
+                                VerticalScrollMode="Auto">
+                                <RelativePanel Margin="8,0,0,8">
+                                    <TextBox
+                                        x:Name="CommentId"
+                                        x:Uid="TextBox_CommentId"
+                                        MinWidth="150"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="True"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        Text="{x:Bind ViewModel.CommentSelected.CommentId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <CheckBox
+                                        x:Name="ValidCheckComment"
+                                        x:Uid="CheckBox_Valid"
+                                        Width="80"
+                                        Margin="{StaticResource SmallTopRightCheckBoxMargin}"
+                                        VerticalAlignment="Bottom"
+                                        IsChecked="{x:Bind ViewModel.CommentSelected.Valid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        RelativePanel.RightOf="CommentId" />
+                                    <TextBox
+                                        x:Name="ValidYearTextComment"
+                                        x:Uid="TextBox_ValidYear"
+                                        Width="70"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        CornerRadius="3"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.RightOf="ValidCheckComment"
+                                        Style="{StaticResource BodyTextBoxStyle}"
+                                        Text="{x:Bind ViewModel.CommentSelected.ValidYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="InfoComment"
+                                        x:Uid="TextBox_Info"
+                                        MinWidth="1120"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        HorizontalAlignment="Stretch"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.Below="ValidYearTextComment"
+                                        Text="{x:Bind ViewModel.CommentSelected.Info, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="MemoComment"
+                                        x:Uid="TextBox_Memo"
+                                        MinWidth="1120"
+                                        MinHeight="100"
+                                        MaxWidth="1300"
+                                        MaxHeight="150"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        AcceptsReturn="True"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.Below="InfoComment"
+                                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                        Text="{x:Bind ViewModel.CommentSelected.Memo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        TextWrapping="Wrap" />
+                                </RelativePanel>
+                            </ScrollViewer>
+                        </Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource LargeWindowSnapPoint}" />
+                                    </VisualState.StateTriggers>
+                                </VisualState>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowSnapPoint}" />
+                                    </VisualState.StateTriggers>
+                                </VisualState>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource MinWindowSnapPoint}" />
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="CommentCommandBar.DefaultLabelPosition" Value="Bottom" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </RelativePanel>
+                </TabViewItem>
+            </TabView.TabItems>
+        </TabView>
+    </Grid>
+</Page>

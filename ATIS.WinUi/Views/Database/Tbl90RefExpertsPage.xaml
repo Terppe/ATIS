@@ -1,0 +1,379 @@
+﻿<!--  Copyright (c) Microsoft Corporation and Contributors.  -->
+<!--  Licensed under the MIT License.  -->
+
+<Page
+    x:Class="ATIS.WinUi.Views.Database.Tbl90RefExpertsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:ATIS.WinUi.Behaviors"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:converters="using:ATIS.WinUi.Helpers.Converters"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:drawing="using:System.Drawing"
+    xmlns:helpers="using:ATIS.WinUi.Helpers"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    behaviors:NavigationViewHeaderBehavior.HeaderMode="Never"
+    Background="Transparent"
+    NavigationCacheMode="Enabled"
+    mc:Ignorable="d">
+
+
+    <!--  RefExpertsPage.xaml  Skriptdatum: 25.04.2023  10:32  -->
+
+
+    <Page.Resources>
+        <converters:AutoSuggestQueryParameterConverter x:Key="ArgsConverter" />
+
+        <MenuFlyout x:Key="ContextMenuRefExpert">
+            <MenuFlyoutItem x:Uid="MenuFlyout_Save_RefExpert" Command="{x:Bind ViewModel.SaveRefExpertCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Save.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Add_RefExpert" Command="{x:Bind ViewModel.AddRefExpertCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Add.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Copy_RefExpert" Command="{x:Bind ViewModel.CopyRefExpertCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Copy.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Delete_RefExpert" Command="{x:Bind ViewModel.DeleteRefExpertCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Delete.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Refresh_RefExpert" Command="{x:Bind ViewModel.RefreshRefExpertServerCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Refresh.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+        </MenuFlyout>
+
+    </Page.Resources>
+
+    <Grid x:Name="RefExpertMainRoot">
+
+        <TabView Background="LightSkyBlue" IsAddTabButtonVisible="False">
+            <TabView.TabItems>
+
+                <!--  Part 2   FK1  aktuell  -->
+
+
+                <!--  Part 2  FK2    aktuell  -->
+
+
+
+                <!--  Part 2  FK3    aktuell  -->
+
+                <!--  Part 2  FK4    aktuell  -->
+
+                <!--  Part 2  Main   aktuell  -->
+
+
+                <TabViewItem x:Uid="TabViewItem_RefExperts" IsClosable="False">
+                    <RelativePanel x:Name="RefExpertLayoutRoot">
+                        <TextBlock
+                            x:Name="RefExpertDatasetText"
+                            x:Uid="TextBlock_DataSetCount"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            Style="{StaticResource DatasetTitleStyle}" />
+                        <TextBlock
+                            x:Name="RefExpertDatasetCountText"
+                            Width="50"
+                            RelativePanel.RightOf="RefExpertDatasetText"
+                            Style="{StaticResource DatasetTitleStyle}"
+                            Text="{x:Bind ViewModel.RefExpertDataSetCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <CommandBar
+                            x:Name="RefExpertCommandBar"
+                            HorizontalAlignment="Stretch"
+                            Background="Transparent"
+                            DefaultLabelPosition="Right"
+                            RelativePanel.LeftOf="RefExpertSearchAutoSuggestBox"
+                            RelativePanel.RightOf="RefExpertDatasetCountText">
+                            <AppBarButton
+                                x:Uid="AppBarButtonSave"
+                                Command="{x:Bind ViewModel.SaveRefExpertCommand}"
+                                Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Save.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonDelete"
+                                Command="{x:Bind ViewModel.DeleteRefExpertCommand}"
+                                IsEnabled="{x:Bind converters:NotConverter.IsNotNull(ViewModel.RefExpertSelected), Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Delete.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonCancel"
+                                Click="{x:Bind ViewModel.RefExpertCancelEditsAsync}"
+                                Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Cancel.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarSeparator Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}" />
+                            <AppBarSeparator />
+                            <AppBarButton
+                                x:Uid="AppBarButtonEdit"
+                                Click="{x:Bind ViewModel.RefExpertStartEdit}"
+                                IsEnabled="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                Visibility="{x:Bind converters:NotConverter.CollapsedIf(ViewModel.IsNewRefExpert), Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Edit.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonAdd"
+                                Command="{x:Bind ViewModel.AddRefExpertCommand}"
+                                ToolTipService.ToolTip="New RefExpert">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Add.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonCopy"
+                                Command="{x:Bind ViewModel.CopyRefExpertCommand}"
+                                IsEnabled="{x:Bind converters:NotConverter.IsNotNull(ViewModel.RefExpertSelected), Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Copy.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonSync"
+                                Command="{x:Bind ViewModel.RefreshRefExpertServerCommand}"
+                                ToolTipService.ToolTip="Sync with server">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Refresh.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                        </CommandBar>
+                        <AutoSuggestBox
+                            Name="RefExpertSearchAutoSuggestBox"
+                            x:Uid="AutoSuggestBox_Search"
+                            Width="250"
+                            Margin="{StaticResource XSmallLeftTopRightMargin}"
+                            CornerRadius="2"
+                            Loaded="RefExpertSearchAutoSuggestBox_OnLoaded"
+                            RelativePanel.AlignRightWithPanel="True"
+                            Text="{x:Bind ViewModel.SearchRefExpertName, Mode=TwoWay}">
+                            <interactivity:Interaction.Behaviors>
+                                <core:EventTriggerBehavior EventName="QuerySubmitted">
+                                    <core:InvokeCommandAction Command="{x:Bind ViewModel.GetRefExpertsByNameOrIdCommand, Mode=OneWay}" InputConverter="{StaticResource ArgsConverter}" />
+                                </core:EventTriggerBehavior>
+                            </interactivity:Interaction.Behaviors>
+                            <AutoSuggestBox.QueryIcon>
+                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Search.png" />
+                            </AutoSuggestBox.QueryIcon>
+                        </AutoSuggestBox>
+                        <Grid
+                            Margin="{StaticResource SmallTopMargin}"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            RelativePanel.AlignRightWithPanel="True"
+                            RelativePanel.Below="RefExpertDatasetText">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="2" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <controls:DataGrid
+                                x:Name="RefExpertDatagrid"
+                                MaxHeight="175"
+                                AutoGenerateColumns="False"
+                                BorderThickness="0"
+                                CanUserReorderColumns="False"
+                                CanUserResizeColumns="False"
+                                CanUserSortColumns="True"
+                                ContextFlyout="{StaticResource ContextMenuRefExpert}"
+                                GridLinesVisibility="Horizontal"
+                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                ItemsSource="{x:Bind ViewModel.RefExpertItems, Mode=OneWay}"
+                                SelectedItem="{x:Bind ViewModel.RefExpertSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                SelectionMode="Single">
+                                <controls:DataGrid.Columns>
+                                    <controls:DataGridTextColumn
+                                        x:Uid="DataGridTextColumn_RefExpertId"
+                                        Binding="{Binding RefExpertId}"
+                                        CanUserSort="False"
+                                        Tag="RefExpertId" />
+                                    <controls:DataGridTextColumn
+                                        x:Uid="DataGridTextColumn_RefExpertName"
+                                        Binding="{Binding RefExpertName}"
+                                        CanUserSort="True"
+                                        Tag="RefExpertName" />
+                                    <controls:DataGridCheckBoxColumn
+                                        x:Uid="DataGridCheckBoxColumn_Valid"
+                                        Binding="{Binding Valid}"
+                                        Tag="Valid" />
+                                    <controls:DataGridTextColumn
+                                        x:Uid="DataGridTextColumn_ValidYear"
+                                        Binding="{Binding ValidYear}"
+                                        Tag="ValidYear" />
+                                </controls:DataGrid.Columns>
+                            </controls:DataGrid>
+                            <ProgressBar
+                                Grid.Row="1"
+                                Margin="{StaticResource SmallTopMargin}"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Top"
+                                IsIndeterminate="True"
+                                Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
+                            <ScrollViewer
+                                x:Name="DetailPanelRefExpert"
+                                Grid.Row="2"
+                                Height="Auto"
+                                RelativePanel.AlignLeftWithPanel="True"
+                                RelativePanel.AlignRightWithPanel="True"
+                                RelativePanel.Below="RefExpertDatasetText"
+                                VerticalScrollBarVisibility="Auto"
+                                VerticalScrollMode="Auto">
+                                <RelativePanel Margin="8,0,0,8">
+                                    <TextBox
+                                        x:Name="RefExpertId"
+                                        x:Uid="TextBox_RefExpertId"
+                                        MinWidth="110"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="True"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        Text="{x:Bind ViewModel.RefExpertSelected.RefExpertId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="RefExpertName"
+                                        x:Uid="TextBox_RefExpertName"
+                                        MinWidth="300"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.RightOf="RefExpertId"
+                                        Text="{x:Bind ViewModel.RefExpertSelected.RefExpertName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <CheckBox
+                                        x:Name="ValidCheckRefExpert"
+                                        x:Uid="CheckBox_Valid"
+                                        Width="80"
+                                        Margin="{StaticResource SmallTopRightCheckBoxMargin}"
+                                        VerticalAlignment="Bottom"
+                                        Content="Valid"
+                                        IsChecked="{x:Bind ViewModel.RefExpertSelected.Valid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        RelativePanel.RightOf="RefExpertName" />
+                                    <TextBox
+                                        x:Name="ValidYearTextRefExpert"
+                                        x:Uid="TextBox_ValidYear"
+                                        Width="70"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        CornerRadius="3"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.RightOf="ValidCheckRefExpert"
+                                        Style="{StaticResource BodyTextBoxStyle}"
+                                        Text="{x:Bind ViewModel.RefExpertSelected.ValidYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="NotesRefExpert"
+                                        x:Uid="TextBox_Notes"
+                                        MinWidth="1120"
+                                        MinHeight="50"
+                                        MaxWidth="1300"
+                                        MaxHeight="200"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        AcceptsReturn="True"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.Below="RefExpertId"
+                                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                        Text="{x:Bind ViewModel.RefExpertSelected.Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        TextWrapping="Wrap" />
+                                    <TextBox
+                                        x:Name="InfoRefExpert"
+                                        x:Uid="TextBox_Info"
+                                        MinWidth="1120"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        HorizontalAlignment="Stretch"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.Below="NotesRefExpert"
+                                        Text="{x:Bind ViewModel.RefExpertSelected.Info, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="MemoRefExpert"
+                                        x:Uid="TextBox_Memo"
+                                        MinWidth="1120"
+                                        MinHeight="200"
+                                        MaxWidth="1300"
+                                        MaxHeight="300"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        AcceptsReturn="True"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.Below="InfoRefExpert"
+                                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                        Text="{x:Bind ViewModel.RefExpertSelected.Memo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        TextWrapping="Wrap" />
+                                </RelativePanel>
+                            </ScrollViewer>
+                        </Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource LargeWindowSnapPoint}" />
+                                    </VisualState.StateTriggers>
+                                </VisualState>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowSnapPoint}" />
+                                    </VisualState.StateTriggers>
+                                </VisualState>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource MinWindowSnapPoint}" />
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="RefExpertCommandBar.DefaultLabelPosition" Value="Bottom" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </RelativePanel>
+                </TabViewItem>
+
+                <!--  Part 2   FK3  aktuell  -->
+
+                <!--  Part 2  FK4  aktuell  -->
+
+                <!--  Part 4  TK1  aktuell  -->
+
+                <!--  Part 4   TK2  aktuell  -->
+
+
+                <!--  Part 4   TK3  aktuell  -->
+
+
+
+                <!--  Part 4   TK4  aktuell  -->
+
+
+
+                <!--  Part 7  -->
+
+
+                <!--  Part 8.1  TK1  Connected  -->
+
+                <!--  Part 8.2  TK2  Connected  -->
+
+                <!--  Part 8.3  TK3  Connected  -->
+
+                <!--  Part 8.4  TK4  Connected  -->
+
+                <!--  Part 11  -->
+
+                <!--  Part 12  -->
+
+                <!--  Part 13  -->
+
+                <!--  Part 14  -->
+            </TabView.TabItems>
+        </TabView>
+    </Grid>
+</Page>

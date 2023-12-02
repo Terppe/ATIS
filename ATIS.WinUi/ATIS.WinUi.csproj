@@ -1,0 +1,971 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+	<OutputType>WinExe</OutputType>
+	<TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
+	<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+	<RootNamespace>ATIS.WinUi</RootNamespace>
+	<ApplicationIcon>Assets/WindowIcon.ico</ApplicationIcon>
+	<ApplicationManifest>app.manifest</ApplicationManifest>
+	<Platforms>x86;x64;arm64</Platforms>
+	<RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
+	<PublishProfile>Properties\PublishProfiles\win10-$(Platform).pubxml</PublishProfile>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<Nullable>enable</Nullable>
+	<UseWinUI>true</UseWinUI>
+	  <!--<NoWarn>$(NoWarn);SYSLIB0041</NoWarn>Rfc2898DeriveBytes obsolete-->
+	  <EnableMsixTooling>true</EnableMsixTooling>
+	<PackageCertificateThumbprint>54F76EF4AA4745711FE7ACE2DAEA0C5B0E3A61DB</PackageCertificateThumbprint>
+	<AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+	<GenerateAppInstallerFile>True</GenerateAppInstallerFile>
+	<AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+	<AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+	<AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
+	<GenerateArtifacts>True</GenerateArtifacts>
+	<AppxBundle>Always</AppxBundle>
+	<AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
+	<AppInstallerUri>D:\Temp\</AppInstallerUri>
+	<GenerateTestArtifacts>True</GenerateTestArtifacts>
+  </PropertyGroup>
+  <ItemGroup>
+	<Content Remove="Assets\About.png" />
+	<Content Remove="Assets\Add.png" />
+	<Content Remove="Assets\AddOns.png" />
+	<Content Remove="Assets\AdminArea.png" />
+	<Content Remove="Assets\Aquarium3.png" />
+	<Content Remove="Assets\ArrowLeft.png" />
+	<Content Remove="Assets\ArrowRight.png" />
+	<Content Remove="Assets\background1.jpg" />
+	<Content Remove="Assets\Bio.png" />
+	<Content Remove="Assets\Canada.png" />
+	<Content Remove="Assets\Cancel.png" />
+	<Content Remove="Assets\Close.png" />
+	<Content Remove="Assets\Collection.png" />
+	<Content Remove="Assets\Copy.png" />
+	<Content Remove="Assets\Database.png" />
+	<Content Remove="Assets\Delete.png" />
+	<Content Remove="Assets\Disease.png" />
+	<Content Remove="Assets\Edit.png" />
+	<Content Remove="Assets\Email.png" />
+	<Content Remove="Assets\Eol.png" />
+	<Content Remove="Assets\Features.png" />
+	<Content Remove="Assets\Fish.png" />
+	<Content Remove="Assets\Food.png" />
+	<Content Remove="Assets\Github.png" />
+	<Content Remove="Assets\HelloWorld.png" />
+	<Content Remove="Assets\Home.png" />
+	<Content Remove="Assets\ImageResizer.png" />
+	<Content Remove="Assets\Info.png" />
+	<Content Remove="Assets\Invoice.png" />
+	<Content Remove="Assets\Life.png" />
+	<Content Remove="Assets\LockScreenLogo.scale-200.png" />
+	<Content Remove="Assets\Menu.png" />
+	<Content Remove="Assets\Mexico.png" />
+	<Content Remove="Assets\Miscellaneous.png" />
+	<Content Remove="Assets\Plant.png" />
+	<Content Remove="Assets\QuestPdfLogo.png" />
+	<Content Remove="Assets\Refresh.png" />
+	<Content Remove="Assets\Replace.png" />
+	<Content Remove="Assets\Save.png" />
+	<Content Remove="Assets\Search.png" />
+	<Content Remove="Assets\Settings.png" />
+	<Content Remove="Assets\ToRight.png" />
+	<Content Remove="Assets\Usa.png" />
+	<Content Remove="Assets\UserArea.png" />
+  </ItemGroup>
+  <ItemGroup>
+	<None Remove="Controls\LogInControl.xaml" />
+	<None Remove="Controls\PasswordChangeControl.xaml" />
+	<None Remove="Controls\PasswordForgotControl.xaml" />
+	<None Remove="Controls\RegisterControl.xaml" />
+	<None Remove="Controls\SettingsPage\SettingsPageControl.xaml" />
+	<None Remove="Images\LockScreenLogo.scale-200.png" />
+	<None Remove="Images\SplashScreen.png" />
+	<None Remove="Images\Square150x150Logo.scale-200.png" />
+	<None Remove="Images\Square44x44Logo.scale-200.png" />
+	<None Remove="Images\Square44x44Logo.targetsize-24_altform-unplated.png" />
+	<None Remove="Images\StoreLogo.png" />
+	<None Remove="Images\Wide310x150Logo.scale-200.png" />
+	<None Remove="Package.appxmanifest" />
+	<None Remove="Styles\Button.xaml" />
+	<None Remove="Styles\TextBox.xaml" />
+	<None Remove="Styles\_Margin.xaml" />
+	<None Remove="Views\Database\Tbl03RegnumsPage.xaml" />
+	<None Remove="Views\Database\Tbl06PhylumsPage.xaml" />
+	<None Remove="Views\Database\Tbl09DivisionsPage.xaml" />
+	<None Remove="Views\Database\Tbl12SubphylumsPage.xaml" />
+	<None Remove="Views\Database\Tbl15SubdivisionsPage.xaml" />
+	<None Remove="Views\Database\Tbl18SuperclassesPage.xaml" />
+	<None Remove="Views\Database\Tbl21ClassesPage.xaml" />
+	<None Remove="Views\Database\Tbl24SubclassesPage.xaml" />
+	<None Remove="Views\Database\Tbl27InfraclassesPage.xaml" />
+	<None Remove="Views\Database\Tbl30LegiosPage.xaml" />
+	<None Remove="Views\Database\Tbl33OrdosPage.xaml" />
+	<None Remove="Views\Database\Tbl36SubordosPage.xaml" />
+	<None Remove="Views\Database\Tbl39InfraordosPage.xaml" />
+	<None Remove="Views\Database\Tbl42SuperfamiliesPage.xaml" />
+	<None Remove="Views\Database\Tbl45FamiliesPage.xaml" />
+	<None Remove="Views\Database\Tbl48SubfamiliesPage.xaml" />
+	<None Remove="Views\Database\Tbl51InfrafamiliesPage.xaml" />
+	<None Remove="Views\Database\Tbl54SupertribussesPage.xaml" />
+	<None Remove="Views\Database\Tbl57TribussesPage.xaml" />
+	<None Remove="Views\Database\Tbl60SubtribussesPage.xaml" />
+	<None Remove="Views\Database\Tbl63InfratribussesPage.xaml" />
+	<None Remove="Views\Database\Tbl66GenussesPage.xaml" />
+	<None Remove="Views\Database\Tbl68SpeciesgroupsPage.xaml" />
+	<None Remove="Views\Database\Tbl69FiSpeciessesPage.xaml" />
+	<None Remove="Views\Database\Tbl72PlSpeciessesPage.xaml" />
+	<None Remove="Views\Database\Tbl78NamesPage.xaml" />
+	<None Remove="Views\Database\Tbl81ImagesPage.xaml" />
+	<None Remove="Views\Database\Tbl84SynonymsPage.xaml" />
+	<None Remove="Views\Database\Tbl87GeographicsPage.xaml" />
+	<None Remove="Views\Database\Tbl90RefAuthorsPage.xaml" />
+	<None Remove="Views\Database\Tbl90ReferencesPage.xaml" />
+	<None Remove="Views\Database\Tbl90RefExpertsPage.xaml" />
+	<None Remove="Views\Database\Tbl90RefSourcesPage.xaml" />
+	<None Remove="Views\Database\Tbl93CommentsPage.xaml" />
+	<None Remove="Views\Database\TblCountriesPage.xaml" />
+	<None Remove="Views\Database\TblUserProfilesPage.xaml" />
+	<None Remove="Views\Feature\CheckUpdatePage.xaml" />
+	<None Remove="Views\Main\DatabasePage.xaml" />
+	<None Remove="Views\Main\DiseasesPage.xaml" />
+	<None Remove="Views\Main\FishesPage.xaml" />
+	<None Remove="Views\Main\FoodsPage.xaml" />
+	<None Remove="Views\Main\GalleryPage.xaml" />
+	<None Remove="Views\Main\MiscellaniesPage.xaml" />
+	<None Remove="Views\Main\PlantsPage.xaml" />
+	<None Remove="Views\Main\Test1Page.xaml" />
+	<None Remove="Views\Main\Test2Page.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyClassControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyDivisionControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyFamilyControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyFiSpeciesControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyGenusControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyInfraclassControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyInfrafamilyControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyInfraordoControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyInfratribusControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyLegioControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyOrdoControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyPhylumControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyPlSpeciesControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyRegnumControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodySubclassControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodySubdivisionControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodySubfamilyControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodySubordoControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodySubphylumControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodySubtribusControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodySuperclassControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodySuperfamilyControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodySupertribusControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyTribusControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderClassControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderDivisionControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderFamilyControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderFiSpeciesControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderFiSpeciesSubControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderGenusControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderInfraclassControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderInfrafamilyControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderInfraordoControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderInfratribusControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderLegioControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderOrdoControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderPhylumControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderPlSpeciesControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderPlSpeciesSubControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderRegnumControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderSubclassControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderSubdivisionControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderSubfamilyControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderSubordoControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderSubphylumControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderSubtribusControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderSuperclassControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderSuperfamilyControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderSupertribusControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderTribusControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkClassControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkDivisionControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkFamilyControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkFiSpeciesControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkFiSpeciesSubControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkGenusControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkInfraclassControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkInfrafamilyControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkInfraordoControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkInfratribusControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkLegioControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkOrdoControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkPhylumControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkPlSpeciesControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkPlSpeciesSubControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkRegnumControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkSubclassControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkSubdivisionControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkSubfamilyControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkSubordoControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkSubphylumControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkSubtribusControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkSuperclassControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkSuperfamilyControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkSupertribusControl.xaml" />
+	<None Remove="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkTribusControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\ReportItemTemplateFiSpeciesControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\ReportItemTemplateGeographicControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\ReportItemTemplateImageControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\ReportItemTemplateNameControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\ReportItemTemplatePlSpeciesControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\ReportItemTemplateSynonymControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\ReportItemTemplateTbl87GeographicControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\ReportItemTemplateTbl90RefAuthorControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\ReportItemTemplateTbl90RefExpertControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\ReportItemTemplateTbl90RefSourceControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\ReportItemTemplateTbl93CommentControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\SearchItemTemplateTbl03RegnumControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\SearchItemTemplateTbl06PhylumControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\SearchItemTemplateTbl09DivisionControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\SearchItemTemplateTbl12SubphylumControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\SearchItemTemplateTbl15SubdivisionControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\SearchItemTemplateTbl18SuperclassControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\SearchItemTemplateTbl21ClassControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\SearchItemTemplateTbl24SubclassControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\SearchItemTemplateTbl27InfraclassControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\SearchItemTemplateTbl30LegioControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\SearchItemTemplateTbl33OrdoControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\SearchItemTemplateTbl36SubordoControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\SearchItemTemplateTbl39InfraordoControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\SearchItemTemplateTbl42SuperfamilyControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\SearchItemTemplateTbl45FamilyControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\SearchItemTemplateTbl48SubfamilyControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\SearchItemTemplateTbl51InfrafamilyControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\SearchItemTemplateTbl54SupertribusControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\SearchItemTemplateTbl57TribusControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\SearchItemTemplateTbl60SubtribusControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\SearchItemTemplateTbl63InfratribusControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\SearchItemTemplateTbl66GenusControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\SearchItemTemplateTbl69FiSpeciesControl.xaml" />
+	<None Remove="Views\Search\DataTemplates\SearchItemTemplateTbl72PlSpeciesControl.xaml" />
+	<None Remove="Views\Search\SearchQuickPage.xaml" />
+	<None Remove="Views\Tbl03RegnumPage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+	<AppxManifest Include="Package.appxmanifest">
+	  <SubType>Designer</SubType>
+	</AppxManifest>
+  </ItemGroup>
+  <ItemGroup>
+	<Content Include="Images\LockScreenLogo.scale-200.png" />
+	<Content Include="Images\SplashScreen.png" />
+	<Content Include="Images\Square150x150Logo.scale-200.png" />
+	<Content Include="Images\Square44x44Logo.scale-200.png" />
+	<Content Include="Images\Square44x44Logo.targetsize-24_altform-unplated.png" />
+	<Content Include="Images\StoreLogo.png" />
+	<Content Include="Images\Wide310x150Logo.scale-200.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<Manifest Include="$(ApplicationManifest)" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<PackageReference Include="BruTile.MbTiles" Version="5.0.4" />
+	<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+	<PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
+	<PackageReference Include="MailKit" Version="4.3.0" />
+	<PackageReference Include="Mapsui.ArcGIS" Version="4.0.0" />
+	<PackageReference Include="Mapsui.Extensions" Version="4.0.0" />
+	<PackageReference Include="Mapsui.WinUI" Version="4.0.0" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.14" />
+	<PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+	<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.25936-preview" />
+	<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.3.230502000" />
+	<PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
+	<PackageReference Include="QuestPDF" Version="2023.9.0" />
+	<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
+	<PackageReference Include="WinUIEx" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<Compile Update="Strings\StringsRes.Designer.cs">
+	  <DesignTime>True</DesignTime>
+	  <AutoGen>True</AutoGen>
+	  <DependentUpon>StringsRes.resx</DependentUpon>
+	</Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+	<Content Update="Assets\WindowIcon.ico">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
+  </ItemGroup>
+
+  <ItemGroup>
+	<EmbeddedResource Update="Strings\StringsRes.resx">
+	  <Generator>ResXFileCodeGenerator</Generator>
+	  <LastGenOutput>StringsRes.Designer.cs</LastGenOutput>
+	  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  <CustomToolNamespace>CultRes</CustomToolNamespace>
+	</EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+	<None Update="appsettings.json">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\About.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Add.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\AddOns.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\AdminArea.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Aquarium3.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\ArrowLeft.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\ArrowRight.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\background1.jpg">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Bio.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Canada.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Cancel.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Close.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Collection.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Copy.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Database.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Delete.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Disease.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Edit.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Email.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Eol.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Features.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Fish.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Food.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Github.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\HelloWorld.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Home.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\ImageResizer.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Info.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Invoice.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Life.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\LockScreenLogo.scale-200.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Menu.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Mexico.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Miscellaneous.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Plant.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\QuestPdfLogo.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Refresh.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Replace.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Save.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Search.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Settings.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\ToRight.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\Usa.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\UserArea.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<Page Update="Controls\SettingsPageControl\SettingsPageControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<None Update="Maps\Images\location.png">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<Page Update="Views\Feature\CheckUpdatePage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Main\Test2Page.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Main\Test1Page.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Main\GalleryPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\ReportItemTemplateTbl93CommentControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\ReportItemTemplateTbl87GeographicControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\ReportItemTemplateTbl90RefAuthorControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\ReportItemTemplateTbl90RefSourceControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\ReportItemTemplateTbl90RefExpertControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\ReportItemTemplateGeographicControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\ReportItemTemplateSynonymControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\ReportItemTemplateImageControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\ReportItemTemplateNameControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkPlSpeciesSubControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkPlSpeciesControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkFiSpeciesSubControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkFiSpeciesControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkGenusControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkInfratribusControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkSubtribusControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkTribusControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkSupertribusControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkInfrafamilyControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkSubfamilyControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkFamilyControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkSuperfamilyControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkInfraordoControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkSubordoControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkOrdoControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkLegioControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkInfraclassControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkSubclassControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkClassControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkSuperclassControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkSubdivisionControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkSubphylumControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkDivisionControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkPhylumControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyPlSpeciesControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyFiSpeciesControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyGenusControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyInfratribusControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodySubtribusControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyTribusControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodySupertribusControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyInfrafamilyControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodySubfamilyControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyFamilyControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodySuperfamilyControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyInfraordoControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodySubordoControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyOrdoControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyLegioControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyInfraclassControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodySubclassControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyClassControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodySuperclassControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodySubdivisionControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodySubphylumControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyDivisionControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyPhylumControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderPlSpeciesSubControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderPlSpeciesControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderFiSpeciesSubControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderFiSpeciesControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderGenusControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderInfratribusControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderSubtribusControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderTribusControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderSupertribusControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderInfrafamilyControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderSubfamilyControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderFamilyControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderSuperfamilyControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderInfraordoControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderSubordoControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderOrdoControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderLegioControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderInfraclassControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderSubclassControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderClassControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderSuperclassControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderSubdivisionControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderSubphylumControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderDivisionControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderPhylumControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\ReportItemTemplatePlSpeciesControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\ReportItemTemplateFiSpeciesControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHyperlink\ReportItemTemplateHyperlinkRegnumControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeaderTaxoNomen\ReportItemTemplateHeaderTaxoNomenHeaderBodyRegnumControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplateHeader\ReportItemTemplateHeaderRegnumControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\SearchItemTemplateTbl72PlSpeciesControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\SearchItemTemplateTbl69FiSpeciesControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\SearchItemTemplateTbl66GenusControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\SearchItemTemplateTbl63InfratribusControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\SearchItemTemplateTbl60SubtribusControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\SearchItemTemplateTbl57TribusControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\SearchItemTemplateTbl54SupertribusControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\SearchItemTemplateTbl51InfrafamilyControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\SearchItemTemplateTbl48SubfamilyControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\SearchItemTemplateTbl45FamilyControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\SearchItemTemplateTbl42SuperfamilyControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\SearchItemTemplateTbl39InfraordoControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\SearchItemTemplateTbl36SubordoControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\SearchItemTemplateTbl33OrdoControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\SearchItemTemplateTbl30LegioControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\SearchItemTemplateTbl27InfraclassControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\SearchItemTemplateTbl24SubclassControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\SearchItemTemplateTbl21ClassControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\SearchItemTemplateTbl18SuperclassControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\SearchItemTemplateTbl15SubdivisionControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\SearchItemTemplateTbl12SubphylumControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\SearchItemTemplateTbl09DivisionControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\SearchItemTemplateTbl06PhylumControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\DataTemplates\SearchItemTemplateTbl03RegnumControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Search\SearchQuickPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Controls\PasswordForgotControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Controls\PasswordChangeControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Controls\RegisterControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Controls\LogInControl.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Styles\Button.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\TblUserProfilesPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\TblCountriesPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl93CommentsPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl90ReferencesPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl90RefSourcesPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl90RefExpertsPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl90RefAuthorsPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl87GeographicsPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl81ImagesPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl84SynonymsPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl78NamesPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl68SpeciesgroupsPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl72PlSpeciessesPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl69FiSpeciessesPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl66GenussesPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl63InfratribussesPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl60SubtribussesPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl57TribussesPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl54SupertribussesPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl51InfrafamiliesPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl48SubfamiliesPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl45FamiliesPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl42SuperfamiliesPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl39InfraordosPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl36SubordosPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl33OrdosPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl30LegiosPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl27InfraclassesPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl24SubclassesPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl21ClassesPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl18SuperclassesPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl15SubdivisionsPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Main\MiscellaniesPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Main\FoodsPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Main\DiseasesPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Main\PlantsPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Main\FishesPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Main\DatabasePage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl09DivisionsPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl12SubphylumsPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl06PhylumsPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Styles\TextBox.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Database\Tbl03RegnumsPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Views\Tbl03RegnumPage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Update="Styles\_Margin.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
+	<ProjectCapability Include="Msix" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<Folder Include="Strings\de-DE\" />
+	<Folder Include="Strings\fr-FR\" />
+	<Folder Include="Views\Search\Pdf\Tbl69FiSpeciesSubs\" />
+	<Folder Include="Views\Search\Pdf\Tbl72PlSpeciesSubs\" />
+  </ItemGroup>
+  
+  <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
+	<HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
+  </PropertyGroup>
+</Project>

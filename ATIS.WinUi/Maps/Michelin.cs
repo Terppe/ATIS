@@ -1,0 +1,11 @@
+﻿// Copyright (c) The Mapsui authors.
+// The Mapsui authors licensed this file under the MIT license.
+// See the LICENSE file in the project root for full license information.
+
+using BruTile.Cache;
+
+namespace ATIS.WinUi.Maps;
+public static class Michelin
+{
+    public static IPersistentCache<byte[]>? DefaultCache = null;
+}

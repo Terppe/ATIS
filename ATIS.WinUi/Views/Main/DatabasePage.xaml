@@ -1,0 +1,190 @@
+﻿<Page
+    x:Class="ATIS.WinUi.Views.Main.DatabasePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:ATIS.WinUi.Behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:database="using:ATIS.WinUi.Views.Database"
+    xmlns:database1="using:ATIS.WinUi.ViewModels.Database"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    behaviors:NavigationViewHeaderBehavior.HeaderMode="Never"
+    Background="Transparent"
+    NavigationCacheMode="Enabled"
+    mc:Ignorable="d">
+
+    <Grid x:Name="ContentArea" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            <!--
+                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content.
+                Place your content here.          SelectedIndex="0"
+            -->
+            <TabView
+                x:Name="TabViewDatabase"
+                MinHeight="475"
+                IsAddTabButtonVisible="False">
+                <TabView.TabItems>
+                    <TabViewItem Header="Fishes" IsClosable="False">
+                        <TabView
+                            x:Name="TabViewFishes"
+                            Height="Auto"
+                            Margin="5,5,5,5"
+                            IsAddTabButtonVisible="False"
+                            SelectedIndex="{x:Bind ViewModel.SelectedFishesTabIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                            <TabView.TabItems>
+                                <TabViewItem x:Uid="TabViewItem_FiSpeciesses" IsClosable="False">
+                                    <database:Tbl69FiSpeciessesPage />
+                                </TabViewItem>
+                                <TabViewItem x:Uid="TabViewItem_Genusses" IsClosable="False">
+                                    <database:Tbl66GenussesPage />
+                                </TabViewItem>
+
+                                <TabViewItem x:Uid="TabViewItem_Speciesgroups" IsClosable="False">
+                                    <database:Tbl68SpeciesgroupsPage />
+                                </TabViewItem>
+
+                                <TabViewItem Header="Infratribusses" IsClosable="False">
+                                    <database:Tbl63InfratribussesPage />
+                                </TabViewItem>
+                                <TabViewItem Header="Subtribusses" IsClosable="False">
+                                    <database:Tbl60SubtribussesPage />
+                                </TabViewItem>
+                                <TabViewItem Header="Tribusses" IsClosable="False">
+                                    <database:Tbl57TribussesPage />
+                                </TabViewItem>
+                                <TabViewItem Header="Supertribusses" IsClosable="False">
+                                    <database:Tbl54SupertribussesPage />
+                                </TabViewItem>
+
+                                <TabViewItem Header="Infrafamilies" IsClosable="False">
+                                    <database:Tbl51InfrafamiliesPage />
+                                </TabViewItem>
+                                <TabViewItem Header="Subfamilies" IsClosable="False">
+                                    <database:Tbl48SubfamiliesPage />
+                                </TabViewItem>
+                                <TabViewItem Header="Families" IsClosable="False">
+                                    <database:Tbl45FamiliesPage />
+                                </TabViewItem>
+                                <TabViewItem Header="Superfamilies" IsClosable="False">
+                                    <database:Tbl42SuperfamiliesPage />
+                                </TabViewItem>
+
+                                <TabViewItem Header="Infraorders" IsClosable="False">
+                                    <database:Tbl39InfraordosPage />
+                                </TabViewItem>
+                                <TabViewItem Header="Suborders" IsClosable="False">
+                                    <database:Tbl36SubordosPage />
+                                </TabViewItem>
+                                <TabViewItem Header="Orders" IsClosable="False">
+                                    <database:Tbl33OrdosPage />
+                                </TabViewItem>
+                                <TabViewItem Header="Superorders" IsClosable="False">
+                                    <database:Tbl30LegiosPage />
+                                </TabViewItem>
+
+                                <TabViewItem Header="Infraclasses" IsClosable="False">
+                                    <!--  Tab 15  -->
+                                    <database:Tbl27InfraclassesPage />
+                                </TabViewItem>
+                                <TabViewItem Header="Subclasses" IsClosable="False">
+                                    <!--  Tab 16  -->
+                                    <database:Tbl24SubclassesPage />
+                                </TabViewItem>
+                                <TabViewItem Header="Classes" IsClosable="False">
+                                    <!--  Tab 17  -->
+                                    <database:Tbl21ClassesPage />
+                                </TabViewItem>
+                                <TabViewItem Header="Superclasses" IsClosable="False">
+                                    <!--  Tab 18  -->
+                                    <database:Tbl18SuperclassesPage />
+                                </TabViewItem>
+
+                                <TabViewItem Header="Subphylums" IsClosable="False">
+                                    <!--  Tab 19  -->
+                                    <database:Tbl12SubphylumsPage />
+                                </TabViewItem>
+                                <TabViewItem Header="Phylums" IsClosable="False">
+                                    <!--  Tab 20  -->
+                                    <database:Tbl06PhylumsPage />
+                                </TabViewItem>
+
+
+                                <TabViewItem Header="Regnums" IsClosable="False">
+                                    <!--  Tab 21  -->
+                                    <database:Tbl03RegnumsPage />
+                                </TabViewItem>
+
+                                <!--<TabViewItem Header="Experts" IsClosable="False">
+                                <database:Tbl90RefExpertsPage />
+                                </TabViewItem>
+                                <TabViewItem Header="Sources" IsClosable="False">
+                                <database:Tbl90RefSourcesPage />
+                                </TabViewItem>
+                                <TabViewItem Header="Authors" IsClosable="False">
+                                <database:Tbl90RefAuthorsPage />
+                                </TabViewItem>-->
+
+                            </TabView.TabItems>
+                        </TabView>
+                    </TabViewItem>
+
+                    <TabViewItem Header="Plants" IsClosable="False">
+                        <TabView>
+                            <TabView.TabItems>
+                                <TabViewItem x:Uid="TabViewItem_PlSpeciesses" IsClosable="False">
+                                    <database:Tbl72PlSpeciessesPage />
+                                </TabViewItem>
+                                <TabViewItem Header="Subdivisions" IsClosable="False">
+                                    <database:Tbl15SubdivisionsPage />
+                                </TabViewItem>
+                                <TabViewItem Header="Divisions" IsClosable="False">
+                                    <database:Tbl09DivisionsPage />
+                                </TabViewItem>
+                            </TabView.TabItems>
+                        </TabView>
+                    </TabViewItem>
+
+                    <TabViewItem Header="Utilities" IsClosable="False">
+                        <TabView>
+                            <TabView.TabItems>
+                                <TabViewItem x:Uid="TabViewItem_Names" IsClosable="False">
+                                    <database:Tbl78NamesPage />
+                                </TabViewItem>
+                                <TabViewItem x:Uid="TabViewItem_Images" IsClosable="False">
+                                    <database:Tbl81ImagesPage />
+                                </TabViewItem>
+                                <TabViewItem x:Uid="TabViewItem_Synonyms" IsClosable="False">
+                                    <database:Tbl84SynonymsPage />
+                                </TabViewItem>
+                                <TabViewItem x:Uid="TabViewItem_Geographics" IsClosable="False">
+                                    <database:Tbl87GeographicsPage />
+                                </TabViewItem>
+                                <TabViewItem x:Uid="TabViewItem_RefAuthors" IsClosable="False">
+                                    <database:Tbl90RefAuthorsPage />
+                                </TabViewItem>
+                                <TabViewItem x:Uid="TabViewItem_RefExperts" IsClosable="False">
+                                    <database:Tbl90RefExpertsPage />
+                                </TabViewItem>
+                                <TabViewItem x:Uid="TabViewItem_RefSources" IsClosable="False">
+                                    <database:Tbl90RefSourcesPage />
+                                </TabViewItem>
+                                <TabViewItem x:Uid="TabViewItem_References" IsClosable="False">
+                                    <database:Tbl90ReferencesPage />
+                                </TabViewItem>
+                                <TabViewItem x:Uid="TabViewItem_Comments" IsClosable="False">
+                                    <database:Tbl93CommentsPage />
+                                </TabViewItem>
+                                <TabViewItem x:Uid="TabViewItem_Countries" IsClosable="False">
+                                    <database:TblCountriesPage />
+                                </TabViewItem>
+                                <TabViewItem x:Uid="TabViewItem_UserProfiles" IsClosable="False">
+                                    <database:TblUserProfilesPage />
+                                </TabViewItem>
+                            </TabView.TabItems>
+                        </TabView>
+                    </TabViewItem>
+                </TabView.TabItems>
+            </TabView>
+
+        </Grid>
+    </Grid>
+</Page>

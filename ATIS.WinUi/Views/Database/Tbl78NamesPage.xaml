@@ -1,0 +1,1510 @@
+﻿<!--  Copyright (c) Microsoft Corporation and Contributors.  -->
+<!--  Licensed under the MIT License.  -->
+
+<Page
+    x:Class="ATIS.WinUi.Views.Database.Tbl78NamesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:ATIS.WinUi.Behaviors"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:converters="using:ATIS.WinUi.Helpers.Converters"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    behaviors:NavigationViewHeaderBehavior.HeaderMode="Never"
+    Background="Transparent"
+    NavigationCacheMode="Enabled"
+    mc:Ignorable="d">
+
+
+    <!--  NamesPage.xaml  Skriptdatum: 15.04.2023  10:32  -->
+
+
+
+    <Page.Resources>
+        <converters:AutoSuggestQueryParameterConverter x:Key="ArgsConverter" />
+        <converters:IntToStringConverter x:Key="IntConverter" />
+        <converters:DoubleToStringConverter x:Key="DoubleConverter" />
+        <converters:ImageSourceConverter x:Key="ImageSourceConverter" />
+        <converters:DateConverter x:Key="DateConverter" />
+        <converters:DoubleToStringConverter x:Key="DoubleToStringConverter" />
+
+        <MenuFlyout x:Key="ContextMenuFiSpecies">
+            <MenuFlyoutItem x:Uid="MenuFlyout_Save_FiSpecies" Command="{x:Bind ViewModel.SaveFiSpeciesCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Save.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Refresh_FiSpecies" Command="{x:Bind ViewModel.RefreshFiSpeciesServerCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Refresh.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+        </MenuFlyout>
+
+        <MenuFlyout x:Key="ContextMenuPlSpecies">
+            <MenuFlyoutItem x:Uid="MenuFlyout_Save_PlSpecies" Command="{x:Bind ViewModel.SavePlSpeciesCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Save.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Refresh_PlSpecies" Command="{x:Bind ViewModel.RefreshPlSpeciesServerCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Refresh.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+        </MenuFlyout>
+
+        <MenuFlyout x:Key="ContextMenuName">
+            <MenuFlyoutItem x:Uid="MenuFlyout_Save_Name" Command="{x:Bind ViewModel.SaveNameCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Save.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Add_Name" Command="{x:Bind ViewModel.AddNameCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Add.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Copy_Name" Command="{x:Bind ViewModel.CopyNameCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Copy.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Delete_Name" Command="{x:Bind ViewModel.DeleteNameCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Delete.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem x:Uid="MenuFlyout_Refresh_Name" Command="{x:Bind ViewModel.RefreshNameServerCommand}">
+                <MenuFlyoutItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Refresh.png" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+        </MenuFlyout>
+
+    </Page.Resources>
+
+    <Grid x:Name="NameMainRoot">
+
+        <TabView
+            x:Name="NameTabView"
+            Background="LightSkyBlue"
+            IsAddTabButtonVisible="False"
+            SelectedIndex="{x:Bind ViewModel.SelectedMainDetailTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            SelectionChanged="TabView_OnSelectionChanged">
+            <TabView.Resources>
+                <ResourceDictionary>
+                    <!--<SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected" Color="SteelBlue"/>-->
+                </ResourceDictionary>
+            </TabView.Resources>
+            <TabView.TabItems>
+
+                <!--  Part 2   FK1  aktuell  -->
+
+                <TabViewItem x:Uid="TabViewItem_FiSpeciesses" IsClosable="False">
+                    <TabViewItem.IconSource>
+                        <BitmapIconSource ShowAsMonochrome="False" UriSource="ms-appx:///Assets/ArrowLeft.png" />
+                    </TabViewItem.IconSource>
+                    <RelativePanel x:Name="FiSpeciesLayoutRoot">
+                        <TextBlock
+                            x:Name="FiSpeciesDatasetText"
+                            x:Uid="TextBlock_DataSetCount"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            Style="{StaticResource DatasetTitleStyle}" />
+                        <TextBlock
+                            x:Name="FiSpeciesDatasetCountText"
+                            Width="50"
+                            RelativePanel.RightOf="FiSpeciesDatasetText"
+                            Style="{StaticResource DatasetTitleStyle}"
+                            Text="{x:Bind ViewModel.FiSpeciesDataSetCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <CommandBar
+                            x:Name="FiSpeciesCommandBar"
+                            HorizontalAlignment="Stretch"
+                            Background="Transparent"
+                            DefaultLabelPosition="Right"
+                            RelativePanel.AlignRightWithPanel="True"
+                            RelativePanel.RightOf="FiSpeciesDatasetCountText">
+                            <AppBarButton
+                                x:Uid="AppBarButtonSave"
+                                Command="{x:Bind ViewModel.SaveFiSpeciesCommand}"
+                                Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Save.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonCancel"
+                                Click="{x:Bind ViewModel.FiSpeciesCancelEditsAsync}"
+                                Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Cancel.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarSeparator Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}" />
+                            <AppBarButton
+                                x:Uid="AppBarButtonEdit"
+                                Click="{x:Bind ViewModel.FiSpeciesStartEdit}"
+                                IsEnabled="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Edit.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                        </CommandBar>
+                        <Grid
+                            Margin="{StaticResource SmallTopMargin}"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            RelativePanel.AlignRightWithPanel="True"
+                            RelativePanel.Below="FiSpeciesDatasetText">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <ListView
+                                x:Name="Tbl69FiSpeciessesListView"
+                                ItemsSource="{x:Bind ViewModel.FiSpeciesItems}"
+                                SelectedItem="{x:Bind ViewModel.FiSpeciesSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Visibility="Collapsed" />
+                            <ScrollViewer
+                                x:Name="DetailPanelFiSpecies"
+                                Height="Auto"
+                                Margin="0,5,0,0"
+                                ContextFlyout="{StaticResource ContextMenuFiSpecies}"
+                                RelativePanel.AlignLeftWithPanel="True"
+                                RelativePanel.AlignRightWithPanel="True"
+                                RelativePanel.Below="FiSpeciesDatasetText"
+                                VerticalScrollBarVisibility="Auto"
+                                VerticalScrollMode="Auto">
+                                <StackPanel>
+                                    <StackPanel.Resources>
+                                        <Style TargetType="Expander">
+                                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                            <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                        </Style>
+                                    </StackPanel.Resources>
+                                    <Expander x:Name="GeneralExpanderFiSpecies" IsExpanded="True">
+                                        <Expander.Header>
+                                            <Grid>
+                                                <TextBlock x:Uid="TextBlock_General" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                                                <TextBlock
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Center"
+                                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                                    Text="{x:Bind ViewModel.FiSpeciesSelected.FiSpeciesFullName, Mode=OneWay}" />
+                                            </Grid>
+                                        </Expander.Header>
+                                        <RelativePanel Margin="8,0,0,8">
+                                            <TextBox
+                                                x:Name="FiSpeciesId"
+                                                x:Uid="TextBox_FiSpeciesId"
+                                                MinWidth="110"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="True"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.FiSpeciesId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <ComboBox
+                                                x:Name="GenusCombo"
+                                                x:Uid="ComboBox_GenusName"
+                                                MinWidth="150"
+                                                Margin="{StaticResource XSmallTopRightComboBoxMargin}"
+                                                DisplayMemberPath="GenusName"
+                                                ItemsSource="{x:Bind ViewModel.Tbl66GenussesAllList}"
+                                                RelativePanel.RightOf="FiSpeciesId"
+                                                SelectedValue="{x:Bind ViewModel.FiSpeciesSelected.GenusId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                SelectedValuePath="GenusId" />
+                                            <TextBox
+                                                x:Name="FiSpeciesName"
+                                                x:Uid="TextBox_FiSpeciesName"
+                                                MinWidth="150"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.RightOf="GenusCombo"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.FiSpeciesName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="FiSpeciesSubspecies"
+                                                x:Uid="TextBox_Subspecies"
+                                                MinWidth="150"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.RightOf="FiSpeciesName"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.Subspecies, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="FiSpeciesDivers"
+                                                x:Uid="TextBox_Divers"
+                                                MinWidth="150"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.RightOf="FiSpeciesSubspecies"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.Divers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <ComboBox
+                                                x:Name="SpeciesgroupCombo"
+                                                x:Uid="ComboBox_SpeciesgroupFullName"
+                                                MinWidth="150"
+                                                Margin="{StaticResource XSmallTopRightComboBoxMargin}"
+                                                DisplayMemberPath="SpeciesgroupFullName"
+                                                ItemsSource="{x:Bind ViewModel.Tbl68SpeciesgroupsAllList}"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                RelativePanel.Below="FiSpeciesId"
+                                                SelectedValue="{x:Bind ViewModel.FiSpeciesSelected.SpeciesgroupId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                SelectedValuePath="SpeciesgroupId" />
+                                            <CheckBox
+                                                x:Name="ValidCheckFiSpecies"
+                                                x:Uid="CheckBox_Valid"
+                                                Width="80"
+                                                Margin="{StaticResource SmallTopRightCheckBoxMargin}"
+                                                VerticalAlignment="Bottom"
+                                                IsChecked="{x:Bind ViewModel.FiSpeciesSelected.Valid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                RelativePanel.Below="FiSpeciesId"
+                                                RelativePanel.RightOf="SpeciesgroupCombo" />
+                                            <TextBox
+                                                x:Name="ValidYearTextFiSpecies"
+                                                x:Uid="TextBox_ValidYear"
+                                                Width="70"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.Below="FiSpeciesId"
+                                                RelativePanel.RightOf="ValidCheckFiSpecies"
+                                                Style="{StaticResource BodyTextBoxStyle}"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.ValidYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        </RelativePanel>
+                                    </Expander>
+                                    <Expander x:Name="SpecificationExpanderFiSpecies">
+                                        <Expander.Header>
+                                            <Grid>
+                                                <TextBlock x:Uid="TextBlock_Specification" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                                            </Grid>
+                                        </Expander.Header>
+                                        <RelativePanel>
+                                            <TextBox
+                                                x:Name="AuthorTextFiSpecies"
+                                                x:Uid="TextBox_Author"
+                                                Width="670"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                HorizontalAlignment="Stretch"
+                                                CharacterCasing="Upper"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.Author, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="AuthorYearTextFiSpecies"
+                                                x:Uid="TextBox_AuthorYear"
+                                                Width="70"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.RightOf="AuthorTextFiSpecies"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.AuthorYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="FishLengthTextFiSpecies"
+                                                x:Uid="TextBox_FishLength"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.RightOf="AuthorYearTextFiSpecies"
+                                                Style="{StaticResource BodyTextBoxStyle}"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.FishLength, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="BasinLengthTextFiSpecies"
+                                                x:Uid="TextBox_BasinLength"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.RightOf="FishLengthTextFiSpecies"
+                                                Style="{StaticResource BodyTextBoxStyle}"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.BasinLength, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="ImporterTextFiSpecies"
+                                                x:Uid="TextBox_Importer"
+                                                Width="1040"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                HorizontalAlignment="Stretch"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                RelativePanel.Below="AuthorTextFiSpecies"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.Importer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="ImportingYearTextFiSpecies"
+                                                x:Uid="TextBox_ImportingYear"
+                                                Width="70"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.Below="AuthorTextFiSpecies"
+                                                RelativePanel.RightOf="ImporterTextFiSpecies"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.ImportingYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="TradeNameFiSpecies"
+                                                x:Uid="TextBox_TradeName"
+                                                MinWidth="1120"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                HorizontalAlignment="Stretch"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                RelativePanel.Below="ImporterTextFiSpecies"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.TradeName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="MemoSpeciesFiSpecies"
+                                                x:Uid="TextBox_MemoSpecies"
+                                                MinWidth="1120"
+                                                MinHeight="75"
+                                                MaxWidth="1300"
+                                                MaxHeight="150"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                AcceptsReturn="True"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                RelativePanel.Below="TradeNameFiSpecies"
+                                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.MemoSpecies, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap" />
+                                        </RelativePanel>
+                                    </Expander>
+                                    <Expander x:Name="FoodExpanderFiSpecies">
+                                        <Expander.Header>
+                                            <Grid>
+                                                <TextBlock x:Uid="TextBlock_Food" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                                            </Grid>
+                                        </Expander.Header>
+                                        <RelativePanel>
+                                            <CheckBox
+                                                x:Name="KarnivoreCheckFiSpecies"
+                                                x:Uid="CheckBox_Karnivore"
+                                                Width="80"
+                                                Margin="{StaticResource XSmallRightMargin}"
+                                                VerticalAlignment="Bottom"
+                                                IsChecked="{x:Bind ViewModel.FiSpeciesSelected.Karnivore, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                RelativePanel.AlignLeftWithPanel="True" />
+                                            <CheckBox
+                                                x:Name="HerbivoreCheckFiSpecies"
+                                                x:Uid="CheckBox_Herbivore"
+                                                Width="80"
+                                                Margin="{StaticResource XSmallRightMargin}"
+                                                VerticalAlignment="Bottom"
+                                                IsChecked="{x:Bind ViewModel.FiSpeciesSelected.Herbivore, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                RelativePanel.RightOf="KarnivoreCheckFiSpecies" />
+                                            <CheckBox
+                                                x:Name="LimnivoreCheckFiSpecies"
+                                                x:Uid="CheckBox_Limnivore"
+                                                Width="80"
+                                                Margin="{StaticResource XSmallRightMargin}"
+                                                VerticalAlignment="Bottom"
+                                                IsChecked="{x:Bind ViewModel.FiSpeciesSelected.Limnivore, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                RelativePanel.RightOf="HerbivoreCheckFiSpecies" />
+                                            <CheckBox
+                                                x:Name="OmnivoreCheckFiSpecies"
+                                                x:Uid="CheckBox_Omnivore"
+                                                Width="80"
+                                                Margin="{StaticResource XSmallRightMargin}"
+                                                VerticalAlignment="Bottom"
+                                                IsChecked="{x:Bind ViewModel.FiSpeciesSelected.Omnivore, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                RelativePanel.RightOf="LimnivoreCheckFiSpecies" />
+                                            <TextBox
+                                                x:Name="MemoFoodsFiSpecies"
+                                                x:Uid="TextBox_MemoFoods"
+                                                MinWidth="1120"
+                                                MinHeight="75"
+                                                MaxWidth="1300"
+                                                MaxHeight="150"
+                                                Margin="{StaticResource XSmallRightMargin}"
+                                                AcceptsReturn="True"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                RelativePanel.Below="OmnivoreCheckFiSpecies"
+                                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.MemoFoods, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap" />
+                                        </RelativePanel>
+                                    </Expander>
+                                    <Expander x:Name="TechnikExpanderFiSpecies">
+                                        <Expander.Header>
+                                            <Grid>
+                                                <TextBlock x:Uid="TextBlock_Technik" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                                            </Grid>
+                                        </Expander.Header>
+                                        <RelativePanel>
+                                            <CheckBox
+                                                x:Name="Difficult1CheckFiSpecies"
+                                                x:Uid="CheckBox_Difficult1"
+                                                Margin="{StaticResource XSmallRightMargin}"
+                                                VerticalAlignment="Bottom"
+                                                IsChecked="{x:Bind ViewModel.FiSpeciesSelected.Difficult1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                RelativePanel.AlignLeftWithPanel="True" />
+                                            <CheckBox
+                                                x:Name="Difficult2CheckFiSpecies"
+                                                x:Uid="CheckBox_Difficult2"
+                                                Margin="{StaticResource XSmallRightMargin}"
+                                                VerticalAlignment="Bottom"
+                                                IsChecked="{x:Bind ViewModel.FiSpeciesSelected.Difficult2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                RelativePanel.RightOf="Difficult1CheckFiSpecies" />
+                                            <CheckBox
+                                                x:Name="Difficult3CheckFiSpecies"
+                                                x:Uid="CheckBox_Difficult3"
+                                                Margin="{StaticResource XSmallRightMargin}"
+                                                VerticalAlignment="Bottom"
+                                                IsChecked="{x:Bind ViewModel.FiSpeciesSelected.Difficult3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                RelativePanel.RightOf="Difficult2CheckFiSpecies" />
+                                            <CheckBox
+                                                x:Name="Difficult4CheckFiSpecies"
+                                                x:Uid="CheckBox_Difficult4"
+                                                Margin="{StaticResource XSmallRightMargin}"
+                                                VerticalAlignment="Bottom"
+                                                IsChecked="{x:Bind ViewModel.FiSpeciesSelected.Difficult4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                RelativePanel.RightOf="Difficult3CheckFiSpecies" />
+                                            <TextBox
+                                                x:Name="Ph1TextFiSpecies"
+                                                x:Uid="TextBox_Ph1"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                RelativePanel.Below="Difficult1CheckFiSpecies"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.Ph1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="Ph2TextFiSpecies"
+                                                x:Uid="TextBox_Ph2"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.Below="Difficult1CheckFiSpecies"
+                                                RelativePanel.RightOf="Ph1TextFiSpecies"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.Ph2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="Temp1TextFiSpecies"
+                                                x:Uid="TextBox_Temp1"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.Below="Difficult1CheckFiSpecies"
+                                                RelativePanel.RightOf="Ph2TextFiSpecies"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.Temp1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="Temp2TextFiSpecies"
+                                                x:Uid="TextBox_Temp2"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.Below="Difficult1CheckFiSpecies"
+                                                RelativePanel.RightOf="Temp1TextFiSpecies"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.Temp2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="Hardness1TextFiSpecies"
+                                                x:Uid="TextBox_Hardness1"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.Below="Difficult1CheckFiSpecies"
+                                                RelativePanel.RightOf="Temp2TextFiSpecies"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.Hardness1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="Hardness2TextFiSpecies"
+                                                x:Uid="TextBox_Hardness2"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.Below="Difficult1CheckFiSpecies"
+                                                RelativePanel.RightOf="Hardness1TextFiSpecies"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.Hardness2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="CarboHardness1TextFiSpecies"
+                                                x:Uid="TextBox_CarboHardness1"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.Below="Difficult1CheckFiSpecies"
+                                                RelativePanel.RightOf="Hardness2TextFiSpecies"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.CarboHardness1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="CarboHardness2TextFiSpecies"
+                                                x:Uid="TextBox_CarboHardness2"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.Below="Difficult1CheckFiSpecies"
+                                                RelativePanel.RightOf="CarboHardness1TextFiSpecies"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.CarboHardness2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="MemoTechFiSpecies"
+                                                x:Uid="TextBox_MemoTech"
+                                                MinWidth="1120"
+                                                MinHeight="75"
+                                                MaxWidth="1300"
+                                                MaxHeight="150"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                AcceptsReturn="True"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                RelativePanel.Below="Ph1TextFiSpecies"
+                                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.MemoTech, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap" />
+                                        </RelativePanel>
+                                    </Expander>
+                                    <Expander x:Name="HusbandryExpanderFiSpecies">
+                                        <Expander.Header>
+                                            <Grid>
+                                                <TextBlock x:Uid="TextBlock_Husbandry" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                                            </Grid>
+                                        </Expander.Header>
+                                        <RelativePanel>
+                                            <TextBox
+                                                x:Name="MemoHusbandryFiSpecies"
+                                                x:Uid="TextBox_MemoHusbandry"
+                                                MinWidth="1120"
+                                                MinHeight="75"
+                                                MaxWidth="1300"
+                                                MaxHeight="150"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                AcceptsReturn="True"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.MemoHusbandry, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap" />
+                                        </RelativePanel>
+                                    </Expander>
+                                    <Expander x:Name="BreedingExpanderFiSpecies">
+                                        <Expander.Header>
+                                            <Grid>
+                                                <TextBlock x:Uid="TextBlock_Breeding" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                                            </Grid>
+                                        </Expander.Header>
+                                        <RelativePanel>
+                                            <TextBox
+                                                x:Name="MemoBreedingFiSpecies"
+                                                x:Uid="TextBox_MemoBreeding"
+                                                MinWidth="1120"
+                                                MinHeight="75"
+                                                MaxWidth="1300"
+                                                MaxHeight="150"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                AcceptsReturn="True"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.MemoBreeding, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap" />
+                                        </RelativePanel>
+                                    </Expander>
+                                    <Expander x:Name="BuiltExpanderFiSpecies">
+                                        <Expander.Header>
+                                            <Grid>
+                                                <TextBlock x:Uid="TextBlock_Built" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                                            </Grid>
+                                        </Expander.Header>
+                                        <RelativePanel>
+                                            <TextBox
+                                                x:Name="MemoBuiltFiSpecies"
+                                                x:Uid="TextBox_MemoBuilt"
+                                                MinWidth="1120"
+                                                MinHeight="75"
+                                                MaxWidth="1300"
+                                                MaxHeight="100"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                AcceptsReturn="True"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.MemoBuilt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap" />
+                                            <TextBox
+                                                x:Name="MemoColorFiSpecies"
+                                                x:Uid="TextBox_MemoColor"
+                                                MinWidth="1120"
+                                                MinHeight="75"
+                                                MaxWidth="1300"
+                                                MaxHeight="100"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                AcceptsReturn="True"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.Below="MemoBuiltFiSpecies"
+                                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.MemoColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap" />
+                                            <TextBox
+                                                x:Name="MemoSozialFiSpecies"
+                                                x:Uid="TextBox_MemoSozial"
+                                                MinWidth="1120"
+                                                MinHeight="75"
+                                                MaxWidth="1300"
+                                                MaxHeight="100"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                AcceptsReturn="True"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.Below="MemoColorFiSpecies"
+                                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.MemoSozial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap" />
+                                            <TextBox
+                                                x:Name="MemoDomorphismFiSpecies"
+                                                x:Uid="TextBox_MemoDomorphism"
+                                                MinWidth="1120"
+                                                MinHeight="75"
+                                                MaxWidth="1300"
+                                                MaxHeight="100"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                AcceptsReturn="True"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.Below="MemoSozialFiSpecies"
+                                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.MemoDomorphism, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap" />
+                                        </RelativePanel>
+                                    </Expander>
+                                    <Expander x:Name="SpecialExpanderFiSpecies">
+                                        <Expander.Header>
+                                            <Grid>
+                                                <TextBlock x:Uid="TextBlock_Special" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                                            </Grid>
+                                        </Expander.Header>
+                                        <RelativePanel>
+                                            <TextBox
+                                                x:Name="MemoSpecialFiSpecies"
+                                                x:Uid="TextBox_MemoSpecial"
+                                                MinWidth="1120"
+                                                MinHeight="75"
+                                                MaxWidth="1300"
+                                                MaxHeight="150"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                AcceptsReturn="True"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                Text="{x:Bind ViewModel.FiSpeciesSelected.MemoSpecial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap" />
+                                        </RelativePanel>
+                                    </Expander>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource LargeWindowSnapPoint}" />
+                                    </VisualState.StateTriggers>
+                                </VisualState>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowSnapPoint}" />
+                                    </VisualState.StateTriggers>
+                                </VisualState>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource MinWindowSnapPoint}" />
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="FiSpeciesCommandBar.DefaultLabelPosition" Value="Bottom" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </RelativePanel>
+                </TabViewItem>
+
+
+                <!--  Part 2  FK2    aktuell  -->
+
+
+                <TabViewItem x:Uid="TabViewItem_PlSpeciesses" IsClosable="False">
+                    <TabViewItem.IconSource>
+                        <BitmapIconSource ShowAsMonochrome="False" UriSource="ms-appx:///Assets/ArrowLeft.png" />
+                    </TabViewItem.IconSource>
+                    <RelativePanel x:Name="PlSpeciesLayoutRoot">
+                        <TextBlock
+                            x:Name="PlSpeciesDatasetText"
+                            x:Uid="TextBlock_DataSetCount"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            Style="{StaticResource DatasetTitleStyle}" />
+                        <TextBlock
+                            x:Name="PlSpeciesDatasetCountText"
+                            Width="50"
+                            RelativePanel.RightOf="PlSpeciesDatasetText"
+                            Style="{StaticResource DatasetTitleStyle}"
+                            Text="{x:Bind ViewModel.PlSpeciesDataSetCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <CommandBar
+                            x:Name="PlSpeciesCommandBar"
+                            HorizontalAlignment="Stretch"
+                            Background="Transparent"
+                            DefaultLabelPosition="Right"
+                            RelativePanel.AlignRightWithPanel="True"
+                            RelativePanel.RightOf="PlSpeciesDatasetCountText">
+                            <AppBarButton
+                                x:Uid="AppBarButtonSave"
+                                Command="{x:Bind ViewModel.SavePlSpeciesCommand}"
+                                Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Save.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonCancel"
+                                Click="{x:Bind ViewModel.PlSpeciesCancelEditsAsync}"
+                                Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Cancel.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarSeparator Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}" />
+                            <AppBarButton
+                                x:Uid="AppBarButtonEdit"
+                                Click="{x:Bind ViewModel.PlSpeciesStartEdit}"
+                                IsEnabled="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Edit.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                        </CommandBar>
+                        <Grid
+                            Margin="{StaticResource SmallTopMargin}"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            RelativePanel.AlignRightWithPanel="True"
+                            RelativePanel.Below="PlSpeciesDatasetText">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <ListView
+                                x:Name="Tbl72PlSpeciessesListView"
+                                ItemsSource="{x:Bind ViewModel.PlSpeciesItems}"
+                                SelectedItem="{x:Bind ViewModel.PlSpeciesSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Visibility="Collapsed" />
+                            <ScrollViewer
+                                x:Name="DetailPanelPlSpecies"
+                                Height="Auto"
+                                Margin="0,5,0,0"
+                                ContextFlyout="{StaticResource ContextMenuPlSpecies}"
+                                RelativePanel.AlignLeftWithPanel="True"
+                                RelativePanel.AlignRightWithPanel="True"
+                                RelativePanel.Below="PlSpeciesDatasetText"
+                                VerticalScrollBarVisibility="Auto"
+                                VerticalScrollMode="Auto">
+                                <StackPanel>
+                                    <StackPanel.Resources>
+                                        <Style TargetType="Expander">
+                                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                            <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                        </Style>
+                                    </StackPanel.Resources>
+                                    <Expander x:Name="GeneralExpanderPlSpecies" IsExpanded="True">
+                                        <Expander.Header>
+                                            <Grid>
+                                                <TextBlock x:Uid="TextBlock_General" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                                                <TextBlock
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Center"
+                                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                                    Text="{x:Bind ViewModel.PlSpeciesSelected.PlSpeciesFullName, Mode=OneWay}" />
+                                            </Grid>
+                                        </Expander.Header>
+                                        <RelativePanel Margin="8,0,0,8">
+                                            <TextBox
+                                                x:Name="PlSpeciesId"
+                                                x:Uid="TextBox_PlSpeciesId"
+                                                MinWidth="110"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="True"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.PlSpeciesId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <ComboBox
+                                                x:Name="GenusCombo1"
+                                                x:Uid="ComboBox_GenusName"
+                                                MinWidth="200"
+                                                Margin="{StaticResource XSmallTopRightComboBoxMargin}"
+                                                DisplayMemberPath="GenusName"
+                                                ItemsSource="{x:Bind ViewModel.Tbl66GenussesAllList}"
+                                                RelativePanel.RightOf="PlSpeciesId"
+                                                SelectedValue="{x:Bind ViewModel.PlSpeciesSelected.GenusId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                SelectedValuePath="GenusId" />
+                                            <TextBox
+                                                x:Name="PlSpeciesName"
+                                                x:Uid="TextBox_PlSpeciesName"
+                                                MinWidth="150"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.RightOf="GenusCombo1"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.PlSpeciesName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="PlSpeciesSubspecies"
+                                                x:Uid="TextBox_Subspecies"
+                                                MinWidth="150"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.RightOf="PlSpeciesName"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.Subspecies, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="PlSpeciesDivers"
+                                                x:Uid="TextBox_Divers"
+                                                MinWidth="150"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.RightOf="PlSpeciesSubspecies"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.Divers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <ComboBox
+                                                x:Name="SpeciesgroupCombo1"
+                                                x:Uid="ComboBox_SpeciesgroupFullName"
+                                                MinWidth="200"
+                                                Margin="{StaticResource XSmallTopRightComboBoxMargin}"
+                                                DisplayMemberPath="SpeciesgroupFullName"
+                                                ItemsSource="{x:Bind ViewModel.Tbl68SpeciesgroupsAllList}"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                RelativePanel.Below="PlSpeciesId"
+                                                SelectedValue="{x:Bind ViewModel.PlSpeciesSelected.SpeciesgroupId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                SelectedValuePath="SpeciesgroupId" />
+                                            <CheckBox
+                                                x:Name="ValidCheckPlSpecies"
+                                                x:Uid="CheckBox_Valid"
+                                                Width="80"
+                                                Margin="0,35,-50,0"
+                                                VerticalAlignment="Bottom"
+                                                IsChecked="{x:Bind ViewModel.PlSpeciesSelected.Valid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                RelativePanel.Below="PlSpeciesId"
+                                                RelativePanel.RightOf="SpeciesgroupCombo1" />
+                                            <TextBox
+                                                x:Name="ValidYearTextPlSpecies"
+                                                x:Uid="TextBox_ValidYear"
+                                                Width="70"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.Below="PlSpeciesId"
+                                                RelativePanel.RightOf="ValidCheckPlSpecies"
+                                                Style="{StaticResource BodyTextBoxStyle}"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.ValidYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        </RelativePanel>
+                                    </Expander>
+                                    <Expander x:Name="SpecificationExpanderPlSpecies">
+                                        <Expander.Header>
+                                            <Grid>
+                                                <TextBlock x:Uid="TextBlock_Specification" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                                            </Grid>
+                                        </Expander.Header>
+                                        <RelativePanel>
+                                            <TextBox
+                                                x:Name="AuthorTextPlSpecies"
+                                                x:Uid="TextBox_Author"
+                                                Width="670"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                HorizontalAlignment="Stretch"
+                                                CharacterCasing="Upper"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.Author, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="AuthorYearTextPlSpecies"
+                                                x:Uid="TextBox_AuthorYear"
+                                                Width="70"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.RightOf="AuthorTextPlSpecies"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.AuthorYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="PlantLengthTextPlSpecies"
+                                                x:Uid="TextBox_PlantLength"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.RightOf="AuthorYearTextPlSpecies"
+                                                Style="{StaticResource BodyTextBoxStyle}"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.PlantLength, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="BasinHeightTextPlSpecies"
+                                                x:Uid="TextBox_BasinHeight"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.RightOf="PlantLengthTextPlSpecies"
+                                                Style="{StaticResource BodyTextBoxStyle}"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.BasinHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="ImporterTextPlSpecies"
+                                                x:Uid="TextBox_Importer"
+                                                Width="1040"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                HorizontalAlignment="Stretch"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                RelativePanel.Below="AuthorTextPlSpecies"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.Importer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="ImportingYearTextPlSpecies"
+                                                x:Uid="TextBox_ImportingYear"
+                                                Width="70"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.Below="AuthorTextPlSpecies"
+                                                RelativePanel.RightOf="ImporterTextPlSpecies"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.ImportingYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="TradeNamePlSpecies"
+                                                x:Uid="TextBox_TradeName"
+                                                MinWidth="1120"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                HorizontalAlignment="Stretch"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                RelativePanel.Below="ImporterTextPlSpecies"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.TradeName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="MemoSpeciesPlSpecies"
+                                                x:Uid="TextBox_MemoSpecies"
+                                                MinWidth="1120"
+                                                MaxWidth="1300"
+                                                MaxHeight="150"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                AcceptsReturn="True"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                RelativePanel.Below="TradeNamePlSpecies"
+                                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.MemoSpecies, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap" />
+                                        </RelativePanel>
+                                    </Expander>
+                                    <Expander x:Name="TechnikExpanderPlSpecies">
+                                        <Expander.Header>
+                                            <Grid>
+                                                <TextBlock x:Uid="TextBlock_Technik" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                                            </Grid>
+                                        </Expander.Header>
+                                        <RelativePanel>
+                                            <CheckBox
+                                                x:Name="Difficult1CheckPlSpecies"
+                                                x:Uid="CheckBox_Difficult1"
+                                                Margin="{StaticResource XSmallRightMargin}"
+                                                VerticalAlignment="Bottom"
+                                                IsChecked="{x:Bind ViewModel.PlSpeciesSelected.Difficult1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                RelativePanel.AlignLeftWithPanel="True" />
+                                            <CheckBox
+                                                x:Name="Difficult2CheckPlSpecies"
+                                                x:Uid="CheckBox_Difficult2"
+                                                Margin="{StaticResource XSmallRightMargin}"
+                                                VerticalAlignment="Bottom"
+                                                IsChecked="{x:Bind ViewModel.PlSpeciesSelected.Difficult2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                RelativePanel.RightOf="Difficult1CheckPlSpecies" />
+                                            <CheckBox
+                                                x:Name="Difficult3CheckPlSpecies"
+                                                x:Uid="CheckBox_Difficult3"
+                                                Margin="{StaticResource XSmallRightMargin}"
+                                                VerticalAlignment="Bottom"
+                                                IsChecked="{x:Bind ViewModel.PlSpeciesSelected.Difficult3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                RelativePanel.RightOf="Difficult2CheckPlSpecies" />
+                                            <CheckBox
+                                                x:Name="Difficult4CheckPlSpecies"
+                                                x:Uid="CheckBox_Difficult4"
+                                                Margin="{StaticResource XSmallRightMargin}"
+                                                VerticalAlignment="Bottom"
+                                                IsChecked="{x:Bind ViewModel.PlSpeciesSelected.Difficult4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                RelativePanel.RightOf="Difficult3CheckPlSpecies" />
+                                            <TextBox
+                                                x:Name="Ph1TextPlSpecies"
+                                                x:Uid="TextBox_Ph1"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                RelativePanel.Below="Difficult1CheckPlSpecies"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.Ph1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="Ph2TextPlSpecies"
+                                                x:Uid="TextBox_Ph2"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.Below="Difficult1CheckPlSpecies"
+                                                RelativePanel.RightOf="Ph1TextPlSpecies"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.Ph2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="Temp1TextPlSpecies"
+                                                x:Uid="TextBox_Temp1"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.Below="Difficult1CheckPlSpecies"
+                                                RelativePanel.RightOf="Ph2TextPlSpecies"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.Temp1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="Temp2TextPlSpecies"
+                                                x:Uid="TextBox_Temp2"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.Below="Difficult1CheckPlSpecies"
+                                                RelativePanel.RightOf="Temp1TextPlSpecies"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.Temp2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="Hardness1TextPlSpecies"
+                                                x:Uid="TextBox_Hardness1"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.Below="Difficult1CheckPlSpecies"
+                                                RelativePanel.RightOf="Temp2TextPlSpecies"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.Hardness1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="Hardness2TextPlSpecies"
+                                                x:Uid="TextBox_Hardness2"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.Below="Difficult1CheckPlSpecies"
+                                                RelativePanel.RightOf="Hardness1TextPlSpecies"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.Hardness2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="CarboHardness1TextPlSpecies"
+                                                x:Uid="TextBox_CarboHardness1"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.Below="Difficult1CheckPlSpecies"
+                                                RelativePanel.RightOf="Hardness2TextPlSpecies"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.CarboHardness1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="CarboHardness2TextPlSpecies"
+                                                x:Uid="TextBox_CarboHardness2"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.Below="Difficult1CheckPlSpecies"
+                                                RelativePanel.RightOf="CarboHardness1TextPlSpecies"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.CarboHardness2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox
+                                                x:Name="MemoTechPlSpecies"
+                                                x:Uid="TextBox_MemoTech"
+                                                MinWidth="1120"
+                                                MaxWidth="1300"
+                                                MaxHeight="150"
+                                                Margin="{StaticResource XSmallTopRightMargin}"
+                                                AcceptsReturn="True"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                RelativePanel.Below="Ph1TextPlSpecies"
+                                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.MemoTech, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap" />
+                                        </RelativePanel>
+                                    </Expander>
+                                    <Expander x:Name="CultureExpanderPlSpecies">
+                                        <Expander.Header>
+                                            <Grid>
+                                                <TextBlock x:Uid="TextBlock_Culture" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                                            </Grid>
+                                        </Expander.Header>
+                                        <RelativePanel>
+                                            <TextBox
+                                                x:Name="MemoCulturePlSpecies"
+                                                x:Uid="TextBox_MemoCulture"
+                                                MinWidth="1120"
+                                                MaxWidth="1300"
+                                                MaxHeight="150"
+                                                Margin="{StaticResource XSmallRightMargin}"
+                                                AcceptsReturn="True"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.MemoCulture, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap" />
+                                        </RelativePanel>
+                                    </Expander>
+                                    <Expander x:Name="ReproductionExpanderPlSpecies">
+                                        <Expander.Header>
+                                            <Grid>
+                                                <TextBlock x:Uid="TextBlock_Reproduction" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                                            </Grid>
+                                        </Expander.Header>
+                                        <RelativePanel>
+                                            <TextBox
+                                                x:Name="MemoReproductionPlSpecies"
+                                                x:Uid="TextBox_MemoReproduction"
+                                                MinWidth="1120"
+                                                MaxWidth="1300"
+                                                MaxHeight="150"
+                                                Margin="{StaticResource XSmallRightMargin}"
+                                                AcceptsReturn="True"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.MemoReproduction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap" />
+                                        </RelativePanel>
+                                    </Expander>
+                                    <Expander x:Name="BuiltExpanderPlSpecies">
+                                        <Expander.Header>
+                                            <Grid>
+                                                <TextBlock x:Uid="TextBlock_Built" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                                            </Grid>
+                                        </Expander.Header>
+                                        <RelativePanel>
+                                            <TextBox
+                                                x:Name="MemoBuiltPlSpecies"
+                                                x:Uid="TextBox_MemoBuilt"
+                                                MinWidth="1120"
+                                                MaxWidth="1300"
+                                                MaxHeight="100"
+                                                Margin="{StaticResource XSmallRightMargin}"
+                                                AcceptsReturn="True"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.MemoBuilt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap" />
+                                            <TextBox
+                                                x:Name="MemoColorPlSpecies"
+                                                x:Uid="TextBox_MemoColor"
+                                                MinWidth="1120"
+                                                MaxWidth="1300"
+                                                MaxHeight="100"
+                                                Margin="{StaticResource XSmallRightMargin}"
+                                                AcceptsReturn="True"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.Below="MemoBuiltPlSpecies"
+                                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.MemoColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap" />
+                                        </RelativePanel>
+                                    </Expander>
+                                    <Expander x:Name="SpecialExpanderPlSpecies">
+                                        <Expander.Header>
+                                            <Grid>
+                                                <TextBlock x:Uid="TextBlock_Special" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                                            </Grid>
+                                        </Expander.Header>
+                                        <RelativePanel>
+                                            <TextBox
+                                                x:Name="MemoGlobalPlSpecies"
+                                                x:Uid="TextBox_MemoGlobal"
+                                                MinWidth="1120"
+                                                MaxWidth="1300"
+                                                MaxHeight="150"
+                                                Margin="{StaticResource XSmallRightMargin}"
+                                                AcceptsReturn="True"
+                                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                Text="{x:Bind ViewModel.PlSpeciesSelected.MemoGlobal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap" />
+                                        </RelativePanel>
+                                    </Expander>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource LargeWindowSnapPoint}" />
+                                    </VisualState.StateTriggers>
+                                </VisualState>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowSnapPoint}" />
+                                    </VisualState.StateTriggers>
+                                </VisualState>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource MinWindowSnapPoint}" />
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="PlSpeciesCommandBar.DefaultLabelPosition" Value="Bottom" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </RelativePanel>
+                </TabViewItem>
+
+
+                <!--  Part 2  FK3    aktuell  -->
+
+                <!--  Part 2  FK4    aktuell  -->
+
+                <!--  Part 2  Main   aktuell  -->
+
+
+                <TabViewItem x:Uid="TabViewItem_Names" IsClosable="False">
+                    <RelativePanel x:Name="NameLayoutRoot">
+                        <TextBlock
+                            x:Name="NameDatasetText"
+                            x:Uid="TextBlock_DataSetCount"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            Style="{StaticResource DatasetTitleStyle}" />
+                        <TextBlock
+                            x:Name="NameDatasetCountText"
+                            Width="50"
+                            RelativePanel.RightOf="NameDatasetText"
+                            Style="{StaticResource DatasetTitleStyle}"
+                            Text="{x:Bind ViewModel.NameDataSetCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <CommandBar
+                            x:Name="NameCommandBar"
+                            HorizontalAlignment="Stretch"
+                            Background="Transparent"
+                            DefaultLabelPosition="Right"
+                            RelativePanel.LeftOf="NameSearchAutoSuggestBox"
+                            RelativePanel.RightOf="NameDatasetCountText">
+                            <AppBarButton
+                                x:Uid="AppBarButtonSave"
+                                Command="{x:Bind ViewModel.SaveNameCommand}"
+                                Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Save.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonDelete"
+                                Command="{x:Bind ViewModel.DeleteNameCommand}"
+                                IsEnabled="{x:Bind converters:NotConverter.IsNotNull(ViewModel.NameSelected), Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Delete.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonCancel"
+                                Click="{x:Bind ViewModel.NameCancelEditsAsync}"
+                                Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Cancel.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarSeparator Visibility="{x:Bind ViewModel.IsInEdit, Mode=OneWay}" />
+                            <AppBarSeparator />
+                            <AppBarButton
+                                x:Uid="AppBarButtonEdit"
+                                Click="{x:Bind ViewModel.NameStartEdit}"
+                                IsEnabled="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                Visibility="{x:Bind converters:NotConverter.CollapsedIf(ViewModel.IsNewName), Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Edit.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonAdd"
+                                Command="{x:Bind ViewModel.AddNameCommand}"
+                                ToolTipService.ToolTip="New Name">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Add.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonCopy"
+                                Command="{x:Bind ViewModel.CopyNameCommand}"
+                                IsEnabled="{x:Bind converters:NotConverter.IsNotNull(ViewModel.NameSelected), Mode=OneWay}">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Copy.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton
+                                x:Uid="AppBarButtonSync"
+                                Command="{x:Bind ViewModel.RefreshNameServerCommand}"
+                                ToolTipService.ToolTip="Sync with server">
+                                <AppBarButton.Icon>
+                                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Refresh.png" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                        </CommandBar>
+                        <AutoSuggestBox
+                            Name="NameSearchAutoSuggestBox"
+                            x:Uid="AutoSuggestBox_Search"
+                            Width="250"
+                            Margin="{StaticResource XSmallLeftTopRightMargin}"
+                            CornerRadius="2"
+                            Loaded="NameSearchAutoSuggestBox_OnLoaded"
+                            RelativePanel.AlignRightWithPanel="True"
+                            Text="{x:Bind ViewModel.SearchNameName, Mode=TwoWay}">
+                            <interactivity:Interaction.Behaviors>
+                                <core:EventTriggerBehavior EventName="QuerySubmitted">
+                                    <core:InvokeCommandAction Command="{x:Bind ViewModel.GetNamesByNameOrIdCommand, Mode=OneWay}" InputConverter="{StaticResource ArgsConverter}" />
+                                </core:EventTriggerBehavior>
+                            </interactivity:Interaction.Behaviors>
+                            <AutoSuggestBox.QueryIcon>
+                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Search.png" />
+                            </AutoSuggestBox.QueryIcon>
+                        </AutoSuggestBox>
+                        <Grid
+                            Margin="{StaticResource SmallTopMargin}"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            RelativePanel.AlignRightWithPanel="True"
+                            RelativePanel.Below="NameDatasetText">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="2" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <controls:DataGrid
+                                x:Name="NameDatagrid"
+                                MaxHeight="175"
+                                AutoGenerateColumns="False"
+                                BorderThickness="0"
+                                CanUserReorderColumns="False"
+                                CanUserResizeColumns="False"
+                                CanUserSortColumns="True"
+                                ContextFlyout="{StaticResource ContextMenuName}"
+                                GridLinesVisibility="Horizontal"
+                                IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                ItemsSource="{x:Bind ViewModel.NameItems, Mode=OneWay}"
+                                SelectedItem="{x:Bind ViewModel.NameSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                SelectionMode="Single">
+                                <controls:DataGrid.Columns>
+                                    <controls:DataGridTextColumn
+                                        x:Uid="DataGridTextColumn_NameId"
+                                        Binding="{Binding NameId}"
+                                        CanUserSort="False"
+                                        Tag="NameId" />
+                                    <controls:DataGridTextColumn
+                                        x:Uid="DataGridTextColumn_NameName"
+                                        Binding="{Binding NameName}"
+                                        CanUserSort="True"
+                                        Tag="NameName" />
+                                    <controls:DataGridTextColumn
+                                        x:Uid="DataGridTextColumn_Language"
+                                        Binding="{Binding Language}"
+                                        Tag="Language" />
+                                    <controls:DataGridComboBoxColumn
+                                        x:Uid="DataGridComboBoxColumn_FiSpeciesName"
+                                        Binding="{Binding FiSpeciesId}"
+                                        DisplayMemberPath="FiSpeciesFullName"
+                                        ItemsSource="{x:Bind ViewModel.Tbl69FiSpeciessesAllList, Mode=OneWay}" />
+                                    <controls:DataGridComboBoxColumn
+                                        x:Uid="DataGridComboBoxColumn_PlSpeciesName"
+                                        Binding="{Binding PlSpeciesId}"
+                                        DisplayMemberPath="PlSpeciesFullName"
+                                        ItemsSource="{x:Bind ViewModel.Tbl72PlSpeciessesAllList, Mode=OneWay}" />
+                                    <controls:DataGridCheckBoxColumn
+                                        x:Uid="DataGridCheckBoxColumn_Valid"
+                                        Binding="{Binding Valid}"
+                                        Tag="Valid" />
+                                    <controls:DataGridTextColumn
+                                        x:Uid="DataGridTextColumn_ValidYear"
+                                        Binding="{Binding ValidYear}"
+                                        Tag="ValidYear" />
+                                </controls:DataGrid.Columns>
+                            </controls:DataGrid>
+                            <ProgressBar
+                                Grid.Row="1"
+                                Margin="{StaticResource SmallTopMargin}"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Top"
+                                IsIndeterminate="True"
+                                Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
+                            <ScrollViewer
+                                x:Name="DetailPanelName"
+                                Grid.Row="2"
+                                Height="Auto"
+                                RelativePanel.AlignLeftWithPanel="True"
+                                RelativePanel.AlignRightWithPanel="True"
+                                RelativePanel.Below="NameDatasetText"
+                                VerticalScrollBarVisibility="Auto"
+                                VerticalScrollMode="Auto">
+                                <RelativePanel Margin="8,0,0,8">
+                                    <TextBox
+                                        x:Name="NameId"
+                                        x:Uid="TextBox_NameId"
+                                        MinWidth="110"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="True"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        Text="{x:Bind ViewModel.NameSelected.NameId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="NameName"
+                                        x:Uid="TextBox_NameName"
+                                        MinWidth="150"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.RightOf="NameId"
+                                        Text="{x:Bind ViewModel.NameSelected.NameName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <ComboBox
+                                        x:Name="LanguageCombo"
+                                        x:Uid="ComboBox_Language"
+                                        Width="150"
+                                        Margin="{StaticResource XSmallTopRightComboBoxMargin}"
+                                        PlaceholderText="Pick a Language"
+                                        RelativePanel.RightOf="NameName"
+                                        SelectedValue="{x:Bind ViewModel.NameSelected.Language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                        <x:String>GER</x:String>
+                                        <x:String>ENG</x:String>
+                                        <x:String>FRA</x:String>
+                                        <x:String>SPA</x:String>
+                                    </ComboBox>
+                                    <CheckBox
+                                        x:Name="ValidCheckName"
+                                        x:Uid="CheckBox_Valid"
+                                        Width="80"
+                                        Margin="{StaticResource SmallTopRightCheckBoxMargin}"
+                                        IsChecked="{x:Bind ViewModel.NameSelected.Valid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        RelativePanel.RightOf="LanguageCombo" />
+                                    <TextBox
+                                        x:Name="ValidYearTextName"
+                                        x:Uid="TextBox_ValidYear"
+                                        Width="70"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.RightOf="ValidCheckName"
+                                        Style="{StaticResource BodyTextBoxStyle}"
+                                        Text="{x:Bind ViewModel.NameSelected.ValidYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <ComboBox
+                                        x:Name="FiSpeciesCombo"
+                                        x:Uid="ComboBox_FiSpeciesName"
+                                        MinWidth="300"
+                                        Margin="{StaticResource XSmallTopRightComboBoxMargin}"
+                                        DisplayMemberPath="FiSpeciesFullName"
+                                        ItemsSource="{x:Bind ViewModel.Tbl69FiSpeciessesAllList}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.Below="NameId"
+                                        SelectedValue="{x:Bind ViewModel.NameSelected.FiSpeciesId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        SelectedValuePath="FiSpeciesId" />
+                                    <ComboBox
+                                        x:Name="PlSpeciesCombo"
+                                        x:Uid="ComboBox_PlSpeciesName"
+                                        MinWidth="300"
+                                        Margin="{StaticResource XSmallTopRightComboBoxMargin}"
+                                        DisplayMemberPath="PlSpeciesFullName"
+                                        ItemsSource="{x:Bind ViewModel.Tbl72PlSpeciessesAllList}"
+                                        RelativePanel.Below="NameName"
+                                        RelativePanel.RightOf="FiSpeciesCombo"
+                                        SelectedValue="{x:Bind ViewModel.NameSelected.PlSpeciesId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        SelectedValuePath="PlSpeciesId" />
+                                    <TextBox
+                                        x:Name="InfoName"
+                                        x:Uid="TextBox_Info"
+                                        MinWidth="1120"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        HorizontalAlignment="Stretch"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.Below="FiSpeciesCombo"
+                                        Text="{x:Bind ViewModel.NameSelected.Info, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox
+                                        x:Name="MemoName"
+                                        x:Uid="TextBox_Memo"
+                                        MinWidth="1120"
+                                        MinHeight="75"
+                                        MaxWidth="1300"
+                                        MaxHeight="300"
+                                        Margin="{StaticResource XSmallTopRightMargin}"
+                                        AcceptsReturn="True"
+                                        IsReadOnly="{x:Bind converters:NotConverter.Not(ViewModel.IsInEdit), Mode=OneWay}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.Below="InfoName"
+                                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                        Text="{x:Bind ViewModel.NameSelected.Memo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        TextWrapping="Wrap" />
+                                </RelativePanel>
+                            </ScrollViewer>
+                        </Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource LargeWindowSnapPoint}" />
+                                    </VisualState.StateTriggers>
+                                </VisualState>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowSnapPoint}" />
+                                    </VisualState.StateTriggers>
+                                </VisualState>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource MinWindowSnapPoint}" />
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="NameCommandBar.DefaultLabelPosition" Value="Bottom" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </RelativePanel>
+                </TabViewItem>
+
+                <!--  Part 2   FK3  aktuell  -->
+
+                <!--  Part 2  FK4  aktuell  -->
+
+                <!--  Part 4  TK1  aktuell  -->
+
+                <!--  Part 4   TK2  aktuell  -->
+
+                <!--  Part 4   TK3  aktuell  -->
+
+                <!--  Part 4   TK4  aktuell  -->
+
+                <!--  Part 7  -->
+
+            </TabView.TabItems>
+        </TabView>
+    </Grid>
+</Page>

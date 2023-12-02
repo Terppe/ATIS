@@ -1,0 +1,691 @@
+﻿<Page
+    x:Class="ATIS.WinUi.Views.ShellPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:ATIS.WinUi.Behaviors"
+    xmlns:controls="using:ATIS.WinUi.Controls"
+    xmlns:helpers="using:ATIS.WinUi.Helpers"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    Loaded="OnLoaded">
+
+    <Grid x:Name="Root" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <!--  Header Left  -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Image
+                x:Name="TitleBarIcon"
+                Width="16"
+                Height="16"
+                Margin="8,-8,0,0"
+                Source="ms-appx:///Assets/LockScreenLogo.scale-200.png" />
+            <TextBlock
+                x:Name="TitleTextBlockMain"
+                Width="Auto"
+                Margin="10,12,0,0"
+                Style="{StaticResource CaptionTextBlockStyle}" />
+            <MenuBar
+                x:Name="MenuBar"
+                Width="Auto"
+                Margin="10,0,0,10"
+                VerticalAlignment="Top">
+                <MenuBarItem Title="File">
+                    <MenuFlyoutItem Text="New">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Key="N" Modifiers="Control" />
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutItem Text="Open...">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Key="O" Modifiers="Control" />
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutItem Text="Save">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Key="S" Modifiers="Control" />
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutItem
+                        x:Uid="MenuFlyoutItemClose"
+                        Click="MenuFlyoutItem_Click"
+                        Tag="close">
+                        <MenuFlyoutItem.Icon>
+                            <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Close.png" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                </MenuBarItem>
+                <MenuBarItem Title="Auth">
+                    <MenuFlyoutItem
+                        x:Uid="MenuFlyoutItemLogin"
+                        Click="MenuFlyoutItem_Click"
+                        Tag="login">
+                        <MenuFlyoutItem.Icon>
+                            <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/ArrowLeft.png" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutItem
+                        x:Uid="MenuFlyoutItemRegister"
+                        Click="MenuFlyoutItem_Click"
+                        Tag="register">
+                        <MenuFlyoutItem.Icon>
+                            <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/ArrowRight.png" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutItem
+                        x:Uid="MenuFlyoutItemChangePw"
+                        Click="MenuFlyoutItem_Click"
+                        Tag="changepw">
+                        <MenuFlyoutItem.Icon>
+                            <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/ArrowRight.png" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutItem
+                        x:Uid="MenuFlyoutItemForgotPw"
+                        Click="MenuFlyoutItem_Click"
+                        Tag="forgotpw">
+                        <MenuFlyoutItem.Icon>
+                            <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Replace.png" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutItem
+                        x:Uid="MenuFlyoutItemLogout"
+                        Click="MenuFlyoutItem_Click"
+                        Tag="logout">
+                        <MenuFlyoutItem.Icon>
+                            <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/ArrowRight.png" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                </MenuBarItem>
+                <MenuBarItem Title="Help">
+                    <MenuFlyoutItem x:Uid="MenuFlyoutItemAbout">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Key="I" Modifiers="Control" />
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                </MenuBarItem>
+            </MenuBar>
+            <!--  Theme Switcher  -->
+            <Button
+                Margin="20,6,10,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                HorizontalContentAlignment="Right"
+                Background="Transparent"
+                Click="ToggleButton_Click">
+                <FontIcon FontSize="16" Glyph="&#xE793;" />
+            </Button>
+            <TextBlock
+                x:Name="TbDataBase"
+                x:Uid="TextBlock_DbExist_SQLActiv"
+                Width="Auto"
+                Margin="10,12,0,0"
+                VerticalAlignment="Top"
+                Foreground="Green"
+                TextWrapping="NoWrap"
+                Visibility="Visible" />
+            <ProgressBar
+                x:Name="PbProgress"
+                Width="200"
+                Height="25"
+                Margin="10,12,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Maximum="100"
+                Minimum="0" />
+            <ContentDialog
+                x:Name="ContentDialogLogIn"
+                CloseButtonStyle="{StaticResource CrudButtonStyle}"
+                CloseButtonText="Close">
+                <StackPanel>
+                    <controls:LogInControl />
+                </StackPanel>
+            </ContentDialog>
+            <ContentDialog
+                x:Name="ContentDialogRegister"
+                CloseButtonStyle="{StaticResource CrudButtonStyle}"
+                CloseButtonText="Close">
+                <StackPanel>
+                    <controls:RegisterControl />
+                </StackPanel>
+            </ContentDialog>
+            <ContentDialog
+                x:Name="ContentDialogPasswordChange"
+                CloseButtonStyle="{StaticResource CrudButtonStyle}"
+                CloseButtonText="Close">
+                <StackPanel>
+                    <controls:PasswordChangeControl />
+                </StackPanel>
+            </ContentDialog>
+            <ContentDialog
+                x:Name="ContentDialogPasswordForgot"
+                CloseButtonStyle="{StaticResource CrudButtonStyle}"
+                CloseButtonText="Close">
+                <StackPanel>
+                    <controls:PasswordForgotControl />
+                </StackPanel>
+            </ContentDialog>
+            <!--<AutoSuggestBox
+            Name="AutoSuggestBox"
+            Width="200"
+            Height="30"
+            Margin="{StaticResource XSmallLeftMargin}"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            CornerRadius="2"
+            PlaceholderText="Search"
+            Text="{x:Bind ViewModel.FilterText, Mode=TwoWay}">
+            <interactivity:Interaction.Behaviors>
+            <core:EventTriggerBehavior EventName="QuerySubmitted">
+            <core:InvokeCommandAction Command="{x:Bind ViewModel.GetFilterTextCommand, Mode=OneWay}" InputConverter="{StaticResource ArgsConverter}" />
+            </core:EventTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
+            <AutoSuggestBox.QueryIcon>
+            <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Search.png" />
+            </AutoSuggestBox.QueryIcon>
+            </AutoSuggestBox>-->
+            <TextBlock
+                x:Name="TbUser"
+                x:Uid="TextBlock_NoLogin"
+                Width="200"
+                Margin="10,12,10,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Foreground="Red" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" HorizontalAlignment="Right">
+            <!--  Header Right  -->
+            <AppBarButton
+                Width="80"
+                Margin="10,-20,5,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                AutomationProperties.Name="Select"
+                IsCompact="False"
+                ToolTipService.ToolTip="Select">
+                <AppBarButton.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Menu.png" />
+                </AppBarButton.Icon>
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem
+                            x:Uid="MenuFlyoutItemLogin"
+                            Click="MenuFlyoutItem_Click"
+                            Tag="login">
+                            <MenuFlyoutItem.Icon>
+                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/ArrowRight.png" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem
+                            x:Uid="MenuFlyoutItemRegister"
+                            Click="MenuFlyoutItem_Click"
+                            Tag="register">
+                            <MenuFlyoutItem.Icon>
+                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/ArrowRight.png" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem
+                            x:Uid="MenuFlyoutItemChangePw"
+                            Click="MenuFlyoutItem_Click"
+                            Tag="changepw">
+                            <MenuFlyoutItem.Icon>
+                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Replace.png" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem
+                            x:Uid="MenuFlyoutItemForgotPw"
+                            Click="MenuFlyoutItem_Click"
+                            Tag="forgotpw">
+                            <MenuFlyoutItem.Icon>
+                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/ArrowRight.png" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem
+                            x:Uid="MenuFlyoutItemLogout"
+                            Click="MenuFlyoutItem_Click"
+                            Tag="logout">
+                            <MenuFlyoutItem.Icon>
+                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/ArrowRight.png" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem
+                            x:Uid="MenuFlyoutItemClose"
+                            Click="MenuFlyoutItem_Click"
+                            Tag="close">
+                            <MenuFlyoutItem.Icon>
+                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Close.png" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+        </StackPanel>
+
+        <NavigationView
+            x:Name="NavigationViewControl"
+            Grid.Row="1"
+            Height="Auto"
+            Margin="0,-20,0,0"
+            Canvas.ZIndex="0"
+            ExpandedModeThresholdWidth="1280"
+            IsBackButtonVisible="Collapsed"
+            IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
+            IsSettingsVisible="True"
+            OpenPaneLength="230"
+            SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}">
+            <NavigationView.MenuItems>
+                <!--
+                TODO: Update item titles by updating <x:Uid>.Content entries in Strings/en-us/Resources.resw.
+                https://docs.microsoft.com/windows/uwp/app-resources/localize-strings-ui-manifest#refer-to-a-string-resource-identifier-from-xaml
+
+                TODO: Update item icons by updating FontIcon.Glyph properties.
+                https://docs.microsoft.com/windows/apps/design/style/segoe-fluent-icons-font#icon-list
+                -->
+                <NavigationViewItem x:Uid="Nav_Home" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.MainViewModel">
+                    <!--<NavigationViewItem.Icon>
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;" />
+                    </NavigationViewItem.Icon>-->
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Home.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Uid="Nav_Search" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Search.SearchViewModel">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Search.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Uid="Nav_Collections">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Collection.png" />
+                    </NavigationViewItem.Icon>
+                    <NavigationViewItem.MenuItems>
+                        <NavigationViewItem x:Uid="Nav_FiSpecies" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl69FiSpeciessesViewModel">
+                            <NavigationViewItem.Icon>
+                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Fish.png" />
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem x:Uid="Nav_PlSpecies" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl72PlSpeciessesViewModel">
+                            <NavigationViewItem.Icon>
+                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Plant.png" />
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem x:Uid="Nav_Genus" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl66GenussesViewModel">
+                            <NavigationViewItem.Icon>
+                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem x:Uid="Nav_Speciesgroup" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl68SpeciesgroupsViewModel">
+                            <NavigationViewItem.Icon>
+                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem x:Uid="Nav_Tribusses">
+                            <NavigationViewItem.Icon>
+                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                            </NavigationViewItem.Icon>
+                            <NavigationViewItem.MenuItems>
+                                <NavigationViewItem x:Uid="Nav_Infratribus" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl63InfratribussesViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                                <NavigationViewItem x:Uid="Nav_Subtribus" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl60SubtribussesViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                                <NavigationViewItem x:Uid="Nav_Tribus" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl57TribussesViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                                <NavigationViewItem x:Uid="Nav_Supertribus" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl54SupertribussesViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                            </NavigationViewItem.MenuItems>
+                        </NavigationViewItem>
+                        <NavigationViewItem x:Uid="Nav_Families">
+                            <NavigationViewItem.Icon>
+                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                            </NavigationViewItem.Icon>
+                            <NavigationViewItem.MenuItems>
+                                <NavigationViewItem x:Uid="Nav_Infrafamily" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl51InfrafamiliesViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                                <NavigationViewItem x:Uid="Nav_Subfamily" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl48SubfamiliesViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                                <NavigationViewItem x:Uid="Nav_Family" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl45FamiliesViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                                <NavigationViewItem x:Uid="Nav_Superfamily" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl42SuperfamiliesViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                            </NavigationViewItem.MenuItems>
+                        </NavigationViewItem>
+                        <NavigationViewItem x:Uid="Nav_Ordos">
+                            <NavigationViewItem.Icon>
+                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                            </NavigationViewItem.Icon>
+                            <NavigationViewItem.MenuItems>
+                                <NavigationViewItem x:Uid="Nav_Infraordo" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl39InfraordosViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                                <NavigationViewItem x:Uid="Nav_Subordo" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl36SubordosViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                                <NavigationViewItem x:Uid="Nav_Ordo" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl33OrdosViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                                <NavigationViewItem x:Uid="Nav_Legio" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl30LegiosViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                            </NavigationViewItem.MenuItems>
+                        </NavigationViewItem>
+                        <NavigationViewItem x:Uid="Nav_Classes">
+                            <NavigationViewItem.Icon>
+                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                            </NavigationViewItem.Icon>
+                            <NavigationViewItem.MenuItems>
+                                <NavigationViewItem x:Uid="Nav_Infraclass" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl27InfraclassesViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                                <NavigationViewItem x:Uid="Nav_Subclass" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl24SubclassesViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                                <NavigationViewItem x:Uid="Nav_Class" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl21ClassesViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                                <NavigationViewItem x:Uid="Nav_Superclass" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl18SuperclassesViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                            </NavigationViewItem.MenuItems>
+                        </NavigationViewItem>
+                        <NavigationViewItem x:Uid="Nav_Divisions">
+                            <NavigationViewItem.Icon>
+                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                            </NavigationViewItem.Icon>
+                            <NavigationViewItem.MenuItems>
+                                <NavigationViewItem x:Uid="Nav_Subdivision" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl15SubdivisionsViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                                <NavigationViewItem x:Uid="Nav_Division" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl09DivisionsViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                            </NavigationViewItem.MenuItems>
+                        </NavigationViewItem>
+                        <NavigationViewItem x:Uid="Nav_Phylums">
+                            <NavigationViewItem.Icon>
+                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                            </NavigationViewItem.Icon>
+                            <NavigationViewItem.MenuItems>
+                                <NavigationViewItem x:Uid="Nav_Subphylum" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl12SubphylumsViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                                <NavigationViewItem x:Uid="Nav_Phylum" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl06PhylumsViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                            </NavigationViewItem.MenuItems>
+                        </NavigationViewItem>
+                        <NavigationViewItem x:Uid="Nav_Regnum" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl03RegnumsViewModel">
+                            <NavigationViewItem.Icon>
+                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem x:Uid="Nav_AddOns">
+                            <NavigationViewItem.Icon>
+                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                            </NavigationViewItem.Icon>
+                            <NavigationViewItem.MenuItems>
+                                <NavigationViewItem x:Uid="Nav_Names" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl78NamesViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                                <NavigationViewItem x:Uid="Nav_Images" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl81ImagesViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                                <NavigationViewItem x:Uid="Nav_Synonyms" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl84SynonymsViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                                <NavigationViewItem x:Uid="Nav_Geographics" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl87GeographicsViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                                <NavigationViewItem x:Uid="Nav_References" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl90ReferencesViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                                <NavigationViewItem x:Uid="Nav_RefDetails">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                    <NavigationViewItem.MenuItems>
+                                        <NavigationViewItem x:Uid="Nav_Experts" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl90RefExpertsViewModel">
+                                            <NavigationViewItem.Icon>
+                                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                            </NavigationViewItem.Icon>
+                                        </NavigationViewItem>
+                                        <NavigationViewItem x:Uid="Nav_Sources" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl90RefSourcesViewModel">
+                                            <NavigationViewItem.Icon>
+                                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                            </NavigationViewItem.Icon>
+                                        </NavigationViewItem>
+                                        <NavigationViewItem x:Uid="Nav_Authors" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl90RefAuthorsViewModel">
+                                            <NavigationViewItem.Icon>
+                                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                            </NavigationViewItem.Icon>
+                                        </NavigationViewItem>
+                                    </NavigationViewItem.MenuItems>
+                                </NavigationViewItem>
+                                <NavigationViewItem x:Uid="Nav_Comments" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.Tbl93CommentsViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                                <NavigationViewItem x:Uid="Nav_Countries" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.TblCountriesViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                                <NavigationViewItem x:Uid="Nav_UserProfiles" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Database.TblUserProfilesViewModel">
+                                    <NavigationViewItem.Icon>
+                                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                                    </NavigationViewItem.Icon>
+                                </NavigationViewItem>
+                            </NavigationViewItem.MenuItems>
+                        </NavigationViewItem>
+                    </NavigationViewItem.MenuItems>
+                </NavigationViewItem>
+                <NavigationViewItem x:Uid="Nav_Fish" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Main.FishesViewModel">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Fish.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Uid="Nav_Plant" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Main.PlantsViewModel">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Plant.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Uid="Nav_Disease" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Main.DiseasesViewModel">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Disease.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Uid="Nav_Food" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Main.FoodsViewModel">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Food.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Uid="Nav_Miscellaenies" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Main.MiscellaniesViewModel">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Miscellaneous.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Uid="Nav_AddOn" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Main.MiscellaniesViewModel">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/AddOns.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Main.GeosViewModel" Content="Geos">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Miscellaneous.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <!--<NavigationViewItem x:Uid="Nav_AddOn" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Main.Test2ViewModel" >
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/AddOns.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>-->
+                <!--<NavigationViewItem x:Uid="Nav_Database" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Main.Test2ViewModel">
+                <NavigationViewItem.Icon>
+                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Database.png" />
+                </NavigationViewItem.Icon>
+                </NavigationViewItem>-->
+                <!--<NavigationViewItem x:Uid="Nav_Collections" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Main.Test2ViewModel">
+                <NavigationViewItem.Icon>
+                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Collection.png" />
+                </NavigationViewItem.Icon>
+                </NavigationViewItem>-->
+                <NavigationViewItem x:Uid="Nav_Admin_Area" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Main.Test2ViewModel">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/AdminArea.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Uid="Nav_User_Area" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Main.Test2ViewModel">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/UserArea.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Uid="Nav_Features">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Features.png" />
+                    </NavigationViewItem.Icon>
+                    <NavigationViewItem.MenuItems>
+                        <NavigationViewItem x:Uid="Nav_CheckUpdate" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Feature.CheckUpdatePageViewModel">
+                            <NavigationViewItem.Icon>
+                                <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Features.png" />
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                    </NavigationViewItem.MenuItems>
+                </NavigationViewItem>
+                <NavigationViewItem x:Uid="Nav_About" helpers:NavigationHelper.NavigateTo="ATIS.WinUi.ViewModels.Main.Test2ViewModel">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Info.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+            <NavigationView.HeaderTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Text="{Binding}" />
+                    </Grid>
+                </DataTemplate>
+            </NavigationView.HeaderTemplate>
+            <interactivity:Interaction.Behaviors>
+                <behaviors:NavigationViewHeaderBehavior DefaultHeader="{x:Bind ((ContentControl)ViewModel.Selected).Content, Mode=OneWay}">
+                    <behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Text="{Binding}" />
+                            </Grid>
+                        </DataTemplate>
+                    </behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
+                </behaviors:NavigationViewHeaderBehavior>
+            </interactivity:Interaction.Behaviors>
+            <Grid Margin="1">
+                <Frame x:Name="NavigationFrame">
+                    <Frame.Background>
+                        <!--<ImageBrush ImageSource="/Assets/background.jpg" />-->
+                    </Frame.Background>
+                    <Frame.ContentTransitions>
+                        <TransitionCollection>
+                            <NavigationThemeTransition>
+                                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                                    <DrillInNavigationTransitionInfo />
+                                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                            </NavigationThemeTransition>
+                        </TransitionCollection>
+                    </Frame.ContentTransitions>
+                </Frame>
+            </Grid>
+        </NavigationView>
+
+
+        <!--  Terppé Logo  -->
+        <!--<Viewbox
+        Grid.Row="1"
+        Width="142"
+        Height="50"
+        Margin="200,0,4,4"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Bottom">
+        <Canvas
+        Width="200"
+        Height="50"
+        Background="Transparent">
+        <Image HorizontalAlignment="Right" Source="ms-appx:///Assets/LockScreenLogo.scale-200.png" />
+        <Grid Width="150" Height="50">
+        <TextBlock
+        Margin="4,0,4,4"
+        Padding="0"
+        HorizontalAlignment="Right"
+        VerticalAlignment="Bottom"
+        FontSize="24"
+        FontWeight="SemiBold">
+        -->
+        <!--<Run Foreground="Yellow" Text="XAML" />-->
+        <!--
+        <Run
+        FontWeight="Light"
+        Foreground="DodgerBlue"
+        Text="Terppé" />
+        </TextBlock>
+        </Grid>
+        </Canvas>
+        </Viewbox>-->
+    </Grid>
+</Page>
