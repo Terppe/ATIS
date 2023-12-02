@@ -1,1 +1,3 @@
-# ATIS - V7.8
+# ATIS - V8.03
+Version WinUi (NET 7.0)
+ATIS = Aquaristic Taxonomic Information System with images and videos in 4 languages. There should be a search field on the MainWindow where you can search without being logged in. WinUi 3 application with MSSQLSERVER 2019. As a user you can also log in, but you cannot access the important areas. The result of the search fetches data from almost all tables in the database and displays it with images and videos. This can be printed out in PDF. MVVM design pattern for separating representation and logic of the UI Show further information and links about everything worth knowing about aquariums. Modern interface Images and videos are saved as a filestream in the DB_FS_ATIS35 folder.
